@@ -1,0 +1,18 @@
+{
+  "name": "starship-prototype-2",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "preview": "vite preview",
+    "deploy": "npx firebase-tools deploy --only hosting"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "vite": "^7.0.0",
+    "vitest": "^3.2.4"
+  }
+}

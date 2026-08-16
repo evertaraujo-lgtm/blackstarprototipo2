@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#030712" />
+    <title>Bancada física — Black Star Space</title>
+  </head>
+  <body class="test-page">
+    <main class="test-shell">
+      <header class="test-header">
+        <div>
+          <p class="eyebrow">BLACK STAR SPACE / NÚCLEO FÍSICO</p>
+          <h1>Bancada de testes</h1>
+          <p class="subtitle">Cenários executados pelo mesmo núcleo da simulação.</p>
+        </div>
+        <a class="back-link" href="/">Voltar</a>
+      </header>
+
+      <section class="test-layout" aria-label="Execução de testes físicos">
+        <aside class="test-controls" aria-label="Comandos da bancada">
+          <h2>Comandos</h2>
+          <label class="scenario-picker" for="scenario-selector">Teste a visualizar
+            <select id="scenario-selector" aria-label="Escolher teste físico"></select>
+          </label>
+          <label id="throttle-control" class="throttle-control" for="throttle-input">Throttle
+            <output id="throttle-value">100%</output>
+            <input id="throttle-input" type="range" min="0" max="100" step="1" value="100" aria-label="Throttle do propulsor" />
+          </label>
+          <fieldset id="parachute-settings" class="parachute-settings">
+            <legend>Paraquedas</legend>
+            <label>Área <input id="parachute-area" type="number" min="1" max="100" step="1" /> m²</label>
+            <output id="parachute-calculated-values"></output>
+          </fieldset>
+          <div class="execution-controls">
+            <button id="play-tests" type="button">▶ Iniciar teste</button>
+            <button id="deploy-parachute" type="button" class="secondary-button">◖ Acionar paraquedas</button>
+            <button id="skip-test" type="button" class="secondary-button">⏭ Pular teste atual</button>
+            <button id="reset-tests" type="button" class="secondary-button">↺ Reiniciar</button>
+          </div>
+          <div class="propulsion-controls" aria-label="Sistemas do propulsor">
+            <button id="toggle-electric" type="button" class="secondary-button">Desligar elétrica</button>
+            <button id="toggle-hydraulic" type="button" class="secondary-button">Desligar hidráulica</button>
+            <button id="toggle-fuel" type="button" class="secondary-button">Desligar combustível</button>
+            <button id="toggle-control" type="button" class="secondary-button">Desligar controle</button>
+            <button id="ignite-engine" type="button">⚡ Realizar ignição</button>
+          </div>
+        </aside>
+        <div class="simulation-panel">
+          <canvas id="test-canvas" width="900" height="500" aria-label="Canvas de simulação física"></canvas>
+          <div class="canvas-caption"><span id="scenario-name">Aguardando Play</span><span id="sim-time">t = 0,000 s</span></div>
+        </div>
+        <aside class="test-readout">
+          <h2>Execução</h2>
+          <p id="scenario-description">Pressione Play para executar todos os cenários.</p>
+          <dl>
+            <div><dt>Estado</dt><dd id="test-status">PRONTO</dd></div>
+            <div><dt>Resultado</dt><dd id="test-result">—</dd></div>
+            <div><dt>Velocidade</dt><dd id="vehicle-speed">—</dd></div>
+            <div><dt>Dados físicos</dt><dd id="scenario-data">—</dd></div>
+          </dl>
+          <p class="test-note">Cada cenário permanece em execução até os corpos entrarem em repouso. Quando o repouso não for possível, use “Pular teste atual”. Inclui quedas livres, arrasto, colisões, veículos, resistência estrutural e torque.</p>
+        </aside>
+      </section>
+    </main>
+    <script type="module" src="/src/testes.ts"></script>
+  </body>
+</html>
