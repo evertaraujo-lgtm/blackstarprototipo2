@@ -42,6 +42,9 @@ ruptura de vínculo, contato com superfície, excesso de velocidade e demais
 falhas previsíveis do domínio. Em particular, uma queda ou colisão cuja energia
 exceda a resistência estrutural declarada deve produzir dano mensurável no
 `Objeto`; não pode ser tratada somente como efeito visual ou repouso artificial.
+Ensaios de propulsão devem expor a integridade dos objetos participantes e
+incluir ao menos um cenário de impacto destrutivo movido por empuxo, para que
+dano estrutural seja verificável junto de ignição, consumo e vínculos.
 
 ---
 
@@ -366,6 +369,11 @@ fixador rompe de forma determinística antes da integração do passo e os
 objetos voltam a evoluir independentemente. Um fixador não é um atalho de
 interface nem uma ancoragem visual.
 
+Em um impacto contra superfície enquanto o vínculo estiver íntegro, a energia
+usada para dano na peça que tocou deve considerar a massa efetiva do conjunto,
+incluindo sua inércia composta. Não é aceitável calcular o dano como se apenas
+o motor, tanque ou outro componente isolado tivesse atingido o solo.
+
 ---
 
 # Parte III — Veículos, naves e propulsão
@@ -519,6 +527,30 @@ Uma `Nave` pode possuir quantidade variável e mais de um tipo de `Propulsor`, p
 Tipos como `Raptor` e `Merlin` podem especializar `Propulsor` quando houver comportamento próprio relevante. Diferenças exclusivamente paramétricas devem preferencialmente ser configuradas por dados.
 
 O fato de um propulsor estar instalado em uma nave não elimina sua identidade física. Caso seja separado, arrancado ou implantado independentemente, ele continua sendo o mesmo `Objeto`, agora com outro vínculo físico.
+
+Dano estrutural deve afetar a operação do propulsor progressivamente: a
+integridade restante reduz o empuxo efetivo para a mesma vazão de propelente.
+Quando a integridade chega a zero, o propulsor torna-se inoperante, corta o
+empuxo, invalida a ignição e não pode receber nova partida. A telemetria deve
+expor integridade e eficiência operacional restante.
+
+### 14.1 Vetorização de empuxo
+
+Vetorização é uma capacidade opcional. Um `Propulsor` básico mantém o eixo de
+empuxo fixo; `PropulsorVetorizado` especializa-o quando o bocal e seus
+mecanismos possuírem comportamento próprio relevante.
+
+O propulsor vetorizado deve compor um `SistemaDeVetorizacao` por interfaces de
+comando, leitura e atuador. O controlador de voo solicita um ângulo-alvo, mas
+o atuador aplica somente a posição efetivamente atingida, limitada por curso e
+velocidade angular. A direção real do empuxo resulta dessa posição e deve gerar
+força lateral e torque no `MundoFisico`, sem alterar diretamente velocidade ou
+orientação do veículo.
+
+Atuadores hidráulicos, elétricos ou eletromecânicos podem especializar a mesma
+interface. Disponibilidade elétrica, hidráulica e de controle deve condicionar
+a atuação; sensores, retorno à posição neutra, folgas, limites mecânicos e
+falhas permanecem extensões previstas do mesmo componente.
 
 ### 14.1 Partida, intertravamentos e ignição de propulsores
 
@@ -785,6 +817,15 @@ Cada sistema pode possuir:
 - diagnóstico.
 
 Falhas, degradação, desgaste e danos devem afetar inicialmente os sistemas envolvidos antes de impactarem capacidades globais do objeto.
+
+Todo `Objeto` danificado deve degradar progressivamente as capacidades que
+presta, de acordo com seu domínio, até o colapso total de sua integridade. Dano
+não pode permanecer somente como telemetria ou efeito visual. Exemplos: um
+propulsor perde empuxo efetivo; uma torre de captura pode mover atuadores mais
+lentamente, perder precisão, operar de modo intermitente ou falhar; uma
+superfície aerodinâmica perde sustentação e controle. O comportamento específico
+deve decorrer dos sistemas e componentes afetados, de forma determinística e
+observável pela telemetria e diagnóstico operacional.
 
 ### 22.1 Estados operacionais
 

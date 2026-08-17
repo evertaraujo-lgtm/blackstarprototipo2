@@ -33,6 +33,9 @@ export class Propulsor extends Objeto {
   public get empuxoAtualN(): number { return this.empuxoAtualCalculadoN; }
   public get vazaoAtualKgS(): number { return this.vazaoAtualCalculadaKgS; }
   public get throttleAtual(): number { return this.throttle; }
+  /** Eficiência restante por integridade; dano reduz empuxo sem reduzir vazão. */
+  public get eficienciaPorIntegridade(): number { return this.integridadeEstrutural; }
+  public get estaEstruturalmenteInoperante(): boolean { return this.integridadeEstrutural === 0; }
   public get bloqueios(): readonly string[] { return this.sistemas.motivosDeBloqueio(); }
   public get estaIgnitado(): boolean { return this.ignicaoConfirmada; }
   public get mangueiraEstaRompida(): boolean { return this.mangueiraRompida; }
@@ -70,6 +73,10 @@ export class Propulsor extends Objeto {
    * pode chamar esta API em sequência; a bancada a expõe para manutenção.
    */
   public ligarSistema(id: IdSistemaPropulsor): boolean {
+    if (this.estaEstruturalmenteInoperante) {
+      this.ultimaNegacaoDeComando = `não é possível ligar ${id}: propulsor estruturalmente inoperante`;
+      return false;
+    }
     const sistema = this.obterSistema(id);
     if (sistema.operacional) return true;
     if (id === 'combustível' && this.mangueiraRompida) {
@@ -99,6 +106,10 @@ export class Propulsor extends Objeto {
   }
   /** Confirma uma nova ignição depois que todos os permissivos estão válidos. */
   public solicitarIgnicao(): boolean {
+    if (this.estaEstruturalmenteInoperante) {
+      this.ultimaNegacaoDeComando = 'ignição bloqueada: propulsor estruturalmente inoperante';
+      return false;
+    }
     if (!this.sistemas.operacaoAutorizada()) {
       this.ultimaNegacaoDeComando = 'ignição bloqueada: sistemas obrigatórios indisponíveis';
       return false;
@@ -114,6 +125,11 @@ export class Propulsor extends Objeto {
   public override prepararPassoOperacional(dtS: number): void {
     this.empuxoAtualCalculadoN = 0;
     this.vazaoAtualCalculadaKgS = 0;
+    if (this.estaEstruturalmenteInoperante) {
+      this.definirEstadoDoSistema('controle', EstadoOperacional.Falha);
+      this.ultimaNegacaoDeComando = 'propulsor estruturalmente inoperante';
+      return;
+    }
     // Uma falha observada pelo core invalida a ignição e derruba os estágios
     // posteriores, inclusive quando a falha vier de uma integração externa.
     this.propagarIndisponibilidades();
@@ -128,7 +144,8 @@ export class Propulsor extends Objeto {
     }
     const massaNecessariaKg = this.throttle * this.definicaoPropulsor.vazaoMaximaKgS * dtS;
     const massaFornecidaKg = this.tanque.fornecerPropelente(massaNecessariaKg);
-    this.empuxoAtualCalculadoN = this.definicaoPropulsor.empuxoMaximoN * this.throttle * (massaNecessariaKg === 0 ? 0 : massaFornecidaKg / massaNecessariaKg);
+    const disponibilidadeDePropelente = massaNecessariaKg === 0 ? 0 : massaFornecidaKg / massaNecessariaKg;
+    this.empuxoAtualCalculadoN = this.definicaoPropulsor.empuxoMaximoN * this.throttle * disponibilidadeDePropelente * this.eficienciaPorIntegridade;
     this.vazaoAtualCalculadaKgS = massaFornecidaKg / dtS;
   }
   public override obterForcasOperacionais(): readonly ForcaFisicaSolicitada[] {

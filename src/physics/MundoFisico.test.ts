@@ -556,6 +556,46 @@ describe('MundoFisico', () => {
     expect(Math.abs(picoCom099Kg - picoCom1Kg)).toBeLessThan(0.2);
   });
 
+  it('transfere impacto para o segundo elemento de uma pilha de dez quadrados sem vínculos estruturais', () => {
+    const mundo = new MundoFisico(1 / 240);
+    const solo = new SuperficiePlano('solo-pilha-dez', 'concreto', 0, 100_000);
+    const xDaPilhaM = 3;
+    const pilha = Array.from({ length: 10 }, (_, indice) => new Objeto({
+      id: `pilha-${indice + 1}`,
+      massaBaseKg: 1,
+      dimensoesM: new Vetor3(1, 1, 1),
+      resistenciaColisaoJ: 10_000,
+      resistenciaCalorK: 1_000,
+      estadoInicial: { posicaoM: new Vetor3(xDaPilhaM, 0.5 + indice, 0) },
+    }));
+    const projetil = new Objeto({
+      id: 'projetil-pilha',
+      massaBaseKg: 2,
+      dimensoesM: new Vetor3(1, 1, 1),
+      resistenciaColisaoJ: 10_000,
+      resistenciaCalorK: 1_000,
+      estadoInicial: { posicaoM: new Vetor3(-1, 1.5, 0), velocidadeMps: new Vetor3(10, 0, 0) },
+    });
+    mundo.registrarSuperficie(solo);
+    for (const quadrado of pilha) mundo.registrarObjeto(quadrado);
+    mundo.registrarObjeto(projetil);
+
+    let picoDeslocamentoDoSegundoM = 0;
+    let picoVelocidadeDoSegundoMps = 0;
+    for (let passo = 0; passo < 480; passo += 1) {
+      mundo.avancar(1 / 240);
+      const estadoSegundo = pilha[1].getEstadoFisico();
+      picoDeslocamentoDoSegundoM = Math.max(picoDeslocamentoDoSegundoM, Math.abs(estadoSegundo.posicaoM.x - xDaPilhaM));
+      picoVelocidadeDoSegundoMps = Math.max(picoVelocidadeDoSegundoMps, Math.abs(estadoSegundo.velocidadeMps.x));
+    }
+
+    expect(pilha).toHaveLength(10);
+    expect(pilha.every((quadrado) => quadrado.massaKg === 1)).toBe(true);
+    expect(projetil.massaKg).toBe(2);
+    expect(picoDeslocamentoDoSegundoM).toBeGreaterThan(0.05);
+    expect(picoVelocidadeDoSegundoMps).toBeGreaterThan(0.05);
+  });
+
   it('apoia a face inferior de uma parede retangular de 4000 kg no solo', () => {
     const mundo = new MundoFisico(1 / 240);
     const solo = new SuperficiePlano('pista-parede-4000kg', 'concreto', 0, 1_000_000);

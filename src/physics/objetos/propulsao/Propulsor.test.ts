@@ -105,6 +105,49 @@ describe('Propulsor', () => {
     expect(parede.getEstadoFisico().posicaoM.x).toBeGreaterThan(3);
   });
 
+  it('sofre dano estrutural ao atingir uma barreira após acelerar por empuxo', () => {
+    const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 0 });
+    const propulsor = criarPropulsor();
+    propulsor.atualizarEstadoPeloCore({ ...propulsor.getEstadoFisico(), posicaoM: new Vetor3(-50, 10, 0) });
+    const tanque = prepararParaIgnicao(propulsor);
+    propulsor.conectarTanque(tanque, 1_000);
+    propulsor.definirThrottle(1);
+    expect(propulsor.solicitarIgnicao()).toBe(true);
+    const barreira = new Objeto({
+      id: 'barreira-destrutiva', massaBaseKg: 100_000_000, dimensoesM: new Vetor3(1, 10, 1), resistenciaColisaoJ: 10_000_000, resistenciaCalorK: 1_000,
+      estadoInicial: { posicaoM: new Vetor3(0, 10, 0) },
+    });
+    mundo.registrarObjeto(propulsor);
+    mundo.registrarObjeto(barreira);
+
+    mundo.avancar(3);
+
+    expect(propulsor.integridadeEstrutural).toBeLessThan(1);
+    expect(barreira.integridadeEstrutural).toBe(1);
+  });
+
+  it('perde eficiência progressivamente por dano e falha ao perder toda integridade', () => {
+    const propulsor = criarPropulsor();
+    prepararParaIgnicao(propulsor);
+    propulsor.definirThrottle(1);
+    expect(propulsor.solicitarIgnicao()).toBe(true);
+    propulsor.aplicarDanoPorImpacto(150_000);
+
+    propulsor.prepararPassoOperacional(1);
+
+    expect(propulsor.integridadeEstrutural).toBeCloseTo(0.5);
+    expect(propulsor.eficienciaPorIntegridade).toBeCloseTo(0.5);
+    expect(propulsor.empuxoAtualN).toBeCloseTo(10_000);
+
+    propulsor.aplicarDanoPorImpacto(200_000);
+    propulsor.prepararPassoOperacional(1);
+
+    expect(propulsor.estaEstruturalmenteInoperante).toBe(true);
+    expect(propulsor.empuxoAtualN).toBe(0);
+    expect(propulsor.estaIgnitado).toBe(false);
+    expect(propulsor.solicitarIgnicao()).toBe(false);
+  });
+
   it('move um veículo passivo por atrito quando está apenas apoiado sobre ele', () => {
     const mundo = new MundoFisico(1 / 240);
     const solo = new SuperficiePlano('solo-veiculo-propulsor', 'concreto', 0, 1_000_000, 0.02, 0.9);

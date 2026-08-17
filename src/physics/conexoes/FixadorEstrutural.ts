@@ -36,6 +36,27 @@ export class FixadorEstrutural {
   public get objetoA(): Objeto { return this.definicao.objetoA; }
   public get objetoB(): Objeto { return this.definicao.objetoB; }
 
+  /**
+   * Massa efetiva do conjunto rígido no ponto de contato plano. Ela inclui
+   * translação de ambas as massas e a inércia composta em torno do centro de
+   * massa; é usada pelo core para medir energia de impacto sem subestimá-la.
+   */
+  public obterMassaEfetivaNoContato(objeto: Objeto, pontoContatoM: Vetor3, normal: Vetor3): number | undefined {
+    if (this.rompido || (objeto !== this.objetoA && objeto !== this.objetoB)) return undefined;
+    const estadoA = this.objetoA.getEstadoFisico();
+    const estadoB = this.objetoB.getEstadoFisico();
+    const massaA = this.objetoA.massaKg;
+    const massaB = this.objetoB.massaKg;
+    const massaTotal = massaA + massaB;
+    const centroMassa = estadoA.posicaoM.multiplicar(massaA / massaTotal).adicionar(estadoB.posicaoM.multiplicar(massaB / massaTotal));
+    const bracoA = estadoA.posicaoM.subtrair(centroMassa);
+    const bracoB = estadoB.posicaoM.subtrair(centroMassa);
+    const inerciaCompostaZ = this.objetoA.getMomentoInerciaKgM2().z + massaA * bracoA.magnitude ** 2
+      + this.objetoB.getMomentoInerciaKgM2().z + massaB * bracoB.magnitude ** 2;
+    const torqueUnitarioZ = pontoContatoM.subtrair(centroMassa).produtoVetorial(normal).z;
+    return 1 / ((1 / massaTotal) + (torqueUnitarioZ ** 2 / inerciaCompostaZ));
+  }
+
   /** Avaliado pelo core após a preparação operacional e antes da integração. */
   public prepararPasso(): void {
     if (this.rompido) return;

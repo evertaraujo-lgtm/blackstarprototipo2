@@ -63,4 +63,26 @@ describe('FixadorEstrutural', () => {
     expect(rotacaoPropulsor).toBeCloseTo(rotacaoTanque, 10);
     expect(propulsor.getEstadoFisico().velocidadeAngularRadps.z).toBeCloseTo(tanque.getEstadoFisico().velocidadeAngularRadps.z, 10);
   });
+
+  it('transmite a massa do conjunto para o dano quando uma peça toca o solo', () => {
+    const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 0 });
+    const solo = new SuperficiePlano('solo-impacto-conjunto', 'concreto', 0, 1_000_000, 0.02, 0.9);
+    const tanque = new TanquePropelente({
+      id: 'tanque-impacto-conjunto', massaBaseKg: 19_000, dimensoesM: new Vetor3(2, 2, 1), resistenciaColisaoJ: 1_000_000, resistenciaCalorK: 1_000,
+      tipoPropelente: 'metano', capacidadePropelenteKg: 1_000, massaPropelenteInicialKg: 1_000, estadoInicial: { posicaoM: new Vetor3(0, 3, 0), velocidadeMps: new Vetor3(0, -5, 0) },
+    });
+    const propulsor = new Propulsor({
+      id: 'propulsor-impacto-conjunto', massaBaseKg: 1_000, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, resistenciaCalorK: 1_000,
+      empuxoMaximoN: 20_000, vazaoMaximaKgS: 1, propelenteCompativel: 'metano', estadoInicial: { posicaoM: new Vetor3(0, 0.5, 0), velocidadeMps: new Vetor3(0, -5, 0) },
+    });
+    const fixador = new FixadorEstrutural({ id: 'fixador-impacto-conjunto', objetoA: tanque, objetoB: propulsor, resistenciaTracaoN: 1_000_000, obterEsforcoSolicitadoN: () => 0 });
+    mundo.registrarSuperficie(solo);
+    mundo.registrarObjeto(tanque);
+    mundo.registrarObjeto(propulsor);
+    mundo.registrarFixador(fixador);
+
+    mundo.avancar(1 / 240);
+
+    expect(propulsor.integridadeEstrutural).toBeLessThan(1);
+  });
 });

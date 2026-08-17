@@ -451,7 +451,9 @@ export class MundoFisico {
     let impulsoNormalNs = 0;
 
     if (velocidadeNormal < 0) {
-      const energiaImpactoJ = 0.5 * objeto.massaKg * velocidadeNormal ** 2;
+      const massaEfetivaContatoKg = this.obterMassaEfetivaNoContato(objeto, pontoContatoM, normal)
+        ?? objeto.massaKg;
+      const energiaImpactoJ = 0.5 * massaEfetivaContatoKg * velocidadeNormal ** 2;
       const restitituicao = this.calcularRestituicaoPorEnergia(
         energiaImpactoJ,
         objeto.resistenciaColisaoJ,
@@ -504,6 +506,15 @@ export class MundoFisico {
       velocidadeMps: velocidade,
       velocidadeAngularRadps: velocidadeAngular,
     });
+  }
+
+  /** Considera a massa transmitida por um vínculo rígido ainda íntegro. */
+  private obterMassaEfetivaNoContato(objeto: Objeto, pontoContatoM: Vetor3, normal: Vetor3): number | undefined {
+    for (const fixador of this.fixadores.values()) {
+      const massaEfetiva = fixador.obterMassaEfetivaNoContato(objeto, pontoContatoM, normal);
+      if (massaEfetiva !== undefined) return massaEfetiva;
+    }
+    return undefined;
   }
 
   /**

@@ -6,6 +6,7 @@ import { SuperficiePlano } from './physics/SuperficiePlano';
 import { VeiculoTerrestre } from './physics/objetos/veiculos/VeiculoTerrestre';
 import { VeiculoAlado } from './physics/objetos/veiculos/VeiculoAlado';
 import { Propulsor, type IdSistemaPropulsor } from './physics/objetos/propulsao/Propulsor';
+import { PropulsorVetorizado } from './physics/objetos/propulsao/PropulsorVetorizado';
 import { TanquePropelente } from './physics/objetos/propulsao/TanquePropelente';
 import { FixadorEstrutural } from './physics/conexoes/FixadorEstrutural';
 import { Paraquedas } from './physics/objetos/componentes/Paraquedas';
@@ -27,6 +28,9 @@ const scenarioData = document.querySelector<HTMLElement>('#scenario-data');
 const throttleControl = document.querySelector<HTMLLabelElement>('#throttle-control');
 const throttleInput = document.querySelector<HTMLInputElement>('#throttle-input');
 const throttleValue = document.querySelector<HTMLOutputElement>('#throttle-value');
+const gimbalControl = document.querySelector<HTMLLabelElement>('#gimbal-control');
+const gimbalInput = document.querySelector<HTMLInputElement>('#gimbal-input');
+const gimbalValue = document.querySelector<HTMLOutputElement>('#gimbal-value');
 const parachuteSettings = document.querySelector<HTMLFieldSetElement>('#parachute-settings');
 const parachuteAreaInput = document.querySelector<HTMLInputElement>('#parachute-area');
 const parachuteCalculatedValues = document.querySelector<HTMLElement>('#parachute-calculated-values');
@@ -38,7 +42,7 @@ const igniteButton = document.querySelector<HTMLButtonElement>('#ignite-engine')
 const deployParachuteButton = document.querySelector<HTMLButtonElement>('#deploy-parachute');
 const propulsionControls = document.querySelector<HTMLElement>('.propulsion-controls');
 
-if (!canvas || !playButton || !scenarioSelector || !skipButton || !resetButton || !scenarioName || !scenarioDescription || !simulationTime || !testStatus || !testResult || !vehicleSpeed || !scenarioData || !throttleControl || !throttleInput || !throttleValue || !parachuteSettings || !parachuteAreaInput || !parachuteCalculatedValues || !toggleElectric || !toggleHydraulic || !toggleFuel || !toggleControl || !igniteButton || !deployParachuteButton || !propulsionControls) {
+if (!canvas || !playButton || !scenarioSelector || !skipButton || !resetButton || !scenarioName || !scenarioDescription || !simulationTime || !testStatus || !testResult || !vehicleSpeed || !scenarioData || !throttleControl || !throttleInput || !throttleValue || !gimbalControl || !gimbalInput || !gimbalValue || !parachuteSettings || !parachuteAreaInput || !parachuteCalculatedValues || !toggleElectric || !toggleHydraulic || !toggleFuel || !toggleControl || !igniteButton || !deployParachuteButton || !propulsionControls) {
   throw new Error('A bancada de testes não encontrou os elementos obrigatórios.');
 }
 
@@ -64,6 +68,7 @@ interface CenárioVisual {
   /** Linha de ação de uma força, usada apenas para tornar o ensaio observável. */
   readonly linhaDeEmpuxo?: () => { readonly origemM: Vetor3; readonly direcao: Vetor3 };
   readonly propulsorControlavel?: Propulsor;
+  readonly propulsorVetorizadoControlavel?: PropulsorVetorizado;
   /** Corpo que recebe o comando operacional de abertura na bancada. */
   readonly objetoComParaquedasControlavel?: Objeto;
   /** Expõe parâmetros do paraquedas exclusivamente no cenário de calibração. */
@@ -212,6 +217,52 @@ const criarTesteQuadradosEmpilhados = (tipo: 'queda-conjunta' | 'queda-conjunta-
     validar: () => {
       const distanciaM = superior.getEstadoFisico().posicaoM.y - inferior.getEstadoFisico().posicaoM.y;
       return `${distanciaM >= 1 - 1e-8 ? 'APROVADO' : 'DIVERGENTE'} · separação vertical ${distanciaM.toFixed(3)} m; integridade ${Math.round(inferior.integridadeEstrutural * 100)}% / ${Math.round(superior.integridadeEstrutural * 100)}%`;
+    },
+  };
+};
+
+const criarTestePilhaDezQuadradosAtingida = (): CenárioVisual => {
+  const mundo = new MundoFisico(1 / 240);
+  const solo = new SuperficiePlano('solo-pilha-dez-quadrados', 'concreto', 0, 100_000);
+  const xDaPilhaM = 3;
+  const pilha = Array.from({ length: 10 }, (_, indice) => new Objeto({
+    id: `pilha-quadrado-${indice + 1}`,
+    massaBaseKg: 1,
+    dimensoesM: new Vetor3(1, 1, 1),
+    resistenciaColisaoJ: 10_000,
+    resistenciaCalorK: 1_000,
+    estadoInicial: { posicaoM: new Vetor3(xDaPilhaM, 0.5 + indice, 0) },
+  }));
+  const projetil = new Objeto({
+    id: 'projetil-2kg-contra-pilha',
+    massaBaseKg: 2,
+    dimensoesM: new Vetor3(1, 1, 1),
+    resistenciaColisaoJ: 10_000,
+    resistenciaCalorK: 1_000,
+    // O centro está na altura do segundo quadrado contado de baixo para cima.
+    estadoInicial: { posicaoM: new Vetor3(-1, 1.5, 0), velocidadeMps: new Vetor3(10, 0, 0) },
+  });
+  mundo.registrarSuperficie(solo);
+  for (const quadrado of pilha) mundo.registrarObjeto(quadrado);
+  mundo.registrarObjeto(projetil);
+
+  const segundoQuadrado = pilha[1];
+  return {
+    nome: 'Pilha de 10 quadrados — impacto no segundo elemento',
+    descricao: 'Dez quadrados independentes, cada um com 1 kg e 1 × 1 m, estão apenas encostados sobre concreto: não há fixadores entre eles. Um quadrado de 2 kg vem pela esquerda a 10 m/s e atinge o segundo elemento contado de baixo para cima. O impulso deve atravessar somente os contatos físicos e a pilha pode tombar ou se dispersar.',
+    mundo,
+    objetos: [...pilha, projetil],
+    superficies: [solo],
+    velocidadeTempo: 1,
+    limiteVerticalM: 12,
+    limiteHorizontalM: 14,
+    deveEncerrar: () => objetosEmRepouso(mundo, [...pilha, projetil]),
+    telemetria: () => `projetil ${projetil.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s · segundo quadrado x=${segundoQuadrado.getEstadoFisico().posicaoM.x.toFixed(2)} m`,
+    dados: () => `Pilha: 10 corpos soltos de 1 kg\nProjétil: 2 kg, 1 × 1 m\nImpacto: segundo quadrado (altura 1,5 m)\nVelocidade inicial: 10,0 m/s\nFixadores: nenhum\nDeslocamento do segundo: ${(segundoQuadrado.getEstadoFisico().posicaoM.x - xDaPilhaM).toFixed(3)} m`,
+    validar: () => {
+      const deslocamentoSegundoM = segundoQuadrado.getEstadoFisico().posicaoM.x - xDaPilhaM;
+      const houveTransferencia = Math.abs(deslocamentoSegundoM) > 0.05 || Math.abs(segundoQuadrado.getEstadoFisico().velocidadeMps.x) > 0.05;
+      return `${houveTransferencia ? 'APROVADO' : 'AGUARDANDO IMPACTO'} · segundo quadrado deslocou ${deslocamentoSegundoM.toFixed(3)} m; projétil ${projetil.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s; sem vínculos estruturais`;
     },
   };
 };
@@ -580,12 +631,52 @@ const criarTestePropulsorContraParede = (throttle: number): CenárioVisual => {
     propulsorControlavel: propulsor,
     atualizarControle: atualizarPartida,
     cameraX: () => (tanque.getEstadoFisico().posicaoM.x + parede.getEstadoFisico().posicaoM.x) / 2,
-    dados: () => `Empuxo: ${propulsor.empuxoAtualN.toFixed(0)} N\nVazão: ${propulsor.vazaoAtualKgS.toFixed(2)} kg/s\nMetano: ${tanque.massaPropelenteKg.toFixed(2)} / ${tanque.massaPropelenteInicialKg.toFixed(2)} kg\nConsumido: ${tanque.massaPropelenteConsumidaKg.toFixed(2)} kg\nMangueira: ${propulsor.mangueiraEstaRompida ? 'ROMPIDA' : '9,00 / 10,00 m — íntegra'}\nElétrica: ${propulsor.obterEstadoDoSistema('elétrico')}\nHidráulica: ${propulsor.obterEstadoDoSistema('hidráulico')}\nCombustível: ${propulsor.obterEstadoDoSistema('combustível')}\nControle: ${propulsor.obterEstadoDoSistema('controle')}\nIgnição: ${propulsor.estaIgnitado ? 'confirmada' : 'pendente'}\nDiagnóstico: ${propulsor.diagnosticoOperacional.length === 0 ? 'operacional' : propulsor.diagnosticoOperacional.join(', ')}`,
+    dados: () => `Empuxo: ${propulsor.empuxoAtualN.toFixed(0)} N\nVazão: ${propulsor.vazaoAtualKgS.toFixed(2)} kg/s\nMetano: ${tanque.massaPropelenteKg.toFixed(2)} / ${tanque.massaPropelenteInicialKg.toFixed(2)} kg\nConsumido: ${tanque.massaPropelenteConsumidaKg.toFixed(2)} kg\nIntegridade do propulsor: ${(propulsor.integridadeEstrutural * 100).toFixed(0)}%\nIntegridade da parede: ${(parede.integridadeEstrutural * 100).toFixed(0)}%\nMangueira: ${propulsor.mangueiraEstaRompida ? 'ROMPIDA' : '9,00 / 10,00 m — íntegra'}\nElétrica: ${propulsor.obterEstadoDoSistema('elétrico')}\nHidráulica: ${propulsor.obterEstadoDoSistema('hidráulico')}\nCombustível: ${propulsor.obterEstadoDoSistema('combustível')}\nControle: ${propulsor.obterEstadoDoSistema('controle')}\nIgnição: ${propulsor.estaIgnitado ? 'confirmada' : 'pendente'}\nDiagnóstico: ${propulsor.diagnosticoOperacional.length === 0 ? 'operacional' : propulsor.diagnosticoOperacional.join(', ')}`,
     deveEncerrar: () => {
       picoVelocidadeParedeMps = Math.max(picoVelocidadeParedeMps, parede.getEstadoFisico().velocidadeMps.x);
       return false;
     },
     validar: () => `${picoVelocidadeParedeMps > 0 ? 'APROVADO' : 'DIVERGENTE'} · empuxo ${propulsor.empuxoAtualN.toFixed(0)} N; propelente ${tanque.massaPropelenteKg.toFixed(2)} kg; pico da parede ${picoVelocidadeParedeMps.toFixed(2)} m/s`,
+  };
+};
+
+const criarTesteImpactoDestrutivoDoPropulsor = (): CenárioVisual => {
+  const mundo = new MundoFisico(1 / 240);
+  const pista = new SuperficiePlano('pista-impacto-destrutivo-propulsor', 'concreto', 0, 1_000_000, 0.02, 0.9);
+  const tanque = new TanquePropelente({
+    id: 'tanque-impacto-destrutivo', massaBaseKg: 200, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, resistenciaCalorK: 1_000,
+    tipoPropelente: 'metano', capacidadePropelenteKg: 20, massaPropelenteInicialKg: 20, estadoInicial: { posicaoM: new Vetor3(-2, 0.5, 0) },
+  });
+  const propulsor = new Propulsor({
+    id: 'propulsor-impacto-destrutivo', massaBaseKg: 1_000, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, resistenciaCalorK: 1_000,
+    empuxoMaximoN: 20_000, vazaoMaximaKgS: 2, propelenteCompativel: 'metano', estadoInicial: { posicaoM: new Vetor3(0, 0.5, 0) },
+  });
+  const parede = new Objeto({
+    id: 'barreira-impacto-destrutivo', massaBaseKg: 100_000_000, dimensoesM: new Vetor3(1, 4, 3), resistenciaColisaoJ: 10_000_000, resistenciaCalorK: 1_000,
+    estadoInicial: { posicaoM: new Vetor3(70, 2, 0) },
+  });
+  propulsor.conectarTanque(tanque, 3);
+  propulsor.definirThrottle(1);
+  const fixador = new FixadorEstrutural({
+    id: 'fixador-impacto-destrutivo', objetoA: tanque, objetoB: propulsor, resistenciaTracaoN: 1_000_000,
+    obterEsforcoSolicitadoN: () => propulsor.empuxoAtualN,
+  });
+  const atualizarPartida = criarPartidaAutomaticaBasica(mundo, propulsor);
+  mundo.registrarSuperficie(pista);
+  mundo.registrarObjeto(tanque);
+  mundo.registrarObjeto(propulsor);
+  mundo.registrarObjeto(parede);
+  mundo.registrarFixador(fixador);
+  return {
+    nome: 'Propulsor horizontal — impacto destrutivo',
+    descricao: 'Conjunto tanque–propulsor preso por fixador acelera com 20.000 N contra uma barreira de 100.000.000 kg. O impacto é resolvido pelo core e excede a resistência de colisão declarada do propulsor; a integridade deve cair para tornar dano estrutural observável.',
+    mundo, objetos: [tanque, propulsor, parede], superficies: [pista], velocidadeTempo: 3, limiteVerticalM: 5, limiteHorizontalM: 85,
+    mangueira: { tanque, propulsor }, fixadores: [fixador], propulsorControlavel: propulsor, atualizarControle: atualizarPartida,
+    cameraX: () => (propulsor.getEstadoFisico().posicaoM.x + parede.getEstadoFisico().posicaoM.x) / 2,
+    telemetria: () => `integridade do propulsor ${(propulsor.integridadeEstrutural * 100).toFixed(0)}%`,
+    dados: () => `Empuxo: ${propulsor.empuxoAtualN.toFixed(0)} N\nVelocidade do propulsor: ${propulsor.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s\nIntegridade do propulsor: ${(propulsor.integridadeEstrutural * 100).toFixed(1)}%\nIntegridade da barreira: ${(parede.integridadeEstrutural * 100).toFixed(1)}%\nFixador tanque–propulsor: ${fixador.estaRompido ? 'ROMPIDO' : 'íntegro'}\nResultado esperado: dano estrutural mensurável no propulsor`,
+    deveEncerrar: () => propulsor.integridadeEstrutural < 1,
+    validar: () => `${propulsor.integridadeEstrutural < 1 ? 'APROVADO' : 'DIVERGENTE'} · integridade final do propulsor ${(propulsor.integridadeEstrutural * 100).toFixed(1)}%`,
   };
 };
 
@@ -755,6 +846,108 @@ const criarTestePropulsorVerticalComParaquedas = (): CenárioVisual => {
   };
 };
 
+const criarTesteMerlinVetorizado = (): CenárioVisual => {
+  const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
+  const solo = new SuperficiePlano('solo-merlin-vetorizado', 'concreto', 0, 1_000_000, 0.04, 0.9);
+  const merlin = new PropulsorVetorizado({
+    id: 'merlin-1d-vetorizado', massaBaseKg: 470, dimensoesM: new Vetor3(1.2, 1, 1), resistenciaColisaoJ: 150_000, resistenciaCalorK: 1_000,
+    empuxoMaximoN: 845_000, vazaoMaximaKgS: 250, propelenteCompativel: 'rp-1',
+    vetorizacao: { limiteAngularRad: 5 * Math.PI / 180, velocidadeAngularMaximaRadps: 10 * Math.PI / 180 },
+    estadoInicial: { posicaoM: new Vetor3(0, 1, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
+  });
+  const tanque = new TanquePropelente({
+    id: 'tanque-merlin-vetorizado', massaBaseKg: 15_000, dimensoesM: new Vetor3(2.4, 3.6, 1), resistenciaColisaoJ: 200_000, resistenciaCalorK: 1_000,
+    tipoPropelente: 'rp-1', capacidadePropelenteKg: 5_000, massaPropelenteInicialKg: 5_000,
+    estadoInicial: { posicaoM: new Vetor3(0, 3.8, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
+  });
+  merlin.conectarTanque(tanque, 4);
+  merlin.definirThrottle(0.6);
+  const fixador = new FixadorEstrutural({
+    id: 'fixador-merlin-vetorizado', objetoA: tanque, objetoB: merlin, resistenciaTracaoN: 1_000_000,
+    obterEsforcoSolicitadoN: () => merlin.empuxoAtualN,
+  });
+  mundo.registrarSuperficie(solo);
+  mundo.registrarObjeto(tanque);
+  mundo.registrarObjeto(merlin);
+  mundo.registrarFixador(fixador);
+  const atualizarPartida = criarPartidaAutomaticaBasica(mundo, merlin);
+  const rotacaoInicialRad = tanque.getEstadoFisico().orientacaoRad.z;
+  const obterGimbalGraus = (): number => merlin.obterEstadoDaVetorizacao().anguloAtualRad * 180 / Math.PI;
+  const obterRotacaoGraus = (): number => (tanque.getEstadoFisico().orientacaoRad.z - rotacaoInicialRad) * 180 / Math.PI;
+  return {
+    nome: 'Merlin 1D — vetorização manual',
+    descricao: 'Modelo de bancada inspirado no Merlin 1D: propulsor RP-1 com 845 kN máximos e gimbal planar limitado a ±5°. A ignição segue a mesma cadeia automática; após ela, mova o controle de gimbal. O atuador alcança o ângulo gradualmente e o empuxo desviado produz força lateral e torque no conjunto rígido.',
+    mundo, objetos: [tanque, merlin], superficies: [solo], velocidadeTempo: 1, limiteVerticalM: 60, limiteHorizontalM: 25,
+    seguirObjeto: tanque, cameraY: () => tanque.getEstadoFisico().posicaoM.y,
+    linhaDeEmpuxo: () => ({ origemM: merlin.getEstadoFisico().posicaoM, direcao: new Vetor3(Math.cos(merlin.getEstadoFisico().orientacaoRad.z + merlin.obterEstadoDaVetorizacao().anguloAtualRad), Math.sin(merlin.getEstadoFisico().orientacaoRad.z + merlin.obterEstadoDaVetorizacao().anguloAtualRad), 0) }),
+    mangueira: { tanque, propulsor: merlin }, fixadores: [fixador], propulsorControlavel: merlin, propulsorVetorizadoControlavel: merlin,
+    permiteAjustarThrottle: true, atualizarControle: atualizarPartida,
+    telemetria: () => `gimbal ${obterGimbalGraus().toFixed(2)}° · inclinação ${obterRotacaoGraus().toFixed(2)}°`,
+    dados: () => `Empuxo: ${merlin.empuxoAtualN.toFixed(0)} N\nThrottle: ${(merlin.throttleAtual * 100).toFixed(0)}%\nEficiência por integridade: ${(merlin.eficienciaPorIntegridade * 100).toFixed(1)}%\nGimbal alvo: ${(merlin.obterEstadoDaVetorizacao().anguloAlvoRad * 180 / Math.PI).toFixed(2)}°\nGimbal atual: ${obterGimbalGraus().toFixed(2)}°\nAtuador: ${merlin.obterEstadoDaVetorizacao().estaHabilitado ? 'habilitado' : 'bloqueado por sistemas'}\nInclinação do conjunto: ${obterRotacaoGraus().toFixed(2)}°\nIntegridade Merlin: ${(merlin.integridadeEstrutural * 100).toFixed(1)}%\nIntegridade tanque: ${(tanque.integridadeEstrutural * 100).toFixed(1)}%\nPropelente: ${tanque.massaPropelenteKg.toFixed(0)} kg\nFixador: ${fixador.estaRompido ? 'ROMPIDO' : 'íntegro'}`,
+    deveEncerrar: () => false,
+    validar: () => `${merlin.estaIgnitado ? 'OPERACIONAL' : 'AGUARDANDO IGNIÇÃO'} · gimbal ${obterGimbalGraus().toFixed(2)}°; conjunto ${fixador.estaRompido ? 'separado' : 'íntegro'}`,
+  };
+};
+
+const normalizarAnguloRad = (anguloRad: number): number => Math.atan2(Math.sin(anguloRad), Math.cos(anguloRad));
+
+const criarTesteMerlinDesalinhadoComCorrecao = (deslocamentoMotorXM: number, nome: string): CenárioVisual => {
+  const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
+  const merlin = new PropulsorVetorizado({
+    id: 'merlin-desalinhado', massaBaseKg: 470, dimensoesM: new Vetor3(1.2, 0.8, 1), resistenciaColisaoJ: 150_000, resistenciaCalorK: 1_000,
+    empuxoMaximoN: 845_000, vazaoMaximaKgS: 250, propelenteCompativel: 'rp-1',
+    vetorizacao: { limiteAngularRad: 5 * Math.PI / 180, velocidadeAngularMaximaRadps: 10 * Math.PI / 180 },
+    estadoInicial: { posicaoM: new Vetor3(deslocamentoMotorXM, 28, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
+  });
+  const tanque = new TanquePropelente({
+    id: 'tanque-merlin-desalinhado', massaBaseKg: 30_000, dimensoesM: new Vetor3(2.5, 4, 1), resistenciaColisaoJ: 1_000_000, resistenciaCalorK: 1_000,
+    tipoPropelente: 'rp-1', capacidadePropelenteKg: 10_000, massaPropelenteInicialKg: 10_000,
+    estadoInicial: { posicaoM: new Vetor3(0, 30, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
+  });
+  merlin.conectarTanque(tanque, 3);
+  merlin.definirThrottle(0.6);
+  const fixador = new FixadorEstrutural({
+    id: 'fixador-merlin-desalinhado', objetoA: tanque, objetoB: merlin, resistenciaTracaoN: 1_000_000,
+    obterEsforcoSolicitadoN: () => merlin.empuxoAtualN,
+  });
+  mundo.registrarObjeto(tanque);
+  mundo.registrarObjeto(merlin);
+  mundo.registrarFixador(fixador);
+  const partida = criarPartidaAutomaticaBasica(mundo, merlin);
+  const orientacaoInicialTanqueRad = tanque.getEstadoFisico().orientacaoRad.z;
+  const obterCentroMassa = (): Vetor3 => {
+    const massaTotal = tanque.massaKg + merlin.massaKg;
+    return tanque.getEstadoFisico().posicaoM.multiplicar(tanque.massaKg / massaTotal)
+      .adicionar(merlin.getEstadoFisico().posicaoM.multiplicar(merlin.massaKg / massaTotal));
+  };
+  const obterCorrecaoNecessariaRad = (): number => {
+    const posicaoMotor = merlin.getEstadoFisico().posicaoM;
+    const centroMassa = obterCentroMassa();
+    const anguloAteCentroMassa = Math.atan2(centroMassa.y - posicaoMotor.y, centroMassa.x - posicaoMotor.x);
+    return normalizarAnguloRad(anguloAteCentroMassa - merlin.getEstadoFisico().orientacaoRad.z);
+  };
+  const atualizarControle = () => {
+    partida();
+    const estado = merlin.obterEstadoDaVetorizacao();
+    const comandoLimitado = Math.max(-estado.limiteAngularRad, Math.min(estado.limiteAngularRad, obterCorrecaoNecessariaRad()));
+    merlin.solicitarVetorizacao(comandoLimitado);
+  };
+  const obterGraus = (angulo: number): string => `${(angulo * 180 / Math.PI).toFixed(2)}°`;
+  const rotacaoGraus = (): number => (tanque.getEstadoFisico().orientacaoRad.z - orientacaoInicialTanqueRad) * 180 / Math.PI;
+  return {
+    nome,
+    descricao: `Conjunto de ${(tanque.massaKg + merlin.massaKg).toFixed(0)} kg tanque–motor desalinhado: o Merlin está ${deslocamentoMotorXM.toFixed(3)} m ao lado do tanque. A 60% de throttle, o empuxo vertical permanece maior que o peso. O controlador calcula a direção que faz a linha de empuxo atravessar o centro de massa e envia o comando pela API de vetorização antes da ignição. O motor possui gimbal máximo de ±5°; a telemetria mostra se esse curso elimina o torque.`,
+    mundo, objetos: [tanque, merlin], superficies: [], velocidadeTempo: 1, limiteVerticalM: 30, limiteHorizontalM: 8,
+    seguirObjeto: tanque, cameraY: () => tanque.getEstadoFisico().posicaoM.y,
+    linhaDeEmpuxo: () => ({ origemM: merlin.getEstadoFisico().posicaoM, direcao: new Vetor3(Math.cos(merlin.getEstadoFisico().orientacaoRad.z + merlin.obterEstadoDaVetorizacao().anguloAtualRad), Math.sin(merlin.getEstadoFisico().orientacaoRad.z + merlin.obterEstadoDaVetorizacao().anguloAtualRad), 0) }),
+    mangueira: { tanque, propulsor: merlin }, fixadores: [fixador], propulsorControlavel: merlin, atualizarControle,
+    telemetria: () => `correção ${obterGraus(merlin.obterEstadoDaVetorizacao().anguloAtualRad)} · rotação ${rotacaoGraus().toFixed(2)}°`,
+    dados: () => `Correção necessária: ${obterGraus(obterCorrecaoNecessariaRad())}\nLimite do Merlin: ±${obterGraus(merlin.obterEstadoDaVetorizacao().limiteAngularRad)}\nGimbal efetivo: ${obterGraus(merlin.obterEstadoDaVetorizacao().anguloAtualRad)}\nTorque residual: ${Math.abs(obterCorrecaoNecessariaRad()) > merlin.obterEstadoDaVetorizacao().limiteAngularRad ? 'SIM — curso insuficiente' : 'não'}\nRotação do conjunto: ${rotacaoGraus().toFixed(3)}°\nEmpuxo: ${merlin.empuxoAtualN.toFixed(0)} N\nEstado: ${merlin.estaIgnitado ? 'ignitado' : 'aguardando ignição'}`,
+    deveEncerrar: () => false,
+    validar: () => `${Math.abs(obterCorrecaoNecessariaRad()) <= merlin.obterEstadoDaVetorizacao().limiteAngularRad ? 'CORREÇÃO VIÁVEL' : 'LIMITADO PELO GIMBAL'} · requerido ${obterGraus(obterCorrecaoNecessariaRad())}; limite ±${obterGraus(merlin.obterEstadoDaVetorizacao().limiteAngularRad)}`,
+  };
+};
+
 const criarTesteEmpuxoExcentricoEmConjunto = (): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
   const propulsor = new Propulsor({
@@ -823,6 +1016,7 @@ const construirCenarios = (): CenárioVisual[] => {
   criarTesteQuadradosEmpilhados('queda-sobre-apoio'),
   criarTesteQuadradosEmpilhados('leve-sobre-pesado-apoiado'),
   criarTesteQuadradosEmpilhados('quase-igual-sobre-apoiado'),
+  criarTestePilhaDezQuadradosAtingida(),
   criarTesteVeiculoTerrestre('aceleracao'),
   criarTesteVeiculoTerrestre('frenagem'),
   criarTesteVeiculoTerrestre('colisao'),
@@ -830,10 +1024,14 @@ const construirCenarios = (): CenárioVisual[] => {
   criarTestePropulsorContraParede(0.25),
   criarTestePropulsorContraParede(0.5),
   criarTestePropulsorContraParede(1),
+  criarTesteImpactoDestrutivoDoPropulsor(),
   criarTestePropulsorSobreVeiculoPassivo(),
   criarTesteFogueteComParaquedasManual(),
   criarTesteFogueteHorizontalComParaquedasManual(),
   criarTestePropulsorVerticalComParaquedas(),
+  criarTesteMerlinVetorizado(),
+  criarTesteMerlinDesalinhadoComCorrecao(1, 'Merlin desalinhado — limite de correção'),
+  criarTesteMerlinDesalinhadoComCorrecao(2 * Math.tan(5 * Math.PI / 180), 'Merlin desalinhado — correção a 5°'),
   criarTesteEmpuxoExcentricoEmConjunto(),
   criarTesteVeiculoContraRampa30Graus(0),
   criarTesteVeiculoContraRampa30Graus(5),
@@ -859,7 +1057,7 @@ let ultimoQuadroMs = 0;
 const cenarioAtual = (): CenárioVisual => cenarios[indiceAtual];
 
 const obterGrupoDoCenario = (cenario: CenárioVisual): string => {
-  if (cenario.nome.startsWith('Propulsor') || cenario.nome.startsWith('Foguete')) return 'Propulsão e sistemas';
+  if (cenario.nome.startsWith('Propulsor') || cenario.nome.startsWith('Foguete') || cenario.nome.startsWith('Merlin')) return 'Propulsão e sistemas';
   if (cenario.nome.startsWith('Veículo')) return 'Veículos e mobilidade';
   if (cenario.nome.startsWith('Queda livre') || cenario.nome.startsWith('Arrasto') || cenario.nome.startsWith('Contato')) {
     return 'Gravidade, arrasto e apoio';
@@ -1036,15 +1234,15 @@ const desenhar = (): void => {
     // O mundo físico usa Y positivo para cima; o canvas usa Y positivo para
     // baixo. Inverter a rotação mantém o sentido visual coerente com o torque.
     contexto.rotate(-estado.orientacaoRad.z);
-    contexto.fillStyle = objeto instanceof Propulsor
-      ? '#94a3b8'
-      : objeto instanceof TanquePropelente
-      ? '#34d399'
-      : objeto.integridadeEstrutural === 0
+    contexto.fillStyle = objeto.integridadeEstrutural === 0
       ? '#ef4444'
       : objeto.integridadeEstrutural < 1
         ? '#f59e0b'
-        : objeto.dimensoesM.x > 1 ? '#a78bfa' : '#22d3ee';
+        : objeto instanceof Propulsor
+          ? '#94a3b8'
+          : objeto instanceof TanquePropelente
+            ? '#34d399'
+            : objeto.dimensoesM.x > 1 ? '#a78bfa' : '#22d3ee';
     contexto.strokeStyle = '#e2e8f0';
     if (objeto instanceof Propulsor) {
       // A força do propulsor aponta para +X local; portanto o escape e a chama
@@ -1261,6 +1459,7 @@ const carregarCenarioAtual = (): void => {
 const atualizarControlesDoPropulsor = (): void => {
   const cenário = cenarioAtual();
   const propulsor = cenário.propulsorControlavel;
+  const propulsorVetorizado = cenário.propulsorVetorizadoControlavel;
   const permiteAjustarThrottle = cenário.permiteAjustarThrottle === true;
   const objetoComParaquedas = cenário.objetoComParaquedasControlavel;
   const objetoComParaquedasConfiguravel = cenário.objetoComParaquedasConfiguravel;
@@ -1283,6 +1482,18 @@ const atualizarControlesDoPropulsor = (): void => {
   igniteButton.textContent = propulsor?.estaIgnitado ? '✓ Ignição confirmada' : '⚡ Realizar ignição';
   throttleControl.hidden = !permiteAjustarThrottle;
   throttleInput.disabled = !permiteAjustarThrottle || propulsor === undefined;
+  gimbalControl.hidden = propulsorVetorizado === undefined;
+  gimbalInput.disabled = propulsorVetorizado === undefined;
+  if (propulsorVetorizado) {
+    const estadoVetorizacao = propulsorVetorizado.obterEstadoDaVetorizacao();
+    const limiteGraus = estadoVetorizacao.limiteAngularRad * 180 / Math.PI;
+    const anguloGraus = estadoVetorizacao.anguloAtualRad * 180 / Math.PI;
+    gimbalInput.min = String(-limiteGraus);
+    gimbalInput.max = String(limiteGraus);
+    gimbalInput.value = String(anguloGraus);
+    gimbalValue.value = `${anguloGraus.toFixed(1)}°`;
+    gimbalValue.textContent = `${anguloGraus.toFixed(1)}°`;
+  }
   parachuteSettings.hidden = objetoComParaquedasConfiguravel === undefined;
   const estadoParaquedas = objetoComParaquedasConfiguravel?.obterEstadoDoParaquedas();
   parachuteAreaInput.disabled = estadoParaquedas === undefined;
@@ -1332,6 +1543,13 @@ throttleInput.addEventListener('input', () => {
   const propulsor = cenarioAtual().propulsorControlavel;
   if (!propulsor || !cenarioAtual().permiteAjustarThrottle) return;
   propulsor.definirThrottle(Number(throttleInput.value) / 100);
+  atualizarControlesDoPropulsor();
+  desenhar();
+});
+gimbalInput.addEventListener('input', () => {
+  const propulsor = cenarioAtual().propulsorVetorizadoControlavel;
+  if (!propulsor) return;
+  propulsor.solicitarVetorizacao(Number(gimbalInput.value) * Math.PI / 180);
   atualizarControlesDoPropulsor();
   desenhar();
 });
