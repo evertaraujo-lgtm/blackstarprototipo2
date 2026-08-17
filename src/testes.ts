@@ -5,6 +5,7 @@ import { ObjetoTriangularRetangulo } from './physics/objetos/base/ObjetoTriangul
 import { SuperficiePlano } from './physics/SuperficiePlano';
 import { VeiculoTerrestre } from './physics/objetos/veiculos/VeiculoTerrestre';
 import { VeiculoAlado } from './physics/objetos/veiculos/VeiculoAlado';
+import { VeiculoComposto } from './physics/objetos/veiculos/VeiculoComposto';
 import { Propulsor, type IdSistemaPropulsor } from './physics/objetos/propulsao/Propulsor';
 import { PropulsorVetorizado } from './physics/objetos/propulsao/PropulsorVetorizado';
 import { TanquePropelente } from './physics/objetos/propulsao/TanquePropelente';
@@ -600,6 +601,59 @@ const criarPartidaAutomaticaBasica = (mundo: MundoFisico, propulsor: Propulsor):
   };
 };
 
+const criarTesteVeiculoComposto = (): CenárioVisual => {
+  const mundo = new MundoFisico(1 / 240);
+  const veiculo = new VeiculoComposto({
+    id: 'veiculo-composto-corpo', massaBaseKg: 120, dimensoesM: new Vetor3(4, 1, 1),
+    resistenciaColisaoJ: 100_000, resistenciaCalorK: 1_000, areaFrontalM2: 2, coeficienteArrasto: 0.8,
+    estadoInicial: { posicaoM: new Vetor3(0, 15, 0) },
+  });
+  const tanque = new TanquePropelente({
+    id: 'veiculo-composto-tanque', massaBaseKg: 100, capacidadePropelenteKg: 800, massaPropelenteInicialKg: 800, tipoPropelente: 'metano',
+    dimensoesM: new Vetor3(2, 3, 1), resistenciaColisaoJ: 100_000, resistenciaCalorK: 1_000,
+    estadoInicial: { posicaoM: new Vetor3(0, 18, 0) },
+  });
+  const criarPropulsor = (id: string, x: number) => new Propulsor({
+    id, massaBaseKg: 50, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, resistenciaCalorK: 1_000,
+    empuxoMaximoN: 8_000, vazaoMaximaKgS: 2, propelenteCompativel: 'metano',
+    estadoInicial: { posicaoM: new Vetor3(x, 13, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
+  });
+  const propulsorA = criarPropulsor('veiculo-composto-propulsor-a', -1.3);
+  const propulsorB = criarPropulsor('veiculo-composto-propulsor-b', 1.3);
+  propulsorA.conectarTanque(tanque, 8);
+  propulsorB.conectarTanque(tanque, 8);
+  veiculo.acoplarParaquedas(new Paraquedas({ id: 'veiculo-composto-paraquedas', areaFrontalM2: 10 }));
+  for (const modulo of [tanque, propulsorA, propulsorB]) veiculo.adicionarModulo(modulo);
+  veiculo.instalarPropulsor(propulsorA);
+  veiculo.instalarPropulsor(propulsorB);
+  const fixadores = [
+    new FixadorEstrutural({ id: 'veiculo-composto-fixador-tanque', objetoA: veiculo, objetoB: tanque, resistenciaTracaoN: 30_000, obterEsforcoSolicitadoN: () => propulsorA.empuxoAtualN + propulsorB.empuxoAtualN }),
+    new FixadorEstrutural({ id: 'veiculo-composto-fixador-a', objetoA: veiculo, objetoB: propulsorA, resistenciaTracaoN: 12_000, obterEsforcoSolicitadoN: () => propulsorA.empuxoAtualN }),
+    new FixadorEstrutural({ id: 'veiculo-composto-fixador-b', objetoA: veiculo, objetoB: propulsorB, resistenciaTracaoN: 12_000, obterEsforcoSolicitadoN: () => propulsorB.empuxoAtualN }),
+  ];
+  for (const fixador of fixadores) veiculo.adicionarFixador(fixador);
+  veiculo.registrarNoMundo(mundo);
+  veiculo.definirThrottleDeTodosOsPropulsores(0.8);
+  let partidaComandada = false;
+  let massaInicialKg = veiculo.massaInstantaneaDoConjuntoKg;
+  return {
+    nome: 'Veículo composto — tanque, dois propulsores e paraquedas',
+    descricao: 'O corpo central, tanque e dois propulsores são Objetos físicos independentes unidos por três fixadores. O computador de voo solicita a partida dos dois propulsores após 1 s, executando a mesma sequência elétrica → hidráulica → combustível → controle → ignição. O paraquedas está acoplado ao corpo central e pode ser acionado manualmente.',
+    mundo, objetos: [veiculo, ...veiculo.modulosFisicos], superficies: [], velocidadeTempo: 1, limiteVerticalM: 30, limiteHorizontalM: 12,
+    seguirObjeto: veiculo, fixadores, objetoComParaquedasControlavel: veiculo, objetoComParaquedasConfiguravel: veiculo,
+    atualizarControle: () => {
+      if (!partidaComandada && mundo.tempoS >= 1) {
+        partidaComandada = true;
+        veiculo.solicitarIgnicaoDosPropulsores();
+      }
+    },
+    telemetria: () => `massa conectada ${veiculo.massaInstantaneaDoConjuntoKg.toFixed(1)} kg · velocidade vertical ${veiculo.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s`,
+    dados: () => `Massa conectada: ${veiculo.massaInstantaneaDoConjuntoKg.toFixed(1)} / ${massaInicialKg.toFixed(1)} kg\nCentro de massa: (${veiculo.centroDeMassaDoConjuntoM.x.toFixed(2)}, ${veiculo.centroDeMassaDoConjuntoM.y.toFixed(2)}) m\nMódulos ligados: ${veiculo.obterObjetosFisicosConectados().length}\nTanque: ${tanque.massaPropelenteKg.toFixed(1)} / ${tanque.massaPropelenteInicialKg.toFixed(1)} kg\nEmpuxo A / B: ${propulsorA.empuxoAtualN.toFixed(0)} / ${propulsorB.empuxoAtualN.toFixed(0)} N\nIgnição A / B: ${propulsorA.estaIgnitado ? 'OK' : 'pendente'} / ${propulsorB.estaIgnitado ? 'OK' : 'pendente'}\nParaquedas: ${veiculo.paraquedasEstaAberto ? 'ABERTO' : 'fechado'}\nFixadores: ${fixadores.map((fixador) => fixador.estaRompido ? 'ROMPIDO' : 'íntegro').join(' · ')}`,
+    deveEncerrar: () => false,
+    validar: () => `${partidaComandada && propulsorA.empuxoAtualN > 0 && propulsorB.empuxoAtualN > 0 ? 'APROVADO' : 'AGUARDANDO PARTIDA'} · massa conectada ${veiculo.massaInstantaneaDoConjuntoKg.toFixed(1)} kg; empuxo total ${(propulsorA.empuxoAtualN + propulsorB.empuxoAtualN).toFixed(0)} N`,
+  };
+};
+
 const criarTestePropulsorContraParede = (throttle: number): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240);
   const pista = new SuperficiePlano(`pista-propulsor-${throttle}`, 'outro', 0, 1_000_000, 0.02, 0.9);
@@ -1021,6 +1075,7 @@ const construirCenarios = (): CenárioVisual[] => {
   criarTesteVeiculoTerrestre('frenagem'),
   criarTesteVeiculoTerrestre('colisao'),
   criarTesteVeiculoAlado(),
+  criarTesteVeiculoComposto(),
   criarTestePropulsorContraParede(0.25),
   criarTestePropulsorContraParede(0.5),
   criarTestePropulsorContraParede(1),

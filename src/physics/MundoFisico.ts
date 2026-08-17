@@ -11,6 +11,97 @@ interface ForcaAplicada {
 
 interface Ponto2D { readonly x: number; readonly y: number; }
 
+/** Estado de uma ilha de corpos unidos por vínculos rígidos no plano XY. */
+class ConjuntoEstruturalRigido {
+  private readonly referenciasLocaisM = new Map<Objeto, Vetor3>();
+  private readonly orientacoesRelativasRad = new Map<Objeto, Vetor3>();
+  private anguloDoConjuntoRad: number;
+
+  public constructor(private readonly objetos: readonly Objeto[]) {
+    const objetoDeReferencia = objetos[0];
+    const anguloInicial = objetoDeReferencia.getEstadoFisico().orientacaoRad.z;
+    this.anguloDoConjuntoRad = anguloInicial;
+    const centroMassa = this.obterCentroDeMassaAtual();
+    for (const objeto of objetos) {
+      const estado = objeto.getEstadoFisico();
+      this.referenciasLocaisM.set(objeto, this.rotacionarNoPlano(estado.posicaoM.subtrair(centroMassa), -anguloInicial));
+      this.orientacoesRelativasRad.set(objeto, estado.orientacaoRad.subtrair(new Vetor3(0, 0, anguloInicial)));
+    }
+  }
+
+  /**
+   * Conserva momento linear e angular de todos os membros simultaneamente.
+   * Avançar o ângulo só ocorre uma vez por passo; após colisões, a projeção
+   * reaplica a rigidez sem introduzir avanço angular duplicado.
+   */
+  public sincronizar(dtS: number, avancarOrientacao: boolean): void {
+    const centroMassa = this.obterCentroDeMassaAtual();
+    const massaTotalKg = this.objetos.reduce((soma, objeto) => soma + objeto.massaKg, 0);
+    const velocidadeDoCentroMps = this.objetos.reduce(
+      (soma, objeto) => soma.adicionar(objeto.getEstadoFisico().velocidadeMps.multiplicar(objeto.massaKg / massaTotalKg)),
+      Vetor3.zero,
+    );
+    const inerciaZ = this.obterInerciaCompostaZ();
+    const momentoAngularZ = this.objetos.reduce((soma, objeto) => {
+      const estado = objeto.getEstadoFisico();
+      const braco = estado.posicaoM.subtrair(centroMassa);
+      return soma + braco.produtoVetorial(estado.velocidadeMps.multiplicar(objeto.massaKg)).z
+        + objeto.getMomentoInerciaKgM2().z * estado.velocidadeAngularRadps.z;
+    }, 0);
+    const velocidadeAngularZ = momentoAngularZ / inerciaZ;
+    if (avancarOrientacao) this.anguloDoConjuntoRad += velocidadeAngularZ * dtS;
+    const velocidadeAngular = new Vetor3(0, 0, velocidadeAngularZ);
+
+    for (const objeto of this.objetos) {
+      const estadoAnterior = objeto.getEstadoFisico();
+      const referenciaLocal = this.referenciasLocaisM.get(objeto)!;
+      const braco = this.rotacionarNoPlano(referenciaLocal, this.anguloDoConjuntoRad);
+      const velocidadeTangencial = new Vetor3(-velocidadeAngularZ * braco.y, velocidadeAngularZ * braco.x, 0);
+      const orientacaoRelativa = this.orientacoesRelativasRad.get(objeto)!;
+      objeto.atualizarEstadoPeloCore({
+        ...estadoAnterior,
+        posicaoM: centroMassa.adicionar(braco),
+        velocidadeMps: velocidadeDoCentroMps.adicionar(velocidadeTangencial),
+        orientacaoRad: new Vetor3(orientacaoRelativa.x, orientacaoRelativa.y, orientacaoRelativa.z + this.anguloDoConjuntoRad),
+        velocidadeAngularRadps: velocidadeAngular,
+      });
+    }
+  }
+
+  public contem(objeto: Objeto): boolean {
+    return this.objetos.includes(objeto);
+  }
+
+  /** Massa dinâmica vista em um ponto e direção de contato do conjunto inteiro. */
+  public obterMassaEfetivaNoContato(pontoContatoM: Vetor3, normal: Vetor3): number {
+    const massaTotalKg = this.objetos.reduce((soma, objeto) => soma + objeto.massaKg, 0);
+    const braco = pontoContatoM.subtrair(this.obterCentroDeMassaAtual());
+    const torqueUnitarioZ = braco.produtoVetorial(normal).z;
+    return 1 / ((1 / massaTotalKg) + (torqueUnitarioZ ** 2 / this.obterInerciaCompostaZ()));
+  }
+
+  private obterCentroDeMassaAtual(): Vetor3 {
+    const massaTotalKg = this.objetos.reduce((soma, objeto) => soma + objeto.massaKg, 0);
+    return this.objetos.reduce(
+      (soma, objeto) => soma.adicionar(objeto.getEstadoFisico().posicaoM.multiplicar(objeto.massaKg / massaTotalKg)),
+      Vetor3.zero,
+    );
+  }
+
+  private obterInerciaCompostaZ(): number {
+    return this.objetos.reduce((soma, objeto) => {
+      const referenciaLocal = this.referenciasLocaisM.get(objeto)!;
+      return soma + objeto.getMomentoInerciaKgM2().z + objeto.massaKg * referenciaLocal.magnitude ** 2;
+    }, 0);
+  }
+
+  private rotacionarNoPlano(vetor: Vetor3, anguloRad: number): Vetor3 {
+    const cos = Math.cos(anguloRad);
+    const sen = Math.sin(anguloRad);
+    return new Vetor3(vetor.x * cos - vetor.y * sen, vetor.x * sen + vetor.y * cos, vetor.z);
+  }
+}
+
 export interface ConfiguracaoMundoFisico {
   /** Densidade constante para o modelo atmosférico atualmente implementado. */
   readonly densidadeAtmosfericaKgM3?: number;
@@ -25,6 +116,7 @@ export class MundoFisico {
   private readonly objetos = new Map<string, Objeto>();
   private readonly superficies = new Map<string, SuperficiePlano>();
   private readonly fixadores = new Map<string, FixadorEstrutural>();
+  private readonly conjuntosEstruturais = new Map<string, ConjuntoEstruturalRigido>();
   private readonly forcasPendentes = new Map<string, ForcaAplicada[]>();
   private tempoMissaoS = 0;
   private readonly densidadeAtmosfericaKgM3: number;
@@ -119,11 +211,55 @@ export class MundoFisico {
       objeto.atualizarEstadoPeloCore(proximo);
       objeto.registrarUso(dtS / 3600);
     }
-    for (const fixador of this.fixadores.values()) fixador.aplicarRestricao(dtS);
+    this.sincronizarConjuntosEstruturais(dtS, true);
     this.resolverColisoes();
     this.resolverContatosComSuperficies(dtS);
+    // Impulsos de colisão e contato recebidos por qualquer módulo passam a
+    // pertencer imediatamente ao conjunto, sem esperar o passo seguinte.
+    this.sincronizarConjuntosEstruturais(dtS, false);
     this.forcasPendentes.clear();
     this.tempoMissaoS += dtS;
+  }
+
+  /** Agrupa todos os corpos alcançáveis por fixadores íntegros em uma ilha rígida. */
+  private sincronizarConjuntosEstruturais(dtS: number, avancarOrientacao: boolean): void {
+    const adjacencias = new Map<Objeto, Set<Objeto>>();
+    for (const fixador of this.fixadores.values()) {
+      if (fixador.estaRompido) continue;
+      const adjacentesA = adjacencias.get(fixador.objetoA) ?? new Set<Objeto>();
+      adjacentesA.add(fixador.objetoB); adjacencias.set(fixador.objetoA, adjacentesA);
+      const adjacentesB = adjacencias.get(fixador.objetoB) ?? new Set<Objeto>();
+      adjacentesB.add(fixador.objetoA); adjacencias.set(fixador.objetoB, adjacentesB);
+    }
+    const visitados = new Set<Objeto>();
+    const assinaturasAtivas = new Set<string>();
+    for (const inicio of adjacencias.keys()) {
+      if (visitados.has(inicio)) continue;
+      const pendentes = [inicio];
+      const membros: Objeto[] = [];
+      visitados.add(inicio);
+      while (pendentes.length > 0) {
+        const atual = pendentes.pop()!;
+        membros.push(atual);
+        for (const adjacente of adjacencias.get(atual) ?? []) {
+          if (!visitados.has(adjacente)) {
+            visitados.add(adjacente);
+            pendentes.push(adjacente);
+          }
+        }
+      }
+      const assinatura = membros.map((objeto) => objeto.id).sort().join('|');
+      assinaturasAtivas.add(assinatura);
+      let conjunto = this.conjuntosEstruturais.get(assinatura);
+      if (!conjunto) {
+        conjunto = new ConjuntoEstruturalRigido(membros);
+        this.conjuntosEstruturais.set(assinatura, conjunto);
+      }
+      conjunto.sincronizar(dtS, avancarOrientacao);
+    }
+    for (const assinatura of this.conjuntosEstruturais.keys()) {
+      if (!assinaturasAtivas.has(assinatura)) this.conjuntosEstruturais.delete(assinatura);
+    }
   }
 
   /** Somente rodas (ou pontos declarados de tração) apoiados podem gerar aderência. */
@@ -451,9 +587,14 @@ export class MundoFisico {
     let impulsoNormalNs = 0;
 
     if (velocidadeNormal < 0) {
-      const massaEfetivaContatoKg = this.obterMassaEfetivaNoContato(objeto, pontoContatoM, normal)
-        ?? objeto.massaKg;
-      const energiaImpactoJ = 0.5 * massaEfetivaContatoKg * velocidadeNormal ** 2;
+      const massaEfetivaDoConjuntoKg = this.obterMassaEfetivaNoContato(objeto, pontoContatoM, normal);
+      const massaParaEnergiaDeImpactoKg = massaEfetivaDoConjuntoKg ?? objeto.massaKg;
+      const massaEfetivaDinamicaContatoKg = massaEfetivaDoConjuntoKg
+        // Corpo isolado preserva a massa efetiva local, incluindo o braço
+        // de alavanca do ponto de contato; uma ilha já fornece esse efeito
+        // calculado com sua massa e inércia compostas.
+        ?? (1 / ((1 / objeto.massaKg) + termoAngular));
+      const energiaImpactoJ = 0.5 * massaParaEnergiaDeImpactoKg * velocidadeNormal ** 2;
       const restitituicao = this.calcularRestituicaoPorEnergia(
         energiaImpactoJ,
         objeto.resistenciaColisaoJ,
@@ -461,7 +602,7 @@ export class MundoFisico {
         objeto.dissipacaoImpacto,
         superficie.dissipacaoImpacto,
       );
-      impulsoNormalNs = -((1 + restitituicao) * velocidadeNormal) / ((1 / objeto.massaKg) + termoAngular);
+      impulsoNormalNs = -((1 + restitituicao) * velocidadeNormal) * massaEfetivaDinamicaContatoKg;
       const impulso = normal.multiplicar(impulsoNormalNs);
       velocidade = velocidade.adicionar(impulso.multiplicar(1 / objeto.massaKg));
       velocidadeAngular = velocidadeAngular.adicionar(new Vetor3(
@@ -481,11 +622,12 @@ export class MundoFisico {
       if (velocidadeTangencial.magnitude > 0) {
         const direcaoAtrito = velocidadeTangencial.multiplicar(-1 / velocidadeTangencial.magnitude);
         const torqueAtritoUnitario = braco.produtoVetorial(direcaoAtrito);
-        const massaInversaEfetiva = (1 / objeto.massaKg)
-          + (torqueAtritoUnitario.x ** 2 / inercia.x)
-          + (torqueAtritoUnitario.y ** 2 / inercia.y)
-          + (torqueAtritoUnitario.z ** 2 / inercia.z);
-        const impulsoNecessarioNs = velocidadeTangencial.magnitude / massaInversaEfetiva;
+        const massaEfetivaTangencialKg = this.obterMassaEfetivaNoContato(objeto, pontoContatoM, direcaoAtrito)
+          ?? (1 / ((1 / objeto.massaKg)
+            + (torqueAtritoUnitario.x ** 2 / inercia.x)
+            + (torqueAtritoUnitario.y ** 2 / inercia.y)
+            + (torqueAtritoUnitario.z ** 2 / inercia.z)));
+        const impulsoNecessarioNs = velocidadeTangencial.magnitude * massaEfetivaTangencialKg;
         const coeficienteAtrito = Math.min(objeto.getCoeficienteAtritoDeContato(), superficie.coeficienteAtritoDinamico);
         const impulsoNormalDeApoioNs = objeto.massaKg * Math.abs(MundoFisico.gravidadeTerrestreMps2.y) * dtS;
         const limiteAtritoNs = coeficienteAtrito * Math.max(impulsoNormalNs, impulsoNormalDeApoioNs);
@@ -510,6 +652,9 @@ export class MundoFisico {
 
   /** Considera a massa transmitida por um vínculo rígido ainda íntegro. */
   private obterMassaEfetivaNoContato(objeto: Objeto, pontoContatoM: Vetor3, normal: Vetor3): number | undefined {
+    for (const conjunto of this.conjuntosEstruturais.values()) {
+      if (conjunto.contem(objeto)) return conjunto.obterMassaEfetivaNoContato(pontoContatoM, normal);
+    }
     for (const fixador of this.fixadores.values()) {
       const massaEfetiva = fixador.obterMassaEfetivaNoContato(objeto, pontoContatoM, normal);
       if (massaEfetiva !== undefined) return massaEfetiva;

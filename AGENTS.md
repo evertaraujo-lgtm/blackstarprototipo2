@@ -359,15 +359,17 @@ A conexão pode possuir propriedades como resistência a força, torque, geometr
 
 Um `FixadorEstrutural` representa uma conexão física entre dois `Objeto`s. Ele
 declara uma resistência de tração em N e o esforço que deve transmitir. Enquanto
-íntegro, o core aplica sua restrição sem criar momento linear ou angular
-artificial e os participantes evoluem como conjunto. No modelo planar atual,
-o fixador calcula a inércia composta — incluindo a distribuição das massas em
-relação ao centro de massa — e transmite uma rotação comum: uma força fora do
-centro de massa deve gerar torque e girar as partes mantendo suas posições e
-orientações relativas. Quando o esforço solicitado excede a resistência, o
-fixador rompe de forma determinística antes da integração do passo e os
-objetos voltam a evoluir independentemente. Um fixador não é um atalho de
-interface nem uma ancoragem visual.
+íntegro, o core reúne todos os objetos alcançáveis pela cadeia de fixadores em
+uma única **ilha estrutural rígida**. No modelo planar atual, a ilha calcula
+uma só massa, centro de massa, inércia composta e momento angular antes de
+projetar posição, velocidade e rotação comuns para todos os membros. Portanto,
+propulsores simétricos não podem adquirir giro por ordem de resolução; uma
+força fora do centro de massa do conjunto deve gerar o torque físico
+correspondente, mantendo as posições e orientações relativas. Quando o esforço
+solicitado excede a resistência, o fixador rompe de forma determinística antes
+da integração do passo e a topologia é reconstruída: os objetos separados
+voltam a evoluir independentemente. Um fixador não é um atalho de interface nem
+uma ancoragem visual.
 
 Em um impacto contra superfície enquanto o vínculo estiver íntegro, a energia
 usada para dano na peça que tocou deve considerar a massa efetiva do conjunto,
@@ -412,6 +414,30 @@ Veículos terrestres podem transportar ou rebocar naves por conexões físicas. 
 - atrito;
 - resistência ao rolamento;
 - demais forças do cenário.
+
+---
+
+### 11.1 Veículo composto
+
+Um veículo pode possuir um corpo físico central e módulos físicos por
+composição, como tanques, propulsores, cargas, paraquedas e atuadores. Esses
+módulos continuam sendo `Objeto`s independentes no `MundoFisico`; o veículo
+composto não deve criar uma cópia concorrente de suas posições, velocidades ou
+massas.
+
+O agregado é responsável por declarar pertencimento, instalar vínculos e
+oferecer sua API operacional. O mundo registra cada corpo e cada
+`FixadorEstrutural` separadamente. Enquanto a cadeia de fixadores estiver
+íntegra, a massa instantânea, o centro de massa e os diagnósticos do conjunto
+devem considerar somente os objetos fisicamente conectados ao corpo central.
+Quando um vínculo romper, o módulo correspondente permanece no mundo, mas deixa
+de compor o veículo e passa a evoluir como corpo independente.
+
+Computadores de voo e outros controladores internos não devem navegar pela
+instância proprietária. Eles recebem somente interfaces públicas dos módulos
+que controlam. A sequência automática de propulsores deve chamar as mesmas
+operações semânticas usadas pelo operador, respeitando ordem, permissivos e
+ignição explícita.
 
 ---
 
