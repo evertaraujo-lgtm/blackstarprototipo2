@@ -50,6 +50,8 @@ if (!canvas || !playButton || !scenarioSelector || !skipButton || !resetButton |
 const contexto = canvas.getContext('2d');
 if (!contexto) throw new Error('Canvas 2D indisponível.');
 
+type ModalidadeTeste = 'mecânica' | 'térmica';
+
 interface CenárioVisual {
   readonly nome: string;
   readonly descricao: string;
@@ -57,6 +59,8 @@ interface CenárioVisual {
   readonly objetos: readonly Objeto[];
   readonly superficies: readonly SuperficiePlano[];
   readonly velocidadeTempo: number;
+  /** Modalidade apresentada e agrupada pela bancada; não altera o core. */
+  readonly modalidade?: ModalidadeTeste;
   readonly limiteVerticalM: number;
   readonly limiteHorizontalM?: number;
   readonly deveEncerrar: () => boolean;
@@ -694,6 +698,30 @@ const criarTestePropulsorContraParede = (throttle: number): CenárioVisual => {
   };
 };
 
+const criarTesteTermicoDoPropulsor = (): CenárioVisual => {
+  const mundo = new MundoFisico(1 / 240, { temperaturaAmbienteC: 20 });
+  const solo = new SuperficiePlano('solo-termico', 'concreto', 0, 1_000_000);
+  const bancada = new Objeto({ id: 'bancada-termica-2000kg', massaBaseKg: 2_000, dimensoesM: new Vetor3(6, 1, 1), resistenciaColisaoJ: 1_000_000, resistenciaCalorK: 873.15, limiteTermicoC: 600, capacidadeTermicaJPorC: 1_000_000, areaTermicaM2: 12, estadoInicial: { posicaoM: new Vetor3(0, 0.5, 0) } });
+  const propulsor = new Propulsor({ id: 'propulsor-termico', massaBaseKg: 150, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 500_000, resistenciaCalorK: 1_073.15, limiteTermicoC: 800, capacidadeTermicaJPorC: 500_000, areaTermicaM2: 2, coeficienteConveccaoWPorM2C: 30, empuxoMaximoN: 20_000, vazaoMaximaKgS: 2, potenciaTermicaMaximaW: 3_000_000, propelenteCompativel: 'metano', estadoInicial: { posicaoM: new Vetor3(0, 2, 0) } });
+  const tanque = new TanquePropelente({ id: 'tanque-termico', massaBaseKg: 300, capacidadePropelenteKg: 100, massaPropelenteInicialKg: 100, tipoPropelente: 'metano', dimensoesM: new Vetor3(1, 2, 1), resistenciaColisaoJ: 500_000, resistenciaCalorK: 473.15, limiteTermicoC: 200, capacidadeTermicaJPorC: 400_000, areaTermicaM2: 4, estadoInicial: { posicaoM: new Vetor3(2, 2, 0) } });
+  const parede = new Objeto({ id: 'parede-termica', massaBaseKg: 5_000, dimensoesM: new Vetor3(1, 4, 1), resistenciaColisaoJ: 1_000_000, resistenciaCalorK: 573.15, limiteTermicoC: 300, capacidadeTermicaJPorC: 15_000, areaTermicaM2: 4, coeficienteConveccaoWPorM2C: 20, taxaDanoTermicoPorSegundo: 0.08, estadoInicial: { posicaoM: new Vetor3(-6, 2, 0) } });
+  propulsor.conectarTanque(tanque, 8); propulsor.definirThrottle(0.5);
+  const fixadorMotor = new FixadorEstrutural({ id: 'fixador-termico-motor', objetoA: bancada, objetoB: propulsor, resistenciaTracaoN: 50_000, limiteTermicoC: 350, capacidadeTermicaJPorC: 10_000, condutanciaTermicaWPorC: 500, obterEsforcoSolicitadoN: () => propulsor.empuxoAtualN });
+  const fixadorTanque = new FixadorEstrutural({ id: 'fixador-termico-tanque', objetoA: bancada, objetoB: tanque, resistenciaTracaoN: 50_000, limiteTermicoC: 250, capacidadeTermicaJPorC: 10_000, condutanciaTermicaWPorC: 200, obterEsforcoSolicitadoN: () => 0 });
+  mundo.registrarSuperficie(solo); for (const objeto of [bancada, propulsor, tanque, parede]) mundo.registrarObjeto(objeto); mundo.registrarFixador(fixadorMotor); mundo.registrarFixador(fixadorTanque);
+  const partida = criarPartidaAutomaticaBasica(mundo, propulsor);
+  return {
+    nome: 'Propulsor térmico — chama contra parede',
+    descricao: 'Propulsor fixado a uma bancada de 2.000 kg aponta a exaustão para uma parede térmica. O throttle controla simultaneamente empuxo, consumo e potência térmica. A chama transfere calor por convecção modelada no cone de exaustão; a parede perde integridade progressivamente ao exceder 300 °C.',
+    mundo, objetos: [bancada, propulsor, tanque, parede], superficies: [solo], velocidadeTempo: 5, limiteVerticalM: 8, limiteHorizontalM: 10, modalidade: 'térmica',
+    propulsorControlavel: propulsor, permiteAjustarThrottle: true, atualizarControle: partida, fixadores: [fixadorMotor, fixadorTanque],
+    telemetria: () => `parede ${parede.temperaturaC.toFixed(1)} °C · integridade ${(parede.integridadeEstrutural * 100).toFixed(0)}%`,
+    dados: () => `MODALIDADE: TÉRMICA\nAmbiente: 20 °C\nPotência térmica: ${(propulsor.potenciaTermicaAtualW / 1_000_000).toFixed(2)} MW\nTemperatura motor / bancada / tanque / parede: ${propulsor.temperaturaC.toFixed(1)} / ${bancada.temperaturaC.toFixed(1)} / ${tanque.temperaturaC.toFixed(1)} / ${parede.temperaturaC.toFixed(1)} °C\nLimites térmicos: ${propulsor.limiteTermicoC} / ${bancada.limiteTermicoC} / ${tanque.limiteTermicoC} / ${parede.limiteTermicoC} °C\nIntegridade da parede: ${(parede.integridadeEstrutural * 100).toFixed(1)}%\nFixador motor: ${fixadorMotor.temperaturaC.toFixed(1)} / ${fixadorMotor.limiteTermicoC} °C; ${fixadorMotor.resistenciaTracaoEfetivaN.toFixed(0)} N\nFixador tanque: ${fixadorTanque.temperaturaC.toFixed(1)} / ${fixadorTanque.limiteTermicoC} °C; ${fixadorTanque.resistenciaTracaoEfetivaN.toFixed(0)} N\nResistência mecânica parede: ${parede.resistenciaColisaoJ.toFixed(0)} J`,
+    deveEncerrar: () => parede.integridadeEstrutural === 0,
+    validar: () => `${parede.integridadeEstrutural < 1 ? 'APROVADO' : 'AQUECENDO'} · parede ${parede.temperaturaC.toFixed(1)} °C; integridade ${(parede.integridadeEstrutural * 100).toFixed(1)}%`,
+  };
+};
+
 const criarTesteImpactoDestrutivoDoPropulsor = (): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240);
   const pista = new SuperficiePlano('pista-impacto-destrutivo-propulsor', 'concreto', 0, 1_000_000, 0.02, 0.9);
@@ -1079,6 +1107,7 @@ const construirCenarios = (): CenárioVisual[] => {
   criarTestePropulsorContraParede(0.25),
   criarTestePropulsorContraParede(0.5),
   criarTestePropulsorContraParede(1),
+  criarTesteTermicoDoPropulsor(),
   criarTesteImpactoDestrutivoDoPropulsor(),
   criarTestePropulsorSobreVeiculoPassivo(),
   criarTesteFogueteComParaquedasManual(),
@@ -1112,6 +1141,7 @@ let ultimoQuadroMs = 0;
 const cenarioAtual = (): CenárioVisual => cenarios[indiceAtual];
 
 const obterGrupoDoCenario = (cenario: CenárioVisual): string => {
+  if (cenario.modalidade === 'térmica') return 'Testes térmicos';
   if (cenario.nome.startsWith('Propulsor') || cenario.nome.startsWith('Foguete') || cenario.nome.startsWith('Merlin')) return 'Propulsão e sistemas';
   if (cenario.nome.startsWith('Veículo')) return 'Veículos e mobilidade';
   if (cenario.nome.startsWith('Queda livre') || cenario.nome.startsWith('Arrasto') || cenario.nome.startsWith('Contato')) {

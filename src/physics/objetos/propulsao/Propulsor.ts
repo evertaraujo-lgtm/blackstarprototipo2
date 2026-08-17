@@ -1,4 +1,4 @@
-import { Objeto, type DefinicaoObjeto, type ForcaFisicaSolicitada } from '../base/Objeto';
+import { Objeto, type DefinicaoObjeto, type ForcaFisicaSolicitada, type JatoTermico } from '../base/Objeto';
 import { EstadoOperacional, GerenciadorDeSistemas, SistemaOperacional } from '../../SistemaOperacional';
 import { TanquePropelente } from './TanquePropelente';
 import { Vetor3 } from '../../Vetor3';
@@ -7,6 +7,8 @@ export interface DefinicaoPropulsor extends DefinicaoObjeto {
   readonly empuxoMaximoN: number;
   readonly vazaoMaximaKgS: number;
   readonly propelenteCompativel: string;
+  /** Potência térmica total liberada em throttle máximo, em W. */
+  readonly potenciaTermicaMaximaW?: number;
 }
 
 export type IdSistemaPropulsor = 'elétrico' | 'hidráulico' | 'combustível' | 'controle';
@@ -33,6 +35,10 @@ export class Propulsor extends Objeto {
   public get empuxoAtualN(): number { return this.empuxoAtualCalculadoN; }
   public get vazaoAtualKgS(): number { return this.vazaoAtualCalculadaKgS; }
   public get throttleAtual(): number { return this.throttle; }
+  public get potenciaTermicaAtualW(): number { return (this.definicaoPropulsor.potenciaTermicaMaximaW ?? 0) * this.throttle * this.eficienciaPorIntegridade; }
+  /** Parcela que aquece a carcaça; o restante segue no jato de exaustão. */
+  public get potenciaTermicaNaCarcacaW(): number { return this.potenciaTermicaAtualW * 0.15; }
+  public get potenciaTermicaNoJatoW(): number { return this.potenciaTermicaAtualW * 0.7; }
   /** Eficiência restante por integridade; dano reduz empuxo sem reduzir vazão. */
   public get eficienciaPorIntegridade(): number { return this.integridadeEstrutural; }
   public get estaEstruturalmenteInoperante(): boolean { return this.integridadeEstrutural === 0; }
@@ -152,6 +158,12 @@ export class Propulsor extends Objeto {
     if (this.empuxoAtualCalculadoN === 0) return [];
     const angulo = this.getEstadoFisico().orientacaoRad.z;
     return [{ forcaN: new Vetor3(Math.cos(angulo) * this.empuxoAtualCalculadoN, Math.sin(angulo) * this.empuxoAtualCalculadoN, 0) }];
+  }
+  public override obterPotenciaTermicaGeradaW(): number { return this.potenciaTermicaNaCarcacaW; }
+  public override obterJatoTermico(): JatoTermico | undefined {
+    if (this.potenciaTermicaNoJatoW === 0) return undefined;
+    const angulo = this.getEstadoFisico().orientacaoRad.z;
+    return { potenciaW: this.potenciaTermicaNoJatoW, alcanceM: 12, aberturaRad: Math.PI / 8, direcaoM: new Vetor3(-Math.cos(angulo), -Math.sin(angulo), 0) };
   }
 
   private distanciaAoTanqueM(): number {

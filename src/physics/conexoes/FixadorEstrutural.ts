@@ -7,6 +7,10 @@ export interface DefinicaoFixadorEstrutural {
   readonly objetoB: Objeto;
   /** Maior esforço transmitido antes da ruptura, em N. */
   readonly resistenciaTracaoN: number;
+  readonly limiteTermicoC?: number;
+  readonly temperaturaInicialC?: number;
+  readonly capacidadeTermicaJPorC?: number;
+  readonly condutanciaTermicaWPorC?: number;
   /** Esforço solicitado pela operação que o fixador precisa transmitir. */
   readonly obterEsforcoSolicitadoN: () => number;
 }
@@ -19,6 +23,7 @@ export class FixadorEstrutural {
   private readonly orientacaoRelativaInicialRad: Vetor3;
   /** Rotação planar do conjunto em torno do seu centro de massa. */
   private rotacaoDoConjuntoRad = 0;
+  private temperaturaAtualC: number;
 
   public constructor(private readonly definicao: DefinicaoFixadorEstrutural) {
     if (!definicao.id || !Number.isFinite(definicao.resistenciaTracaoN) || definicao.resistenciaTracaoN <= 0) {
@@ -28,11 +33,18 @@ export class FixadorEstrutural {
     this.deslocamentoInicialM = definicao.objetoB.getEstadoFisico().posicaoM.subtrair(definicao.objetoA.getEstadoFisico().posicaoM);
     this.orientacaoInicialARad = definicao.objetoA.getEstadoFisico().orientacaoRad;
     this.orientacaoRelativaInicialRad = definicao.objetoB.getEstadoFisico().orientacaoRad.subtrair(definicao.objetoA.getEstadoFisico().orientacaoRad);
+    this.temperaturaAtualC = definicao.temperaturaInicialC ?? 20;
   }
 
   public get id(): string { return this.definicao.id; }
   public get estaRompido(): boolean { return this.rompido; }
   public get resistenciaTracaoN(): number { return this.definicao.resistenciaTracaoN; }
+  public get temperaturaC(): number { return this.temperaturaAtualC; }
+  public get limiteTermicoC(): number { return this.definicao.limiteTermicoC ?? 500; }
+  public get resistenciaTracaoEfetivaN(): number {
+    if (this.temperaturaAtualC <= this.limiteTermicoC) return this.resistenciaTracaoN;
+    return Math.max(0, this.resistenciaTracaoN * (1 - (this.temperaturaAtualC - this.limiteTermicoC) / 200));
+  }
   public get objetoA(): Objeto { return this.definicao.objetoA; }
   public get objetoB(): Objeto { return this.definicao.objetoB; }
 
@@ -58,9 +70,15 @@ export class FixadorEstrutural {
   }
 
   /** Avaliado pelo core após a preparação operacional e antes da integração. */
-  public prepararPasso(): void {
+  public prepararPasso(dtS = 0): void {
     if (this.rompido) return;
-    if (Math.abs(this.definicao.obterEsforcoSolicitadoN()) > this.definicao.resistenciaTracaoN) this.rompido = true;
+    if (dtS > 0) {
+      const mediaC = (this.objetoA.temperaturaC + this.objetoB.temperaturaC) / 2;
+      const condutancia = this.definicao.condutanciaTermicaWPorC ?? 100;
+      const capacidade = this.definicao.capacidadeTermicaJPorC ?? 10_000;
+      this.temperaturaAtualC += (condutancia * (mediaC - this.temperaturaAtualC) * dtS) / capacidade;
+    }
+    if (Math.abs(this.definicao.obterEsforcoSolicitadoN()) > this.resistenciaTracaoEfetivaN) this.rompido = true;
   }
 
   /**

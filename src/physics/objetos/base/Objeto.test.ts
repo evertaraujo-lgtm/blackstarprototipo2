@@ -42,4 +42,16 @@ describe('Objeto', () => {
     expect(objeto.getPontosDeContatoLocaisM()).toHaveLength(8);
     expect(objeto.getVerticesColisaoLocais2D()).toHaveLength(4);
   });
+
+  it('acumula calor em graus Celsius e degrada progressivamente acima do limite térmico', () => {
+    const objeto = new Objeto({
+      id: 'objeto-termico', massaBaseKg: 1, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100,
+      resistenciaCalorK: 373.15, limiteTermicoC: 100, temperaturaInicialC: 20, capacidadeTermicaJPorC: 100,
+      taxaDanoTermicoPorSegundo: 0.1,
+    });
+    objeto.aplicarEnergiaTermicaPeloCore(10_000, 1);
+    expect(objeto.temperaturaC).toBeCloseTo(120, 10);
+    expect(objeto.integridadeEstrutural).toBeLessThan(1);
+    expect(objeto.integridadeEstrutural).toBeGreaterThan(0);
+  });
 });

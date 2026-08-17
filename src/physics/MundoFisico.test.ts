@@ -61,6 +61,18 @@ describe('MundoFisico', () => {
     expect(objeto.getEstadoFisico().velocidadeMps.y).toBeCloseTo(0, 10);
   });
 
+  it('transfere calor convectivo de um jato térmico para objeto no seu cone', () => {
+    class FonteTermica extends Objeto {
+      public override obterJatoTermico() { return { potenciaW: 10_000, alcanceM: 10, aberturaRad: Math.PI / 6, direcaoM: new Vetor3(1, 0, 0) }; }
+    }
+    const mundo = new MundoFisico(1, { densidadeAtmosfericaKgM3: 0, temperaturaAmbienteC: 20 });
+    const fonte = new FonteTermica({ id: 'fonte-termica', massaBaseKg: 1, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 1_000, resistenciaCalorK: 1_000, estadoInicial: { posicaoM: Vetor3.zero } });
+    const alvo = new Objeto({ id: 'alvo-termico', massaBaseKg: 1, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 1_000, resistenciaCalorK: 1_000, capacidadeTermicaJPorC: 100, estadoInicial: { posicaoM: new Vetor3(5, 0, 0) } });
+    mundo.registrarObjeto(fonte); mundo.registrarObjeto(alvo);
+    mundo.avancar(1);
+    expect(alvo.temperaturaC).toBeGreaterThan(20);
+  });
+
   it('gera rotação quando uma força é aplicada fora do centro de massa', () => {
     const mundo = new MundoFisico(1);
     const objeto = criarObjeto();

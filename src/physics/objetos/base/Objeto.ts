@@ -20,6 +20,13 @@ export interface DefinicaoObjeto {
   /** Coeficiente de atrito contra outros objetos apoiados (0 a 1). */
   readonly coeficienteAtritoEntreObjetos?: number;
   readonly resistenciaCalorK: number;
+  /** Limite térmico informado ao operador em graus Celsius. */
+  readonly limiteTermicoC?: number;
+  readonly temperaturaInicialC?: number;
+  readonly capacidadeTermicaJPorC?: number;
+  readonly areaTermicaM2?: number;
+  readonly coeficienteConveccaoWPorM2C?: number;
+  readonly taxaDanoTermicoPorSegundo?: number;
   readonly areaFrontalM2?: number;
   readonly coeficienteArrasto?: number;
   readonly estadoInicial?: Partial<EstadoFisico>;
@@ -36,6 +43,13 @@ export interface CondicoesAtmosfericas {
   readonly velocidadeArMps: Vetor3;
 }
 
+export interface JatoTermico {
+  readonly potenciaW: number;
+  readonly alcanceM: number;
+  readonly aberturaRad: number;
+  readonly direcaoM: Vetor3;
+}
+
 /**
  * Entidade física base. Somente o MundoFisico deve alterar seu estado
  * cinemático por meio de atualizarEstadoPeloCore.
@@ -46,6 +60,7 @@ export class Objeto {
   private horasVidaUtilConsumidas = 0;
   private estado: EstadoFisico;
   private paraquedasAcoplado?: Paraquedas;
+  private temperaturaAtualC: number;
 
   public constructor(private readonly definicao: DefinicaoObjeto) {
     if (!definicao.id) throw new Error('Objeto precisa de identidade.');
@@ -81,6 +96,7 @@ export class Objeto {
       orientacaoRad: definicao.estadoInicial?.orientacaoRad ?? Vetor3.zero,
       velocidadeAngularRadps: definicao.estadoInicial?.velocidadeAngularRadps ?? Vetor3.zero,
     };
+    this.temperaturaAtualC = definicao.temperaturaInicialC ?? 20;
   }
 
   public get id(): string { return this.definicao.id; }
@@ -92,6 +108,11 @@ export class Objeto {
   public get coeficienteAtrito(): number { return this.definicao.coeficienteAtrito ?? 0.65; }
   public get coeficienteAtritoEntreObjetos(): number { return this.definicao.coeficienteAtritoEntreObjetos ?? 0; }
   public get resistenciaCalorK(): number { return this.definicao.resistenciaCalorK; }
+  public get temperaturaC(): number { return this.temperaturaAtualC; }
+  public get limiteTermicoC(): number { return this.definicao.limiteTermicoC ?? this.definicao.resistenciaCalorK - 273.15; }
+  public get capacidadeTermicaJPorC(): number { return this.definicao.capacidadeTermicaJPorC ?? this.massaKg * 500; }
+  public get areaTermicaM2(): number { return this.definicao.areaTermicaM2 ?? Math.max(0.1, this.dimensoesM.x * this.dimensoesM.y); }
+  public get coeficienteConveccaoWPorM2C(): number { return this.definicao.coeficienteConveccaoWPorM2C ?? 10; }
   public get areaFrontalM2(): number { return this.definicao.areaFrontalM2 ?? 0; }
   public get coeficienteArrasto(): number { return this.definicao.coeficienteArrasto ?? 1; }
   public get paraquedasEstaAberto(): boolean { return this.paraquedasAcoplado?.estaAberto ?? false; }
@@ -110,6 +131,8 @@ export class Objeto {
   public obterForcasOperacionais(): readonly ForcaFisicaSolicitada[] {
     return [];
   }
+  public obterPotenciaTermicaGeradaW(): number { return 0; }
+  public obterJatoTermico(): JatoTermico | undefined { return undefined; }
 
   /** Preparação determinística de recursos antes da integração do passo. */
   public prepararPassoOperacional(_dtS: number): void {}
@@ -201,6 +224,16 @@ export class Objeto {
     if (energiaJ <= this.resistenciaColisaoJ) return;
     const danoRelativo = (energiaJ - this.resistenciaColisaoJ) / this.resistenciaColisaoJ;
     this.integridade = Math.max(0, this.integridade - danoRelativo);
+  }
+
+  /** API do core térmico: energia positiva aquece, negativa resfria. */
+  public aplicarEnergiaTermicaPeloCore(energiaJ: number, dtS: number): void {
+    if (!Number.isFinite(energiaJ) || !Number.isFinite(dtS) || dtS <= 0) throw new Error('Atualização térmica inválida.');
+    this.temperaturaAtualC += energiaJ / this.capacidadeTermicaJPorC;
+    if (this.temperaturaAtualC <= this.limiteTermicoC) return;
+    const excessoC = this.temperaturaAtualC - this.limiteTermicoC;
+    const taxa = this.definicao.taxaDanoTermicoPorSegundo ?? 0.02;
+    this.integridade = Math.max(0, this.integridade - taxa * (excessoC / 100) * dtS);
   }
 
   /** API reservada ao MundoFisico; não deve ser chamada por controladores ou UI. */

@@ -106,6 +106,7 @@ export interface ConfiguracaoMundoFisico {
   /** Densidade constante para o modelo atmosférico atualmente implementado. */
   readonly densidadeAtmosfericaKgM3?: number;
   readonly velocidadeArMps?: Vetor3;
+  readonly temperaturaAmbienteC?: number;
 }
 
 /** Núcleo determinístico de integração sem dependência de DOM, relógio ou renderização. */
@@ -121,11 +122,13 @@ export class MundoFisico {
   private tempoMissaoS = 0;
   private readonly densidadeAtmosfericaKgM3: number;
   private readonly velocidadeArMps: Vetor3;
+  private readonly temperaturaAmbienteC: number;
 
   public constructor(private readonly maxDtS = 1 / 60, configuracao: ConfiguracaoMundoFisico = {}) {
     if (!Number.isFinite(maxDtS) || maxDtS <= 0) throw new Error('maxDt deve ser positivo.');
     this.densidadeAtmosfericaKgM3 = configuracao.densidadeAtmosfericaKgM3 ?? MundoFisico.densidadeAtmosferaPadraoKgM3;
     this.velocidadeArMps = configuracao.velocidadeArMps ?? Vetor3.zero;
+    this.temperaturaAmbienteC = configuracao.temperaturaAmbienteC ?? 20;
     if (!Number.isFinite(this.densidadeAtmosfericaKgM3) || this.densidadeAtmosfericaKgM3 < 0) {
       throw new Error('Densidade atmosférica deve ser finita e não negativa.');
     }
@@ -178,7 +181,8 @@ export class MundoFisico {
   private integrarPasso(dtS: number): void {
     this.atualizarApoioDeTracao();
     for (const objeto of this.objetos.values()) objeto.prepararPassoOperacional(dtS);
-    for (const fixador of this.fixadores.values()) fixador.prepararPasso();
+    this.atualizarEstadoTermico(dtS);
+    for (const fixador of this.fixadores.values()) fixador.prepararPasso(dtS);
     for (const objeto of this.objetos.values()) {
       const estado = objeto.getEstadoFisico();
       const forcas = this.forcasPendentes.get(objeto.id) ?? [];
@@ -219,6 +223,32 @@ export class MundoFisico {
     this.sincronizarConjuntosEstruturais(dtS, false);
     this.forcasPendentes.clear();
     this.tempoMissaoS += dtS;
+  }
+
+  /** Geração interna, convecção ambiente e jatos térmicos no mesmo passo determinístico. */
+  private atualizarEstadoTermico(dtS: number): void {
+    const objetos = [...this.objetos.values()];
+    for (const objeto of objetos) {
+      const potenciaGeradaW = objeto.obterPotenciaTermicaGeradaW();
+      if (potenciaGeradaW > 0) objeto.aplicarEnergiaTermicaPeloCore(potenciaGeradaW * dtS, dtS);
+      const potenciaConveccaoW = objeto.coeficienteConveccaoWPorM2C * objeto.areaTermicaM2 * (objeto.temperaturaC - this.temperaturaAmbienteC);
+      if (potenciaConveccaoW !== 0) objeto.aplicarEnergiaTermicaPeloCore(-potenciaConveccaoW * dtS, dtS);
+    }
+    for (const fonte of objetos) {
+      const jato = fonte.obterJatoTermico();
+      if (!jato) continue;
+      const origem = fonte.getEstadoFisico().posicaoM;
+      for (const alvo of objetos) {
+        if (alvo === fonte) continue;
+        const vetor = alvo.getEstadoFisico().posicaoM.subtrair(origem);
+        const distancia = vetor.magnitude;
+        if (distancia === 0 || distancia > jato.alcanceM) continue;
+        const alinhamento = vetor.produtoEscalar(jato.direcaoM) / distancia;
+        if (alinhamento < Math.cos(jato.aberturaRad)) continue;
+        const fracao = alinhamento * (1 - distancia / jato.alcanceM) ** 2;
+        alvo.aplicarEnergiaTermicaPeloCore(jato.potenciaW * fracao * dtS, dtS);
+      }
+    }
   }
 
   /** Agrupa todos os corpos alcançáveis por fixadores íntegros em uma ilha rígida. */

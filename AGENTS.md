@@ -249,6 +249,21 @@ explicitamente no cenário.
 
 O core utiliza essa propriedade ao calcular aquecimento ambiental, aerodinâmico, reentrada e dano térmico.
 
+Ao modelar um novo objeto físico — ou ao configurar o uso de um objeto já
+existente em um novo cenário — deve-se solicitar explicitamente ao operador a
+resistência térmica aplicável quando ela não tiver sido fornecida. Esse valor
+não deve ser inventado silenciosamente pela interface, pelo cenário ou por uma
+classe consumidora. A unidade, o significado físico e as condições de
+referência devem ser declarados na fronteira de configuração.
+
+O estado térmico evoluirá no `MundoFisico` de forma determinística. Cada fonte
+de calor deve fornecer energia ou potência em unidade SI, e cada objeto deverá
+receber, acumular, dissipar ou transferir calor conforme suas propriedades. Ao
+ultrapassar seu limite térmico, o objeto deve perder progressivamente a
+integridade e a eficiência das capacidades que fornece até o colapso total; não
+deve existir uma transição artificial de "frio" para "destruído" sem a etapa de
+degradação observável.
+
 ---
 
 ## 8. Massa e composição física
@@ -1546,6 +1561,23 @@ O arrasto deve afetar:
 - forças resultantes;
 - torques;
 - aquecimento.
+
+Em reentrada, o aquecimento aerodinâmico deve resultar das condições locais do
+ar e da velocidade relativa, acumulando energia térmica no objeto e aplicando
+dano progressivo quando seus limites forem excedidos. Escudos térmicos podem
+absorver ou distribuir essa exposição enquanto mantiverem integridade; após sua
+capacidade ser excedida, o objeto protegido volta a receber o fluxo térmico.
+
+Propulsores também são fontes térmicas. Ao operar, devem gerar calor compatível
+com seu regime e eficiência e transferi-lo ao ambiente e aos objetos expostos
+por um modelo explícito de convecção. O modelo inicial pode ser concentrado e
+paramétrico — sem exigir fluidodinâmica computacional — mas deve conservar
+energia, respeitar distância, fluxo de ar, área e propriedades térmicas. A
+temperatura não pode ser apenas uma animação visual da chama.
+
+Os testes térmicos devem incluir, no mínimo: aquecimento de propulsor e
+convecção, resfriamento quando as condições permitirem, reentrada com aumento
+progressivo de dano e colapso térmico ao exceder os limites estruturais.
 
 A sustentação deve ser calculada quando as propriedades do objeto permitirem.
 
