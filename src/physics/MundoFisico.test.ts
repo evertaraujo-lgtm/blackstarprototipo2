@@ -3,6 +3,7 @@ import { MundoFisico } from './MundoFisico';
 import { Objeto } from './objetos/base/Objeto';
 import { SuperficiePlano } from './SuperficiePlano';
 import { Vetor3 } from './Vetor3';
+import { FixadorEstrutural } from './conexoes/FixadorEstrutural';
 
 const criarObjeto = (id = 'objeto') => new Objeto({
   id,
@@ -71,6 +72,41 @@ describe('MundoFisico', () => {
     mundo.registrarObjeto(fonte); mundo.registrarObjeto(alvo);
     mundo.avancar(1);
     expect(alvo.temperaturaC).toBeGreaterThan(20);
+  });
+
+  it('não inverte o deslocamento de uma bancada rígida quando uma força horizontal baixa é aplicada', () => {
+    const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 0 });
+    const solo = new SuperficiePlano('solo-bancada-direcao', 'concreto', 0, 1_000_000);
+    const fundacao = new Objeto({ id: 'fundacao-direcao', massaBaseKg: 500_000, dimensoesM: new Vetor3(12, 4, 2), resistenciaColisaoJ: 10_000_000, resistenciaCalorK: 1_000, estadoInicial: { posicaoM: new Vetor3(0, 2, 0) } });
+    const bancada = new Objeto({ id: 'bancada-direcao', massaBaseKg: 2_000, dimensoesM: new Vetor3(6, 4, 1), resistenciaColisaoJ: 1_000_000, resistenciaCalorK: 1_000, estadoInicial: { posicaoM: new Vetor3(0, 2, 0) } });
+    const motor = new Objeto({ id: 'motor-direcao', massaBaseKg: 150, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 1_000_000, resistenciaCalorK: 1_000, estadoInicial: { posicaoM: new Vetor3(0, 2, 0) } });
+    const tanque = new Objeto({ id: 'tanque-direcao', massaBaseKg: 400, dimensoesM: new Vetor3(1, 2, 1), resistenciaColisaoJ: 1_000_000, resistenciaCalorK: 1_000, estadoInicial: { posicaoM: new Vetor3(2, 2, 0) } });
+    const fixadores = [
+      new FixadorEstrutural({ id: 'fixador-direcao-fundacao', objetoA: fundacao, objetoB: bancada, resistenciaTracaoN: 1_000_000, obterEsforcoSolicitadoN: () => 5_000 }),
+      new FixadorEstrutural({ id: 'fixador-direcao-motor', objetoA: bancada, objetoB: motor, resistenciaTracaoN: 100_000, obterEsforcoSolicitadoN: () => 5_000 }),
+      new FixadorEstrutural({ id: 'fixador-direcao-tanque', objetoA: bancada, objetoB: tanque, resistenciaTracaoN: 100_000, obterEsforcoSolicitadoN: () => 0 }),
+    ];
+    mundo.registrarSuperficie(solo); for (const objeto of [fundacao, bancada, motor, tanque]) mundo.registrarObjeto(objeto); for (const fixador of fixadores) mundo.registrarFixador(fixador);
+    const massaTotal = fundacao.massaKg + bancada.massaKg + motor.massaKg + tanque.massaKg;
+    const centroDeMassaInicialX = (tanque.massaKg * tanque.getEstadoFisico().posicaoM.x) / massaTotal;
+    let menorXDaBancadaM = 0;
+    for (let passo = 0; passo < 480; passo += 1) {
+      mundo.aplicarForca(motor, new Vetor3(5_000, 0, 0));
+      mundo.avancar(1 / 240);
+      menorXDaBancadaM = Math.min(menorXDaBancadaM, bancada.getEstadoFisico().posicaoM.x);
+    }
+    const xAntesDeDesligarM = bancada.getEstadoFisico().posicaoM.x;
+    for (let passo = 0; passo < 480; passo += 1) {
+      mundo.avancar(1 / 240);
+      menorXDaBancadaM = Math.min(menorXDaBancadaM, bancada.getEstadoFisico().posicaoM.x);
+    }
+    const centroDeMassaX = (fundacao.getEstadoFisico().posicaoM.x * fundacao.massaKg + bancada.getEstadoFisico().posicaoM.x * bancada.massaKg + motor.getEstadoFisico().posicaoM.x * motor.massaKg + tanque.getEstadoFisico().posicaoM.x * tanque.massaKg) / massaTotal;
+    expect(centroDeMassaX).toBeGreaterThan(centroDeMassaInicialX);
+    expect(bancada.getEstadoFisico().posicaoM.x).toBeGreaterThanOrEqual(0);
+    // A fundação permanece praticamente estacionária; tolerância submilimétrica
+    // cobre a correção numérica de contatos sem mascarar recuo observável.
+    expect(menorXDaBancadaM).toBeGreaterThanOrEqual(-1e-3);
+    expect(bancada.getEstadoFisico().posicaoM.x).toBeGreaterThanOrEqual(xAntesDeDesligarM - 1e-3);
   });
 
   it('gera rotação quando uma força é aplicada fora do centro de massa', () => {

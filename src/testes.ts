@@ -701,20 +701,22 @@ const criarTestePropulsorContraParede = (throttle: number): CenárioVisual => {
 const criarTesteTermicoDoPropulsor = (): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240, { temperaturaAmbienteC: 20 });
   const solo = new SuperficiePlano('solo-termico', 'concreto', 0, 1_000_000);
-  const bancada = new Objeto({ id: 'bancada-termica-2000kg', massaBaseKg: 2_000, dimensoesM: new Vetor3(6, 1, 1), resistenciaColisaoJ: 1_000_000, resistenciaCalorK: 873.15, limiteTermicoC: 600, capacidadeTermicaJPorC: 1_000_000, areaTermicaM2: 12, estadoInicial: { posicaoM: new Vetor3(0, 0.5, 0) } });
+  const fundacao = new Objeto({ id: 'fundacao-termica', massaBaseKg: 500_000, dimensoesM: new Vetor3(12, 4, 2), resistenciaColisaoJ: 10_000_000, resistenciaCalorK: 873.15, limiteTermicoC: 600, capacidadeTermicaJPorC: 10_000_000, estadoInicial: { posicaoM: new Vetor3(0, 2, 0) } });
+  const bancada = new Objeto({ id: 'bancada-termica-2000kg', massaBaseKg: 2_000, dimensoesM: new Vetor3(6, 4, 1), resistenciaColisaoJ: 1_000_000, resistenciaCalorK: 873.15, limiteTermicoC: 600, capacidadeTermicaJPorC: 1_000_000, areaTermicaM2: 12, estadoInicial: { posicaoM: new Vetor3(0, 2, 0) } });
   const propulsor = new Propulsor({ id: 'propulsor-termico', massaBaseKg: 150, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 500_000, resistenciaCalorK: 1_073.15, limiteTermicoC: 800, capacidadeTermicaJPorC: 500_000, areaTermicaM2: 2, coeficienteConveccaoWPorM2C: 30, empuxoMaximoN: 20_000, vazaoMaximaKgS: 2, potenciaTermicaMaximaW: 3_000_000, propelenteCompativel: 'metano', estadoInicial: { posicaoM: new Vetor3(0, 2, 0) } });
   const tanque = new TanquePropelente({ id: 'tanque-termico', massaBaseKg: 300, capacidadePropelenteKg: 100, massaPropelenteInicialKg: 100, tipoPropelente: 'metano', dimensoesM: new Vetor3(1, 2, 1), resistenciaColisaoJ: 500_000, resistenciaCalorK: 473.15, limiteTermicoC: 200, capacidadeTermicaJPorC: 400_000, areaTermicaM2: 4, estadoInicial: { posicaoM: new Vetor3(2, 2, 0) } });
   const parede = new Objeto({ id: 'parede-termica', massaBaseKg: 5_000, dimensoesM: new Vetor3(1, 4, 1), resistenciaColisaoJ: 1_000_000, resistenciaCalorK: 573.15, limiteTermicoC: 300, capacidadeTermicaJPorC: 15_000, areaTermicaM2: 4, coeficienteConveccaoWPorM2C: 20, taxaDanoTermicoPorSegundo: 0.08, estadoInicial: { posicaoM: new Vetor3(-6, 2, 0) } });
   propulsor.conectarTanque(tanque, 8); propulsor.definirThrottle(0.5);
   const fixadorMotor = new FixadorEstrutural({ id: 'fixador-termico-motor', objetoA: bancada, objetoB: propulsor, resistenciaTracaoN: 50_000, limiteTermicoC: 350, capacidadeTermicaJPorC: 10_000, condutanciaTermicaWPorC: 500, obterEsforcoSolicitadoN: () => propulsor.empuxoAtualN });
   const fixadorTanque = new FixadorEstrutural({ id: 'fixador-termico-tanque', objetoA: bancada, objetoB: tanque, resistenciaTracaoN: 50_000, limiteTermicoC: 250, capacidadeTermicaJPorC: 10_000, condutanciaTermicaWPorC: 200, obterEsforcoSolicitadoN: () => 0 });
-  mundo.registrarSuperficie(solo); for (const objeto of [bancada, propulsor, tanque, parede]) mundo.registrarObjeto(objeto); mundo.registrarFixador(fixadorMotor); mundo.registrarFixador(fixadorTanque);
+  const fixadorFundacao = new FixadorEstrutural({ id: 'fixador-termico-fundacao', objetoA: fundacao, objetoB: bancada, resistenciaTracaoN: 1_000_000, limiteTermicoC: 500, capacidadeTermicaJPorC: 100_000, condutanciaTermicaWPorC: 300, obterEsforcoSolicitadoN: () => propulsor.empuxoAtualN });
+  mundo.registrarSuperficie(solo); for (const objeto of [fundacao, bancada, propulsor, tanque, parede]) mundo.registrarObjeto(objeto); for (const fixador of [fixadorFundacao, fixadorMotor, fixadorTanque]) mundo.registrarFixador(fixador);
   const partida = criarPartidaAutomaticaBasica(mundo, propulsor);
   return {
     nome: 'Propulsor térmico — chama contra parede',
-    descricao: 'Propulsor fixado a uma bancada de 2.000 kg aponta a exaustão para uma parede térmica. O throttle controla simultaneamente empuxo, consumo e potência térmica. A chama transfere calor por convecção modelada no cone de exaustão; a parede perde integridade progressivamente ao exceder 300 °C.',
-    mundo, objetos: [bancada, propulsor, tanque, parede], superficies: [solo], velocidadeTempo: 5, limiteVerticalM: 8, limiteHorizontalM: 10, modalidade: 'térmica',
-    propulsorControlavel: propulsor, permiteAjustarThrottle: true, atualizarControle: partida, fixadores: [fixadorMotor, fixadorTanque],
+    descricao: 'Propulsor fixado a uma bancada de 2.000 kg, chumbada por fixador a uma fundação física de 500.000 kg, aponta a exaustão para uma parede térmica. O throttle controla simultaneamente empuxo, consumo e potência térmica. A chama transfere calor por convecção modelada no cone de exaustão; a parede perde integridade progressivamente ao exceder 300 °C.',
+    mundo, objetos: [fundacao, bancada, propulsor, tanque, parede], superficies: [solo], velocidadeTempo: 5, limiteVerticalM: 8, limiteHorizontalM: 10, cameraX: () => -2, modalidade: 'térmica',
+    propulsorControlavel: propulsor, permiteAjustarThrottle: true, atualizarControle: partida, fixadores: [fixadorFundacao, fixadorMotor, fixadorTanque],
     telemetria: () => `parede ${parede.temperaturaC.toFixed(1)} °C · integridade ${(parede.integridadeEstrutural * 100).toFixed(0)}%`,
     dados: () => `MODALIDADE: TÉRMICA\nAmbiente: 20 °C\nPotência térmica: ${(propulsor.potenciaTermicaAtualW / 1_000_000).toFixed(2)} MW\nTemperatura motor / bancada / tanque / parede: ${propulsor.temperaturaC.toFixed(1)} / ${bancada.temperaturaC.toFixed(1)} / ${tanque.temperaturaC.toFixed(1)} / ${parede.temperaturaC.toFixed(1)} °C\nLimites térmicos: ${propulsor.limiteTermicoC} / ${bancada.limiteTermicoC} / ${tanque.limiteTermicoC} / ${parede.limiteTermicoC} °C\nIntegridade da parede: ${(parede.integridadeEstrutural * 100).toFixed(1)}%\nFixador motor: ${fixadorMotor.temperaturaC.toFixed(1)} / ${fixadorMotor.limiteTermicoC} °C; ${fixadorMotor.resistenciaTracaoEfetivaN.toFixed(0)} N\nFixador tanque: ${fixadorTanque.temperaturaC.toFixed(1)} / ${fixadorTanque.limiteTermicoC} °C; ${fixadorTanque.resistenciaTracaoEfetivaN.toFixed(0)} N\nResistência mecânica parede: ${parede.resistenciaColisaoJ.toFixed(0)} J`,
     deveEncerrar: () => parede.integridadeEstrutural === 0,
@@ -1323,6 +1325,12 @@ const desenhar = (): void => {
       ? '#ef4444'
       : objeto.integridadeEstrutural < 1
         ? '#f59e0b'
+        : objeto.id.startsWith('fundacao-')
+          ? '#475569'
+          : objeto.id.startsWith('bancada-termica')
+            ? '#64748b'
+            : objeto.id.startsWith('parede-termica')
+              ? '#f97316'
         : objeto instanceof Propulsor
           ? '#94a3b8'
           : objeto instanceof TanquePropelente
@@ -1406,6 +1414,20 @@ const desenhar = (): void => {
       const alturaCorpo = objeto instanceof VeiculoTerrestre ? objeto.alturaChassiM * escala : alturaObjeto;
       contexto.fillRect(-larguraObjeto / 2, centroCorpoY - alturaCorpo / 2, larguraObjeto, alturaCorpo);
       contexto.strokeRect(-larguraObjeto / 2, centroCorpoY - alturaCorpo / 2, larguraObjeto, alturaCorpo);
+    }
+    if (objeto.id.startsWith('fundacao-')) {
+      contexto.fillStyle = '#cbd5e1';
+      contexto.font = '10px ui-monospace, monospace';
+      contexto.textAlign = 'center';
+      contexto.fillText('FUNDAÇÃO · 500 t', 0, 4);
+      contexto.textAlign = 'start';
+    }
+    if (objeto.id.startsWith('parede-termica')) {
+      contexto.fillStyle = '#fff7ed';
+      contexto.font = '10px ui-monospace, monospace';
+      contexto.textAlign = 'center';
+      contexto.fillText('PAREDE', 0, 4);
+      contexto.textAlign = 'start';
     }
     if (objeto instanceof VeiculoAlado) {
       contexto.strokeStyle = '#fbbf24';

@@ -80,7 +80,7 @@ class ConjuntoEstruturalRigido {
     return 1 / ((1 / massaTotalKg) + (torqueUnitarioZ ** 2 / this.obterInerciaCompostaZ()));
   }
 
-  private obterCentroDeMassaAtual(): Vetor3 {
+  public obterCentroDeMassaAtual(): Vetor3 {
     const massaTotalKg = this.objetos.reduce((soma, objeto) => soma + objeto.massaKg, 0);
     return this.objetos.reduce(
       (soma, objeto) => soma.adicionar(objeto.getEstadoFisico().posicaoM.multiplicar(objeto.massaKg / massaTotalKg)),
@@ -324,10 +324,22 @@ export class MundoFisico {
       for (let indiceB = indiceA + 1; indiceB < objetos.length; indiceB += 1) {
         const objetoA = objetos[indiceA];
         const objetoB = objetos[indiceB];
+        // Módulos de uma mesma ilha já pertencem ao mesmo corpo rígido. Suas
+        // geometrias podem se sobrepor como partes internas da estrutura e
+        // não devem gerar colisão contra si próprias.
+        if (this.estaoNaMesmaIlhaEstrutural(objetoA, objetoB)) continue;
         const contato = this.obterContatoCaixasOrientadas(objetoA, objetoB);
         if (contato) this.resolverContato(objetoA, objetoB, contato.normal, contato.penetracaoM, contato.pontoM);
       }
     }
+  }
+
+  private estaoNaMesmaIlhaEstrutural(objetoA: Objeto, objetoB: Objeto): boolean {
+    return [...this.conjuntosEstruturais.values()].some((conjunto) => conjunto.contem(objetoA) && conjunto.contem(objetoB));
+  }
+
+  private obterCentroDeMassaDaIlha(objeto: Objeto): Vetor3 | undefined {
+    return [...this.conjuntosEstruturais.values()].find((conjunto) => conjunto.contem(objeto))?.obterCentroDeMassaAtual();
   }
 
   private resolverContatosComSuperficies(dtS: number): void {
@@ -339,10 +351,18 @@ export class MundoFisico {
         if (penetracaoM > 0) {
           const toleranciaM = 1e-9;
           const cantosDeContato = cantos.filter((canto) => Math.abs(canto.y - menorAlturaM) <= toleranciaM);
-          const pontoContatoM = cantosDeContato.reduce(
+          const mediaDosContatos = cantosDeContato.reduce(
             (soma, canto) => soma.adicionar(canto),
             Vetor3.zero,
           ).multiplicar(1 / cantosDeContato.length);
+          const centroMassa = this.obterCentroDeMassaDaIlha(objeto) ?? objeto.getEstadoFisico().posicaoM;
+          const menorX = Math.min(...cantosDeContato.map((canto) => canto.x));
+          const maiorX = Math.max(...cantosDeContato.map((canto) => canto.x));
+          const pontoContatoM = new Vetor3(
+            Math.max(menorX, Math.min(maiorX, centroMassa.x)),
+            mediaDosContatos.y,
+            mediaDosContatos.z,
+          );
           this.resolverContatoComSuperficie(objeto, superficie, penetracaoM, pontoContatoM, dtS);
         }
       }
