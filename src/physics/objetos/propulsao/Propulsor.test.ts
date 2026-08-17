@@ -8,8 +8,8 @@ import { TanquePropelente } from './TanquePropelente';
 import { Vetor3 } from '../../Vetor3';
 import { VeiculoTerrestre } from '../veiculos/VeiculoTerrestre';
 
-const criarPropulsor = () => new Propulsor({ id: 'propulsor', massaBaseKg: 1_000, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, resistenciaCalorK: 1_000, coeficienteAtritoEntreObjetos: 0.65, empuxoMaximoN: 20_000, vazaoMaximaKgS: 2, propelenteCompativel: 'metano' });
-const criarTanque = (massa = 20) => new TanquePropelente({ id: `tanque-${massa}`, massaBaseKg: 200, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, resistenciaCalorK: 1_000, tipoPropelente: 'metano', capacidadePropelenteKg: 20, massaPropelenteInicialKg: massa });
+const criarPropulsor = () => new Propulsor({ id: 'propulsor', massaBaseKg: 1_000, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, coeficienteAtritoEntreObjetos: 0.65, empuxoMaximoN: 20_000, vazaoMaximaKgS: 2, propelenteCompativel: 'metano' });
+const criarTanque = (massa = 20) => new TanquePropelente({ id: `tanque-${massa}`, massaBaseKg: 200, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, tipoPropelente: 'metano', capacidadePropelenteKg: 20, massaPropelenteInicialKg: massa });
 const prepararParaIgnicao = (propulsor: Propulsor, tanque = criarTanque()) => {
   propulsor.conectarTanque(tanque);
   expect(propulsor.ligarSistema('elétrico')).toBe(true);
@@ -94,7 +94,7 @@ describe('Propulsor', () => {
     const propulsor = criarPropulsor();
     propulsor.atualizarEstadoPeloCore({ ...propulsor.getEstadoFisico(), posicaoM: new Vetor3(0, 0.5, 0) });
     const tanque = prepararParaIgnicao(propulsor); propulsor.definirThrottle(1); propulsor.solicitarIgnicao();
-    const parede = new Objeto({ id: 'parede-10000kg', massaBaseKg: 10_000, dimensoesM: new Vetor3(1, 3, 3), resistenciaColisaoJ: 500_000, resistenciaCalorK: 1_000, estadoInicial: { posicaoM: new Vetor3(3, 1.5, 0) } });
+    const parede = new Objeto({ id: 'parede-10000kg', massaBaseKg: 10_000, dimensoesM: new Vetor3(1, 3, 3), resistenciaColisaoJ: 500_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM: new Vetor3(3, 1.5, 0) } });
     mundo.registrarSuperficie(solo); mundo.registrarObjeto(propulsor); mundo.registrarObjeto(parede);
     let maiorVelocidadePositivaMps = 0;
     for (let passo = 0; passo < 240; passo += 1) {
@@ -114,7 +114,7 @@ describe('Propulsor', () => {
     propulsor.definirThrottle(1);
     expect(propulsor.solicitarIgnicao()).toBe(true);
     const barreira = new Objeto({
-      id: 'barreira-destrutiva', massaBaseKg: 100_000_000, dimensoesM: new Vetor3(1, 10, 1), resistenciaColisaoJ: 10_000_000, resistenciaCalorK: 1_000,
+      id: 'barreira-destrutiva', massaBaseKg: 100_000_000, dimensoesM: new Vetor3(1, 10, 1), resistenciaColisaoJ: 10_000_000, limiteTermicoC: 1_000,
       estadoInicial: { posicaoM: new Vetor3(0, 10, 0) },
     });
     mundo.registrarObjeto(propulsor);
@@ -152,7 +152,7 @@ describe('Propulsor', () => {
     const mundo = new MundoFisico(1 / 240);
     const solo = new SuperficiePlano('solo-veiculo-propulsor', 'concreto', 0, 1_000_000, 0.02, 0.9);
     const veiculo = new VeiculoTerrestre({
-      id: 'veiculo-passivo', massaBaseKg: 1_500, dimensoesM: new Vetor3(4, 1.5, 1.8), resistenciaColisaoJ: 50_000, resistenciaCalorK: 1_000,
+      id: 'veiculo-passivo', massaBaseKg: 1_500, dimensoesM: new Vetor3(4, 1.5, 1.8), resistenciaColisaoJ: 50_000, limiteTermicoC: 1_000,
       quantidadeRodas: 4, forcaTracaoMaximaN: 4_500, forcaFrenagemMaximaN: 9_000, coeficienteAderenciaPneus: 0.9, coeficienteResistenciaRolamento: 0.01, coeficienteAtritoEntreObjetos: 0.65,
       estadoInicial: { posicaoM: new Vetor3(0, 0.75, 0) },
     });

@@ -245,7 +245,7 @@ explicitamente no cenário.
 
 ### 7.3 Resistência ao calor
 
-`resistenciaCalor` deve existir em todo `Objeto`, igualmente encapsulada e validada.
+`limiteTermicoC` deve existir em todo `Objeto`, igualmente encapsulado e validado. O valor é configurado e exposto em graus Celsius; o domínio não deve aceitar nem converter limites térmicos em Kelvin.
 
 O core utiliza essa propriedade ao calcular aquecimento ambiental, aerodinâmico, reentrada e dano térmico.
 
@@ -434,9 +434,11 @@ Veículos terrestres podem transportar ou rebocar naves por conexões físicas. 
 
 ### 11.1 Veículo composto
 
-Um veículo pode possuir um corpo físico central e módulos físicos por
-composição, como tanques, propulsores, cargas, paraquedas e atuadores. Esses
-módulos continuam sendo `Objeto`s independentes no `MundoFisico`; o veículo
+Um `VeiculoComposto` só pode existir quando representar um corpo estrutural
+físico central real, com `massaBaseKg` positiva, dimensões e propriedades de
+colisão próprias. Ele não pode ser empregado como fachada organizacional ou
+contêiner abstrato sem massa. Tanques, propulsores, cargas, paraquedas e
+atuadores continuam sendo `Objeto`s independentes no `MundoFisico`; o veículo
 composto não deve criar uma cópia concorrente de suas posições, velocidades ou
 massas.
 

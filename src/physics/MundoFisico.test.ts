@@ -10,7 +10,7 @@ const criarObjeto = (id = 'objeto') => new Objeto({
   massaBaseKg: 2,
   dimensoesM: new Vetor3(2, 2, 2),
   resistenciaColisaoJ: 100,
-  resistenciaCalorK: 1_000,
+  limiteTermicoC: 1_000,
 });
 
 const criarCuboDensoEmQueda = (alturaM: number) => new Objeto({
@@ -18,7 +18,7 @@ const criarCuboDensoEmQueda = (alturaM: number) => new Objeto({
   massaBaseKg: 10,
   dimensoesM: new Vetor3(1, 1, 1),
   resistenciaColisaoJ: 10_000,
-  resistenciaCalorK: 1_000,
+  limiteTermicoC: 1_000,
   estadoInicial: { posicaoM: new Vetor3(0, alturaM, 0) },
 });
 
@@ -67,8 +67,8 @@ describe('MundoFisico', () => {
       public override obterJatoTermico() { return { potenciaW: 10_000, alcanceM: 10, aberturaRad: Math.PI / 6, direcaoM: new Vetor3(1, 0, 0) }; }
     }
     const mundo = new MundoFisico(1, { densidadeAtmosfericaKgM3: 0, temperaturaAmbienteC: 20 });
-    const fonte = new FonteTermica({ id: 'fonte-termica', massaBaseKg: 1, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 1_000, resistenciaCalorK: 1_000, estadoInicial: { posicaoM: Vetor3.zero } });
-    const alvo = new Objeto({ id: 'alvo-termico', massaBaseKg: 1, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 1_000, resistenciaCalorK: 1_000, capacidadeTermicaJPorC: 100, estadoInicial: { posicaoM: new Vetor3(5, 0, 0) } });
+    const fonte = new FonteTermica({ id: 'fonte-termica', massaBaseKg: 1, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 1_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM: Vetor3.zero } });
+    const alvo = new Objeto({ id: 'alvo-termico', massaBaseKg: 1, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 1_000, limiteTermicoC: 1_000, capacidadeTermicaJPorC: 100, estadoInicial: { posicaoM: new Vetor3(5, 0, 0) } });
     mundo.registrarObjeto(fonte); mundo.registrarObjeto(alvo);
     mundo.avancar(1);
     expect(alvo.temperaturaC).toBeGreaterThan(20);
@@ -77,10 +77,10 @@ describe('MundoFisico', () => {
   it('não inverte o deslocamento de uma bancada rígida quando uma força horizontal baixa é aplicada', () => {
     const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 0 });
     const solo = new SuperficiePlano('solo-bancada-direcao', 'concreto', 0, 1_000_000);
-    const fundacao = new Objeto({ id: 'fundacao-direcao', massaBaseKg: 500_000, dimensoesM: new Vetor3(12, 4, 2), resistenciaColisaoJ: 10_000_000, resistenciaCalorK: 1_000, estadoInicial: { posicaoM: new Vetor3(0, 2, 0) } });
-    const bancada = new Objeto({ id: 'bancada-direcao', massaBaseKg: 2_000, dimensoesM: new Vetor3(6, 4, 1), resistenciaColisaoJ: 1_000_000, resistenciaCalorK: 1_000, estadoInicial: { posicaoM: new Vetor3(0, 2, 0) } });
-    const motor = new Objeto({ id: 'motor-direcao', massaBaseKg: 150, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 1_000_000, resistenciaCalorK: 1_000, estadoInicial: { posicaoM: new Vetor3(0, 2, 0) } });
-    const tanque = new Objeto({ id: 'tanque-direcao', massaBaseKg: 400, dimensoesM: new Vetor3(1, 2, 1), resistenciaColisaoJ: 1_000_000, resistenciaCalorK: 1_000, estadoInicial: { posicaoM: new Vetor3(2, 2, 0) } });
+    const fundacao = new Objeto({ id: 'fundacao-direcao', massaBaseKg: 500_000, dimensoesM: new Vetor3(12, 4, 2), resistenciaColisaoJ: 10_000_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM: new Vetor3(0, 2, 0) } });
+    const bancada = new Objeto({ id: 'bancada-direcao', massaBaseKg: 2_000, dimensoesM: new Vetor3(6, 4, 1), resistenciaColisaoJ: 1_000_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM: new Vetor3(0, 2, 0) } });
+    const motor = new Objeto({ id: 'motor-direcao', massaBaseKg: 150, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 1_000_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM: new Vetor3(0, 2, 0) } });
+    const tanque = new Objeto({ id: 'tanque-direcao', massaBaseKg: 400, dimensoesM: new Vetor3(1, 2, 1), resistenciaColisaoJ: 1_000_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM: new Vetor3(2, 2, 0) } });
     const fixadores = [
       new FixadorEstrutural({ id: 'fixador-direcao-fundacao', objetoA: fundacao, objetoB: bancada, resistenciaTracaoN: 1_000_000, obterEsforcoSolicitadoN: () => 5_000 }),
       new FixadorEstrutural({ id: 'fixador-direcao-motor', objetoA: bancada, objetoB: motor, resistenciaTracaoN: 100_000, obterEsforcoSolicitadoN: () => 5_000 }),
@@ -147,12 +147,12 @@ describe('MundoFisico', () => {
     const mundo = new MundoFisico(1);
     const objetoA = new Objeto({
       id: 'colisor-a', massaBaseKg: 2, dimensoesM: new Vetor3(1, 1, 1),
-      resistenciaColisaoJ: 1_000, resistenciaCalorK: 1_000,
+      resistenciaColisaoJ: 1_000, limiteTermicoC: 1_000,
       estadoInicial: { posicaoM: new Vetor3(-0.2, 0, 0), velocidadeMps: new Vetor3(10, 0, 0) },
     });
     const objetoB = new Objeto({
       id: 'colisor-b', massaBaseKg: 2, dimensoesM: new Vetor3(1, 1, 1),
-      resistenciaColisaoJ: 1_000, resistenciaCalorK: 1_000,
+      resistenciaColisaoJ: 1_000, limiteTermicoC: 1_000,
       estadoInicial: { posicaoM: new Vetor3(0.2, 0, 0), velocidadeMps: new Vetor3(-10, 0, 0) },
     });
     mundo.registrarObjeto(objetoA);
@@ -172,12 +172,12 @@ describe('MundoFisico', () => {
     const mundo = new MundoFisico(1);
     const objetoA = new Objeto({
       id: 'fragil-a', massaBaseKg: 2, dimensoesM: new Vetor3(1, 1, 1),
-      resistenciaColisaoJ: 100, resistenciaCalorK: 1_000,
+      resistenciaColisaoJ: 100, limiteTermicoC: 1_000,
       estadoInicial: { posicaoM: new Vetor3(-0.2, 0, 0), velocidadeMps: new Vetor3(10, 0, 0) },
     });
     const objetoB = new Objeto({
       id: 'fragil-b', massaBaseKg: 2, dimensoesM: new Vetor3(1, 1, 1),
-      resistenciaColisaoJ: 100, resistenciaCalorK: 1_000,
+      resistenciaColisaoJ: 100, limiteTermicoC: 1_000,
       estadoInicial: { posicaoM: new Vetor3(0.2, 0, 0), velocidadeMps: new Vetor3(-10, 0, 0) },
     });
     mundo.registrarObjeto(objetoA);
@@ -199,7 +199,7 @@ describe('MundoFisico', () => {
     const mundo = new MundoFisico(1);
     const criarColisor = (id: string, x: number, velocidadeX: number) => new Objeto({
       id, massaBaseKg: 2, dimensoesM: new Vetor3(1, 1, 1),
-      resistenciaColisaoJ: resistenciaJ, resistenciaCalorK: 1_000,
+      resistenciaColisaoJ: resistenciaJ, limiteTermicoC: 1_000,
       estadoInicial: { posicaoM: new Vetor3(x, 0, 0), velocidadeMps: new Vetor3(10 * velocidadeX, 0, 0) },
     });
     const objetoA = criarColisor(`resistente-a-${resistenciaJ}`, -0.2, 1);
@@ -218,12 +218,12 @@ describe('MundoFisico', () => {
     const mundo = new MundoFisico(1);
     const objetoA = new Objeto({
       id: 'retangulo-a', massaBaseKg: 10, dimensoesM: new Vetor3(3, 1, 1),
-      resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+      resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
       estadoInicial: { posicaoM: new Vetor3(-1.2, 0.05, 0), velocidadeMps: new Vetor3(10, 0, 0) },
     });
     const objetoB = new Objeto({
       id: 'retangulo-b', massaBaseKg: 10, dimensoesM: new Vetor3(3, 1, 1),
-      resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+      resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
       estadoInicial: { posicaoM: new Vetor3(1.2, 0, 0), velocidadeMps: new Vetor3(-10, 0, 0) },
     });
     mundo.registrarObjeto(objetoA);
@@ -242,12 +242,12 @@ describe('MundoFisico', () => {
       const mundo = new MundoFisico(maxDtS);
       const retangulo = new Objeto({
         id: `retangulo-${alturaDoQuadradoM}`, massaBaseKg: 10, dimensoesM: new Vetor3(1, 10, 1),
-        resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+        resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
         estadoInicial: { posicaoM: new Vetor3(0, 5, 0) },
       });
       const quadrado = new Objeto({
         id: `quadrado-${alturaDoQuadradoM}`, massaBaseKg: 1, dimensoesM: new Vetor3(1, 1, 1),
-        resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+        resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
         estadoInicial: { posicaoM: new Vetor3(-0.2, alturaDoQuadradoM, 0), velocidadeMps: new Vetor3(10, 0, 0) },
       });
       mundo.registrarObjeto(retangulo);
@@ -287,7 +287,7 @@ describe('MundoFisico', () => {
     const solo = new SuperficiePlano('solo-cubo-rotacionado', 'concreto', 0, 100_000);
     const cubo = new Objeto({
       id: 'cubo-46-graus', massaBaseKg: 10, dimensoesM: new Vetor3(1, 1, 1),
-      resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+      resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
       estadoInicial: { posicaoM: new Vetor3(0, 10, 0), orientacaoRad: new Vetor3(0, 0, 46 * Math.PI / 180) },
     });
     mundo.registrarSuperficie(solo);
@@ -306,7 +306,7 @@ describe('MundoFisico', () => {
     const velocidadeHorizontalMps = Math.sqrt(2 * Math.abs(MundoFisico.gravidadeTerrestreMps2.y) * (10 - alturaDeContatoM));
     const cubo = new Objeto({
       id: 'cubo-trajetoria-45', massaBaseKg: 10, dimensoesM: new Vetor3(1, 1, 1),
-      resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+      resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
       estadoInicial: { posicaoM: new Vetor3(0, 10, 0), velocidadeMps: new Vetor3(velocidadeHorizontalMps, 0, 0) },
     });
     mundo.registrarObjeto(cubo);
@@ -322,7 +322,7 @@ describe('MundoFisico', () => {
     const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
     const criarObjetoComArea = (id: string, areaFrontalM2: number) => new Objeto({
       id, massaBaseKg: 10, dimensoesM: new Vetor3(1, 1, 1),
-      resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000, areaFrontalM2,
+      resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000, areaFrontalM2,
       estadoInicial: { posicaoM: new Vetor3(0, 100, 0) },
     });
     const areaGrande = criarObjetoComArea('area-100', 100);
@@ -341,7 +341,7 @@ describe('MundoFisico', () => {
     const solo = new SuperficiePlano('solo-terrestre', 'concreto', 0, 100_000);
     const objeto = new Objeto({
       id: 'objeto-em-queda', massaBaseKg: 10, dimensoesM: new Vetor3(1, 1, 1),
-      resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+      resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
       estadoInicial: { posicaoM: new Vetor3(0, 10, 0) },
     });
     mundo.registrarSuperficie(solo);
@@ -361,7 +361,7 @@ describe('MundoFisico', () => {
     const solo = new SuperficiePlano('solo-quina-orientada', 'concreto', 0, 100_000);
     const retangulo = new Objeto({
       id: 'retangulo-inclinado', massaBaseKg: 10, dimensoesM: new Vetor3(1, 10, 1),
-      resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+      resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
       estadoInicial: { posicaoM: new Vetor3(0, 4.5, 0), orientacaoRad: new Vetor3(0, 0, 0.5) },
     });
     mundo.registrarSuperficie(solo);
@@ -381,7 +381,7 @@ describe('MundoFisico', () => {
     const solo = new SuperficiePlano('solo-com-atrito', 'concreto', 0, 100_000, 0.15, 0.65);
     const objeto = new Objeto({
       id: 'objeto-deslizante', massaBaseKg: 1, dimensoesM: new Vetor3(1, 1, 1),
-      resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000, coeficienteAtrito: 0.65,
+      resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000, coeficienteAtrito: 0.65,
       estadoInicial: { posicaoM: new Vetor3(0, 0.5, 0), velocidadeMps: new Vetor3(10, 0, 0) },
     });
     mundo.registrarSuperficie(solo);
@@ -398,7 +398,7 @@ describe('MundoFisico', () => {
     const solo = new SuperficiePlano('solo-concreto-50m', 'concreto', 0, 100_000);
     const objeto = new Objeto({
       id: 'objeto-1kg-50m', massaBaseKg: 1, dimensoesM: new Vetor3(1, 1, 1),
-      resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+      resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
       estadoInicial: { posicaoM: new Vetor3(0, 50, 0) },
     });
     mundo.registrarSuperficie(solo);
@@ -421,7 +421,7 @@ describe('MundoFisico', () => {
     const solo = new SuperficiePlano('solo-dissipacao', 'concreto', 0, 100_000);
     const objeto = new Objeto({
       id: 'objeto-dissipacao', massaBaseKg: 1, dimensoesM: new Vetor3(1, 1, 1),
-      resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+      resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
       estadoInicial: { posicaoM: new Vetor3(0, 50, 0) },
     });
     mundo.registrarSuperficie(solo);
@@ -443,12 +443,12 @@ describe('MundoFisico', () => {
     const solo = new SuperficiePlano('solo-quadrados-empilhados', 'concreto', 0, 100_000);
     const inferior = new Objeto({
       id: 'quadrado-inferior-queda-conjunta', massaBaseKg: 1, dimensoesM: new Vetor3(1, 1, 1),
-      resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+      resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
       estadoInicial: { posicaoM: new Vetor3(0, 10.5, 0) },
     });
     const superior = new Objeto({
       id: 'quadrado-superior-queda-conjunta', massaBaseKg: 1, dimensoesM: new Vetor3(1, 1, 1),
-      resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+      resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
       estadoInicial: { posicaoM: new Vetor3(0, 11.5, 0) },
     });
     mundo.registrarSuperficie(solo);
@@ -476,12 +476,12 @@ describe('MundoFisico', () => {
     const solo = new SuperficiePlano('solo-quadrados-massas-diferentes', 'concreto', 0, 100_000);
     const inferior = new Objeto({
       id: 'quadrado-inferior-1kg', massaBaseKg: 1, dimensoesM: new Vetor3(1, 1, 1),
-      resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+      resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
       estadoInicial: { posicaoM: new Vetor3(0, 10.5, 0) },
     });
     const superior = new Objeto({
       id: 'quadrado-superior-05kg', massaBaseKg: 0.5, dimensoesM: new Vetor3(1, 1, 1),
-      resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+      resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
       estadoInicial: { posicaoM: new Vetor3(0, 11.5, 0) },
     });
     mundo.registrarSuperficie(solo);
@@ -511,12 +511,12 @@ describe('MundoFisico', () => {
     const solo = new SuperficiePlano('solo-quadrado-sobre-quadrado', 'concreto', 0, 100_000);
     const apoiado = new Objeto({
       id: 'quadrado-apoiado', massaBaseKg: 1, dimensoesM: new Vetor3(1, 1, 1),
-      resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+      resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
       estadoInicial: { posicaoM: new Vetor3(0, 0.5, 0) },
     });
     const emQueda = new Objeto({
       id: 'quadrado-queda-sobre-apoiado', massaBaseKg: 1, dimensoesM: new Vetor3(1, 1, 1),
-      resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+      resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
       estadoInicial: { posicaoM: new Vetor3(0, 10.5, 0) },
     });
     mundo.registrarSuperficie(solo);
@@ -544,12 +544,12 @@ describe('MundoFisico', () => {
     const solo = new SuperficiePlano('solo-quadrado-leve-sobre-pesado', 'concreto', 0, 100_000);
     const pesado = new Objeto({
       id: 'quadrado-pesado-apoiado', massaBaseKg: 1, dimensoesM: new Vetor3(1, 1, 1),
-      resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+      resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
       estadoInicial: { posicaoM: new Vetor3(0, 0.5, 0) },
     });
     const leve = new Objeto({
       id: 'quadrado-leve-em-queda', massaBaseKg: 0.5, dimensoesM: new Vetor3(1, 1, 1),
-      resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+      resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
       estadoInicial: { posicaoM: new Vetor3(0, 10.5, 0) },
     });
     mundo.registrarSuperficie(solo);
@@ -580,12 +580,12 @@ describe('MundoFisico', () => {
       const solo = new SuperficiePlano(`solo-transicao-${massaSuperiorKg}`, 'concreto', 0, 100_000);
       const inferior = new Objeto({
         id: `inferior-transicao-${massaSuperiorKg}`, massaBaseKg: 1, dimensoesM: new Vetor3(1, 1, 1),
-        resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+        resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
         estadoInicial: { posicaoM: new Vetor3(0, 0.5, 0) },
       });
       const superior = new Objeto({
         id: `superior-transicao-${massaSuperiorKg}`, massaBaseKg: massaSuperiorKg, dimensoesM: new Vetor3(1, 1, 1),
-        resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+        resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
         estadoInicial: { posicaoM: new Vetor3(0, 10.5, 0) },
       });
       mundo.registrarSuperficie(solo);
@@ -613,7 +613,7 @@ describe('MundoFisico', () => {
       massaBaseKg: 1,
       dimensoesM: new Vetor3(1, 1, 1),
       resistenciaColisaoJ: 10_000,
-      resistenciaCalorK: 1_000,
+      limiteTermicoC: 1_000,
       estadoInicial: { posicaoM: new Vetor3(xDaPilhaM, 0.5 + indice, 0) },
     }));
     const projetil = new Objeto({
@@ -621,7 +621,7 @@ describe('MundoFisico', () => {
       massaBaseKg: 2,
       dimensoesM: new Vetor3(1, 1, 1),
       resistenciaColisaoJ: 10_000,
-      resistenciaCalorK: 1_000,
+      limiteTermicoC: 1_000,
       estadoInicial: { posicaoM: new Vetor3(-1, 1.5, 0), velocidadeMps: new Vetor3(10, 0, 0) },
     });
     mundo.registrarSuperficie(solo);
@@ -649,7 +649,7 @@ describe('MundoFisico', () => {
     const solo = new SuperficiePlano('pista-parede-4000kg', 'concreto', 0, 1_000_000);
     const parede = new Objeto({
       id: 'parede-retangular-4000kg', massaBaseKg: 4_000, dimensoesM: new Vetor3(1, 3, 3),
-      resistenciaColisaoJ: 500_000, resistenciaCalorK: 1_000,
+      resistenciaColisaoJ: 500_000, limiteTermicoC: 1_000,
       estadoInicial: { posicaoM: new Vetor3(0, 5, 0) },
     });
     mundo.registrarSuperficie(solo);
@@ -673,13 +673,13 @@ describe('MundoFisico', () => {
     const mundo = new MundoFisico(1 / 240);
     const paredeTombada = new Objeto({
       id: 'parede-tombada', massaBaseKg: 4_000, dimensoesM: new Vetor3(1, 6, 2),
-      resistenciaColisaoJ: 500_000, resistenciaCalorK: 1_000,
+      resistenciaColisaoJ: 500_000, limiteTermicoC: 1_000,
       // A base local (y negativo) está na extremidade direita após a rotação.
       estadoInicial: { posicaoM: new Vetor3(0, 1, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
     });
     const veiculo = new Objeto({
       id: 'veiculo-contra-base', massaBaseKg: 1_500, dimensoesM: new Vetor3(1, 1, 2),
-      resistenciaColisaoJ: 200_000, resistenciaCalorK: 1_000,
+      resistenciaColisaoJ: 200_000, limiteTermicoC: 1_000,
       estadoInicial: { posicaoM: new Vetor3(3.35, 1, 0), velocidadeMps: new Vetor3(-5, 0, 0) },
     });
     mundo.registrarObjeto(paredeTombada);
@@ -695,7 +695,7 @@ describe('MundoFisico', () => {
     const solo = new SuperficiePlano('solo-concreto-50m-100kg', 'concreto', 0, 100_000);
     const objeto = new Objeto({
       id: 'objeto-100kg-50m', massaBaseKg: 100, dimensoesM: new Vetor3(1, 1, 1),
-      resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+      resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
       estadoInicial: { posicaoM: new Vetor3(0, 50, 0) },
     });
     mundo.registrarSuperficie(solo);

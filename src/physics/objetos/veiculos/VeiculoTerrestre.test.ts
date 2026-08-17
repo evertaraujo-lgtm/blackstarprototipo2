@@ -13,7 +13,7 @@ const criarVeiculo = (id: string, x = 0, velocidadeX = 0): VeiculoTerrestre => n
   // Aproximação para um carro médio: colisões leves podem não causar dano
   // estrutural mensurável; impactos mais energéticos consomem integridade.
   resistenciaColisaoJ: 50_000,
-  resistenciaCalorK: 1_000,
+  limiteTermicoC: 1_000,
   quantidadeRodas: 4,
   forcaTracaoMaximaN: 4_500,
   forcaFrenagemMaximaN: 9_000,
@@ -108,7 +108,7 @@ describe('VeiculoTerrestre', () => {
     const veiculo = criarVeiculo('veiculo-colisao', -8);
     const parede = new Objeto({
       id: 'parede-retangular-4000kg', massaBaseKg: 4_000, dimensoesM: new Vetor3(1, 3, 3),
-      resistenciaColisaoJ: 500_000, resistenciaCalorK: 1_000,
+      resistenciaColisaoJ: 500_000, limiteTermicoC: 1_000,
       estadoInicial: { posicaoM: new Vetor3(8, 1.5, 0) },
     });
     const mundo = prepararMundo(veiculo);
@@ -128,7 +128,7 @@ describe('VeiculoTerrestre', () => {
     const alturaRampaM = baseRampaM * Math.tan(Math.PI / 6);
     const rampa = new ObjetoTriangularRetangulo({
       id: 'rampa-triangular-30-graus', massaBaseKg: 4_000, dimensoesM: new Vetor3(baseRampaM, alturaRampaM, 3),
-      inclinacaoRad: Math.PI / 6, resistenciaColisaoJ: 500_000, resistenciaCalorK: 1_000,
+      inclinacaoRad: Math.PI / 6, resistenciaColisaoJ: 500_000, limiteTermicoC: 1_000,
       // O centroide está a h/3 acima da base, mantendo a face inferior no solo.
       estadoInicial: { posicaoM: new Vetor3(12, alturaRampaM / 3, 0) },
     });

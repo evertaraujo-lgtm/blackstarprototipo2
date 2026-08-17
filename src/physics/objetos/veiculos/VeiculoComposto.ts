@@ -6,16 +6,25 @@ import { Propulsor } from '../propulsao/Propulsor';
 import { ComputadorDeVoo, type ResultadoComandoPropulsor } from './ComputadorDeVoo';
 
 /**
- * Raiz de composição de um veículo. O próprio veículo é o corpo físico
- * central; tanque, propulsores e demais módulos continuam sendo Objetos
- * independentes, ligados exclusivamente por FixadoresEstruturais.
+ * Definição do casco estrutural central. `VeiculoComposto` não é uma fachada
+ * sem massa: sua massa base pertence a um corpo físico real no MundoFisico.
+ */
+export interface DefinicaoVeiculoComposto extends DefinicaoObjeto {
+  readonly massaBaseKg: number;
+}
+
+/**
+ * Raiz de composição de um veículo e seu casco físico central. Tanque,
+ * propulsores e demais módulos continuam sendo Objetos independentes, ligados
+ * exclusivamente por FixadoresEstruturais. Não deve ser usado como contêiner
+ * abstrato ou sem massa.
  */
 export class VeiculoComposto extends Objeto {
   private readonly modulos = new Map<string, Objeto>();
   private readonly fixadores = new Map<string, FixadorEstrutural>();
   private readonly computadorDeVoo = new ComputadorDeVoo();
 
-  public constructor(definicao: DefinicaoObjeto) {
+  public constructor(definicao: DefinicaoVeiculoComposto) {
     super(definicao);
   }
 

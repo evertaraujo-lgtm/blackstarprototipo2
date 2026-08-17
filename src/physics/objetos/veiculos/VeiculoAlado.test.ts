@@ -6,7 +6,7 @@ import { SuperficiePlano } from '../../SuperficiePlano';
 
 const criarVeiculoAlado = () => new VeiculoAlado({
   id: 'veiculo-alado', massaBaseKg: 1_500, dimensoesM: new Vetor3(4, 1.5, 1.8),
-  resistenciaColisaoJ: 50_000, resistenciaCalorK: 1_000,
+  resistenciaColisaoJ: 50_000, limiteTermicoC: 1_000,
   quantidadeRodas: 4, forcaTracaoMaximaN: 4_500, forcaFrenagemMaximaN: 9_000,
   coeficienteAderenciaPneus: 0.9, coeficienteResistenciaRolamento: 0.01, raioRodaM: 0.35,
   areaAsaM2: 24, anguloIncidenciaRad: 0.12, coeficienteSustentacaoPorRad: 5.7,

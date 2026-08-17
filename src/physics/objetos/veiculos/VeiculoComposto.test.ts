@@ -9,17 +9,17 @@ import { VeiculoComposto } from './VeiculoComposto';
 const criarVeiculoComposto = () => {
   const veiculo = new VeiculoComposto({
     id: 'corpo-central', massaBaseKg: 100, dimensoesM: new Vetor3(4, 1, 1),
-    resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+    resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
     estadoInicial: { posicaoM: new Vetor3(0, 10, 0) },
   });
   const tanque = new TanquePropelente({
     id: 'tanque-central', massaBaseKg: 20, capacidadePropelenteKg: 40, massaPropelenteInicialKg: 40, tipoPropelente: 'metano',
-    dimensoesM: new Vetor3(2, 2, 1), resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+    dimensoesM: new Vetor3(2, 2, 1), resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
     estadoInicial: { posicaoM: new Vetor3(0, 12, 0) },
   });
   const criarPropulsor = (id: string, x: number) => new Propulsor({
     id, massaBaseKg: 10, empuxoMaximoN: 1_000, vazaoMaximaKgS: 1, propelenteCompativel: 'metano',
-    dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+    dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
     estadoInicial: { posicaoM: new Vetor3(x, 9, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
   });
   const propulsorA = criarPropulsor('propulsor-a', -1.5);
@@ -40,6 +40,13 @@ const criarVeiculoComposto = () => {
 };
 
 describe('VeiculoComposto', () => {
+  it('exige massa estrutural positiva para o corpo central físico', () => {
+    expect(() => new VeiculoComposto({
+      id: 'fachada-sem-corpo', massaBaseKg: 0, dimensoesM: new Vetor3(1, 1, 1),
+      resistenciaColisaoJ: 1, limiteTermicoC: 100,
+    })).toThrow('Massa base deve ser positiva.');
+  });
+
   it('coordena dois propulsores simétricos sem criar rotação artificial no conjunto', () => {
     const { veiculo, tanque, propulsorA, propulsorB } = criarVeiculoComposto();
     const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 0 });

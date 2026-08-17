@@ -7,7 +7,7 @@ import { Paraquedas } from './Paraquedas';
 
 describe('Paraquedas', () => {
   it('compõe a massa do objeto e perde a capacidade de abertura ao exceder sua resistência', () => {
-    const objeto = new Objeto({ id: 'carga-paraquedas', massaBaseKg: 10, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000 });
+    const objeto = new Objeto({ id: 'carga-paraquedas', massaBaseKg: 10, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000 });
     const paraquedas = new Paraquedas({ id: 'estrutural', areaFrontalM2: 8 });
     objeto.acoplarParaquedas(paraquedas);
     expect(objeto.massaKg).toBeCloseTo(11.6);
@@ -24,7 +24,7 @@ describe('Paraquedas', () => {
   });
 
   it('aumenta o arrasto efetivo e reduz a velocidade vertical de queda quando aberto', () => {
-    const criarObjeto = (id: string) => new Objeto({ id, massaBaseKg: 10, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000, areaFrontalM2: 1, coeficienteArrasto: 1, estadoInicial: { posicaoM: new Vetor3(0, 1_000, 0) } });
+    const criarObjeto = (id: string) => new Objeto({ id, massaBaseKg: 10, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000, areaFrontalM2: 1, coeficienteArrasto: 1, estadoInicial: { posicaoM: new Vetor3(0, 1_000, 0) } });
     const semParaquedas = criarObjeto('sem-paraquedas');
     const comParaquedas = criarObjeto('com-paraquedas');
     comParaquedas.acoplarParaquedas(new Paraquedas({ id: 'principal', areaFrontalM2: 25 }));
@@ -39,7 +39,7 @@ describe('Paraquedas', () => {
   it('produz o mesmo arrasto com o estágio rotacionado quando o fluxo de ar é o mesmo', () => {
     const criarObjeto = (id: string, orientacaoRad: number) => {
       const objeto = new Objeto({
-        id, massaBaseKg: 10, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+        id, massaBaseKg: 10, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
         areaFrontalM2: 1, coeficienteArrasto: 1,
         estadoInicial: { posicaoM: new Vetor3(0, 1_000, 0), velocidadeMps: new Vetor3(30, 0, 0), orientacaoRad: new Vetor3(0, 0, orientacaoRad) },
       });
@@ -59,7 +59,7 @@ describe('Paraquedas', () => {
 
   it('desacelera horizontalmente um veículo quando o paraquedas abre em atmosfera', () => {
     const criarVeiculo = (id: string) => new VeiculoTerrestre({
-      id, massaBaseKg: 1_500, dimensoesM: new Vetor3(4, 1.5, 1.8), resistenciaColisaoJ: 50_000, resistenciaCalorK: 1_000,
+      id, massaBaseKg: 1_500, dimensoesM: new Vetor3(4, 1.5, 1.8), resistenciaColisaoJ: 50_000, limiteTermicoC: 1_000,
       quantidadeRodas: 4, forcaTracaoMaximaN: 4_500, forcaFrenagemMaximaN: 9_000, coeficienteAderenciaPneus: 0.9,
       estadoInicial: { posicaoM: new Vetor3(0, 100, 0), velocidadeMps: new Vetor3(30, 0, 0) },
     });

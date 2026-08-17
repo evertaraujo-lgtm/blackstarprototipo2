@@ -105,7 +105,7 @@ const criarCuboEmQueda = (alturaM: number, massaKg = 10, opcoes: OpcoesQueda = {
   let velocidadeDeRetornoMps: number | undefined;
   const cubo = new Objeto({
     id: `cubo-${massaKg}kg-${alturaM}m`, massaBaseKg: massaKg, dimensoesM: new Vetor3(1, 1, 1),
-    resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+    resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
     estadoInicial: {
       posicaoM: new Vetor3(0, alturaM, 0),
       velocidadeMps: new Vetor3(opcoes.velocidadeHorizontalInicialMps ?? 0, 0, 0),
@@ -161,12 +161,12 @@ const criarColisaoFrontal = (): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240);
   const esquerdo = new Objeto({
     id: 'colisor-esquerdo', massaBaseKg: 2, dimensoesM: new Vetor3(1, 1, 1),
-    resistenciaColisaoJ: 1_000, resistenciaCalorK: 1_000,
+    resistenciaColisaoJ: 1_000, limiteTermicoC: 1_000,
     estadoInicial: { posicaoM: new Vetor3(-3, 1, 0), velocidadeMps: new Vetor3(5, 0, 0) },
   });
   const direito = new Objeto({
     id: 'colisor-direito', massaBaseKg: 2, dimensoesM: new Vetor3(1, 1, 1),
-    resistenciaColisaoJ: 1_000, resistenciaCalorK: 1_000,
+    resistenciaColisaoJ: 1_000, limiteTermicoC: 1_000,
     estadoInicial: { posicaoM: new Vetor3(3, 1, 0), velocidadeMps: new Vetor3(-5, 0, 0) },
   });
   mundo.registrarObjeto(esquerdo);
@@ -193,12 +193,12 @@ const criarTesteQuadradosEmpilhados = (tipo: 'queda-conjunta' | 'queda-conjunta-
   const quaseIgual = tipo === 'quase-igual-sobre-apoiado';
   const inferior = new Objeto({
     id: `quadrado-inferior-${tipo}`, massaBaseKg: 1, dimensoesM: new Vetor3(1, 1, 1),
-    resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+    resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
     estadoInicial: { posicaoM: new Vetor3(0, quedaConjunta ? 10.5 : 0.5, 0) },
   });
   const superior = new Objeto({
     id: `quadrado-superior-${tipo}`, massaBaseKg: superiorLeve || leveSobrePesado ? 0.5 : quaseIgual ? 0.99 : 1, dimensoesM: new Vetor3(1, 1, 1),
-    resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+    resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
     estadoInicial: { posicaoM: new Vetor3(0, quedaConjunta ? 11.5 : 10.5, 0) },
   });
   mundo.registrarSuperficie(solo);
@@ -235,7 +235,7 @@ const criarTestePilhaDezQuadradosAtingida = (): CenárioVisual => {
     massaBaseKg: 1,
     dimensoesM: new Vetor3(1, 1, 1),
     resistenciaColisaoJ: 10_000,
-    resistenciaCalorK: 1_000,
+    limiteTermicoC: 1_000,
     estadoInicial: { posicaoM: new Vetor3(xDaPilhaM, 0.5 + indice, 0) },
   }));
   const projetil = new Objeto({
@@ -243,7 +243,7 @@ const criarTestePilhaDezQuadradosAtingida = (): CenárioVisual => {
     massaBaseKg: 2,
     dimensoesM: new Vetor3(1, 1, 1),
     resistenciaColisaoJ: 10_000,
-    resistenciaCalorK: 1_000,
+    limiteTermicoC: 1_000,
     // O centro está na altura do segundo quadrado contado de baixo para cima.
     estadoInicial: { posicaoM: new Vetor3(-1, 1.5, 0), velocidadeMps: new Vetor3(10, 0, 0) },
   });
@@ -276,7 +276,7 @@ const criarColisaoPorResistencia = (resistenciaJ: number): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240);
   const criarColisor = (id: string, x: number, velocidadeX: number) => new Objeto({
     id, massaBaseKg: 2, dimensoesM: new Vetor3(1, 1, 1),
-    resistenciaColisaoJ: resistenciaJ, resistenciaCalorK: 1_000,
+    resistenciaColisaoJ: resistenciaJ, limiteTermicoC: 1_000,
     estadoInicial: { posicaoM: new Vetor3(x, 1, 0), velocidadeMps: new Vetor3(velocidadeX, 0, 0) },
   });
   const esquerdo = criarColisor(`resistencia-${resistenciaJ}-esquerdo`, -3, 10);
@@ -300,12 +300,12 @@ const criarColisaoComTorque = (): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240);
   const esquerdo = new Objeto({
     id: 'retangulo-esquerdo', massaBaseKg: 10, dimensoesM: new Vetor3(3, 1, 1),
-    resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+    resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
     estadoInicial: { posicaoM: new Vetor3(-3, 1.05, 0), velocidadeMps: new Vetor3(5, 0, 0) },
   });
   const direito = new Objeto({
     id: 'retangulo-direito', massaBaseKg: 10, dimensoesM: new Vetor3(3, 1, 1),
-    resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+    resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
     estadoInicial: { posicaoM: new Vetor3(3, 1, 0), velocidadeMps: new Vetor3(-5, 0, 0) },
   });
   mundo.registrarObjeto(esquerdo);
@@ -331,12 +331,12 @@ const criarTesteImpactoNoRetangulo = (nomeDoImpacto: string, alturaDeImpactoM: n
   const solo = new SuperficiePlano(`solo-impacto-retangulo-${indice}`, 'concreto', 0, 100_000);
   const retangulo = new Objeto({
     id: `retangulo-vertical-${indice}`, massaBaseKg: 10, dimensoesM: new Vetor3(1, 10, 1),
-    resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+    resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
     estadoInicial: { posicaoM: new Vetor3(0, 5.001, 0) },
   });
   const quadrado = new Objeto({
     id: `quadrado-impacto-${indice}`, massaBaseKg: 1, dimensoesM: new Vetor3(1, 1, 1),
-    resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+    resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
     // A velocidade inicial é o impulso externo do disparo. Não há propulsor,
     // força programada ou reposição de energia depois do lançamento.
     estadoInicial: { posicaoM: new Vetor3(-4, alturaDeImpactoM, 0), velocidadeMps: new Vetor3(20, 0, 0) },
@@ -377,7 +377,7 @@ const criarTesteParaquedas = (): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
   const solo = new SuperficiePlano('solo-paraquedas', 'concreto', 0, 1_000_000, 0.02, 0.9);
   const quadrado = new Objeto({
-    id: 'quadrado-com-paraquedas', massaBaseKg: 10, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+    id: 'quadrado-com-paraquedas', massaBaseKg: 10, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
     areaFrontalM2: 1, coeficienteArrasto: 1, estadoInicial: { posicaoM: new Vetor3(0, 1_000, 0) },
   });
   quadrado.acoplarParaquedas(new Paraquedas({ id: 'paraquedas-quadrado', areaFrontalM2: 25 }));
@@ -407,7 +407,7 @@ const criarTesteParaquedas = (): CenárioVisual => {
 const criarTesteAreaDeContato = (): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
   const criarObjetoComArea = (id: string, x: number, areaFrontalM2: number, dimensoesM: Vetor3) => new Objeto({
-    id, massaBaseKg: 10, dimensoesM, resistenciaColisaoJ: 10_000, resistenciaCalorK: 1_000,
+    id, massaBaseKg: 10, dimensoesM, resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
     areaFrontalM2, coeficienteArrasto: 1,
     estadoInicial: { posicaoM: new Vetor3(x, 100, 0) },
   });
@@ -438,7 +438,7 @@ const criarVeiculoTerrestre = (id: string, x: number, velocidadeX = 0, coeficien
   dimensoesM: new Vetor3(4, 1.5, 1.8),
   // Aproximação para um carro médio no modelo contínuo de dano do core.
   resistenciaColisaoJ: 50_000,
-  resistenciaCalorK: 1_000,
+  limiteTermicoC: 1_000,
   quantidadeRodas: 4,
   forcaTracaoMaximaN: 4_500,
   forcaFrenagemMaximaN: 9_000,
@@ -485,7 +485,7 @@ const criarTesteVeiculoTerrestre = (tipo: 'aceleracao' | 'frenagem' | 'colisao')
 
   const parede = new Objeto({
     id: 'parede-retangulo-4000kg', massaBaseKg: 4_000, dimensoesM: new Vetor3(1, 3, 3),
-    resistenciaColisaoJ: 500_000, resistenciaCalorK: 1_000,
+    resistenciaColisaoJ: 500_000, limiteTermicoC: 1_000,
     estadoInicial: { posicaoM: new Vetor3(16, 1.5, 0) },
   });
   mundo.registrarObjeto(parede);
@@ -511,7 +511,7 @@ const criarTesteVeiculoContraRampa30Graus = (velocidadeInicialMps: number): Cen�
   const alturaRampaM = baseRampaM * Math.tan(Math.PI / 6);
   const rampa = new ObjetoTriangularRetangulo({
     id: 'rampa-triangular-30-graus', massaBaseKg: 4_000, dimensoesM: new Vetor3(baseRampaM, alturaRampaM, 3),
-    inclinacaoRad: Math.PI / 6, resistenciaColisaoJ: 500_000, resistenciaCalorK: 1_000,
+    inclinacaoRad: Math.PI / 6, resistenciaColisaoJ: 500_000, limiteTermicoC: 1_000,
     estadoInicial: { posicaoM: new Vetor3(12, alturaRampaM / 3, 0) },
   });
   mundo.registrarSuperficie(pista);
@@ -535,7 +535,7 @@ const criarTesteVeiculoAlado = (): CenárioVisual => {
   const pista = new SuperficiePlano('pista-veiculo-alado', 'outro', 0, 1_000_000, 0.02, 0.9);
   const veiculo = new VeiculoAlado({
     id: 'veiculo-alado-1500kg', massaBaseKg: 1_500, dimensoesM: new Vetor3(4, 1.5, 1.8),
-    resistenciaColisaoJ: 50_000, resistenciaCalorK: 1_000, areaFrontalM2: 2.5, coeficienteArrasto: 0.35,
+    resistenciaColisaoJ: 50_000, limiteTermicoC: 1_000, areaFrontalM2: 2.5, coeficienteArrasto: 0.35,
     quantidadeRodas: 4, forcaTracaoMaximaN: 4_500, forcaFrenagemMaximaN: 9_000, coeficienteAderenciaPneus: 0.9,
     coeficienteResistenciaRolamento: 0.01, raioRodaM: 0.35,
     areaAsaM2: 24, anguloIncidenciaRad: 0.12, coeficienteSustentacaoPorRad: 5.7, coeficienteArrastoAsa: 0.04, anguloEstolRad: 0.35,
@@ -609,16 +609,16 @@ const criarTesteVeiculoComposto = (): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240);
   const veiculo = new VeiculoComposto({
     id: 'veiculo-composto-corpo', massaBaseKg: 120, dimensoesM: new Vetor3(4, 1, 1),
-    resistenciaColisaoJ: 100_000, resistenciaCalorK: 1_000, areaFrontalM2: 2, coeficienteArrasto: 0.8,
+    resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, areaFrontalM2: 2, coeficienteArrasto: 0.8,
     estadoInicial: { posicaoM: new Vetor3(0, 15, 0) },
   });
   const tanque = new TanquePropelente({
     id: 'veiculo-composto-tanque', massaBaseKg: 100, capacidadePropelenteKg: 800, massaPropelenteInicialKg: 800, tipoPropelente: 'metano',
-    dimensoesM: new Vetor3(2, 3, 1), resistenciaColisaoJ: 100_000, resistenciaCalorK: 1_000,
+    dimensoesM: new Vetor3(2, 3, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000,
     estadoInicial: { posicaoM: new Vetor3(0, 18, 0) },
   });
   const criarPropulsor = (id: string, x: number) => new Propulsor({
-    id, massaBaseKg: 50, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, resistenciaCalorK: 1_000,
+    id, massaBaseKg: 50, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000,
     empuxoMaximoN: 8_000, vazaoMaximaKgS: 2, propelenteCompativel: 'metano',
     estadoInicial: { posicaoM: new Vetor3(x, 13, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
   });
@@ -662,15 +662,15 @@ const criarTestePropulsorContraParede = (throttle: number): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240);
   const pista = new SuperficiePlano(`pista-propulsor-${throttle}`, 'outro', 0, 1_000_000, 0.02, 0.9);
   const tanque = new TanquePropelente({
-    id: `tanque-metano-${throttle}`, massaBaseKg: 200, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, resistenciaCalorK: 1_000,
+    id: `tanque-metano-${throttle}`, massaBaseKg: 200, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000,
     tipoPropelente: 'metano', capacidadePropelenteKg: 20, massaPropelenteInicialKg: 20, estadoInicial: { posicaoM: new Vetor3(-7, 0.5, 0) },
   });
   const propulsor = new Propulsor({
-    id: `propulsor-${throttle}`, massaBaseKg: 1_000, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, resistenciaCalorK: 1_000,
+    id: `propulsor-${throttle}`, massaBaseKg: 1_000, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000,
     empuxoMaximoN: 20_000, vazaoMaximaKgS: 2, propelenteCompativel: 'metano', estadoInicial: { posicaoM: new Vetor3(2, 0.5, 0) },
   });
   const parede = new Objeto({
-    id: `parede-10000kg-${throttle}`, massaBaseKg: 10_000, dimensoesM: new Vetor3(1, 3, 3), resistenciaColisaoJ: 500_000, resistenciaCalorK: 1_000,
+    id: `parede-10000kg-${throttle}`, massaBaseKg: 10_000, dimensoesM: new Vetor3(1, 3, 3), resistenciaColisaoJ: 500_000, limiteTermicoC: 1_000,
     estadoInicial: { posicaoM: new Vetor3(3, 1.5, 0) },
   });
   propulsor.conectarTanque(tanque, 10);
@@ -701,11 +701,11 @@ const criarTestePropulsorContraParede = (throttle: number): CenárioVisual => {
 const criarTesteTermicoDoPropulsor = (): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240, { temperaturaAmbienteC: 20 });
   const solo = new SuperficiePlano('solo-termico', 'concreto', 0, 1_000_000);
-  const fundacao = new Objeto({ id: 'fundacao-termica', massaBaseKg: 500_000, dimensoesM: new Vetor3(12, 4, 2), resistenciaColisaoJ: 10_000_000, resistenciaCalorK: 873.15, limiteTermicoC: 600, capacidadeTermicaJPorC: 10_000_000, estadoInicial: { posicaoM: new Vetor3(0, 2, 0) } });
-  const bancada = new Objeto({ id: 'bancada-termica-2000kg', massaBaseKg: 2_000, dimensoesM: new Vetor3(6, 4, 1), resistenciaColisaoJ: 1_000_000, resistenciaCalorK: 873.15, limiteTermicoC: 600, capacidadeTermicaJPorC: 1_000_000, areaTermicaM2: 12, estadoInicial: { posicaoM: new Vetor3(0, 2, 0) } });
-  const propulsor = new Propulsor({ id: 'propulsor-termico', massaBaseKg: 150, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 500_000, resistenciaCalorK: 1_073.15, limiteTermicoC: 800, capacidadeTermicaJPorC: 500_000, areaTermicaM2: 2, coeficienteConveccaoWPorM2C: 30, empuxoMaximoN: 20_000, vazaoMaximaKgS: 2, potenciaTermicaMaximaW: 3_000_000, propelenteCompativel: 'metano', estadoInicial: { posicaoM: new Vetor3(0, 2, 0) } });
-  const tanque = new TanquePropelente({ id: 'tanque-termico', massaBaseKg: 300, capacidadePropelenteKg: 100, massaPropelenteInicialKg: 100, tipoPropelente: 'metano', dimensoesM: new Vetor3(1, 2, 1), resistenciaColisaoJ: 500_000, resistenciaCalorK: 473.15, limiteTermicoC: 200, capacidadeTermicaJPorC: 400_000, areaTermicaM2: 4, estadoInicial: { posicaoM: new Vetor3(2, 2, 0) } });
-  const parede = new Objeto({ id: 'parede-termica', massaBaseKg: 5_000, dimensoesM: new Vetor3(1, 4, 1), resistenciaColisaoJ: 1_000_000, resistenciaCalorK: 573.15, limiteTermicoC: 300, capacidadeTermicaJPorC: 15_000, areaTermicaM2: 4, coeficienteConveccaoWPorM2C: 20, taxaDanoTermicoPorSegundo: 0.08, estadoInicial: { posicaoM: new Vetor3(-6, 2, 0) } });
+  const fundacao = new Objeto({ id: 'fundacao-termica', massaBaseKg: 500_000, dimensoesM: new Vetor3(12, 4, 2), resistenciaColisaoJ: 10_000_000, limiteTermicoC: 600, capacidadeTermicaJPorC: 10_000_000, estadoInicial: { posicaoM: new Vetor3(0, 2, 0) } });
+  const bancada = new Objeto({ id: 'bancada-termica-2000kg', massaBaseKg: 2_000, dimensoesM: new Vetor3(6, 4, 1), resistenciaColisaoJ: 1_000_000, limiteTermicoC: 600, capacidadeTermicaJPorC: 1_000_000, areaTermicaM2: 12, estadoInicial: { posicaoM: new Vetor3(0, 2, 0) } });
+  const propulsor = new Propulsor({ id: 'propulsor-termico', massaBaseKg: 150, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 500_000, limiteTermicoC: 800, capacidadeTermicaJPorC: 500_000, areaTermicaM2: 2, coeficienteConveccaoWPorM2C: 30, empuxoMaximoN: 20_000, vazaoMaximaKgS: 2, potenciaTermicaMaximaW: 3_000_000, propelenteCompativel: 'metano', estadoInicial: { posicaoM: new Vetor3(0, 2, 0) } });
+  const tanque = new TanquePropelente({ id: 'tanque-termico', massaBaseKg: 300, capacidadePropelenteKg: 100, massaPropelenteInicialKg: 100, tipoPropelente: 'metano', dimensoesM: new Vetor3(1, 2, 1), resistenciaColisaoJ: 500_000, limiteTermicoC: 200, capacidadeTermicaJPorC: 400_000, areaTermicaM2: 4, estadoInicial: { posicaoM: new Vetor3(2, 2, 0) } });
+  const parede = new Objeto({ id: 'parede-termica', massaBaseKg: 5_000, dimensoesM: new Vetor3(1, 4, 1), resistenciaColisaoJ: 1_000_000, limiteTermicoC: 300, capacidadeTermicaJPorC: 15_000, areaTermicaM2: 4, coeficienteConveccaoWPorM2C: 20, taxaDanoTermicoPorSegundo: 0.08, estadoInicial: { posicaoM: new Vetor3(-6, 2, 0) } });
   propulsor.conectarTanque(tanque, 8); propulsor.definirThrottle(0.5);
   const fixadorMotor = new FixadorEstrutural({ id: 'fixador-termico-motor', objetoA: bancada, objetoB: propulsor, resistenciaTracaoN: 50_000, limiteTermicoC: 350, capacidadeTermicaJPorC: 10_000, condutanciaTermicaWPorC: 500, obterEsforcoSolicitadoN: () => propulsor.empuxoAtualN });
   const fixadorTanque = new FixadorEstrutural({ id: 'fixador-termico-tanque', objetoA: bancada, objetoB: tanque, resistenciaTracaoN: 50_000, limiteTermicoC: 250, capacidadeTermicaJPorC: 10_000, condutanciaTermicaWPorC: 200, obterEsforcoSolicitadoN: () => 0 });
@@ -728,15 +728,15 @@ const criarTesteImpactoDestrutivoDoPropulsor = (): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240);
   const pista = new SuperficiePlano('pista-impacto-destrutivo-propulsor', 'concreto', 0, 1_000_000, 0.02, 0.9);
   const tanque = new TanquePropelente({
-    id: 'tanque-impacto-destrutivo', massaBaseKg: 200, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, resistenciaCalorK: 1_000,
+    id: 'tanque-impacto-destrutivo', massaBaseKg: 200, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000,
     tipoPropelente: 'metano', capacidadePropelenteKg: 20, massaPropelenteInicialKg: 20, estadoInicial: { posicaoM: new Vetor3(-2, 0.5, 0) },
   });
   const propulsor = new Propulsor({
-    id: 'propulsor-impacto-destrutivo', massaBaseKg: 1_000, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, resistenciaCalorK: 1_000,
+    id: 'propulsor-impacto-destrutivo', massaBaseKg: 1_000, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000,
     empuxoMaximoN: 20_000, vazaoMaximaKgS: 2, propelenteCompativel: 'metano', estadoInicial: { posicaoM: new Vetor3(0, 0.5, 0) },
   });
   const parede = new Objeto({
-    id: 'barreira-impacto-destrutivo', massaBaseKg: 100_000_000, dimensoesM: new Vetor3(1, 4, 3), resistenciaColisaoJ: 10_000_000, resistenciaCalorK: 1_000,
+    id: 'barreira-impacto-destrutivo', massaBaseKg: 100_000_000, dimensoesM: new Vetor3(1, 4, 3), resistenciaColisaoJ: 10_000_000, limiteTermicoC: 1_000,
     estadoInicial: { posicaoM: new Vetor3(70, 2, 0) },
   });
   propulsor.conectarTanque(tanque, 3);
@@ -769,14 +769,14 @@ const criarTestePropulsorSobreVeiculoPassivo = (): CenárioVisual => {
   const pista = new SuperficiePlano('pista-propulsor-sobre-veiculo', 'concreto', 0, 1_000_000, 0.02, 0.9);
   const veiculo = criarVeiculoTerrestre('veiculo-passivo-com-propulsor', 0, 0, 0.65);
   const tanque = new TanquePropelente({
-    id: 'tanque-sobre-veiculo', massaBaseKg: 200, dimensoesM: new Vetor3(1, 0.6, 1), resistenciaColisaoJ: 100_000, resistenciaCalorK: 1_000,
+    id: 'tanque-sobre-veiculo', massaBaseKg: 200, dimensoesM: new Vetor3(1, 0.6, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000,
     tipoPropelente: 'metano', capacidadePropelenteKg: 20, massaPropelenteInicialKg: 20,
     // O tanque fica à frente do propulsor; o escape segue para fora do conjunto,
     // sem atravessar visualmente a alimentação de combustível.
     estadoInicial: { posicaoM: new Vetor3(1, 1.8, 0) },
   });
   const propulsor = new Propulsor({
-    id: 'propulsor-sobre-veiculo', massaBaseKg: 1_000, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, resistenciaCalorK: 1_000,
+    id: 'propulsor-sobre-veiculo', massaBaseKg: 1_000, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000,
     empuxoMaximoN: 20_000, vazaoMaximaKgS: 2, propelenteCompativel: 'metano', coeficienteAtritoEntreObjetos: 0.65, estadoInicial: { posicaoM: new Vetor3(-0.75, 2, 0) },
   });
   propulsor.conectarTanque(tanque, 10);
@@ -826,11 +826,11 @@ const criarTesteFogueteComParaquedasManual = (): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
   const solo = new SuperficiePlano('solo-foguete-paraquedas', 'concreto', 0, 1_000_000, 0.04, 0.9);
   const propulsor = new Propulsor({
-    id: 'propulsor-foguete-recuperacao', massaBaseKg: 120, dimensoesM: new Vetor3(1.4, 1.2, 1), resistenciaColisaoJ: 100_000, resistenciaCalorK: 1_000,
+    id: 'propulsor-foguete-recuperacao', massaBaseKg: 120, dimensoesM: new Vetor3(1.4, 1.2, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000,
     empuxoMaximoN: 20_000, vazaoMaximaKgS: 2, propelenteCompativel: 'metano', estadoInicial: { posicaoM: new Vetor3(0, 998.6, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
   });
   const tanque = new TanquePropelente({
-    id: 'tanque-foguete-recuperacao', massaBaseKg: 180, dimensoesM: new Vetor3(2.2, 1.4, 1), resistenciaColisaoJ: 100_000, resistenciaCalorK: 1_000,
+    id: 'tanque-foguete-recuperacao', massaBaseKg: 180, dimensoesM: new Vetor3(2.2, 1.4, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000,
     tipoPropelente: 'metano', capacidadePropelenteKg: 30, massaPropelenteInicialKg: 30, areaFrontalM2: 1.2, coeficienteArrasto: 0.7,
     estadoInicial: { posicaoM: new Vetor3(0, 1000.5, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
   });
@@ -860,12 +860,12 @@ const criarTesteFogueteHorizontalComParaquedasManual = (): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
   const solo = new SuperficiePlano('solo-foguete-horizontal', 'concreto', 0, 1_000_000, 0.04, 0.9);
   const propulsor = new Propulsor({
-    id: 'propulsor-foguete-horizontal', massaBaseKg: 120, dimensoesM: new Vetor3(1.6, 1, 1), resistenciaColisaoJ: 100_000, resistenciaCalorK: 1_000,
+    id: 'propulsor-foguete-horizontal', massaBaseKg: 120, dimensoesM: new Vetor3(1.6, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000,
     empuxoMaximoN: 20_000, vazaoMaximaKgS: 2, propelenteCompativel: 'metano',
     estadoInicial: { posicaoM: new Vetor3(-0.9, 100, 0), velocidadeMps: new Vetor3(60, 0, 0) },
   });
   const tanque = new TanquePropelente({
-    id: 'tanque-foguete-horizontal', massaBaseKg: 180, dimensoesM: new Vetor3(1.6, 1, 1), resistenciaColisaoJ: 100_000, resistenciaCalorK: 1_000,
+    id: 'tanque-foguete-horizontal', massaBaseKg: 180, dimensoesM: new Vetor3(1.6, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000,
     tipoPropelente: 'metano', capacidadePropelenteKg: 30, massaPropelenteInicialKg: 30, areaFrontalM2: 1.2, coeficienteArrasto: 0.7,
     estadoInicial: { posicaoM: new Vetor3(0.9, 100, 0), velocidadeMps: new Vetor3(60, 0, 0) },
   });
@@ -895,12 +895,12 @@ const criarTestePropulsorVerticalComParaquedas = (): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
   const solo = new SuperficiePlano('solo-propulsor-vertical', 'concreto', 0, 1_000_000, 0.04, 0.9);
   const propulsor = new Propulsor({
-    id: 'propulsor-vertical', massaBaseKg: 120, dimensoesM: new Vetor3(1.4, 1, 1), resistenciaColisaoJ: 100_000, resistenciaCalorK: 1_000,
+    id: 'propulsor-vertical', massaBaseKg: 120, dimensoesM: new Vetor3(1.4, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000,
     empuxoMaximoN: 20_000, vazaoMaximaKgS: 2, propelenteCompativel: 'metano',
     estadoInicial: { posicaoM: new Vetor3(0, 0.9, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
   });
   const tanque = new TanquePropelente({
-    id: 'tanque-vertical', massaBaseKg: 180, dimensoesM: new Vetor3(2.2, 1.4, 1), resistenciaColisaoJ: 100_000, resistenciaCalorK: 1_000,
+    id: 'tanque-vertical', massaBaseKg: 180, dimensoesM: new Vetor3(2.2, 1.4, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000,
     tipoPropelente: 'metano', capacidadePropelenteKg: 30, massaPropelenteInicialKg: 30, areaFrontalM2: 1.2, coeficienteArrasto: 0.7,
     estadoInicial: { posicaoM: new Vetor3(0, 2.9, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
   });
@@ -934,13 +934,13 @@ const criarTesteMerlinVetorizado = (): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
   const solo = new SuperficiePlano('solo-merlin-vetorizado', 'concreto', 0, 1_000_000, 0.04, 0.9);
   const merlin = new PropulsorVetorizado({
-    id: 'merlin-1d-vetorizado', massaBaseKg: 470, dimensoesM: new Vetor3(1.2, 1, 1), resistenciaColisaoJ: 150_000, resistenciaCalorK: 1_000,
+    id: 'merlin-1d-vetorizado', massaBaseKg: 470, dimensoesM: new Vetor3(1.2, 1, 1), resistenciaColisaoJ: 150_000, limiteTermicoC: 1_000,
     empuxoMaximoN: 845_000, vazaoMaximaKgS: 250, propelenteCompativel: 'rp-1',
     vetorizacao: { limiteAngularRad: 5 * Math.PI / 180, velocidadeAngularMaximaRadps: 10 * Math.PI / 180 },
     estadoInicial: { posicaoM: new Vetor3(0, 1, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
   });
   const tanque = new TanquePropelente({
-    id: 'tanque-merlin-vetorizado', massaBaseKg: 15_000, dimensoesM: new Vetor3(2.4, 3.6, 1), resistenciaColisaoJ: 200_000, resistenciaCalorK: 1_000,
+    id: 'tanque-merlin-vetorizado', massaBaseKg: 15_000, dimensoesM: new Vetor3(2.4, 3.6, 1), resistenciaColisaoJ: 200_000, limiteTermicoC: 1_000,
     tipoPropelente: 'rp-1', capacidadePropelenteKg: 5_000, massaPropelenteInicialKg: 5_000,
     estadoInicial: { posicaoM: new Vetor3(0, 3.8, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
   });
@@ -978,13 +978,13 @@ const normalizarAnguloRad = (anguloRad: number): number => Math.atan2(Math.sin(a
 const criarTesteMerlinDesalinhadoComCorrecao = (deslocamentoMotorXM: number, nome: string): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
   const merlin = new PropulsorVetorizado({
-    id: 'merlin-desalinhado', massaBaseKg: 470, dimensoesM: new Vetor3(1.2, 0.8, 1), resistenciaColisaoJ: 150_000, resistenciaCalorK: 1_000,
+    id: 'merlin-desalinhado', massaBaseKg: 470, dimensoesM: new Vetor3(1.2, 0.8, 1), resistenciaColisaoJ: 150_000, limiteTermicoC: 1_000,
     empuxoMaximoN: 845_000, vazaoMaximaKgS: 250, propelenteCompativel: 'rp-1',
     vetorizacao: { limiteAngularRad: 5 * Math.PI / 180, velocidadeAngularMaximaRadps: 10 * Math.PI / 180 },
     estadoInicial: { posicaoM: new Vetor3(deslocamentoMotorXM, 28, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
   });
   const tanque = new TanquePropelente({
-    id: 'tanque-merlin-desalinhado', massaBaseKg: 30_000, dimensoesM: new Vetor3(2.5, 4, 1), resistenciaColisaoJ: 1_000_000, resistenciaCalorK: 1_000,
+    id: 'tanque-merlin-desalinhado', massaBaseKg: 30_000, dimensoesM: new Vetor3(2.5, 4, 1), resistenciaColisaoJ: 1_000_000, limiteTermicoC: 1_000,
     tipoPropelente: 'rp-1', capacidadePropelenteKg: 10_000, massaPropelenteInicialKg: 10_000,
     estadoInicial: { posicaoM: new Vetor3(0, 30, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
   });
@@ -1035,12 +1035,12 @@ const criarTesteMerlinDesalinhadoComCorrecao = (deslocamentoMotorXM: number, nom
 const criarTesteEmpuxoExcentricoEmConjunto = (): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
   const propulsor = new Propulsor({
-    id: 'propulsor-excentrico', massaBaseKg: 200, dimensoesM: new Vetor3(1.2, 0.8, 1), resistenciaColisaoJ: 100_000, resistenciaCalorK: 1_000,
+    id: 'propulsor-excentrico', massaBaseKg: 200, dimensoesM: new Vetor3(1.2, 0.8, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000,
     empuxoMaximoN: 20_000, vazaoMaximaKgS: 1, propelenteCompativel: 'metano',
     estadoInicial: { posicaoM: new Vetor3(1, 28, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
   });
   const tanque = new TanquePropelente({
-    id: 'tanque-excentrico', massaBaseKg: 700, dimensoesM: new Vetor3(2, 1.5, 1), resistenciaColisaoJ: 100_000, resistenciaCalorK: 1_000,
+    id: 'tanque-excentrico', massaBaseKg: 700, dimensoesM: new Vetor3(2, 1.5, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000,
     tipoPropelente: 'metano', capacidadePropelenteKg: 100, massaPropelenteInicialKg: 100,
     estadoInicial: { posicaoM: new Vetor3(0, 30, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
   });

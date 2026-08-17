@@ -19,9 +19,8 @@ export interface DefinicaoObjeto {
   readonly coeficienteAtrito?: number;
   /** Coeficiente de atrito contra outros objetos apoiados (0 a 1). */
   readonly coeficienteAtritoEntreObjetos?: number;
-  readonly resistenciaCalorK: number;
-  /** Limite térmico informado ao operador em graus Celsius. */
-  readonly limiteTermicoC?: number;
+  /** Limite de temperatura acima do qual inicia degradação, em graus Celsius. */
+  readonly limiteTermicoC: number;
   readonly temperaturaInicialC?: number;
   readonly capacidadeTermicaJPorC?: number;
   readonly areaTermicaM2?: number;
@@ -68,8 +67,8 @@ export class Objeto {
     if (definicao.dimensoesM.x <= 0 || definicao.dimensoesM.y <= 0 || definicao.dimensoesM.z <= 0) {
       throw new Error('Dimensões devem ser positivas.');
     }
-    if (definicao.resistenciaColisaoJ <= 0 || definicao.resistenciaCalorK <= 0) {
-      throw new Error('Resistências devem ser positivas.');
+    if (definicao.resistenciaColisaoJ <= 0 || !Number.isFinite(definicao.limiteTermicoC)) {
+      throw new Error('Resistência a colisão deve ser positiva e limite térmico deve ser finito.');
     }
     const dissipacaoImpacto = definicao.dissipacaoImpacto ?? 0.15;
     if (!Number.isFinite(dissipacaoImpacto) || dissipacaoImpacto < 0 || dissipacaoImpacto >= 1) {
@@ -107,9 +106,8 @@ export class Objeto {
   public get dissipacaoImpacto(): number { return this.definicao.dissipacaoImpacto ?? 0.15; }
   public get coeficienteAtrito(): number { return this.definicao.coeficienteAtrito ?? 0.65; }
   public get coeficienteAtritoEntreObjetos(): number { return this.definicao.coeficienteAtritoEntreObjetos ?? 0; }
-  public get resistenciaCalorK(): number { return this.definicao.resistenciaCalorK; }
+  public get limiteTermicoC(): number { return this.definicao.limiteTermicoC; }
   public get temperaturaC(): number { return this.temperaturaAtualC; }
-  public get limiteTermicoC(): number { return this.definicao.limiteTermicoC ?? this.definicao.resistenciaCalorK - 273.15; }
   public get capacidadeTermicaJPorC(): number { return this.definicao.capacidadeTermicaJPorC ?? this.massaKg * 500; }
   public get areaTermicaM2(): number { return this.definicao.areaTermicaM2 ?? Math.max(0.1, this.dimensoesM.x * this.dimensoesM.y); }
   public get coeficienteConveccaoWPorM2C(): number { return this.definicao.coeficienteConveccaoWPorM2C ?? 10; }
