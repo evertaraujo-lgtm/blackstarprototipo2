@@ -4,6 +4,8 @@ import { Objeto } from './objetos/base/Objeto';
 import { SuperficiePlano } from './SuperficiePlano';
 import { Vetor3 } from './Vetor3';
 import { FixadorEstrutural } from './conexoes/FixadorEstrutural';
+import { Propulsor } from './objetos/propulsao/Propulsor';
+import { TanquePropelente } from './objetos/propulsao/TanquePropelente';
 
 const criarObjeto = (id = 'objeto') => new Objeto({
   id,

@@ -207,6 +207,7 @@ export class Objeto {
     return this.coeficienteAtrito;
   }
 
+
   public definirMassaVariavelKg(massaKg: number): void {
     if (!Number.isFinite(massaKg) || massaKg < 0) throw new Error('Massa variável deve ser finita e não negativa.');
     this.massaVariavelKg = massaKg;

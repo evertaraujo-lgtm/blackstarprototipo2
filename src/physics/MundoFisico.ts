@@ -72,20 +72,105 @@ class ConjuntoEstruturalRigido {
     return this.objetos.includes(objeto);
   }
 
+  public get membros(): readonly Objeto[] { return this.objetos; }
+
+  public get massaTotalKg(): number {
+    return this.objetos.reduce((soma, objeto) => soma + objeto.massaKg, 0);
+  }
+
   /** Massa dinâmica vista em um ponto e direção de contato do conjunto inteiro. */
   public obterMassaEfetivaNoContato(pontoContatoM: Vetor3, normal: Vetor3): number {
-    const massaTotalKg = this.objetos.reduce((soma, objeto) => soma + objeto.massaKg, 0);
+    const massaTotalKg = this.massaTotalKg;
     const braco = pontoContatoM.subtrair(this.obterCentroDeMassaAtual());
     const torqueUnitarioZ = braco.produtoVetorial(normal).z;
     return 1 / ((1 / massaTotalKg) + (torqueUnitarioZ ** 2 / this.obterInerciaCompostaZ()));
   }
 
   public obterCentroDeMassaAtual(): Vetor3 {
-    const massaTotalKg = this.objetos.reduce((soma, objeto) => soma + objeto.massaKg, 0);
+    const massaTotalKg = this.massaTotalKg;
     return this.objetos.reduce(
       (soma, objeto) => soma.adicionar(objeto.getEstadoFisico().posicaoM.multiplicar(objeto.massaKg / massaTotalKg)),
       Vetor3.zero,
     );
+  }
+
+  /** Velocidade física do corpo rígido no ponto de contato informado. */
+  public obterVelocidadeNoPonto(pontoM: Vetor3): Vetor3 {
+    const centroMassa = this.obterCentroDeMassaAtual();
+    const velocidadeCentro = this.obterVelocidadeDoCentroAtual();
+    const velocidadeAngular = new Vetor3(0, 0, this.obterVelocidadeAngularAtual(centroMassa));
+    return velocidadeCentro.adicionar(velocidadeAngular.produtoVetorial(pontoM.subtrair(centroMassa)));
+  }
+
+  /** Aplica impulso diretamente à ilha, preservando a rigidez de seus membros. */
+  public aplicarImpulsoNoPonto(impulsoNs: Vetor3, pontoM: Vetor3): void {
+    const centroMassa = this.obterCentroDeMassaAtual();
+    const velocidadeCentro = this.obterVelocidadeDoCentroAtual();
+    const inerciaZ = this.obterInerciaCompostaZ();
+    const velocidadeAngularZ = this.obterVelocidadeAngularAtual(centroMassa);
+    const proximaVelocidadeCentro = velocidadeCentro.adicionar(impulsoNs.multiplicar(1 / this.massaTotalKg));
+    const proximaVelocidadeAngularZ = velocidadeAngularZ + pontoM.subtrair(centroMassa).produtoVetorial(impulsoNs).z / inerciaZ;
+    const proximaVelocidadeAngular = new Vetor3(0, 0, proximaVelocidadeAngularZ);
+    for (const objeto of this.objetos) {
+      const estado = objeto.getEstadoFisico();
+      const braco = estado.posicaoM.subtrair(centroMassa);
+      objeto.atualizarEstadoPeloCore({
+        ...estado,
+        velocidadeMps: proximaVelocidadeCentro.adicionar(proximaVelocidadeAngular.produtoVetorial(braco)),
+        velocidadeAngularRadps: proximaVelocidadeAngular,
+      });
+    }
+  }
+
+  /** Corrige penetração por translação da ilha inteira, nunca de um membro isolado. */
+  public corrigirPenetracao(normal: Vetor3, penetracaoM: number): void {
+    const deslocamentoM = normal.multiplicar(penetracaoM);
+    for (const objeto of this.objetos) {
+      const estado = objeto.getEstadoFisico();
+      objeto.atualizarEstadoPeloCore({ ...estado, posicaoM: estado.posicaoM.adicionar(deslocamentoM) });
+    }
+  }
+
+  /** Integra todas as forças externas como uma única resultante do corpo rígido. */
+  public integrar(forcas: readonly ForcaAplicada[], dtS: number): void {
+    const centroMassa = this.obterCentroDeMassaAtual();
+    const resultanteN = forcas.reduce((soma, forca) => soma.adicionar(forca.forcaN), Vetor3.zero);
+    const torqueZ = forcas.reduce((soma, forca) => soma + forca.pontoM.subtrair(centroMassa).produtoVetorial(forca.forcaN).z, 0);
+    const velocidadeCentro = this.obterVelocidadeDoCentroAtual().adicionar(resultanteN.multiplicar(dtS / this.massaTotalKg));
+    const proximoCentroMassa = centroMassa.adicionar(velocidadeCentro.multiplicar(dtS));
+    const velocidadeAngularZ = this.obterVelocidadeAngularAtual(centroMassa) + torqueZ * dtS / this.obterInerciaCompostaZ();
+    this.anguloDoConjuntoRad += velocidadeAngularZ * dtS;
+    const velocidadeAngular = new Vetor3(0, 0, velocidadeAngularZ);
+    for (const objeto of this.objetos) {
+      const estadoAnterior = objeto.getEstadoFisico();
+      const referenciaLocal = this.referenciasLocaisM.get(objeto)!;
+      const braco = this.rotacionarNoPlano(referenciaLocal, this.anguloDoConjuntoRad);
+      const orientacaoRelativa = this.orientacoesRelativasRad.get(objeto)!;
+      objeto.atualizarEstadoPeloCore({
+        ...estadoAnterior,
+        posicaoM: proximoCentroMassa.adicionar(braco),
+        velocidadeMps: velocidadeCentro.adicionar(velocidadeAngular.produtoVetorial(braco)),
+        orientacaoRad: new Vetor3(orientacaoRelativa.x, orientacaoRelativa.y, orientacaoRelativa.z + this.anguloDoConjuntoRad),
+        velocidadeAngularRadps: velocidadeAngular,
+      });
+    }
+  }
+
+  private obterVelocidadeDoCentroAtual(): Vetor3 {
+    return this.objetos.reduce(
+      (soma, objeto) => soma.adicionar(objeto.getEstadoFisico().velocidadeMps.multiplicar(objeto.massaKg / this.massaTotalKg)),
+      Vetor3.zero,
+    );
+  }
+
+  private obterVelocidadeAngularAtual(centroMassa: Vetor3): number {
+    const momentoAngularZ = this.objetos.reduce((soma, objeto) => {
+      const estado = objeto.getEstadoFisico();
+      const braco = estado.posicaoM.subtrair(centroMassa);
+      return soma + braco.produtoVetorial(estado.velocidadeMps.multiplicar(objeto.massaKg)).z
+        + objeto.getMomentoInerciaKgM2().z * estado.velocidadeAngularRadps.z;
+    }, 0);
+    return momentoAngularZ / this.obterInerciaCompostaZ();
   }
 
   private obterInerciaCompostaZ(): number {
@@ -112,6 +197,8 @@ export interface ConfiguracaoMundoFisico {
 /** Núcleo determinístico de integração sem dependência de DOM, relógio ou renderização. */
 export class MundoFisico {
   public static readonly gravidadeTerrestreMps2 = new Vetor3(0, -9.80665, 0);
+  /** Abaixo deste módulo normal, o contato é apoio contínuo, sem quique. */
+  public static readonly velocidadeDeRepousoMps = 0.05;
   /** Densidade do ar ao nível do mar usada quando o cenário não declara outra. */
   public static readonly densidadeAtmosferaPadraoKgM3 = 1.225;
   private readonly objetos = new Map<string, Objeto>();
@@ -183,7 +270,9 @@ export class MundoFisico {
     for (const objeto of this.objetos.values()) objeto.prepararPassoOperacional(dtS);
     this.atualizarEstadoTermico(dtS);
     for (const fixador of this.fixadores.values()) fixador.prepararPasso(dtS);
+    this.sincronizarConjuntosEstruturais(0, false);
     for (const objeto of this.objetos.values()) {
+      if (this.obterConjuntoEstruturalDoObjeto(objeto)) continue;
       const estado = objeto.getEstadoFisico();
       const forcas = this.forcasPendentes.get(objeto.id) ?? [];
       const forcasOperacionais = objeto.obterForcasOperacionais().map((forca) => ({
@@ -215,7 +304,19 @@ export class MundoFisico {
       objeto.atualizarEstadoPeloCore(proximo);
       objeto.registrarUso(dtS / 3600);
     }
-    this.sincronizarConjuntosEstruturais(dtS, true);
+    for (const conjunto of this.conjuntosEstruturais.values()) {
+      const forcasDoConjunto: ForcaAplicada[] = [];
+      for (const objeto of conjunto.membros) {
+        const estado = objeto.getEstadoFisico();
+        forcasDoConjunto.push(...(this.forcasPendentes.get(objeto.id) ?? []));
+        forcasDoConjunto.push(...objeto.obterForcasOperacionais().map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM })));
+        forcasDoConjunto.push(...objeto.obterForcasAerodinamicas({ densidadeArKgM3: this.densidadeAtmosfericaKgM3, velocidadeArMps: this.velocidadeArMps }).map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM })));
+        forcasDoConjunto.push({ forcaN: MundoFisico.gravidadeTerrestreMps2.multiplicar(objeto.massaKg), pontoM: estado.posicaoM });
+        forcasDoConjunto.push({ forcaN: this.obterForcaArrastoAtmosferico(objeto), pontoM: estado.posicaoM });
+        objeto.registrarUso(dtS / 3600);
+      }
+      conjunto.integrar(forcasDoConjunto, dtS);
+    }
     this.resolverColisoes();
     this.resolverContatosComSuperficies(dtS);
     // Impulsos de colisão e contato recebidos por qualquer módulo passam a
@@ -339,23 +440,33 @@ export class MundoFisico {
   }
 
   private obterCentroDeMassaDaIlha(objeto: Objeto): Vetor3 | undefined {
-    return [...this.conjuntosEstruturais.values()].find((conjunto) => conjunto.contem(objeto))?.obterCentroDeMassaAtual();
+    return this.obterConjuntoEstruturalDoObjeto(objeto)?.obterCentroDeMassaAtual();
+  }
+
+  private obterConjuntoEstruturalDoObjeto(objeto: Objeto): ConjuntoEstruturalRigido | undefined {
+    return [...this.conjuntosEstruturais.values()].find((conjunto) => conjunto.contem(objeto));
   }
 
   private resolverContatosComSuperficies(dtS: number): void {
-    for (const objeto of this.objetos.values()) {
-      for (const superficie of this.superficies.values()) {
-        const cantos = this.obterCantosOrientados(objeto);
-        const menorAlturaM = Math.min(...cantos.map((canto) => canto.y));
+    for (const superficie of this.superficies.values()) {
+      const conjuntosProcessados = new Set<ConjuntoEstruturalRigido>();
+      for (const objeto of this.objetos.values()) {
+        const conjunto = this.obterConjuntoEstruturalDoObjeto(objeto);
+        if (conjunto && conjuntosProcessados.has(conjunto)) continue;
+        if (conjunto) conjuntosProcessados.add(conjunto);
+        const membros = conjunto?.membros ?? [objeto];
+        const cantosPorObjeto = membros.flatMap((membro) => this.obterCantosOrientados(membro).map((canto) => ({ membro, canto })));
+        const menorAlturaM = Math.min(...cantosPorObjeto.map(({ canto }) => canto.y));
         const penetracaoM = superficie.alturaM - menorAlturaM;
         if (penetracaoM > 0) {
           const toleranciaM = 1e-9;
-          const cantosDeContato = cantos.filter((canto) => Math.abs(canto.y - menorAlturaM) <= toleranciaM);
+          const contatos = cantosPorObjeto.filter(({ canto }) => Math.abs(canto.y - menorAlturaM) <= toleranciaM);
+          const cantosDeContato = contatos.map(({ canto }) => canto);
           const mediaDosContatos = cantosDeContato.reduce(
             (soma, canto) => soma.adicionar(canto),
             Vetor3.zero,
           ).multiplicar(1 / cantosDeContato.length);
-          const centroMassa = this.obterCentroDeMassaDaIlha(objeto) ?? objeto.getEstadoFisico().posicaoM;
+          const centroMassa = conjunto?.obterCentroDeMassaAtual() ?? objeto.getEstadoFisico().posicaoM;
           const menorX = Math.min(...cantosDeContato.map((canto) => canto.x));
           const maiorX = Math.max(...cantosDeContato.map((canto) => canto.x));
           const pontoContatoM = new Vetor3(
@@ -363,7 +474,17 @@ export class MundoFisico {
             mediaDosContatos.y,
             mediaDosContatos.z,
           );
-          this.resolverContatoComSuperficie(objeto, superficie, penetracaoM, pontoContatoM, dtS);
+          const objetoDeContato = contatos[0].membro;
+          if (conjunto) {
+            // Uma base larga não pode ser reduzida a um único apoio central:
+            // os extremos inferiores distribuem normal, atrito e torque.
+            const apoios = [menorX, maiorX].filter((x, indice, valores) => indice === 0 || Math.abs(x - valores[indice - 1]) > toleranciaM)
+              .map((x) => new Vetor3(x, mediaDosContatos.y, mediaDosContatos.z));
+            apoios.forEach((apoio, indice) => this.resolverContatoDaIlhaComSuperficie(
+              conjunto, objetoDeContato, superficie, penetracaoM, apoio, dtS, indice === apoios.length - 1,
+            ));
+          }
+          else this.resolverContatoComSuperficie(objetoDeContato, superficie, penetracaoM, pontoContatoM, dtS);
         }
       }
     }
@@ -623,6 +744,53 @@ export class MundoFisico {
     });
   }
 
+  /** Resolve apoio contra uma superfície no estado agregado da ilha rígida. */
+  private resolverContatoDaIlhaComSuperficie(
+    conjunto: ConjuntoEstruturalRigido,
+    objetoDeContato: Objeto,
+    superficie: SuperficiePlano,
+    penetracaoM: number,
+    pontoContatoM: Vetor3,
+    dtS: number,
+    corrigirPenetracao: boolean,
+  ): void {
+    const normal = new Vetor3(0, 1, 0);
+    const velocidadeNormal = conjunto.obterVelocidadeNoPonto(pontoContatoM).produtoEscalar(normal);
+    let impulsoNormalNs = 0;
+    if (velocidadeNormal < 0) {
+      const massaEfetivaKg = conjunto.obterMassaEfetivaNoContato(pontoContatoM, normal);
+      const energiaImpactoJ = 0.5 * massaEfetivaKg * velocidadeNormal ** 2;
+      const restitituicao = this.calcularRestituicaoDeContato(
+        energiaImpactoJ,
+        objetoDeContato.resistenciaColisaoJ,
+        superficie.resistenciaColisaoJ,
+        objetoDeContato.dissipacaoImpacto,
+        superficie.dissipacaoImpacto,
+        velocidadeNormal,
+      );
+      impulsoNormalNs = -((1 + restitituicao) * velocidadeNormal) * massaEfetivaKg;
+      conjunto.aplicarImpulsoNoPonto(normal.multiplicar(impulsoNormalNs), pontoContatoM);
+      objetoDeContato.aplicarDanoPorImpacto(energiaImpactoJ);
+      superficie.aplicarDanoPorImpacto(energiaImpactoJ);
+    }
+
+    if (impulsoNormalNs > 0) {
+      const velocidadeNoContato = conjunto.obterVelocidadeNoPonto(pontoContatoM);
+      const velocidadeTangencial = velocidadeNoContato.subtrair(normal.multiplicar(velocidadeNoContato.produtoEscalar(normal)));
+      if (velocidadeTangencial.magnitude > 1e-9) {
+        const direcaoAtrito = velocidadeTangencial.multiplicar(-1 / velocidadeTangencial.magnitude);
+        const massaEfetivaTangencialKg = conjunto.obterMassaEfetivaNoContato(pontoContatoM, direcaoAtrito);
+        const impulsoNecessarioNs = velocidadeTangencial.magnitude * massaEfetivaTangencialKg;
+        const impulsoNormalDeApoioNs = conjunto.massaTotalKg * Math.abs(MundoFisico.gravidadeTerrestreMps2.y) * dtS;
+        const apoioNormalNs = Math.max(impulsoNormalNs, impulsoNormalDeApoioNs);
+        const coeficienteAtrito = Math.min(objetoDeContato.getCoeficienteAtritoDeContato(), superficie.coeficienteAtritoDinamico);
+        const impulsoAtritoNs = Math.min(impulsoNecessarioNs, coeficienteAtrito * apoioNormalNs);
+        conjunto.aplicarImpulsoNoPonto(direcaoAtrito.multiplicar(impulsoAtritoNs), pontoContatoM);
+      }
+    }
+    if (corrigirPenetracao) conjunto.corrigirPenetracao(normal, penetracaoM);
+  }
+
   private resolverContatoComSuperficie(objeto: Objeto, superficie: SuperficiePlano, penetracaoM: number, pontoContatoM: Vetor3, dtS: number): void {
     const estado = objeto.getEstadoFisico();
     const normal = new Vetor3(0, 1, 0);
@@ -645,12 +813,13 @@ export class MundoFisico {
         // calculado com sua massa e inércia compostas.
         ?? (1 / ((1 / objeto.massaKg) + termoAngular));
       const energiaImpactoJ = 0.5 * massaParaEnergiaDeImpactoKg * velocidadeNormal ** 2;
-      const restitituicao = this.calcularRestituicaoPorEnergia(
+      const restitituicao = this.calcularRestituicaoDeContato(
         energiaImpactoJ,
         objeto.resistenciaColisaoJ,
         superficie.resistenciaColisaoJ,
         objeto.dissipacaoImpacto,
         superficie.dissipacaoImpacto,
+        velocidadeNormal,
       );
       impulsoNormalNs = -((1 + restitituicao) * velocidadeNormal) * massaEfetivaDinamicaContatoKg;
       const impulso = normal.multiplicar(impulsoNormalNs);
@@ -678,10 +847,11 @@ export class MundoFisico {
             + (torqueAtritoUnitario.y ** 2 / inercia.y)
             + (torqueAtritoUnitario.z ** 2 / inercia.z)));
         const impulsoNecessarioNs = velocidadeTangencial.magnitude * massaEfetivaTangencialKg;
-        const coeficienteAtrito = Math.min(objeto.getCoeficienteAtritoDeContato(), superficie.coeficienteAtritoDinamico);
         const impulsoNormalDeApoioNs = objeto.massaKg * Math.abs(MundoFisico.gravidadeTerrestreMps2.y) * dtS;
-        const limiteAtritoNs = coeficienteAtrito * Math.max(impulsoNormalNs, impulsoNormalDeApoioNs);
-        const impulsoAtrito = direcaoAtrito.multiplicar(Math.min(impulsoNecessarioNs, limiteAtritoNs));
+        const apoioNormalNs = Math.max(impulsoNormalNs, impulsoNormalDeApoioNs);
+        const coeficienteAtrito = Math.min(objeto.getCoeficienteAtritoDeContato(), superficie.coeficienteAtritoDinamico);
+        const impulsoAtritoNs = Math.min(impulsoNecessarioNs, coeficienteAtrito * apoioNormalNs);
+        const impulsoAtrito = direcaoAtrito.multiplicar(impulsoAtritoNs);
         velocidade = velocidade.adicionar(impulsoAtrito.multiplicar(1 / objeto.massaKg));
         velocidadeAngular = velocidadeAngular.adicionar(new Vetor3(
           braco.produtoVetorial(impulsoAtrito).x / inercia.x,
@@ -728,6 +898,24 @@ export class MundoFisico {
       objetoB.resistenciaColisaoJ,
       objetoA.dissipacaoImpacto,
       objetoB.dissipacaoImpacto,
+    );
+  }
+
+  private calcularRestituicaoDeContato(
+    energiaImpactoJ: number,
+    resistenciaObjeto: number,
+    resistenciaSuperficie: number,
+    dissipacaoObjeto: number,
+    dissipacaoSuperficie: number,
+    velocidadeNormalMps: number,
+  ): number {
+    if (Math.abs(velocidadeNormalMps) < MundoFisico.velocidadeDeRepousoMps) return 0;
+    return this.calcularRestituicaoPorEnergia(
+      energiaImpactoJ,
+      resistenciaObjeto,
+      resistenciaSuperficie,
+      dissipacaoObjeto,
+      dissipacaoSuperficie,
     );
   }
 
