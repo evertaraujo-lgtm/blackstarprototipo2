@@ -122,6 +122,15 @@ especial e deve ser declarado explicitamente com densidade atmosférica zero,
 inclusive na descrição do cenário. Nenhum teste pode depender silenciosamente
 da ausência de arrasto atmosférico.
 
+### 6.1.2 Câmera e escala em cenários com movimento
+
+Todo cenário visual que contenha movimento relevante deve manter a câmera
+centrada no objeto ou conjunto observado e apresentar escalas graduadas dos
+deslocamentos horizontal e vertical, em metros. A câmera e as escalas são
+somente recursos de observação: elas consultam o estado do `MundoFisico` e não
+podem alterar posição, velocidade, orientação ou qualquer outra condição
+física.
+
 ### 6.2 Bancada como regressão do core compartilhado
 
 A bancada de testes é um consumidor do mesmo `MundoFisico` utilizado pelos

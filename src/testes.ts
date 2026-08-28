@@ -10,6 +10,11 @@ import { Propulsor, type IdSistemaPropulsor } from './physics/objetos/propulsao/
 import { PropulsorVetorizado } from './physics/objetos/propulsao/PropulsorVetorizado';
 import { TanquePropelente } from './physics/objetos/fontes-de-energia/TanquePropelente';
 import { Bateria } from './physics/objetos/fontes-de-energia/Bateria';
+import { ValvulaPropelente } from './physics/objetos/propulsao/alimentacao/ValvulaPropelente';
+import { LinhaDePropelente } from './physics/objetos/propulsao/alimentacao/LinhaDePropelente';
+import { BombaPropelente } from './physics/objetos/propulsao/alimentacao/BombaPropelente';
+import { CamaraCombustao } from './physics/objetos/propulsao/combustao/CamaraCombustao';
+import { Bocal } from './physics/objetos/propulsao/combustao/Bocal';
 import { FixadorEstrutural } from './physics/conexoes/FixadorEstrutural';
 import { ChumbadorAoSolo } from './physics/conexoes/ChumbadorAoSolo';
 import { Paraquedas } from './physics/objetos/componentes/Paraquedas';
@@ -88,6 +93,8 @@ interface CenárioVisual {
   readonly cameraX?: () => number;
   readonly cameraY?: () => number;
   readonly dados?: () => string;
+  /** Mantém visível cenários integrados que substituem ensaios isolados antigos. */
+  readonly exibirNaBancada?: boolean;
 }
 
 interface OpcoesQueda {
@@ -812,11 +819,25 @@ const criarTestePropulsorComBateria = (): CenárioVisual => {
   const bateria = new Bateria({
     id: 'bateria-28v-12kj', massaBaseKg: 20, dimensoesM: new Vetor3(0.8, 0.6, 0.8), resistenciaColisaoJ: 50_000, limiteTermicoC: 80,
     tensaoNominalV: 28, capacidadeEnergiaJ: 12_000, energiaInicialJ: 12_000,
-    estadoInicial: { posicaoM: new Vetor3(0, 4.5, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
+    estadoInicial: { posicaoM: new Vetor3(0, 5.8, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
   });
-  propulsor.conectarTanque(tanque, 4);
-  propulsor.conectarBateria(bateria, 4);
+  const oxidante = new TanquePropelente({
+    id: 'tanque-oxidante-com-bateria', massaBaseKg: 100, dimensoesM: new Vetor3(1.2, 1.6, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 300,
+    tipoPropelente: 'oxigenio', capacidadePropelenteKg: 80, massaPropelenteInicialKg: 80,
+    estadoInicial: { posicaoM: new Vetor3(0, 4.6, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
+  });
+  const valvulaCombustivel = new ValvulaPropelente({ id: 'valvula-metano-bancada', vazaoMaximaKgS: 1 });
+  const valvulaOxidante = new ValvulaPropelente({ id: 'valvula-oxigenio-bancada', vazaoMaximaKgS: 4 });
+  valvulaCombustivel.definirAbertura(1); valvulaOxidante.definirAbertura(1);
+  const linhaCombustivel = new LinhaDePropelente({ id: 'linha-metano-bancada', tanque, tipoPropelente: 'metano', comprimentoMaximoM: 8, vazaoMaximaKgS: 1, valvula: valvulaCombustivel });
+  const linhaOxidante = new LinhaDePropelente({ id: 'linha-oxigenio-bancada', tanque: oxidante, tipoPropelente: 'oxigenio', comprimentoMaximoM: 8, vazaoMaximaKgS: 4, valvula: valvulaOxidante });
+  const bombaCombustivel = new BombaPropelente({ id: 'bomba-metano-bancada', tensaoNominalV: 28, vazaoMaximaKgS: 1, potenciaEletricaMaximaW: 1_000 });
+  const bombaOxidante = new BombaPropelente({ id: 'bomba-oxigenio-bancada', tensaoNominalV: 28, vazaoMaximaKgS: 4, potenciaEletricaMaximaW: 1_000 });
+  propulsor.conectarTanque(tanque, 8);
+  propulsor.conectarBateria(bateria, 8);
+  propulsor.configurarCadeiaBipropelente({ linhaCombustivel, bombaCombustivel, linhaOxidante, bombaOxidante, camara: new CamaraCombustao({ razaoMisturaOxidanteCombustivel: 4, toleranciaRazaoMistura: 0.1 }), bocal: new Bocal({ empuxoMaximoN: 4_000, eficienciaNominal: 1 }) });
   propulsor.definirThrottle(1);
+  const bancada = new Objeto({ id: 'bancada-propulsor-integrado', massaBaseKg: 5_000, dimensoesM: new Vetor3(6, 1, 1), resistenciaColisaoJ: 1_000_000, limiteTermicoC: 600, estadoInicial: { posicaoM: new Vetor3(0, 0.5, 0) } });
   const fixadorTanque = new FixadorEstrutural({
     id: 'fixador-tanque-propulsor-bateria', objetoA: tanque, objetoB: propulsor, resistenciaTracaoN: 20_000,
     obterEsforcoSolicitadoN: () => propulsor.empuxoAtualN,
@@ -825,20 +846,30 @@ const criarTestePropulsorComBateria = (): CenárioVisual => {
     id: 'fixador-bateria-propulsor', objetoA: bateria, objetoB: propulsor, resistenciaTracaoN: 20_000,
     obterEsforcoSolicitadoN: () => propulsor.empuxoAtualN,
   });
+  const fixadorOxidante = new FixadorEstrutural({ id: 'fixador-oxidante-propulsor', objetoA: oxidante, objetoB: propulsor, resistenciaTracaoN: 20_000, obterEsforcoSolicitadoN: () => propulsor.empuxoAtualN });
+  const fixadorBancada = new FixadorEstrutural({ id: 'fixador-bancada-propulsor', objetoA: bancada, objetoB: propulsor, resistenciaTracaoN: 20_000, obterEsforcoSolicitadoN: () => propulsor.empuxoAtualN });
+  const chumbador = new ChumbadorAoSolo({ id: 'chumbador-bancada-propulsor-integrado', objeto: bancada, resistenciaN: 50_000, obterEsforcoSolicitadoN: () => propulsor.empuxoAtualN });
+  const solo = new SuperficiePlano('solo-bancada-propulsor-integrado', 'concreto', 0, 1_000_000, 0.04, 0.9);
+  mundo.registrarSuperficie(solo);
+  mundo.registrarObjeto(bancada);
   mundo.registrarObjeto(propulsor);
   mundo.registrarObjeto(tanque);
+  mundo.registrarObjeto(oxidante);
   mundo.registrarObjeto(bateria);
   mundo.registrarFixador(fixadorTanque);
   mundo.registrarFixador(fixadorBateria);
+  mundo.registrarFixador(fixadorOxidante);
+  mundo.registrarFixador(fixadorBancada);
+  mundo.registrarChumbadorAoSolo(chumbador);
   const atualizarPartida = criarPartidaAutomaticaBasica(mundo, propulsor);
   return {
-    nome: 'Propulsor — bateria física e descarga',
-    descricao: 'Propulsor, tanque e bateria de 28 V são Objetos independentes unidos por fixadores. A bateria fornece 12 kJ a 2 kW: após cerca de 6 s em throttle máximo, a carga zera e a cadeia elétrica corta ignição e empuxo. O conjunto continua no MundoFisico para observação.',
-    mundo, objetos: [tanque, bateria, propulsor], superficies: [], velocidadeTempo: 1, limiteVerticalM: 50, limiteHorizontalM: 15,
-    seguirObjeto: propulsor, mangueira: { tanque, propulsor }, fixadores: [fixadorTanque, fixadorBateria], propulsorControlavel: propulsor,
+    nome: 'Bancada integrada — propulsor bipropelente',
+    descricao: 'Bancada chumbada ao solo com propulsor, tanque de metano, tanque de oxigênio e bateria de 28 V, todos objetos físicos unidos por fixadores. O fluxo passa por válvulas, linhas e bombas elétricas, reage na câmara e produz empuxo no bocal. A descarga da bateria corta a cadeia.',
+    mundo, objetos: [bancada, tanque, oxidante, bateria, propulsor], superficies: [solo], velocidadeTempo: 1, limiteVerticalM: 10, limiteHorizontalM: 8, exibirNaBancada: true,
+    seguirObjeto: propulsor, cameraY: () => propulsor.getEstadoFisico().posicaoM.y, mangueira: { tanque, propulsor }, fixadores: [fixadorTanque, fixadorOxidante, fixadorBateria, fixadorBancada], chumbadoresAoSolo: [chumbador], propulsorControlavel: propulsor,
     permiteAjustarThrottle: true, atualizarControle: atualizarPartida,
     telemetria: () => `carga ${(bateria.percentualDeCarga * 100).toFixed(1)}% · empuxo ${propulsor.empuxoAtualN.toFixed(0)} N`,
-    dados: () => `Bateria: ${bateria.energiaArmazenadaJ.toFixed(0)} / ${bateria.capacidadeEnergiaJ.toFixed(0)} J (${(bateria.percentualDeCarga * 100).toFixed(1)}%)\nTensão: ${bateria.tensaoNominalV.toFixed(0)} V; requerida: ${propulsor.tensaoAlimentacaoNominalV.toFixed(0)} V\nConsumo elétrico: ${propulsor.potenciaEletricaMaximaW.toFixed(0)} W\nCabo: ${propulsor.caboEletricoEstaRompido ? 'ROMPIDO' : 'íntegro'}\nEmpuxo: ${propulsor.empuxoAtualN.toFixed(0)} N\nVazão: ${propulsor.vazaoAtualKgS.toFixed(2)} kg/s\nPropelente: ${tanque.massaPropelenteKg.toFixed(2)} kg\nFixadores: tanque ${fixadorTanque.estaRompido ? 'ROMPIDO' : 'íntegro'} · bateria ${fixadorBateria.estaRompido ? 'ROMPIDO' : 'íntegro'}\nDiagnóstico: ${propulsor.diagnosticoOperacional.length === 0 ? 'operacional' : propulsor.diagnosticoOperacional.join(', ')}`,
+    dados: () => `Bateria: ${bateria.energiaArmazenadaJ.toFixed(0)} / ${bateria.capacidadeEnergiaJ.toFixed(0)} J (${(bateria.percentualDeCarga * 100).toFixed(1)}%)\nLinhas: metano ${linhaCombustivel.vazaoAtualKgS.toFixed(2)} kg/s ${linhaCombustivel.estaRompida ? 'ROMPIDA' : 'íntegra'} · oxigênio ${linhaOxidante.vazaoAtualKgS.toFixed(2)} kg/s ${linhaOxidante.estaRompida ? 'ROMPIDA' : 'íntegra'}\nEmpuxo no bocal: ${propulsor.empuxoAtualN.toFixed(0)} N\nVazão reagida: ${propulsor.vazaoAtualKgS.toFixed(2)} kg/s\nMetano / oxigênio: ${tanque.massaPropelenteKg.toFixed(2)} / ${oxidante.massaPropelenteKg.toFixed(2)} kg\nBancada: ${chumbador.estaRompido ? 'CHUMBADOR ROMPIDO' : 'chumbada ao solo'}\nDiagnóstico: ${propulsor.diagnosticoOperacional.length === 0 ? 'operacional' : propulsor.diagnosticoOperacional.join(', ')}`,
     deveEncerrar: () => false,
     validar: () => `${bateria.estaDescarregada && propulsor.empuxoAtualN === 0 ? 'APROVADO' : 'EXECUTANDO'} · carga ${(bateria.percentualDeCarga * 100).toFixed(1)}%; ignição ${propulsor.estaIgnitado ? 'ativa' : 'cortada'}`,
   };
@@ -1417,6 +1448,7 @@ const atualizarControleTemporal = (): void => {
 };
 
 const obterGrupoDoCenario = (cenario: CenárioVisual): string => {
+  if (cenario.exibirNaBancada) return 'Sistemas integrados';
   if (cenario.modalidade === 'térmica') return 'Testes térmicos';
   if (cenario.nome.startsWith('Propulsor') || cenario.nome.startsWith('Foguete') || cenario.nome.startsWith('Merlin')) return 'Propulsão e sistemas';
   if (cenario.nome.startsWith('Veículo')) return 'Veículos e mobilidade';
@@ -1426,10 +1458,22 @@ const obterGrupoDoCenario = (cenario: CenárioVisual): string => {
   return 'Colisões, resistência e torque';
 };
 
+/** Ensaios isolados de veículo e propulsão seguem preservados no código, mas saem da bancada ativa. */
+const deveExibirNaBancada = (cenario: CenárioVisual): boolean => {
+  if (cenario.exibirNaBancada) return true;
+  return !cenario.nome.startsWith('Veículo') && !cenario.nome.startsWith('Propulsor') &&
+    !cenario.nome.startsWith('Foguete') && !cenario.nome.startsWith('Merlin');
+};
+
+const indicesExibiveis = (): readonly number[] => cenarios.flatMap((cenario, indice) => deveExibirNaBancada(cenario) ? [indice] : []);
+const primeiroIndiceExibivel = (): number => indicesExibiveis()[0] ?? 0;
+const proximoIndiceExibivel = (indice: number): number | undefined => indicesExibiveis().find((indiceVisivel) => indiceVisivel > indice);
+
 const preencherSeletorDeCenarios = (): void => {
   scenarioSelector.replaceChildren();
   const grupos = new Map<string, Array<{ cenario: CenárioVisual; indice: number }>>();
   cenarios.forEach((cenario, indice) => {
+    if (!deveExibirNaBancada(cenario)) return;
     const grupo = obterGrupoDoCenario(cenario);
     const itens = grupos.get(grupo) ?? [];
     itens.push({ cenario, indice });
@@ -1500,6 +1544,40 @@ const desenhar = (): void => {
     contexto.moveTo(0, soloY);
     contexto.lineTo(largura, soloY);
     contexto.stroke();
+  }
+
+  // Em cenários acompanhados, réguas nos dois eixos tornam observável o
+  // deslocamento do corpo sem usar a câmera como fonte de estado.
+  if (cenário.seguirObjeto !== undefined) {
+    const passoEscalaM = escala >= 35 ? 5 : 10;
+    const primeiroXM = Math.floor((-origemX / escala) / passoEscalaM) * passoEscalaM;
+    const ultimoXM = Math.ceil(((largura - origemX) / escala) / passoEscalaM) * passoEscalaM;
+    const menorYM = Math.floor(((soloY - altura) / escala) / passoEscalaM) * passoEscalaM;
+    const maiorYM = Math.ceil((soloY / escala) / passoEscalaM) * passoEscalaM;
+    contexto.save();
+    contexto.strokeStyle = '#64748b';
+    contexto.fillStyle = '#cbd5e1';
+    contexto.lineWidth = 1;
+    contexto.font = '10px ui-monospace, monospace';
+    for (let xM = primeiroXM; xM <= ultimoXM; xM += passoEscalaM) {
+      const x = origemX + xM * escala;
+      contexto.beginPath();
+      contexto.moveTo(x, 0);
+      contexto.lineTo(x, 7);
+      contexto.stroke();
+      contexto.fillText(`${xM} m`, x + 2, 18);
+    }
+    for (let yM = menorYM; yM <= maiorYM; yM += passoEscalaM) {
+      const y = soloY - yM * escala;
+      contexto.beginPath();
+      contexto.moveTo(largura - 7, y);
+      contexto.lineTo(largura, y);
+      contexto.stroke();
+      contexto.fillText(`${yM} m`, largura - 48, y - 3);
+    }
+    contexto.fillText('X', 8, 18);
+    contexto.fillText('Y', largura - 16, 18);
+    contexto.restore();
   }
 
   if (cenário.linhaDeEmpuxo) {
@@ -1994,12 +2072,14 @@ const executar = (agoraMs: number): void => {
     testStatus.textContent = 'CONCLUÍDO';
     testStatus.className = 'approved';
     testResult.textContent = cenário.validar();
-    indiceAtual += 1;
+    const proximoIndice = proximoIndiceExibivel(indiceAtual);
     emExecucao = false;
-    if (indiceAtual >= cenarios.length) {
+    if (proximoIndice === undefined) {
+      indiceAtual = cenarios.length;
       playButton.textContent = '▶ Executar novamente';
       return;
     }
+    indiceAtual = proximoIndice;
     scenarioSelector.value = String(indiceAtual);
     playButton.textContent = '▶ Iniciar próximo teste';
     return;
@@ -2012,7 +2092,7 @@ playButton.addEventListener('click', () => {
   if (indiceAtual >= cenarios.length) {
     cenarios = construirCenarios();
     escalasTemporaisPorCenario.clear();
-    indiceAtual = 0;
+    indiceAtual = primeiroIndiceExibivel();
     preencherSeletorDeCenarios();
   }
   emExecucao = true;
@@ -2026,7 +2106,7 @@ scenarioSelector.addEventListener('change', () => {
   emExecucao = false;
   const novoIndice = Number(scenarioSelector.value);
   cenarios = construirCenarios();
-  indiceAtual = Number.isInteger(novoIndice) && novoIndice >= 0 && novoIndice < cenarios.length ? novoIndice : 0;
+  indiceAtual = Number.isInteger(novoIndice) && indicesExibiveis().includes(novoIndice) ? novoIndice : primeiroIndiceExibivel();
   playButton.textContent = '▶ Iniciar teste selecionado';
   preencherSeletorDeCenarios();
   carregarCenarioAtual();
@@ -2035,10 +2115,12 @@ scenarioSelector.addEventListener('change', () => {
 skipButton.addEventListener('click', () => {
   if (!emExecucao) return;
   emExecucao = false;
-  indiceAtual += 1;
-  if (indiceAtual >= cenarios.length) {
-    indiceAtual = 0;
+  const proximoIndice = proximoIndiceExibivel(indiceAtual);
+  if (proximoIndice === undefined) {
     cenarios = construirCenarios();
+    indiceAtual = primeiroIndiceExibivel();
+  } else {
+    indiceAtual = proximoIndice;
   }
   scenarioSelector.value = String(indiceAtual);
   playButton.textContent = '▶ Iniciar próximo teste';
@@ -2048,7 +2130,7 @@ skipButton.addEventListener('click', () => {
 resetButton.addEventListener('click', () => {
   emExecucao = false;
   cenarios = construirCenarios();
-  indiceAtual = 0;
+  indiceAtual = primeiroIndiceExibivel();
   preencherSeletorDeCenarios();
   playButton.textContent = '▶ Iniciar teste';
   carregarCenarioAtual();

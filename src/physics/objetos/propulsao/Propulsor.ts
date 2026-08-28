@@ -3,6 +3,10 @@ import { EstadoOperacional, GerenciadorDeSistemas, SistemaOperacional } from '..
 import { TanquePropelente } from '../fontes-de-energia/TanquePropelente';
 import { Bateria } from '../fontes-de-energia/Bateria';
 import { Vetor3 } from '../../Vetor3';
+import { LinhaDePropelente } from './alimentacao/LinhaDePropelente';
+import { BombaPropelente } from './alimentacao/BombaPropelente';
+import { CamaraCombustao } from './combustao/CamaraCombustao';
+import { Bocal } from './combustao/Bocal';
 
 /** Tensão nominal do barramento de equipamentos aeroespaciais nesta etapa. */
 export const TENSAO_ALIMENTACAO_PADRAO_PROPULSOR_V = 28;
@@ -27,11 +31,21 @@ export interface DefinicaoPropulsor extends DefinicaoObjeto {
 
 export type IdSistemaPropulsor = 'elétrico' | 'hidráulico' | 'combustível' | 'controle';
 
+export interface CadeiaBipropelenteDoPropulsor {
+  readonly linhaCombustivel: LinhaDePropelente;
+  readonly bombaCombustivel: BombaPropelente;
+  readonly linhaOxidante: LinhaDePropelente;
+  readonly bombaOxidante: BombaPropelente;
+  readonly camara: CamaraCombustao;
+  readonly bocal: Bocal;
+}
+
 /** Propulsor físico que exige sequência de partida e ignição explícita. */
 export class Propulsor extends Objeto {
   private throttle = 0;
   private tanque?: TanquePropelente;
   private bateria?: Bateria;
+  private cadeiaBipropelente?: CadeiaBipropelenteDoPropulsor;
   private comprimentoMaxMangueiraM = 0;
   private comprimentoMaxCaboEletricoM = 0;
   private mangueiraRompida = false;
@@ -116,6 +130,10 @@ export class Propulsor extends Objeto {
     this.bateria = bateria;
     this.comprimentoMaxCaboEletricoM = comprimentoMaxCaboEletricoM;
     this.caboEletricoRompido = false;
+  }
+  /** Instala a cadeia que passa por linhas, bombas, câmara e bocal. */
+  public configurarCadeiaBipropelente(cadeia: CadeiaBipropelenteDoPropulsor): void {
+    this.cadeiaBipropelente = cadeia;
   }
   public definirThrottle(throttle: number): void {
     if (!Number.isFinite(throttle) || throttle < 0 || throttle > 1) throw new Error('Throttle deve estar entre 0 e 1.');
@@ -212,6 +230,10 @@ export class Propulsor extends Objeto {
       this.definirEstadoDoSistema('elétrico', EstadoOperacional.Desligado);
       return;
     }
+    if (this.cadeiaBipropelente) {
+      this.prepararCadeiaBipropelente(dtS, bateria);
+      return;
+    }
     const energiaNecessariaJ = this.throttle * this.potenciaEletricaMaximaW * dtS;
     const energiaFornecidaJ = bateria.fornecerEnergia(energiaNecessariaJ);
     const disponibilidadeEletrica = energiaNecessariaJ === 0 ? 1 : energiaFornecidaJ / energiaNecessariaJ;
@@ -241,6 +263,17 @@ export class Propulsor extends Objeto {
   private distanciaABateriaM(): number {
     if (!this.bateria) return Number.POSITIVE_INFINITY;
     return this.getEstadoFisico().posicaoM.subtrair(this.bateria.getEstadoFisico().posicaoM).magnitude;
+  }
+  private prepararCadeiaBipropelente(dtS: number, bateria: Bateria): void {
+    const cadeia = this.cadeiaBipropelente;
+    if (!cadeia) return;
+    const posicaoM = this.getEstadoFisico().posicaoM;
+    const massaCombustivelKg = cadeia.bombaCombustivel.bombear(cadeia.linhaCombustivel, bateria, this.throttle * this.definicaoPropulsor.vazaoMaximaKgS * dtS, dtS, posicaoM);
+    const massaOxidanteKg = cadeia.bombaOxidante.bombear(cadeia.linhaOxidante, bateria, this.throttle * this.definicaoPropulsor.vazaoMaximaKgS * cadeia.camara.razaoMisturaOxidanteCombustivel * dtS, dtS, posicaoM);
+    const resultado = cadeia.camara.reagir(massaCombustivelKg, massaOxidanteKg, this.integridadeEstrutural);
+    this.empuxoAtualCalculadoN = cadeia.bocal.calcularEmpuxo(resultado, this.integridadeEstrutural);
+    this.vazaoAtualCalculadaKgS = resultado.massaReagidaKg / dtS;
+    if (cadeia.linhaCombustivel.estaRompida || cadeia.linhaOxidante.estaRompida || bateria.estaDescarregada) this.definirEstadoDoSistema('combustível', EstadoOperacional.Desligado);
   }
   private obterSistema(id: IdSistemaPropulsor): SistemaOperacional {
     return {
