@@ -4,6 +4,7 @@ import { Objeto } from './objetos/base/Objeto';
 import { SuperficiePlano } from './SuperficiePlano';
 import { Vetor3 } from './Vetor3';
 import { FixadorEstrutural } from './conexoes/FixadorEstrutural';
+import { ChumbadorAoSolo } from './conexoes/ChumbadorAoSolo';
 import { Propulsor } from './objetos/propulsao/Propulsor';
 import { TanquePropelente } from './objetos/propulsao/TanquePropelente';
 
@@ -76,6 +77,40 @@ describe('MundoFisico', () => {
     expect(alvo.temperaturaC).toBeGreaterThan(20);
   });
 
+  it('converte dissipação de atrito no solo em calor no objeto e no concreto', () => {
+    const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 0 });
+    const concreto = new SuperficiePlano('concreto-termico-atrito', 'concreto', 0, 1_000_000, 0.02, 0.8, 20, 100);
+    const bloco = new Objeto({
+      id: 'bloco-termico-atrito', massaBaseKg: 10, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 10_000,
+      limiteTermicoC: 1_000, coeficienteAtrito: 0.8, capacidadeTermicaJPorC: 100,
+      estadoInicial: { posicaoM: new Vetor3(0, 0.5, 0), velocidadeMps: new Vetor3(10, 0, 0) },
+    });
+    mundo.registrarSuperficie(concreto); mundo.registrarObjeto(bloco);
+
+    mundo.avancar(0.1);
+
+    expect(bloco.energiaTermicaDeAtritoAcumuladaJ).toBeGreaterThan(0);
+    expect(concreto.energiaTermicaDeAtritoAcumuladaJ).toBeGreaterThan(0);
+    expect(bloco.temperaturaC).toBeGreaterThan(20);
+    expect(concreto.temperaturaC).toBeGreaterThan(20);
+  });
+
+  it('aquece o objeto pela parcela declarada da potência dissipada no arrasto atmosférico', () => {
+    const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
+    const corpo = new Objeto({
+      id: 'corpo-aquecimento-aerodinamico', massaBaseKg: 100, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 10_000,
+      limiteTermicoC: 1_000, capacidadeTermicaJPorC: 10_000, coeficienteConveccaoWPorM2C: 0,
+      areaFrontalM2: 1, coeficienteArrasto: 1, fracaoAquecimentoAerodinamico: 0.25,
+      estadoInicial: { posicaoM: new Vetor3(0, 100, 0), velocidadeMps: new Vetor3(100, 0, 0) },
+    });
+    mundo.registrarObjeto(corpo);
+
+    mundo.avancar(0.1);
+
+    expect(corpo.energiaTermicaAerodinamicaAcumuladaJ).toBeGreaterThan(0);
+    expect(corpo.temperaturaC).toBeGreaterThan(20);
+  });
+
   it('não inverte o deslocamento de uma bancada rígida quando uma força horizontal baixa é aplicada', () => {
     const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 0 });
     const solo = new SuperficiePlano('solo-bancada-direcao', 'concreto', 0, 1_000_000);
@@ -109,6 +144,39 @@ describe('MundoFisico', () => {
     // cobre a correção numérica de contatos sem mascarar recuo observável.
     expect(menorXDaBancadaM).toBeGreaterThanOrEqual(-1e-3);
     expect(bancada.getEstadoFisico().posicaoM.x).toBeGreaterThanOrEqual(xAntesDeDesligarM - 1e-3);
+  });
+
+  it('mantém a bancada no concreto enquanto o chumbador suporta o esforço de propulsão', () => {
+    const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 0 });
+    const fundacao = new Objeto({ id: 'fundacao-chumbada', massaBaseKg: 10_000, dimensoesM: new Vetor3(8, 1, 1), resistenciaColisaoJ: 1_000_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM: new Vetor3(0, 0.5, 0) } });
+    const motor = new Objeto({ id: 'motor-chumbado', massaBaseKg: 100, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM: new Vetor3(0, 1.5, 0) } });
+    const fixador = new FixadorEstrutural({ id: 'fixador-motor-chumbado', objetoA: fundacao, objetoB: motor, resistenciaTracaoN: 50_000, obterEsforcoSolicitadoN: () => 10_000 });
+    const chumbador = new ChumbadorAoSolo({ id: 'chumbador-fundacao', objeto: fundacao, resistenciaN: 20_000, obterEsforcoSolicitadoN: () => 10_000 });
+    mundo.registrarObjeto(fundacao); mundo.registrarObjeto(motor); mundo.registrarFixador(fixador); mundo.registrarChumbadorAoSolo(chumbador);
+
+    for (let passo = 0; passo < 120; passo += 1) {
+      mundo.aplicarForca(motor, new Vetor3(10_000, 0, 0));
+      mundo.avancar(1 / 240);
+    }
+
+    expect(chumbador.estaRompido).toBe(false);
+    expect(fundacao.getEstadoFisico().posicaoM.x).toBe(0);
+    expect(motor.getEstadoFisico().posicaoM.x).toBe(0);
+  });
+
+  it('rompe o chumbador e libera a bancada quando o esforço excede sua resistência', () => {
+    const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 0 });
+    const fundacao = new Objeto({ id: 'fundacao-liberada', massaBaseKg: 10_000, dimensoesM: new Vetor3(8, 1, 1), resistenciaColisaoJ: 1_000_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM: new Vetor3(0, 10, 0) } });
+    const motor = new Objeto({ id: 'motor-liberado', massaBaseKg: 100, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM: new Vetor3(0, 11, 0) } });
+    const fixador = new FixadorEstrutural({ id: 'fixador-motor-liberado', objetoA: fundacao, objetoB: motor, resistenciaTracaoN: 50_000, obterEsforcoSolicitadoN: () => 10_000 });
+    const chumbador = new ChumbadorAoSolo({ id: 'chumbador-rompivel', objeto: fundacao, resistenciaN: 9_000, obterEsforcoSolicitadoN: () => 10_000 });
+    mundo.registrarObjeto(fundacao); mundo.registrarObjeto(motor); mundo.registrarFixador(fixador); mundo.registrarChumbadorAoSolo(chumbador);
+    mundo.aplicarForca(motor, new Vetor3(10_000, 0, 0));
+
+    mundo.avancar(1 / 240);
+
+    expect(chumbador.estaRompido).toBe(true);
+    expect(motor.getEstadoFisico().posicaoM.x).toBeGreaterThan(0);
   });
 
   it('gera rotação quando uma força é aplicada fora do centro de massa', () => {

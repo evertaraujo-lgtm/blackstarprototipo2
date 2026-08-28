@@ -1,6 +1,7 @@
 import type { EstadoFisico } from './objetos/base/Objeto';
 import { Objeto } from './objetos/base/Objeto';
 import { FixadorEstrutural } from './conexoes/FixadorEstrutural';
+import { ChumbadorAoSolo } from './conexoes/ChumbadorAoSolo';
 import { SuperficiePlano } from './SuperficiePlano';
 import { Vetor3 } from './Vetor3';
 
@@ -15,6 +16,7 @@ interface Ponto2D { readonly x: number; readonly y: number; }
 class ConjuntoEstruturalRigido {
   private readonly referenciasLocaisM = new Map<Objeto, Vetor3>();
   private readonly orientacoesRelativasRad = new Map<Objeto, Vetor3>();
+  private readonly estadosDeMontagem = new Map<Objeto, EstadoFisico>();
   private anguloDoConjuntoRad: number;
 
   public constructor(private readonly objetos: readonly Objeto[]) {
@@ -24,6 +26,7 @@ class ConjuntoEstruturalRigido {
     const centroMassa = this.obterCentroDeMassaAtual();
     for (const objeto of objetos) {
       const estado = objeto.getEstadoFisico();
+      this.estadosDeMontagem.set(objeto, estado);
       this.referenciasLocaisM.set(objeto, this.rotacionarNoPlano(estado.posicaoM.subtrair(centroMassa), -anguloInicial));
       this.orientacoesRelativasRad.set(objeto, estado.orientacaoRad.subtrair(new Vetor3(0, 0, anguloInicial)));
     }
@@ -73,6 +76,11 @@ class ConjuntoEstruturalRigido {
   }
 
   public get membros(): readonly Objeto[] { return this.objetos; }
+
+  /** Reação da fundação rígida: preserva a geometria montada da ilha inteira. */
+  public restringirAoSolo(): void {
+    for (const objeto of this.objetos) objeto.atualizarEstadoPeloCore(this.estadosDeMontagem.get(objeto)!);
+  }
 
   public get massaTotalKg(): number {
     return this.objetos.reduce((soma, objeto) => soma + objeto.massaKg, 0);
@@ -204,6 +212,7 @@ export class MundoFisico {
   private readonly objetos = new Map<string, Objeto>();
   private readonly superficies = new Map<string, SuperficiePlano>();
   private readonly fixadores = new Map<string, FixadorEstrutural>();
+  private readonly chumbadoresAoSolo = new Map<string, ChumbadorAoSolo>();
   private readonly conjuntosEstruturais = new Map<string, ConjuntoEstruturalRigido>();
   private readonly forcasPendentes = new Map<string, ForcaAplicada[]>();
   private tempoMissaoS = 0;
@@ -242,6 +251,12 @@ export class MundoFisico {
     this.fixadores.set(fixador.id, fixador);
   }
 
+  public registrarChumbadorAoSolo(chumbador: ChumbadorAoSolo): void {
+    if (this.chumbadoresAoSolo.has(chumbador.id)) throw new Error(`Chumbador já registrado: ${chumbador.id}.`);
+    this.exigirRegistro(chumbador.objeto);
+    this.chumbadoresAoSolo.set(chumbador.id, chumbador);
+  }
+
   public aplicarForca(objeto: Objeto, forcaN: Vetor3, pontoM?: Vetor3): void {
     this.exigirRegistro(objeto);
     const forcas = this.forcasPendentes.get(objeto.id) ?? [];
@@ -270,9 +285,10 @@ export class MundoFisico {
     for (const objeto of this.objetos.values()) objeto.prepararPassoOperacional(dtS);
     this.atualizarEstadoTermico(dtS);
     for (const fixador of this.fixadores.values()) fixador.prepararPasso(dtS);
+    for (const chumbador of this.chumbadoresAoSolo.values()) chumbador.prepararPasso();
     this.sincronizarConjuntosEstruturais(0, false);
     for (const objeto of this.objetos.values()) {
-      if (this.obterConjuntoEstruturalDoObjeto(objeto)) continue;
+      if (this.obterConjuntoEstruturalDoObjeto(objeto) || this.temChumbadorAoSoloIntegro(objeto)) continue;
       const estado = objeto.getEstadoFisico();
       const forcas = this.forcasPendentes.get(objeto.id) ?? [];
       const forcasOperacionais = objeto.obterForcasOperacionais().map((forca) => ({
@@ -305,6 +321,10 @@ export class MundoFisico {
       objeto.registrarUso(dtS / 3600);
     }
     for (const conjunto of this.conjuntosEstruturais.values()) {
+      if (this.conjuntoTemChumbadorAoSoloIntegro(conjunto)) {
+        for (const objeto of conjunto.membros) objeto.registrarUso(dtS / 3600);
+        continue;
+      }
       const forcasDoConjunto: ForcaAplicada[] = [];
       for (const objeto of conjunto.membros) {
         const estado = objeto.getEstadoFisico();
@@ -317,8 +337,9 @@ export class MundoFisico {
       }
       conjunto.integrar(forcasDoConjunto, dtS);
     }
-    this.resolverColisoes();
+    this.resolverColisoes(dtS);
     this.resolverContatosComSuperficies(dtS);
+    for (const chumbador of this.chumbadoresAoSolo.values()) chumbador.restringirObjetoAoSolo();
     // Impulsos de colisão e contato recebidos por qualquer módulo passam a
     // pertencer imediatamente ao conjunto, sem esperar o passo seguinte.
     this.sincronizarConjuntosEstruturais(dtS, false);
@@ -334,6 +355,11 @@ export class MundoFisico {
       if (potenciaGeradaW > 0) objeto.aplicarEnergiaTermicaPeloCore(potenciaGeradaW * dtS, dtS);
       const potenciaConveccaoW = objeto.coeficienteConveccaoWPorM2C * objeto.areaTermicaM2 * (objeto.temperaturaC - this.temperaturaAmbienteC);
       if (potenciaConveccaoW !== 0) objeto.aplicarEnergiaTermicaPeloCore(-potenciaConveccaoW * dtS, dtS);
+      const velocidadeRelativa = objeto.getEstadoFisico().velocidadeMps.subtrair(this.velocidadeArMps);
+      const forcaArrastoN = this.calcularArrastoAtmosferico(objeto, objeto.getEstadoFisico().velocidadeMps);
+      const potenciaDissipadaNoArW = Math.max(0, -forcaArrastoN.produtoEscalar(velocidadeRelativa));
+      const energiaNoObjetoJ = potenciaDissipadaNoArW * objeto.fracaoAquecimentoAerodinamico * dtS;
+      if (energiaNoObjetoJ > 0) objeto.aplicarAquecimentoAerodinamicoPeloCore(energiaNoObjetoJ, dtS);
     }
     for (const fonte of objetos) {
       const jato = fonte.obterJatoTermico();
@@ -386,7 +412,8 @@ export class MundoFisico {
         conjunto = new ConjuntoEstruturalRigido(membros);
         this.conjuntosEstruturais.set(assinatura, conjunto);
       }
-      conjunto.sincronizar(dtS, avancarOrientacao);
+      if (this.conjuntoTemChumbadorAoSoloIntegro(conjunto)) conjunto.restringirAoSolo();
+      else conjunto.sincronizar(dtS, avancarOrientacao);
     }
     for (const assinatura of this.conjuntosEstruturais.keys()) {
       if (!assinaturasAtivas.has(assinatura)) this.conjuntosEstruturais.delete(assinatura);
@@ -418,8 +445,28 @@ export class MundoFisico {
     return velocidadeRelativa.multiplicar(-magnitudeArrastoN / moduloVelocidade);
   }
 
+  /** Trabalho do impulso tangencial, usando a velocidade média durante a frenagem. */
+  private calcularEnergiaDissipadaPorAtrito(impulsoNs: number, velocidadeTangencialMps: number, massaInversaEfetiva: number): number {
+    const velocidadeFinalMps = Math.max(0, velocidadeTangencialMps - impulsoNs * massaInversaEfetiva);
+    return Math.max(0, impulsoNs * (velocidadeTangencialMps + velocidadeFinalMps) / 2);
+  }
+
+  /** Sem dados de efusividade, reparte a dissipação igualmente entre os dois materiais. */
+  private distribuirCalorDeAtritoEntreObjetos(objetoA: Objeto, objetoB: Objeto, energiaJ: number, dtS: number): void {
+    if (energiaJ <= 0) return;
+    objetoA.aplicarCalorDeAtritoPeloCore(energiaJ / 2, dtS);
+    objetoB.aplicarCalorDeAtritoPeloCore(energiaJ / 2, dtS);
+  }
+
+  /** A outra metade vai para a massa térmica declarada da superfície. */
+  private distribuirCalorDeAtritoComSuperficie(objeto: Objeto, superficie: SuperficiePlano, energiaJ: number, dtS: number): void {
+    if (energiaJ <= 0) return;
+    objeto.aplicarCalorDeAtritoPeloCore(energiaJ / 2, dtS);
+    superficie.aplicarCalorDeAtritoPeloCore(energiaJ / 2);
+  }
+
   /** Todas as faces da caixa acompanham sua orientação física em Z. */
-  private resolverColisoes(): void {
+  private resolverColisoes(dtS: number): void {
     const objetos = [...this.objetos.values()];
     for (let indiceA = 0; indiceA < objetos.length; indiceA += 1) {
       for (let indiceB = indiceA + 1; indiceB < objetos.length; indiceB += 1) {
@@ -430,7 +477,7 @@ export class MundoFisico {
         // não devem gerar colisão contra si próprias.
         if (this.estaoNaMesmaIlhaEstrutural(objetoA, objetoB)) continue;
         const contato = this.obterContatoCaixasOrientadas(objetoA, objetoB);
-        if (contato) this.resolverContato(objetoA, objetoB, contato.normal, contato.penetracaoM, contato.pontoM);
+        if (contato) this.resolverContato(objetoA, objetoB, contato.normal, contato.penetracaoM, contato.pontoM, dtS);
       }
     }
   }
@@ -445,6 +492,14 @@ export class MundoFisico {
 
   private obterConjuntoEstruturalDoObjeto(objeto: Objeto): ConjuntoEstruturalRigido | undefined {
     return [...this.conjuntosEstruturais.values()].find((conjunto) => conjunto.contem(objeto));
+  }
+
+  private temChumbadorAoSoloIntegro(objeto: Objeto): boolean {
+    return [...this.chumbadoresAoSolo.values()].some((chumbador) => chumbador.objeto === objeto && !chumbador.estaRompido);
+  }
+
+  private conjuntoTemChumbadorAoSoloIntegro(conjunto: ConjuntoEstruturalRigido): boolean {
+    return conjunto.membros.some((objeto) => this.temChumbadorAoSoloIntegro(objeto));
   }
 
   private resolverContatosComSuperficies(dtS: number): void {
@@ -643,7 +698,7 @@ export class MundoFisico {
     return (inicio + fim) / 2;
   }
 
-  private resolverContato(objetoA: Objeto, objetoB: Objeto, normal: Vetor3, penetracaoM: number, pontoContatoM: Vetor3): void {
+  private resolverContato(objetoA: Objeto, objetoB: Objeto, normal: Vetor3, penetracaoM: number, pontoContatoM: Vetor3, dtS: number): void {
     const estadoA = objetoA.getEstadoFisico();
     const estadoB = objetoB.getEstadoFisico();
     const inversoMassaA = 1 / objetoA.massaKg;
@@ -715,6 +770,10 @@ export class MundoFisico {
       const impulsoNecessarioNs = velocidadeTangencial.magnitude / massaInversaEfetiva;
       const limiteAtritoNs = Math.min(objetoA.coeficienteAtritoEntreObjetos, objetoB.coeficienteAtritoEntreObjetos) * impulsoNormalNs;
       const impulsoAtrito = direcaoAtrito.multiplicar(Math.min(impulsoNecessarioNs, limiteAtritoNs));
+      const energiaDissipadaJ = this.calcularEnergiaDissipadaPorAtrito(
+        impulsoAtrito.magnitude, velocidadeTangencial.magnitude, massaInversaEfetiva,
+      );
+      this.distribuirCalorDeAtritoEntreObjetos(objetoA, objetoB, energiaDissipadaJ, dtS);
       velocidadeA = velocidadeA.adicionar(impulsoAtrito.multiplicar(inversoMassaA));
       velocidadeB = velocidadeB.subtrair(impulsoAtrito.multiplicar(inversoMassaB));
       velocidadeAngularA = velocidadeAngularA.adicionar(new Vetor3(
@@ -785,6 +844,10 @@ export class MundoFisico {
         const apoioNormalNs = Math.max(impulsoNormalNs, impulsoNormalDeApoioNs);
         const coeficienteAtrito = Math.min(objetoDeContato.getCoeficienteAtritoDeContato(), superficie.coeficienteAtritoDinamico);
         const impulsoAtritoNs = Math.min(impulsoNecessarioNs, coeficienteAtrito * apoioNormalNs);
+        const energiaDissipadaJ = this.calcularEnergiaDissipadaPorAtrito(
+          impulsoAtritoNs, velocidadeTangencial.magnitude, 1 / massaEfetivaTangencialKg,
+        );
+        this.distribuirCalorDeAtritoComSuperficie(objetoDeContato, superficie, energiaDissipadaJ, dtS);
         conjunto.aplicarImpulsoNoPonto(direcaoAtrito.multiplicar(impulsoAtritoNs), pontoContatoM);
       }
     }
@@ -852,6 +915,10 @@ export class MundoFisico {
         const coeficienteAtrito = Math.min(objeto.getCoeficienteAtritoDeContato(), superficie.coeficienteAtritoDinamico);
         const impulsoAtritoNs = Math.min(impulsoNecessarioNs, coeficienteAtrito * apoioNormalNs);
         const impulsoAtrito = direcaoAtrito.multiplicar(impulsoAtritoNs);
+        const energiaDissipadaJ = this.calcularEnergiaDissipadaPorAtrito(
+          impulsoAtritoNs, velocidadeTangencial.magnitude, 1 / massaEfetivaTangencialKg,
+        );
+        this.distribuirCalorDeAtritoComSuperficie(objeto, superficie, energiaDissipadaJ, dtS);
         velocidade = velocidade.adicionar(impulsoAtrito.multiplicar(1 / objeto.massaKg));
         velocidadeAngular = velocidadeAngular.adicionar(new Vetor3(
           braco.produtoVetorial(impulsoAtrito).x / inercia.x,

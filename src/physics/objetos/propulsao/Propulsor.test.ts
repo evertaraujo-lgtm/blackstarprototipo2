@@ -7,6 +7,7 @@ import { SuperficiePlano } from '../../SuperficiePlano';
 import { TanquePropelente } from './TanquePropelente';
 import { Vetor3 } from '../../Vetor3';
 import { VeiculoTerrestre } from '../veiculos/VeiculoTerrestre';
+import { FixadorEstrutural } from '../../conexoes/FixadorEstrutural';
 
 const criarPropulsor = () => new Propulsor({ id: 'propulsor', massaBaseKg: 1_000, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, coeficienteAtritoEntreObjetos: 0.65, empuxoMaximoN: 20_000, vazaoMaximaKgS: 2, propelenteCompativel: 'metano' });
 const criarTanque = (massa = 20) => new TanquePropelente({ id: `tanque-${massa}`, massaBaseKg: 200, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, tipoPropelente: 'metano', capacidadePropelenteKg: 20, massaPropelenteInicialKg: massa });
@@ -165,5 +166,31 @@ describe('Propulsor', () => {
     expect(veiculo.getEstadoFisico().velocidadeMps.x).toBeGreaterThan(0.05);
     expect(veiculo.getEstadoFisico().posicaoM.x).toBeGreaterThan(0.01);
     expect(propulsor.getEstadoFisico().posicaoM.x).toBeGreaterThan(veiculo.getEstadoFisico().posicaoM.x);
+  });
+
+  it('desliza uma bancada sem fundação quando o empuxo supera o atrito com o concreto', () => {
+    const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 0 });
+    const concreto = new SuperficiePlano('concreto-bancada-livre-teste', 'concreto', 0, 1_000_000, 0.65, 0.65);
+    const bancada = new Objeto({
+      id: 'bancada-livre-teste', massaBaseKg: 500, dimensoesM: new Vetor3(5, 1, 1), resistenciaColisaoJ: 1_000_000,
+      limiteTermicoC: 1_000, coeficienteAtrito: 0.65, estadoInicial: { posicaoM: new Vetor3(0, 0.5, 0) },
+    });
+    const propulsor = criarPropulsor();
+    propulsor.atualizarEstadoPeloCore({ ...propulsor.getEstadoFisico(), posicaoM: new Vetor3(0, 1.5, 0) });
+    const tanque = prepararParaIgnicao(propulsor);
+    tanque.atualizarEstadoPeloCore({ ...tanque.getEstadoFisico(), posicaoM: new Vetor3(1.5, 1.5, 0) });
+    propulsor.definirThrottle(1);
+    expect(propulsor.solicitarIgnicao()).toBe(true);
+    const fixadorMotor = new FixadorEstrutural({ id: 'fixador-motor-bancada-livre-teste', objetoA: bancada, objetoB: propulsor, resistenciaTracaoN: 50_000, obterEsforcoSolicitadoN: () => propulsor.empuxoAtualN });
+    const fixadorTanque = new FixadorEstrutural({ id: 'fixador-tanque-bancada-livre-teste', objetoA: bancada, objetoB: tanque, resistenciaTracaoN: 50_000, obterEsforcoSolicitadoN: () => 0 });
+    mundo.registrarSuperficie(concreto);
+    mundo.registrarObjeto(bancada); mundo.registrarObjeto(propulsor); mundo.registrarObjeto(tanque);
+    mundo.registrarFixador(fixadorMotor); mundo.registrarFixador(fixadorTanque);
+
+    mundo.avancar(1);
+
+    expect(fixadorMotor.estaRompido).toBe(false);
+    expect(bancada.getEstadoFisico().posicaoM.x).toBeGreaterThan(0.01);
+    expect(bancada.getEstadoFisico().velocidadeMps.x).toBeGreaterThan(0);
   });
 });

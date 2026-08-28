@@ -10,6 +10,7 @@ import { Propulsor, type IdSistemaPropulsor } from './physics/objetos/propulsao/
 import { PropulsorVetorizado } from './physics/objetos/propulsao/PropulsorVetorizado';
 import { TanquePropelente } from './physics/objetos/propulsao/TanquePropelente';
 import { FixadorEstrutural } from './physics/conexoes/FixadorEstrutural';
+import { ChumbadorAoSolo } from './physics/conexoes/ChumbadorAoSolo';
 import { Paraquedas } from './physics/objetos/componentes/Paraquedas';
 import { EstadoOperacional } from './physics/SistemaOperacional';
 import { Vetor3 } from './physics/Vetor3';
@@ -73,6 +74,7 @@ interface CenárioVisual {
   readonly telemetria?: () => string;
   readonly mangueira?: { readonly tanque: TanquePropelente; readonly propulsor: Propulsor };
   readonly fixadores?: readonly FixadorEstrutural[];
+  readonly chumbadoresAoSolo?: readonly ChumbadorAoSolo[];
   /** Linha de ação de uma força, usada apenas para tornar o ensaio observável. */
   readonly linhaDeEmpuxo?: () => { readonly origemM: Vetor3; readonly direcao: Vetor3 };
   readonly propulsorControlavel?: Propulsor;
@@ -294,13 +296,17 @@ const criarTestePilhaEstruturalDezCubos = (): CenárioVisual => {
     resistenciaTracaoN: 100_000,
     obterEsforcoSolicitadoN: () => 0,
   }));
+  const chumbadorDaBase = new ChumbadorAoSolo({
+    id: 'chumbador-pilha-estrutural-base', objeto: cubos[0], resistenciaN: 100_000, obterEsforcoSolicitadoN: () => 0,
+  });
   mundo.registrarSuperficie(solo);
   for (const cubo of cubos) mundo.registrarObjeto(cubo);
   for (const fixador of fixadores) mundo.registrarFixador(fixador);
+  mundo.registrarChumbadorAoSolo(chumbadorDaBase);
   const cuboSuperior = cubos.at(-1)!;
   return {
     nome: 'Pilha estrutural — 10 cubos de 1 m apoiada no solo',
-    descricao: 'Dez cubos de 1 × 1 × 1 m e 1 kg estão empilhados verticalmente. Cada par adjacente é unido por um FixadorEstrutural; o cubo inferior apoia fisicamente no concreto. Enquanto todos os fixadores estiverem íntegros, a cadeia forma uma única ilha rígida, sujeita à gravidade, ao contato e ao atrito do solo.',
+    descricao: 'Dez cubos de 1 × 1 × 1 m e 1 kg estão empilhados verticalmente. Cada par adjacente é unido por um FixadorEstrutural; o cubo inferior é preso ao concreto por um chumbador físico de 100.000 N. Enquanto os vínculos estiverem íntegros, a cadeia forma uma única ilha rígida.',
     mundo,
     objetos: cubos,
     superficies: [solo],
@@ -308,9 +314,10 @@ const criarTestePilhaEstruturalDezCubos = (): CenárioVisual => {
     limiteVerticalM: 12,
     limiteHorizontalM: 8,
     fixadores,
+    chumbadoresAoSolo: [chumbadorDaBase],
     deveEncerrar: () => objetosEmRepouso(mundo, cubos),
     telemetria: () => `topo y=${cuboSuperior.getEstadoFisico().posicaoM.y.toFixed(2)} m · fixadores íntegros ${fixadores.filter((fixador) => !fixador.estaRompido).length}/${fixadores.length}`,
-    dados: () => `Cubos: 10 × (1 × 1 × 1 m; 1 kg)\nFixadores: ${fixadores.length}, resistência de 100.000 N cada\nBase: cubo 1 apoiado fisicamente no concreto\nTopo: ${cuboSuperior.getEstadoFisico().posicaoM.y.toFixed(2)} m\nEstado: ${fixadores.every((fixador) => !fixador.estaRompido) ? 'ilha rígida íntegra' : 'vínculo rompido'}`,
+    dados: () => `Cubos: 10 × (1 × 1 × 1 m; 1 kg)\nFixadores: ${fixadores.length}, resistência de 100.000 N cada\nBase: cubo 1 preso ao concreto por chumbador de 100.000 N (${chumbadorDaBase.estaRompido ? 'ROMPIDO' : 'íntegro'})\nTopo: ${cuboSuperior.getEstadoFisico().posicaoM.y.toFixed(2)} m\nEstado: ${fixadores.every((fixador) => !fixador.estaRompido) ? 'ilha rígida íntegra' : 'vínculo rompido'}`,
     validar: () => `${fixadores.every((fixador) => !fixador.estaRompido) && Math.abs(cuboSuperior.getEstadoFisico().posicaoM.y - 9.5) < 1e-12 ? 'APROVADO' : 'DIVERGENTE'} · topo ${cuboSuperior.getEstadoFisico().posicaoM.y.toFixed(3)} m; fixadores ${fixadores.filter((fixador) => !fixador.estaRompido).length}/${fixadores.length}`,
   };
 };
@@ -366,12 +373,21 @@ const criarTesteTermicoPilhaEstruturalDezCubos = (): CenárioVisual => {
     new FixadorEstrutural({ id: 'fixador-suporte-tanque-pilha-termica', objetoA: suporte, objetoB: tanque, resistenciaTracaoN: 100_000, obterEsforcoSolicitadoN: () => 0 }),
   ];
   const todosFixadores = [...fixadores, ...fixadoresDoSuporte];
+  const chumbadorDaPilha = new ChumbadorAoSolo({
+    id: 'chumbador-pilha-termica-base', objeto: cubos[0], resistenciaN: 100_000, obterEsforcoSolicitadoN: () => 0,
+  });
+  const chumbadorDoSuporte = new ChumbadorAoSolo({
+    id: 'chumbador-suporte-propulsor-pilha-termica', objeto: suporte, resistenciaN: 100_000,
+    obterEsforcoSolicitadoN: () => propulsor.empuxoAtualN,
+  });
   mundo.registrarSuperficie(solo);
   for (const objeto of [...cubos, suporte, propulsor, tanque]) mundo.registrarObjeto(objeto);
   for (const fixador of todosFixadores) mundo.registrarFixador(fixador);
+  mundo.registrarChumbadorAoSolo(chumbadorDaPilha);
+  mundo.registrarChumbadorAoSolo(chumbadorDoSuporte);
   return {
     nome: 'Pilha estrutural térmica — jato no sexto cubo',
-    descricao: 'A pilha de dez cubos de 1 m permanece ligada por nove fixadores e apoiada fisicamente no cubo inferior. Um propulsor e seu tanque ficam montados em um suporte físico lateral, apoiado no solo; o propulsor aponta a exaustão para o sexto cubo, a 6 m. O jato térmico deve aquecer e degradar progressivamente esse cubo; qualquer deslocamento resulta das forças, contatos e atrito reais.',
+    descricao: 'A pilha de dez cubos de 1 m permanece ligada por nove fixadores e presa ao concreto pelo cubo inferior. Um propulsor e seu tanque ficam montados em um suporte lateral chumbado ao solo; o propulsor aponta a exaustão para o sexto cubo, a 6 m. Os chumbadores possuem resistência declarada e liberam os conjuntos se romperem.',
     mundo,
     objetos: [...cubos, suporte, propulsor, tanque],
     superficies: [solo],
@@ -385,8 +401,9 @@ const criarTesteTermicoPilhaEstruturalDezCubos = (): CenárioVisual => {
     atualizarControle: partida,
     mangueira: { tanque, propulsor },
     fixadores: todosFixadores,
+    chumbadoresAoSolo: [chumbadorDaPilha, chumbadorDoSuporte],
     telemetria: () => `cubo 6: ${cuboAlvo.temperaturaC.toFixed(1)} °C · integridade ${(cuboAlvo.integridadeEstrutural * 100).toFixed(0)}%`,
-    dados: () => `MODALIDADE: TÉRMICA\nAlvo: cubo 6, a ${cuboAlvo.getEstadoFisico().posicaoM.subtrair(propulsor.getEstadoFisico().posicaoM).magnitude.toFixed(1)} m do propulsor\nMontagem: motor e tanque presos a suporte apoiado fisicamente no solo\nTemperatura cubos 5 / 6 / 7: ${cubos[4].temperaturaC.toFixed(1)} / ${cuboAlvo.temperaturaC.toFixed(1)} / ${cubos[6].temperaturaC.toFixed(1)} °C\nIntegridade cubo 6: ${(cuboAlvo.integridadeEstrutural * 100).toFixed(1)}%\nEmpuxo / potência térmica: ${propulsor.empuxoAtualN.toFixed(0)} N / ${(propulsor.potenciaTermicaAtualW / 1_000_000).toFixed(2)} MW\nFixadores da pilha: ${fixadores.filter((fixador) => !fixador.estaRompido).length}/${fixadores.length}\nFixadores do suporte: ${fixadoresDoSuporte.filter((fixador) => !fixador.estaRompido).length}/${fixadoresDoSuporte.length}`,
+    dados: () => `MODALIDADE: TÉRMICA\nAlvo: cubo 6, a ${cuboAlvo.getEstadoFisico().posicaoM.subtrair(propulsor.getEstadoFisico().posicaoM).magnitude.toFixed(1)} m do propulsor\nMontagem: motor e tanque presos a suporte chumbado ao concreto\nTemperatura cubos 5 / 6 / 7: ${cubos[4].temperaturaC.toFixed(1)} / ${cuboAlvo.temperaturaC.toFixed(1)} / ${cubos[6].temperaturaC.toFixed(1)} °C\nIntegridade cubo 6: ${(cuboAlvo.integridadeEstrutural * 100).toFixed(1)}%\nEmpuxo / potência térmica: ${propulsor.empuxoAtualN.toFixed(0)} N / ${(propulsor.potenciaTermicaAtualW / 1_000_000).toFixed(2)} MW\nChumbadores pilha / suporte: ${chumbadorDaPilha.estaRompido ? 'ROMPIDO' : 'íntegro'} / ${chumbadorDoSuporte.estaRompido ? 'ROMPIDO' : 'íntegro'}\nFixadores da pilha: ${fixadores.filter((fixador) => !fixador.estaRompido).length}/${fixadores.length}\nFixadores do suporte: ${fixadoresDoSuporte.filter((fixador) => !fixador.estaRompido).length}/${fixadoresDoSuporte.length}`,
     deveEncerrar: () => cuboAlvo.integridadeEstrutural === 0,
     validar: () => `${cuboAlvo.temperaturaC > 20 && cuboAlvo.integridadeEstrutural < 1 ? 'APROVADO' : 'AQUECENDO'} · cubo 6: ${cuboAlvo.temperaturaC.toFixed(1)} °C; integridade ${(cuboAlvo.integridadeEstrutural * 100).toFixed(1)}%`,
   };
@@ -838,19 +855,28 @@ const criarTesteTermicoDoPropulsor = (comParedeOposta = false): CenárioVisual =
   const fixadorTanque = new FixadorEstrutural({ id: 'fixador-termico-tanque', objetoA: bancada, objetoB: tanque, resistenciaTracaoN: 50_000, limiteTermicoC: 250, capacidadeTermicaJPorC: 10_000, condutanciaTermicaWPorC: 200, obterEsforcoSolicitadoN: () => 0 });
   const fixadorFundacao = new FixadorEstrutural({ id: 'fixador-termico-fundacao', objetoA: fundacao, objetoB: bancada, resistenciaTracaoN: 1_000_000, limiteTermicoC: 500, capacidadeTermicaJPorC: 100_000, condutanciaTermicaWPorC: 300, obterEsforcoSolicitadoN: () => propulsor.empuxoAtualN });
   const objetos = [fundacao, bancada, propulsor, tanque, parede, ...(paredeOposta ? [paredeOposta] : [])];
-  mundo.registrarSuperficie(solo); for (const objeto of objetos) mundo.registrarObjeto(objeto); for (const fixador of [fixadorFundacao, fixadorMotor, fixadorTanque]) mundo.registrarFixador(fixador);
+  const chumbadorDaFundacao = new ChumbadorAoSolo({
+    id: 'chumbador-fundacao-termica', objeto: fundacao, resistenciaN: 1_000_000,
+    obterEsforcoSolicitadoN: () => propulsor.empuxoAtualN,
+  });
+  const chumbadoresDasParedes = [parede, ...(paredeOposta ? [paredeOposta] : [])].map((paredeTermica) => new ChumbadorAoSolo({
+    id: `chumbador-${paredeTermica.id}`, objeto: paredeTermica, resistenciaN: 1_000_000, obterEsforcoSolicitadoN: () => 0,
+  }));
+  const chumbadoresAoSolo = [chumbadorDaFundacao, ...chumbadoresDasParedes];
+  mundo.registrarSuperficie(solo); for (const objeto of objetos) mundo.registrarObjeto(objeto); for (const fixador of [fixadorFundacao, fixadorMotor, fixadorTanque]) mundo.registrarFixador(fixador); for (const chumbador of chumbadoresAoSolo) mundo.registrarChumbadorAoSolo(chumbador);
   const partida = criarPartidaAutomaticaBasica(mundo, propulsor);
   return {
     nome: comParedeOposta ? 'Propulsor térmico — duas paredes equidistantes' : 'Propulsor térmico — chama contra parede',
     descricao: comParedeOposta
-      ? 'Propulsor apoiado em uma bancada física fica entre duas paredes térmicas idênticas, ambas apoiadas no concreto e a 6 m do motor. A exaustão aponta para a parede esquerda: somente ela deve aquecer; a parede direita é controle térmico fora do cone de exaustão.'
-      : 'Propulsor fixado a uma bancada de 2.000 kg, conectada por fixador a uma fundação física de 500.000 kg apoiada no solo, aponta a exaustão para uma parede térmica. O throttle controla simultaneamente empuxo, consumo e potência térmica. A chama transfere calor por convecção modelada no cone de exaustão; a parede perde integridade progressivamente ao exceder 300 °C.',
+      ? 'Propulsor em uma bancada física fica entre duas paredes térmicas idênticas, ambas chumbadas ao concreto e a 6 m do motor. A exaustão aponta para a parede esquerda: somente ela deve aquecer; a parede direita é controle térmico fora do cone de exaustão.'
+      : 'Propulsor fixado a uma bancada de 2.000 kg, conectada por fixador a uma fundação física de 500.000 kg chumbada ao solo, aponta a exaustão para uma parede térmica também chumbada. O throttle controla simultaneamente empuxo, consumo e potência térmica. A chama transfere calor por convecção modelada no cone de exaustão; a parede perde integridade progressivamente ao exceder 300 °C.',
     mundo, objetos, superficies: [solo], velocidadeTempo: 5, limiteVerticalM: 6, limiteHorizontalM: 10, cameraX: () => 0, modalidade: 'térmica',
     propulsorControlavel: propulsor, permiteAjustarThrottle: true, atualizarControle: partida, fixadores: [fixadorFundacao, fixadorMotor, fixadorTanque],
+    chumbadoresAoSolo,
     telemetria: () => paredeOposta
       ? `exaustão ${parede.temperaturaC.toFixed(1)} °C · oposta ${paredeOposta.temperaturaC.toFixed(1)} °C`
       : `parede ${parede.temperaturaC.toFixed(1)} °C · integridade ${(parede.integridadeEstrutural * 100).toFixed(0)}%`,
-    dados: () => `MODALIDADE: TÉRMICA\nAmbiente: 20 °C\nPotência térmica: ${(propulsor.potenciaTermicaAtualW / 1_000_000).toFixed(2)} MW\nTemperatura motor / bancada / tanque / parede de exaustão: ${propulsor.temperaturaC.toFixed(1)} / ${bancada.temperaturaC.toFixed(1)} / ${tanque.temperaturaC.toFixed(1)} / ${parede.temperaturaC.toFixed(1)} °C${paredeOposta ? `\nParede oposta (controle, fora do jato): ${paredeOposta.temperaturaC.toFixed(1)} °C · integridade ${(paredeOposta.integridadeEstrutural * 100).toFixed(1)}%` : ''}\nLimites térmicos: ${propulsor.limiteTermicoC} / ${bancada.limiteTermicoC} / ${tanque.limiteTermicoC} / ${parede.limiteTermicoC} °C\nIntegridade da parede de exaustão: ${(parede.integridadeEstrutural * 100).toFixed(1)}%\nFixador motor: ${fixadorMotor.temperaturaC.toFixed(1)} / ${fixadorMotor.limiteTermicoC} °C; ${fixadorMotor.resistenciaTracaoEfetivaN.toFixed(0)} N\nFixador tanque: ${fixadorTanque.temperaturaC.toFixed(1)} / ${fixadorTanque.limiteTermicoC} °C; ${fixadorTanque.resistenciaTracaoEfetivaN.toFixed(0)} N\nResistência mecânica parede: ${parede.resistenciaColisaoJ.toFixed(0)} J`,
+    dados: () => `MODALIDADE: TÉRMICA\nAmbiente: 20 °C\nPotência térmica: ${(propulsor.potenciaTermicaAtualW / 1_000_000).toFixed(2)} MW\nTemperatura motor / bancada / tanque / parede de exaustão: ${propulsor.temperaturaC.toFixed(1)} / ${bancada.temperaturaC.toFixed(1)} / ${tanque.temperaturaC.toFixed(1)} / ${parede.temperaturaC.toFixed(1)} °C${paredeOposta ? `\nParede oposta (controle, fora do jato): ${paredeOposta.temperaturaC.toFixed(1)} °C · integridade ${(paredeOposta.integridadeEstrutural * 100).toFixed(1)}%` : ''}\nChumbadores: fundação ${chumbadorDaFundacao.estaRompido ? 'ROMPIDO' : 'íntegro'}; paredes ${chumbadoresDasParedes.map((chumbador) => chumbador.estaRompido ? 'ROMPIDO' : 'íntegro').join(' / ')} (1.000.000 N)\nLimites térmicos: ${propulsor.limiteTermicoC} / ${bancada.limiteTermicoC} / ${tanque.limiteTermicoC} / ${parede.limiteTermicoC} °C\nIntegridade da parede de exaustão: ${(parede.integridadeEstrutural * 100).toFixed(1)}%\nFixador motor: ${fixadorMotor.temperaturaC.toFixed(1)} / ${fixadorMotor.limiteTermicoC} °C; ${fixadorMotor.resistenciaTracaoEfetivaN.toFixed(0)} N\nFixador tanque: ${fixadorTanque.temperaturaC.toFixed(1)} / ${fixadorTanque.limiteTermicoC} °C; ${fixadorTanque.resistenciaTracaoEfetivaN.toFixed(0)} N\nResistência mecânica parede: ${parede.resistenciaColisaoJ.toFixed(0)} J`,
     deveEncerrar: () => parede.integridadeEstrutural === 0,
     validar: () => `${parede.integridadeEstrutural < 1 ? 'APROVADO' : 'AQUECENDO'} · parede ${parede.temperaturaC.toFixed(1)} °C; integridade ${(parede.integridadeEstrutural * 100).toFixed(1)}%`,
   };
@@ -893,6 +919,55 @@ const criarTesteImpactoDestrutivoDoPropulsor = (): CenárioVisual => {
     dados: () => `Empuxo: ${propulsor.empuxoAtualN.toFixed(0)} N\nVelocidade do propulsor: ${propulsor.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s\nIntegridade do propulsor: ${(propulsor.integridadeEstrutural * 100).toFixed(1)}%\nIntegridade da barreira: ${(parede.integridadeEstrutural * 100).toFixed(1)}%\nFixador tanque–propulsor: ${fixador.estaRompido ? 'ROMPIDO' : 'íntegro'}\nResultado esperado: dano estrutural mensurável no propulsor`,
     deveEncerrar: () => propulsor.integridadeEstrutural < 1,
     validar: () => `${propulsor.integridadeEstrutural < 1 ? 'APROVADO' : 'DIVERGENTE'} · integridade final do propulsor ${(propulsor.integridadeEstrutural * 100).toFixed(1)}%`,
+  };
+};
+
+/** Ensaio de recuo: motor montado na bancada, mas sem qualquer fixação ao solo. */
+const criarTestePropulsorEmBancadaLivre = (): CenárioVisual => {
+  const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
+  const concreto = new SuperficiePlano('concreto-bancada-livre', 'concreto', 0, 1_000_000, 0.65, 0.65);
+  // Base de 5 × 1 m: área nominal de contato de 5 m² com o concreto.
+  const bancada = new Objeto({
+    id: 'bancada-livre-500kg', massaBaseKg: 500, dimensoesM: new Vetor3(5, 1, 1), resistenciaColisaoJ: 1_000_000,
+    limiteTermicoC: 600, coeficienteAtrito: 0.65, estadoInicial: { posicaoM: new Vetor3(0, 0.5, 0) },
+  });
+  const propulsor = new Propulsor({
+    id: 'propulsor-bancada-livre', massaBaseKg: 150, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 500_000,
+    limiteTermicoC: 800, empuxoMaximoN: 20_000, vazaoMaximaKgS: 2, propelenteCompativel: 'metano',
+    estadoInicial: { posicaoM: new Vetor3(-1, 1.5, 0) },
+  });
+  const tanque = new TanquePropelente({
+    id: 'tanque-bancada-livre', massaBaseKg: 250, capacidadePropelenteKg: 100, massaPropelenteInicialKg: 100,
+    tipoPropelente: 'metano', dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 500_000, limiteTermicoC: 200,
+    estadoInicial: { posicaoM: new Vetor3(1, 1.5, 0) },
+  });
+  propulsor.conectarTanque(tanque, 3);
+  propulsor.definirThrottle(0.5);
+  const fixadorMotor = new FixadorEstrutural({
+    id: 'fixador-motor-bancada-livre', objetoA: bancada, objetoB: propulsor, resistenciaTracaoN: 50_000,
+    obterEsforcoSolicitadoN: () => propulsor.empuxoAtualN,
+  });
+  const fixadorTanque = new FixadorEstrutural({
+    id: 'fixador-tanque-bancada-livre', objetoA: bancada, objetoB: tanque, resistenciaTracaoN: 50_000,
+    obterEsforcoSolicitadoN: () => 0,
+  });
+  mundo.registrarSuperficie(concreto);
+  for (const objeto of [bancada, propulsor, tanque]) mundo.registrarObjeto(objeto);
+  mundo.registrarFixador(fixadorMotor);
+  mundo.registrarFixador(fixadorTanque);
+  const atualizarPartida = criarPartidaAutomaticaBasica(mundo, propulsor);
+  const massaApoiadaKg = () => bancada.massaKg + propulsor.massaKg + tanque.massaKg;
+  const limiteAtritoN = () => 0.65 * massaApoiadaKg() * Math.abs(MundoFisico.gravidadeTerrestreMps2.y);
+  return {
+    nome: 'Propulsor fixado em bancada livre — atrito no concreto',
+    descricao: 'Propulsor e tanque são presos à bancada de 500 kg por fixadores estruturais. A bancada tem 5 m² de apoio e repousa diretamente sobre concreto, sem fundação, chumbadores ou qualquer fixação ao solo. Ao exceder o limite de atrito, o conjunto deve deslizar no sentido do empuxo.',
+    mundo, objetos: [bancada, propulsor, tanque], superficies: [concreto], velocidadeTempo: 1, limiteVerticalM: 5, limiteHorizontalM: 30,
+    seguirObjeto: bancada, mangueira: { tanque, propulsor }, fixadores: [fixadorMotor, fixadorTanque],
+    propulsorControlavel: propulsor, permiteAjustarThrottle: true, atualizarControle: atualizarPartida,
+    telemetria: () => `bancada x=${bancada.getEstadoFisico().posicaoM.x.toFixed(2)} m · v=${bancada.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s`,
+    dados: () => `Bancada: 500 kg; área de apoio 5,00 m²\nFixação ao solo: nenhuma\nAtrito bancada–concreto: μ = 0,65\nMassa apoiada instantânea: ${massaApoiadaKg().toFixed(1)} kg\nPressão média de apoio: ${(massaApoiadaKg() * Math.abs(MundoFisico.gravidadeTerrestreMps2.y) / 5).toFixed(0)} Pa\nLimite de atrito seco: ${limiteAtritoN().toFixed(0)} N\nEmpuxo: ${propulsor.empuxoAtualN.toFixed(0)} N\nTemperatura bancada / concreto: ${bancada.temperaturaC.toFixed(3)} / ${concreto.temperaturaC.toFixed(3)} °C\nCalor por atrito bancada / concreto: ${bancada.energiaTermicaDeAtritoAcumuladaJ.toFixed(0)} / ${concreto.energiaTermicaDeAtritoAcumuladaJ.toFixed(0)} J\nFixador do motor / tanque: ${fixadorMotor.estaRompido ? 'ROMPIDO' : 'íntegro'} / ${fixadorTanque.estaRompido ? 'ROMPIDO' : 'íntegro'}\nDeslocamento da bancada: ${bancada.getEstadoFisico().posicaoM.x.toFixed(3)} m\nRegra: a área define a pressão; no atrito seco de Coulomb, o limite vem de μN.`,
+    deveEncerrar: () => false,
+    validar: () => `${propulsor.empuxoAtualN > limiteAtritoN() && bancada.getEstadoFisico().posicaoM.x > 0.01 ? 'APROVADO' : 'AGUARDANDO IGNIÇÃO'} · empuxo ${propulsor.empuxoAtualN.toFixed(0)} N; atrito máximo ${limiteAtritoN().toFixed(0)} N; bancada x=${bancada.getEstadoFisico().posicaoM.x.toFixed(3)} m`,
   };
 };
 
@@ -1246,6 +1321,7 @@ const construirCenarios = (): CenárioVisual[] => {
   criarTesteTermicoDoPropulsor(),
   criarTesteTermicoDoPropulsor(true),
   criarTesteImpactoDestrutivoDoPropulsor(),
+  criarTestePropulsorEmBancadaLivre(),
   criarTestePropulsorSobreVeiculoPassivo(),
   criarTesteFogueteComParaquedasManual(),
   criarTesteFogueteHorizontalComParaquedasManual(),
@@ -1452,6 +1528,26 @@ const desenhar = (): void => {
         contexto.lineTo(meioX - 6, meioY + 6);
         contexto.stroke();
       }
+      contexto.restore();
+    }
+  }
+
+  if (cenário.chumbadoresAoSolo) {
+    for (const chumbador of cenário.chumbadoresAoSolo) {
+      const estado = chumbador.objeto.getEstadoFisico();
+      const x = origemX + estado.posicaoM.x * escala;
+      const y = soloY - estado.posicaoM.y * escala;
+      contexto.save();
+      contexto.strokeStyle = chumbador.estaRompido ? '#ef4444' : '#f59e0b';
+      contexto.lineWidth = 4;
+      if (chumbador.estaRompido) contexto.setLineDash([6, 5]);
+      contexto.beginPath();
+      contexto.moveTo(x, y);
+      contexto.lineTo(x, soloY);
+      contexto.stroke();
+      contexto.setLineDash([]);
+      contexto.fillStyle = contexto.strokeStyle;
+      contexto.fillRect(x - 7, soloY - 3, 14, 6);
       contexto.restore();
     }
   }

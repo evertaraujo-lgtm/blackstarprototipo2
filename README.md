@@ -71,28 +71,36 @@ partida de um propulsor respeita elétrica → hidráulica → combustível → 
 
 Não existe estado de objeto “ancorado ao mundo”. Uma montagem só pode permanecer
 de pé por mecanismos físicos declarados: geometria em contato com uma
-`Superficie`, peso, reação normal, atrito, massa, inércia e
-`FixadorEstrutural`s entre objetos reais. Portanto, uma estrutura sem apoio
-físico cai; uma força ou torque suficiente pode deslocar, tombar, danificar ou
-romper seus vínculos. Essa regra vale para bancada, propulsor, paredes e pilhas
-de cubos; a renderização não pode congelá-los nem corrigir seu movimento.
+`Superficie`, peso, reação normal, atrito, massa, inércia,
+`FixadorEstrutural`s entre objetos reais e `ChumbadorAoSolo` quando houver uma
+ligação real ao concreto. O chumbador declara resistência em N e rompe antes da
+integração quando o esforço transmitido a excede; então o conjunto é liberado e
+volta a cair, deslizar ou tombar. A renderização não pode congelar corpos nem
+corrigir seu movimento.
 
 O cenário `Propulsor térmico — chama contra parede` usa fundação, bancada,
-tanque e motor como corpos físicos ligados por fixadores e apoiados no concreto.
+tanque e motor como corpos físicos ligados por fixadores; a fundação e as
+paredes são ligadas ao concreto por chumbadores de 1.000.000 N.
 O cenário de duas paredes coloca duas paredes idênticas a 6 m do propulsor,
 também apoiadas no concreto: somente a parede no cone da exaustão deve aquecer.
 Em atitude nula, empuxo é +X e exaustão/jato térmico é −X.
 
 `Pilha estrutural — 10 cubos de 1 m apoiada no solo` tem dez cubos de
-1 × 1 × 1 m e 1 kg, unidos por nove `FixadorEstrutural`s. O cubo inferior
-apoia fisicamente no concreto. A variante `Pilha estrutural térmica — jato no
-sexto cubo` monta propulsor e tanque em um suporte físico lateral apoiado no
-solo, a 6 m do alvo. O cubo recebe calor e pode degradar; qualquer movimento
-da pilha ou do suporte é resultado do core físico.
+1 × 1 × 1 m e 1 kg, unidos por nove `FixadorEstrutural`s. O cubo inferior é
+chumbado ao concreto. A variante `Pilha estrutural térmica — jato no sexto
+cubo` monta propulsor e tanque em um suporte lateral também chumbado ao solo,
+a 6 m do alvo. O cubo recebe calor e pode degradar; qualquer movimento após
+ruptura é resultado do core físico.
 
-Uma futura representação de chumbadores, estacas, sapatas ou parafusos ao solo
-deve ser modelada como conexão física com resistência, geometria e condição de
-ruptura — nunca como bloqueio direto de posição ou rotação.
+### Dissipação térmica por atrito e ar
+
+O core transforma a energia mecânica removida pelo atrito em calor. Em contatos
+objeto–objeto, a energia é repartida igualmente entre os materiais enquanto não
+houver dados de efusividade; em objeto–superfície, metade aquece a região de
+contato declarada do piso. O arrasto atmosférico calcula a potência dissipada
+por `−F_arrasto · v_relativa`; cada objeto recebe a fração térmica declarada
+(10% por padrão) e o restante permanece no ar. As telemetrias expõem a energia
+acumulada por atrito e por aquecimento aerodinâmico.
 
 ## Desenvolvimento e validação
 
