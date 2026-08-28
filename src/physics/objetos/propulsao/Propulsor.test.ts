@@ -1,15 +1,21 @@
 import { describe, expect, it } from 'vitest';
 import { MundoFisico } from '../../MundoFisico';
 import { Objeto } from '../base/Objeto';
-import { Propulsor } from './Propulsor';
+import { Propulsor, TENSAO_ALIMENTACAO_PADRAO_PROPULSOR_V } from './Propulsor';
 import { EstadoOperacional } from '../../SistemaOperacional';
 import { SuperficiePlano } from '../../SuperficiePlano';
-import { TanquePropelente } from './TanquePropelente';
+import { TanquePropelente } from '../fontes-de-energia/TanquePropelente';
+import { Bateria } from '../fontes-de-energia/Bateria';
 import { Vetor3 } from '../../Vetor3';
 import { VeiculoTerrestre } from '../veiculos/VeiculoTerrestre';
 import { FixadorEstrutural } from '../../conexoes/FixadorEstrutural';
 
-const criarPropulsor = () => new Propulsor({ id: 'propulsor', massaBaseKg: 1_000, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, coeficienteAtritoEntreObjetos: 0.65, empuxoMaximoN: 20_000, vazaoMaximaKgS: 2, propelenteCompativel: 'metano' });
+const criarBateria = (energiaInicialJ = 100_000) => new Bateria({ id: `bateria-${energiaInicialJ}`, massaBaseKg: 20, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, tensaoNominalV: 28, capacidadeEnergiaJ: 100_000, energiaInicialJ });
+const criarPropulsor = () => {
+  const propulsor = new Propulsor({ id: 'propulsor', massaBaseKg: 1_000, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, coeficienteAtritoEntreObjetos: 0.65, empuxoMaximoN: 20_000, vazaoMaximaKgS: 2, propelenteCompativel: 'metano' });
+  propulsor.conectarBateria(criarBateria(), 1_000);
+  return propulsor;
+};
 const criarTanque = (massa = 20) => new TanquePropelente({ id: `tanque-${massa}`, massaBaseKg: 200, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, tipoPropelente: 'metano', capacidadePropelenteKg: 20, massaPropelenteInicialKg: massa });
 const prepararParaIgnicao = (propulsor: Propulsor, tanque = criarTanque()) => {
   propulsor.conectarTanque(tanque);
@@ -21,6 +27,70 @@ const prepararParaIgnicao = (propulsor: Propulsor, tanque = criarTanque()) => {
 };
 
 describe('Propulsor', () => {
+  it('declara tensão nominal padrão, que pode ser configurada e valida em volts', () => {
+    expect(criarPropulsor().tensaoAlimentacaoNominalV).toBe(TENSAO_ALIMENTACAO_PADRAO_PROPULSOR_V);
+    const propulsor48V = new Propulsor({
+      id: 'propulsor-48v', massaBaseKg: 1_000, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000,
+      empuxoMaximoN: 20_000, vazaoMaximaKgS: 2, propelenteCompativel: 'metano', tensaoAlimentacaoNominalV: 48,
+    });
+    expect(propulsor48V.tensaoAlimentacaoNominalV).toBe(48);
+    expect(() => new Propulsor({
+      id: 'propulsor-tensao-invalida', massaBaseKg: 1_000, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000,
+      empuxoMaximoN: 20_000, vazaoMaximaKgS: 2, propelenteCompativel: 'metano', tensaoAlimentacaoNominalV: 0,
+    })).toThrow('Tensão nominal de alimentação do propulsor inválida.');
+  });
+
+  it('sem fonte elétrica conectada não liga, não ignita nem produz empuxo', () => {
+    const propulsor = new Propulsor({
+      id: 'propulsor-sem-fonte', massaBaseKg: 1_000, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000,
+      empuxoMaximoN: 20_000, vazaoMaximaKgS: 2, propelenteCompativel: 'metano',
+    });
+    propulsor.conectarTanque(criarTanque());
+    propulsor.definirThrottle(1);
+    expect(propulsor.ligarSistema('elétrico')).toBe(false);
+    expect(propulsor.diagnosticoOperacional).toContain('não é possível ligar elétrico: alimentação elétrica indisponível');
+    expect(propulsor.solicitarIgnicao()).toBe(false);
+    propulsor.prepararPassoOperacional(1);
+    expect(propulsor.empuxoAtualN).toBe(0);
+  });
+
+  it('consome a carga finita da bateria e corta o empuxo quando ela descarrega', () => {
+    const propulsor = new Propulsor({
+      id: 'propulsor-bateria-finita', massaBaseKg: 1_000, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000,
+      empuxoMaximoN: 20_000, vazaoMaximaKgS: 2, propelenteCompativel: 'metano', potenciaEletricaMaximaW: 1_000,
+    });
+    const bateria = criarBateria(500);
+    propulsor.conectarTanque(criarTanque());
+    propulsor.conectarBateria(bateria);
+    prepararParaIgnicao(propulsor);
+    propulsor.definirThrottle(1);
+    expect(propulsor.solicitarIgnicao()).toBe(true);
+    propulsor.prepararPassoOperacional(1);
+    expect(bateria.energiaArmazenadaJ).toBe(0);
+    expect(propulsor.empuxoAtualN).toBe(10_000);
+    expect(propulsor.estaIgnitado).toBe(false);
+    propulsor.prepararPassoOperacional(1);
+    expect(propulsor.empuxoAtualN).toBe(0);
+  });
+
+  it('rejeita bateria de tensão incompatível e rompe o cabo quando ela se afasta', () => {
+    const propulsor = criarPropulsor();
+    expect(() => propulsor.conectarBateria(new Bateria({
+      id: 'bateria-48v', massaBaseKg: 20, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000,
+      tensaoNominalV: 48, capacidadeEnergiaJ: 1_000, energiaInicialJ: 1_000,
+    }))).toThrow('Tensão da bateria incompatível.');
+    const bateriaDistante = criarBateria();
+    propulsor.conectarBateria(bateriaDistante, 10);
+    propulsor.conectarTanque(criarTanque());
+    prepararParaIgnicao(propulsor);
+    propulsor.definirThrottle(1);
+    propulsor.solicitarIgnicao();
+    bateriaDistante.atualizarEstadoPeloCore({ ...bateriaDistante.getEstadoFisico(), posicaoM: new Vetor3(10.01, 0, 0) });
+    propulsor.prepararPassoOperacional(1);
+    expect(propulsor.caboEletricoEstaRompido).toBe(true);
+    expect(propulsor.empuxoAtualN).toBe(0);
+  });
+
   it.each([0.25, 0.5, 1])('gera empuxo proporcional ao throttle de %s', (throttle) => {
     const propulsor = criarPropulsor(); const tanque = prepararParaIgnicao(propulsor); propulsor.definirThrottle(throttle); expect(propulsor.solicitarIgnicao()).toBe(true);
     propulsor.prepararPassoOperacional(1);

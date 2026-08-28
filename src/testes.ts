@@ -8,7 +8,8 @@ import { VeiculoAlado } from './physics/objetos/veiculos/VeiculoAlado';
 import { VeiculoComposto } from './physics/objetos/veiculos/VeiculoComposto';
 import { Propulsor, type IdSistemaPropulsor } from './physics/objetos/propulsao/Propulsor';
 import { PropulsorVetorizado } from './physics/objetos/propulsao/PropulsorVetorizado';
-import { TanquePropelente } from './physics/objetos/propulsao/TanquePropelente';
+import { TanquePropelente } from './physics/objetos/fontes-de-energia/TanquePropelente';
+import { Bateria } from './physics/objetos/fontes-de-energia/Bateria';
 import { FixadorEstrutural } from './physics/conexoes/FixadorEstrutural';
 import { ChumbadorAoSolo } from './physics/conexoes/ChumbadorAoSolo';
 import { Paraquedas } from './physics/objetos/componentes/Paraquedas';
@@ -795,6 +796,54 @@ const criarTesteVeiculoComposto = (): CenárioVisual => {
   };
 };
 
+/** Demonstra alimentação elétrica física, descarga e corte de propulsão. */
+const criarTestePropulsorComBateria = (): CenárioVisual => {
+  const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
+  const propulsor = new Propulsor({
+    id: 'propulsor-com-bateria', massaBaseKg: 100, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000,
+    empuxoMaximoN: 4_000, vazaoMaximaKgS: 0.5, propelenteCompativel: 'metano', potenciaEletricaMaximaW: 2_000,
+    estadoInicial: { posicaoM: new Vetor3(0, 2, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
+  });
+  const tanque = new TanquePropelente({
+    id: 'tanque-com-bateria', massaBaseKg: 80, dimensoesM: new Vetor3(1.2, 1.6, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 400,
+    tipoPropelente: 'metano', capacidadePropelenteKg: 20, massaPropelenteInicialKg: 20,
+    estadoInicial: { posicaoM: new Vetor3(0, 3.3, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
+  });
+  const bateria = new Bateria({
+    id: 'bateria-28v-12kj', massaBaseKg: 20, dimensoesM: new Vetor3(0.8, 0.6, 0.8), resistenciaColisaoJ: 50_000, limiteTermicoC: 80,
+    tensaoNominalV: 28, capacidadeEnergiaJ: 12_000, energiaInicialJ: 12_000,
+    estadoInicial: { posicaoM: new Vetor3(0, 4.5, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
+  });
+  propulsor.conectarTanque(tanque, 4);
+  propulsor.conectarBateria(bateria, 4);
+  propulsor.definirThrottle(1);
+  const fixadorTanque = new FixadorEstrutural({
+    id: 'fixador-tanque-propulsor-bateria', objetoA: tanque, objetoB: propulsor, resistenciaTracaoN: 20_000,
+    obterEsforcoSolicitadoN: () => propulsor.empuxoAtualN,
+  });
+  const fixadorBateria = new FixadorEstrutural({
+    id: 'fixador-bateria-propulsor', objetoA: bateria, objetoB: propulsor, resistenciaTracaoN: 20_000,
+    obterEsforcoSolicitadoN: () => propulsor.empuxoAtualN,
+  });
+  mundo.registrarObjeto(propulsor);
+  mundo.registrarObjeto(tanque);
+  mundo.registrarObjeto(bateria);
+  mundo.registrarFixador(fixadorTanque);
+  mundo.registrarFixador(fixadorBateria);
+  const atualizarPartida = criarPartidaAutomaticaBasica(mundo, propulsor);
+  return {
+    nome: 'Propulsor — bateria física e descarga',
+    descricao: 'Propulsor, tanque e bateria de 28 V são Objetos independentes unidos por fixadores. A bateria fornece 12 kJ a 2 kW: após cerca de 6 s em throttle máximo, a carga zera e a cadeia elétrica corta ignição e empuxo. O conjunto continua no MundoFisico para observação.',
+    mundo, objetos: [tanque, bateria, propulsor], superficies: [], velocidadeTempo: 1, limiteVerticalM: 50, limiteHorizontalM: 15,
+    seguirObjeto: propulsor, mangueira: { tanque, propulsor }, fixadores: [fixadorTanque, fixadorBateria], propulsorControlavel: propulsor,
+    permiteAjustarThrottle: true, atualizarControle: atualizarPartida,
+    telemetria: () => `carga ${(bateria.percentualDeCarga * 100).toFixed(1)}% · empuxo ${propulsor.empuxoAtualN.toFixed(0)} N`,
+    dados: () => `Bateria: ${bateria.energiaArmazenadaJ.toFixed(0)} / ${bateria.capacidadeEnergiaJ.toFixed(0)} J (${(bateria.percentualDeCarga * 100).toFixed(1)}%)\nTensão: ${bateria.tensaoNominalV.toFixed(0)} V; requerida: ${propulsor.tensaoAlimentacaoNominalV.toFixed(0)} V\nConsumo elétrico: ${propulsor.potenciaEletricaMaximaW.toFixed(0)} W\nCabo: ${propulsor.caboEletricoEstaRompido ? 'ROMPIDO' : 'íntegro'}\nEmpuxo: ${propulsor.empuxoAtualN.toFixed(0)} N\nVazão: ${propulsor.vazaoAtualKgS.toFixed(2)} kg/s\nPropelente: ${tanque.massaPropelenteKg.toFixed(2)} kg\nFixadores: tanque ${fixadorTanque.estaRompido ? 'ROMPIDO' : 'íntegro'} · bateria ${fixadorBateria.estaRompido ? 'ROMPIDO' : 'íntegro'}\nDiagnóstico: ${propulsor.diagnosticoOperacional.length === 0 ? 'operacional' : propulsor.diagnosticoOperacional.join(', ')}`,
+    deveEncerrar: () => false,
+    validar: () => `${bateria.estaDescarregada && propulsor.empuxoAtualN === 0 ? 'APROVADO' : 'EXECUTANDO'} · carga ${(bateria.percentualDeCarga * 100).toFixed(1)}%; ignição ${propulsor.estaIgnitado ? 'ativa' : 'cortada'}`,
+  };
+};
+
 const criarTestePropulsorContraParede = (throttle: number): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240);
   const pista = new SuperficiePlano(`pista-propulsor-${throttle}`, 'outro', 0, 1_000_000, 0.02, 0.9);
@@ -1315,6 +1364,7 @@ const construirCenarios = (): CenárioVisual[] => {
   criarTesteVeiculoTerrestre('colisao'),
   criarTesteVeiculoAlado(),
   criarTesteVeiculoComposto(),
+  criarTestePropulsorComBateria(),
   criarTestePropulsorContraParede(0.25),
   criarTestePropulsorContraParede(0.5),
   criarTestePropulsorContraParede(1),
@@ -1577,6 +1627,8 @@ const desenhar = (): void => {
               ? '#f97316'
         : objeto instanceof Propulsor
           ? '#94a3b8'
+          : objeto instanceof Bateria
+            ? '#facc15'
           : objeto instanceof TanquePropelente
             ? '#34d399'
             : objeto.dimensoesM.x > 1 ? '#a78bfa' : '#22d3ee';
@@ -1824,9 +1876,12 @@ const atualizarControlesDoPropulsor = (): void => {
   ];
   controles.forEach(([botao, nome, id]) => {
     const combustivelIndisponivel = id === 'combustível' && propulsor?.mangueiraEstaRompida;
+    const eletricaIndisponivel = id === 'elétrico' && propulsor !== undefined && !propulsor.fonteEletricaEstaConectada;
     const estado = propulsor?.obterEstadoDoSistema(id);
-    botao.disabled = estado === undefined || combustivelIndisponivel;
-    botao.textContent = combustivelIndisponivel
+    botao.disabled = estado === undefined || combustivelIndisponivel || eletricaIndisponivel;
+    botao.textContent = eletricaIndisponivel
+      ? 'Elétrica indisponível (sem fonte)'
+      : combustivelIndisponivel
       ? 'Combustível indisponível'
       : estado === EstadoOperacional.Operacional ? `Desligar ${nome}` : `Ligar ${nome}`;
   });

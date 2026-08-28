@@ -11,8 +11,8 @@ a bancada é apenas uma interface de observação e comando; o mesmo
 - colisões, contatos com superfícies, atrito, dissipação, dano e rotação;
 - atmosfera padrão, vento e arrasto relativo ao ar;
 - rodas, aderência, tração e frenagem condicionadas ao contato real;
-- tanques de propelente com massa variável e propulsores com ignição;
-- cadeia operacional elétrica → hidráulica → combustível → controle;
+- tanques de propelente e baterias físicas com recursos finitos, além de propulsores com ignição;
+- cadeia operacional elétrica → hidráulica → combustível → controle, com tensão nominal requerida pelo propulsor (28 V padrão);
 - paraquedas físicos com massa, arrasto e orientação pelo fluxo de ar;
 - fixadores estruturais que rompem por esforço;
 - veículos compostos, com módulos físicos e ilhas rígidas estruturais.
@@ -66,6 +66,11 @@ com tanque, dois propulsores, computador de voo e paraquedas.
 Os comandos da tela chamam operações públicas do domínio. Por exemplo, a
 partida de um propulsor respeita elétrica → hidráulica → combustível → controle
 → ignição, tanto no modo manual quanto no automático.
+
+A tensão nominal de alimentação é declarada por propulsor, em volts (28 V por
+padrão). Este marco ainda não implementa fonte, gerador, bateria, cabos nem
+queda de tensão; portanto, o botão de elétrica permanece um permissivo
+operacional interno até que esses objetos e suas conexões físicas existam.
 
 ### Registro — bancada térmica: propulsor contra parede
 

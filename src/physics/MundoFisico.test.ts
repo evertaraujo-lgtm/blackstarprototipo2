@@ -6,7 +6,7 @@ import { Vetor3 } from './Vetor3';
 import { FixadorEstrutural } from './conexoes/FixadorEstrutural';
 import { ChumbadorAoSolo } from './conexoes/ChumbadorAoSolo';
 import { Propulsor } from './objetos/propulsao/Propulsor';
-import { TanquePropelente } from './objetos/propulsao/TanquePropelente';
+import { TanquePropelente } from './objetos/fontes-de-energia/TanquePropelente';
 
 const criarObjeto = (id = 'objeto') => new Objeto({
   id,

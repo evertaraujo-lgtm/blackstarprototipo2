@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { MundoFisico } from '../../MundoFisico';
 import { Vetor3 } from '../../Vetor3';
-import { TanquePropelente } from './TanquePropelente';
+import { TanquePropelente } from '../fontes-de-energia/TanquePropelente';
+import { Bateria } from '../fontes-de-energia/Bateria';
 import { PropulsorVetorizado } from './PropulsorVetorizado';
 import { FixadorEstrutural } from '../../conexoes/FixadorEstrutural';
 
@@ -18,6 +19,7 @@ describe('PropulsorVetorizado', () => {
       estadoInicial: { posicaoM: new Vetor3(0, 1, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
     });
     propulsor.conectarTanque(tanque, 3);
+    propulsor.conectarBateria(new Bateria({ id: 'bateria-vetorizada', massaBaseKg: 20, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000, tensaoNominalV: 28, capacidadeEnergiaJ: 100_000, energiaInicialJ: 100_000 }), 3);
     propulsor.definirThrottle(1);
     for (const sistema of ['elétrico', 'hidráulico', 'combustível', 'controle'] as const) propulsor.ligarSistema(sistema);
     expect(propulsor.solicitarIgnicao()).toBe(true);
@@ -59,6 +61,7 @@ describe('PropulsorVetorizado', () => {
       estadoInicial: { posicaoM: new Vetor3(deslocamentoM, 28, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
     });
     merlin.conectarTanque(tanque, 3);
+    merlin.conectarBateria(new Bateria({ id: 'bateria-merlin', massaBaseKg: 20, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000, tensaoNominalV: 28, capacidadeEnergiaJ: 100_000, energiaInicialJ: 100_000 }), 3);
     merlin.definirThrottle(0.6);
     for (const sistema of ['elétrico', 'hidráulico', 'combustível', 'controle'] as const) merlin.ligarSistema(sistema);
     expect(merlin.solicitarVetorizacao(5 * Math.PI / 180)).toBe(true);

@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { MundoFisico } from '../MundoFisico';
 import { Propulsor } from '../objetos/propulsao/Propulsor';
-import { TanquePropelente } from '../objetos/propulsao/TanquePropelente';
+import { TanquePropelente } from '../objetos/fontes-de-energia/TanquePropelente';
+import { Bateria } from '../objetos/fontes-de-energia/Bateria';
 import { VeiculoTerrestre } from '../objetos/veiculos/VeiculoTerrestre';
 import { SuperficiePlano } from '../SuperficiePlano';
 import { Vetor3 } from '../Vetor3';
@@ -11,6 +12,7 @@ const criarConjunto = (resistenciaTracaoN: number) => {
   const mundo = new MundoFisico(1 / 240);
   const veiculo = new VeiculoTerrestre({ id: `veiculo-${resistenciaTracaoN}`, massaBaseKg: 1_500, dimensoesM: new Vetor3(4, 1.5, 1), resistenciaColisaoJ: 50_000, limiteTermicoC: 1_000, quantidadeRodas: 4, forcaTracaoMaximaN: 4_500, forcaFrenagemMaximaN: 9_000, coeficienteAderenciaPneus: 0.9, estadoInicial: { posicaoM: new Vetor3(0, 0.75, 0) } });
   const propulsor = new Propulsor({ id: `propulsor-${resistenciaTracaoN}`, massaBaseKg: 1_000, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, empuxoMaximoN: 20_000, vazaoMaximaKgS: 2, propelenteCompativel: 'metano', estadoInicial: { posicaoM: new Vetor3(0, 2, 0) } });
+  propulsor.conectarBateria(new Bateria({ id: `bateria-${resistenciaTracaoN}`, massaBaseKg: 20, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, tensaoNominalV: 28, capacidadeEnergiaJ: 100_000, energiaInicialJ: 100_000 }));
   const tanque = new TanquePropelente({ id: `tanque-${resistenciaTracaoN}`, massaBaseKg: 200, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, tipoPropelente: 'metano', capacidadePropelenteKg: 20, massaPropelenteInicialKg: 20, estadoInicial: { posicaoM: new Vetor3(-2, 0.5, 0) } });
   propulsor.conectarTanque(tanque, 20); propulsor.definirThrottle(1);
   propulsor.ligarSistema('elétrico'); propulsor.ligarSistema('hidráulico'); propulsor.ligarSistema('combustível'); propulsor.ligarSistema('controle'); propulsor.solicitarIgnicao();

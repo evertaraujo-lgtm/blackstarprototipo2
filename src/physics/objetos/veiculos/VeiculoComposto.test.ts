@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { FixadorEstrutural } from '../../conexoes/FixadorEstrutural';
 import { MundoFisico } from '../../MundoFisico';
 import { Vetor3 } from '../../Vetor3';
-import { TanquePropelente } from '../propulsao/TanquePropelente';
+import { TanquePropelente } from '../fontes-de-energia/TanquePropelente';
+import { Bateria } from '../fontes-de-energia/Bateria';
 import { Propulsor } from '../propulsao/Propulsor';
 import { VeiculoComposto } from './VeiculoComposto';
 
@@ -24,19 +25,23 @@ const criarVeiculoComposto = () => {
   });
   const propulsorA = criarPropulsor('propulsor-a', -1.5);
   const propulsorB = criarPropulsor('propulsor-b', 1.5);
+  const bateria = new Bateria({ id: 'bateria-central', massaBaseKg: 20, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000, tensaoNominalV: 28, capacidadeEnergiaJ: 100_000, energiaInicialJ: 100_000, estadoInicial: { posicaoM: new Vetor3(0, 11, 0) } });
   propulsorA.conectarTanque(tanque);
   propulsorB.conectarTanque(tanque);
-  for (const modulo of [tanque, propulsorA, propulsorB]) veiculo.adicionarModulo(modulo);
+  propulsorA.conectarBateria(bateria);
+  propulsorB.conectarBateria(bateria);
+  for (const modulo of [tanque, bateria, propulsorA, propulsorB]) veiculo.adicionarModulo(modulo);
   veiculo.instalarPropulsor(propulsorA);
   veiculo.instalarPropulsor(propulsorB);
   let cargaDoFixadorB = 0;
   const fixadores = [
     new FixadorEstrutural({ id: 'fixador-tanque', objetoA: veiculo, objetoB: tanque, resistenciaTracaoN: 100_000, obterEsforcoSolicitadoN: () => 0 }),
+    new FixadorEstrutural({ id: 'fixador-bateria', objetoA: veiculo, objetoB: bateria, resistenciaTracaoN: 100_000, obterEsforcoSolicitadoN: () => 0 }),
     new FixadorEstrutural({ id: 'fixador-a', objetoA: veiculo, objetoB: propulsorA, resistenciaTracaoN: 100_000, obterEsforcoSolicitadoN: () => 0 }),
     new FixadorEstrutural({ id: 'fixador-b', objetoA: veiculo, objetoB: propulsorB, resistenciaTracaoN: 100, obterEsforcoSolicitadoN: () => cargaDoFixadorB }),
   ];
   for (const fixador of fixadores) veiculo.adicionarFixador(fixador);
-  return { veiculo, tanque, propulsorA, propulsorB, fixadorB: fixadores[2], romperFixadorB: () => { cargaDoFixadorB = 101; } };
+  return { veiculo, tanque, propulsorA, propulsorB, fixadorB: fixadores[3], romperFixadorB: () => { cargaDoFixadorB = 101; } };
 };
 
 describe('VeiculoComposto', () => {
@@ -52,8 +57,8 @@ describe('VeiculoComposto', () => {
     const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 0 });
     veiculo.registrarNoMundo(mundo);
 
-    expect(veiculo.massaInstantaneaDoConjuntoKg).toBe(180);
-    expect(veiculo.obterObjetosFisicosConectados()).toHaveLength(4);
+    expect(veiculo.massaInstantaneaDoConjuntoKg).toBe(200);
+    expect(veiculo.obterObjetosFisicosConectados()).toHaveLength(5);
     expect(veiculo.solicitarIgnicaoDosPropulsores().every((resultado) => resultado.aceito)).toBe(true);
     veiculo.definirThrottleDeTodosOsPropulsores(1);
     mundo.avancar(0.5);
@@ -61,7 +66,7 @@ describe('VeiculoComposto', () => {
     expect(propulsorA.empuxoAtualN).toBeGreaterThan(0);
     expect(propulsorB.empuxoAtualN).toBeGreaterThan(0);
     expect(tanque.massaPropelenteConsumidaKg).toBeGreaterThan(0);
-    expect(veiculo.massaInstantaneaDoConjuntoKg).toBeLessThan(180);
+    expect(veiculo.massaInstantaneaDoConjuntoKg).toBeLessThan(200);
     expect(veiculo.getEstadoFisico().orientacaoRad.z).toBeCloseTo(0, 10);
     expect(veiculo.getEstadoFisico().velocidadeAngularRadps.z).toBeCloseTo(0, 10);
   });
@@ -77,7 +82,7 @@ describe('VeiculoComposto', () => {
 
     expect(fixadorB.estaRompido).toBe(true);
     expect(veiculo.obterObjetosFisicosConectados()).not.toContain(propulsorB);
-    expect(veiculo.massaInstantaneaDoConjuntoKg).toBe(170);
+    expect(veiculo.massaInstantaneaDoConjuntoKg).toBe(190);
     expect(veiculo.centroDeMassaDoConjuntoM.x).toBeLessThan(centroAntes.x);
   });
 });
