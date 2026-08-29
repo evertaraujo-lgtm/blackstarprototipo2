@@ -51,8 +51,11 @@ const toggleControl = document.querySelector<HTMLButtonElement>('#toggle-control
 const igniteButton = document.querySelector<HTMLButtonElement>('#ignite-engine');
 const deployParachuteButton = document.querySelector<HTMLButtonElement>('#deploy-parachute');
 const propulsionControls = document.querySelector<HTMLElement>('.propulsion-controls');
+const tankDisconnectControls = document.querySelector<HTMLElement>('#tank-disconnect-controls');
+const disconnectFuelTankButton = document.querySelector<HTMLButtonElement>('#disconnect-fuel-tank');
+const disconnectOxidizerTankButton = document.querySelector<HTMLButtonElement>('#disconnect-oxidizer-tank');
 
-if (!canvas || !playButton || !scenarioSelector || !skipButton || !resetButton || !scenarioName || !scenarioDescription || !simulationTime || !testStatus || !testResult || !vehicleSpeed || !scenarioData || !timeScaleInput || !timeScaleValue || !throttleControl || !throttleInput || !throttleValue || !gimbalControl || !gimbalInput || !gimbalValue || !parachuteSettings || !parachuteAreaInput || !parachuteCalculatedValues || !toggleElectric || !toggleHydraulic || !toggleFuel || !toggleControl || !igniteButton || !deployParachuteButton || !propulsionControls) {
+if (!canvas || !playButton || !scenarioSelector || !skipButton || !resetButton || !scenarioName || !scenarioDescription || !simulationTime || !testStatus || !testResult || !vehicleSpeed || !scenarioData || !timeScaleInput || !timeScaleValue || !throttleControl || !throttleInput || !throttleValue || !gimbalControl || !gimbalInput || !gimbalValue || !parachuteSettings || !parachuteAreaInput || !parachuteCalculatedValues || !toggleElectric || !toggleHydraulic || !toggleFuel || !toggleControl || !igniteButton || !deployParachuteButton || !propulsionControls || !tankDisconnectControls || !disconnectFuelTankButton || !disconnectOxidizerTankButton) {
   throw new Error('A bancada de testes não encontrou os elementos obrigatórios.');
 }
 
@@ -79,6 +82,8 @@ interface CenárioVisual {
   readonly seguirObjeto?: Objeto;
   readonly telemetria?: () => string;
   readonly mangueira?: { readonly tanque: TanquePropelente; readonly propulsor: Propulsor };
+  /** Linhas que o operador pode romper sem remover os tanques da cena. */
+  readonly linhasComFalhaControlavel?: { readonly combustivel: LinhaDePropelente; readonly oxidante: LinhaDePropelente };
   readonly fixadores?: readonly FixadorEstrutural[];
   readonly chumbadoresAoSolo?: readonly ChumbadorAoSolo[];
   /** Linha de ação de uma força, usada apenas para tornar o ensaio observável. */
@@ -808,7 +813,7 @@ const criarTestePropulsorComBateria = (): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
   const propulsor = new Propulsor({
     id: 'propulsor-com-bateria', massaBaseKg: 100, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000,
-    empuxoMaximoN: 4_000, vazaoMaximaKgS: 0.5, propelenteCompativel: 'metano', potenciaEletricaMaximaW: 2_000,
+    empuxoMaximoN: 4_000, vazaoMaximaKgS: 0.5, propelenteCompativel: 'metano', potenciaEletricaMaximaW: 2_000, potenciaTermicaMaximaW: 3_000_000,
     estadoInicial: { posicaoM: new Vetor3(0, 2, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
   });
   const tanque = new TanquePropelente({
@@ -864,12 +869,12 @@ const criarTestePropulsorComBateria = (): CenárioVisual => {
   const atualizarPartida = criarPartidaAutomaticaBasica(mundo, propulsor);
   return {
     nome: 'Bancada integrada — propulsor bipropelente',
-    descricao: 'Bancada chumbada ao solo com propulsor, tanque de metano, tanque de oxigênio e bateria de 28 V, todos objetos físicos unidos por fixadores. O fluxo passa por válvulas, linhas e bombas elétricas, reage na câmara e produz empuxo no bocal. A descarga da bateria corta a cadeia.',
+    descricao: 'Bancada chumbada ao solo com propulsor, tanque de metano, tanque de oxigênio e bateria de 28 V, todos objetos físicos unidos por fixadores. O fluxo passa por válvulas, linhas e bombas elétricas, reage na câmara e produz empuxo no bocal. Durante a queima, simule a soltura física de uma linha: a falha interrompe combustível, controle e ignição no mesmo passo, sem soltar o tanque da bancada.',
     mundo, objetos: [bancada, tanque, oxidante, bateria, propulsor], superficies: [solo], velocidadeTempo: 1, limiteVerticalM: 10, limiteHorizontalM: 8, exibirNaBancada: true,
-    seguirObjeto: propulsor, cameraY: () => propulsor.getEstadoFisico().posicaoM.y, mangueira: { tanque, propulsor }, fixadores: [fixadorTanque, fixadorOxidante, fixadorBateria, fixadorBancada], chumbadoresAoSolo: [chumbador], propulsorControlavel: propulsor,
+    seguirObjeto: propulsor, cameraY: () => propulsor.getEstadoFisico().posicaoM.y, mangueira: { tanque, propulsor }, linhasComFalhaControlavel: { combustivel: linhaCombustivel, oxidante: linhaOxidante }, fixadores: [fixadorTanque, fixadorOxidante, fixadorBateria, fixadorBancada], chumbadoresAoSolo: [chumbador], propulsorControlavel: propulsor,
     permiteAjustarThrottle: true, atualizarControle: atualizarPartida,
     telemetria: () => `carga ${(bateria.percentualDeCarga * 100).toFixed(1)}% · empuxo ${propulsor.empuxoAtualN.toFixed(0)} N`,
-    dados: () => `Bateria: ${bateria.energiaArmazenadaJ.toFixed(0)} / ${bateria.capacidadeEnergiaJ.toFixed(0)} J (${(bateria.percentualDeCarga * 100).toFixed(1)}%)\nLinhas: metano ${linhaCombustivel.vazaoAtualKgS.toFixed(2)} kg/s ${linhaCombustivel.estaRompida ? 'ROMPIDA' : 'íntegra'} · oxigênio ${linhaOxidante.vazaoAtualKgS.toFixed(2)} kg/s ${linhaOxidante.estaRompida ? 'ROMPIDA' : 'íntegra'}\nEmpuxo no bocal: ${propulsor.empuxoAtualN.toFixed(0)} N\nVazão reagida: ${propulsor.vazaoAtualKgS.toFixed(2)} kg/s\nMetano / oxigênio: ${tanque.massaPropelenteKg.toFixed(2)} / ${oxidante.massaPropelenteKg.toFixed(2)} kg\nBancada: ${chumbador.estaRompido ? 'CHUMBADOR ROMPIDO' : 'chumbada ao solo'}\nDiagnóstico: ${propulsor.diagnosticoOperacional.length === 0 ? 'operacional' : propulsor.diagnosticoOperacional.join(', ')}`,
+    dados: () => `Bateria: ${bateria.energiaArmazenadaJ.toFixed(0)} / ${bateria.capacidadeEnergiaJ.toFixed(0)} J (${(bateria.percentualDeCarga * 100).toFixed(1)}%)\nLinhas: metano ${linhaCombustivel.vazaoAtualKgS.toFixed(2)} kg/s ${linhaCombustivel.estaDesconectada ? 'DESCONECTADA' : linhaCombustivel.estaRompida ? 'ROMPIDA' : 'íntegra'} · oxigênio ${linhaOxidante.vazaoAtualKgS.toFixed(2)} kg/s ${linhaOxidante.estaDesconectada ? 'DESCONECTADA' : linhaOxidante.estaRompida ? 'ROMPIDA' : 'íntegra'}\nEmpuxo no bocal: ${propulsor.empuxoAtualN.toFixed(0)} N\nVazão reagida: ${propulsor.vazaoAtualKgS.toFixed(2)} kg/s\nMetano / oxigênio: ${tanque.massaPropelenteKg.toFixed(2)} / ${oxidante.massaPropelenteKg.toFixed(2)} kg\nBancada: ${chumbador.estaRompido ? 'CHUMBADOR ROMPIDO' : 'chumbada ao solo'}\nDiagnóstico: ${propulsor.diagnosticoOperacional.length === 0 ? 'operacional' : propulsor.diagnosticoOperacional.join(', ')}`,
     deveEncerrar: () => false,
     validar: () => `${bateria.estaDescarregada && propulsor.empuxoAtualN === 0 ? 'APROVADO' : 'EXECUTANDO'} · carga ${(bateria.percentualDeCarga * 100).toFixed(1)}%; ignição ${propulsor.estaIgnitado ? 'ativa' : 'cortada'}`,
   };
@@ -1714,7 +1719,10 @@ const desenhar = (): void => {
     if (objeto instanceof Propulsor) {
       // A força do propulsor aponta para +X local; portanto o escape e a chama
       // aparecem no lado oposto (-X), somente quando há empuxo calculado pelo core.
-      const intensidadeChama = Math.min(1, objeto.empuxoAtualN / 20_000);
+      const potenciaMaximaNoJatoW = objeto.potenciaTermicaMaximaW * 0.7;
+      const intensidadeChama = potenciaMaximaNoJatoW === 0
+        ? 0
+        : Math.max(0, Math.min(1, objeto.potenciaTermicaNoJatoW / potenciaMaximaNoJatoW));
       if (intensidadeChama > 0) {
         const comprimentoChama = larguraObjeto * (0.7 + intensidadeChama * 1.4);
         const raioChama = alturaObjeto * (0.18 + intensidadeChama * 0.22);
@@ -1946,6 +1954,12 @@ const atualizarControlesDoPropulsor = (): void => {
   const objetoComParaquedas = cenário.objetoComParaquedasControlavel;
   const objetoComParaquedasConfiguravel = cenário.objetoComParaquedasConfiguravel;
   propulsionControls.hidden = propulsor === undefined;
+  const linhasComFalhaControlavel = cenário.linhasComFalhaControlavel;
+  tankDisconnectControls.hidden = linhasComFalhaControlavel === undefined;
+  disconnectFuelTankButton.disabled = linhasComFalhaControlavel === undefined || linhasComFalhaControlavel.combustivel.estaRompida;
+  disconnectFuelTankButton.textContent = linhasComFalhaControlavel?.combustivel.estaRompida ? '✓ Linha de metano rompida' : 'Simular ruptura: linha de metano';
+  disconnectOxidizerTankButton.disabled = linhasComFalhaControlavel === undefined || linhasComFalhaControlavel.oxidante.estaRompida;
+  disconnectOxidizerTankButton.textContent = linhasComFalhaControlavel?.oxidante.estaRompida ? '✓ Linha de oxigênio rompida' : 'Simular ruptura: linha de oxigênio';
   const controles: Array<[HTMLButtonElement, string, IdSistemaPropulsor]> = [
     [toggleElectric, 'elétrica', 'elétrico'],
     [toggleHydraulic, 'hidráulica', 'hidráulico'],
@@ -2017,6 +2031,17 @@ igniteButton.addEventListener('click', () => {
   atualizarControlesDoPropulsor();
   desenhar();
 });
+const simularRupturaDaLinha = (tipo: 'combustivel' | 'oxidante'): void => {
+  const cenário = cenarioAtual();
+  const linha = cenário.linhasComFalhaControlavel?.[tipo];
+  if (!linha || linha.estaRompida) return;
+  linha.romper();
+  cenário.propulsorControlavel?.interromperPorAlimentacaoDePropelenteIndisponivel();
+  atualizarControlesDoPropulsor();
+  desenhar();
+};
+disconnectFuelTankButton.addEventListener('click', () => simularRupturaDaLinha('combustivel'));
+disconnectOxidizerTankButton.addEventListener('click', () => simularRupturaDaLinha('oxidante'));
 deployParachuteButton.addEventListener('click', () => {
   const objeto = cenarioAtual().objetoComParaquedasControlavel;
   if (!objeto || objeto.paraquedasEstaAberto) return;

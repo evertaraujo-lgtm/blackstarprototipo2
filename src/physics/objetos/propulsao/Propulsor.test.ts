@@ -54,6 +54,18 @@ describe('Propulsor', () => {
     expect(propulsor.empuxoAtualN).toBe(0);
   });
 
+  it('não gera potência térmica nem jato sem ignição e empuxo efetivos', () => {
+    const propulsor = new Propulsor({
+      id: 'propulsor-termico-sem-ignicao', massaBaseKg: 1_000, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000,
+      empuxoMaximoN: 20_000, vazaoMaximaKgS: 2, potenciaTermicaMaximaW: 3_000_000, propelenteCompativel: 'metano',
+    });
+    propulsor.definirThrottle(1);
+    propulsor.prepararPassoOperacional(1);
+    expect(propulsor.empuxoAtualN).toBe(0);
+    expect(propulsor.potenciaTermicaAtualW).toBe(0);
+    expect(propulsor.obterJatoTermico()).toBeUndefined();
+  });
+
   it('consome a carga finita da bateria e corta o empuxo quando ela descarrega', () => {
     const propulsor = new Propulsor({
       id: 'propulsor-bateria-finita', massaBaseKg: 1_000, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000,

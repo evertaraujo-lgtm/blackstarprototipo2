@@ -46,6 +46,29 @@ describe('Cadeia de propulsão', () => {
     expect(new CamaraCombustao({ razaoMisturaOxidanteCombustivel: 4, toleranciaRazaoMistura: 0.1 }).reagir(0, 4, 1).eficiencia).toBe(0);
   });
 
+  it('desconecta uma linha individualmente sem alterar a existência física do tanque', () => {
+    const tanque = criarTanque('tanque-desconectado', 'metano');
+    const valvula = new ValvulaPropelente({ id: 'valvula-desconectada', vazaoMaximaKgS: 2 });
+    valvula.definirAbertura(1);
+    const linha = new LinhaDePropelente({ id: 'linha-desconectada', tanque, tipoPropelente: 'metano', comprimentoMaximoM: 5, vazaoMaximaKgS: 2, valvula });
+    linha.desconectar();
+    expect(linha.estaDesconectada).toBe(true);
+    expect(linha.estaRompida).toBe(false);
+    expect(linha.fornecerMassa(1, 1, new Vetor3(0, 0, 0))).toBe(0);
+    expect(tanque.massaPropelenteKg).toBe(20);
+  });
+
+  it('marca como rompida uma mangueira que se solta e corta seu fluxo', () => {
+    const tanque = criarTanque('tanque-linha-solta', 'metano');
+    const valvula = new ValvulaPropelente({ id: 'valvula-linha-solta', vazaoMaximaKgS: 2 });
+    valvula.definirAbertura(1);
+    const linha = new LinhaDePropelente({ id: 'linha-solta', tanque, tipoPropelente: 'metano', comprimentoMaximoM: 5, vazaoMaximaKgS: 2, valvula });
+    linha.romper();
+    expect(linha.estaRompida).toBe(true);
+    expect(linha.fornecerMassa(1, 1, new Vetor3(0, 0, 0))).toBe(0);
+    expect(tanque.massaPropelenteKg).toBe(20);
+  });
+
   it('faz o próprio propulsor gerar empuxo somente pela cadeia bipropelente configurada', () => {
     const combustivel = criarTanque('tanque-propulsor-combustivel', 'metano');
     const oxidante = criarTanque('tanque-propulsor-oxidante', 'oxigenio');
@@ -56,10 +79,12 @@ describe('Cadeia de propulsão', () => {
     const propulsor = new Propulsor({ id: 'propulsor-bipropelente', massaBaseKg: 100, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000, empuxoMaximoN: 1_000, vazaoMaximaKgS: 1, propelenteCompativel: 'metano' });
     propulsor.conectarTanque(combustivel);
     propulsor.conectarBateria(bateria);
+    const linhaCombustivel = new LinhaDePropelente({ id: 'linha-propulsor-combustivel', tanque: combustivel, tipoPropelente: 'metano', comprimentoMaximoM: 5, vazaoMaximaKgS: 1, valvula: valvulaCombustivel });
+    const linhaOxidante = new LinhaDePropelente({ id: 'linha-propulsor-oxidante', tanque: oxidante, tipoPropelente: 'oxigenio', comprimentoMaximoM: 5, vazaoMaximaKgS: 4, valvula: valvulaOxidante });
     propulsor.configurarCadeiaBipropelente({
-      linhaCombustivel: new LinhaDePropelente({ id: 'linha-propulsor-combustivel', tanque: combustivel, tipoPropelente: 'metano', comprimentoMaximoM: 5, vazaoMaximaKgS: 1, valvula: valvulaCombustivel }),
+      linhaCombustivel,
       bombaCombustivel: new BombaPropelente({ id: 'bomba-propulsor-combustivel', tensaoNominalV: 28, vazaoMaximaKgS: 1, potenciaEletricaMaximaW: 100 }),
-      linhaOxidante: new LinhaDePropelente({ id: 'linha-propulsor-oxidante', tanque: oxidante, tipoPropelente: 'oxigenio', comprimentoMaximoM: 5, vazaoMaximaKgS: 4, valvula: valvulaOxidante }),
+      linhaOxidante,
       bombaOxidante: new BombaPropelente({ id: 'bomba-propulsor-oxidante', tensaoNominalV: 28, vazaoMaximaKgS: 4, potenciaEletricaMaximaW: 100 }),
       camara: new CamaraCombustao({ razaoMisturaOxidanteCombustivel: 4, toleranciaRazaoMistura: 0.1 }),
       bocal: new Bocal({ empuxoMaximoN: 1_000, eficienciaNominal: 1 }),
@@ -69,8 +94,18 @@ describe('Cadeia de propulsão', () => {
     expect(propulsor.solicitarIgnicao()).toBe(true);
     propulsor.prepararPassoOperacional(1);
     expect(propulsor.empuxoAtualN).toBe(1_000);
+    propulsor.definirThrottle(0.25);
+    propulsor.prepararPassoOperacional(1);
+    expect(propulsor.empuxoAtualN).toBe(250);
     valvulaOxidante.definirAbertura(0);
     propulsor.prepararPassoOperacional(1);
     expect(propulsor.empuxoAtualN).toBe(0);
+    linhaCombustivel.romper();
+    const cargaAntesDaFalhaJ = bateria.energiaArmazenadaJ;
+    propulsor.prepararPassoOperacional(1);
+    expect(propulsor.sistemaEstaOperacional('combustível')).toBe(false);
+    expect(propulsor.estaIgnitado).toBe(false);
+    expect(linhaOxidante.vazaoAtualKgS).toBe(0);
+    expect(bateria.energiaArmazenadaJ).toBe(cargaAntesDaFalhaJ);
   });
 });
