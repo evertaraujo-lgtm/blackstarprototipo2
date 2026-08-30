@@ -4,11 +4,9 @@ import { FixadorEstrutural } from './conexoes/FixadorEstrutural';
 import { ChumbadorAoSolo } from './conexoes/ChumbadorAoSolo';
 import { SuperficiePlano } from './SuperficiePlano';
 import { Vetor3 } from './Vetor3';
-
-interface ForcaAplicada {
-  readonly forcaN: Vetor3;
-  readonly pontoM: Vetor3;
-}
+import { IntegradorFisico, type ForcaAplicada } from './solucionadores/IntegradorFisico';
+import { SistemaAtmosferico } from './solucionadores/SistemaAtmosferico';
+import { SistemaTermico } from './solucionadores/SistemaTermico';
 
 interface Ponto2D { readonly x: number; readonly y: number; }
 
@@ -219,6 +217,9 @@ export class MundoFisico {
   private readonly densidadeAtmosfericaKgM3: number;
   private readonly velocidadeArMps: Vetor3;
   private readonly temperaturaAmbienteC: number;
+  private readonly atmosfera: SistemaAtmosferico;
+  private readonly sistemaTermico: SistemaTermico;
+  private readonly integrador = new IntegradorFisico();
 
   public constructor(private readonly maxDtS = 1 / 60, configuracao: ConfiguracaoMundoFisico = {}) {
     if (!Number.isFinite(maxDtS) || maxDtS <= 0) throw new Error('maxDt deve ser positivo.');
@@ -228,6 +229,8 @@ export class MundoFisico {
     if (!Number.isFinite(this.densidadeAtmosfericaKgM3) || this.densidadeAtmosfericaKgM3 < 0) {
       throw new Error('Densidade atmosférica deve ser finita e não negativa.');
     }
+    this.atmosfera = new SistemaAtmosferico(this.densidadeAtmosfericaKgM3, this.velocidadeArMps);
+    this.sistemaTermico = new SistemaTermico(this.atmosfera, this.temperaturaAmbienteC);
   }
 
   public get tempoS(): number { return this.tempoMissaoS; }
@@ -267,7 +270,7 @@ export class MundoFisico {
   /** Força de arrasto que o core aplica ao objeto em seu estado atual. */
   public obterForcaArrastoAtmosferico(objeto: Objeto): Vetor3 {
     this.exigirRegistro(objeto);
-    return this.calcularArrastoAtmosferico(objeto, objeto.getEstadoFisico().velocidadeMps);
+    return this.atmosfera.calcularArrasto(objeto, objeto.getEstadoFisico().velocidadeMps);
   }
 
   public avancar(deltaS: number): void {
@@ -299,25 +302,13 @@ export class MundoFisico {
         densidadeArKgM3: this.densidadeAtmosfericaKgM3,
         velocidadeArMps: this.velocidadeArMps,
       }).map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM }));
-      const pesoN = MundoFisico.gravidadeTerrestreMps2.multiplicar(objeto.massaKg);
       const forcaArrastoN = this.obterForcaArrastoAtmosferico(objeto);
-      const todasForcas = [...forcas, ...forcasOperacionais, ...forcasAerodinamicas];
-      const resultanteN = todasForcas.reduce((soma, atual) => soma.adicionar(atual.forcaN), pesoN.adicionar(forcaArrastoN));
-      const aceleracao = resultanteN.multiplicar(1 / objeto.massaKg);
-      const velocidade = estado.velocidadeMps.adicionar(aceleracao.multiplicar(dtS));
-      const posicao = estado.posicaoM.adicionar(velocidade.multiplicar(dtS));
-
-      const torqueNm = todasForcas.reduce((soma, atual) => {
-        const bracoM = atual.pontoM.subtrair(estado.posicaoM);
-        return soma.adicionar(bracoM.produtoVetorial(atual.forcaN));
-      }, Vetor3.zero);
-      const inercia = objeto.getMomentoInerciaKgM2();
-      const aceleracaoAngular = new Vetor3(torqueNm.x / inercia.x, torqueNm.y / inercia.y, torqueNm.z / inercia.z);
-      const velocidadeAngular = estado.velocidadeAngularRadps.adicionar(aceleracaoAngular.multiplicar(dtS));
-      const orientacao = estado.orientacaoRad.adicionar(velocidadeAngular.multiplicar(dtS));
-
-      const proximo: EstadoFisico = { posicaoM: posicao, velocidadeMps: velocidade, orientacaoRad: orientacao, velocidadeAngularRadps: velocidadeAngular };
-      objeto.atualizarEstadoPeloCore(proximo);
+      this.integrador.integrarObjeto(
+        objeto,
+        [...forcas, ...forcasOperacionais, ...forcasAerodinamicas, { forcaN: forcaArrastoN, pontoM: estado.posicaoM }],
+        MundoFisico.gravidadeTerrestreMps2,
+        dtS,
+      );
       objeto.registrarUso(dtS / 3600);
     }
     for (const conjunto of this.conjuntosEstruturais.values()) {
@@ -349,33 +340,7 @@ export class MundoFisico {
 
   /** Geração interna, convecção ambiente e jatos térmicos no mesmo passo determinístico. */
   private atualizarEstadoTermico(dtS: number): void {
-    const objetos = [...this.objetos.values()];
-    for (const objeto of objetos) {
-      const potenciaGeradaW = objeto.obterPotenciaTermicaGeradaW();
-      if (potenciaGeradaW > 0) objeto.aplicarEnergiaTermicaPeloCore(potenciaGeradaW * dtS, dtS);
-      const potenciaConveccaoW = objeto.coeficienteConveccaoWPorM2C * objeto.areaTermicaM2 * (objeto.temperaturaC - this.temperaturaAmbienteC);
-      if (potenciaConveccaoW !== 0) objeto.aplicarEnergiaTermicaPeloCore(-potenciaConveccaoW * dtS, dtS);
-      const velocidadeRelativa = objeto.getEstadoFisico().velocidadeMps.subtrair(this.velocidadeArMps);
-      const forcaArrastoN = this.calcularArrastoAtmosferico(objeto, objeto.getEstadoFisico().velocidadeMps);
-      const potenciaDissipadaNoArW = Math.max(0, -forcaArrastoN.produtoEscalar(velocidadeRelativa));
-      const energiaNoObjetoJ = potenciaDissipadaNoArW * objeto.fracaoAquecimentoAerodinamico * dtS;
-      if (energiaNoObjetoJ > 0) objeto.aplicarAquecimentoAerodinamicoPeloCore(energiaNoObjetoJ, dtS);
-    }
-    for (const fonte of objetos) {
-      const jato = fonte.obterJatoTermico();
-      if (!jato) continue;
-      const origem = fonte.getEstadoFisico().posicaoM;
-      for (const alvo of objetos) {
-        if (alvo === fonte) continue;
-        const vetor = alvo.getEstadoFisico().posicaoM.subtrair(origem);
-        const distancia = vetor.magnitude;
-        if (distancia === 0 || distancia > jato.alcanceM) continue;
-        const alinhamento = vetor.produtoEscalar(jato.direcaoM) / distancia;
-        if (alinhamento < Math.cos(jato.aberturaRad)) continue;
-        const fracao = alinhamento * (1 - distancia / jato.alcanceM) ** 2;
-        alvo.aplicarEnergiaTermicaPeloCore(jato.potenciaW * fracao * dtS, dtS);
-      }
-    }
+    this.sistemaTermico.atualizar([...this.objetos.values()], dtS);
   }
 
   /** Agrupa todos os corpos alcançáveis por fixadores íntegros em uma ilha rígida. */
@@ -436,13 +401,7 @@ export class MundoFisico {
   }
 
   private calcularArrastoAtmosferico(objeto: Objeto, velocidadeMps: Vetor3): Vetor3 {
-    const areaFrontalM2 = objeto.getAreaArrastoEfetivaM2();
-    if (this.densidadeAtmosfericaKgM3 === 0 || areaFrontalM2 === 0) return Vetor3.zero;
-    const velocidadeRelativa = velocidadeMps.subtrair(this.velocidadeArMps);
-    const moduloVelocidade = velocidadeRelativa.magnitude;
-    if (moduloVelocidade === 0) return Vetor3.zero;
-    const magnitudeArrastoN = 0.5 * this.densidadeAtmosfericaKgM3 * objeto.getCoeficienteArrastoEfetivo() * areaFrontalM2 * moduloVelocidade ** 2;
-    return velocidadeRelativa.multiplicar(-magnitudeArrastoN / moduloVelocidade);
+    return this.atmosfera.calcularArrasto(objeto, velocidadeMps);
   }
 
   /** Trabalho do impulso tangencial, usando a velocidade média durante a frenagem. */
@@ -453,9 +412,7 @@ export class MundoFisico {
 
   /** Sem dados de efusividade, reparte a dissipação igualmente entre os dois materiais. */
   private distribuirCalorDeAtritoEntreObjetos(objetoA: Objeto, objetoB: Objeto, energiaJ: number, dtS: number): void {
-    if (energiaJ <= 0) return;
-    objetoA.aplicarCalorDeAtritoPeloCore(energiaJ / 2, dtS);
-    objetoB.aplicarCalorDeAtritoPeloCore(energiaJ / 2, dtS);
+    this.sistemaTermico.distribuirCalorDeAtritoEntreObjetos(objetoA, objetoB, energiaJ, dtS);
   }
 
   /** A outra metade vai para a massa térmica declarada da superfície. */
