@@ -1,11 +1,7 @@
 import type { EstadoFisico } from '../objetos/base/Objeto';
 import { Objeto } from '../objetos/base/Objeto';
+import type { ForcaAplicada } from '../tipos/ForcaAplicada';
 import { Vetor3 } from '../Vetor3';
-
-export interface ForcaAplicada {
-  readonly forcaN: Vetor3;
-  readonly pontoM: Vetor3;
-}
 
 /** Integra força e torque de um corpo isolado por Euler semi-implícito. */
 export class IntegradorFisico {

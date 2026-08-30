@@ -1,6 +1,6 @@
 import type { EstadoFisico } from '../objetos/base/Objeto';
 import { Objeto } from '../objetos/base/Objeto';
-import type { ForcaAplicada } from '../solucionadores/IntegradorFisico';
+import type { ForcaAplicada } from '../tipos/ForcaAplicada';
 import { Vetor3 } from '../Vetor3';
 
 /** Estado de uma ilha de corpos unidos por vínculos rígidos no plano XY. */
