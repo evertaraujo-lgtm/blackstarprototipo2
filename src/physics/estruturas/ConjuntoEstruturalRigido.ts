@@ -71,6 +71,27 @@ export class ConjuntoEstruturalRigido {
     for (const objeto of this.objetos) objeto.atualizarEstadoPeloCore(this.estadosDeMontagem.get(objeto)!);
   }
 
+  /** Junta fixa que ancora um membro sem desfazer a geometria do conjunto. */
+  public restringirNoMembro(objetoAncorado: Objeto, estadoDeAncoragem: EstadoFisico): void {
+    if (!this.contem(objetoAncorado)) throw new Error('Membro ancorado não pertence ao conjunto estrutural.');
+    const orientacaoRelativaAncorada = this.orientacoesRelativasRad.get(objetoAncorado)!;
+    this.anguloDoConjuntoRad = estadoDeAncoragem.orientacaoRad.z - orientacaoRelativaAncorada.z;
+    const referenciaAncorada = this.referenciasLocaisM.get(objetoAncorado)!;
+    const centroDeMassa = estadoDeAncoragem.posicaoM.subtrair(this.rotacionarNoPlano(referenciaAncorada, this.anguloDoConjuntoRad));
+    for (const objeto of this.objetos) {
+      const estado = objeto.getEstadoFisico();
+      const referenciaLocal = this.referenciasLocaisM.get(objeto)!;
+      const orientacaoRelativa = this.orientacoesRelativasRad.get(objeto)!;
+      objeto.atualizarEstadoPeloCore({
+        ...estado,
+        posicaoM: centroDeMassa.adicionar(this.rotacionarNoPlano(referenciaLocal, this.anguloDoConjuntoRad)),
+        velocidadeMps: Vetor3.zero,
+        velocidadeAngularRadps: Vetor3.zero,
+        orientacaoRad: new Vetor3(orientacaoRelativa.x, orientacaoRelativa.y, orientacaoRelativa.z + this.anguloDoConjuntoRad),
+      });
+    }
+  }
+
   public get massaTotalKg(): number {
     return this.objetos.reduce((soma, objeto) => soma + objeto.massaKg, 0);
   }

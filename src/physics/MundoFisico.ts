@@ -7,6 +7,7 @@ import { IntegradorFisico } from './solucionadores/IntegradorFisico';
 import type { ForcaAplicada } from './tipos/ForcaAplicada';
 import { SistemaAtmosferico } from './solucionadores/SistemaAtmosferico';
 import { SistemaTermico } from './solucionadores/SistemaTermico';
+import { ResolvedorEsforcoEstrutural } from './solucionadores/ResolvedorEsforcoEstrutural';
 import { ConjuntoEstruturalRigido } from './estruturas/ConjuntoEstruturalRigido';
 
 interface Ponto2D { readonly x: number; readonly y: number; }
@@ -38,6 +39,7 @@ export class MundoFisico {
   private readonly atmosfera: SistemaAtmosferico;
   private readonly sistemaTermico: SistemaTermico;
   private readonly integrador = new IntegradorFisico();
+  private readonly resolvedorEsforcoEstrutural = new ResolvedorEsforcoEstrutural();
 
   public constructor(private readonly maxDtS = 1 / 60, configuracao: ConfiguracaoMundoFisico = {}) {
     if (!Number.isFinite(maxDtS) || maxDtS <= 0) throw new Error('maxDt deve ser positivo.');
@@ -109,7 +111,7 @@ export class MundoFisico {
     for (const chumbador of this.chumbadoresAoSolo.values()) chumbador.prepararPasso();
     this.sincronizarConjuntosEstruturais(0, false);
     for (const objeto of this.objetos.values()) {
-      if (this.obterConjuntoEstruturalDoObjeto(objeto) || this.temChumbadorAoSoloIntegro(objeto)) continue;
+      if (this.obterConjuntoEstruturalDoObjeto(objeto)) continue;
       const estado = objeto.getEstadoFisico();
       const forcas = this.forcasPendentes.get(objeto.id) ?? [];
       const forcasOperacionais = objeto.obterForcasOperacionais().map((forca) => ({
@@ -130,10 +132,6 @@ export class MundoFisico {
       objeto.registrarUso(dtS / 3600);
     }
     for (const conjunto of this.conjuntosEstruturais.values()) {
-      if (this.conjuntoTemChumbadorAoSoloIntegro(conjunto)) {
-        for (const objeto of conjunto.membros) objeto.registrarUso(dtS / 3600);
-        continue;
-      }
       const forcasDoConjunto: ForcaAplicada[] = [];
       for (const objeto of conjunto.membros) {
         const estado = objeto.getEstadoFisico();
@@ -148,10 +146,15 @@ export class MundoFisico {
     }
     this.resolverColisoes(dtS);
     this.resolverContatosComSuperficies(dtS);
-    for (const chumbador of this.chumbadoresAoSolo.values()) chumbador.restringirObjetoAoSolo();
     // Impulsos de colisão e contato recebidos por qualquer módulo passam a
     // pertencer imediatamente ao conjunto, sem esperar o passo seguinte.
     this.sincronizarConjuntosEstruturais(dtS, false);
+    for (const chumbador of this.chumbadoresAoSolo.values()) {
+      chumbador.resolverRestricao(dtS);
+      if (chumbador.estaRompido) continue;
+      const conjunto = this.obterConjuntoEstruturalDoObjeto(chumbador.objeto);
+      if (conjunto) conjunto.restringirNoMembro(chumbador.objeto, chumbador.estadoDeAncoragem);
+    }
     this.forcasPendentes.clear();
     this.tempoMissaoS += dtS;
   }
@@ -195,8 +198,7 @@ export class MundoFisico {
         conjunto = new ConjuntoEstruturalRigido(membros);
         this.conjuntosEstruturais.set(assinatura, conjunto);
       }
-      if (this.conjuntoTemChumbadorAoSoloIntegro(conjunto)) conjunto.restringirAoSolo();
-      else conjunto.sincronizar(dtS, avancarOrientacao);
+      conjunto.sincronizar(dtS, avancarOrientacao);
     }
     for (const assinatura of this.conjuntosEstruturais.keys()) {
       if (!assinaturasAtivas.has(assinatura)) this.conjuntosEstruturais.delete(assinatura);
@@ -520,6 +522,14 @@ export class MundoFisico {
       const energiaImpactoJ = 0.5 * massaReduzida * velocidadeNormal ** 2;
       objetoA.aplicarDanoPorImpacto(energiaImpactoJ);
       objetoB.aplicarDanoPorImpacto(energiaImpactoJ);
+      const conjuntoA = this.obterConjuntoEstruturalDoObjeto(objetoA);
+      const conjuntoB = this.obterConjuntoEstruturalDoObjeto(objetoB);
+      if (conjuntoA) this.resolvedorEsforcoEstrutural.registrarImpulsoDeContato(
+        objetoA, conjuntoA.membros, impulsoNormalNs, normal.multiplicar(-1), dtS, this.fixadores.values(),
+      );
+      if (conjuntoB) this.resolvedorEsforcoEstrutural.registrarImpulsoDeContato(
+        objetoB, conjuntoB.membros, impulsoNormalNs, normal, dtS, this.fixadores.values(),
+      );
     }
 
     // O mesmo contato físico também transmite aderência tangencial entre
@@ -606,6 +616,9 @@ export class MundoFisico {
       conjunto.aplicarImpulsoNoPonto(normal.multiplicar(impulsoNormalNs), pontoContatoM);
       objetoDeContato.aplicarDanoPorImpacto(energiaImpactoJ);
       superficie.aplicarDanoPorImpacto(energiaImpactoJ);
+      this.resolvedorEsforcoEstrutural.registrarImpulsoDeContato(
+        objetoDeContato, conjunto.membros, impulsoNormalNs, normal, dtS, this.fixadores.values(),
+      );
     }
 
     if (impulsoNormalNs > 0) {

@@ -7,6 +7,8 @@ export interface DefinicaoFixadorEstrutural {
   readonly objetoB: Objeto;
   /** Maior esforço transmitido antes da ruptura, em N. */
   readonly resistenciaTracaoN: number;
+  /** Resistência à compressão em N; ausente quando o vínculo só declara tração. */
+  readonly resistenciaCompressaoN?: number;
   readonly limiteTermicoC?: number;
   readonly temperaturaInicialC?: number;
   readonly capacidadeTermicaJPorC?: number;
@@ -24,10 +26,18 @@ export class FixadorEstrutural {
   /** Rotação planar do conjunto em torno do seu centro de massa. */
   private rotacaoDoConjuntoRad = 0;
   private temperaturaAtualC: number;
+  private esforcoFisicoAtualN = 0;
+  private maiorEsforcoFisicoRegistradoN = 0;
+  private esforcoCompressaoAtualN = 0;
+  private maiorEsforcoCompressaoRegistradoN = 0;
 
   public constructor(private readonly definicao: DefinicaoFixadorEstrutural) {
     if (!definicao.id || !Number.isFinite(definicao.resistenciaTracaoN) || definicao.resistenciaTracaoN <= 0) {
       throw new Error('Definição de fixador estrutural inválida.');
+    }
+    if (definicao.resistenciaCompressaoN !== undefined
+      && (!Number.isFinite(definicao.resistenciaCompressaoN) || definicao.resistenciaCompressaoN <= 0)) {
+      throw new Error('Resistência à compressão do fixador inválida.');
     }
     if (definicao.objetoA === definicao.objetoB) throw new Error('Fixador precisa ligar objetos distintos.');
     this.deslocamentoInicialM = definicao.objetoB.getEstadoFisico().posicaoM.subtrair(definicao.objetoA.getEstadoFisico().posicaoM);
@@ -45,6 +55,12 @@ export class FixadorEstrutural {
     if (this.temperaturaAtualC <= this.limiteTermicoC) return this.resistenciaTracaoN;
     return Math.max(0, this.resistenciaTracaoN * (1 - (this.temperaturaAtualC - this.limiteTermicoC) / 200));
   }
+  /** Maior esforço físico transmitido pelo core no passo atual, em N. */
+  public get esforcoFisicoSolicitadoN(): number { return this.esforcoFisicoAtualN; }
+  /** Pico de esforço físico desde a criação do fixador, em N. */
+  public get picoEsforcoFisicoN(): number { return this.maiorEsforcoFisicoRegistradoN; }
+  /** Maior compressão física transmitida pelo core desde a criação, em N. */
+  public get picoEsforcoCompressaoFisicoN(): number { return this.maiorEsforcoCompressaoRegistradoN; }
   public get objetoA(): Objeto { return this.definicao.objetoA; }
   public get objetoB(): Objeto { return this.definicao.objetoB; }
 
@@ -72,6 +88,8 @@ export class FixadorEstrutural {
   /** Avaliado pelo core após a preparação operacional e antes da integração. */
   public prepararPasso(dtS = 0): void {
     if (this.rompido) return;
+    this.esforcoFisicoAtualN = 0;
+    this.esforcoCompressaoAtualN = 0;
     if (dtS > 0) {
       const mediaC = (this.objetoA.temperaturaC + this.objetoB.temperaturaC) / 2;
       const condutancia = this.definicao.condutanciaTermicaWPorC ?? 100;
@@ -79,6 +97,25 @@ export class FixadorEstrutural {
       this.temperaturaAtualC += (condutancia * (mediaC - this.temperaturaAtualC) * dtS) / capacidade;
     }
     if (Math.abs(this.definicao.obterEsforcoSolicitadoN()) > this.resistenciaTracaoEfetivaN) this.rompido = true;
+  }
+
+  /** Recebe o esforço calculado pelo core a partir de um impulso de contato. */
+  public registrarEsforcoFisicoN(esforcoN: number): void {
+    if (!Number.isFinite(esforcoN) || esforcoN < 0) throw new Error('Esforço físico do fixador inválido.');
+    if (this.rompido) return;
+    this.esforcoFisicoAtualN = Math.max(this.esforcoFisicoAtualN, esforcoN);
+    this.maiorEsforcoFisicoRegistradoN = Math.max(this.maiorEsforcoFisicoRegistradoN, esforcoN);
+    if (this.esforcoFisicoAtualN > this.resistenciaTracaoEfetivaN) this.rompido = true;
+  }
+
+  /** Recebe a compressão axial calculada pelo core quando essa capacidade foi declarada. */
+  public registrarEsforcoDeCompressaoFisicoN(esforcoN: number): void {
+    if (!Number.isFinite(esforcoN) || esforcoN < 0) throw new Error('Esforço físico do fixador inválido.');
+    if (this.rompido || this.definicao.resistenciaCompressaoN === undefined) return;
+    this.esforcoCompressaoAtualN = Math.max(this.esforcoCompressaoAtualN, esforcoN);
+    this.maiorEsforcoCompressaoRegistradoN = Math.max(this.maiorEsforcoCompressaoRegistradoN, esforcoN);
+    const fatorTermico = this.resistenciaTracaoEfetivaN / this.resistenciaTracaoN;
+    if (this.esforcoCompressaoAtualN > this.definicao.resistenciaCompressaoN * fatorTermico) this.rompido = true;
   }
 
   /**

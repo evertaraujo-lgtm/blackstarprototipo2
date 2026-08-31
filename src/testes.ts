@@ -175,6 +175,173 @@ const criarCuboEmQueda = (alturaM: number, massaKg = 10, opcoes: OpcoesQueda = {
   };
 };
 
+/** Ensaio visual de equivalência gravitacional: nenhuma colisão ou superfície participa. */
+const criarTesteQuedaLivreDeCinquentaQuadrados = (orientacaoInicialRad = 0): CenárioVisual => {
+  const passoS = 1 / 240;
+  const alturaInicialM = 100;
+  const rotacionado = orientacaoInicialRad !== 0;
+  const anguloRotacaoGraus = Math.round(orientacaoInicialRad * 180 / Math.PI);
+  const sufixoRotacao = `${anguloRotacaoGraus}-graus`;
+  const espacamentoHorizontalM = rotacionado ? 1.6 : 1.1;
+  const alturaDeApoioM = (Math.abs(Math.sin(orientacaoInicialRad)) + Math.abs(Math.cos(orientacaoInicialRad))) / 2;
+  const mundo = new MundoFisico(passoS, { densidadeAtmosfericaKgM3: 0 });
+  const solo = new SuperficiePlano(`solo-concreto-queda-coletiva-${rotacionado ? sufixoRotacao : 'reto'}`, 'concreto', 0, 1_000_000);
+  const quadrados = Array.from({ length: 50 }, (_, indice) => new Objeto({
+    id: `quadrado-queda-coletiva-${rotacionado ? `${sufixoRotacao}-` : ''}${indice + 1}`,
+    massaBaseKg: indice + 1,
+    dimensoesM: new Vetor3(1, 1, 1),
+    resistenciaColisaoJ: 10_000,
+    limiteTermicoC: 1_000,
+    // Margem superior a 1 m impede contato entre quadrados adjacentes.
+    estadoInicial: {
+      posicaoM: new Vetor3((indice - 24.5) * espacamentoHorizontalM, alturaInicialM, 0),
+      orientacaoRad: new Vetor3(0, 0, orientacaoInicialRad),
+    },
+  }));
+  for (const quadrado of quadrados) mundo.registrarObjeto(quadrado);
+  mundo.registrarSuperficie(solo);
+
+  const obterAmplitudeVerticalM = (): number => {
+    const alturas = quadrados.map((quadrado) => quadrado.getEstadoFisico().posicaoM.y);
+    return Math.max(...alturas) - Math.min(...alturas);
+  };
+  const obterAmplitudeVelocidadeMps = (): number => {
+    const velocidades = quadrados.map((quadrado) => quadrado.getEstadoFisico().velocidadeMps.y);
+    return Math.max(...velocidades) - Math.min(...velocidades);
+  };
+  const cameraY = () => quadrados.reduce((soma, quadrado) => soma + quadrado.getEstadoFisico().posicaoM.y, 0) / quadrados.length;
+  let houveContatoComSolo = false;
+  let maiorDispersaoVerticalAntesDoContatoM = 0;
+  let maiorDispersaoDeVelocidadeAntesDoContatoMps = 0;
+  const atualizarMedicoesAntesDoContato = (): void => {
+    const algumNoSolo = quadrados.some((quadrado) => quadrado.getEstadoFisico().posicaoM.y <= solo.alturaM + alturaDeApoioM + 0.01);
+    if (algumNoSolo) {
+      houveContatoComSolo = true;
+      return;
+    }
+    maiorDispersaoVerticalAntesDoContatoM = Math.max(maiorDispersaoVerticalAntesDoContatoM, obterAmplitudeVerticalM());
+    maiorDispersaoDeVelocidadeAntesDoContatoMps = Math.max(maiorDispersaoDeVelocidadeAntesDoContatoMps, obterAmplitudeVelocidadeMps());
+  };
+
+  return {
+    nome: `Queda livre coletiva — 50 quadrados de 1 a 50 kg${rotacionado ? ' a 45°' : ''}`,
+    descricao: `Cinquenta quadrados de mesma geometria e massas entre 1 e 50 kg caem simultaneamente em vácuo até um plano de concreto${rotacionado ? ', todos com rotação inicial de 45°' : ''}. A câmera acompanha o centro do conjunto; antes do impacto, as escalas e a telemetria verificam a mesma velocidade e deslocamento vertical para todas as massas. O contato usa a quina real da geometria${rotacionado ? ' rotacionada' : ''}. O cenário só encerra depois de todos os corpos repousarem no solo.`,
+    mundo,
+    objetos: quadrados,
+    superficies: [solo],
+    velocidadeTempo: 5,
+    limiteVerticalM: 20,
+    limiteHorizontalM: rotacionado ? 45 : 30,
+    cameraX: () => 0,
+    cameraY,
+    deveEncerrar: () => {
+      atualizarMedicoesAntesDoContato();
+      return houveContatoComSolo && objetosEmRepouso(mundo, quadrados);
+    },
+    telemetria: () => `50 corpos · massas 1–50 kg · Δy=${obterAmplitudeVerticalM().toExponential(2)} m · Δvy=${obterAmplitudeVelocidadeMps().toExponential(2)} m/s`,
+    dados: () => {
+      const estadoInicial = quadrados[0].getEstadoFisico();
+      const velocidadeEsperadaMps = MundoFisico.gravidadeTerrestreMps2.y * mundo.tempoS;
+      return `Ambiente: vácuo (ρ = 0 kg/m³)\nSolo: concreto a 0 m\nCorpos: 50 quadrados de 1 × 1 × 1 m\nMassas: 1 a 50 kg\nRotação inicial: ${(orientacaoInicialRad * 180 / Math.PI).toFixed(0)}°\nAltura geométrica de apoio: ${alturaDeApoioM.toFixed(3)} m\nTempo de missão: ${mundo.tempoS.toFixed(3)} s\nVelocidade vertical: ${estadoInicial.velocidadeMps.y.toFixed(4)} m/s; prevista ${velocidadeEsperadaMps.toFixed(4)} m/s\nDispersão antes do primeiro contato — Δy: ${maiorDispersaoVerticalAntesDoContatoM.toExponential(3)} m; Δvy: ${maiorDispersaoDeVelocidadeAntesDoContatoMps.toExponential(3)} m/s\nContato com solo: ${houveContatoComSolo ? 'ocorreu' : 'aguardando'}\nRegra: em queda livre no vácuo, a massa não altera a aceleração; no impacto, energia e massa passam a influenciar a resposta.`;
+    },
+    validar: () => {
+      const aprovado = houveContatoComSolo
+        && maiorDispersaoVerticalAntesDoContatoM <= 1e-9
+        && maiorDispersaoDeVelocidadeAntesDoContatoMps <= 1e-9;
+      return `${aprovado ? 'APROVADO' : 'DIVERGENTE'} · 50 massas distintas chegaram ao solo; antes do impacto Δy=${maiorDispersaoVerticalAntesDoContatoM.toExponential(2)} m; Δvy=${maiorDispersaoDeVelocidadeAntesDoContatoMps.toExponential(2)} m/s`;
+    },
+  };
+};
+
+/** Dez ilhas rígidas independentes, cada uma composta por três quadrados e dois fixadores. */
+const criarTesteQuedaLivreDeGruposEstruturais = (): CenárioVisual => {
+  const sementeOrientacoes = 0x5a17c0de;
+  let estadoDaSemente = sementeOrientacoes;
+  const proximaFracaoAleatoria = (): number => {
+    estadoDaSemente = (Math.imul(estadoDaSemente, 1_664_525) + 1_013_904_223) >>> 0;
+    return estadoDaSemente / 2 ** 32;
+  };
+  const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 0 });
+  const solo = new SuperficiePlano('solo-concreto-grupos-estruturais', 'concreto', 0, 1_000_000, 0.65);
+  const espacamentoVerticalM = 2;
+  const grupos = Array.from({ length: 10 }, (_, indiceGrupo) => {
+    const massaPorQuadradoKg = indiceGrupo + 1;
+    const xM = (indiceGrupo - 4.5) * 6;
+    const orientacoesIniciaisGraus = Array.from({ length: 3 }, () => (proximaFracaoAleatoria() * 360) - 180);
+    const quadrados = Array.from({ length: 3 }, (_, indiceQuadrado) => new Objeto({
+      id: `grupo-estrutural-${indiceGrupo + 1}-quadrado-${indiceQuadrado + 1}`,
+      massaBaseKg: massaPorQuadradoKg,
+      dimensoesM: new Vetor3(1, 1, 1),
+      resistenciaColisaoJ: 10_000,
+      limiteTermicoC: 1_000,
+      estadoInicial: {
+        posicaoM: new Vetor3(xM, 15.5 + (indiceQuadrado * espacamentoVerticalM), 0),
+        orientacaoRad: new Vetor3(0, 0, orientacoesIniciaisGraus[indiceQuadrado] * Math.PI / 180),
+      },
+    }));
+    const perfisDosFixadores = quadrados.slice(1).map((quadrado, indiceFixador) => {
+      const deveRomper = (indiceGrupo + indiceFixador) % 3 === 0;
+      const fixador = new FixadorEstrutural({
+        id: `fixador-grupo-estrutural-${indiceGrupo + 1}-${indiceFixador + 1}`,
+        objetoA: quadrados[indiceFixador],
+        objetoB: quadrado,
+        // O perfil fraco rompe apenas quando o impacto transmitir esforço axial real.
+        resistenciaTracaoN: deveRomper ? 2_000 : 1_000_000,
+        resistenciaCompressaoN: deveRomper ? 2_000 : 1_000_000,
+        obterEsforcoSolicitadoN: () => 0,
+      });
+      return { fixador, deveRomper };
+    });
+    return {
+      indiceGrupo, massaPorQuadradoKg, orientacoesIniciaisGraus, quadrados,
+      fixadores: perfisDosFixadores.map((perfil) => perfil.fixador), perfisDosFixadores,
+    };
+  });
+  const objetos = grupos.flatMap((grupo) => grupo.quadrados);
+  const fixadores = grupos.flatMap((grupo) => grupo.fixadores);
+  const idsDeFixadoresQueDevemRomper = new Set(
+    grupos.flatMap((grupo) => grupo.perfisDosFixadores.filter((perfil) => perfil.deveRomper).map((perfil) => perfil.fixador.id)),
+  );
+  mundo.registrarSuperficie(solo);
+  for (const objeto of objetos) mundo.registrarObjeto(objeto);
+  for (const fixador of fixadores) mundo.registrarFixador(fixador);
+  const cameraY = () => objetos.reduce((soma, objeto) => soma + objeto.getEstadoFisico().posicaoM.y, 0) / objetos.length;
+
+  return {
+    nome: 'Queda livre estrutural — 10 grupos de 3 quadrados',
+    descricao: 'Dez grupos independentes caem em vácuo até concreto. Cada grupo possui três quadrados com orientações iniciais pseudoaleatórias e dois fixadores estruturais, formando uma ilha rígida. Alguns fixadores têm resistência de 2.000 N à tração e à compressão; os de controle suportam 1.000.000 N. O core calcula ambas as componentes a partir do impulso real de contato no solo: nenhum vínculo rompe durante a queda livre, e somente os perfis fracos rompem quando o impacto transmite esforço suficiente. Após a ruptura, a topologia é reconstruída e cada corpo continua até o solo.',
+    mundo,
+    objetos,
+    superficies: [solo],
+    velocidadeTempo: 4,
+    limiteVerticalM: 20,
+    limiteHorizontalM: 35,
+    cameraX: () => 0,
+    cameraY,
+    fixadores,
+    deveEncerrar: () => objetosEmRepouso(mundo, objetos),
+    telemetria: () => `${grupos.length} grupos · ${fixadores.filter((fixador) => !fixador.estaRompido).length}/${fixadores.length} fixadores íntegros · ${fixadores.filter((fixador) => fixador.estaRompido).length} rompidos · y médio=${cameraY().toFixed(2)} m`,
+    dados: () => grupos.map((grupo) => {
+      const estados = grupo.perfisDosFixadores.map(({ fixador, deveRomper }) => {
+        const esperado = deveRomper ? 'ruptura esperada' : 'controle íntegro';
+        return `${fixador.estaRompido ? 'ROMPIDO' : 'íntegro'} · ${esperado} (tração ${fixador.picoEsforcoFisicoN.toFixed(0)} / ${fixador.resistenciaTracaoN.toFixed(0)} N; compressão ${fixador.picoEsforcoCompressaoFisicoN.toFixed(0)} N)`;
+      }).join(' · ');
+      const orientacoes = grupo.orientacoesIniciaisGraus.map((angulo) => `${angulo.toFixed(1)}°`).join(' / ');
+      return `Grupo ${grupo.indiceGrupo + 1}: 3 × ${grupo.massaPorQuadradoKg} kg; ângulos ${orientacoes}; fixadores ${estados}`;
+    }).join('\n'),
+    validar: () => {
+      const rupturasCorretas = fixadores.every((fixador) => idsDeFixadoresQueDevemRomper.has(fixador.id) === fixador.estaRompido);
+      const espacamentosValidos = grupos.every((grupo) => {
+        if (grupo.perfisDosFixadores.some((perfil) => perfil.deveRomper)) return true;
+        const [base, meio, topo] = grupo.quadrados.map((quadrado) => quadrado.getEstadoFisico().posicaoM);
+        return Math.abs(meio.subtrair(base).magnitude - espacamentoVerticalM) <= 0.02
+          && Math.abs(topo.subtrair(meio).magnitude - espacamentoVerticalM) <= 0.02;
+      });
+      return `${rupturasCorretas && espacamentosValidos ? 'APROVADO' : 'DIVERGENTE'} · seed de orientação ${sementeOrientacoes}; ${fixadores.filter((fixador) => fixador.estaRompido).length}/${idsDeFixadoresQueDevemRomper.size} rupturas esperadas; espaçamento dos grupos íntegros ${espacamentosValidos ? 'preservado' : 'alterado'}`;
+    },
+  };
+};
+
 const criarColisaoFrontal = (): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240);
   const esquerdo = new Objeto({
@@ -1383,6 +1550,9 @@ const construirCenarios = (): CenárioVisual[] => {
   }),
   criarCuboEmQueda(50, 1),
   criarCuboEmQueda(50, 100),
+  criarTesteQuedaLivreDeCinquentaQuadrados(),
+  criarTesteQuedaLivreDeCinquentaQuadrados(46 * Math.PI / 180),
+  criarTesteQuedaLivreDeGruposEstruturais(),
   criarCuboEmQueda(100),
   criarCuboEmQueda(10_000),
   criarTesteParaquedas(),

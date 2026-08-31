@@ -51,6 +51,168 @@ describe('MundoFisico', () => {
     expect(mundo.tempoS).toBe(1);
   });
 
+  it('faz 50 quadrados de massas distintas caírem juntos no vácuo e atingirem o solo', () => {
+    const passoS = 1 / 120;
+    const duracaoS = 2;
+    const mundo = new MundoFisico(passoS, { densidadeAtmosfericaKgM3: 0 });
+    // Dissipação alta encurta o ensaio sem substituir a resposta de contato do core.
+    const solo = new SuperficiePlano('solo-queda-livre-coletiva', 'concreto', 0, 1_000_000, 0.9);
+    const quadrados = Array.from({ length: 50 }, (_, indice) => new Objeto({
+      id: `quadrado-queda-livre-${indice + 1}`,
+      massaBaseKg: indice + 1,
+      dimensoesM: new Vetor3(1, 1, 1),
+      resistenciaColisaoJ: 10_000,
+      limiteTermicoC: 1_000,
+      dissipacaoImpacto: 0.9,
+      // A separação impede colisões entre pares antes de todos alcançarem o solo.
+      estadoInicial: { posicaoM: new Vetor3(indice * 1.1, 100, 0) },
+    }));
+    mundo.registrarSuperficie(solo);
+    for (const quadrado of quadrados) mundo.registrarObjeto(quadrado);
+
+    mundo.avancar(duracaoS);
+
+    const velocidadeEsperadaMps = MundoFisico.gravidadeTerrestreMps2.y * duracaoS;
+    const deslocamentoDoPrimeiroM = quadrados[0].getEstadoFisico().posicaoM.y - 100;
+    expect(quadrados).toHaveLength(50);
+    expect(new Set(quadrados.map((quadrado) => quadrado.massaKg)).size).toBe(50);
+    for (const [indice, quadrado] of quadrados.entries()) {
+      const estado = quadrado.getEstadoFisico();
+      expect(estado.velocidadeMps.y).toBeCloseTo(velocidadeEsperadaMps, 10);
+      expect(estado.posicaoM.y - 100).toBeCloseTo(deslocamentoDoPrimeiroM, 10);
+      expect(estado.posicaoM.x).toBeCloseTo(indice * 1.1, 10);
+      expect(quadrado.integridadeEstrutural).toBe(1);
+    }
+
+    let todosEmRepousoNoSolo = false;
+    for (let passo = 0; passo < 1_200 && !todosEmRepousoNoSolo; passo += 1) {
+      mundo.avancar(passoS);
+      todosEmRepousoNoSolo = quadrados.every((quadrado) => {
+        const estado = quadrado.getEstadoFisico();
+        return estado.posicaoM.y >= 0.5 - 1e-8 && estado.velocidadeMps.magnitude <= MundoFisico.velocidadeDeRepousoMps;
+      });
+    }
+
+    expect(todosEmRepousoNoSolo).toBe(true);
+    expect(quadrados.every((quadrado) => quadrado.getEstadoFisico().posicaoM.y >= 0.5 - 1e-8)).toBe(true);
+  }, 15_000);
+
+  it('faz 50 quadrados de massas distintas a 46° caírem e tocarem o solo pela geometria rotacionada', () => {
+    const passoS = 1 / 120;
+    const orientacaoInicialRad = 46 * Math.PI / 180;
+    const alturaDeApoioM = (Math.abs(Math.sin(orientacaoInicialRad)) + Math.abs(Math.cos(orientacaoInicialRad))) / 2;
+    const mundo = new MundoFisico(passoS, { densidadeAtmosfericaKgM3: 0 });
+    const solo = new SuperficiePlano('solo-queda-livre-coletiva-46-graus', 'concreto', 0, 1_000_000, 0.9);
+    const quadrados = Array.from({ length: 50 }, (_, indice) => new Objeto({
+      id: `quadrado-queda-livre-46-graus-${indice + 1}`,
+      massaBaseKg: indice + 1,
+      dimensoesM: new Vetor3(1, 1, 1),
+      resistenciaColisaoJ: 10_000,
+      limiteTermicoC: 1_000,
+      dissipacaoImpacto: 0.9,
+      // 1,6 m excede a projeção horizontal de um quadrado unitário a 46°.
+      estadoInicial: {
+          posicaoM: new Vetor3(indice * 1.6, 30, 0),
+        orientacaoRad: new Vetor3(0, 0, orientacaoInicialRad),
+      },
+    }));
+    mundo.registrarSuperficie(solo);
+    for (const quadrado of quadrados) mundo.registrarObjeto(quadrado);
+
+    mundo.avancar(1);
+
+    const velocidadeEsperadaMps = MundoFisico.gravidadeTerrestreMps2.y;
+    for (const quadrado of quadrados) {
+      const estado = quadrado.getEstadoFisico();
+      expect(estado.velocidadeMps.y).toBeCloseTo(velocidadeEsperadaMps, 10);
+      expect(estado.orientacaoRad.z).toBeCloseTo(orientacaoInicialRad, 10);
+    }
+
+    const quadradosQueTocaramSolo = new Set<Objeto>();
+    for (let passo = 0; passo < 1_800 && quadradosQueTocaramSolo.size < quadrados.length; passo += 1) {
+      mundo.avancar(passoS);
+      for (const quadrado of quadrados) {
+        if (quadrado.getEstadoFisico().posicaoM.y <= alturaDeApoioM + 0.01) quadradosQueTocaramSolo.add(quadrado);
+      }
+    }
+
+    expect(quadradosQueTocaramSolo.size).toBe(50);
+  }, 15_000);
+
+  it('rompe apenas os fixadores fracos de 10 grupos de três quadrados até o solo', () => {
+    const passoS = 1 / 240;
+    let estadoDaSemente = 0x5a17c0de;
+    const proximaFracaoAleatoria = (): number => {
+      estadoDaSemente = (Math.imul(estadoDaSemente, 1_664_525) + 1_013_904_223) >>> 0;
+      return estadoDaSemente / 2 ** 32;
+    };
+    const mundo = new MundoFisico(passoS, { densidadeAtmosfericaKgM3: 0 });
+    const solo = new SuperficiePlano('solo-dez-grupos-estruturais', 'concreto', 0, 1_000_000, 0.65);
+    const grupos = Array.from({ length: 10 }, (_, indiceGrupo) => {
+      const quadrados = Array.from({ length: 3 }, (_, indiceQuadrado) => new Objeto({
+        id: `grupo-teste-${indiceGrupo + 1}-quadrado-${indiceQuadrado + 1}`,
+        massaBaseKg: indiceGrupo + 1,
+        dimensoesM: new Vetor3(1, 1, 1),
+        resistenciaColisaoJ: 10_000,
+        limiteTermicoC: 1_000,
+        estadoInicial: {
+          posicaoM: new Vetor3(indiceGrupo * 6, 15.5 + (indiceQuadrado * 2), 0),
+          orientacaoRad: new Vetor3(0, 0, ((proximaFracaoAleatoria() * 360) - 180) * Math.PI / 180),
+        },
+      }));
+      const perfisDosFixadores = quadrados.slice(1).map((quadrado, indiceFixador) => {
+        const deveRomper = (indiceGrupo + indiceFixador) % 3 === 0;
+        const fixador = new FixadorEstrutural({
+          id: `fixador-grupo-teste-${indiceGrupo + 1}-${indiceFixador + 1}`,
+          objetoA: quadrados[indiceFixador], objetoB: quadrado,
+          resistenciaTracaoN: deveRomper ? 2_000 : 1_000_000,
+          resistenciaCompressaoN: deveRomper ? 2_000 : 1_000_000,
+          obterEsforcoSolicitadoN: () => 0,
+        });
+        return { fixador, deveRomper };
+      });
+      return { quadrados, fixadores: perfisDosFixadores.map((perfil) => perfil.fixador), perfisDosFixadores };
+    });
+    const objetos = grupos.flatMap((grupo) => grupo.quadrados);
+    const fixadores = grupos.flatMap((grupo) => grupo.fixadores);
+    const idsDeFixadoresQueDevemRomper = new Set(
+      grupos.flatMap((grupo) => grupo.perfisDosFixadores.filter((perfil) => perfil.deveRomper).map((perfil) => perfil.fixador.id)),
+    );
+    mundo.registrarSuperficie(solo);
+    for (const objeto of objetos) mundo.registrarObjeto(objeto);
+    for (const fixador of fixadores) mundo.registrarFixador(fixador);
+
+    mundo.avancar(1);
+    expect(fixadores.every((fixador) => !fixador.estaRompido)).toBe(true);
+
+    const gruposQueTocaramSolo = new Set<number>();
+    let passosAposTodosOsGruposChegaremAoSolo = 0;
+    for (let passo = 0; passo < 4_800 && passosAposTodosOsGruposChegaremAoSolo < 240; passo += 1) {
+      mundo.avancar(passoS);
+      grupos.forEach((grupo, indiceGrupo) => {
+        if (grupo.quadrados.some((quadrado) => quadrado.getEstadoFisico().posicaoM.y <= 0.75)) gruposQueTocaramSolo.add(indiceGrupo);
+      });
+      // O centro pode chegar a 0,75 m quando a quina mais baixa ainda está
+      // acima do plano. Mantemos mais um segundo de passos para atravessar o
+      // contato geométrico e registrar o impulso que solicita os fixadores.
+      if (gruposQueTocaramSolo.size === grupos.length) passosAposTodosOsGruposChegaremAoSolo += 1;
+    }
+
+    expect(gruposQueTocaramSolo.size).toBe(10);
+    expect(new Set(objetos.map((objeto) => objeto.getEstadoFisico().orientacaoRad.z)).size).toBeGreaterThan(10);
+    expect(
+      fixadores.some((fixador) => fixador.estaRompido),
+      `Picos físicos: ${fixadores.map((fixador) => fixador.picoEsforcoFisicoN.toFixed(1)).join(', ')}`,
+    ).toBe(true);
+    expect(fixadores.every((fixador) => idsDeFixadoresQueDevemRomper.has(fixador.id) === fixador.estaRompido)).toBe(true);
+    for (const grupo of grupos) {
+      if (grupo.perfisDosFixadores.some((perfil) => perfil.deveRomper)) continue;
+      const [base, meio, topo] = grupo.quadrados.map((quadrado) => quadrado.getEstadoFisico().posicaoM);
+      expect(meio.subtrair(base).magnitude).toBeCloseTo(2, 5);
+      expect(topo.subtrair(meio).magnitude).toBeCloseTo(2, 5);
+    }
+  }, 15_000);
+
   it('converte força resultante em aceleração conforme a massa instantânea', () => {
     const mundo = new MundoFisico(1);
     const objeto = criarObjeto();
@@ -151,7 +313,9 @@ describe('MundoFisico', () => {
     const fundacao = new Objeto({ id: 'fundacao-chumbada', massaBaseKg: 10_000, dimensoesM: new Vetor3(8, 1, 1), resistenciaColisaoJ: 1_000_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM: new Vetor3(0, 0.5, 0) } });
     const motor = new Objeto({ id: 'motor-chumbado', massaBaseKg: 100, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM: new Vetor3(0, 1.5, 0) } });
     const fixador = new FixadorEstrutural({ id: 'fixador-motor-chumbado', objetoA: fundacao, objetoB: motor, resistenciaTracaoN: 50_000, obterEsforcoSolicitadoN: () => 10_000 });
-    const chumbador = new ChumbadorAoSolo({ id: 'chumbador-fundacao', objeto: fundacao, resistenciaN: 20_000, obterEsforcoSolicitadoN: () => 10_000 });
+    // A fundação suporta o peso do conjunto (~99 kN) e o carregamento lateral
+    // do motor; o esforço é calculado pela reação da junta, não por callback.
+    const chumbador = new ChumbadorAoSolo({ id: 'chumbador-fundacao', objeto: fundacao, resistenciaN: 200_000, obterEsforcoSolicitadoN: () => 10_000 });
     mundo.registrarObjeto(fundacao); mundo.registrarObjeto(motor); mundo.registrarFixador(fixador); mundo.registrarChumbadorAoSolo(chumbador);
 
     for (let passo = 0; passo < 120; passo += 1) {
@@ -160,6 +324,7 @@ describe('MundoFisico', () => {
     }
 
     expect(chumbador.estaRompido).toBe(false);
+    expect(chumbador.picoEsforcoFisicoN).toBeGreaterThan(99_000);
     expect(fundacao.getEstadoFisico().posicaoM.x).toBe(0);
     expect(motor.getEstadoFisico().posicaoM.x).toBe(0);
   });
