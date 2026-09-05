@@ -222,6 +222,26 @@ Todo `Objeto` implantado em cena deve possuir ou disponibilizar uma representaç
   Exemplo: um impacto vindo da esquerda acima do centro de massa aplica torque
   físico horário e deve inclinar visualmente o topo do objeto para a direita.
 
+### 7.1.1 Apoio e conexões de fontes expostas
+
+- Uma fonte ou equipamento colocado no chão deve apoiar pela sua geometria
+  real. Para uma caixa sem rotação, o centro fica na altura do solo mais meia
+  altura do corpo. Chumbadores não justificam folgas sem suporte físico.
+- Quando a fonte de alimentação estiver exposta e renderizada, suas conexões
+  elétricas devem ser visíveis até os terminais dos consumidores ou do corpo
+  que abriga seu acionamento. Isso também vale com a alimentação desligada:
+  desligar energia não remove os cabos da instalação.
+- Cabos devem acompanhar posição e orientação consultadas do core. O desenho
+  distingue alimentação ligada, desligada e ruptura quando esta for modelada,
+  sem inferir transferência de energia apenas pela proximidade dos objetos.
+- Uma fonte enclausurada pode ser omitida pelo renderer, junto de suas conexões
+  internas. Essa escolha é de apresentação: não remove a fonte do mundo, não
+  altera massa, energia, conexões operacionais ou estado cinemático. Cabos
+  externos de uma carenagem, quando expostos, devem terminar nos seus terminais.
+- A validação visual deve verificar contato com o apoio e cabos tanto ligados
+  quanto desligados; regressões devem garantir que ocultar a fonte não muda a
+  física nem expõe seus cabos internos.
+
 ### 7.2 Resistência a colisão
 
 `resistenciaColisao` deve existir em todo `Objeto`, encapsulada por acessores ou métodos com validação de intervalo e unidade.
@@ -1199,6 +1219,125 @@ Controladores devem operar a partir das leituras dos sensores e estados disponib
 - Atuadores recebem comandos e produzem efeitos físicos ou operacionais.
 - Controladores não alteram diretamente posição, velocidade ou orientação.
 - Ruído, erro, atraso, falha e degradação podem ser incorporados aos sensores e atuadores conforme a evolução do projeto.
+
+### 26.1 Atuadores elétricos de duas posições
+
+`Cilindro` é uma classe de comportamento sem forma física, massa ou estado
+cinemático. Objetos podem incorporar esse comportamento por `ComCilindro`,
+preservando sua herança de `Objeto` (por exemplo, `Porta extends
+ComCilindro(Objeto)`). Massa, geometria e resistências pertencem ao objeto.
+`CilindroEletrico` especializa o comportamento e aplica forças em corpos
+externos; uma carcaça física só existe quando declarada separadamente.
+
+Todo mecanismo cujo componente físico se desloque entre duas posições
+operacionais bem definidas deve usar `CilindroEletrico` como atuador padrão.
+Isso inclui elevadores (cima/baixo), garras (aberta/fechada), portas
+(aberta/fechada), travas (estendida/recolhida) e mecanismos equivalentes.
+
+O atuador recebe os comandos `avancar` e `recuar` e as realimentações
+`avancado` e `recuado`. As realimentações devem ser produzidas por
+`SwitchFimDeCurso`s instalados nos extremos físicos do curso. Um comando não
+altera diretamente a posição ou a velocidade: o cilindro consulta a bateria,
+solicita força eletromecânica e o `MundoFisico` calcula o movimento, os
+contatos e a reação na carcaça.
+
+A parte móvel deve possuir a restrição física compatível com sua montagem,
+como `GuiaLinear` para curso retilíneo. Carcaça, batentes e sensores devem ser
+chumbados ou vinculados estruturalmente quando a montagem exigir. As
+velocidades de avanço e recuo são parâmetros explícitos em m/s e representam
+referências do acionamento, nunca atualização cinemática direta.
+
+Não introduza bomba, válvula, tanque ou pressão hidráulica para esse padrão
+sem requisito específico que justifique outro modelo físico.
+
+---
+
+### 26.1.1 Conexão elétrica de domínio
+
+- `ConexaoEletrica` é a ligação operacional entre uma `Bateria` e o corpo que
+  contém o consumidor. Compartilha com `LinhaDePropelente` os conceitos de
+  identidade, conexão, desconexão, alcance, ruptura e fornecimento limitado.
+  As leis do meio continuam específicas: energia/corrente na conexão elétrica,
+  massa/vazão na linha de propelente.
+- A conexão elétrica declara comprimento máximo em m, corrente máxima em A,
+  resistência em Ω e pode compor `Resistor`s e `Interruptor`es em série.
+  Todos os interruptores devem estar fechados para conduzir. Desconectar abre
+  o interruptor principal; reconectar não religa nem repara uma ruptura.
+- A ruptura por alcance é avaliada em cada passo operacional, mesmo sem carga
+  solicitada. A reconexão não restaura os sistemas nem a ignição do consumidor.
+  A perda elétrica deve interromper os dependentes no mesmo passo físico.
+- Toda energia de cilindros e bombas elétricas passa pela `ConexaoEletrica`.
+  Consumidores não devem contornar a ligação chamando a bateria diretamente.
+  Os adaptadores antigos `conectarBateria` criam uma conexão real.
+- Modelo DC concentrado: `Vsaida = Vfonte - I * R`, perdas `I² * R * dt`.
+  A energia retirada da bateria é a energia entregue à carga mais as perdas.
+  O ramo operacional de maior tensão é limitado pela corrente declarada e
+  pela potência máxima transferível. O limite de corrente representa um
+  limitador ativo; fusíveis e desarme por sobrecorrente são extensões distintas.
+- O proprietário do circuito chama `prepararPasso(dt)` uma única vez por
+  subpasso, antes das cargas. Chamadas sucessivas a `fornecerEnergia` usam um
+  orçamento comum e não podem multiplicar a corrente máxima pelo número de
+  consumidores. A distribuição inicial segue a ordem declarada das cargas.
+- `dt` deve ser positivo e finito. O cilindro usa resposta implícita do servo
+  para estabilidade temporal; a energia solicitada inclui o trabalho inicial
+  de aceleração, para que sair do repouso também dependa de energia.
+- A conexão é componente sem corpo próprio nesta etapa, assim como a linha
+  de propelente. Perdas elétricas são contabilizadas em J; temperatura própria
+  do cabo e transferência térmica para outros objetos exigem um modelo térmico
+  e configuração de material adicionais, não presumidos silenciosamente.
+- O renderer consulta a instância real da conexão: fonte, destino, interruptor,
+  ruptura, corrente e tensão. Não deve manter estados elétricos paralelos em
+  callbacks da interface. Fontes expostas mostram seus cabos mesmo desligadas.
+- A bancada oferece interruptor, conectar/desconectar, simulação de ruptura,
+  resistência e corrente máxima, com telemetria de V, A, Ω, m e J. Os comandos
+  passam pelas APIs do domínio e não alteram cinemática.
+- Regressões devem cobrir limite compartilhado entre cargas, queda de tensão,
+  conservação de energia com perdas, bateria vazia/danificada, circuito aberto,
+  desconexão, ruptura com equipamento parado, rearmamento explícito e corte
+  físico de cilindros e propulsores.
+
+---
+
+### 26.2 Porta vertical e realimentação do cilindro
+
+- `Porta` deriva de `Objeto` incorporando `ComCilindro(Objeto)`. O cilindro é
+  comportamento sem forma física; a porta declara massa, geometria,
+  resistências e integridade próprias.
+- A porta abre em Y positivo e fecha em Y negativo. A montagem declara
+  batentes físicos, guia vertical e fixações com resistência; não existe
+  deslocamento cinemático comandado pela interface.
+- A cadeia elétrica é bateria com tensão compatível → alimentação → controle
+  → motor/fuso → forças opostas na porta e no batente de suporte. Alimentação
+  e controle começam desligados. Perda de alimentação cancela controle e
+  comando; o retorno da fonte exige religamento e novo comando explícitos.
+- Fins de curso aberto e fechado são `SwitchFimDeCurso`s instalados no
+  batente, consultados em cada subpasso operacional. Os estados iniciais dos
+  sensores devem estar disponíveis antes do primeiro comando. Realimentação
+  não pode ser fabricada por botões ou pela altura da animação.
+- Atingir o fim de curso cancela o movimento solicitado. O servo de retenção
+  produz força limitada, com rigidez e consumo em repouso declarados. Ele não
+  trava posição artificialmente e deixa de reter quando perde alimentação.
+- O sensor pode declarar diferencial mecânico de liberação (`histereseM`).
+  Neste ensaio: curso sensível de 0,05 m, diferencial de 0,01 m. A histerese
+  vale somente após contato; não antecipa o acionamento inicial.
+- O painel apresenta botões **Abrir** e **Fechar**, com LEDs de **Aberto** e
+  **Fechado** imediatamente abaixo. Cada LED exibe também texto, consultando
+  o sensor físico. Comandos respeitam os permissivos da cadeia.
+- Alumínio da porta e de todas as peças do batente: início de dano acima de
+  **150 °C**, fusão/colapso a **700 °C**, conforme configuração explícita do
+  operador. Esses valores são parâmetros deste modelo, não uma tabela
+  universal de propriedades do alumínio. O dano deve ser progressivo entre
+  os limites; resfriamento não restaura integridade.
+- `temperaturaFusaoC` é distinta de `limiteTermicoC`, opcional em `Objeto`,
+  validada e superior ao início do dano. O envelope de integridade cai
+  continuamente até zero na fusão. Massa e geometria permanecem no core;
+  escoamento de metal líquido não faz parte desta etapa.
+- A bancada usa atmosfera padrão, unidades SI, subpassos de no máximo
+  1/240 s, câmera acompanhando a porta e réguas de 1 m. O ensaio manual
+  permanece disponível para ciclos sucessivos até **Pular teste atual**.
+- Regressões devem cobrir abertura, fechamento, retenção, comando ausente,
+  fonte sem energia/tensão incompatível, interrupção de controle, ruptura
+  de guia/fixação, impacto com dano e limites térmicos.
 
 ---
 

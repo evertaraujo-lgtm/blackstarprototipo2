@@ -275,4 +275,27 @@ describe('Propulsor', () => {
     expect(bancada.getEstadoFisico().posicaoM.x).toBeGreaterThan(0.01);
     expect(bancada.getEstadoFisico().velocidadeMps.x).toBeGreaterThan(0);
   });
+  it.each(['abrirInterruptor', 'desconectar', 'romper'] as const)('corta ignição, combustível e empuxo pela conexão elétrica: %s', (acao) => {
+    const propulsor = criarPropulsor(); const tanque = prepararParaIgnicao(propulsor);
+    propulsor.definirThrottle(1); expect(propulsor.solicitarIgnicao()).toBe(true);
+    propulsor.prepararPassoOperacional(0.01);
+    const massa = tanque.massaPropelenteKg;
+    const energia = propulsor.bateriaConectada!.energiaArmazenadaJ;
+    propulsor.conexaoEletrica![acao](); propulsor.prepararPassoOperacional(0.01);
+    expect(propulsor.empuxoAtualN).toBe(0);
+    expect(propulsor.estaIgnitado).toBe(false);
+    expect(propulsor.sistemaEstaOperacional('elétrico')).toBe(false);
+    expect(propulsor.sistemaEstaOperacional('combustível')).toBe(false);
+    expect(tanque.massaPropelenteKg).toBe(massa);
+    expect(propulsor.bateriaConectada!.energiaArmazenadaJ).toBe(energia);
+  });
+  it('rompe o cabo por alcance mesmo com o propulsor desligado', () => {
+    const propulsor = criarPropulsor(); const bateria = criarBateria();
+    propulsor.conectarBateria(bateria, 1);
+    bateria.atualizarEstadoPeloCore({ ...bateria.getEstadoFisico(), posicaoM: new Vetor3(10, 0, 0) });
+    propulsor.prepararPassoOperacional(0.01);
+    expect(propulsor.caboEletricoEstaRompido).toBe(true);
+    expect(propulsor.ligarSistema('elétrico')).toBe(false);
+  });
+
 });

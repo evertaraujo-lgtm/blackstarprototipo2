@@ -57,6 +57,41 @@
             <button id="disconnect-fuel-tank" type="button" class="secondary-button">Simular ruptura: linha de metano</button>
             <button id="disconnect-oxidizer-tank" type="button" class="secondary-button">Simular ruptura: linha de oxigênio</button>
           </div>
+          <section id="door-controls" class="door-controls" aria-label="Operação da porta vertical" hidden>
+            <h3>Porta vertical</h3>
+            <button id="door-power" type="button" class="secondary-button">1 · Ligar alimentação</button>
+            <button id="door-control" type="button" class="secondary-button">2 · Ligar controle</button>
+            <output id="door-chain-status">Alimentação desligada</output>
+            <div class="door-command-buttons">
+              <button id="open-door" type="button" aria-pressed="false">↑ Abrir</button>
+              <button id="close-door" type="button" aria-pressed="false">↓ Fechar</button>
+            </div>
+            <div class="door-sensors" aria-label="Sensores de fim de curso">
+              <span id="door-open-led" class="sensor-led">Aberto: livre</span>
+              <span id="door-closed-led" class="sensor-led">Fechado: livre</span>
+            </div>
+          </section>
+          <div id="cylinder-controls" class="propulsion-controls" aria-label="Comandos do cilindro">
+            <button id="raise-platform" type="button">↑ Subir plataforma</button>
+            <button id="advance-cylinder" type="button">→ Avançar cilindro</button>
+            <button id="retract-cylinder" type="button" class="secondary-button">← Recuar cilindro</button>
+            <label id="advance-speed-control" class="throttle-control" for="advance-speed-input">Velocidade de avanço
+              <input id="advance-speed-input" type="number" min="0.01" step="0.01" value="0.50" /> m/s
+            </label>
+            <label id="retract-speed-control" class="throttle-control" for="retract-speed-input">Velocidade de recuo
+              <input id="retract-speed-input" type="number" min="0.01" step="0.01" value="0.40" /> m/s
+            </label>
+          </div>
+          <fieldset id="electrical-controls" class="parachute-settings" hidden>
+            <legend>Conexão elétrica</legend>
+            <select id="connection-selector" aria-label="Conexão elétrica a operar"></select>
+            <button id="cable-switch" type="button" class="secondary-button">Fechar interruptor</button>
+            <button id="cable-connect" type="button" class="secondary-button">Desconectar cabo</button>
+            <button id="cable-break" type="button" class="secondary-button">Simular ruptura</button>
+            <label>Limite <input id="current-limit" type="number" min="0" step="1" aria-label="Limite de corrente em amperes" /> A</label>
+            <label>Resistência <input id="cable-resistance" type="number" min="0" step="0.01" aria-label="Resistência do cabo em ohms" /> Ω</label>
+            <output id="electrical-readout"></output>
+          </fieldset>
         </aside>
         <div class="simulation-panel">
           <canvas id="test-canvas" width="900" height="500" aria-label="Canvas de simulação física"></canvas>

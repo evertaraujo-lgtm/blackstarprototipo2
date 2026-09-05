@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { Vetor3 } from '../../Vetor3';
+import { ConexaoEletrica } from '../../conexoes/ConexaoEletrica';
 import { Bateria } from '../fontes-de-energia/Bateria';
 import { TanquePropelente } from '../fontes-de-energia/TanquePropelente';
 import { BombaPropelente } from './alimentacao/BombaPropelente';
@@ -24,8 +25,10 @@ describe('Cadeia de propulsão', () => {
     const linhaOxidante = new LinhaDePropelente({ id: 'linha-oxidante', tanque: oxidante, tipoPropelente: 'oxigenio', comprimentoMaximoM: 5, vazaoMaximaKgS: 8, valvula: valvulaOxidante });
     const bomba = new BombaPropelente({ id: 'bomba', tensaoNominalV: 28, vazaoMaximaKgS: 8, potenciaEletricaMaximaW: 100 });
     const posicaoCamara = new Vetor3(0, 0, 0);
-    const massaCombustivel = bomba.bombear(linhaCombustivel, bateria, 1, 1, posicaoCamara);
-    const massaOxidante = bomba.bombear(linhaOxidante, bateria, 4, 1, posicaoCamara);
+    const conexao = new ConexaoEletrica({ id: 'cabo-bombas', fonte: bateria, destino: combustivel, comprimentoMaximoM: 5, correnteMaximaA: 10, inicialmenteLigada: true });
+    conexao.prepararPasso(1);
+    const massaCombustivel = bomba.bombear(linhaCombustivel, conexao, 1, 1, posicaoCamara);
+    const massaOxidante = bomba.bombear(linhaOxidante, conexao, 4, 1, posicaoCamara);
     const resultado = new CamaraCombustao({ razaoMisturaOxidanteCombustivel: 4, toleranciaRazaoMistura: 0.1 }).reagir(massaCombustivel, massaOxidante, 1);
     const empuxo = new Bocal({ empuxoMaximoN: 1_000, eficienciaNominal: 0.95 }).calcularEmpuxo(resultado, 1);
     expect(massaCombustivel).toBe(1);

@@ -61,7 +61,10 @@ describe('PropulsorVetorizado', () => {
       estadoInicial: { posicaoM: new Vetor3(deslocamentoM, 28, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
     });
     merlin.conectarTanque(tanque, 3);
-    merlin.conectarBateria(new Bateria({ id: 'bateria-merlin', massaBaseKg: 20, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000, tensaoNominalV: 28, capacidadeEnergiaJ: 100_000, energiaInicialJ: 100_000 }), 3);
+    // Bateria integrada no centro do tanque: cabo alcançável e massa na mesma linha de empuxo.
+    const bateria = new Bateria({ id: 'bateria-merlin', massaBaseKg: 20, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000, tensaoNominalV: 28, capacidadeEnergiaJ: 100_000, energiaInicialJ: 100_000,
+      estadoInicial: { posicaoM: tanque.getEstadoFisico().posicaoM } });
+    merlin.conectarBateria(bateria, 3);
     merlin.definirThrottle(0.6);
     for (const sistema of ['elétrico', 'hidráulico', 'combustível', 'controle'] as const) merlin.ligarSistema(sistema);
     expect(merlin.solicitarVetorizacao(5 * Math.PI / 180)).toBe(true);
@@ -70,10 +73,14 @@ describe('PropulsorVetorizado', () => {
     const fixador = new FixadorEstrutural({ id: 'fixador-correcao-cinco-graus', objetoA: tanque, objetoB: merlin, resistenciaTracaoN: 1_000_000, obterEsforcoSolicitadoN: () => merlin.empuxoAtualN });
     mundo.registrarObjeto(tanque);
     mundo.registrarObjeto(merlin);
+    mundo.registrarObjeto(bateria);
     mundo.registrarFixador(fixador);
+    mundo.registrarFixador(new FixadorEstrutural({ id: 'fixador-bateria-merlin', objetoA: tanque, objetoB: bateria, resistenciaTracaoN: 1_000_000, obterEsforcoSolicitadoN: () => merlin.empuxoAtualN }));
 
     mundo.avancar(0.5);
 
+    expect(merlin.empuxoAtualN).toBeGreaterThan(0);
+    expect(bateria.energiaConsumidaJ).toBeGreaterThan(0);
     expect(Math.abs(tanque.getEstadoFisico().orientacaoRad.z - Math.PI / 2)).toBeLessThan(0.0001);
     expect(Math.abs(merlin.getEstadoFisico().velocidadeAngularRadps.z)).toBeLessThan(0.0001);
   });

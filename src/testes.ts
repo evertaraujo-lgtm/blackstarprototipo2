@@ -1,4 +1,5 @@
 import './style.css';
+import { desenharConexoesEletricas, type ConexaoEletricaVisual } from './visualizacao/ConexoesEletricas';
 import { MundoFisico } from './physics/MundoFisico';
 import { Objeto } from './physics/objetos/base/Objeto';
 import { ObjetoTriangularRetangulo } from './physics/objetos/base/ObjetoTriangularRetangulo';
@@ -20,6 +21,11 @@ import { ChumbadorAoSolo } from './physics/conexoes/ChumbadorAoSolo';
 import { Paraquedas } from './physics/objetos/componentes/Paraquedas';
 import { EstadoOperacional } from './physics/SistemaOperacional';
 import { Vetor3 } from './physics/Vetor3';
+import { CorpoDeCilindroEletrico, HasteDeCilindroEletrico } from './physics/objetos/atuadores/CilindroEletrico';
+import { SwitchFimDeCurso } from './physics/sensores/SwitchFimDeCurso';
+import { GuiaLinear } from './physics/conexoes/GuiaLinear';
+import { Porta } from './physics/objetos/mecanismos/Porta';
+import { criarEnsaioPortaVertical } from './physics/cenarios/EnsaioPortaVertical';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#test-canvas');
 const playButton = document.querySelector<HTMLButtonElement>('#play-tests');
@@ -54,8 +60,32 @@ const propulsionControls = document.querySelector<HTMLElement>('.propulsion-cont
 const tankDisconnectControls = document.querySelector<HTMLElement>('#tank-disconnect-controls');
 const disconnectFuelTankButton = document.querySelector<HTMLButtonElement>('#disconnect-fuel-tank');
 const disconnectOxidizerTankButton = document.querySelector<HTMLButtonElement>('#disconnect-oxidizer-tank');
+const cylinderControls = document.querySelector<HTMLElement>('#cylinder-controls');
+const advanceCylinderButton = document.querySelector<HTMLButtonElement>('#advance-cylinder');
+const retractCylinderButton = document.querySelector<HTMLButtonElement>('#retract-cylinder');
+const advanceSpeedControl = document.querySelector<HTMLLabelElement>('#advance-speed-control');
+const retractSpeedControl = document.querySelector<HTMLLabelElement>('#retract-speed-control');
+const advanceSpeedInput = document.querySelector<HTMLInputElement>('#advance-speed-input');
+const retractSpeedInput = document.querySelector<HTMLInputElement>('#retract-speed-input');
+const raisePlatformButton = document.querySelector<HTMLButtonElement>('#raise-platform');
+const doorControls = document.querySelector<HTMLElement>('#door-controls');
+const doorPowerButton = document.querySelector<HTMLButtonElement>('#door-power');
+const doorControlButton = document.querySelector<HTMLButtonElement>('#door-control');
+const openDoorButton = document.querySelector<HTMLButtonElement>('#open-door');
+const closeDoorButton = document.querySelector<HTMLButtonElement>('#close-door');
+const doorOpenLed = document.querySelector<HTMLElement>('#door-open-led');
+const doorClosedLed = document.querySelector<HTMLElement>('#door-closed-led');
+const doorChainStatus = document.querySelector<HTMLElement>('#door-chain-status');
+const electricalControls = document.querySelector<HTMLElement>('#electrical-controls');
+const connectionSelector = document.querySelector<HTMLSelectElement>('#connection-selector');
+const cableSwitchButton = document.querySelector<HTMLButtonElement>('#cable-switch');
+const cableConnectButton = document.querySelector<HTMLButtonElement>('#cable-connect');
+const cableBreakButton = document.querySelector<HTMLButtonElement>('#cable-break');
+const currentLimitInput = document.querySelector<HTMLInputElement>('#current-limit');
+const cableResistanceInput = document.querySelector<HTMLInputElement>('#cable-resistance');
+const electricalReadout = document.querySelector<HTMLElement>('#electrical-readout');
 
-if (!canvas || !playButton || !scenarioSelector || !skipButton || !resetButton || !scenarioName || !scenarioDescription || !simulationTime || !testStatus || !testResult || !vehicleSpeed || !scenarioData || !timeScaleInput || !timeScaleValue || !throttleControl || !throttleInput || !throttleValue || !gimbalControl || !gimbalInput || !gimbalValue || !parachuteSettings || !parachuteAreaInput || !parachuteCalculatedValues || !toggleElectric || !toggleHydraulic || !toggleFuel || !toggleControl || !igniteButton || !deployParachuteButton || !propulsionControls || !tankDisconnectControls || !disconnectFuelTankButton || !disconnectOxidizerTankButton) {
+if (!electricalControls || !connectionSelector || !cableSwitchButton || !cableConnectButton || !cableBreakButton || !currentLimitInput || !cableResistanceInput || !electricalReadout || !doorControls || !doorPowerButton || !doorControlButton || !openDoorButton || !closeDoorButton || !doorOpenLed || !doorClosedLed || !doorChainStatus || !canvas || !playButton || !scenarioSelector || !skipButton || !resetButton || !scenarioName || !scenarioDescription || !simulationTime || !testStatus || !testResult || !vehicleSpeed || !scenarioData || !timeScaleInput || !timeScaleValue || !throttleControl || !throttleInput || !throttleValue || !gimbalControl || !gimbalInput || !gimbalValue || !parachuteSettings || !parachuteAreaInput || !parachuteCalculatedValues || !toggleElectric || !toggleHydraulic || !toggleFuel || !toggleControl || !igniteButton || !deployParachuteButton || !propulsionControls || !tankDisconnectControls || !disconnectFuelTankButton || !disconnectOxidizerTankButton || !cylinderControls || !raisePlatformButton || !advanceCylinderButton || !retractCylinderButton || !advanceSpeedControl || !retractSpeedControl || !advanceSpeedInput || !retractSpeedInput) {
   throw new Error('A bancada de testes não encontrou os elementos obrigatórios.');
 }
 
@@ -69,6 +99,9 @@ interface CenárioVisual {
   readonly descricao: string;
   readonly mundo: MundoFisico;
   readonly objetos: readonly Objeto[];
+  /** Ocultação por carenagem pertence apenas à apresentação; os corpos continuam no mundo. */
+  readonly objetosEnclausurados?: readonly Objeto[];
+  readonly conexoesEletricas?: readonly ConexaoEletricaVisual[];
   readonly superficies: readonly SuperficiePlano[];
   /** Escala temporal inicial da apresentação; o operador pode alterá-la na bancada. */
   readonly velocidadeTempo: number;
@@ -86,6 +119,14 @@ interface CenárioVisual {
   readonly linhasComFalhaControlavel?: { readonly combustivel: LinhaDePropelente; readonly oxidante: LinhaDePropelente };
   readonly fixadores?: readonly FixadorEstrutural[];
   readonly chumbadoresAoSolo?: readonly ChumbadorAoSolo[];
+  /** Trilhos de observação para restrições lineares já calculadas pelo core. */
+  readonly guiasLineares?: readonly GuiaLinear[];
+  readonly comandarCilindro?: (comando: 'avancar' | 'recuar') => void;
+  readonly configurarVelocidadesDoCilindro?: (avancoMps: number, recuoMps: number) => void;
+  readonly velocidadesDoCilindro?: () => { readonly avancoMps: number; readonly recuoMps: number };
+  readonly iniciarSequencia?: () => void;
+  readonly portaControlavel?: Porta;
+  readonly sensoresFimDeCurso?: readonly SwitchFimDeCurso[];
   /** Linha de ação de uma força, usada apenas para tornar o ensaio observável. */
   readonly linhaDeEmpuxo?: () => { readonly origemM: Vetor3; readonly direcao: Vetor3 };
   readonly propulsorControlavel?: Propulsor;
@@ -1036,6 +1077,7 @@ const criarTestePropulsorComBateria = (): CenárioVisual => {
   const atualizarPartida = criarPartidaAutomaticaBasica(mundo, propulsor);
   return {
     nome: 'Bancada integrada — propulsor bipropelente',
+    conexoesEletricas: propulsor.conexaoEletrica ? [propulsor.conexaoEletrica] : [],
     descricao: 'Bancada chumbada ao solo com propulsor, tanque de metano, tanque de oxigênio e bateria de 28 V, todos objetos físicos unidos por fixadores. O fluxo passa por válvulas, linhas e bombas elétricas, reage na câmara e produz empuxo no bocal. Durante a queima, simule a soltura física de uma linha: a falha interrompe combustível, controle e ignição no mesmo passo, sem soltar o tanque da bancada.',
     mundo, objetos: [bancada, tanque, oxidante, bateria, propulsor], superficies: [solo], velocidadeTempo: 1, limiteVerticalM: 10, limiteHorizontalM: 8, exibirNaBancada: true,
     seguirObjeto: propulsor, cameraY: () => propulsor.getEstadoFisico().posicaoM.y, mangueira: { tanque, propulsor }, linhasComFalhaControlavel: { combustivel: linhaCombustivel, oxidante: linhaOxidante }, fixadores: [fixadorTanque, fixadorOxidante, fixadorBateria, fixadorBancada], chumbadoresAoSolo: [chumbador], propulsorControlavel: propulsor,
@@ -1534,6 +1576,115 @@ const criarTesteEmpuxoExcentricoEmConjunto = (): CenárioVisual => {
   };
 };
 
+/** Bancada elétrica: bateria → motor/fuso → força na haste → fins de curso. */
+const criarTesteCilindroEletrico = (): CenárioVisual => {
+  const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 0 });
+  const base = (id: string, massaBaseKg: number, dimensoesM: Vetor3, posicaoM: Vetor3) => ({ id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM } });
+  const bateria = new Bateria({ ...base('bateria-cilindro-eletrico', 8, new Vetor3(0.5, 0.5, 0.5), new Vetor3(-1, 1, 0)), tensaoNominalV: 24, capacidadeEnergiaJ: 1e6, energiaInicialJ: 1e6 });
+  let cilindro!: CorpoDeCilindroEletrico;
+  const haste = new HasteDeCilindroEletrico(base('haste-cilindro-eletrico', 2, new Vetor3(0.35, 0.35, 0.35), new Vetor3(1.1, 1, 0)), () => cilindro);
+  cilindro = new CorpoDeCilindroEletrico({ ...base('cilindro-eletrico', 15, new Vetor3(1, 0.7, 0.7), new Vetor3(0, 1, 0)), haste, bateria, velocidadeAvancoMps: 0.5, velocidadeRecuoMps: 0.4, forcaMaximaN: 1_000 });
+  const batenteAvanco = new Objeto(base('batente-avanco-eletrico', 1_000, new Vetor3(0.2, 1, 1), new Vetor3(3, 1, 0)));
+  const batenteRecuo = new Objeto(base('batente-recuo-eletrico', 1_000, new Vetor3(0.2, 1, 1), new Vetor3(0.45, 1, 0)));
+  const sensorAvancado = new SwitchFimDeCurso({ id: 'sensor-avancado-eletrico', objetoHospedeiro: batenteAvanco, face: 'xNegativa', larguraM: 0.35, alturaM: 0.35, cursoM: 0.03 });
+  const sensorRecuado = new SwitchFimDeCurso({ id: 'sensor-recuado-eletrico', objetoHospedeiro: batenteRecuo, face: 'xPositiva', larguraM: 0.35, alturaM: 0.35, cursoM: 0.03 });
+  [bateria, cilindro, haste, batenteAvanco, batenteRecuo].forEach((objeto) => mundo.registrarObjeto(objeto));
+  mundo.registrarSwitchFimDeCurso(sensorAvancado); mundo.registrarSwitchFimDeCurso(sensorRecuado);
+  const chumbadores = [bateria, cilindro, batenteAvanco, batenteRecuo].map((objeto) => new ChumbadorAoSolo({ id: `chumbador-${objeto.id}`, objeto, resistenciaN: 1_000_000 }));
+  chumbadores.forEach((chumbador) => mundo.registrarChumbadorAoSolo(chumbador));
+  const guiaDaHaste = new GuiaLinear('guia-linear-haste-cilindro-eletrico', haste, 1_000_000);
+  mundo.registrarGuiaLinear(guiaDaHaste);
+  let comando: 'parado' | 'avancar' | 'recuar' = 'parado';
+  const atualizarControle = () => cilindro.definirEntradas({ avancar: comando === 'avancar', recuar: comando === 'recuar', avancado: sensorAvancado.estaAcionado(), recuado: sensorRecuado.estaAcionado() });
+  atualizarControle();
+  return {
+    nome: 'Cilindro elétrico — velocidade, guia e fim de curso',
+    conexoesEletricas: [cilindro.conexaoEletrica],
+    descricao: 'A bateria de 24 V alimenta o motor/fuso elétrico. O comando positivo avança e o negativo recua; as velocidades configuradas são referências físicas. Não há fluido, bomba nem válvula.',
+    mundo, objetos: [bateria, cilindro, haste, batenteAvanco, batenteRecuo], superficies: [], velocidadeTempo: 1, limiteVerticalM: 3, limiteHorizontalM: 4,
+    seguirObjeto: haste, atualizarControle, chumbadoresAoSolo: chumbadores, guiasLineares: [guiaDaHaste], deveEncerrar: () => false,
+    comandarCilindro: (novoComando) => { comando = novoComando; atualizarControle(); },
+    configurarVelocidadesDoCilindro: (avancoMps, recuoMps) => cilindro.configurarVelocidades(avancoMps, recuoMps),
+    velocidadesDoCilindro: () => ({ avancoMps: cilindro.velocidadeAvancoMps, recuoMps: cilindro.velocidadeRecuoMps }),
+    validar: () => `OBSERVAÇÃO · comando ${comando}; avançado=${sensorAvancado.sinal}; recuado=${sensorRecuado.sinal}; força=${cilindro.forcaNaHasteN.toFixed(1)} N`,
+    telemetria: () => `comando ${comando} · referência +${cilindro.velocidadeAvancoMps.toFixed(2)}/−${cilindro.velocidadeRecuoMps.toFixed(2)} m/s · força ${cilindro.forcaNaHasteN.toFixed(1)} N`,
+    dados: () => `Cadeia: bateria → motor/fuso → força → haste\nBancada: bateria, carcaça e batentes chumbados; haste guiada em X\nEnergia elétrica consumida: ${bateria.energiaConsumidaJ.toFixed(1)} J\nVelocidade real da haste: ${haste.getEstadoFisico().velocidadeMps.x.toFixed(3)} m/s\nReferência: avanço ${cilindro.velocidadeAvancoMps.toFixed(2)} m/s; recuo ${cilindro.velocidadeRecuoMps.toFixed(2)} m/s\nForça na haste: ${cilindro.forcaNaHasteN.toFixed(1)} N\nPotência elétrica: ${cilindro.potenciaEletricaAtualW.toFixed(1)} W\nSensor avançado: ${sensorAvancado.sinal}; sensor recuado: ${sensorRecuado.sinal}`,
+  };
+};
+
+/** Eleva um cubo a 100 m e o ejeta por uma sequência inteiramente sensorizada. */
+const criarTesteTorreElevadoraComEmpurrador = (): CenárioVisual => {
+  const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 0 });
+  const base = (id: string, massaBaseKg: number, dimensoesM: Vetor3, posicaoM: Vetor3) => ({ id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, dissipacaoImpacto: 0.8, estadoInicial: { posicaoM } });
+  const solo = new SuperficiePlano('solo-torre-elevadora', 'concreto', 0, 1_000_000, 0.8);
+  const bateriaElevador = new Bateria({ ...base('bateria-elevador', 20, new Vetor3(0.8, 0.8, 0.8), new Vetor3(-3, 1, 0)), tensaoNominalV: 24, capacidadeEnergiaJ: 5e7, energiaInicialJ: 5e7 });
+  const bateriaEmpurrador = new Bateria({ ...base('bateria-empurrador', 10, new Vetor3(0.5, 0.5, 0.5), new Vetor3(-2, 100, 0)), tensaoNominalV: 24, capacidadeEnergiaJ: 1e6, energiaInicialJ: 1e6 });
+  const torre = new Objeto(base('torre-elevadora-100m', 5_000, new Vetor3(0.5, 100, 1), new Vetor3(-3, 50, 0)));
+  let elevador!: CorpoDeCilindroEletrico;
+  const plataforma = new HasteDeCilindroEletrico(base('plataforma-elevadora', 200, new Vetor3(5, 0.5, 1), new Vetor3(0, 1, 0)), () => elevador);
+  elevador = new CorpoDeCilindroEletrico({ ...base('cilindro-elevador', 100, new Vetor3(1, 1, 1), new Vetor3(0, -1, 0)), haste: plataforma, bateria: bateriaElevador, velocidadeAvancoMps: 4, velocidadeRecuoMps: 4, forcaMaximaN: 20_000, direcaoDeCursoM: new Vetor3(0, 1, 0) });
+  const cubo = new Objeto(base('cubo-ejetavel', 20, new Vetor3(1, 1, 1), new Vetor3(0, 1.75, 0)));
+  const batenteSuperior = new Objeto(base('batente-superior-elevador', 1_000, new Vetor3(6, 0.2, 1), new Vetor3(0, 100.55, 0)));
+  const batenteInferior = new Objeto(base('batente-inferior-elevador', 1_000, new Vetor3(6, 0.2, 1), new Vetor3(0, 0.45, 0)));
+  const sensorElevadorAvancado = new SwitchFimDeCurso({ id: 'sensor-elevador-avancado', objetoHospedeiro: batenteSuperior, face: 'yNegativa', larguraM: 5, alturaM: 1, cursoM: 0.05 });
+  const sensorElevadorRecuado = new SwitchFimDeCurso({ id: 'sensor-elevador-recuado', objetoHospedeiro: batenteInferior, face: 'yPositiva', larguraM: 5, alturaM: 1, cursoM: 0.05 });
+  let empurrador!: CorpoDeCilindroEletrico;
+  const hasteEmpurrador = new HasteDeCilindroEletrico(base('haste-empurrador', 10, new Vetor3(0.4, 0.4, 1), new Vetor3(-1.5, 100.75, 0)), () => empurrador);
+  empurrador = new CorpoDeCilindroEletrico({ ...base('empurrador-topo', 50, new Vetor3(0.8, 0.8, 1), new Vetor3(-2.2, 100.75, 0)), haste: hasteEmpurrador, bateria: bateriaEmpurrador, velocidadeAvancoMps: 1.5, velocidadeRecuoMps: 1.5, forcaMaximaN: 5_000 });
+  const batenteEmpurradorAvanco = new Objeto(base('batente-empurrador-avancado', 1_000, new Vetor3(0.2, 1, 1), new Vetor3(2.8, 100.75, 0)));
+  const batenteEmpurradorRecuo = new Objeto(base('batente-empurrador-recuado', 1_000, new Vetor3(0.2, 1, 1), new Vetor3(-1.9, 100.75, 0)));
+  const sensorEmpurradorAvancado = new SwitchFimDeCurso({ id: 'sensor-empurrador-avancado', objetoHospedeiro: batenteEmpurradorAvanco, face: 'xNegativa', larguraM: 0.4, alturaM: 1, cursoM: 0.05 });
+  const sensorEmpurradorRecuado = new SwitchFimDeCurso({ id: 'sensor-empurrador-recuado', objetoHospedeiro: batenteEmpurradorRecuo, face: 'xPositiva', larguraM: 0.4, alturaM: 1, cursoM: 0.05 });
+  const objetos = [bateriaElevador, bateriaEmpurrador, torre, elevador, plataforma, cubo, batenteSuperior, batenteInferior, empurrador, hasteEmpurrador, batenteEmpurradorAvanco, batenteEmpurradorRecuo];
+  objetos.forEach((objeto) => mundo.registrarObjeto(objeto)); mundo.registrarSuperficie(solo);
+  [sensorElevadorAvancado, sensorElevadorRecuado, sensorEmpurradorAvancado, sensorEmpurradorRecuado].forEach((sensor) => mundo.registrarSwitchFimDeCurso(sensor));
+  const chumbadores = [bateriaElevador, bateriaEmpurrador, torre, elevador, batenteSuperior, batenteInferior, empurrador, batenteEmpurradorAvanco, batenteEmpurradorRecuo].map((objeto) => new ChumbadorAoSolo({ id: `chumbador-${objeto.id}`, objeto, resistenciaN: 1e7 }));
+  chumbadores.forEach((chumbador) => mundo.registrarChumbadorAoSolo(chumbador));
+  const guiaElevador = new GuiaLinear('guia-plataforma-elevadora', plataforma, 1e7, 'y');
+  const guiaEmpurrador = new GuiaLinear('guia-haste-empurrador', hasteEmpurrador, 1e7, 'x');
+  mundo.registrarGuiaLinear(guiaElevador); mundo.registrarGuiaLinear(guiaEmpurrador);
+  let fase: 'aguardando' | 'subindo' | 'empurrando' | 'descendo' | 'recuando' | 'concluido' = 'aguardando';
+  const atualizarControle = () => {
+    if (fase === 'subindo' && sensorElevadorAvancado.estaAcionado()) fase = 'empurrando';
+    if (fase === 'empurrando' && sensorEmpurradorAvancado.estaAcionado()) fase = 'descendo';
+    if (fase === 'descendo' && sensorElevadorRecuado.estaAcionado()) fase = 'recuando';
+    if (fase === 'recuando' && sensorEmpurradorRecuado.estaAcionado()) fase = 'concluido';
+    elevador.definirEntradas({ avancar: fase === 'subindo', recuar: fase === 'descendo', avancado: sensorElevadorAvancado.estaAcionado(), recuado: sensorElevadorRecuado.estaAcionado() });
+    empurrador.definirEntradas({ avancar: fase === 'empurrando', recuar: fase === 'recuando', avancado: sensorEmpurradorAvancado.estaAcionado(), recuado: sensorEmpurradorRecuado.estaAcionado() });
+  };
+  atualizarControle();
+  return {
+    conexoesEletricas: [elevador.conexaoEletrica, empurrador.conexaoEletrica],
+    nome: 'Torre elevadora — cubo a 100 m e ejeção', descricao: 'Clique em “Subir plataforma”. O fim de curso superior aciona o empurrador; o fim de curso do empurrador inicia a descida; o fim de curso inferior manda o empurrador recuar. O cubo é ejetado e cai livremente.',
+    mundo, objetos, superficies: [solo], velocidadeTempo: 4, limiteVerticalM: 110, limiteHorizontalM: 12, seguirObjeto: plataforma, chumbadoresAoSolo: chumbadores, guiasLineares: [guiaElevador, guiaEmpurrador], atualizarControle,
+    iniciarSequencia: () => { if (fase === 'aguardando') fase = 'subindo'; atualizarControle(); },
+    deveEncerrar: () => fase === 'concluido' && cubo.getEstadoFisico().posicaoM.y <= 0.51 && cubo.getEstadoFisico().velocidadeMps.magnitude <= MundoFisico.velocidadeDeRepousoMps,
+    validar: () => `${fase === 'concluido' ? 'APROVADO' : 'EM EXECUÇÃO'} · fase ${fase}; elevador sup=${sensorElevadorAvancado.sinal}, inf=${sensorElevadorRecuado.sinal}; empurrador av=${sensorEmpurradorAvancado.sinal}, rec=${sensorEmpurradorRecuado.sinal}`,
+    telemetria: () => `fase ${fase} · plataforma y=${plataforma.getEstadoFisico().posicaoM.y.toFixed(2)} m · cubo y=${cubo.getEstadoFisico().posicaoM.y.toFixed(2)} m`,
+    dados: () => `Sequência: botão subir → sensor elevador avançado → empurrador avança → sensor empurrador avançado → elevador desce → sensor elevador recuado → empurrador recua\nAltura da plataforma: ${plataforma.getEstadoFisico().posicaoM.y.toFixed(2)} m\nCubo: x=${cubo.getEstadoFisico().posicaoM.x.toFixed(2)} m; y=${cubo.getEstadoFisico().posicaoM.y.toFixed(2)} m; vy=${cubo.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s`,
+  };
+};
+
+const criarTestePortaVertical = (): CenárioVisual => {
+  const e = criarEnsaioPortaVertical();
+  const { porta } = e;
+  return {
+    nome: 'Porta vertical de alumínio — abrir e fechar',
+    descricao: 'Ligue a alimentação e depois o controle. Abrir eleva a porta; Fechar a baixa. Os sensores físicos nos batentes alimentam o cilindro e os LEDs. A bateria apoia no chão; os cabos visíveis chegam ao motor instalado no batente superior. O servo retém a porta por força: ao desligar a alimentação, ela cai pela gravidade. Atmosfera padrão: 1,225 kg/m³. Alumínio configurado: dano acima de 150 °C e fusão a 700 °C.',
+    mundo: e.mundo, objetos: e.objetos, superficies: [e.solo], velocidadeTempo: 1,
+    limiteVerticalM: 7, limiteHorizontalM: 4, seguirObjeto: porta,
+    cameraY: () => porta.getEstadoFisico().posicaoM.y,
+    conexoesEletricas: [e.conexaoEletrica],
+    portaControlavel: porta, sensoresFimDeCurso: [e.sensorAberto, e.sensorFechado],
+    exibirNaBancada: true,
+    // Ensaio operacional contínuo: permite vários ciclos e falhas sem trocar de cenário.
+    deveEncerrar: () => false,
+    validar: () => `OBSERVAÇÃO · aberto=${e.sensorAberto.sinal}; fechado=${e.sensorFechado.sinal}`,
+    telemetria: () => `curso ${(porta.getEstadoFisico().posicaoM.y - 1.2).toFixed(3)} m · vy=${porta.getEstadoFisico().velocidadeMps.y.toFixed(3)} m/s`,
+    dados: () => `Bateria 24 V → alimentação → controle → motor/fuso → porta\nComando: ${porta.comandoAtual}\nPorta: 40 kg · 2 × 2 × 0,12 m\nForça: ${porta.forcaAtualN.toFixed(1)} / 4000 N\nPotência: ${porta.potenciaEletricaAtualW.toFixed(1)} W\nEnergia restante: ${e.bateria.energiaArmazenadaJ.toFixed(1)} J\nIntegridade da porta: ${(porta.integridadeEstrutural * 100).toFixed(1)}%\nIntegridade mínima do batente: ${(Math.min(...[e.superior, e.inferior, ...e.laterais].map((o) => o.integridadeEstrutural)) * 100).toFixed(1)}%\nTemperatura: ${porta.temperaturaC.toFixed(1)} °C\nDano > 150 °C · fusão 700 °C\nGuia: ${e.guia.estaRompida ? 'ROMPIDA' : 'íntegra'}\nChumbadores: ${e.chumbadores.filter((c) => !c.estaRompido).length}/${e.chumbadores.length} íntegros\nSubpasso ≤ 1/240 s · repouso |v| ≤ 0,05 m/s`,
+  };
+};
+
 const construirCenarios = (): CenárioVisual[] => {
   return [
   criarCuboEmQueda(10),
@@ -1586,6 +1737,9 @@ const construirCenarios = (): CenárioVisual[] => {
   criarTesteMerlinDesalinhadoComCorrecao(1, 'Merlin desalinhado — limite de correção'),
   criarTesteMerlinDesalinhadoComCorrecao(2 * Math.tan(5 * Math.PI / 180), 'Merlin desalinhado — correção a 5°'),
   criarTesteEmpuxoExcentricoEmConjunto(),
+  criarTestePortaVertical(),
+  criarTesteCilindroEletrico(),
+  criarTesteTorreElevadoraComEmpurrador(),
   criarTesteVeiculoContraRampa30Graus(0),
   criarTesteVeiculoContraRampa30Graus(5),
   criarTesteVeiculoContraRampa30Graus(10),
@@ -1670,6 +1824,7 @@ const preencherSeletorDeCenarios = (): void => {
 
 const desenhar = (): void => {
   const cenário = cenarioAtual();
+  const objetosVisiveis = cenário.objetos.filter((objeto) => !cenário.objetosEnclausurados?.includes(objeto));
   const largura = canvas.width;
   const altura = canvas.height;
   contexto.clearRect(0, 0, largura, altura);
@@ -1688,7 +1843,7 @@ const desenhar = (): void => {
     : largura / 2 - (cenário.seguirObjeto.getEstadoFisico().posicaoM.x * escala);
   const soloY = cenário.cameraY === undefined
     ? altura - 40
-    : altura * 0.65 + cenário.cameraY() * escala;
+    : altura * (cenário.portaControlavel ? 0.5 : 0.65) + cenário.cameraY() * escala;
   if (cenário.superficies.length > 0) {
     contexto.fillStyle = '#475569';
     contexto.fillRect(0, soloY, largura, altura - soloY);
@@ -1724,7 +1879,7 @@ const desenhar = (): void => {
   // Em cenários acompanhados, réguas nos dois eixos tornam observável o
   // deslocamento do corpo sem usar a câmera como fonte de estado.
   if (cenário.seguirObjeto !== undefined) {
-    const passoEscalaM = escala >= 35 ? 5 : 10;
+    const passoEscalaM = cenário.portaControlavel ? 1 : escala >= 35 ? 5 : 10;
     const primeiroXM = Math.floor((-origemX / escala) / passoEscalaM) * passoEscalaM;
     const ultimoXM = Math.ceil(((largura - origemX) / escala) / passoEscalaM) * passoEscalaM;
     const menorYM = Math.floor(((soloY - altura) / escala) / passoEscalaM) * passoEscalaM;
@@ -1855,7 +2010,40 @@ const desenhar = (): void => {
     }
   }
 
-  for (const objeto of cenário.objetos) {
+  if (cenário.guiasLineares) {
+    for (const guia of cenário.guiasLineares) {
+      const estado = guia.estadoDeMontagem;
+      const x = origemX + estado.posicaoM.x * escala;
+      const y = soloY - estado.posicaoM.y * escala;
+      const comprimento = Math.max(110, escala * 2.8);
+      const afastamento = Math.max(13, guia.objeto.dimensoesM.y * escala * 0.8);
+      contexto.save();
+      contexto.strokeStyle = guia.estaRompida ? '#ef4444' : '#94a3b8';
+      contexto.lineWidth = 3;
+      if (guia.estaRompida) contexto.setLineDash([7, 5]);
+      for (const deslocamentoY of [-afastamento, afastamento]) {
+        contexto.beginPath();
+        if (guia.eixoDeCurso === 'x') {
+          contexto.moveTo(x - comprimento / 2, y + deslocamentoY);
+          contexto.lineTo(x + comprimento / 2, y + deslocamentoY);
+        } else {
+          contexto.moveTo(x + deslocamentoY, y - comprimento / 2);
+          contexto.lineTo(x + deslocamentoY, y + comprimento / 2);
+        }
+        contexto.stroke();
+      }
+      contexto.setLineDash([]);
+      contexto.fillStyle = guia.estaRompida ? '#ef4444' : '#cbd5e1';
+      if (guia.eixoDeCurso === 'x') contexto.fillRect(x - 8, y - afastamento - 5, 16, (afastamento * 2) + 10);
+      else contexto.fillRect(x - afastamento - 5, y - 8, (afastamento * 2) + 10, 16);
+      contexto.fillStyle = '#cbd5e1';
+      contexto.font = '10px ui-monospace, monospace';
+      contexto.fillText('GUIA LINEAR', x - 32, y - afastamento - 10);
+      contexto.restore();
+    }
+  }
+
+  for (const objeto of objetosVisiveis) {
     const estado = objeto.getEstadoFisico();
     const x = origemX + estado.posicaoM.x * escala;
     const y = soloY - estado.posicaoM.y * escala;
@@ -1872,6 +2060,8 @@ const desenhar = (): void => {
       ? '#ef4444'
       : objeto.integridadeEstrutural < 1
         ? '#f59e0b'
+        : objeto instanceof Porta ? '#cbd5e1'
+        : objeto.id.startsWith('batente-') ? '#64748b'
         : objeto.id.startsWith('fundacao-')
           ? '#475569'
           : objeto.id.startsWith('bancada-termica')
@@ -1990,6 +2180,19 @@ const desenhar = (): void => {
       contexto.stroke();
       contexto.lineWidth = 1;
     }
+    if (objeto instanceof Porta) {
+      contexto.strokeStyle = '#94a3b8';
+      contexto.lineWidth = 1;
+      for (let painel = -0.4; painel < 0.5; painel += 0.2) {
+        contexto.beginPath();
+        contexto.moveTo(-larguraObjeto / 2, alturaObjeto * painel);
+        contexto.lineTo(larguraObjeto / 2, alturaObjeto * painel);
+        contexto.stroke();
+      }
+      contexto.fillStyle = '#0f172a';
+      contexto.font = '12px ui-monospace, monospace';
+      contexto.fillText('PORTA · Al', -larguraObjeto / 2 + 8, 4);
+    }
     if (objeto instanceof TanquePropelente) {
       contexto.strokeStyle = '#064e3b';
       contexto.beginPath();
@@ -2099,6 +2302,22 @@ const desenhar = (): void => {
     contexto.restore();
   }
 
+  desenharConexoesEletricas(contexto, cenário.conexoesEletricas ?? [], objetosVisiveis,
+    (ponto) => ({ x: origemX + ponto.x * escala, y: soloY - ponto.y * escala }));
+
+  for (const sensor of cenário.sensoresFimDeCurso ?? []) {
+    const volume = sensor.obterVolumeSensivel();
+    const x = origemX + volume.posicaoM.x * escala;
+    const y = soloY - volume.posicaoM.y * escala;
+    contexto.save();
+    contexto.fillStyle = sensor.estaAcionado() ? '#4ade80' : '#475569';
+    contexto.strokeStyle = '#e2e8f0';
+    contexto.beginPath(); contexto.arc(x, y, 5, 0, Math.PI * 2); contexto.fill(); contexto.stroke();
+    contexto.fillStyle = '#e2e8f0'; contexto.font = '11px ui-monospace, monospace';
+    contexto.fillText(sensor.face === 'yNegativa' ? 'ABERTO' : 'FECHADO', x + 10, y + (sensor.face === 'yNegativa' ? -10 : 18));
+    contexto.restore();
+  }
+
   scenarioName.textContent = cenário.nome;
   simulationTime.textContent = `t = ${cenário.mundo.tempoS.toFixed(3)} s · ${formatarEscalaTemporal(obterEscalaTemporalAtual())}`;
   vehicleSpeed.textContent = cenário.telemetria?.() ?? '—';
@@ -2116,13 +2335,74 @@ const carregarCenarioAtual = (): void => {
   desenhar();
 };
 
+const conexaoSelecionada = (): ConexaoEletricaVisual | undefined => cenarioAtual().conexoesEletricas?.find((conexao) => conexao.id === connectionSelector.value) ?? cenarioAtual().conexoesEletricas?.[0];
+
+const atualizarControlesEletricos = (): void => {
+  const conexoes = cenarioAtual().conexoesEletricas ?? [];
+  electricalControls.hidden = conexoes.length === 0;
+  const assinatura = conexoes.map((conexao) => conexao.id).join('|');
+  if (connectionSelector.dataset.conexoes !== assinatura) {
+    connectionSelector.replaceChildren(...conexoes.map((conexao) => new Option(conexao.id, conexao.id)));
+    connectionSelector.dataset.conexoes = assinatura;
+  }
+  const conexao = conexaoSelecionada();
+  if (!conexao) return;
+  cableSwitchButton.textContent = conexao.interruptorFechado ? 'Abrir interruptor' : 'Fechar interruptor';
+  cableSwitchButton.disabled = !conexao.interruptorFechado && !conexao.podeConduzir;
+  cableConnectButton.textContent = conexao.estaDesconectada ? 'Conectar cabo' : 'Desconectar cabo';
+  cableConnectButton.disabled = conexao.estaRompida;
+  cableBreakButton.disabled = conexao.estaRompida;
+  cableBreakButton.textContent = conexao.estaRompida ? 'Cabo rompido' : 'Simular ruptura';
+  if (document.activeElement !== currentLimitInput) currentLimitInput.value = String(conexao.correnteMaximaA);
+  if (document.activeElement !== cableResistanceInput) cableResistanceInput.value = String(conexao.resistenciaCaboOhm);
+  electricalReadout.textContent = `${conexao.correnteAtualA.toFixed(2)} / ${conexao.correnteMaximaA.toFixed(2)} A · saída ${conexao.tensaoSaidaV.toFixed(2)} V\nResistência total: ${conexao.resistenciaTotalOhm.toFixed(2)} Ω\nAlcance: ${conexao.comprimentoAtualM.toFixed(2)} / ${conexao.comprimentoMaximoM.toFixed(2)} m\nPerdas acumuladas: ${conexao.energiaDissipadaAcumuladaJ.toFixed(2)} J${conexao.correnteLimitada ? '\nFornecimento limitado' : ''}`;
+};
+
 const atualizarControlesDoPropulsor = (): void => {
+  atualizarControlesEletricos();
   const cenário = cenarioAtual();
+  const porta = cenário.portaControlavel;
+  doorControls.hidden = porta === undefined;
+  if (porta) {
+    doorPowerButton.textContent = porta.alimentacaoLigada ? 'Desligar alimentação' : '1 · Ligar alimentação';
+    doorPowerButton.disabled = !porta.fonteDisponivel;
+    doorControlButton.textContent = porta.controleLigado ? 'Desligar controle' : '2 · Ligar controle';
+    doorControlButton.disabled = !porta.alimentacaoLigada;
+    openDoorButton.disabled = !porta.operacional || porta.sensorAbertoAcionado;
+    closeDoorButton.disabled = !porta.operacional || porta.sensorFechadoAcionado;
+    openDoorButton.setAttribute('aria-pressed', String(porta.comandoAtual === 'abrir'));
+    closeDoorButton.setAttribute('aria-pressed', String(porta.comandoAtual === 'fechar'));
+    for (const [led, ligado, nome] of [[doorOpenLed, porta.sensorAbertoAcionado, 'Aberto'], [doorClosedLed, porta.sensorFechadoAcionado, 'Fechado']] as const) {
+      led.classList.toggle('sensor-active', ligado);
+      led.textContent = `${nome}: ${ligado ? 'acionado' : 'livre'}`;
+    }
+    doorChainStatus.textContent = porta.conexaoEletrica.estaRompida ? 'Cabo rompido' : porta.conexaoEletrica.estaDesconectada ? 'Cabo desconectado' :
+      !porta.fonteDisponivel ? 'Alimentação indisponível' :
+      !porta.alimentacaoLigada ? 'Alimentação desligada' : !porta.controleLigado ? 'Aguardando controle' :
+      !porta.operacional ? 'Falha estrutural' : 'Pronta · alimentação e controle ligados';
+  }
   const propulsor = cenário.propulsorControlavel;
   const propulsorVetorizado = cenário.propulsorVetorizadoControlavel;
   const permiteAjustarThrottle = cenário.permiteAjustarThrottle === true;
   const objetoComParaquedas = cenário.objetoComParaquedasControlavel;
   const objetoComParaquedasConfiguravel = cenário.objetoComParaquedasConfiguravel;
+  const comandoCilindro = cenário.comandarCilindro;
+  const iniciarSequencia = cenário.iniciarSequencia;
+  const velocidadesDoCilindro = cenário.velocidadesDoCilindro;
+  cylinderControls.hidden = comandoCilindro === undefined && iniciarSequencia === undefined;
+  advanceCylinderButton.disabled = comandoCilindro === undefined;
+  retractCylinderButton.disabled = comandoCilindro === undefined;
+  raisePlatformButton.hidden = iniciarSequencia === undefined;
+  raisePlatformButton.disabled = iniciarSequencia === undefined;
+  advanceSpeedControl.hidden = velocidadesDoCilindro === undefined;
+  retractSpeedControl.hidden = velocidadesDoCilindro === undefined;
+  advanceSpeedInput.disabled = velocidadesDoCilindro === undefined;
+  retractSpeedInput.disabled = velocidadesDoCilindro === undefined;
+  if (velocidadesDoCilindro) {
+    const velocidades = velocidadesDoCilindro();
+    advanceSpeedInput.value = velocidades.avancoMps.toFixed(2);
+    retractSpeedInput.value = velocidades.recuoMps.toFixed(2);
+  }
   propulsionControls.hidden = propulsor === undefined;
   const linhasComFalhaControlavel = cenário.linhasComFalhaControlavel;
   tankDisconnectControls.hidden = linhasComFalhaControlavel === undefined;
@@ -2212,6 +2492,64 @@ const simularRupturaDaLinha = (tipo: 'combustivel' | 'oxidante'): void => {
 };
 disconnectFuelTankButton.addEventListener('click', () => simularRupturaDaLinha('combustivel'));
 disconnectOxidizerTankButton.addEventListener('click', () => simularRupturaDaLinha('oxidante'));
+const operarConexao = (acao: (conexao: ConexaoEletricaVisual) => void): void => {
+  const conexao = conexaoSelecionada();
+  if (!conexao) return;
+  acao(conexao);
+  atualizarControlesDoPropulsor(); desenhar();
+};
+connectionSelector.addEventListener('change', () => { atualizarControlesEletricos(); desenhar(); });
+cableSwitchButton.addEventListener('click', () => operarConexao((conexao) => { if (conexao.interruptorFechado) conexao.abrirInterruptor(); else conexao.fecharInterruptor(); }));
+cableConnectButton.addEventListener('click', () => operarConexao((conexao) => { if (conexao.estaDesconectada) conexao.conectar(); else conexao.desconectar(); }));
+cableBreakButton.addEventListener('click', () => operarConexao((conexao) => conexao.romper()));
+currentLimitInput.addEventListener('change', () => {
+  const valor = Number(currentLimitInput.value);
+  if (currentLimitInput.value.trim() && Number.isFinite(valor) && valor >= 0) operarConexao((conexao) => conexao.configurarCorrenteMaxima(valor));
+});
+cableResistanceInput.addEventListener('change', () => {
+  const valor = Number(cableResistanceInput.value);
+  if (cableResistanceInput.value.trim() && Number.isFinite(valor) && valor >= 0) operarConexao((conexao) => conexao.configurarResistenciaCabo(valor));
+});
+doorPowerButton.addEventListener('click', () => {
+  const porta = cenarioAtual().portaControlavel;
+  if (!porta) return;
+  if (porta.alimentacaoLigada) porta.desligarAlimentacao(); else porta.ligarAlimentacao();
+  atualizarControlesDoPropulsor(); desenhar();
+});
+doorControlButton.addEventListener('click', () => {
+  const porta = cenarioAtual().portaControlavel;
+  if (!porta) return;
+  if (porta.controleLigado) porta.desligarControle(); else porta.ligarControle();
+  atualizarControlesDoPropulsor(); desenhar();
+});
+const comandarPorta = (comando: 'abrir' | 'fechar'): void => {
+  const porta = cenarioAtual().portaControlavel;
+  if (!porta || !porta[comando]()) return;
+  if (!emExecucao) playButton.click();
+  atualizarControlesDoPropulsor(); desenhar();
+};
+openDoorButton.addEventListener('click', () => comandarPorta('abrir'));
+closeDoorButton.addEventListener('click', () => comandarPorta('fechar'));
+advanceCylinderButton.addEventListener('click', () => {
+  cenarioAtual().comandarCilindro?.('avancar');
+  atualizarControlesDoPropulsor(); desenhar();
+});
+raisePlatformButton.addEventListener('click', () => {
+  cenarioAtual().iniciarSequencia?.();
+  atualizarControlesDoPropulsor(); desenhar();
+});
+retractCylinderButton.addEventListener('click', () => {
+  cenarioAtual().comandarCilindro?.('recuar');
+  atualizarControlesDoPropulsor(); desenhar();
+});
+const configurarVelocidadesDoCilindroDaBancada = (): void => {
+  const avancoMps = Number(advanceSpeedInput.value); const recuoMps = Number(retractSpeedInput.value);
+  if (!Number.isFinite(avancoMps) || !Number.isFinite(recuoMps) || avancoMps <= 0 || recuoMps <= 0) return;
+  cenarioAtual().configurarVelocidadesDoCilindro?.(avancoMps, recuoMps);
+  atualizarControlesDoPropulsor(); desenhar();
+};
+advanceSpeedInput.addEventListener('change', configurarVelocidadesDoCilindroDaBancada);
+retractSpeedInput.addEventListener('change', configurarVelocidadesDoCilindroDaBancada);
 deployParachuteButton.addEventListener('click', () => {
   const objeto = cenarioAtual().objetoComParaquedasControlavel;
   if (!objeto || objeto.paraquedasEstaAberto) return;
@@ -2324,8 +2662,9 @@ skipButton.addEventListener('click', () => {
 
 resetButton.addEventListener('click', () => {
   emExecucao = false;
+  const indiceSelecionado = Number(scenarioSelector.value);
   cenarios = construirCenarios();
-  indiceAtual = primeiroIndiceExibivel();
+  indiceAtual = indicesExibiveis().includes(indiceSelecionado) ? indiceSelecionado : primeiroIndiceExibivel();
   preencherSeletorDeCenarios();
   playButton.textContent = '▶ Iniciar teste';
   carregarCenarioAtual();

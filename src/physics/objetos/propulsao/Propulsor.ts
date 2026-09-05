@@ -1,6 +1,7 @@
 import { Objeto, type DefinicaoObjeto, type ForcaFisicaSolicitada, type JatoTermico } from '../base/Objeto';
 import { EstadoOperacional, GerenciadorDeSistemas, SistemaOperacional } from '../../SistemaOperacional';
 import { TanquePropelente } from '../fontes-de-energia/TanquePropelente';
+import { ConexaoEletrica } from '../../conexoes/ConexaoEletrica';
 import { Bateria } from '../fontes-de-energia/Bateria';
 import { Vetor3 } from '../../Vetor3';
 import { LinhaDePropelente } from './alimentacao/LinhaDePropelente';
@@ -17,10 +18,6 @@ export interface DefinicaoPropulsor extends DefinicaoObjeto {
   readonly propelenteCompativel: string;
   /**
    * Tensão nominal de alimentação requerida pelo propulsor, em V.
-   *
-   * A fonte, a bateria, os cabos e a verificação de tensão entregue serão
-   * introduzidos em um marco posterior. Até lá, o permissivo elétrico interno
-   * continua representando somente o estado operacional comandado.
    */
   readonly tensaoAlimentacaoNominalV?: number;
   /** Potência elétrica consumida em throttle máximo, em W. */
@@ -44,12 +41,11 @@ export interface CadeiaBipropelenteDoPropulsor {
 export class Propulsor extends Objeto {
   private throttle = 0;
   private tanque?: TanquePropelente;
-  private bateria?: Bateria;
+  private conexao?: ConexaoEletrica;
+  private get bateria(): Bateria | undefined { return this.conexao?.fonte; }
   private cadeiaBipropelente?: CadeiaBipropelenteDoPropulsor;
   private comprimentoMaxMangueiraM = 0;
-  private comprimentoMaxCaboEletricoM = 0;
   private mangueiraRompida = false;
-  private caboEletricoRompido = false;
   private empuxoAtualCalculadoN = 0;
   private vazaoAtualCalculadaKgS = 0;
   private ignicaoConfirmada = false;
@@ -82,8 +78,7 @@ export class Propulsor extends Objeto {
   }
   public get potenciaEletricaMaximaW(): number { return this.definicaoPropulsor.potenciaEletricaMaximaW ?? 1_000; }
   public get fonteEletricaEstaConectada(): boolean {
-    return this.bateria !== undefined && !this.caboEletricoRompido && !this.bateria.estaDescarregada &&
-      this.bateria.tensaoNominalV === this.tensaoAlimentacaoNominalV;
+    return this.conexao?.podeConduzir === true && this.conexao.tensaoNominalV === this.tensaoAlimentacaoNominalV;
   }
   /** Calor só existe quando a cadeia operacional produziu empuxo neste passo. */
   public get potenciaTermicaAtualW(): number {
@@ -99,7 +94,8 @@ export class Propulsor extends Objeto {
   public get bloqueios(): readonly string[] { return this.sistemas.motivosDeBloqueio(); }
   public get estaIgnitado(): boolean { return this.ignicaoConfirmada; }
   public get mangueiraEstaRompida(): boolean { return this.mangueiraRompida; }
-  public get caboEletricoEstaRompido(): boolean { return this.caboEletricoRompido; }
+  public get caboEletricoEstaRompido(): boolean { return this.conexao?.estaRompida ?? false; }
+  public get conexaoEletrica(): ConexaoEletrica | undefined { return this.conexao; }
   public get tanqueConectado(): TanquePropelente | undefined { return this.tanque; }
   public get bateriaConectada(): Bateria | undefined { return this.bateria; }
   public get diagnosticoOperacional(): readonly string[] {
@@ -112,7 +108,9 @@ export class Propulsor extends Objeto {
     if (!this.bateria) motivos.push('bateria não conectada');
     else if (this.bateria.estaDescarregada) motivos.push('bateria descarregada');
     else if (this.bateria.tensaoNominalV !== this.tensaoAlimentacaoNominalV) motivos.push('tensão da bateria incompatível');
-    if (this.caboEletricoRompido) motivos.push('cabo elétrico rompido');
+    if (this.caboEletricoEstaRompido) motivos.push('cabo elétrico rompido');
+    if (this.conexao?.estaDesconectada) motivos.push('cabo elétrico desconectado');
+    if (this.conexao?.correnteLimitada) motivos.push('alimentação elétrica limitada');
     if (this.throttle === 0) motivos.push('throttle em zero');
     if (!this.ignicaoConfirmada) motivos.push('ignição não realizada');
     if (this.ultimaNegacaoDeComando) motivos.push(this.ultimaNegacaoDeComando);
@@ -135,9 +133,14 @@ export class Propulsor extends Objeto {
   public conectarBateria(bateria: Bateria, comprimentoMaxCaboEletricoM = 10): void {
     if (!Number.isFinite(comprimentoMaxCaboEletricoM) || comprimentoMaxCaboEletricoM <= 0) throw new Error('Comprimento de cabo elétrico inválido.');
     if (bateria.tensaoNominalV !== this.tensaoAlimentacaoNominalV) throw new Error('Tensão da bateria incompatível.');
-    this.bateria = bateria;
-    this.comprimentoMaxCaboEletricoM = comprimentoMaxCaboEletricoM;
-    this.caboEletricoRompido = false;
+    this.instalarConexaoEletrica(new ConexaoEletrica({ id: `cabo-${this.id}`, fonte: bateria, destino: this,
+      comprimentoMaximoM: comprimentoMaxCaboEletricoM, correnteMaximaA: this.potenciaEletricaMaximaW / bateria.tensaoNominalV }));
+  }
+  public instalarConexaoEletrica(conexao: ConexaoEletrica): void {
+    if (conexao.destino !== this || conexao.tensaoNominalV !== this.tensaoAlimentacaoNominalV) throw new Error('Conexão elétrica incompatível com o propulsor.');
+    this.conexao?.abrirInterruptor();
+    this.conexao = conexao;
+    this.definirEstadoDoSistema('elétrico', EstadoOperacional.Desligado);
   }
   /** Instala a cadeia que passa por linhas, bombas, câmara e bocal. */
   public configurarCadeiaBipropelente(cadeia: CadeiaBipropelenteDoPropulsor): void {
@@ -182,6 +185,7 @@ export class Propulsor extends Objeto {
       this.ultimaNegacaoDeComando = `não é possível ligar ${id}: ${dependencia} não está operacional`;
       return false;
     }
+    if (id === 'elétrico' && !this.conexao?.fecharInterruptor()) return false;
     sistema.definirEstado(EstadoOperacional.Operacional);
     this.ultimaNegacaoDeComando = undefined;
     return true;
@@ -199,6 +203,10 @@ export class Propulsor extends Objeto {
       this.ultimaNegacaoDeComando = 'alimentação elétrica indisponível';
       return;
     }
+    if (id === 'elétrico') {
+      if (estado === EstadoOperacional.Operacional) this.conexao?.fecharInterruptor();
+      else this.conexao?.abrirInterruptor();
+    }
     this.obterSistema(id).definirEstado(estado);
     if (estado !== EstadoOperacional.Operacional) {
       this.desligarDependentesDe(id);
@@ -211,7 +219,7 @@ export class Propulsor extends Objeto {
       this.ultimaNegacaoDeComando = 'ignição bloqueada: propulsor estruturalmente inoperante';
       return false;
     }
-    if (!this.sistemas.operacaoAutorizada()) {
+    if (!this.sistemas.operacaoAutorizada() || this.conexao?.estaEnergizada !== true) {
       this.ultimaNegacaoDeComando = 'ignição bloqueada: sistemas obrigatórios indisponíveis';
       return false;
     }
@@ -224,6 +232,9 @@ export class Propulsor extends Objeto {
     return true;
   }
   public override prepararPassoOperacional(dtS: number): void {
+    if (!Number.isFinite(dtS) || dtS <= 0) throw new Error('Passo operacional inválido.');
+    this.conexao?.prepararPasso(dtS);
+    if (!this.fonteEletricaEstaConectada || this.conexao?.estaIndisponivel) this.definirEstadoDoSistema('elétrico', EstadoOperacional.Desligado);
     this.empuxoAtualCalculadoN = 0;
     this.vazaoAtualCalculadaKgS = 0;
     if (this.estaEstruturalmenteInoperante) {
@@ -244,17 +255,16 @@ export class Propulsor extends Objeto {
       return;
     }
     const bateria = this.bateria;
-    if (!bateria || !this.fonteEletricaEstaConectada || this.distanciaABateriaM() > this.comprimentoMaxCaboEletricoM) {
-      this.caboEletricoRompido = true;
+    if (!bateria || !this.conexao || this.conexao.estaIndisponivel) {
       this.definirEstadoDoSistema('elétrico', EstadoOperacional.Desligado);
       return;
     }
     if (this.cadeiaBipropelente) {
-      this.prepararCadeiaBipropelente(dtS, bateria);
+      this.prepararCadeiaBipropelente(dtS, this.conexao);
       return;
     }
     const energiaNecessariaJ = this.throttle * this.potenciaEletricaMaximaW * dtS;
-    const energiaFornecidaJ = bateria.fornecerEnergia(energiaNecessariaJ);
+    const energiaFornecidaJ = this.conexao.fornecerEnergia(energiaNecessariaJ);
     const disponibilidadeEletrica = energiaNecessariaJ === 0 ? 1 : energiaFornecidaJ / energiaNecessariaJ;
     const massaNecessariaKg = this.throttle * this.definicaoPropulsor.vazaoMaximaKgS * dtS * disponibilidadeEletrica;
     const massaFornecidaKg = this.tanque.fornecerPropelente(massaNecessariaKg);
@@ -279,11 +289,7 @@ export class Propulsor extends Objeto {
     if (!this.tanque) return Number.POSITIVE_INFINITY;
     return this.getEstadoFisico().posicaoM.subtrair(this.tanque.getEstadoFisico().posicaoM).magnitude;
   }
-  private distanciaABateriaM(): number {
-    if (!this.bateria) return Number.POSITIVE_INFINITY;
-    return this.getEstadoFisico().posicaoM.subtrair(this.bateria.getEstadoFisico().posicaoM).magnitude;
-  }
-  private prepararCadeiaBipropelente(dtS: number, bateria: Bateria): void {
+  private prepararCadeiaBipropelente(dtS: number, conexao: ConexaoEletrica): void {
     const cadeia = this.cadeiaBipropelente;
     if (!cadeia) return;
     const posicaoM = this.getEstadoFisico().posicaoM;
@@ -295,14 +301,15 @@ export class Propulsor extends Objeto {
     }
     const massaCombustivelNominalKg = this.definicaoPropulsor.vazaoMaximaKgS * dtS;
     const massaOxidanteNominalKg = massaCombustivelNominalKg * cadeia.camara.razaoMisturaOxidanteCombustivel;
-    const massaCombustivelKg = cadeia.bombaCombustivel.bombear(cadeia.linhaCombustivel, bateria, massaCombustivelNominalKg, dtS, posicaoM);
-    const massaOxidanteKg = cadeia.bombaOxidante.bombear(cadeia.linhaOxidante, bateria, massaOxidanteNominalKg, dtS, posicaoM);
+    const massaCombustivelKg = cadeia.bombaCombustivel.bombear(cadeia.linhaCombustivel, conexao, massaCombustivelNominalKg, dtS, posicaoM);
+    const massaOxidanteKg = cadeia.bombaOxidante.bombear(cadeia.linhaOxidante, conexao, massaOxidanteNominalKg, dtS, posicaoM);
     const resultado = cadeia.camara.reagir(massaCombustivelKg, massaOxidanteKg, this.integridadeEstrutural);
     const massaReagidaNominalKg = massaCombustivelNominalKg + massaOxidanteNominalKg;
     const fracaoDeVazao = massaReagidaNominalKg === 0 ? 0 : resultado.massaReagidaKg / massaReagidaNominalKg;
     this.empuxoAtualCalculadoN = cadeia.bocal.calcularEmpuxo(resultado, this.integridadeEstrutural, fracaoDeVazao);
     this.vazaoAtualCalculadaKgS = resultado.massaReagidaKg / dtS;
-    if (cadeia.linhaCombustivel.estaIndisponivel || cadeia.linhaOxidante.estaIndisponivel || bateria.estaDescarregada) this.interromperPorAlimentacaoDePropelenteIndisponivel();
+    if (cadeia.linhaCombustivel.estaIndisponivel || cadeia.linhaOxidante.estaIndisponivel ) this.interromperPorAlimentacaoDePropelenteIndisponivel();
+    if (conexao.fonte.estaDescarregada) this.definirEstadoDoSistema('elétrico', EstadoOperacional.Desligado);
   }
   private cadeiaBipropelenteEstaDisponivel(): boolean {
     return !this.cadeiaBipropelente || (!this.cadeiaBipropelente.linhaCombustivel.estaIndisponivel && !this.cadeiaBipropelente.linhaOxidante.estaIndisponivel);
@@ -321,12 +328,12 @@ export class Propulsor extends Objeto {
     }[id];
   }
   private dependenciaDePartida(id: IdSistemaPropulsor): IdSistemaPropulsor | undefined {
-    return {
+    return ({
       'elétrico': undefined,
       'hidráulico': 'elétrico',
       'combustível': 'hidráulico',
       controle: 'combustível',
-    }[id];
+    } satisfies Record<IdSistemaPropulsor, IdSistemaPropulsor | undefined>)[id];
   }
   private desligarDependentesDe(id: IdSistemaPropulsor): void {
     const sequencia: readonly IdSistemaPropulsor[] = ['elétrico', 'hidráulico', 'combustível', 'controle'];

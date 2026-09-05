@@ -77,3 +77,17 @@ button:hover { background: #0891b2; }
   .test-controls, .simulation-panel { border-right: 0; border-bottom: 1px solid #1e3a5f; }
   .test-readout { border-left: 0; }
 }
+
+.door-controls { display: grid; gap: .6rem; margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid #1e3a5f; }
+.door-controls[hidden] { display: none; }
+.door-controls h3 { margin: 0; font-size: .95rem; }
+.door-controls output { color: #cbd5e1; font-size: .78rem; line-height: 1.4; }
+.door-controls button { padding: .65rem .45rem; font-size: .83rem; }
+.door-command-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
+.door-sensors { display: grid; gap: .5rem; font-size: .78rem; }
+.sensor-led { display: flex; align-items: center; gap: .5rem; color: #94a3b8; }
+.sensor-led::before { content: ''; width: .7rem; height: .7rem; flex: 0 0 .7rem; border-radius: 50%; background: #334155; border: 1px solid #64748b; }
+.sensor-led.sensor-active { color: #bbf7d0; }
+.sensor-led.sensor-active::before { background: #4ade80; border-color: #bbf7d0; box-shadow: 0 0 8px #4ade8066; }
+.door-controls button:disabled { opacity: .45; cursor: not-allowed; }
+.door-command-buttons button[aria-pressed="true"] { border-color: #facc15; }

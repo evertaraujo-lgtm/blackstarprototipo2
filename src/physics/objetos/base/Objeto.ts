@@ -21,6 +21,8 @@ export interface DefinicaoObjeto {
   readonly coeficienteAtritoEntreObjetos?: number;
   /** Limite de temperatura acima do qual inicia degradação, em graus Celsius. */
   readonly limiteTermicoC: number;
+  /** Fusão/colapso do material em °C; opcional e superior ao início do dano. */
+  readonly temperaturaFusaoC?: number;
   readonly temperaturaInicialC?: number;
   readonly capacidadeTermicaJPorC?: number;
   readonly areaTermicaM2?: number;
@@ -74,6 +76,10 @@ export class Objeto {
     if (definicao.resistenciaColisaoJ <= 0 || !Number.isFinite(definicao.limiteTermicoC)) {
       throw new Error('Resistência a colisão deve ser positiva e limite térmico deve ser finito.');
     }
+    if (definicao.temperaturaFusaoC !== undefined &&
+        (!Number.isFinite(definicao.temperaturaFusaoC) || definicao.temperaturaFusaoC <= definicao.limiteTermicoC)) {
+      throw new Error('Temperatura de fusão deve ser finita e superior ao limite de dano, em °C.');
+    }
     const dissipacaoImpacto = definicao.dissipacaoImpacto ?? 0.15;
     if (!Number.isFinite(dissipacaoImpacto) || dissipacaoImpacto < 0 || dissipacaoImpacto >= 1) {
       throw new Error('Dissipação de impacto deve estar entre 0 e 1.');
@@ -115,6 +121,7 @@ export class Objeto {
   public get coeficienteAtrito(): number { return this.definicao.coeficienteAtrito ?? 0.65; }
   public get coeficienteAtritoEntreObjetos(): number { return this.definicao.coeficienteAtritoEntreObjetos ?? 0; }
   public get limiteTermicoC(): number { return this.definicao.limiteTermicoC; }
+  public get temperaturaFusaoC(): number | undefined { return this.definicao.temperaturaFusaoC; }
   public get temperaturaC(): number { return this.temperaturaAtualC; }
   public get capacidadeTermicaJPorC(): number { return this.definicao.capacidadeTermicaJPorC ?? this.massaKg * 500; }
   public get areaTermicaM2(): number { return this.definicao.areaTermicaM2 ?? Math.max(0.1, this.dimensoesM.x * this.dimensoesM.y); }
@@ -244,6 +251,11 @@ export class Objeto {
     const excessoC = this.temperaturaAtualC - this.limiteTermicoC;
     const taxa = this.definicao.taxaDanoTermicoPorSegundo ?? 0.02;
     this.integridade = Math.max(0, this.integridade - taxa * (excessoC / 100) * dtS);
+    if (this.temperaturaFusaoC !== undefined) {
+      // Envelope contínuo de perda estrutural: não recupera integridade ao resfriar.
+      const integridadeMaxima = Math.max(0, 1 - excessoC / (this.temperaturaFusaoC - this.limiteTermicoC));
+      this.integridade = Math.min(this.integridade, integridadeMaxima);
+    }
   }
 
   /** Energia mecânica dissipada em contato, registrada separadamente para telemetria. */

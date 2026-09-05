@@ -9,6 +9,9 @@ import { SistemaAtmosferico } from './solucionadores/SistemaAtmosferico';
 import { SistemaTermico } from './solucionadores/SistemaTermico';
 import { ResolvedorEsforcoEstrutural } from './solucionadores/ResolvedorEsforcoEstrutural';
 import { ConjuntoEstruturalRigido } from './estruturas/ConjuntoEstruturalRigido';
+import { obterContatoCaixasOrientadas } from './geometria/ContatoCaixasOrientadas';
+import { SwitchFimDeCurso } from './sensores/SwitchFimDeCurso';
+import { GuiaLinear } from './conexoes/GuiaLinear';
 
 interface Ponto2D { readonly x: number; readonly y: number; }
 
@@ -30,6 +33,8 @@ export class MundoFisico {
   private readonly superficies = new Map<string, SuperficiePlano>();
   private readonly fixadores = new Map<string, FixadorEstrutural>();
   private readonly chumbadoresAoSolo = new Map<string, ChumbadorAoSolo>();
+  private readonly switchesFimDeCurso = new Map<string, SwitchFimDeCurso>();
+  private readonly guiasLineares = new Map<string, GuiaLinear>();
   private readonly conjuntosEstruturais = new Map<string, ConjuntoEstruturalRigido>();
   private readonly forcasPendentes = new Map<string, ForcaAplicada[]>();
   private tempoMissaoS = 0;
@@ -78,6 +83,21 @@ export class MundoFisico {
     if (this.chumbadoresAoSolo.has(chumbador.id)) throw new Error(`Chumbador já registrado: ${chumbador.id}.`);
     this.exigirRegistro(chumbador.objeto);
     this.chumbadoresAoSolo.set(chumbador.id, chumbador);
+  }
+
+  /** Registra um sensor que apenas observa os contatos físicos deste mundo. */
+  public registrarSwitchFimDeCurso(switchFimDeCurso: SwitchFimDeCurso): void {
+    if (this.switchesFimDeCurso.has(switchFimDeCurso.id)) throw new Error(`Switch de fim de curso já registrado: ${switchFimDeCurso.id}.`);
+    this.exigirRegistro(switchFimDeCurso.objetoHospedeiro);
+    this.switchesFimDeCurso.set(switchFimDeCurso.id, switchFimDeCurso);
+    // Contatos iniciais devem estar disponíveis antes do primeiro comando.
+    this.atualizarSwitchesFimDeCurso();
+  }
+
+  public registrarGuiaLinear(guia: GuiaLinear): void {
+    if (this.guiasLineares.has(guia.id)) throw new Error(`Guia linear já registrada: ${guia.id}.`);
+    this.exigirRegistro(guia.objeto);
+    this.guiasLineares.set(guia.id, guia);
   }
 
   public aplicarForca(objeto: Objeto, forcaN: Vetor3, pontoM?: Vetor3): void {
@@ -155,6 +175,8 @@ export class MundoFisico {
       const conjunto = this.obterConjuntoEstruturalDoObjeto(chumbador.objeto);
       if (conjunto) conjunto.restringirNoMembro(chumbador.objeto, chumbador.estadoDeAncoragem);
     }
+    for (const guia of this.guiasLineares.values()) guia.resolverRestricao(dtS);
+    this.atualizarSwitchesFimDeCurso();
     this.forcasPendentes.clear();
     this.tempoMissaoS += dtS;
   }
@@ -339,14 +361,15 @@ export class MundoFisico {
   }
 
   private obterContatoCaixasOrientadas(objetoA: Objeto, objetoB: Objeto): { normal: Vetor3; penetracaoM: number; pontoM: Vetor3 } | undefined {
-    // Preserva o resolvedor analítico já validado para caixas não rotacionadas.
+    // O resolvedor físico preserva sua versão analítica já validada. Sensores
+    // usam a mesma técnica SAT em uma consulta geométrica sem efeitos físicos.
     if (objetoA.getEstadoFisico().orientacaoRad.z === 0 && objetoB.getEstadoFisico().orientacaoRad.z === 0) {
       return this.obterContatoAabb(objetoA, objetoB);
     }
-    const a = this.obterVertices2D(objetoA);
-    const b = this.obterVertices2D(objetoB);
     const estadoA = objetoA.getEstadoFisico();
     const estadoB = objetoB.getEstadoFisico();
+    const a = this.obterVertices2D(objetoA);
+    const b = this.obterVertices2D(objetoB);
     let penetracaoM = Number.POSITIVE_INFINITY;
     let normal: Ponto2D | undefined;
     for (const eixo of [...this.obterEixos(a), ...this.obterEixos(b)]) {
@@ -370,6 +393,31 @@ export class MundoFisico {
       return { normal: new Vetor3(0, 0, estadoB.posicaoM.z >= estadoA.posicaoM.z ? 1 : -1), penetracaoM: sobreposicaoZ, pontoM: new Vetor3(ponto.x, ponto.y, z) };
     }
     return { normal: new Vetor3(normal.x, normal.y, 0), penetracaoM, pontoM: new Vetor3(ponto.x, ponto.y, z) };
+  }
+
+  /** Atualiza a saída dos sensores depois que o core estabilizou os contatos do passo. */
+  private atualizarSwitchesFimDeCurso(): void {
+    const toleranciaContatoM = 1e-6;
+    for (const switchFimDeCurso of this.switchesFimDeCurso.values()) {
+      const volume = switchFimDeCurso.obterVolumeSensivel();
+      const alvoObjeto = [...this.objetos.values()].find((objeto) => {
+        if (objeto === switchFimDeCurso.objetoHospedeiro || this.estaoNaMesmaIlhaEstrutural(objeto, switchFimDeCurso.objetoHospedeiro)) return false;
+        const estado = objeto.getEstadoFisico();
+        return obterContatoCaixasOrientadas(
+          volume,
+          { posicaoM: estado.posicaoM, dimensoesM: objeto.dimensoesM, orientacaoZRad: estado.orientacaoRad.z },
+          toleranciaContatoM,
+        ) !== undefined;
+      });
+      if (alvoObjeto) {
+        switchFimDeCurso.atualizarContatoPeloCore(alvoObjeto);
+        continue;
+      }
+      const tocaSuperficie = [...this.superficies.values()].find((superficie) =>
+        switchFimDeCurso.obterPontosDaFaceSensivelM().some((ponto) => ponto.y <= superficie.alturaM + toleranciaContatoM),
+      );
+      switchFimDeCurso.atualizarContatoPeloCore(tocaSuperficie ? { id: tocaSuperficie.id, tipo: 'superficie' } : undefined);
+    }
   }
 
   private obterVertices2D(objeto: Objeto): Ponto2D[] {
