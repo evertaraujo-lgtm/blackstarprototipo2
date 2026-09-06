@@ -34,10 +34,20 @@ Veículo composto e seus controladores
                 │ solicita forças e vínculos
                 ▼
 MundoFisico
- ├── integração, gravidade e atmosfera
- ├── colisões, contato e dano
+ ├── registros, tempo e ordem do passo
+ ├── IntegradorFisico
+ ├── SistemaAtmosferico / SistemaTermico
+ ├── ResolvedorColisoes
+ ├── ResolvedorContatoSuperficie
+ ├── ResolvedorEsforcoEstrutural
+ ├── SistemaSensores
  └── ilhas rígidas de módulos conectados
 ```
+
+O mundo coordena o ciclo determinístico e mantém a fonte única dos registros;
+os solucionadores encapsulam a matemática dos fenômenos. A geometria de
+contato é compartilhada por colisões e sensores, sem regra paralela na
+interface.
 
 Cada módulo físico continua existindo individualmente no mundo. Enquanto os
 fixadores estão íntegros, os módulos conectados formam uma ilha rígida: o core

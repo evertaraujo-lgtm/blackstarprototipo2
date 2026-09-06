@@ -1,12 +1,14 @@
 import { Vetor3 } from '../Vetor3';
 
-interface Ponto2D { readonly x: number; readonly y: number; }
+export interface Ponto2D { readonly x: number; readonly y: number; }
 
 /** Estado geométrico mínimo para consultas de contato; não possui dinâmica. */
 export interface CaixaOrientada {
   readonly posicaoM: Vetor3;
   readonly dimensoesM: Vetor3;
   readonly orientacaoZRad: number;
+  /** Permite preservar geometrias planares específicas, como triângulos. */
+  readonly verticesLocais2D?: readonly Ponto2D[];
 }
 
 export interface ContatoCaixasOrientadas {
@@ -28,6 +30,9 @@ export function obterContatoCaixasOrientadas(
 ): ContatoCaixasOrientadas | undefined {
   if (!Number.isFinite(toleranciaContatoM) || toleranciaContatoM < 0) {
     throw new Error('Tolerância de contato deve ser finita e não negativa.');
+  }
+  if (caixaA.orientacaoZRad === 0 && caixaB.orientacaoZRad === 0 && !caixaA.verticesLocais2D && !caixaB.verticesLocais2D) {
+    return obterContatoAabb(caixaA, caixaB, toleranciaContatoM);
   }
   const a = obterVertices2D(caixaA);
   const b = obterVertices2D(caixaB);
@@ -60,7 +65,54 @@ export function obterContatoCaixasOrientadas(
   return { normal: new Vetor3(normal.x, normal.y, 0), penetracaoM: Math.max(0, penetracaoM), pontoM: new Vetor3(ponto.x, ponto.y, z) };
 }
 
+function obterContatoAabb(caixaA: CaixaOrientada, caixaB: CaixaOrientada, toleranciaContatoM: number): ContatoCaixasOrientadas | undefined {
+  const diferenca = caixaB.posicaoM.subtrair(caixaA.posicaoM);
+  const sobreposicaoX = ((caixaA.dimensoesM.x + caixaB.dimensoesM.x) / 2) - Math.abs(diferenca.x);
+  const sobreposicaoY = ((caixaA.dimensoesM.y + caixaB.dimensoesM.y) / 2) - Math.abs(diferenca.y);
+  const sobreposicaoZ = ((caixaA.dimensoesM.z + caixaB.dimensoesM.z) / 2) - Math.abs(diferenca.z);
+  if (sobreposicaoX < -toleranciaContatoM || sobreposicaoY < -toleranciaContatoM || sobreposicaoZ < -toleranciaContatoM) return undefined;
+  if (sobreposicaoX <= sobreposicaoY && sobreposicaoX <= sobreposicaoZ) {
+    const sinal = diferenca.x >= 0 ? 1 : -1;
+    return {
+      normal: new Vetor3(sinal, 0, 0), penetracaoM: Math.max(0, sobreposicaoX),
+      pontoM: new Vetor3(
+        (caixaA.posicaoM.x + sinal * caixaA.dimensoesM.x / 2 + caixaB.posicaoM.x - sinal * caixaB.dimensoesM.x / 2) / 2,
+        obterCentroDaIntersecao(caixaA.posicaoM.y, caixaA.dimensoesM.y, caixaB.posicaoM.y, caixaB.dimensoesM.y),
+        obterCentroDaIntersecao(caixaA.posicaoM.z, caixaA.dimensoesM.z, caixaB.posicaoM.z, caixaB.dimensoesM.z),
+      ),
+    };
+  }
+  if (sobreposicaoY <= sobreposicaoZ) {
+    const sinal = diferenca.y >= 0 ? 1 : -1;
+    return {
+      normal: new Vetor3(0, sinal, 0), penetracaoM: Math.max(0, sobreposicaoY),
+      pontoM: new Vetor3(
+        obterCentroDaIntersecao(caixaA.posicaoM.x, caixaA.dimensoesM.x, caixaB.posicaoM.x, caixaB.dimensoesM.x),
+        (caixaA.posicaoM.y + sinal * caixaA.dimensoesM.y / 2 + caixaB.posicaoM.y - sinal * caixaB.dimensoesM.y / 2) / 2,
+        obterCentroDaIntersecao(caixaA.posicaoM.z, caixaA.dimensoesM.z, caixaB.posicaoM.z, caixaB.dimensoesM.z),
+      ),
+    };
+  }
+  const sinal = diferenca.z >= 0 ? 1 : -1;
+  return {
+    normal: new Vetor3(0, 0, sinal), penetracaoM: Math.max(0, sobreposicaoZ),
+    pontoM: new Vetor3(
+      obterCentroDaIntersecao(caixaA.posicaoM.x, caixaA.dimensoesM.x, caixaB.posicaoM.x, caixaB.dimensoesM.x),
+      obterCentroDaIntersecao(caixaA.posicaoM.y, caixaA.dimensoesM.y, caixaB.posicaoM.y, caixaB.dimensoesM.y),
+      (caixaA.posicaoM.z + sinal * caixaA.dimensoesM.z / 2 + caixaB.posicaoM.z - sinal * caixaB.dimensoesM.z / 2) / 2,
+    ),
+  };
+}
+
 function obterVertices2D(caixa: CaixaOrientada): Ponto2D[] {
+  if (caixa.verticesLocais2D) {
+    const c = Math.cos(caixa.orientacaoZRad);
+    const s = Math.sin(caixa.orientacaoZRad);
+    return caixa.verticesLocais2D.map((ponto) => ({
+      x: caixa.posicaoM.x + (ponto.x * c) - (ponto.y * s),
+      y: caixa.posicaoM.y + (ponto.x * s) + (ponto.y * c),
+    }));
+  }
   const metadeX = caixa.dimensoesM.x / 2;
   const metadeY = caixa.dimensoesM.y / 2;
   const c = Math.cos(caixa.orientacaoZRad);
