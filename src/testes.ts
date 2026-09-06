@@ -1849,7 +1849,7 @@ const construirCenarios = (): CenárioVisual[] => {
     criarTesteImpactoNoRetangulo('impacto no centro de massa', 5, 3),
   ];
   void cenariosArquivados;
-  return [criarTestePainelSolarComSombra()];
+  return [criarTestePainelSolarComSombra(), criarTestePortaVertical()];
 };
 
 let cenarios = construirCenarios();

@@ -33,7 +33,7 @@ describe('Trava fail-safe da porta', () => {
   it('sensor de porta aberta avança a trava e ela sustenta a porta sem energia', () => {
     const e = energizar(); e.porta.abrir(); e.mundo.avancar(7);
     expect(e.porta.sensorAbertoAcionado).toBe(true);
-    expect(e.porta.comandoAtual).toBe('parar');
+    expect(e.porta.comandoAtual).toBe('abrir');
     expect(e.trava.comandoAtual).toBe('avancar');
     expect(e.trava.estaAvancada).toBe(true);
     const altura = e.porta.getEstadoFisico().posicaoM.y;

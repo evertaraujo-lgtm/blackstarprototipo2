@@ -8,7 +8,7 @@ export interface DefinicaoTravaPorta extends DefinicaoObjeto {
   readonly porta: () => Objeto;
   readonly conexaoComando: ConexaoEletrica;
   readonly sensorPortaAberta: () => boolean;
-  readonly comandoPorta: () => 'abrir' | 'fechar' | 'parar';
+  readonly obterUltimoComandoOperacional: () => { readonly sequencia: number; readonly comando: 'abrir' | 'fechar' | 'parar' } | undefined;
   readonly cursoM: number;
   readonly velocidadeMps: number;
   readonly forcaMaximaN: number;
@@ -26,6 +26,8 @@ export class TravaPorta extends ComCilindro(Objeto) {
   private forcaAtualN = 0;
   private recuoSolicitado = false;
   private alturaRetidaM?: number;
+  private ultimaSequenciaDeMovimento = 0;
+  private comandoOperacionalAtual: 'abrir' | 'fechar' | 'parar' = 'parar';
 
   public constructor(private readonly config: DefinicaoTravaPorta) {
     super(config);
@@ -55,10 +57,17 @@ export class TravaPorta extends ComCilindro(Objeto) {
   }
 
   private atualizarComando(): void {
-    const comando = this.config.comandoPorta();
-    // Abrir libera a passagem; porta aberta e sem descida volta a travar.
-    this.recuoSolicitado = comando === 'abrir' || comando === 'fechar';
-    const avancar = this.config.sensorPortaAberta() && comando !== 'fechar';
+    const comandoIniciado = this.config.obterUltimoComandoOperacional();
+    if (comandoIniciado && comandoIniciado.sequencia !== this.ultimaSequenciaDeMovimento) {
+      this.ultimaSequenciaDeMovimento = comandoIniciado.sequencia;
+      this.comandoOperacionalAtual = comandoIniciado.comando;
+      this.recuoSolicitado = comandoIniciado.comando !== 'parar';
+      this.alturaRetidaM = undefined;
+    }
+    // O comando de abrir inicia o recuo uma vez. Depois, o sensor aberto
+    // autoriza o avanço da trava mesmo que abrir continue selado na porta.
+    if (this.comandoOperacionalAtual !== 'fechar' && this.config.sensorPortaAberta()) this.recuoSolicitado = false;
+    const avancar = this.config.sensorPortaAberta() && this.comandoOperacionalAtual !== 'fechar';
     this.definirEntradas({ avancar: avancar && !this.recuoSolicitado, recuar: this.recuoSolicitado,
       avancado: this.estaAvancada, recuado: this.estaRecuada });
   }

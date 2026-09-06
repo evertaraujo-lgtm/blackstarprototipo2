@@ -81,7 +81,7 @@ export function criarEnsaioPortaVertical(configuracao: ConfiguracaoEnsaioPorta =
       limiteTermicoC: 150, temperaturaFusaoC: undefined, temperaturaFalhaTotalC: 700,
       batente: laterais[0], porta: () => porta, conexaoComando: conexaoEletrica,
       apoioEstruturalDisponivel: () => conjunto.apoioEstruturalDisponivel,
-      sensorPortaAberta: () => porta.sensorAbertoAcionado, comandoPorta: () => porta.comandoAtual as 'abrir' | 'fechar' | 'parar',
+      sensorPortaAberta: () => porta.sensorAbertoAcionado, obterUltimoComandoOperacional: () => porta.obterUltimoComandoOperacional(),
       cursoM: 0.2, velocidadeMps: 0.5, forcaMaximaN: 1_000, potenciaRecuoW: 18 });
   }
   const objetos = [...(separado ? [gerador] : []), bateria, superior, inferior, ...laterais, porta, ...(trava ? [trava] : [])];

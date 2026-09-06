@@ -8,6 +8,11 @@ import { SwitchFimDeCurso } from '../../sensores/SwitchFimDeCurso';
 import { EstadoOperacional, SistemaOperacional } from '../../SistemaOperacional';
 import { Vetor3 } from '../../Vetor3';
 
+export interface ComandoOperacionalDaPorta {
+  readonly sequencia: number;
+  readonly comando: 'abrir' | 'fechar' | 'parar';
+}
+
 export interface DefinicaoPorta extends DefinicaoObjeto {
   readonly batente: Objeto;
   readonly bateria: Bateria;
@@ -33,6 +38,8 @@ export class Porta extends ComCilindro(Objeto) {
   private readonly controle = new SistemaOperacional('controle', EstadoOperacional.Desligado);
   private potenciaSolicitada = false;
   private comando: 'abrir' | 'fechar' | 'parar' = 'parar';
+  private sequenciaComandoMovimento = 0;
+  private ultimoComandoOperacional?: ComandoOperacionalDaPorta;
 
   public constructor(private readonly configuracaoPorta: DefinicaoPorta) {
     super(configuracaoPorta);
@@ -69,6 +76,10 @@ export class Porta extends ComCilindro(Objeto) {
   }
   public get apoioEstruturalDisponivel(): boolean { return this.configuracaoPorta.apoioEstruturalDisponivel?.() ?? true; }
   public get comandoAtual(): string { return this.comando; }
+  /** Evento retido do último comando que iniciou um movimento. */
+  public obterUltimoComandoOperacional(): ComandoOperacionalDaPorta | undefined {
+    return this.ultimoComandoOperacional;
+  }
   public get forcaAtualN(): number { return this.operacional ? this.acionamento.forcaNaHasteN : 0; }
   public get potenciaEletricaAtualW(): number { return this.operacional ? this.acionamento.potenciaEletricaAtualW : 0; }
 
@@ -91,14 +102,14 @@ export class Porta extends ComCilindro(Objeto) {
   public desligarControle(): void {
     this.controle.definirEstado(EstadoOperacional.Desligado);
     this.potenciaSolicitada = false;
-    this.comando = 'parar';
+    this.registrarComandoOperacional('parar');
     this.limparSelo();
     this.configuracaoPorta.potenciaSeparada?.contator.desarmar();
     this.atualizarEntradasDosSensores();
   }
   public abrir(): boolean { return this.solicitarMovimento('abrir'); }
   public fechar(): boolean { return this.solicitarMovimento('fechar'); }
-  public parar(): void { this.comando = 'parar'; this.limparSelo(); this.atualizarEntradasDosSensores(); }
+  public parar(): void { this.registrarComandoOperacional('parar'); this.limparSelo(); this.atualizarEntradasDosSensores(); }
 
   /** API herdada: as realimentações válidas vêm dos sensores físicos, não do chamador. */
   public override definirEntradas(entradas: EntradasCilindro): void {
@@ -109,10 +120,16 @@ export class Porta extends ComCilindro(Objeto) {
   }
   private solicitarMovimento(comando: 'abrir' | 'fechar'): boolean {
     if (!this.operacional) return false;
-    this.comando = comando;
+    this.registrarComandoOperacional(comando);
     this.potenciaSolicitada = true;
     this.atualizarEntradasDosSensores();
     return true;
+  }
+  private registrarComandoOperacional(comando: 'abrir' | 'fechar' | 'parar'): void {
+    if (this.comando === comando) return;
+    this.comando = comando;
+    this.sequenciaComandoMovimento += 1;
+    this.ultimoComandoOperacional = { sequencia: this.sequenciaComandoMovimento, comando };
   }
   private atualizarEntradasDosSensores(): void {
     const travaLiberada = this.configuracaoPorta.obterTravaRecuada?.() ?? true;
