@@ -1680,13 +1680,15 @@ const criarTestePortaVertical = (): CenárioVisual => {
     cameraY: () => porta.getEstadoFisico().posicaoM.y,
     conexoesEletricas: [e.conexaoEletrica, e.conexaoPotencia],
     geradorControlavel: e.gerador,
+    chumbadoresAoSolo: e.chumbadores,
+    guiasLineares: [e.guia, ...(e.guiaTrava ? [e.guiaTrava] : [])],
     portaControlavel: porta, sensoresFimDeCurso: [e.sensorAberto, e.sensorFechado],
     exibirNaBancada: true,
     // Ensaio operacional contínuo: permite vários ciclos e falhas sem trocar de cenário.
     deveEncerrar: () => false,
     validar: () => `OBSERVAÇÃO · aberto=${e.sensorAberto.sinal}; fechado=${e.sensorFechado.sinal}`,
     telemetria: () => `curso ${(porta.getEstadoFisico().posicaoM.y - 1.2).toFixed(3)} m · vy=${porta.getEstadoFisico().velocidadeMps.y.toFixed(3)} m/s`,
-    dados: () => `Comando: bateria 24 V CC → controle + bobina K1 + recuo da trava\nPotência: gerador 220 V CA → K1 → motor/fuso → porta\nK1: ${porta.contatorFechado ? 'FECHADO' : 'ABERTO'}\nTrava: ${e.trava?.estaAvancada ? 'AVANÇADA · PORTA SEGURA' : e.trava?.estaRecuada ? 'RECUADA · PORTA LIVRE' : 'EM MOVIMENTO'} · comando ${e.trava?.comandoAtual ?? '—'}\nForça da trava: ${e.trava?.forcaAtualDaTravaN.toFixed(1) ?? '0.0'} N\nGerador: ${e.gerador.estaLigado ? 'LIGADO' : 'DESLIGADO'} · ${e.gerador.temperaturaC.toFixed(1)} °C · integridade ${(e.gerador.integridadeEstrutural * 100).toFixed(1)}%\nReserva mecânica: ${e.gerador.energiaMecanicaRestanteJ.toFixed(1)} J\nEnergia CA gerada: ${e.gerador.energiaEletricaGeradaJ.toFixed(1)} J\nComando: ${porta.comandoAtual}\nPorta: 40 kg · 2 × 2 × 0,12 m\nForça: ${porta.forcaAtualN.toFixed(1)} / 4000 N\nPotência: ${porta.potenciaEletricaAtualW.toFixed(1)} W\nEnergia restante: ${e.bateria.energiaArmazenadaJ.toFixed(1)} J\nIntegridade da porta: ${(porta.integridadeEstrutural * 100).toFixed(1)}%\nIntegridade mínima do batente: ${(Math.min(...[e.superior, e.inferior, ...e.laterais].map((o) => o.integridadeEstrutural)) * 100).toFixed(1)}%\nTemperatura: ${porta.temperaturaC.toFixed(1)} °C\nDano > 150 °C · falha total 700 °C\nGuia: ${e.guia.estaRompida ? 'ROMPIDA' : 'íntegra'}\nChumbadores: ${e.chumbadores.filter((c) => !c.estaRompido).length}/${e.chumbadores.length} íntegros\nSubpasso ≤ 1/240 s · repouso |v| ≤ 0,05 m/s`,
+    dados: () => `Comando: bateria 24 V CC → controle + bobina K1 + recuo da trava\nPotência: gerador 220 V CA → K1 → motor/fuso → porta\nK1: ${porta.contatorFechado ? 'FECHADO' : 'ABERTO'}\nApoio composto: ${e.conjunto.apoioEstruturalDisponivel ? 'OPERACIONAL' : e.conjunto.motivosDeApoioIndisponivel.join(', ')}\nTrava: ${e.trava?.estaSustentandoPorta ? 'ENCAIXADA · PORTA SEGURA' : e.trava?.estaAvancada ? 'AVANÇADA · SEM ENCAIXE' : e.trava?.estaRecuada ? 'RECUADA · PORTA LIVRE' : 'EM MOVIMENTO'} · comando ${e.trava?.comandoAtual ?? '—'}\nForça da trava: ${e.trava?.forcaAtualDaTravaN.toFixed(1) ?? '0.0'} N\nGerador: ${e.gerador.estaLigado ? 'LIGADO' : 'DESLIGADO'} · ${e.gerador.temperaturaC.toFixed(1)} °C · integridade ${(e.gerador.integridadeEstrutural * 100).toFixed(1)}%\nReserva mecânica: ${e.gerador.energiaMecanicaRestanteJ.toFixed(1)} J\nEnergia CA gerada: ${e.gerador.energiaEletricaGeradaJ.toFixed(1)} J\nComando: ${porta.comandoAtual}\nPorta: 40 kg · 2 × 2 × 0,12 m\nForça: ${porta.forcaAtualN.toFixed(1)} / 4000 N\nPotência: ${porta.potenciaEletricaAtualW.toFixed(1)} W\nEnergia restante: ${e.bateria.energiaArmazenadaJ.toFixed(1)} J\nIntegridade da porta: ${(porta.integridadeEstrutural * 100).toFixed(1)}%\nIntegridade mínima do batente: ${(Math.min(...[e.superior, e.inferior, ...e.laterais].map((o) => o.integridadeEstrutural)) * 100).toFixed(1)}%\nTemperatura: ${porta.temperaturaC.toFixed(1)} °C\nDano > 150 °C · falha total 700 °C\nGuia: ${e.guia.estaRompida ? 'ROMPIDA' : 'íntegra'}\nChumbadores: ${e.chumbadores.filter((c) => !c.estaRompido).length}/${e.chumbadores.length} íntegros\nSubpasso ≤ 1/240 s · repouso |v| ≤ 0,05 m/s`,
   };
 };
 
@@ -2398,7 +2400,8 @@ const atualizarControlesDoPropulsor = (): void => {
     doorChainStatus.textContent = porta.conexaoEletrica.estaRompida ? 'Cabo rompido' : porta.conexaoEletrica.estaDesconectada ? 'Cabo desconectado' :
       !porta.fonteDisponivel ? 'Alimentação indisponível' :
       !porta.alimentacaoLigada ? 'Alimentação desligada' : !porta.controleLigado ? 'Aguardando controle' :
-      !porta.potenciaDisponivel ? 'Potência CA indisponível' : !porta.operacional ? 'Falha estrutural' : 'Pronta · alimentação e controle ligados';
+      !porta.potenciaDisponivel ? 'Potência CA indisponível' : !porta.apoioEstruturalDisponivel ? 'Batente sem apoio estrutural' :
+      !porta.operacional ? 'Falha estrutural' : 'Pronta · alimentação e controle ligados';
   }
   const propulsor = cenário.propulsorControlavel;
   const propulsorVetorizado = cenário.propulsorVetorizadoControlavel;

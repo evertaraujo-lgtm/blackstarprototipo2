@@ -13,6 +13,7 @@ export interface DefinicaoTravaPorta extends DefinicaoObjeto {
   readonly velocidadeMps: number;
   readonly forcaMaximaN: number;
   readonly potenciaRecuoW: number;
+  readonly apoioEstruturalDisponivel?: () => boolean;
 }
 
 /**
@@ -40,6 +41,18 @@ export class TravaPorta extends ComCilindro(Objeto) {
   public get estaRecuada(): boolean { return Math.abs(this.getEstadoFisico().posicaoM.x - this.xRecuadoM) <= 0.01; }
   public get forcaAtualDaTravaN(): number { return this.forcaAtualN; }
   public get comandoAtual(): 'avancar' | 'recuar' { return this.recuoSolicitado ? 'recuar' : 'avancar'; }
+  public get estaSustentandoPorta(): boolean {
+    if (!this.estaAvancada || this.alturaRetidaM === undefined || this.integridadeEstrutural === 0
+      || this.config.apoioEstruturalDisponivel?.() === false) return false;
+    const porta = this.config.porta();
+    const estadoTrava = this.getEstadoFisico();
+    const estadoPorta = porta.getEstadoFisico();
+    const sobreposicaoHorizontalM = (this.dimensoesM.x + porta.dimensoesM.x) / 2 - Math.abs(estadoTrava.posicaoM.x - estadoPorta.posicaoM.x);
+    const topoTravaM = estadoTrava.posicaoM.y + this.dimensoesM.y / 2;
+    const basePortaM = estadoPorta.posicaoM.y - porta.dimensoesM.y / 2;
+    const distanciaVerticalM = basePortaM - topoTravaM;
+    return sobreposicaoHorizontalM > 0 && distanciaVerticalM >= -0.03 && distanciaVerticalM <= 0.08;
+  }
 
   private atualizarComando(): void {
     const comando = this.config.comandoPorta();
@@ -75,13 +88,15 @@ export class TravaPorta extends ComCilindro(Objeto) {
   }
 
   public obterForcasNaPorta(): readonly ForcaFisicaSolicitada[] {
-    if (this.alturaRetidaM === undefined || !this.estaAvancada || this.integridadeEstrutural === 0) return [];
+    if (!this.estaSustentandoPorta) return [];
+    const alturaRetidaM = this.alturaRetidaM;
+    if (alturaRetidaM === undefined) return [];
     const porta = this.config.porta();
     const estado = porta.getEstadoFisico();
     const rigidezNPorM = 80_000;
     const amortecimentoNsPorM = 2 * Math.sqrt(rigidezNPorM * porta.massaKg);
     const suporteN = Math.max(0, Math.min(this.config.forcaMaximaN,
-      porta.massaKg * 9.80665 + (this.alturaRetidaM - estado.posicaoM.y) * rigidezNPorM - estado.velocidadeMps.y * amortecimentoNsPorM));
+      porta.massaKg * 9.80665 + (alturaRetidaM - estado.posicaoM.y) * rigidezNPorM - estado.velocidadeMps.y * amortecimentoNsPorM));
     return [{ forcaN: new Vetor3(0, suporteN, 0) }];
   }
 

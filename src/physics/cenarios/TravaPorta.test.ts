@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { Objeto } from '../objetos/base/Objeto';
+import { Vetor3 } from '../Vetor3';
 import { criarEnsaioPortaVertical } from './EnsaioPortaVertical';
 
 function energizar() {
@@ -36,9 +37,20 @@ describe('Trava fail-safe da porta', () => {
     expect(e.trava.comandoAtual).toBe('avancar');
     expect(e.trava.estaAvancada).toBe(true);
     const altura = e.porta.getEstadoFisico().posicaoM.y;
-    e.porta.desligarAlimentacao(); e.gerador.desligar(); e.mundo.avancar(1);
+    e.porta.desligarAlimentacao(); e.gerador.desligar(); e.mundo.avancar(120);
     expect(e.trava.estaAvancada).toBe(true);
+    expect(e.guiaTrava?.estaRompida).toBe(false);
+    expect(e.trava.getEstadoFisico().posicaoM.y).toBeCloseTo(2.32, 8);
     expect(e.porta.getEstadoFisico().posicaoM.y).toBeGreaterThan(altura - 0.03);
+  }, 90_000);
+
+  it('não sustenta a porta à distância quando perde o encaixe físico', () => {
+    const e = energizar(); e.porta.abrir(); e.mundo.avancar(7);
+    expect(e.trava.estaSustentandoPorta).toBe(true);
+    const estado = e.trava.getEstadoFisico();
+    e.trava.atualizarEstadoPeloCore({ ...estado, posicaoM: estado.posicaoM.adicionar(new Vetor3(0, -2, 0)) });
+    expect(e.trava.estaSustentandoPorta).toBe(false);
+    expect(e.trava.obterForcasNaPorta()).toEqual([]);
   }, 20_000);
 
   it('comando fechar recua a trava e só depois permite a descida', () => {

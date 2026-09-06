@@ -1345,13 +1345,22 @@ sem requisito específico que justifique outro modelo físico.
   a confirmação de trava recuada. O sensor de porta aberta, combinado com a
   ausência de comando para descer, solicita o avanço.
 - A trava avançada sustenta a porta por força mecânica e transmite reação ao
-  batente. Não congela posição nem altera cinemática diretamente. Se perder CC
+  batente. A sustentação exige sobreposição horizontal e proximidade vertical
+  reais entre ferrolho e porta; estado lógico avançado não autoriza força à
+  distância. Não congela posição nem altera cinemática diretamente. Se perder CC
   durante o recuo, a mola solicita avanço; uma porta fora de alinhamento pode
   impedir fisicamente o curso até que o encaixe volte a ficar disponível.
 - A trava deste ensaio tem 2 kg, curso de 0,2 m, velocidade de referência de
   0,5 m/s, força máxima de 1.000 N e recuo elétrico de 18 W. Ela começa a sofrer
   dano acima de 150 °C e falha totalmente a 700 °C, conforme definido pelo
   operador. A guia horizontal e a fixação do batente recebem as reações reais.
+- Porta, peças do batente, trava, guias e fixações formam um
+  `ConjuntoPortaBatente`. A composição referencia os corpos reais registrados
+  no `MundoFisico`; não cria massa, posição ou cinemática duplicadas.
+- O cilindro da porta depende de um caminho estrutural completo até a fundação.
+  Qualquer peça destruída, guia rompida ou chumbador do batente rompido torna a
+  força e a potência efetivas nulas. O comando pode continuar solicitado para
+  diagnóstico, mas não produz movimento comandado sem corpo de reação.
 
 ---
 

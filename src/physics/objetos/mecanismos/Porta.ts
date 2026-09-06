@@ -23,6 +23,7 @@ export interface DefinicaoPorta extends DefinicaoObjeto {
   readonly potenciaEmRepousoW: number;
   readonly obterTravaRecuada?: () => boolean;
   readonly obterForcasDaTrava?: () => readonly ForcaFisicaSolicitada[];
+  readonly apoioEstruturalDisponivel?: () => boolean;
 }
 
 /** Porta vertical: identidade física de Objeto e comportamento herdado do cilindro. */
@@ -63,8 +64,10 @@ export class Porta extends ComCilindro(Objeto) {
   public get alimentacaoLigada(): boolean { return this.alimentacao.operacional && this.fonteDisponivel && this.conexaoEletrica.estaEnergizada; }
   public get controleLigado(): boolean { return this.controle.operacional && this.alimentacaoLigada; }
   public get operacional(): boolean {
-    return this.controleLigado && this.potenciaDisponivel && this.integridadeEstrutural > 0 && this.configuracaoPorta.batente.integridadeEstrutural > 0;
+    return this.controleLigado && this.potenciaDisponivel && this.apoioEstruturalDisponivel
+      && this.integridadeEstrutural > 0 && this.configuracaoPorta.batente.integridadeEstrutural > 0;
   }
+  public get apoioEstruturalDisponivel(): boolean { return this.configuracaoPorta.apoioEstruturalDisponivel?.() ?? true; }
   public get comandoAtual(): string { return this.comando; }
   public get forcaAtualN(): number { return this.operacional ? this.acionamento.forcaNaHasteN : 0; }
   public get potenciaEletricaAtualW(): number { return this.operacional ? this.acionamento.potenciaEletricaAtualW : 0; }

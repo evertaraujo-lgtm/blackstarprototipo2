@@ -5,6 +5,7 @@ import { MundoFisico } from '../MundoFisico';
 import { Objeto } from '../objetos/base/Objeto';
 import { Porta, BatenteDePorta } from '../objetos/mecanismos/Porta';
 import { TravaPorta } from '../objetos/mecanismos/TravaPorta';
+import { ConjuntoPortaBatente } from '../objetos/mecanismos/ConjuntoPortaBatente';
 import { Bateria } from '../objetos/fontes-de-energia/Bateria';
 import { SwitchFimDeCurso } from '../sensores/SwitchFimDeCurso';
 import { ChumbadorAoSolo } from '../conexoes/ChumbadorAoSolo';
@@ -52,6 +53,7 @@ export function criarEnsaioPortaVertical(configuracao: ConfiguracaoEnsaioPorta =
   const contator = new Contator();
   let porta!: Porta;
   let trava: TravaPorta | undefined;
+  let conjunto!: ConjuntoPortaBatente;
   const superior = new BatenteDePorta(base('batente-superior-porta', 100, new Vetor3(3, 0.2, 0.4), new Vetor3(0, 4.6, 0)), () => porta.obterReacaoNoBatente());
   const inferior = new Objeto(base('batente-inferior-porta', 100, new Vetor3(3, 0.2, 0.4), new Vetor3(0, 0.1, 0)));
   const laterais = [-1, 1].map((sinal) => sinal < 0
@@ -71,12 +73,14 @@ export function criarEnsaioPortaVertical(configuracao: ConfiguracaoEnsaioPorta =
     potenciaSeparada: separado ? { conexao: conexaoPotencia, contator } : undefined,
     obterTravaRecuada: () => trava?.estaRecuada ?? true,
     obterForcasDaTrava: () => trava?.obterForcasNaPorta() ?? [],
+    apoioEstruturalDisponivel: () => conjunto.apoioEstruturalDisponivel,
     velocidadeAvancoMps: 0.6, velocidadeRecuoMps: 0.4, forcaMaximaN: 4_000, tensaoNominalV: 24,
     rigidezRetencaoNPorM: 100_000, potenciaEmRepousoW: 12 });
   if (configuracao.instalarTrava !== false) {
     trava = new TravaPorta({ ...base('trava-porta', 2, new Vetor3(0.2, 0.2, 0.2), new Vetor3(-0.9, 2.32, 0)),
       limiteTermicoC: 150, temperaturaFusaoC: undefined, temperaturaFalhaTotalC: 700,
       batente: laterais[0], porta: () => porta, conexaoComando: conexaoEletrica,
+      apoioEstruturalDisponivel: () => conjunto.apoioEstruturalDisponivel,
       sensorPortaAberta: () => porta.sensorAbertoAcionado, comandoPorta: () => porta.comandoAtual as 'abrir' | 'fechar' | 'parar',
       cursoM: 0.2, velocidadeMps: 0.5, forcaMaximaN: 1_000, potenciaRecuoW: 18 });
   }
@@ -84,14 +88,23 @@ export function criarEnsaioPortaVertical(configuracao: ConfiguracaoEnsaioPorta =
   const solo = new SuperficiePlano('solo-porta', 'concreto', 0, 100_000, 0.8);
   objetos.forEach((objeto) => mundo.registrarObjeto(objeto));
   mundo.registrarSuperficie(solo);
+  const pecasDoBatente = [superior, inferior, ...laterais];
+  // Cada peça do batente possui apoio físico; a composição invalida o caminho
+  // de reação inteiro quando qualquer desses vínculos se rompe.
+  const fixadoresBatente: readonly [] = [];
   const chumbadores = [...(separado ? [gerador] : []), bateria, superior, inferior, ...laterais].map((objeto) => new ChumbadorAoSolo({
     id: `chumbador-${objeto.id}`, objeto, resistenciaN: configuracao.resistenciaChumbadoresN ?? 1e7,
   }));
   chumbadores.forEach((chumbador) => mundo.registrarChumbadorAoSolo(chumbador));
   const guia = new GuiaLinear('guia-porta-vertical', porta, configuracao.resistenciaGuiaN ?? 1e6, 'y');
   mundo.registrarGuiaLinear(guia);
-  const guiaTrava = trava ? new GuiaLinear('guia-trava-porta', trava, 50_000, 'x') : undefined;
+  const guiaTrava = trava ? new GuiaLinear('guia-trava-porta', trava, 1_000_000, 'x') : undefined;
   if (guiaTrava) mundo.registrarGuiaLinear(guiaTrava);
+  conjunto = new ConjuntoPortaBatente({
+    porta, pecasDoBatente, guiaDaPorta: guia, trava, guiaDaTrava: guiaTrava,
+    fixadoresDoBatente: fixadoresBatente,
+    chumbadoresDoBatente: chumbadores.filter(chumbador => pecasDoBatente.includes(chumbador.objeto)),
+  });
   [sensorAberto, sensorFechado].forEach((sensor) => mundo.registrarSwitchFimDeCurso(sensor));
-  return { mundo, porta, trava, bateria, gerador, contator, conexaoPotencia, conexaoEletrica, superior, inferior, laterais, objetos, solo, guia, guiaTrava, chumbadores, sensorAberto, sensorFechado };
+  return { mundo, conjunto, porta, trava, bateria, gerador, contator, conexaoPotencia, conexaoEletrica, superior, inferior, laterais, objetos, solo, guia, guiaTrava, fixadoresBatente, chumbadores, sensorAberto, sensorFechado };
 }

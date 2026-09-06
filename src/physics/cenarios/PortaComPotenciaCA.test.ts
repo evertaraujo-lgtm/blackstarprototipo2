@@ -58,6 +58,7 @@ describe('Porta com comando CC e potência CA — SI, atmosfera padrão, dt ≤ 
   });
   it('limitação de corrente CC derruba bobina, sem usar energia CA para sustentar o controle', () => {
     const e = iniciar(); e.mundo.avancar(0.1);
+    expect(e.conjunto.motivosDeApoioIndisponivel).toEqual([]);
     e.conexaoEletrica.configurarCorrenteMaxima(0.3); e.mundo.avancar(1 / 240);
     expect(e.contator.estaFechado).toBe(false); expect(e.porta.controleLigado).toBe(false);
     expect(e.porta.forcaAtualN).toBe(0);
