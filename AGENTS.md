@@ -2229,3 +2229,32 @@ As respostas devem ser compactas por padrão, contendo apenas as informações
 necessárias para a decisão ou execução solicitada. Explicações detalhadas,
 alternativas e contexto adicional devem ser fornecidos somente quando forem
 solicitados ou indispensáveis para evitar erro.
+
+---
+
+# 67. Lições aprendidas na bancada solar
+
+- Sensores de fim de curso são contatos físicos binários. Devem acionar com
+  qualquer objeto em contato, sem filtrar a identidade do alvo. O mecanismo
+  consumidor consulta o sinal do sensor, não o objeto que tocou nele.
+- Reposicionar um sensor na bancada deve reavaliar seu contato imediatamente,
+  sem depender do próximo passo temporal da simulação.
+- O cilindro usa selo PLC: `AVANÇAR` permanece ativo até `RECUAR`, e vice-versa.
+  Sensores de limite bloqueiam o movimento, mas não apagam o comando selado.
+  Parada explícita e perda de controle devem limpar o selo por segurança.
+- Retenção de posição não deve ser presumida. Servo, freio ou fuso
+  autorretido precisam declarar retenção; sem essa propriedade, cilindro sem
+  comando não aplica força artificial.
+- Um consumidor elétrico deve usar uma `ConexaoEletrica` própria, tensão
+  compatível e comprimento dimensionado pela distância real, com margem
+  pequena. A cadeia de propulsão mantém tanques, válvulas, linhas, bombas,
+  câmara e bocal como responsabilidades explícitas.
+- A orientação do propulsor e a direção do jato térmico são opostas. Para
+  exaustão em `+X`, o empuxo aponta para `-X`; o renderer deve deixar bocal,
+  chama e seta de exaustão visualmente coerentes.
+- A apresentação deve separar os equipamentos por espaço e usar canaletas
+  visuais distintas para conexões próximas. Isso melhora a leitura sem mover
+  corpos nem alterar a física.
+- O trace PLC registra sinais no tempo da missão, permite cursor no histórico
+  e retorna ao modo ao vivo. Navegar no trace não rebobina o estado físico;
+  rebobinamento exige snapshots determinísticos do mundo.

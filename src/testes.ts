@@ -30,6 +30,7 @@ import { SwitchFimDeCurso } from './physics/sensores/SwitchFimDeCurso';
 import { GuiaLinear } from './physics/conexoes/GuiaLinear';
 import { Porta, BatenteDePorta } from './physics/objetos/mecanismos/Porta';
 import { criarEnsaioPortaVertical } from './physics/cenarios/EnsaioPortaVertical';
+import { TracePLC } from './visualizacao/TracePLC';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#test-canvas');
 const playButton = document.querySelector<HTMLButtonElement>('#play-tests');
@@ -1619,24 +1620,49 @@ const criarTestePainelSolarComSombra = (): CenárioVisual => {
     const raios = [-0.8, -0.4, 0, 0.4, 0.8].map((deslocamentoM) => painelEstado.posicaoM.y + deslocamentoM);
     return raios.filter((raioYM) => obterBloqueioXM(raioYM) === undefined).length / raios.length;
   }});
+  const tanqueCombustivel = new TanquePropelente({ ...base('tanque-combustivel-solar', 24, new Vetor3(1, 1, 1), new Vetor3(8.8, 2.0, 0)), tipoPropelente: 'metano', capacidadePropelenteKg: 20, massaPropelenteInicialKg: 20 });
+  const tanqueOxidante = new TanquePropelente({ ...base('tanque-oxidante-solar', 32, new Vetor3(1, 1, 1), new Vetor3(8.8, 3.7, 0)), tipoPropelente: 'oxigenio', capacidadePropelenteKg: 40, massaPropelenteInicialKg: 40 });
+  const propulsor = new Propulsor({
+    ...base('propulsor-consumidor-solar', 40, new Vetor3(1.2, 1, 0.8), new Vetor3(12, 1, 0)),
+    tensaoAlimentacaoNominalV: 24, potenciaEletricaMaximaW: 1_200, potenciaTermicaMaximaW: 200_000,
+    empuxoMaximoN: 4_000, vazaoMaximaKgS: 0.2, propelenteCompativel: 'metano',
+    capacidadeTermicaJPorC: 300_000, areaTermicaM2: 3,
+    estadoInicial: { posicaoM: new Vetor3(12, 1, 0), orientacaoRad: new Vetor3(0, 0, Math.PI) },
+  });
+  const valvulaCombustivel = new ValvulaPropelente({ id: 'valvula-combustivel-solar', vazaoMaximaKgS: 0.2 });
+  const valvulaOxidante = new ValvulaPropelente({ id: 'valvula-oxidante-solar', vazaoMaximaKgS: 0.8 });
+  const linhaCombustivel = new LinhaDePropelente({ id: 'linha-combustivel-solar', tanque: tanqueCombustivel, tipoPropelente: 'metano', comprimentoMaximoM: 4.5, vazaoMaximaKgS: 0.2, valvula: valvulaCombustivel });
+  const linhaOxidante = new LinhaDePropelente({ id: 'linha-oxidante-solar', tanque: tanqueOxidante, tipoPropelente: 'oxigenio', comprimentoMaximoM: 4.5, vazaoMaximaKgS: 0.8, valvula: valvulaOxidante });
+  propulsor.conectarTanque(tanqueCombustivel, 4.5);
+  propulsor.conectarBateria(bateria, 5);
+  propulsor.configurarCadeiaBipropelente({
+    linhaCombustivel, linhaOxidante,
+    bombaCombustivel: new BombaPropelente({ id: 'bomba-combustivel-solar', tensaoNominalV: 24, vazaoMaximaKgS: 0.2, potenciaEletricaMaximaW: 250 }),
+    bombaOxidante: new BombaPropelente({ id: 'bomba-oxidante-solar', tensaoNominalV: 24, vazaoMaximaKgS: 0.8, potenciaEletricaMaximaW: 350 }),
+    camara: new CamaraCombustao({ razaoMisturaOxidanteCombustivel: 4, toleranciaRazaoMistura: 0.1 }),
+    bocal: new Bocal({ empuxoMaximoN: 4_000, eficienciaNominal: 1 }),
+  });
+  propulsor.definirThrottle(0.5);
   const guia = new GuiaLinear('guia-porta-solar-vertical', porta, 100_000, 'y');
   const solo = new SuperficiePlano('solo-bancada-solar', 'concreto', 0, 1_000_000);
   mundo.registrarSuperficie(solo);
-  [painel, bateria, bateriaControle, batenteSuperior, batenteInferior, porta].forEach((objeto) => mundo.registrarObjeto(objeto));
+  [painel, bateria, bateriaControle, batenteSuperior, batenteInferior, porta, tanqueCombustivel, tanqueOxidante, propulsor].forEach((objeto) => mundo.registrarObjeto(objeto));
   mundo.registrarGuiaLinear(guia);
   mundo.registrarSwitchFimDeCurso(sensorAberto); mundo.registrarSwitchFimDeCurso(sensorFechado);
-  const chumbadores = [painel, bateria, bateriaControle, batenteSuperior, batenteInferior].map((objeto) => new ChumbadorAoSolo({ id: `chumbador-${objeto.id}`, objeto, resistenciaN: 1_000_000 }));
+  const chumbadores = [painel, bateria, bateriaControle, batenteSuperior, batenteInferior, tanqueCombustivel, tanqueOxidante, propulsor].map((objeto) => new ChumbadorAoSolo({ id: `chumbador-${objeto.id}`, objeto, resistenciaN: 1_000_000 }));
   chumbadores.forEach((chumbador) => mundo.registrarChumbadorAoSolo(chumbador));
   return {
     nome: 'Painel solar — sombra móvel e carga da bateria',
-    descricao: 'Painel solar simulado recebe irradiância de uma fonte solar direcional. Um objeto físico bloqueia a luz e é deslocado por cilindro elétrico. O painel alimenta uma bateria inicialmente vazia através de switch e conexão elétrica.',
-    mundo, objetos: [painel, bateria, bateriaControle, batenteSuperior, batenteInferior, porta], superficies: [solo], velocidadeTempo: 1, limiteVerticalM: 10, limiteHorizontalM: 10,
-    seguirObjeto: painel, conexoesEletricas: [painel.conexaoCarga, conexaoPorta], chumbadoresAoSolo: chumbadores, portaControlavel: porta, sensoresFimDeCurso: [sensorAberto, sensorFechado],
+    descricao: 'Painel solar simulado recebe irradiância de uma fonte direcional e carrega a bateria. A mesma bateria alimenta um propulsor bipropelente por uma instalação elétrica independente. O sistema possui tanques, válvulas, linhas, bombas, câmara e bocal; a exaustão aponta para a direita, afastando o jato quente dos componentes.',
+    mundo, objetos: [painel, bateria, bateriaControle, batenteSuperior, batenteInferior, porta, tanqueCombustivel, tanqueOxidante, propulsor], superficies: [solo], velocidadeTempo: 1, limiteVerticalM: 10, limiteHorizontalM: 16,
+    seguirObjeto: painel, conexoesEletricas: [painel.conexaoCarga, conexaoPorta, propulsor.conexaoEletrica!], chumbadoresAoSolo: chumbadores, portaControlavel: porta, sensoresFimDeCurso: [sensorAberto, sensorFechado],
     obterEntradasCilindro: () => porta.entradasAtuais,
     fonteSolarVisual: { alvo: painel, distanciaOrigemM: 8, obterBloqueioXM },
+    mangueira: { tanque: tanqueCombustivel, propulsor }, linhasComFalhaControlavel: { combustivel: linhaCombustivel, oxidante: linhaOxidante },
+    propulsorControlavel: propulsor, permiteAjustarThrottle: true,
     exibirNaBancada: true, deveEncerrar: () => false,
-    telemetria: () => `bateria ${(bateria.percentualDeCarga * 100).toFixed(1)}% · painel ${painel.potenciaAtualW.toFixed(0)} W · sombra ${painel.fatorIluminacao === 0 ? 'ATIVA' : 'livre'}`,
-    dados: () => `Fonte: Sol simulado · irradiância 1.000 W/m²\nPainel: ${painel.potenciaAtualW.toFixed(1)} W · energia gerada ${painel.energiaGeradaJ.toFixed(1)} J\nBateria de carga: ${bateria.energiaArmazenadaJ.toFixed(1)} / ${bateria.capacidadeEnergiaJ.toFixed(1)} J\nSwitch painel: ${painel.conexaoCarga.interruptorPrincipalFechado ? 'FECHADO' : 'ABERTO'}\nSombra: ${painel.fatorIluminacao === 0 ? 'porta bloqueando a luz' : 'sem bloqueio'}\nPorta y=${porta.getEstadoFisico().posicaoM.y.toFixed(2)} m · comando ${porta.comandoAtual}\nPorta: alimentação ${porta.alimentacaoLigada ? 'ligada' : 'desligada'} · controle ${porta.controleLigado ? 'ligado' : 'desligado'}\nBateria de controle ${(bateriaControle.percentualDeCarga * 100).toFixed(1)}%`,
+    telemetria: () => `bateria ${(bateria.percentualDeCarga * 100).toFixed(1)}% · painel ${painel.potenciaAtualW.toFixed(0)} W · propulsor ${propulsor.empuxoAtualN.toFixed(0)} N · ${painel.fatorIluminacao === 0 ? 'sombra ATIVA' : 'sombra livre'}`,
+    dados: () => `Fonte: Sol simulado · irradiância 1.000 W/m²\nPainel: ${painel.potenciaAtualW.toFixed(1)} W · energia gerada ${painel.energiaGeradaJ.toFixed(1)} J\nBateria de carga: ${bateria.energiaArmazenadaJ.toFixed(1)} / ${bateria.capacidadeEnergiaJ.toFixed(1)} J\nConsumidor: propulsor ${propulsor.estaIgnitado ? 'IGNITADO' : 'desligado'} · empuxo ${propulsor.empuxoAtualN.toFixed(1)} N · potência elétrica ${propulsor.conexaoEletrica?.energiaEntregueNoPassoJ ? (propulsor.conexaoEletrica.energiaEntregueNoPassoJ / (1 / 240)).toFixed(1) : '0.0'} W\nTanques: metano ${tanqueCombustivel.massaPropelenteKg.toFixed(1)} kg · oxigênio ${tanqueOxidante.massaPropelenteKg.toFixed(1)} kg\nCadeia: linhas ${linhaCombustivel.estaIndisponivel || linhaOxidante.estaIndisponivel ? 'INDISPONÍVEL' : 'íntegras'} · vazão ${propulsor.vazaoAtualKgS.toFixed(3)} kg/s\nBocal: exaustão apontada para +X (direita), afastada dos componentes\nSwitch painel: ${painel.conexaoCarga.interruptorPrincipalFechado ? 'FECHADO' : 'ABERTO'}\nSombra: ${painel.fatorIluminacao === 0 ? 'porta bloqueando a luz' : 'sem bloqueio'}\nPorta y=${porta.getEstadoFisico().posicaoM.y.toFixed(2)} m · comando ${porta.comandoAtual}\nPorta: alimentação ${porta.alimentacaoLigada ? 'ligada' : 'desligada'} · controle ${porta.controleLigado ? 'ligado' : 'desligado'}\nBateria de controle ${(bateriaControle.percentualDeCarga * 100).toFixed(1)}%`,
     validar: () => `${bateria.energiaArmazenadaJ > 0 && painel.energiaGeradaJ > 0 ? 'APROVADO' : 'PENDENTE'} · carga ${bateria.energiaArmazenadaJ.toFixed(1)} J; sombra ${painel.fatorIluminacao === 0 ? 'ativa' : 'livre'}`,
   };
 };
@@ -1838,11 +1864,6 @@ const cenarioAtual = (): CenárioVisual => cenarios[indiceAtual];
 
 const obterEscalaTemporalAtual = (): number => escalasTemporaisPorCenario.get(indiceAtual) ?? cenarioAtual().velocidadeTempo;
 
-interface AmostraTraceSensor {
-  readonly tempoS: number;
-  readonly sinais: readonly (0 | 1)[];
-}
-
 interface CanalTrace {
   readonly nome: string;
   readonly cor: string;
@@ -1850,9 +1871,8 @@ interface CanalTrace {
 }
 
 const limiteAmostrasTrace = 6_000;
-let amostrasTraceSensores: AmostraTraceSensor[] = [];
+const tracePLC = new TracePLC(10, limiteAmostrasTrace);
 let tempoTraceSelecionadoS: number | undefined;
-let ultimoTempoTraceS = -Infinity;
 
 const obterCanaisTrace = (): readonly CanalTrace[] => {
   const cenário = cenarioAtual();
@@ -1871,31 +1891,21 @@ const obterCanaisTrace = (): readonly CanalTrace[] => {
 };
 
 const obterIndiceTraceMaisProximo = (tempoS: number): number => {
-  if (amostrasTraceSensores.length === 0) return 0;
-  let melhorIndice = 0;
-  let menorDistancia = Infinity;
-  amostrasTraceSensores.forEach((amostra, indice) => {
-    const distancia = Math.abs(amostra.tempoS - tempoS);
-    if (distancia < menorDistancia) { menorDistancia = distancia; melhorIndice = indice; }
-  });
-  return melhorIndice;
+  return tracePLC.obterIndiceMaisProximo(tempoS);
 };
 
 const registrarTraceSensores = (forcar = false): void => {
-  const canais = obterCanaisTrace();
-  if (canais.length === 0) return;
-  const tempoS = cenarioAtual().mundo.tempoS;
-  const sinais = canais.map((canal) => canal.obterSinal());
-  const ultima = amostrasTraceSensores.at(-1);
-  const mesmoSinal = ultima?.sinais.length === sinais.length && ultima.sinais.every((sinal, indice) => sinal === sinais[indice]);
-  if (!forcar && ultima && tempoS - ultimoTempoTraceS < 0.05 && mesmoSinal) return;
-  amostrasTraceSensores.push({ tempoS, sinais });
-  if (amostrasTraceSensores.length > limiteAmostrasTrace) amostrasTraceSensores.shift();
-  ultimoTempoTraceS = tempoS;
+  tracePLC.registrar(cenarioAtual().mundo.tempoS, forcar);
+};
+
+const configurarTracePLCDoCenario = (): void => {
+  tracePLC.limpar();
+  for (const canal of obterCanaisTrace()) tracePLC.adicionarSinal(canal.nome, canal.obterSinal, canal.cor);
+  registrarTraceSensores(true);
 };
 
 const desenharTraceSensores = (): void => {
-  const canais = obterCanaisTrace();
+  const canais = tracePLC.canais;
   const largura = sensorTraceCanvas.width;
   const altura = sensorTraceCanvas.height;
   const margem = { esquerda: 78, direita: 14, superior: 24, inferior: 28 };
@@ -1906,7 +1916,7 @@ const desenharTraceSensores = (): void => {
   contextoTrace.fillRect(0, 0, largura, altura);
   contextoTrace.font = '11px ui-monospace, monospace';
 
-  if (canais.length === 0 || amostrasTraceSensores.length === 0) {
+  if (canais.length === 0 || tracePLC.amostras.length === 0) {
     contextoTrace.fillStyle = '#64748b';
     contextoTrace.fillText('Nenhum sensor exposto neste cenário', margem.esquerda, margem.superior + 25);
     traceTime.value = 'sem sensores'; traceTime.textContent = 'sem sensores';
@@ -1915,7 +1925,7 @@ const desenharTraceSensores = (): void => {
     return;
   }
 
-  const amostras = amostrasTraceSensores;
+  const amostras = tracePLC.amostras;
   const primeiroTempoS = amostras[0].tempoS;
   const ultimoTempoS = amostras.at(-1)?.tempoS ?? primeiroTempoS;
   const tempoSelecionadoS = tempoTraceSelecionadoS ?? ultimoTempoS;
@@ -2314,24 +2324,24 @@ const desenhar = (): void => {
       if (intensidadeChama > 0) {
         const comprimentoChama = larguraObjeto * (0.7 + intensidadeChama * 1.4);
         const raioChama = alturaObjeto * (0.18 + intensidadeChama * 0.22);
-        const gradiente = contexto.createLinearGradient(-larguraObjeto * 0.42, 0, -larguraObjeto * 0.42 - comprimentoChama, 0);
+        const gradiente = contexto.createLinearGradient(-larguraObjeto * 0.55, 0, -larguraObjeto * 0.55 - comprimentoChama, 0);
         gradiente.addColorStop(0, '#fef3c7');
         gradiente.addColorStop(0.25, '#f59e0b');
         gradiente.addColorStop(0.7, '#f97316');
         gradiente.addColorStop(1, 'rgba(239, 68, 68, 0)');
         contexto.fillStyle = gradiente;
         contexto.beginPath();
-        contexto.moveTo(-larguraObjeto * 0.4, -raioChama);
-        contexto.quadraticCurveTo(-larguraObjeto * 0.42 - comprimentoChama * 0.42, -raioChama * 1.15, -larguraObjeto * 0.42 - comprimentoChama, 0);
-        contexto.quadraticCurveTo(-larguraObjeto * 0.42 - comprimentoChama * 0.42, raioChama * 1.15, -larguraObjeto * 0.4, raioChama);
+        contexto.moveTo(-larguraObjeto * 0.53, -raioChama);
+        contexto.quadraticCurveTo(-larguraObjeto * 0.55 - comprimentoChama * 0.42, -raioChama * 1.15, -larguraObjeto * 0.55 - comprimentoChama, 0);
+        contexto.quadraticCurveTo(-larguraObjeto * 0.55 - comprimentoChama * 0.42, raioChama * 1.15, -larguraObjeto * 0.53, raioChama);
         contexto.closePath();
         contexto.fill();
 
         contexto.fillStyle = '#fff7ed';
         contexto.beginPath();
-        contexto.moveTo(-larguraObjeto * 0.4, -raioChama * 0.38);
-        contexto.lineTo(-larguraObjeto * 0.42 - comprimentoChama * 0.56, 0);
-        contexto.lineTo(-larguraObjeto * 0.4, raioChama * 0.38);
+        contexto.moveTo(-larguraObjeto * 0.53, -raioChama * 0.38);
+        contexto.lineTo(-larguraObjeto * 0.55 - comprimentoChama * 0.56, 0);
+        contexto.lineTo(-larguraObjeto * 0.53, raioChama * 0.38);
         contexto.closePath();
         contexto.fill();
       }
@@ -2359,6 +2369,16 @@ const desenhar = (): void => {
       contexto.fill();
       contexto.stroke();
 
+      // O bocal fica no lado do escape (-X local), que aparece à direita
+      // quando o propulsor está orientado para exaustão em +X do mundo.
+      contexto.fillStyle = '#cbd5e1';
+      contexto.beginPath();
+      contexto.moveTo(-larguraObjeto * 0.42, -alturaObjeto * 0.18);
+      contexto.lineTo(-larguraObjeto * 0.68, -alturaObjeto * 0.28);
+      contexto.lineTo(-larguraObjeto * 0.68, alturaObjeto * 0.28);
+      contexto.lineTo(-larguraObjeto * 0.42, alturaObjeto * 0.18);
+      contexto.closePath(); contexto.fill(); contexto.stroke();
+
       contexto.fillStyle = objeto.empuxoAtualN > 0 ? '#22c55e' : '#ef4444';
       contexto.beginPath();
       contexto.arc(larguraObjeto * 0.26, 0, Math.max(3, alturaObjeto * 0.075), 0, Math.PI * 2);
@@ -2371,6 +2391,17 @@ const desenhar = (): void => {
       contexto.moveTo(larguraObjeto * 0.14, -alturaObjeto * 0.22);
       contexto.lineTo(larguraObjeto * 0.14, alturaObjeto * 0.22);
       contexto.stroke();
+    } else if (objeto instanceof TanquePropelente) {
+      contexto.fillStyle = '#166534';
+      contexto.fillRect(-larguraObjeto / 2, -alturaObjeto / 2, larguraObjeto, alturaObjeto);
+      contexto.strokeRect(-larguraObjeto / 2, -alturaObjeto / 2, larguraObjeto, alturaObjeto);
+      contexto.fillStyle = '#86efac';
+      contexto.fillRect(-larguraObjeto / 2 + 4, -alturaObjeto / 2 + 4, Math.max(2, larguraObjeto - 8), Math.max(2, alturaObjeto * 0.58));
+      contexto.fillStyle = '#d1fae5';
+      contexto.font = '10px ui-monospace, monospace';
+      contexto.textAlign = 'center';
+      contexto.fillText(objeto.id.includes('oxidante') ? 'O2' : 'CH4', 0, 4);
+      contexto.textAlign = 'start';
     } else if (objeto instanceof ObjetoTriangularRetangulo) {
       const vertices = objeto.getVerticesColisaoLocais2D();
       contexto.beginPath();
@@ -2438,6 +2469,19 @@ const desenhar = (): void => {
       contexto.moveTo(-larguraObjeto / 2, alturaObjeto * 0.2);
       contexto.lineTo(larguraObjeto / 2, alturaObjeto * 0.2);
       contexto.stroke();
+    }
+    if (objeto.id === 'propulsor-consumidor-solar') {
+      contexto.save();
+      contexto.rotate(estado.orientacaoRad.z);
+      contexto.fillStyle = '#fef3c7';
+      contexto.font = '10px ui-monospace, monospace';
+      contexto.fillText('PROPULSOR', -larguraObjeto / 2, -alturaObjeto / 2 - 7);
+      contexto.strokeStyle = '#facc15';
+      contexto.lineWidth = 2;
+      contexto.beginPath(); contexto.moveTo(larguraObjeto / 2 + 4, 0); contexto.lineTo(larguraObjeto / 2 + 20, 0); contexto.stroke();
+      contexto.beginPath(); contexto.moveTo(larguraObjeto / 2 + 20, 0); contexto.lineTo(larguraObjeto / 2 + 14, -4); contexto.moveTo(larguraObjeto / 2 + 20, 0); contexto.lineTo(larguraObjeto / 2 + 14, 4); contexto.stroke();
+      contexto.fillStyle = '#facc15'; contexto.fillText('EXAUSTÃO +X', larguraObjeto / 2 + 5, 18);
+      contexto.restore();
     }
     if (objeto instanceof VeiculoTerrestre) {
       const raioRoda = Math.max(4, objeto.raioRodaM * escala);
@@ -2564,10 +2608,8 @@ const desenhar = (): void => {
 
 const carregarCenarioAtual = (): void => {
   const cenário = cenarioAtual();
-  amostrasTraceSensores = [];
+  configurarTracePLCDoCenario();
   tempoTraceSelecionadoS = undefined;
-  ultimoTempoTraceS = -Infinity;
-  registrarTraceSensores(true);
   scenarioDescription.textContent = cenário.descricao;
   testStatus.textContent = emExecucao ? 'EXECUTANDO' : 'PRONTO';
   testStatus.className = emExecucao ? 'running' : '';
@@ -2823,16 +2865,16 @@ canvas.addEventListener('click', evento => {
   atualizarControlesDoPropulsor(); desenhar();
 });
 sensorTraceCanvas.addEventListener('click', (evento) => {
-  if (amostrasTraceSensores.length === 0) return;
+  if (tracePLC.amostras.length === 0) return;
   const retangulo = sensorTraceCanvas.getBoundingClientRect();
   const proporcao = Math.max(0, Math.min(1, (evento.clientX - retangulo.left) / retangulo.width));
-  const indice = Math.round(proporcao * (amostrasTraceSensores.length - 1));
-  tempoTraceSelecionadoS = amostrasTraceSensores[indice].tempoS;
+  const indice = Math.round(proporcao * (tracePLC.amostras.length - 1));
+  tempoTraceSelecionadoS = tracePLC.amostras[indice].tempoS;
   desenharTraceSensores();
 });
 traceCursorInput.addEventListener('input', () => {
-  const indice = Math.max(0, Math.min(amostrasTraceSensores.length - 1, Number(traceCursorInput.value)));
-  const amostra = amostrasTraceSensores[indice];
+  const indice = Math.max(0, Math.min(tracePLC.amostras.length - 1, Number(traceCursorInput.value)));
+  const amostra = tracePLC.amostras[indice];
   if (!amostra) return;
   tempoTraceSelecionadoS = amostra.tempoS;
   desenharTraceSensores();

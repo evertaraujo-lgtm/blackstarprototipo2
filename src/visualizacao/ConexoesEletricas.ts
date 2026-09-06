@@ -31,11 +31,16 @@ export function desenharConexoesEletricas(
   projetar: (pontoM: Vetor3) => { readonly x: number; readonly y: number },
 ): readonly AlvoSwitchEletrico[] {
   const alvos: AlvoSwitchEletrico[] = [];
-  for (const conexao of conexoesEletricasExpostas(conexoes, objetosVisiveis)) {
+  for (const [indice, conexao] of conexoesEletricasExpostas(conexoes, objetosVisiveis).entries()) {
     const inicio = projetar(terminalEletricoM(conexao.fonte));
     const fim = projetar(terminalEletricoM(conexao.destino));
     const estado = conexao.estaRompida ? 'rompida' : conexao.estaDesconectada ? 'desconectada' : conexao.estaEnergizada ? 'energizada' : 'desligada';
-    const rotaX = Math.min(inicio.x, fim.x) - 22;
+    const menorX = Math.min(inicio.x, fim.x);
+    const maiorX = Math.max(inicio.x, fim.x);
+    // Instalações à direita da bancada retornam pelo lado direito; as demais
+    // usam canaletas à esquerda, com uma raia visual por conexão.
+    const rotaPelaDireita = menorX > contexto.canvas.width * 0.52;
+    const rotaX = rotaPelaDireita ? maiorX + 26 : menorX - 22 - indice * 20;
     contexto.save();
     contexto.lineJoin = 'round';
     contexto.lineCap = 'round';
