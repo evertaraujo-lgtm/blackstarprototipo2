@@ -97,6 +97,18 @@
         <div class="simulation-panel">
           <canvas id="test-canvas" width="900" height="500" aria-label="Canvas de simulação física"></canvas>
           <div class="canvas-caption"><span id="scenario-name">Aguardando Play</span><span id="sim-time">t = 0,000 s</span></div>
+          <section class="sensor-trace" aria-label="Trace PLC dos sensores">
+            <div class="trace-heading">
+              <h2>Trace PLC</h2>
+              <output id="trace-time">t = 0,000 s · AO VIVO</output>
+            </div>
+            <canvas id="sensor-trace" width="900" height="220" aria-label="Histórico dos sensores de fim de curso"></canvas>
+            <div class="trace-controls">
+              <label for="trace-cursor-input">Cursor</label>
+              <input id="trace-cursor-input" type="range" min="0" max="0" step="1" value="0" aria-label="Cursor temporal do trace" />
+              <button id="trace-live" type="button" class="secondary-button">Ao vivo</button>
+            </div>
+          </section>
         </div>
         <aside class="test-readout">
           <h2>Execução</h2>

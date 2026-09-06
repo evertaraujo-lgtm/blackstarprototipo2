@@ -29,6 +29,7 @@ export type AlvoDoSwitchFimDeCurso = Objeto | { readonly id: string; readonly ti
 export class SwitchFimDeCurso {
   private acionado = false;
   private alvoEmContato?: AlvoDoSwitchFimDeCurso;
+  private deslocamentoLocalM = Vetor3.zero;
 
   public constructor(private readonly definicao: DefinicaoSwitchFimDeCurso) {
     if (!definicao.id) throw new Error('Switch de fim de curso precisa de identidade.');
@@ -48,6 +49,12 @@ export class SwitchFimDeCurso {
   public get sinal(): 0 | 1 { return this.acionado ? 1 : 0; }
   public estaAcionado(): boolean { return this.acionado; }
   public obterAlvoEmContato(): AlvoDoSwitchFimDeCurso | undefined { return this.alvoEmContato; }
+  public get deslocamentoLocal(): Vetor3 { return this.deslocamentoLocalM; }
+  /** Ajuste de montagem do sensor; não altera o corpo hospedeiro. */
+  public definirDeslocamentoLocal(deslocamentoM: Vetor3): void {
+    if (![deslocamentoM.x, deslocamentoM.y, deslocamentoM.z].every(Number.isFinite)) throw new Error('Deslocamento do sensor deve ser finito.');
+    this.deslocamentoLocalM = deslocamentoM;
+  }
 
   /** Volume global do atuador, orientado junto com o hospedeiro. */
   public obterVolumeSensivel(): CaixaOrientada {
@@ -58,7 +65,7 @@ export class SwitchFimDeCurso {
       direcaoLocal.x * (metade.x + (this.cursoSensivelM / 2)),
       direcaoLocal.y * (metade.y + (this.cursoSensivelM / 2)),
       direcaoLocal.z * (metade.z + (this.cursoSensivelM / 2)),
-    );
+    ).adicionar(this.deslocamentoLocalM);
     const c = Math.cos(estado.orientacaoRad.z); const s = Math.sin(estado.orientacaoRad.z);
     const deslocamentoGlobal = new Vetor3(
       (deslocamentoLocal.x * c) - (deslocamentoLocal.y * s),

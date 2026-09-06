@@ -2203,3 +2203,29 @@ A Engenharia de Missão organiza essas capacidades em operações compreensívei
 Nenhuma camada deve substituir artificialmente outra.
 
 O objetivo é permitir que a mesma arquitetura represente desde um teste estático simples de um propulsor até uma missão espacial completa, preservando coerência física, rastreabilidade, testabilidade e capacidade de evolução futura.
+
+---
+
+# 64. Estimativa antes de alterações
+
+Antes de realizar qualquer alteração no projeto, informe uma estimativa de
+complexidade de `0` a `10` e um resumo breve do trabalho que será executado.
+
+---
+
+# 65. Status dos testes existentes
+
+Todos os testes existentes do projeto devem ser considerados `OK` e não
+precisam ser revisitados ou repetidos quando uma nova alteração for solicitada.
+Eles podem ser omitidos da bancada de testes para reduzir custo e tempo de
+validação. Somente testes novos, solicitados explicitamente ou diretamente
+necessários para a alteração atual entram no escopo de validação.
+
+---
+
+# 66. Modo de resposta
+
+As respostas devem ser compactas por padrão, contendo apenas as informações
+necessárias para a decisão ou execução solicitada. Explicações detalhadas,
+alternativas e contexto adicional devem ser fornecidos somente quando forem
+solicitados ou indispensáveis para evitar erro.

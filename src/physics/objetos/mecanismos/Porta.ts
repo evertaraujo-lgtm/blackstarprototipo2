@@ -47,10 +47,10 @@ export class Porta extends ComCilindro(Objeto) {
   }
 
   public get sensorAbertoAcionado(): boolean {
-    return this.configuracaoPorta.sensorAberto.obterAlvoEmContato() === this;
+    return this.configuracaoPorta.sensorAberto.estaAcionado();
   }
   public get sensorFechadoAcionado(): boolean {
-    return this.configuracaoPorta.sensorFechado.obterAlvoEmContato() === this;
+    return this.configuracaoPorta.sensorFechado.estaAcionado();
   }
   public get conexaoEletrica(): ConexaoEletrica { return this.configuracaoPorta.conexaoEletrica ?? this.acionamento.conexaoEletrica; }
   public get conexaoPotencia(): ConexaoEletrica { return this.acionamento.conexaoEletrica; }
@@ -92,12 +92,13 @@ export class Porta extends ComCilindro(Objeto) {
     this.controle.definirEstado(EstadoOperacional.Desligado);
     this.potenciaSolicitada = false;
     this.comando = 'parar';
+    this.limparSelo();
     this.configuracaoPorta.potenciaSeparada?.contator.desarmar();
     this.atualizarEntradasDosSensores();
   }
   public abrir(): boolean { return this.solicitarMovimento('abrir'); }
   public fechar(): boolean { return this.solicitarMovimento('fechar'); }
-  public parar(): void { this.comando = 'parar'; this.atualizarEntradasDosSensores(); }
+  public parar(): void { this.comando = 'parar'; this.limparSelo(); this.atualizarEntradasDosSensores(); }
 
   /** API herdada: as realimentações válidas vêm dos sensores físicos, não do chamador. */
   public override definirEntradas(entradas: EntradasCilindro): void {
@@ -141,8 +142,6 @@ export class Porta extends ComCilindro(Objeto) {
     }
     if (!this.fonteDisponivel || !this.conexaoEletrica.estaEnergizada) this.desligarAlimentacao();
     if (!this.alimentacaoLigada || this.integridadeEstrutural === 0 || this.configuracaoPorta.batente.integridadeEstrutural === 0) this.desligarControle();
-    if ((this.comando === 'abrir' && this.sensorAbertoAcionado) ||
-        (this.comando === 'fechar' && this.sensorFechadoAcionado)) this.comando = 'parar';
     this.atualizarEntradasDosSensores();
     this.acionamento.prepararPassoOperacional(dtS);
   }

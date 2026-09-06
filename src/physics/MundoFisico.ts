@@ -94,6 +94,11 @@ export class MundoFisico {
     this.atualizarSwitchesFimDeCurso();
   }
 
+  /** Reavalia contatos sem avançar o relógio físico; útil após reposicionar um sensor. */
+  public reavaliarSwitchesFimDeCurso(): void {
+    this.atualizarSwitchesFimDeCurso();
+  }
+
   public registrarGuiaLinear(guia: GuiaLinear): void {
     if (this.guiasLineares.has(guia.id)) throw new Error(`Guia linear já registrada: ${guia.id}.`);
     this.exigirRegistro(guia.objeto);

@@ -13,6 +13,8 @@ import { Propulsor, type IdSistemaPropulsor } from './physics/objetos/propulsao/
 import { PropulsorVetorizado } from './physics/objetos/propulsao/PropulsorVetorizado';
 import { TanquePropelente } from './physics/objetos/fontes-de-energia/TanquePropelente';
 import { Bateria } from './physics/objetos/fontes-de-energia/Bateria';
+import { PainelSolar } from './physics/objetos/fontes-de-energia/PainelSolar';
+import { ConexaoEletrica } from './physics/conexoes/ConexaoEletrica';
 import { ValvulaPropelente } from './physics/objetos/propulsao/alimentacao/ValvulaPropelente';
 import { LinhaDePropelente } from './physics/objetos/propulsao/alimentacao/LinhaDePropelente';
 import { BombaPropelente } from './physics/objetos/propulsao/alimentacao/BombaPropelente';
@@ -26,7 +28,7 @@ import { Vetor3 } from './physics/Vetor3';
 import { CorpoDeCilindroEletrico, HasteDeCilindroEletrico } from './physics/objetos/atuadores/CilindroEletrico';
 import { SwitchFimDeCurso } from './physics/sensores/SwitchFimDeCurso';
 import { GuiaLinear } from './physics/conexoes/GuiaLinear';
-import { Porta } from './physics/objetos/mecanismos/Porta';
+import { Porta, BatenteDePorta } from './physics/objetos/mecanismos/Porta';
 import { criarEnsaioPortaVertical } from './physics/cenarios/EnsaioPortaVertical';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#test-canvas');
@@ -37,6 +39,10 @@ const resetButton = document.querySelector<HTMLButtonElement>('#reset-tests');
 const scenarioName = document.querySelector<HTMLElement>('#scenario-name');
 const scenarioDescription = document.querySelector<HTMLElement>('#scenario-description');
 const simulationTime = document.querySelector<HTMLElement>('#sim-time');
+const sensorTraceCanvas = document.querySelector<HTMLCanvasElement>('#sensor-trace');
+const traceTime = document.querySelector<HTMLOutputElement>('#trace-time');
+const traceCursorInput = document.querySelector<HTMLInputElement>('#trace-cursor-input');
+const traceLiveButton = document.querySelector<HTMLButtonElement>('#trace-live');
 const testStatus = document.querySelector<HTMLElement>('#test-status');
 const testResult = document.querySelector<HTMLElement>('#test-result');
 const vehicleSpeed = document.querySelector<HTMLElement>('#vehicle-speed');
@@ -88,12 +94,14 @@ const currentLimitInput = document.querySelector<HTMLInputElement>('#current-lim
 const cableResistanceInput = document.querySelector<HTMLInputElement>('#cable-resistance');
 const electricalReadout = document.querySelector<HTMLElement>('#electrical-readout');
 
-if (!electricalControls || !connectionSelector || !cableSwitchButton || !cableConnectButton || !cableBreakButton || !currentLimitInput || !cableResistanceInput || !electricalReadout || !doorControls || !doorPowerButton || !doorControlButton || !openDoorButton || !closeDoorButton || !doorOpenLed || !doorClosedLed || !doorChainStatus || !canvas || !playButton || !scenarioSelector || !skipButton || !resetButton || !scenarioName || !scenarioDescription || !simulationTime || !testStatus || !testResult || !vehicleSpeed || !scenarioData || !timeScaleInput || !timeScaleValue || !throttleControl || !throttleInput || !throttleValue || !gimbalControl || !gimbalInput || !gimbalValue || !parachuteSettings || !parachuteAreaInput || !parachuteCalculatedValues || !toggleElectric || !toggleHydraulic || !toggleFuel || !toggleControl || !igniteButton || !deployParachuteButton || !propulsionControls || !tankDisconnectControls || !disconnectFuelTankButton || !disconnectOxidizerTankButton || !cylinderControls || !raisePlatformButton || !advanceCylinderButton || !retractCylinderButton || !advanceSpeedControl || !retractSpeedControl || !advanceSpeedInput || !retractSpeedInput) {
+if (!electricalControls || !connectionSelector || !cableSwitchButton || !cableConnectButton || !cableBreakButton || !currentLimitInput || !cableResistanceInput || !electricalReadout || !doorControls || !doorPowerButton || !doorControlButton || !openDoorButton || !closeDoorButton || !doorOpenLed || !doorClosedLed || !doorChainStatus || !canvas || !sensorTraceCanvas || !traceTime || !traceCursorInput || !traceLiveButton || !playButton || !scenarioSelector || !skipButton || !resetButton || !scenarioName || !scenarioDescription || !simulationTime || !testStatus || !testResult || !vehicleSpeed || !scenarioData || !timeScaleInput || !timeScaleValue || !throttleControl || !throttleInput || !throttleValue || !gimbalControl || !gimbalInput || !gimbalValue || !parachuteSettings || !parachuteAreaInput || !parachuteCalculatedValues || !toggleElectric || !toggleHydraulic || !toggleFuel || !toggleControl || !igniteButton || !deployParachuteButton || !propulsionControls || !tankDisconnectControls || !disconnectFuelTankButton || !disconnectOxidizerTankButton || !cylinderControls || !raisePlatformButton || !advanceCylinderButton || !retractCylinderButton || !advanceSpeedControl || !retractSpeedControl || !advanceSpeedInput || !retractSpeedInput) {
   throw new Error('A bancada de testes não encontrou os elementos obrigatórios.');
 }
 
 const contexto = canvas.getContext('2d');
 if (!contexto) throw new Error('Canvas 2D indisponível.');
+const contextoTrace = sensorTraceCanvas.getContext('2d');
+if (!contextoTrace) throw new Error('Canvas do trace indisponível.');
 
 type ModalidadeTeste = 'mecânica' | 'térmica';
 
@@ -129,10 +137,12 @@ interface CenárioVisual {
   readonly velocidadesDoCilindro?: () => { readonly avancoMps: number; readonly recuoMps: number };
   readonly iniciarSequencia?: () => void;
   readonly portaControlavel?: Porta;
+  readonly obterEntradasCilindro?: () => { readonly avancar: boolean; readonly recuar: boolean };
   readonly geradorControlavel?: GeradorCA;
   readonly sensoresFimDeCurso?: readonly SwitchFimDeCurso[];
   /** Linha de ação de uma força, usada apenas para tornar o ensaio observável. */
   readonly linhaDeEmpuxo?: () => { readonly origemM: Vetor3; readonly direcao: Vetor3 };
+  readonly fonteSolarVisual?: { readonly alvo: Objeto; readonly distanciaOrigemM: number; readonly obterBloqueioXM?: (raioYM: number) => number | undefined };
   readonly propulsorControlavel?: Propulsor;
   readonly propulsorVetorizadoControlavel?: PropulsorVetorizado;
   /** Corpo que recebe o comando operacional de abertura na bancada. */
@@ -1580,6 +1590,57 @@ const criarTesteEmpuxoExcentricoEmConjunto = (): CenárioVisual => {
   };
 };
 
+/** Painel solar lateral com bloqueador vertical incorporando um cilindro. */
+const criarTestePainelSolarComSombra = (): CenárioVisual => {
+  const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
+  const base = (id: string, massaBaseKg: number, dimensoesM: Vetor3, posicaoM: Vetor3) => ({ id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM } });
+  const bateria = new Bateria({ ...base('bateria-solar-vazia', 12, new Vetor3(0.8, 0.8, 0.8), new Vetor3(8, 1, 0)), tensaoNominalV: 24, capacidadeEnergiaJ: 50_000, energiaInicialJ: 0 });
+  const bateriaControle = new Bateria({ ...base('bateria-controle-sombra', 8, new Vetor3(0.6, 0.6, 0.6), new Vetor3(-3, 1, 0)), tensaoNominalV: 24, capacidadeEnergiaJ: 50_000, energiaInicialJ: 50_000 });
+  let porta!: Porta;
+  const batenteSuperior = new BatenteDePorta(base('batente-superior-solar', 40, new Vetor3(2.5, 0.2, 0.8), new Vetor3(4, 9.2, 0)), () => porta.obterReacaoNoBatente());
+  const batenteInferior = new Objeto(base('batente-inferior-solar', 40, new Vetor3(2.5, 0.2, 0.8), new Vetor3(4, 2.0, 0)));
+  const sensorAberto = new SwitchFimDeCurso({ id: 'sensor-porta-solar-aberta', objetoHospedeiro: batenteSuperior, face: 'yNegativa', larguraM: 0.2, alturaM: 0.2, cursoM: 0.05 });
+  const sensorFechado = new SwitchFimDeCurso({ id: 'sensor-porta-solar-fechada', objetoHospedeiro: batenteInferior, face: 'yPositiva', larguraM: 0.2, alturaM: 0.2, cursoM: 0.05 });
+  const conexaoPorta = new ConexaoEletrica({ id: 'cabo-porta-sombra-solar', fonte: bateriaControle, destino: batenteSuperior, comprimentoMaximoM: 15, correnteMaximaA: 20, inicialmenteLigada: false });
+  // Sem comando, o cilindro deste ensaio deve deixar a porta livre; retenção
+  // mecânica só deve existir quando um freio/servo for declarado no cenário.
+  porta = new Porta({ ...base('porta-sombra-solar', 20, new Vetor3(2, 2, 0.2), new Vetor3(4, 4, 0)), batente: batenteSuperior, bateria: bateriaControle, conexaoEletrica: conexaoPorta, sensorAberto, sensorFechado, velocidadeAvancoMps: 1, velocidadeRecuoMps: 1, forcaMaximaN: 500, tensaoNominalV: 24, rigidezRetencaoNPorM: 0, potenciaEmRepousoW: 6 });
+  let painel!: PainelSolar;
+  const obterBloqueioXM = (raioYM: number): number | undefined => {
+    const estado = porta.getEstadoFisico();
+    const painelEstado = painel.getEstadoFisico();
+    const bloqueia = estado.posicaoM.x < painelEstado.posicaoM.x - painel.dimensoesM.x / 2
+      && estado.posicaoM.x + porta.dimensoesM.x / 2 >= painelEstado.posicaoM.x - painel.dimensoesM.x / 2
+      && Math.abs(estado.posicaoM.y - raioYM) <= porta.dimensoesM.y / 2;
+    return bloqueia ? estado.posicaoM.x - porta.dimensoesM.x / 2 : undefined;
+  };
+  painel = new PainelSolar({ ...base('painel-solar', 10, new Vetor3(2, 2, 0.1), new Vetor3(6, 3, 0)), areaAtivaM2: 4, irradianciaWPorM2: 1_000, eficiencia: 0.2, destino: bateria, obterFatorIluminacao: () => {
+    const painelEstado = painel.getEstadoFisico();
+    const raios = [-0.8, -0.4, 0, 0.4, 0.8].map((deslocamentoM) => painelEstado.posicaoM.y + deslocamentoM);
+    return raios.filter((raioYM) => obterBloqueioXM(raioYM) === undefined).length / raios.length;
+  }});
+  const guia = new GuiaLinear('guia-porta-solar-vertical', porta, 100_000, 'y');
+  const solo = new SuperficiePlano('solo-bancada-solar', 'concreto', 0, 1_000_000);
+  mundo.registrarSuperficie(solo);
+  [painel, bateria, bateriaControle, batenteSuperior, batenteInferior, porta].forEach((objeto) => mundo.registrarObjeto(objeto));
+  mundo.registrarGuiaLinear(guia);
+  mundo.registrarSwitchFimDeCurso(sensorAberto); mundo.registrarSwitchFimDeCurso(sensorFechado);
+  const chumbadores = [painel, bateria, bateriaControle, batenteSuperior, batenteInferior].map((objeto) => new ChumbadorAoSolo({ id: `chumbador-${objeto.id}`, objeto, resistenciaN: 1_000_000 }));
+  chumbadores.forEach((chumbador) => mundo.registrarChumbadorAoSolo(chumbador));
+  return {
+    nome: 'Painel solar — sombra móvel e carga da bateria',
+    descricao: 'Painel solar simulado recebe irradiância de uma fonte solar direcional. Um objeto físico bloqueia a luz e é deslocado por cilindro elétrico. O painel alimenta uma bateria inicialmente vazia através de switch e conexão elétrica.',
+    mundo, objetos: [painel, bateria, bateriaControle, batenteSuperior, batenteInferior, porta], superficies: [solo], velocidadeTempo: 1, limiteVerticalM: 10, limiteHorizontalM: 10,
+    seguirObjeto: painel, conexoesEletricas: [painel.conexaoCarga, conexaoPorta], chumbadoresAoSolo: chumbadores, portaControlavel: porta, sensoresFimDeCurso: [sensorAberto, sensorFechado],
+    obterEntradasCilindro: () => porta.entradasAtuais,
+    fonteSolarVisual: { alvo: painel, distanciaOrigemM: 8, obterBloqueioXM },
+    exibirNaBancada: true, deveEncerrar: () => false,
+    telemetria: () => `bateria ${(bateria.percentualDeCarga * 100).toFixed(1)}% · painel ${painel.potenciaAtualW.toFixed(0)} W · sombra ${painel.fatorIluminacao === 0 ? 'ATIVA' : 'livre'}`,
+    dados: () => `Fonte: Sol simulado · irradiância 1.000 W/m²\nPainel: ${painel.potenciaAtualW.toFixed(1)} W · energia gerada ${painel.energiaGeradaJ.toFixed(1)} J\nBateria de carga: ${bateria.energiaArmazenadaJ.toFixed(1)} / ${bateria.capacidadeEnergiaJ.toFixed(1)} J\nSwitch painel: ${painel.conexaoCarga.interruptorPrincipalFechado ? 'FECHADO' : 'ABERTO'}\nSombra: ${painel.fatorIluminacao === 0 ? 'porta bloqueando a luz' : 'sem bloqueio'}\nPorta y=${porta.getEstadoFisico().posicaoM.y.toFixed(2)} m · comando ${porta.comandoAtual}\nPorta: alimentação ${porta.alimentacaoLigada ? 'ligada' : 'desligada'} · controle ${porta.controleLigado ? 'ligado' : 'desligado'}\nBateria de controle ${(bateriaControle.percentualDeCarga * 100).toFixed(1)}%`,
+    validar: () => `${bateria.energiaArmazenadaJ > 0 && painel.energiaGeradaJ > 0 ? 'APROVADO' : 'PENDENTE'} · carga ${bateria.energiaArmazenadaJ.toFixed(1)} J; sombra ${painel.fatorIluminacao === 0 ? 'ativa' : 'livre'}`,
+  };
+};
+
 /** Bancada elétrica: bateria → motor/fuso → força na haste → fins de curso. */
 const criarTesteCilindroEletrico = (): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 0 });
@@ -1693,7 +1754,7 @@ const criarTestePortaVertical = (): CenárioVisual => {
 };
 
 const construirCenarios = (): CenárioVisual[] => {
-  return [
+  const cenariosArquivados: CenárioVisual[] = [
   criarCuboEmQueda(10),
   criarCuboEmQueda(10, 10, {
     nome: 'Queda livre — cubo rotacionado a 46°',
@@ -1761,6 +1822,8 @@ const construirCenarios = (): CenárioVisual[] => {
     criarTesteImpactoNoRetangulo('impacto abaixo do centro', 2, 2),
     criarTesteImpactoNoRetangulo('impacto no centro de massa', 5, 3),
   ];
+  void cenariosArquivados;
+  return [criarTestePainelSolarComSombra()];
 };
 
 let cenarios = construirCenarios();
@@ -1774,6 +1837,139 @@ const escalasTemporaisPorCenario = new Map<number, number>();
 const cenarioAtual = (): CenárioVisual => cenarios[indiceAtual];
 
 const obterEscalaTemporalAtual = (): number => escalasTemporaisPorCenario.get(indiceAtual) ?? cenarioAtual().velocidadeTempo;
+
+interface AmostraTraceSensor {
+  readonly tempoS: number;
+  readonly sinais: readonly (0 | 1)[];
+}
+
+interface CanalTrace {
+  readonly nome: string;
+  readonly cor: string;
+  readonly obterSinal: () => 0 | 1;
+}
+
+const limiteAmostrasTrace = 6_000;
+let amostrasTraceSensores: AmostraTraceSensor[] = [];
+let tempoTraceSelecionadoS: number | undefined;
+let ultimoTempoTraceS = -Infinity;
+
+const obterCanaisTrace = (): readonly CanalTrace[] => {
+  const cenário = cenarioAtual();
+  const sensores = cenário.sensoresFimDeCurso ?? [];
+  const canais: CanalTrace[] = sensores.map((sensor, indice) => ({
+    nome: sensor.face === 'yNegativa' ? 'ABERTO' : 'FECHADO',
+    cor: ['#4ade80', '#facc15'][indice % 2],
+    obterSinal: () => sensor.sinal,
+  }));
+  const entradas = cenário.obterEntradasCilindro?.();
+  if (entradas) {
+    canais.push({ nome: 'CIL. AVANÇAR', cor: '#67e8f9', obterSinal: () => entradas.avancar ? 1 : 0 });
+    canais.push({ nome: 'CIL. RECUAR', cor: '#fb7185', obterSinal: () => entradas.recuar ? 1 : 0 });
+  }
+  return canais;
+};
+
+const obterIndiceTraceMaisProximo = (tempoS: number): number => {
+  if (amostrasTraceSensores.length === 0) return 0;
+  let melhorIndice = 0;
+  let menorDistancia = Infinity;
+  amostrasTraceSensores.forEach((amostra, indice) => {
+    const distancia = Math.abs(amostra.tempoS - tempoS);
+    if (distancia < menorDistancia) { menorDistancia = distancia; melhorIndice = indice; }
+  });
+  return melhorIndice;
+};
+
+const registrarTraceSensores = (forcar = false): void => {
+  const canais = obterCanaisTrace();
+  if (canais.length === 0) return;
+  const tempoS = cenarioAtual().mundo.tempoS;
+  const sinais = canais.map((canal) => canal.obterSinal());
+  const ultima = amostrasTraceSensores.at(-1);
+  const mesmoSinal = ultima?.sinais.length === sinais.length && ultima.sinais.every((sinal, indice) => sinal === sinais[indice]);
+  if (!forcar && ultima && tempoS - ultimoTempoTraceS < 0.05 && mesmoSinal) return;
+  amostrasTraceSensores.push({ tempoS, sinais });
+  if (amostrasTraceSensores.length > limiteAmostrasTrace) amostrasTraceSensores.shift();
+  ultimoTempoTraceS = tempoS;
+};
+
+const desenharTraceSensores = (): void => {
+  const canais = obterCanaisTrace();
+  const largura = sensorTraceCanvas.width;
+  const altura = sensorTraceCanvas.height;
+  const margem = { esquerda: 78, direita: 14, superior: 24, inferior: 28 };
+  const larguraGrafico = largura - margem.esquerda - margem.direita;
+  const alturaGrafico = altura - margem.superior - margem.inferior;
+  contextoTrace.clearRect(0, 0, largura, altura);
+  contextoTrace.fillStyle = '#030b1c';
+  contextoTrace.fillRect(0, 0, largura, altura);
+  contextoTrace.font = '11px ui-monospace, monospace';
+
+  if (canais.length === 0 || amostrasTraceSensores.length === 0) {
+    contextoTrace.fillStyle = '#64748b';
+    contextoTrace.fillText('Nenhum sensor exposto neste cenário', margem.esquerda, margem.superior + 25);
+    traceTime.value = 'sem sensores'; traceTime.textContent = 'sem sensores';
+    traceCursorInput.max = '0'; traceCursorInput.value = '0';
+    traceLiveButton.disabled = true;
+    return;
+  }
+
+  const amostras = amostrasTraceSensores;
+  const primeiroTempoS = amostras[0].tempoS;
+  const ultimoTempoS = amostras.at(-1)?.tempoS ?? primeiroTempoS;
+  const tempoSelecionadoS = tempoTraceSelecionadoS ?? ultimoTempoS;
+  const indiceSelecionado = obterIndiceTraceMaisProximo(tempoSelecionadoS);
+  const amostraSelecionada = amostras[indiceSelecionado];
+  const faixaM = alturaGrafico / canais.length;
+  const converterX = (indice: number): number => margem.esquerda + (amostras.length <= 1 ? 0 : indice * larguraGrafico / (amostras.length - 1));
+  const converterY = (linha: number, sinal: 0 | 1): number => {
+    const topo = margem.superior + linha * faixaM;
+    return topo + (sinal === 1 ? 18 : faixaM - 18);
+  };
+
+  contextoTrace.strokeStyle = '#172b4a';
+  contextoTrace.lineWidth = 1;
+  for (let indice = 0; indice <= 5; indice += 1) {
+    const x = margem.esquerda + larguraGrafico * indice / 5;
+    contextoTrace.beginPath(); contextoTrace.moveTo(x, margem.superior); contextoTrace.lineTo(x, altura - margem.inferior); contextoTrace.stroke();
+    const proporcao = indice / 5;
+    const tempo = primeiroTempoS + (ultimoTempoS - primeiroTempoS) * proporcao;
+    contextoTrace.fillStyle = '#64748b'; contextoTrace.fillText(`${tempo.toFixed(1)} s`, x - 12, altura - 9);
+  }
+  canais.forEach((canal, linha) => {
+    const topo = margem.superior + linha * faixaM;
+    contextoTrace.strokeStyle = '#243b5a';
+    contextoTrace.beginPath(); contextoTrace.moveTo(margem.esquerda, topo + faixaM - 1); contextoTrace.lineTo(largura - margem.direita, topo + faixaM - 1); contextoTrace.stroke();
+    contextoTrace.fillStyle = '#cbd5e1'; contextoTrace.fillText(canal.nome, 8, topo + 17);
+    contextoTrace.fillStyle = '#64748b'; contextoTrace.fillText('1', margem.esquerda - 20, topo + 21); contextoTrace.fillText('0', margem.esquerda - 20, topo + faixaM - 14);
+    contextoTrace.strokeStyle = canal.cor;
+    contextoTrace.lineWidth = 2;
+    contextoTrace.beginPath();
+    amostras.forEach((amostra, indice) => {
+      const x = converterX(indice);
+      const sinal = amostra.sinais[linha] ?? 0;
+      const y = converterY(linha, sinal);
+      if (indice === 0) contextoTrace.moveTo(x, y);
+      else {
+        const sinalAnterior = amostras[indice - 1].sinais[linha] ?? 0;
+        contextoTrace.lineTo(x, converterY(linha, sinalAnterior));
+        contextoTrace.lineTo(x, y);
+      }
+    });
+    contextoTrace.stroke();
+  });
+
+  const xCursor = converterX(indiceSelecionado);
+  contextoTrace.strokeStyle = '#f8fafc'; contextoTrace.setLineDash([4, 4]); contextoTrace.lineWidth = 1;
+  contextoTrace.beginPath(); contextoTrace.moveTo(xCursor, margem.superior - 6); contextoTrace.lineTo(xCursor, altura - margem.inferior); contextoTrace.stroke(); contextoTrace.setLineDash([]);
+  contextoTrace.fillStyle = '#f8fafc'; contextoTrace.fillText(`t=${amostraSelecionada.tempoS.toFixed(3)} s`, Math.min(xCursor + 5, largura - 88), margem.superior - 8);
+  traceCursorInput.max = String(Math.max(0, amostras.length - 1));
+  traceCursorInput.value = String(indiceSelecionado);
+  traceLiveButton.disabled = tempoTraceSelecionadoS === undefined;
+  traceTime.value = `t = ${amostraSelecionada.tempoS.toFixed(3)} s · ${tempoTraceSelecionadoS === undefined ? 'AO VIVO' : 'HISTÓRICO'}`;
+  traceTime.textContent = traceTime.value;
+};
 
 const formatarEscalaTemporal = (escala: number): string => `${escala.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}×`;
 
@@ -1795,12 +1991,8 @@ const obterGrupoDoCenario = (cenario: CenárioVisual): string => {
   return 'Colisões, resistência e torque';
 };
 
-/** Ensaios isolados de veículo e propulsão seguem preservados no código, mas saem da bancada ativa. */
-const deveExibirNaBancada = (cenario: CenárioVisual): boolean => {
-  if (cenario.exibirNaBancada) return true;
-  return !cenario.nome.startsWith('Veículo') && !cenario.nome.startsWith('Propulsor') &&
-    !cenario.nome.startsWith('Foguete') && !cenario.nome.startsWith('Merlin');
-};
+/** Cenários existentes ficam preservados no código, mas fora da bancada ativa. */
+const deveExibirNaBancada = (cenario: CenárioVisual): boolean => cenario.exibirNaBancada === true;
 
 const indicesExibiveis = (): readonly number[] => cenarios.flatMap((cenario, indice) => deveExibirNaBancada(cenario) ? [indice] : []);
 const primeiroIndiceExibivel = (): number => indicesExibiveis()[0] ?? 0;
@@ -1832,6 +2024,7 @@ const preencherSeletorDeCenarios = (): void => {
 
 const desenhar = (): void => {
   const cenário = cenarioAtual();
+  registrarTraceSensores();
   const objetosVisiveis = cenário.objetos.filter((objeto) => !cenário.objetosEnclausurados?.includes(objeto));
   const largura = canvas.width;
   const altura = canvas.height;
@@ -1943,6 +2136,31 @@ const desenhar = (): void => {
     contexto.lineTo(fimX + 6, fimY + 12);
     contexto.closePath();
     contexto.fill();
+    contexto.restore();
+  }
+
+  if (cenário.fonteSolarVisual) {
+    const alvo = cenário.fonteSolarVisual.alvo;
+    const estado = alvo.getEstadoFisico();
+    const inicioX = origemX + (estado.posicaoM.x - cenário.fonteSolarVisual.distanciaOrigemM) * escala;
+    const fimX = origemX + (estado.posicaoM.x - alvo.dimensoesM.x / 2) * escala;
+    contexto.save();
+    contexto.strokeStyle = '#facc15';
+    contexto.fillStyle = '#facc15';
+    contexto.lineWidth = 2;
+    contexto.setLineDash([2, 8]);
+    for (const deslocamentoM of [-0.8, -0.4, 0, 0.4, 0.8]) {
+      const raioYM = estado.posicaoM.y + deslocamentoM;
+      const bloqueioXM = cenário.fonteSolarVisual.obterBloqueioXM?.(raioYM);
+      const y = soloY - raioYM * escala;
+      contexto.beginPath();
+      contexto.moveTo(inicioX, y);
+      contexto.lineTo(bloqueioXM === undefined ? fimX : origemX + bloqueioXM * escala, y);
+      contexto.stroke();
+    }
+    contexto.setLineDash([]);
+    contexto.font = '10px ui-monospace, monospace';
+    contexto.fillText('SOL ARTIFICIAL', inicioX + 8, soloY - (estado.posicaoM.y + 1.45) * escala);
     contexto.restore();
   }
 
@@ -2341,10 +2559,15 @@ const desenhar = (): void => {
   simulationTime.textContent = `t = ${cenário.mundo.tempoS.toFixed(3)} s · ${formatarEscalaTemporal(obterEscalaTemporalAtual())}`;
   vehicleSpeed.textContent = cenário.telemetria?.() ?? '—';
   scenarioData.textContent = cenário.dados?.() ?? '—';
+  desenharTraceSensores();
 };
 
 const carregarCenarioAtual = (): void => {
   const cenário = cenarioAtual();
+  amostrasTraceSensores = [];
+  tempoTraceSelecionadoS = undefined;
+  ultimoTempoTraceS = -Infinity;
+  registrarTraceSensores(true);
   scenarioDescription.textContent = cenário.descricao;
   testStatus.textContent = emExecucao ? 'EXECUTANDO' : 'PRONTO';
   testStatus.className = emExecucao ? 'running' : '';
@@ -2527,6 +2750,59 @@ const alternarInterruptor = (conexao: ConexaoEletricaVisual): void => {
     if (conexao.interruptorPrincipalFechado) porta.desligarAlimentacao(); else porta.ligarAlimentacao();
   } else if (conexao.interruptorPrincipalFechado) conexao.abrirInterruptor(); else conexao.fecharInterruptor();
 };
+let sensorArrastado: SwitchFimDeCurso | undefined;
+let sensorFoiArrastado = false;
+let ultimoYDoSensorPx = 0;
+const obterTransformacaoDaBancada = () => {
+  const cenário = cenarioAtual();
+  const escalaVertical = (canvas.height - 80) / cenário.limiteVerticalM;
+  const escalaHorizontal = cenário.limiteHorizontalM === undefined ? 70 : (canvas.width - 80) / (cenário.limiteHorizontalM * 2);
+  const escala = Math.min(70, escalaVertical, escalaHorizontal);
+  const origemX = cenário.cameraX !== undefined
+    ? canvas.width / 2 - cenário.cameraX() * escala
+    : cenário.seguirObjeto === undefined
+    ? cenário.limiteHorizontalM === undefined ? canvas.width / 2 : 70
+    : canvas.width / 2 - cenário.seguirObjeto.getEstadoFisico().posicaoM.x * escala;
+  const soloY = cenário.cameraY === undefined
+    ? canvas.height - 40
+    : canvas.height * (cenário.portaControlavel ? 0.5 : 0.65) + cenário.cameraY() * escala;
+  return { escala, origemX, soloY };
+};
+const obterPontoDoCanvas = (evento: MouseEvent) => {
+  const retangulo = canvas.getBoundingClientRect();
+  return {
+    x: (evento.clientX - retangulo.left) * canvas.width / retangulo.width,
+    y: (evento.clientY - retangulo.top) * canvas.height / retangulo.height,
+  };
+};
+const obterSensorSobPonteiro = (evento: MouseEvent): SwitchFimDeCurso | undefined => {
+  const ponto = obterPontoDoCanvas(evento);
+  const { escala, origemX, soloY } = obterTransformacaoDaBancada();
+  return cenarioAtual().sensoresFimDeCurso?.find((sensor) => {
+    const volume = sensor.obterVolumeSensivel();
+    const x = origemX + volume.posicaoM.x * escala;
+    const y = soloY - volume.posicaoM.y * escala;
+    return Math.abs(ponto.x - x) <= 18 && Math.abs(ponto.y - y) <= 18;
+  });
+};
+canvas.addEventListener('mousedown', (evento) => {
+  sensorArrastado = obterSensorSobPonteiro(evento);
+  sensorFoiArrastado = false;
+  ultimoYDoSensorPx = evento.clientY;
+  if (sensorArrastado) evento.preventDefault();
+});
+canvas.addEventListener('mousemove', (evento) => {
+  if (!sensorArrastado) return;
+  const { escala } = obterTransformacaoDaBancada();
+  const deltaYM = -(evento.clientY - ultimoYDoSensorPx) / escala;
+  sensorArrastado.definirDeslocamentoLocal(sensorArrastado.deslocamentoLocal.adicionar(new Vetor3(0, deltaYM, 0)));
+  ultimoYDoSensorPx = evento.clientY;
+  sensorFoiArrastado = true;
+  cenarioAtual().mundo.reavaliarSwitchesFimDeCurso();
+  atualizarControlesDoPropulsor();
+  desenhar();
+});
+window.addEventListener('mouseup', () => { sensorArrastado = undefined; });
 const switchSobPonteiro = (evento: MouseEvent): AlvoSwitchEletrico | undefined => {
   const retangulo = canvas.getBoundingClientRect();
   const x = (evento.clientX - retangulo.left) * canvas.width / retangulo.width;
@@ -2539,11 +2815,31 @@ canvas.addEventListener('mousemove', evento => {
   canvas.title = alvo ? 'Clique para abrir ou fechar o interruptor CC' : '';
 });
 canvas.addEventListener('click', evento => {
+  if (sensorFoiArrastado) { sensorFoiArrastado = false; return; }
   const alvo = switchSobPonteiro(evento);
   if (!alvo) return;
   connectionSelector.value = alvo.conexao.id;
   alternarInterruptor(alvo.conexao);
   atualizarControlesDoPropulsor(); desenhar();
+});
+sensorTraceCanvas.addEventListener('click', (evento) => {
+  if (amostrasTraceSensores.length === 0) return;
+  const retangulo = sensorTraceCanvas.getBoundingClientRect();
+  const proporcao = Math.max(0, Math.min(1, (evento.clientX - retangulo.left) / retangulo.width));
+  const indice = Math.round(proporcao * (amostrasTraceSensores.length - 1));
+  tempoTraceSelecionadoS = amostrasTraceSensores[indice].tempoS;
+  desenharTraceSensores();
+});
+traceCursorInput.addEventListener('input', () => {
+  const indice = Math.max(0, Math.min(amostrasTraceSensores.length - 1, Number(traceCursorInput.value)));
+  const amostra = amostrasTraceSensores[indice];
+  if (!amostra) return;
+  tempoTraceSelecionadoS = amostra.tempoS;
+  desenharTraceSensores();
+});
+traceLiveButton.addEventListener('click', () => {
+  tempoTraceSelecionadoS = undefined;
+  desenharTraceSensores();
 });
 cableSwitchButton.addEventListener('click', () => operarConexao(alternarInterruptor));
 cableConnectButton.addEventListener('click', () => operarConexao((conexao) => { if (conexao.estaDesconectada) conexao.conectar(); else conexao.desconectar(); }));

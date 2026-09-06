@@ -14,6 +14,7 @@ export interface DefinicaoCilindro {
 /** Comportamento de duas posições, sem massa, geometria ou estado físico. */
 export class Cilindro {
   private entradas: EntradasCilindro = { avancar: false, recuar: false, avancado: false, recuado: false };
+  private comandoSelado: 'avancar' | 'recuar' | undefined;
   private avancoMps = 0;
   private recuoMps = 0;
 
@@ -22,6 +23,7 @@ export class Cilindro {
   }
   public get velocidadeAvancoMps(): number { return this.avancoMps; }
   public get velocidadeRecuoMps(): number { return this.recuoMps; }
+  public get entradasAtuais(): EntradasCilindro { return { ...this.entradas }; }
   public get velocidadeSolicitadaMps(): number {
     if (this.entradas.avancar && !this.entradas.avancado) return this.avancoMps;
     if (this.entradas.recuar && !this.entradas.recuado) return -this.recuoMps;
@@ -29,7 +31,17 @@ export class Cilindro {
   }
   public definirEntradas(entradas: EntradasCilindro): void {
     if (entradas.avancar && entradas.recuar) throw new Error('Cilindro não pode avançar e recuar simultaneamente.');
-    this.entradas = { ...entradas };
+    if (entradas.avancar) this.comandoSelado = 'avancar';
+    else if (entradas.recuar) this.comandoSelado = 'recuar';
+    this.entradas = {
+      ...entradas,
+      avancar: this.comandoSelado === 'avancar',
+      recuar: this.comandoSelado === 'recuar',
+    };
+  }
+  public limparSelo(): void {
+    this.comandoSelado = undefined;
+    this.entradas = { ...this.entradas, avancar: false, recuar: false };
   }
   public configurarVelocidades(avancoMps: number, recuoMps: number): void {
     if (![avancoMps, recuoMps].every((valor) => Number.isFinite(valor) && valor > 0)) {
@@ -59,6 +71,8 @@ export function ComCilindro<TBase extends Construtor>(Base: TBase) {
     public configurarVelocidades(avancoMps: number, recuoMps: number): void { this.cilindro.configurarVelocidades(avancoMps, recuoMps); }
     public get velocidadeAvancoMps(): number { return this.cilindro.velocidadeAvancoMps; }
     public get velocidadeRecuoMps(): number { return this.cilindro.velocidadeRecuoMps; }
+    public get entradasAtuais(): EntradasCilindro { return this.cilindro.entradasAtuais; }
+    public limparSelo(): void { this.cilindro.limparSelo(); }
     public get velocidadeSolicitadaMps(): number { return this.cilindro.velocidadeSolicitadaMps; }
   };
 }

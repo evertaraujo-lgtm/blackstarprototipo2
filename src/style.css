@@ -37,6 +37,14 @@ button:hover { background: #0891b2; }
 .simulation-panel { min-width: 0; }
 #test-canvas { display: block; width: 100%; aspect-ratio: 9 / 5; background: #071126; }
 .canvas-caption { display: flex; justify-content: space-between; gap: 1rem; padding: .8rem 1rem; color: #cbd5e1; font: .85rem ui-monospace, SFMono-Regular, Menlo, monospace; }
+.sensor-trace { margin: 0 1rem 1rem; padding: .8rem; border: 1px solid #1e3a5f; border-radius: .65rem; background: #071126; }
+.trace-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: .5rem; }
+.trace-heading h2 { margin: 0; color: #cbd5e1; font: .78rem ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .12em; text-transform: uppercase; }
+.trace-heading output { color: #facc15; font: .75rem ui-monospace, SFMono-Regular, Menlo, monospace; }
+#sensor-trace { display: block; width: 100%; height: auto; min-height: 140px; background: #030b1c; border: 1px solid #172b4a; border-radius: .35rem; cursor: crosshair; }
+.trace-controls { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .65rem; margin-top: .65rem; color: #94a3b8; font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.trace-controls input { width: 100%; accent-color: #facc15; }
+.trace-controls button { width: auto; padding: .45rem .7rem; font-size: .72rem; }
 .test-readout { padding: 1.25rem; border-left: 1px solid #1e3a5f; }
 .test-readout h2 { margin: 0 0 .8rem; }
 .test-readout p { color: #cbd5e1; line-height: 1.5; }

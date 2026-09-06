@@ -40,5 +40,13 @@ export class Bateria extends Objeto {
     return fornecida;
   }
 
+  /** Armazena energia recebida por uma conexão de carga, em J. */
+  public receberEnergia(energiaRecebidaJ: number): number {
+    if (!Number.isFinite(energiaRecebidaJ) || energiaRecebidaJ < 0) throw new Error('Energia recebida inválida.');
+    const armazenada = Math.min(energiaRecebidaJ, this.capacidadeEnergiaJ - this.energiaAtualJ);
+    this.energiaAtualJ += armazenada;
+    return armazenada;
+  }
+
   private get capacidadeEnergiaInicialJ(): number { return this.definicaoBateria.energiaInicialJ; }
 }

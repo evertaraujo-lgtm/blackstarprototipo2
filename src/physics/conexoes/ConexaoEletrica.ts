@@ -3,6 +3,10 @@ import { Objeto } from '../objetos/base/Objeto';
 import { Interruptor } from './eletrica/Interruptor';
 import { Resistor } from './eletrica/Resistor';
 
+export interface DestinoEletricoRecarregavel {
+  receberEnergia(energiaJ: number): number;
+}
+
 export interface DefinicaoConexaoEletrica {
   readonly id: string;
   readonly fonte: FonteEletrica;
@@ -134,6 +138,11 @@ export class ConexaoEletrica {
     this.correnteCalculadaA = this.energiaFonteNoPassoJ / (v * dt);
     this.limitada ||= entregueJ < energiaSolicitadaJ - 1e-9;
     return entregueJ;
+  }
+  public transferirEnergiaParaDestino(energiaSolicitadaJ: number): number {
+    if (!('receberEnergia' in this.definicao.destino)) throw new Error('Destino elétrico não aceita carga.');
+    const energiaEntregue = this.fornecerEnergia(energiaSolicitadaJ);
+    return (this.definicao.destino as Objeto & DestinoEletricoRecarregavel).receberEnergia(energiaEntregue);
   }
   private validarNaoNegativo(valor: number, nome: string): void {
     if (!Number.isFinite(valor) || valor < 0) throw new Error(`${nome} deve ser finito e não negativo.`);
