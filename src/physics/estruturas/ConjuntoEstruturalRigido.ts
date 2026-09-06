@@ -9,6 +9,7 @@ export class ConjuntoEstruturalRigido {
   private readonly orientacoesRelativasRad = new Map<Objeto, Vetor3>();
   private readonly estadosDeMontagem = new Map<Objeto, EstadoFisico>();
   private anguloDoConjuntoRad: number;
+  private massaDasReferenciasKg: number;
 
   public constructor(private readonly objetos: readonly Objeto[]) {
     const objetoDeReferencia = objetos[0];
@@ -21,6 +22,7 @@ export class ConjuntoEstruturalRigido {
       this.referenciasLocaisM.set(objeto, this.rotacionarNoPlano(estado.posicaoM.subtrair(centroMassa), -anguloInicial));
       this.orientacoesRelativasRad.set(objeto, estado.orientacaoRad.subtrair(new Vetor3(0, 0, anguloInicial)));
     }
+    this.massaDasReferenciasKg = this.massaTotalKg;
   }
 
   /**
@@ -29,6 +31,7 @@ export class ConjuntoEstruturalRigido {
    * reaplica a rigidez sem introduzir avanço angular duplicado.
    */
   public sincronizar(dtS: number, avancarOrientacao: boolean): void {
+    this.atualizarReferenciasLocaisPelaMassaAtual();
     const centroMassa = this.obterCentroDeMassaAtual();
     const massaTotalKg = this.objetos.reduce((soma, objeto) => soma + objeto.massaKg, 0);
     const velocidadeDoCentroMps = this.objetos.reduce(
@@ -151,6 +154,7 @@ export class ConjuntoEstruturalRigido {
 
   /** Integra todas as forças externas como uma única resultante do corpo rígido. */
   public integrar(forcas: readonly ForcaAplicada[], dtS: number): void {
+    this.atualizarReferenciasLocaisPelaMassaAtual();
     const centroMassa = this.obterCentroDeMassaAtual();
     const resultanteN = forcas.reduce((soma, forca) => soma.adicionar(forca.forcaN), Vetor3.zero);
     const torqueZ = forcas.reduce((soma, forca) => soma + forca.pontoM.subtrair(centroMassa).produtoVetorial(forca.forcaN).z, 0);
@@ -202,5 +206,25 @@ export class ConjuntoEstruturalRigido {
     const cos = Math.cos(anguloRad);
     const sen = Math.sin(anguloRad);
     return new Vetor3(vetor.x * cos - vetor.y * sen, vetor.x * sen + vetor.y * cos, vetor.z);
+  }
+
+  /**
+   * Recalibra os bracos locais quando a massa dos membros muda.
+   *
+   * Combustivel consumido altera o centro de massa sem mover os pontos dos
+   * membros. Manter referencias calculadas com a massa inicial faria a
+   * projecao rigida deslocar artificialmente o conjunto a cada passo.
+   */
+  private atualizarReferenciasLocaisPelaMassaAtual(): void {
+    const massaAtualKg = this.massaTotalKg;
+    if (massaAtualKg === this.massaDasReferenciasKg) return;
+    const centroMassa = this.obterCentroDeMassaAtual();
+    for (const objeto of this.objetos) {
+      this.referenciasLocaisM.set(
+        objeto,
+        this.rotacionarNoPlano(objeto.getEstadoFisico().posicaoM.subtrair(centroMassa), -this.anguloDoConjuntoRad),
+      );
+    }
+    this.massaDasReferenciasKg = massaAtualKg;
   }
 }

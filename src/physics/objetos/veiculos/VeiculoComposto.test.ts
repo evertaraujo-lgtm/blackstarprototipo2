@@ -71,6 +71,20 @@ describe('VeiculoComposto', () => {
     expect(veiculo.getEstadoFisico().velocidadeAngularRadps.z).toBeCloseTo(0, 10);
   });
 
+  it('preserva a subida quando a massa de propelente altera o centro de massa', () => {
+    const { veiculo } = criarVeiculoComposto();
+    const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 0 });
+    veiculo.registrarNoMundo(mundo);
+    const altitudeInicialM = veiculo.getEstadoFisico().posicaoM.y;
+
+    veiculo.solicitarIgnicaoDosPropulsores();
+    veiculo.definirThrottleDeTodosOsPropulsores(1);
+    mundo.avancar(10);
+
+    expect(veiculo.getEstadoFisico().posicaoM.y).toBeGreaterThan(altitudeInicialM);
+    expect(veiculo.getEstadoFisico().velocidadeMps.y).toBeGreaterThan(0);
+  });
+
   it('remove módulo rompido da massa e do centro de massa do conjunto', () => {
     const { veiculo, propulsorB, fixadorB, romperFixadorB } = criarVeiculoComposto();
     const mundo = new MundoFisico(1 / 240);

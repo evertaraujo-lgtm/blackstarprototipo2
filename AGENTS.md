@@ -700,6 +700,11 @@ não deve enviar uma atribuição genérica de estado operacional para represent
 um comando do operador; estados de falha permanecem resultado de sistemas ou
 eventos físicos, não comandos de apresentação.
 
+Na bancada, não introduzir sequência automática, ignição automática ou outra
+ação operacional temporizada sem consultar o operador antes. Ensaios devem
+permanecer manuais por padrão; uma automação só pode ser adicionada mediante
+autorização explícita para aquele cenário.
+
 Diagnósticos de partida e ignição devem reutilizar os mesmos permissivos que
 autorizam a operação, informando qual etapa ou dependência bloqueou o comando.
 Os eventos de tentativa, sucesso, cancelamento e nova ignição futura devem ser

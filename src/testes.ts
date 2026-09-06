@@ -50,6 +50,9 @@ const vehicleSpeed = document.querySelector<HTMLElement>('#vehicle-speed');
 const scenarioData = document.querySelector<HTMLElement>('#scenario-data');
 const timeScaleInput = document.querySelector<HTMLInputElement>('#time-scale-input');
 const timeScaleValue = document.querySelector<HTMLOutputElement>('#time-scale-value');
+const zoomInput = document.querySelector<HTMLInputElement>('#zoom-input');
+const zoomValue = document.querySelector<HTMLOutputElement>('#zoom-value');
+const showConnectionsInput = document.querySelector<HTMLInputElement>('#show-connections-input');
 const throttleControl = document.querySelector<HTMLLabelElement>('#throttle-control');
 const throttleInput = document.querySelector<HTMLInputElement>('#throttle-input');
 const throttleValue = document.querySelector<HTMLOutputElement>('#throttle-value');
@@ -95,7 +98,7 @@ const currentLimitInput = document.querySelector<HTMLInputElement>('#current-lim
 const cableResistanceInput = document.querySelector<HTMLInputElement>('#cable-resistance');
 const electricalReadout = document.querySelector<HTMLElement>('#electrical-readout');
 
-if (!electricalControls || !connectionSelector || !cableSwitchButton || !cableConnectButton || !cableBreakButton || !currentLimitInput || !cableResistanceInput || !electricalReadout || !doorControls || !doorPowerButton || !doorControlButton || !openDoorButton || !closeDoorButton || !doorOpenLed || !doorClosedLed || !doorChainStatus || !canvas || !sensorTraceCanvas || !traceTime || !traceCursorInput || !traceLiveButton || !playButton || !scenarioSelector || !skipButton || !resetButton || !scenarioName || !scenarioDescription || !simulationTime || !testStatus || !testResult || !vehicleSpeed || !scenarioData || !timeScaleInput || !timeScaleValue || !throttleControl || !throttleInput || !throttleValue || !gimbalControl || !gimbalInput || !gimbalValue || !parachuteSettings || !parachuteAreaInput || !parachuteCalculatedValues || !toggleElectric || !toggleHydraulic || !toggleFuel || !toggleControl || !igniteButton || !deployParachuteButton || !propulsionControls || !tankDisconnectControls || !disconnectFuelTankButton || !disconnectOxidizerTankButton || !cylinderControls || !raisePlatformButton || !advanceCylinderButton || !retractCylinderButton || !advanceSpeedControl || !retractSpeedControl || !advanceSpeedInput || !retractSpeedInput) {
+if (!electricalControls || !connectionSelector || !cableSwitchButton || !cableConnectButton || !cableBreakButton || !currentLimitInput || !cableResistanceInput || !electricalReadout || !doorControls || !doorPowerButton || !doorControlButton || !openDoorButton || !closeDoorButton || !doorOpenLed || !doorClosedLed || !doorChainStatus || !canvas || !sensorTraceCanvas || !traceTime || !traceCursorInput || !traceLiveButton || !playButton || !scenarioSelector || !skipButton || !resetButton || !scenarioName || !scenarioDescription || !simulationTime || !testStatus || !testResult || !vehicleSpeed || !scenarioData || !timeScaleInput || !timeScaleValue || !zoomInput || !zoomValue || !showConnectionsInput || !throttleControl || !throttleInput || !throttleValue || !gimbalControl || !gimbalInput || !gimbalValue || !parachuteSettings || !parachuteAreaInput || !parachuteCalculatedValues || !toggleElectric || !toggleHydraulic || !toggleFuel || !toggleControl || !igniteButton || !deployParachuteButton || !propulsionControls || !tankDisconnectControls || !disconnectFuelTankButton || !disconnectOxidizerTankButton || !cylinderControls || !raisePlatformButton || !advanceCylinderButton || !retractCylinderButton || !advanceSpeedControl || !retractSpeedControl || !advanceSpeedInput || !retractSpeedInput) {
   throw new Error('A bancada de testes não encontrou os elementos obrigatórios.');
 }
 
@@ -143,7 +146,6 @@ interface CenárioVisual {
   readonly sensoresFimDeCurso?: readonly SwitchFimDeCurso[];
   /** Linha de ação de uma força, usada apenas para tornar o ensaio observável. */
   readonly linhaDeEmpuxo?: () => { readonly origemM: Vetor3; readonly direcao: Vetor3 };
-  readonly fonteSolarVisual?: { readonly alvo: Objeto; readonly distanciaOrigemM: number; readonly obterBloqueioXM?: (raioYM: number) => number | undefined };
   readonly propulsorControlavel?: Propulsor;
   readonly propulsorVetorizadoControlavel?: PropulsorVetorizado;
   /** Corpo que recebe o comando operacional de abertura na bancada. */
@@ -1657,13 +1659,96 @@ const criarTestePainelSolarComSombra = (): CenárioVisual => {
     mundo, objetos: [painel, bateria, bateriaControle, batenteSuperior, batenteInferior, porta, tanqueCombustivel, tanqueOxidante, propulsor], superficies: [solo], velocidadeTempo: 1, limiteVerticalM: 10, limiteHorizontalM: 16,
     seguirObjeto: painel, conexoesEletricas: [painel.conexaoCarga, conexaoPorta, propulsor.conexaoEletrica!], chumbadoresAoSolo: chumbadores, portaControlavel: porta, sensoresFimDeCurso: [sensorAberto, sensorFechado],
     obterEntradasCilindro: () => porta.entradasAtuais,
-    fonteSolarVisual: { alvo: painel, distanciaOrigemM: 8, obterBloqueioXM },
     mangueira: { tanque: tanqueCombustivel, propulsor }, linhasComFalhaControlavel: { combustivel: linhaCombustivel, oxidante: linhaOxidante },
     propulsorControlavel: propulsor, permiteAjustarThrottle: true,
     exibirNaBancada: true, deveEncerrar: () => false,
     telemetria: () => `bateria ${(bateria.percentualDeCarga * 100).toFixed(1)}% · painel ${painel.potenciaAtualW.toFixed(0)} W · propulsor ${propulsor.empuxoAtualN.toFixed(0)} N · ${painel.fatorIluminacao === 0 ? 'sombra ATIVA' : 'sombra livre'}`,
     dados: () => `Fonte: Sol simulado · irradiância 1.000 W/m²\nPainel: ${painel.potenciaAtualW.toFixed(1)} W · energia gerada ${painel.energiaGeradaJ.toFixed(1)} J\nBateria de carga: ${bateria.energiaArmazenadaJ.toFixed(1)} / ${bateria.capacidadeEnergiaJ.toFixed(1)} J\nConsumidor: propulsor ${propulsor.estaIgnitado ? 'IGNITADO' : 'desligado'} · empuxo ${propulsor.empuxoAtualN.toFixed(1)} N · potência elétrica ${propulsor.conexaoEletrica?.energiaEntregueNoPassoJ ? (propulsor.conexaoEletrica.energiaEntregueNoPassoJ / (1 / 240)).toFixed(1) : '0.0'} W\nTanques: metano ${tanqueCombustivel.massaPropelenteKg.toFixed(1)} kg · oxigênio ${tanqueOxidante.massaPropelenteKg.toFixed(1)} kg\nCadeia: linhas ${linhaCombustivel.estaIndisponivel || linhaOxidante.estaIndisponivel ? 'INDISPONÍVEL' : 'íntegras'} · vazão ${propulsor.vazaoAtualKgS.toFixed(3)} kg/s\nBocal: exaustão apontada para +X (direita), afastada dos componentes\nSwitch painel: ${painel.conexaoCarga.interruptorPrincipalFechado ? 'FECHADO' : 'ABERTO'}\nSombra: ${painel.fatorIluminacao === 0 ? 'porta bloqueando a luz' : 'sem bloqueio'}\nPorta y=${porta.getEstadoFisico().posicaoM.y.toFixed(2)} m · comando ${porta.comandoAtual}\nPorta: alimentação ${porta.alimentacaoLigada ? 'ligada' : 'desligada'} · controle ${porta.controleLigado ? 'ligado' : 'desligado'}\nBateria de controle ${(bateriaControle.percentualDeCarga * 100).toFixed(1)}%`,
     validar: () => `${bateria.energiaArmazenadaJ > 0 && painel.energiaGeradaJ > 0 ? 'APROVADO' : 'PENDENTE'} · carga ${bateria.energiaArmazenadaJ.toFixed(1)} J; sombra ${painel.fatorIluminacao === 0 ? 'ativa' : 'livre'}`,
+  };
+};
+
+/** Decolagem integrada alimentada por painel solar e bateria física. */
+const criarTesteDecolagemComPainelSolar = (): CenárioVisual => {
+  const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
+  const base = (id: string, massaBaseKg: number, dimensoesM: Vetor3, posicaoM: Vetor3) => ({
+    id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 500_000, limiteTermicoC: 1_000,
+    estadoInicial: { posicaoM },
+  });
+  const veiculo = new VeiculoComposto({
+    ...base('veiculo-decolagem-solar', 800, new Vetor3(3.2, 6, 2.4), new Vetor3(0, 4.5, 0)),
+    areaFrontalM2: 7, coeficienteArrasto: 0.65,
+  });
+  const tanqueCombustivel = new TanquePropelente({
+    ...base('tanque-decolagem-metano', 180, new Vetor3(2, 1.5, 1.8), new Vetor3(0, 8.5, 0)),
+    tipoPropelente: 'metano', capacidadePropelenteKg: 120, massaPropelenteInicialKg: 120,
+  });
+  const tanqueOxidante = new TanquePropelente({
+    ...base('tanque-decolagem-oxidante', 160, new Vetor3(2, 1.5, 1.8), new Vetor3(0, 10.3, 0)),
+    tipoPropelente: 'oxigenio', capacidadePropelenteKg: 480, massaPropelenteInicialKg: 480,
+  });
+  const bateria = new Bateria({
+    ...base('bateria-decolagem-solar', 30, new Vetor3(1.2, 0.8, 1), new Vetor3(0, 12, 0)),
+    tensaoNominalV: 24, capacidadeEnergiaJ: 30_000, energiaInicialJ: 0,
+  });
+  const painel = new PainelSolar({
+    ...base('painel-decolagem-solar', 35, new Vetor3(3, 0.25, 2), new Vetor3(0, 13.2, 0)),
+    areaAtivaM2: 10, irradianciaWPorM2: 1_000, eficiencia: 0.25, destino: bateria,
+    obterFatorIluminacao: () => 1,
+  });
+  const propulsor = new PropulsorVetorizado({
+    // O motor nasce girado 90°: a altura física no eixo Y é metade da largura X (0,8 m).
+    // Y = 0,8 m deixa o ponto inferior tangente ao solo, sem penetração inicial.
+    ...base('propulsor-decolagem-solar', 90, new Vetor3(1.6, 1.4, 1.4), new Vetor3(0, 0.8, 0)),
+    tensaoAlimentacaoNominalV: 24, potenciaEletricaMaximaW: 1_200, potenciaTermicaMaximaW: 2_000_000,
+    empuxoMaximoN: 40_000, vazaoMaximaKgS: 0.8, propelenteCompativel: 'metano',
+    vetorizacao: { limiteAngularRad: 15 * Math.PI / 180, velocidadeAngularMaximaRadps: 90 * Math.PI / 180 },
+    estadoInicial: { posicaoM: new Vetor3(0, 0.8, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
+  });
+  const valvulaCombustivel = new ValvulaPropelente({ id: 'valvula-decolagem-metano', vazaoMaximaKgS: 0.8 });
+  const valvulaOxidante = new ValvulaPropelente({ id: 'valvula-decolagem-oxidante', vazaoMaximaKgS: 3.2 });
+  const linhaCombustivel = new LinhaDePropelente({
+    id: 'linha-decolagem-metano', tanque: tanqueCombustivel, tipoPropelente: 'metano', comprimentoMaximoM: 8, vazaoMaximaKgS: 0.8, valvula: valvulaCombustivel,
+  });
+  const linhaOxidante = new LinhaDePropelente({
+    id: 'linha-decolagem-oxidante', tanque: tanqueOxidante, tipoPropelente: 'oxigenio', comprimentoMaximoM: 12, vazaoMaximaKgS: 3.2, valvula: valvulaOxidante,
+  });
+  propulsor.conectarTanque(tanqueCombustivel, 8);
+  propulsor.conectarBateria(bateria, 12);
+  propulsor.configurarCadeiaBipropelente({
+    linhaCombustivel, linhaOxidante,
+    bombaCombustivel: new BombaPropelente({ id: 'bomba-decolagem-metano', tensaoNominalV: 24, vazaoMaximaKgS: 0.8, potenciaEletricaMaximaW: 400 }),
+    bombaOxidante: new BombaPropelente({ id: 'bomba-decolagem-oxidante', tensaoNominalV: 24, vazaoMaximaKgS: 3.2, potenciaEletricaMaximaW: 600 }),
+    camara: new CamaraCombustao({ razaoMisturaOxidanteCombustivel: 4, toleranciaRazaoMistura: 0.1 }),
+    bocal: new Bocal({ empuxoMaximoN: 40_000, eficienciaNominal: 1 }),
+  });
+  propulsor.definirThrottle(0.65);
+  for (const modulo of [painel, bateria, tanqueCombustivel, tanqueOxidante, propulsor]) veiculo.adicionarModulo(modulo);
+  veiculo.instalarPropulsor(propulsor);
+  const fixadores = [painel, bateria, tanqueCombustivel, tanqueOxidante, propulsor].map((modulo) => new FixadorEstrutural({
+    id: `fixador-decolagem-${modulo.id}`, objetoA: veiculo, objetoB: modulo,
+    resistenciaTracaoN: 150_000, resistenciaCompressaoN: 150_000,
+    obterEsforcoSolicitadoN: () => propulsor.empuxoAtualN,
+  }));
+  for (const fixador of fixadores) veiculo.adicionarFixador(fixador);
+  const solo = new SuperficiePlano('solo-decolagem-solar', 'concreto', 0, 1_000_000, 0.04, 0.9);
+  mundo.registrarSuperficie(solo);
+  // O painel entra antes dos consumidores para a energia percorrer a instalação no mesmo passo físico.
+  veiculo.registrarNoMundo(mundo);
+
+  const alturaInicialM = veiculo.getEstadoFisico().posicaoM.y;
+  const pesoAtualN = (): number => veiculo.massaInstantaneaDoConjuntoKg * Math.abs(MundoFisico.gravidadeTerrestreMps2.y);
+  return {
+    nome: 'Decolagem — veículo composto com painel solar',
+    descricao: 'Veículo composto físico com casco, tanques de metano e oxigênio, cadeia de alimentação bipropelente, bateria e painel solar. O Sol simulado incide verticalmente de cima para baixo por toda a atmosfera; a bateria acumula energia e o operador comanda manualmente os sistemas, o gimbal e a ignição.',
+    mundo, objetos: [veiculo, ...veiculo.modulosFisicos], superficies: [solo], velocidadeTempo: 3, limiteVerticalM: 70, limiteHorizontalM: 12,
+    seguirObjeto: veiculo, cameraY: () => veiculo.getEstadoFisico().posicaoM.y, conexoesEletricas: [painel.conexaoCarga, propulsor.conexaoEletrica!],
+    mangueira: { tanque: tanqueCombustivel, propulsor }, linhasComFalhaControlavel: { combustivel: linhaCombustivel, oxidante: linhaOxidante },
+    fixadores, propulsorControlavel: propulsor, permiteAjustarThrottle: true,
+    exibirNaBancada: true, deveEncerrar: () => false,
+    telemetria: () => `bateria ${(bateria.percentualDeCarga * 100).toFixed(1)}% · altitude ${veiculo.getEstadoFisico().posicaoM.y.toFixed(1)} m · empuxo ${propulsor.empuxoAtualN.toFixed(0)} / peso ${pesoAtualN().toFixed(0)} N`,
+    dados: () => `Sol: irradiância vertical descendente · 1.000 W/m²\nPainel: ${painel.potenciaAtualW.toFixed(0)} W · energia gerada ${painel.energiaGeradaJ.toFixed(0)} J\nBateria: ${bateria.energiaArmazenadaJ.toFixed(0)} / ${bateria.capacidadeEnergiaJ.toFixed(0)} J (${(bateria.percentualDeCarga * 100).toFixed(1)}%)\nPartida: comando manual pelos controles da bancada\nAltitude: ${veiculo.getEstadoFisico().posicaoM.y.toFixed(2)} m · velocidade vertical ${veiculo.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s\nAtitude: ${(veiculo.getEstadoFisico().orientacaoRad.z * 180 / Math.PI).toFixed(2)}° · gimbal ${(propulsor.obterEstadoDaVetorizacao().anguloAtualRad * 180 / Math.PI).toFixed(2)}°\nMassa conectada: ${veiculo.massaInstantaneaDoConjuntoKg.toFixed(1)} kg · peso ${pesoAtualN().toFixed(0)} N\nTanques: CH4 ${tanqueCombustivel.massaPropelenteKg.toFixed(1)} kg · O2 ${tanqueOxidante.massaPropelenteKg.toFixed(1)} kg\nCadeia: ${linhaCombustivel.estaIndisponivel || linhaOxidante.estaIndisponivel ? 'INDISPONÍVEL' : 'íntegra'} · vazão ${propulsor.vazaoAtualKgS.toFixed(2)} kg/s\nEmpuxo: ${propulsor.empuxoAtualN.toFixed(0)} N · ignição ${propulsor.estaIgnitado ? 'ativa' : 'cortada'} · integridade ${Math.round(propulsor.integridadeEstrutural * 100)}%`,
+    validar: () => `${propulsor.estaIgnitado && propulsor.empuxoAtualN > pesoAtualN() && Math.abs(veiculo.getEstadoFisico().orientacaoRad.z) < 5 * Math.PI / 180 && veiculo.getEstadoFisico().posicaoM.y > alturaInicialM + 0.5 ? 'APROVADO' : 'AGUARDANDO DECOLAGEM'} · empuxo ${propulsor.empuxoAtualN.toFixed(0)} N; peso ${pesoAtualN().toFixed(0)} N; atitude ${(veiculo.getEstadoFisico().orientacaoRad.z * 180 / Math.PI).toFixed(2)}°`,
   };
 };
 
@@ -1849,7 +1934,7 @@ const construirCenarios = (): CenárioVisual[] => {
     criarTesteImpactoNoRetangulo('impacto no centro de massa', 5, 3),
   ];
   void cenariosArquivados;
-  return [criarTestePainelSolarComSombra(), criarTestePortaVertical()];
+  return [criarTestePainelSolarComSombra(), criarTestePortaVertical(), criarTesteDecolagemComPainelSolar()];
 };
 
 let cenarios = construirCenarios();
@@ -2044,7 +2129,7 @@ const desenhar = (): void => {
 
   const escalaVertical = (altura - 80) / cenário.limiteVerticalM;
   const escalaHorizontal = cenário.limiteHorizontalM === undefined ? 70 : (largura - 80) / (cenário.limiteHorizontalM * 2);
-  const escala = Math.min(70, escalaVertical, escalaHorizontal);
+  const escala = Math.min(70, escalaVertical, escalaHorizontal) * (Number(zoomInput.value) / 100);
   // Cenários com trajetória horizontal começam à esquerda para que o impacto
   // permaneça visível antes do meio do canvas, sem alterar a física.
   const origemX = cenário.cameraX !== undefined
@@ -2149,32 +2234,7 @@ const desenhar = (): void => {
     contexto.restore();
   }
 
-  if (cenário.fonteSolarVisual) {
-    const alvo = cenário.fonteSolarVisual.alvo;
-    const estado = alvo.getEstadoFisico();
-    const inicioX = origemX + (estado.posicaoM.x - cenário.fonteSolarVisual.distanciaOrigemM) * escala;
-    const fimX = origemX + (estado.posicaoM.x - alvo.dimensoesM.x / 2) * escala;
-    contexto.save();
-    contexto.strokeStyle = '#facc15';
-    contexto.fillStyle = '#facc15';
-    contexto.lineWidth = 2;
-    contexto.setLineDash([2, 8]);
-    for (const deslocamentoM of [-0.8, -0.4, 0, 0.4, 0.8]) {
-      const raioYM = estado.posicaoM.y + deslocamentoM;
-      const bloqueioXM = cenário.fonteSolarVisual.obterBloqueioXM?.(raioYM);
-      const y = soloY - raioYM * escala;
-      contexto.beginPath();
-      contexto.moveTo(inicioX, y);
-      contexto.lineTo(bloqueioXM === undefined ? fimX : origemX + bloqueioXM * escala, y);
-      contexto.stroke();
-    }
-    contexto.setLineDash([]);
-    contexto.font = '10px ui-monospace, monospace';
-    contexto.fillText('SOL ARTIFICIAL', inicioX + 8, soloY - (estado.posicaoM.y + 1.45) * escala);
-    contexto.restore();
-  }
-
-  if (cenário.mangueira) {
+  if (showConnectionsInput.checked && cenário.mangueira) {
     const tanqueEstado = cenário.mangueira.tanque.getEstadoFisico();
     const propulsorEstado = cenário.mangueira.propulsor.getEstadoFisico();
     contexto.save();
@@ -2190,6 +2250,7 @@ const desenhar = (): void => {
 
   if (cenário.fixadores) {
     for (const fixador of cenário.fixadores) {
+      if (fixador.estaRompido) continue;
       const estadoA = fixador.objetoA.getEstadoFisico();
       const estadoB = fixador.objetoB.getEstadoFisico();
       const inicioX = origemX + estadoA.posicaoM.x * escala;
@@ -2197,10 +2258,9 @@ const desenhar = (): void => {
       const fimX = origemX + estadoB.posicaoM.x * escala;
       const fimY = soloY - estadoB.posicaoM.y * escala;
       contexto.save();
-      contexto.strokeStyle = fixador.estaRompido ? '#ef4444' : '#38bdf8';
+      contexto.strokeStyle = '#38bdf8';
       contexto.fillStyle = contexto.strokeStyle;
       contexto.lineWidth = 5;
-      if (fixador.estaRompido) contexto.setLineDash([7, 6]);
       contexto.beginPath();
       contexto.moveTo(inicioX, inicioY);
       contexto.lineTo(fimX, fimY);
@@ -2210,17 +2270,6 @@ const desenhar = (): void => {
         contexto.beginPath();
         contexto.arc(x, y, 5, 0, Math.PI * 2);
         contexto.fill();
-      }
-      if (fixador.estaRompido) {
-        const meioX = (inicioX + fimX) / 2;
-        const meioY = (inicioY + fimY) / 2;
-        contexto.lineWidth = 3;
-        contexto.beginPath();
-        contexto.moveTo(meioX - 6, meioY - 6);
-        contexto.lineTo(meioX + 6, meioY + 6);
-        contexto.moveTo(meioX + 6, meioY - 6);
-        contexto.lineTo(meioX - 6, meioY + 6);
-        contexto.stroke();
       }
       contexto.restore();
     }
@@ -2310,6 +2359,8 @@ const desenhar = (): void => {
           : objeto instanceof GeradorCA ? '#fb923c'
           : objeto instanceof Bateria
             ? '#facc15'
+          : objeto instanceof PainelSolar
+            ? '#38bdf8'
           : objeto instanceof TanquePropelente
             ? '#34d399'
             : objeto.dimensoesM.x > 1 ? '#a78bfa' : '#22d3ee';
@@ -2391,6 +2442,24 @@ const desenhar = (): void => {
       contexto.moveTo(larguraObjeto * 0.14, -alturaObjeto * 0.22);
       contexto.lineTo(larguraObjeto * 0.14, alturaObjeto * 0.22);
       contexto.stroke();
+    } else if (objeto instanceof PainelSolar) {
+      contexto.fillStyle = '#0c4a6e';
+      contexto.fillRect(-larguraObjeto / 2, -alturaObjeto / 2, larguraObjeto, alturaObjeto);
+      contexto.strokeRect(-larguraObjeto / 2, -alturaObjeto / 2, larguraObjeto, alturaObjeto);
+      contexto.strokeStyle = '#bae6fd';
+      contexto.lineWidth = 1;
+      for (let coluna = -2; coluna <= 2; coluna += 1) {
+        const xPainel = coluna * larguraObjeto / 5;
+        contexto.beginPath();
+        contexto.moveTo(xPainel, -alturaObjeto / 2);
+        contexto.lineTo(xPainel, alturaObjeto / 2);
+        contexto.stroke();
+      }
+      contexto.fillStyle = '#e0f2fe';
+      contexto.font = '9px ui-monospace, monospace';
+      contexto.textAlign = 'center';
+      contexto.fillText('SOLAR', 0, 4);
+      contexto.textAlign = 'start';
     } else if (objeto instanceof TanquePropelente) {
       contexto.fillStyle = '#166534';
       contexto.fillRect(-larguraObjeto / 2, -alturaObjeto / 2, larguraObjeto, alturaObjeto);
@@ -2583,7 +2652,7 @@ const desenhar = (): void => {
     contexto.restore();
   }
 
-  alvosSwitch = desenharConexoesEletricas(contexto, cenário.conexoesEletricas ?? [], objetosVisiveis,
+  alvosSwitch = desenharConexoesEletricas(contexto, showConnectionsInput.checked ? cenário.conexoesEletricas ?? [] : [], objetosVisiveis,
     (ponto) => ({ x: origemX + ponto.x * escala, y: soloY - ponto.y * escala }));
 
   for (const sensor of cenário.sensoresFimDeCurso ?? []) {
@@ -2786,6 +2855,7 @@ const operarConexao = (acao: (conexao: ConexaoEletricaVisual) => void): void => 
   atualizarControlesDoPropulsor(); desenhar();
 };
 connectionSelector.addEventListener('change', () => { atualizarControlesEletricos(); desenhar(); });
+showConnectionsInput.addEventListener('change', () => desenhar());
 const alternarInterruptor = (conexao: ConexaoEletricaVisual): void => {
   const porta = cenarioAtual().portaControlavel;
   if (porta?.conexaoEletrica === conexao) {
@@ -2799,7 +2869,7 @@ const obterTransformacaoDaBancada = () => {
   const cenário = cenarioAtual();
   const escalaVertical = (canvas.height - 80) / cenário.limiteVerticalM;
   const escalaHorizontal = cenário.limiteHorizontalM === undefined ? 70 : (canvas.width - 80) / (cenário.limiteHorizontalM * 2);
-  const escala = Math.min(70, escalaVertical, escalaHorizontal);
+  const escala = Math.min(70, escalaVertical, escalaHorizontal) * (Number(zoomInput.value) / 100);
   const origemX = cenário.cameraX !== undefined
     ? canvas.width / 2 - cenário.cameraX() * escala
     : cenário.seguirObjeto === undefined
@@ -2961,6 +3031,20 @@ timeScaleInput.addEventListener('input', () => {
   atualizarControleTemporal();
   desenhar();
 });
+const atualizarZoom = (): void => {
+  const zoom = Number(zoomInput.value);
+  if (!Number.isFinite(zoom)) return;
+  zoomValue.textContent = `${Math.round(zoom)}%`;
+  desenhar();
+};
+zoomInput.addEventListener('input', atualizarZoom);
+canvas.addEventListener('wheel', (evento) => {
+  evento.preventDefault();
+  const zoomAtual = Number(zoomInput.value);
+  const proximoZoom = zoomAtual + (evento.deltaY < 0 ? 10 : -10);
+  zoomInput.value = String(Math.max(Number(zoomInput.min), Math.min(Number(zoomInput.max), proximoZoom)));
+  atualizarZoom();
+}, { passive: false });
 gimbalInput.addEventListener('input', () => {
   const propulsor = cenarioAtual().propulsorVetorizadoControlavel;
   if (!propulsor) return;

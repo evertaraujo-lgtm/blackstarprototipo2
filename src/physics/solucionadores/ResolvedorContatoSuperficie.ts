@@ -78,6 +78,7 @@ export class ResolvedorContatoSuperficie {
   ): void {
     const normal = new Vetor3(0, 1, 0);
     const velocidadeNormal = conjunto.obterVelocidadeNoPonto(pontoContatoM).produtoEscalar(normal);
+    const contatoApoiando = velocidadeNormal <= 0;
     let impulsoNormalNs = 0;
     if (velocidadeNormal < 0) {
       const massaEfetivaKg = conjunto.obterMassaEfetivaNoContato(pontoContatoM, normal);
@@ -90,7 +91,7 @@ export class ResolvedorContatoSuperficie {
       this.contexto.resolvedorEsforcoEstrutural.registrarImpulsoDeContato(objetoDeContato, conjunto.membros, impulsoNormalNs, normal, dtS, this.contexto.obterFixadores());
     }
 
-    if (impulsoNormalNs > 0) {
+    if (contatoApoiando) {
       const velocidadeNoContato = conjunto.obterVelocidadeNoPonto(pontoContatoM);
       const velocidadeTangencial = velocidadeNoContato.subtrair(normal.multiplicar(velocidadeNoContato.produtoEscalar(normal)));
       if (velocidadeTangencial.magnitude > 1e-9) {
@@ -115,6 +116,7 @@ export class ResolvedorContatoSuperficie {
     const braco = pontoContatoM.subtrair(estado.posicaoM);
     const velocidadeContato = estado.velocidadeMps.adicionar(estado.velocidadeAngularRadps.produtoVetorial(braco));
     const velocidadeNormal = velocidadeContato.produtoEscalar(normal);
+    const contatoApoiando = velocidadeNormal <= 0;
     const inercia = objeto.getMomentoInerciaKgM2();
     const termoAngular = this.obterTermoAngular(braco.produtoVetorial(normal), inercia);
     let velocidade = estado.velocidadeMps;
@@ -135,7 +137,7 @@ export class ResolvedorContatoSuperficie {
       superficie.aplicarDanoPorImpacto(energiaImpactoJ);
     }
 
-    if (impulsoNormalNs > 0) {
+    if (contatoApoiando) {
       const velocidadeNoContato = velocidade.adicionar(velocidadeAngular.produtoVetorial(braco));
       const velocidadeTangencial = velocidadeNoContato.subtrair(normal.multiplicar(velocidadeNoContato.produtoEscalar(normal)));
       if (velocidadeTangencial.magnitude > 0) {
