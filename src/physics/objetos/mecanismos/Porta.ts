@@ -2,6 +2,7 @@ import { Objeto, type DefinicaoObjeto, type ForcaFisicaSolicitada } from '../bas
 import { CilindroEletrico } from '../atuadores/CilindroEletrico';
 import { ComCilindro, type EntradasCilindro } from '../atuadores/Cilindro';
 import { ConexaoEletrica } from '../../conexoes/ConexaoEletrica';
+import { Contator } from '../../conexoes/eletrica/Contator';
 import { Bateria } from '../fontes-de-energia/Bateria';
 import { SwitchFimDeCurso } from '../../sensores/SwitchFimDeCurso';
 import { EstadoOperacional, SistemaOperacional } from '../../SistemaOperacional';
@@ -11,6 +12,7 @@ export interface DefinicaoPorta extends DefinicaoObjeto {
   readonly batente: Objeto;
   readonly bateria: Bateria;
   readonly conexaoEletrica?: ConexaoEletrica;
+  readonly potenciaSeparada?: { readonly conexao: ConexaoEletrica; readonly contator: Contator };
   readonly sensorAberto: SwitchFimDeCurso;
   readonly sensorFechado: SwitchFimDeCurso;
   readonly velocidadeAvancoMps: number;
@@ -19,6 +21,8 @@ export interface DefinicaoPorta extends DefinicaoObjeto {
   readonly tensaoNominalV: number;
   readonly rigidezRetencaoNPorM: number;
   readonly potenciaEmRepousoW: number;
+  readonly obterTravaRecuada?: () => boolean;
+  readonly obterForcasDaTrava?: () => readonly ForcaFisicaSolicitada[];
 }
 
 /** Porta vertical: identidade física de Objeto e comportamento herdado do cilindro. */
@@ -26,14 +30,16 @@ export class Porta extends ComCilindro(Objeto) {
   private readonly acionamento: CilindroEletrico;
   private readonly alimentacao = new SistemaOperacional('alimentação', EstadoOperacional.Desligado);
   private readonly controle = new SistemaOperacional('controle', EstadoOperacional.Desligado);
+  private potenciaSolicitada = false;
   private comando: 'abrir' | 'fechar' | 'parar' = 'parar';
 
   public constructor(private readonly configuracaoPorta: DefinicaoPorta) {
     super(configuracaoPorta);
     if (!Number.isFinite(configuracaoPorta.tensaoNominalV) || configuracaoPorta.tensaoNominalV <= 0) throw new Error('Tensão nominal deve ser positiva, em V.');
     this.acionamento = new CilindroEletrico({
-      ...configuracaoPorta, corpo: configuracaoPorta.batente, haste: this,
-      direcaoDeCursoM: new Vetor3(0, 1, 0), operacaoAutorizada: () => this.operacional,
+      ...configuracaoPorta, fonte: configuracaoPorta.potenciaSeparada?.conexao.fonte ?? configuracaoPorta.bateria,
+      conexaoEletrica: configuracaoPorta.potenciaSeparada?.conexao ?? configuracaoPorta.conexaoEletrica, corpo: configuracaoPorta.batente, haste: this,
+      direcaoDeCursoM: new Vetor3(0, 1, 0), operacaoAutorizada: () => this.operacional && (this.configuracaoPorta.potenciaSeparada?.contator.estaFechado ?? true),
     });
     this.instalarCilindro(this.acionamento);
     this.conexaoEletrica.abrirInterruptor();
@@ -45,7 +51,10 @@ export class Porta extends ComCilindro(Objeto) {
   public get sensorFechadoAcionado(): boolean {
     return this.configuracaoPorta.sensorFechado.obterAlvoEmContato() === this;
   }
-  public get conexaoEletrica(): ConexaoEletrica { return this.acionamento.conexaoEletrica; }
+  public get conexaoEletrica(): ConexaoEletrica { return this.configuracaoPorta.conexaoEletrica ?? this.acionamento.conexaoEletrica; }
+  public get conexaoPotencia(): ConexaoEletrica { return this.acionamento.conexaoEletrica; }
+  public get contatorFechado(): boolean { return this.configuracaoPorta.potenciaSeparada?.contator.estaFechado ?? this.controleLigado; }
+  public get potenciaDisponivel(): boolean { return !this.configuracaoPorta.potenciaSeparada || (this.conexaoPotencia.podeConduzir && this.conexaoPotencia.interruptorPrincipalFechado); }
   public get fonteDisponivel(): boolean {
     const bateria = this.configuracaoPorta.bateria;
     return this.conexaoEletrica.podeConduzir && !bateria.estaDescarregada && bateria.integridadeEstrutural > 0 &&
@@ -54,7 +63,7 @@ export class Porta extends ComCilindro(Objeto) {
   public get alimentacaoLigada(): boolean { return this.alimentacao.operacional && this.fonteDisponivel && this.conexaoEletrica.estaEnergizada; }
   public get controleLigado(): boolean { return this.controle.operacional && this.alimentacaoLigada; }
   public get operacional(): boolean {
-    return this.controleLigado && this.integridadeEstrutural > 0 && this.configuracaoPorta.batente.integridadeEstrutural > 0;
+    return this.controleLigado && this.potenciaDisponivel && this.integridadeEstrutural > 0 && this.configuracaoPorta.batente.integridadeEstrutural > 0;
   }
   public get comandoAtual(): string { return this.comando; }
   public get forcaAtualN(): number { return this.operacional ? this.acionamento.forcaNaHasteN : 0; }
@@ -78,7 +87,9 @@ export class Porta extends ComCilindro(Objeto) {
   }
   public desligarControle(): void {
     this.controle.definirEstado(EstadoOperacional.Desligado);
+    this.potenciaSolicitada = false;
     this.comando = 'parar';
+    this.configuracaoPorta.potenciaSeparada?.contator.desarmar();
     this.atualizarEntradasDosSensores();
   }
   public abrir(): boolean { return this.solicitarMovimento('abrir'); }
@@ -95,18 +106,36 @@ export class Porta extends ComCilindro(Objeto) {
   private solicitarMovimento(comando: 'abrir' | 'fechar'): boolean {
     if (!this.operacional) return false;
     this.comando = comando;
+    this.potenciaSolicitada = true;
     this.atualizarEntradasDosSensores();
     return true;
   }
   private atualizarEntradasDosSensores(): void {
+    const travaLiberada = this.configuracaoPorta.obterTravaRecuada?.() ?? true;
     super.definirEntradas({
-      avancar: this.operacional && this.comando === 'abrir',
-      recuar: this.operacional && this.comando === 'fechar',
+      avancar: this.operacional && this.comando === 'abrir' && travaLiberada,
+      recuar: this.operacional && this.comando === 'fechar' && travaLiberada,
       avancado: this.sensorAbertoAcionado, recuado: this.sensorFechadoAcionado,
     });
   }
   public override prepararPassoOperacional(dtS: number): void {
     this.conexaoEletrica.verificarIntegridade();
+    const potencia = this.configuracaoPorta.potenciaSeparada;
+    if (potencia) {
+      potencia.conexao.verificarIntegridade();
+      this.conexaoEletrica.prepararPasso(dtS);
+      if (this.alimentacaoLigada) {
+        const energiaControle = this.conexaoEletrica.fornecerEnergia(6 * dtS);
+        if (energiaControle < 6 * dtS - 1e-10 || Math.abs(this.conexaoEletrica.tensaoSaidaV - 24) > 1.2) this.desligarAlimentacao();
+      }
+      if (!this.potenciaDisponivel) {
+        this.potenciaSolicitada = false; this.parar();
+      }
+      const autorizar = this.potenciaSolicitada && this.operacional;
+      const energiaBobina = autorizar ? this.conexaoEletrica.fornecerEnergia(potencia.contator.potenciaBobinaW * dtS) : 0;
+      potencia.contator.atualizarBobina(autorizar, this.conexaoEletrica.tensaoSaidaV, energiaBobina, dtS);
+      if (autorizar && !potencia.contator.estaFechado) { this.potenciaSolicitada = false; this.desligarControle(); }
+    }
     if (!this.fonteDisponivel || !this.conexaoEletrica.estaEnergizada) this.desligarAlimentacao();
     if (!this.alimentacaoLigada || this.integridadeEstrutural === 0 || this.configuracaoPorta.batente.integridadeEstrutural === 0) this.desligarControle();
     if ((this.comando === 'abrir' && this.sensorAbertoAcionado) ||
@@ -115,7 +144,10 @@ export class Porta extends ComCilindro(Objeto) {
     this.acionamento.prepararPassoOperacional(dtS);
   }
   public override obterForcasOperacionais(): readonly ForcaFisicaSolicitada[] {
-    return this.operacional ? this.acionamento.obterForcasNaHaste() : [];
+    return [
+      ...(this.operacional ? this.acionamento.obterForcasNaHaste() : []),
+      ...(this.configuracaoPorta.obterForcasDaTrava?.() ?? []),
+    ];
   }
   public obterReacaoNoBatente(): readonly ForcaFisicaSolicitada[] {
     return this.operacional ? this.acionamento.obterForcasOperacionais() : [];

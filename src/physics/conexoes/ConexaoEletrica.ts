@@ -1,11 +1,11 @@
-import { Bateria } from '../objetos/fontes-de-energia/Bateria';
+import type { FonteEletrica } from '../objetos/fontes-de-energia/FonteEletrica';
 import { Objeto } from '../objetos/base/Objeto';
 import { Interruptor } from './eletrica/Interruptor';
 import { Resistor } from './eletrica/Resistor';
 
 export interface DefinicaoConexaoEletrica {
   readonly id: string;
-  readonly fonte: Bateria;
+  readonly fonte: FonteEletrica;
   readonly destino: Objeto;
   /** Alcance entre os centros dos corpos, como o modelo atual de LinhaDePropelente. */
   readonly comprimentoMaximoM: number;
@@ -13,12 +13,12 @@ export interface DefinicaoConexaoEletrica {
   readonly correnteMaximaA: number;
   readonly resistenciaCaboOhm?: number;
   readonly resistores?: readonly Resistor[];
-  readonly interruptores?: readonly Interruptor[];
+  readonly interruptores?: readonly Pick<Interruptor, 'estaFechado'>[];
   readonly inicialmenteLigada?: boolean;
 }
 
 /**
- * Ligação DC: ciclo de conexão equivalente à linha de propelente, com leis elétricas próprias.
+ * Ligação CC ou CA RMS (fator de potência unitário): ciclo de conexão equivalente à linha de propelente, com leis elétricas próprias.
  * Um consumidor prepara o passo uma vez; todas as suas cargas compartilham o orçamento.
  */
 export class ConexaoEletrica {
@@ -26,7 +26,7 @@ export class ConexaoEletrica {
   private desconectada = false;
   private readonly principal: Interruptor;
   private readonly resistores: readonly Resistor[];
-  private readonly interruptores: readonly Interruptor[];
+  private readonly interruptores: readonly Pick<Interruptor, 'estaFechado'>[];
   private limiteA: number;
   private resistenciaCabo: number;
   private dtPassoS?: number;
@@ -49,7 +49,7 @@ export class ConexaoEletrica {
     if (!Number.isFinite(this.resistenciaTotalOhm)) throw new Error('Resistência total inválida.');
   }
   public get id(): string { return this.definicao.id; }
-  public get fonte(): Bateria { return this.definicao.fonte; }
+  public get fonte(): FonteEletrica { return this.definicao.fonte; }
   public get destino(): Objeto { return this.definicao.destino; }
   public get comprimentoMaximoM(): number { return this.definicao.comprimentoMaximoM; }
   public get comprimentoAtualM(): number { return this.fonte.getEstadoFisico().posicaoM.subtrair(this.destino.getEstadoFisico().posicaoM).magnitude; }
@@ -58,6 +58,7 @@ export class ConexaoEletrica {
   public get resistenciaTotalOhm(): number { return this.resistenciaCabo + this.resistores.reduce((soma, resistor) => soma + resistor.resistenciaOhm, 0); }
   public get estaRompida(): boolean { return this.rompida; }
   public get estaDesconectada(): boolean { return this.desconectada; }
+  public get interruptorPrincipalFechado(): boolean { return this.principal.estaFechado; }
   public get interruptorFechado(): boolean { return this.principal.estaFechado && this.interruptores.every((interruptor) => interruptor.estaFechado); }
   public get fonteDisponivel(): boolean { return !this.fonte.estaDescarregada && this.fonte.integridadeEstrutural > 0; }
   public get podeConduzir(): boolean {
@@ -116,7 +117,7 @@ export class ConexaoEletrica {
     const r = this.resistenciaTotalOhm;
     const energiaDesejadaTotalJ = this.energiaCargaNoPassoJ + energiaSolicitadaJ;
     // P = I(V - RI). Usa o ramo de maior tensão, até o máximo transferível.
-    const maxCorrenteEnergiaA = (this.fonte.energiaArmazenadaJ + this.energiaFonteNoPassoJ) / (v * dt);
+    const maxCorrenteEnergiaA = ((this.fonte.energiaDisponivelNoPassoJ ?? this.fonte.energiaArmazenadaJ) + this.energiaFonteNoPassoJ) / (v * dt);
     const iMax = Math.min(this.limiteA, r === 0 ? Infinity : v / (2 * r), maxCorrenteEnergiaA);
     const potenciaMaxW = iMax * (v - r * iMax);
     const potenciaW = Math.min(energiaDesejadaTotalJ / dt, potenciaMaxW);

@@ -1,6 +1,6 @@
 import { Vetor3 } from '../../Vetor3';
 import { ConexaoEletrica } from '../../conexoes/ConexaoEletrica';
-import { Bateria } from '../fontes-de-energia/Bateria';
+import type { FonteEletrica } from '../fontes-de-energia/FonteEletrica';
 import { Objeto, type DefinicaoObjeto, type ForcaFisicaSolicitada } from '../base/Objeto';
 
 import { Cilindro, ComCilindro, type DefinicaoCilindro } from './Cilindro';
@@ -9,7 +9,9 @@ export type { EntradasCilindro } from './Cilindro';
 export interface DefinicaoCilindroEletrico extends DefinicaoCilindro {
   readonly corpo: Objeto;
   readonly haste: Objeto;
-  readonly bateria: Bateria;
+  readonly fonte?: FonteEletrica;
+  /** Compatibilidade com montagens CC existentes. */
+  readonly bateria?: FonteEletrica;
   readonly conexaoEletrica?: ConexaoEletrica;
   /** Capacidade de empuxo do fuso/motor; não altera velocidade diretamente. */
   readonly forcaMaximaN: number;
@@ -42,12 +44,14 @@ export class CilindroEletrico extends Cilindro {
     const direcao = definicaoEletrica.direcaoDeCursoM ?? new Vetor3(1, 0, 0);
     if (Math.abs(direcao.magnitude - 1) > 1e-9) throw new Error('Direção de curso do cilindro elétrico deve ser unitária.');
     this.direcaoDeCursoM = direcao;
+    const fonte = definicaoEletrica.fonte ?? definicaoEletrica.bateria;
+    if (!fonte) throw new Error('Cilindro elétrico exige uma fonte.');
     const potenciaNominalW = definicaoEletrica.forcaMaximaN * Math.max(this.velocidadeAvancoMps, this.velocidadeRecuoMps) / eficiencia + (definicaoEletrica.potenciaEmRepousoW ?? 0);
     this.conexaoEletrica = definicaoEletrica.conexaoEletrica ?? new ConexaoEletrica({
-      id: `cabo-${definicaoEletrica.corpo.id}`, fonte: definicaoEletrica.bateria, destino: definicaoEletrica.corpo,
-      comprimentoMaximoM: 10, correnteMaximaA: potenciaNominalW / definicaoEletrica.bateria.tensaoNominalV, inicialmenteLigada: true,
+      id: `cabo-${definicaoEletrica.corpo.id}`, fonte, destino: definicaoEletrica.corpo,
+      comprimentoMaximoM: 10, correnteMaximaA: potenciaNominalW / fonte.tensaoNominalV, inicialmenteLigada: true,
     });
-    if (this.conexaoEletrica.fonte !== definicaoEletrica.bateria || this.conexaoEletrica.destino !== definicaoEletrica.corpo) throw new Error('Conexão elétrica não corresponde à montagem do cilindro.');
+    if (this.conexaoEletrica.fonte !== fonte || this.conexaoEletrica.destino !== definicaoEletrica.corpo) throw new Error('Conexão elétrica não corresponde à montagem do cilindro.');
     for (const valor of [definicaoEletrica.rigidezRetencaoNPorM ?? 0, definicaoEletrica.potenciaEmRepousoW ?? 0]) {
       if (!Number.isFinite(valor) || valor < 0) throw new Error('Rigidez e potência de repouso devem ser finitas e não negativas.');
     }
@@ -60,7 +64,7 @@ export class CilindroEletrico extends Cilindro {
     if (!Number.isFinite(dtS) || dtS <= 0) throw new Error('dt deve ser positivo e finito, em segundos.');
     this.conexaoEletrica.prepararPasso(dtS);
     const velocidadeDesejadaMps = this.velocidadeSolicitadaMps;
-    if (this.conexaoEletrica.estaIndisponivel || this.definicaoEletrica.bateria.estaDescarregada || this.definicaoEletrica.bateria.integridadeEstrutural === 0 ||
+    if (this.conexaoEletrica.estaIndisponivel || this.conexaoEletrica.fonte.estaDescarregada || this.conexaoEletrica.fonte.integridadeEstrutural === 0 ||
         this.haste.integridadeEstrutural === 0 || this.definicaoEletrica.corpo.integridadeEstrutural === 0 ||
         this.definicaoEletrica.operacaoAutorizada?.() === false) {
       this.forcaAtualN = 0;

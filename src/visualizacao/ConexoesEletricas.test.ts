@@ -1,7 +1,9 @@
 import { describe, expect, it, vi } from 'vitest';
-import { criarEnsaioPortaVertical } from '../physics/cenarios/EnsaioPortaVertical';
+import { criarEnsaioPortaVertical as criarEnsaio } from '../physics/cenarios/EnsaioPortaVertical';
 import { Vetor3 } from '../physics/Vetor3';
 import { conexoesEletricasExpostas, desenharConexoesEletricas, terminalEletricoM, type ConexaoEletricaVisual } from './ConexoesEletricas';
+
+const criarEnsaioPortaVertical = (config: Parameters<typeof criarEnsaio>[0] = {}) => criarEnsaio({ ...config, separarPotencia: false, instalarTrava: false });
 
 function contextoDeTeste() {
   return { fillRect: vi.fn(), save: vi.fn(), restore: vi.fn(), beginPath: vi.fn(), moveTo: vi.fn(), lineTo: vi.fn(), stroke: vi.fn(), fill: vi.fn(), arc: vi.fn(), fillText: vi.fn(), setLineDash: vi.fn() };
@@ -21,6 +23,15 @@ describe('Conexões elétricas de fontes expostas', () => {
     expect(contexto.fillText).toHaveBeenCalledWith(estado === 'energizada' ? 'ALIMENTAÇÃO ON' : estado === 'desligada' ? 'ALIMENTAÇÃO OFF' : 'CABO ROMPIDO', expect.any(Number), expect.any(Number));
     expect(e.bateria.getEstadoFisico()).toEqual(estadoInicial);
     expect(e.bateria.energiaArmazenadaJ).toBe(energiaInicial);
+  });
+  it('expõe alvo de clique apenas para o switch CC visível', () => {
+    const e = criarEnsaio();
+    const contexto = contextoDeTeste();
+    const alvos = desenharConexoesEletricas(contexto as unknown as CanvasRenderingContext2D,
+      [e.conexaoEletrica, e.conexaoPotencia], e.objetos, p => ({ x: p.x * 60, y: -p.y * 60 }));
+    expect(alvos.map(alvo => alvo.conexao)).toEqual([e.conexaoEletrica]);
+    expect(desenharConexoesEletricas(contexto as unknown as CanvasRenderingContext2D,
+      [e.conexaoEletrica], [], p => p)).toEqual([]);
   });
   it('oculta os cabos internos de uma fonte enclausurada sem removê-la da simulação', () => {
     const e = criarEnsaioPortaVertical();

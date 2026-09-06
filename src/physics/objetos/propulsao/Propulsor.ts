@@ -42,7 +42,7 @@ export class Propulsor extends Objeto {
   private throttle = 0;
   private tanque?: TanquePropelente;
   private conexao?: ConexaoEletrica;
-  private get bateria(): Bateria | undefined { return this.conexao?.fonte; }
+  private get bateria(): Bateria | undefined { return this.conexao?.fonte instanceof Bateria ? this.conexao.fonte : undefined; }
   private cadeiaBipropelente?: CadeiaBipropelenteDoPropulsor;
   private comprimentoMaxMangueiraM = 0;
   private mangueiraRompida = false;
@@ -137,7 +137,7 @@ export class Propulsor extends Objeto {
       comprimentoMaximoM: comprimentoMaxCaboEletricoM, correnteMaximaA: this.potenciaEletricaMaximaW / bateria.tensaoNominalV }));
   }
   public instalarConexaoEletrica(conexao: ConexaoEletrica): void {
-    if (conexao.destino !== this || conexao.tensaoNominalV !== this.tensaoAlimentacaoNominalV) throw new Error('Conexão elétrica incompatível com o propulsor.');
+    if (!(conexao.fonte instanceof Bateria) || conexao.destino !== this || conexao.tensaoNominalV !== this.tensaoAlimentacaoNominalV) throw new Error('Conexão elétrica incompatível com o propulsor.');
     this.conexao?.abrirInterruptor();
     this.conexao = conexao;
     this.definirEstadoDoSistema('elétrico', EstadoOperacional.Desligado);

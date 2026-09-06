@@ -11,6 +11,7 @@ export interface DefinicaoBateria extends DefinicaoObjeto {
 
 /** Fonte elétrica física com carga finita; sua massa e integridade pertencem ao mundo. */
 export class Bateria extends Objeto {
+  public readonly tipoCorrente = 'CC' as const;
   private energiaAtualJ: number;
 
   public constructor(private readonly definicaoBateria: DefinicaoBateria) {

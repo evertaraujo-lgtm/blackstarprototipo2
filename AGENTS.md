@@ -1306,9 +1306,10 @@ sem requisito específico que justifique outro modelo físico.
 - A porta abre em Y positivo e fecha em Y negativo. A montagem declara
   batentes físicos, guia vertical e fixações com resistência; não existe
   deslocamento cinemático comandado pela interface.
-- A cadeia elétrica é bateria com tensão compatível → alimentação → controle
+- Na montagem CC original, a cadeia é bateria compatível → alimentação → controle
   → motor/fuso → forças opostas na porta e no batente de suporte. Alimentação
-  e controle começam desligados. Perda de alimentação cancela controle e
+  e controle começam desligados. A bancada atual separa comando e potência
+  conforme a seção 26.3. Perda de alimentação cancela controle e
   comando; o retorno da fonte exige religamento e novo comando explícitos.
 - Fins de curso aberto e fechado são `SwitchFimDeCurso`s instalados no
   batente, consultados em cada subpasso operacional. Os estados iniciais dos
@@ -1338,6 +1339,58 @@ sem requisito específico que justifique outro modelo físico.
 - Regressões devem cobrir abertura, fechamento, retenção, comando ausente,
   fonte sem energia/tensão incompatível, interrupção de controle, ruptura
   de guia/fixação, impacto com dano e limites térmicos.
+- A porta possui uma `TravaPorta` física, derivada de `Objeto` com comportamento
+  `Cilindro`. Sua posição normal sem energia é avançada (fail-safe). Abrir ou
+  fechar solicita primeiro o recuo; o movimento vertical só é autorizado após
+  a confirmação de trava recuada. O sensor de porta aberta, combinado com a
+  ausência de comando para descer, solicita o avanço.
+- A trava avançada sustenta a porta por força mecânica e transmite reação ao
+  batente. Não congela posição nem altera cinemática diretamente. Se perder CC
+  durante o recuo, a mola solicita avanço; uma porta fora de alinhamento pode
+  impedir fisicamente o curso até que o encaixe volte a ficar disponível.
+- A trava deste ensaio tem 2 kg, curso de 0,2 m, velocidade de referência de
+  0,5 m/s, força máxima de 1.000 N e recuo elétrico de 18 W. Ela começa a sofrer
+  dano acima de 150 °C e falha totalmente a 700 °C, conforme definido pelo
+  operador. A guia horizontal e a fixação do batente recebem as reações reais.
+
+---
+
+
+### 26.3 Comando CC e potência CA
+
+- Cargas pesadas podem ter circuitos separados: CC alimenta controle, sensores
+  e bobina do contator; CA alimenta o motor pelos contatos de potência. O
+  contator não transfere energia da bobina para a carga.
+- `FonteEletrica` é o contrato físico compartilhado por `Bateria` e `GeradorCA`.
+  CA usa tensão e corrente eficazes, regime monofásico e fator de potência 1
+  nesta etapa. Frequência é declarada; forma de onda, reatância, corrente de
+  partida e dinâmica eletromagnética ainda não são simuladas.
+- O gerador converte reserva mecânica finita em energia elétrica, respeita
+  potência nominal e integridade, e entrega suas perdas como calor ao core.
+  A reserva representa um acionamento equivalente; combustível, motor primário
+  e rotação de eixo não são objetos modelados neste marco.
+- O mundo prepara orçamentos energéticos antes de todos os consumidores,
+  independentemente da ordem de registro. Cargas compartilham a potência da
+  fonte; não podem reiniciar seu orçamento ao pedir energia.
+- No teste da porta: comando 24 V CC / limite 2 A, controle/sensores 6 W, bobina 6 W;
+  potência 220 V CA / 60 Hz / limite 20 A, gerador 4 kW, eficiência 90%, reserva 10 MJ.
+  Estes são parâmetros declarados do ensaio. Gerador de 80 kg e dimensões
+  1 × 0,8 × 0,8 m, apoiado e fixado no chão, com conexões expostas visíveis.
+- Gerador: dano acima de 125 °C e falha total a 180 °C, definidos pelo operador.
+  `temperaturaFalhaTotalC` é diferente de fusão do material. O envelope de
+  integridade é contínuo e irreversível e a falha bloqueia nova partida.
+- Perda de CC desarma controle e contator. Perda de CA desarma o contator e
+  cancela o comando, preservando o controle se o CC continuar disponível.
+  O retorno de energia nunca restaura o movimento automaticamente. Após
+  comando válido, K1 permanece energizado para permitir retenção por força
+  no fim de curso; desligar o controle remove essa retenção.
+- O símbolo do switch CC na bancada aceita clique, com coordenadas convertidas
+  da escala CSS para o Canvas. Símbolo e painel usam a mesma operação de
+  alimentação; K1 continua subordinado à bobina, sem acionamento visual direto.
+- LEDs exigem alimentação CC. A interface representa os circuitos e K1
+  consultando estados do domínio. O modo anterior de alimentação CC única
+  permanece disponível apenas para regressão e reutilização.
+
 
 ---
 

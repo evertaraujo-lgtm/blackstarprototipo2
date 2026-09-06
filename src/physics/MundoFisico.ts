@@ -125,6 +125,7 @@ export class MundoFisico {
 
   private integrarPasso(dtS: number): void {
     this.atualizarApoioDeTracao();
+    for (const objeto of this.objetos.values()) objeto.prepararPassoEnergetico(dtS);
     for (const objeto of this.objetos.values()) objeto.prepararPassoOperacional(dtS);
     this.atualizarEstadoTermico(dtS);
     for (const fixador of this.fixadores.values()) fixador.prepararPasso(dtS);

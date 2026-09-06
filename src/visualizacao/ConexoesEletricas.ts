@@ -16,12 +16,21 @@ export function terminalEletricoM(objeto: Objeto): Vetor3 {
   return estado.posicaoM.adicionar(new Vetor3(xLocal * Math.cos(estado.orientacaoRad.z), xLocal * Math.sin(estado.orientacaoRad.z), 0));
 }
 
+export interface AlvoSwitchEletrico {
+  readonly conexao: ConexaoEletricaVisual;
+  readonly x: number;
+  readonly y: number;
+  readonly largura: number;
+  readonly altura: number;
+}
+
 export function desenharConexoesEletricas(
   contexto: CanvasRenderingContext2D,
   conexoes: readonly ConexaoEletricaVisual[],
   objetosVisiveis: readonly Objeto[],
   projetar: (pontoM: Vetor3) => { readonly x: number; readonly y: number },
-): void {
+): readonly AlvoSwitchEletrico[] {
+  const alvos: AlvoSwitchEletrico[] = [];
   for (const conexao of conexoesEletricasExpostas(conexoes, objetosVisiveis)) {
     const inicio = projetar(terminalEletricoM(conexao.fonte));
     const fim = projetar(terminalEletricoM(conexao.destino));
@@ -50,7 +59,8 @@ export function desenharConexoesEletricas(
     }
     // Símbolo em série com o condutor positivo; consulta o estado real dos contatos.
     const switchX = rotaX - 3;
-    const switchY = (inicio.y + fim.y) / 2;
+    const switchY = (inicio.y + fim.y) / 2 - (conexao.fonte.tipoCorrente === 'CA' ? 55 : 0);
+    if (conexao.fonte.tipoCorrente === 'CC') alvos.push({ conexao, x: switchX - 23, y: switchY - 32, largura: 165, altura: 50 });
     contexto.fillStyle = '#071126';
     contexto.fillRect(switchX - 18, switchY - 17, 22, 34);
     contexto.strokeStyle = conexao.interruptorFechado ? '#4ade80' : '#fbbf24';
@@ -67,11 +77,12 @@ export function desenharConexoesEletricas(
     }
     contexto.font = '11px ui-monospace, monospace';
     contexto.fillStyle = conexao.interruptorFechado ? '#4ade80' : '#fbbf24';
-    contexto.fillText(conexao.interruptorFechado ? 'SW FECHADO' : 'SW ABERTO', rotaX + 22, switchY - 18);
+    contexto.fillText(`${conexao.fonte.tipoCorrente === 'CA' ? 'K1 / CA' : 'SW / CC'} ${conexao.interruptorFechado ? 'FECHADO' : 'ABERTO'}`, rotaX + 22, switchY - 18);
     contexto.fillStyle = estado === 'energizada' ? '#fde047' : estado === 'rompida' ? '#f87171' : '#cbd5e1';
     contexto.font = '11px ui-monospace, monospace';
-    contexto.fillText(estado === 'energizada' ? 'ALIMENTAÇÃO ON' : estado === 'rompida' ? 'CABO ROMPIDO' : estado === 'desconectada' ? 'DESCONECTADO' : 'ALIMENTAÇÃO OFF', rotaX + 9, (inicio.y + fim.y) / 2);
-    contexto.fillText(`${conexao.correnteAtualA.toFixed(1)} A · ${conexao.tensaoSaidaV.toFixed(1)} V`, rotaX + 9, (inicio.y + fim.y) / 2 + 14);
+    contexto.fillText(estado === 'energizada' ? 'ALIMENTAÇÃO ON' : estado === 'rompida' ? 'CABO ROMPIDO' : estado === 'desconectada' ? 'DESCONECTADO' : 'ALIMENTAÇÃO OFF', rotaX + 9, switchY);
+    contexto.fillText(`${conexao.correnteAtualA.toFixed(1)} A · ${conexao.tensaoSaidaV.toFixed(1)} V`, rotaX + 9, switchY + 14);
     contexto.restore();
   }
+  return alvos;
 }

@@ -23,6 +23,8 @@ export interface DefinicaoObjeto {
   readonly limiteTermicoC: number;
   /** Fusão/colapso do material em °C; opcional e superior ao início do dano. */
   readonly temperaturaFusaoC?: number;
+  /** Falha térmica total, sem implicar fusão do material. */
+  readonly temperaturaFalhaTotalC?: number;
   readonly temperaturaInicialC?: number;
   readonly capacidadeTermicaJPorC?: number;
   readonly areaTermicaM2?: number;
@@ -109,6 +111,7 @@ export class Objeto {
       orientacaoRad: definicao.estadoInicial?.orientacaoRad ?? Vetor3.zero,
       velocidadeAngularRadps: definicao.estadoInicial?.velocidadeAngularRadps ?? Vetor3.zero,
     };
+    if (definicao.temperaturaFalhaTotalC !== undefined && (!Number.isFinite(definicao.temperaturaFalhaTotalC) || definicao.temperaturaFalhaTotalC <= definicao.limiteTermicoC)) throw new Error('Temperatura de falha total inválida.');
     this.temperaturaAtualC = definicao.temperaturaInicialC ?? 20;
   }
 
@@ -122,6 +125,7 @@ export class Objeto {
   public get coeficienteAtritoEntreObjetos(): number { return this.definicao.coeficienteAtritoEntreObjetos ?? 0; }
   public get limiteTermicoC(): number { return this.definicao.limiteTermicoC; }
   public get temperaturaFusaoC(): number | undefined { return this.definicao.temperaturaFusaoC; }
+  public get temperaturaFalhaTotalC(): number | undefined { return this.definicao.temperaturaFalhaTotalC; }
   public get temperaturaC(): number { return this.temperaturaAtualC; }
   public get capacidadeTermicaJPorC(): number { return this.definicao.capacidadeTermicaJPorC ?? this.massaKg * 500; }
   public get areaTermicaM2(): number { return this.definicao.areaTermicaM2 ?? Math.max(0.1, this.dimensoesM.x * this.dimensoesM.y); }
@@ -151,6 +155,8 @@ export class Objeto {
   public obterJatoTermico(): JatoTermico | undefined { return undefined; }
 
   /** Preparação determinística de recursos antes da integração do passo. */
+  /** Reserva orçamentos energéticos antes de preparar qualquer consumidor. */
+  public prepararPassoEnergetico(_dtS: number): void {}
   public prepararPassoOperacional(_dtS: number): void {}
 
   /** Forças aerodinâmicas produzidas por componentes do objeto. */
@@ -251,9 +257,10 @@ export class Objeto {
     const excessoC = this.temperaturaAtualC - this.limiteTermicoC;
     const taxa = this.definicao.taxaDanoTermicoPorSegundo ?? 0.02;
     this.integridade = Math.max(0, this.integridade - taxa * (excessoC / 100) * dtS);
-    if (this.temperaturaFusaoC !== undefined) {
+    const temperaturaFinalC = Math.min(this.temperaturaFusaoC ?? Infinity, this.definicao.temperaturaFalhaTotalC ?? Infinity);
+    if (Number.isFinite(temperaturaFinalC)) {
       // Envelope contínuo de perda estrutural: não recupera integridade ao resfriar.
-      const integridadeMaxima = Math.max(0, 1 - excessoC / (this.temperaturaFusaoC - this.limiteTermicoC));
+      const integridadeMaxima = Math.max(0, 1 - excessoC / (temperaturaFinalC - this.limiteTermicoC));
       this.integridade = Math.min(this.integridade, integridadeMaxima);
     }
   }

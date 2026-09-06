@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { criarEnsaioPortaVertical } from './EnsaioPortaVertical';
+import { criarEnsaioPortaVertical as criarEnsaio } from './EnsaioPortaVertical';
 import { Objeto } from '../objetos/base/Objeto';
 import { Vetor3 } from '../Vetor3';
+
+const criarEnsaioPortaVertical = (config: Parameters<typeof criarEnsaio>[0] = {}) => criarEnsaio({ ...config, separarPotencia: false, instalarTrava: false });
 
 function energizar(ensaio: ReturnType<typeof criarEnsaioPortaVertical>) {
   expect(ensaio.porta.ligarAlimentacao()).toBe(true);

@@ -1,5 +1,7 @@
+import { GeradorCA } from './physics/objetos/fontes-de-energia/GeradorCA';
+import { TravaPorta } from './physics/objetos/mecanismos/TravaPorta';
 import './style.css';
-import { desenharConexoesEletricas, type ConexaoEletricaVisual } from './visualizacao/ConexoesEletricas';
+import { desenharConexoesEletricas, type ConexaoEletricaVisual, type AlvoSwitchEletrico } from './visualizacao/ConexoesEletricas';
 import { MundoFisico } from './physics/MundoFisico';
 import { Objeto } from './physics/objetos/base/Objeto';
 import { ObjetoTriangularRetangulo } from './physics/objetos/base/ObjetoTriangularRetangulo';
@@ -69,6 +71,7 @@ const advanceSpeedInput = document.querySelector<HTMLInputElement>('#advance-spe
 const retractSpeedInput = document.querySelector<HTMLInputElement>('#retract-speed-input');
 const raisePlatformButton = document.querySelector<HTMLButtonElement>('#raise-platform');
 const doorControls = document.querySelector<HTMLElement>('#door-controls');
+const generatorButton = document.querySelector<HTMLButtonElement>('#generator-power')!;
 const doorPowerButton = document.querySelector<HTMLButtonElement>('#door-power');
 const doorControlButton = document.querySelector<HTMLButtonElement>('#door-control');
 const openDoorButton = document.querySelector<HTMLButtonElement>('#open-door');
@@ -126,6 +129,7 @@ interface CenárioVisual {
   readonly velocidadesDoCilindro?: () => { readonly avancoMps: number; readonly recuoMps: number };
   readonly iniciarSequencia?: () => void;
   readonly portaControlavel?: Porta;
+  readonly geradorControlavel?: GeradorCA;
   readonly sensoresFimDeCurso?: readonly SwitchFimDeCurso[];
   /** Linha de ação de uma força, usada apenas para tornar o ensaio observável. */
   readonly linhaDeEmpuxo?: () => { readonly origemM: Vetor3; readonly direcao: Vetor3 };
@@ -1670,18 +1674,19 @@ const criarTestePortaVertical = (): CenárioVisual => {
   const { porta } = e;
   return {
     nome: 'Porta vertical de alumínio — abrir e fechar',
-    descricao: 'Ligue a alimentação e depois o controle. Abrir eleva a porta; Fechar a baixa. Os sensores físicos nos batentes alimentam o cilindro e os LEDs. A bateria apoia no chão; os cabos visíveis chegam ao motor instalado no batente superior. O servo retém a porta por força: ao desligar a alimentação, ela cai pela gravidade. Atmosfera padrão: 1,225 kg/m³. Alumínio configurado: dano acima de 150 °C e fusão a 700 °C.',
+    descricao: 'Ligue o gerador CA, a alimentação CC e o controle; depois comande Abrir ou Fechar. A bateria de 24 V alimenta controle, sensores, bobina de K1 e recuo da trava. O gerador de 220 V / 60 Hz fornece potência ao motor. A trava fail-safe é um cilindro: sem energia fica avançada. Abrir e Fechar primeiro a recuam; o sensor de porta aberta a avança quando não há comando de descida. Avançada, ela sustenta mecanicamente a porta. Gerador: dano acima de 125 °C e falha total a 180 °C. Porta, batente e trava: dano acima de 150 °C e falha total a 700 °C.',
     mundo: e.mundo, objetos: e.objetos, superficies: [e.solo], velocidadeTempo: 1,
     limiteVerticalM: 7, limiteHorizontalM: 4, seguirObjeto: porta,
     cameraY: () => porta.getEstadoFisico().posicaoM.y,
-    conexoesEletricas: [e.conexaoEletrica],
+    conexoesEletricas: [e.conexaoEletrica, e.conexaoPotencia],
+    geradorControlavel: e.gerador,
     portaControlavel: porta, sensoresFimDeCurso: [e.sensorAberto, e.sensorFechado],
     exibirNaBancada: true,
     // Ensaio operacional contínuo: permite vários ciclos e falhas sem trocar de cenário.
     deveEncerrar: () => false,
     validar: () => `OBSERVAÇÃO · aberto=${e.sensorAberto.sinal}; fechado=${e.sensorFechado.sinal}`,
     telemetria: () => `curso ${(porta.getEstadoFisico().posicaoM.y - 1.2).toFixed(3)} m · vy=${porta.getEstadoFisico().velocidadeMps.y.toFixed(3)} m/s`,
-    dados: () => `Bateria 24 V → alimentação → controle → motor/fuso → porta\nComando: ${porta.comandoAtual}\nPorta: 40 kg · 2 × 2 × 0,12 m\nForça: ${porta.forcaAtualN.toFixed(1)} / 4000 N\nPotência: ${porta.potenciaEletricaAtualW.toFixed(1)} W\nEnergia restante: ${e.bateria.energiaArmazenadaJ.toFixed(1)} J\nIntegridade da porta: ${(porta.integridadeEstrutural * 100).toFixed(1)}%\nIntegridade mínima do batente: ${(Math.min(...[e.superior, e.inferior, ...e.laterais].map((o) => o.integridadeEstrutural)) * 100).toFixed(1)}%\nTemperatura: ${porta.temperaturaC.toFixed(1)} °C\nDano > 150 °C · fusão 700 °C\nGuia: ${e.guia.estaRompida ? 'ROMPIDA' : 'íntegra'}\nChumbadores: ${e.chumbadores.filter((c) => !c.estaRompido).length}/${e.chumbadores.length} íntegros\nSubpasso ≤ 1/240 s · repouso |v| ≤ 0,05 m/s`,
+    dados: () => `Comando: bateria 24 V CC → controle + bobina K1 + recuo da trava\nPotência: gerador 220 V CA → K1 → motor/fuso → porta\nK1: ${porta.contatorFechado ? 'FECHADO' : 'ABERTO'}\nTrava: ${e.trava?.estaAvancada ? 'AVANÇADA · PORTA SEGURA' : e.trava?.estaRecuada ? 'RECUADA · PORTA LIVRE' : 'EM MOVIMENTO'} · comando ${e.trava?.comandoAtual ?? '—'}\nForça da trava: ${e.trava?.forcaAtualDaTravaN.toFixed(1) ?? '0.0'} N\nGerador: ${e.gerador.estaLigado ? 'LIGADO' : 'DESLIGADO'} · ${e.gerador.temperaturaC.toFixed(1)} °C · integridade ${(e.gerador.integridadeEstrutural * 100).toFixed(1)}%\nReserva mecânica: ${e.gerador.energiaMecanicaRestanteJ.toFixed(1)} J\nEnergia CA gerada: ${e.gerador.energiaEletricaGeradaJ.toFixed(1)} J\nComando: ${porta.comandoAtual}\nPorta: 40 kg · 2 × 2 × 0,12 m\nForça: ${porta.forcaAtualN.toFixed(1)} / 4000 N\nPotência: ${porta.potenciaEletricaAtualW.toFixed(1)} W\nEnergia restante: ${e.bateria.energiaArmazenadaJ.toFixed(1)} J\nIntegridade da porta: ${(porta.integridadeEstrutural * 100).toFixed(1)}%\nIntegridade mínima do batente: ${(Math.min(...[e.superior, e.inferior, ...e.laterais].map((o) => o.integridadeEstrutural)) * 100).toFixed(1)}%\nTemperatura: ${porta.temperaturaC.toFixed(1)} °C\nDano > 150 °C · falha total 700 °C\nGuia: ${e.guia.estaRompida ? 'ROMPIDA' : 'íntegra'}\nChumbadores: ${e.chumbadores.filter((c) => !c.estaRompido).length}/${e.chumbadores.length} íntegros\nSubpasso ≤ 1/240 s · repouso |v| ≤ 0,05 m/s`,
   };
 };
 
@@ -1758,6 +1763,7 @@ const construirCenarios = (): CenárioVisual[] => {
 
 let cenarios = construirCenarios();
 let indiceAtual = 0;
+let alvosSwitch: readonly AlvoSwitchEletrico[] = [];
 let emExecucao = false;
 let ultimoQuadroMs = 0;
 /** Escalas escolhidas pelo operador, indexadas pelo cenário da bancada. */
@@ -2061,6 +2067,7 @@ const desenhar = (): void => {
       : objeto.integridadeEstrutural < 1
         ? '#f59e0b'
         : objeto instanceof Porta ? '#cbd5e1'
+        : objeto instanceof TravaPorta ? '#22c55e'
         : objeto.id.startsWith('batente-') ? '#64748b'
         : objeto.id.startsWith('fundacao-')
           ? '#475569'
@@ -2070,6 +2077,7 @@ const desenhar = (): void => {
               ? '#f97316'
         : objeto instanceof Propulsor
           ? '#94a3b8'
+          : objeto instanceof GeradorCA ? '#fb923c'
           : objeto instanceof Bateria
             ? '#facc15'
           : objeto instanceof TanquePropelente
@@ -2180,6 +2188,10 @@ const desenhar = (): void => {
       contexto.stroke();
       contexto.lineWidth = 1;
     }
+    if (objeto instanceof GeradorCA || objeto instanceof Bateria) {
+      contexto.fillStyle = '#0f172a'; contexto.font = '11px ui-monospace, monospace';
+      contexto.fillText(objeto instanceof GeradorCA ? 'CA ~' : 'CC', -larguraObjeto / 2 + 4, 4);
+    }
     if (objeto instanceof Porta) {
       contexto.strokeStyle = '#94a3b8';
       contexto.lineWidth = 1;
@@ -2192,6 +2204,11 @@ const desenhar = (): void => {
       contexto.fillStyle = '#0f172a';
       contexto.font = '12px ui-monospace, monospace';
       contexto.fillText('PORTA · Al', -larguraObjeto / 2 + 8, 4);
+    }
+    if (objeto instanceof TravaPorta) {
+      contexto.fillStyle = '#052e16';
+      contexto.font = '10px ui-monospace, monospace';
+      contexto.fillText('TRAVA', -larguraObjeto / 2, -alturaObjeto / 2 - 3);
     }
     if (objeto instanceof TanquePropelente) {
       contexto.strokeStyle = '#064e3b';
@@ -2302,7 +2319,7 @@ const desenhar = (): void => {
     contexto.restore();
   }
 
-  desenharConexoesEletricas(contexto, cenário.conexoesEletricas ?? [], objetosVisiveis,
+  alvosSwitch = desenharConexoesEletricas(contexto, cenário.conexoesEletricas ?? [], objetosVisiveis,
     (ponto) => ({ x: origemX + ponto.x * escala, y: soloY - ponto.y * escala }));
 
   for (const sensor of cenário.sensoresFimDeCurso ?? []) {
@@ -2347,8 +2364,8 @@ const atualizarControlesEletricos = (): void => {
   }
   const conexao = conexaoSelecionada();
   if (!conexao) return;
-  cableSwitchButton.textContent = conexao.interruptorFechado ? 'Abrir interruptor' : 'Fechar interruptor';
-  cableSwitchButton.disabled = !conexao.interruptorFechado && !conexao.podeConduzir;
+  cableSwitchButton.textContent = conexao.interruptorPrincipalFechado ? 'Abrir interruptor' : 'Fechar interruptor';
+  cableSwitchButton.disabled = !conexao.interruptorPrincipalFechado && !conexao.podeConduzir;
   cableConnectButton.textContent = conexao.estaDesconectada ? 'Conectar cabo' : 'Desconectar cabo';
   cableConnectButton.disabled = conexao.estaRompida;
   cableBreakButton.disabled = conexao.estaRompida;
@@ -2362,9 +2379,11 @@ const atualizarControlesDoPropulsor = (): void => {
   atualizarControlesEletricos();
   const cenário = cenarioAtual();
   const porta = cenário.portaControlavel;
+  generatorButton.hidden = !cenário.geradorControlavel;
+  generatorButton.textContent = cenário.geradorControlavel?.estaLigado ? 'Desligar gerador CA' : 'Ligar gerador CA';
   doorControls.hidden = porta === undefined;
   if (porta) {
-    doorPowerButton.textContent = porta.alimentacaoLigada ? 'Desligar alimentação' : '1 · Ligar alimentação';
+    doorPowerButton.textContent = porta.alimentacaoLigada ? 'Desligar comando CC' : '1 · Ligar comando CC';
     doorPowerButton.disabled = !porta.fonteDisponivel;
     doorControlButton.textContent = porta.controleLigado ? 'Desligar controle' : '2 · Ligar controle';
     doorControlButton.disabled = !porta.alimentacaoLigada;
@@ -2372,14 +2391,14 @@ const atualizarControlesDoPropulsor = (): void => {
     closeDoorButton.disabled = !porta.operacional || porta.sensorFechadoAcionado;
     openDoorButton.setAttribute('aria-pressed', String(porta.comandoAtual === 'abrir'));
     closeDoorButton.setAttribute('aria-pressed', String(porta.comandoAtual === 'fechar'));
-    for (const [led, ligado, nome] of [[doorOpenLed, porta.sensorAbertoAcionado, 'Aberto'], [doorClosedLed, porta.sensorFechadoAcionado, 'Fechado']] as const) {
+    for (const [led, ligado, nome] of [[doorOpenLed, porta.alimentacaoLigada && porta.sensorAbertoAcionado, 'Aberto'], [doorClosedLed, porta.alimentacaoLigada && porta.sensorFechadoAcionado, 'Fechado']] as const) {
       led.classList.toggle('sensor-active', ligado);
       led.textContent = `${nome}: ${ligado ? 'acionado' : 'livre'}`;
     }
     doorChainStatus.textContent = porta.conexaoEletrica.estaRompida ? 'Cabo rompido' : porta.conexaoEletrica.estaDesconectada ? 'Cabo desconectado' :
       !porta.fonteDisponivel ? 'Alimentação indisponível' :
       !porta.alimentacaoLigada ? 'Alimentação desligada' : !porta.controleLigado ? 'Aguardando controle' :
-      !porta.operacional ? 'Falha estrutural' : 'Pronta · alimentação e controle ligados';
+      !porta.potenciaDisponivel ? 'Potência CA indisponível' : !porta.operacional ? 'Falha estrutural' : 'Pronta · alimentação e controle ligados';
   }
   const propulsor = cenário.propulsorControlavel;
   const propulsorVetorizado = cenário.propulsorVetorizadoControlavel;
@@ -2499,7 +2518,31 @@ const operarConexao = (acao: (conexao: ConexaoEletricaVisual) => void): void => 
   atualizarControlesDoPropulsor(); desenhar();
 };
 connectionSelector.addEventListener('change', () => { atualizarControlesEletricos(); desenhar(); });
-cableSwitchButton.addEventListener('click', () => operarConexao((conexao) => { if (conexao.interruptorFechado) conexao.abrirInterruptor(); else conexao.fecharInterruptor(); }));
+const alternarInterruptor = (conexao: ConexaoEletricaVisual): void => {
+  const porta = cenarioAtual().portaControlavel;
+  if (porta?.conexaoEletrica === conexao) {
+    if (conexao.interruptorPrincipalFechado) porta.desligarAlimentacao(); else porta.ligarAlimentacao();
+  } else if (conexao.interruptorPrincipalFechado) conexao.abrirInterruptor(); else conexao.fecharInterruptor();
+};
+const switchSobPonteiro = (evento: MouseEvent): AlvoSwitchEletrico | undefined => {
+  const retangulo = canvas.getBoundingClientRect();
+  const x = (evento.clientX - retangulo.left) * canvas.width / retangulo.width;
+  const y = (evento.clientY - retangulo.top) * canvas.height / retangulo.height;
+  return alvosSwitch.find(alvo => x >= alvo.x && x <= alvo.x + alvo.largura && y >= alvo.y && y <= alvo.y + alvo.altura);
+};
+canvas.addEventListener('mousemove', evento => {
+  const alvo = switchSobPonteiro(evento);
+  canvas.style.cursor = alvo ? 'pointer' : 'default';
+  canvas.title = alvo ? 'Clique para abrir ou fechar o interruptor CC' : '';
+});
+canvas.addEventListener('click', evento => {
+  const alvo = switchSobPonteiro(evento);
+  if (!alvo) return;
+  connectionSelector.value = alvo.conexao.id;
+  alternarInterruptor(alvo.conexao);
+  atualizarControlesDoPropulsor(); desenhar();
+});
+cableSwitchButton.addEventListener('click', () => operarConexao(alternarInterruptor));
 cableConnectButton.addEventListener('click', () => operarConexao((conexao) => { if (conexao.estaDesconectada) conexao.conectar(); else conexao.desconectar(); }));
 cableBreakButton.addEventListener('click', () => operarConexao((conexao) => conexao.romper()));
 currentLimitInput.addEventListener('change', () => {
@@ -2510,6 +2553,12 @@ cableResistanceInput.addEventListener('change', () => {
   const valor = Number(cableResistanceInput.value);
   if (cableResistanceInput.value.trim() && Number.isFinite(valor) && valor >= 0) operarConexao((conexao) => conexao.configurarResistenciaCabo(valor));
 });
+generatorButton.addEventListener('click', () => {
+  const gerador = cenarioAtual().geradorControlavel;
+  if (gerador?.estaLigado) gerador.desligar(); else gerador?.ligar();
+  atualizarControlesDoPropulsor(); desenhar();
+});
+
 doorPowerButton.addEventListener('click', () => {
   const porta = cenarioAtual().portaControlavel;
   if (!porta) return;
