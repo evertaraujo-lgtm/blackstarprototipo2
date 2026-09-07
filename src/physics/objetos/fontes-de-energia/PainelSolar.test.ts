@@ -20,4 +20,22 @@ describe('PainelSolar', () => {
     painel.prepararPassoOperacional(1);
     expect(bateria.energiaArmazenadaJ).toBe(carregada);
   });
+
+  it('não gera energia dobrado e passa a funcionar somente após desdobrar', () => {
+    const bateria = new Bateria({ ...base('bateria-painel-dobrado'), tensaoNominalV: 24, capacidadeEnergiaJ: 1_000, energiaInicialJ: 0 });
+    const painel = new PainelSolar({ ...base('painel-dobrado'), areaAtivaM2: 2, irradianciaWPorM2: 1_000, eficiencia: 0.2, destino: bateria, statusInicial: 'dobrado' });
+    painel.conexaoCarga.fecharInterruptor();
+    painel.prepararPassoEnergetico(1);
+    painel.prepararPassoOperacional(1);
+    expect(painel.status).toBe('dobrado');
+    expect(painel.potenciaAtualW).toBe(0);
+    expect(bateria.energiaArmazenadaJ).toBe(0);
+
+    painel.definirStatus('desdobrado');
+    painel.prepararPassoEnergetico(1);
+    painel.prepararPassoOperacional(1);
+    expect(painel.estaDesdobrado).toBe(true);
+    expect(painel.potenciaAtualW).toBe(400);
+    expect(bateria.energiaArmazenadaJ).toBeGreaterThan(0);
+  });
 });

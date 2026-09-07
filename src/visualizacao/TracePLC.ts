@@ -1,17 +1,24 @@
-export type SinalTracePLC = 0 | 1;
+export type SinalTracePLC = boolean | number;
+
+export interface EscalaTracePLC {
+  readonly minimo: number;
+  readonly maximo: number;
+  readonly unidade?: string;
+}
 
 export interface CanalTracePLC {
   readonly nome: string;
   readonly cor: string;
   readonly obterSinal: () => SinalTracePLC;
+  readonly escala?: EscalaTracePLC;
 }
 
 export interface AmostraTracePLC {
   readonly tempoS: number;
-  readonly sinais: readonly SinalTracePLC[];
+  readonly sinais: readonly number[];
 }
 
-/** Histórico de sinais digitais para diagnóstico temporal de bancada. */
+/** Histórico de sinais digitais e analógicos para diagnóstico temporal de bancada. */
 export class TracePLC {
   private readonly canaisInternos: CanalTracePLC[] = [];
   private readonly amostrasInternas: AmostraTracePLC[] = [];
@@ -25,10 +32,11 @@ export class TracePLC {
   public get canais(): readonly CanalTracePLC[] { return this.canaisInternos; }
   public get amostras(): readonly AmostraTracePLC[] { return this.amostrasInternas; }
 
-  public adicionarSinal(nome: string, obterSinal: () => SinalTracePLC, cor: string): void {
+  public adicionarSinal(nome: string, obterSinal: () => SinalTracePLC, cor: string, escala?: EscalaTracePLC): void {
     if (!nome || !cor || typeof obterSinal !== 'function') throw new Error('Canal do TracePLC inválido.');
+    if (escala && (!Number.isFinite(escala.minimo) || !Number.isFinite(escala.maximo) || escala.maximo <= escala.minimo)) throw new Error('Escala do TracePLC inválida.');
     if (this.canaisInternos.length >= this.limiteCanais) throw new Error(`TracePLC limitado a ${this.limiteCanais} canais.`);
-    this.canaisInternos.push({ nome, obterSinal, cor });
+    this.canaisInternos.push({ nome, obterSinal, cor, escala });
   }
 
   public limpar(): void {
@@ -40,8 +48,12 @@ export class TracePLC {
   public registrar(tempoS: number, forcar = false): void {
     if (!Number.isFinite(tempoS) || tempoS < 0) throw new Error('Tempo do TracePLC deve ser finito e não negativo.');
     if (this.canaisInternos.length === 0) return;
-    const sinais = this.canaisInternos.map((canal) => canal.obterSinal());
-    if (!sinais.every((sinal) => sinal === 0 || sinal === 1)) throw new Error('Sinal do TracePLC deve ser 0 ou 1.');
+    const sinais = this.canaisInternos.map((canal) => {
+      const sinal = canal.obterSinal();
+      if (typeof sinal === 'boolean') return sinal ? 1 : 0;
+      if (typeof sinal === 'number' && Number.isFinite(sinal)) return sinal;
+      throw new Error('Sinal do TracePLC deve ser booleano ou numérico finito.');
+    });
     const ultima = this.amostrasInternas.at(-1);
     const mesmoSinal = ultima?.sinais.length === sinais.length && ultima.sinais.every((sinal, indice) => sinal === sinais[indice]);
     if (!forcar && ultima && tempoS - this.ultimoTempoS < 0.05 && mesmoSinal) return;

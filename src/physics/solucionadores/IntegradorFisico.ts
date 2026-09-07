@@ -15,7 +15,7 @@ export class IntegradorFisico {
     const torqueNm = forcas.reduce((soma, atual) => {
       const bracoM = atual.pontoM.subtrair(estado.posicaoM);
       return soma.adicionar(bracoM.produtoVetorial(atual.forcaN));
-    }, Vetor3.zero);
+    }, Vetor3.zero).adicionar(forcas.reduce((soma, atual) => soma.adicionar(atual.torqueNm ?? Vetor3.zero), Vetor3.zero));
     const inercia = objeto.getMomentoInerciaKgM2();
     const aceleracaoAngular = new Vetor3(torqueNm.x / inercia.x, torqueNm.y / inercia.y, torqueNm.z / inercia.z);
     const velocidadeAngular = estado.velocidadeAngularRadps.adicionar(aceleracaoAngular.multiplicar(dtS));

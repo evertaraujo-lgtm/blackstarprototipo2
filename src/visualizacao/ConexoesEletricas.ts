@@ -39,7 +39,8 @@ export function desenharConexoesEletricas(
     const maiorX = Math.max(inicio.x, fim.x);
     // Instalações à direita da bancada retornam pelo lado direito; as demais
     // usam canaletas à esquerda, com uma raia visual por conexão.
-    const rotaPelaDireita = menorX > contexto.canvas.width * 0.52;
+    const larguraCanvas = (contexto as Partial<CanvasRenderingContext2D>).canvas?.width ?? 0;
+    const rotaPelaDireita = menorX > larguraCanvas * 0.52;
     const rotaX = rotaPelaDireita ? maiorX + 26 : menorX - 22 - indice * 20;
     contexto.save();
     contexto.lineJoin = 'round';

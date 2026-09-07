@@ -4,6 +4,7 @@ import { Vetor3 } from '../../Vetor3';
 import { Objeto, type DefinicaoObjeto } from '../base/Objeto';
 import { Propulsor } from '../propulsao/Propulsor';
 import { ComputadorDeVoo, type ResultadoComandoPropulsor } from './ComputadorDeVoo';
+import { SensoresVeiculoComposto } from '../../sensores/SensoresVeiculoComposto';
 
 /**
  * Definição do casco estrutural central. `VeiculoComposto` não é uma fachada
@@ -22,7 +23,8 @@ export interface DefinicaoVeiculoComposto extends DefinicaoObjeto {
 export class VeiculoComposto extends Objeto {
   private readonly modulos = new Map<string, Objeto>();
   private readonly fixadores = new Map<string, FixadorEstrutural>();
-  private readonly computadorDeVoo = new ComputadorDeVoo();
+  private readonly sensores = new SensoresVeiculoComposto(this);
+  private readonly computadorDeVoo = new ComputadorDeVoo(this.sensores);
 
   public constructor(definicao: DefinicaoVeiculoComposto) {
     super(definicao);
@@ -50,6 +52,7 @@ export class VeiculoComposto extends Objeto {
   /** Registra cada corpo e vínculo no mundo, sem criar estado físico duplicado. */
   public registrarNoMundo(mundo: MundoFisico): void {
     mundo.registrarObjeto(this);
+    mundo.registrarSensoresVeiculo(this.sensores);
     for (const modulo of this.modulos.values()) mundo.registrarObjeto(modulo);
     for (const fixador of this.fixadores.values()) mundo.registrarFixador(fixador);
   }
@@ -70,8 +73,20 @@ export class VeiculoComposto extends Objeto {
     this.computadorDeVoo.desligarTodos();
   }
 
+  public habilitarControleDeInclinacao(): void { this.computadorDeVoo.habilitar(); }
+  public desabilitarControleDeInclinacao(): void { this.computadorDeVoo.desabilitar(); }
+  public get controleDeInclinacaoEstaHabilitado(): boolean { return this.computadorDeVoo.estaHabilitado; }
+
+  public override prepararPassoOperacional(dtS: number): void {
+    this.computadorDeVoo.atualizarControleDeInclinacao(dtS);
+  }
+
   public obterDiagnosticoDosPropulsores(): readonly ResultadoComandoPropulsor[] {
     return this.computadorDeVoo.obterDiagnostico();
+  }
+
+  public obterLeiturasDoComputadorDeVoo(): ReturnType<ComputadorDeVoo['obterLeiturasDoCasco']> {
+    return this.computadorDeVoo.obterLeiturasDoCasco();
   }
 
   /** Apenas módulos ainda conectados ao corpo central compõem este conjunto. */
@@ -108,6 +123,7 @@ export class VeiculoComposto extends Objeto {
 
   public get modulosFisicos(): readonly Objeto[] { return [...this.modulos.values()]; }
   public get fixadoresEstruturais(): readonly FixadorEstrutural[] { return [...this.fixadores.values()]; }
+  public obterLeiturasDosSensores(): ReturnType<SensoresVeiculoComposto['obterLeituras']> { return this.sensores.obterLeituras(); }
 
   private pertenceAoVeiculo(objeto: Objeto): boolean {
     return objeto === this || this.modulos.get(objeto.id) === objeto;

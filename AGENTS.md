@@ -52,6 +52,14 @@ dano estrutural seja verificável junto de ignição, consumo e vínculos.
 
 ## 4. Fonte única da verdade física
 
+### 4.0 Organização dos sistemas de controle
+
+Todo controlador novo deve ser criado na pasta `src/physics/sistemas de controle`.
+Atuadores e objetos físicos podem herdar ou consumir controladores dessa pasta,
+mas não devem conter implementações de controle duplicadas ou específicas
+embutidas em suas classes. A classe do atuador permanece responsável por sua
+interface física, energia, integridade e saída para o core.
+
 O core de física é a única fonte de verdade para movimento, posição, orientação, velocidade, aceleração, torque, colisões, gravidade, vínculos físicos e demais estados cinemáticos dos objetos.
 
 - Sistemas, controladores, componentes, missões, sensores, atuadores e interfaces podem solicitar ações, produzir forças, estabelecer restrições ou disponibilizar informações, mas não podem alterar diretamente o estado cinemático.

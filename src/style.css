@@ -59,14 +59,25 @@ button:hover { background: #0891b2; }
 .scenario-picker select { width: 100%; padding: .65rem; border: 1px solid #475569; border-radius: .45rem; background: #0f172a; color: #f8fafc; font: .8rem ui-monospace, SFMono-Regular, Menlo, monospace; }
 .throttle-control { display: grid; grid-template-columns: 1fr auto; gap: .45rem; margin-top: 1rem; color: #94a3b8; font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
 .throttle-control[hidden], .propulsion-controls[hidden], .tank-disconnect-controls[hidden] { display: none; }
-.parachute-settings { display: grid; gap: .45rem; margin: 1rem 0 0; padding: .8rem; border: 1px solid #475569; border-radius: .45rem; color: #cbd5e1; }
+.parachute-settings { display: grid; min-width: 0; gap: .45rem; margin: 1rem 0 0; padding: .8rem; border: 1px solid #475569; border-radius: .45rem; color: #cbd5e1; overflow: hidden; }
 .parachute-settings[hidden] { display: none; }
 .parachute-settings legend { padding: 0 .25rem; color: #94a3b8; font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
-.parachute-settings label { display: grid; grid-template-columns: 1fr 4.5rem auto; align-items: center; gap: .35rem; font-size: .76rem; }
-.parachute-settings input { width: 100%; padding: .3rem; border: 1px solid #475569; border-radius: .25rem; background: #0f172a; color: #f8fafc; font: .75rem ui-monospace, monospace; }
+.parachute-settings select { width: 100%; min-width: 0; padding: .42rem .45rem; border: 1px solid #475569; border-radius: .25rem; background: #0f172a; color: #f8fafc; font: .7rem ui-monospace, SFMono-Regular, Menlo, monospace; text-overflow: ellipsis; }
+.parachute-settings button { min-width: 0; margin-top: 0; padding: .58rem .35rem; font-size: .76rem; line-height: 1.2; overflow-wrap: anywhere; }
+.parachute-settings label { display: grid; min-width: 0; grid-template-columns: minmax(0, 1fr) minmax(4.25rem, 5rem) auto; align-items: center; gap: .35rem; font-size: .76rem; }
+.parachute-settings input { width: 100%; min-width: 0; padding: .3rem; border: 1px solid #475569; border-radius: .25rem; background: #0f172a; color: #f8fafc; font: .75rem ui-monospace, monospace; }
 .parachute-settings output { white-space: pre-line; color: #94a3b8; font: .7rem/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; }
 .throttle-control output { color: #facc15; font: .8rem ui-monospace, SFMono-Regular, Menlo, monospace; }
 .throttle-control input { grid-column: 1 / -1; width: 100%; accent-color: #facc15; }
+.autotune-control { display: grid; gap: .4rem; margin-top: .8rem; }
+.autotune-control[hidden] { display: none; }
+.autotune-control button { width: 100%; margin-top: 0; padding: .6rem .35rem; font-size: .76rem; }
+.autotune-control progress { width: 100%; height: .55rem; accent-color: #c084fc; }
+.autotune-control output { color: #cbd5e1; font: .68rem ui-monospace, SFMono-Regular, Menlo, monospace; }
+.pid-gains-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .4rem; }
+.pid-gains-grid label { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: .3rem; color: #94a3b8; font: .68rem ui-monospace, SFMono-Regular, Menlo, monospace; }
+.pid-gains-grid input { width: 100%; min-width: 0; padding: .3rem; border: 1px solid #475569; border-radius: .25rem; background: #0f172a; color: #f8fafc; font: .7rem ui-monospace, monospace; }
+.throttle-control[hidden] { display: none; }
 .execution-controls { display: grid; gap: .6rem; margin-top: .8rem; }
 .test-controls button { width: 100%; margin-top: 0; }
 .propulsion-controls { display: grid; grid-template-columns: 1fr 1fr; gap: .55rem; margin-top: 1.2rem; padding-top: 1.1rem; border-top: 1px solid #1e3a5f; }
@@ -80,12 +91,57 @@ button:hover { background: #0891b2; }
 .running { color: #facc15; }
 .approved { color: #4ade80; }
 
+.sandbox-page { display: block; padding: 2rem; background: radial-gradient(circle at 20% 0, #17365c 0, #030712 52%); }
+.sandbox-shell { width: min(1380px, 100%); margin: 0 auto; }
+.sandbox-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr) 230px; min-height: 650px; overflow: hidden; border: 1px solid #1e3a5f; border-radius: 1rem; background: #0b1224; }
+.sandbox-catalog, .sandbox-inspector { padding: 1rem; background: rgba(7, 17, 38, .72); }
+.sandbox-catalog { border-right: 1px solid #1e3a5f; }
+.sandbox-inspector { border-left: 1px solid #1e3a5f; }
+.sandbox-catalog h2, .sandbox-inspector h2 { margin: 0 0 .5rem; font-size: 1rem; }
+.sandbox-catalog p, .sandbox-note { color: #94a3b8; font-size: .76rem; line-height: 1.5; }
+.sandbox-catalog-list { display: grid; gap: .5rem; margin-top: 1rem; }
+.sandbox-catalog-item { display: grid; gap: .15rem; width: 100%; margin: 0; padding: .6rem; border: 1px solid #334155; border-radius: .45rem; background: #0f172a; color: #e2e8f0; text-align: left; cursor: grab; }
+.sandbox-catalog-item:hover { border-color: #38bdf8; background: #12233b; }
+.sandbox-catalog-item span { color: #94a3b8; font: .66rem ui-monospace, monospace; }
+.sandbox-workspace-panel { min-width: 0; padding: 1rem; }
+.sandbox-toolbar, .sandbox-actions { display: flex; align-items: center; justify-content: space-between; gap: .7rem; flex-wrap: wrap; }
+.sandbox-toolbar { min-height: 2.4rem; color: #facc15; font: .75rem ui-monospace, monospace; }
+.sandbox-toolbar button { width: auto; margin: 0; padding: .5rem .65rem; font-size: .72rem; }
+.sandbox-workspace { position: relative; min-height: 560px; margin-top: .8rem; overflow: hidden; border: 1px solid #1e3a5f; border-radius: .7rem; background-color: #071126; background-image: linear-gradient(#102545 1px, transparent 1px), linear-gradient(90deg, #102545 1px, transparent 1px); background-size: 32px 32px; }
+.sandbox-workspace::after { position: absolute; inset: 50% 0 auto; border-top: 1px dashed #2dd4bf55; content: ''; pointer-events: none; }
+.sandbox-connections { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.sandbox-connections line { fill: none; stroke-width: 3; stroke-linecap: round; }
+.sandbox-connections .connection-eletrica { stroke: #facc15; stroke-dasharray: 8 5; }
+.sandbox-connections .connection-mangueira { stroke: #34d399; stroke-width: 5; }
+.sandbox-connections .connection-fixador { stroke: #cbd5e1; stroke-width: 4; }
+.sandbox-item { position: absolute; z-index: 1; width: 92px; min-height: 42px; margin: 0; padding: .55rem .3rem; border: 1px solid #38bdf8; border-radius: .35rem; background: linear-gradient(135deg, #164e63, #0e7490); color: #e0f2fe; font: .68rem ui-monospace, monospace; cursor: grab; user-select: none; touch-action: none; }
+.sandbox-item:hover, .sandbox-item.selected { border-color: #facc15; box-shadow: 0 0 0 2px #facc1544, 0 8px 24px #0008; }
+.sandbox-item:active { cursor: grabbing; }
+.sandbox-actions { margin-top: .8rem; }
+.sandbox-actions button { width: auto; margin: 0; }
+.sandbox-actions output { color: #94a3b8; font: .7rem ui-monospace, monospace; }
+.sandbox-inspector label { display: grid; gap: .35rem; color: #94a3b8; font-size: .72rem; }
+.sandbox-inspector input { width: 100%; padding: .55rem; border: 1px solid #475569; border-radius: .35rem; background: #0f172a; color: #f8fafc; font: .78rem ui-monospace, monospace; }
+.sandbox-inspector output { display: block; margin-top: 1.2rem; white-space: pre-line; color: #cbd5e1; font: .72rem/1.6 ui-monospace, monospace; }
+
+@media (max-width: 900px) {
+  .sandbox-layout { grid-template-columns: 190px minmax(0, 1fr); }
+  .sandbox-inspector { grid-column: 1 / -1; border-top: 1px solid #1e3a5f; border-left: 0; }
+  .sandbox-workspace { min-height: 460px; }
+}
+
 @media (max-width: 760px) {
   .test-page { padding: 1rem; }
   .test-header { display: block; }
   .test-layout { grid-template-columns: 1fr; }
   .test-controls, .simulation-panel { border-right: 0; border-bottom: 1px solid #1e3a5f; }
   .test-readout { border-left: 0; }
+  .sandbox-page { padding: 1rem; }
+  .sandbox-layout { display: block; }
+  .sandbox-catalog { border-right: 0; border-bottom: 1px solid #1e3a5f; }
+  .sandbox-catalog-list { grid-template-columns: 1fr 1fr; }
+  .sandbox-workspace-panel { border-bottom: 1px solid #1e3a5f; }
+  .sandbox-workspace { min-height: 400px; }
 }
 
 .door-controls { display: grid; gap: .6rem; margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid #1e3a5f; }

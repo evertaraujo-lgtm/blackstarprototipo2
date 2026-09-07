@@ -85,6 +85,26 @@ describe('VeiculoComposto', () => {
     expect(veiculo.getEstadoFisico().velocidadeMps.y).toBeGreaterThan(0);
   });
 
+  it('expõe instrumentação do casco a partir do GPS e do sensor de nível', () => {
+    const { veiculo } = criarVeiculoComposto();
+    const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 0 });
+    veiculo.registrarNoMundo(mundo);
+    const dtS = 1 / 240;
+    mundo.avancar(dtS);
+    const posicaoAnterior = veiculo.getEstadoFisico().posicaoM;
+    mundo.avancar(dtS);
+    const posicaoAtual = veiculo.getEstadoFisico().posicaoM;
+
+    const leituras = veiculo.obterLeiturasDosSensores();
+    expect(leituras.posicaoGpsM.x).toBeCloseTo(veiculo.getEstadoFisico().posicaoM.x, 12);
+    expect(leituras.posicaoGpsM.y).toBeCloseTo(veiculo.getEstadoFisico().posicaoM.y, 12);
+    expect(leituras.altitudeM).toBeCloseTo(leituras.posicaoGpsM.y, 12);
+    expect(leituras.velocidadeVerticalMps).toBeCloseTo((posicaoAtual.y - posicaoAnterior.y) / dtS, 10);
+    expect(leituras.velocidadeHorizontalMps).toBeCloseTo(0, 8);
+    expect(leituras.inclinacaoRad).toBeCloseTo(veiculo.getEstadoFisico().orientacaoRad.z, 12);
+    expect(veiculo.obterLeiturasDoComputadorDeVoo()).toEqual(leituras);
+  });
+
   it('remove módulo rompido da massa e do centro de massa do conjunto', () => {
     const { veiculo, propulsorB, fixadorB, romperFixadorB } = criarVeiculoComposto();
     const mundo = new MundoFisico(1 / 240);

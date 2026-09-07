@@ -43,6 +43,29 @@
             <output id="gimbal-value">0°</output>
             <input id="gimbal-input" type="range" min="-5" max="5" step="0.1" value="0" aria-label="Gimbal do propulsor vetorizado" />
           </label>
+          <label id="rotary-motor-control" class="throttle-control" for="rotary-motor-input" hidden>Motor do braço
+            <output id="rotary-motor-value">0°</output>
+            <input id="rotary-motor-input" type="range" min="-180" max="180" step="1" value="0" aria-label="Ângulo do braço articulado de bancada" />
+          </label>
+          <div id="solar-panel-controls" class="propulsion-controls" aria-label="Comandos do painel solar" hidden>
+            <button id="solar-panel-toggle" type="button">Desdobrar painel</button>
+            <output id="solar-panel-status">Estado: dobrado</output>
+          </div>
+          <div id="rotary-motor-autotune" class="autotune-control" hidden>
+            <button id="rotary-motor-autotune-button" type="button" class="secondary-button">Calibrar ganhos PID</button>
+            <progress id="rotary-motor-autotune-progress" max="100" value="0" aria-label="Progresso do autotune"></progress>
+            <output id="rotary-motor-autotune-status">Aguardando calibração</output>
+            <div class="pid-gains-grid" aria-label="Ganhos do controlador PID">
+              <label>Kp <input id="pid-kp-input" type="number" min="0" step="0.1" /></label>
+              <label>Ki <input id="pid-ki-input" type="number" min="0" step="0.1" /></label>
+              <label>Kd <input id="pid-kd-input" type="number" min="0" step="0.1" /></label>
+              <label>Acel. <input id="pid-acceleration-input" type="number" min="0.01" step="0.01" /> rad/s²</label>
+            </div>
+          </div>
+          <label id="rotary-motor-secondary-control" class="throttle-control" for="rotary-motor-secondary-input" hidden>Motor esquerdo
+            <output id="rotary-motor-secondary-value">180°</output>
+            <input id="rotary-motor-secondary-input" type="range" min="-180" max="180" step="1" value="180" aria-label="Ângulo do braço esquerdo" />
+          </label>
           <fieldset id="parachute-settings" class="parachute-settings">
             <legend>Paraquedas</legend>
             <label>Área <input id="parachute-area" type="number" min="1" max="100" step="1" /> m²</label>

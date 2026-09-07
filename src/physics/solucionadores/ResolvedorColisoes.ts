@@ -12,6 +12,7 @@ export interface ContextoResolvedorColisoes {
   readonly resolvedorEsforcoEstrutural: ResolvedorEsforcoEstrutural;
   readonly distribuirCalorDeAtrito: (objetoA: Objeto, objetoB: Objeto, energiaJ: number, dtS: number) => void;
   readonly velocidadeDeRepousoMps: number;
+  readonly deveIgnorarColisao?: (objetoA: Objeto, objetoB: Objeto) => boolean;
 }
 
 /** Descobre contatos entre objetos e aplica sua resposta impulsiva. */
@@ -24,6 +25,7 @@ export class ResolvedorColisoes {
       for (let indiceB = indiceA + 1; indiceB < objetos.length; indiceB += 1) {
         const objetoA = objetos[indiceA];
         const objetoB = objetos[indiceB];
+        if (this.contexto.deveIgnorarColisao?.(objetoA, objetoB)) continue;
         if (this.estaoNaMesmaIlhaEstrutural(objetoA, objetoB)) continue;
         const usarGeometriaEspecifica = objetoA.getEstadoFisico().orientacaoRad.z !== 0 || objetoB.getEstadoFisico().orientacaoRad.z !== 0;
         const contato = obterContatoCaixasOrientadas(this.obterCaixa(objetoA, usarGeometriaEspecifica), this.obterCaixa(objetoB, usarGeometriaEspecifica));

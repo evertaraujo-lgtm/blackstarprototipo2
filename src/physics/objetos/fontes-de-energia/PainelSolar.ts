@@ -1,12 +1,15 @@
 import { ConexaoEletrica } from '../../conexoes/ConexaoEletrica';
 import { Objeto, type DefinicaoObjeto } from '../base/Objeto';
 
+export type StatusPainelSolar = 'dobrado' | 'desdobrado';
+
 export interface DefinicaoPainelSolar extends DefinicaoObjeto {
   readonly areaAtivaM2: number;
   readonly irradianciaWPorM2: number;
   readonly eficiencia: number;
   readonly destino: Objeto & { receberEnergia(energiaJ: number): number };
   readonly obterFatorIluminacao?: () => number;
+  readonly statusInicial?: StatusPainelSolar;
 }
 
 /** Fonte CC solar simplificada, preparada para uma futura geometria do Sol. */
@@ -16,6 +19,7 @@ export class PainelSolar extends Objeto {
   private energiaDisponivelNoPassoCalculadaJ = 0;
   private energiaGeradaCalculadaJ = 0;
   private potenciaAtualCalculadaW = 0;
+  private statusAtual: StatusPainelSolar;
 
   public constructor(private readonly config: DefinicaoPainelSolar) {
     super(config);
@@ -23,6 +27,7 @@ export class PainelSolar extends Objeto {
       config.areaAtivaM2 <= 0 || config.irradianciaWPorM2 < 0 || config.eficiencia <= 0 || config.eficiencia > 1) {
       throw new Error('Definição de painel solar inválida.');
     }
+    this.statusAtual = config.statusInicial ?? 'desdobrado';
     this.conexaoCarga = new ConexaoEletrica({
       id: `cabo-${config.id}-carga`, fonte: this, destino: config.destino,
       comprimentoMaximoM: 20, correnteMaximaA: config.irradianciaWPorM2 * config.areaAtivaM2 * config.eficiencia / 24,
@@ -35,10 +40,21 @@ export class PainelSolar extends Objeto {
   public get energiaDisponivelNoPassoJ(): number { return this.energiaDisponivelNoPassoCalculadaJ; }
   public get energiaGeradaJ(): number { return this.energiaGeradaCalculadaJ; }
   public get potenciaAtualW(): number { return this.potenciaAtualCalculadaW; }
+  public get status(): StatusPainelSolar { return this.statusAtual; }
+  public get estaDesdobrado(): boolean { return this.statusAtual === 'desdobrado'; }
   public get fatorIluminacao(): number { return Math.max(0, Math.min(1, this.config.obterFatorIluminacao?.() ?? 1)); }
+  public definirStatus(status: StatusPainelSolar): void {
+    this.statusAtual = status;
+    if (status === 'dobrado') {
+      this.potenciaAtualCalculadaW = 0;
+      this.energiaDisponivelNoPassoCalculadaJ = 0;
+    }
+  }
   public override prepararPassoEnergetico(dtS: number): void {
     if (!Number.isFinite(dtS) || dtS <= 0) throw new Error('dt do painel solar inválido.');
-    this.potenciaAtualCalculadaW = this.config.irradianciaWPorM2 * this.config.areaAtivaM2 * this.config.eficiencia * this.fatorIluminacao;
+    this.potenciaAtualCalculadaW = this.estaDesdobrado
+      ? this.config.irradianciaWPorM2 * this.config.areaAtivaM2 * this.config.eficiencia * this.fatorIluminacao
+      : 0;
     this.energiaDisponivelNoPassoCalculadaJ = this.potenciaAtualCalculadaW * dtS;
   }
   public fornecerEnergia(energiaSolicitadaJ: number): number {

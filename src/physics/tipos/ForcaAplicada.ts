@@ -4,4 +4,5 @@ import { Vetor3 } from '../Vetor3';
 export interface ForcaAplicada {
   readonly forcaN: Vetor3;
   readonly pontoM: Vetor3;
+  readonly torqueNm?: Vetor3;
 }

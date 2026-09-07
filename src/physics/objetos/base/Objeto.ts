@@ -41,6 +41,8 @@ export interface DefinicaoObjeto {
 export interface ForcaFisicaSolicitada {
   readonly forcaN: Vetor3;
   readonly pontoM?: Vetor3;
+  /** Torque externo solicitado diretamente, em N.m. */
+  readonly torqueNm?: Vetor3;
 }
 
 export interface CondicoesAtmosfericas {

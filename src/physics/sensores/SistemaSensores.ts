@@ -3,10 +3,12 @@ import { ConjuntoEstruturalRigido } from '../estruturas/ConjuntoEstruturalRigido
 import { Objeto } from '../objetos/base/Objeto';
 import { SuperficiePlano } from '../SuperficiePlano';
 import { SwitchFimDeCurso } from './SwitchFimDeCurso';
+import type { SensoresVeiculoComposto } from './SensoresVeiculoComposto';
 
 /** Mantém sensores registrados e atualiza suas leituras a partir do mundo físico. */
 export class SistemaSensores {
   private readonly switchesFimDeCurso = new Map<string, SwitchFimDeCurso>();
+  private readonly sensoresVeiculo = new Map<SensoresVeiculoComposto, SensoresVeiculoComposto>();
 
   public constructor(
     private readonly obterObjetos: () => Iterable<Objeto>,
@@ -20,13 +22,18 @@ export class SistemaSensores {
     this.atualizarSwitchesFimDeCurso();
   }
 
+  public registrarSensoresVeiculo(sensores: SensoresVeiculoComposto): void {
+    this.sensoresVeiculo.set(sensores, sensores);
+  }
+
   /** Reavalia contatos sem avançar o relógio físico. */
   public reavaliarSwitchesFimDeCurso(): void {
     this.atualizarSwitchesFimDeCurso();
   }
 
   /** Atualiza as leituras após as respostas físicas do passo. */
-  public atualizar(): void {
+  public atualizar(dtS: number): void {
+    for (const sensores of this.sensoresVeiculo.values()) sensores.atualizar(dtS);
     this.atualizarSwitchesFimDeCurso();
   }
 

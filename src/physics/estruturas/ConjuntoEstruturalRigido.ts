@@ -157,7 +157,7 @@ export class ConjuntoEstruturalRigido {
     this.atualizarReferenciasLocaisPelaMassaAtual();
     const centroMassa = this.obterCentroDeMassaAtual();
     const resultanteN = forcas.reduce((soma, forca) => soma.adicionar(forca.forcaN), Vetor3.zero);
-    const torqueZ = forcas.reduce((soma, forca) => soma + forca.pontoM.subtrair(centroMassa).produtoVetorial(forca.forcaN).z, 0);
+    const torqueZ = forcas.reduce((soma, forca) => soma + forca.pontoM.subtrair(centroMassa).produtoVetorial(forca.forcaN).z + (forca.torqueNm?.z ?? 0), 0);
     const velocidadeCentro = this.obterVelocidadeDoCentroAtual().adicionar(resultanteN.multiplicar(dtS / this.massaTotalKg));
     const proximoCentroMassa = centroMassa.adicionar(velocidadeCentro.multiplicar(dtS));
     const velocidadeAngularZ = this.obterVelocidadeAngularAtual(centroMassa) + torqueZ * dtS / this.obterInerciaCompostaZ();

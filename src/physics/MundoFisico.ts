@@ -13,7 +13,9 @@ import { ResolvedorContatoSuperficie } from './solucionadores/ResolvedorContatoS
 import { ConjuntoEstruturalRigido } from './estruturas/ConjuntoEstruturalRigido';
 import { SwitchFimDeCurso } from './sensores/SwitchFimDeCurso';
 import { SistemaSensores } from './sensores/SistemaSensores';
+import { SensoresVeiculoComposto } from './sensores/SensoresVeiculoComposto';
 import { GuiaLinear } from './conexoes/GuiaLinear';
+import { JuntaRotacionalDeBancada } from './conexoes/JuntaRotacionalDeBancada';
 
 export interface ConfiguracaoMundoFisico {
   /** Densidade constante para o modelo atmosférico atualmente implementado. */
@@ -34,6 +36,7 @@ export class MundoFisico {
   private readonly fixadores = new Map<string, FixadorEstrutural>();
   private readonly chumbadoresAoSolo = new Map<string, ChumbadorAoSolo>();
   private readonly guiasLineares = new Map<string, GuiaLinear>();
+  private readonly juntasRotacionaisDeBancada = new Map<string, JuntaRotacionalDeBancada>();
   private readonly conjuntosEstruturais = new Map<string, ConjuntoEstruturalRigido>();
   private readonly forcasPendentes = new Map<string, ForcaAplicada[]>();
   private tempoMissaoS = 0;
@@ -66,6 +69,7 @@ export class MundoFisico {
       resolvedorEsforcoEstrutural: this.resolvedorEsforcoEstrutural,
       distribuirCalorDeAtrito: (objetoA, objetoB, energiaJ, dtS) => this.sistemaTermico.distribuirCalorDeAtritoEntreObjetos(objetoA, objetoB, energiaJ, dtS),
       velocidadeDeRepousoMps: MundoFisico.velocidadeDeRepousoMps,
+      deveIgnorarColisao: (objetoA, objetoB) => [...this.juntasRotacionaisDeBancada.values()].some((junta) => junta.ignoraColisaoEntre(objetoA, objetoB)),
     });
     this.resolvedorContatoSuperficie = new ResolvedorContatoSuperficie({
       obterObjetos: () => this.objetos.values(),
@@ -114,12 +118,22 @@ export class MundoFisico {
     this.sistemaSensores.registrarSwitchFimDeCurso(switchFimDeCurso);
   }
 
+  public registrarSensoresVeiculo(sensores: SensoresVeiculoComposto): void {
+    this.sistemaSensores.registrarSensoresVeiculo(sensores);
+  }
+
   public reavaliarSwitchesFimDeCurso(): void { this.sistemaSensores.reavaliarSwitchesFimDeCurso(); }
 
   public registrarGuiaLinear(guia: GuiaLinear): void {
     if (this.guiasLineares.has(guia.id)) throw new Error(`Guia linear já registrada: ${guia.id}.`);
     this.exigirRegistro(guia.objeto);
     this.guiasLineares.set(guia.id, guia);
+  }
+
+  public registrarJuntaRotacionalDeBancada(junta: JuntaRotacionalDeBancada): void {
+    if (this.juntasRotacionaisDeBancada.has(junta.id)) throw new Error(`Junta de bancada já registrada: ${junta.id}.`);
+    this.exigirRegistro(junta.objetoBase); this.exigirRegistro(junta.braco);
+    this.juntasRotacionaisDeBancada.set(junta.id, junta);
   }
 
   public aplicarForca(objeto: Objeto, forcaN: Vetor3, pontoM?: Vetor3): void {
@@ -164,7 +178,7 @@ export class MundoFisico {
       if (conjunto) conjunto.restringirNoMembro(chumbador.objeto, chumbador.estadoDeAncoragem);
     }
     for (const guia of this.guiasLineares.values()) guia.resolverRestricao(dtS);
-    this.sistemaSensores.atualizar();
+    this.sistemaSensores.atualizar(dtS);
     this.forcasPendentes.clear();
     this.tempoMissaoS += dtS;
   }
@@ -174,10 +188,11 @@ export class MundoFisico {
       if (this.obterConjuntoEstruturalDoObjeto(objeto)) continue;
       const estado = objeto.getEstadoFisico();
       const forcas = this.forcasPendentes.get(objeto.id) ?? [];
-      const forcasOperacionais = objeto.obterForcasOperacionais().map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM }));
+      const forcasOperacionais = objeto.obterForcasOperacionais().map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM, torqueNm: forca.torqueNm }));
       const forcasAerodinamicas = objeto.obterForcasAerodinamicas({ densidadeArKgM3: this.densidadeAtmosfericaKgM3, velocidadeArMps: this.velocidadeArMps })
         .map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM }));
-      this.integrador.integrarObjeto(objeto, [...forcas, ...forcasOperacionais, ...forcasAerodinamicas, { forcaN: this.obterForcaArrastoAtmosferico(objeto), pontoM: estado.posicaoM }], MundoFisico.gravidadeTerrestreMps2, dtS);
+      const forcasDasJuntas = [...this.juntasRotacionaisDeBancada.values()].flatMap((junta) => junta.obterForcasPara(objeto));
+      this.integrador.integrarObjeto(objeto, [...forcas, ...forcasOperacionais, ...forcasAerodinamicas, ...forcasDasJuntas, { forcaN: this.obterForcaArrastoAtmosferico(objeto), pontoM: estado.posicaoM }], MundoFisico.gravidadeTerrestreMps2, dtS);
       objeto.registrarUso(dtS / 3600);
     }
     for (const conjunto of this.conjuntosEstruturais.values()) {
@@ -185,10 +200,13 @@ export class MundoFisico {
       for (const objeto of conjunto.membros) {
         const estado = objeto.getEstadoFisico();
         forcasDoConjunto.push(...(this.forcasPendentes.get(objeto.id) ?? []));
-        forcasDoConjunto.push(...objeto.obterForcasOperacionais().map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM })));
+        forcasDoConjunto.push(...objeto.obterForcasOperacionais().map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM, torqueNm: forca.torqueNm })));
         forcasDoConjunto.push(...objeto.obterForcasAerodinamicas({ densidadeArKgM3: this.densidadeAtmosfericaKgM3, velocidadeArMps: this.velocidadeArMps }).map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM })));
         forcasDoConjunto.push({ forcaN: MundoFisico.gravidadeTerrestreMps2.multiplicar(objeto.massaKg), pontoM: estado.posicaoM });
         forcasDoConjunto.push({ forcaN: this.obterForcaArrastoAtmosferico(objeto), pontoM: estado.posicaoM });
+        for (const junta of this.juntasRotacionaisDeBancada.values()) {
+          if (junta.objetoBase === objeto || junta.braco === objeto) forcasDoConjunto.push(...junta.obterForcasPara(objeto));
+        }
         objeto.registrarUso(dtS / 3600);
       }
       conjunto.integrar(forcasDoConjunto, dtS);

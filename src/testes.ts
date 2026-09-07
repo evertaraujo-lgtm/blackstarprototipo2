@@ -28,9 +28,13 @@ import { Vetor3 } from './physics/Vetor3';
 import { CorpoDeCilindroEletrico, HasteDeCilindroEletrico } from './physics/objetos/atuadores/CilindroEletrico';
 import { SwitchFimDeCurso } from './physics/sensores/SwitchFimDeCurso';
 import { GuiaLinear } from './physics/conexoes/GuiaLinear';
+import { JuntaRotacionalDeBancada } from './physics/conexoes/JuntaRotacionalDeBancada';
+import { MotorEletricoRotacional } from './physics/objetos/atuadores/MotorEletricoRotacional';
+import { BracoArticuladoDeBancada } from './physics/objetos/mecanismos/BracoArticuladoDeBancada';
 import { Porta, BatenteDePorta } from './physics/objetos/mecanismos/Porta';
 import { criarEnsaioPortaVertical } from './physics/cenarios/EnsaioPortaVertical';
 import { TracePLC } from './visualizacao/TracePLC';
+import { AutotunadorPosicionamentoMotorEletrico } from './physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#test-canvas');
 const playButton = document.querySelector<HTMLButtonElement>('#play-tests');
@@ -59,6 +63,23 @@ const throttleValue = document.querySelector<HTMLOutputElement>('#throttle-value
 const gimbalControl = document.querySelector<HTMLLabelElement>('#gimbal-control');
 const gimbalInput = document.querySelector<HTMLInputElement>('#gimbal-input');
 const gimbalValue = document.querySelector<HTMLOutputElement>('#gimbal-value');
+const rotaryMotorControl = document.querySelector<HTMLLabelElement>('#rotary-motor-control');
+const rotaryMotorInput = document.querySelector<HTMLInputElement>('#rotary-motor-input');
+const rotaryMotorValue = document.querySelector<HTMLOutputElement>('#rotary-motor-value');
+const rotaryMotorAutotune = document.querySelector<HTMLElement>('#rotary-motor-autotune');
+const rotaryMotorAutotuneButton = document.querySelector<HTMLButtonElement>('#rotary-motor-autotune-button');
+const rotaryMotorAutotuneProgress = document.querySelector<HTMLProgressElement>('#rotary-motor-autotune-progress');
+const rotaryMotorAutotuneStatus = document.querySelector<HTMLOutputElement>('#rotary-motor-autotune-status');
+const rotaryMotorSecondaryControl = document.querySelector<HTMLLabelElement>('#rotary-motor-secondary-control');
+const rotaryMotorSecondaryInput = document.querySelector<HTMLInputElement>('#rotary-motor-secondary-input');
+const rotaryMotorSecondaryValue = document.querySelector<HTMLOutputElement>('#rotary-motor-secondary-value');
+const solarPanelControls = document.querySelector<HTMLElement>('#solar-panel-controls');
+const solarPanelToggle = document.querySelector<HTMLButtonElement>('#solar-panel-toggle');
+const solarPanelStatus = document.querySelector<HTMLOutputElement>('#solar-panel-status');
+const pidKpInput = document.querySelector<HTMLInputElement>('#pid-kp-input');
+const pidKiInput = document.querySelector<HTMLInputElement>('#pid-ki-input');
+const pidKdInput = document.querySelector<HTMLInputElement>('#pid-kd-input');
+const pidAccelerationInput = document.querySelector<HTMLInputElement>('#pid-acceleration-input');
 const parachuteSettings = document.querySelector<HTMLFieldSetElement>('#parachute-settings');
 const parachuteAreaInput = document.querySelector<HTMLInputElement>('#parachute-area');
 const parachuteCalculatedValues = document.querySelector<HTMLElement>('#parachute-calculated-values');
@@ -98,7 +119,11 @@ const currentLimitInput = document.querySelector<HTMLInputElement>('#current-lim
 const cableResistanceInput = document.querySelector<HTMLInputElement>('#cable-resistance');
 const electricalReadout = document.querySelector<HTMLElement>('#electrical-readout');
 
-if (!electricalControls || !connectionSelector || !cableSwitchButton || !cableConnectButton || !cableBreakButton || !currentLimitInput || !cableResistanceInput || !electricalReadout || !doorControls || !doorPowerButton || !doorControlButton || !openDoorButton || !closeDoorButton || !doorOpenLed || !doorClosedLed || !doorChainStatus || !canvas || !sensorTraceCanvas || !traceTime || !traceCursorInput || !traceLiveButton || !playButton || !scenarioSelector || !skipButton || !resetButton || !scenarioName || !scenarioDescription || !simulationTime || !testStatus || !testResult || !vehicleSpeed || !scenarioData || !timeScaleInput || !timeScaleValue || !zoomInput || !zoomValue || !showConnectionsInput || !throttleControl || !throttleInput || !throttleValue || !gimbalControl || !gimbalInput || !gimbalValue || !parachuteSettings || !parachuteAreaInput || !parachuteCalculatedValues || !toggleElectric || !toggleHydraulic || !toggleFuel || !toggleControl || !igniteButton || !deployParachuteButton || !propulsionControls || !tankDisconnectControls || !disconnectFuelTankButton || !disconnectOxidizerTankButton || !cylinderControls || !raisePlatformButton || !advanceCylinderButton || !retractCylinderButton || !advanceSpeedControl || !retractSpeedControl || !advanceSpeedInput || !retractSpeedInput) {
+if (!solarPanelControls || !solarPanelToggle || !solarPanelStatus) {
+  throw new Error('A bancada de testes não encontrou os controles do painel solar.');
+}
+
+if (!electricalControls || !connectionSelector || !cableSwitchButton || !cableConnectButton || !cableBreakButton || !currentLimitInput || !cableResistanceInput || !electricalReadout || !doorControls || !doorPowerButton || !doorControlButton || !openDoorButton || !closeDoorButton || !doorOpenLed || !doorClosedLed || !doorChainStatus || !canvas || !sensorTraceCanvas || !traceTime || !traceCursorInput || !traceLiveButton || !playButton || !scenarioSelector || !skipButton || !resetButton || !scenarioName || !scenarioDescription || !simulationTime || !testStatus || !testResult || !vehicleSpeed || !scenarioData || !timeScaleInput || !timeScaleValue || !zoomInput || !zoomValue || !showConnectionsInput || !throttleControl || !throttleInput || !throttleValue || !gimbalControl || !gimbalInput || !gimbalValue || !rotaryMotorControl || !rotaryMotorInput || !rotaryMotorValue || !rotaryMotorAutotune || !rotaryMotorAutotuneButton || !rotaryMotorAutotuneProgress || !rotaryMotorAutotuneStatus || !rotaryMotorSecondaryControl || !rotaryMotorSecondaryInput || !rotaryMotorSecondaryValue || !pidKpInput || !pidKiInput || !pidKdInput || !pidAccelerationInput || !parachuteSettings || !parachuteAreaInput || !parachuteCalculatedValues || !toggleElectric || !toggleHydraulic || !toggleFuel || !toggleControl || !igniteButton || !deployParachuteButton || !propulsionControls || !tankDisconnectControls || !disconnectFuelTankButton || !disconnectOxidizerTankButton || !cylinderControls || !raisePlatformButton || !advanceCylinderButton || !retractCylinderButton || !advanceSpeedControl || !retractSpeedControl || !advanceSpeedInput || !retractSpeedInput) {
   throw new Error('A bancada de testes não encontrou os elementos obrigatórios.');
 }
 
@@ -136,6 +161,8 @@ interface CenárioVisual {
   readonly chumbadoresAoSolo?: readonly ChumbadorAoSolo[];
   /** Trilhos de observação para restrições lineares já calculadas pelo core. */
   readonly guiasLineares?: readonly GuiaLinear[];
+  /** A guia continua física, mas pode ser omitida da apresentação. */
+  readonly exibirGuiasLineares?: boolean;
   readonly comandarCilindro?: (comando: 'avancar' | 'recuar') => void;
   readonly configurarVelocidadesDoCilindro?: (avancoMps: number, recuoMps: number) => void;
   readonly velocidadesDoCilindro?: () => { readonly avancoMps: number; readonly recuoMps: number };
@@ -148,6 +175,9 @@ interface CenárioVisual {
   readonly linhaDeEmpuxo?: () => { readonly origemM: Vetor3; readonly direcao: Vetor3 };
   readonly propulsorControlavel?: Propulsor;
   readonly propulsorVetorizadoControlavel?: PropulsorVetorizado;
+  readonly motorRotacionalControlavel?: MotorEletricoRotacional;
+  readonly motorRotacionalSecundarioControlavel?: MotorEletricoRotacional;
+  readonly painelSolarControlavel?: PainelSolar;
   /** Corpo que recebe o comando operacional de abertura na bancada. */
   readonly objetoComParaquedasControlavel?: Objeto;
   /** Expõe parâmetros do paraquedas exclusivamente no cenário de calibração. */
@@ -1668,15 +1698,114 @@ const criarTestePainelSolarComSombra = (): CenárioVisual => {
   };
 };
 
+interface ConfiguracaoBancadaDecolagem {
+  id: string;
+  nome: string;
+  descricao: string;
+  controleDeInclinacaoPid: boolean;
+  inclinacaoInicialRad: number;
+  energiaInicialDaBateriaJ: number;
+  deslocamentoLateralDoPainelM: number;
+  painelMovel: boolean;
+  incluirPainelSolar: boolean;
+}
+
+interface ProjetoSandboxSalvo {
+  readonly versao: number;
+  readonly nome: string;
+  readonly itens: readonly { readonly id: string; readonly tipo: string; readonly x: number; readonly y: number; readonly anguloGraus: number }[];
+  readonly conexoes: readonly { readonly tipo: 'eletrica' | 'mangueira' | 'fixador'; readonly origemId: string; readonly destinoId: string }[];
+}
+
+const lerProjetoSandboxSalvo = (): ProjetoSandboxSalvo | undefined => {
+  try {
+    const texto = localStorage.getItem('starship-prototype-2:sandbox:projeto-atual');
+    if (!texto) return undefined;
+    const projeto = JSON.parse(texto) as ProjetoSandboxSalvo;
+    return projeto.versao === 1 && Array.isArray(projeto.itens) ? projeto : undefined;
+  } catch {
+    return undefined;
+  }
+};
+
+/** Reconstrói uma configuração salva com as classes físicas disponíveis. */
+const criarTesteSandboxSalvo = (projeto: ProjetoSandboxSalvo): CenárioVisual => {
+  const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
+  const solo = new SuperficiePlano('solo-sandbox', 'concreto', 0, 1_000_000, 0.04, 0.9);
+  const base = (id: string, massaBaseKg: number, dimensoesM: Vetor3, item: ProjetoSandboxSalvo['itens'][number]) => ({
+    id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 500_000, limiteTermicoC: 1_000,
+    estadoInicial: { posicaoM: new Vetor3((item.x - 400) / 50, Math.max(1, (560 - item.y) / 50), 0), orientacaoRad: new Vetor3(0, 0, item.anguloGraus * Math.PI / 180) },
+  });
+  const itemCasco = projeto.itens.find((item) => item.tipo === 'casco');
+  const itemBateria = projeto.itens.find((item) => item.tipo === 'bateria');
+  const bateria = new Bateria({ ...base(itemBateria?.id ?? 'bateria-sandbox', 30, new Vetor3(1.2, 0.8, 1), itemBateria ?? { id: 'bateria-sandbox', tipo: 'bateria', x: 400, y: 500, anguloGraus: 0 }), tensaoNominalV: 24, capacidadeEnergiaJ: 30_000, energiaInicialJ: 30_000 });
+  const casco = new VeiculoComposto({ ...base(itemCasco?.id ?? 'casco-sandbox', 800, new Vetor3(3.2, 6, 2.4), itemCasco ?? { id: 'casco-sandbox', tipo: 'casco', x: 400, y: 280, anguloGraus: 0 }) });
+  const objetosPorId = new Map<string, Objeto>([[casco.id, casco], [bateria.id, bateria]]);
+  const paineis: PainelSolar[] = [];
+  const propulsores: Propulsor[] = [];
+  for (const item of projeto.itens) {
+    if (objetosPorId.has(item.id) || item.tipo === 'computador-de-voo' || item.tipo === 'conexao-eletrica' || item.tipo === 'mangueira') continue;
+    const dimensoes = item.tipo === 'tanque' ? new Vetor3(1.4, 1.2, 1.2) : item.tipo === 'painel-solar' ? new Vetor3(0.25, 2.4, 1.8) : item.tipo === 'braco-articulado' ? new Vetor3(3, 0.25, 0.25) : new Vetor3(1, 1, 1);
+    let objeto: Objeto;
+    if (item.tipo === 'tanque') objeto = new TanquePropelente({ ...base(item.id, 100, dimensoes, item), tipoPropelente: 'metano', capacidadePropelenteKg: 100, massaPropelenteInicialKg: 100 });
+    else if (item.tipo === 'painel-solar') {
+      const painel = new PainelSolar({ ...base(item.id, 35, dimensoes, item), areaAtivaM2: 10, irradianciaWPorM2: 1_000, eficiencia: 0.25, destino: bateria });
+      paineis.push(painel); objeto = painel;
+    } else if (item.tipo === 'propulsor-vetorizado') objeto = new PropulsorVetorizado({ ...base(item.id, 90, dimensoes, item), tensaoAlimentacaoNominalV: 24, potenciaEletricaMaximaW: 1_200, empuxoMaximoN: 40_000, vazaoMaximaKgS: 0.8, propelenteCompativel: 'metano', vetorizacao: { limiteAngularRad: 15 * Math.PI / 180, velocidadeAngularMaximaRadps: 90 * Math.PI / 180 } });
+    else if (item.tipo === 'propulsor') objeto = new Propulsor({ ...base(item.id, 90, dimensoes, item), tensaoAlimentacaoNominalV: 24, potenciaEletricaMaximaW: 1_200, empuxoMaximoN: 40_000, vazaoMaximaKgS: 0.8, propelenteCompativel: 'metano' });
+    else if (item.tipo === 'braco-articulado') objeto = new BracoArticuladoDeBancada({ ...base(item.id, 18, dimensoes, item) });
+    else objeto = new Objeto(base(item.id, 20, dimensoes, item));
+    objetosPorId.set(objeto.id, objeto);
+    if (objeto instanceof Propulsor) propulsores.push(objeto);
+  }
+  for (const modulo of objetosPorId.values()) if (modulo !== casco) casco.adicionarModulo(modulo);
+  const obterParDeConexao = (conexao: ProjetoSandboxSalvo['conexoes'][number]): [Objeto, Objeto] | undefined => {
+    const origem = objetosPorId.get(conexao.origemId); const destino = objetosPorId.get(conexao.destinoId);
+    return origem && destino ? [origem, destino] : undefined;
+  };
+  const temConexao = (tipo: ProjetoSandboxSalvo['conexoes'][number]['tipo'], primeiroId: string, segundoId: string): boolean => projeto.conexoes.some((conexao) => conexao.tipo === tipo && ((conexao.origemId === primeiroId && conexao.destinoId === segundoId) || (conexao.origemId === segundoId && conexao.destinoId === primeiroId)));
+  const fixadores = projeto.conexoes.filter((conexao) => conexao.tipo === 'fixador').map((conexao) => obterParDeConexao(conexao)).filter((par): par is [Objeto, Objeto] => par !== undefined).map(([origem, destino], indice) => new FixadorEstrutural({ id: `fixador-sandbox-${indice + 1}`, objetoA: origem, objetoB: destino, resistenciaTracaoN: 150_000, resistenciaCompressaoN: 150_000, obterEsforcoSolicitadoN: () => 0 }));
+  for (const fixador of fixadores) casco.adicionarFixador(fixador);
+  for (const propulsor of propulsores) casco.instalarPropulsor(propulsor);
+  const tanque = [...objetosPorId.values()].find((objeto): objeto is TanquePropelente => objeto instanceof TanquePropelente);
+  if (tanque) for (const propulsor of propulsores) if (temConexao('mangueira', tanque.id, propulsor.id)) propulsor.conectarTanque(tanque, 20);
+  const conexoesEletricas: ConexaoEletrica[] = paineis.filter((painel) => temConexao('eletrica', painel.id, bateria.id)).map((painel) => painel.conexaoCarga);
+  for (const propulsor of propulsores) if (temConexao('eletrica', bateria.id, propulsor.id)) { propulsor.conectarBateria(bateria, 20); if (propulsor.conexaoEletrica) conexoesEletricas.push(propulsor.conexaoEletrica); }
+  casco.registrarNoMundo(mundo); mundo.registrarSuperficie(solo);
+  return {
+    nome: `Sandbox — ${projeto.nome}`, descricao: 'Montagem carregada do blueprint da Sandbox. Os componentes conhecidos foram instanciados como objetos físicos e os módulos foram fixados ao casco. Verifique o diagnóstico antes de comandar a ignição.',
+    mundo, objetos: [casco, ...casco.modulosFisicos], superficies: [solo], velocidadeTempo: 1, limiteVerticalM: 20, limiteHorizontalM: 12, seguirObjeto: casco,
+    conexoesEletricas, fixadores, propulsorControlavel: propulsores[0], propulsorVetorizadoControlavel: propulsores.find((propulsor) => propulsor instanceof PropulsorVetorizado) as PropulsorVetorizado | undefined,
+    permiteAjustarThrottle: propulsores.length > 0, exibirNaBancada: true, deveEncerrar: () => false,
+    validar: () => `${propulsores.length > 0 && tanque ? 'PRONTO PARA CONFIGURAÇÃO' : 'INCOMPLETO'} · ${objetosPorId.size} objetos físicos · ${fixadores.length} fixadores`,
+    telemetria: () => `altitude ${casco.getEstadoFisico().posicaoM.y.toFixed(2)} m · módulos ${casco.modulosFisicos.length}`,
+    dados: () => `Blueprint: ${projeto.nome}\nObjetos físicos: ${objetosPorId.size}\nFixadores: ${fixadores.length}\nPropulsores: ${propulsores.length}\nTanque: ${tanque ? 'conectado' : 'ausente'}\nBateria: ${bateria.energiaArmazenadaJ.toFixed(0)} J\nDiagnóstico: ${propulsores.flatMap((propulsor) => propulsor.diagnosticoOperacional).join(', ') || 'sem bloqueios'}`,
+  };
+};
+
 /** Decolagem integrada alimentada por painel solar e bateria física. */
-const criarTesteDecolagemComPainelSolar = (): CenárioVisual => {
+const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBancadaDecolagem = {
+  id: 'bss-001',
+  nome: 'BSS-001 — primeiro lançamento de sucesso',
+  descricao: 'BSS-001, primeiro foguete do protótipo a completar um lançamento de sucesso. Veículo composto físico com casco, tanques de metano e oxigênio, cadeia de alimentação bipropelente, bateria e painel solar. O Sol simulado incide verticalmente de cima para baixo por toda a atmosfera; a bateria acumula energia e o operador comanda manualmente os sistemas, o gimbal e a ignição.',
+  controleDeInclinacaoPid: false,
+  inclinacaoInicialRad: 0,
+  energiaInicialDaBateriaJ: 0,
+  deslocamentoLateralDoPainelM: 0,
+  painelMovel: false,
+  incluirPainelSolar: true,
+}): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
   const base = (id: string, massaBaseKg: number, dimensoesM: Vetor3, posicaoM: Vetor3) => ({
     id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 500_000, limiteTermicoC: 1_000,
     estadoInicial: { posicaoM },
   });
   const veiculo = new VeiculoComposto({
-    ...base('veiculo-decolagem-solar', 800, new Vetor3(3.2, 6, 2.4), new Vetor3(0, 4.5, 0)),
+    ...base(configuracao.id, 800, new Vetor3(3.2, 6, 2.4), new Vetor3(0, 4.5, 0)),
+    estadoInicial: {
+      posicaoM: new Vetor3(0, 4.5, 0),
+      orientacaoRad: new Vetor3(0, 0, configuracao.inclinacaoInicialRad),
+    },
     areaFrontalM2: 7, coeficienteArrasto: 0.65,
   });
   const tanqueCombustivel = new TanquePropelente({
@@ -1689,13 +1818,40 @@ const criarTesteDecolagemComPainelSolar = (): CenárioVisual => {
   });
   const bateria = new Bateria({
     ...base('bateria-decolagem-solar', 30, new Vetor3(1.2, 0.8, 1), new Vetor3(0, 12, 0)),
-    tensaoNominalV: 24, capacidadeEnergiaJ: 30_000, energiaInicialJ: 0,
+    tensaoNominalV: 24, capacidadeEnergiaJ: 30_000, energiaInicialJ: configuracao.energiaInicialDaBateriaJ,
   });
   const painel = new PainelSolar({
-    ...base('painel-decolagem-solar', 35, new Vetor3(3, 0.25, 2), new Vetor3(0, 13.2, 0)),
+    ...base('painel-decolagem-solar', 35, new Vetor3(3, 0.25, 2), new Vetor3(configuracao.painelMovel ? 0 : configuracao.deslocamentoLateralDoPainelM, 13.2, 0)),
     areaAtivaM2: 10, irradianciaWPorM2: 1_000, eficiencia: 0.25, destino: bateria,
     obterFatorIluminacao: () => 1,
   });
+  let cilindroPainel: CorpoDeCilindroEletrico | undefined;
+  let hastePainel: HasteDeCilindroEletrico | undefined;
+  let guiaPainel: GuiaLinear | undefined;
+  let fixadorPainelHaste: FixadorEstrutural | undefined;
+  let batentePainelRecuo: Objeto | undefined;
+  let batentePainelAvanco: Objeto | undefined;
+  let comandoPainel: 'parado' | 'avancar' | 'recuar' = 'parado';
+  const limiteRecuoPainelM = 0;
+  const limiteAvancoPainelM = 1.2;
+  if (configuracao.painelMovel) {
+    // A haste termina no centro do painel: o conjunto se desloca sem criar
+    // um braço lateral que faria a placa tombar durante a extensão.
+    hastePainel = new HasteDeCilindroEletrico(base('haste-painel-bss-003', 4, new Vetor3(0.35, 0.35, 0.35), new Vetor3(0, 13.2, 0)), () => cilindroPainel!);
+    cilindroPainel = new CorpoDeCilindroEletrico({
+      ...base('cilindro-painel-bss-003', 12, new Vetor3(0.7, 0.7, 0.7), new Vetor3(-0.7, 13.2, 0)),
+      haste: hastePainel, bateria, velocidadeAvancoMps: 0.35, velocidadeRecuoMps: 0.35,
+      forcaMaximaN: 1_000, direcaoDeCursoM: new Vetor3(1, 0, 0), rigidezRetencaoNPorM: 2_000,
+    });
+    guiaPainel = new GuiaLinear('guia-painel-bss-003', hastePainel, 1_000_000, 'x');
+    fixadorPainelHaste = new FixadorEstrutural({
+      id: 'fixador-painel-haste-bss-003', objetoA: hastePainel, objetoB: painel,
+      resistenciaTracaoN: 20_000, resistenciaCompressaoN: 20_000,
+      obterEsforcoSolicitadoN: () => cilindroPainel!.forcaNaHasteN,
+    });
+    batentePainelRecuo = new Objeto(base('batente-painel-recuo-bss-003', 18, new Vetor3(0.3, 1.2, 2), new Vetor3(-1.7, 13.2, 0)));
+    batentePainelAvanco = new Objeto(base('batente-painel-avanco-bss-003', 18, new Vetor3(0.3, 1.2, 2), new Vetor3(2.9, 13.2, 0)));
+  }
   const propulsor = new PropulsorVetorizado({
     // O motor nasce girado 90°: a altura física no eixo Y é metade da largura X (0,8 m).
     // Y = 0,8 m deixa o ponto inferior tangente ao solo, sem penetração inicial.
@@ -1723,9 +1879,17 @@ const criarTesteDecolagemComPainelSolar = (): CenárioVisual => {
     bocal: new Bocal({ empuxoMaximoN: 40_000, eficienciaNominal: 1 }),
   });
   propulsor.definirThrottle(0.65);
-  for (const modulo of [painel, bateria, tanqueCombustivel, tanqueOxidante, propulsor]) veiculo.adicionarModulo(modulo);
+  const painelFazParteDoCasco = configuracao.incluirPainelSolar && !configuracao.painelMovel;
+  const modulosDoVeiculo: Objeto[] = configuracao.painelMovel
+    ? [bateria, tanqueCombustivel, tanqueOxidante, propulsor, cilindroPainel!, batentePainelRecuo!, batentePainelAvanco!]
+    : [ ...(painelFazParteDoCasco ? [painel] : []), bateria, tanqueCombustivel, tanqueOxidante, propulsor ];
+  for (const modulo of modulosDoVeiculo) veiculo.adicionarModulo(modulo);
   veiculo.instalarPropulsor(propulsor);
-  const fixadores = [painel, bateria, tanqueCombustivel, tanqueOxidante, propulsor].map((modulo) => new FixadorEstrutural({
+  if (configuracao.controleDeInclinacaoPid) veiculo.habilitarControleDeInclinacao();
+  const modulosFixadosAoVeiculo: Objeto[] = configuracao.painelMovel
+    ? [bateria, tanqueCombustivel, tanqueOxidante, propulsor, cilindroPainel!, batentePainelRecuo!, batentePainelAvanco!]
+    : [ ...(painelFazParteDoCasco ? [painel] : []), bateria, tanqueCombustivel, tanqueOxidante, propulsor ];
+  const fixadores = modulosFixadosAoVeiculo.map((modulo) => new FixadorEstrutural({
     id: `fixador-decolagem-${modulo.id}`, objetoA: veiculo, objetoB: modulo,
     resistenciaTracaoN: 150_000, resistenciaCompressaoN: 150_000,
     obterEsforcoSolicitadoN: () => propulsor.empuxoAtualN,
@@ -1735,20 +1899,165 @@ const criarTesteDecolagemComPainelSolar = (): CenárioVisual => {
   mundo.registrarSuperficie(solo);
   // O painel entra antes dos consumidores para a energia percorrer a instalação no mesmo passo físico.
   veiculo.registrarNoMundo(mundo);
+  if (configuracao.incluirPainelSolar && configuracao.painelMovel && hastePainel && fixadorPainelHaste && guiaPainel) {
+    mundo.registrarObjeto(hastePainel);
+    mundo.registrarObjeto(painel);
+    mundo.registrarFixador(fixadorPainelHaste);
+    mundo.registrarGuiaLinear(guiaPainel);
+  }
+  const atualizarControlePainel = (): void => {
+    if (!cilindroPainel) return;
+    const xPainelM = painel.getEstadoFisico().posicaoM.x;
+    const atingiuAvanco = xPainelM >= limiteAvancoPainelM - 1e-3;
+    const atingiuRecuo = xPainelM <= limiteRecuoPainelM + 1e-3;
+    if ((comandoPainel === 'avancar' && atingiuAvanco) || (comandoPainel === 'recuar' && atingiuRecuo)) {
+      comandoPainel = 'parado';
+      cilindroPainel.limparSelo();
+    }
+    cilindroPainel.definirEntradas({
+      avancar: comandoPainel === 'avancar',
+      recuar: comandoPainel === 'recuar',
+      avancado: atingiuAvanco,
+      recuado: atingiuRecuo,
+    });
+  };
 
   const alturaInicialM = veiculo.getEstadoFisico().posicaoM.y;
   const pesoAtualN = (): number => veiculo.massaInstantaneaDoConjuntoKg * Math.abs(MundoFisico.gravidadeTerrestreMps2.y);
   return {
-    nome: 'Decolagem — veículo composto com painel solar',
-    descricao: 'Veículo composto físico com casco, tanques de metano e oxigênio, cadeia de alimentação bipropelente, bateria e painel solar. O Sol simulado incide verticalmente de cima para baixo por toda a atmosfera; a bateria acumula energia e o operador comanda manualmente os sistemas, o gimbal e a ignição.',
-    mundo, objetos: [veiculo, ...veiculo.modulosFisicos], superficies: [solo], velocidadeTempo: 3, limiteVerticalM: 70, limiteHorizontalM: 12,
-    seguirObjeto: veiculo, cameraY: () => veiculo.getEstadoFisico().posicaoM.y, conexoesEletricas: [painel.conexaoCarga, propulsor.conexaoEletrica!],
+    nome: configuracao.nome,
+    descricao: configuracao.descricao,
+    mundo, objetos: [veiculo, ...veiculo.modulosFisicos, ...(configuracao.incluirPainelSolar && configuracao.painelMovel && hastePainel ? [hastePainel, painel] : [])], superficies: [solo], velocidadeTempo: 3, limiteVerticalM: 70, limiteHorizontalM: 12,
+    seguirObjeto: veiculo, cameraY: () => veiculo.getEstadoFisico().posicaoM.y, conexoesEletricas: [...(configuracao.incluirPainelSolar ? [painel.conexaoCarga] : []), propulsor.conexaoEletrica!, ...(cilindroPainel ? [cilindroPainel.conexaoEletrica] : [])],
     mangueira: { tanque: tanqueCombustivel, propulsor }, linhasComFalhaControlavel: { combustivel: linhaCombustivel, oxidante: linhaOxidante },
-    fixadores, propulsorControlavel: propulsor, permiteAjustarThrottle: true,
+    fixadores: [...fixadores, ...(fixadorPainelHaste ? [fixadorPainelHaste] : [])], propulsorControlavel: propulsor, propulsorVetorizadoControlavel: propulsor, permiteAjustarThrottle: true,
+    ...(configuracao.painelMovel && cilindroPainel && hastePainel && guiaPainel ? {
+      guiasLineares: [guiaPainel],
+      exibirGuiasLineares: false,
+      comandarCilindro: (novoComando: 'avancar' | 'recuar') => {
+        comandoPainel = novoComando;
+        atualizarControlePainel();
+      },
+      configurarVelocidadesDoCilindro: (avancoMps: number, recuoMps: number) => cilindroPainel!.configurarVelocidades(avancoMps, recuoMps),
+      velocidadesDoCilindro: () => ({ avancoMps: cilindroPainel!.velocidadeAvancoMps, recuoMps: cilindroPainel!.velocidadeRecuoMps }),
+      obterEntradasCilindro: () => ({ avancar: comandoPainel === 'avancar', recuar: comandoPainel === 'recuar' }),
+      atualizarControle: atualizarControlePainel,
+    } : {}),
     exibirNaBancada: true, deveEncerrar: () => false,
-    telemetria: () => `bateria ${(bateria.percentualDeCarga * 100).toFixed(1)}% · altitude ${veiculo.getEstadoFisico().posicaoM.y.toFixed(1)} m · empuxo ${propulsor.empuxoAtualN.toFixed(0)} / peso ${pesoAtualN().toFixed(0)} N`,
-    dados: () => `Sol: irradiância vertical descendente · 1.000 W/m²\nPainel: ${painel.potenciaAtualW.toFixed(0)} W · energia gerada ${painel.energiaGeradaJ.toFixed(0)} J\nBateria: ${bateria.energiaArmazenadaJ.toFixed(0)} / ${bateria.capacidadeEnergiaJ.toFixed(0)} J (${(bateria.percentualDeCarga * 100).toFixed(1)}%)\nPartida: comando manual pelos controles da bancada\nAltitude: ${veiculo.getEstadoFisico().posicaoM.y.toFixed(2)} m · velocidade vertical ${veiculo.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s\nAtitude: ${(veiculo.getEstadoFisico().orientacaoRad.z * 180 / Math.PI).toFixed(2)}° · gimbal ${(propulsor.obterEstadoDaVetorizacao().anguloAtualRad * 180 / Math.PI).toFixed(2)}°\nMassa conectada: ${veiculo.massaInstantaneaDoConjuntoKg.toFixed(1)} kg · peso ${pesoAtualN().toFixed(0)} N\nTanques: CH4 ${tanqueCombustivel.massaPropelenteKg.toFixed(1)} kg · O2 ${tanqueOxidante.massaPropelenteKg.toFixed(1)} kg\nCadeia: ${linhaCombustivel.estaIndisponivel || linhaOxidante.estaIndisponivel ? 'INDISPONÍVEL' : 'íntegra'} · vazão ${propulsor.vazaoAtualKgS.toFixed(2)} kg/s\nEmpuxo: ${propulsor.empuxoAtualN.toFixed(0)} N · ignição ${propulsor.estaIgnitado ? 'ativa' : 'cortada'} · integridade ${Math.round(propulsor.integridadeEstrutural * 100)}%`,
-    validar: () => `${propulsor.estaIgnitado && propulsor.empuxoAtualN > pesoAtualN() && Math.abs(veiculo.getEstadoFisico().orientacaoRad.z) < 5 * Math.PI / 180 && veiculo.getEstadoFisico().posicaoM.y > alturaInicialM + 0.5 ? 'APROVADO' : 'AGUARDANDO DECOLAGEM'} · empuxo ${propulsor.empuxoAtualN.toFixed(0)} N; peso ${pesoAtualN().toFixed(0)} N; atitude ${(veiculo.getEstadoFisico().orientacaoRad.z * 180 / Math.PI).toFixed(2)}°`,
+    telemetria: () => { const leituras = veiculo.obterLeiturasDosSensores(); return `bateria ${(bateria.percentualDeCarga * 100).toFixed(1)}% · altitude GPS ${leituras.altitudeM.toFixed(1)} m · empuxo ${propulsor.empuxoAtualN.toFixed(0)} / peso ${pesoAtualN().toFixed(0)} N`; },
+    dados: () => { const leituras = veiculo.obterLeiturasDosSensores(); return `${configuracao.incluirPainelSolar ? `Sol: irradiância vertical descendente · 1.000 W/m²\nPainel: ${painel.potenciaAtualW.toFixed(0)} W · energia gerada ${painel.energiaGeradaJ.toFixed(0)} J\n` : ''}${cilindroPainel ? `Painel móvel: comando ${comandoPainel} · x ${painel.getEstadoFisico().posicaoM.x.toFixed(2)} m · velocidade ${painel.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s · força ${cilindroPainel.forcaNaHasteN.toFixed(0)} N\n` : ''}Bateria: ${bateria.energiaArmazenadaJ.toFixed(0)} / ${bateria.capacidadeEnergiaJ.toFixed(0)} J (${(bateria.percentualDeCarga * 100).toFixed(1)}%)\nFonte do propulsor: ${propulsor.fonteEletricaEstaConectada ? 'bateria conectada' : 'indisponível'} · cabo ${propulsor.conexaoEletrica?.interruptorPrincipalFechado ? 'fechado' : 'aberto'}\nPartida: comando manual pelos controles da bancada\nControle de inclinação: ${veiculo.controleDeInclinacaoEstaHabilitado ? 'PID automático' : 'manual'}\nGPS idealizado: X ${leituras.posicaoGpsM.x.toFixed(2)} m · Y ${leituras.posicaoGpsM.y.toFixed(2)} m\nAltitude derivada do GPS: ${leituras.altitudeM.toFixed(2)} m\nVelocidade derivada do GPS: vertical ${leituras.velocidadeVerticalMps.toFixed(2)} m/s · horizontal ${leituras.velocidadeHorizontalMps.toFixed(2)} m/s\nInclinação do sensor de nível: ${(leituras.inclinacaoRad * 180 / Math.PI).toFixed(2)}° · gimbal ${(propulsor.obterEstadoDaVetorizacao().anguloAtualRad * 180 / Math.PI).toFixed(2)}°\nMassa conectada: ${veiculo.massaInstantaneaDoConjuntoKg.toFixed(1)} kg · peso ${pesoAtualN().toFixed(0)} N\nTanques: CH4 ${tanqueCombustivel.massaPropelenteKg.toFixed(1)} kg · O2 ${tanqueOxidante.massaPropelenteKg.toFixed(1)} kg\nCadeia: ${linhaCombustivel.estaIndisponivel || linhaOxidante.estaIndisponivel ? 'INDISPONÍVEL' : 'íntegra'} · vazão ${propulsor.vazaoAtualKgS.toFixed(2)} kg/s\nEmpuxo: ${propulsor.empuxoAtualN.toFixed(0)} N · ignição ${propulsor.estaIgnitado ? 'ativa' : 'cortada'} · integridade ${Math.round(propulsor.integridadeEstrutural * 100)}%`; },
+    validar: () => { const leituras = veiculo.obterLeiturasDosSensores(); return `${propulsor.estaIgnitado && propulsor.empuxoAtualN > pesoAtualN() && Math.abs(leituras.inclinacaoRad) < 5 * Math.PI / 180 && leituras.altitudeM > alturaInicialM + 0.5 ? 'APROVADO' : 'AGUARDANDO DECOLAGEM'} · empuxo ${propulsor.empuxoAtualN.toFixed(0)} N; peso ${pesoAtualN().toFixed(0)} N; inclinação ${(leituras.inclinacaoRad * 180 / Math.PI).toFixed(2)}°`; },
+  };
+};
+
+/** Decolagem vertical com controle de inclinação pelo computador de voo. */
+const criarTesteBss002 = (): CenárioVisual => criarTesteDecolagemComPainelSolar({
+  id: 'bss-002',
+  nome: 'BSS-002 — controle de inclinação PID',
+  descricao: 'BSS-002 valida o controle de inclinação do primeiro foguete em decolagem vertical. O sensor de nível do casco fornece a leitura ao computador de voo, que mantém o gimbal neutro quando a atitude está alinhada e corrige desvios físicos durante o voo. A ignição, o throttle e os demais sistemas continuam sob comando manual da bancada.',
+  controleDeInclinacaoPid: true,
+  inclinacaoInicialRad: 0,
+  energiaInicialDaBateriaJ: 30_000,
+  deslocamentoLateralDoPainelM: 0.8,
+  painelMovel: false,
+  incluirPainelSolar: true,
+});
+
+/** Ensaio isolado de motor, haste articulada, fixador terminal e painel solar. */
+const criarTesteBracoArticuladoDeBancada = (paredeVertical = false): CenárioVisual => {
+  const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
+  const base = (id: string, massaBaseKg: number, dimensoesM: Vetor3, posicaoM: Vetor3) => ({ id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM } });
+  const solo = new SuperficiePlano('solo-braco-articulado-bancada', 'concreto', 0, 1_000_000, 0.04, 0.9);
+  const suporte = paredeVertical
+    ? new Objeto(base('parede-braco-articulado', 300, new Vetor3(0.5, 6, 2), new Vetor3(-0.65, 3, 0)))
+    : new Objeto(base('bancada-braco-articulado', 300, new Vetor3(5, 0.6, 2), new Vetor3(0, 0.3, 0)));
+  const bateria = new Bateria({ ...base('bateria-motor-rotacional', 12, new Vetor3(0.6, 0.6, 0.6), new Vetor3(paredeVertical ? 3 : -2, paredeVertical ? 7 : 1.1, 0)), tensaoNominalV: 24, capacidadeEnergiaJ: 100_000, energiaInicialJ: 100_000 });
+  let braco!: BracoArticuladoDeBancada;
+  const motor = new MotorEletricoRotacional({
+    ...base('motor-eletrico-rotacional-bancada', 25, new Vetor3(0.8, 0.8, 0.8), new Vetor3(0, 1, 0)),
+    fonteEletrica: bateria,
+    obterAnguloAtualRad: () => braco.getEstadoFisico().orientacaoRad.z,
+    obterVelocidadeAngularRadps: () => braco.getEstadoFisico().velocidadeAngularRadps.z,
+    torqueMaximoNm: 2_500,
+    velocidadeAngularMaximaRadps: Math.PI / 3,
+    aceleracaoMaximaRadps2: 0.8,
+    ganhoProporcional: 200.25,
+    ganhoIntegral: 26.5375,
+    ganhoDerivativo: 5_000.133,
+    potenciaNominalW: 3_000,
+    anguloInicialRad: 0,
+    obterTorqueGravitacionalNm: () => {
+      const pivot = motor.getEstadoFisico().posicaoM;
+      return [braco, painel].reduce((torque, objeto) => {
+        const peso = new Vetor3(0, -9.80665 * objeto.massaKg, 0);
+        return torque - objeto.getEstadoFisico().posicaoM.subtrair(pivot).produtoVetorial(peso).z;
+      }, 0);
+    },
+    obterMomentoInerciaControladoKgM2: () => {
+      const pivot = motor.getEstadoFisico().posicaoM;
+      return [braco, painel].reduce((inercia, objeto) => {
+        const estado = objeto.getEstadoFisico();
+        return inercia + objeto.getMomentoInerciaKgM2().z + objeto.massaKg * estado.posicaoM.subtrair(pivot).magnitude ** 2;
+      }, 0);
+    },
+  });
+  braco = new BracoArticuladoDeBancada({ ...base('haste-braco-articulado-bancada', 18, new Vetor3(4, 0.25, 0.25), new Vetor3(2, 1, 0)), estadoInicial: { posicaoM: new Vetor3(2, 1, 0), orientacaoRad: new Vetor3(0, 0, 0) } });
+  const painel = new PainelSolar({ ...base('painel-solar-fixador-terminal', 35, new Vetor3(0.4, 2.4, 1.8), new Vetor3(4, paredeVertical ? 1 : 2.7, 0)), areaAtivaM2: 10, irradianciaWPorM2: 1_000, eficiencia: 0.25, destino: bateria, obterFatorIluminacao: () => 1, estadoInicial: { posicaoM: new Vetor3(4, paredeVertical ? 1 : 2.7, 0), orientacaoRad: new Vetor3(0, 0, paredeVertical ? -Math.PI / 2 : 0) } });
+  const junta = new JuntaRotacionalDeBancada({ id: 'junta-motor-haste-bancada', objetoBase: motor, braco, motor, pontoNoObjetoBaseM: Vetor3.zero, pontoNoBracoM: new Vetor3(-2, 0, 0), objetosAcoplados: [braco, painel], travaMecanicaInicial: true, anguloDaTravaInicialRad: 0 });
+  const fixadorMotor = new FixadorEstrutural({ id: `fixador-motor-${paredeVertical ? 'parede' : 'bancada'}`, objetoA: suporte, objetoB: motor, resistenciaTracaoN: 1_000_000, obterEsforcoSolicitadoN: () => 0 });
+  const fixadorPainel = braco.criarFixadorNaExtremidade(painel, 100_000);
+  const chumbadores = [suporte, bateria].map((objeto) => new ChumbadorAoSolo({ id: `chumbador-${objeto.id}`, objeto, resistenciaN: 1_000_000 }));
+  [suporte, bateria, motor, braco, painel].forEach((objeto) => mundo.registrarObjeto(objeto));
+  mundo.registrarSuperficie(solo); mundo.registrarFixador(fixadorMotor); mundo.registrarFixador(fixadorPainel); chumbadores.forEach((chumbador) => mundo.registrarChumbadorAoSolo(chumbador)); mundo.registrarJuntaRotacionalDeBancada(junta);
+  return {
+    nome: paredeVertical ? 'Braço articulado em parede vertical' : 'Braço articulado de bancada', descricao: paredeVertical ? 'O mesmo motor, haste e painel estão fixados a uma parede vertical chumbada ao solo. O operador comanda manualmente o ângulo do braço.' : 'Motor elétrico fixado à bancada, haste no eixo, fixador universal na extremidade e painel solar como carga. O operador comanda manualmente o ângulo do braço.',
+    mundo, objetos: [suporte, bateria, motor, braco, painel], superficies: [solo], velocidadeTempo: 1, limiteVerticalM: 8, limiteHorizontalM: 8, seguirObjeto: braco, exibirNaBancada: true,
+    chumbadoresAoSolo: chumbadores, conexoesEletricas: [motor.conexaoEletrica, painel.conexaoCarga], fixadores: [fixadorMotor, fixadorPainel], motorRotacionalControlavel: motor, painelSolarControlavel: painel,
+    deveEncerrar: () => false, validar: () => 'OBSERVAÇÃO · ensaio manual disponível', telemetria: () => `ângulo ${(braco.getEstadoFisico().orientacaoRad.z * 180 / Math.PI).toFixed(1)}° · alvo ${(motor.anguloAlvoRelativoRad * 180 / Math.PI).toFixed(1)}° · torque ${motor.torqueAtualNm.toFixed(1)} N.m`, dados: () => `Motor: ${motor.habilitado ? 'ligado' : 'desligado'} · torque ${motor.torqueAtualNm.toFixed(1)} N.m\nGanhos PID: Kp ${motor.ganhos.ganhoProporcional.toFixed(1)} · Ki ${motor.ganhos.ganhoIntegral.toFixed(1)} · Kd ${motor.ganhos.ganhoDerivativo.toFixed(1)}\nTrava mecânica: ${junta.estaTravada ? 'ativa' : 'liberada'}\nHaste: ${braco.massaKg.toFixed(1)} kg · painel: ${painel.massaKg.toFixed(1)} kg\nFixador terminal: ${fixadorPainel.estaRompido ? 'ROMPIDO' : 'íntegro'}`,
+  };
+};
+
+/** Ensaio bilateral: dois braços independentes, um para cada lado da parede. */
+const criarTesteBracosArticuladosEmParede = (): CenárioVisual => {
+  const cenárioBase = criarTesteBracoArticuladoDeBancada(true);
+  const mundo = cenárioBase.mundo;
+  const suporte = cenárioBase.objetos[0];
+  const bateria = cenárioBase.objetos[1] as Bateria;
+  const base = (id: string, massaBaseKg: number, dimensoesM: Vetor3, posicaoM: Vetor3) => ({ id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM } });
+  let braco!: BracoArticuladoDeBancada;
+  const motor = new MotorEletricoRotacional({
+    ...base('motor-eletrico-rotacional-esquerdo', 25, new Vetor3(0.8, 0.8, 0.8), new Vetor3(-1.3, 1, 0)),
+    fonteEletrica: bateria,
+    obterAnguloAtualRad: () => braco.getEstadoFisico().orientacaoRad.z,
+    obterVelocidadeAngularRadps: () => braco.getEstadoFisico().velocidadeAngularRadps.z,
+    torqueMaximoNm: 2_500, velocidadeAngularMaximaRadps: Math.PI / 3, aceleracaoMaximaRadps2: 0.8,
+    ganhoProporcional: 200.25, ganhoIntegral: 26.5375, ganhoDerivativo: 5_000.133, potenciaNominalW: 3_000,
+    anguloInicialRad: Math.PI,
+    obterTorqueGravitacionalNm: () => {
+      const pivot = motor.getEstadoFisico().posicaoM;
+      return [braco, painel].reduce((torque, objeto) => torque - objeto.getEstadoFisico().posicaoM.subtrair(pivot).produtoVetorial(new Vetor3(0, -9.80665 * objeto.massaKg, 0)).z, 0);
+    },
+    obterMomentoInerciaControladoKgM2: () => {
+      const pivot = motor.getEstadoFisico().posicaoM;
+      return [braco, painel].reduce((inercia, objeto) => inercia + objeto.getMomentoInerciaKgM2().z + objeto.massaKg * objeto.getEstadoFisico().posicaoM.subtrair(pivot).magnitude ** 2, 0);
+    },
+  });
+  braco = new BracoArticuladoDeBancada({ ...base('haste-braco-articulado-esquerdo', 18, new Vetor3(4, 0.25, 0.25), new Vetor3(-3.3, 1, 0)), estadoInicial: { posicaoM: new Vetor3(-3.3, 1, 0), orientacaoRad: new Vetor3(0, 0, Math.PI) } });
+  const painel = new PainelSolar({ ...base('painel-solar-fixador-esquerdo', 35, new Vetor3(0.4, 2.4, 1.8), new Vetor3(-5.3, 1, 0)), areaAtivaM2: 10, irradianciaWPorM2: 1_000, eficiencia: 0.25, destino: bateria, obterFatorIluminacao: () => 1, estadoInicial: { posicaoM: new Vetor3(-5.3, 1, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) } });
+  const junta = new JuntaRotacionalDeBancada({ id: 'junta-motor-haste-esquerda', objetoBase: motor, braco, motor, pontoNoObjetoBaseM: Vetor3.zero, pontoNoBracoM: new Vetor3(-2, 0, 0), objetosAcoplados: [braco, painel], travaMecanicaInicial: true, anguloDaTravaInicialRad: Math.PI });
+  const fixadorMotor = new FixadorEstrutural({ id: 'fixador-motor-parede-esquerdo', objetoA: suporte, objetoB: motor, resistenciaTracaoN: 1_000_000, obterEsforcoSolicitadoN: () => 0 });
+  const fixadorPainel = braco.criarFixadorNaExtremidade(painel, 100_000);
+  [motor, braco, painel].forEach((objeto) => mundo.registrarObjeto(objeto));
+  mundo.registrarFixador(fixadorMotor); mundo.registrarFixador(fixadorPainel); mundo.registrarJuntaRotacionalDeBancada(junta);
+  return {
+    ...cenárioBase,
+    nome: 'Braços articulados em parede vertical',
+    descricao: 'Dois braços articulados independentes estão fixados em lados opostos de uma parede vertical chumbada ao solo. Cada motor sustenta um painel voltado para fora e recebe seu próprio comando angular.',
+    objetos: [...cenárioBase.objetos, motor, braco, painel],
+    conexoesEletricas: [...(cenárioBase.conexoesEletricas ?? []), motor.conexaoEletrica, painel.conexaoCarga],
+    fixadores: [...(cenárioBase.fixadores ?? []), fixadorMotor, fixadorPainel],
+    motorRotacionalSecundarioControlavel: motor,
+    painelSolarControlavel: painel,
   };
 };
 
@@ -1934,7 +2243,9 @@ const construirCenarios = (): CenárioVisual[] => {
     criarTesteImpactoNoRetangulo('impacto no centro de massa', 5, 3),
   ];
   void cenariosArquivados;
-  return [criarTestePainelSolarComSombra(), criarTestePortaVertical(), criarTesteDecolagemComPainelSolar()];
+  return [
+    criarTestePainelSolarComSombra(), criarTestePortaVertical(), criarTesteDecolagemComPainelSolar(), criarTesteBss002(), criarTesteBracoArticuladoDeBancada(), criarTesteBracoArticuladoDeBancada(true), criarTesteBracosArticuladosEmParede(),
+  ];
 };
 
 let cenarios = construirCenarios();
@@ -1944,15 +2255,43 @@ let emExecucao = false;
 let ultimoQuadroMs = 0;
 /** Escalas escolhidas pelo operador, indexadas pelo cenário da bancada. */
 const escalasTemporaisPorCenario = new Map<number, number>();
+let autotuneEmExecucao = false;
 
 const cenarioAtual = (): CenárioVisual => cenarios[indiceAtual];
+
+interface PerfilPidPersistido {
+  readonly ganhoProporcional: number;
+  readonly ganhoIntegral: number;
+  readonly ganhoDerivativo: number;
+  readonly aceleracaoMaximaRadps2: number;
+}
+
+const chavePerfilPid = (motor: MotorEletricoRotacional): string => `starship-prototype-2:pid:${motor.id}`;
+const persistirPerfilPid = (motor: MotorEletricoRotacional): void => {
+  try {
+    localStorage.setItem(chavePerfilPid(motor), JSON.stringify({ ...motor.ganhos, aceleracaoMaximaRadps2: motor.aceleracaoMaximaRadps2 } satisfies PerfilPidPersistido));
+  } catch { /* Persistência local pode estar indisponível no navegador. */ }
+};
+const carregarPerfilPid = (motor: MotorEletricoRotacional): void => {
+  try {
+    const salvo = localStorage.getItem(chavePerfilPid(motor));
+    if (!salvo) return;
+    const perfil = JSON.parse(salvo) as Partial<PerfilPidPersistido>;
+    if ([perfil.ganhoProporcional, perfil.ganhoIntegral, perfil.ganhoDerivativo].every((valor) => typeof valor === 'number' && Number.isFinite(valor)) &&
+      typeof perfil.aceleracaoMaximaRadps2 === 'number' && Number.isFinite(perfil.aceleracaoMaximaRadps2)) {
+      motor.aplicarGanhos({ ganhoProporcional: perfil.ganhoProporcional!, ganhoIntegral: perfil.ganhoIntegral!, ganhoDerivativo: perfil.ganhoDerivativo! });
+      motor.definirAceleracaoMaximaRadps2(perfil.aceleracaoMaximaRadps2);
+    }
+  } catch { /* Perfil inválido não impede a execução do cenário. */ }
+};
 
 const obterEscalaTemporalAtual = (): number => escalasTemporaisPorCenario.get(indiceAtual) ?? cenarioAtual().velocidadeTempo;
 
 interface CanalTrace {
   readonly nome: string;
   readonly cor: string;
-  readonly obterSinal: () => 0 | 1;
+  readonly obterSinal: () => number;
+  readonly escala?: { readonly minimo: number; readonly maximo: number; readonly unidade?: string };
 }
 
 const limiteAmostrasTrace = 6_000;
@@ -1972,6 +2311,22 @@ const obterCanaisTrace = (): readonly CanalTrace[] => {
     canais.push({ nome: 'CIL. AVANÇAR', cor: '#67e8f9', obterSinal: () => entradas.avancar ? 1 : 0 });
     canais.push({ nome: 'CIL. RECUAR', cor: '#fb7185', obterSinal: () => entradas.recuar ? 1 : 0 });
   }
+  const motorRotacional = cenário.motorRotacionalControlavel;
+  if (motorRotacional) {
+    const escalaAngular = { minimo: -180, maximo: 180, unidade: '°' };
+    canais.push({
+      nome: 'SP HASTE',
+      cor: '#c084fc',
+      obterSinal: () => motorRotacional.anguloAlvoRelativoRad * 180 / Math.PI,
+      escala: escalaAngular,
+    });
+    canais.push({
+      nome: 'ANG HASTE',
+      cor: '#22d3ee',
+      obterSinal: () => motorRotacional.obterAnguloAtualRad() * 180 / Math.PI,
+      escala: escalaAngular,
+    });
+  }
   return canais;
 };
 
@@ -1985,7 +2340,7 @@ const registrarTraceSensores = (forcar = false): void => {
 
 const configurarTracePLCDoCenario = (): void => {
   tracePLC.limpar();
-  for (const canal of obterCanaisTrace()) tracePLC.adicionarSinal(canal.nome, canal.obterSinal, canal.cor);
+  for (const canal of obterCanaisTrace()) tracePLC.adicionarSinal(canal.nome, canal.obterSinal, canal.cor, canal.escala);
   registrarTraceSensores(true);
 };
 
@@ -2018,9 +2373,11 @@ const desenharTraceSensores = (): void => {
   const amostraSelecionada = amostras[indiceSelecionado];
   const faixaM = alturaGrafico / canais.length;
   const converterX = (indice: number): number => margem.esquerda + (amostras.length <= 1 ? 0 : indice * larguraGrafico / (amostras.length - 1));
-  const converterY = (linha: number, sinal: 0 | 1): number => {
+  const converterY = (linha: number, sinal: number): number => {
     const topo = margem.superior + linha * faixaM;
-    return topo + (sinal === 1 ? 18 : faixaM - 18);
+    const escala = canais[linha].escala ?? { minimo: 0, maximo: 1 };
+    const proporcao = Math.max(0, Math.min(1, (sinal - escala.minimo) / (escala.maximo - escala.minimo)));
+    return topo + faixaM - 18 - proporcao * Math.max(1, faixaM - 36);
   };
 
   contextoTrace.strokeStyle = '#172b4a';
@@ -2036,8 +2393,11 @@ const desenharTraceSensores = (): void => {
     const topo = margem.superior + linha * faixaM;
     contextoTrace.strokeStyle = '#243b5a';
     contextoTrace.beginPath(); contextoTrace.moveTo(margem.esquerda, topo + faixaM - 1); contextoTrace.lineTo(largura - margem.direita, topo + faixaM - 1); contextoTrace.stroke();
-    contextoTrace.fillStyle = '#cbd5e1'; contextoTrace.fillText(canal.nome, 8, topo + 17);
-    contextoTrace.fillStyle = '#64748b'; contextoTrace.fillText('1', margem.esquerda - 20, topo + 21); contextoTrace.fillText('0', margem.esquerda - 20, topo + faixaM - 14);
+    const valorSelecionado = amostraSelecionada.sinais[linha] ?? 0;
+    const valorFormatado = canal.escala ? `${valorSelecionado.toFixed(1)} ${canal.escala.unidade ?? ''}`.trim() : String(valorSelecionado);
+    contextoTrace.fillStyle = '#cbd5e1'; contextoTrace.fillText(`${canal.nome}: ${valorFormatado}`, 8, topo + 17);
+    const escala = canal.escala ?? { minimo: 0, maximo: 1 };
+    contextoTrace.fillStyle = '#64748b'; contextoTrace.fillText(escala.maximo.toFixed(canal.escala ? 1 : 0), margem.esquerda - 36, topo + 21); contextoTrace.fillText(escala.minimo.toFixed(canal.escala ? 1 : 0), margem.esquerda - 36, topo + faixaM - 14);
     contextoTrace.strokeStyle = canal.cor;
     contextoTrace.lineWidth = 2;
     contextoTrace.beginPath();
@@ -2046,11 +2406,11 @@ const desenharTraceSensores = (): void => {
       const sinal = amostra.sinais[linha] ?? 0;
       const y = converterY(linha, sinal);
       if (indice === 0) contextoTrace.moveTo(x, y);
-      else {
+      else if (!canal.escala) {
         const sinalAnterior = amostras[indice - 1].sinais[linha] ?? 0;
         contextoTrace.lineTo(x, converterY(linha, sinalAnterior));
         contextoTrace.lineTo(x, y);
-      }
+      } else contextoTrace.lineTo(x, y);
     });
     contextoTrace.stroke();
   });
@@ -2295,7 +2655,7 @@ const desenhar = (): void => {
     }
   }
 
-  if (cenário.guiasLineares) {
+  if (cenário.exibirGuiasLineares !== false && cenário.guiasLineares) {
     for (const guia of cenário.guiasLineares) {
       const estado = guia.estadoDeMontagem;
       const x = origemX + estado.posicaoM.x * escala;
@@ -2365,7 +2725,34 @@ const desenhar = (): void => {
             ? '#34d399'
             : objeto.dimensoesM.x > 1 ? '#a78bfa' : '#22d3ee';
     contexto.strokeStyle = '#e2e8f0';
-    if (objeto instanceof Propulsor) {
+    if (objeto instanceof MotorEletricoRotacional) {
+      const raio = Math.min(larguraObjeto, alturaObjeto) * 0.43;
+      contexto.fillStyle = '#1e293b';
+      contexto.fillRect(-larguraObjeto * 0.42, -alturaObjeto * 0.38, larguraObjeto * 0.84, alturaObjeto * 0.76);
+      contexto.strokeStyle = '#cbd5e1';
+      contexto.lineWidth = 2;
+      contexto.strokeRect(-larguraObjeto * 0.42, -alturaObjeto * 0.38, larguraObjeto * 0.84, alturaObjeto * 0.76);
+      contexto.fillStyle = '#64748b';
+      contexto.beginPath(); contexto.arc(0, 0, raio, 0, Math.PI * 2); contexto.fill(); contexto.stroke();
+      contexto.fillStyle = '#0f172a';
+      contexto.beginPath(); contexto.arc(0, 0, raio * 0.58, 0, Math.PI * 2); contexto.fill();
+      contexto.strokeStyle = '#facc15'; contexto.lineWidth = Math.max(2, alturaObjeto * 0.06);
+      contexto.beginPath(); contexto.moveTo(raio * 0.58, 0); contexto.lineTo(larguraObjeto * 0.72, 0); contexto.stroke();
+      contexto.fillStyle = '#facc15'; contexto.beginPath(); contexto.arc(0, 0, Math.max(3, raio * 0.16), 0, Math.PI * 2); contexto.fill();
+      contexto.fillStyle = '#e2e8f0'; contexto.font = '10px ui-monospace, monospace'; contexto.textAlign = 'center'; contexto.fillText('MOTOR', 0, alturaObjeto * 0.7); contexto.textAlign = 'start';
+    } else if (objeto instanceof BracoArticuladoDeBancada) {
+      const espessura = Math.max(8, alturaObjeto * 0.32);
+      const comprimento = larguraObjeto * 0.88;
+      contexto.fillStyle = '#94a3b8';
+      contexto.fillRect(-comprimento / 2, -espessura / 2, comprimento, espessura);
+      contexto.strokeStyle = '#e2e8f0'; contexto.lineWidth = 2; contexto.strokeRect(-comprimento / 2, -espessura / 2, comprimento, espessura);
+      contexto.strokeStyle = '#475569'; contexto.lineWidth = 2;
+      for (let indice = -2; indice <= 2; indice += 1) {
+        contexto.beginPath(); contexto.arc(indice * comprimento / 6, 0, Math.max(2, espessura * 0.16), 0, Math.PI * 2); contexto.stroke();
+      }
+      contexto.fillStyle = '#f59e0b'; contexto.beginPath(); contexto.arc(-comprimento / 2, 0, espessura * 0.62, 0, Math.PI * 2); contexto.fill(); contexto.stroke();
+      contexto.fillStyle = '#334155'; contexto.fillRect(comprimento / 2 - espessura * 0.1, -espessura * 0.85, espessura * 0.2, espessura * 1.7); contexto.strokeRect(comprimento / 2 - espessura * 0.1, -espessura * 0.85, espessura * 0.2, espessura * 1.7);
+    } else if (objeto instanceof Propulsor) {
       // A força do propulsor aponta para +X local; portanto o escape e a chama
       // aparecem no lado oposto (-X), somente quando há empuxo calculado pelo core.
       const potenciaMaximaNoJatoW = objeto.potenciaTermicaMaximaW * 0.7;
@@ -2443,22 +2830,37 @@ const desenhar = (): void => {
       contexto.lineTo(larguraObjeto * 0.14, alturaObjeto * 0.22);
       contexto.stroke();
     } else if (objeto instanceof PainelSolar) {
-      contexto.fillStyle = '#0c4a6e';
-      contexto.fillRect(-larguraObjeto / 2, -alturaObjeto / 2, larguraObjeto, alturaObjeto);
-      contexto.strokeRect(-larguraObjeto / 2, -alturaObjeto / 2, larguraObjeto, alturaObjeto);
+      const painelDobrado = objeto.status === 'dobrado';
+      const larguraVisual = painelDobrado ? Math.max(8, larguraObjeto * 0.28) : larguraObjeto;
+      contexto.fillStyle = painelDobrado ? '#164e63' : '#0c4a6e';
+      contexto.fillRect(-larguraVisual / 2, -alturaObjeto / 2, larguraVisual, alturaObjeto);
+      contexto.strokeRect(-larguraVisual / 2, -alturaObjeto / 2, larguraVisual, alturaObjeto);
       contexto.strokeStyle = '#bae6fd';
       contexto.lineWidth = 1;
       for (let coluna = -2; coluna <= 2; coluna += 1) {
-        const xPainel = coluna * larguraObjeto / 5;
+        const xPainel = coluna * larguraVisual / 5;
         contexto.beginPath();
         contexto.moveTo(xPainel, -alturaObjeto / 2);
         contexto.lineTo(xPainel, alturaObjeto / 2);
         contexto.stroke();
       }
+      if (painelDobrado) {
+        contexto.strokeStyle = '#67e8f9';
+        contexto.beginPath();
+        contexto.moveTo(-larguraObjeto / 2, -alturaObjeto / 2);
+        contexto.lineTo(-larguraVisual / 2, -alturaObjeto / 2);
+        contexto.lineTo(-larguraVisual / 2, alturaObjeto / 2);
+        contexto.lineTo(-larguraObjeto / 2, alturaObjeto / 2);
+        contexto.moveTo(larguraObjeto / 2, -alturaObjeto / 2);
+        contexto.lineTo(larguraVisual / 2, -alturaObjeto / 2);
+        contexto.lineTo(larguraVisual / 2, alturaObjeto / 2);
+        contexto.lineTo(larguraObjeto / 2, alturaObjeto / 2);
+        contexto.stroke();
+      }
       contexto.fillStyle = '#e0f2fe';
       contexto.font = '9px ui-monospace, monospace';
       contexto.textAlign = 'center';
-      contexto.fillText('SOLAR', 0, 4);
+      contexto.fillText(painelDobrado ? 'DOBRADO' : 'SOLAR', 0, 4);
       contexto.textAlign = 'start';
     } else if (objeto instanceof TanquePropelente) {
       contexto.fillStyle = '#166534';
@@ -2677,6 +3079,7 @@ const desenhar = (): void => {
 
 const carregarCenarioAtual = (): void => {
   const cenário = cenarioAtual();
+  if (cenário.motorRotacionalControlavel) carregarPerfilPid(cenário.motorRotacionalControlavel);
   configurarTracePLCDoCenario();
   tempoTraceSelecionadoS = undefined;
   scenarioDescription.textContent = cenário.descricao;
@@ -2750,6 +3153,19 @@ const atualizarControlesDoPropulsor = (): void => {
   retractCylinderButton.disabled = comandoCilindro === undefined;
   raisePlatformButton.hidden = iniciarSequencia === undefined;
   raisePlatformButton.disabled = iniciarSequencia === undefined;
+  const painelSolar = cenário.painelSolarControlavel
+    ?? cenário.objetos.find((objeto): objeto is PainelSolar => objeto instanceof PainelSolar);
+  const eEnsaioDeBracoArticulado = cenário.nome.toLocaleLowerCase('pt-BR').includes('braço articulado');
+  solarPanelControls.hidden = painelSolar === undefined && !eEnsaioDeBracoArticulado;
+  if (painelSolar) {
+    solarPanelToggle.textContent = painelSolar.estaDesdobrado ? 'Dobrar painel' : 'Desdobrar painel';
+    solarPanelStatus.textContent = `Estado: ${painelSolar.status}`;
+    solarPanelToggle.disabled = false;
+  } else {
+    solarPanelToggle.textContent = 'Painel indisponível';
+    solarPanelStatus.textContent = 'Nenhum painel solar neste cenário';
+    solarPanelToggle.disabled = true;
+  }
   advanceSpeedControl.hidden = velocidadesDoCilindro === undefined;
   retractSpeedControl.hidden = velocidadesDoCilindro === undefined;
   advanceSpeedInput.disabled = velocidadesDoCilindro === undefined;
@@ -2798,6 +3214,31 @@ const atualizarControlesDoPropulsor = (): void => {
     gimbalInput.value = String(anguloGraus);
     gimbalValue.value = `${anguloGraus.toFixed(1)}°`;
     gimbalValue.textContent = `${anguloGraus.toFixed(1)}°`;
+  }
+  const motorRotacional = cenário.motorRotacionalControlavel;
+  const motorRotacionalSecundario = cenário.motorRotacionalSecundarioControlavel;
+  rotaryMotorControl.hidden = motorRotacional === undefined;
+  rotaryMotorInput.disabled = motorRotacional === undefined;
+  rotaryMotorSecondaryControl.hidden = motorRotacionalSecundario === undefined;
+  rotaryMotorSecondaryInput.disabled = motorRotacionalSecundario === undefined;
+  rotaryMotorAutotune.hidden = motorRotacional === undefined;
+  rotaryMotorAutotuneButton.disabled = motorRotacional === undefined || autotuneEmExecucao || emExecucao;
+  if (motorRotacional) {
+    const anguloGraus = motorRotacional.anguloAlvoRelativoRad * 180 / Math.PI;
+    rotaryMotorInput.value = String(anguloGraus);
+    rotaryMotorValue.value = `${anguloGraus.toFixed(1)}°`;
+    rotaryMotorValue.textContent = `${anguloGraus.toFixed(1)}°`;
+    const ganhos = motorRotacional.ganhos;
+    if (document.activeElement !== pidKpInput) pidKpInput.value = String(ganhos.ganhoProporcional);
+    if (document.activeElement !== pidKiInput) pidKiInput.value = String(ganhos.ganhoIntegral);
+    if (document.activeElement !== pidKdInput) pidKdInput.value = String(ganhos.ganhoDerivativo);
+    if (document.activeElement !== pidAccelerationInput) pidAccelerationInput.value = String(motorRotacional.aceleracaoMaximaRadps2);
+  }
+  if (motorRotacionalSecundario) {
+    const anguloGraus = motorRotacionalSecundario.anguloAlvoRelativoRad * 180 / Math.PI;
+    rotaryMotorSecondaryInput.value = String(anguloGraus);
+    rotaryMotorSecondaryValue.value = `${anguloGraus.toFixed(1)}°`;
+    rotaryMotorSecondaryValue.textContent = `${anguloGraus.toFixed(1)}°`;
   }
   parachuteSettings.hidden = objetoComParaquedasConfiguravel === undefined;
   const estadoParaquedas = objetoComParaquedasConfiguravel?.obterEstadoDoParaquedas();
@@ -3002,6 +3443,15 @@ retractCylinderButton.addEventListener('click', () => {
   cenarioAtual().comandarCilindro?.('recuar');
   atualizarControlesDoPropulsor(); desenhar();
 });
+solarPanelToggle.addEventListener('click', () => {
+  const cenário = cenarioAtual();
+  const painel = cenário.painelSolarControlavel
+    ?? cenário.objetos.find((objeto): objeto is PainelSolar => objeto instanceof PainelSolar);
+  if (!painel) return;
+  painel.definirStatus(painel.estaDesdobrado ? 'dobrado' : 'desdobrado');
+  atualizarControlesDoPropulsor();
+  desenhar();
+});
 const configurarVelocidadesDoCilindroDaBancada = (): void => {
   const avancoMps = Number(advanceSpeedInput.value); const recuoMps = Number(retractSpeedInput.value);
   if (!Number.isFinite(avancoMps) || !Number.isFinite(recuoMps) || avancoMps <= 0 || recuoMps <= 0) return;
@@ -3051,6 +3501,67 @@ gimbalInput.addEventListener('input', () => {
   propulsor.solicitarVetorizacao(Number(gimbalInput.value) * Math.PI / 180);
   atualizarControlesDoPropulsor();
   desenhar();
+});
+rotaryMotorInput.addEventListener('input', () => {
+  const motor = cenarioAtual().motorRotacionalControlavel;
+  if (!motor) return;
+  const anguloGraus = Number(rotaryMotorInput.value);
+  if (!Number.isFinite(anguloGraus)) return;
+  motor.definirAnguloAlvoRad(anguloGraus * Math.PI / 180);
+  rotaryMotorValue.value = `${anguloGraus.toFixed(1)}°`;
+  rotaryMotorValue.textContent = `${anguloGraus.toFixed(1)}°`;
+  desenhar();
+});
+rotaryMotorSecondaryInput.addEventListener('input', () => {
+  const motor = cenarioAtual().motorRotacionalSecundarioControlavel;
+  if (!motor) return;
+  const anguloGraus = Number(rotaryMotorSecondaryInput.value);
+  if (!Number.isFinite(anguloGraus)) return;
+  motor.definirAnguloAlvoRad(anguloGraus * Math.PI / 180);
+  rotaryMotorSecondaryValue.value = `${anguloGraus.toFixed(1)}°`;
+  rotaryMotorSecondaryValue.textContent = `${anguloGraus.toFixed(1)}°`;
+  desenhar();
+});
+const aplicarGanhosPidEditados = (): void => {
+  const motor = cenarioAtual().motorRotacionalControlavel;
+  if (!motor) return;
+  const valores = [pidKpInput, pidKiInput, pidKdInput, pidAccelerationInput].map((entrada) => Number(entrada.value));
+  if (!valores.every((valor) => Number.isFinite(valor) && valor >= 0) || valores[3] <= 0) {
+    rotaryMotorAutotuneStatus.textContent = 'Valores PID inválidos';
+    return;
+  }
+  try {
+    motor.aplicarGanhos({ ganhoProporcional: valores[0], ganhoIntegral: valores[1], ganhoDerivativo: valores[2] });
+    motor.definirAceleracaoMaximaRadps2(valores[3]);
+    persistirPerfilPid(motor);
+    rotaryMotorAutotuneStatus.textContent = 'Ganhos editados e persistidos';
+    desenhar();
+  } catch (erro) {
+    rotaryMotorAutotuneStatus.textContent = erro instanceof Error ? `Falha: ${erro.message}` : 'Falha ao aplicar ganhos';
+  }
+};
+[pidKpInput, pidKiInput, pidKdInput, pidAccelerationInput].forEach((entrada) => entrada.addEventListener('change', aplicarGanhosPidEditados));
+rotaryMotorAutotuneButton.addEventListener('click', async () => {
+  const motor = cenarioAtual().motorRotacionalControlavel;
+  if (!motor || autotuneEmExecucao || emExecucao) return;
+  autotuneEmExecucao = true;
+  rotaryMotorAutotuneProgress.value = 0;
+  rotaryMotorAutotuneStatus.textContent = 'Simulando candidatos: 0%';
+  atualizarControlesDoPropulsor();
+  try {
+    const resultado = await new AutotunadorPosicionamentoMotorEletrico(motor).executar(({ percentual }) => {
+      rotaryMotorAutotuneProgress.value = percentual;
+      rotaryMotorAutotuneStatus.textContent = `Simulando candidatos: ${percentual.toFixed(0)}%`;
+    });
+    persistirPerfilPid(motor);
+    rotaryMotorAutotuneStatus.textContent = `Concluído · Kp ${resultado.ganhos.ganhoProporcional.toFixed(0)} · Ki ${resultado.ganhos.ganhoIntegral.toFixed(1)} · Kd ${resultado.ganhos.ganhoDerivativo.toFixed(0)}`;
+    desenhar();
+  } catch (erro) {
+    rotaryMotorAutotuneStatus.textContent = erro instanceof Error ? `Falha: ${erro.message}` : 'Falha no autotune';
+  } finally {
+    autotuneEmExecucao = false;
+    atualizarControlesDoPropulsor();
+  }
 });
 const configurarParaquedasDaBancada = (entrada: HTMLInputElement): void => {
   const objeto = cenarioAtual().objetoComParaquedasConfiguravel;
