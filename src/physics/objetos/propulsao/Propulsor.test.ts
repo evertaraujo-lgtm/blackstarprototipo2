@@ -176,7 +176,7 @@ describe('Propulsor', () => {
     const solo = new SuperficiePlano('solo-propulsor', 'concreto', 0, 1_000_000, 0.02, 0.9);
     const propulsor = criarPropulsor();
     propulsor.atualizarEstadoPeloCore({ ...propulsor.getEstadoFisico(), posicaoM: new Vetor3(0, 0.5, 0) });
-    const tanque = prepararParaIgnicao(propulsor); propulsor.definirThrottle(1); propulsor.solicitarIgnicao();
+    prepararParaIgnicao(propulsor); propulsor.definirThrottle(1); propulsor.solicitarIgnicao();
     const parede = new Objeto({ id: 'parede-10000kg', massaBaseKg: 10_000, dimensoesM: new Vetor3(1, 3, 3), resistenciaColisaoJ: 500_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM: new Vetor3(3, 1.5, 0) } });
     mundo.registrarSuperficie(solo); mundo.registrarObjeto(propulsor); mundo.registrarObjeto(parede);
     let maiorVelocidadePositivaMps = 0;

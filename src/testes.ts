@@ -35,6 +35,7 @@ import { Porta, BatenteDePorta } from './physics/objetos/mecanismos/Porta';
 import { criarEnsaioPortaVertical } from './physics/cenarios/EnsaioPortaVertical';
 import { TracePLC } from './visualizacao/TracePLC';
 import { AutotunadorPosicionamentoMotorEletrico } from './physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico';
+import { ExecutorPassoFixo } from './simulacao/ExecutorPassoFixo';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#test-canvas');
 const playButton = document.querySelector<HTMLButtonElement>('#play-tests');
@@ -264,7 +265,10 @@ const criarCuboEmQueda = (alturaM: number, massaKg = 10, opcoes: OpcoesQueda = {
 };
 
 /** Ensaio visual de equivalência gravitacional: nenhuma colisão ou superfície participa. */
-const criarTesteQuedaLivreDeCinquentaQuadrados = (orientacaoInicialRad = 0): CenárioVisual => {
+const criarTesteQuedaLivreDeCinquentaQuadrados = (
+  orientacaoInicialRad = 0,
+  exibirNaBancada = false,
+): CenárioVisual => {
   const passoS = 1 / 240;
   const alturaInicialM = 100;
   const rotacionado = orientacaoInicialRad !== 0;
@@ -312,11 +316,12 @@ const criarTesteQuedaLivreDeCinquentaQuadrados = (orientacaoInicialRad = 0): Cen
   };
 
   return {
-    nome: `Queda livre coletiva — 50 quadrados de 1 a 50 kg${rotacionado ? ' a 45°' : ''}`,
-    descricao: `Cinquenta quadrados de mesma geometria e massas entre 1 e 50 kg caem simultaneamente em vácuo até um plano de concreto${rotacionado ? ', todos com rotação inicial de 45°' : ''}. A câmera acompanha o centro do conjunto; antes do impacto, as escalas e a telemetria verificam a mesma velocidade e deslocamento vertical para todas as massas. O contato usa a quina real da geometria${rotacionado ? ' rotacionada' : ''}. O cenário só encerra depois de todos os corpos repousarem no solo.`,
+    nome: `Queda livre coletiva — 50 quadrados de 1 a 50 kg${rotacionado ? ` a ${anguloRotacaoGraus}°` : ''}`,
+    descricao: `Cinquenta quadrados de mesma geometria e massas entre 1 e 50 kg caem simultaneamente em vácuo até um plano de concreto${rotacionado ? `, todos com rotação inicial de ${anguloRotacaoGraus}°` : ''}. A câmera acompanha o centro do conjunto; antes do impacto, as escalas e a telemetria verificam a mesma velocidade e deslocamento vertical para todas as massas. O contato usa a quina real da geometria${rotacionado ? ' rotacionada' : ''}. O cenário só encerra depois de todos os corpos repousarem no solo.`,
     mundo,
     objetos: quadrados,
     superficies: [solo],
+    exibirNaBancada,
     velocidadeTempo: 5,
     limiteVerticalM: 20,
     limiteHorizontalM: rotacionado ? 45 : 30,
@@ -499,7 +504,7 @@ const criarTesteQuadradosEmpilhados = (tipo: 'queda-conjunta' | 'queda-conjunta-
   };
 };
 
-const criarTestePilhaDezQuadradosAtingida = (): CenárioVisual => {
+const criarTestePilhaDezQuadradosAtingida = (exibirNaBancada = false): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240);
   const solo = new SuperficiePlano('solo-pilha-dez-quadrados', 'concreto', 0, 100_000);
   const xDaPilhaM = 3;
@@ -531,6 +536,7 @@ const criarTestePilhaDezQuadradosAtingida = (): CenárioVisual => {
     mundo,
     objetos: [...pilha, projetil],
     superficies: [solo],
+    exibirNaBancada,
     velocidadeTempo: 1,
     limiteVerticalM: 12,
     limiteHorizontalM: 14,
@@ -1627,7 +1633,9 @@ const criarTesteEmpuxoExcentricoEmConjunto = (): CenárioVisual => {
 const criarTestePainelSolarComSombra = (): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
   const base = (id: string, massaBaseKg: number, dimensoesM: Vetor3, posicaoM: Vetor3) => ({ id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM } });
-  const bateria = new Bateria({ ...base('bateria-solar-vazia', 12, new Vetor3(0.8, 0.8, 0.8), new Vetor3(8, 1, 0)), tensaoNominalV: 24, capacidadeEnergiaJ: 50_000, energiaInicialJ: 0 });
+  // Reserva inicial de 10% permite energizar os consumidores antes do ensaio;
+  // o painel continua sendo necessário para demonstrar e sustentar a recarga.
+  const bateria = new Bateria({ ...base('bateria-solar-carga-inicial', 12, new Vetor3(0.8, 0.8, 0.8), new Vetor3(8, 1, 0)), tensaoNominalV: 24, capacidadeEnergiaJ: 50_000, energiaInicialJ: 5_000 });
   const bateriaControle = new Bateria({ ...base('bateria-controle-sombra', 8, new Vetor3(0.6, 0.6, 0.6), new Vetor3(-3, 1, 0)), tensaoNominalV: 24, capacidadeEnergiaJ: 50_000, energiaInicialJ: 50_000 });
   let porta!: Porta;
   const batenteSuperior = new BatenteDePorta(base('batente-superior-solar', 40, new Vetor3(2.5, 0.2, 0.8), new Vetor3(4, 9.2, 0)), () => porta.obterReacaoNoBatente());
@@ -1722,7 +1730,8 @@ const lerProjetoSandboxSalvo = (): ProjetoSandboxSalvo | undefined => {
     const texto = localStorage.getItem('starship-prototype-2:sandbox:projeto-atual');
     if (!texto) return undefined;
     const projeto = JSON.parse(texto) as ProjetoSandboxSalvo;
-    return projeto.versao === 1 && Array.isArray(projeto.itens) ? projeto : undefined;
+    return projeto.versao === 1 && typeof projeto.nome === 'string'
+      && Array.isArray(projeto.itens) && Array.isArray(projeto.conexoes) ? projeto : undefined;
   } catch {
     return undefined;
   }
@@ -1790,7 +1799,8 @@ const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBancadaDeco
   descricao: 'BSS-001, primeiro foguete do protótipo a completar um lançamento de sucesso. Veículo composto físico com casco, tanques de metano e oxigênio, cadeia de alimentação bipropelente, bateria e painel solar. O Sol simulado incide verticalmente de cima para baixo por toda a atmosfera; a bateria acumula energia e o operador comanda manualmente os sistemas, o gimbal e a ignição.',
   controleDeInclinacaoPid: false,
   inclinacaoInicialRad: 0,
-  energiaInicialDaBateriaJ: 0,
+  // O cenário de lançamento deve aceitar a sequência elétrica imediatamente.
+  energiaInicialDaBateriaJ: 10_000,
   deslocamentoLateralDoPainelM: 0,
   painelMovel: false,
   incluirPainelSolar: true,
@@ -1973,7 +1983,7 @@ const criarTesteBracoArticuladoDeBancada = (paredeVertical = false): CenárioVis
     : new Objeto(base('bancada-braco-articulado', 300, new Vetor3(5, 0.6, 2), new Vetor3(0, 0.3, 0)));
   const bateria = new Bateria({ ...base('bateria-motor-rotacional', 12, new Vetor3(0.6, 0.6, 0.6), new Vetor3(paredeVertical ? 3 : -2, paredeVertical ? 7 : 1.1, 0)), tensaoNominalV: 24, capacidadeEnergiaJ: 100_000, energiaInicialJ: 100_000 });
   let braco!: BracoArticuladoDeBancada;
-  const motor = new MotorEletricoRotacional({
+  const motor: MotorEletricoRotacional = new MotorEletricoRotacional({
     ...base('motor-eletrico-rotacional-bancada', 25, new Vetor3(0.8, 0.8, 0.8), new Vetor3(0, 1, 0)),
     fonteEletrica: bateria,
     obterAnguloAtualRad: () => braco.getEstadoFisico().orientacaoRad.z,
@@ -1986,9 +1996,9 @@ const criarTesteBracoArticuladoDeBancada = (paredeVertical = false): CenárioVis
     ganhoDerivativo: 5_000.133,
     potenciaNominalW: 3_000,
     anguloInicialRad: 0,
-    obterTorqueGravitacionalNm: () => {
-      const pivot = motor.getEstadoFisico().posicaoM;
-      return [braco, painel].reduce((torque, objeto) => {
+    obterTorqueGravitacionalNm: (): number => {
+      const pivot: Vetor3 = motor.getEstadoFisico().posicaoM;
+      return [braco, painel].reduce<number>((torque, objeto) => {
         const peso = new Vetor3(0, -9.80665 * objeto.massaKg, 0);
         return torque - objeto.getEstadoFisico().posicaoM.subtrair(pivot).produtoVetorial(peso).z;
       }, 0);
@@ -2025,7 +2035,7 @@ const criarTesteBracosArticuladosEmParede = (): CenárioVisual => {
   const bateria = cenárioBase.objetos[1] as Bateria;
   const base = (id: string, massaBaseKg: number, dimensoesM: Vetor3, posicaoM: Vetor3) => ({ id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM } });
   let braco!: BracoArticuladoDeBancada;
-  const motor = new MotorEletricoRotacional({
+  const motor: MotorEletricoRotacional = new MotorEletricoRotacional({
     ...base('motor-eletrico-rotacional-esquerdo', 25, new Vetor3(0.8, 0.8, 0.8), new Vetor3(-1.3, 1, 0)),
     fonteEletrica: bateria,
     obterAnguloAtualRad: () => braco.getEstadoFisico().orientacaoRad.z,
@@ -2033,9 +2043,9 @@ const criarTesteBracosArticuladosEmParede = (): CenárioVisual => {
     torqueMaximoNm: 2_500, velocidadeAngularMaximaRadps: Math.PI / 3, aceleracaoMaximaRadps2: 0.8,
     ganhoProporcional: 200.25, ganhoIntegral: 26.5375, ganhoDerivativo: 5_000.133, potenciaNominalW: 3_000,
     anguloInicialRad: Math.PI,
-    obterTorqueGravitacionalNm: () => {
-      const pivot = motor.getEstadoFisico().posicaoM;
-      return [braco, painel].reduce((torque, objeto) => torque - objeto.getEstadoFisico().posicaoM.subtrair(pivot).produtoVetorial(new Vetor3(0, -9.80665 * objeto.massaKg, 0)).z, 0);
+    obterTorqueGravitacionalNm: (): number => {
+      const pivot: Vetor3 = motor.getEstadoFisico().posicaoM;
+      return [braco, painel].reduce<number>((torque, objeto) => torque - objeto.getEstadoFisico().posicaoM.subtrair(pivot).produtoVetorial(new Vetor3(0, -9.80665 * objeto.massaKg, 0)).z, 0);
     },
     obterMomentoInerciaControladoKgM2: () => {
       const pivot = motor.getEstadoFisico().posicaoM;
@@ -2243,8 +2253,14 @@ const construirCenarios = (): CenárioVisual[] => {
     criarTesteImpactoNoRetangulo('impacto no centro de massa', 5, 3),
   ];
   void cenariosArquivados;
+  const projetoSandbox = new URLSearchParams(window.location.search).get('sandbox') === 'projeto-atual'
+    ? lerProjetoSandboxSalvo()
+    : undefined;
   return [
+    criarTestePilhaDezQuadradosAtingida(true),
+    criarTesteQuedaLivreDeCinquentaQuadrados(46 * Math.PI / 180, true),
     criarTestePainelSolarComSombra(), criarTestePortaVertical(), criarTesteDecolagemComPainelSolar(), criarTesteBss002(), criarTesteBracoArticuladoDeBancada(), criarTesteBracoArticuladoDeBancada(true), criarTesteBracosArticuladosEmParede(),
+    ...(projetoSandbox ? [criarTesteSandboxSalvo(projetoSandbox)] : []),
   ];
 };
 
@@ -2252,7 +2268,7 @@ let cenarios = construirCenarios();
 let indiceAtual = 0;
 let alvosSwitch: readonly AlvoSwitchEletrico[] = [];
 let emExecucao = false;
-let ultimoQuadroMs = 0;
+const executorPassoFixo = new ExecutorPassoFixo(1 / 240);
 /** Escalas escolhidas pelo operador, indexadas pelo cenário da bancada. */
 const escalasTemporaisPorCenario = new Map<number, number>();
 let autotuneEmExecucao = false;
@@ -3078,6 +3094,7 @@ const desenhar = (): void => {
 };
 
 const carregarCenarioAtual = (): void => {
+  executorPassoFixo.reiniciar();
   const cenário = cenarioAtual();
   if (cenário.motorRotacionalControlavel) carregarPerfilPid(cenário.motorRotacionalControlavel);
   configurarTracePLCDoCenario();
@@ -3576,11 +3593,10 @@ parachuteAreaInput.addEventListener('input', () => configurarParaquedasDaBancada
 const executar = (agoraMs: number): void => {
   if (!emExecucao) return;
   const cenário = cenarioAtual();
-  const deltaRealS = Math.min((agoraMs - ultimoQuadroMs) / 1000, 0.05);
-  ultimoQuadroMs = agoraMs;
-  const deltaSimuladoS = deltaRealS * obterEscalaTemporalAtual();
-  if (deltaSimuladoS > 0) cenário.mundo.avancar(deltaSimuladoS);
-  cenário.atualizarControle?.();
+  executorPassoFixo.avancarAte(agoraMs, obterEscalaTemporalAtual(), (passoS) => {
+    cenário.atualizarControle?.();
+    cenário.mundo.avancar(passoS);
+  });
   // Controladores automáticos usam a mesma API dos botões; refletir no mesmo
   // quadro a ação atualmente disponível evita inverter a leitura operacional.
   atualizarControlesDoPropulsor();
@@ -3616,7 +3632,6 @@ playButton.addEventListener('click', () => {
   emExecucao = true;
   playButton.textContent = 'Teste em execução…';
   carregarCenarioAtual();
-  ultimoQuadroMs = performance.now();
   window.requestAnimationFrame(executar);
 });
 

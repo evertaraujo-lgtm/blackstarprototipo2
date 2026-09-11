@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   validar:
-    name: Testes e build
+    name: Testes, tipos e build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -29,6 +29,9 @@ jobs:
 
       - name: Testes determinísticos
         run: npm test -- --run
+
+      - name: Checagem TypeScript
+        run: npm run typecheck
 
       - name: Build de produção
         run: npm run build

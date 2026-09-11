@@ -24,6 +24,17 @@ export interface ConfiguracaoMundoFisico {
   readonly temperaturaAmbienteC?: number;
 }
 
+interface ForcaExternaPendente {
+  readonly forcaN: Vetor3;
+  /** Ausente significa aplicação no centro de massa atual de cada subpasso. */
+  readonly pontoM?: Vetor3;
+}
+
+interface ImpulsoExternoPendente {
+  readonly impulsoNs: Vetor3;
+  readonly pontoM?: Vetor3;
+}
+
 /** Núcleo determinístico de integração sem dependência de DOM, relógio ou renderização. */
 export class MundoFisico {
   public static readonly gravidadeTerrestreMps2 = new Vetor3(0, -9.80665, 0);
@@ -38,7 +49,9 @@ export class MundoFisico {
   private readonly guiasLineares = new Map<string, GuiaLinear>();
   private readonly juntasRotacionaisDeBancada = new Map<string, JuntaRotacionalDeBancada>();
   private readonly conjuntosEstruturais = new Map<string, ConjuntoEstruturalRigido>();
-  private readonly forcasPendentes = new Map<string, ForcaAplicada[]>();
+  /** Forças solicitadas valem por toda a próxima chamada de avancar. */
+  private readonly forcasPendentes = new Map<string, ForcaExternaPendente[]>();
+  private readonly impulsosPendentes = new Map<string, ImpulsoExternoPendente[]>();
   private tempoMissaoS = 0;
   private readonly densidadeAtmosfericaKgM3: number;
   private readonly velocidadeArMps: Vetor3;
@@ -136,11 +149,23 @@ export class MundoFisico {
     this.juntasRotacionaisDeBancada.set(junta.id, junta);
   }
 
+  /**
+   * Solicita uma força externa, em N, mantida durante todo o próximo avanço.
+   * Para manter a força em avanços seguintes, o chamador deve solicitá-la novamente.
+   */
   public aplicarForca(objeto: Objeto, forcaN: Vetor3, pontoM?: Vetor3): void {
     this.exigirRegistro(objeto);
     const forcas = this.forcasPendentes.get(objeto.id) ?? [];
-    forcas.push({ forcaN, pontoM: pontoM ?? objeto.getEstadoFisico().posicaoM });
+    forcas.push({ forcaN, pontoM });
     this.forcasPendentes.set(objeto.id, forcas);
+  }
+
+  /** Solicita um impulso instantâneo, em N.s, aplicado uma única vez no próximo avanço. */
+  public aplicarImpulso(objeto: Objeto, impulsoNs: Vetor3, pontoM?: Vetor3): void {
+    this.exigirRegistro(objeto);
+    const impulsos = this.impulsosPendentes.get(objeto.id) ?? [];
+    impulsos.push({ impulsoNs, pontoM });
+    this.impulsosPendentes.set(objeto.id, impulsos);
   }
 
   public obterForcaArrastoAtmosferico(objeto: Objeto): Vetor3 {
@@ -150,16 +175,24 @@ export class MundoFisico {
 
   public avancar(deltaS: number): void {
     if (!Number.isFinite(deltaS) || deltaS <= 0) throw new Error('deltaS deve ser positivo e finito.');
-    let restante = deltaS;
-    while (restante > 0) {
-      const passoS = Math.min(restante, this.maxDtS);
-      this.integrarPasso(passoS);
-      restante -= passoS;
+    try {
+      let restante = deltaS;
+      let primeiroPasso = true;
+      while (restante > 0) {
+        const passoS = Math.min(restante, this.maxDtS);
+        this.integrarPasso(passoS, primeiroPasso);
+        primeiroPasso = false;
+        restante -= passoS;
+      }
+    } finally {
+      // O contrato da fila externa é a chamada inteira, não cada subpasso.
+      this.forcasPendentes.clear();
+      this.impulsosPendentes.clear();
     }
   }
 
   /** Receita explícita do passo; fenômenos físicos vivem nos subsistemas. */
-  private integrarPasso(dtS: number): void {
+  private integrarPasso(dtS: number, aplicarImpulsos: boolean): void {
     this.atualizarApoioDeTracao();
     for (const objeto of this.objetos.values()) objeto.prepararPassoEnergetico(dtS);
     for (const objeto of this.objetos.values()) objeto.prepararPassoOperacional(dtS);
@@ -167,6 +200,7 @@ export class MundoFisico {
     for (const fixador of this.fixadores.values()) fixador.prepararPasso(dtS);
     for (const chumbador of this.chumbadoresAoSolo.values()) chumbador.prepararPasso();
     this.sincronizarConjuntosEstruturais(0, false);
+    if (aplicarImpulsos) this.aplicarImpulsosPendentes();
     this.integrarCorpos(dtS);
     this.resolvedorColisoes.resolver(dtS);
     this.resolvedorContatoSuperficie.resolver(dtS);
@@ -179,15 +213,29 @@ export class MundoFisico {
     }
     for (const guia of this.guiasLineares.values()) guia.resolverRestricao(dtS);
     this.sistemaSensores.atualizar(dtS);
-    this.forcasPendentes.clear();
     this.tempoMissaoS += dtS;
+  }
+
+  private aplicarImpulsosPendentes(): void {
+    for (const [objetoId, impulsos] of this.impulsosPendentes) {
+      const objeto = this.objetos.get(objetoId);
+      if (!objeto) continue;
+      const conjunto = this.obterConjuntoEstruturalDoObjeto(objeto);
+      for (const impulso of impulsos) {
+        const pontoM = impulso.pontoM ?? objeto.getEstadoFisico().posicaoM;
+        if (conjunto) conjunto.aplicarImpulsoNoPonto(impulso.impulsoNs, pontoM);
+        else this.integrador.aplicarImpulsoNoPonto(objeto, impulso.impulsoNs, pontoM);
+      }
+    }
+    this.impulsosPendentes.clear();
   }
 
   private integrarCorpos(dtS: number): void {
     for (const objeto of this.objetos.values()) {
       if (this.obterConjuntoEstruturalDoObjeto(objeto)) continue;
       const estado = objeto.getEstadoFisico();
-      const forcas = this.forcasPendentes.get(objeto.id) ?? [];
+      const forcas = (this.forcasPendentes.get(objeto.id) ?? [])
+        .map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM }));
       const forcasOperacionais = objeto.obterForcasOperacionais().map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM, torqueNm: forca.torqueNm }));
       const forcasAerodinamicas = objeto.obterForcasAerodinamicas({ densidadeArKgM3: this.densidadeAtmosfericaKgM3, velocidadeArMps: this.velocidadeArMps })
         .map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM }));
@@ -199,7 +247,8 @@ export class MundoFisico {
       const forcasDoConjunto: ForcaAplicada[] = [];
       for (const objeto of conjunto.membros) {
         const estado = objeto.getEstadoFisico();
-        forcasDoConjunto.push(...(this.forcasPendentes.get(objeto.id) ?? []));
+        forcasDoConjunto.push(...(this.forcasPendentes.get(objeto.id) ?? [])
+          .map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM })));
         forcasDoConjunto.push(...objeto.obterForcasOperacionais().map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM, torqueNm: forca.torqueNm })));
         forcasDoConjunto.push(...objeto.obterForcasAerodinamicas({ densidadeArKgM3: this.densidadeAtmosfericaKgM3, velocidadeArMps: this.velocidadeArMps }).map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM })));
         forcasDoConjunto.push({ forcaN: MundoFisico.gravidadeTerrestreMps2.multiplicar(objeto.massaKg), pontoM: estado.posicaoM });

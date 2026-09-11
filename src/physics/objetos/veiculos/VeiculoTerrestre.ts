@@ -90,7 +90,6 @@ export class VeiculoTerrestre extends Objeto {
    * o chassi também bloqueia o solo se ele tombar ou ficar invertido.
    */
   public override getPontosDeContatoLocaisM(): readonly Vetor3[] {
-    const semiEntreEixosM = (this.definicaoVeiculo.distanciaEntreEixosM ?? this.dimensoesM.x * 0.6) / 2;
     const pontos: Vetor3[] = [];
     const centroChassi = this.getCentroChassiLocalM();
     const metadeChassiX = this.dimensoesM.x / 2;

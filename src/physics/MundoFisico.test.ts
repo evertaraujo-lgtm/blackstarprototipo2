@@ -5,8 +5,6 @@ import { SuperficiePlano } from './SuperficiePlano';
 import { Vetor3 } from './Vetor3';
 import { FixadorEstrutural } from './conexoes/FixadorEstrutural';
 import { ChumbadorAoSolo } from './conexoes/ChumbadorAoSolo';
-import { Propulsor } from './objetos/propulsao/Propulsor';
-import { TanquePropelente } from './objetos/fontes-de-energia/TanquePropelente';
 
 const criarObjeto = (id = 'objeto') => new Objeto({
   id,
@@ -226,6 +224,47 @@ describe('MundoFisico', () => {
     expect(objeto.getEstadoFisico().velocidadeMps.x).toBeCloseTo(10, 10);
     expect(objeto.getEstadoFisico().velocidadeMps.y).toBeCloseTo(0, 10);
   });
+
+  it.each([1, 1 / 60, 1 / 120])(
+    'mantém a força externa durante todo o avanço com subpasso máximo de %d s',
+    (passoMaximoS) => {
+      const mundo = new MundoFisico(passoMaximoS, { densidadeAtmosfericaKgM3: 0 });
+      const objeto = new Objeto({
+        id: `forca-continua-${passoMaximoS}`, massaBaseKg: 10, dimensoesM: new Vetor3(1, 1, 1),
+        resistenciaColisaoJ: 1_000, limiteTermicoC: 1_000,
+      });
+      mundo.registrarObjeto(objeto);
+
+      // Referência independente: delta-v = F * delta-t / m = 100 * 1 / 10.
+      mundo.aplicarForca(objeto, new Vetor3(100, 0, 0));
+      mundo.avancar(1);
+
+      expect(objeto.getEstadoFisico().velocidadeMps.x).toBeCloseTo(10, 10);
+      expect(objeto.getEstadoFisico().velocidadeAngularRadps.magnitude).toBeCloseTo(0, 12);
+      mundo.avancar(1);
+      expect(objeto.getEstadoFisico().velocidadeMps.x).toBeCloseTo(10, 10);
+    },
+  );
+
+  it.each([1, 1 / 60, 1 / 120])(
+    'aplica impulso externo em N.s uma única vez com subpasso máximo de %d s',
+    (passoMaximoS) => {
+      const mundo = new MundoFisico(passoMaximoS, { densidadeAtmosfericaKgM3: 0 });
+      const objeto = new Objeto({
+        id: `impulso-${passoMaximoS}`, massaBaseKg: 10, dimensoesM: new Vetor3(1, 1, 1),
+        resistenciaColisaoJ: 1_000, limiteTermicoC: 1_000,
+      });
+      mundo.registrarObjeto(objeto);
+
+      // Referência independente: delta-v = J / m = 100 / 10.
+      mundo.aplicarImpulso(objeto, new Vetor3(100, 0, 0));
+      mundo.avancar(1);
+
+      expect(objeto.getEstadoFisico().velocidadeMps.x).toBeCloseTo(10, 10);
+      mundo.avancar(1);
+      expect(objeto.getEstadoFisico().velocidadeMps.x).toBeCloseTo(10, 10);
+    },
+  );
 
   it('transfere calor convectivo de um jato térmico para objeto no seu cone', () => {
     class FonteTermica extends Objeto {

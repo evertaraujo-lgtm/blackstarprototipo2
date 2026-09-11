@@ -2271,3 +2271,36 @@ solicitados ou indispensáveis para evitar erro.
 - O trace PLC registra sinais no tempo da missão, permite cursor no histórico
   e retorna ao modo ao vivo. Navegar no trace não rebobina o estado físico;
   rebobinamento exige snapshots determinísticos do mundo.
+
+---
+
+# 68. Lições aprendidas na temporização, forças e partida
+
+- Uma força externa solicitada por `MundoFisico.aplicarForca` vale durante
+  toda a próxima chamada de `avancar`, inclusive em todos os seus subpassos,
+  e somente é limpa ao final desse avanço. Força em N não deve ser tratada
+  como impulso; impulso é uma operação instantânea separada, em N·s.
+- Quando uma força não declarar ponto de aplicação, o centro de massa atual do
+  objeto deve ser usado em cada subpasso. Congelar o ponto na posição inicial
+  pode criar torque artificial enquanto o corpo se desloca.
+- A bancada avança controles e física com passo simulado fixo, atualmente
+  `1/240 s`. O `requestAnimationFrame` apenas fornece tempo real e solicita a
+  renderização; ele não define diretamente o `dt` do mundo.
+- O executor temporal deve estabelecer sua referência com o timestamp do
+  primeiro `requestAnimationFrame`. Não se deve inicializá-la com
+  `performance.now()` e depois subtrair o timestamp do quadro: diferenças de
+  arredondamento podem produzir um delta negativo, lançar exceção e congelar
+  silenciosamente todos os cenários em `0 s`.
+- Timestamps repetidos ou ligeiramente regressivos da apresentação devem ser
+  ignorados sem avançar o mundo e sem encerrar o loop. O acumulador e sua
+  referência temporal devem ser reiniciados ao carregar um cenário.
+- Cenários operacionais que esperam partida manual devem nascer com fonte
+  compatível, conectada e com energia suficiente para completar os
+  permissivos. Bateria vazia é válida somente quando for a condição explícita
+  do ensaio; nesse caso, a interface deve deixar claro que é necessário
+  carregá-la antes da partida.
+- O teste de fumaça de uma bancada com propulsão não termina ao verificar que
+  os botões aceitam clique ou que a ignição foi confirmada. Ele deve iniciar a
+  execução, confirmar que o tempo da missão ultrapassou `0 s` e observar
+  empuxo, vazão e consumo diferentes de zero. Todos os cenários ativos devem
+  ser iniciados ao menos brevemente para detectar um loop temporal interrompido.

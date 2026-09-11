@@ -6,7 +6,7 @@ export class SuperficiePlano {
 
   public constructor(
     public readonly id: string,
-    public readonly tipoMaterial: 'areia' | 'agua' | 'terra' | 'concreto' | 'outro',
+    public readonly tipoMaterial: 'areia' | 'agua' | 'terra' | 'concreto' | 'aco' | 'outro',
     public readonly alturaM: number,
     public readonly resistenciaColisaoJ: number,
     /** Fração de energia dissipada pelo material da superfície (0 a < 1). */

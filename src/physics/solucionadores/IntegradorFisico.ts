@@ -5,6 +5,20 @@ import { Vetor3 } from '../Vetor3';
 
 /** Integra força e torque de um corpo isolado por Euler semi-implícito. */
 export class IntegradorFisico {
+  /** Aplica um impulso instantâneo (N.s) sem convertê-lo em força dependente de dt. */
+  public aplicarImpulsoNoPonto(objeto: Objeto, impulsoNs: Vetor3, pontoM: Vetor3): void {
+    const estado = objeto.getEstadoFisico();
+    const velocidade = estado.velocidadeMps.adicionar(impulsoNs.multiplicar(1 / objeto.massaKg));
+    const impulsoAngular = pontoM.subtrair(estado.posicaoM).produtoVetorial(impulsoNs);
+    const inercia = objeto.getMomentoInerciaKgM2();
+    const velocidadeAngular = estado.velocidadeAngularRadps.adicionar(new Vetor3(
+      impulsoAngular.x / inercia.x,
+      impulsoAngular.y / inercia.y,
+      impulsoAngular.z / inercia.z,
+    ));
+    objeto.atualizarEstadoPeloCore({ ...estado, velocidadeMps: velocidade, velocidadeAngularRadps: velocidadeAngular });
+  }
+
   public integrarObjeto(objeto: Objeto, forcas: readonly ForcaAplicada[], gravidadeMps2: Vetor3, dtS: number): void {
     const estado = objeto.getEstadoFisico();
     const pesoN = gravidadeMps2.multiplicar(objeto.massaKg);

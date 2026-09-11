@@ -35,7 +35,7 @@ export class SensoresVeiculoComposto {
   private posicaoGpsAnteriorM?: Vetor3;
   private leiturasAtuais: LeiturasVeiculoComposto;
 
-  public constructor(private readonly objeto: Objeto, altitudeDeReferenciaM = 0) {
+  public constructor(objeto: Objeto, altitudeDeReferenciaM = 0) {
     if (!Number.isFinite(altitudeDeReferenciaM)) throw new Error('Altitude de referência deve ser finita.');
     this.gps = new GpsIdealizado(objeto);
     this.nivel = new SensorNivelInterno(objeto);
