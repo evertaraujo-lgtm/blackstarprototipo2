@@ -5,6 +5,7 @@ import { Objeto, type DefinicaoObjeto } from '../base/Objeto';
 import { Propulsor } from '../propulsao/Propulsor';
 import { ComputadorDeVoo, type ResultadoComandoPropulsor } from './ComputadorDeVoo';
 import { SensoresVeiculoComposto } from '../../sensores/SensoresVeiculoComposto';
+import type { ComandoControlePouso, ConfiguracaoControlePouso } from '../../sistemas de controle/ControladorPouso';
 
 /**
  * Definição do casco estrutural central. `VeiculoComposto` não é uma fachada
@@ -61,6 +62,10 @@ export class VeiculoComposto extends Objeto {
     return this.computadorDeVoo.solicitarIgnicaoDeTodos();
   }
 
+  public solicitarIgnicaoDoPropulsor(idPropulsor: string): ResultadoComandoPropulsor {
+    return this.computadorDeVoo.solicitarIgnicao(idPropulsor);
+  }
+
   public definirThrottleDoPropulsor(idPropulsor: string, throttle: number): void {
     this.computadorDeVoo.definirThrottle(idPropulsor, throttle);
   }
@@ -73,12 +78,29 @@ export class VeiculoComposto extends Objeto {
     this.computadorDeVoo.desligarTodos();
   }
 
+  public desligarPropulsor(idPropulsor: string): void { this.computadorDeVoo.desligarPropulsor(idPropulsor); }
+
   public habilitarControleDeInclinacao(): void { this.computadorDeVoo.habilitar(); }
+  public habilitarControleDeInclinacaoNosPropulsores(idsPropulsores: readonly string[]): void {
+    this.computadorDeVoo.habilitarControleDeInclinacao(idsPropulsores);
+  }
   public desabilitarControleDeInclinacao(): void { this.computadorDeVoo.desabilitar(); }
   public get controleDeInclinacaoEstaHabilitado(): boolean { return this.computadorDeVoo.estaHabilitado; }
 
+  public habilitarControleDePouso(
+    configuracao: Partial<ConfiguracaoControlePouso> = {},
+    idsPropulsores?: readonly string[],
+  ): void {
+    this.computadorDeVoo.habilitarControleDePouso(configuracao, idsPropulsores);
+  }
+  public desabilitarControleDePouso(): void { this.computadorDeVoo.desabilitarControleDePouso(); }
+  public get controleDePousoEstaHabilitado(): boolean { return this.computadorDeVoo.controleDePousoEstaHabilitado; }
+  public obterUltimoComandoDePouso(): ComandoControlePouso | undefined {
+    return this.computadorDeVoo.obterUltimoComandoDePouso();
+  }
+
   public override prepararPassoOperacional(dtS: number): void {
-    this.computadorDeVoo.atualizarControleDeInclinacao(dtS);
+    this.computadorDeVoo.atualizarControladores(dtS);
   }
 
   public obterDiagnosticoDosPropulsores(): readonly ResultadoComandoPropulsor[] {

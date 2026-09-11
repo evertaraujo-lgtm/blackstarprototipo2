@@ -43,4 +43,56 @@ describe('ComputadorDeVoo', () => {
     computador.atualizarControleDeInclinacao(0.01);
     expect(comandoRad).toBeLessThan(0);
   });
+
+  it('aplica o controle de pouso no throttle e no gimbal a partir dos sensores', () => {
+    let leitura = leiturasComInclinacao(0.1);
+    leitura = { ...leitura, altitudeM: 8, velocidadeVerticalMps: -10, velocidadeHorizontalMps: 2 };
+    let throttle = 0;
+    let comandoGimbalRad = 0;
+    const computador = new ComputadorDeVoo({ obterLeituras: () => leitura });
+    const propulsor: IPropulsorControlavelPeloComputador = {
+      id: 'propulsor-pouso', estaIgnitado: true, diagnosticoOperacional: [],
+      ligarSistema: () => true,
+      solicitarIgnicao: () => true,
+      definirThrottle: (valor) => { throttle = valor; },
+      desligarSistema: () => undefined,
+      solicitarVetorizacao: (anguloAlvoRad) => { comandoGimbalRad = anguloAlvoRad; return true; },
+      obterEstadoDaVetorizacao: () => ({
+        anguloAlvoRad: comandoGimbalRad, anguloAtualRad: comandoGimbalRad,
+        limiteAngularRad: Math.PI / 12, velocidadeAngularMaximaRadps: Math.PI, estaHabilitado: true,
+      }),
+    };
+    computador.instalarPropulsor(propulsor);
+    computador.habilitarControleDePouso({ altitudeAlvoM: 3, taxaMaximaThrottlePorS: 10 });
+
+    computador.atualizarControladores(0.1);
+
+    expect(throttle).toBeGreaterThan(0.5);
+    expect(comandoGimbalRad).toBeGreaterThan(0);
+    expect(computador.obterUltimoComandoDePouso()).toMatchObject({ fase: 'frenagem', leiturasValidas: true });
+  });
+
+  it('mantém ignição explícita e torna pouso e PID de inclinação mutuamente exclusivos', () => {
+    let solicitacoesDeIgnicao = 0;
+    const computador = new ComputadorDeVoo({ obterLeituras: () => leiturasComInclinacao(0.1) });
+    computador.instalarPropulsor({
+      id: 'propulsor-sem-ignicao-automatica', estaIgnitado: false, diagnosticoOperacional: ['ignição não realizada'],
+      ligarSistema: () => true,
+      solicitarIgnicao: () => { solicitacoesDeIgnicao += 1; return true; },
+      definirThrottle: () => undefined,
+      desligarSistema: () => undefined,
+    });
+
+    computador.habilitar();
+    expect(computador.estaHabilitado).toBe(true);
+    computador.habilitarControleDePouso();
+    computador.atualizarControladores(0.1);
+    expect(computador.estaHabilitado).toBe(false);
+    expect(computador.controleDePousoEstaHabilitado).toBe(true);
+    expect(solicitacoesDeIgnicao).toBe(0);
+
+    computador.habilitar();
+    expect(computador.controleDePousoEstaHabilitado).toBe(false);
+    expect(computador.estaHabilitado).toBe(true);
+  });
 });

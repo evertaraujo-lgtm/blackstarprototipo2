@@ -43,6 +43,17 @@
             <output id="gimbal-value">0°</output>
             <input id="gimbal-input" type="range" min="-5" max="5" step="0.1" value="0" aria-label="Gimbal do propulsor vetorizado" />
           </label>
+          <fieldset id="bss03-controls" class="parachute-settings" hidden>
+            <legend>BSS-003 · operação manual</legend>
+            <label>Grupo
+              <select id="bss03-propulsion-group" aria-label="Grupo de propulsores do BSS-003"></select>
+            </label>
+            <label>
+              <input id="bss03-landing-mode" type="checkbox" aria-label="Ativar modo de pouso do BSS-003" />
+              Modo de pouso
+            </label>
+            <output id="bss03-control-status">Controle manual</output>
+          </fieldset>
           <label id="rotary-motor-control" class="throttle-control" for="rotary-motor-input" hidden>Motor do braço
             <output id="rotary-motor-value">0°</output>
             <input id="rotary-motor-input" type="range" min="-180" max="180" step="1" value="0" aria-label="Ângulo do braço articulado de bancada" />

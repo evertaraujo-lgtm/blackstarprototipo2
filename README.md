@@ -16,6 +16,7 @@ a bancada é apenas uma interface de observação e comando; o mesmo
 - alimentação bipropelente por válvulas, linhas, bombas elétricas, câmara de combustão e bocal;
 - paraquedas físicos com massa, arrasto e orientação pelo fluxo de ar;
 - fixadores estruturais que rompem por esforço;
+- controle automático de pouso por altitude, velocidades e inclinação medidas;
 - veículos compostos, com módulos físicos e ilhas rígidas estruturais.
 
 ## Arquitetura
@@ -59,6 +60,21 @@ O computador de voo recebe interfaces de comando dos propulsores, sem navegar
 pela estrutura interna do veículo. A automação chama a mesma sequência pública
 usada pela manutenção manual; não há ignição implícita ou alteração direta de
 velocidade, posição ou orientação.
+
+O controle de pouso calcula a velocidade vertical segura para a altitude
+restante, modula o throttle e solicita gimbal para corrigir inclinação e deriva
+horizontal. Ele usa as leituras dos sensores do casco, respeita os limites dos
+atuadores e não disputa o gimbal com o controle de inclinação. A partida dos
+propulsores continua exigindo sistemas disponíveis e ignição explícita.
+
+O cenário BSS-003 não possui sequenciador automático. O operador escolhe o par
+de motores, aciona cada sistema e a ignição e ajusta o throttle. Um único
+checkbox é o comando explícito de transferência para pouso: ele só corta a
+decolagem após preparar e ignitar o par de pouso pelos permissivos normais e
+entrega seu throttle ao controlador. Ao desmarcar, corta o par de pouso e
+retorna ao PID de inclinação. A nave mantém um
+tanque dedicado para cada par. Os quatro motores ficam externos sob o casco;
+tanques centralizados e sapatas externas a ±2,8 m preservam equilíbrio e apoio.
 
 ## Bancada de testes
 

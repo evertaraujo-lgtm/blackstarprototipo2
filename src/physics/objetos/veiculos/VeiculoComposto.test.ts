@@ -105,6 +105,34 @@ describe('VeiculoComposto', () => {
     expect(veiculo.obterLeiturasDoComputadorDeVoo()).toEqual(leituras);
   });
 
+  it('usa sensores e propulsores reais para frear uma descida pelo controle de pouso', () => {
+    const { veiculo, propulsorA, propulsorB } = criarVeiculoComposto();
+    const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 0 });
+    veiculo.registrarNoMundo(mundo);
+    veiculo.definirThrottleDeTodosOsPropulsores(0.5);
+    expect(veiculo.solicitarIgnicaoDosPropulsores().every((resultado) => resultado.aceito)).toBe(true);
+    veiculo.habilitarControleDePouso({
+      altitudeAlvoM: 0,
+      velocidadeAproximacaoMps: 1,
+      velocidadeMaximaToqueMps: 0.2,
+      throttleSustentacao: 0.99,
+      ganhoThrottlePorErroVelocidade: 0.2,
+      taxaMaximaThrottlePorS: 20,
+    });
+
+    mundo.aplicarImpulso(veiculo, new Vetor3(0, -1_000, 0));
+    mundo.avancar(0.2);
+    const velocidadeDuranteQuedaMps = veiculo.obterLeiturasDosSensores().velocidadeVerticalMps;
+    mundo.avancar(1);
+
+    const comando = veiculo.obterUltimoComandoDePouso();
+    expect(comando).toMatchObject({ fase: 'frenagem', leiturasValidas: true });
+    expect(comando!.throttle).toBeCloseTo(1, 10);
+    expect(propulsorA.empuxoAtualN + propulsorB.empuxoAtualN).toBeGreaterThan(0);
+    expect(veiculo.obterLeiturasDosSensores().velocidadeVerticalMps).toBeGreaterThan(velocidadeDuranteQuedaMps);
+    expect(veiculo.getEstadoFisico().orientacaoRad.z).toBeCloseTo(0, 10);
+  });
+
   it('remove módulo rompido da massa e do centro de massa do conjunto', () => {
     const { veiculo, propulsorB, fixadorB, romperFixadorB } = criarVeiculoComposto();
     const mundo = new MundoFisico(1 / 240);
