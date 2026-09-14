@@ -58,6 +58,14 @@ describe('ControladorPouso', () => {
     expect(controlador.calcularComando(leituras({ altitudeM: 3.05, velocidadeVerticalMps: -3 }), 0.1)).toMatchObject({ fase: 'frenagem' });
   });
 
+  it('corta o empuxo se uma frenagem inverter a velocidade para subida', () => {
+    const controlador = new ControladorPouso({ altitudeAlvoM: 3, taxaMaximaThrottlePorS: 10 });
+    controlador.habilitar();
+
+    expect(controlador.calcularComando(leituras({ altitudeM: 20, velocidadeVerticalMps: 2 }), 0.1))
+      .toMatchObject({ fase: 'frenagem', throttle: 0 });
+  });
+
   it('entra em estado seguro quando uma leitura deixa de ser finita', () => {
     const controlador = new ControladorPouso();
     controlador.habilitar();

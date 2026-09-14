@@ -2003,6 +2003,18 @@ const criarTesteBss003 = (): CenárioVisual => {
     taxaMaximaThrottlePorS: 2,
     ganhoGimbalVelocidadeHorizontalRadPorMps: 0,
     limiteGimbalRad: 3 * Math.PI / 180,
+    usarGatilhoAltitude: true,
+    controlarGimbal: false,
+  };
+  const controleDesaceleracao = {
+    velocidadeInicioMps: 10,
+    velocidadeVerticalAlvoMps: -7,
+    altitudeMinimaM: 40,
+    throttleSustentacao: 0.6,
+    ganhoProporcional: 0.12,
+    ganhoIntegral: 0.02,
+    ganhoDerivativo: 0.01,
+    taxaMaximaThrottlePorS: 2,
   };
   const nave = new Bss03({
     ...base('bss-003', 900, new Vetor3(5, 5.6, 3), new Vetor3(0, altitudeDeApoioDoCascoM, 0)),
@@ -2010,6 +2022,7 @@ const criarTesteBss003 = (): CenárioVisual => {
     idsPropulsoresDecolagem: idsDecolagem,
     idsPropulsoresPouso: idsPouso,
     controlePouso,
+    controleDesaceleracao,
   });
   const tanqueDecolagem = new TanquePropelente({
     ...base('bss03-tanque-decolagem', 120, new Vetor3(2.6, 1.2, 1.5), new Vetor3(0, 5.2, 0)),
@@ -2028,7 +2041,7 @@ const criarTesteBss003 = (): CenárioVisual => {
       ...base(id, 70, new Vetor3(0.8, 1, 1), new Vetor3(xM, 0.8, 0)),
       estadoInicial: { posicaoM: new Vetor3(xM, 0.8, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
       tensaoAlimentacaoNominalV: 28, potenciaEletricaMaximaW: 1_500,
-      empuxoMaximoN: 20_000, vazaoMaximaKgS: 0.5, propelenteCompativel: 'metano',
+      empuxoMaximoN: 20_000, vazaoMaximaKgS: 0.5, potenciaTermicaMaximaW: 5_000_000, propelenteCompativel: 'metano',
       vetorizacao: { limiteAngularRad: 3 * Math.PI / 180, velocidadeAngularMaximaRadps: 10 * Math.PI / 180 },
     });
     motor.conectarTanque(tanque, 8);
@@ -2052,6 +2065,9 @@ const criarTesteBss003 = (): CenárioVisual => {
   const modulos: Objeto[] = [tanqueDecolagem, tanquePouso, bateria, ...tremDePouso, ...motoresDecolagem, ...motoresPouso];
   for (const modulo of modulos) nave.adicionarModulo(modulo);
   for (const motor of [...motoresDecolagem, ...motoresPouso]) nave.instalarPropulsor(motor);
+  // Estabilidade de subida é uma capacidade permanente, não uma sequência de
+  // missão: fica armada antes da ignição, com todos os atuadores em repouso.
+  nave.ativarControleDeInclinacao();
   const fixadores = modulos.map((modulo) => new FixadorEstrutural({
     id: `fixador-bss03-${modulo.id}`, objetoA: nave, objetoB: modulo,
     resistenciaTracaoN: 500_000, resistenciaCompressaoN: 500_000,
@@ -2072,7 +2088,7 @@ const criarTesteBss003 = (): CenárioVisual => {
   const integridadeMinima = (): number => Math.min(...objetos.map((objeto) => objeto.integridadeEstrutural));
   return {
     nome: 'BSS-003 — decolagem e pouso sob comando manual',
-    descricao: 'Não há sequência automática por altitude ou tempo. Decole manualmente com o par de decolagem. Ao marcar Modo de pouso, o comando explícito do operador prepara e ignita o par de pouso; somente se ambos estiverem prontos ele corta a decolagem e entrega o throttle ao controlador de pouso. Ao desmarcar, corta o par de pouso e retorna ao PID de inclinação. Os quatro motores ficam completamente abaixo e fora do casco. Tanques centralizados e trem de pouso externo com sapatas separadas por 5,6 m mantêm massa e apoio simétricos.',
+    descricao: 'Não há sequência automática por altitude ou tempo. Decole manualmente com o par de decolagem. Ao marcar Modo de pouso, o comando explícito do operador prepara e ignita o par de pouso; somente se ambos estiverem prontos ele corta a decolagem e arma três controles: PID de verticalização no gimbal, PID de desaceleração em queda rápida e PID de pouso na faixa final. Ao desmarcar, corta o par de pouso e retorna ao PID de inclinação. Os quatro motores ficam completamente abaixo e fora do casco. Tanques centralizados e trem de pouso externo com sapatas separadas por 5,6 m mantêm massa e apoio simétricos.',
     mundo, objetos, superficies: [solo], velocidadeTempo: 3, limiteVerticalM: 55, limiteHorizontalM: 14,
     seguirObjeto: nave, cameraY: () => nave.getEstadoFisico().posicaoM.y,
     conexoesEletricas: [...motoresDecolagem, ...motoresPouso].flatMap((motor) => motor.conexaoEletrica ? [motor.conexaoEletrica] : []),

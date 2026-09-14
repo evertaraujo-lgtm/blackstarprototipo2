@@ -12,6 +12,10 @@ export interface ConfiguracaoControlePouso {
   /** Throttle que equilibra aproximadamente o peso na configuração atual. */
   readonly throttleSustentacao: number;
   readonly ganhoThrottlePorErroVelocidade: number;
+  /** Ganho integral do PID de velocidade vertical. */
+  readonly ganhoIntegralThrottle: number;
+  /** Ganho derivativo do PID de velocidade vertical. */
+  readonly ganhoDerivativoThrottle: number;
   readonly taxaMaximaThrottlePorS: number;
   readonly ganhoGimbalInclinacao: number;
   readonly ganhoGimbalVelocidadeHorizontalRadPorMps: number;
@@ -19,6 +23,10 @@ export interface ConfiguracaoControlePouso {
   readonly toleranciaAltitudeToqueM: number;
   readonly toleranciaVelocidadeHorizontalMps: number;
   readonly toleranciaInclinacaoRad: number;
+  /** No BSS-03, deixa a desaceleração assumir antes da faixa de pouso. */
+  readonly usarGatilhoAltitude: boolean;
+  /** Permite que verticalização seja um controlador independente. */
+  readonly controlarGimbal: boolean;
 }
 
 export interface ComandoControlePouso {
@@ -38,6 +46,8 @@ const CONFIGURACAO_PADRAO: ConfiguracaoControlePouso = {
   desaceleracaoPlanejadaMps2: 3,
   throttleSustentacao: 0.5,
   ganhoThrottlePorErroVelocidade: 0.08,
+  ganhoIntegralThrottle: 0.015,
+  ganhoDerivativoThrottle: 0.01,
   taxaMaximaThrottlePorS: 1,
   ganhoGimbalInclinacao: 2,
   ganhoGimbalVelocidadeHorizontalRadPorMps: 0.04,
@@ -45,6 +55,8 @@ const CONFIGURACAO_PADRAO: ConfiguracaoControlePouso = {
   toleranciaAltitudeToqueM: 0.1,
   toleranciaVelocidadeHorizontalMps: 0.5,
   toleranciaInclinacaoRad: 3 * Math.PI / 180,
+  usarGatilhoAltitude: false,
+  controlarGimbal: true,
 };
 
 const limitar = (valor: number, minimo: number, maximo: number): number => Math.max(minimo, Math.min(maximo, valor));
@@ -56,6 +68,8 @@ const limitar = (valor: number, minimo: number, maximo: number): number => Math.
 export class ControladorPouso {
   private habilitado = false;
   private throttleAnterior = 0;
+  private erroVelocidadeAnteriorMps = 0;
+  private integralErroVelocidade = 0;
   private ultimoComando: ComandoControlePouso = {
     fase: 'inativo', throttle: 0, anguloGimbalRad: 0,
     velocidadeVerticalAlvoMps: 0, alturaRestanteM: 0, leiturasValidas: true,
@@ -71,11 +85,15 @@ export class ControladorPouso {
   public habilitar(): void {
     this.habilitado = true;
     this.throttleAnterior = 0;
+    this.erroVelocidadeAnteriorMps = 0;
+    this.integralErroVelocidade = 0;
   }
 
   public desabilitar(): void {
     this.habilitado = false;
     this.throttleAnterior = 0;
+    this.erroVelocidadeAnteriorMps = 0;
+    this.integralErroVelocidade = 0;
     this.ultimoComando = {
       fase: 'inativo', throttle: 0, anguloGimbalRad: 0,
       velocidadeVerticalAlvoMps: 0, alturaRestanteM: 0, leiturasValidas: true,
@@ -104,6 +122,16 @@ export class ControladorPouso {
 
     const c = this.configuracao;
     const alturaRestanteM = Math.max(0, leituras.altitudeM - c.altitudeAlvoM);
+    if (c.usarGatilhoAltitude && alturaRestanteM > c.altitudeInicioFrenagemM) {
+      this.throttleAnterior = 0;
+      this.erroVelocidadeAnteriorMps = 0;
+      this.integralErroVelocidade = 0;
+      this.ultimoComando = {
+        fase: 'inativo', throttle: 0, anguloGimbalRad: 0,
+        velocidadeVerticalAlvoMps: 0, alturaRestanteM, leiturasValidas: true,
+      };
+      return this.obterUltimoComando();
+    }
     const velocidadePermitidaMps = Math.min(
       c.velocidadeAproximacaoMps,
       Math.sqrt(c.velocidadeMaximaToqueMps ** 2 + 2 * c.desaceleracaoPlanejadaMps2 * alturaRestanteM),
@@ -123,12 +151,30 @@ export class ControladorPouso {
       return this.obterUltimoComando();
     }
 
+    // Pouso não pode converter uma frenagem em nova subida. Acima do alvo,
+    // qualquer velocidade vertical positiva corta o empuxo e zera a memória
+    // do PID; o controle volta a atuar somente quando a nave retomar descida.
+    if (leituras.velocidadeVerticalMps >= 0 && alturaRestanteM > c.toleranciaAltitudeToqueM) {
+      this.throttleAnterior = 0;
+      this.erroVelocidadeAnteriorMps = 0;
+      this.integralErroVelocidade = 0;
+      this.ultimoComando = {
+        fase: 'frenagem', throttle: 0, anguloGimbalRad: 0,
+        velocidadeVerticalAlvoMps, alturaRestanteM, leiturasValidas: true,
+      };
+      return this.obterUltimoComando();
+    }
+
     const erroVelocidadeMps = velocidadeVerticalAlvoMps - leituras.velocidadeVerticalMps;
-    const throttleAlvo = limitar(
-      c.throttleSustentacao + c.ganhoThrottlePorErroVelocidade * erroVelocidadeMps,
-      0,
-      1,
-    );
+    const integralAnterior = this.integralErroVelocidade;
+    this.integralErroVelocidade += erroVelocidadeMps * dtS;
+    const derivadaErroMps2 = (erroVelocidadeMps - this.erroVelocidadeAnteriorMps) / dtS;
+    const throttleAlvoSemLimite = c.throttleSustentacao
+      + c.ganhoThrottlePorErroVelocidade * erroVelocidadeMps
+      + c.ganhoIntegralThrottle * this.integralErroVelocidade
+      + c.ganhoDerivativoThrottle * derivadaErroMps2;
+    const throttleAlvo = limitar(throttleAlvoSemLimite, 0, 1);
+    if (throttleAlvo !== throttleAlvoSemLimite) this.integralErroVelocidade = integralAnterior;
     const variacaoMaximaThrottle = c.taxaMaximaThrottlePorS * dtS;
     const throttle = limitar(
       throttleAlvo,
@@ -136,15 +182,16 @@ export class ControladorPouso {
       Math.min(1, this.throttleAnterior + variacaoMaximaThrottle),
     );
     this.throttleAnterior = throttle;
+    this.erroVelocidadeAnteriorMps = erroVelocidadeMps;
 
     // No arranjo vertical planar, comando positivo gera força lateral negativa:
     // inclinação e velocidade horizontal positivas pedem gimbal positivo.
-    const anguloGimbalRad = limitar(
+    const anguloGimbalRad = c.controlarGimbal ? limitar(
       c.ganhoGimbalInclinacao * leituras.inclinacaoRad
         + c.ganhoGimbalVelocidadeHorizontalRadPorMps * leituras.velocidadeHorizontalMps,
       -c.limiteGimbalRad,
       c.limiteGimbalRad,
-    );
+    ) : 0;
     this.ultimoComando = {
       fase: alturaRestanteM > c.altitudeInicioFrenagemM ? 'aproximacao' : 'frenagem',
       throttle, anguloGimbalRad, velocidadeVerticalAlvoMps, alturaRestanteM, leiturasValidas: true,
@@ -154,7 +201,16 @@ export class ControladorPouso {
 
   private validarConfiguracao(): void {
     const c = this.configuracao;
-    if (!Object.values(c).every(Number.isFinite)
+    const valoresNumericos = [
+      c.altitudeAlvoM, c.altitudeInicioFrenagemM, c.velocidadeAproximacaoMps,
+      c.velocidadeMaximaToqueMps, c.desaceleracaoPlanejadaMps2,
+      c.throttleSustentacao, c.ganhoThrottlePorErroVelocidade,
+      c.ganhoIntegralThrottle, c.ganhoDerivativoThrottle, c.taxaMaximaThrottlePorS,
+      c.ganhoGimbalInclinacao, c.ganhoGimbalVelocidadeHorizontalRadPorMps,
+      c.limiteGimbalRad, c.toleranciaAltitudeToqueM,
+      c.toleranciaVelocidadeHorizontalMps, c.toleranciaInclinacaoRad,
+    ];
+    if (!valoresNumericos.every(Number.isFinite)
       || c.altitudeInicioFrenagemM <= c.altitudeAlvoM
       || c.velocidadeAproximacaoMps <= 0
       || c.velocidadeMaximaToqueMps <= 0
@@ -162,6 +218,7 @@ export class ControladorPouso {
       || c.desaceleracaoPlanejadaMps2 <= 0
       || c.throttleSustentacao < 0 || c.throttleSustentacao > 1
       || c.ganhoThrottlePorErroVelocidade < 0
+      || c.ganhoIntegralThrottle < 0 || c.ganhoDerivativoThrottle < 0
       || c.taxaMaximaThrottlePorS <= 0
       || c.ganhoGimbalInclinacao < 0
       || c.ganhoGimbalVelocidadeHorizontalRadPorMps < 0

@@ -31,7 +31,7 @@ export class ControladorInclinacaoPid {
   public get estaHabilitado(): boolean { return this.habilitado; }
 
   /** Retorna o comando de gimbal necessário para reduzir o erro de inclinação. */
-  protected calcularComando(erroRad: number, dtS: number): number {
+  public calcularComando(erroRad: number, dtS: number): number {
     if (!this.habilitado) return 0;
     if (!Number.isFinite(erroRad) || !Number.isFinite(dtS) || dtS <= 0) throw new Error('Entrada do controlador PID inválida.');
     const derivadaErroRadPorS = (erroRad - this.erroAnteriorRad) / dtS;

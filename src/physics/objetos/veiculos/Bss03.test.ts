@@ -13,6 +13,7 @@ const criarBss03 = () => {
     idsPropulsoresDecolagem: ['decolagem-e', 'decolagem-d'],
     idsPropulsoresPouso: ['pouso-e', 'pouso-d'],
     controlePouso: { altitudeAlvoM: 4 },
+    controleDesaceleracao: { velocidadeInicioMps: 10 },
   });
   const criarMotor = (id: string) => new PropulsorVetorizado({
     id, massaBaseKg: 70, dimensoesM: new Vetor3(0.8, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000,
@@ -25,12 +26,13 @@ const criarBss03 = () => {
 };
 
 describe('Bss03', () => {
-  it('não liga sistemas, ignição, throttle ou controladores automaticamente', () => {
+  it('arma o PID de subida sem ligar sistemas, ignição ou throttle', () => {
     const { nave, motores } = criarBss03();
+    nave.ativarControleDeInclinacao();
 
-    expect(nave.controleAtivoBss03).toBe('manual');
+    expect(nave.controleAtivoBss03).toBe('inclinacao');
     expect(motores.every((motor) => !motor.estaIgnitado && motor.throttleAtual === 0)).toBe(true);
-    expect(nave.controleDeInclinacaoEstaHabilitado).toBe(false);
+    expect(nave.controleDeInclinacaoEstaHabilitado).toBe(true);
     expect(nave.controleDePousoEstaHabilitado).toBe(false);
   });
 
@@ -44,6 +46,7 @@ describe('Bss03', () => {
     nave.ativarControleDePouso();
     expect(nave.controleAtivoBss03).toBe('pouso');
     expect(nave.controleDeInclinacaoEstaHabilitado).toBe(false);
+    expect(nave.controleDeGimbalDeDescidaEstaHabilitado).toBe(true);
     expect(nave.controleDePousoEstaHabilitado).toBe(true);
     expect(motores.every((motor) => !motor.estaIgnitado)).toBe(true);
 

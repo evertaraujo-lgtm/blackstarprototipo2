@@ -6,6 +6,7 @@ import { Propulsor } from '../propulsao/Propulsor';
 import { ComputadorDeVoo, type ResultadoComandoPropulsor } from './ComputadorDeVoo';
 import { SensoresVeiculoComposto } from '../../sensores/SensoresVeiculoComposto';
 import type { ComandoControlePouso, ConfiguracaoControlePouso } from '../../sistemas de controle/ControladorPouso';
+import type { ConfiguracaoControleDesaceleracao } from '../../sistemas de controle/ControladorDesaceleracao';
 
 /**
  * Definição do casco estrutural central. `VeiculoComposto` não é uma fachada
@@ -93,7 +94,22 @@ export class VeiculoComposto extends Objeto {
   ): void {
     this.computadorDeVoo.habilitarControleDePouso(configuracao, idsPropulsores);
   }
+  public habilitarControleDePousoComposto(configuracao: Partial<ConfiguracaoControlePouso>, idsPropulsores: readonly string[]): void {
+    this.computadorDeVoo.habilitarControleDePousoComposto(configuracao, idsPropulsores);
+  }
+  public habilitarControleDeVerticalizacao(idsPropulsores: readonly string[]): void {
+    this.computadorDeVoo.habilitarControleDeVerticalizacao(idsPropulsores);
+  }
+  public habilitarControleDeGimbalDeDescida(idsPropulsores: readonly string[]): void {
+    this.computadorDeVoo.habilitarControleDeGimbalDeDescida(idsPropulsores);
+  }
+  public habilitarControleDeDesaceleracao(configuracao: Partial<ConfiguracaoControleDesaceleracao>, idsPropulsores: readonly string[]): void {
+    this.computadorDeVoo.habilitarControleDeDesaceleracao(configuracao, idsPropulsores);
+  }
   public desabilitarControleDePouso(): void { this.computadorDeVoo.desabilitarControleDePouso(); }
+  public desabilitarControleDeDesaceleracao(): void { this.computadorDeVoo.desabilitarControleDeDesaceleracao(); }
+  public desabilitarControleDeGimbalDeDescida(): void { this.computadorDeVoo.desabilitarControleDeGimbalDeDescida(); }
+  public get controleDeGimbalDeDescidaEstaHabilitado(): boolean { return this.computadorDeVoo.controleDeGimbalDeDescidaEstaHabilitado; }
   public get controleDePousoEstaHabilitado(): boolean { return this.computadorDeVoo.controleDePousoEstaHabilitado; }
   public obterUltimoComandoDePouso(): ComandoControlePouso | undefined {
     return this.computadorDeVoo.obterUltimoComandoDePouso();

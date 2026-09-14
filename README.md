@@ -61,11 +61,20 @@ pela estrutura interna do veículo. A automação chama a mesma sequência públ
 usada pela manutenção manual; não há ignição implícita ou alteração direta de
 velocidade, posição ou orientação.
 
-O controle de pouso calcula a velocidade vertical segura para a altitude
-restante, modula o throttle e solicita gimbal para corrigir inclinação e deriva
-horizontal. Ele usa as leituras dos sensores do casco, respeita os limites dos
-atuadores e não disputa o gimbal com o controle de inclinação. A partida dos
-propulsores continua exigindo sistemas disponíveis e ignição explícita.
+O BSS-003 usa um gimbal PID de subida no par de decolagem e, durante o pouso,
+arma um **gimbal de descida** independente no par de pouso. Junto dele atuam a
+desaceleração PID quando a queda ultrapassa a velocidade configurada e o pouso
+PID na faixa final de altitude. Os dois últimos fecham a malha pela
+velocidade vertical medida; o pouso calcula ainda o perfil de velocidade seguro
+para a altura restante. A partida dos propulsores continua exigindo sistemas
+disponíveis e ignição explícita.
+
+O computador de voo compõe controladores registrados, em vez de herdá-los. Um
+controlador declara suas solicitações normalizadas por atuador (`throttle` ou
+`gimbal`) e uma prioridade. Controles independentes podem ficar ativos ao mesmo
+tempo; somente uma disputa sobre o mesmo atuador e recurso é arbitrada pela
+prioridade. Assim, novos controles — RCS, paraquedas, térmico ou aproximação —
+entram por registro, sem ampliar a hierarquia de classes.
 
 O cenário BSS-003 não possui sequenciador automático. O operador escolhe o par
 de motores, aciona cada sistema e a ignição e ajusta o throttle. Um único

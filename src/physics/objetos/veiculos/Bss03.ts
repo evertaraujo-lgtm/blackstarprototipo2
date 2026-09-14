@@ -1,12 +1,14 @@
 import type { DefinicaoVeiculoComposto } from './VeiculoComposto';
 import { VeiculoComposto } from './VeiculoComposto';
 import type { ConfiguracaoControlePouso } from '../../sistemas de controle/ControladorPouso';
+import type { ConfiguracaoControleDesaceleracao } from '../../sistemas de controle/ControladorDesaceleracao';
 import type { ResultadoComandoPropulsor } from './ComputadorDeVoo';
 
 export interface DefinicaoBss03 extends DefinicaoVeiculoComposto {
   readonly idsPropulsoresDecolagem: readonly string[];
   readonly idsPropulsoresPouso: readonly string[];
   readonly controlePouso: Partial<ConfiguracaoControlePouso>;
+  readonly controleDesaceleracao: Partial<ConfiguracaoControleDesaceleracao>;
 }
 
 export type ControleAtivoBss03 = 'manual' | 'inclinacao' | 'pouso';
@@ -16,6 +18,7 @@ export class Bss03 extends VeiculoComposto {
   private readonly idsPropulsoresDecolagem: readonly string[];
   private readonly idsPropulsoresPouso: readonly string[];
   private readonly configuracaoControlePouso: Partial<ConfiguracaoControlePouso>;
+  private readonly configuracaoControleDesaceleracao: Partial<ConfiguracaoControleDesaceleracao>;
   private controleAtivo: ControleAtivoBss03 = 'manual';
 
   public constructor(definicao: DefinicaoBss03) {
@@ -26,15 +29,20 @@ export class Bss03 extends VeiculoComposto {
     this.idsPropulsoresDecolagem = [...definicao.idsPropulsoresDecolagem];
     this.idsPropulsoresPouso = [...definicao.idsPropulsoresPouso];
     this.configuracaoControlePouso = { ...definicao.controlePouso };
+    this.configuracaoControleDesaceleracao = { ...definicao.controleDesaceleracao };
   }
 
   public ativarControleDeInclinacao(): void {
+    this.desabilitarControleDeDesaceleracao();
+    this.desabilitarControleDeGimbalDeDescida();
     this.habilitarControleDeInclinacaoNosPropulsores(this.idsPropulsoresDecolagem);
     this.controleAtivo = 'inclinacao';
   }
 
   public ativarControleDePouso(): void {
-    this.habilitarControleDePouso(this.configuracaoControlePouso, this.idsPropulsoresPouso);
+    this.habilitarControleDeGimbalDeDescida(this.idsPropulsoresPouso);
+    this.habilitarControleDeDesaceleracao(this.configuracaoControleDesaceleracao, this.idsPropulsoresPouso);
+    this.habilitarControleDePousoComposto(this.configuracaoControlePouso, this.idsPropulsoresPouso);
     this.controleAtivo = 'pouso';
   }
 
@@ -63,6 +71,8 @@ export class Bss03 extends VeiculoComposto {
   public desativarControlesAutomaticos(): void {
     this.desabilitarControleDeInclinacao();
     this.desabilitarControleDePouso();
+    this.desabilitarControleDeDesaceleracao();
+    this.desabilitarControleDeGimbalDeDescida();
     this.controleAtivo = 'manual';
   }
 

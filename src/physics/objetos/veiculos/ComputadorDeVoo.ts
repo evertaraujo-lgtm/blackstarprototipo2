@@ -1,10 +1,14 @@
 import type { LeiturasVeiculoComposto } from '../../sensores/SensoresVeiculoComposto';
-import { ControladorInclinacaoPid } from '../../sistemas de controle/ControladorInclinacaoPid';
 import {
-  ControladorPouso,
   type ComandoControlePouso,
   type ConfiguracaoControlePouso,
 } from '../../sistemas de controle/ControladorPouso';
+import { ControladorInclinacaoDePropulsores } from '../../sistemas de controle/ControladorInclinacaoDePropulsores';
+import { ControladorPousoDePropulsores } from '../../sistemas de controle/ControladorPousoDePropulsores';
+import { ControladorDesaceleracaoDePropulsores } from '../../sistemas de controle/ControladorDesaceleracaoDePropulsores';
+import { ControladorGimbalDescidaDePropulsores } from '../../sistemas de controle/ControladorGimbalDescidaDePropulsores';
+import type { ConfiguracaoControleDesaceleracao } from '../../sistemas de controle/ControladorDesaceleracao';
+import { GerenciadorDeControladores, type ControladorDeVoo } from '../../sistemas de controle/GerenciadorDeControladores';
 import type { EstadoVetorizacao } from '../propulsao/vetorizacao/InterfacesVetorizacao';
 
 type IdSistemaControlado = 'elétrico' | 'hidráulico' | 'combustível' | 'controle';
@@ -36,15 +40,20 @@ export interface ResultadoComandoPropulsor {
  * Componente operacional sem estado físico. Ele conhece somente a interface
  * pública dos propulsores instalados, nunca o veículo que o contém.
  */
-export class ComputadorDeVoo extends ControladorInclinacaoPid {
+export class ComputadorDeVoo {
   private readonly propulsores = new Map<string, IPropulsorControlavelPeloComputador>();
   private readonly propulsoresVetorizados = new Map<string, IPropulsorControlavelPeloComputador>();
-  private idsPropulsoresDoControleDeInclinacao = new Set<string>();
-  private idsPropulsoresDoControleDePouso = new Set<string>();
-  private controladorPouso?: ControladorPouso;
+  private readonly gerenciador = new GerenciadorDeControladores();
+  private readonly controladorInclinacao = new ControladorInclinacaoDePropulsores();
+  private readonly controladorPouso = new ControladorPousoDePropulsores();
+  private readonly controladorDesaceleracao = new ControladorDesaceleracaoDePropulsores();
+  private readonly controladorGimbalDescida = new ControladorGimbalDescidaDePropulsores();
 
   public constructor(private readonly telemetriaDoCasco: FonteTelemetriaDoCasco) {
-    super(2, 0.05, 0.2, Math.PI / 12);
+    this.gerenciador.registrar(this.controladorInclinacao);
+    this.gerenciador.registrar(this.controladorPouso);
+    this.gerenciador.registrar(this.controladorDesaceleracao);
+    this.gerenciador.registrar(this.controladorGimbalDescida);
   }
 
   public obterLeiturasDoCasco(): LeiturasVeiculoComposto {
@@ -56,71 +65,93 @@ export class ComputadorDeVoo extends ControladorInclinacaoPid {
     this.propulsores.set(propulsor.id, propulsor);
     if (propulsor.solicitarVetorizacao && propulsor.obterEstadoDaVetorizacao) {
       this.propulsoresVetorizados.set(propulsor.id, propulsor);
-      this.idsPropulsoresDoControleDeInclinacao.add(propulsor.id);
     }
   }
 
-  public override habilitar(): void {
+  public habilitar(): void {
     this.desabilitarControleDePouso();
-    this.idsPropulsoresDoControleDeInclinacao = new Set(this.propulsoresVetorizados.keys());
-    super.habilitar();
+    this.desabilitarControleDeGimbalDeDescida();
+    this.controladorInclinacao.configurarAlvos([...this.propulsoresVetorizados.keys()]);
+    this.gerenciador.habilitar(this.controladorInclinacao.id);
   }
+  public desabilitar(): void { this.gerenciador.desabilitar(this.controladorInclinacao.id); }
 
   public habilitarControleDeInclinacao(idsPropulsores: readonly string[] = [...this.propulsoresVetorizados.keys()]): void {
     this.desabilitarControleDePouso();
-    this.idsPropulsoresDoControleDeInclinacao = this.validarSelecao(idsPropulsores, true);
-    super.habilitar();
+    this.desabilitarControleDeGimbalDeDescida();
+    this.controladorInclinacao.configurarAlvos([...this.validarSelecao(idsPropulsores, true)]);
+    this.gerenciador.habilitar(this.controladorInclinacao.id);
   }
 
   public habilitarControleDePouso(
     configuracao: Partial<ConfiguracaoControlePouso> = {},
     idsPropulsores: readonly string[] = [...this.propulsores.keys()],
   ): void {
-    super.desabilitar();
-    this.idsPropulsoresDoControleDePouso = this.validarSelecao(idsPropulsores, false);
-    this.controladorPouso = new ControladorPouso(configuracao);
-    this.controladorPouso.habilitar();
+    this.gerenciador.desabilitar(this.controladorInclinacao.id);
+    this.controladorPouso.configurar(configuracao, [...this.validarSelecao(idsPropulsores, false)]);
+    this.gerenciador.habilitar(this.controladorPouso.id);
+  }
+
+  /** Ativa pouso sem desativar verticalização ou desaceleração já registradas. */
+  public habilitarControleDePousoComposto(
+    configuracao: Partial<ConfiguracaoControlePouso> = {}, idsPropulsores: readonly string[] = [...this.propulsores.keys()],
+  ): void {
+    this.controladorPouso.configurar(configuracao, [...this.validarSelecao(idsPropulsores, false)]);
+    this.gerenciador.habilitar(this.controladorPouso.id);
+  }
+
+  public habilitarControleDeVerticalizacao(idsPropulsores: readonly string[]): void {
+    this.controladorInclinacao.configurarAlvos([...this.validarSelecao(idsPropulsores, true)]);
+    this.gerenciador.habilitar(this.controladorInclinacao.id);
+  }
+
+  public habilitarControleDeGimbalDeDescida(idsPropulsores: readonly string[]): void {
+    this.gerenciador.desabilitar(this.controladorInclinacao.id);
+    this.controladorGimbalDescida.configurarAlvos([...this.validarSelecao(idsPropulsores, true)]);
+    this.gerenciador.habilitar(this.controladorGimbalDescida.id);
+  }
+
+  public habilitarControleDeDesaceleracao(
+    configuracao: Partial<ConfiguracaoControleDesaceleracao>, idsPropulsores: readonly string[],
+  ): void {
+    this.controladorDesaceleracao.configurar(configuracao, [...this.validarSelecao(idsPropulsores, false)]);
+    this.gerenciador.habilitar(this.controladorDesaceleracao.id);
   }
 
   public desabilitarControleDePouso(): void {
-    this.controladorPouso?.desabilitar();
-    this.controladorPouso = undefined;
+    this.gerenciador.desabilitar(this.controladorPouso.id);
   }
+  public desabilitarControleDeDesaceleracao(): void { this.gerenciador.desabilitar(this.controladorDesaceleracao.id); }
+  public desabilitarControleDeGimbalDeDescida(): void { this.gerenciador.desabilitar(this.controladorGimbalDescida.id); }
+  public get controleDeGimbalDeDescidaEstaHabilitado(): boolean { return this.controladorGimbalDescida.estaHabilitado; }
 
   public get controleDePousoEstaHabilitado(): boolean {
-    return this.controladorPouso?.estaHabilitado === true;
+    return this.controladorPouso.estaHabilitado;
   }
 
   public obterUltimoComandoDePouso(): ComandoControlePouso | undefined {
-    return this.controladorPouso?.obterUltimoComando();
+    return this.controladorPouso.estaHabilitado ? this.controladorPouso.obterUltimoComando() : undefined;
   }
+
+  /** Extensão aberta para controles independentes (RCS, térmico, paraquedas etc.). */
+  public registrarControlador(controlador: ControladorDeVoo): void { this.gerenciador.registrar(controlador); }
+  public habilitarControlador(id: string): void { this.gerenciador.habilitar(id); }
+  public desabilitarControlador(id: string): void { this.gerenciador.desabilitar(id); }
+  public get idsControladoresAtivos(): readonly string[] { return this.gerenciador.idsAtivos(); }
+  public get estaHabilitado(): boolean { return this.controladorInclinacao.estaHabilitado; }
 
   /** Executa uma amostra do controle PID antes da preparação dos propulsores. */
   public atualizarControleDeInclinacao(dtS: number): void {
-    if (this.controleDePousoEstaHabilitado || !this.estaHabilitado) return;
-    // O motor fica abaixo do centro de massa: para uma inclinação positiva,
-    // o gimbal positivo gera a força lateral restauradora no eixo planar.
-    const erroRad = this.telemetriaDoCasco.obterLeituras().inclinacaoRad;
-    const comandoRad = this.calcularComando(erroRad, dtS);
-    for (const id of this.idsPropulsoresDoControleDeInclinacao) {
-      this.solicitarGimbalLimitado(id, comandoRad);
-    }
+    this.aplicarSolicitacoesDeControladores(dtS);
   }
 
   /** Aplica throttle e gimbal pelas mesmas portas operacionais do comando manual. */
   public atualizarControleDePouso(dtS: number): void {
-    if (!this.controladorPouso?.estaHabilitado) return;
-    const comando = this.controladorPouso.calcularComando(this.telemetriaDoCasco.obterLeituras(), dtS);
-    for (const id of this.idsPropulsoresDoControleDePouso) {
-      const propulsor = this.obterPropulsor(id);
-      propulsor.definirThrottle(comando.throttle);
-      this.solicitarGimbalLimitado(id, comando.anguloGimbalRad);
-    }
+    this.aplicarSolicitacoesDeControladores(dtS);
   }
 
   public atualizarControladores(dtS: number): void {
-    if (this.controleDePousoEstaHabilitado) this.atualizarControleDePouso(dtS);
-    else this.atualizarControleDeInclinacao(dtS);
+    this.aplicarSolicitacoesDeControladores(dtS);
   }
 
   public definirThrottle(idPropulsor: string, throttle: number): void {
@@ -187,5 +218,12 @@ export class ComputadorDeVoo extends ControladorInclinacaoPid {
     const limiteRad = propulsor?.obterEstadoDaVetorizacao?.().limiteAngularRad;
     if (!propulsor?.solicitarVetorizacao || limiteRad === undefined) return;
     propulsor.solicitarVetorizacao(Math.max(-limiteRad, Math.min(limiteRad, comandoRad)));
+  }
+
+  private aplicarSolicitacoesDeControladores(dtS: number): void {
+    for (const solicitacao of this.gerenciador.calcularSolicitacoes(this.telemetriaDoCasco.obterLeituras(), dtS)) {
+      if (solicitacao.recurso === 'throttle') this.obterPropulsor(solicitacao.idAtuador).definirThrottle(solicitacao.valor);
+      else this.solicitarGimbalLimitado(solicitacao.idAtuador, solicitacao.valor);
+    }
   }
 }

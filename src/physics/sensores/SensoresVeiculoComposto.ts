@@ -32,19 +32,19 @@ export class SensorNivelInterno {
 export class SensoresVeiculoComposto {
   public readonly gps: GpsIdealizado;
   public readonly nivel: SensorNivelInterno;
-  private posicaoGpsAnteriorM?: Vetor3;
   private leiturasAtuais: LeiturasVeiculoComposto;
 
-  public constructor(objeto: Objeto, altitudeDeReferenciaM = 0) {
+  public constructor(private readonly objeto: Objeto, altitudeDeReferenciaM = 0) {
     if (!Number.isFinite(altitudeDeReferenciaM)) throw new Error('Altitude de referência deve ser finita.');
     this.gps = new GpsIdealizado(objeto);
     this.nivel = new SensorNivelInterno(objeto);
     const posicaoInicialM = this.gps.obterPosicaoM();
+    const velocidadeInicialMps = objeto.getEstadoFisico().velocidadeMps;
     this.leiturasAtuais = {
       posicaoGpsM: posicaoInicialM,
       altitudeM: posicaoInicialM.y - altitudeDeReferenciaM,
-      velocidadeVerticalMps: 0,
-      velocidadeHorizontalMps: 0,
+      velocidadeVerticalMps: velocidadeInicialMps.y,
+      velocidadeHorizontalMps: velocidadeInicialMps.x,
       inclinacaoRad: this.nivel.obterInclinacaoRad(),
     };
     this.altitudeDeReferenciaM = altitudeDeReferenciaM;
@@ -55,15 +55,20 @@ export class SensoresVeiculoComposto {
   public atualizar(dtS: number): void {
     if (!Number.isFinite(dtS) || dtS <= 0) throw new Error('Passo dos sensores deve ser positivo e finito.');
     const posicaoAtualM = this.gps.obterPosicaoM();
-    const posicaoAnteriorM = this.posicaoGpsAnteriorM;
+    const velocidadeAtualMps = this.gpsObjeto.getEstadoFisico().velocidadeMps;
     this.leiturasAtuais = {
       posicaoGpsM: posicaoAtualM,
       altitudeM: posicaoAtualM.y - this.altitudeDeReferenciaM,
-      velocidadeVerticalMps: posicaoAnteriorM ? (posicaoAtualM.y - posicaoAnteriorM.y) / dtS : 0,
-      velocidadeHorizontalMps: posicaoAnteriorM ? (posicaoAtualM.x - posicaoAnteriorM.x) / dtS : 0,
+      velocidadeVerticalMps: velocidadeAtualMps.y,
+      velocidadeHorizontalMps: velocidadeAtualMps.x,
       inclinacaoRad: this.nivel.obterInclinacaoRad(),
     };
-    this.posicaoGpsAnteriorM = posicaoAtualM;
+  }
+
+  private get gpsObjeto(): Objeto {
+    // O GPS expõe posição por interface; a velocidade permanece sob autoridade
+    // do mesmo objeto físico e não deve ser reconstruída por diferença finita.
+    return this.objeto;
   }
 
   public obterLeituras(): LeiturasVeiculoComposto {

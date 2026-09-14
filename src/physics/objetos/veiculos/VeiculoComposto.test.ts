@@ -91,16 +91,14 @@ describe('VeiculoComposto', () => {
     veiculo.registrarNoMundo(mundo);
     const dtS = 1 / 240;
     mundo.avancar(dtS);
-    const posicaoAnterior = veiculo.getEstadoFisico().posicaoM;
     mundo.avancar(dtS);
-    const posicaoAtual = veiculo.getEstadoFisico().posicaoM;
 
     const leituras = veiculo.obterLeiturasDosSensores();
     expect(leituras.posicaoGpsM.x).toBeCloseTo(veiculo.getEstadoFisico().posicaoM.x, 12);
     expect(leituras.posicaoGpsM.y).toBeCloseTo(veiculo.getEstadoFisico().posicaoM.y, 12);
     expect(leituras.altitudeM).toBeCloseTo(leituras.posicaoGpsM.y, 12);
-    expect(leituras.velocidadeVerticalMps).toBeCloseTo((posicaoAtual.y - posicaoAnterior.y) / dtS, 10);
-    expect(leituras.velocidadeHorizontalMps).toBeCloseTo(0, 8);
+    expect(leituras.velocidadeVerticalMps).toBeCloseTo(veiculo.getEstadoFisico().velocidadeMps.y, 12);
+    expect(leituras.velocidadeHorizontalMps).toBeCloseTo(veiculo.getEstadoFisico().velocidadeMps.x, 12);
     expect(leituras.inclinacaoRad).toBeCloseTo(veiculo.getEstadoFisico().orientacaoRad.z, 12);
     expect(veiculo.obterLeiturasDoComputadorDeVoo()).toEqual(leituras);
   });
