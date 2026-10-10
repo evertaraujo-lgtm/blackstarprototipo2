@@ -3,6 +3,7 @@ import { FixadorEstrutural } from '../conexoes/FixadorEstrutural';
 import { MundoFisico } from '../MundoFisico';
 import { Vetor3 } from '../Vetor3';
 import { AletaAerodinamica } from '../objetos/componentes/AletaAerodinamica';
+import { Bateria } from '../objetos/fontes-de-energia/Bateria';
 import { VeiculoComposto } from '../objetos/veiculos/VeiculoComposto';
 import { ControladorAletasAerodinamicas } from './ControladorAletasAerodinamicas';
 
@@ -22,6 +23,12 @@ describe('ControladorAletasAerodinamicas', () => {
       resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, areaEfetivaM2: 5,
       coeficienteSustentacaoPorRad: 2, coeficienteArrasto: 1.1,
       deflexaoMaximaRad: 25 * Math.PI / 180, velocidadeAngularMaximaRadps: 35 * Math.PI / 180,
+      potenciaNominalAtuadorW: 1_000, potenciaEmRepousoW: 10,
+      fonteEletrica: new Bateria({
+        id: 'bss06-bateria-regressao', massaBaseKg: 10, dimensoesM: new Vetor3(0.5, 0.5, 0.5),
+        resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, tensaoNominalV: 24,
+        capacidadeEnergiaJ: 1_000_000, energiaInicialJ: 1_000_000,
+      }),
       estadoInicial: { posicaoM: new Vetor3(0, 12, 0), orientacaoRad: new Vetor3(0, 0, 0.1) },
     });
     foguete.adicionarModulo(aleta);
@@ -30,7 +37,8 @@ describe('ControladorAletasAerodinamicas', () => {
       resistenciaTracaoN: 1_000_000, resistenciaCompressaoN: 1_000_000, obterEsforcoSolicitadoN: () => 0,
     }));
     foguete.registrarNoMundo(mundo);
-    const controlador = new ControladorAletasAerodinamicas([aleta]);
+    let energiaDeControleDisponivel = true;
+    const controlador = new ControladorAletasAerodinamicas([aleta], () => energiaDeControleDisponivel);
     const omegaInicial = Math.abs(foguete.getEstadoFisico().velocidadeAngularRadps.z);
 
     for (let passo = 0; passo < 2_400; passo += 1) {
@@ -42,5 +50,10 @@ describe('ControladorAletasAerodinamicas', () => {
     expect(aleta.deflexaoAtualRad).not.toBe(0);
     expect(Math.abs(foguete.getEstadoFisico().velocidadeAngularRadps.z)).toBeLessThan(omegaInicial);
     expect(Math.abs(foguete.getEstadoFisico().orientacaoRad.z)).toBeLessThan(0.2);
+
+    const comandoAntesDoCorte = aleta.comandoAtualRad;
+    energiaDeControleDisponivel = false;
+    controlador.atualizar(1, 1, -50);
+    expect(aleta.comandoAtualRad).toBe(comandoAntesDoCorte);
   });
 });

@@ -4,6 +4,7 @@ import { AletaAerodinamica } from '../objetos/componentes/AletaAerodinamica';
 export class ControladorAletasAerodinamicas {
   public constructor(
     private readonly aletas: readonly AletaAerodinamica[],
+    private readonly estaEnergizado: () => boolean = () => true,
     private readonly ganhoAtitude = 1.8,
     private readonly ganhoVelocidadeAngular = 0.65,
     private readonly velocidadeMinimaDeAcionamentoMps = 8,
@@ -18,6 +19,7 @@ export class ControladorAletasAerodinamicas {
     if (![orientacaoRad, velocidadeAngularRadps, velocidadeVerticalMps].every(Number.isFinite)) {
       throw new Error('Leituras do controlador devem ser finitas.');
     }
+    if (!this.estaEnergizado()) return;
     const descendoComFluxo = velocidadeVerticalMps < -this.velocidadeMinimaDeAcionamentoMps;
     const comando = descendoComFluxo
       ? this.ganhoAtitude * orientacaoRad + this.ganhoVelocidadeAngular * velocidadeAngularRadps

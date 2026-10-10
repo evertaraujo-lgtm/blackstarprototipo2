@@ -27,6 +27,7 @@ export interface IPropulsorControlavelPeloComputador {
   readonly id: string;
   readonly estaIgnitado: boolean;
   readonly diagnosticoOperacional: readonly string[];
+  sistemaEstaOperacional(id: IdSistemaControlado): boolean;
   ligarSistema(id: IdSistemaControlado): boolean;
   solicitarIgnicao(): boolean;
   definirThrottle(throttle: number): void;
@@ -253,7 +254,12 @@ export class ComputadorDeVoo {
   }
 
   private aplicarSolicitacoesDeControladores(dtS: number): void {
+    const controladoresAlimentados = [...this.propulsores.values()].some((propulsor) =>
+      propulsor.sistemaEstaOperacional('elétrico') && propulsor.sistemaEstaOperacional('controle'));
+    if (!controladoresAlimentados) return;
     for (const solicitacao of this.gerenciador.calcularSolicitacoes(this.telemetriaDoCasco.obterLeituras(), dtS)) {
+      const propulsor = this.propulsores.get(solicitacao.idAtuador);
+      if (!propulsor?.sistemaEstaOperacional('elétrico') || !propulsor.sistemaEstaOperacional('controle')) continue;
       if (solicitacao.recurso === 'throttle') this.obterPropulsor(solicitacao.idAtuador).definirThrottle(solicitacao.valor);
       else this.solicitarGimbalLimitado(solicitacao.idAtuador, solicitacao.valor);
     }

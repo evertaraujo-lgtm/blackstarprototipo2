@@ -1949,6 +1949,10 @@ const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBancadaDeco
     coeficienteArrasto: 1.1,
     deflexaoMaximaRad: 25 * Math.PI / 180,
     velocidadeAngularMaximaRadps: 35 * Math.PI / 180,
+    potenciaNominalAtuadorW: 1_000,
+    potenciaEmRepousoW: 10,
+    fonteEletrica: bateria,
+    operacaoAutorizada: () => propulsor.sistemaEstaOperacional('elétrico') && propulsor.sistemaEstaOperacional('controle'),
   })) : [];
   const painelFazParteDoCasco = configuracao.incluirPainelSolar && !configuracao.painelMovel;
   const modulosDoVeiculo: Objeto[] = configuracao.painelMovel
@@ -1998,8 +2002,13 @@ const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBancadaDeco
 
   const alturaInicialM = veiculo.getEstadoFisico().posicaoM.y;
   const pesoAtualN = (): number => veiculo.massaInstantaneaDoConjuntoKg * Math.abs(MundoFisico.gravidadeTerrestreMps2.y);
-  const controladorAletas = aletasAerodinamicas.length > 0 ? new ControladorAletasAerodinamicas(aletasAerodinamicas) : undefined;
+  const controleAletasEnergizado = (): boolean => !bateria.estaDescarregada && bateria.integridadeEstrutural > 0
+    && propulsor.sistemaEstaOperacional('elétrico') && propulsor.sistemaEstaOperacional('controle');
+  const controladorAletas = aletasAerodinamicas.length > 0
+    ? new ControladorAletasAerodinamicas(aletasAerodinamicas, controleAletasEnergizado)
+    : undefined;
   const atualizarControleAletas = (): void => {
+    if (!controleAletasEnergizado()) return;
     const estado = veiculo.getEstadoFisico();
     controladorAletas?.atualizar(estado.orientacaoRad.z, estado.velocidadeAngularRadps.z, estado.velocidadeMps.y);
   };
@@ -2021,7 +2030,7 @@ const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBancadaDeco
     nome: configuracao.nome,
     descricao: configuracao.descricao,
     mundo, objetos: [veiculo, ...veiculo.modulosFisicos, ...(configuracao.incluirPainelSolar && configuracao.painelMovel && hastePainel ? [hastePainel, painel] : [])], superficies: [solo], velocidadeTempo: 3, limiteVerticalM: 70, limiteHorizontalM: 12,
-    seguirObjeto: veiculo, cameraY: () => veiculo.getEstadoFisico().posicaoM.y, conexoesEletricas: [...(configuracao.incluirPainelSolar ? [painel.conexaoCarga] : []), propulsor.conexaoEletrica!, ...(cilindroPainel ? [cilindroPainel.conexaoEletrica] : [])],
+    seguirObjeto: veiculo, cameraY: () => veiculo.getEstadoFisico().posicaoM.y, conexoesEletricas: [...(configuracao.incluirPainelSolar ? [painel.conexaoCarga] : []), propulsor.conexaoEletrica!, ...(cilindroPainel ? [cilindroPainel.conexaoEletrica] : []), ...aletasAerodinamicas.map((aleta) => aleta.conexaoEletrica)],
     mangueira: { tanque: tanqueCombustivel, propulsor }, linhasComFalhaControlavel: { combustivel: linhaCombustivel, oxidante: linhaOxidante },
     fixadores: [...fixadores, ...(fixadorPainelHaste ? [fixadorPainelHaste] : [])], propulsorControlavel: propulsor, propulsorVetorizadoControlavel: propulsor, permiteAjustarThrottle: true,
     ...(configuracao.incluirPernasFixas ? {

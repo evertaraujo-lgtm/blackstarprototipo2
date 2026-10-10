@@ -15,11 +15,14 @@ describe('ComputadorDeVoo', () => {
   it('comanda o gimbal no sentido restaurador para inclinação positiva', () => {
     let inclinacaoRad = 0.1;
     let comandoRad = 0;
+    let eletricaLigada = true;
+    let controleLigado = true;
     const computador = new ComputadorDeVoo({ obterLeituras: () => leiturasComInclinacao(inclinacaoRad) });
     const propulsor: IPropulsorControlavelPeloComputador = {
       id: 'propulsor-teste',
       estaIgnitado: true,
       diagnosticoOperacional: [],
+      sistemaEstaOperacional: (id) => id === 'elétrico' ? eletricaLigada : id === 'controle' ? controleLigado : true,
       ligarSistema: () => true,
       solicitarIgnicao: () => true,
       definirThrottle: () => undefined,
@@ -42,6 +45,16 @@ describe('ComputadorDeVoo', () => {
     inclinacaoRad = -0.1;
     computador.atualizarControleDeInclinacao(0.01);
     expect(comandoRad).toBeLessThan(0);
+
+    const ultimoComando = comandoRad;
+    controleLigado = false;
+    inclinacaoRad = 0.5;
+    computador.atualizarControleDeInclinacao(0.01);
+    expect(comandoRad).toBe(ultimoComando);
+    eletricaLigada = false;
+    controleLigado = true;
+    computador.atualizarControleDeInclinacao(0.01);
+    expect(comandoRad).toBe(ultimoComando);
   });
 
   it('aplica o controle de pouso no throttle e no gimbal a partir dos sensores', () => {
@@ -52,6 +65,7 @@ describe('ComputadorDeVoo', () => {
     const computador = new ComputadorDeVoo({ obterLeituras: () => leitura });
     const propulsor: IPropulsorControlavelPeloComputador = {
       id: 'propulsor-pouso', estaIgnitado: true, diagnosticoOperacional: [],
+      sistemaEstaOperacional: () => true,
       ligarSistema: () => true,
       solicitarIgnicao: () => true,
       definirThrottle: (valor) => { throttle = valor; },
@@ -77,6 +91,7 @@ describe('ComputadorDeVoo', () => {
     const computador = new ComputadorDeVoo({ obterLeituras: () => leiturasComInclinacao(0.1) });
     computador.instalarPropulsor({
       id: 'propulsor-sem-ignicao-automatica', estaIgnitado: false, diagnosticoOperacional: ['ignição não realizada'],
+      sistemaEstaOperacional: () => true,
       ligarSistema: () => true,
       solicitarIgnicao: () => { solicitacoesDeIgnicao += 1; return true; },
       definirThrottle: () => undefined,
@@ -105,6 +120,7 @@ describe('ComputadorDeVoo', () => {
     const computador = new ComputadorDeVoo({ obterLeituras: () => leituras });
     computador.instalarPropulsor({
       id: 'motor-bss04', estaIgnitado: true, diagnosticoOperacional: [],
+      sistemaEstaOperacional: () => true,
       ligarSistema: () => true, solicitarIgnicao: () => true,
       definirThrottle: (valor) => { throttle = valor; }, desligarSistema: () => undefined,
       solicitarVetorizacao: (angulo) => { comandoGimbalRad = angulo; return true; },
@@ -138,6 +154,7 @@ describe('ComputadorDeVoo', () => {
     const computador = new ComputadorDeVoo({ obterLeituras: () => leituras });
     computador.instalarPropulsor({
       id: 'motor-deriva', estaIgnitado: true, diagnosticoOperacional: [],
+      sistemaEstaOperacional: () => true,
       ligarSistema: () => true, solicitarIgnicao: () => true,
       definirThrottle: () => undefined, desligarSistema: () => undefined,
       solicitarVetorizacao: (angulo) => { comandoGimbalRad = angulo; return true; },
