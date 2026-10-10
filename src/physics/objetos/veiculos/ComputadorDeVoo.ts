@@ -78,6 +78,7 @@ export class ComputadorDeVoo {
   public habilitar(): void {
     this.desabilitarControleDePouso();
     this.desabilitarControleDeGimbalDeDescida();
+    this.controladorInclinacao.desabilitarAmortecimentoHorizontal();
     this.controladorInclinacao.configurarAlvos([...this.propulsoresVetorizados.keys()]);
     this.gerenciador.habilitar(this.controladorInclinacao.id);
   }
@@ -136,12 +137,16 @@ export class ComputadorDeVoo {
   public habilitarControleDeDescidaFuzzyPid(configuracao: ConfiguracaoDescidaFuzzyPid, idsPropulsores: readonly string[]): void {
     this.gerenciador.desabilitar(this.controladorPouso.id);
     this.gerenciador.desabilitar(this.controladorDesaceleracao.id);
+    this.controladorInclinacao.configurarAmortecimentoHorizontal(
+      configuracao.ganhoAtitudePorVelocidadeHorizontalRadPorMps ?? 0.01,
+    );
     this.controladorDescidaFuzzyPid.configurar(configuracao, [...this.validarSelecao(idsPropulsores, false)]);
     this.gerenciador.habilitar(this.controladorDescidaFuzzyPid.id);
   }
 
   public desabilitarControleDeDescidaFuzzyPid(): void {
     this.gerenciador.desabilitar(this.controladorDescidaFuzzyPid.id);
+    this.controladorInclinacao.desabilitarAmortecimentoHorizontal();
   }
 
   public get controleDeDescidaFuzzyPidEstaHabilitado(): boolean {

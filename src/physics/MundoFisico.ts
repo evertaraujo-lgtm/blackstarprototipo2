@@ -18,7 +18,7 @@ import { GuiaLinear } from './conexoes/GuiaLinear';
 import { JuntaRotacionalDeBancada } from './conexoes/JuntaRotacionalDeBancada';
 
 export interface ConfiguracaoMundoFisico {
-  /** Densidade constante para o modelo atmosférico atualmente implementado. */
+  /** Densidade de referência ao nível do mar; o core aplica a variação padrão com altitude. Zero declara vácuo. */
   readonly densidadeAtmosfericaKgM3?: number;
   readonly velocidadeArMps?: Vetor3;
   readonly temperaturaAmbienteC?: number;
@@ -53,7 +53,7 @@ export class MundoFisico {
   private readonly forcasPendentes = new Map<string, ForcaExternaPendente[]>();
   private readonly impulsosPendentes = new Map<string, ImpulsoExternoPendente[]>();
   private tempoMissaoS = 0;
-  private readonly densidadeAtmosfericaKgM3: number;
+  private readonly densidadeAtmosfericaNivelMarKgM3: number;
   private readonly velocidadeArMps: Vetor3;
   private readonly atmosfera: SistemaAtmosferico;
   private readonly integrador = new IntegradorFisico();
@@ -65,10 +65,10 @@ export class MundoFisico {
 
   public constructor(private readonly maxDtS = 1 / 60, configuracao: ConfiguracaoMundoFisico = {}) {
     if (!Number.isFinite(maxDtS) || maxDtS <= 0) throw new Error('maxDt deve ser positivo.');
-    this.densidadeAtmosfericaKgM3 = configuracao.densidadeAtmosfericaKgM3 ?? MundoFisico.densidadeAtmosferaPadraoKgM3;
+    this.densidadeAtmosfericaNivelMarKgM3 = configuracao.densidadeAtmosfericaKgM3 ?? MundoFisico.densidadeAtmosferaPadraoKgM3;
     this.velocidadeArMps = configuracao.velocidadeArMps ?? Vetor3.zero;
-    if (!Number.isFinite(this.densidadeAtmosfericaKgM3) || this.densidadeAtmosfericaKgM3 < 0) throw new Error('Densidade atmosférica deve ser finita e não negativa.');
-    this.atmosfera = new SistemaAtmosferico(this.densidadeAtmosfericaKgM3, this.velocidadeArMps);
+    if (!Number.isFinite(this.densidadeAtmosfericaNivelMarKgM3) || this.densidadeAtmosfericaNivelMarKgM3 < 0) throw new Error('Densidade atmosférica deve ser finita e não negativa.');
+    this.atmosfera = new SistemaAtmosferico(this.densidadeAtmosfericaNivelMarKgM3, this.velocidadeArMps);
     this.sistemaTermico = new SistemaTermico(this.atmosfera, configuracao.temperaturaAmbienteC ?? 20);
     this.sistemaSensores = new SistemaSensores(
       () => this.objetos.values(),
@@ -237,7 +237,7 @@ export class MundoFisico {
       const forcas = (this.forcasPendentes.get(objeto.id) ?? [])
         .map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM }));
       const forcasOperacionais = objeto.obterForcasOperacionais().map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM, torqueNm: forca.torqueNm }));
-      const forcasAerodinamicas = objeto.obterForcasAerodinamicas({ densidadeArKgM3: this.densidadeAtmosfericaKgM3, velocidadeArMps: this.velocidadeArMps })
+      const forcasAerodinamicas = objeto.obterForcasAerodinamicas({ densidadeArKgM3: this.atmosfera.obterDensidadeArKgM3(estado.posicaoM.y), velocidadeArMps: this.velocidadeArMps })
         .map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM }));
       const forcasDasJuntas = [...this.juntasRotacionaisDeBancada.values()].flatMap((junta) => junta.obterForcasPara(objeto));
       this.integrador.integrarObjeto(objeto, [...forcas, ...forcasOperacionais, ...forcasAerodinamicas, ...forcasDasJuntas, { forcaN: this.obterForcaArrastoAtmosferico(objeto), pontoM: estado.posicaoM }], MundoFisico.gravidadeTerrestreMps2, dtS);
@@ -250,7 +250,7 @@ export class MundoFisico {
         forcasDoConjunto.push(...(this.forcasPendentes.get(objeto.id) ?? [])
           .map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM })));
         forcasDoConjunto.push(...objeto.obterForcasOperacionais().map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM, torqueNm: forca.torqueNm })));
-        forcasDoConjunto.push(...objeto.obterForcasAerodinamicas({ densidadeArKgM3: this.densidadeAtmosfericaKgM3, velocidadeArMps: this.velocidadeArMps }).map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM })));
+        forcasDoConjunto.push(...objeto.obterForcasAerodinamicas({ densidadeArKgM3: this.atmosfera.obterDensidadeArKgM3(estado.posicaoM.y), velocidadeArMps: this.velocidadeArMps }).map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM })));
         forcasDoConjunto.push({ forcaN: MundoFisico.gravidadeTerrestreMps2.multiplicar(objeto.massaKg), pontoM: estado.posicaoM });
         forcasDoConjunto.push({ forcaN: this.obterForcaArrastoAtmosferico(objeto), pontoM: estado.posicaoM });
         for (const junta of this.juntasRotacionaisDeBancada.values()) {

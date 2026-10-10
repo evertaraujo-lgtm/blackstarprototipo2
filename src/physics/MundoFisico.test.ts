@@ -610,6 +610,60 @@ describe('MundoFisico', () => {
     expect(Math.abs(areaGrande.getEstadoFisico().velocidadeMps.y)).toBeLessThan(Math.abs(areaPequena.getEstadoFisico().velocidadeMps.y));
   });
 
+  it('reduz o arrasto com a altitude usando o perfil atmosférico do core em qualquer mundo', () => {
+    const criarObjeto = (id: string, altitudeM: number) => {
+      const mundo = new MundoFisico(1 / 240);
+      const objeto = new Objeto({
+        id, massaBaseKg: 10, dimensoesM: new Vetor3(1, 1, 1),
+        resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000,
+        areaFrontalM2: 1, coeficienteArrasto: 1,
+        estadoInicial: { posicaoM: new Vetor3(0, altitudeM, 0), velocidadeMps: new Vetor3(100, 0, 0) },
+      });
+      mundo.registrarObjeto(objeto);
+      mundo.avancar(1 / 240);
+      return 100 - objeto.getEstadoFisico().velocidadeMps.x;
+    };
+
+    const reducaoVelocidadeAoNivelDoMarMps = criarObjeto('arrasto-nivel-mar', 0);
+    const reducaoVelocidadeA15KmMps = criarObjeto('arrasto-15-km', 15_000);
+
+    expect(reducaoVelocidadeA15KmMps).toBeGreaterThan(0);
+    expect(reducaoVelocidadeA15KmMps).toBeLessThan(reducaoVelocidadeAoNivelDoMarMps * 0.2);
+  });
+
+  it('gera torque de tombamento em descida balística quando o arrasto atua abaixo do centro de massa', () => {
+    const mundo = new MundoFisico(1 / 240);
+    const inclinacaoInicialRad = 0.02;
+    const centroDoCascoM = new Vetor3(0, 15_000, 0);
+    const centroDoTanqueM = centroDoCascoM.adicionar(new Vetor3(
+      -8 * Math.sin(inclinacaoInicialRad), 8 * Math.cos(inclinacaoInicialRad), 0,
+    ));
+    const casco = new Objeto({
+      id: 'foguete-balistico-casco', massaBaseKg: 800, dimensoesM: new Vetor3(3.2, 6, 2.4),
+      resistenciaColisaoJ: 1_000_000, limiteTermicoC: 1_000, areaFrontalM2: 7, coeficienteArrasto: 0.65,
+      estadoInicial: { posicaoM: centroDoCascoM, orientacaoRad: new Vetor3(0, 0, inclinacaoInicialRad), velocidadeMps: new Vetor3(0, -100, 0) },
+    });
+    const tanque = new Objeto({
+      id: 'foguete-balistico-tanque', massaBaseKg: 5_000, dimensoesM: new Vetor3(3.4, 5, 3.4),
+      resistenciaColisaoJ: 1_000_000, limiteTermicoC: 1_000,
+      estadoInicial: { posicaoM: centroDoTanqueM, orientacaoRad: new Vetor3(0, 0, inclinacaoInicialRad), velocidadeMps: new Vetor3(0, -100, 0) },
+    });
+    const fixador = new FixadorEstrutural({
+      id: 'fixador-foguete-balistico', objetoA: casco, objetoB: tanque,
+      resistenciaTracaoN: 1_000_000, resistenciaCompressaoN: 1_000_000,
+      obterEsforcoSolicitadoN: () => 0,
+    });
+    mundo.registrarObjeto(casco);
+    mundo.registrarObjeto(tanque);
+    mundo.registrarFixador(fixador);
+
+    for (let i = 0; i < 480; i += 1) mundo.avancar(1 / 240);
+
+    expect(fixador.estaRompido).toBe(false);
+    expect(casco.getEstadoFisico().velocidadeAngularRadps.z).toBeGreaterThan(0);
+    expect(casco.getEstadoFisico().orientacaoRad.z).toBeGreaterThan(inclinacaoInicialRad);
+  });
+
   it('resolve impacto contra o solo pelo mesmo modelo de colisão dos objetos', () => {
     const mundo = new MundoFisico(1 / 240);
     const solo = new SuperficiePlano('solo-terrestre', 'concreto', 0, 100_000);

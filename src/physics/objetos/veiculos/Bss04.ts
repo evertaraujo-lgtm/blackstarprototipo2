@@ -2,7 +2,7 @@ import { Vetor3 } from '../../Vetor3';
 import { Objeto } from '../base/Objeto';
 
 /** Cria duas pernas fixas e suas sapatas como corpos físicos do BSS-04. */
-export function criarPernasFixasBss04(centroCascoM: Vetor3): readonly Objeto[] {
+export function criarPernasFixasBss04(centroCascoM: Vetor3, prefixoId = 'bss04'): readonly Objeto[] {
   return [-1, 1].flatMap((lado) => {
     const nomeLado = lado < 0 ? 'esquerda' : 'direita';
     const xPernaM = centroCascoM.x + lado * 1.8;
@@ -10,7 +10,7 @@ export function criarPernasFixasBss04(centroCascoM: Vetor3): readonly Objeto[] {
     const alturaCascoM = centroCascoM.y;
     return [
       new Objeto({
-        id: `bss04-perna-${nomeLado}`,
+        id: `${prefixoId}-perna-${nomeLado}`,
         massaBaseKg: 45,
         dimensoesM: new Vetor3(0.4, 3.3, 0.5),
         resistenciaColisaoJ: 500_000,
@@ -21,7 +21,7 @@ export function criarPernasFixasBss04(centroCascoM: Vetor3): readonly Objeto[] {
         },
       }),
       new Objeto({
-        id: `bss04-sapata-${nomeLado}`,
+        id: `${prefixoId}-sapata-${nomeLado}`,
         massaBaseKg: 25,
         dimensoesM: new Vetor3(1.3, 0.3, 1.2),
         resistenciaColisaoJ: 500_000,

@@ -128,4 +128,39 @@ describe('ComputadorDeVoo', () => {
     expect(computador.controleDeDescidaFuzzyPidEstaHabilitado).toBe(true);
     expect(throttle).toBe(1);
   });
+
+  it('usa o gimbal para frear deriva horizontal apenas durante a descida', () => {
+    let comandoGimbalRad = 0;
+    let leituras: LeiturasVeiculoComposto = {
+      ...leiturasComInclinacao(0), altitudeM: 30, velocidadeVerticalMps: -5,
+      velocidadeHorizontalMps: 8, massaInstantaneaKg: 1_500,
+    };
+    const computador = new ComputadorDeVoo({ obterLeituras: () => leituras });
+    computador.instalarPropulsor({
+      id: 'motor-deriva', estaIgnitado: true, diagnosticoOperacional: [],
+      ligarSistema: () => true, solicitarIgnicao: () => true,
+      definirThrottle: () => undefined, desligarSistema: () => undefined,
+      solicitarVetorizacao: (angulo) => { comandoGimbalRad = angulo; return true; },
+      obterEstadoDaVetorizacao: () => ({
+        anguloAlvoRad: comandoGimbalRad, anguloAtualRad: comandoGimbalRad,
+        limiteAngularRad: Math.PI / 12, velocidadeAngularMaximaRadps: Math.PI, estaHabilitado: true,
+      }),
+    });
+    computador.habilitarControleDeInclinacao(['motor-deriva']);
+    computador.habilitarControleDeDescidaFuzzyPid({
+      altitudeAlvoM: 4.8, altitudeTransicaoM: 80,
+      velocidadeDescidaMaximaMps: 12, velocidadeToqueMps: 0.35,
+      empuxoMaximoN: 40_000, ganhoProporcionalThrottlePorMps: 0.07,
+      ganhoIntegralThrottlePorM: 0.004, ganhoDerivativoThrottleSegundosPorM: 0.015,
+      taxaMaximaThrottlePorS: 10, erroParaEmpuxoMaximoMps: 2,
+      ganhoAtitudePorVelocidadeHorizontalRadPorMps: 0.01,
+    }, ['motor-deriva']);
+
+    computador.atualizarControladores(1 / 240);
+    expect(comandoGimbalRad).toBeLessThan(0);
+
+    leituras = { ...leituras, velocidadeVerticalMps: 2 };
+    for (let passo = 0; passo < 120; passo += 1) computador.atualizarControladores(1 / 240);
+    expect(Math.abs(comandoGimbalRad)).toBeLessThan(0.02);
+  });
 });

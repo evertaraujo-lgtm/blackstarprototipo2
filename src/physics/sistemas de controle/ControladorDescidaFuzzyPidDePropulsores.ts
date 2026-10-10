@@ -12,6 +12,8 @@ export interface ConfiguracaoDescidaFuzzyPid {
   readonly ganhoDerivativoThrottleSegundosPorM: number;
   readonly taxaMaximaThrottlePorS: number;
   readonly erroParaEmpuxoMaximoMps: number;
+  /** Inclinação-alvo por velocidade horizontal durante a descida, em rad/(m/s). */
+  readonly ganhoAtitudePorVelocidadeHorizontalRadPorMps?: number;
 }
 
 export type FaseDescidaFuzzyPid =
@@ -169,14 +171,15 @@ export class ControladorDescidaFuzzyPidDePropulsores implements ControladorDeVoo
   }
 
   private validarConfiguracao(c: ConfiguracaoDescidaFuzzyPid): void {
-    const valores = Object.values(c);
+    const valores = Object.values(c).filter((valor): valor is number => valor !== undefined);
     if (!valores.every(Number.isFinite)
       || c.altitudeAlvoM < 0 || c.altitudeTransicaoM <= 0
       || c.velocidadeDescidaMaximaMps <= 0 || c.velocidadeToqueMps <= 0
       || c.velocidadeToqueMps >= c.velocidadeDescidaMaximaMps
       || c.empuxoMaximoN <= 0 || c.ganhoProporcionalThrottlePorMps < 0
       || c.ganhoIntegralThrottlePorM < 0 || c.ganhoDerivativoThrottleSegundosPorM < 0
-      || c.taxaMaximaThrottlePorS <= 0 || c.erroParaEmpuxoMaximoMps <= 0) {
+      || c.taxaMaximaThrottlePorS <= 0 || c.erroParaEmpuxoMaximoMps <= 0
+      || (c.ganhoAtitudePorVelocidadeHorizontalRadPorMps ?? 0.01) < 0) {
       throw new Error('Configuração inválida para o controle de pouso fuzzy-PID.');
     }
   }

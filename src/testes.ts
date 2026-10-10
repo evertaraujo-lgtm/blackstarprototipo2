@@ -1735,6 +1735,9 @@ interface ConfiguracaoBancadaDecolagem {
   painelMovel: boolean;
   incluirPainelSolar: boolean;
   incluirPernasFixas?: boolean;
+  fatorTanques?: number;
+  fatorPropulsor?: number;
+  capacidadeBateriaJ?: number;
 }
 
 interface ProjetoSandboxSalvo {
@@ -1827,6 +1830,25 @@ const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBancadaDeco
   const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
   const deslocamentoVerticalInicialM = configuracao.incluirPernasFixas ? 0.3 : 0;
   const alturaInicialDoCascoM = 4.5 + deslocamentoVerticalInicialM;
+  const fatorTanques = configuracao.fatorTanques ?? 1;
+  const fatorPropulsor = configuracao.fatorPropulsor ?? 1;
+  const alcanceConexoesLongasM = fatorTanques === 1 ? 12 : 16;
+  const fatorLinearTanque = Math.cbrt(fatorTanques);
+  const dimensoesTanque = new Vetor3(2 * fatorLinearTanque, 1.5 * fatorLinearTanque, 1.8 * fatorLinearTanque);
+  const alturaTanqueM = dimensoesTanque.y;
+  const topoCascoM = alturaInicialDoCascoM + 3;
+  const centroTanqueCombustivelM = fatorTanques === 1
+    ? 8.5
+    : topoCascoM + alturaTanqueM / 2 + 0.15 - deslocamentoVerticalInicialM;
+  const centroTanqueOxidanteM = fatorTanques === 1
+    ? 10.3
+    : centroTanqueCombustivelM + alturaTanqueM + 0.15;
+  const centroBateriaM = fatorTanques === 1
+    ? 12
+    : centroTanqueOxidanteM + alturaTanqueM / 2 + 0.8;
+  const centroPainelM = fatorTanques === 1
+    ? 13.2
+    : centroBateriaM + 0.725;
   const base = (id: string, massaBaseKg: number, dimensoesM: Vetor3, posicaoM: Vetor3) => ({
     id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 500_000, limiteTermicoC: 1_000,
     estadoInicial: { posicaoM: posicaoM.adicionar(new Vetor3(0, deslocamentoVerticalInicialM, 0)) },
@@ -1840,19 +1862,19 @@ const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBancadaDeco
     areaFrontalM2: 7, coeficienteArrasto: 0.65,
   });
   const tanqueCombustivel = new TanquePropelente({
-    ...base('tanque-decolagem-metano', 180, new Vetor3(2, 1.5, 1.8), new Vetor3(0, 8.5, 0)),
-    tipoPropelente: 'metano', capacidadePropelenteKg: 120, massaPropelenteInicialKg: 120,
+    ...base('tanque-decolagem-metano', 180 * fatorTanques ** (2 / 3), dimensoesTanque, new Vetor3(0, centroTanqueCombustivelM, 0)),
+    tipoPropelente: 'metano', capacidadePropelenteKg: 120 * fatorTanques, massaPropelenteInicialKg: 120 * fatorTanques,
   });
   const tanqueOxidante = new TanquePropelente({
-    ...base('tanque-decolagem-oxidante', 160, new Vetor3(2, 1.5, 1.8), new Vetor3(0, 10.3, 0)),
-    tipoPropelente: 'oxigenio', capacidadePropelenteKg: 480, massaPropelenteInicialKg: 480,
+    ...base('tanque-decolagem-oxidante', 160 * fatorTanques ** (2 / 3), dimensoesTanque, new Vetor3(0, centroTanqueOxidanteM, 0)),
+    tipoPropelente: 'oxigenio', capacidadePropelenteKg: 480 * fatorTanques, massaPropelenteInicialKg: 480 * fatorTanques,
   });
   const bateria = new Bateria({
-    ...base('bateria-decolagem-solar', 30, new Vetor3(1.2, 0.8, 1), new Vetor3(0, 12, 0)),
-    tensaoNominalV: 24, capacidadeEnergiaJ: 30_000, energiaInicialJ: configuracao.energiaInicialDaBateriaJ,
+    ...base('bateria-decolagem-solar', fatorTanques === 1 ? 30 : 50, new Vetor3(1.2, 0.8, 1), new Vetor3(0, centroBateriaM, 0)),
+    tensaoNominalV: 24, capacidadeEnergiaJ: configuracao.capacidadeBateriaJ ?? 30_000, energiaInicialJ: configuracao.energiaInicialDaBateriaJ,
   });
   const painel = new PainelSolar({
-    ...base('painel-decolagem-solar', 35, new Vetor3(3, 0.25, 2), new Vetor3(configuracao.painelMovel ? 0 : configuracao.deslocamentoLateralDoPainelM, 13.2, 0)),
+    ...base('painel-decolagem-solar', 35, new Vetor3(3, 0.25, 2), new Vetor3(configuracao.painelMovel ? 0 : configuracao.deslocamentoLateralDoPainelM, centroPainelM, 0)),
     areaAtivaM2: 10, irradianciaWPorM2: 1_000, eficiencia: 0.25, destino: bateria,
     obterFatorIluminacao: () => 1,
   });
@@ -1887,31 +1909,35 @@ const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBancadaDeco
     // O motor nasce girado 90°: a altura física no eixo Y é metade da largura X (0,8 m).
     // Y = 0,8 m deixa o ponto inferior tangente ao solo, sem penetração inicial.
     ...base('propulsor-decolagem-solar', 90, new Vetor3(1.6, 1.4, 1.4), new Vetor3(0, 0.8, 0)),
-    tensaoAlimentacaoNominalV: 24, potenciaEletricaMaximaW: 1_200, potenciaTermicaMaximaW: 2_000_000,
-    empuxoMaximoN: 40_000, vazaoMaximaKgS: 0.8, propelenteCompativel: 'metano',
+    tensaoAlimentacaoNominalV: 24, potenciaEletricaMaximaW: 1_200 * fatorPropulsor, potenciaTermicaMaximaW: 2_000_000 * fatorPropulsor,
+    massaBaseKg: 90 * fatorPropulsor,
+    empuxoMaximoN: 40_000 * fatorPropulsor, vazaoMaximaKgS: 0.8 * fatorPropulsor, propelenteCompativel: 'metano',
     vetorizacao: { limiteAngularRad: 15 * Math.PI / 180, velocidadeAngularMaximaRadps: 90 * Math.PI / 180 },
     estadoInicial: { posicaoM: new Vetor3(0, 0.8 + deslocamentoVerticalInicialM, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
   });
-  const valvulaCombustivel = new ValvulaPropelente({ id: 'valvula-decolagem-metano', vazaoMaximaKgS: 0.8 });
-  const valvulaOxidante = new ValvulaPropelente({ id: 'valvula-decolagem-oxidante', vazaoMaximaKgS: 3.2 });
+  const vazaoCombustivelMaximaKgS = 0.8 * fatorPropulsor;
+  const vazaoOxidanteMaximaKgS = 3.2 * fatorPropulsor;
+  const alcanceLinhasM = alcanceConexoesLongasM;
+  const valvulaCombustivel = new ValvulaPropelente({ id: 'valvula-decolagem-metano', vazaoMaximaKgS: vazaoCombustivelMaximaKgS });
+  const valvulaOxidante = new ValvulaPropelente({ id: 'valvula-decolagem-oxidante', vazaoMaximaKgS: vazaoOxidanteMaximaKgS });
   const linhaCombustivel = new LinhaDePropelente({
-    id: 'linha-decolagem-metano', tanque: tanqueCombustivel, tipoPropelente: 'metano', comprimentoMaximoM: 8, vazaoMaximaKgS: 0.8, valvula: valvulaCombustivel,
+    id: 'linha-decolagem-metano', tanque: tanqueCombustivel, tipoPropelente: 'metano', comprimentoMaximoM: alcanceLinhasM, vazaoMaximaKgS: vazaoCombustivelMaximaKgS, valvula: valvulaCombustivel,
   });
   const linhaOxidante = new LinhaDePropelente({
-    id: 'linha-decolagem-oxidante', tanque: tanqueOxidante, tipoPropelente: 'oxigenio', comprimentoMaximoM: 12, vazaoMaximaKgS: 3.2, valvula: valvulaOxidante,
+    id: 'linha-decolagem-oxidante', tanque: tanqueOxidante, tipoPropelente: 'oxigenio', comprimentoMaximoM: alcanceLinhasM, vazaoMaximaKgS: vazaoOxidanteMaximaKgS, valvula: valvulaOxidante,
   });
-  propulsor.conectarTanque(tanqueCombustivel, 8);
-  propulsor.conectarBateria(bateria, 12);
+  propulsor.conectarTanque(tanqueCombustivel, alcanceLinhasM);
+  propulsor.conectarBateria(bateria, alcanceConexoesLongasM);
   propulsor.configurarCadeiaBipropelente({
     linhaCombustivel, linhaOxidante,
-    bombaCombustivel: new BombaPropelente({ id: 'bomba-decolagem-metano', tensaoNominalV: 24, vazaoMaximaKgS: 0.8, potenciaEletricaMaximaW: 400 }),
-    bombaOxidante: new BombaPropelente({ id: 'bomba-decolagem-oxidante', tensaoNominalV: 24, vazaoMaximaKgS: 3.2, potenciaEletricaMaximaW: 600 }),
+    bombaCombustivel: new BombaPropelente({ id: 'bomba-decolagem-metano', tensaoNominalV: 24, vazaoMaximaKgS: vazaoCombustivelMaximaKgS, potenciaEletricaMaximaW: 400 * fatorPropulsor }),
+    bombaOxidante: new BombaPropelente({ id: 'bomba-decolagem-oxidante', tensaoNominalV: 24, vazaoMaximaKgS: vazaoOxidanteMaximaKgS, potenciaEletricaMaximaW: 600 * fatorPropulsor }),
     camara: new CamaraCombustao({ razaoMisturaOxidanteCombustivel: 4, toleranciaRazaoMistura: 0.1 }),
-    bocal: new Bocal({ empuxoMaximoN: 40_000, eficienciaNominal: 1 }),
+    bocal: new Bocal({ empuxoMaximoN: 40_000 * fatorPropulsor, eficienciaNominal: 1 }),
   });
   propulsor.definirThrottle(0.65);
   const pernasFixas = configuracao.incluirPernasFixas
-    ? criarPernasFixasBss04(new Vetor3(0, alturaInicialDoCascoM, 0))
+    ? criarPernasFixasBss04(new Vetor3(0, alturaInicialDoCascoM, 0), configuracao.id === 'bss-005' ? 'bss05' : 'bss04')
     : [];
   const painelFazParteDoCasco = configuracao.incluirPainelSolar && !configuracao.painelMovel;
   const modulosDoVeiculo: Objeto[] = configuracao.painelMovel
@@ -1927,8 +1953,8 @@ const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBancadaDeco
     id: `fixador-decolagem-${modulo.id}`, objetoA: veiculo, objetoB: modulo,
     // O motor apoia o BSS-002; as sapatas apoiam o BSS-004. Ambos recebem
     // fixadores dimensionados para transmitir a reação do veículo ao tocar.
-    resistenciaTracaoN: modulo === propulsor || modulo.id.startsWith('bss04-perna-') || modulo.id.startsWith('bss04-sapata-') ? 1_000_000 : 300_000,
-    resistenciaCompressaoN: modulo === propulsor || modulo.id.startsWith('bss04-perna-') || modulo.id.startsWith('bss04-sapata-') ? 1_000_000 : 300_000,
+    resistenciaTracaoN: modulo === propulsor || modulo.id.startsWith('bss04-perna-') || modulo.id.startsWith('bss04-sapata-') || modulo.id.startsWith('bss05-perna-') || modulo.id.startsWith('bss05-sapata-') ? 1_000_000 : 300_000,
+    resistenciaCompressaoN: modulo === propulsor || modulo.id.startsWith('bss04-perna-') || modulo.id.startsWith('bss04-sapata-') || modulo.id.startsWith('bss05-perna-') || modulo.id.startsWith('bss05-sapata-') ? 1_000_000 : 300_000,
     obterEsforcoSolicitadoN: () => propulsor.empuxoAtualN,
   }));
   for (const fixador of fixadores) veiculo.adicionarFixador(fixador);
@@ -1973,6 +1999,7 @@ const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBancadaDeco
     ganhoDerivativoThrottleSegundosPorM: 0.015,
     taxaMaximaThrottlePorS: 10,
     erroParaEmpuxoMaximoMps: 2,
+    ganhoAtitudePorVelocidadeHorizontalRadPorMps: 0.01,
   };
   return {
     nome: configuracao.nome,
@@ -1988,6 +2015,9 @@ const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBancadaDeco
         { nome: 'POT. TÉRMICA', cor: '#fb7185', obterSinal: () => propulsor.potenciaTermicaAtualW / 1_000_000, escala: { minimo: 0, maximo: propulsor.potenciaTermicaMaximaW / 1_000_000, unidade: 'MW' } },
         { nome: 'GIMBAL', cor: '#22d3ee', obterSinal: () => propulsor.obterEstadoDaVetorizacao().anguloAtualRad * 180 / Math.PI, escala: { minimo: -15, maximo: 15, unidade: '°' } },
         { nome: 'MASSA', cor: '#c084fc', obterSinal: () => veiculo.massaInstantaneaDoConjuntoKg, escala: { minimo: 0, maximo: veiculo.massaInstantaneaDoConjuntoKg * 1.1, unidade: 'kg' } },
+        { nome: 'VELOCIDADE X', cor: '#4ade80', obterSinal: () => veiculo.obterLeiturasDosSensores().velocidadeHorizontalMps, escala: { minimo: -20, maximo: 20, unidade: 'm/s' } },
+        { nome: 'ATITUDE', cor: '#e879f9', obterSinal: () => veiculo.getEstadoFisico().orientacaoRad.z * 180 / Math.PI, escala: { minimo: -180, maximo: 180, unidade: '°' } },
+        { nome: 'VEL. ANGULAR', cor: '#fb7185', obterSinal: () => veiculo.getEstadoFisico().velocidadeAngularRadps.z * 180 / Math.PI, escala: { minimo: -90, maximo: 90, unidade: '°/s' } },
       ],
       ativarModoBss04: (modo: 'decolagem' | 'pouso') => {
         modoBss04 = modo;
@@ -2049,6 +2079,23 @@ const criarTesteBss004 = (): CenárioVisual => criarTesteDecolagemComPainelSolar
   painelMovel: false,
   incluirPainelSolar: true,
   incluirPernasFixas: true,
+});
+
+/** BSS-004 com tanques de cinco vezes a capacidade e potência para manter a relação empuxo/peso. */
+const criarTesteBss005 = (): CenárioVisual => criarTesteDecolagemComPainelSolar({
+  id: 'bss-005',
+  nome: 'BSS-005 — tanques ampliados · alvo 15 km',
+  descricao: 'Variante do BSS-004 com pernas fixas, gimbal automático contínuo, modos de decolagem/pouso e trace completo. Os tanques têm cinco vezes a capacidade (600 kg de metano e 2.400 kg de oxigênio); o propulsor e a vazão foram ampliados para preservar empuxo/peso e alimentar a subida. A bancada acompanha o veículo durante o voo; use a altitude GPS para observar a meta de 15 km.',
+  controleDeInclinacaoPid: true,
+  inclinacaoInicialRad: 0,
+  energiaInicialDaBateriaJ: 1_000_000,
+  capacidadeBateriaJ: 1_000_000,
+  deslocamentoLateralDoPainelM: 0.8,
+  painelMovel: false,
+  incluirPainelSolar: true,
+  incluirPernasFixas: true,
+  fatorTanques: 5,
+  fatorPropulsor: 3,
 });
 
 /** Bancada manual de subida e pouso com reservas propulsivas independentes. */
@@ -2472,6 +2519,7 @@ const construirCenarios = (): CenárioVisual[] => {
     criarTesteDecolagemComPainelSolar(),
     criarTesteBss002(),
     criarTesteBss004(),
+    criarTesteBss005(),
     criarTesteBss003(),
     ...(projetoSandbox ? [criarTesteSandboxSalvo(projetoSandbox)] : []),
   ];
@@ -2939,8 +2987,8 @@ const desenhar = (): void => {
         ? '#f59e0b'
         : objeto instanceof Porta ? '#cbd5e1'
         : objeto instanceof TravaPorta ? '#22c55e'
-        : objeto.id.startsWith('bss04-perna-') ? '#94a3b8'
-        : objeto.id.startsWith('bss04-sapata-') ? '#64748b'
+        : objeto.id.startsWith('bss04-perna-') || objeto.id.startsWith('bss05-perna-') ? '#94a3b8'
+        : objeto.id.startsWith('bss04-sapata-') || objeto.id.startsWith('bss05-sapata-') ? '#64748b'
         : objeto.id.startsWith('batente-') ? '#64748b'
         : objeto.id.startsWith('fundacao-')
           ? '#475569'

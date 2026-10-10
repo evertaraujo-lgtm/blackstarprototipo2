@@ -10,7 +10,7 @@ import { criarPernasFixasBss04 } from './Bss04';
 import { VeiculoComposto } from './VeiculoComposto';
 
 describe('BSS-004 — pouso automático fuzzy-PID', () => {
-  it('mantém o gimbal ativo, limita a descida e toca as sapatas com velocidade baixa', () => {
+  it('mantém o gimbal ativo, amortece a deriva horizontal e pousa suavemente', () => {
     const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
     const base = (id: string, massaBaseKg: number, dimensoesM: Vetor3, posicaoM: Vetor3) => ({
       id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 1_000_000, limiteTermicoC: 1_000,
@@ -18,6 +18,7 @@ describe('BSS-004 — pouso automático fuzzy-PID', () => {
     });
     const nave = new VeiculoComposto({
       ...base('bss04-missao', 800, new Vetor3(3.2, 6, 2.4), new Vetor3(0, 4.8, 0)),
+      estadoInicial: { posicaoM: new Vetor3(0, 4.8, 0), velocidadeMps: new Vetor3(5, 0, 0) },
       areaFrontalM2: 7, coeficienteArrasto: 0.65,
     });
     const bateria = new Bateria({
@@ -73,6 +74,8 @@ describe('BSS-004 — pouso automático fuzzy-PID', () => {
       if (nave.obterLeiturasDosSensores().velocidadeVerticalMps > 0) expect(motor.throttleAtual).toBe(0);
     }
     expect(passosEsperaQueda).toBeLessThan(1_000);
+    const velocidadeHorizontalNoInicioDaDescidaMps = Math.abs(nave.getEstadoFisico().velocidadeMps.x);
+    expect(velocidadeHorizontalNoInicioDaDescidaMps).toBeGreaterThan(1);
 
     let velocidadeDescidaMaximaMps = 0;
     let passosPouso = 0;
@@ -92,6 +95,8 @@ describe('BSS-004 — pouso automático fuzzy-PID', () => {
     expect(passosPouso).toBeLessThan(6_000);
     expect(velocidadeDescidaMaximaMps).toBeLessThan(15);
     expect(Math.abs(velocidadeNoToqueMps), amostrasFinais.join('\n')).toBeLessThanOrEqual(0.7);
+    expect(Math.abs(nave.getEstadoFisico().velocidadeMps.x), amostrasFinais.join('\n'))
+      .toBeLessThanOrEqual(Math.min(0.5, velocidadeHorizontalNoInicioDaDescidaMps * 0.1));
     expect(nave.controleDeInclinacaoEstaHabilitado).toBe(true);
     expect(Math.min(...[nave, ...modulos].map((objeto) => objeto.integridadeEstrutural))).toBe(1);
     expect(nave.fixadoresEstruturais.every((fixador) => !fixador.estaRompido)).toBe(true);
