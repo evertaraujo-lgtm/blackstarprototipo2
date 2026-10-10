@@ -25,6 +25,8 @@ import { Bocal } from './physics/objetos/propulsao/combustao/Bocal';
 import { FixadorEstrutural } from './physics/conexoes/FixadorEstrutural';
 import { ChumbadorAoSolo } from './physics/conexoes/ChumbadorAoSolo';
 import { Paraquedas } from './physics/objetos/componentes/Paraquedas';
+import { AletaAerodinamica } from './physics/objetos/componentes/AletaAerodinamica';
+import { ControladorAletasAerodinamicas } from './physics/sistemas de controle/ControladorAletasAerodinamicas';
 import { Vetor3 } from './physics/Vetor3';
 import { CorpoDeCilindroEletrico, HasteDeCilindroEletrico } from './physics/objetos/atuadores/CilindroEletrico';
 import { SwitchFimDeCurso } from './physics/sensores/SwitchFimDeCurso';
@@ -1735,6 +1737,7 @@ interface ConfiguracaoBancadaDecolagem {
   painelMovel: boolean;
   incluirPainelSolar: boolean;
   incluirPernasFixas?: boolean;
+  incluirAletasAerodinamicas?: boolean;
   fatorTanques?: number;
   fatorPropulsor?: number;
   capacidadeBateriaJ?: number;
@@ -1939,16 +1942,24 @@ const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBancadaDeco
   const pernasFixas = configuracao.incluirPernasFixas
     ? criarPernasFixasBss04(new Vetor3(0, alturaInicialDoCascoM, 0), configuracao.id === 'bss-005' ? 'bss05' : 'bss04')
     : [];
+  const aletasAerodinamicas = configuracao.incluirAletasAerodinamicas ? [-1, 1].map((lado) => new AletaAerodinamica({
+    ...base(`bss06-grid-fin-${lado < 0 ? 'esquerda' : 'direita'}`, 30, new Vetor3(0.4, 1.5, 0.5), new Vetor3(lado * 1.8, centroPainelM + 1.1, 0)),
+    areaEfetivaM2: 5,
+    coeficienteSustentacaoPorRad: 2,
+    coeficienteArrasto: 1.1,
+    deflexaoMaximaRad: 25 * Math.PI / 180,
+    velocidadeAngularMaximaRadps: 35 * Math.PI / 180,
+  })) : [];
   const painelFazParteDoCasco = configuracao.incluirPainelSolar && !configuracao.painelMovel;
   const modulosDoVeiculo: Objeto[] = configuracao.painelMovel
     ? [bateria, tanqueCombustivel, tanqueOxidante, propulsor, cilindroPainel!, batentePainelRecuo!, batentePainelAvanco!, ...pernasFixas]
-    : [ ...(painelFazParteDoCasco ? [painel] : []), bateria, tanqueCombustivel, tanqueOxidante, propulsor, ...pernasFixas ];
+    : [ ...(painelFazParteDoCasco ? [painel] : []), bateria, tanqueCombustivel, tanqueOxidante, propulsor, ...pernasFixas, ...aletasAerodinamicas ];
   for (const modulo of modulosDoVeiculo) veiculo.adicionarModulo(modulo);
   veiculo.instalarPropulsor(propulsor);
   if (configuracao.incluirPernasFixas || configuracao.controleDeInclinacaoPid) veiculo.habilitarControleDeInclinacao();
   const modulosFixadosAoVeiculo: Objeto[] = configuracao.painelMovel
     ? [bateria, tanqueCombustivel, tanqueOxidante, propulsor, cilindroPainel!, batentePainelRecuo!, batentePainelAvanco!, ...pernasFixas]
-    : [ ...(painelFazParteDoCasco ? [painel] : []), bateria, tanqueCombustivel, tanqueOxidante, propulsor, ...pernasFixas ];
+    : [ ...(painelFazParteDoCasco ? [painel] : []), bateria, tanqueCombustivel, tanqueOxidante, propulsor, ...pernasFixas, ...aletasAerodinamicas ];
   const fixadores = modulosFixadosAoVeiculo.map((modulo) => new FixadorEstrutural({
     id: `fixador-decolagem-${modulo.id}`, objetoA: veiculo, objetoB: modulo,
     // O motor apoia o BSS-002; as sapatas apoiam o BSS-004. Ambos recebem
@@ -1987,6 +1998,11 @@ const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBancadaDeco
 
   const alturaInicialM = veiculo.getEstadoFisico().posicaoM.y;
   const pesoAtualN = (): number => veiculo.massaInstantaneaDoConjuntoKg * Math.abs(MundoFisico.gravidadeTerrestreMps2.y);
+  const controladorAletas = aletasAerodinamicas.length > 0 ? new ControladorAletasAerodinamicas(aletasAerodinamicas) : undefined;
+  const atualizarControleAletas = (): void => {
+    const estado = veiculo.getEstadoFisico();
+    controladorAletas?.atualizar(estado.orientacaoRad.z, estado.velocidadeAngularRadps.z, estado.velocidadeMps.y);
+  };
   let modoBss04: 'decolagem' | 'pouso' = 'decolagem';
   const configuracaoPousoBss04 = {
     altitudeAlvoM: alturaInicialDoCascoM,
@@ -2018,6 +2034,7 @@ const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBancadaDeco
         { nome: 'VELOCIDADE X', cor: '#4ade80', obterSinal: () => veiculo.obterLeiturasDosSensores().velocidadeHorizontalMps, escala: { minimo: -20, maximo: 20, unidade: 'm/s' } },
         { nome: 'ATITUDE', cor: '#e879f9', obterSinal: () => veiculo.getEstadoFisico().orientacaoRad.z * 180 / Math.PI, escala: { minimo: -180, maximo: 180, unidade: '°' } },
         { nome: 'VEL. ANGULAR', cor: '#fb7185', obterSinal: () => veiculo.getEstadoFisico().velocidadeAngularRadps.z * 180 / Math.PI, escala: { minimo: -90, maximo: 90, unidade: '°/s' } },
+        ...(aletasAerodinamicas.length > 0 ? [{ nome: 'GRID FINS', cor: '#38bdf8', obterSinal: () => aletasAerodinamicas[0]!.deflexaoAtualRad * 180 / Math.PI, escala: { minimo: -25, maximo: 25, unidade: '°' } }] : []),
       ],
       ativarModoBss04: (modo: 'decolagem' | 'pouso') => {
         modoBss04 = modo;
@@ -2047,9 +2064,10 @@ const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBancadaDeco
       obterEntradasCilindro: () => ({ avancar: comandoPainel === 'avancar', recuar: comandoPainel === 'recuar' }),
       atualizarControle: atualizarControlePainel,
     } : {}),
+    ...(controladorAletas ? { atualizarControle: atualizarControleAletas } : {}),
     exibirNaBancada: true, deveEncerrar: () => false,
-    telemetria: () => { const leituras = veiculo.obterLeiturasDosSensores(); return `bateria ${(bateria.percentualDeCarga * 100).toFixed(1)}% · altitude GPS ${leituras.altitudeM.toFixed(1)} m · empuxo ${propulsor.empuxoAtualN.toFixed(0)} / peso ${pesoAtualN().toFixed(0)} N`; },
-    dados: () => { const leituras = veiculo.obterLeiturasDosSensores(); return `${configuracao.incluirPainelSolar ? `Sol: irradiância vertical descendente · 1.000 W/m²\nPainel: ${painel.potenciaAtualW.toFixed(0)} W · energia gerada ${painel.energiaGeradaJ.toFixed(0)} J\n` : ''}${configuracao.incluirPernasFixas ? 'Trem de pouso: duas pernas fixas com sapatas laterais\n' : ''}${cilindroPainel ? `Painel móvel: comando ${comandoPainel} · x ${painel.getEstadoFisico().posicaoM.x.toFixed(2)} m · velocidade ${painel.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s · força ${cilindroPainel.forcaNaHasteN.toFixed(0)} N\n` : ''}Bateria: ${bateria.energiaArmazenadaJ.toFixed(0)} / ${bateria.capacidadeEnergiaJ.toFixed(0)} J (${(bateria.percentualDeCarga * 100).toFixed(1)}%)\nFonte do propulsor: ${propulsor.fonteEletricaEstaConectada ? 'bateria conectada' : 'indisponível'} · cabo ${propulsor.conexaoEletrica?.interruptorPrincipalFechado ? 'fechado' : 'aberto'}\nPartida: comando manual pelos controles da bancada\nControle de inclinação: ${veiculo.controleDeInclinacaoEstaHabilitado ? 'PID automático' : 'manual'}\nGPS idealizado: X ${leituras.posicaoGpsM.x.toFixed(2)} m · Y ${leituras.posicaoGpsM.y.toFixed(2)} m\nAltitude derivada do GPS: ${leituras.altitudeM.toFixed(2)} m\nVelocidade derivada do GPS: vertical ${leituras.velocidadeVerticalMps.toFixed(2)} m/s · horizontal ${leituras.velocidadeHorizontalMps.toFixed(2)} m/s\nInclinação do sensor de nível: ${(leituras.inclinacaoRad * 180 / Math.PI).toFixed(2)}° · gimbal ${(propulsor.obterEstadoDaVetorizacao().anguloAtualRad * 180 / Math.PI).toFixed(2)}°\nMassa conectada: ${veiculo.massaInstantaneaDoConjuntoKg.toFixed(1)} kg · peso ${pesoAtualN().toFixed(0)} N\nTanques: CH4 ${tanqueCombustivel.massaPropelenteKg.toFixed(1)} kg · O2 ${tanqueOxidante.massaPropelenteKg.toFixed(1)} kg\nCadeia: ${linhaCombustivel.estaIndisponivel || linhaOxidante.estaIndisponivel ? 'INDISPONÍVEL' : 'íntegra'} · vazão ${propulsor.vazaoAtualKgS.toFixed(2)} kg/s\nEmpuxo: ${propulsor.empuxoAtualN.toFixed(0)} N · ignição ${propulsor.estaIgnitado ? 'ativa' : 'cortada'} · integridade ${Math.round(propulsor.integridadeEstrutural * 100)}%`; },
+    telemetria: () => { const leituras = veiculo.obterLeiturasDosSensores(); return `bateria ${(bateria.percentualDeCarga * 100).toFixed(1)}% · altitude GPS ${leituras.altitudeM.toFixed(1)} m · empuxo ${propulsor.empuxoAtualN.toFixed(0)} / peso ${pesoAtualN().toFixed(0)} N${aletasAerodinamicas.length ? ` · grid fins ${(aletasAerodinamicas[0]!.deflexaoAtualRad * 180 / Math.PI).toFixed(1)}°` : ''}`; },
+    dados: () => { const leituras = veiculo.obterLeiturasDosSensores(); return `${configuracao.incluirPainelSolar ? `Sol: irradiância vertical descendente · 1.000 W/m²\nPainel: ${painel.potenciaAtualW.toFixed(0)} W · energia gerada ${painel.energiaGeradaJ.toFixed(0)} J\n` : ''}${configuracao.incluirPernasFixas ? 'Trem de pouso: duas pernas fixas com sapatas laterais\n' : ''}${aletasAerodinamicas.length ? `Controle aerodinâmico: ${aletasAerodinamicas.length} grid fins físicas · deflexão ${(aletasAerodinamicas[0]!.deflexaoAtualRad * 180 / Math.PI).toFixed(1)}° · torque disponível somente com fluxo atmosférico\n` : ''}${cilindroPainel ? `Painel móvel: comando ${comandoPainel} · x ${painel.getEstadoFisico().posicaoM.x.toFixed(2)} m · velocidade ${painel.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s · força ${cilindroPainel.forcaNaHasteN.toFixed(0)} N\n` : ''}Bateria: ${bateria.energiaArmazenadaJ.toFixed(0)} / ${bateria.capacidadeEnergiaJ.toFixed(0)} J (${(bateria.percentualDeCarga * 100).toFixed(1)}%)\nFonte do propulsor: ${propulsor.fonteEletricaEstaConectada ? 'bateria conectada' : 'indisponível'} · cabo ${propulsor.conexaoEletrica?.interruptorPrincipalFechado ? 'fechado' : 'aberto'}\nPartida: comando manual pelos controles da bancada\nControle de inclinação: ${veiculo.controleDeInclinacaoEstaHabilitado ? 'PID automático' : 'manual'}\nGPS idealizado: X ${leituras.posicaoGpsM.x.toFixed(2)} m · Y ${leituras.posicaoGpsM.y.toFixed(2)} m\nAltitude derivada do GPS: ${leituras.altitudeM.toFixed(2)} m\nVelocidade derivada do GPS: vertical ${leituras.velocidadeVerticalMps.toFixed(2)} m/s · horizontal ${leituras.velocidadeHorizontalMps.toFixed(2)} m/s\nInclinação do sensor de nível: ${(leituras.inclinacaoRad * 180 / Math.PI).toFixed(2)}° · gimbal ${(propulsor.obterEstadoDaVetorizacao().anguloAtualRad * 180 / Math.PI).toFixed(2)}°\nMassa conectada: ${veiculo.massaInstantaneaDoConjuntoKg.toFixed(1)} kg · peso ${pesoAtualN().toFixed(0)} N\nTanques: CH4 ${tanqueCombustivel.massaPropelenteKg.toFixed(1)} kg · O2 ${tanqueOxidante.massaPropelenteKg.toFixed(1)} kg\nCadeia: ${linhaCombustivel.estaIndisponivel || linhaOxidante.estaIndisponivel ? 'INDISPONÍVEL' : 'íntegra'} · vazão ${propulsor.vazaoAtualKgS.toFixed(2)} kg/s\nEmpuxo: ${propulsor.empuxoAtualN.toFixed(0)} N · ignição ${propulsor.estaIgnitado ? 'ativa' : 'cortada'} · integridade ${Math.round(propulsor.integridadeEstrutural * 100)}%`; },
     validar: () => { const leituras = veiculo.obterLeiturasDosSensores(); return `${propulsor.estaIgnitado && propulsor.empuxoAtualN > pesoAtualN() && Math.abs(leituras.inclinacaoRad) < 5 * Math.PI / 180 && leituras.altitudeM > alturaInicialM + 0.5 ? 'APROVADO' : 'AGUARDANDO DECOLAGEM'} · empuxo ${propulsor.empuxoAtualN.toFixed(0)} N; peso ${pesoAtualN().toFixed(0)} N; inclinação ${(leituras.inclinacaoRad * 180 / Math.PI).toFixed(2)}°`; },
   };
 };
@@ -2094,6 +2112,24 @@ const criarTesteBss005 = (): CenárioVisual => criarTesteDecolagemComPainelSolar
   painelMovel: false,
   incluirPainelSolar: true,
   incluirPernasFixas: true,
+  fatorTanques: 5,
+  fatorPropulsor: 3,
+});
+
+/** BSS-005 com controle aerodinâmico ativo durante a descida atmosférica. */
+const criarTesteBss006 = (): CenárioVisual => criarTesteDecolagemComPainelSolar({
+  id: 'bss-006',
+  nome: 'BSS-006 — grid fins para estabilidade na descida',
+  descricao: 'Variante do BSS-005 com duas grid fins físicas e móveis, uma de cada lado do foguete. O controlador usa atitude e velocidade angular para amortecer a rotação quando o veículo desce com fluxo de ar; as superfícies geram forças e torque pelo core. Sem atmosfera ou velocidade relativa, as aletas não têm autoridade. O motor, o gimbal e o modo de pouso permanecem disponíveis.',
+  controleDeInclinacaoPid: true,
+  inclinacaoInicialRad: 0,
+  energiaInicialDaBateriaJ: 1_000_000,
+  capacidadeBateriaJ: 1_000_000,
+  deslocamentoLateralDoPainelM: 0.8,
+  painelMovel: false,
+  incluirPainelSolar: true,
+  incluirPernasFixas: true,
+  incluirAletasAerodinamicas: true,
   fatorTanques: 5,
   fatorPropulsor: 3,
 });
@@ -2520,6 +2556,7 @@ const construirCenarios = (): CenárioVisual[] => {
     criarTesteBss002(),
     criarTesteBss004(),
     criarTesteBss005(),
+    criarTesteBss006(),
     criarTesteBss003(),
     ...(projetoSandbox ? [criarTesteSandboxSalvo(projetoSandbox)] : []),
   ];
