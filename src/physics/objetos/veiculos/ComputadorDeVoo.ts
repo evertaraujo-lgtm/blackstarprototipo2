@@ -105,9 +105,9 @@ export class ComputadorDeVoo {
     this.gerenciador.habilitar(this.controladorInclinacao.id);
   }
 
-  public habilitarControleDeGimbalDeDescida(idsPropulsores: readonly string[]): void {
+  public habilitarControleDeGimbalDeDescida(idsPropulsores: readonly string[], ganhoDerivaRadPorMps?: number): void {
     this.gerenciador.desabilitar(this.controladorInclinacao.id);
-    this.controladorGimbalDescida.configurarAlvos([...this.validarSelecao(idsPropulsores, true)]);
+    this.controladorGimbalDescida.configurarAlvos([...this.validarSelecao(idsPropulsores, true)], ganhoDerivaRadPorMps);
     this.gerenciador.habilitar(this.controladorGimbalDescida.id);
   }
 

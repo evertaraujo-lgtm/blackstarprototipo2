@@ -40,7 +40,7 @@ export class Bss03 extends VeiculoComposto {
   }
 
   public ativarControleDePouso(): void {
-    this.habilitarControleDeGimbalDeDescida(this.idsPropulsoresPouso);
+    this.habilitarControleDeGimbalDeDescida(this.idsPropulsoresPouso, 0.002);
     this.habilitarControleDeDesaceleracao(this.configuracaoControleDesaceleracao, this.idsPropulsoresPouso);
     this.habilitarControleDePousoComposto(this.configuracaoControlePouso, this.idsPropulsoresPouso);
     this.controleAtivo = 'pouso';

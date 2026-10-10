@@ -9,8 +9,8 @@ import { PropulsorVetorizado } from '../propulsao/PropulsorVetorizado';
 import { Objeto } from '../base/Objeto';
 import { Bss03 } from './Bss03';
 
-describe('BSS-03 — missão de 2.000 m', () => {
-  it('a 2.000 m corta a decolagem e mantém o pouso sem empuxo até a descida', () => {
+describe('BSS-03 — decolagem e retorno controlado', () => {
+  it('sobe, transfere o controle e toca o solo sem romper a estrutura', () => {
     const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
     const base = (id: string, massaBaseKg: number, posicaoM: Vetor3) => ({
       id, massaBaseKg, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 2_000_000,
@@ -36,7 +36,7 @@ describe('BSS-03 — missão de 2.000 m', () => {
         estadoInicial: { posicaoM: new Vetor3(x, 0.8, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
         empuxoMaximoN: 20_000, vazaoMaximaKgS: 0.5, propelenteCompativel: 'metano',
         tensaoAlimentacaoNominalV: 28, potenciaEletricaMaximaW: 1_500,
-        vetorizacao: { limiteAngularRad: 3 * Math.PI / 180, velocidadeAngularMaximaRadps: Math.PI / 3 },
+        vetorizacao: { limiteAngularRad: 15 * Math.PI / 180, velocidadeAngularMaximaRadps: 45 * Math.PI / 180 },
       });
       motor.conectarTanque(tanque); motor.conectarBateria(bateria); return motor;
     };
@@ -69,10 +69,27 @@ describe('BSS-03 — missão de 2.000 m', () => {
 
     expect(nave.acionarModoDePouso().every((resultado) => resultado.aceito)).toBe(true);
     mundo.avancar(0.1);
-    const aposUmSegundo = nave.obterLeiturasDosSensores();
+    const aposDecimoDeSegundo = nave.obterLeiturasDosSensores();
 
     expect(decolagem.every((motor) => motor.throttleAtual === 0)).toBe(true);
     expect(pouso.every((motor) => motor.throttleAtual === 0)).toBe(true);
-    expect(aposUmSegundo.altitudeM).toBeGreaterThan(0);
-  }, 30_000);
+    expect(aposDecimoDeSegundo.altitudeM).toBeGreaterThan(0);
+
+    let passosDescida = 0;
+    let velocidadeDescidaMaxima = 0;
+    while (nave.obterLeiturasDosSensores().altitudeM > 4.05 && mundo.tempoS < 600 && passosDescida < 6_000) {
+      mundo.avancar(0.1);
+      passosDescida += 1;
+      velocidadeDescidaMaxima = Math.max(velocidadeDescidaMaxima, -nave.obterLeiturasDosSensores().velocidadeVerticalMps);
+    }
+    const leiturasNoToque = nave.obterLeiturasDosSensores();
+    const menorIntegridade = Math.min(...[nave, ...modulos].map((objeto) => objeto.integridadeEstrutural));
+    const fixadoresDoVeiculo = nave.fixadoresEstruturais;
+    expect(passosDescida).toBeLessThan(6_000);
+    expect(velocidadeDescidaMaxima).toBeLessThan(15);
+    expect(leiturasNoToque.altitudeM).toBeLessThanOrEqual(4.05);
+    expect(Math.abs(leiturasNoToque.velocidadeVerticalMps)).toBeLessThanOrEqual(0.7);
+    expect(menorIntegridade).toBe(1);
+    expect(fixadoresDoVeiculo.every((fixador) => !fixador.estaRompido)).toBe(true);
+  }, 90_000);
 });

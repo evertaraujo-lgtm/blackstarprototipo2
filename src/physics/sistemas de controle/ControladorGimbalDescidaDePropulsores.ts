@@ -9,7 +9,7 @@ import type { ControladorDeVoo, SolicitacaoDeAtuador } from './GerenciadorDeCont
 export class ControladorGimbalDescidaDePropulsores implements ControladorDeVoo {
   public readonly id = 'gimbal-descida';
   public readonly prioridade = 90;
-  private readonly pid = new ControladorInclinacaoPid(2.5, 0.04, 0.25, Math.PI / 12);
+  private readonly pid = new ControladorInclinacaoPid(2.5, 0.04, 3, Math.PI / 12);
   private idsPropulsores: readonly string[] = [];
   private ganhoDerivaRadPorMps = 0.04;
 

@@ -15,6 +15,10 @@ export class ControladorDesaceleracaoDePropulsores implements ControladorDeVoo {
   public get estaHabilitado(): boolean { return this.controlador.estaHabilitado; }
   public calcularSolicitacoes(leituras: LeiturasVeiculoComposto, dtS: number): readonly SolicitacaoDeAtuador[] {
     const comando = this.controlador.calcularComando(leituras, dtS);
-    return comando.ativo ? this.idsPropulsores.map((idAtuador) => ({ idAtuador, recurso: 'throttle' as const, valor: comando.throttle })) : [];
+    return this.idsPropulsores.map((idAtuador) => ({
+      idAtuador,
+      recurso: 'throttle' as const,
+      valor: comando.ativo ? comando.throttle : 0,
+    }));
   }
 }

@@ -100,8 +100,8 @@ export class VeiculoComposto extends Objeto {
   public habilitarControleDeVerticalizacao(idsPropulsores: readonly string[]): void {
     this.computadorDeVoo.habilitarControleDeVerticalizacao(idsPropulsores);
   }
-  public habilitarControleDeGimbalDeDescida(idsPropulsores: readonly string[]): void {
-    this.computadorDeVoo.habilitarControleDeGimbalDeDescida(idsPropulsores);
+  public habilitarControleDeGimbalDeDescida(idsPropulsores: readonly string[], ganhoDerivaRadPorMps?: number): void {
+    this.computadorDeVoo.habilitarControleDeGimbalDeDescida(idsPropulsores, ganhoDerivaRadPorMps);
   }
   public habilitarControleDeDesaceleracao(configuracao: Partial<ConfiguracaoControleDesaceleracao>, idsPropulsores: readonly string[]): void {
     this.computadorDeVoo.habilitarControleDeDesaceleracao(configuracao, idsPropulsores);

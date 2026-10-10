@@ -1910,7 +1910,11 @@ const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBancadaDeco
     : [ ...(painelFazParteDoCasco ? [painel] : []), bateria, tanqueCombustivel, tanqueOxidante, propulsor ];
   const fixadores = modulosFixadosAoVeiculo.map((modulo) => new FixadorEstrutural({
     id: `fixador-decolagem-${modulo.id}`, objetoA: veiculo, objetoB: modulo,
-    resistenciaTracaoN: 150_000, resistenciaCompressaoN: 150_000,
+    // O motor é o primeiro apoio do foguete no solo e recebe a reação do
+    // conjunto inteiro; tanques e equipamentos precisam suportar a parcela
+    // transmitida durante um toque vertical controlado.
+    resistenciaTracaoN: modulo === propulsor ? 1_000_000 : 300_000,
+    resistenciaCompressaoN: modulo === propulsor ? 1_000_000 : 300_000,
     obterEsforcoSolicitadoN: () => propulsor.empuxoAtualN,
   }));
   for (const fixador of fixadores) veiculo.adicionarFixador(fixador);
@@ -2042,7 +2046,7 @@ const criarTesteBss003 = (): CenárioVisual => {
       estadoInicial: { posicaoM: new Vetor3(xM, 0.8, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
       tensaoAlimentacaoNominalV: 28, potenciaEletricaMaximaW: 1_500,
       empuxoMaximoN: 20_000, vazaoMaximaKgS: 0.5, potenciaTermicaMaximaW: 5_000_000, propelenteCompativel: 'metano',
-      vetorizacao: { limiteAngularRad: 3 * Math.PI / 180, velocidadeAngularMaximaRadps: 10 * Math.PI / 180 },
+      vetorizacao: { limiteAngularRad: 15 * Math.PI / 180, velocidadeAngularMaximaRadps: 45 * Math.PI / 180 },
     });
     motor.conectarTanque(tanque, 8);
     motor.conectarBateria(bateria, 8);
@@ -2325,7 +2329,7 @@ const criarTestePortaVertical = (): CenárioVisual => {
 };
 
 const construirCenarios = (): CenárioVisual[] => {
-  const cenariosArquivados: CenárioVisual[] = [
+  const cenariosArquivados = (): CenárioVisual[] => [
   criarCuboEmQueda(10),
   criarCuboEmQueda(10, 10, {
     nome: 'Queda livre — cubo rotacionado a 46°',
@@ -2355,6 +2359,7 @@ const construirCenarios = (): CenárioVisual[] => {
   criarTestePilhaDezQuadradosAtingida(),
   criarTestePilhaEstruturalDezCubos(),
   criarTesteTermicoPilhaEstruturalDezCubos(),
+  criarTestePainelSolarComSombra(),
   criarTesteVeiculoTerrestre('aceleracao'),
   criarTesteVeiculoTerrestre('frenagem'),
   criarTesteVeiculoTerrestre('colisao'),
@@ -2378,6 +2383,7 @@ const construirCenarios = (): CenárioVisual[] => {
   criarTesteEmpuxoExcentricoEmConjunto(),
   criarTestePortaVertical(),
   criarTesteCilindroEletrico(),
+  criarTesteBracosArticuladosEmParede(),
   criarTesteTorreElevadoraComEmpurrador(),
   criarTesteVeiculoContraRampa30Graus(0),
   criarTesteVeiculoContraRampa30Graus(5),
@@ -2398,9 +2404,9 @@ const construirCenarios = (): CenárioVisual[] => {
     ? lerProjetoSandboxSalvo()
     : undefined;
   return [
-    criarTestePilhaDezQuadradosAtingida(true),
-    criarTesteQuedaLivreDeCinquentaQuadrados(46 * Math.PI / 180, true),
-    criarTestePainelSolarComSombra(), criarTestePortaVertical(), criarTesteDecolagemComPainelSolar(), criarTesteBss002(), criarTesteBss003(), criarTesteBracoArticuladoDeBancada(), criarTesteBracoArticuladoDeBancada(true), criarTesteBracosArticuladosEmParede(),
+    criarTesteDecolagemComPainelSolar(),
+    criarTesteBss002(),
+    criarTesteBss003(),
     ...(projetoSandbox ? [criarTesteSandboxSalvo(projetoSandbox)] : []),
   ];
 };

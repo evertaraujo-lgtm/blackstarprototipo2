@@ -1,5 +1,10 @@
 # Black Star Space — Protótipo 2
 
+O foco atual é a simulação dos foguetes BSS-001, BSS-002 e BSS-003:
+decolagem manual, controle de inclinação e operação de subida e pouso.
+Outros ensaios físicos continuam no código para regressão e evolução futura,
+mas não aparecem na bancada principal.
+
 Núcleo físico determinístico e bancada visual para experimentar objetos,
 veículos e sistemas espaciais. O projeto é uma base TypeScript independente:
 a bancada é apenas uma interface de observação e comando; o mesmo
@@ -94,10 +99,8 @@ npm install
 npm run dev
 ```
 
-A bancada mantém os ensaios de regressão no código e destaca os cenários
-integrados. O cenário ativo de propulsão monta uma bancada chumbada ao solo
-com propulsor, tanques de metano e oxigênio, bateria, fixadores, válvulas,
-linhas, bombas, câmara e bocal.
+A bancada principal mostra os três cenários de foguetes BSS. Os ensaios de
+outros componentes permanecem no código para regressão e evolução futura.
 
 Os comandos da tela chamam operações públicas do domínio. Por exemplo, a
 partida de um propulsor respeita elétrica → hidráulica → combustível → controle
