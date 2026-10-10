@@ -45,4 +45,23 @@ describe('TracePLC', () => {
     for (let indice = 0; indice < 10; indice += 1) trace.adicionarSinal(`S${indice}`, () => 0, '#fff');
     expect(() => trace.adicionarSinal('S10', () => 0, '#fff')).toThrow('10 canais');
   });
+
+  it('registra os 11 canais do BSS-006 quando a capacidade é configurada pelo cenário', () => {
+    const nomes = ['THROTTLE', 'EMPUXO', 'POT. TÉRMICA', 'GIMBAL', 'MASSA', 'VELOCIDADE X', 'ALVO X', 'ERRO X', 'ATITUDE', 'VEL. ANGULAR', 'GRID FINS'];
+    const trace = new TracePLC(nomes.length, 10);
+    for (const [indice, nome] of nomes.entries()) {
+      trace.adicionarSinal(nome, () => indice, '#fff', { minimo: -50, maximo: 100 });
+    }
+    trace.registrar(0, true);
+    trace.registrar(1 / 240, true);
+
+    expect(trace.canais.map((canal) => canal.nome)).toEqual(nomes);
+    expect(trace.amostras).toHaveLength(2);
+    expect(trace.amostras[1].sinais).toEqual(nomes.map((_, indice) => indice));
+    expect(() => trace.adicionarSinal('EXTRA', () => 0, '#fff')).toThrow('11 canais');
+  });
+
+  it.each([0, -1, 1.5, NaN, Infinity])('recusa capacidade de canais inválida: %s', (capacidade) => {
+    expect(() => new TracePLC(capacidade)).toThrow('inteiro positivo');
+  });
 });

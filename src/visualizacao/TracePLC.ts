@@ -25,7 +25,7 @@ export class TracePLC {
   private ultimoTempoS = -Infinity;
 
   public constructor(private readonly limiteCanais = 10, private readonly limiteAmostras = 6_000) {
-    if (!Number.isInteger(limiteCanais) || limiteCanais <= 0 || limiteCanais > 10) throw new Error('O TracePLC aceita de 1 a 10 canais.');
+    if (!Number.isInteger(limiteCanais) || limiteCanais <= 0) throw new Error('O limite de canais do TracePLC deve ser um inteiro positivo.');
     if (!Number.isInteger(limiteAmostras) || limiteAmostras <= 0) throw new Error('O limite de amostras deve ser positivo.');
   }
 
