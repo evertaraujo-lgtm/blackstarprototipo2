@@ -7,6 +7,8 @@ export interface LeiturasVeiculoComposto {
   readonly velocidadeVerticalMps: number;
   readonly velocidadeHorizontalMps: number;
   readonly inclinacaoRad: number;
+  /** Massa instantânea do conjunto conectado, quando fornecida pelo veículo. */
+  readonly massaInstantaneaKg?: number;
 }
 
 /** GPS idealizado: a posição vem diretamente do estado físico do core. */
@@ -34,7 +36,11 @@ export class SensoresVeiculoComposto {
   public readonly nivel: SensorNivelInterno;
   private leiturasAtuais: LeiturasVeiculoComposto;
 
-  public constructor(private readonly objeto: Objeto, altitudeDeReferenciaM = 0) {
+  public constructor(
+    private readonly objeto: Objeto,
+    altitudeDeReferenciaM = 0,
+    private readonly obterMassaInstantaneaKg: () => number = () => objeto.massaKg,
+  ) {
     if (!Number.isFinite(altitudeDeReferenciaM)) throw new Error('Altitude de referência deve ser finita.');
     this.gps = new GpsIdealizado(objeto);
     this.nivel = new SensorNivelInterno(objeto);
@@ -46,6 +52,7 @@ export class SensoresVeiculoComposto {
       velocidadeVerticalMps: velocidadeInicialMps.y,
       velocidadeHorizontalMps: velocidadeInicialMps.x,
       inclinacaoRad: this.nivel.obterInclinacaoRad(),
+      massaInstantaneaKg: this.obterMassaInstantaneaKg(),
     };
     this.altitudeDeReferenciaM = altitudeDeReferenciaM;
   }
@@ -62,6 +69,7 @@ export class SensoresVeiculoComposto {
       velocidadeVerticalMps: velocidadeAtualMps.y,
       velocidadeHorizontalMps: velocidadeAtualMps.x,
       inclinacaoRad: this.nivel.obterInclinacaoRad(),
+      massaInstantaneaKg: this.obterMassaInstantaneaKg(),
     };
   }
 
@@ -72,6 +80,10 @@ export class SensoresVeiculoComposto {
   }
 
   public obterLeituras(): LeiturasVeiculoComposto {
-    return { ...this.leiturasAtuais, posicaoGpsM: this.leiturasAtuais.posicaoGpsM };
+    return {
+      ...this.leiturasAtuais,
+      posicaoGpsM: this.leiturasAtuais.posicaoGpsM,
+      massaInstantaneaKg: this.obterMassaInstantaneaKg(),
+    };
   }
 }

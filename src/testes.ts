@@ -10,6 +10,7 @@ import { VeiculoTerrestre } from './physics/objetos/veiculos/VeiculoTerrestre';
 import { VeiculoAlado } from './physics/objetos/veiculos/VeiculoAlado';
 import { VeiculoComposto } from './physics/objetos/veiculos/VeiculoComposto';
 import { Bss03 } from './physics/objetos/veiculos/Bss03';
+import { criarPernasFixasBss04 } from './physics/objetos/veiculos/Bss04';
 import { Propulsor, type IdSistemaPropulsor } from './physics/objetos/propulsao/Propulsor';
 import { PropulsorVetorizado } from './physics/objetos/propulsao/PropulsorVetorizado';
 import { TanquePropelente } from './physics/objetos/fontes-de-energia/TanquePropelente';
@@ -68,6 +69,9 @@ const bss03Controls = document.querySelector<HTMLFieldSetElement>('#bss03-contro
 const bss03PropulsionGroup = document.querySelector<HTMLSelectElement>('#bss03-propulsion-group');
 const bss03LandingMode = document.querySelector<HTMLInputElement>('#bss03-landing-mode');
 const bss03ControlStatus = document.querySelector<HTMLOutputElement>('#bss03-control-status');
+const bss04Controls = document.querySelector<HTMLFieldSetElement>('#bss04-controls');
+const bss04Mode = document.querySelector<HTMLSelectElement>('#bss04-mode');
+const bss04ControlStatus = document.querySelector<HTMLOutputElement>('#bss04-control-status');
 const rotaryMotorControl = document.querySelector<HTMLLabelElement>('#rotary-motor-control');
 const rotaryMotorInput = document.querySelector<HTMLInputElement>('#rotary-motor-input');
 const rotaryMotorValue = document.querySelector<HTMLOutputElement>('#rotary-motor-value');
@@ -128,7 +132,7 @@ if (!solarPanelControls || !solarPanelToggle || !solarPanelStatus) {
   throw new Error('A bancada de testes não encontrou os controles do painel solar.');
 }
 
-if (!bss03Controls || !bss03PropulsionGroup || !bss03LandingMode || !bss03ControlStatus || !electricalControls || !connectionSelector || !cableSwitchButton || !cableConnectButton || !cableBreakButton || !currentLimitInput || !cableResistanceInput || !electricalReadout || !doorControls || !doorPowerButton || !doorControlButton || !openDoorButton || !closeDoorButton || !doorOpenLed || !doorClosedLed || !doorChainStatus || !canvas || !sensorTraceCanvas || !traceTime || !traceCursorInput || !traceLiveButton || !playButton || !scenarioSelector || !skipButton || !resetButton || !scenarioName || !scenarioDescription || !simulationTime || !testStatus || !testResult || !vehicleSpeed || !scenarioData || !timeScaleInput || !timeScaleValue || !zoomInput || !zoomValue || !showConnectionsInput || !throttleControl || !throttleInput || !throttleValue || !gimbalControl || !gimbalInput || !gimbalValue || !rotaryMotorControl || !rotaryMotorInput || !rotaryMotorValue || !rotaryMotorAutotune || !rotaryMotorAutotuneButton || !rotaryMotorAutotuneProgress || !rotaryMotorAutotuneStatus || !rotaryMotorSecondaryControl || !rotaryMotorSecondaryInput || !rotaryMotorSecondaryValue || !pidKpInput || !pidKiInput || !pidKdInput || !pidAccelerationInput || !parachuteSettings || !parachuteAreaInput || !parachuteCalculatedValues || !toggleElectric || !toggleHydraulic || !toggleFuel || !toggleControl || !igniteButton || !deployParachuteButton || !propulsionControls || !tankDisconnectControls || !disconnectFuelTankButton || !disconnectOxidizerTankButton || !cylinderControls || !raisePlatformButton || !advanceCylinderButton || !retractCylinderButton || !advanceSpeedControl || !retractSpeedControl || !advanceSpeedInput || !retractSpeedInput) {
+if (!bss03Controls || !bss03PropulsionGroup || !bss03LandingMode || !bss03ControlStatus || !bss04Controls || !bss04Mode || !bss04ControlStatus || !electricalControls || !connectionSelector || !cableSwitchButton || !cableConnectButton || !cableBreakButton || !currentLimitInput || !cableResistanceInput || !electricalReadout || !doorControls || !doorPowerButton || !doorControlButton || !openDoorButton || !closeDoorButton || !doorOpenLed || !doorClosedLed || !doorChainStatus || !canvas || !sensorTraceCanvas || !traceTime || !traceCursorInput || !traceLiveButton || !playButton || !scenarioSelector || !skipButton || !resetButton || !scenarioName || !scenarioDescription || !simulationTime || !testStatus || !testResult || !vehicleSpeed || !scenarioData || !timeScaleInput || !timeScaleValue || !zoomInput || !zoomValue || !showConnectionsInput || !throttleControl || !throttleInput || !throttleValue || !gimbalControl || !gimbalInput || !gimbalValue || !rotaryMotorControl || !rotaryMotorInput || !rotaryMotorValue || !rotaryMotorAutotune || !rotaryMotorAutotuneButton || !rotaryMotorAutotuneProgress || !rotaryMotorAutotuneStatus || !rotaryMotorSecondaryControl || !rotaryMotorSecondaryInput || !rotaryMotorSecondaryValue || !pidKpInput || !pidKiInput || !pidKdInput || !pidAccelerationInput || !parachuteSettings || !parachuteAreaInput || !parachuteCalculatedValues || !toggleElectric || !toggleHydraulic || !toggleFuel || !toggleControl || !igniteButton || !deployParachuteButton || !propulsionControls || !tankDisconnectControls || !disconnectFuelTankButton || !disconnectOxidizerTankButton || !cylinderControls || !raisePlatformButton || !advanceCylinderButton || !retractCylinderButton || !advanceSpeedControl || !retractSpeedControl || !advanceSpeedInput || !retractSpeedInput) {
   throw new Error('A bancada de testes não encontrou os elementos obrigatórios.');
 }
 
@@ -185,6 +189,11 @@ interface CenárioVisual {
   readonly selecionarGrupoPropulsao?: (id: string) => void;
   readonly ativarControleBss03?: (controle: 'inclinacao' | 'pouso' | 'manual') => void;
   readonly obterControleAtivoBss03?: () => 'manual' | 'inclinacao' | 'pouso';
+  readonly ativarModoBss04?: (modo: 'decolagem' | 'pouso') => void;
+  readonly obterModoBss04?: () => 'decolagem' | 'pouso';
+  readonly obterStatusControleBss04?: () => string;
+  /** Sinais analógicos adicionais registrados no trace da bancada. */
+  readonly canaisTrace?: readonly CanalTrace[];
   readonly motorRotacionalControlavel?: MotorEletricoRotacional;
   readonly motorRotacionalSecundarioControlavel?: MotorEletricoRotacional;
   readonly painelSolarControlavel?: PainelSolar;
@@ -1725,6 +1734,7 @@ interface ConfiguracaoBancadaDecolagem {
   deslocamentoLateralDoPainelM: number;
   painelMovel: boolean;
   incluirPainelSolar: boolean;
+  incluirPernasFixas?: boolean;
 }
 
 interface ProjetoSandboxSalvo {
@@ -1815,14 +1825,16 @@ const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBancadaDeco
   incluirPainelSolar: true,
 }): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
+  const deslocamentoVerticalInicialM = configuracao.incluirPernasFixas ? 0.3 : 0;
+  const alturaInicialDoCascoM = 4.5 + deslocamentoVerticalInicialM;
   const base = (id: string, massaBaseKg: number, dimensoesM: Vetor3, posicaoM: Vetor3) => ({
     id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 500_000, limiteTermicoC: 1_000,
-    estadoInicial: { posicaoM },
+    estadoInicial: { posicaoM: posicaoM.adicionar(new Vetor3(0, deslocamentoVerticalInicialM, 0)) },
   });
   const veiculo = new VeiculoComposto({
-    ...base(configuracao.id, 800, new Vetor3(3.2, 6, 2.4), new Vetor3(0, 4.5, 0)),
+    ...base(configuracao.id, 800, new Vetor3(3.2, 6, 2.4), new Vetor3(0, alturaInicialDoCascoM, 0)),
     estadoInicial: {
-      posicaoM: new Vetor3(0, 4.5, 0),
+      posicaoM: new Vetor3(0, alturaInicialDoCascoM, 0),
       orientacaoRad: new Vetor3(0, 0, configuracao.inclinacaoInicialRad),
     },
     areaFrontalM2: 7, coeficienteArrasto: 0.65,
@@ -1878,7 +1890,7 @@ const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBancadaDeco
     tensaoAlimentacaoNominalV: 24, potenciaEletricaMaximaW: 1_200, potenciaTermicaMaximaW: 2_000_000,
     empuxoMaximoN: 40_000, vazaoMaximaKgS: 0.8, propelenteCompativel: 'metano',
     vetorizacao: { limiteAngularRad: 15 * Math.PI / 180, velocidadeAngularMaximaRadps: 90 * Math.PI / 180 },
-    estadoInicial: { posicaoM: new Vetor3(0, 0.8, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
+    estadoInicial: { posicaoM: new Vetor3(0, 0.8 + deslocamentoVerticalInicialM, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
   });
   const valvulaCombustivel = new ValvulaPropelente({ id: 'valvula-decolagem-metano', vazaoMaximaKgS: 0.8 });
   const valvulaOxidante = new ValvulaPropelente({ id: 'valvula-decolagem-oxidante', vazaoMaximaKgS: 3.2 });
@@ -1898,23 +1910,25 @@ const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBancadaDeco
     bocal: new Bocal({ empuxoMaximoN: 40_000, eficienciaNominal: 1 }),
   });
   propulsor.definirThrottle(0.65);
+  const pernasFixas = configuracao.incluirPernasFixas
+    ? criarPernasFixasBss04(new Vetor3(0, alturaInicialDoCascoM, 0))
+    : [];
   const painelFazParteDoCasco = configuracao.incluirPainelSolar && !configuracao.painelMovel;
   const modulosDoVeiculo: Objeto[] = configuracao.painelMovel
-    ? [bateria, tanqueCombustivel, tanqueOxidante, propulsor, cilindroPainel!, batentePainelRecuo!, batentePainelAvanco!]
-    : [ ...(painelFazParteDoCasco ? [painel] : []), bateria, tanqueCombustivel, tanqueOxidante, propulsor ];
+    ? [bateria, tanqueCombustivel, tanqueOxidante, propulsor, cilindroPainel!, batentePainelRecuo!, batentePainelAvanco!, ...pernasFixas]
+    : [ ...(painelFazParteDoCasco ? [painel] : []), bateria, tanqueCombustivel, tanqueOxidante, propulsor, ...pernasFixas ];
   for (const modulo of modulosDoVeiculo) veiculo.adicionarModulo(modulo);
   veiculo.instalarPropulsor(propulsor);
-  if (configuracao.controleDeInclinacaoPid) veiculo.habilitarControleDeInclinacao();
+  if (configuracao.incluirPernasFixas || configuracao.controleDeInclinacaoPid) veiculo.habilitarControleDeInclinacao();
   const modulosFixadosAoVeiculo: Objeto[] = configuracao.painelMovel
-    ? [bateria, tanqueCombustivel, tanqueOxidante, propulsor, cilindroPainel!, batentePainelRecuo!, batentePainelAvanco!]
-    : [ ...(painelFazParteDoCasco ? [painel] : []), bateria, tanqueCombustivel, tanqueOxidante, propulsor ];
+    ? [bateria, tanqueCombustivel, tanqueOxidante, propulsor, cilindroPainel!, batentePainelRecuo!, batentePainelAvanco!, ...pernasFixas]
+    : [ ...(painelFazParteDoCasco ? [painel] : []), bateria, tanqueCombustivel, tanqueOxidante, propulsor, ...pernasFixas ];
   const fixadores = modulosFixadosAoVeiculo.map((modulo) => new FixadorEstrutural({
     id: `fixador-decolagem-${modulo.id}`, objetoA: veiculo, objetoB: modulo,
-    // O motor é o primeiro apoio do foguete no solo e recebe a reação do
-    // conjunto inteiro; tanques e equipamentos precisam suportar a parcela
-    // transmitida durante um toque vertical controlado.
-    resistenciaTracaoN: modulo === propulsor ? 1_000_000 : 300_000,
-    resistenciaCompressaoN: modulo === propulsor ? 1_000_000 : 300_000,
+    // O motor apoia o BSS-002; as sapatas apoiam o BSS-004. Ambos recebem
+    // fixadores dimensionados para transmitir a reação do veículo ao tocar.
+    resistenciaTracaoN: modulo === propulsor || modulo.id.startsWith('bss04-perna-') || modulo.id.startsWith('bss04-sapata-') ? 1_000_000 : 300_000,
+    resistenciaCompressaoN: modulo === propulsor || modulo.id.startsWith('bss04-perna-') || modulo.id.startsWith('bss04-sapata-') ? 1_000_000 : 300_000,
     obterEsforcoSolicitadoN: () => propulsor.empuxoAtualN,
   }));
   for (const fixador of fixadores) veiculo.adicionarFixador(fixador);
@@ -1947,6 +1961,19 @@ const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBancadaDeco
 
   const alturaInicialM = veiculo.getEstadoFisico().posicaoM.y;
   const pesoAtualN = (): number => veiculo.massaInstantaneaDoConjuntoKg * Math.abs(MundoFisico.gravidadeTerrestreMps2.y);
+  let modoBss04: 'decolagem' | 'pouso' = 'decolagem';
+  const configuracaoPousoBss04 = {
+    altitudeAlvoM: alturaInicialDoCascoM,
+    altitudeTransicaoM: 80,
+    velocidadeDescidaMaximaMps: 12,
+    velocidadeToqueMps: 0.35,
+    empuxoMaximoN: propulsor.empuxoMaximoN,
+    ganhoProporcionalThrottlePorMps: 0.09,
+    ganhoIntegralThrottlePorM: 0.004,
+    ganhoDerivativoThrottleSegundosPorM: 0.015,
+    taxaMaximaThrottlePorS: 10,
+    erroParaEmpuxoMaximoMps: 2,
+  };
   return {
     nome: configuracao.nome,
     descricao: configuracao.descricao,
@@ -1954,6 +1981,30 @@ const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBancadaDeco
     seguirObjeto: veiculo, cameraY: () => veiculo.getEstadoFisico().posicaoM.y, conexoesEletricas: [...(configuracao.incluirPainelSolar ? [painel.conexaoCarga] : []), propulsor.conexaoEletrica!, ...(cilindroPainel ? [cilindroPainel.conexaoEletrica] : [])],
     mangueira: { tanque: tanqueCombustivel, propulsor }, linhasComFalhaControlavel: { combustivel: linhaCombustivel, oxidante: linhaOxidante },
     fixadores: [...fixadores, ...(fixadorPainelHaste ? [fixadorPainelHaste] : [])], propulsorControlavel: propulsor, propulsorVetorizadoControlavel: propulsor, permiteAjustarThrottle: true,
+    ...(configuracao.incluirPernasFixas ? {
+      canaisTrace: [
+        { nome: 'THROTTLE', cor: '#f97316', obterSinal: () => propulsor.throttleAtual * 100, escala: { minimo: 0, maximo: 100, unidade: '%' } },
+        { nome: 'EMPUXO', cor: '#facc15', obterSinal: () => propulsor.empuxoAtualN / 1_000, escala: { minimo: 0, maximo: propulsor.empuxoMaximoN / 1_000, unidade: 'kN' } },
+        { nome: 'POT. TÉRMICA', cor: '#fb7185', obterSinal: () => propulsor.potenciaTermicaAtualW / 1_000_000, escala: { minimo: 0, maximo: propulsor.potenciaTermicaMaximaW / 1_000_000, unidade: 'MW' } },
+        { nome: 'GIMBAL', cor: '#22d3ee', obterSinal: () => propulsor.obterEstadoDaVetorizacao().anguloAtualRad * 180 / Math.PI, escala: { minimo: -15, maximo: 15, unidade: '°' } },
+        { nome: 'MASSA', cor: '#c084fc', obterSinal: () => veiculo.massaInstantaneaDoConjuntoKg, escala: { minimo: 0, maximo: veiculo.massaInstantaneaDoConjuntoKg * 1.1, unidade: 'kg' } },
+      ],
+      ativarModoBss04: (modo: 'decolagem' | 'pouso') => {
+        modoBss04 = modo;
+        if (modo === 'pouso') veiculo.habilitarControleDeDescidaFuzzyPid(configuracaoPousoBss04, [propulsor.id]);
+        else {
+          veiculo.desabilitarControleDeDescidaFuzzyPid();
+          veiculo.definirThrottleDoPropulsor(propulsor.id, 0);
+        }
+      },
+      obterModoBss04: () => modoBss04,
+      obterStatusControleBss04: () => {
+        if (modoBss04 === 'decolagem') return 'Decolagem · controle de throttle manual · gimbal automático ativo';
+        if (!propulsor.estaIgnitado) return 'Pouso automático selecionado · aguardando ignição do motor';
+        const comando = veiculo.obterUltimoComandoDeDescidaFuzzyPid();
+        return `Pouso · ${comando.fase} · alvo ${comando.velocidadeVerticalAlvoMps.toFixed(1)} m/s · throttle ${(comando.throttle * 100).toFixed(0)}%`;
+      },
+    } : {}),
     ...(configuracao.painelMovel && cilindroPainel && hastePainel && guiaPainel ? {
       guiasLineares: [guiaPainel],
       exibirGuiasLineares: false,
@@ -1968,7 +2019,7 @@ const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBancadaDeco
     } : {}),
     exibirNaBancada: true, deveEncerrar: () => false,
     telemetria: () => { const leituras = veiculo.obterLeiturasDosSensores(); return `bateria ${(bateria.percentualDeCarga * 100).toFixed(1)}% · altitude GPS ${leituras.altitudeM.toFixed(1)} m · empuxo ${propulsor.empuxoAtualN.toFixed(0)} / peso ${pesoAtualN().toFixed(0)} N`; },
-    dados: () => { const leituras = veiculo.obterLeiturasDosSensores(); return `${configuracao.incluirPainelSolar ? `Sol: irradiância vertical descendente · 1.000 W/m²\nPainel: ${painel.potenciaAtualW.toFixed(0)} W · energia gerada ${painel.energiaGeradaJ.toFixed(0)} J\n` : ''}${cilindroPainel ? `Painel móvel: comando ${comandoPainel} · x ${painel.getEstadoFisico().posicaoM.x.toFixed(2)} m · velocidade ${painel.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s · força ${cilindroPainel.forcaNaHasteN.toFixed(0)} N\n` : ''}Bateria: ${bateria.energiaArmazenadaJ.toFixed(0)} / ${bateria.capacidadeEnergiaJ.toFixed(0)} J (${(bateria.percentualDeCarga * 100).toFixed(1)}%)\nFonte do propulsor: ${propulsor.fonteEletricaEstaConectada ? 'bateria conectada' : 'indisponível'} · cabo ${propulsor.conexaoEletrica?.interruptorPrincipalFechado ? 'fechado' : 'aberto'}\nPartida: comando manual pelos controles da bancada\nControle de inclinação: ${veiculo.controleDeInclinacaoEstaHabilitado ? 'PID automático' : 'manual'}\nGPS idealizado: X ${leituras.posicaoGpsM.x.toFixed(2)} m · Y ${leituras.posicaoGpsM.y.toFixed(2)} m\nAltitude derivada do GPS: ${leituras.altitudeM.toFixed(2)} m\nVelocidade derivada do GPS: vertical ${leituras.velocidadeVerticalMps.toFixed(2)} m/s · horizontal ${leituras.velocidadeHorizontalMps.toFixed(2)} m/s\nInclinação do sensor de nível: ${(leituras.inclinacaoRad * 180 / Math.PI).toFixed(2)}° · gimbal ${(propulsor.obterEstadoDaVetorizacao().anguloAtualRad * 180 / Math.PI).toFixed(2)}°\nMassa conectada: ${veiculo.massaInstantaneaDoConjuntoKg.toFixed(1)} kg · peso ${pesoAtualN().toFixed(0)} N\nTanques: CH4 ${tanqueCombustivel.massaPropelenteKg.toFixed(1)} kg · O2 ${tanqueOxidante.massaPropelenteKg.toFixed(1)} kg\nCadeia: ${linhaCombustivel.estaIndisponivel || linhaOxidante.estaIndisponivel ? 'INDISPONÍVEL' : 'íntegra'} · vazão ${propulsor.vazaoAtualKgS.toFixed(2)} kg/s\nEmpuxo: ${propulsor.empuxoAtualN.toFixed(0)} N · ignição ${propulsor.estaIgnitado ? 'ativa' : 'cortada'} · integridade ${Math.round(propulsor.integridadeEstrutural * 100)}%`; },
+    dados: () => { const leituras = veiculo.obterLeiturasDosSensores(); return `${configuracao.incluirPainelSolar ? `Sol: irradiância vertical descendente · 1.000 W/m²\nPainel: ${painel.potenciaAtualW.toFixed(0)} W · energia gerada ${painel.energiaGeradaJ.toFixed(0)} J\n` : ''}${configuracao.incluirPernasFixas ? 'Trem de pouso: duas pernas fixas com sapatas laterais\n' : ''}${cilindroPainel ? `Painel móvel: comando ${comandoPainel} · x ${painel.getEstadoFisico().posicaoM.x.toFixed(2)} m · velocidade ${painel.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s · força ${cilindroPainel.forcaNaHasteN.toFixed(0)} N\n` : ''}Bateria: ${bateria.energiaArmazenadaJ.toFixed(0)} / ${bateria.capacidadeEnergiaJ.toFixed(0)} J (${(bateria.percentualDeCarga * 100).toFixed(1)}%)\nFonte do propulsor: ${propulsor.fonteEletricaEstaConectada ? 'bateria conectada' : 'indisponível'} · cabo ${propulsor.conexaoEletrica?.interruptorPrincipalFechado ? 'fechado' : 'aberto'}\nPartida: comando manual pelos controles da bancada\nControle de inclinação: ${veiculo.controleDeInclinacaoEstaHabilitado ? 'PID automático' : 'manual'}\nGPS idealizado: X ${leituras.posicaoGpsM.x.toFixed(2)} m · Y ${leituras.posicaoGpsM.y.toFixed(2)} m\nAltitude derivada do GPS: ${leituras.altitudeM.toFixed(2)} m\nVelocidade derivada do GPS: vertical ${leituras.velocidadeVerticalMps.toFixed(2)} m/s · horizontal ${leituras.velocidadeHorizontalMps.toFixed(2)} m/s\nInclinação do sensor de nível: ${(leituras.inclinacaoRad * 180 / Math.PI).toFixed(2)}° · gimbal ${(propulsor.obterEstadoDaVetorizacao().anguloAtualRad * 180 / Math.PI).toFixed(2)}°\nMassa conectada: ${veiculo.massaInstantaneaDoConjuntoKg.toFixed(1)} kg · peso ${pesoAtualN().toFixed(0)} N\nTanques: CH4 ${tanqueCombustivel.massaPropelenteKg.toFixed(1)} kg · O2 ${tanqueOxidante.massaPropelenteKg.toFixed(1)} kg\nCadeia: ${linhaCombustivel.estaIndisponivel || linhaOxidante.estaIndisponivel ? 'INDISPONÍVEL' : 'íntegra'} · vazão ${propulsor.vazaoAtualKgS.toFixed(2)} kg/s\nEmpuxo: ${propulsor.empuxoAtualN.toFixed(0)} N · ignição ${propulsor.estaIgnitado ? 'ativa' : 'cortada'} · integridade ${Math.round(propulsor.integridadeEstrutural * 100)}%`; },
     validar: () => { const leituras = veiculo.obterLeiturasDosSensores(); return `${propulsor.estaIgnitado && propulsor.empuxoAtualN > pesoAtualN() && Math.abs(leituras.inclinacaoRad) < 5 * Math.PI / 180 && leituras.altitudeM > alturaInicialM + 0.5 ? 'APROVADO' : 'AGUARDANDO DECOLAGEM'} · empuxo ${propulsor.empuxoAtualN.toFixed(0)} N; peso ${pesoAtualN().toFixed(0)} N; inclinação ${(leituras.inclinacaoRad * 180 / Math.PI).toFixed(2)}°`; },
   };
 };
@@ -1984,6 +2035,20 @@ const criarTesteBss002 = (): CenárioVisual => criarTesteDecolagemComPainelSolar
   deslocamentoLateralDoPainelM: 0.8,
   painelMovel: false,
   incluirPainelSolar: true,
+});
+
+/** Variante do BSS-002 com pernas fixas estruturais, uma em cada lado. */
+const criarTesteBss004 = (): CenárioVisual => criarTesteDecolagemComPainelSolar({
+  id: 'bss-004',
+  nome: 'BSS-004 — controle de inclinação e pernas fixas',
+  descricao: 'Cópia do BSS-002 com duas pernas fixas, uma de cada lado do casco. Cada perna e sua sapata são objetos físicos ligados estruturalmente ao foguete. As sapatas apoiam o veículo no solo e mantêm o motor afastado da superfície; ignição, throttle e controle de inclinação continuam sob comando manual da bancada.',
+  controleDeInclinacaoPid: true,
+  inclinacaoInicialRad: 0,
+  energiaInicialDaBateriaJ: 30_000,
+  deslocamentoLateralDoPainelM: 0.8,
+  painelMovel: false,
+  incluirPainelSolar: true,
+  incluirPernasFixas: true,
 });
 
 /** Bancada manual de subida e pouso com reservas propulsivas independentes. */
@@ -2406,6 +2471,7 @@ const construirCenarios = (): CenárioVisual[] => {
   return [
     criarTesteDecolagemComPainelSolar(),
     criarTesteBss002(),
+    criarTesteBss004(),
     criarTesteBss003(),
     ...(projetoSandbox ? [criarTesteSandboxSalvo(projetoSandbox)] : []),
   ];
@@ -2490,6 +2556,7 @@ const obterCanaisTrace = (): readonly CanalTrace[] => {
       escala: escalaAngular,
     });
   }
+  canais.push(...(cenário.canaisTrace ?? []));
   return canais;
 };
 
@@ -2503,7 +2570,9 @@ const registrarTraceSensores = (forcar = false): void => {
 
 const configurarTracePLCDoCenario = (): void => {
   tracePLC.limpar();
-  for (const canal of obterCanaisTrace()) tracePLC.adicionarSinal(canal.nome, canal.obterSinal, canal.cor, canal.escala);
+  const canais = obterCanaisTrace();
+  for (const canal of canais) tracePLC.adicionarSinal(canal.nome, canal.obterSinal, canal.cor, canal.escala);
+  sensorTraceCanvas.height = Math.max(220, canais.length * 52 + 52);
   registrarTraceSensores(true);
 };
 
@@ -2521,7 +2590,7 @@ const desenharTraceSensores = (): void => {
 
   if (canais.length === 0 || tracePLC.amostras.length === 0) {
     contextoTrace.fillStyle = '#64748b';
-    contextoTrace.fillText('Nenhum sensor exposto neste cenário', margem.esquerda, margem.superior + 25);
+    contextoTrace.fillText('Nenhum sinal exposto neste cenário', margem.esquerda, margem.superior + 25);
     traceTime.value = 'sem sensores'; traceTime.textContent = 'sem sensores';
     traceCursorInput.max = '0'; traceCursorInput.value = '0';
     traceLiveButton.disabled = true;
@@ -2870,6 +2939,8 @@ const desenhar = (): void => {
         ? '#f59e0b'
         : objeto instanceof Porta ? '#cbd5e1'
         : objeto instanceof TravaPorta ? '#22c55e'
+        : objeto.id.startsWith('bss04-perna-') ? '#94a3b8'
+        : objeto.id.startsWith('bss04-sapata-') ? '#64748b'
         : objeto.id.startsWith('batente-') ? '#64748b'
         : objeto.id.startsWith('fundacao-')
           ? '#475569'
@@ -3310,6 +3381,11 @@ const atualizarControlesDoPropulsor = (): void => {
     ?.find((grupo) => grupo.id === cenário.obterGrupoPropulsaoAtivo?.())?.propulsores
     ?? (propulsor ? [propulsor] : []);
   bss03Controls.hidden = cenário.gruposPropulsao === undefined;
+  bss04Controls.hidden = cenário.ativarModoBss04 === undefined;
+  if (cenário.ativarModoBss04 && cenário.obterModoBss04) {
+    bss04Mode.value = cenário.obterModoBss04();
+    bss04ControlStatus.textContent = cenário.obterStatusControleBss04?.() ?? `Modo ativo: ${bss04Mode.value}`;
+  }
   if (cenário.gruposPropulsao) {
     const assinatura = cenário.gruposPropulsao.map((grupo) => `${grupo.id}:${grupo.nome}`).join('|');
     if (bss03PropulsionGroup.dataset.grupos !== assinatura) {
@@ -3322,6 +3398,7 @@ const atualizarControlesDoPropulsor = (): void => {
     bss03ControlStatus.textContent = `Controle ativo: ${controleAtivo}`;
   }
   const permiteAjustarThrottle = cenário.permiteAjustarThrottle === true;
+  const throttleAutomaticoBss04 = cenário.obterModoBss04?.() === 'pouso';
   const objetoComParaquedas = cenário.objetoComParaquedasControlavel;
   const objetoComParaquedasConfiguravel = cenário.objetoComParaquedasConfiguravel;
   const comandoCilindro = cenário.comandarCilindro;
@@ -3384,9 +3461,10 @@ const atualizarControlesDoPropulsor = (): void => {
     ? `✓ ${quantidadeIgnitada} ignições confirmadas`
     : `⚡ Realizar ignição (${propulsoresDoGrupo.length})`;
   throttleControl.hidden = !permiteAjustarThrottle;
-  throttleInput.disabled = !permiteAjustarThrottle || propulsor === undefined;
-  gimbalControl.hidden = propulsorVetorizado === undefined;
-  gimbalInput.disabled = propulsorVetorizado === undefined;
+  throttleInput.disabled = !permiteAjustarThrottle || propulsor === undefined || throttleAutomaticoBss04;
+  const gimbalAutomatizadoContinuamente = cenário.obterModoBss04 !== undefined;
+  gimbalControl.hidden = propulsorVetorizado === undefined || gimbalAutomatizadoContinuamente;
+  gimbalInput.disabled = propulsorVetorizado === undefined || gimbalAutomatizadoContinuamente;
   if (propulsorVetorizado) {
     const estadoVetorizacao = propulsorVetorizado.obterEstadoDaVetorizacao();
     const limiteGraus = estadoVetorizacao.limiteAngularRad * 180 / Math.PI;
@@ -3471,6 +3549,11 @@ const alternarModoPousoBss03 = (): void => {
   desenhar();
 };
 bss03LandingMode.addEventListener('change', alternarModoPousoBss03);
+bss04Mode.addEventListener('change', () => {
+  cenarioAtual().ativarModoBss04?.(bss04Mode.value === 'pouso' ? 'pouso' : 'decolagem');
+  atualizarControlesDoPropulsor();
+  desenhar();
+});
 igniteButton.addEventListener('click', () => {
   const cenário = cenarioAtual();
   const grupo = cenário.gruposPropulsao?.find((item) => item.id === cenário.obterGrupoPropulsaoAtivo?.());

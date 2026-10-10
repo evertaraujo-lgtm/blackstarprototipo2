@@ -7,6 +7,11 @@ import { ControladorInclinacaoDePropulsores } from '../../sistemas de controle/C
 import { ControladorPousoDePropulsores } from '../../sistemas de controle/ControladorPousoDePropulsores';
 import { ControladorDesaceleracaoDePropulsores } from '../../sistemas de controle/ControladorDesaceleracaoDePropulsores';
 import { ControladorGimbalDescidaDePropulsores } from '../../sistemas de controle/ControladorGimbalDescidaDePropulsores';
+import {
+  ControladorDescidaFuzzyPidDePropulsores,
+  type ComandoDescidaFuzzyPid,
+  type ConfiguracaoDescidaFuzzyPid,
+} from '../../sistemas de controle/ControladorDescidaFuzzyPidDePropulsores';
 import type { ConfiguracaoControleDesaceleracao } from '../../sistemas de controle/ControladorDesaceleracao';
 import { GerenciadorDeControladores, type ControladorDeVoo } from '../../sistemas de controle/GerenciadorDeControladores';
 import type { EstadoVetorizacao } from '../propulsao/vetorizacao/InterfacesVetorizacao';
@@ -48,12 +53,14 @@ export class ComputadorDeVoo {
   private readonly controladorPouso = new ControladorPousoDePropulsores();
   private readonly controladorDesaceleracao = new ControladorDesaceleracaoDePropulsores();
   private readonly controladorGimbalDescida = new ControladorGimbalDescidaDePropulsores();
+  private readonly controladorDescidaFuzzyPid = new ControladorDescidaFuzzyPidDePropulsores();
 
   public constructor(private readonly telemetriaDoCasco: FonteTelemetriaDoCasco) {
     this.gerenciador.registrar(this.controladorInclinacao);
     this.gerenciador.registrar(this.controladorPouso);
     this.gerenciador.registrar(this.controladorDesaceleracao);
     this.gerenciador.registrar(this.controladorGimbalDescida);
+    this.gerenciador.registrar(this.controladorDescidaFuzzyPid);
   }
 
   public obterLeiturasDoCasco(): LeiturasVeiculoComposto {
@@ -124,6 +131,26 @@ export class ComputadorDeVoo {
   public desabilitarControleDeDesaceleracao(): void { this.gerenciador.desabilitar(this.controladorDesaceleracao.id); }
   public desabilitarControleDeGimbalDeDescida(): void { this.gerenciador.desabilitar(this.controladorGimbalDescida.id); }
   public get controleDeGimbalDeDescidaEstaHabilitado(): boolean { return this.controladorGimbalDescida.estaHabilitado; }
+
+  /** Controle BSS-004: PID de throttle independente do gimbal, que pode ficar ativo continuamente. */
+  public habilitarControleDeDescidaFuzzyPid(configuracao: ConfiguracaoDescidaFuzzyPid, idsPropulsores: readonly string[]): void {
+    this.gerenciador.desabilitar(this.controladorPouso.id);
+    this.gerenciador.desabilitar(this.controladorDesaceleracao.id);
+    this.controladorDescidaFuzzyPid.configurar(configuracao, [...this.validarSelecao(idsPropulsores, false)]);
+    this.gerenciador.habilitar(this.controladorDescidaFuzzyPid.id);
+  }
+
+  public desabilitarControleDeDescidaFuzzyPid(): void {
+    this.gerenciador.desabilitar(this.controladorDescidaFuzzyPid.id);
+  }
+
+  public get controleDeDescidaFuzzyPidEstaHabilitado(): boolean {
+    return this.controladorDescidaFuzzyPid.estaHabilitado;
+  }
+
+  public obterUltimoComandoDeDescidaFuzzyPid(): ComandoDescidaFuzzyPid {
+    return this.controladorDescidaFuzzyPid.obterUltimoComando();
+  }
 
   public get controleDePousoEstaHabilitado(): boolean {
     return this.controladorPouso.estaHabilitado;

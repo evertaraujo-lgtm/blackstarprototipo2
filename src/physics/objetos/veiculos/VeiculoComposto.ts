@@ -7,6 +7,10 @@ import { ComputadorDeVoo, type ResultadoComandoPropulsor } from './ComputadorDeV
 import { SensoresVeiculoComposto } from '../../sensores/SensoresVeiculoComposto';
 import type { ComandoControlePouso, ConfiguracaoControlePouso } from '../../sistemas de controle/ControladorPouso';
 import type { ConfiguracaoControleDesaceleracao } from '../../sistemas de controle/ControladorDesaceleracao';
+import type {
+  ComandoDescidaFuzzyPid,
+  ConfiguracaoDescidaFuzzyPid,
+} from '../../sistemas de controle/ControladorDescidaFuzzyPidDePropulsores';
 
 /**
  * Definição do casco estrutural central. `VeiculoComposto` não é uma fachada
@@ -25,11 +29,13 @@ export interface DefinicaoVeiculoComposto extends DefinicaoObjeto {
 export class VeiculoComposto extends Objeto {
   private readonly modulos = new Map<string, Objeto>();
   private readonly fixadores = new Map<string, FixadorEstrutural>();
-  private readonly sensores = new SensoresVeiculoComposto(this);
-  private readonly computadorDeVoo = new ComputadorDeVoo(this.sensores);
+  private readonly sensores: SensoresVeiculoComposto;
+  private readonly computadorDeVoo: ComputadorDeVoo;
 
   public constructor(definicao: DefinicaoVeiculoComposto) {
     super(definicao);
+    this.sensores = new SensoresVeiculoComposto(this, 0, () => this.massaInstantaneaDoConjuntoKg);
+    this.computadorDeVoo = new ComputadorDeVoo(this.sensores);
   }
 
   public adicionarModulo(modulo: Objeto): void {
@@ -110,6 +116,14 @@ export class VeiculoComposto extends Objeto {
   public desabilitarControleDeDesaceleracao(): void { this.computadorDeVoo.desabilitarControleDeDesaceleracao(); }
   public desabilitarControleDeGimbalDeDescida(): void { this.computadorDeVoo.desabilitarControleDeGimbalDeDescida(); }
   public get controleDeGimbalDeDescidaEstaHabilitado(): boolean { return this.computadorDeVoo.controleDeGimbalDeDescidaEstaHabilitado; }
+  public habilitarControleDeDescidaFuzzyPid(configuracao: ConfiguracaoDescidaFuzzyPid, idsPropulsores: readonly string[]): void {
+    this.computadorDeVoo.habilitarControleDeDescidaFuzzyPid(configuracao, idsPropulsores);
+  }
+  public desabilitarControleDeDescidaFuzzyPid(): void { this.computadorDeVoo.desabilitarControleDeDescidaFuzzyPid(); }
+  public get controleDeDescidaFuzzyPidEstaHabilitado(): boolean { return this.computadorDeVoo.controleDeDescidaFuzzyPidEstaHabilitado; }
+  public obterUltimoComandoDeDescidaFuzzyPid(): ComandoDescidaFuzzyPid {
+    return this.computadorDeVoo.obterUltimoComandoDeDescidaFuzzyPid();
+  }
   public get controleDePousoEstaHabilitado(): boolean { return this.computadorDeVoo.controleDePousoEstaHabilitado; }
   public obterUltimoComandoDePouso(): ComandoControlePouso | undefined {
     return this.computadorDeVoo.obterUltimoComandoDePouso();

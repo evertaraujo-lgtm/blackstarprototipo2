@@ -95,4 +95,37 @@ describe('ComputadorDeVoo', () => {
     expect(computador.controleDePousoEstaHabilitado).toBe(false);
     expect(computador.estaHabilitado).toBe(true);
   });
+
+  it('mantém o gimbal de descida ativo enquanto o throttle fuzzy-PID assume o pouso', () => {
+    let throttle = 0;
+    let comandoGimbalRad = 0;
+    const leituras: LeiturasVeiculoComposto = {
+      ...leiturasComInclinacao(0), altitudeM: 20, velocidadeVerticalMps: -15, massaInstantaneaKg: 1_500,
+    };
+    const computador = new ComputadorDeVoo({ obterLeituras: () => leituras });
+    computador.instalarPropulsor({
+      id: 'motor-bss04', estaIgnitado: true, diagnosticoOperacional: [],
+      ligarSistema: () => true, solicitarIgnicao: () => true,
+      definirThrottle: (valor) => { throttle = valor; }, desligarSistema: () => undefined,
+      solicitarVetorizacao: (angulo) => { comandoGimbalRad = angulo; return true; },
+      obterEstadoDaVetorizacao: () => ({
+        anguloAlvoRad: comandoGimbalRad, anguloAtualRad: comandoGimbalRad,
+        limiteAngularRad: Math.PI / 12, velocidadeAngularMaximaRadps: Math.PI, estaHabilitado: true,
+      }),
+    });
+    computador.habilitarControleDeInclinacao(['motor-bss04']);
+    computador.habilitarControleDeDescidaFuzzyPid({
+      altitudeAlvoM: 4.8, altitudeTransicaoM: 40,
+      velocidadeDescidaMaximaMps: 12, velocidadeToqueMps: 0.35,
+      empuxoMaximoN: 40_000, ganhoProporcionalThrottlePorMps: 0.07,
+      ganhoIntegralThrottlePorM: 0.004, ganhoDerivativoThrottleSegundosPorM: 0.015,
+      taxaMaximaThrottlePorS: 10, erroParaEmpuxoMaximoMps: 2,
+    }, ['motor-bss04']);
+
+    computador.atualizarControladores(1 / 240);
+
+    expect(computador.estaHabilitado).toBe(true);
+    expect(computador.controleDeDescidaFuzzyPidEstaHabilitado).toBe(true);
+    expect(throttle).toBe(1);
+  });
 });

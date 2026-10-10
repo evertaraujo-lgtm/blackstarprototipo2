@@ -54,6 +54,16 @@
             </label>
             <output id="bss03-control-status">Controle manual</output>
           </fieldset>
+          <fieldset id="bss04-controls" class="parachute-settings" hidden>
+            <legend>BSS-004 · modo de voo</legend>
+            <label>Modo
+              <select id="bss04-mode" aria-label="Modo do BSS-004">
+                <option value="decolagem">Decolagem · controle manual</option>
+                <option value="pouso">Pouso automático</option>
+              </select>
+            </label>
+            <output id="bss04-control-status">Decolagem · gimbal automático ativo</output>
+          </fieldset>
           <label id="rotary-motor-control" class="throttle-control" for="rotary-motor-input" hidden>Motor do braço
             <output id="rotary-motor-value">0°</output>
             <input id="rotary-motor-input" type="range" min="-180" max="180" step="1" value="0" aria-label="Ângulo do braço articulado de bancada" />

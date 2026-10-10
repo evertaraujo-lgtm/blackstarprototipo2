@@ -67,6 +67,7 @@ export class Propulsor extends Objeto {
       throw new Error('Potência elétrica máxima do propulsor inválida.');
     }
   }
+  public get empuxoMaximoN(): number { return this.definicaoPropulsor.empuxoMaximoN; }
   public get empuxoAtualN(): number { return this.empuxoAtualCalculadoN; }
   public get vazaoAtualKgS(): number { return this.vazaoAtualCalculadaKgS; }
   public get throttleAtual(): number { return this.throttle; }
