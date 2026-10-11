@@ -9,6 +9,10 @@ export interface SolicitacaoDeAtuador {
   readonly valor: number;
 }
 
+export interface SolicitacaoArbitrada extends SolicitacaoDeAtuador {
+  readonly idControlador: string;
+}
+
 /** Contrato de extensão para qualquer controlador de voo futuro. */
 export interface ControladorDeVoo {
   readonly id: string;
@@ -17,6 +21,8 @@ export interface ControladorDeVoo {
   readonly estaHabilitado: boolean;
   habilitar(): void;
   desabilitar(): void;
+  /** Limpa transientes quando todas as solicitações perdem a arbitragem. */
+  reiniciarMemoria?(): void;
   calcularSolicitacoes(leituras: LeiturasVeiculoComposto, dtS: number): readonly SolicitacaoDeAtuador[];
 }
 
@@ -28,6 +34,21 @@ export interface ControladorDeVoo {
  */
 export class GerenciadorDeControladores {
   private readonly controladores = new Map<string, ControladorDeVoo>();
+  private ultimaArbitragem: readonly SolicitacaoArbitrada[] = [];
+
+  public obterUltimaArbitragem(): readonly SolicitacaoArbitrada[] {
+    return this.ultimaArbitragem.map((solicitacao) => ({ ...solicitacao }));
+  }
+
+  /** Perda de alimentação limpa memória dos controles, conservando a seleção do operador. */
+  public reiniciarControladores(): void {
+    for (const controlador of this.controladores.values()) {
+      if (!controlador.estaHabilitado) continue;
+      controlador.desabilitar();
+      controlador.habilitar();
+    }
+    this.ultimaArbitragem = [];
+  }
 
   public registrar(controlador: ControladorDeVoo): void {
     if (this.controladores.has(controlador.id)) throw new Error(`Controlador já registrado: ${controlador.id}.`);
@@ -58,6 +79,12 @@ export class GerenciadorDeControladores {
           vencedores.set(chave, { controlador, solicitacao });
         }
       }
+    }
+    this.ultimaArbitragem = [...vencedores.values()].map(({ controlador, solicitacao }) =>
+      ({ ...solicitacao, idControlador: controlador.id }));
+    const idsVencedores = new Set(this.ultimaArbitragem.map((s) => s.idControlador));
+    for (const controlador of this.controladores.values()) {
+      if (controlador.estaHabilitado && !idsVencedores.has(controlador.id)) controlador.reiniciarMemoria?.();
     }
     return [...vencedores.values()].map(({ solicitacao }) => solicitacao);
   }

@@ -26,19 +26,21 @@ export class ControladorInclinacaoDePropulsores implements ControladorDeVoo {
   public habilitar(): void { this.pid.habilitar(); }
   public desabilitar(): void { this.pid.desabilitar(); this.desabilitarAmortecimentoHorizontal(); }
   public get estaHabilitado(): boolean { return this.pid.estaHabilitado; }
+  public reiniciarMemoria(): void { if (this.estaHabilitado) this.pid.habilitar(); }
 
   public calcularSolicitacoes(leituras: LeiturasVeiculoComposto, dtS: number): readonly SolicitacaoDeAtuador[] {
+    if (!this.estaHabilitado) return [];
     const descendo = leituras.velocidadeVerticalMps < 0;
     const ganhoAlvo = descendo ? this.ganhoAtitudePorVelocidadeHorizontalRadPorMps : 0;
     const variacaoGanhoMaxima = dtS * 0.02;
     this.ganhoAtitudeHorizontalAtual += Math.max(-variacaoGanhoMaxima,
       Math.min(variacaoGanhoMaxima, ganhoAlvo - this.ganhoAtitudeHorizontalAtual));
-    // vx positivo pede inclinação do casco para +X para apontar o empuxo
-    // contra a deriva. O ganho entra gradualmente para evitar um degrau no
-    // derivativo do PID ao chavear para pouso.
+    // vx positivo pede atitude positiva (topo para -X, empuxo para -X).
+    // O ganho entra gradualmente ao chavear para pouso.
     const erroComDerivaRad = leituras.inclinacaoRad
       - (descendo ? this.ganhoAtitudeHorizontalAtual * leituras.velocidadeHorizontalMps : 0);
-    const gimbalRad = this.pid.calcularComando(erroComDerivaRad, dtS);
+    const erroRad = Math.atan2(Math.sin(erroComDerivaRad), Math.cos(erroComDerivaRad));
+    const gimbalRad = this.pid.calcularComando(erroRad, dtS, leituras.velocidadeAngularRadps);
     return this.idsPropulsores.map((idAtuador) => ({ idAtuador, recurso: 'gimbal' as const, valor: gimbalRad }));
   }
 }

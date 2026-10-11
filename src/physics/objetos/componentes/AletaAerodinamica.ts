@@ -98,13 +98,16 @@ export class AletaAerodinamica extends Objeto {
     if (velocidadeMps < 1e-6) return [];
 
     const pressaoDinamicaPa = 0.5 * condicoes.densidadeArKgM3 * velocidadeMps ** 2;
-    const arrasto = velocidadeRelativa.multiplicar(-pressaoDinamicaPa * this.definicaoAleta.areaEfetivaM2 * this.definicaoAleta.coeficienteArrasto / velocidadeMps);
     const c = Math.cos(estado.orientacaoRad.z);
     const s = Math.sin(estado.orientacaoRad.z);
-    const direcaoLateral = new Vetor3(c, s, 0);
+    const lateralDoCorpo = new Vetor3(c, s, 0);
+    const fluxoUnitario = velocidadeRelativa.multiplicar(1 / velocidadeMps);
+    // Sustentação perpendicular ao fluxo: não injeta potência na translação.
+    // O único arrasto é o termo declarado na classe-base e aplicado pelo core.
+    const direcaoLateral = lateralDoCorpo.subtrair(fluxoUnitario.multiplicar(lateralDoCorpo.produtoEscalar(fluxoUnitario)));
     const sustentacaoN = pressaoDinamicaPa * this.definicaoAleta.areaEfetivaM2
       * this.definicaoAleta.coeficienteSustentacaoPorRad * this.anguloDeflexaoAtualRad * this.integridadeEstrutural;
-    const forca = arrasto.adicionar(direcaoLateral.multiplicar(sustentacaoN));
+    const forca = direcaoLateral.multiplicar(sustentacaoN);
     return [{ forcaN: forca, pontoM: estado.posicaoM }];
   }
 

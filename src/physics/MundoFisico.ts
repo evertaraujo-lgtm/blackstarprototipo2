@@ -182,6 +182,23 @@ export class MundoFisico {
     };
   }
 
+  /** Soma das mesmas forças aerodinâmicas usadas na integração, em torno da referência SI. */
+  public obterCargasAerodinamicas(objetos: readonly Objeto[], referenciaM: Vetor3): { forcaN: Vetor3; torqueNm: Vetor3 } {
+    let forcaN = Vetor3.zero;
+    let torqueNm = Vetor3.zero;
+    for (const objeto of objetos) {
+      const condicoes = this.obterCondicoesAtmosfericas(objeto);
+      const posicaoM = objeto.getEstadoFisico().posicaoM;
+      const forcas = [{ forcaN: this.obterForcaArrastoAtmosferico(objeto), pontoM: posicaoM },
+        ...objeto.obterForcasAerodinamicas(condicoes)];
+      for (const forca of forcas) {
+        forcaN = forcaN.adicionar(forca.forcaN);
+        torqueNm = torqueNm.adicionar((forca.pontoM ?? posicaoM).subtrair(referenciaM).produtoVetorial(forca.forcaN));
+      }
+    }
+    return { forcaN, torqueNm };
+  }
+
   public avancar(deltaS: number): void {
     if (!Number.isFinite(deltaS) || deltaS <= 0) throw new Error('deltaS deve ser positivo e finito.');
     try {

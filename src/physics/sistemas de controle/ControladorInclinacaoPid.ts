@@ -1,6 +1,6 @@
 /** Controlador PID de atitude no eixo planar, sem dependência do MundoFisico. */
 export class ControladorInclinacaoPid {
-  private erroAnteriorRad = 0;
+  private erroAnteriorRad: number | undefined;
   private integralErro = 0;
   private habilitado = false;
 
@@ -19,22 +19,26 @@ export class ControladorInclinacaoPid {
   public habilitar(): void {
     this.habilitado = true;
     this.integralErro = 0;
-    this.erroAnteriorRad = 0;
+    this.erroAnteriorRad = undefined;
   }
 
   public desabilitar(): void {
     this.habilitado = false;
     this.integralErro = 0;
-    this.erroAnteriorRad = 0;
+    this.erroAnteriorRad = undefined;
   }
 
   public get estaHabilitado(): boolean { return this.habilitado; }
 
   /** Retorna o comando de gimbal necessário para reduzir o erro de inclinação. */
-  public calcularComando(erroRad: number, dtS: number): number {
+  public calcularComando(erroRad: number, dtS: number, velocidadeAngularRadps?: number): number {
     if (!this.habilitado) return 0;
     if (!Number.isFinite(erroRad) || !Number.isFinite(dtS) || dtS <= 0) throw new Error('Entrada do controlador PID inválida.');
-    const derivadaErroRadPorS = (erroRad - this.erroAnteriorRad) / dtS;
+    if (velocidadeAngularRadps !== undefined && !Number.isFinite(velocidadeAngularRadps)) throw new Error('Velocidade angular inválida.');
+    // Derivada da medição evita impulsos quando a referência muda. Sem sensor
+    // angular, a primeira amostra somente estabelece a referência temporal.
+    const derivadaErroRadPorS = velocidadeAngularRadps
+      ?? (this.erroAnteriorRad === undefined ? 0 : (erroRad - this.erroAnteriorRad) / dtS);
     const integralAnterior = this.integralErro;
     this.integralErro += erroRad * dtS;
     const saidaNaoLimitada = this.ganhoProporcional * erroRad +

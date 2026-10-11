@@ -5,6 +5,7 @@ import { Objeto, type DefinicaoObjeto } from '../base/Objeto';
 import { Propulsor } from '../propulsao/Propulsor';
 import { ComputadorDeVoo, type ResultadoComandoPropulsor } from './ComputadorDeVoo';
 import { SensoresVeiculoComposto } from '../../sensores/SensoresVeiculoComposto';
+import type { ControladorDeVoo, SolicitacaoArbitrada } from '../../sistemas de controle/GerenciadorDeControladores';
 import type { ComandoControlePouso, ConfiguracaoControlePouso } from '../../sistemas de controle/ControladorPouso';
 import type { ConfiguracaoControleDesaceleracao } from '../../sistemas de controle/ControladorDesaceleracao';
 import type {
@@ -93,6 +94,8 @@ export class VeiculoComposto extends Objeto {
   }
   public desabilitarControleDeInclinacao(): void { this.computadorDeVoo.desabilitar(); }
   public get controleDeInclinacaoEstaHabilitado(): boolean { return this.computadorDeVoo.estaHabilitado; }
+  public registrarControlador(controlador: ControladorDeVoo): void { this.computadorDeVoo.registrarControlador(controlador); }
+  public obterSolicitacoesAplicadas(): readonly SolicitacaoArbitrada[] { return this.computadorDeVoo.obterSolicitacoesAplicadas(); }
 
   public habilitarControleDePouso(
     configuracao: Partial<ConfiguracaoControlePouso> = {},

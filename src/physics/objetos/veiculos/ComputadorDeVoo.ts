@@ -13,7 +13,7 @@ import {
   type ConfiguracaoDescidaFuzzyPid,
 } from '../../sistemas de controle/ControladorDescidaFuzzyPidDePropulsores';
 import type { ConfiguracaoControleDesaceleracao } from '../../sistemas de controle/ControladorDesaceleracao';
-import { GerenciadorDeControladores, type ControladorDeVoo } from '../../sistemas de controle/GerenciadorDeControladores';
+import { GerenciadorDeControladores, type ControladorDeVoo, type SolicitacaoArbitrada } from '../../sistemas de controle/GerenciadorDeControladores';
 import type { EstadoVetorizacao } from '../propulsao/vetorizacao/InterfacesVetorizacao';
 
 type IdSistemaControlado = 'elétrico' | 'hidráulico' | 'combustível' | 'controle';
@@ -50,6 +50,8 @@ export class ComputadorDeVoo {
   private readonly propulsores = new Map<string, IPropulsorControlavelPeloComputador>();
   private readonly propulsoresVetorizados = new Map<string, IPropulsorControlavelPeloComputador>();
   private readonly gerenciador = new GerenciadorDeControladores();
+  private estavaAlimentado = false;
+  private solicitacoesAplicadas: readonly SolicitacaoArbitrada[] = [];
   private readonly controladorInclinacao = new ControladorInclinacaoDePropulsores();
   private readonly controladorPouso = new ControladorPousoDePropulsores();
   private readonly controladorDesaceleracao = new ControladorDesaceleracaoDePropulsores();
@@ -171,6 +173,9 @@ export class ComputadorDeVoo {
   public habilitarControlador(id: string): void { this.gerenciador.habilitar(id); }
   public desabilitarControlador(id: string): void { this.gerenciador.desabilitar(id); }
   public get idsControladoresAtivos(): readonly string[] { return this.gerenciador.idsAtivos(); }
+  public obterSolicitacoesAplicadas(): readonly SolicitacaoArbitrada[] {
+    return this.solicitacoesAplicadas.map((solicitacao) => ({ ...solicitacao }));
+  }
   public get estaHabilitado(): boolean { return this.controladorInclinacao.estaHabilitado; }
 
   /** Executa uma amostra do controle PID antes da preparação dos propulsores. */
@@ -246,22 +251,34 @@ export class ComputadorDeVoo {
     return ids;
   }
 
-  private solicitarGimbalLimitado(idPropulsor: string, comandoRad: number): void {
+  private solicitarGimbalLimitado(idPropulsor: string, comandoRad: number): number | undefined {
     const propulsor = this.propulsoresVetorizados.get(idPropulsor);
     const limiteRad = propulsor?.obterEstadoDaVetorizacao?.().limiteAngularRad;
     if (!propulsor?.solicitarVetorizacao || limiteRad === undefined) return;
-    propulsor.solicitarVetorizacao(Math.max(-limiteRad, Math.min(limiteRad, comandoRad)));
+    const valorRad = Math.max(-limiteRad, Math.min(limiteRad, comandoRad));
+    return propulsor.solicitarVetorizacao(valorRad) ? valorRad : undefined;
   }
 
   private aplicarSolicitacoesDeControladores(dtS: number): void {
     const controladoresAlimentados = [...this.propulsores.values()].some((propulsor) =>
       propulsor.sistemaEstaOperacional('elétrico') && propulsor.sistemaEstaOperacional('controle'));
+    this.solicitacoesAplicadas = [];
+    if (this.estavaAlimentado && !controladoresAlimentados) this.gerenciador.reiniciarControladores();
+    this.estavaAlimentado = controladoresAlimentados;
     if (!controladoresAlimentados) return;
-    for (const solicitacao of this.gerenciador.calcularSolicitacoes(this.telemetriaDoCasco.obterLeituras(), dtS)) {
+    this.gerenciador.calcularSolicitacoes(this.telemetriaDoCasco.obterLeituras(), dtS);
+    const aplicadas: SolicitacaoArbitrada[] = [];
+    for (const solicitacao of this.gerenciador.obterUltimaArbitragem()) {
       const propulsor = this.propulsores.get(solicitacao.idAtuador);
       if (!propulsor?.sistemaEstaOperacional('elétrico') || !propulsor.sistemaEstaOperacional('controle')) continue;
-      if (solicitacao.recurso === 'throttle') this.obterPropulsor(solicitacao.idAtuador).definirThrottle(solicitacao.valor);
-      else this.solicitarGimbalLimitado(solicitacao.idAtuador, solicitacao.valor);
+      if (solicitacao.recurso === 'throttle') {
+        this.obterPropulsor(solicitacao.idAtuador).definirThrottle(solicitacao.valor);
+        aplicadas.push(solicitacao);
+      } else {
+        const valor = this.solicitarGimbalLimitado(solicitacao.idAtuador, solicitacao.valor);
+        if (valor !== undefined) aplicadas.push({ ...solicitacao, valor });
+      }
     }
+    this.solicitacoesAplicadas = aplicadas;
   }
 }

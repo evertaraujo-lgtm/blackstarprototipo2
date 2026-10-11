@@ -7,6 +7,7 @@ export interface LeiturasVeiculoComposto {
   readonly velocidadeVerticalMps: number;
   readonly velocidadeHorizontalMps: number;
   readonly inclinacaoRad: number;
+  readonly velocidadeAngularRadps?: number;
   /** Massa instantânea do conjunto conectado, quando fornecida pelo veículo. */
   readonly massaInstantaneaKg?: number;
 }
@@ -52,6 +53,7 @@ export class SensoresVeiculoComposto {
       velocidadeVerticalMps: velocidadeInicialMps.y,
       velocidadeHorizontalMps: velocidadeInicialMps.x,
       inclinacaoRad: this.nivel.obterInclinacaoRad(),
+      velocidadeAngularRadps: objeto.getEstadoFisico().velocidadeAngularRadps.z,
       massaInstantaneaKg: this.obterMassaInstantaneaKg(),
     };
     this.altitudeDeReferenciaM = altitudeDeReferenciaM;
@@ -69,6 +71,7 @@ export class SensoresVeiculoComposto {
       velocidadeVerticalMps: velocidadeAtualMps.y,
       velocidadeHorizontalMps: velocidadeAtualMps.x,
       inclinacaoRad: this.nivel.obterInclinacaoRad(),
+      velocidadeAngularRadps: this.objeto.getEstadoFisico().velocidadeAngularRadps.z,
       massaInstantaneaKg: this.obterMassaInstantaneaKg(),
     };
   }
