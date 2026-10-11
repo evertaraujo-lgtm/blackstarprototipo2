@@ -170,6 +170,12 @@ export function* avancarEnsaioMissaoBss005(configuracao: ConfiguracaoEnsaioBss00
     || !['nenhuma', 'sem-reserva-no-corte', 'perda-controle-no-corte', 'sem-combustivel-inicial'].includes(config.falha)) throw new Error('Configuração de ensaio BSS-005 inválida.');
   const cenario = criarTesteBss005();
   const motor = cenario.propulsorControlavel;
+  // Colisão de carga/destroço é registrada, mas não substitui o toque do casco
+  // ou do trem de pouso na avaliação de pouso da missão.
+  const idsDosContatosDePouso = new Set(cenario.objetos
+    .filter((objeto) => objeto.id === cenario.seguirObjeto.id
+      || objeto.id.startsWith('bss05-perna-') || objeto.id.startsWith('bss05-sapata-'))
+    .map((objeto) => objeto.id));
   const tanques = cenario.objetos.filter((objeto): objeto is TanquePropelente => objeto instanceof TanquePropelente);
   let fase: FaseEnsaioBss005 = 'solo';
   const ler = () => lerMissaoBss005(cenario, fase);
@@ -192,6 +198,7 @@ export function* avancarEnsaioMissaoBss005(configuracao: ConfiguracaoEnsaioBss00
   comandos.push({ tempoS: 0, operacao: 'ignicao', aceito: partidaAceita });
   evento('partida');
   let decolou = false, modoPousoSelecionado = false, cortou = false, desceu = false, iniciouFrenagem = false;
+  let primeiroContatoFisicoRegistrado = false;
   let esgotou = false, danificou = false, perdeuControle = false;
   let toque: { antes: LeituraMissaoBss005; depois: LeituraMissaoBss005 } | undefined;
   let pousoSeguro = false, falhouPouso = false, contatoUnilateralS = 0, tempoAposPrimeiroContatoS = 0;
@@ -240,8 +247,14 @@ export function* avancarEnsaioMissaoBss005(configuracao: ConfiguracaoEnsaioBss00
     if (desceu && !toque) fase = depois.empuxoN > 0 ? 'frenagem' : 'descida';
     if (desceu && !iniciouFrenagem && depois.empuxoN > 0) { iniciouFrenagem = true; fase = 'frenagem'; evento('inicio-da-frenagem'); }
     if (!esgotou && partidaAceita && (depois.metanoKg === 0 || depois.oxidanteKg === 0)) { esgotou = true; evento('esgotamento-propelente'); }
-    if (desceu && !toque && depois.contatos.length > 0) {
-      fase = 'contato'; toque = { antes, depois: ler() }; evento('primeiro-contato');
+    if (desceu && !primeiroContatoFisicoRegistrado && depois.contatos.length > 0) {
+      primeiroContatoFisicoRegistrado = true;
+      fase = 'contato'; evento('primeiro-contato');
+    }
+    const houveContatoDePouso = depois.contatosFisicos.some((contato) => idsDosContatosDePouso.has(contato.objetoId)
+      && contato.penetracaoM >= 0 && (contato.emApoio || contato.velocidadeNormalAntesMps < 0));
+    if (desceu && !toque && houveContatoDePouso) {
+      fase = 'contato'; toque = { antes, depois: ler() }; evento('toque-veiculo');
       const velocidadesSeguras = atendeLimitesDeToqueBss005(antes);
       if (!velocidadesSeguras || depois.integridadeMinima < 1 || depois.fixadoresRompidos.length > 0) {
         falhouPouso = true; fase = 'falha-pouso'; evento('pouso-falhou');

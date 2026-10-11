@@ -20,7 +20,7 @@ export interface ContextoResolvedorContatoSuperficie {
 /** Tolerância de 2 mm para contato/apoio numérico; não alcança objetos a centímetros do plano. */
 export const TOLERANCIA_CONTATO_SUPERFICIE_M = 2e-3;
 
-/** Contato calculado pelo resolvedor no último subpasso do mundo. */
+/** Ponto de contato calculado pelo resolvedor no último subpasso do mundo. */
 export interface ContatoSuperficieFisico {
   readonly objetoId: string;
   readonly superficieId: string;
@@ -39,7 +39,7 @@ export class ResolvedorContatoSuperficie {
 
   public constructor(private readonly contexto: ContextoResolvedorContatoSuperficie) {}
 
-  /** Snapshot dos contatos efetivamente processados pelo core no último passo. */
+  /** Snapshot dos pontos de contato efetivamente processados pelo core no último passo. */
   public obterContatos(): readonly ContatoSuperficieFisico[] {
     return this.contatosDoUltimoPasso.map((contato) => ({ ...contato }));
   }
@@ -228,7 +228,6 @@ export class ResolvedorContatoSuperficie {
     velocidadeNormalDepoisMps: number,
     energiaImpactoJ: number,
   ): void {
-    const existente = this.contatosDoUltimoPasso.find((contato) => contato.objetoId === objeto.id && contato.superficieId === superficie.id);
     const contato: ContatoSuperficieFisico = {
       objetoId: objeto.id,
       superficieId: superficie.id,
@@ -240,8 +239,10 @@ export class ResolvedorContatoSuperficie {
       emApoio: velocidadeNormalAntesMps <= 0
         && Math.abs(velocidadeNormalDepoisMps) <= this.contexto.velocidadeDeRepousoMps,
     };
-    if (existente) this.contatosDoUltimoPasso[this.contatosDoUltimoPasso.indexOf(existente)] = contato;
-    else this.contatosDoUltimoPasso.push(contato);
+    // Um impacto pode romper um fixador e fazer o mundo reconstruir a ilha no
+    // mesmo subpasso. Preserve também o registro do impulso original: a segunda
+    // passagem pode observar o corpo já separado e parado/afastando-se.
+    this.contatosDoUltimoPasso.push(contato);
   }
 
   private obterVelocidadeNormalNoPonto(objeto: Objeto, pontoM: Vetor3): number {
