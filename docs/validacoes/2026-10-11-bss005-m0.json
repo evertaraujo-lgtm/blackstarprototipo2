@@ -1,0 +1,503 @@
+{
+  "dtS": 0.004166666666666667,
+  "gravidadeMps2": 9.80665,
+  "relatorio": [
+    {
+      "caso": "throttle-0",
+      "throttle": 0,
+      "permissivos": [
+        {
+          "sistema": "elétrico",
+          "ligado": true
+        },
+        {
+          "sistema": "hidráulico",
+          "ligado": true
+        },
+        {
+          "sistema": "combustível",
+          "ligado": true
+        },
+        {
+          "sistema": "controle",
+          "ligado": true
+        }
+      ],
+      "ignicaoAceita": true,
+      "tempoS": 0.004166666666666667,
+      "dtS": 0.004166666666666667,
+      "integridadeMotor": 1,
+      "antes": {
+        "massaKg": 5289.1660309923745,
+        "metanoKg": 600,
+        "oxidanteKg": 2400
+      },
+      "massaDepoisKg": 5289.1660309923745,
+      "consumidoMetanoKg": 0,
+      "consumidoOxidanteKg": 0,
+      "vazaoMetanoKgS": 0,
+      "vazaoOxidanteKgS": 0,
+      "vazaoRetiradaTanquesKgS": 0,
+      "vazaoInformadaMotorKgS": 0,
+      "diferencaVazaoKgS": 0,
+      "empuxoN": 0,
+      "ispPorVazaoInformadaS": null,
+      "ispPorConsumoRealS": null,
+      "potenciaTermicaDeclaradaW": 0,
+      "posicaoCascoYM": 4.800000000000002,
+      "velocidadeCascoYMps": -0.0038421241872010747,
+      "rupturas": []
+    },
+    {
+      "caso": "throttle-50",
+      "throttle": 0.5,
+      "permissivos": [
+        {
+          "sistema": "elétrico",
+          "ligado": true
+        },
+        {
+          "sistema": "hidráulico",
+          "ligado": true
+        },
+        {
+          "sistema": "combustível",
+          "ligado": true
+        },
+        {
+          "sistema": "controle",
+          "ligado": true
+        }
+      ],
+      "ignicaoAceita": true,
+      "tempoS": 0.004166666666666667,
+      "dtS": 0.004166666666666667,
+      "integridadeMotor": 1,
+      "antes": {
+        "massaKg": 5289.1660309923745,
+        "metanoKg": 600,
+        "oxidanteKg": 2400
+      },
+      "massaDepoisKg": 5289.141030992374,
+      "consumidoMetanoKg": 0.0049999999999954525,
+      "consumidoOxidanteKg": 0.01999999999998181,
+      "vazaoMetanoKgS": 1.2000000000000002,
+      "vazaoOxidanteKgS": 4.800000000000001,
+      "vazaoRetiradaTanquesKgS": 5.999999999994543,
+      "vazaoInformadaMotorKgS": 6.000000000000001,
+      "diferencaVazaoKgS": -5.4578563890572696e-12,
+      "empuxoN": 60000,
+      "ispPorVazaoInformadaS": 1019.7162129779281,
+      "ispPorConsumoRealS": 1019.7162129788558,
+      "potenciaTermicaDeclaradaW": 3000000,
+      "posicaoCascoYM": 4.8000266904381865,
+      "velocidadeCascoYMps": 0.006405705167818262,
+      "rupturas": []
+    },
+    {
+      "caso": "throttle-100",
+      "throttle": 1,
+      "permissivos": [
+        {
+          "sistema": "elétrico",
+          "ligado": true
+        },
+        {
+          "sistema": "hidráulico",
+          "ligado": true
+        },
+        {
+          "sistema": "combustível",
+          "ligado": true
+        },
+        {
+          "sistema": "controle",
+          "ligado": true
+        }
+      ],
+      "ignicaoAceita": true,
+      "tempoS": 0.004166666666666667,
+      "dtS": 0.004166666666666667,
+      "integridadeMotor": 1,
+      "antes": {
+        "massaKg": 5289.1660309923745,
+        "metanoKg": 600,
+        "oxidanteKg": 2400
+      },
+      "massaDepoisKg": 5289.116030992374,
+      "consumidoMetanoKg": 0.009999999999990905,
+      "consumidoOxidanteKg": 0.03999999999996362,
+      "vazaoMetanoKgS": 2.4000000000000004,
+      "vazaoOxidanteKgS": 9.600000000000001,
+      "vazaoRetiradaTanquesKgS": 11.999999999989086,
+      "vazaoInformadaMotorKgS": 12.000000000000002,
+      "diferencaVazaoKgS": -1.0915712778114539e-11,
+      "empuxoN": 120000,
+      "ispPorVazaoInformadaS": 1019.7162129779281,
+      "ispPorConsumoRealS": 1019.7162129788558,
+      "potenciaTermicaDeclaradaW": 6000000,
+      "posicaoCascoYM": 4.800223637078473,
+      "velocidadeCascoYMps": 0.05367289884584519,
+      "rupturas": []
+    },
+    {
+      "caso": "motor-integridade-50",
+      "throttle": 1,
+      "permissivos": [
+        {
+          "sistema": "elétrico",
+          "ligado": true
+        },
+        {
+          "sistema": "hidráulico",
+          "ligado": true
+        },
+        {
+          "sistema": "combustível",
+          "ligado": true
+        },
+        {
+          "sistema": "controle",
+          "ligado": true
+        }
+      ],
+      "ignicaoAceita": true,
+      "tempoS": 0.004166666666666667,
+      "dtS": 0.004166666666666667,
+      "integridadeMotor": 0.5,
+      "antes": {
+        "massaKg": 5289.1660309923745,
+        "metanoKg": 600,
+        "oxidanteKg": 2400
+      },
+      "massaDepoisKg": 5289.116030992374,
+      "consumidoMetanoKg": 0.009999999999990905,
+      "consumidoOxidanteKg": 0.03999999999996362,
+      "vazaoMetanoKgS": 2.4000000000000004,
+      "vazaoOxidanteKgS": 9.600000000000001,
+      "vazaoRetiradaTanquesKgS": 11.999999999989086,
+      "vazaoInformadaMotorKgS": 12.000000000000002,
+      "diferencaVazaoKgS": -1.0915712778114539e-11,
+      "empuxoN": 30000,
+      "ispPorVazaoInformadaS": 254.92905324448202,
+      "ispPorConsumoRealS": 254.92905324471394,
+      "potenciaTermicaDeclaradaW": 1500000,
+      "posicaoCascoYM": 4.800000102094893,
+      "velocidadeCascoYMps": -0.00607215209961837,
+      "rupturas": []
+    },
+    {
+      "caso": "motor-integridade-0",
+      "throttle": 1,
+      "permissivos": [
+        {
+          "sistema": "elétrico",
+          "ligado": false
+        },
+        {
+          "sistema": "hidráulico",
+          "ligado": false
+        },
+        {
+          "sistema": "combustível",
+          "ligado": false
+        },
+        {
+          "sistema": "controle",
+          "ligado": false
+        }
+      ],
+      "ignicaoAceita": false,
+      "tempoS": 0.004166666666666667,
+      "dtS": 0.004166666666666667,
+      "integridadeMotor": 0,
+      "antes": {
+        "massaKg": 5289.1660309923745,
+        "metanoKg": 600,
+        "oxidanteKg": 2400
+      },
+      "massaDepoisKg": 5289.1660309923745,
+      "consumidoMetanoKg": 0,
+      "consumidoOxidanteKg": 0,
+      "vazaoMetanoKgS": 0,
+      "vazaoOxidanteKgS": 0,
+      "vazaoRetiradaTanquesKgS": 0,
+      "vazaoInformadaMotorKgS": 0,
+      "diferencaVazaoKgS": 0,
+      "empuxoN": 0,
+      "ispPorVazaoInformadaS": null,
+      "ispPorConsumoRealS": null,
+      "potenciaTermicaDeclaradaW": 0,
+      "posicaoCascoYM": 4.800000000000002,
+      "velocidadeCascoYMps": -0.0038421241872010747,
+      "rupturas": []
+    },
+    {
+      "caso": "oxidante-insuficiente",
+      "throttle": 1,
+      "permissivos": [
+        {
+          "sistema": "elétrico",
+          "ligado": true
+        },
+        {
+          "sistema": "hidráulico",
+          "ligado": true
+        },
+        {
+          "sistema": "combustível",
+          "ligado": true
+        },
+        {
+          "sistema": "controle",
+          "ligado": true
+        }
+      ],
+      "ignicaoAceita": true,
+      "tempoS": 0.004166666666666667,
+      "dtS": 0.004166666666666667,
+      "integridadeMotor": 1,
+      "antes": {
+        "massaKg": 2889.1860309923745,
+        "metanoKg": 600,
+        "oxidanteKg": 0.01999999999998181
+      },
+      "massaDepoisKg": 2889.1560309923743,
+      "consumidoMetanoKg": 0.009999999999990905,
+      "consumidoOxidanteKg": 0.01999999999998181,
+      "vazaoMetanoKgS": 2.4000000000000004,
+      "vazaoOxidanteKgS": 4.799999999995634,
+      "vazaoRetiradaTanquesKgS": 7.199999999993452,
+      "vazaoInformadaMotorKgS": 5.999999999994543,
+      "diferencaVazaoKgS": 1.1999999999989086,
+      "empuxoN": 0,
+      "ispPorVazaoInformadaS": 0,
+      "ispPorConsumoRealS": 0,
+      "potenciaTermicaDeclaradaW": 0,
+      "posicaoCascoYM": 4.800000000000001,
+      "velocidadeCascoYMps": -0.002517134238915063,
+      "rupturas": []
+    },
+    {
+      "caso": "sem-oxidante",
+      "throttle": 1,
+      "permissivos": [
+        {
+          "sistema": "elétrico",
+          "ligado": true
+        },
+        {
+          "sistema": "hidráulico",
+          "ligado": true
+        },
+        {
+          "sistema": "combustível",
+          "ligado": true
+        },
+        {
+          "sistema": "controle",
+          "ligado": true
+        }
+      ],
+      "ignicaoAceita": true,
+      "tempoS": 0.004166666666666667,
+      "dtS": 0.004166666666666667,
+      "integridadeMotor": 1,
+      "antes": {
+        "massaKg": 2889.1660309923745,
+        "metanoKg": 600,
+        "oxidanteKg": 0
+      },
+      "massaDepoisKg": 2889.1560309923743,
+      "consumidoMetanoKg": 0.009999999999990905,
+      "consumidoOxidanteKg": 0,
+      "vazaoMetanoKgS": 2.4000000000000004,
+      "vazaoOxidanteKgS": 0,
+      "vazaoRetiradaTanquesKgS": 2.399999999997817,
+      "vazaoInformadaMotorKgS": 0,
+      "diferencaVazaoKgS": 2.399999999997817,
+      "empuxoN": 0,
+      "ispPorVazaoInformadaS": null,
+      "ispPorConsumoRealS": 0,
+      "potenciaTermicaDeclaradaW": 0,
+      "posicaoCascoYM": 4.800000000000001,
+      "velocidadeCascoYMps": -0.002517134238915063,
+      "rupturas": []
+    },
+    {
+      "caso": "sem-metano",
+      "throttle": 1,
+      "permissivos": [
+        {
+          "sistema": "elétrico",
+          "ligado": true
+        },
+        {
+          "sistema": "hidráulico",
+          "ligado": true
+        },
+        {
+          "sistema": "combustível",
+          "ligado": true
+        },
+        {
+          "sistema": "controle",
+          "ligado": true
+        }
+      ],
+      "ignicaoAceita": false,
+      "tempoS": 0.004166666666666667,
+      "dtS": 0.004166666666666667,
+      "integridadeMotor": 1,
+      "antes": {
+        "massaKg": 4689.1660309923745,
+        "metanoKg": 0,
+        "oxidanteKg": 2400
+      },
+      "massaDepoisKg": 4689.1660309923745,
+      "consumidoMetanoKg": 0,
+      "consumidoOxidanteKg": 0,
+      "vazaoMetanoKgS": 0,
+      "vazaoOxidanteKgS": 0,
+      "vazaoRetiradaTanquesKgS": 0,
+      "vazaoInformadaMotorKgS": 0,
+      "diferencaVazaoKgS": 0,
+      "empuxoN": 0,
+      "ispPorVazaoInformadaS": null,
+      "ispPorConsumoRealS": null,
+      "potenciaTermicaDeclaradaW": 0,
+      "posicaoCascoYM": 4.8,
+      "velocidadeCascoYMps": -0.003095884357707946,
+      "rupturas": []
+    },
+    {
+      "caso": "sem-ignicao",
+      "throttle": 1,
+      "permissivos": [
+        {
+          "sistema": "elétrico",
+          "ligado": true
+        },
+        {
+          "sistema": "hidráulico",
+          "ligado": true
+        },
+        {
+          "sistema": "combustível",
+          "ligado": true
+        },
+        {
+          "sistema": "controle",
+          "ligado": true
+        }
+      ],
+      "ignicaoAceita": false,
+      "tempoS": 0.004166666666666667,
+      "dtS": 0.004166666666666667,
+      "integridadeMotor": 1,
+      "antes": {
+        "massaKg": 5289.1660309923745,
+        "metanoKg": 600,
+        "oxidanteKg": 2400
+      },
+      "massaDepoisKg": 5289.1660309923745,
+      "consumidoMetanoKg": 0,
+      "consumidoOxidanteKg": 0,
+      "vazaoMetanoKgS": 0,
+      "vazaoOxidanteKgS": 0,
+      "vazaoRetiradaTanquesKgS": 0,
+      "vazaoInformadaMotorKgS": 0,
+      "diferencaVazaoKgS": 0,
+      "empuxoN": 0,
+      "ispPorVazaoInformadaS": null,
+      "ispPorConsumoRealS": null,
+      "potenciaTermicaDeclaradaW": 0,
+      "posicaoCascoYM": 4.800000000000002,
+      "velocidadeCascoYMps": -0.0038421241872010747,
+      "rupturas": []
+    },
+    {
+      "caso": "sem-controle",
+      "throttle": 1,
+      "permissivos": [
+        {
+          "sistema": "elétrico",
+          "ligado": true
+        },
+        {
+          "sistema": "hidráulico",
+          "ligado": true
+        },
+        {
+          "sistema": "combustível",
+          "ligado": true
+        },
+        {
+          "sistema": "controle",
+          "ligado": true
+        }
+      ],
+      "ignicaoAceita": true,
+      "tempoS": 0.004166666666666667,
+      "dtS": 0.004166666666666667,
+      "integridadeMotor": 1,
+      "antes": {
+        "massaKg": 5289.1660309923745,
+        "metanoKg": 600,
+        "oxidanteKg": 2400
+      },
+      "massaDepoisKg": 5289.1660309923745,
+      "consumidoMetanoKg": 0,
+      "consumidoOxidanteKg": 0,
+      "vazaoMetanoKgS": 0,
+      "vazaoOxidanteKgS": 0,
+      "vazaoRetiradaTanquesKgS": 0,
+      "vazaoInformadaMotorKgS": 0,
+      "diferencaVazaoKgS": 0,
+      "empuxoN": 0,
+      "ispPorVazaoInformadaS": null,
+      "ispPorConsumoRealS": null,
+      "potenciaTermicaDeclaradaW": 0,
+      "posicaoCascoYM": 4.800000000000002,
+      "velocidadeCascoYMps": -0.0038421241872010747,
+      "rupturas": []
+    }
+  ],
+  "dataLocal": "2026-10-11",
+  "commitBase": "c699ea8b082ee2f7ce1f8778d3cb7d38c91443ff",
+  "escopo": "M0 reduzido; pulsos físicos de um passo; sem alteração da propulsão e sem missão completa",
+  "montagem": "Fábrica BSS005 extraída literalmente de src/testes.ts, executando criarTesteDecolagemComPainelSolar de src/cenarios/BancadaBss.ts",
+  "sha256FabricaCompartilhada": "26db68576f75930575040a3230063c0626075cae3bb8b321c30f81f2d182630c",
+  "configuracao": {
+    "massaInicialKg": 5289.1660309923745,
+    "massaSecaKg": 2289.1660309923745,
+    "metanoInicialKg": 600,
+    "oxidanteInicialKg": 2400,
+    "empuxoMaximoN": 120000,
+    "vazaoMaximaMetanoKgS": 2.4,
+    "vazaoMaximaOxidanteKgS": 9.6,
+    "pesoInicialN": 51869.00005783137,
+    "razaoEmpuxoPesoInicial": 2.313520597393548,
+    "tempoQueimaNominalTeoricoS": 250.0,
+    "velocidadeEfetivaExaustaoImplicitaMps": 10000.0,
+    "potenciaTermicaMaximaDeclaradaW": 6000000
+  },
+  "hipoteseIsp350S": {
+    "descricao": "Somente exemplo quantitativo da auditoria, não uma nova calibração do motor",
+    "vazaoTotalPara120kNKgS": 34.96169873067183,
+    "tempoQueimaCom3000KgS": 85.8081875,
+    "empuxoComVazao12KgSN": 41187.93
+  },
+  "validacao": {
+    "testesPropulsor": 21,
+    "testesVetorizacao": 3,
+    "testesCadeia": 5,
+    "totalAprovados": 29,
+    "totalFalhados": 0,
+    "typecheck": "exit 0",
+    "build": "exit 0",
+    "suiteCompletaExecutada": false,
+    "voo15KmExecutado": false,
+    "repeticaoDosDezPulsos": "Leituras idênticas em duas execuções com mesmo dt e configuração"
+  }
+}
