@@ -3,10 +3,12 @@
 **Data da revisão:** 2026-10-10  
 **Repositório:** `evertaraujo-lgtm/blackstarprototipo2`  
 **Commit-base analisado:** `72b6666700ee5410fb254f2d32647dfe59ef345b` (`Improve BSS05 flight and descent physics`)  
-**Status:** plano incremental; o BSS-006 possui validação integrada de baixa altitude no commit `c699ea8`. Este documento não implementa correções de código.  
+**Status atual (11/10/2026):** os marcos M0–M4 foram entregues e aprovados no escopo ensaiado; **a missão de 15 km com retorno permanece NÃO QUALIFICADA**. As seções 2–7 são registros históricos de diagnóstico e backlog, e os estados mais recentes prevalecem conforme a seção 8. Este documento não implementa correções de código.  
 **Prioridade geral:** consistência física antes de adicionar recursos visuais ou aumentar o alcance da missão.
 
 **Atualização de 10/10/2026:** a seção 7 revisa o commit `c699ea8b082ee2f7ce1f8778d3cb7d38c91443ff` e prevalece sobre diagnósticos antigos **apenas quando indicar expressamente uma correção já realizada**. As seções 2–6 preservam o histórico e o backlog original do BSS-005.
+
+**Atualização de 11/10/2026:** a seção 8 consolida a auditoria após M0–M4 e substitui a leitura dos itens antigos ainda marcados como pendentes quando a correção já foi comprovada. Não reescreva o histórico como se o código antigo ainda estivesse vigente.
 
 ## 1. Instruções para o Codex
 
@@ -310,3 +312,62 @@ Os três terminaram com empuxo zero, integridade informada de 100%, sem fixadore
 | Contato seguro e estados de missão rigorosos | **Pendente, P0-C/P1-A** |
 | Arbitragem central dos comandos do gimbal | **Pendente, P1-A** |
 | Sensores realistas, vento e variação de parâmetros | **Pendente, P1-B/P1-C** |
+## 8. Auditoria consolidada dos marcos M0–M4
+
+**Data:** 11/10/2026 (horário de Brasília).  
+**Commit analisado da M4:** [\`18e7ec4\`](https://github.com/evertaraujo-lgtm/blackstarprototipo2/commit/18e7ec4d3de59ed5cde4f0ad8f91ac013242b246).  
+**Evidências:** \`docs/validacoes/2026-10-11-bss005-m0.md\`, \`2026-10-11-bss005-m1.md\`, \`2026-10-11-bss005-m2.md\`, \`2026-10-11-bss005-m3.md\` e \`2026-10-11-bss005-m4.md\`, conforme disponíveis; os respectivos testes e JSONs são a referência quantitativa.  
+**Método da auditoria:** inspeção de commits, código, asserts, documentos de validação e resultados de GitHub Actions. **Não foram executados testes locais independentes por esta revisão.** Aprovação se restringe ao escopo e às hipóteses declaradas.
+
+### 8.1 Aprovações dos marcos
+
+- [x] **M0 — Diagnóstico:** [\`e639f34\`](https://github.com/evertaraujo-lgtm/blackstarprototipo2/commit/e639f34923ee5be94416faa5ad8a997f44fa270b). Inconsistência inicial de \`F / m_dot / Isp\`, combustível e limites da missão quantificados. **Aprovado como diagnóstico**, não correção física.
+- [x] **M1 — Consistência da propulsão:** [\`01e603c\`](https://github.com/evertaraujo-lgtm/blackstarprototipo2/commit/01e603c5374b57acbbc7534be3ed351d53a3886a). Modelo químico idealizado de \`120 kN\`, \`Isp = 350 s\` como hipótese, \`m_dot ≈ 34,9617 kg/s\`, mistura O2/CH4 4:1 e balanço de massa, com casos de falha; CI concluído com sucesso. **Aprovado no escopo do modelo químico simplificado.** Não constitui qualificação de motor real ou balanço completo de potência.
+- [x] **M2 — Ensaio, perdas e observabilidade:** [\`231e6f2\`](https://github.com/evertaraujo-lgtm/blackstarprototipo2/commit/231e6f2cbcbfa3448c8c8f41d625d5b3747c4807). Ensaio determinístico com subida, corte, apogeu, descida, contato, balanço de massa e falhas; CI concluído com sucesso. **Aprovado como instrumentação e diagnóstico**, **não aprovado como missão de 15 km**. Referência de 300 m pousa com \`Vy ≈ −0,444 m/s\`; tentativa que seleciona Pouso a 15 km consome reserva e impacta com \`Vy ≈ −91,876 m/s\`.
+- [x] **M3 — Guiagem lateral e gimbal:** [\`e724d0b\`](https://github.com/evertaraujo-lgtm/blackstarprototipo2/commit/e724d0b44429469aa9de91495dc3833b1927d85e). Corrigidos arrasto **duplicado** das grid fins, sinal do controle lateral, disputa de autoridade do gimbal e transientes do PID. Seis pousos integrados de baixa altitude, incluindo vento constante ±5 m/s, dentro dos critérios declarados, e regressões de saturação/falhas; [CI verde](https://github.com/evertaraujo-lgtm/blackstarprototipo2/actions/runs/38114903816). **Aprovado nas condições ensaiadas**, sem extrapolação para voo 3D ou 15 km.
+- [x] **M4 — Atmosfera, térmica e registros:** [\`18e7ec4\`](https://github.com/evertaraujo-lgtm/blackstarprototipo2/commit/18e7ec4d3de59ed5cde4f0ad8f91ac013242b246). Verificados pontos de densidade em 0/11/15 km e continuidade; convecção ambiente ajustada por densidade local, inclusive vácuo; instrumentação de \`q\`, \`Isp\` efetivo, delta-v **ideal**, diagnósticos e diário de entradas por passo. Relatório apresenta **39 testes pertinentes** e reprodução de voo BSS-006 via exportação da tela, diferença máxima \`2,8194 × 10^-11\`; [CI verde](https://github.com/evertaraujo-lgtm/blackstarprototipo2/actions/runs/38115380693). **Aprovado como correção térmica simplificada e rastreabilidade.** O JSON exige a mesma revisão do código e não é importado automaticamente pela interface.
+
+**Distinção obrigatória:** \`marco implementado\` ≠ \`CI verde\` ≠ \`missão fisicamente qualificada\`. As cinco aprovações acima não autorizam afirmar sucesso de retorno de 15 km.
+
+### 8.2 Itens antes pendentes que mudaram de estado
+
+- [x] **P0-A — Balanço propulsivo:** corrigido na M1, sob a hipótese explícita de Isp constante de 350 s.
+- [x] **P0-B — Arrasto duplicado das grid fins:** corrigido na M3, com ensaios de arrasto único, sustentação perpendicular ao fluxo, vácuo e vento relativo.
+- [x] **P1-A (parte concluída) — Arbitragem do gimbal:** um vencedor por motor/recurso em cada passo, com identificação do controlador e regressões de transição na M3. **A máquina de estados completa de missão e as políticas de contingência não estão concluídas.**
+- [x] **P1-B (parte coberta) — Guiagem lateral:** corrigidos sinais, cálculo com cargas aerodinâmicas existentes e robustez nos casos M3. Permanecem limitações de ângulo de ataque, Mach, vento por altitude e sensores.
+- [x] **P2 — Referências atmosféricas e convecção por densidade:** verificadas na M4 dentro de 0–20 km, com tratamento de vácuo. Temperatura ambiente uniforme, convecção parametrizada, sem correlação completa de Reynolds/Mach, radiação ou balanço energético completo.
+- [x] **P2 — Telemetria, registro de entradas e replay:** ampliados na M4; reprodução integral demonstrada em uma missão BSS-006, não em todos os cenários ou falhas possíveis.
+- [ ] **P0-C / R2 — Intertravamento físico de toque seguro:** a consulta geométrica de sapatas e o desligamento do motor não equivalem a detecção completa de apoio estável.
+- [ ] **P1-C / R3 — Sensores, rajadas, falhas por fase e contingências:** permanecem sem qualificação abrangente.
+
+### 8.3 Problemas abertos e próximos marcos sugeridos
+
+**M5 — Perfil de missão e reserva de pouso a 15 km [PRIORIDADE ALTA].**
+
+- [ ] Reproduzir, via API pública e diário de comandos da M4, um procedimento **manual** representativo: decolagem, throttle/corte documentados, trecho balístico e ativação do controle de pouso **na descida, aproximadamente a 1 km**, como relatado pelo operador. O momento exato de corte da subida e a velocidade na aproximação devem ser registrados, não supostos.
+- [ ] Separar \`altura alvo da subida\`, \`corte do motor\`, \`apogeu\`, \`início da frenagem\` e \`toque\`, calculando orçamento de propelente, \`Δv\`, margem de frenagem e riscos, sem inventar combustível.
+- [ ] Conservar cenários de falha: sem reserva, motor desligado, controle indisponível; classificar impacto e não apenas presença de contato.
+- [ ] **Não** ativar automaticamente pouso na interface sem autorização. Primeiro reproduzir como script de ensaio; se a missão for inviável, registrar o diagnóstico antes de redimensionar motor, tanques ou ganhos.
+- [ ] Só declarar sucesso de 15 km quando um voo de **subida + retorno** preservar integridade, contatos/repouso e margem documentada.
+
+**M6 — Aerodinâmica do veículo completo [PRIORIDADE ALTA, independente de M5].**
+
+- [ ] Rever a área aerodinâmica **projetada em função da orientação do corpo em relação ao fluxo**. No BSS-005, o casco usa atualmente \`areaFrontalM2 = 7\` e \`Cd = 0,65\` constantes; isso não representa adequadamente o veículo tombado ou de lado.
+- [ ] Auditar componentes expostos e superfície de controle conforme a geometria do veículo, centro de pressão, momentos e efeito de velocidade relativa; não reintroduzir o arrasto duplicado das grid fins que a M3 eliminou.
+- [ ] Comparar queda longitudinal, lateral e girando com **mesma massa/atmosfera**, avaliar força, torque e velocidades descendentes; não tratar o pico amostrado de \`≈207 m/s\` na M2 como velocidade terminal universal ou velocidade máxima exata entre passos.
+- [ ] Registrar faixa válida do \`Cd\` e limitações do modelo planar, sem atribuir precisão aerodinâmica real a uma geometria simplificada.
+
+**M7 — Contato, pouso seguro e consequências do impacto [PRIORIDADE ALTA].**
+
+- [ ] Separar primeiro contato geométrico, reação do resolvedor, apoio de ambas as sapatas, toque dentro dos limites, repouso estável e pouso seguro.
+- [ ] Investigar penetração geométrica residual de aproximadamente **34 mm** e movimento persistente dos componentes danificados nos ensaios M2 após ruptura; preservar conservação e resposta de contatos, sem congelar destroços para atingir tolerâncias.
+
+**M8 — Contingências e sensoriamento [PRIORIDADE POSTERIOR].**
+
+- [ ] Injetar sensores congelados, erros/atrasos, perda elétrica, falha do atuador e rajadas de vento; definir política por fase e regressões de não recuperação.
+- [ ] Estender o modelo atmosférico, gravidade e vento em altitude quando houver exigência concreta de missão acima da faixa hoje testada.
+
+### 8.4 Regra para a próxima auditoria
+
+Preservar todas as evidências M0–M4 e verificar tanto o comportamento nominal quanto os casos adversos. Recolher as entradas reais do operador quando disponíveis; não adivinhar o corte da subida a partir de um pouso relatado. Priorizar **M5**, sem confundir o trabalho de orçamento vertical com a revisão aerodinâmica **M6**. O estado de M5–M8 é **backlog**, não uma autorização para implementar tudo no mesmo commit.
+
