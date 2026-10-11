@@ -1,10 +1,12 @@
-# Plano de melhorias para o Codex — Black Star, Protótipo 2 / BSS-005
+# Plano de melhorias para o Codex — Black Star, Protótipo 2 / BSS-005 e BSS-006
 
 **Data da revisão:** 2026-10-10  
 **Repositório:** `evertaraujo-lgtm/blackstarprototipo2`  
 **Commit-base analisado:** `72b6666700ee5410fb254f2d32647dfe59ef345b` (`Improve BSS05 flight and descent physics`)  
-**Status:** planejamento; nenhuma correção de código está implementada por este documento.  
+**Status:** plano incremental; o BSS-006 possui validação integrada de baixa altitude no commit `c699ea8`. Este documento não implementa correções de código.  
 **Prioridade geral:** consistência física antes de adicionar recursos visuais ou aumentar o alcance da missão.
+
+**Atualização de 10/10/2026:** a seção 7 revisa o commit `c699ea8b082ee2f7ce1f8778d3cb7d38c91443ff` e prevalece sobre diagnósticos antigos **apenas quando indicar expressamente uma correção já realizada**. As seções 2–6 preservam o histórico e o backlog original do BSS-005.
 
 ## 1. Instruções para o Codex
 
@@ -175,3 +177,136 @@ O cenário visual oferece seleção manual entre decolagem e pouso, mas isso nã
 5. Nenhuma etapa declara “física validada” apenas porque a simulação executou ou atingiu um número-alvo.
 
 **Observação:** esta revisão foi feita por leitura do código e diff do commit-base; a suíte de testes não foi executada nesta etapa.
+
+## 7. Revisão técnica do BSS-006 após o voo completo
+
+**Data:** 2026-10-10 (horário de Brasília).  
+**Commit revisado:** [`c699ea8b082ee2f7ce1f8778d3cb7d38c91443ff`](https://github.com/evertaraujo-lgtm/blackstarprototipo2/commit/c699ea8b082ee2f7ce1f8778d3cb7d38c91443ff) — `Fix BSS06 landing guidance and validate complete flights`.  
+**Evidências versionadas:** `src/cenarios/BancadaBss.test.ts`, `docs/validacoes/bss06-voo-completo.md`, `docs/validacoes/bss06-voo-completo.json`.  
+**CI desse commit:** [GitHub Actions #38106615936](https://github.com/evertaraujo-lgtm/blackstarprototipo2/actions/runs/38106615936), concluído com sucesso (testes, `typecheck` e `build`).  
+**Escopo desta revisão:** leitura do diff, implementações e evidências do repositório. Não executei localmente testes ou nova simulação; os resultados numéricos abaixo são os publicados no commit.
+
+### 7.1 O que mudou e o que está comprovado no simulador
+
+- **[Implementado]** Cenário extraído para `src/cenarios/BancadaBss.ts` e compartilhado entre interface e regressão. Os testes agora exercitam a mesma fábrica de montagem da bancada.
+- **[Implementado]** A guiagem horizontal passou a calcular **atitude-alvo** e comandar gimbal e grid fins para persegui-la. A versão anterior podia gerar torque contraproducente: a validação relata toque cerca de 242 m fora do alvo, com deriva de 16,5 m/s e ruptura de vínculos.
+- **[Implementado, heurístico]** Na conversão de aceleração lateral em referência angular, o denominador passou a ser `max(empuxoAtual, massa * g, 1)`, evitando divisão por empuxo próximo de zero. Isso limita a referência; **não representa empuxo disponível quando o motor está apagado**.
+- **[Implementado]** BSS-006 fornece ao Fuzzy-PID um callback opcional de contato geométrico das sapatas; cenários antigos continuam com a lógica de altitude quando o callback não existe. A velocidade-alvo terminal do BSS-006 foi reduzida a 0,15 m/s.
+- **[Testado]** Quatro casos de missão integrada (troca para modo Pouso a 80 m ou 300 m; alvos X = 0, +34,7 m e -34,7 m); partida manual simulada via API; apogeu, descida, contato, ausência de rompimento e ao menos 3 s de repouso.
+- **[Testado]** Selecionar Pouso sem ignição não provoca decolagem nem consumo. A perda elétrica interrompe controle/empuxo; a queda resulta em dano e rompimento de fixadores.
+- **[Testado na CI]** `npm test -- --run`, `npm run typecheck` e `npm run build` passaram no commit acima. Isso não valida fidelidade aeroespacial do modelo.
+
+**Resultados publicados para troca de modo a 300 m; apogeu ~358,4 m:**
+
+| Alvo X (m) | X no toque (m) | Erro absoluto (m) | |v vertical| no toque (m/s) | |v horizontal| no toque (m/s) |
+|---:|---:|---:|---:|---:|
+| 0 | 0,529 | 0,529 | 0,131 | 0,001 |
+| +34,7 | +35,122 | 0,422 | 0,131 | 0,027 |
+| -34,7 | -34,065 | 0,635 | 0,131 | 0,028 |
+
+Os três terminaram com empuxo zero, integridade informada de 100%, sem fixadores rompidos e repouso monitorado. **Conclusão permitida:** sucesso de voo integrado **de baixa altitude**, no modelo idealizado e nas condições específicas testadas. **Não declarar** validação de missão a 15 km, de pouso com vento, de voo 3D ou de controlador adequado a foguete real. O teste `Bss05Missao.test.ts` demonstra subida a 15 km, não retorno completo.
+
+### 7.2 Backlog atualizado: defeitos e riscos ainda abertos
+
+#### P0-A — Fechar balanço de massa, empuxo e energia da propulsão
+
+**Evidência:** `src/cenarios/BancadaBss.ts` mantém o BSS-006 com empuxo máximo nominal de 120 kN, metano 2,4 kg/s e oxigênio 9,6 kg/s, implicando `Isp = F / (m_dot_total * g0) ≈ 1.020 s`, incompatível com um motor químico CH4/O2 convencional. `Bocal.ts` multiplica empuxo nominal por eficiências/fração de vazão sem impor uma velocidade efetiva de exaustão fisicamente coerente. O resultado positivo de pouso **não** corrige essa inconsistência.
+
+**Tarefas:**
+- [ ] Executar o P0 da seção 3 antes de usar alcance, massa de propelente ou reserva de pouso como evidência de viabilidade.
+- [ ] Implementar relação explícita entre fluxo mássico, `Isp`/velocidade de exaustão, empuxo e condição de operação, preservando a abstração genérica de propulsão.
+- [ ] Auditar calor/potência declarados e massa consumida a cada passo; recalibrar combustível, oxidante, empuxo e perfil de voo **com justificativa**, sem alterar a física para manter testes artificialmente verdes.
+
+**Aceite:** invariantes de massa e empuxo verificados em testes de mistura nominal/desbalanceada, throttle, ignição, falta de propelente e falha elétrica; repetir o voo BSS-006 com o **novo** modelo e reportar sucesso ou inviabilidade sem mascaramento.
+
+#### P0-B — Remover contabilização duplicada de arrasto nas grid fins
+
+**Evidência por inspeção:** `AletaAerodinamica.ts` configura `areaFrontalM2`/`coeficienteArrasto` na classe-base e também retorna um vetor de arrasto em `obterForcasAerodinamicas()`. `MundoFisico.ts` acumula **ambas** as forças no mesmo passo, pelo caminho `getAreaArrastoEfetivaM2() → SistemaAtmosferico.calcularArrasto()`. Isso indica arrasto duplicado da aleta.
+
+**Tarefas:**
+- [ ] Definir uma única autoridade para o arrasto de superfícies móveis e eliminar a duplicação no core/modelo compartilhado.
+- [ ] Medir força aerodinâmica líquida com deflexão 0, positiva e negativa, sob velocidade/densidade controladas.
+- [ ] Conferir se forças da aleta são aplicadas no ponto físico correto e produzem torque com sinal e magnitude plausíveis.
+- [ ] Comparar os mesmos voos com e sem aletas, incluindo motor desligado, para medir a contribuição isolada de grid fins.
+
+**Aceite:** um único termo de arrasto por componente, força nula com ar sem movimento relativo e densidade zero, força coerente com `q = 0,5 * rho * v_rel^2`, e regressões de toque sem ajustes arbitrários nos ganhos.
+
+#### P0-C — Endurecer a detecção de toque e o intertravamento de corte
+
+**Evidência:** no BSS-006, `obterContatoComSolo` verifica se **algum** ponto geométrico de **alguma** sapata alcançou `y_solo + 1e-6`; o Fuzzy-PID também exige apenas velocidade vertical maior que `-velocidadeToqueMps` para declarar `toque`. Não exige, nessa decisão, baixa velocidade lateral, atitude, rotação, apoio estável ou confirmação do resolvedor de contatos. Trata-se de uma aproximação geométrica ideal, **não** de sensor real.
+
+**Tarefas:**
+- [ ] Expor sinal físico explícito de contato/apoio por sapata a partir do sistema de colisão/contato; definir invariantes de confiabilidade, tolerância e histerese.
+- [ ] Separar eventos `primeiro-contato`, `toque-seguro`, `repouso-estável` e `pouso-falhou`; definir critérios verificáveis para cada um.
+- [ ] Testar contato com somente uma sapata, inclinação excessiva, alta velocidade lateral, velocidade angular e oscilações em torno do limiar; impedir falso sucesso e acionamentos repetidos.
+- [ ] Preservar contato/física sob autoridade do core; o controlador apenas decide comandos, nunca fixa posição ou velocidade.
+
+**Aceite:** toque não é classificado como **pouso seguro** sem limites de atitude, velocidades, integridade e apoio definidos; missões que tombam, derrapam ou rompem vínculos falham com diagnóstico reproduzível.
+
+#### P1-A — Centralizar a propriedade do gimbal e a transição de estados
+
+**Evidência:** `ControladorGuiaPousoBss06.ts` chama `propulsor.solicitarVetorizacao()` diretamente; o Fuzzy-PID de throttle percorre `ComputadorDeVoo → GerenciadorDeControladores`. O cenário desabilita o PID de subida ao detectar a descida. É funcional nas trajetórias testadas, mas depende da ordem das chamadas e de desativação manual de controlador concorrente.
+
+**Tarefas:**
+- [ ] Fazer o controlador de guiagem produzir solicitações de gimbal no fluxo de arbitragem existente, sem tocar diretamente no estado do atuador, conservando o comando das aletas pela interface apropriada.
+- [ ] Definir máquina de estados de missão e dono de cada recurso: solo, decolagem, subida, apogeu, descida, frenagem, contato, estabilização e falha.
+- [ ] Testar trocas de modo no apogeu, antes/depois da ignição, com motor apagado, atraso de atuador e comandos simultâneos; verificar PID integral/derivada ao habilitar/desabilitar.
+- [ ] Garantir que perda elétrica e perda de controle não mantenham comando ativo **nem** criem força/correção artificial.
+
+**Aceite:** o gimbal possui um único comando vencedor por passo (`idAtuador` + recurso), transições são determinísticas, sem sobrescritas silenciosas e com trace de quem tinha autoridade.
+
+#### P1-B — Tornar a guiagem e a aerodinâmica fisicamente rastreáveis
+
+**Evidência:** a referência de atitude `-asin(m * a_x / max(T, m*g))` é heurística e não modela explicitamente `T*cos(theta)`, autoridade real a throttle baixo, vento, saturação de gimbal ou `Isp`. A redução de comando das aletas usa principalmente velocidade, não pressão dinâmica local completa. `AletaAerodinamica` usa sustentação aproximadamente linear na deflexão, sem modelo explícito de ângulo de ataque efetivo e regimes trans/supersônicos.
+
+**Tarefas:**
+- [ ] Escrever convenções de sinais/unidades, derivar controle lateral e de atitude a partir das forças/torques efetivamente implementados e validar sinais nos quatro quadrantes de posição/velocidade horizontal.
+- [ ] Separar guiagem (trajetória e atitude-alvo), controle de atitude (erro angular, rotação) e alocação de atuação (gimbal vs. superfícies).
+- [ ] Usar `rho(h)` e velocidade **relativa ao ar** para modelar `q`; ensaiar densidade, vento, saturação, velocidade de atuador e motor apagado.
+- [ ] Manter explícita a faixa de validade do modelo planar; não alegar capacidade 3D, controle de rolagem ou fidelidade de grid fins reais antes da implementação.
+
+**Aceite:** comparação com/sobre grid fins para alvos positivos e negativos; ausência de força sem meio físico; estabilidade, saturação e erro de pouso documentados para perturbações e diferentes massas.
+
+#### P1-C — Falhas, sensores e matriz de regressão
+
+**Tarefas:**
+- [ ] Adicionar ruído, atraso, dados congelados/inválidos e indisponibilidade do GPS/sensor de atitude e contato, com falhas injetadas de forma determinística (seed quando aplicável).
+- [ ] Definir política de falha do controle de descida por **fase e risco**, não presumir que throttle zero é seguro em toda altitude.
+- [ ] Variar alvo X, massa, combustível residual, coeficientes de arrasto, densidade, vento, deslocamento inicial, ganho PID e momento de transferência para pouso.
+- [ ] Incluir comparações: sem grid fins; sem empuxo; gimbal travado/saturado; ausência de ignição; perda elétrica; contato unilateral; integridade comprometida.
+- [ ] Conservar como **baseline** os quatro testes integrados recém-incluídos e os ensaios de falha; nunca atualizar tolerâncias apenas para esconder regressão.
+
+**Aceite:** resultados por cenário com trajetória/telemetria, motivo de falha ou sucesso, parâmetros completos e limites definidos previamente; testes determinísticos não forçam estado físico.
+
+#### P2 — Observabilidade, documentação e evidência de missão
+
+- [ ] Expor em trace: posição/velocidade X/Y, atitude/alvo, velocidade angular, pressão dinâmica, empuxo, consumo, combustível residual, throttle, comando/ângulo real do gimbal, deflexões das duas grid fins, fase, estado de contato e causa do corte.
+- [ ] Persistir versão de código, parâmetros, `dt`, cenários, falhas e amostras suficientes para replay/reexecução; declarar qual é simulação e qual é leitura idealizada.
+- [ ] Atualizar README e documentação técnica para distinguir BSS-005 (subida a 15 km) de BSS-006 (pouso integrado a ~358 m de apogeu na validação corrente).
+- [ ] Investigar o efeito de observabilidade e de taxa de renderização no determinismo: ligar/desligar trace não deve alterar os resultados físicos.
+
+### 7.3 Ordem recomendada de execução a partir do commit revisado
+
+| Marco | Objetivo | Entrega e critério de passagem |
+|---|---|---|
+| **R0 — Revisão da base** | Preservar `c699ea8` e resultados de 80/300 m | Baseline versionada com casos nominais e falhas; CI verde |
+| **R1 — Integridade física** | P0-A + P0-B: propulsão e aerodinâmica consistentes | Provas de balanço e força; reexecução honesta das missões, mesmo que falhem |
+| **R2 — Intertravamentos de pouso** | P0-C: contato físico e touchdown seguro | Ensaios com contato unilateral, deriva, inclinação, rotação e falha |
+| **R3 — GNC e contingências** | P1-A + P1-B + P1-C | Arbitragem única, estados explícitos, injeções de falha e robustez |
+| **R4 — Instrumentação e extensão** | P2; somente depois aumentar missão para 15 km | Trace, critérios, replay e missão longa com recursos finitos |
+
+**Disciplina de entrega ao Codex:** implementar **um marco por commit**, explicar alterações de parâmetros e hipóteses, executar os testes pertinentes, `typecheck` e `build`, registrar riscos e o SHA. Não alterar o Protótipo 1 nem impor correções exclusivas a `src/testes.ts`. Separar rigorosamente **resultado de teste no simulador** de **validação física**.
+
+### 7.4 Estado consolidado das observações
+
+| Achado | Situação após `c699ea8` |
+|---|---|
+| Guiagem lateral anteriormente com sinal/torque incoerentes no ensaio nominal | **Corrigido para os casos cobertos**, sem prova de robustez geral |
+| Corte antecipado baseado só em altitude | **Mitigado no BSS-006** por consulta geométrica opcional; intertravamento completo segue pendente |
+| Testes de missão decolagem → apogeu → descida → pouso | **Implementados em baixa altitude**, não validados a 15 km |
+| Perda elétrica e partida sem ignição | **Cobertas por testes integrados** |
+| Balanço empuxo/vazão/`Isp` | **Pendente, P0-A** |
+| Arrasto duplicado das grid fins | **Pendente, P0-B** |
+| Contato seguro e estados de missão rigorosos | **Pendente, P0-C/P1-A** |
+| Arbitragem central dos comandos do gimbal | **Pendente, P1-A** |
+| Sensores realistas, vento e variação de parâmetros | **Pendente, P1-B/P1-C** |
