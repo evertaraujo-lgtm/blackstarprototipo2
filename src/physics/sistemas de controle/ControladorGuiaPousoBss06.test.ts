@@ -29,7 +29,7 @@ const criarAleta = (posicaoM = Vetor3.zero): AletaAerodinamica => new AletaAerod
 });
 
 describe('ControladorGuiaPousoBss06', () => {
-  it('comanda gimbal e grid fins na direção de um alvo durante a descida', () => {
+  it('comanda torque coordenado no gimbal e nas grid fins para inclinar em direção ao alvo', () => {
     const motor = criarPropulsor();
     const aleta = criarAleta();
     const controlador = new ControladorGuiaPousoBss06([aleta], motor, () => true);
@@ -38,7 +38,7 @@ describe('ControladorGuiaPousoBss06', () => {
       orientacaoRad: 0, velocidadeAngularRadps: 0, massaKg: 1_000, empuxoN: 40_000,
     });
 
-    expect(motor.obterEstadoDaVetorizacao().anguloAlvoRad).toBeLessThan(0);
+    expect(motor.obterEstadoDaVetorizacao().anguloAlvoRad).toBeGreaterThan(0);
     expect(aleta.comandoAtualRad).toBeGreaterThan(0);
   });
 
@@ -51,9 +51,9 @@ describe('ControladorGuiaPousoBss06', () => {
       orientacaoRad: 0, velocidadeAngularRadps: 0, massaKg: 1_000, empuxoN: 40_000,
     });
 
-    expect(motor.obterEstadoDaVetorizacao().anguloAlvoRad).toBeGreaterThan(0);
+    expect(motor.obterEstadoDaVetorizacao().anguloAlvoRad).toBeLessThan(0);
     expect(aleta.comandoAtualRad).toBeLessThan(0);
-    expect(Math.abs(aleta.comandoAtualRad)).toBeLessThan(0.1);
+    expect(Math.abs(aleta.comandoAtualRad)).toBeLessThan(Math.PI / 7);
   });
 
   it('reduz a deflexão de guia quando a pressão dinâmica cresce', () => {
@@ -113,5 +113,19 @@ describe('ControladorGuiaPousoBss06', () => {
 
     expect(motor.obterEstadoDaVetorizacao().anguloAlvoRad).toBe(0);
     expect(aleta.comandoAtualRad).toBe(0);
+  });
+
+  it('mantém a atitude-alvo contínua quando o empuxo é cortado durante a descida', () => {
+    const motor = criarPropulsor();
+    const controlador = new ControladorGuiaPousoBss06([criarAleta()], motor, () => true);
+    const leituras = {
+      erroHorizontalM: 0, velocidadeHorizontalMps: 0.05, velocidadeVerticalMps: -0.2,
+      orientacaoRad: 0, velocidadeAngularRadps: 0, massaKg: 1_000,
+    };
+    controlador.atualizar({ ...leituras, empuxoN: 9_806.65 });
+    const antesDoCorte = motor.obterEstadoDaVetorizacao().anguloAlvoRad;
+    controlador.atualizar({ ...leituras, empuxoN: 0 });
+    expect(motor.obterEstadoDaVetorizacao().anguloAlvoRad).toBeCloseTo(antesDoCorte, 10);
+    expect(Math.abs(antesDoCorte)).toBeLessThan(0.01);
   });
 });

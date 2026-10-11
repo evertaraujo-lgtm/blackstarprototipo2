@@ -78,4 +78,20 @@ describe('ControladorDescidaFuzzyPidDePropulsores', () => {
     expect(comando.fase).toBe('falha-de-sensores');
     expect(comando.throttle).toBe(0);
   });
+
+  it('mantém potência antes do contato e corta depois do apoio quando há sensor nas sapatas', () => {
+    let emContato = false;
+    const controlador = new ControladorDescidaFuzzyPidDePropulsores();
+    controlador.configurar({ ...configuracao, obterContatoComSolo: () => emContato }, ['motor']);
+    controlador.habilitar();
+    const quaseTocando = criarLeituras({ altitudeM: 4.805, velocidadeVerticalMps: -0.2 });
+    const aproximacao = controlador.calcularComando(quaseTocando, 1 / 240);
+    expect(aproximacao.fase).toBe('frenagem');
+    expect(aproximacao.throttle).toBeGreaterThan(0);
+
+    emContato = true;
+    const toque = controlador.calcularComando(quaseTocando, 1 / 240);
+    expect(toque.fase).toBe('toque');
+    expect(toque.throttle).toBe(0);
+  });
 });

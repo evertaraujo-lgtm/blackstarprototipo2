@@ -14,6 +14,8 @@ export interface ConfiguracaoDescidaFuzzyPid {
   readonly erroParaEmpuxoMaximoMps: number;
   /** Inclinação-alvo por velocidade horizontal durante a descida, em rad/(m/s). */
   readonly ganhoAtitudePorVelocidadeHorizontalRadPorMps?: number;
+  /** Sensor de contato físico opcional; quando presente, altitude sozinha não autoriza cortar o motor. */
+  readonly obterContatoComSolo?: () => boolean;
 }
 
 export type FaseDescidaFuzzyPid =
@@ -107,7 +109,8 @@ export class ControladorDescidaFuzzyPidDePropulsores implements ControladorDeVoo
       + pertinenciaAltitudeAlta * (c.velocidadeDescidaMaximaMps - c.velocidadeToqueMps);
     const velocidadeVerticalAlvoMps = -velocidadeAlvoDescidaMps;
 
-    if (altitudeRestanteM <= 0.01 && leituras.velocidadeVerticalMps >= -c.velocidadeToqueMps) {
+    const chegouAoSolo = c.obterContatoComSolo ? c.obterContatoComSolo() : altitudeRestanteM <= 0.01;
+    if (chegouAoSolo && leituras.velocidadeVerticalMps >= -c.velocidadeToqueMps) {
       this.reiniciar();
       this.comandoAtual = {
         fase: 'toque', throttle: 0, velocidadeVerticalAlvoMps,
@@ -171,7 +174,8 @@ export class ControladorDescidaFuzzyPidDePropulsores implements ControladorDeVoo
   }
 
   private validarConfiguracao(c: ConfiguracaoDescidaFuzzyPid): void {
-    const valores = Object.values(c).filter((valor): valor is number => valor !== undefined);
+    const { obterContatoComSolo, ...parametros } = c;
+    const valores = Object.values(parametros).filter((valor): valor is number => valor !== undefined);
     if (!valores.every(Number.isFinite)
       || c.altitudeAlvoM < 0 || c.altitudeTransicaoM <= 0
       || c.velocidadeDescidaMaximaMps <= 0 || c.velocidadeToqueMps <= 0
@@ -179,7 +183,8 @@ export class ControladorDescidaFuzzyPidDePropulsores implements ControladorDeVoo
       || c.empuxoMaximoN <= 0 || c.ganhoProporcionalThrottlePorMps < 0
       || c.ganhoIntegralThrottlePorM < 0 || c.ganhoDerivativoThrottleSegundosPorM < 0
       || c.taxaMaximaThrottlePorS <= 0 || c.erroParaEmpuxoMaximoMps <= 0
-      || (c.ganhoAtitudePorVelocidadeHorizontalRadPorMps ?? 0.01) < 0) {
+      || (c.ganhoAtitudePorVelocidadeHorizontalRadPorMps ?? 0.01) < 0
+      || (obterContatoComSolo !== undefined && typeof obterContatoComSolo !== 'function')) {
       throw new Error('Configuração inválida para o controle de pouso fuzzy-PID.');
     }
   }

@@ -30,30 +30,32 @@ export class ControladorGuiaPousoBss06 {
 
     const velocidadeLateralAlvoMps = limitar(leituras.erroHorizontalM * 0.12 - leituras.velocidadeHorizontalMps * 1.4, -18, 18);
     const aceleracaoHorizontalAlvoMps2 = limitar(velocidadeLateralAlvoMps * 0.18, -3, 3);
-    const empuxoDisponivelN = Math.max(leituras.empuxoN, 1);
+    // Com o motor cortado, a atitude desejada continua limitada pela gravidade;
+    // dividir por empuxo quase zero saturava o gimbal na aproximação final.
+    const empuxoDisponivelN = Math.max(leituras.empuxoN, leituras.massaKg * 9.80665, 1);
     const razaoEmpuxo = limitar(aceleracaoHorizontalAlvoMps2 * leituras.massaKg / empuxoDisponivelN, -0.25, 0.25);
     const gimbal = this.propulsor.obterEstadoDaVetorizacao();
+    // Rotação positiva inclina o topo para -X. Para acelerar em +X, o
+    // casco precisa de uma atitude negativa. O gimbal inferior e as aletas
+    // superiores devem produzir torque no mesmo sentido para atingir essa
+    // atitude; comandar somente a força lateral do motor invertia a resposta
+    // após a rotação do conjunto e realimentava a deriva durante a descida.
+    const atitudeAlvoRad = -Math.asin(razaoEmpuxo);
+    const erroAtitudeRad = leituras.orientacaoRad - atitudeAlvoRad;
     const comandoGimbalRad = limitar(
-      -Math.asin(razaoEmpuxo) + leituras.orientacaoRad * 1.4 + leituras.velocidadeAngularRadps * 0.55,
+      erroAtitudeRad * 1.4 + leituras.velocidadeAngularRadps * 0.55,
       -gimbal.limiteAngularRad,
       gimbal.limiteAngularRad,
     );
     this.propulsor.solicitarVetorizacao(comandoGimbalRad);
 
-    // A força das aletas cresce com o quadrado da velocidade do ar. Ganhos
-    // grandes saturavam o curso e faziam as grid fins dominarem o gimbal,
-    // provocando overshoot lateral. Elas dão uma correção menor; o gimbal
-    // fornece a maior parte da aceleração horizontal comandada.
+    // Escalar toda a correção pela pressão dinâmica preserva a autoridade
+    // angular em altas velocidades, sem saturar o curso das grid fins.
     const velocidadeRelativaMps = Math.hypot(leituras.velocidadeHorizontalMps, leituras.velocidadeVerticalMps);
     const fatorPressaoDinamica = Math.min(1, (80 / Math.max(80, velocidadeRelativaMps)) ** 2);
-    const correçãoHorizontalRad = limitar(
-      (leituras.erroHorizontalM * 0.0005 - leituras.velocidadeHorizontalMps * 0.0035) * fatorPressaoDinamica,
-      -0.1,
-      0.1,
-    );
     this.controladorAletas.atualizar(
-      leituras.orientacaoRad + correçãoHorizontalRad,
-      leituras.velocidadeAngularRadps,
+      erroAtitudeRad * fatorPressaoDinamica,
+      leituras.velocidadeAngularRadps * fatorPressaoDinamica,
       leituras.velocidadeVerticalMps,
     );
   }
