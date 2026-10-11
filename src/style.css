@@ -159,3 +159,140 @@ button:hover { background: #0891b2; }
 .sensor-led.sensor-active::before { background: #4ade80; border-color: #bbf7d0; box-shadow: 0 0 8px #4ade8066; }
 .door-controls button:disabled { opacity: .45; cursor: not-allowed; }
 .door-command-buttons button[aria-pressed="true"] { border-color: #facc15; }
+
+/* Institutional homepage */
+body.home-page {
+  display: block;
+  min-height: 100vh;
+  background: #0a0c0f;
+  color: #f4f1ea;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+.home-page a { color: inherit; text-decoration: none; }
+.site-header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  min-height: 86px;
+  padding: 0 clamp(1.25rem, 6vw, 6.5rem);
+  border-bottom: 1px solid #ffffff17;
+  background: #0a0c0fe8;
+}
+.brand { display: inline-flex; align-items: center; gap: .75rem; flex: 0 0 auto; }
+.brand img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
+.brand span { color: #f4f1ea; font-size: .83rem; font-weight: 750; letter-spacing: .16em; }
+.brand small { display: block; margin-top: .08rem; color: #a0a09e; font-size: .58rem; font-weight: 600; letter-spacing: .34em; }
+.site-nav { display: flex; align-items: center; gap: clamp(1.2rem, 3.5vw, 3.4rem); }
+.site-nav a, .site-footer > a:not(.brand) { color: #c2c2bd; font-size: .82rem; transition: color .18s ease; }
+.site-nav a:hover, .site-footer > a:hover { color: #e8ad65; }
+.header-cta { padding: .72rem 1rem; border: 1px solid #77736c; color: #fff !important; font-size: .78rem; }
+.header-cta span { margin-left: .55rem; color: #e8ad65; }
+.home-hero { position: relative; display: grid; grid-template-columns: minmax(360px, .82fr) minmax(0, 1.18fr); min-height: min(690px, calc(100svh - 86px)); overflow: hidden; border-bottom: 1px solid #ffffff17; }
+.hero-copy { z-index: 1; align-self: center; max-width: 670px; padding: 5rem 2rem 5rem clamp(1.5rem, 9vw, 9rem); }
+.section-kicker { display: flex; align-items: center; gap: .65rem; margin: 0 0 1.4rem; color: #b6b5ae; font-size: .67rem; font-weight: 700; letter-spacing: .18em; }
+.section-kicker > span { display: inline-block; width: 22px; height: 1px; background: #e8ad65; }
+.home-hero h1, .intro-section h2, .engineering-section h2, .vehicle-copy h2, .closing-cta h2 { margin: 0; color: #f4f1ea; font-size: clamp(2.7rem, 5.5vw, 5.4rem); font-weight: 480; letter-spacing: -.055em; line-height: 1.02; }
+.home-page h1 em, .home-page h2 em { color: #e8ad65; font-weight: 450; }
+.hero-lede { max-width: 480px; margin: 1.5rem 0 0; color: #b5b5b0; font-size: 1.03rem; line-height: 1.8; }
+.hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 1.6rem; margin-top: 2rem; }
+.button-primary { display: inline-flex; align-items: center; justify-content: center; gap: 1.5rem; min-height: 52px; padding: 0 1.2rem; background: #d8974e; color: #141311 !important; font-size: .8rem; font-weight: 750; transition: background .18s ease, transform .18s ease; }
+.button-primary:hover { transform: translateY(-2px); background: #efb66f; }
+.button-primary span { font-size: 1.15rem; }
+.text-link { color: #dedbd4 !important; font-size: .8rem; }
+.text-link span { margin-left: .45rem; color: #e8ad65; }
+.hero-note { display: flex; align-items: center; gap: .6rem; margin-top: 3rem; color: #92938f; font-size: .72rem; }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; background: #8eaa7f; box-shadow: 0 0 0 4px #8eaa7f20; }
+.hero-visual { position: relative; min-height: 500px; overflow: hidden; background: #111923; }
+.hero-visual::after { position: absolute; inset: 0; background: linear-gradient(90deg, #0a0c0f 0%, transparent 38%), linear-gradient(0deg, #0a0c0f9c, transparent 25%); content: ''; pointer-events: none; }
+.hero-visual > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.image-caption { position: absolute; z-index: 1; right: 2rem; bottom: 2rem; left: 2rem; display: flex; justify-content: space-between; gap: 1rem; color: #e7e5df; font-size: .67rem; font-weight: 700; letter-spacing: .14em; }
+.image-caption span + span { color: #c5c4bd; font-size: .6rem; }
+.hero-index { position: absolute; z-index: 1; top: 2rem; right: 2rem; color: #f5eee3; font: .76rem ui-monospace, monospace; letter-spacing: .12em; }
+.hero-index span { padding: 0 .3rem; color: #e8ad65; }
+.hero-side-label { position: absolute; z-index: 1; top: 50%; left: 1.2rem; color: #8d8d88; font-size: .56rem; letter-spacing: .18em; writing-mode: vertical-rl; transform: rotate(180deg) translateY(50%); }
+.hero-side-label span { color: #e8ad65; }
+.intro-section { display: grid; grid-template-columns: 1.15fr .85fr; gap: 5vw; padding: clamp(5rem, 10vw, 9rem) clamp(1.5rem, 11vw, 11rem); border-bottom: 1px solid #ffffff17; }
+.intro-section h2, .engineering-section h2, .vehicle-copy h2, .closing-cta h2 { max-width: 680px; font-size: clamp(2.2rem, 4vw, 3.75rem); }
+.intro-copy { align-self: end; max-width: 510px; }
+.intro-copy p, .vehicle-copy > p:not(.section-kicker):not(.vehicle-code) { margin: 0; color: #b5b5b0; font-size: .96rem; line-height: 1.9; }
+.underlined-link { display: inline-flex; align-items: center; gap: 1.2rem; margin-top: 1.6rem; padding-bottom: .45rem; border-bottom: 1px solid #746c60; color: #f0ede5 !important; font-size: .79rem; }
+.underlined-link span { color: #e8ad65; }
+.engineering-section { padding: clamp(4.5rem, 8vw, 7rem) clamp(1.5rem, 11vw, 11rem); background: #101215; }
+.engineering-heading { display: flex; align-items: end; justify-content: space-between; gap: 2rem; margin-bottom: 3.2rem; }
+.engineering-heading > p { max-width: 310px; margin: 0 0 .35rem; color: #9d9e99; font-size: .88rem; line-height: 1.7; }
+.feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #ffffff25; border-bottom: 1px solid #ffffff25; }
+.feature-card { position: relative; min-height: 250px; padding: 1.65rem 1.7rem 2rem 0; }
+.feature-card + .feature-card { padding-left: 1.7rem; border-left: 1px solid #ffffff25; }
+.feature-number { color: #969792; font: .72rem ui-monospace, monospace; }
+.feature-icon { margin-top: 1.7rem; color: #e8ad65; font-size: 1.65rem; }
+.feature-card h3 { margin: .7rem 0 .45rem; color: #f1eee8; font-size: 1rem; font-weight: 600; }
+.feature-card p { max-width: 310px; margin: 0; color: #9d9e99; font-size: .82rem; line-height: 1.7; }
+.vehicle-section { display: grid; grid-template-columns: 1fr 1fr; min-height: 530px; border-bottom: 1px solid #ffffff17; }
+.vehicle-image { min-height: 380px; overflow: hidden; }
+.vehicle-image img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.vehicle-copy { align-self: center; max-width: 650px; padding: 4rem clamp(2rem, 8vw, 8rem); }
+.vehicle-code { margin: 2.1rem 0 .85rem; color: #e8ad65; font: .74rem ui-monospace, monospace; letter-spacing: .12em; }
+.vehicle-code span { padding: 0 .35rem; color: #777973; }
+.vehicle-copy h2 { font-size: clamp(2.1rem, 3.7vw, 3.35rem); }
+.vehicle-copy > p:not(.section-kicker):not(.vehicle-code) { margin-top: 1.2rem; font-size: .86rem; }
+.closing-cta { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 11vw, 11rem); background: #171716; }
+.closing-cta .section-kicker { margin-bottom: 1rem; }
+.closing-cta h2 { font-size: clamp(2.2rem, 4vw, 3.6rem); }
+.closing-cta .button-primary { flex: 0 0 auto; }
+.site-footer { display: grid; grid-template-columns: 1fr 1fr auto auto; align-items: center; gap: 2rem; min-height: 110px; padding: 1.5rem clamp(1.5rem, 6vw, 6.5rem); border-top: 1px solid #ffffff17; }
+.site-footer p { margin: 0; color: #92938f; font-size: .72rem; }
+.site-footer > small { color: #777873; font-size: .68rem; }
+.footer-brand img { width: 35px; height: 35px; }
+.footer-brand span { font-size: .7rem; }
+
+@media (max-width: 900px) {
+  .site-header { gap: 1rem; padding-inline: 1.5rem; }
+  .site-nav { gap: 1rem; }
+  .home-hero { grid-template-columns: .9fr 1.1fr; }
+  .hero-copy { padding-left: 3.5rem; }
+  .hero-side-label { display: none; }
+  .intro-section, .engineering-section { padding-inline: 3rem; }
+  .vehicle-copy { padding-inline: 3rem; }
+  .closing-cta { padding-inline: 3rem; }
+  .site-footer { grid-template-columns: 1fr 1fr auto; }
+  .site-footer > small { grid-column: 2 / -1; justify-self: end; }
+}
+@media (max-width: 680px) {
+  .site-header { min-height: 72px; padding-inline: 1rem; }
+  .brand { gap: .5rem; }
+  .brand img { width: 34px; height: 34px; }
+  .brand span { font-size: .7rem; }
+  .brand small { font-size: .5rem; }
+  .site-nav { display: none; }
+  .header-cta { padding: .62rem .65rem; font-size: .68rem; }
+  .home-hero { display: flex; min-height: initial; flex-direction: column; }
+  .hero-copy { padding: 4rem 1.35rem 2.5rem; }
+  .home-hero h1 { max-width: 540px; font-size: clamp(2.75rem, 13vw, 4.5rem); }
+  .hero-lede { font-size: .9rem; }
+  .hero-note { margin-top: 2rem; }
+  .hero-visual { min-height: 360px; }
+  .hero-visual::after { background: linear-gradient(0deg, #0a0c0f9c, transparent 40%); }
+  .image-caption { right: 1.2rem; bottom: 1.25rem; left: 1.2rem; }
+  .hero-index { top: 1.2rem; right: 1.2rem; }
+  .intro-section { grid-template-columns: 1fr; gap: 1.6rem; padding: 4rem 1.35rem; }
+  .intro-copy p { font-size: .9rem; }
+  .engineering-section { padding: 4rem 1.35rem; }
+  .engineering-heading { display: block; margin-bottom: 2rem; }
+  .engineering-heading > p { margin-top: 1rem; }
+  .feature-grid { grid-template-columns: 1fr; }
+  .feature-card, .feature-card + .feature-card { min-height: initial; padding: 1.25rem 0 1.5rem; border-left: 0; }
+  .feature-card + .feature-card { border-top: 1px solid #ffffff25; }
+  .feature-icon { margin-top: 1rem; }
+  .vehicle-section { grid-template-columns: 1fr; }
+  .vehicle-image { min-height: 300px; max-height: 400px; }
+  .vehicle-copy { padding: 3rem 1.35rem 4rem; }
+  .closing-cta { align-items: flex-start; flex-direction: column; padding: 3.5rem 1.35rem; }
+  .site-footer { grid-template-columns: 1fr auto; gap: 1rem; padding: 1.5rem 1.35rem; }
+  .site-footer p { grid-column: 1 / -1; grid-row: 2; }
+  .site-footer > small { grid-column: 2; grid-row: 3; }
+}

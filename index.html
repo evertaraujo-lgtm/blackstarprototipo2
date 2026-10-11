@@ -3,18 +3,116 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#030712" />
-    <title>Black Star Space — Protótipo 2</title>
+    <meta name="theme-color" content="#080b10" />
+    <meta name="description" content="Black Star Space — engenharia e simulação de veículos espaciais." />
+    <title>Black Star Space | Engenharia e simulação espacial</title>
   </head>
-  <body>
-    <main class="shell">
-      <p class="eyebrow">BLACK STAR SPACE</p>
-      <h1>Protótipo 2</h1>
-      <p class="subtitle">Simule a decolagem, o controle de inclinação e o pouso dos foguetes BSS.</p>
-      <button id="launch-button" type="button">Abrir simulação de foguetes</button>
-      <a class="test-link" href="/tests.html">Ver cenários de foguetes</a>
-      <p id="status" class="status" aria-live="polite">Sistema aguardando comando.</p>
+  <body class="home-page">
+    <header class="site-header">
+      <a class="brand" href="#inicio" aria-label="Black Star Space, início">
+        <img src="./img/emblema.png" alt="" />
+        <span>BLACK STAR <small>SPACE</small></span>
+      </a>
+      <nav class="site-nav" aria-label="Navegação principal">
+        <a href="#projeto">O projeto</a>
+        <a href="#engenharia">Engenharia</a>
+        <a href="#veiculo">BSS-006</a>
+      </nav>
+      <a class="header-cta" href="/tests.html">Acessar simulador <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main>
+      <section class="home-hero" id="inicio">
+        <div class="hero-copy">
+          <p class="section-kicker"><span></span> ENGENHARIA ESPACIAL · PROTÓTIPO 2</p>
+          <h1>Construindo o caminho para o <em>espaço.</em></h1>
+          <p class="hero-lede">Uma plataforma experimental para projetar, simular e compreender sistemas de voo espacial — da propulsão ao pouso.</p>
+          <div class="hero-actions">
+            <a class="button-primary" href="/tests.html">Explorar o simulador <span aria-hidden="true">→</span></a>
+            <a class="text-link" href="#projeto">Conheça o projeto <span aria-hidden="true">↓</span></a>
+          </div>
+          <div class="hero-note"><span class="status-dot"></span> Simulação física em desenvolvimento</div>
+        </div>
+        <div class="hero-visual" role="img" aria-label="Foguete experimental BSS-006 em uma plataforma de lançamento ao entardecer">
+          <img src="./img/bss-006.png" alt="Foguete BSS-006 em pé na plataforma de lançamento ao entardecer" />
+          <div class="image-caption"><span>BSS-006</span><span>VEÍCULO EXPERIMENTAL</span></div>
+          <div class="hero-index">01 <span>/</span> 03</div>
+        </div>
+        <div class="hero-side-label">BLACK STAR SPACE <span>—</span> PROTÓTIPO 2</div>
+      </section>
+
+      <section class="intro-section" id="projeto">
+        <div class="intro-heading">
+          <p class="section-kicker"><span></span> SOBRE O PROJETO</p>
+          <h2>Engenharia que começa <em>pela simulação.</em></h2>
+        </div>
+        <div class="intro-copy">
+          <p>O Protótipo 2 é um ambiente de engenharia e simulação de missões espaciais. Nele, sistemas físicos são reunidos para investigar como veículos respondem a forças, comandos e condições de operação.</p>
+          <a class="underlined-link" href="/tests.html">Conheça a bancada de testes <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+
+      <section class="engineering-section" id="engenharia">
+        <div class="engineering-heading">
+          <div>
+            <p class="section-kicker"><span></span> UMA PLATAFORMA EM EVOLUÇÃO</p>
+            <h2>Do sistema ao <em>voo.</em></h2>
+          </div>
+          <p>Modelos físicos e controle reunidos em um mesmo ambiente experimental.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <span class="feature-number">01</span>
+            <div class="feature-icon" aria-hidden="true">↗</div>
+            <h3>Dinâmica física</h3>
+            <p>Movimento, forças, contatos e colisões calculados pelo núcleo de simulação.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-number">02</span>
+            <div class="feature-icon" aria-hidden="true">⌁</div>
+            <h3>Propulsão e controle</h3>
+            <p>Ensaios de ignição, empuxo, orientação e resposta dos sistemas do veículo.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-number">03</span>
+            <div class="feature-icon" aria-hidden="true">◉</div>
+            <h3>Missões observáveis</h3>
+            <p>Cenários com telemetria para acompanhar eventos, estados e resultados.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="vehicle-section" id="veiculo">
+        <div class="vehicle-image">
+          <img src="./img/bss-006.png" alt="Detalhe do veículo experimental BSS-006" loading="lazy" />
+        </div>
+        <div class="vehicle-copy">
+          <p class="section-kicker"><span></span> VEÍCULO EM DESTAQUE</p>
+          <p class="vehicle-code">BSS-006 <span>·</span> ENSAIOS DE POUSO</p>
+          <h2>Uma missão é feita de sistemas que trabalham <em>juntos.</em></h2>
+          <p>O BSS-006 integra os cenários de voo e pouso do protótipo. A bancada permite acompanhar propulsão, orientação e comportamento físico ao longo do ensaio.</p>
+          <a class="underlined-link" href="/tests.html">Abrir cenários de simulação <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+
+      <section class="closing-cta">
+        <div>
+          <p class="section-kicker"><span></span> EXPERIMENTE A PLATAFORMA</p>
+          <h2>Veja a engenharia <em>em movimento.</em></h2>
+        </div>
+        <a class="button-primary" href="/tests.html">Acessar simulador <span aria-hidden="true">→</span></a>
+      </section>
     </main>
+
+    <footer class="site-footer">
+      <a class="brand footer-brand" href="#inicio">
+        <img src="./img/emblema.png" alt="" />
+        <span>BLACK STAR <small>SPACE</small></span>
+      </a>
+      <p>Protótipo 2 · Engenharia e simulação espacial</p>
+      <a href="/tests.html">Simulador <span aria-hidden="true">↗</span></a>
+      <small>© Black Star Space</small>
+    </footer>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
