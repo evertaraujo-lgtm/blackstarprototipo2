@@ -49,6 +49,68 @@ describe('MundoFisico', () => {
     expect(mundo.tempoS).toBe(1);
   });
 
+  it('expõe apoio de superfície resolvido pelo core para cada objeto em contato', () => {
+    const mundo = new MundoFisico(1 / 240);
+    const solo = new SuperficiePlano('solo-apoio-observavel', 'concreto', 0, 100_000);
+    const objeto = new Objeto({
+      id: 'sapata-observavel', massaBaseKg: 10, dimensoesM: new Vetor3(1, 1, 1),
+      resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000,
+      estadoInicial: { posicaoM: new Vetor3(0, 0.5, 0) },
+    });
+    mundo.registrarSuperficie(solo);
+    mundo.registrarObjeto(objeto);
+
+    mundo.avancar(1 / 240);
+
+    const [contato] = mundo.obterContatosDoObjeto(objeto, solo);
+    expect(contato).toBeDefined();
+    expect(contato!.objetoId).toBe(objeto.id);
+    expect(contato!.superficieId).toBe(solo.id);
+    expect(contato!.emApoio).toBe(true);
+    expect(contato!.energiaImpactoJ).toBeGreaterThanOrEqual(0);
+  });
+
+  it('registra impacto rápido sem classificá-lo como apoio estável', () => {
+    const mundo = new MundoFisico(0.1);
+    const solo = new SuperficiePlano('solo-impacto-observavel', 'concreto', 0, 1_000_000);
+    const objeto = new Objeto({
+      id: 'corpo-impacto-observavel', massaBaseKg: 10, dimensoesM: new Vetor3(1, 1, 1),
+      resistenciaColisaoJ: 1_000_000, limiteTermicoC: 1_000,
+      estadoInicial: { posicaoM: new Vetor3(0, 1, 0), velocidadeMps: new Vetor3(0, -10, 0) },
+    });
+    mundo.registrarSuperficie(solo);
+    mundo.registrarObjeto(objeto);
+
+    mundo.avancar(0.1);
+
+    const [contato] = mundo.obterContatosDoObjeto(objeto, solo);
+    expect(contato).toBeDefined();
+    expect(contato!.velocidadeNormalAntesMps).toBeLessThan(-1);
+    expect(contato!.energiaImpactoJ).toBeGreaterThan(0);
+    expect(contato!.emApoio).toBe(false);
+  });
+
+  it('não infere apoio bilateral quando apenas uma sapata alcança o solo', () => {
+    const mundo = new MundoFisico(1 / 240);
+    const solo = new SuperficiePlano('solo-apoio-unilateral', 'concreto', 0, 100_000);
+    const esquerda = new Objeto({
+      id: 'sapata-esquerda-independente', massaBaseKg: 10, dimensoesM: new Vetor3(0.2, 0.2, 0.2),
+      resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM: new Vetor3(-1, 0.1, 0) },
+    });
+    const direita = new Objeto({
+      id: 'sapata-direita-independente', massaBaseKg: 10, dimensoesM: new Vetor3(0.2, 0.2, 0.2),
+      resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM: new Vetor3(1, 0.11, 0) },
+    });
+    mundo.registrarSuperficie(solo);
+    mundo.registrarObjeto(esquerda);
+    mundo.registrarObjeto(direita);
+
+    mundo.avancar(1 / 240);
+
+    expect(mundo.obterContatosDoObjeto(esquerda, solo).some((contato) => contato.emApoio)).toBe(true);
+    expect(mundo.obterContatosDoObjeto(direita, solo)).toEqual([]);
+  });
+
   it('faz 50 quadrados de massas distintas caírem juntos no vácuo e atingirem o solo', () => {
     const passoS = 1 / 120;
     const duracaoS = 2;

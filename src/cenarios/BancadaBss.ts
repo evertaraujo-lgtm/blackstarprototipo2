@@ -278,6 +278,7 @@ export const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBanc
     }
   };
   let modoBss04: 'decolagem' | 'pouso' = 'decolagem';
+  let contatoDePousoConfirmado = false;
   const configuracaoPousoBss04 = {
     altitudeAlvoM: alturaInicialDoCascoM,
     altitudeTransicaoM: 80,
@@ -294,14 +295,15 @@ export const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBanc
     // controlador concorrente durante a transição para a descida.
     ganhoAtitudePorVelocidadeHorizontalRadPorMps: configuracao.incluirGuiaPousoPorAlvo ? 0 : 0.01,
     ...(configuracao.incluirGuiaPousoPorAlvo ? {
-      // Sensor idealizado das sapatas: consulta a geometria orientada pelo core.
-      // Tolerância de 1 µm não permite cortar potência ainda a centímetros do chão.
-      obterContatoComSolo: () => pernasFixas.filter((perna) => perna.id.includes('sapata')).some((sapata) => {
-        const estado = sapata.getEstadoFisico();
-        return sapata.getPontosDeContatoLocaisM().some((ponto) =>
-          estado.posicaoM.y + ponto.x * Math.sin(estado.orientacaoRad.z)
-            + ponto.y * Math.cos(estado.orientacaoRad.z) <= solo.alturaM + 1e-6);
-      }),
+      // O corte terminal usa apoio confirmado pelo resolvedor do MundoFisico.
+      // A confirmação fica retida para não rearmar o throttle por oscilação de contato.
+      obterContatoComSolo: () => {
+        const sapatas = pernasFixas.filter((perna) => perna.id.includes('sapata'));
+        const apoioBilateral = sapatas.length === 2 && sapatas.every((sapata) =>
+          mundo.obterContatosDoObjeto(sapata, solo).some((contato) => contato.emApoio));
+        contatoDePousoConfirmado ||= apoioBilateral;
+        return contatoDePousoConfirmado;
+      },
     } : {}),
   };
   const obterDadosMissao = () => obterTelemetriaMissaoBss(mundo, veiculo, propulsor, [tanqueCombustivel, tanqueOxidante]);

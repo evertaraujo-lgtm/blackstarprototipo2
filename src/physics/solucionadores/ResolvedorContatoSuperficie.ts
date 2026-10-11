@@ -17,11 +17,35 @@ export interface ContextoResolvedorContatoSuperficie {
   readonly velocidadeDeRepousoMps: number;
 }
 
+/** Tolerância de 2 mm para contato/apoio numérico; não alcança objetos a centímetros do plano. */
+export const TOLERANCIA_CONTATO_SUPERFICIE_M = 2e-3;
+
+/** Contato calculado pelo resolvedor no último subpasso do mundo. */
+export interface ContatoSuperficieFisico {
+  readonly objetoId: string;
+  readonly superficieId: string;
+  readonly pontoContatoM: Vetor3;
+  /** Positivo indica interseção que o core corrigiu; negativo é a folga observacional em m. */
+  readonly penetracaoM: number;
+  readonly velocidadeNormalAntesMps: number;
+  readonly velocidadeNormalDepoisMps: number;
+  readonly energiaImpactoJ: number;
+  readonly emApoio: boolean;
+}
+
 /** Resolve apoio, impacto, atrito e dano entre corpos e superfícies. */
 export class ResolvedorContatoSuperficie {
+  private contatosDoUltimoPasso: ContatoSuperficieFisico[] = [];
+
   public constructor(private readonly contexto: ContextoResolvedorContatoSuperficie) {}
 
+  /** Snapshot dos contatos efetivamente processados pelo core no último passo. */
+  public obterContatos(): readonly ContatoSuperficieFisico[] {
+    return this.contatosDoUltimoPasso.map((contato) => ({ ...contato }));
+  }
+
   public resolver(dtS: number): void {
+    this.contatosDoUltimoPasso = [];
     for (const superficie of this.contexto.obterSuperficies()) {
       const conjuntosProcessados = new Set<ConjuntoEstruturalRigido>();
       for (const objeto of this.contexto.obterObjetos()) {
@@ -32,8 +56,10 @@ export class ResolvedorContatoSuperficie {
         const cantosPorObjeto = membros.flatMap((membro) => this.obterCantosOrientados(membro).map((canto) => ({ membro, canto })));
         const menorAlturaM = Math.min(...cantosPorObjeto.map(({ canto }) => canto.y));
         const penetracaoM = superficie.alturaM - menorAlturaM;
-        if (penetracaoM <= 0) continue;
-        const toleranciaM = 1e-9;
+        if (penetracaoM < -TOLERANCIA_CONTATO_SUPERFICIE_M) continue;
+        // A tolerância milimétrica observa proximidade para sensores de apoio;
+        // a resposta física de corpos já em interseção conserva o agrupamento preciso.
+        const toleranciaM = penetracaoM < 0 ? TOLERANCIA_CONTATO_SUPERFICIE_M : 1e-9;
         const contatos = cantosPorObjeto.filter(({ canto }) => Math.abs(canto.y - menorAlturaM) <= toleranciaM);
         const cantosDeContato = contatos.map(({ canto }) => canto);
         const mediaDosContatos = cantosDeContato.reduce((soma, canto) => soma.adicionar(canto), Vetor3.zero).multiplicar(1 / cantosDeContato.length);
@@ -41,16 +67,37 @@ export class ResolvedorContatoSuperficie {
         const menorX = Math.min(...cantosDeContato.map((canto) => canto.x));
         const maiorX = Math.max(...cantosDeContato.map((canto) => canto.x));
         const pontoContatoM = new Vetor3(Math.max(menorX, Math.min(maiorX, centroMassa.x)), mediaDosContatos.y, mediaDosContatos.z);
-        const objetoDeContato = contatos[0].membro;
+        if (penetracaoM < 0) {
+          const pontosDeApoio = conjunto
+            ? [menorX, maiorX].filter((x, indice, valores) => indice === 0 || Math.abs(x - valores[indice - 1]) > toleranciaM)
+              .map((x) => new Vetor3(x, mediaDosContatos.y, mediaDosContatos.z))
+            : [pontoContatoM];
+          pontosDeApoio.forEach((ponto) => {
+            const contatoMaisProximo = contatos.reduce((melhor, atual) =>
+              Math.abs(atual.canto.x - ponto.x) < Math.abs(melhor.canto.x - ponto.x) ? atual : melhor,
+            );
+            const velocidadeNormal = conjunto
+              ? conjunto.obterVelocidadeNoPonto(ponto).produtoEscalar(new Vetor3(0, 1, 0))
+              : this.obterVelocidadeNormalNoPonto(contatoMaisProximo.membro, ponto);
+            this.registrarContato(contatoMaisProximo.membro, superficie, ponto, penetracaoM, velocidadeNormal, velocidadeNormal, 0);
+          });
+          continue;
+        }
         if (conjunto) {
           const apoios = [menorX, maiorX]
             .filter((x, indice, valores) => indice === 0 || Math.abs(x - valores[indice - 1]) > toleranciaM)
             .map((x) => new Vetor3(x, mediaDosContatos.y, mediaDosContatos.z));
-          apoios.forEach((apoio, indice) => this.resolverContatoDaIlha(
-            conjunto, objetoDeContato, superficie, penetracaoM, apoio, dtS, indice === apoios.length - 1,
-          ));
+          apoios.forEach((apoio, indice) => {
+            const contatoMaisProximo = contatos.reduce((melhor, atual) =>
+              Math.abs(atual.canto.x - apoio.x) < Math.abs(melhor.canto.x - apoio.x) ? atual : melhor,
+            );
+            this.resolverContatoDaIlha(
+              conjunto, contatoMaisProximo.membro, superficie, Math.max(0, penetracaoM), apoio, dtS, indice === apoios.length - 1,
+            );
+          });
+          this.registrarApoiosProximosDaIlha(conjunto, membros, superficie);
         } else {
-          this.resolverContatoDoObjeto(objetoDeContato, superficie, penetracaoM, pontoContatoM, dtS);
+          this.resolverContatoDoObjeto(contatos[0].membro, superficie, Math.max(0, penetracaoM), pontoContatoM, dtS);
         }
       }
     }
@@ -108,6 +155,9 @@ export class ResolvedorContatoSuperficie {
       }
     }
     if (corrigirPenetracao) conjunto.corrigirPenetracao(normal, penetracaoM);
+    this.registrarContato(objetoDeContato, superficie, pontoContatoM, penetracaoM, velocidadeNormal,
+      conjunto.obterVelocidadeNoPonto(pontoContatoM).produtoEscalar(normal), impulsoNormalNs > 0
+        ? Math.max(0, 0.5 * conjunto.obterMassaEfetivaNoContato(pontoContatoM, normal) * velocidadeNormal ** 2) : 0);
   }
 
   private resolverContatoDoObjeto(objeto: Objeto, superficie: SuperficiePlano, penetracaoM: number, pontoContatoM: Vetor3, dtS: number): void {
@@ -163,6 +213,61 @@ export class ResolvedorContatoSuperficie {
       velocidadeMps: velocidade,
       velocidadeAngularRadps: velocidadeAngular,
     });
+    const velocidadeNormalDepois = objeto.getEstadoFisico().velocidadeMps
+      .adicionar(objeto.getEstadoFisico().velocidadeAngularRadps.produtoVetorial(braco)).produtoEscalar(normal);
+    this.registrarContato(objeto, superficie, pontoContatoM, penetracaoM, velocidadeNormal, velocidadeNormalDepois,
+      velocidadeNormal < 0 ? Math.max(0, 0.5 * (this.contexto.obterMassaEfetivaNoContato(objeto, pontoContatoM, normal) ?? objeto.massaKg) * velocidadeNormal ** 2) : 0);
+  }
+
+  private registrarContato(
+    objeto: Objeto,
+    superficie: SuperficiePlano,
+    pontoContatoM: Vetor3,
+    penetracaoM: number,
+    velocidadeNormalAntesMps: number,
+    velocidadeNormalDepoisMps: number,
+    energiaImpactoJ: number,
+  ): void {
+    const existente = this.contatosDoUltimoPasso.find((contato) => contato.objetoId === objeto.id && contato.superficieId === superficie.id);
+    const contato: ContatoSuperficieFisico = {
+      objetoId: objeto.id,
+      superficieId: superficie.id,
+      pontoContatoM,
+      penetracaoM,
+      velocidadeNormalAntesMps,
+      velocidadeNormalDepoisMps,
+      energiaImpactoJ,
+      emApoio: velocidadeNormalAntesMps <= 0
+        && Math.abs(velocidadeNormalDepoisMps) <= this.contexto.velocidadeDeRepousoMps,
+    };
+    if (existente) this.contatosDoUltimoPasso[this.contatosDoUltimoPasso.indexOf(existente)] = contato;
+    else this.contatosDoUltimoPasso.push(contato);
+  }
+
+  private obterVelocidadeNormalNoPonto(objeto: Objeto, pontoM: Vetor3): number {
+    const estado = objeto.getEstadoFisico();
+    const braco = pontoM.subtrair(estado.posicaoM);
+    return estado.velocidadeMps.adicionar(estado.velocidadeAngularRadps.produtoVetorial(braco)).y;
+  }
+
+  /** Registra sapatas da mesma ilha dentro da tolerância, sem aplicar força à distância. */
+  private registrarApoiosProximosDaIlha(
+    conjunto: ConjuntoEstruturalRigido,
+    membros: readonly Objeto[],
+    superficie: SuperficiePlano,
+  ): void {
+    const normal = new Vetor3(0, 1, 0);
+    for (const membro of membros) {
+      const cantos = this.obterCantosOrientados(membro);
+      const menorAlturaM = Math.min(...cantos.map((canto) => canto.y));
+      const folgaM = menorAlturaM - superficie.alturaM;
+      if (folgaM <= 0 || folgaM > TOLERANCIA_CONTATO_SUPERFICIE_M) continue;
+      const cantosProximos = cantos.filter((canto) => Math.abs(canto.y - menorAlturaM) <= 1e-9);
+      const pontoContatoM = cantosProximos.reduce((soma, canto) => soma.adicionar(canto), Vetor3.zero)
+        .multiplicar(1 / cantosProximos.length);
+      const velocidadeNormal = conjunto.obterVelocidadeNoPonto(pontoContatoM).produtoEscalar(normal);
+      this.registrarContato(membro, superficie, pontoContatoM, -folgaM, velocidadeNormal, velocidadeNormal, 0);
+    }
   }
 
   private obterTermoAngular(torqueUnitario: Vetor3, inercia: Vetor3): number {

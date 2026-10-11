@@ -10,6 +10,7 @@ import { SistemaTermico } from './solucionadores/SistemaTermico';
 import { ResolvedorEsforcoEstrutural } from './solucionadores/ResolvedorEsforcoEstrutural';
 import { ResolvedorColisoes } from './solucionadores/ResolvedorColisoes';
 import { ResolvedorContatoSuperficie } from './solucionadores/ResolvedorContatoSuperficie';
+import type { ContatoSuperficieFisico } from './solucionadores/ResolvedorContatoSuperficie';
 import { ConjuntoEstruturalRigido } from './estruturas/ConjuntoEstruturalRigido';
 import { SwitchFimDeCurso } from './sensores/SwitchFimDeCurso';
 import { SistemaSensores } from './sensores/SistemaSensores';
@@ -180,6 +181,19 @@ export class MundoFisico {
       densidadeArKgM3: this.atmosfera.obterDensidadeArKgM3(objeto.getEstadoFisico().posicaoM.y),
       velocidadeArMps: this.velocidadeArMps,
     };
+  }
+
+  /** Contatos e apoios efetivamente resolvidos pelo core no último subpasso. */
+  public obterContatosComSuperficie(): readonly ContatoSuperficieFisico[] {
+    return this.resolvedorContatoSuperficie.obterContatos();
+  }
+
+  /** Contatos resolvidos deste objeto, opcionalmente limitados a uma superfície. */
+  public obterContatosDoObjeto(objeto: Objeto, superficie?: SuperficiePlano): readonly ContatoSuperficieFisico[] {
+    this.exigirRegistro(objeto);
+    return this.resolvedorContatoSuperficie.obterContatos().filter((contato) =>
+      contato.objetoId === objeto.id && (superficie === undefined || contato.superficieId === superficie.id),
+    );
   }
 
   /** Soma das mesmas forças aerodinâmicas usadas na integração, em torno da referência SI. */

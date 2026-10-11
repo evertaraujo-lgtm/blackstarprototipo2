@@ -2,11 +2,12 @@ import { criarTesteBss005 } from './BancadaBss';
 import type { Objeto } from '../physics/objetos/base/Objeto';
 import { TanquePropelente } from '../physics/objetos/fontes-de-energia/TanquePropelente';
 import { MundoFisico } from '../physics/MundoFisico';
+import { TOLERANCIA_CONTATO_SUPERFICIE_M } from '../physics/solucionadores/ResolvedorContatoSuperficie';
 import { Vetor3 } from '../physics/Vetor3';
 
 type CenarioBss005 = ReturnType<typeof criarTesteBss005>;
 export type FalhaEnsaioBss005 = 'nenhuma' | 'sem-reserva-no-corte' | 'perda-controle-no-corte' | 'sem-combustivel-inicial';
-export type FaseEnsaioBss005 = 'solo' | 'decolagem' | 'subida' | 'corte' | 'descida' | 'frenagem' | 'contato' | 'repouso';
+export type FaseEnsaioBss005 = 'solo' | 'decolagem' | 'subida' | 'corte' | 'descida' | 'frenagem' | 'contato' | 'repouso' | 'falha-pouso';
 export interface ConfiguracaoEnsaioBss005 {
   readonly altitudeTrocaParaPousoM?: number;
   readonly throttleDecolagem?: number;
@@ -25,7 +26,9 @@ export const CRITERIOS_POUSO_BSS005 = {
   velocidadeAngularMaxRadps: 0.01,
   velocidadeRepousoCascoMaxMps: 0.05,
   velocidadeRepousoComponentesMaxMps: 0.1,
-  toleranciaApoioM: 0.001,
+  toleranciaVelocidadeNormalContatoMps: MundoFisico.velocidadeDeRepousoMps,
+  toleranciaContatoCoreM: TOLERANCIA_CONTATO_SUPERFICIE_M,
+  limiteContatoUnilateralS: 0.5,
   duracaoRepousoS: 3,
 } as const;
 
@@ -60,6 +63,9 @@ export interface LeituraMissaoBss005 {
   readonly faseControlador: string;
   readonly integridadeMinima: number;
   readonly fixadoresRompidos: readonly string[];
+  readonly contatosFisicos: readonly { readonly objetoId: string; readonly superficieId: string; readonly emApoio: boolean;
+    readonly penetracaoM: number; readonly velocidadeNormalAntesMps: number; readonly velocidadeNormalDepoisMps: number;
+    readonly energiaImpactoJ: number }[];
   readonly objetos: readonly { readonly id: string; readonly massaKg: number; readonly integridade: number; readonly temperaturaC: number;
     readonly velocidadeXMps: number; readonly velocidadeYMps: number; readonly velocidadeAngularRadps: number; readonly menorAlturaGeometriaM: number }[];
   readonly contatos: readonly string[];
@@ -67,6 +73,15 @@ export interface LeituraMissaoBss005 {
   readonly menorAlturaGeometriaM: number;
   readonly velocidadeMaximaComponentesMps: number;
   readonly velocidadeAngularMaximaComponentesRadps: number;
+}
+
+/** Limites do veículo no instante anterior à resposta do core ao primeiro contato. */
+export function atendeLimitesDeToqueBss005(leitura: Pick<LeituraMissaoBss005,
+  'velocidadeXMps' | 'velocidadeYMps' | 'orientacaoRad' | 'velocidadeAngularRadps'>): boolean {
+  return Math.abs(leitura.velocidadeYMps) < CRITERIOS_POUSO_BSS005.velocidadeVerticalToqueMaxMps
+    && Math.abs(leitura.velocidadeXMps) < CRITERIOS_POUSO_BSS005.velocidadeHorizontalToqueMaxMps
+    && Math.abs(leitura.orientacaoRad) < CRITERIOS_POUSO_BSS005.inclinacaoMaxRad
+    && Math.abs(leitura.velocidadeAngularRadps) < CRITERIOS_POUSO_BSS005.velocidadeAngularMaxRadps;
 }
 
 export const menorAlturaDoObjetoM = (objeto: Objeto): number => {
@@ -86,7 +101,8 @@ export function lerMissaoBss005(cenario: CenarioBss005, fase: FaseEnsaioBss005):
   const motorConectadoAoCasco = casco.obterObjetosFisicosConectados().includes(motor);
   const gravidade = Math.abs(MundoFisico.gravidadeTerrestreMps2.y);
   const arrasto = cenario.objetos.reduce((soma, objeto) => soma.adicionar(cenario.mundo.obterForcaArrastoAtmosferico(objeto)), Vetor3.zero);
-  const soloM = cenario.superficies[0]!.alturaM;
+  const solo = cenario.superficies[0]!;
+  const soloM = solo.alturaM;
   const altura = (objeto: Objeto) => menorAlturaDoObjetoM(objeto) - soloM;
   const tanques = cenario.objetos.filter((objeto): objeto is TanquePropelente => objeto instanceof TanquePropelente);
   const kg = (tipo: string) => tanques.filter((tanque) => tanque.tipoPropelente === tipo).reduce((soma, tanque) => soma + tanque.massaPropelenteKg, 0);
@@ -116,8 +132,16 @@ export function lerMissaoBss005(cenario: CenarioBss005, fase: FaseEnsaioBss005):
         velocidadeXMps: estado.velocidadeMps.x, velocidadeYMps: estado.velocidadeMps.y,
         velocidadeAngularRadps: estado.velocidadeAngularRadps.z, menorAlturaGeometriaM: altura(objeto) };
     }),
-    contatos: cenario.objetos.filter((objeto) => altura(objeto) <= 1e-7).map((objeto) => objeto.id),
-    sapatasApoiadas: cenario.objetos.filter((objeto) => objeto.id.includes('sapata') && Math.abs(altura(objeto)) <= CRITERIOS_POUSO_BSS005.toleranciaApoioM).map((objeto) => objeto.id),
+    contatos: cenario.mundo.obterContatosComSuperficie().filter((contato) => contato.superficieId === solo.id
+      && contato.penetracaoM >= 0 && (contato.emApoio || contato.velocidadeNormalAntesMps < 0)).map((contato) => contato.objetoId),
+    sapatasApoiadas: cenario.objetos.filter((objeto) => objeto.id.includes('sapata')
+      && cenario.mundo.obterContatosDoObjeto(objeto, solo).some((contato) => contato.emApoio)).map((objeto) => objeto.id),
+    contatosFisicos: cenario.mundo.obterContatosComSuperficie().filter((contato) => contato.superficieId === solo.id).map((contato) => ({
+      objetoId: contato.objetoId, superficieId: contato.superficieId, emApoio: contato.emApoio,
+      penetracaoM: contato.penetracaoM,
+      velocidadeNormalAntesMps: contato.velocidadeNormalAntesMps, velocidadeNormalDepoisMps: contato.velocidadeNormalDepoisMps,
+      energiaImpactoJ: contato.energiaImpactoJ,
+    })),
     menorAlturaGeometriaM: Math.min(...cenario.objetos.map(altura)),
     velocidadeMaximaComponentesMps: Math.max(...cenario.objetos.map((objeto) => objeto.getEstadoFisico().velocidadeMps.magnitude)),
     velocidadeAngularMaximaComponentesRadps: Math.max(...cenario.objetos.map((objeto) => objeto.getEstadoFisico().velocidadeAngularRadps.magnitude)),
@@ -170,7 +194,9 @@ export function* avancarEnsaioMissaoBss005(configuracao: ConfiguracaoEnsaioBss00
   let decolou = false, modoPousoSelecionado = false, cortou = false, desceu = false, iniciouFrenagem = false;
   let esgotou = false, danificou = false, perdeuControle = false;
   let toque: { antes: LeituraMissaoBss005; depois: LeituraMissaoBss005 } | undefined;
+  let pousoSeguro = false, falhouPouso = false, contatoUnilateralS = 0, tempoAposPrimeiroContatoS = 0;
   let apogeu = inicial, repousoContinuoS = 0, consumoMotorKg = 0, maxPressaoDinamicaPa = 0;
+  let maiorPenetracaoContatoM = 0, objetoComMaiorPenetracaoId: string | undefined;
   let erroBalancoMaxKg = 0, proximaAmostraS = config.intervaloAmostraS;
   let ultimoEstado = ler();
   const numeroPassos = Math.ceil(config.limiteEnsaioS / config.dtS);
@@ -194,6 +220,12 @@ export function* avancarEnsaioMissaoBss005(configuracao: ConfiguracaoEnsaioBss00
     cenario.atualizarControle?.();
     cenario.mundo.avancar(config.dtS);
     let depois = ler();
+    for (const contato of depois.contatosFisicos) {
+      if (contato.penetracaoM > maiorPenetracaoContatoM) {
+        maiorPenetracaoContatoM = contato.penetracaoM;
+        objetoComMaiorPenetracaoId = contato.objetoId;
+      }
+    }
     consumoMotorKg += motor.vazaoAtualKgS * config.dtS;
     erroBalancoMaxKg = Math.max(erroBalancoMaxKg,
       Math.abs(inicial.massaTotalObjetosKg - depois.massaTotalObjetosKg - consumoMotorKg - massaRetiradaNaFalhaKg));
@@ -208,17 +240,46 @@ export function* avancarEnsaioMissaoBss005(configuracao: ConfiguracaoEnsaioBss00
     if (desceu && !toque) fase = depois.empuxoN > 0 ? 'frenagem' : 'descida';
     if (desceu && !iniciouFrenagem && depois.empuxoN > 0) { iniciouFrenagem = true; fase = 'frenagem'; evento('inicio-da-frenagem'); }
     if (!esgotou && partidaAceita && (depois.metanoKg === 0 || depois.oxidanteKg === 0)) { esgotou = true; evento('esgotamento-propelente'); }
-    if (desceu && !toque && depois.contatos.length > 0) { fase = 'contato'; toque = { antes, depois: ler() }; evento('contato'); }
+    if (desceu && !toque && depois.contatos.length > 0) {
+      fase = 'contato'; toque = { antes, depois: ler() }; evento('primeiro-contato');
+      const velocidadesSeguras = atendeLimitesDeToqueBss005(antes);
+      if (!velocidadesSeguras || depois.integridadeMinima < 1 || depois.fixadoresRompidos.length > 0) {
+        falhouPouso = true; fase = 'falha-pouso'; evento('pouso-falhou');
+      }
+    }
+    if (toque && !pousoSeguro && !falhouPouso) {
+      tempoAposPrimeiroContatoS += config.dtS;
+      const apoiadas = depois.sapatasApoiadas.length === 2;
+      contatoUnilateralS = apoiadas ? 0 : contatoUnilateralS + config.dtS;
+      const atitudeEstavel = Math.abs(depois.orientacaoRad) < CRITERIOS_POUSO_BSS005.inclinacaoMaxRad
+        && depois.velocidadeAngularMaximaComponentesRadps < CRITERIOS_POUSO_BSS005.velocidadeAngularMaxRadps;
+      if (depois.integridadeMinima < 1 || depois.fixadoresRompidos.length > 0
+        || tempoAposPrimeiroContatoS > CRITERIOS_POUSO_BSS005.limiteContatoUnilateralS && (!apoiadas || !atitudeEstavel)) {
+        falhouPouso = true; fase = 'falha-pouso'; evento('pouso-falhou');
+      } else if (apoiadas && atitudeEstavel) {
+        pousoSeguro = true; evento('toque-seguro');
+      }
+    }
+    if (toque && pousoSeguro && !falhouPouso) {
+      const apoiadas = depois.sapatasApoiadas.length === 2;
+      contatoUnilateralS = apoiadas ? 0 : contatoUnilateralS + config.dtS;
+      if (!atendeLimitesDeToqueBss005(depois) || depois.integridadeMinima < 1
+        || depois.fixadoresRompidos.length > 0
+        || contatoUnilateralS > CRITERIOS_POUSO_BSS005.limiteContatoUnilateralS) {
+        falhouPouso = true; fase = 'falha-pouso'; evento('pouso-falhou');
+      }
+    }
     if (!danificou && depois.integridadeMinima < 1) { danificou = true; evento('dano-estrutural'); }
     depois = { ...depois, fase };
-    const repousou = (toque !== undefined || !partidaAceita) && depois.empuxoN === 0
+    const repousou = ((toque !== undefined && pousoSeguro) || !partidaAceita) && depois.empuxoN === 0
       && Math.hypot(depois.velocidadeXMps, depois.velocidadeYMps) <= CRITERIOS_POUSO_BSS005.velocidadeRepousoCascoMaxMps
       && depois.velocidadeMaximaComponentesMps <= CRITERIOS_POUSO_BSS005.velocidadeRepousoComponentesMaxMps
-      && depois.velocidadeAngularMaximaComponentesRadps <= CRITERIOS_POUSO_BSS005.velocidadeAngularMaxRadps;
+      && depois.velocidadeAngularMaximaComponentesRadps <= CRITERIOS_POUSO_BSS005.velocidadeAngularMaxRadps
+      && (!toque || depois.sapatasApoiadas.length === 2);
     repousoContinuoS = repousou ? repousoContinuoS + config.dtS : 0;
     ultimoEstado = depois;
     if (config.registrarAmostras && depois.tempoS >= proximaAmostraS) { amostras.push(depois); proximaAmostraS += config.intervaloAmostraS; }
-    if (repousoContinuoS >= CRITERIOS_POUSO_BSS005.duracaoRepousoS) { fase = 'repouso'; evento('repouso'); ultimoEstado = ler(); break; }
+    if (repousoContinuoS >= CRITERIOS_POUSO_BSS005.duracaoRepousoS) { fase = 'repouso'; evento('repouso-estavel'); ultimoEstado = ler(); break; }
     if ((passo + 1) % 2400 === 0) yield;
   }
   if (config.registrarAmostras) amostras.push(ultimoEstado);
@@ -228,6 +289,8 @@ export function* avancarEnsaioMissaoBss005(configuracao: ConfiguracaoEnsaioBss00
   if (esgotou) motivos.push('propelente-esgotado');
   if (perdeuControle) motivos.push('controle-perdido');
   if (!toque) motivos.push('sem-contato-final');
+  if (toque && !pousoSeguro) motivos.push('toque-nao-seguro');
+  if (toque && pousoSeguro && falhouPouso) motivos.push('instabilidade-apos-toque');
   if (toque && Math.abs(toque.antes.velocidadeYMps) > CRITERIOS_POUSO_BSS005.velocidadeVerticalToqueMaxMps) motivos.push('velocidade-vertical-no-toque');
   if (toque && Math.abs(toque.antes.velocidadeXMps) > CRITERIOS_POUSO_BSS005.velocidadeHorizontalToqueMaxMps) motivos.push('velocidade-horizontal-no-toque');
   if (toque && (Math.abs(toque.antes.orientacaoRad) > CRITERIOS_POUSO_BSS005.inclinacaoMaxRad
@@ -237,14 +300,15 @@ export function* avancarEnsaioMissaoBss005(configuracao: ConfiguracaoEnsaioBss00
   if (ultimoEstado.sapatasApoiadas.length !== 2) motivos.push('apoio-final-das-sapatas');
   if (repousoContinuoS < CRITERIOS_POUSO_BSS005.duracaoRepousoS) motivos.push('sem-repouso-continuo');
   if (Math.abs(ultimoEstado.orientacaoRad) > CRITERIOS_POUSO_BSS005.inclinacaoMaxRad) motivos.push('atitude-final');
-  const falhaConfirmada = !partidaAceita || esgotou || perdeuControle || danificou
+  const falhaConfirmada = !partidaAceita || esgotou || perdeuControle || danificou || falhouPouso
     || motivos.some((motivo) => ['velocidade-vertical-no-toque', 'velocidade-horizontal-no-toque',
       'atitude-ou-rotacao-no-toque', 'vinculos-rompidos'].includes(motivo))
     || (repousoContinuoS >= CRITERIOS_POUSO_BSS005.duracaoRepousoS && motivos.length > 0);
   return {
     configuracao: config, criterios: CRITERIOS_POUSO_BSS005, inicial, final: ultimoEstado,
-    decolou, modoPousoSelecionado, apogeu, toque, repousoContinuoS,
+    decolou, modoPousoSelecionado, apogeu, toque, pousoSeguro, repousoContinuoS,
     consumoMotorKg, massaRetiradaNaFalhaKg, erroBalancoMaxKg, maxPressaoDinamicaPa,
+    maiorPenetracaoContatoM, objetoComMaiorPenetracaoId,
     resultado: motivos.length === 0 ? 'pouso-seguro' as const : falhaConfirmada ? 'falha' as const : 'inconclusivo' as const,
     encerramento: repousoContinuoS >= CRITERIOS_POUSO_BSS005.duracaoRepousoS ? 'repouso-fisico' as const : 'watchdog' as const,
     motivos, comandos, eventos, amostras,

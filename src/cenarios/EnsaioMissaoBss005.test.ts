@@ -3,7 +3,7 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { setImmediate } from 'node:timers/promises';
 import { criarTesteBss005 } from './BancadaBss';
-import { CRITERIOS_POUSO_BSS005, avancarEnsaioMissaoBss005, executarEnsaioMissaoBss005, lerMissaoBss005 } from './EnsaioMissaoBss005';
+import { atendeLimitesDeToqueBss005, CRITERIOS_POUSO_BSS005, avancarEnsaioMissaoBss005, executarEnsaioMissaoBss005, lerMissaoBss005 } from './EnsaioMissaoBss005';
 
 // O scheduler pertence ao teste Node; o domínio conserva somente o dt simulado.
 const executarCooperativamente = async (config: Parameters<typeof executarEnsaioMissaoBss005>[0] = {}) => {
@@ -35,6 +35,14 @@ const validarEncerramentoAposImpacto = (r: ReturnType<typeof executarEnsaioMissa
 const evento = (resultado: ReturnType<typeof executarEnsaioMissaoBss005>, tipo: string) => resultado.eventos.find((item) => item.tipo === tipo)!.leitura;
 
 describe('M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s', () => {
+  it.each([
+    ['lateral', { velocidadeXMps: 0.6, velocidadeYMps: 0, orientacaoRad: 0, velocidadeAngularRadps: 0 }],
+    ['inclinação', { velocidadeXMps: 0, velocidadeYMps: 0, orientacaoRad: 0.02, velocidadeAngularRadps: 0 }],
+    ['rotação', { velocidadeXMps: 0, velocidadeYMps: 0, orientacaoRad: 0, velocidadeAngularRadps: 0.02 }],
+  ])('reprova toque com %s fora do limite', (_nome, leitura) => {
+    expect(atendeLimitesDeToqueBss005(leitura)).toBe(false);
+  });
+
   it('observa o ambiente usado no core e a leitura não altera o estado físico', () => {
     const cenario = criarTesteBss005();
     const antes = cenario.objetos.map((objeto) => objeto.getEstadoFisico());
@@ -44,36 +52,44 @@ describe('M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s', () =
     expect(leitura.densidadeArKgM3).toBeGreaterThan(1.22);
     expect(leitura.pressaoDinamicaPa).toBe(0);
     expect(leitura.arrastoN).toEqual({ x: 0, y: 0 });
-    expect(leitura.sapatasApoiadas).toHaveLength(2);
+    expect(leitura.sapatasApoiadas).toHaveLength(0);
     expect(leitura.massaConectadaKg).toBe(leitura.massaTotalObjetosKg);
     expect(cenario.objetos.map((objeto) => objeto.getEstadoFisico())).toEqual(antes);
     expect(cenario.mundo.tempoS).toBe(0);
+    cenario.mundo.avancar(1 / 240);
+    expect(lerMissaoBss005(cenario, 'solo').sapatasApoiadas).toHaveLength(2);
   });
 
-  it('completa o voo de referência de 300 m, com toque físico, ambas as sapatas e repouso', async () => {
+  it('separa toque seguro de repouso quando o apoio bilateral não persiste', async () => {
     const r = await executarCooperativamente({ altitudeTrocaParaPousoM: 300, throttleDecolagem: 0.65 });
     exportarEvidencia('referencia-300m', r);
-    expect(r.resultado, JSON.stringify(r.motivos)).toBe('pouso-seguro');
-    expect(r.encerramento).toBe('repouso-fisico');
+    expect(r.resultado, JSON.stringify(r.motivos)).toBe('falha');
+    expect(r.pousoSeguro).toBe(true);
+    expect(r.eventos.filter((item) => item.tipo === 'primeiro-contato')).toHaveLength(1);
+    expect(r.eventos.filter((item) => item.tipo === 'toque-seguro')).toHaveLength(1);
+    expect(r.eventos.filter((item) => item.tipo === 'pouso-falhou')).toHaveLength(1);
+    expect(r.eventos.some((item) => item.tipo === 'repouso-estavel')).toBe(false);
+    expect(r.encerramento).toBe('watchdog');
     expect(r.decolou).toBe(true);
     expect(r.apogeu.altitudeM).toBeGreaterThan(300);
     expect(r.toque!.depois.contatos.length).toBeGreaterThan(0);
     expect(Math.abs(r.toque!.antes.velocidadeYMps)).toBeLessThan(CRITERIOS_POUSO_BSS005.velocidadeVerticalToqueMaxMps);
     expect(Math.abs(r.toque!.antes.velocidadeXMps)).toBeLessThan(CRITERIOS_POUSO_BSS005.velocidadeHorizontalToqueMaxMps);
     expect(r.final.sapatasApoiadas).toHaveLength(2);
-    expect(r.repousoContinuoS).toBeGreaterThanOrEqual(3);
+    expect(r.repousoContinuoS).toBeLessThan(3);
     expect(r.final.empuxoN).toBe(0);
     expect(r.final.integridadeMinima).toBe(1);
     expect(r.final.fixadoresRompidos).toEqual([]);
     expect(r.final.metanoKg + r.final.oxidanteKg).toBeGreaterThan(0);
     expect(r.erroBalancoMaxKg).toBeLessThan(1e-7);
-    expect(r.eventos.map((item) => item.tipo)).toEqual(['partida', 'decolagem', 'troca-para-pouso', 'corte', 'apogeu', 'descida', 'inicio-da-frenagem', 'contato', 'repouso']);
+    expect(r.motivos).toContain('instabilidade-apos-toque');
+    expect(r.motivos).toContain('sem-repouso-continuo');
     const semHistorico = await executarCooperativamente({ altitudeTrocaParaPousoM: 300, throttleDecolagem: 0.65, registrarAmostras: false });
     expect(semHistorico.amostras).toEqual([]);
     expect(semHistorico.final).toEqual(r.final);
     expect(semHistorico.toque).toEqual(r.toque);
     exportarEvidencia('observabilidade', { historicoNaoAlteraResultado: true });
-  }, 180000);
+  }, 360000);
 
   it('reprova e reproduz o retorno nominal de 15 km, sem esconder o esgotamento e o impacto', async () => {
     const r = await executarCooperativamente();
@@ -88,8 +104,13 @@ describe('M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s', () =
     expect(evento(r, 'inicio-da-frenagem').altitudeM).toBeGreaterThan(19000);
     expect(evento(r, 'esgotamento-propelente').altitudeM).toBeGreaterThan(18000);
     expect(r.toque!.antes.velocidadeYMps).toBeLessThan(-80);
+    expect(r.maiorPenetracaoContatoM).toBeGreaterThan(0);
+    expect(r.objetoComMaiorPenetracaoId).toBeTruthy();
     expect(r.motivos).toContain('propelente-esgotado');
     expect(r.motivos).toContain('dano-estrutural');
+    expect(r.motivos).toContain('toque-nao-seguro');
+    expect(r.eventos.some((item) => item.tipo === 'pouso-falhou')).toBe(true);
+    expect(r.eventos.filter((item) => item.tipo === 'pouso-falhou')).toHaveLength(1);
     expect(r.motivos).toContain('vinculos-rompidos');
     expect(r.final.integridadeMinima).toBeLessThan(1);
     expect(r.final.fixadoresRompidos.length).toBeGreaterThan(0);

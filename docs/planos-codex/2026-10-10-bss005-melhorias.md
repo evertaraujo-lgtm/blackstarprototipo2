@@ -8,7 +8,7 @@
 
 **Atualização de 10/10/2026:** a seção 7 revisa o commit `c699ea8b082ee2f7ce1f8778d3cb7d38c91443ff` e prevalece sobre diagnósticos antigos **apenas quando indicar expressamente uma correção já realizada**. As seções 2–6 preservam o histórico e o backlog original do BSS-005.
 
-**Atualização de 11/10/2026:** a seção 8 consolida a auditoria após M0–M4; a seção 8.5 registra M6. Essas seções substituem a leitura dos itens antigos ainda marcados como pendentes quando a correção já foi comprovada. Não reescreva o histórico como se o código antigo ainda estivesse vigente.
+**Atualização de 11/10/2026:** a seção 8 consolida a auditoria após M0–M4 e os marcos M5–M7; as seções 8.5–8.7 registram M6, a auditoria remota e M7. Essas seções substituem a leitura dos itens antigos ainda marcados como pendentes quando a correção já foi comprovada. Não reescreva o histórico como se o código antigo ainda estivesse vigente.
 
 ## 1. Instruções para o Codex
 
@@ -337,7 +337,7 @@ Os três terminaram com empuxo zero, integridade informada de 100%, sem fixadore
 - [x] **P1-B (parte coberta) — Guiagem lateral:** corrigidos sinais, cálculo com cargas aerodinâmicas existentes e robustez nos casos M3. Permanecem limitações de ângulo de ataque, Mach, vento por altitude e sensores.
 - [x] **P2 — Referências atmosféricas e convecção por densidade:** verificadas na M4 dentro de 0–20 km, com tratamento de vácuo. Temperatura ambiente uniforme, convecção parametrizada, sem correlação completa de Reynolds/Mach, radiação ou balanço energético completo.
 - [x] **P2 — Telemetria, registro de entradas e replay:** ampliados na M4; reprodução integral demonstrada em uma missão BSS-006, não em todos os cenários ou falhas possíveis.
-- [ ] **P0-C / R2 — Intertravamento físico de toque seguro:** a consulta geométrica de sapatas e o desligamento do motor não equivalem a detecção completa de apoio estável.
+- [x] **P0-C / R2 — Intertravamento físico de toque seguro (M7):** o core publica contatos e apoio; a missão distingue toque seguro de repouso e falha. A reprodução histórica de 34 mm por 600 s continua pendente.
 - [ ] **P1-C / R3 — Sensores, rajadas, falhas por fase e contingências:** permanecem sem qualificação abrangente.
 
 ### 8.3 Problemas abertos e próximos marcos sugeridos
@@ -359,8 +359,8 @@ Os três terminaram com empuxo zero, integridade informada de 100%, sem fixadore
 
 **M7 — Contato, pouso seguro e consequências do impacto [PRIORIDADE ALTA].**
 
-- [ ] Separar primeiro contato geométrico, reação do resolvedor, apoio de ambas as sapatas, toque dentro dos limites, repouso estável e pouso seguro.
-- [ ] Investigar penetração geométrica residual de aproximadamente **34 mm** e movimento persistente dos componentes danificados nos ensaios M2 após ruptura; preservar conservação e resposta de contatos, sem congelar destroços para atingir tolerâncias.
+- [x] Separar primeiro contato geométrico, reação do resolvedor, apoio de ambas as sapatas, toque dentro dos limites, repouso estável e pouso seguro. A missão só aprova repouso depois de apoio bilateral contínuo por 3 s.
+- [ ] Reproduzir a penetração geométrica residual de aproximadamente **34 mm** nos ensaios M2 de 600 s e identificar o objeto; preservar conservação e resposta de contatos, sem congelar destroços para atingir tolerâncias.
 
 **M8 — Contingências e sensoriamento [PRIORIDADE POSTERIOR].**
 
@@ -369,7 +369,7 @@ Os três terminaram com empuxo zero, integridade informada de 100%, sem fixadore
 
 ### 8.4 Regra para a próxima auditoria
 
-Preservar as evidências M0–M4 e M6 e verificar tanto o comportamento nominal quanto os casos adversos. Recolher as entradas reais do operador quando disponíveis; não adivinhar o corte da subida a partir de um pouso relatado. M5 permanece prioritário e não qualificado; M7 e M8 permanecem backlog.
+Preservar as evidências M0–M7 e verificar tanto o comportamento nominal quanto os casos adversos. Recolher as entradas reais do operador quando disponíveis; não adivinhar o corte da subida a partir de um pouso relatado. M5 permanece prioritário e não qualificado; a reprodução dos 34 mm da M7 continua aberta; M8 permanece backlog.
 
 ### 8.5 Entrega M6 — projeção e cargas aerodinâmicas
 
@@ -391,4 +391,13 @@ Preservar as evidências M0–M4 e M6 e verificar tanto o comportamento nominal 
 
 **Ressalvas para a evolução aerodinâmica:** o BSS declara `centroPressaoLocalM = Vetor3.zero` para o casco, portanto o modelo **não presume torque restaurador próprio do casco** por deslocamento entre centro de pressão e centro de massa; os módulos aerodinâmicos expostos podem gerar outros momentos. O modelo usa `Cd = 0,65` constante, contorno retangular planar e não resolve Mach, ângulo de ataque real em 3D, oclusão ou CFD. A velocidade máxima descendente de `≈ 207 m/s` vem da M2 **anterior à M6**: não reaproveitar como resultado do voo atualizado sem reexecutar a missão.
 
-**Próximo trabalho:** obter um diário BSS-005 real, versioná-lo preservando a revisão necessária à reprodução e executar M5-B/M5-C. Após isso, prosseguir com M7 (contato e pouso seguro) e M8 (sensores/contingências) em commits independentes; não ajustar limites para fabricar um pouso bem-sucedido.
+**Próximo trabalho:** obter um diário BSS-005 real, versioná-lo preservando a revisão necessária à reprodução e executar M5-B/M5-C. A M7 foi implementada no commit seguinte, com a reprodução dos 34 mm ainda pendente; depois de M5, prosseguir com M8 (sensores/contingências) em commit independente. Não ajustar limites para fabricar um pouso bem-sucedido.
+
+### 8.7 Entrega M7 — contato e classificação do pouso
+
+- **[Implementado]** O resolvedor publica os contatos do último subpasso, separando observação de proximidade (2 mm) da resolução de forças, que continua exigindo contato geométrico real. O mundo oferece consultas por superfície e por objeto.
+- **[Implementado]** BSS-006 usa apoio físico bilateral para cortar o motor. BSS-005 registra primeiro contato, toque seguro, repouso contínuo e falha de pouso em eventos distintos.
+- **[Testado]** Regressões determinísticas cobrem apoio, impacto rápido, apoio unilateral, limites de toque seguro e sequência de eventos. A missão de 300 m demonstra que contato seguro não basta: o apoio bilateral não persiste pelos 3 s exigidos, portanto a missão termina reprovada por falta de repouso contínuo.
+- **[Instrumentado, pendente de reprodução]** A missão registra a maior penetração anterior à correção do contato e o ID do corpo associado. No ensaio de 300 m, o pico observado foi aproximadamente 0,205 mm na sapata esquerda; isso não reproduz a referência histórica de 34 mm da M2.
+- **[Validação local]** `npm run typecheck` e `npm run build` concluídos com sucesso. `src/physics/MundoFisico.test.ts` passou com 53 testes. Ensaio focado `EnsaioMissaoBss005.test.ts -t 'separa toque seguro|nega a partida'`: 2 passaram, 13 foram ignorados pelo filtro; o cenário integrado levou 255 s e passou com timeout configurado de 360 s. `git diff --check` sem erros.
+- **[Limitação]** A telemetria atual não substitui replay do caso de 600 s. A causa e o objeto exato da penetração histórica de 34 mm continuam sem confirmação; não declarar M7 integralmente concluída até reproduzir ou explicar essa diferença.
