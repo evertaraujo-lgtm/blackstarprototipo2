@@ -30,14 +30,15 @@ export class SistemaAtmosferico {
 
   /** Arrasto em N, sempre oposto à velocidade relativa ao ar. */
   public calcularArrasto(objeto: Objeto, velocidadeMps: Vetor3): Vetor3 {
-    const areaFrontalM2 = objeto.getAreaArrastoEfetivaM2();
     const densidadeArKgM3 = this.obterDensidadeArKgM3(objeto.getEstadoFisico().posicaoM.y);
-    if (densidadeArKgM3 === 0 || areaFrontalM2 === 0) return Vetor3.zero;
+    if (densidadeArKgM3 === 0) return Vetor3.zero;
     const velocidadeRelativa = velocidadeMps.subtrair(this.velocidadeArMps);
     const moduloVelocidade = velocidadeRelativa.magnitude;
     if (moduloVelocidade === 0) return Vetor3.zero;
+    const areaFrontalM2 = objeto.getAreaArrastoEfetivaM2(velocidadeRelativa);
+    if (areaFrontalM2 === 0) return Vetor3.zero;
     const magnitudeArrastoN = 0.5 * densidadeArKgM3
-      * objeto.getCoeficienteArrastoEfetivo() * areaFrontalM2 * moduloVelocidade ** 2;
+      * objeto.getCoeficienteArrastoEfetivo(velocidadeRelativa) * areaFrontalM2 * moduloVelocidade ** 2;
     return velocidadeRelativa.multiplicar(-magnitudeArrastoN / moduloVelocidade);
   }
 

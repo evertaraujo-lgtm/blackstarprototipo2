@@ -27,8 +27,9 @@ describe('BSS-005 — capacidade da montagem real com Isp nominal de 350 s', () 
     const reservaKg = tanques.reduce((soma, tanque) => soma + tanque.massaPropelenteKg, 0);
     const diagnostico = `t=${cenario.mundo.tempoS} s; y=${casco.getEstadoFisico().posicaoM.y} m; reserva=${reservaKg} kg; bloqueios=${motor.diagnosticoOperacional.join(', ')}`;
     expect(casco.getEstadoFisico().posicaoM.y, diagnostico).toBeGreaterThanOrEqual(15000);
-    expect(cenario.mundo.tempoS).toBeCloseTo(72.6875, 3);
-    expect(reservaKg).toBeCloseTo(458.7215235134394, 5);
+    // A área projetada varia com a inclinação real durante a subida.
+    expect(cenario.mundo.tempoS).toBeCloseTo(72.7458333333, 3);
+    expect(reservaKg).toBeCloseTo(456.68209108748357, 5);
     expect(massaInicialKg - casco.massaInstantaneaDoConjuntoKg).toBeCloseTo(reservaInicialKg - reservaKg, 8);
     expect(motor.impulsoEspecificoEfetivoS).toBeCloseTo(350, 8);
     expect(motor.estaIgnitado).toBe(true);

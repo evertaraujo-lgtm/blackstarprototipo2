@@ -3,12 +3,12 @@
 **Data da revisão:** 2026-10-10  
 **Repositório:** `evertaraujo-lgtm/blackstarprototipo2`  
 **Commit-base analisado:** `72b6666700ee5410fb254f2d32647dfe59ef345b` (`Improve BSS05 flight and descent physics`)  
-**Status atual (11/10/2026):** os marcos M0–M4 foram entregues e aprovados no escopo ensaiado; **a missão de 15 km com retorno permanece NÃO QUALIFICADA**. As seções 2–7 são registros históricos de diagnóstico e backlog, e os estados mais recentes prevalecem conforme a seção 8. Este documento não implementa correções de código.  
+**Status atual (11/10/2026):** os marcos M0–M4 e M6 foram entregues e aprovados no escopo ensaiado; **a missão de 15 km com retorno permanece NÃO QUALIFICADA**. As seções 2–7 são registros históricos de diagnóstico e backlog, e os estados mais recentes prevalecem conforme a seção 8.
 **Prioridade geral:** consistência física antes de adicionar recursos visuais ou aumentar o alcance da missão.
 
 **Atualização de 10/10/2026:** a seção 7 revisa o commit `c699ea8b082ee2f7ce1f8778d3cb7d38c91443ff` e prevalece sobre diagnósticos antigos **apenas quando indicar expressamente uma correção já realizada**. As seções 2–6 preservam o histórico e o backlog original do BSS-005.
 
-**Atualização de 11/10/2026:** a seção 8 consolida a auditoria após M0–M4 e substitui a leitura dos itens antigos ainda marcados como pendentes quando a correção já foi comprovada. Não reescreva o histórico como se o código antigo ainda estivesse vigente.
+**Atualização de 11/10/2026:** a seção 8 consolida a auditoria após M0–M4; a seção 8.5 registra M6. Essas seções substituem a leitura dos itens antigos ainda marcados como pendentes quando a correção já foi comprovada. Não reescreva o histórico como se o código antigo ainda estivesse vigente.
 
 ## 1. Instruções para o Codex
 
@@ -350,12 +350,12 @@ Os três terminaram com empuxo zero, integridade informada de 100%, sem fixadore
 - [ ] **Não** ativar automaticamente pouso na interface sem autorização. Primeiro reproduzir como script de ensaio; se a missão for inviável, registrar o diagnóstico antes de redimensionar motor, tanques ou ganhos.
 - [ ] Só declarar sucesso de 15 km quando um voo de **subida + retorno** preservar integridade, contatos/repouso e margem documentada.
 
-**M6 — Aerodinâmica do veículo completo [PRIORIDADE ALTA, independente de M5].**
+**M6 — Aerodinâmica do veículo completo [PRIORIDADE ALTA, independente de M5]. Entregue em 11/10/2026; detalhes na seção 8.5.**
 
-- [ ] Rever a área aerodinâmica **projetada em função da orientação do corpo em relação ao fluxo**. No BSS-005, o casco usa atualmente \`areaFrontalM2 = 7\` e \`Cd = 0,65\` constantes; isso não representa adequadamente o veículo tombado ou de lado.
-- [ ] Auditar componentes expostos e superfície de controle conforme a geometria do veículo, centro de pressão, momentos e efeito de velocidade relativa; não reintroduzir o arrasto duplicado das grid fins que a M3 eliminou.
-- [ ] Comparar queda longitudinal, lateral e girando com **mesma massa/atmosfera**, avaliar força, torque e velocidades descendentes; não tratar o pico amostrado de \`≈207 m/s\` na M2 como velocidade terminal universal ou velocidade máxima exata entre passos.
-- [ ] Registrar faixa válida do \`Cd\` e limitações do modelo planar, sem atribuir precisão aerodinâmica real a uma geometria simplificada.
+- [x] Rever a área aerodinâmica **projetada em função da orientação do corpo em relação ao fluxo**. O casco BSS agora escala os 7 m² de referência pela projeção da geometria retangular XY.
+- [x] Auditar componentes expostos e superfície de controle conforme a geometria do veículo, centro de pressão, momentos e efeito de velocidade relativa; arrasto de casco e grid fins é integrado uma vez, sem reintroduzir a duplicação eliminada em M3.
+- [x] Comparar queda longitudinal, lateral e girando com **mesma massa/atmosfera**, avaliar força, torque e velocidade descendente. A comparação não reutiliza o pico amostrado de \`≈207 m/s\` na M2 como velocidade terminal.
+- [x] Registrar hipótese de \`Cd\` constante e limitações do modelo planar, sem atribuir precisão aerodinâmica real à geometria simplificada. Evidências: [relatório M6](../validacoes/2026-10-11-bss005-m6-aerodinamica.md).
 
 **M7 — Contato, pouso seguro e consequências do impacto [PRIORIDADE ALTA].**
 
@@ -369,5 +369,14 @@ Os três terminaram com empuxo zero, integridade informada de 100%, sem fixadore
 
 ### 8.4 Regra para a próxima auditoria
 
-Preservar todas as evidências M0–M4 e verificar tanto o comportamento nominal quanto os casos adversos. Recolher as entradas reais do operador quando disponíveis; não adivinhar o corte da subida a partir de um pouso relatado. Priorizar **M5**, sem confundir o trabalho de orçamento vertical com a revisão aerodinâmica **M6**. O estado de M5–M8 é **backlog**, não uma autorização para implementar tudo no mesmo commit.
+Preservar as evidências M0–M4 e M6 e verificar tanto o comportamento nominal quanto os casos adversos. Recolher as entradas reais do operador quando disponíveis; não adivinhar o corte da subida a partir de um pouso relatado. M5 permanece prioritário e não qualificado; M7 e M8 permanecem backlog.
+
+### 8.5 Entrega M6 — projeção e cargas aerodinâmicas
+
+- **[Implementado]** Área do casco BSS projetada conforme atitude e fluxo relativo, com área de referência mantida para a atitude longitudinal.
+- **[Implementado]** Centro de pressão local opcional transformado pelo core; o ponto de aplicação do arrasto participa do torque de corpos independentes e ilhas estruturais.
+- **[Auditado]** O arrasto das grid fins continua vindo uma vez da área efetiva da classe-base; sustentação permanece como força separada, sem duplicar arrasto.
+- **[Testado]** Casco longitudinal, lateral e girando sob mesma massa e atmosfera; força, área projetada, torque e resposta angular. Regressões: 9 cenários BSS-006, subida BSS-005 a 15 km, 16 testes M3, 50 testes do core físico e 13 testes M4.
+- **[Limitação]** Geometria retangular planar e `Cd` constante; não representa CFD, variação com Mach/Reynolds, oclusão de componentes ou precisão aerodinâmica real. M5 continua pendente.
+- Relatório: [`docs/validacoes/2026-10-11-bss005-m6-aerodinamica.md`](../validacoes/2026-10-11-bss005-m6-aerodinamica.md).
 

@@ -94,7 +94,11 @@ export const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBanc
       posicaoM: new Vetor3(0, alturaInicialDoCascoM, 0),
       orientacaoRad: new Vetor3(0, 0, configuracao.inclinacaoInicialRad),
     },
-    areaFrontalM2: 7, coeficienteArrasto: 0.65,
+    // 7 m² calibra a face de referência X×Z; tombado, a projeção usa a geometria XY.
+    // A área e o centro de pressão representam o casco; os objetos expostos e as
+    // grid fins contribuem separadamente quando declaram suas próprias áreas.
+    areaFrontalM2: 7, coeficienteArrasto: 0.65, areaArrastoProjetadaPorOrientacao: true,
+    centroPressaoLocalM: Vetor3.zero,
   });
   const tanqueCombustivel = new TanquePropelente({
     ...base('tanque-decolagem-metano', 180 * fatorTanques ** (2 / 3), dimensoesTanque, new Vetor3(0, centroTanqueCombustivelM, 0)),

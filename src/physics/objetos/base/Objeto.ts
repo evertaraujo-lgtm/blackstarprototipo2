@@ -32,6 +32,10 @@ export interface DefinicaoObjeto {
   readonly taxaDanoTermicoPorSegundo?: number;
   readonly areaFrontalM2?: number;
   readonly coeficienteArrasto?: number;
+  /** Escala a área frontal pela projeção da geometria XY conforme atitude e fluxo relativo. */
+  readonly areaArrastoProjetadaPorOrientacao?: boolean;
+  /** Centro de pressão do arrasto, relativo ao centro do objeto, em m. */
+  readonly centroPressaoLocalM?: Vetor3;
   /** Fração da potência de arrasto que aquece o próprio objeto (0 a 1). */
   readonly fracaoAquecimentoAerodinamico?: number;
   readonly estadoInicial?: Partial<EstadoFisico>;
@@ -186,14 +190,43 @@ export class Objeto {
     if (!this.paraquedasAcoplado) throw new Error('Objeto não possui paraquedas acoplado.');
     this.paraquedasAcoplado.configurarAreaFrontal(areaFrontalM2);
   }
-  public getAreaArrastoEfetivaM2(): number {
-    return this.areaFrontalM2 + (this.paraquedasEstaAberto ? this.paraquedasAcoplado!.areaFrontalM2 : 0);
+  public getAreaArrastoEfetivaM2(velocidadeRelativaMps = Vetor3.zero): number {
+    return this.obterAreaBaseProjetadaM2(velocidadeRelativaMps)
+      + (this.paraquedasEstaAberto ? this.paraquedasAcoplado!.areaFrontalM2 : 0);
   }
-  public getCoeficienteArrastoEfetivo(): number {
-    const areaBase = this.areaFrontalM2;
+  public getCoeficienteArrastoEfetivo(velocidadeRelativaMps = Vetor3.zero): number {
+    const areaBase = this.obterAreaBaseProjetadaM2(velocidadeRelativaMps);
     const areaParaquedas = this.paraquedasEstaAberto ? this.paraquedasAcoplado!.areaFrontalM2 : 0;
     if (areaBase + areaParaquedas === 0) return 0;
     return ((areaBase * this.coeficienteArrasto) + (areaParaquedas * (this.paraquedasAcoplado?.coeficienteArrasto ?? 0))) / (areaBase + areaParaquedas);
+  }
+
+  /** Ponto de aplicação do arrasto do corpo, transformado pela orientação atual. */
+  public obterCentroPressaoM(): Vetor3 {
+    const local = this.definicao.centroPressaoLocalM ?? Vetor3.zero;
+    const orientacao = this.estado.orientacaoRad.z;
+    const cosseno = Math.cos(orientacao);
+    const seno = Math.sin(orientacao);
+    return this.estado.posicaoM.adicionar(new Vetor3(
+      local.x * cosseno - local.y * seno,
+      local.x * seno + local.y * cosseno,
+      local.z,
+    ));
+  }
+
+  private obterAreaBaseProjetadaM2(velocidadeRelativaMps: Vetor3): number {
+    if (!this.definicao.areaArrastoProjetadaPorOrientacao || this.areaFrontalM2 === 0
+      || velocidadeRelativaMps.magnitude < 1e-9) return this.areaFrontalM2;
+
+    const normalX = -velocidadeRelativaMps.y / velocidadeRelativaMps.magnitude;
+    const normalY = velocidadeRelativaMps.x / velocidadeRelativaMps.magnitude;
+    const orientacao = this.estado.orientacaoRad.z;
+    const eixoLocalX = new Vetor3(Math.cos(orientacao), Math.sin(orientacao), 0);
+    const eixoLocalY = new Vetor3(-Math.sin(orientacao), Math.cos(orientacao), 0);
+    const larguraProjetadaM = this.dimensoesM.x * Math.abs(normalX * eixoLocalX.x + normalY * eixoLocalX.y)
+      + this.dimensoesM.y * Math.abs(normalX * eixoLocalY.x + normalY * eixoLocalY.y);
+    // areaFrontalM2 calibra a face larga de referência (dimensões X × Z).
+    return this.areaFrontalM2 * larguraProjetadaM / this.dimensoesM.x;
   }
 
   /** Vértices locais elegíveis para contato com uma superfície física. */

@@ -189,7 +189,7 @@ export class MundoFisico {
     for (const objeto of objetos) {
       const condicoes = this.obterCondicoesAtmosfericas(objeto);
       const posicaoM = objeto.getEstadoFisico().posicaoM;
-      const forcas = [{ forcaN: this.obterForcaArrastoAtmosferico(objeto), pontoM: posicaoM },
+      const forcas = [{ forcaN: this.obterForcaArrastoAtmosferico(objeto), pontoM: objeto.obterCentroPressaoM() },
         ...objeto.obterForcasAerodinamicas(condicoes)];
       for (const forca of forcas) {
         forcaN = forcaN.adicionar(forca.forcaN);
@@ -266,7 +266,7 @@ export class MundoFisico {
       const forcasAerodinamicas = objeto.obterForcasAerodinamicas({ densidadeArKgM3: this.atmosfera.obterDensidadeArKgM3(estado.posicaoM.y), velocidadeArMps: this.velocidadeArMps })
         .map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM }));
       const forcasDasJuntas = [...this.juntasRotacionaisDeBancada.values()].flatMap((junta) => junta.obterForcasPara(objeto));
-      this.integrador.integrarObjeto(objeto, [...forcas, ...forcasOperacionais, ...forcasAerodinamicas, ...forcasDasJuntas, { forcaN: this.obterForcaArrastoAtmosferico(objeto), pontoM: estado.posicaoM }], MundoFisico.gravidadeTerrestreMps2, dtS);
+      this.integrador.integrarObjeto(objeto, [...forcas, ...forcasOperacionais, ...forcasAerodinamicas, ...forcasDasJuntas, { forcaN: this.obterForcaArrastoAtmosferico(objeto), pontoM: objeto.obterCentroPressaoM() }], MundoFisico.gravidadeTerrestreMps2, dtS);
       objeto.registrarUso(dtS / 3600);
     }
     for (const conjunto of this.conjuntosEstruturais.values()) {
@@ -278,7 +278,7 @@ export class MundoFisico {
         forcasDoConjunto.push(...objeto.obterForcasOperacionais().map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM, torqueNm: forca.torqueNm })));
         forcasDoConjunto.push(...objeto.obterForcasAerodinamicas({ densidadeArKgM3: this.atmosfera.obterDensidadeArKgM3(estado.posicaoM.y), velocidadeArMps: this.velocidadeArMps }).map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM })));
         forcasDoConjunto.push({ forcaN: MundoFisico.gravidadeTerrestreMps2.multiplicar(objeto.massaKg), pontoM: estado.posicaoM });
-        forcasDoConjunto.push({ forcaN: this.obterForcaArrastoAtmosferico(objeto), pontoM: estado.posicaoM });
+        forcasDoConjunto.push({ forcaN: this.obterForcaArrastoAtmosferico(objeto), pontoM: objeto.obterCentroPressaoM() });
         for (const junta of this.juntasRotacionaisDeBancada.values()) {
           if (junta.objetoBase === objeto || junta.braco === objeto) forcasDoConjunto.push(...junta.obterForcasPara(objeto));
         }
