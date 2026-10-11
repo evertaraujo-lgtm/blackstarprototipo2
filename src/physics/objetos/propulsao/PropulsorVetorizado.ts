@@ -25,6 +25,9 @@ export class PropulsorVetorizado extends Propulsor implements ICapacidadeVetoriz
     return this.atuadorVetorizacao.obterEstado();
   }
 
+  /** Injeção de travamento mecânico para ensaios de contingência. */
+  public injetarFalhaNoAtuadorDeVetorizacao(): void { this.atuadorVetorizacao.injetarFalhaMecanica(); }
+
   public override prepararPassoOperacional(dtS: number): void {
     super.prepararPassoOperacional(dtS);
     const sistemasDaVetorizacaoDisponiveis = this.sistemaEstaOperacional('elétrico') &&

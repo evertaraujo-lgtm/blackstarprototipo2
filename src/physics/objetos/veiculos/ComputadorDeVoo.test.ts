@@ -86,6 +86,41 @@ describe('ComputadorDeVoo', () => {
     expect(computador.obterUltimoComandoDePouso()).toMatchObject({ fase: 'frenagem', leiturasValidas: true });
   });
 
+  it('em leitura obsoleta corta throttle e mantém o gimbal no ângulo físico atual', () => {
+    const leitura = {
+      ...leiturasComInclinacao(0.4), altitudeM: 20, velocidadeVerticalMps: -15,
+      velocidadeHorizontalMps: 8, massaInstantaneaKg: 1_500, idadeLeituraS: 0.3, sensoresValidos: false,
+    };
+    let throttle = 0.8;
+    let comandoGimbalRad = 0;
+    const anguloAtualGimbalRad = 0.07;
+    const computador = new ComputadorDeVoo({ obterLeituras: () => leitura });
+    computador.instalarPropulsor({
+      id: 'motor-sensores-obsoletos', estaIgnitado: true, diagnosticoOperacional: [],
+      sistemaEstaOperacional: () => true, ligarSistema: () => true, solicitarIgnicao: () => true,
+      definirThrottle: (valor) => { throttle = valor; }, desligarSistema: () => undefined,
+      solicitarVetorizacao: (angulo) => { comandoGimbalRad = angulo; return true; },
+      obterEstadoDaVetorizacao: () => ({
+        anguloAlvoRad: comandoGimbalRad, anguloAtualRad: anguloAtualGimbalRad,
+        limiteAngularRad: Math.PI / 12, velocidadeAngularMaximaRadps: Math.PI, estaHabilitado: true,
+      }),
+    });
+    computador.habilitarControleDeInclinacao(['motor-sensores-obsoletos']);
+    computador.habilitarControleDeDescidaFuzzyPid({
+      altitudeAlvoM: 4.8, altitudeTransicaoM: 40, velocidadeDescidaMaximaMps: 12,
+      velocidadeToqueMps: 0.35, empuxoMaximoN: 40_000, ganhoProporcionalThrottlePorMps: 0.07,
+      ganhoIntegralThrottlePorM: 0.004, ganhoDerivativoThrottleSegundosPorM: 0.015,
+      taxaMaximaThrottlePorS: 10, erroParaEmpuxoMaximoMps: 2,
+    }, ['motor-sensores-obsoletos']);
+
+    computador.atualizarControladores(1 / 240);
+
+    expect(throttle).toBe(0);
+    expect(comandoGimbalRad).toBe(anguloAtualGimbalRad);
+    expect(computador.obterUltimoComandoDeDescidaFuzzyPid().fase).toBe('falha-de-sensores');
+    expect(computador.obterSolicitacoesAplicadas()).toEqual([]);
+  });
+
   it('mantém ignição explícita e torna pouso e PID de inclinação mutuamente exclusivos', () => {
     let solicitacoesDeIgnicao = 0;
     const computador = new ComputadorDeVoo({ obterLeituras: () => leiturasComInclinacao(0.1) });

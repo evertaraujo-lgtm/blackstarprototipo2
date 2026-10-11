@@ -5,6 +5,7 @@ import { TanquePropelente } from '../fontes-de-energia/TanquePropelente';
 import { Bateria } from '../fontes-de-energia/Bateria';
 import { PropulsorVetorizado } from './PropulsorVetorizado';
 import { FixadorEstrutural } from '../../conexoes/FixadorEstrutural';
+import { AtuadorVetorizacao } from './vetorizacao/AtuadorVetorizacao';
 
 describe('PropulsorVetorizado', () => {
   it('atinge o comando dentro da taxa do atuador e desvia a força de empuxo', () => {
@@ -46,6 +47,18 @@ describe('PropulsorVetorizado', () => {
     propulsor.solicitarVetorizacao(0.1);
     propulsor.prepararPassoOperacional(0.1);
     expect(propulsor.obterEstadoDaVetorizacao()).toMatchObject({ anguloAtualRad: 0, estaHabilitado: false });
+  });
+
+  it('preserva a posição e rejeita novos comandos após travamento mecânico', () => {
+    const atuador = new AtuadorVetorizacao({ limiteAngularRad: 0.2, velocidadeAngularMaximaRadps: 0.5 });
+    expect(atuador.solicitar({ anguloAlvoRad: 0.2 })).toBe(true);
+    atuador.avancar(0.1, true);
+    const anguloTravadoRad = atuador.obterEstado().anguloAtualRad;
+    atuador.injetarFalhaMecanica();
+
+    expect(atuador.solicitar({ anguloAlvoRad: -0.2 })).toBe(false);
+    atuador.avancar(1, true);
+    expect(atuador.obterEstado()).toMatchObject({ anguloAtualRad: anguloTravadoRad, estaFalho: true });
   });
 
   it('mantém o conjunto sem rotação quando 5° alinham o empuxo ao centro de massa', () => {

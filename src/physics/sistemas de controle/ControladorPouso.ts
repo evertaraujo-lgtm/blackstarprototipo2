@@ -1,4 +1,5 @@
 import type { LeiturasVeiculoComposto } from '../sensores/SensoresVeiculoComposto';
+import { IDADE_MAXIMA_LEITURA_SENSOR_S } from '../sensores/SensoresVeiculoComposto';
 
 export type FaseControlePouso = 'inativo' | 'aproximacao' | 'frenagem' | 'toque' | 'falha-de-sensores';
 
@@ -111,7 +112,9 @@ export class ControladorPouso {
       leituras.altitudeM, leituras.velocidadeVerticalMps,
       leituras.velocidadeHorizontalMps, leituras.inclinacaoRad,
     ];
-    if (!valoresDosSensores.every(Number.isFinite)) {
+    const amostraAtual = leituras.sensoresValidos !== false
+      && (leituras.idadeLeituraS === undefined || leituras.idadeLeituraS <= IDADE_MAXIMA_LEITURA_SENSOR_S);
+    if (!amostraAtual || !valoresDosSensores.every(Number.isFinite)) {
       this.throttleAnterior = 0;
       this.ultimoComando = {
         fase: 'falha-de-sensores', throttle: 0, anguloGimbalRad: 0,

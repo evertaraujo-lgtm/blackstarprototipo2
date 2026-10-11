@@ -5,6 +5,7 @@ export class AtuadorVetorizacao implements IAtuadorVetorizacao {
   private anguloAlvoRad = 0;
   private anguloAtualRad = 0;
   private habilitado = false;
+  private falho = false;
 
   public constructor(private readonly definicao: DefinicaoSistemaVetorizacao) {
     if (!Number.isFinite(definicao.limiteAngularRad) || definicao.limiteAngularRad <= 0 ||
@@ -14,6 +15,7 @@ export class AtuadorVetorizacao implements IAtuadorVetorizacao {
   }
 
   public solicitar(comando: ComandoVetorizacao): boolean {
+    if (this.falho) return false;
     if (!Number.isFinite(comando.anguloAlvoRad) || Math.abs(comando.anguloAlvoRad) > this.definicao.limiteAngularRad) return false;
     this.anguloAlvoRad = comando.anguloAlvoRad;
     return true;
@@ -22,11 +24,14 @@ export class AtuadorVetorizacao implements IAtuadorVetorizacao {
   public avancar(dtS: number, habilitado: boolean): void {
     if (!Number.isFinite(dtS) || dtS <= 0) throw new Error('Passo temporal da vetorização inválido.');
     this.habilitado = habilitado;
-    if (!habilitado) return;
+    if (!habilitado || this.falho) return;
     const variacaoMaxima = this.definicao.velocidadeAngularMaximaRadps * dtS;
     const erro = this.anguloAlvoRad - this.anguloAtualRad;
     this.anguloAtualRad += Math.max(-variacaoMaxima, Math.min(variacaoMaxima, erro));
   }
+
+  /** Simula travamento mecânico permanente na posição física atual do atuador. */
+  public injetarFalhaMecanica(): void { this.falho = true; }
 
   public obterEstado(): EstadoVetorizacao {
     return {
@@ -35,6 +40,7 @@ export class AtuadorVetorizacao implements IAtuadorVetorizacao {
       limiteAngularRad: this.definicao.limiteAngularRad,
       velocidadeAngularMaximaRadps: this.definicao.velocidadeAngularMaximaRadps,
       estaHabilitado: this.habilitado,
+      estaFalho: this.falho,
     };
   }
 }

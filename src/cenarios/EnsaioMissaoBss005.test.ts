@@ -3,6 +3,7 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { setImmediate } from 'node:timers/promises';
 import { criarTesteBss005 } from './BancadaBss';
+import { Vetor3 } from '../physics/Vetor3';
 import { atendeLimitesDeToqueBss005, CRITERIOS_POUSO_BSS005, avancarEnsaioMissaoBss005, executarEnsaioMissaoBss005, lerMissaoBss005 } from './EnsaioMissaoBss005';
 
 // O scheduler pertence ao teste Node; o domínio conserva somente o dt simulado.
@@ -178,6 +179,22 @@ describe('M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s', () =
     validarEncerramentoAposImpacto(r);
   }, 180000);
 
+  it('injeta congelamento na fase de descida, detecta leitura obsoleta e reprova sem inventar recuperação', async () => {
+    const r = await executarCooperativamente({ falha: 'sensor-congelado-na-descida' });
+    const injecao = evento(r, 'falha-sensor-injetada');
+    const deteccao = evento(r, 'falha-de-sensores');
+
+    expect(injecao.fase).toBe('descida');
+    expect(deteccao.tempoS).toBeGreaterThan(injecao.tempoS);
+    expect(deteccao.sensoresValidos).toBe(false);
+    expect(deteccao.faseControlador).toBe('falha-de-sensores');
+    expect(r.resultado).toBe('falha');
+    expect(r.motivos).toContain('falha-de-sensores');
+    expect(r.toque).toBeDefined();
+    expect(r.final.integridadeMinima).toBeLessThan(1);
+    expect(r.amostras.some((leitura) => leitura.faseControlador === 'falha-de-sensores' && leitura.empuxoN === 0)).toBe(true);
+  }, 180000);
+
   it('nega a partida sem combustível e não inventa decolagem nem consumo', () => {
     const r = executarEnsaioMissaoBss005({ falha: 'sem-combustivel-inicial', limiteEnsaioS: 5 });
     exportarEvidencia('sem-combustivel', r);
@@ -191,6 +208,17 @@ describe('M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s', () =
     expect(r.final.empuxoN).toBe(0);
     expect(r.final.integridadeMinima).toBe(1);
     expect(r.encerramento).toBe('repouso-fisico');
+  });
+
+  it('registra uma rajada programada no ambiente físico do ensaio BSS-005', () => {
+    const r = executarEnsaioMissaoBss005({
+      limiteEnsaioS: 0.1,
+      intervaloAmostraS: 0.025,
+      rajadasVento: [{ inicioS: 0, duracaoS: 0.05, velocidadeAdicionalMps: new Vetor3(5, 0, 0) }],
+    });
+
+    expect(r.amostras.some((leitura) => leitura.velocidadeArXMps === 5)).toBe(true);
+    expect(r.final.velocidadeArXMps).toBe(0);
   });
 
   it('classifica um watchdog curto como inconclusivo, sem inventar falha física ou pouso', () => {

@@ -10,6 +10,23 @@ export interface LeiturasVeiculoComposto {
   readonly velocidadeAngularRadps?: number;
   /** Massa instantânea do conjunto conectado, quando fornecida pelo veículo. */
   readonly massaInstantaneaKg?: number;
+  /** Instante simulado da amostra física que originou as leituras. */
+  readonly tempoAmostraS?: number;
+  /** Idade da amostra no instante da consulta, em segundos simulados. */
+  readonly idadeLeituraS?: number;
+  /** Fica falso quando a amostra excede o limite de idade ou contém dado inválido. */
+  readonly sensoresValidos?: boolean;
+}
+
+export type FalhaSensorVeiculo =
+  | { readonly tipo: 'congelado'; readonly iniciarEmS: number }
+  | { readonly tipo: 'atraso'; readonly iniciarEmS: number; readonly atrasoS: number }
+  | { readonly tipo: 'desvio'; readonly iniciarEmS: number; readonly altitudeM?: number; readonly velocidadeVerticalMps?: number };
+
+export const IDADE_MAXIMA_LEITURA_SENSOR_S = 0.25;
+
+interface AmostraFisica extends LeiturasVeiculoComposto {
+  readonly tempoAmostraS: number;
 }
 
 /** GPS idealizado: a posição vem diretamente do estado físico do core. */
@@ -36,6 +53,9 @@ export class SensoresVeiculoComposto {
   public readonly gps: GpsIdealizado;
   public readonly nivel: SensorNivelInterno;
   private leiturasAtuais: LeiturasVeiculoComposto;
+  private tempoSimuladoS = 0;
+  private readonly historicoAmostras: AmostraFisica[] = [];
+  private falhaInjetada?: FalhaSensorVeiculo;
 
   public constructor(
     private readonly objeto: Objeto,
@@ -55,7 +75,11 @@ export class SensoresVeiculoComposto {
       inclinacaoRad: this.nivel.obterInclinacaoRad(),
       velocidadeAngularRadps: objeto.getEstadoFisico().velocidadeAngularRadps.z,
       massaInstantaneaKg: this.obterMassaInstantaneaKg(),
+      tempoAmostraS: 0,
+      idadeLeituraS: 0,
+      sensoresValidos: true,
     };
+    this.historicoAmostras.push({ ...this.leiturasAtuais, tempoAmostraS: 0 });
     this.altitudeDeReferenciaM = altitudeDeReferenciaM;
   }
 
@@ -63,9 +87,10 @@ export class SensoresVeiculoComposto {
 
   public atualizar(dtS: number): void {
     if (!Number.isFinite(dtS) || dtS <= 0) throw new Error('Passo dos sensores deve ser positivo e finito.');
+    this.tempoSimuladoS += dtS;
     const posicaoAtualM = this.gps.obterPosicaoM();
     const velocidadeAtualMps = this.gpsObjeto.getEstadoFisico().velocidadeMps;
-    this.leiturasAtuais = {
+    const amostraAtual: AmostraFisica = {
       posicaoGpsM: posicaoAtualM,
       altitudeM: posicaoAtualM.y - this.altitudeDeReferenciaM,
       velocidadeVerticalMps: velocidadeAtualMps.y,
@@ -73,7 +98,64 @@ export class SensoresVeiculoComposto {
       inclinacaoRad: this.nivel.obterInclinacaoRad(),
       velocidadeAngularRadps: this.objeto.getEstadoFisico().velocidadeAngularRadps.z,
       massaInstantaneaKg: this.obterMassaInstantaneaKg(),
+      tempoAmostraS: this.tempoSimuladoS,
     };
+    this.historicoAmostras.push(amostraAtual);
+    while (this.historicoAmostras.length > 1
+      && this.historicoAmostras[1]!.tempoAmostraS < this.tempoSimuladoS - 60) this.historicoAmostras.shift();
+
+    const falhaAtiva = this.falhaInjetada && this.tempoSimuladoS >= this.falhaInjetada.iniciarEmS
+      ? this.falhaInjetada : undefined;
+    let amostraEntregue = amostraAtual;
+    if (falhaAtiva?.tipo === 'congelado') {
+      amostraEntregue = this.obterUltimaAmostraAte(falhaAtiva.iniciarEmS);
+    } else if (falhaAtiva?.tipo === 'atraso') {
+      const instanteDesejadoS = this.tempoSimuladoS - falhaAtiva.atrasoS;
+      amostraEntregue = this.obterUltimaAmostraAte(instanteDesejadoS);
+    }
+    const idadeLeituraS = this.tempoSimuladoS - amostraEntregue.tempoAmostraS;
+    const leiturasComDesvio = falhaAtiva?.tipo === 'desvio'
+      ? {
+        ...amostraEntregue,
+        altitudeM: amostraEntregue.altitudeM + (falhaAtiva.altitudeM ?? 0),
+        velocidadeVerticalMps: amostraEntregue.velocidadeVerticalMps + (falhaAtiva.velocidadeVerticalMps ?? 0),
+      }
+      : amostraEntregue;
+    this.leiturasAtuais = {
+      ...leiturasComDesvio,
+      tempoAmostraS: amostraEntregue.tempoAmostraS,
+      idadeLeituraS,
+      sensoresValidos: idadeLeituraS <= IDADE_MAXIMA_LEITURA_SENSOR_S
+        && [leiturasComDesvio.altitudeM, leiturasComDesvio.velocidadeVerticalMps,
+          leiturasComDesvio.velocidadeHorizontalMps, leiturasComDesvio.inclinacaoRad,
+          leiturasComDesvio.velocidadeAngularRadps ?? 0, leiturasComDesvio.massaInstantaneaKg ?? 0,
+          leiturasComDesvio.posicaoGpsM.x, leiturasComDesvio.posicaoGpsM.y,
+          leiturasComDesvio.posicaoGpsM.z].every(Number.isFinite),
+    };
+  }
+
+  /** Injeta uma falha determinística usando somente tempo de missão. */
+  public injetarFalha(falha: FalhaSensorVeiculo): void {
+    const valores = falha.tipo === 'atraso'
+      ? [falha.iniciarEmS, falha.atrasoS]
+      : falha.tipo === 'desvio'
+        ? [falha.iniciarEmS, falha.altitudeM ?? 0, falha.velocidadeVerticalMps ?? 0]
+        : [falha.iniciarEmS];
+    if (!valores.every(Number.isFinite) || falha.iniciarEmS < this.tempoSimuladoS
+      || (falha.tipo === 'atraso' && (falha.atrasoS <= 0 || falha.atrasoS > 60))) {
+      throw new Error('Configuração inválida para falha de sensor.');
+    }
+    this.falhaInjetada = { ...falha };
+  }
+
+  public limparFalhaInjetada(): void { this.falhaInjetada = undefined; }
+
+  private obterUltimaAmostraAte(tempoS: number): AmostraFisica {
+    for (let indice = this.historicoAmostras.length - 1; indice >= 0; indice -= 1) {
+      const amostra = this.historicoAmostras[indice]!;
+      if (amostra.tempoAmostraS <= tempoS) return amostra;
+    }
+    return this.historicoAmostras[0]!;
   }
 
   private get gpsObjeto(): Objeto {

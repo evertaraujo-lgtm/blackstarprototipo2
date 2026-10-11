@@ -79,6 +79,15 @@ describe('ControladorDescidaFuzzyPidDePropulsores', () => {
     expect(comando.throttle).toBe(0);
   });
 
+  it('corta a solicitação quando a amostra de sensores está obsoleta', () => {
+    const controlador = criarControlador();
+    const comando = controlador.calcularComando(criarLeituras({ idadeLeituraS: 0.3, sensoresValidos: false }), 1 / 240);
+
+    expect(comando).toMatchObject({ fase: 'falha-de-sensores', throttle: 0 });
+    expect(controlador.calcularSolicitacoes(criarLeituras({ sensoresValidos: false }), 1 / 240))
+      .toEqual([{ idAtuador: 'motor', recurso: 'throttle', valor: 0 }]);
+  });
+
   it('mantém potência antes do contato e corta depois do apoio quando há sensor nas sapatas', () => {
     let emContato = false;
     const controlador = new ControladorDescidaFuzzyPidDePropulsores();

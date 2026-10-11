@@ -8,7 +8,7 @@
 
 **Atualização de 10/10/2026:** a seção 7 revisa o commit `c699ea8b082ee2f7ce1f8778d3cb7d38c91443ff` e prevalece sobre diagnósticos antigos **apenas quando indicar expressamente uma correção já realizada**. As seções 2–6 preservam o histórico e o backlog original do BSS-005.
 
-**Atualização de 11/10/2026:** a seção 8 consolida a auditoria após M0–M4 e os marcos M5–M7; as seções 8.5–8.8 registram M6, a auditoria remota, a entrega M7 e o parecer final independente. Essas seções substituem a leitura dos itens antigos ainda marcados como pendentes quando a correção já foi comprovada. Não reescreva o histórico como se o código antigo ainda estivesse vigente.
+**Atualização de 11/10/2026:** a seção 8 consolida a auditoria após M0–M4 e os marcos M5–M8; as seções 8.5–8.9 registram M6, a auditoria remota, a entrega M7, o parecer final independente e o início incremental da M8. Essas seções substituem a leitura dos itens antigos ainda marcados como pendentes quando a correção já foi comprovada. Não reescreva o histórico como se o código antigo ainda estivesse vigente.
 
 ## 1. Instruções para o Codex
 
@@ -362,14 +362,18 @@ Os três terminaram com empuxo zero, integridade informada de 100%, sem fixadore
 - [x] Separar primeiro contato geométrico, reação do resolvedor, apoio de ambas as sapatas, toque dentro dos limites, repouso estável e pouso seguro. A missão só aprova repouso depois de apoio bilateral contínuo por 3 s.
 - [ ] Reproduzir a penetração geométrica residual de aproximadamente **34 mm** nos ensaios M2 de 600 s e identificar o objeto; preservar conservação e resposta de contatos, sem congelar destroços para atingir tolerâncias.
 
-**M8 — Contingências e sensoriamento [PRIORIDADE POSTERIOR].**
+**M8 — Contingências e sensoriamento [EM ANDAMENTO].**
 
-- [ ] Injetar sensores congelados, erros/atrasos, perda elétrica, falha do atuador e rajadas de vento; definir política por fase e regressões de não recuperação.
+- [x] **M8-A — Injeção determinística inicial:** sensores congelados, atrasados e com desvio; leitura sinaliza idade/validade e o controle fuzzy-PID entra em `falha-de-sensores` com throttle zero ao ultrapassar 0,25 s. O ensaio BSS-005 injeta congelamento na descida e continua até registrar o resultado físico.
+- [x] **M8-A — Rajadas temporizadas:** o `MundoFisico` soma rajadas declaradas ao vento-base no intervalo de missão configurado; o cenário BSS-005 aceita esse perfil e registra a velocidade do ar usada.
+- [x] **M8-A — Travamento de gimbal:** falha mecânica injetável retém o ângulo efetivamente alcançado e rejeita novos comandos; coberta por teste determinístico do atuador.
+- [ ] **M8-B — Campanha de falhas por fase:** perda elétrica e falhas de atuador em subida, apogeu, descida, frenagem e após contato; explicitar a resposta operacional e comprovar que a falha não vira sucesso por corte de telemetria. A perda elétrica já possui regressão física no BSS-006, mas não uma matriz completa por fase.
+- [ ] Ruído variável/aleatório com semente registrada, degradação e falhas combinadas, quando definido o modelo correspondente.
 - [ ] Estender o modelo atmosférico, gravidade e vento em altitude quando houver exigência concreta de missão acima da faixa hoje testada.
 
 ### 8.4 Regra para a próxima auditoria
 
-Preservar as evidências M0–M7 e verificar tanto o comportamento nominal quanto os casos adversos. Recolher as entradas reais do operador quando disponíveis; não adivinhar o corte da subida a partir de um pouso relatado. M5 permanece prioritário e não qualificado; a reprodução dos 34 mm da M7 continua aberta; M8 permanece backlog.
+Preservar as evidências M0–M8 e verificar tanto o comportamento nominal quanto os casos adversos. Recolher as entradas reais do operador quando disponíveis; não adivinhar o corte da subida a partir de um pouso relatado. M5 permanece prioritário e não qualificado; a reprodução dos 34 mm da M7 continua aberta. A M8 começou incrementalmente em M8-A; a matriz completa de contingências ainda não está qualificada.
 
 ### 8.5 Entrega M6 — projeção e cargas aerodinâmicas
 
@@ -424,4 +428,23 @@ Preservar as evidências M0–M7 e verificar tanto o comportamento nominal quant
 - [ ] **Missão M5-B/M5-C:** obter/reproduzir o diário manual de 15 km com acionamento do controle de pouso na descida, próximo de 1 km, e qualificar orçamento e retorno. O teste M2 de troca na subida não valida essa operação.
 
 **Decisão operacional:** M7 liberada **no escopo acima**; iniciar planejamento e implementação incremental da M8, conservando em backlog explícito a investigação dos 34 mm e a semântica de apoio necessária para a futura torre. Nenhum limite físico ou critério de teste foi afrouxado por este parecer.
+
+### 8.9 M8-A — falhas sensoriais, rajadas e travamento de atuador
+
+**Implementação local iniciada após o parecer M7:**
+
+- Sensores do veículo podem receber falha determinística por congelamento, atraso de até 60 s ou desvio constante de altitude/velocidade vertical. Cada leitura expõe instante da amostra, idade e validade; dados com mais de **0,25 s** ficam inválidos. O tempo vem do passo simulado, sem relógio real ou aleatoriedade implícita.
+- O computador de voo reinicia as memórias dos controladores ao detectar leitura inválida ou obsoleta, aplica throttle zero e mantém o gimbal no ângulo físico atual. Os controladores de pouso BSS-03/BSS-04 expõem `falha-de-sensores`. O BSS-005 registra a injeção no início da descida, a detecção e a falha final; segue a simulação física até o impacto em vez de classificar a interrupção do controle como pouso.
+- O `MundoFisico` aceita rajadas como velocidade adicional de vento em janela temporal `[início, início + duração)`. A mesma velocidade do ar é consultada pelo cálculo de arrasto, aerodinâmica, aquecimento convectivo e telemetria. O perfil é aditivo ao vento-base e não altera diretamente o estado dos objetos.
+- O atuador vetorial aceita falha mecânica permanente: retém o ângulo físico atual, rejeita comandos subsequentes e informa `estaFalho`.
+
+**Validação executada:**
+
+- `SensoresVeiculoComposto.test.ts`, `ComputadorDeVoo.test.ts`, controladores de pouso BSS-03/BSS-04 e `MundoFisico.test.ts`: **82 testes aprovados**.
+- `PropulsorVetorizado.test.ts`: **4 testes aprovados**, incluindo travamento mecânico.
+- Ensaio BSS-005 filtrado para congelamento na descida: **1 teste aprovado**, com detecção de leitura obsoleta e missão reprovada; a execução completa levou aproximadamente 113 s.
+- Ensaio BSS-005 filtrado para rajada temporizada: **1 teste aprovado**.
+- `npm run typecheck` e `npm run build`: **aprovados**.
+
+**Limites desta fatia:** não há ainda ruído aleatório com seed, sensores redundantes, recuperação do controlador, nem matriz completa de energia/atuador por fase. Throttle zero é a resposta operacional de contenção adotada para telemetria obsoleta; não significa que o veículo permaneça seguro, e a missão continua sujeita à queda e ao dano físico. A falha de atuador foi validada no componente, mas ainda não em uma campanha de voo com perda de autoridade por fase. M8 segue em andamento; não iniciar M9.
 

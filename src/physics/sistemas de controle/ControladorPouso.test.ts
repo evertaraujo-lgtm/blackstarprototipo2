@@ -74,4 +74,13 @@ describe('ControladorPouso', () => {
       fase: 'falha-de-sensores', throttle: 0, anguloGimbalRad: 0, leiturasValidas: false,
     });
   });
+
+  it('entra em estado seguro quando a leitura excede a idade permitida', () => {
+    const controlador = new ControladorPouso();
+    controlador.habilitar();
+
+    expect(controlador.calcularComando(leituras({ idadeLeituraS: 0.3, sensoresValidos: false }), 0.1)).toMatchObject({
+      fase: 'falha-de-sensores', throttle: 0, anguloGimbalRad: 0, leiturasValidas: false,
+    });
+  });
 });

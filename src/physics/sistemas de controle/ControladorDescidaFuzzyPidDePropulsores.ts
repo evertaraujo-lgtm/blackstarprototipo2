@@ -1,4 +1,5 @@
 import type { LeiturasVeiculoComposto } from '../sensores/SensoresVeiculoComposto';
+import { IDADE_MAXIMA_LEITURA_SENSOR_S } from '../sensores/SensoresVeiculoComposto';
 import type { ControladorDeVoo, SolicitacaoDeAtuador } from './GerenciadorDeControladores';
 
 export interface ConfiguracaoDescidaFuzzyPid {
@@ -92,7 +93,9 @@ export class ControladorDescidaFuzzyPidDePropulsores implements ControladorDeVoo
     if (!Number.isFinite(dtS) || dtS <= 0) throw new Error('Passo do controle de pouso deve ser positivo e finito.');
     const massaKg = leituras.massaInstantaneaKg ?? 0;
     const entradas = [leituras.altitudeM, leituras.velocidadeVerticalMps, massaKg];
-    if (!entradas.every(Number.isFinite) || massaKg <= 0) {
+    const amostraAtual = leituras.sensoresValidos !== false
+      && (leituras.idadeLeituraS === undefined || leituras.idadeLeituraS <= IDADE_MAXIMA_LEITURA_SENSOR_S);
+    if (!amostraAtual || !entradas.every(Number.isFinite) || massaKg <= 0) {
       this.reiniciar();
       this.comandoAtual = {
         fase: 'falha-de-sensores', throttle: 0, velocidadeVerticalAlvoMps: 0,

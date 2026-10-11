@@ -4,7 +4,7 @@ import { Vetor3 } from '../../Vetor3';
 import { Objeto, type DefinicaoObjeto } from '../base/Objeto';
 import { Propulsor } from '../propulsao/Propulsor';
 import { ComputadorDeVoo, type ResultadoComandoPropulsor } from './ComputadorDeVoo';
-import { SensoresVeiculoComposto } from '../../sensores/SensoresVeiculoComposto';
+import { SensoresVeiculoComposto, type FalhaSensorVeiculo } from '../../sensores/SensoresVeiculoComposto';
 import type { ControladorDeVoo, SolicitacaoArbitrada } from '../../sistemas de controle/GerenciadorDeControladores';
 import type { ComandoControlePouso, ConfiguracaoControlePouso } from '../../sistemas de controle/ControladorPouso';
 import type { ConfiguracaoControleDesaceleracao } from '../../sistemas de controle/ControladorDesaceleracao';
@@ -179,6 +179,10 @@ export class VeiculoComposto extends Objeto {
   public get modulosFisicos(): readonly Objeto[] { return [...this.modulos.values()]; }
   public get fixadoresEstruturais(): readonly FixadorEstrutural[] { return [...this.fixadores.values()]; }
   public obterLeiturasDosSensores(): ReturnType<SensoresVeiculoComposto['obterLeituras']> { return this.sensores.obterLeituras(); }
+
+  /** Injeção determinística de falha para ensaios; não altera o estado físico. */
+  public injetarFalhaNosSensores(falha: FalhaSensorVeiculo): void { this.sensores.injetarFalha(falha); }
+  public limparFalhaNosSensores(): void { this.sensores.limparFalhaInjetada(); }
 
   private pertenceAoVeiculo(objeto: Objeto): boolean {
     return objeto === this || this.modulos.get(objeto.id) === objeto;

@@ -10,13 +10,22 @@ export class SistemaAtmosferico {
   private static readonly gravidadeMps2 = 9.80665;
   private static readonly altitudeTropopausaM = 11_000;
   private static readonly temperaturaTropopausaK = 216.65;
+  private velocidadeArAtualMps: Vetor3;
   public constructor(
     public readonly densidadeArNivelMarKgM3: number,
-    public readonly velocidadeArMps: Vetor3,
+    velocidadeArMps: Vetor3,
   ) {
     if (!Number.isFinite(densidadeArNivelMarKgM3) || densidadeArNivelMarKgM3 < 0) {
       throw new Error('Densidade atmosférica deve ser finita e não negativa.');
     }
+    this.velocidadeArAtualMps = velocidadeArMps;
+  }
+
+  public get velocidadeArMps(): Vetor3 { return this.velocidadeArAtualMps; }
+
+  /** Atualiza o campo de vento calculado pelo MundoFisico no tempo de missão. */
+  public definirVelocidadeArPeloMundo(velocidadeArMps: Vetor3): void {
+    this.velocidadeArAtualMps = velocidadeArMps;
   }
 
   /** Densidade atmosférica padrão terrestre pela altitude geométrica, escalada pela densidade configurada ao nível do mar. */

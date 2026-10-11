@@ -1,4 +1,4 @@
-import { MundoFisico } from '../physics/MundoFisico';
+import { MundoFisico, type RajadaVento } from '../physics/MundoFisico';
 import { Objeto } from '../physics/objetos/base/Objeto';
 import { SuperficiePlano } from '../physics/SuperficiePlano';
 import { VeiculoComposto } from '../physics/objetos/veiculos/VeiculoComposto';
@@ -39,6 +39,7 @@ export interface ConfiguracaoBancadaDecolagem {
   capacidadeBateriaJ?: number;
   impulsoEspecificoNominalS?: number;
   velocidadeArMps?: Vetor3;
+  rajadasVento?: readonly RajadaVento[];
   densidadeAtmosfericaKgM3?: number;
 }
 
@@ -55,7 +56,11 @@ export const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBanc
   painelMovel: false,
   incluirPainelSolar: true,
 }) => {
-  const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: configuracao.densidadeAtmosfericaKgM3 ?? 1.225, velocidadeArMps: configuracao.velocidadeArMps });
+  const mundo = new MundoFisico(1 / 240, {
+    densidadeAtmosfericaKgM3: configuracao.densidadeAtmosfericaKgM3 ?? 1.225,
+    velocidadeArMps: configuracao.velocidadeArMps,
+    rajadasVento: configuracao.rajadasVento,
+  });
   const deslocamentoVerticalInicialM = configuracao.incluirPernasFixas ? 0.3 : 0;
   const alturaInicialDoCascoM = 4.5 + deslocamentoVerticalInicialM;
   const fatorTanques = configuracao.fatorTanques ?? 1;
@@ -393,7 +398,10 @@ export const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBanc
 export const IMPULSO_ESPECIFICO_NOMINAL_BSS005_S = 350;
 
 /** BSS-004 com tanques ampliados e propulsão química idealizada coerente. */
-export const criarTesteBss005 = () => criarTesteDecolagemComPainelSolar({
+export const criarTesteBss005 = (
+  ambiente: Pick<ConfiguracaoBancadaDecolagem, 'velocidadeArMps' | 'rajadasVento' | 'densidadeAtmosfericaKgM3'> = {},
+) => criarTesteDecolagemComPainelSolar({
+  ...ambiente,
   id: 'bss-005',
   nome: 'BSS-005 — tanques ampliados · meta 15 km',
   descricao: 'Variante do BSS-004 com 600 kg de metano e 2.400 kg de oxigênio. Motor químico idealizado de 120 kN, Isp nominal de 350 s e vazão total nominal de 34,96 kg/s. Isp fixo na condição de referência ao nível do mar; sem correção por pressão ambiente. A meta de 15 km e a reserva para retorno devem ser verificadas com este modelo; os 6 MW são efeito térmico simplificado, não potência química total.',

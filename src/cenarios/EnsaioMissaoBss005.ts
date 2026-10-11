@@ -1,17 +1,19 @@
 import { criarTesteBss005 } from './BancadaBss';
 import type { Objeto } from '../physics/objetos/base/Objeto';
 import { TanquePropelente } from '../physics/objetos/fontes-de-energia/TanquePropelente';
-import { MundoFisico } from '../physics/MundoFisico';
+import { MundoFisico, type RajadaVento } from '../physics/MundoFisico';
 import { TOLERANCIA_CONTATO_SUPERFICIE_M } from '../physics/solucionadores/ResolvedorContatoSuperficie';
 import { Vetor3 } from '../physics/Vetor3';
 
 type CenarioBss005 = ReturnType<typeof criarTesteBss005>;
-export type FalhaEnsaioBss005 = 'nenhuma' | 'sem-reserva-no-corte' | 'perda-controle-no-corte' | 'sem-combustivel-inicial';
+export type FalhaEnsaioBss005 = 'nenhuma' | 'sem-reserva-no-corte' | 'perda-controle-no-corte' | 'sem-combustivel-inicial'
+  | 'sensor-congelado-na-descida' | 'sensor-atrasado-na-descida';
 export type FaseEnsaioBss005 = 'solo' | 'decolagem' | 'subida' | 'corte' | 'descida' | 'frenagem' | 'contato' | 'repouso' | 'falha-pouso';
 export interface ConfiguracaoEnsaioBss005 {
   readonly altitudeTrocaParaPousoM?: number;
   readonly throttleDecolagem?: number;
   readonly falha?: FalhaEnsaioBss005;
+  readonly rajadasVento?: readonly RajadaVento[];
   readonly dtS?: number;
   readonly limiteEnsaioS?: number;
   readonly intervaloAmostraS?: number;
@@ -39,6 +41,8 @@ export interface LeituraMissaoBss005 {
   readonly posicaoXM: number;
   readonly velocidadeXMps: number;
   readonly velocidadeYMps: number;
+  readonly velocidadeArXMps: number;
+  readonly velocidadeArYMps: number;
   readonly orientacaoRad: number;
   readonly velocidadeAngularRadps: number;
   readonly massaConectadaKg: number;
@@ -61,6 +65,8 @@ export interface LeituraMissaoBss005 {
   readonly ignitado: boolean;
   readonly diagnosticoMotor: readonly string[];
   readonly faseControlador: string;
+  readonly idadeLeituraSensorS: number;
+  readonly sensoresValidos: boolean;
   readonly integridadeMinima: number;
   readonly fixadoresRompidos: readonly string[];
   readonly contatosFisicos: readonly { readonly objetoId: string; readonly superficieId: string; readonly emApoio: boolean;
@@ -117,9 +123,11 @@ export function lerMissaoBss005(cenario: CenarioBss005, fase: FaseEnsaioBss005):
   const tanques = cenario.objetos.filter((objeto): objeto is TanquePropelente => objeto instanceof TanquePropelente);
   const kg = (tipo: string) => tanques.filter((tanque) => tanque.tipoPropelente === tipo).reduce((soma, tanque) => soma + tanque.massaPropelenteKg, 0);
   const gimbal = motor.obterEstadoDaVetorizacao();
+  const leiturasSensores = casco.obterLeiturasDosSensores();
   return {
     tempoS: cenario.mundo.tempoS, fase, altitudeM: e.posicaoM.y, posicaoXM: e.posicaoM.x,
     velocidadeXMps: e.velocidadeMps.x, velocidadeYMps: e.velocidadeMps.y,
+    velocidadeArXMps: ambiente.velocidadeArMps.x, velocidadeArYMps: ambiente.velocidadeArMps.y,
     orientacaoRad: Math.atan2(Math.sin(e.orientacaoRad.z), Math.cos(e.orientacaoRad.z)),
     velocidadeAngularRadps: e.velocidadeAngularRadps.z,
     massaConectadaKg: massa, massaTotalObjetosKg: cenario.objetos.reduce((soma, objeto) => soma + objeto.massaKg, 0),
@@ -134,6 +142,8 @@ export function lerMissaoBss005(cenario: CenarioBss005, fase: FaseEnsaioBss005):
       'combustível': motor.sistemaEstaOperacional('combustível'), 'controle': motor.sistemaEstaOperacional('controle') },
     ignitado: motor.estaIgnitado, diagnosticoMotor: [...motor.diagnosticoOperacional],
     faseControlador: casco.obterUltimoComandoDeDescidaFuzzyPid().fase,
+    idadeLeituraSensorS: leiturasSensores.idadeLeituraS ?? 0,
+    sensoresValidos: leiturasSensores.sensoresValidos ?? true,
     integridadeMinima: Math.min(...cenario.objetos.map((objeto) => objeto.integridadeEstrutural)),
     fixadoresRompidos: cenario.fixadores.filter((fixador) => fixador.estaRompido).map((fixador) => fixador.id),
     objetos: cenario.objetos.map((objeto) => {
@@ -177,8 +187,9 @@ export function* avancarEnsaioMissaoBss005(configuracao: ConfiguracaoEnsaioBss00
     || !Number.isFinite(config.dtS) || config.dtS <= 0 || config.dtS > 1 / 240
     || !Number.isFinite(config.limiteEnsaioS) || config.limiteEnsaioS <= 0
     || !Number.isFinite(config.intervaloAmostraS) || config.intervaloAmostraS <= 0
-    || !['nenhuma', 'sem-reserva-no-corte', 'perda-controle-no-corte', 'sem-combustivel-inicial'].includes(config.falha)) throw new Error('Configuração de ensaio BSS-005 inválida.');
-  const cenario = criarTesteBss005();
+    || !['nenhuma', 'sem-reserva-no-corte', 'perda-controle-no-corte', 'sem-combustivel-inicial',
+      'sensor-congelado-na-descida', 'sensor-atrasado-na-descida'].includes(config.falha)) throw new Error('Configuração de ensaio BSS-005 inválida.');
+  const cenario = criarTesteBss005({ rajadasVento: configuracao.rajadasVento });
   const motor = cenario.propulsorControlavel;
   // Colisão de carga/destroço é registrada, mas não substitui o toque do casco
   // ou do trem de pouso na avaliação de pouso da missão.
@@ -209,7 +220,7 @@ export function* avancarEnsaioMissaoBss005(configuracao: ConfiguracaoEnsaioBss00
   evento('partida');
   let decolou = false, modoPousoSelecionado = false, cortou = false, desceu = false, iniciouFrenagem = false;
   let primeiroContatoFisicoRegistrado = false;
-  let esgotou = false, danificou = false, perdeuControle = false;
+  let esgotou = false, danificou = false, perdeuControle = false, falhouSensores = false;
   let toque: { antes: LeituraMissaoBss005; depois: LeituraMissaoBss005 } | undefined;
   let pousoSeguro = false, falhouPouso = false, contatoUnilateralS = 0, tempoAposPrimeiroContatoS = 0;
   let apogeu = inicial, repousoContinuoS = 0, maiorRepousoContinuoS = 0, consumoMotorKg = 0, maxPressaoDinamicaPa = 0;
@@ -261,9 +272,20 @@ export function* avancarEnsaioMissaoBss005(configuracao: ConfiguracaoEnsaioBss00
     if (modoPousoSelecionado && !cortou && depois.empuxoN === 0) { cortou = true; fase = 'corte'; evento('corte'); }
     if (decolou && !desceu && antes.velocidadeYMps >= 0 && depois.velocidadeYMps < 0) {
       desceu = true; fase = 'descida'; evento('apogeu'); evento('descida');
+      if (config.falha === 'sensor-congelado-na-descida') {
+        cenario.seguirObjeto.injetarFalhaNosSensores({ tipo: 'congelado', iniciarEmS: cenario.mundo.tempoS });
+        evento('falha-sensor-injetada');
+      } else if (config.falha === 'sensor-atrasado-na-descida') {
+        cenario.seguirObjeto.injetarFalhaNosSensores({ tipo: 'atraso', iniciarEmS: cenario.mundo.tempoS, atrasoS: 0.5 });
+        evento('falha-sensor-injetada');
+      }
     }
     if (desceu && !toque) fase = depois.empuxoN > 0 ? 'frenagem' : 'descida';
     if (desceu && !iniciouFrenagem && depois.empuxoN > 0) { iniciouFrenagem = true; fase = 'frenagem'; evento('inicio-da-frenagem'); }
+    if (!falhouSensores && depois.faseControlador === 'falha-de-sensores') {
+      falhouSensores = true;
+      evento('falha-de-sensores');
+    }
     if (!esgotou && partidaAceita && (depois.metanoKg === 0 || depois.oxidanteKg === 0)) { esgotou = true; evento('esgotamento-propelente'); }
     if (desceu && !primeiroContatoFisicoRegistrado && depois.contatos.length > 0) {
       primeiroContatoFisicoRegistrado = true;
@@ -328,6 +350,7 @@ export function* avancarEnsaioMissaoBss005(configuracao: ConfiguracaoEnsaioBss00
   if (!modoPousoSelecionado) motivos.push('altitude-de-troca-nao-atingida');
   if (esgotou) motivos.push('propelente-esgotado');
   if (perdeuControle) motivos.push('controle-perdido');
+  if (falhouSensores) motivos.push('falha-de-sensores');
   if (!toque) motivos.push('sem-contato-final');
   if (toque && !pousoSeguro) motivos.push('toque-nao-seguro');
   if (toque && pousoSeguro && falhouPouso) motivos.push('instabilidade-apos-toque');

@@ -10,6 +10,7 @@ export interface EstadoVetorizacao {
   readonly limiteAngularRad: number;
   readonly velocidadeAngularMaximaRadps: number;
   readonly estaHabilitado: boolean;
+  readonly estaFalho?: boolean;
 }
 
 /** Dados físicos do mecanismo, separados do motor termodinâmico. */

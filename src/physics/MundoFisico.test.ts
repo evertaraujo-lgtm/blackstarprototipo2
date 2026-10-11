@@ -37,6 +37,31 @@ const simularQuedaLivreAteSolo = (alturaM: number) => {
 };
 
 describe('MundoFisico', () => {
+  it('aplica rajadas programadas no tempo da missão e retorna ao vento base', () => {
+    const mundo = new MundoFisico(0.1, {
+      velocidadeArMps: new Vetor3(2, 0, 0),
+      rajadasVento: [{ inicioS: 0.2, duracaoS: 0.2, velocidadeAdicionalMps: new Vetor3(5, -1, 0) }],
+    });
+
+    mundo.avancar(0.2);
+    expect(mundo.velocidadeDoArMps).toEqual(new Vetor3(2, 0, 0));
+    mundo.avancar(0.1);
+    expect(mundo.velocidadeDoArMps).toEqual(new Vetor3(7, -1, 0));
+    mundo.avancar(0.1);
+    expect(mundo.velocidadeDoArMps).toEqual(new Vetor3(7, -1, 0));
+    mundo.avancar(0.1);
+    expect(mundo.velocidadeDoArMps).toEqual(new Vetor3(2, 0, 0));
+  });
+
+  it('rejeita rajadas com duração, início ou componentes inválidos', () => {
+    expect(() => new MundoFisico(0.1, {
+      rajadasVento: [{ inicioS: -1, duracaoS: 1, velocidadeAdicionalMps: Vetor3.zero }],
+    })).toThrow('rajada');
+    expect(() => new MundoFisico(0.1, {
+      rajadasVento: [{ inicioS: 1, duracaoS: 0, velocidadeAdicionalMps: Vetor3.zero }],
+    })).toThrow('rajada');
+  });
+
   it('aplica gravidade terrestre de modo determinístico', () => {
     const mundo = new MundoFisico(1);
     const objeto = criarObjeto();

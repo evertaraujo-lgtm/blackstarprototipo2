@@ -1,4 +1,5 @@
 import type { LeiturasVeiculoComposto } from '../../sensores/SensoresVeiculoComposto';
+import { IDADE_MAXIMA_LEITURA_SENSOR_S } from '../../sensores/SensoresVeiculoComposto';
 import {
   type ComandoControlePouso,
   type ConfiguracaoControlePouso,
@@ -266,7 +267,21 @@ export class ComputadorDeVoo {
     if (this.estavaAlimentado && !controladoresAlimentados) this.gerenciador.reiniciarControladores();
     this.estavaAlimentado = controladoresAlimentados;
     if (!controladoresAlimentados) return;
-    this.gerenciador.calcularSolicitacoes(this.telemetriaDoCasco.obterLeituras(), dtS);
+    const leituras = this.telemetriaDoCasco.obterLeituras();
+    const sensoresInvalidos = leituras.sensoresValidos === false
+      || (leituras.idadeLeituraS !== undefined && leituras.idadeLeituraS > IDADE_MAXIMA_LEITURA_SENSOR_S);
+    if (sensoresInvalidos) this.gerenciador.reiniciarControladores();
+    this.gerenciador.calcularSolicitacoes(leituras, dtS);
+    if (sensoresInvalidos) {
+      for (const propulsor of this.propulsores.values()) {
+        propulsor.definirThrottle(0);
+        const estadoGimbal = propulsor.obterEstadoDaVetorizacao?.();
+        if (estadoGimbal && propulsor.solicitarVetorizacao) {
+          propulsor.solicitarVetorizacao(estadoGimbal.anguloAtualRad);
+        }
+      }
+      return;
+    }
     const aplicadas: SolicitacaoArbitrada[] = [];
     for (const solicitacao of this.gerenciador.obterUltimaArbitragem()) {
       const propulsor = this.propulsores.get(solicitacao.idAtuador);
