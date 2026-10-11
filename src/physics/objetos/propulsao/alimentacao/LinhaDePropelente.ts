@@ -17,6 +17,16 @@ export class LinhaDePropelente {
   public get estaDesconectada(): boolean { return this.desconectadaManualmente; }
   public get estaIndisponivel(): boolean { return this.rompida || this.desconectadaManualmente; }
   public get vazaoAtualKgS(): number { return this.vazaoAtualCalculadaKgS; }
+  public get massaDisponivelKg(): number { return this.definicao.tanque.massaPropelenteKg; }
+  public prepararPasso(): void { this.vazaoAtualCalculadaKgS = 0; }
+  /** Consulta os limites reais antes de retirar material do tanque. */
+  public obterMassaFornecivelKg(dtS: number, posicaoConsumidorM: Vetor3): number {
+    if (!Number.isFinite(dtS) || dtS <= 0) throw new Error('Passo da linha deve ser positivo e finito.');
+    this.verificarIntegridade(posicaoConsumidorM);
+    if (this.estaIndisponivel) return 0;
+    return Math.min(this.massaDisponivelKg,
+      this.definicao.vazaoMaximaKgS * dtS, this.definicao.valvula.obterVazaoMaximaKgS() * dtS);
+  }
   /** Comando de throttle aplicado à válvula desta linha. */
   public definirAberturaDaValvula(abertura: number): void { this.definicao.valvula.definirAbertura(abertura); }
   /** Desacoplamento físico irreversível da linha neste cenário. */

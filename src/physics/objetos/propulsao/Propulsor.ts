@@ -7,7 +7,7 @@ import { Vetor3 } from '../../Vetor3';
 import { LinhaDePropelente } from './alimentacao/LinhaDePropelente';
 import { BombaPropelente } from './alimentacao/BombaPropelente';
 import { CamaraCombustao } from './combustao/CamaraCombustao';
-import { Bocal } from './combustao/Bocal';
+import { Bocal, GRAVIDADE_PADRAO_MPS2 } from './combustao/Bocal';
 
 /** Tensão nominal do barramento de equipamentos aeroespaciais nesta etapa. */
 export const TENSAO_ALIMENTACAO_PADRAO_PROPULSOR_V = 28;
@@ -22,7 +22,7 @@ export interface DefinicaoPropulsor extends DefinicaoObjeto {
   readonly tensaoAlimentacaoNominalV?: number;
   /** Potência elétrica consumida em throttle máximo, em W. */
   readonly potenciaEletricaMaximaW?: number;
-  /** Potência térmica total liberada em throttle máximo, em W. */
+  /** Efeito térmico simplificado em throttle máximo, em W; não é potência química total. */
   readonly potenciaTermicaMaximaW?: number;
 }
 
@@ -48,6 +48,7 @@ export class Propulsor extends Objeto {
   private mangueiraRompida = false;
   private empuxoAtualCalculadoN = 0;
   private vazaoAtualCalculadaKgS = 0;
+  private vazaoReagidaCalculadaKgS = 0;
   private ignicaoConfirmada = false;
   private ultimaNegacaoDeComando?: string;
   private readonly sistemaEletrico = new SistemaOperacional('elétrico', EstadoOperacional.Desligado);
@@ -68,10 +69,18 @@ export class Propulsor extends Objeto {
     }
   }
   public get empuxoMaximoN(): number { return this.definicaoPropulsor.empuxoMaximoN; }
+  /** Empuxo médio do último intervalo integrado, inclusive um pulso parcial. */
   public get empuxoAtualN(): number { return this.empuxoAtualCalculadoN; }
+  /** Massa total retirada dos tanques por segundo no último intervalo. */
   public get vazaoAtualKgS(): number { return this.vazaoAtualCalculadaKgS; }
+  /** Parcela reagida; a vazão total inclui todo o material retirado dos tanques. */
+  public get vazaoReagidaKgS(): number { return this.vazaoReagidaCalculadaKgS; }
+  public get impulsoEspecificoNominalS(): number | undefined { return this.cadeiaBipropelente?.bocal.impulsoEspecificoNominalS; }
+  public get impulsoEspecificoEfetivoS(): number | undefined {
+    return this.vazaoAtualKgS > 0 ? this.empuxoAtualN / (this.vazaoAtualKgS * GRAVIDADE_PADRAO_MPS2) : undefined;
+  }
   public get throttleAtual(): number { return this.throttle; }
-  /** Potência térmica total na condição nominal, usada também pela apresentação. */
+  /** Efeito térmico nominal usado pelo core e pela apresentação, sem balanço químico total. */
   public get potenciaTermicaMaximaW(): number { return this.definicaoPropulsor.potenciaTermicaMaximaW ?? 0; }
   /** Tensão nominal que uma futura fonte elétrica deverá fornecer ao propulsor. */
   public get tensaoAlimentacaoNominalV(): number {
@@ -86,7 +95,7 @@ export class Propulsor extends Objeto {
     const fracaoDeEmpuxo = Math.max(0, Math.min(1, this.empuxoAtualCalculadoN / this.definicaoPropulsor.empuxoMaximoN));
     return this.potenciaTermicaMaximaW * fracaoDeEmpuxo;
   }
-  /** Parcela que aquece a carcaça; o restante segue no jato de exaustão. */
+  /** Parcelas simplificadas do efeito térmico: 15% carcaça, 70% jato; 15% não distribuídos. */
   public get potenciaTermicaNaCarcacaW(): number { return this.potenciaTermicaAtualW * 0.15; }
   public get potenciaTermicaNoJatoW(): number { return this.potenciaTermicaAtualW * 0.7; }
   /** Eficiência restante por integridade; dano reduz empuxo sem reduzir vazão. */
@@ -106,6 +115,7 @@ export class Propulsor extends Objeto {
     if (this.mangueiraRompida) motivos.push('mangueira rompida');
     if (this.cadeiaBipropelente?.linhaCombustivel.estaDesconectada) motivos.push('linha de combustível desconectada');
     if (this.cadeiaBipropelente?.linhaOxidante.estaDesconectada) motivos.push('linha de oxidante desconectada');
+    if (this.cadeiaBipropelente?.linhaOxidante.massaDisponivelKg === 0) motivos.push('sem oxidante');
     if (!this.bateria) motivos.push('bateria não conectada');
     else if (this.bateria.estaDescarregada) motivos.push('bateria descarregada');
     else if (this.bateria.tensaoNominalV !== this.tensaoAlimentacaoNominalV) motivos.push('tensão da bateria incompatível');
@@ -145,6 +155,16 @@ export class Propulsor extends Objeto {
   }
   /** Instala a cadeia que passa por linhas, bombas, câmara e bocal. */
   public configurarCadeiaBipropelente(cadeia: CadeiaBipropelenteDoPropulsor): void {
+    const ispS = cadeia.bocal.impulsoEspecificoNominalS;
+    if (ispS !== undefined) {
+      const empuxoPorVazaoN = this.definicaoPropulsor.vazaoMaximaKgS
+        * (1 + cadeia.camara.razaoMisturaOxidanteCombustivel) * ispS * GRAVIDADE_PADRAO_MPS2;
+      const toleranciaN = Math.max(1e-6, this.empuxoMaximoN * 1e-9);
+      if (Math.abs(empuxoPorVazaoN - this.empuxoMaximoN) > toleranciaN
+        || Math.abs(cadeia.bocal.empuxoMaximoN - this.empuxoMaximoN) > toleranciaN) {
+        throw new Error('Empuxo nominal químico incompatível com vazão total, Isp ou bocal.');
+      }
+    }
     this.cadeiaBipropelente = cadeia;
     this.aplicarThrottleNasValvulas();
   }
@@ -152,6 +172,7 @@ export class Propulsor extends Objeto {
   public interromperPorAlimentacaoDePropelenteIndisponivel(): void {
     this.empuxoAtualCalculadoN = 0;
     this.vazaoAtualCalculadaKgS = 0;
+    this.vazaoReagidaCalculadaKgS = 0;
     this.definirEstadoDoSistema('combustível', EstadoOperacional.Desligado);
     this.ultimaNegacaoDeComando = 'alimentação de propelente indisponível';
   }
@@ -238,6 +259,9 @@ export class Propulsor extends Objeto {
     if (!this.fonteEletricaEstaConectada || this.conexao?.estaIndisponivel) this.definirEstadoDoSistema('elétrico', EstadoOperacional.Desligado);
     this.empuxoAtualCalculadoN = 0;
     this.vazaoAtualCalculadaKgS = 0;
+    this.vazaoReagidaCalculadaKgS = 0;
+    this.cadeiaBipropelente?.linhaCombustivel.prepararPasso();
+    this.cadeiaBipropelente?.linhaOxidante.prepararPasso();
     if (this.estaEstruturalmenteInoperante) {
       this.definirEstadoDoSistema('controle', EstadoOperacional.Falha);
       this.ultimaNegacaoDeComando = 'propulsor estruturalmente inoperante';
@@ -302,18 +326,32 @@ export class Propulsor extends Objeto {
     }
     const massaCombustivelNominalKg = this.definicaoPropulsor.vazaoMaximaKgS * dtS;
     const massaOxidanteNominalKg = massaCombustivelNominalKg * cadeia.camara.razaoMisturaOxidanteCombustivel;
-    const massaCombustivelKg = cadeia.bombaCombustivel.bombear(cadeia.linhaCombustivel, conexao, massaCombustivelNominalKg, dtS, posicaoM);
-    const massaOxidanteKg = cadeia.bombaOxidante.bombear(cadeia.linhaOxidante, conexao, massaOxidanteNominalKg, dtS, posicaoM);
-    const resultado = cadeia.camara.reagir(massaCombustivelKg, massaOxidanteKg, this.integridadeEstrutural);
+    const { massaCombustivelKg, massaOxidanteKg } = BombaPropelente.bombearMistura(
+      { bomba: cadeia.bombaCombustivel, linha: cadeia.linhaCombustivel },
+      { bomba: cadeia.bombaOxidante, linha: cadeia.linhaOxidante },
+      conexao, massaCombustivelNominalKg, cadeia.camara.razaoMisturaOxidanteCombustivel, dtS, posicaoM,
+    );
+    // Câmara e bocal não têm integridade própria nesta composição. O dano do
+    // motor é aplicado uma vez, no empuxo, preservando a vazão real consumida.
+    const resultado = cadeia.camara.reagir(massaCombustivelKg, massaOxidanteKg, 1);
     const massaReagidaNominalKg = massaCombustivelNominalKg + massaOxidanteNominalKg;
-    const fracaoDeVazao = massaReagidaNominalKg === 0 ? 0 : resultado.massaReagidaKg / massaReagidaNominalKg;
-    this.empuxoAtualCalculadoN = cadeia.bocal.calcularEmpuxo(resultado, this.integridadeEstrutural, fracaoDeVazao);
-    this.vazaoAtualCalculadaKgS = resultado.massaReagidaKg / dtS;
+    const fracaoDeVazao = Math.min(1, resultado.massaReagidaKg / massaReagidaNominalKg);
+    this.empuxoAtualCalculadoN = cadeia.bocal.calcularEmpuxo(resultado, this.integridadeEstrutural, fracaoDeVazao, dtS);
+    this.vazaoAtualCalculadaKgS = (massaCombustivelKg + massaOxidanteKg) / dtS;
+    this.vazaoReagidaCalculadaKgS = resultado.massaReagidaKg / dtS;
     if (cadeia.linhaCombustivel.estaIndisponivel || cadeia.linhaOxidante.estaIndisponivel ) this.interromperPorAlimentacaoDePropelenteIndisponivel();
-    if (conexao.fonte.estaDescarregada) this.definirEstadoDoSistema('elétrico', EstadoOperacional.Desligado);
+    // O último pulso químico pode usar somente parte da energia solicitada.
+    // Seus valores são médias do intervalo já autorizado, como no esgotamento
+    // de propelente. O próximo passo observa a fonte vazia e cancela a ignição.
+    if (conexao.fonte.estaDescarregada && cadeia.bocal.impulsoEspecificoNominalS === undefined) {
+      this.definirEstadoDoSistema('elétrico', EstadoOperacional.Desligado);
+    }
   }
   private cadeiaBipropelenteEstaDisponivel(): boolean {
-    return !this.cadeiaBipropelente || (!this.cadeiaBipropelente.linhaCombustivel.estaIndisponivel && !this.cadeiaBipropelente.linhaOxidante.estaIndisponivel);
+    return !this.cadeiaBipropelente || (!this.cadeiaBipropelente.linhaCombustivel.estaIndisponivel
+      && !this.cadeiaBipropelente.linhaOxidante.estaIndisponivel
+      && this.cadeiaBipropelente.linhaCombustivel.massaDisponivelKg > 0
+      && this.cadeiaBipropelente.linhaOxidante.massaDisponivelKg > 0);
   }
   private aplicarThrottleNasValvulas(): void {
     if (!this.cadeiaBipropelente) return;

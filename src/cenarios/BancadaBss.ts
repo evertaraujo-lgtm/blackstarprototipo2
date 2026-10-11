@@ -11,7 +11,7 @@ import { ValvulaPropelente } from '../physics/objetos/propulsao/alimentacao/Valv
 import { LinhaDePropelente } from '../physics/objetos/propulsao/alimentacao/LinhaDePropelente';
 import { BombaPropelente } from '../physics/objetos/propulsao/alimentacao/BombaPropelente';
 import { CamaraCombustao } from '../physics/objetos/propulsao/combustao/CamaraCombustao';
-import { Bocal } from '../physics/objetos/propulsao/combustao/Bocal';
+import { Bocal, GRAVIDADE_PADRAO_MPS2 } from '../physics/objetos/propulsao/combustao/Bocal';
 import { FixadorEstrutural } from '../physics/conexoes/FixadorEstrutural';
 import { AletaAerodinamica } from '../physics/objetos/componentes/AletaAerodinamica';
 import { ControladorAletasAerodinamicas } from '../physics/sistemas de controle/ControladorAletasAerodinamicas';
@@ -36,6 +36,7 @@ export interface ConfiguracaoBancadaDecolagem {
   fatorTanques?: number;
   fatorPropulsor?: number;
   capacidadeBateriaJ?: number;
+  impulsoEspecificoNominalS?: number;
 }
 
 /** Decolagem integrada alimentada por painel solar e bateria física. */
@@ -56,6 +57,13 @@ export const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBanc
   const alturaInicialDoCascoM = 4.5 + deslocamentoVerticalInicialM;
   const fatorTanques = configuracao.fatorTanques ?? 1;
   const fatorPropulsor = configuracao.fatorPropulsor ?? 1;
+  const empuxoMaximoN = 40_000 * fatorPropulsor;
+  const vazaoCombustivelMaximaKgS = configuracao.impulsoEspecificoNominalS === undefined
+    ? 0.8 * fatorPropulsor
+    : empuxoMaximoN / (configuracao.impulsoEspecificoNominalS * GRAVIDADE_PADRAO_MPS2 * 5);
+  const vazaoOxidanteMaximaKgS = vazaoCombustivelMaximaKgS * 4;
+  // Mantém o custo elétrico específico das bombas (J/kg) da configuração-base.
+  const fatorVazaoEletrica = vazaoCombustivelMaximaKgS / (0.8 * fatorPropulsor);
   const alcanceConexoesLongasM = fatorTanques === 1 ? 12 : 16;
   const fatorLinearTanque = Math.cbrt(fatorTanques);
   const dimensoesTanque = new Vetor3(2 * fatorLinearTanque, 1.5 * fatorLinearTanque, 1.8 * fatorLinearTanque);
@@ -133,14 +141,12 @@ export const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBanc
     // O motor nasce girado 90°: a altura física no eixo Y é metade da largura X (0,8 m).
     // Y = 0,8 m deixa o ponto inferior tangente ao solo, sem penetração inicial.
     ...base('propulsor-decolagem-solar', 90, new Vetor3(1.6, 1.4, 1.4), new Vetor3(0, 0.8, 0)),
-    tensaoAlimentacaoNominalV: 24, potenciaEletricaMaximaW: 1_200 * fatorPropulsor, potenciaTermicaMaximaW: 2_000_000 * fatorPropulsor,
+    tensaoAlimentacaoNominalV: 24, potenciaEletricaMaximaW: 1_200 * fatorPropulsor * fatorVazaoEletrica, potenciaTermicaMaximaW: 2_000_000 * fatorPropulsor,
     massaBaseKg: 90 * fatorPropulsor,
-    empuxoMaximoN: 40_000 * fatorPropulsor, vazaoMaximaKgS: 0.8 * fatorPropulsor, propelenteCompativel: 'metano',
+    empuxoMaximoN, vazaoMaximaKgS: vazaoCombustivelMaximaKgS, propelenteCompativel: 'metano',
     vetorizacao: { limiteAngularRad: 15 * Math.PI / 180, velocidadeAngularMaximaRadps: 90 * Math.PI / 180 },
     estadoInicial: { posicaoM: new Vetor3(0, 0.8 + deslocamentoVerticalInicialM, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
   });
-  const vazaoCombustivelMaximaKgS = 0.8 * fatorPropulsor;
-  const vazaoOxidanteMaximaKgS = 3.2 * fatorPropulsor;
   const alcanceLinhasM = alcanceConexoesLongasM;
   const valvulaCombustivel = new ValvulaPropelente({ id: 'valvula-decolagem-metano', vazaoMaximaKgS: vazaoCombustivelMaximaKgS });
   const valvulaOxidante = new ValvulaPropelente({ id: 'valvula-decolagem-oxidante', vazaoMaximaKgS: vazaoOxidanteMaximaKgS });
@@ -154,10 +160,10 @@ export const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBanc
   propulsor.conectarBateria(bateria, alcanceConexoesLongasM);
   propulsor.configurarCadeiaBipropelente({
     linhaCombustivel, linhaOxidante,
-    bombaCombustivel: new BombaPropelente({ id: 'bomba-decolagem-metano', tensaoNominalV: 24, vazaoMaximaKgS: vazaoCombustivelMaximaKgS, potenciaEletricaMaximaW: 400 * fatorPropulsor }),
-    bombaOxidante: new BombaPropelente({ id: 'bomba-decolagem-oxidante', tensaoNominalV: 24, vazaoMaximaKgS: vazaoOxidanteMaximaKgS, potenciaEletricaMaximaW: 600 * fatorPropulsor }),
+    bombaCombustivel: new BombaPropelente({ id: 'bomba-decolagem-metano', tensaoNominalV: 24, vazaoMaximaKgS: vazaoCombustivelMaximaKgS, potenciaEletricaMaximaW: 400 * fatorPropulsor * fatorVazaoEletrica }),
+    bombaOxidante: new BombaPropelente({ id: 'bomba-decolagem-oxidante', tensaoNominalV: 24, vazaoMaximaKgS: vazaoOxidanteMaximaKgS, potenciaEletricaMaximaW: 600 * fatorPropulsor * fatorVazaoEletrica }),
     camara: new CamaraCombustao({ razaoMisturaOxidanteCombustivel: 4, toleranciaRazaoMistura: 0.1 }),
-    bocal: new Bocal({ empuxoMaximoN: 40_000 * fatorPropulsor, eficienciaNominal: 1 }),
+    bocal: new Bocal({ empuxoMaximoN, eficienciaNominal: 1, impulsoEspecificoNominalS: configuracao.impulsoEspecificoNominalS }),
   });
   propulsor.definirThrottle(0.65);
   const pernasFixas = configuracao.incluirPernasFixas
@@ -296,7 +302,7 @@ export const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBanc
       canaisTrace: [
         { nome: 'THROTTLE', cor: '#f97316', obterSinal: () => propulsor.throttleAtual * 100, escala: { minimo: 0, maximo: 100, unidade: '%' } },
         { nome: 'EMPUXO', cor: '#facc15', obterSinal: () => propulsor.empuxoAtualN / 1_000, escala: { minimo: 0, maximo: propulsor.empuxoMaximoN / 1_000, unidade: 'kN' } },
-        { nome: 'POT. TÉRMICA', cor: '#fb7185', obterSinal: () => propulsor.potenciaTermicaAtualW / 1_000_000, escala: { minimo: 0, maximo: propulsor.potenciaTermicaMaximaW / 1_000_000, unidade: 'MW' } },
+        { nome: 'EFEITO TÉRMICO', cor: '#fb7185', obterSinal: () => propulsor.potenciaTermicaAtualW / 1_000_000, escala: { minimo: 0, maximo: propulsor.potenciaTermicaMaximaW / 1_000_000, unidade: 'MW' } },
         { nome: 'GIMBAL', cor: '#22d3ee', obterSinal: () => propulsor.obterEstadoDaVetorizacao().anguloAtualRad * 180 / Math.PI, escala: { minimo: -15, maximo: 15, unidade: '°' } },
         { nome: 'MASSA', cor: '#c084fc', obterSinal: () => veiculo.massaInstantaneaDoConjuntoKg, escala: { minimo: 0, maximo: veiculo.massaInstantaneaDoConjuntoKg * 1.1, unidade: 'kg' } },
         { nome: 'VELOCIDADE X', cor: '#4ade80', obterSinal: () => veiculo.obterLeiturasDosSensores().velocidadeHorizontalMps, escala: { minimo: -20, maximo: 20, unidade: 'm/s' } },
@@ -348,10 +354,31 @@ export const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBanc
     ...(controladorAletas ? { atualizarControle: atualizarControleAletas } : {}),
     exibirNaBancada: true, deveEncerrar: () => false,
     telemetria: () => { const leituras = veiculo.obterLeiturasDosSensores(); return `bateria ${(bateria.percentualDeCarga * 100).toFixed(1)}% · altitude GPS ${leituras.altitudeM.toFixed(1)} m · empuxo ${propulsor.empuxoAtualN.toFixed(0)} / peso ${pesoAtualN().toFixed(0)} N${configuracao.incluirGuiaPousoPorAlvo ? ` · alvo x ${alvoPousoXM.toFixed(1)} m` : ''}${aletasAerodinamicas.length ? ` · grid fins ${(aletasAerodinamicas[0]!.deflexaoAtualRad * 180 / Math.PI).toFixed(1)}°` : ''}`; },
-    dados: () => { const leituras = veiculo.obterLeiturasDosSensores(); return `${configuracao.incluirPainelSolar ? `Sol: irradiância vertical descendente · 1.000 W/m²\nPainel: ${painel.potenciaAtualW.toFixed(0)} W · energia gerada ${painel.energiaGeradaJ.toFixed(0)} J\n` : ''}${configuracao.incluirPernasFixas ? 'Trem de pouso: duas pernas fixas com sapatas laterais\n' : ''}${configuracao.incluirGuiaPousoPorAlvo ? `Ponto de pouso: X ${alvoPousoXM.toFixed(1)} m · ${jaDecolou ? 'seleção bloqueada após decolagem' : 'clique no solo antes da decolagem para alterar'}\n` : ''}${aletasAerodinamicas.length ? `Controle aerodinâmico: ${aletasAerodinamicas.length} grid fins físicas · deflexão ${(aletasAerodinamicas[0]!.deflexaoAtualRad * 180 / Math.PI).toFixed(1)}° · torque disponível somente com fluxo atmosférico\n` : ''}${cilindroPainel ? `Painel móvel: comando ${comandoPainel} · x ${painel.getEstadoFisico().posicaoM.x.toFixed(2)} m · velocidade ${painel.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s · força ${cilindroPainel.forcaNaHasteN.toFixed(0)} N\n` : ''}Bateria: ${bateria.energiaArmazenadaJ.toFixed(0)} / ${bateria.capacidadeEnergiaJ.toFixed(0)} J (${(bateria.percentualDeCarga * 100).toFixed(1)}%)\nFonte do propulsor: ${propulsor.fonteEletricaEstaConectada ? 'bateria conectada' : 'indisponível'} · cabo ${propulsor.conexaoEletrica?.interruptorPrincipalFechado ? 'fechado' : 'aberto'}\nPartida: comando manual pelos controles da bancada\nControle de inclinação: ${veiculo.controleDeInclinacaoEstaHabilitado ? 'PID automático' : 'manual'}\nGPS idealizado: X ${leituras.posicaoGpsM.x.toFixed(2)} m · Y ${leituras.posicaoGpsM.y.toFixed(2)} m\nAltitude derivada do GPS: ${leituras.altitudeM.toFixed(2)} m\nVelocidade derivada do GPS: vertical ${leituras.velocidadeVerticalMps.toFixed(2)} m/s · horizontal ${leituras.velocidadeHorizontalMps.toFixed(2)} m/s\nInclinação do sensor de nível: ${(leituras.inclinacaoRad * 180 / Math.PI).toFixed(2)}° · gimbal ${(propulsor.obterEstadoDaVetorizacao().anguloAtualRad * 180 / Math.PI).toFixed(2)}°\nMassa conectada: ${veiculo.massaInstantaneaDoConjuntoKg.toFixed(1)} kg · peso ${pesoAtualN().toFixed(0)} N\nTanques: CH4 ${tanqueCombustivel.massaPropelenteKg.toFixed(1)} kg · O2 ${tanqueOxidante.massaPropelenteKg.toFixed(1)} kg\nCadeia: ${linhaCombustivel.estaIndisponivel || linhaOxidante.estaIndisponivel ? 'INDISPONÍVEL' : 'íntegra'} · vazão ${propulsor.vazaoAtualKgS.toFixed(2)} kg/s\nEmpuxo: ${propulsor.empuxoAtualN.toFixed(0)} N · ignição ${propulsor.estaIgnitado ? 'ativa' : 'cortada'} · integridade ${Math.round(propulsor.integridadeEstrutural * 100)}%`; },
+    dados: () => { const leituras = veiculo.obterLeiturasDosSensores(); return `${configuracao.incluirPainelSolar ? `Sol: irradiância vertical descendente · 1.000 W/m²\nPainel: ${painel.potenciaAtualW.toFixed(0)} W · energia gerada ${painel.energiaGeradaJ.toFixed(0)} J\n` : ''}${configuracao.incluirPernasFixas ? 'Trem de pouso: duas pernas fixas com sapatas laterais\n' : ''}${configuracao.incluirGuiaPousoPorAlvo ? `Ponto de pouso: X ${alvoPousoXM.toFixed(1)} m · ${jaDecolou ? 'seleção bloqueada após decolagem' : 'clique no solo antes da decolagem para alterar'}\n` : ''}${aletasAerodinamicas.length ? `Controle aerodinâmico: ${aletasAerodinamicas.length} grid fins físicas · deflexão ${(aletasAerodinamicas[0]!.deflexaoAtualRad * 180 / Math.PI).toFixed(1)}° · torque disponível somente com fluxo atmosférico\n` : ''}${cilindroPainel ? `Painel móvel: comando ${comandoPainel} · x ${painel.getEstadoFisico().posicaoM.x.toFixed(2)} m · velocidade ${painel.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s · força ${cilindroPainel.forcaNaHasteN.toFixed(0)} N\n` : ''}Bateria: ${bateria.energiaArmazenadaJ.toFixed(0)} / ${bateria.capacidadeEnergiaJ.toFixed(0)} J (${(bateria.percentualDeCarga * 100).toFixed(1)}%)\nFonte do propulsor: ${propulsor.fonteEletricaEstaConectada ? 'bateria conectada' : 'indisponível'} · cabo ${propulsor.conexaoEletrica?.interruptorPrincipalFechado ? 'fechado' : 'aberto'}\nPartida: comando manual pelos controles da bancada\nControle de inclinação: ${veiculo.controleDeInclinacaoEstaHabilitado ? 'PID automático' : 'manual'}\nGPS idealizado: X ${leituras.posicaoGpsM.x.toFixed(2)} m · Y ${leituras.posicaoGpsM.y.toFixed(2)} m\nAltitude derivada do GPS: ${leituras.altitudeM.toFixed(2)} m\nVelocidade derivada do GPS: vertical ${leituras.velocidadeVerticalMps.toFixed(2)} m/s · horizontal ${leituras.velocidadeHorizontalMps.toFixed(2)} m/s\nInclinação do sensor de nível: ${(leituras.inclinacaoRad * 180 / Math.PI).toFixed(2)}° · gimbal ${(propulsor.obterEstadoDaVetorizacao().anguloAtualRad * 180 / Math.PI).toFixed(2)}°\nMassa conectada: ${veiculo.massaInstantaneaDoConjuntoKg.toFixed(1)} kg · peso ${pesoAtualN().toFixed(0)} N\nTanques: CH4 ${tanqueCombustivel.massaPropelenteKg.toFixed(1)} kg · O2 ${tanqueOxidante.massaPropelenteKg.toFixed(1)} kg\nCadeia: ${linhaCombustivel.estaIndisponivel || linhaOxidante.estaIndisponivel ? 'INDISPONÍVEL' : 'íntegra'} · vazão ${propulsor.vazaoAtualKgS.toFixed(2)} kg/s\nEmpuxo: ${propulsor.empuxoAtualN.toFixed(0)} N · ignição ${propulsor.estaIgnitado ? 'ativa' : 'cortada'} · integridade ${Math.round(propulsor.integridadeEstrutural * 100)}%\n${propulsor.impulsoEspecificoNominalS === undefined ? 'Modelo propulsivo: ensaio paramétrico' : `Isp nominal: ${propulsor.impulsoEspecificoNominalS.toFixed(0)} s · efetivo: ${propulsor.impulsoEspecificoEfetivoS?.toFixed(1) ?? 'sem vazão'} s · referência ao nível do mar, constante com altitude`}\nFluxo reagido: ${propulsor.vazaoReagidaKgS.toFixed(2)} kg/s\nEfeito térmico simplificado: ${(propulsor.potenciaTermicaAtualW / 1e6).toFixed(2)} MW · carcaça ${(propulsor.potenciaTermicaNaCarcacaW / 1e6).toFixed(2)} MW · jato ${(propulsor.potenciaTermicaNoJatoW / 1e6).toFixed(2)} MW`; },
     validar: () => { const leituras = veiculo.obterLeiturasDosSensores(); return `${propulsor.estaIgnitado && propulsor.empuxoAtualN > pesoAtualN() && Math.abs(leituras.inclinacaoRad) < 5 * Math.PI / 180 && leituras.altitudeM > alturaInicialM + 0.5 ? 'APROVADO' : 'AGUARDANDO DECOLAGEM'} · empuxo ${propulsor.empuxoAtualN.toFixed(0)} N; peso ${pesoAtualN().toFixed(0)} N; inclinação ${(leituras.inclinacaoRad * 180 / Math.PI).toFixed(2)}°`; },
   };
 };
+
+/** Hipótese de estudo fixa, sem correção de pressão ambiente; não é especificação de um motor real. */
+export const IMPULSO_ESPECIFICO_NOMINAL_BSS005_S = 350;
+
+/** BSS-004 com tanques ampliados e propulsão química idealizada coerente. */
+export const criarTesteBss005 = () => criarTesteDecolagemComPainelSolar({
+  id: 'bss-005',
+  nome: 'BSS-005 — tanques ampliados · meta 15 km',
+  descricao: 'Variante do BSS-004 com 600 kg de metano e 2.400 kg de oxigênio. Motor químico idealizado de 120 kN, Isp nominal de 350 s e vazão total nominal de 34,96 kg/s. Isp fixo na condição de referência ao nível do mar; sem correção por pressão ambiente. A meta de 15 km e a reserva para retorno devem ser verificadas com este modelo; os 6 MW são efeito térmico simplificado, não potência química total.',
+  controleDeInclinacaoPid: true,
+  inclinacaoInicialRad: 0,
+  energiaInicialDaBateriaJ: 1_000_000,
+  capacidadeBateriaJ: 1_000_000,
+  deslocamentoLateralDoPainelM: 0.8,
+  painelMovel: false,
+  incluirPainelSolar: true,
+  incluirPernasFixas: true,
+  fatorTanques: 5,
+  fatorPropulsor: 3,
+  impulsoEspecificoNominalS: IMPULSO_ESPECIFICO_NOMINAL_BSS005_S,
+});
 
 /** BSS-005 com controle aerodinâmico ativo durante a descida atmosférica. */
 export const criarTesteBss006 = () => criarTesteDecolagemComPainelSolar({
@@ -370,4 +397,5 @@ export const criarTesteBss006 = () => criarTesteDecolagemComPainelSolar({
   incluirGuiaPousoPorAlvo: true,
   fatorTanques: 5,
   fatorPropulsor: 3,
+  impulsoEspecificoNominalS: IMPULSO_ESPECIFICO_NOMINAL_BSS005_S,
 });

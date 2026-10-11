@@ -1,4 +1,4 @@
-import { criarTesteDecolagemComPainelSolar, criarTesteBss006 } from './cenarios/BancadaBss';
+import { criarTesteDecolagemComPainelSolar, criarTesteBss005, criarTesteBss006 } from './cenarios/BancadaBss';
 import { GeradorCA } from './physics/objetos/fontes-de-energia/GeradorCA';
 import { TravaPorta } from './physics/objetos/mecanismos/TravaPorta';
 import './style.css';
@@ -1826,23 +1826,6 @@ const criarTesteBss004 = (): CenárioVisual => criarTesteDecolagemComPainelSolar
   painelMovel: false,
   incluirPainelSolar: true,
   incluirPernasFixas: true,
-});
-
-/** BSS-004 com tanques de cinco vezes a capacidade e potência para manter a relação empuxo/peso. */
-const criarTesteBss005 = (): CenárioVisual => criarTesteDecolagemComPainelSolar({
-  id: 'bss-005',
-  nome: 'BSS-005 — tanques ampliados · alvo 15 km',
-  descricao: 'Variante do BSS-004 com pernas fixas, gimbal automático contínuo, modos de decolagem/pouso e trace completo. Os tanques têm cinco vezes a capacidade (600 kg de metano e 2.400 kg de oxigênio); o propulsor e a vazão foram ampliados para preservar empuxo/peso e alimentar a subida. A bancada acompanha o veículo durante o voo; use a altitude GPS para observar a meta de 15 km.',
-  controleDeInclinacaoPid: true,
-  inclinacaoInicialRad: 0,
-  energiaInicialDaBateriaJ: 1_000_000,
-  capacidadeBateriaJ: 1_000_000,
-  deslocamentoLateralDoPainelM: 0.8,
-  painelMovel: false,
-  incluirPainelSolar: true,
-  incluirPernasFixas: true,
-  fatorTanques: 5,
-  fatorPropulsor: 3,
 });
 
 /** Bancada manual de subida e pouso com reservas propulsivas independentes. */

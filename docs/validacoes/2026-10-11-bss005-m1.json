@@ -1,0 +1,1433 @@
+{
+  "date": "2026-10-11",
+  "milestone": "M1 / P0-A — propulsão química idealizada",
+  "baseCommit": "e639f34",
+  "units": "SI",
+  "physicalStepS": 0.004166666666666667,
+  "nominal": {
+    "specificImpulseS": 350,
+    "specificImpulseIsStudyHypothesis": true,
+    "ambientPressureCorrection": false,
+    "reference": "nível do mar; Isp constante com altitude",
+    "thrustN": 120000,
+    "totalFlowKgS": 34.96169873067183,
+    "fuelFlowKgS": 6.992339746134365,
+    "oxidizerFlowKgS": 27.96935898453746,
+    "oxidizerFuelRatio": 4,
+    "wetMassKg": 5289.1660309923745,
+    "dryMassKg": 2289.1660309923745,
+    "initialPropellantKg": 3000,
+    "initialThrustWeight": 2.313520597393548,
+    "theoreticalBurnS": 85.8081875,
+    "effectiveExhaustSpeedMps": 3432.3275,
+    "maximumPumpPowerW": 8740.424682667957,
+    "electricalConnectionRatingW": 10488.509619201548,
+    "simplifiedThermalEffectW": 6000000,
+    "carcassThermalFraction": 0.15,
+    "jetThermalFraction": 0.7,
+    "undistributedThermalFraction": 0.15,
+    "chemicalEnergyBalanceModeled": false
+  },
+  "pulses": [
+    {
+      "mode": "throttle0",
+      "dtS": 0.004166666666666667,
+      "thrustN": 0,
+      "totalFlowKgS": 0,
+      "reactedFlowKgS": 0,
+      "ispS": null,
+      "fuelConsumedKg": 0,
+      "oxidizerConsumedKg": 0,
+      "islandMassLossKg": 0,
+      "massBalanceErrorKg": 0,
+      "flowBalanceErrorKgS": 0,
+      "ignited": true,
+      "integrity": 1
+    },
+    {
+      "mode": "throttle50",
+      "dtS": 0.004166666666666667,
+      "thrustN": 59999.999999999985,
+      "totalFlowKgS": 17.48084936533591,
+      "reactedFlowKgS": 17.48084936533591,
+      "ispS": 350,
+      "fuelConsumedKg": 0.014567374471084804,
+      "oxidizerConsumedKg": 0.058269497884339216,
+      "islandMassLossKg": 0.07283687235576508,
+      "massBalanceErrorKg": 3.410605131648481e-13,
+      "flowBalanceErrorKgS": 3.4145131166951614e-11,
+      "ignited": true,
+      "integrity": 1
+    },
+    {
+      "mode": "throttle100",
+      "dtS": 0.004166666666666667,
+      "thrustN": 119999.99999999997,
+      "totalFlowKgS": 34.96169873067182,
+      "reactedFlowKgS": 34.96169873067182,
+      "ispS": 350,
+      "fuelConsumedKg": 0.029134748942283295,
+      "oxidizerConsumedKg": 0.11653899576913318,
+      "islandMassLossKg": 0.14567374471153016,
+      "massBalanceErrorKg": 1.1368683772161603e-13,
+      "flowBalanceErrorKgS": -6.813394293203601e-11,
+      "ignited": true,
+      "integrity": 1
+    },
+    {
+      "mode": "integridade50",
+      "dtS": 0.004166666666666667,
+      "thrustN": 59999.999999999985,
+      "totalFlowKgS": 34.96169873067182,
+      "reactedFlowKgS": 34.96169873067182,
+      "ispS": 175,
+      "fuelConsumedKg": 0.029134748942283295,
+      "oxidizerConsumedKg": 0.11653899576913318,
+      "islandMassLossKg": 0.14567374471153016,
+      "massBalanceErrorKg": 1.1368683772161603e-13,
+      "flowBalanceErrorKgS": -6.813394293203601e-11,
+      "ignited": true,
+      "integrity": 0.5
+    },
+    {
+      "mode": "semMetano",
+      "dtS": 0.004166666666666667,
+      "thrustN": 0,
+      "totalFlowKgS": 0,
+      "reactedFlowKgS": 0,
+      "ispS": null,
+      "fuelConsumedKg": 0,
+      "oxidizerConsumedKg": 0,
+      "islandMassLossKg": 0,
+      "massBalanceErrorKg": 0,
+      "flowBalanceErrorKgS": 0,
+      "ignited": false,
+      "integrity": 1
+    },
+    {
+      "mode": "semOxidante",
+      "dtS": 0.004166666666666667,
+      "thrustN": 0,
+      "totalFlowKgS": 0,
+      "reactedFlowKgS": 0,
+      "ispS": null,
+      "fuelConsumedKg": 0,
+      "oxidizerConsumedKg": 0,
+      "islandMassLossKg": 0,
+      "massBalanceErrorKg": 0,
+      "flowBalanceErrorKgS": 0,
+      "ignited": false,
+      "integrity": 1
+    },
+    {
+      "mode": "oxidanteParcial",
+      "dtS": 0.004166666666666667,
+      "thrustN": 20593.96499998127,
+      "totalFlowKgS": 5.999999999994543,
+      "reactedFlowKgS": 5.999999999994543,
+      "ispS": 350,
+      "fuelConsumedKg": 0.0049999999999954525,
+      "oxidizerConsumedKg": 0.01999999999998181,
+      "islandMassLossKg": 0.02500000000009095,
+      "massBalanceErrorKg": 1.1368683772161603e-13,
+      "flowBalanceErrorKgS": 0,
+      "ignited": true,
+      "integrity": 1
+    },
+    {
+      "mode": "semIgnicao",
+      "dtS": 0.004166666666666667,
+      "thrustN": 0,
+      "totalFlowKgS": 0,
+      "reactedFlowKgS": 0,
+      "ispS": null,
+      "fuelConsumedKg": 0,
+      "oxidizerConsumedKg": 0,
+      "islandMassLossKg": 0,
+      "massBalanceErrorKg": 0,
+      "flowBalanceErrorKgS": 0,
+      "ignited": false,
+      "integrity": 1
+    },
+    {
+      "mode": "semControle",
+      "dtS": 0.004166666666666667,
+      "thrustN": 0,
+      "totalFlowKgS": 0,
+      "reactedFlowKgS": 0,
+      "ispS": null,
+      "fuelConsumedKg": 0,
+      "oxidizerConsumedKg": 0,
+      "islandMassLossKg": 0,
+      "massBalanceErrorKg": 0,
+      "flowBalanceErrorKgS": 0,
+      "ignited": false,
+      "integrity": 1
+    },
+    {
+      "mode": "semEletrica",
+      "dtS": 0.004166666666666667,
+      "thrustN": 0,
+      "totalFlowKgS": 0,
+      "reactedFlowKgS": 0,
+      "ispS": null,
+      "fuelConsumedKg": 0,
+      "oxidizerConsumedKg": 0,
+      "islandMassLossKg": 0,
+      "massBalanceErrorKg": 0,
+      "flowBalanceErrorKgS": 0,
+      "ignited": false,
+      "integrity": 1
+    },
+    {
+      "mode": "linhaRompida",
+      "dtS": 0.004166666666666667,
+      "thrustN": 0,
+      "totalFlowKgS": 0,
+      "reactedFlowKgS": 0,
+      "ispS": null,
+      "fuelConsumedKg": 0,
+      "oxidizerConsumedKg": 0,
+      "islandMassLossKg": 0,
+      "massBalanceErrorKg": 0,
+      "flowBalanceErrorKgS": 0,
+      "ignited": false,
+      "integrity": 1
+    }
+  ],
+  "deterministicRepeatIdentical": true,
+  "ascentCapacity": [
+    {
+      "scenario": "BSS-005 — tanques ampliados · meta 15 km",
+      "initial": {
+        "t": 0,
+        "y": 4.8,
+        "vx": 0,
+        "vy": 0,
+        "theta": 0,
+        "mass": 5289.1660309923745,
+        "thrust": 0,
+        "flow": 0,
+        "ignited": true,
+        "integrity": 1,
+        "broken": 0,
+        "battery": 1000000,
+        "fuel": [
+          {
+            "id": "tanque-decolagem-metano",
+            "kg": 600
+          },
+          {
+            "id": "tanque-decolagem-oxidante",
+            "kg": 2400
+          }
+        ],
+        "causes": []
+      },
+      "cutoff": {
+        "before": {
+          "t": 85.80833333333746,
+          "y": 21132.97702532505,
+          "vx": 0.9161482365507089,
+          "vy": 568.4365701123568,
+          "theta": -0.00027129485652045287,
+          "mass": 2289.1660309923745,
+          "thrust": 115799.99929883001,
+          "flow": 33.738039070814196,
+          "isp": 350.00000000000006,
+          "ignited": true,
+          "integrity": 1,
+          "broken": 0,
+          "battery": 417958.67693866836,
+          "fuel": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 0
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 0
+            }
+          ],
+          "causes": [
+            "sem propelente",
+            "sem oxidante"
+          ]
+        },
+        "after": {
+          "t": 85.81250000000412,
+          "y": 21135.344930279785,
+          "vx": 0.9160981743206705,
+          "vy": 568.2971891339064,
+          "theta": -0.00027114448732119356,
+          "mass": 2289.1660309923745,
+          "thrust": 0,
+          "flow": 0,
+          "ignited": false,
+          "integrity": 1,
+          "broken": 0,
+          "battery": 417966.83304399246,
+          "fuel": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 0
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 0
+            }
+          ],
+          "causes": [
+            "combustível",
+            "controle",
+            "sem propelente",
+            "sem oxidante",
+            "ignição não realizada",
+            "alimentação de propelente indisponível"
+          ]
+        }
+      },
+      "apogee": {
+        "t": 129.0374999999648,
+        "y": 31264.887352768652,
+        "vx": 0.6350320084091897,
+        "vy": -0.030760188180601375,
+        "theta": 0.0076977098440797875,
+        "mass": 2289.1660309923745,
+        "thrust": 0,
+        "flow": 0,
+        "ignited": false,
+        "integrity": 1,
+        "broken": 0,
+        "battery": 502578.26967622765,
+        "fuel": [
+          {
+            "id": "tanque-decolagem-metano",
+            "kg": 0
+          },
+          {
+            "id": "tanque-decolagem-oxidante",
+            "kg": 0
+          }
+        ],
+        "causes": [
+          "combustível",
+          "controle",
+          "sem propelente",
+          "sem oxidante",
+          "ignição não realizada",
+          "alimentação de propelente indisponível"
+        ]
+      },
+      "t15km": {
+        "t": 72.68750000001606,
+        "y": 15000.244484266017,
+        "vx": 0.5289366087249877,
+        "vy": 385.6535469353061,
+        "theta": -0.00015110614186165526,
+        "mass": 2747.887554505814,
+        "thrust": 119999.99999999997,
+        "flow": 34.96169873067182,
+        "isp": 350,
+        "ignited": true,
+        "integrity": 1,
+        "broken": 0,
+        "battery": 506955.4821514003,
+        "fuel": [
+          {
+            "id": "tanque-decolagem-metano",
+            "kg": 91.74430470268788
+          },
+          {
+            "id": "tanque-decolagem-oxidante",
+            "kg": 366.97721881075154
+          }
+        ],
+        "causes": []
+      },
+      "log": [
+        {
+          "t": 0.004166666666666667,
+          "y": 4.800223644203648,
+          "vx": -0.00016412066724491724,
+          "vy": 0.053674608886857725,
+          "theta": -1.4585366599442923e-07,
+          "mass": 5289.020357247663,
+          "thrust": 119999.99999999997,
+          "flow": 34.96169873067182,
+          "isp": 350,
+          "ignited": true,
+          "integrity": 1,
+          "broken": 0,
+          "battery": 999963.5815638222,
+          "fuel": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 599.9708652510577
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 2399.883461004231
+            }
+          ],
+          "causes": []
+        },
+        {
+          "t": 10.00416666666642,
+          "y": 608.4633634523909,
+          "vx": 0.18412321538654305,
+          "vy": 111.53956537846106,
+          "theta": -0.00027979500991801677,
+          "mass": 4939.4033699402635,
+          "thrust": 119999.99999999997,
+          "flow": 34.96169873067182,
+          "isp": 350,
+          "ignited": true,
+          "integrity": 1,
+          "broken": 0,
+          "battery": 932133.9875148714,
+          "fuel": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 530.0474677895778
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 2120.1898711583112
+            }
+          ],
+          "causes": []
+        },
+        {
+          "t": 20.004166666665853,
+          "y": 2016.427198235182,
+          "vx": 0.26506782129123024,
+          "vy": 162.31153621745398,
+          "theta": -0.00023943485864348654,
+          "mass": 4589.7863826333705,
+          "thrust": 119999.99999999997,
+          "flow": 34.96169873067182,
+          "isp": 350,
+          "ignited": true,
+          "integrity": 1,
+          "broken": 0,
+          "battery": 864304.3934659206,
+          "fuel": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 460.12407032819914
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 1840.4962813127966
+            }
+          ],
+          "causes": []
+        },
+        {
+          "t": 30.004166666665284,
+          "y": 3778.6236927035734,
+          "vx": 0.29649773019319353,
+          "vy": 188.90249727320537,
+          "theta": -0.00019557901249225723,
+          "mass": 4240.169395326653,
+          "thrust": 119999.99999999997,
+          "flow": 34.96169873067182,
+          "isp": 350,
+          "ignited": true,
+          "integrity": 1,
+          "broken": 0,
+          "battery": 796474.7994169698,
+          "fuel": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 390.20067286685565
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 1560.8026914674226
+            }
+          ],
+          "causes": []
+        },
+        {
+          "t": 40.00000000000487,
+          "y": 5792.865228428628,
+          "vx": 0.3180756321733153,
+          "vy": 214.7656756093318,
+          "theta": -0.00015781405547259466,
+          "mass": 3890.6980817646463,
+          "thrust": 119999.99999999997,
+          "flow": 34.96169873067182,
+          "isp": 350,
+          "ignited": true,
+          "integrity": 1,
+          "broken": 0,
+          "battery": 728673.4676988727,
+          "fuel": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 320.3064101544544
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 1281.2256406178176
+            }
+          ],
+          "causes": []
+        },
+        {
+          "t": 50.000000000012825,
+          "y": 8094.8860440742965,
+          "vx": 0.3448364519919987,
+          "vy": 247.08671594086522,
+          "theta": -0.00013062638406597285,
+          "mass": 3541.081094457929,
+          "thrust": 119999.99999999997,
+          "flow": 34.96169873067182,
+          "isp": 350,
+          "ignited": true,
+          "integrity": 1,
+          "broken": 0,
+          "battery": 660843.8736499219,
+          "fuel": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 250.3830126931109
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 1001.5320507724437
+            }
+          ],
+          "causes": []
+        },
+        {
+          "t": 60.00000000002078,
+          "y": 10772.86490886556,
+          "vx": 0.3893322666929309,
+          "vy": 290.94362667184936,
+          "theta": -0.00011839111045825387,
+          "mass": 3191.4641071512115,
+          "thrust": 119999.99999999997,
+          "flow": 34.96169873067182,
+          "isp": 350,
+          "ignited": true,
+          "integrity": 1,
+          "broken": 0,
+          "battery": 593014.279600971,
+          "fuel": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 180.45961523176743
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 721.8384609270697
+            }
+          ],
+          "causes": []
+        },
+        {
+          "t": 70.0000000000185,
+          "y": 13998.466344180622,
+          "vx": 0.48681000270010216,
+          "vy": 360.341537158439,
+          "theta": -0.0001399093759208964,
+          "mass": 2841.847119844494,
+          "thrust": 119999.99999999997,
+          "flow": 34.96169873067182,
+          "isp": 350,
+          "ignited": true,
+          "integrity": 1,
+          "broken": 0,
+          "battery": 525184.6855520202,
+          "fuel": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 110.53621777042395
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 442.1448710816958
+            }
+          ],
+          "causes": []
+        },
+        {
+          "t": 80.00000000000941,
+          "y": 18121.622435611724,
+          "vx": 0.6960295954051317,
+          "vy": 473.0390384432205,
+          "theta": -0.00020066734225657139,
+          "mass": 2492.2301325377766,
+          "thrust": 119999.99999999997,
+          "flow": 34.96169873067182,
+          "isp": 350,
+          "ignited": true,
+          "integrity": 1,
+          "broken": 0,
+          "battery": 457355.09150320716,
+          "fuel": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 40.61282030908046
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 162.45128123632185
+            }
+          ],
+          "causes": []
+        },
+        {
+          "t": 90.00000000000031,
+          "y": 23268.098813842145,
+          "vx": 0.7960653613252082,
+          "vy": 459.055553192415,
+          "theta": -0.0006844711089453525,
+          "mass": 2289.1660309923745,
+          "thrust": 0,
+          "flow": 0,
+          "ignited": false,
+          "integrity": 1,
+          "broken": 0,
+          "battery": 426163.7188947151,
+          "fuel": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 0
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 0
+            }
+          ],
+          "causes": [
+            "combustível",
+            "controle",
+            "sem propelente",
+            "sem oxidante",
+            "ignição não realizada",
+            "alimentação de propelente indisponível"
+          ]
+        },
+        {
+          "t": 100.00416666665788,
+          "y": 27016.795463357914,
+          "vx": 0.6999647865979985,
+          "vy": 303.60619095964364,
+          "theta": 0.0016895452286860937,
+          "mass": 2289.1660309923745,
+          "thrust": 0,
+          "flow": 0,
+          "ignited": false,
+          "integrity": 1,
+          "broken": 0,
+          "battery": 445746.5277778842,
+          "fuel": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 0
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 0
+            }
+          ],
+          "causes": [
+            "combustível",
+            "controle",
+            "sem propelente",
+            "sem oxidante",
+            "ignição não realizada",
+            "alimentação de propelente indisponível"
+          ]
+        },
+        {
+          "t": 110.00416666664879,
+          "y": 29471.80341400556,
+          "vx": 0.6468798584816162,
+          "vy": 190.60705770897488,
+          "theta": -0.004491686446603033,
+          "mass": 2289.1660309923745,
+          "thrust": 0,
+          "flow": 0,
+          "ignited": false,
+          "integrity": 1,
+          "broken": 0,
+          "battery": 465321.18055572925,
+          "fuel": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 0
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 0
+            }
+          ],
+          "causes": [
+            "combustível",
+            "controle",
+            "sem propelente",
+            "sem oxidante",
+            "ignição não realizada",
+            "alimentação de propelente indisponível"
+          ]
+        },
+        {
+          "t": 120.00416666663969,
+          "y": 30864.42100008036,
+          "vx": 0.6393319269225525,
+          "vy": 88.92111406951496,
+          "theta": -0.00392087448748546,
+          "mass": 2289.1660309923745,
+          "thrust": 0,
+          "flow": 0,
+          "ignited": false,
+          "integrity": 1,
+          "broken": 0,
+          "battery": 484895.8333335743,
+          "fuel": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 0
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 0
+            }
+          ],
+          "causes": [
+            "combustível",
+            "controle",
+            "sem propelente",
+            "sem oxidante",
+            "ignição não realizada",
+            "alimentação de propelente indisponível"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": "BSS-006 — pouso guiado por alvo",
+      "initial": {
+        "t": 0,
+        "y": 4.8,
+        "vx": 0,
+        "vy": 0,
+        "theta": 0,
+        "mass": 5349.1660309923745,
+        "thrust": 0,
+        "flow": 0,
+        "ignited": true,
+        "integrity": 1,
+        "broken": 0,
+        "battery": 1000000,
+        "fuel": [
+          {
+            "id": "tanque-decolagem-metano",
+            "kg": 600
+          },
+          {
+            "id": "tanque-decolagem-oxidante",
+            "kg": 2400
+          }
+        ],
+        "causes": []
+      },
+      "cutoff": {
+        "before": {
+          "t": 85.80833333333746,
+          "y": 6879.770584410382,
+          "vx": 0.028207040392484284,
+          "vy": 109.42240948277149,
+          "theta": -1.2569895570405005e-05,
+          "mass": 2349.1660309923745,
+          "thrust": 115799.99929883001,
+          "flow": 33.738039070814196,
+          "isp": 350.00000000000006,
+          "ignited": true,
+          "integrity": 1,
+          "broken": 0,
+          "battery": 416242.51027315913,
+          "fuel": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 0
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 0
+            }
+          ],
+          "causes": [
+            "sem propelente",
+            "sem oxidante"
+          ]
+        },
+        "after": {
+          "t": 85.81250000000412,
+          "y": 6880.2256395848335,
+          "vx": 0.028438925219867545,
+          "vy": 109.21324186880506,
+          "theta": -1.2075630437835429e-05,
+          "mass": 2349.1660309923745,
+          "thrust": 0,
+          "flow": 0,
+          "ignited": false,
+          "integrity": 1,
+          "broken": 0,
+          "battery": 416250.66637848323,
+          "fuel": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 0
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 0
+            }
+          ],
+          "causes": [
+            "combustível",
+            "controle",
+            "sem propelente",
+            "sem oxidante",
+            "ignição não realizada",
+            "alimentação de propelente indisponível"
+          ]
+        }
+      },
+      "apogee": {
+        "t": 92.0666666666651,
+        "y": 7129.843852579632,
+        "vx": -1.610864708118425,
+        "vy": -0.03020492319655238,
+        "theta": 3.1094826748949567,
+        "mass": 2349.1660309923745,
+        "thrust": 0,
+        "flow": 0,
+        "ignited": false,
+        "integrity": 1,
+        "broken": 0,
+        "battery": 428492.9804699605,
+        "fuel": [
+          {
+            "id": "tanque-decolagem-metano",
+            "kg": 0
+          },
+          {
+            "id": "tanque-decolagem-oxidante",
+            "kg": 0
+          }
+        ],
+        "causes": [
+          "combustível",
+          "controle",
+          "sem propelente",
+          "sem oxidante",
+          "ignição não realizada",
+          "alimentação de propelente indisponível"
+        ]
+      },
+      "log": [
+        {
+          "t": 0.004166666666666667,
+          "y": 4.800219225807069,
+          "vx": -0.00015925253737786462,
+          "vy": 0.052614193707334084,
+          "theta": -1.394040619422815e-07,
+          "mass": 5349.020357247663,
+          "thrust": 119999.99999999997,
+          "flow": 34.96169873067182,
+          "isp": 350,
+          "ignited": true,
+          "integrity": 1,
+          "broken": 0,
+          "battery": 999963.498230489,
+          "fuel": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 599.9708652510577
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 2399.883461004231
+            }
+          ],
+          "causes": []
+        },
+        {
+          "t": 10.00416666666642,
+          "y": 439.4813469766884,
+          "vx": 0.038827215103459975,
+          "vy": 64.44921265834957,
+          "theta": -3.8544746591622735e-05,
+          "mass": 4999.4033699402635,
+          "thrust": 119999.99999999997,
+          "flow": 34.96169873067182,
+          "isp": 350,
+          "ignited": true,
+          "integrity": 1,
+          "broken": 0,
+          "battery": 931933.9041817244,
+          "fuel": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 530.0474677895778
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 2120.1898711583112
+            }
+          ],
+          "causes": []
+        },
+        {
+          "t": 20.004166666665853,
+          "y": 1119.8176470938943,
+          "vx": 0.0266630265461682,
+          "vy": 70.50474933820979,
+          "theta": -4.379314836043308e-05,
+          "mass": 4649.7863826333705,
+          "thrust": 119999.99999999997,
+          "flow": 34.96169873067182,
+          "isp": 350,
+          "ignited": true,
+          "integrity": 1,
+          "broken": 0,
+          "battery": 863904.3101329599,
+          "fuel": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 460.12407032819914
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 1840.4962813127966
+            }
+          ],
+          "causes": []
+        },
+        {
+          "t": 30.004166666665284,
+          "y": 1846.2510056105568,
+          "vx": 0.02578855142328112,
+          "vy": 74.82601144096256,
+          "theta": -3.5897661872686336e-05,
+          "mass": 4300.169395326653,
+          "thrust": 119999.99999999997,
+          "flow": 34.96169873067182,
+          "isp": 350,
+          "ignited": true,
+          "integrity": 1,
+          "broken": 0,
+          "battery": 795874.7160841953,
+          "fuel": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 390.20067286685565
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 1560.8026914674226
+            }
+          ],
+          "causes": []
+        },
+        {
+          "t": 40.00000000000487,
+          "y": 2617.3343097188626,
+          "vx": 0.025543818389374497,
+          "vy": 79.52761900125145,
+          "theta": -2.8982062492217115e-05,
+          "mass": 3950.6980817646463,
+          "thrust": 119999.99999999997,
+          "flow": 34.96169873067182,
+          "isp": 350,
+          "ignited": true,
+          "integrity": 1,
+          "broken": 0,
+          "battery": 727873.4676996177,
+          "fuel": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 320.3064101544544
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 1281.2256406178176
+            }
+          ],
+          "causes": []
+        },
+        {
+          "t": 50.000000000012825,
+          "y": 3438.159763788389,
+          "vx": 0.0255843448680463,
+          "vy": 84.72601446628202,
+          "theta": -2.3526175699301924e-05,
+          "mass": 3601.081094457929,
+          "thrust": 119999.99999999997,
+          "flow": 34.96169873067182,
+          "isp": 350,
+          "ignited": true,
+          "integrity": 1,
+          "broken": 0,
+          "battery": 659843.8736508532,
+          "fuel": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 250.3830126931109
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 1001.5320507724437
+            }
+          ],
+          "causes": []
+        },
+        {
+          "t": 60.00000000002078,
+          "y": 4313.885466024884,
+          "vx": 0.025903413109446216,
+          "vy": 90.52788439184428,
+          "theta": -1.9276685792702594e-05,
+          "mass": 3251.4641071512115,
+          "thrust": 119999.99999999997,
+          "flow": 34.96169873067182,
+          "isp": 350,
+          "ignited": true,
+          "integrity": 1,
+          "broken": 0,
+          "battery": 591814.2796020886,
+          "fuel": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 180.45961523176743
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 721.8384609270697
+            }
+          ],
+          "causes": []
+        },
+        {
+          "t": 70.0000000000185,
+          "y": 5251.221438744912,
+          "vx": 0.026517299260613265,
+          "vy": 97.07479820340097,
+          "theta": -1.602730579744954e-05,
+          "mass": 2901.847119844494,
+          "thrust": 119999.99999999997,
+          "flow": 34.96169873067182,
+          "isp": 350,
+          "ignited": true,
+          "integrity": 1,
+          "broken": 0,
+          "battery": 523784.68555332295,
+          "fuel": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 110.53621777042395
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 442.1448710816958
+            }
+          ],
+          "causes": []
+        },
+        {
+          "t": 80.00000000000941,
+          "y": 6258.518130807108,
+          "vx": 0.027466273826956832,
+          "vy": 104.55627132641091,
+          "theta": -1.3628572689332953e-05,
+          "mass": 2552.2301325377766,
+          "thrust": 119999.99999999997,
+          "flow": 34.96169873067182,
+          "isp": 350,
+          "ignited": true,
+          "integrity": 1,
+          "broken": 0,
+          "battery": 455755.0915044187,
+          "fuel": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 40.61282030908046
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 162.45128123632185
+            }
+          ],
+          "causes": []
+        },
+        {
+          "t": 90.00000000000031,
+          "y": 7105.795832446786,
+          "vx": 1.2567083816938909,
+          "vy": 22.57004988305195,
+          "theta": 1.2644756221202067,
+          "mass": 2349.1660309923745,
+          "thrust": 0,
+          "flow": 0,
+          "ignited": false,
+          "integrity": 1,
+          "broken": 0,
+          "battery": 424447.55222920584,
+          "fuel": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 0
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 0
+            }
+          ],
+          "causes": [
+            "combustível",
+            "controle",
+            "sem propelente",
+            "sem oxidante",
+            "ignição não realizada",
+            "alimentação de propelente indisponível"
+          ]
+        }
+      ]
+    }
+  ],
+  "browserFullFlightBss006": {
+    "scenario": "BSS-006 — pouso guiado por alvo",
+    "mode": "pouso",
+    "switchState": {
+      "t": 12.499999999999611,
+      "x": 0.6024520002295739,
+      "y": 300.11166131457645,
+      "vx": 0.05735393055927948,
+      "vy": 38.15222623551054,
+      "theta": -6.602592385926717e-05,
+      "throttle": 0.65,
+      "thrust": 77999.99999999999,
+      "gimbal": -0.00023862078558449534,
+      "mass": 5065.102228806391,
+      "integrity": 1,
+      "broken": 0
+    },
+    "peak": 361.0325608854045,
+    "impact": {
+      "before": {
+        "t": 68.21666666668679,
+        "x": 0.6060509668877093,
+        "y": 4.802408451758611,
+        "vx": 0.0007575875974543283,
+        "vy": -0.13779376475010793,
+        "theta": 0.0007827991791221346,
+        "throttle": 0.35854919966854987,
+        "thrust": 43025.90396022598,
+        "gimbal": -0.0007944411864946565,
+        "mass": 4377.940481179408,
+        "integrity": 1,
+        "broken": 0
+      },
+      "after": {
+        "t": 68.22083333335345,
+        "x": 0.6060541254972936,
+        "y": 4.802190401100934,
+        "vx": 0.023021916184553754,
+        "vy": 0.03136479811976083,
+        "theta": 0.0007828114386306094,
+        "throttle": 0.3585444031478099,
+        "thrust": 43025.32837773717,
+        "gimbal": -0.0007944532814494412,
+        "mass": 4377.888250673556,
+        "integrity": 1,
+        "broken": 0
+      }
+    },
+    "settled": true,
+    "restSeconds": 3.1208333333333833,
+    "restToleranceMps": 0.1,
+    "final": {
+      "t": 72.00000000001668,
+      "x": 0.6097891646267196,
+      "y": 4.800013661608853,
+      "vx": -0.008003065335673978,
+      "vy": -0.005325247603674638,
+      "theta": 4.87916587056842e-06,
+      "throttle": 0,
+      "thrust": 0,
+      "gimbal": -0.0007944532814494412,
+      "mass": 4377.888250673556,
+      "integrity": 1,
+      "broken": 0
+    },
+    "fuel": [
+      {
+        "id": "tanque-decolagem-metano",
+        "kg": 405.7444439362364
+      },
+      {
+        "id": "tanque-decolagem-oxidante",
+        "kg": 1622.9777757449456
+      }
+    ],
+    "records": [
+      {
+        "t": 0.004166666666666667,
+        "x": -4.313047214030141e-07,
+        "y": 4.800082905342413,
+        "vx": -0.00010351313313197393,
+        "vy": 0.019897282183444748,
+        "theta": -9.061141605547038e-08,
+        "throttle": 0.65,
+        "thrust": 77999.99999999999,
+        "gimbal": 0,
+        "mass": 5349.071343058313,
+        "integrity": 1,
+        "broken": 0
+      },
+      {
+        "t": 10.00416666666642,
+        "x": 0.4531337989385345,
+        "y": 208.7235602485879,
+        "vx": 0.061990152035374245,
+        "vy": 34.82789379939764,
+        "theta": -8.544386913372468e-05,
+        "throttle": 0.65,
+        "thrust": 77999.99999999999,
+        "gimbal": -0.00026681329457349577,
+        "mass": 5121.820301309526,
+        "integrity": 1,
+        "broken": 0
+      },
+      {
+        "t": 20.004166666665853,
+        "x": 0.8027882145703095,
+        "y": 321.3566379571368,
+        "vx": -0.033085206653414044,
+        "vy": -11.944772698283542,
+        "theta": 0.0018671090101717734,
+        "throttle": 0.39032628059004815,
+        "thrust": 46839.15367080578,
+        "gimbal": -0.0007335425108330369,
+        "mass": 5025.684972375251,
+        "integrity": 1,
+        "broken": 0
+      },
+      {
+        "t": 30.004166666665284,
+        "x": 0.6738330572476167,
+        "y": 201.63482823056987,
+        "vx": -0.011131710036079887,
+        "vy": -11.977938781166548,
+        "theta": 0.0006712341630779715,
+        "throttle": 0.3805960777171782,
+        "thrust": 45671.52932606136,
+        "gimbal": -0.0007420602712190143,
+        "mass": 4890.696692440483,
+        "integrity": 1,
+        "broken": 0
+      },
+      {
+        "t": 40.00000000000487,
+        "x": 0.5999038074041424,
+        "y": 81.89274945682922,
+        "vx": -0.004386432077822617,
+        "vy": -11.81245237605072,
+        "theta": 0.000672872127382323,
+        "throttle": 0.40568767264519684,
+        "thrust": 48682.52071742361,
+        "gimbal": -0.0006998283603134231,
+        "mass": 4759.371347285007,
+        "integrity": 1,
+        "broken": 0
+      },
+      {
+        "t": 50.000000000012825,
+        "x": 0.6010244138810105,
+        "y": 19.65826733553314,
+        "vx": 0.0009670187258858217,
+        "vy": -2.5314463095361748,
+        "theta": 0.0007642618623082187,
+        "throttle": 0.39202177291668067,
+        "thrust": 47042.612750001674,
+        "gimbal": -0.000744647167061062,
+        "mass": 4614.957409746626,
+        "integrity": 1,
+        "broken": 0
+      },
+      {
+        "t": 60.00000000002078,
+        "x": 0.6033799160397091,
+        "y": 7.113545411787367,
+        "vx": -1.2002589524727664e-05,
+        "vy": -0.5040302632151206,
+        "theta": 0.000766935365584333,
+        "throttle": 0.3692951105807052,
+        "thrust": 44315.41326968462,
+        "gimbal": -0.000771062286991071,
+        "mass": 4482.407850749193,
+        "integrity": 1,
+        "broken": 0
+      },
+      {
+        "t": 70.0000000000185,
+        "x": 0.6097560802067947,
+        "y": 4.800032960347378,
+        "vx": 0.0012667352628331421,
+        "vy": 0.015509434977523433,
+        "theta": 1.1771670858585368e-05,
+        "throttle": 0,
+        "thrust": 0,
+        "gimbal": -0.0007944532814494412,
+        "mass": 4377.888250673556,
+        "integrity": 1,
+        "broken": 0
+      }
+    ],
+    "errors": [],
+    "status": "Pouso · toque · alvo -0.2 m/s · throttle 0%"
+  },
+  "browserSmokeAllActiveScenarios": {
+    "result": [
+      {
+        "name": "BSS-001 — primeiro lançamento de sucesso",
+        "time": 0.4499999999999996,
+        "thrust": 26000,
+        "flow": 2.6,
+        "consumed": 1.1700000000005275,
+        "ignited": true,
+        "isp": 1019.7162129779283,
+        "chemicalLabel": false,
+        "thermalLabel": true,
+        "y": 4.900144750431406
+      },
+      {
+        "name": "BSS-002 — controle de inclinação PID",
+        "time": 0.4958333333333328,
+        "thrust": 26000,
+        "flow": 2.6,
+        "consumed": 1.2891666666671426,
+        "ignited": true,
+        "isp": 1019.7162129779283,
+        "chemicalLabel": false,
+        "thermalLabel": true,
+        "y": 4.985428897704416
+      },
+      {
+        "name": "BSS-004 — controle de inclinação e pernas fixas",
+        "time": 0.30000000000000016,
+        "thrust": 26000,
+        "flow": 2.6,
+        "consumed": 0.7800000000003138,
+        "ignited": true,
+        "isp": 1019.7162129779283,
+        "chemicalLabel": false,
+        "thermalLabel": true,
+        "trace": [
+          "THROTTLE",
+          "EMPUXO",
+          "EFEITO TÉRMICO",
+          "GIMBAL",
+          "MASSA",
+          "VELOCIDADE X",
+          "ATITUDE",
+          "VEL. ANGULAR"
+        ],
+        "y": 4.93557067784929
+      },
+      {
+        "name": "BSS-005 — tanques ampliados · meta 15 km",
+        "time": 0.5458333333333326,
+        "thrust": 77999.99999999999,
+        "flow": 22.725104174936686,
+        "consumed": 12.404119362121492,
+        "ignited": true,
+        "isp": 350,
+        "chemicalLabel": true,
+        "thermalLabel": true,
+        "trace": [
+          "THROTTLE",
+          "EMPUXO",
+          "EFEITO TÉRMICO",
+          "GIMBAL",
+          "MASSA",
+          "VELOCIDADE X",
+          "ATITUDE",
+          "VEL. ANGULAR"
+        ],
+        "y": 5.543251616497601
+      },
+      {
+        "name": "BSS-006 — pouso guiado por alvo",
+        "time": 0.30000000000000016,
+        "thrust": 77999.99999999999,
+        "flow": 22.725104174936686,
+        "consumed": 6.817531252463596,
+        "ignited": true,
+        "isp": 350,
+        "chemicalLabel": true,
+        "thermalLabel": true,
+        "trace": [
+          "THROTTLE",
+          "EMPUXO",
+          "EFEITO TÉRMICO",
+          "GIMBAL",
+          "MASSA",
+          "VELOCIDADE X",
+          "ALVO X",
+          "ERRO X",
+          "ATITUDE",
+          "VEL. ANGULAR",
+          "GRID FINS"
+        ],
+        "y": 5.018107035211893
+      },
+      {
+        "name": "BSS-003 — decolagem e pouso sob comando manual",
+        "time": 0.30000000000000016,
+        "thrust": 26000,
+        "flow": 0.65,
+        "consumed": 0.19499999999879947,
+        "ignited": true,
+        "isp": 4078.8648519117132,
+        "chemicalLabel": false,
+        "thermalLabel": false,
+        "y": 4.036767366272056
+      }
+    ],
+    "errors": [],
+    "passed": true
+  },
+  "automatedTests": {
+    "passed": 64,
+    "failed": 0,
+    "files": 9,
+    "counts": {
+      "Propulsor.test.ts": 21,
+      "PropulsorVetorizado.test.ts": 3,
+      "CadeiaPropulsao.test.ts": 5,
+      "PropulsaoQuimica.test.ts": 24,
+      "BancadaBss.test.ts": 6,
+      "Bss02PousoSuave.test.ts": 2,
+      "Bss03Missao.test.ts": 1,
+      "Bss04Missao.test.ts": 1,
+      "Bss05Missao.test.ts": 1
+    }
+  },
+  "typecheck": "passed",
+  "build": "passed",
+  "limitations": [
+    "Isp constante idealizado, sem pressão de câmara/bocal ou correção ambiente",
+    "Efeito térmico sem conservação energética química total",
+    "Subida BSS005 até 15 km não qualifica retorno",
+    "BSS006 apogeu de 7.13 km no ensaio de consumo total; aerodinâmica P0-B pendente",
+    "Telemetria de empuxo e vazão representa médias do último passo, não garantia de recurso disponível para o próximo"
+  ]
+}
