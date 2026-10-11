@@ -6,16 +6,25 @@ export class SistemaTermico {
   public constructor(
     private readonly atmosfera: SistemaAtmosferico,
     private readonly temperaturaAmbienteC: number,
-  ) {}
+  ) {
+    if (!Number.isFinite(temperaturaAmbienteC)) throw new Error('Temperatura ambiente deve ser finita em °C.');
+  }
 
   /** Geração interna, convecção ambiente e jatos térmicos em ordem determinística. */
   public atualizar(objetos: readonly Objeto[], dtS: number): void {
     for (const objeto of objetos) {
       const potenciaGeradaW = objeto.obterPotenciaTermicaGeradaW();
       if (potenciaGeradaW > 0) objeto.aplicarEnergiaTermicaPeloCore(potenciaGeradaW * dtS, dtS);
-      const potenciaConveccaoW = objeto.coeficienteConveccaoWPorM2C * objeto.areaTermicaM2
+      // Modelo concentrado: h é a calibração a 1,225 kg/m³; a rarefação
+      // reduz a troca. Sem gás ambiente não há convecção ambiente.
+      // Não modela convecção forçada/Reynolds; o fluxo entra no aquecimento por arrasto.
+      const densidadeLocal = this.atmosfera.obterDensidadeArKgM3(objeto.getEstadoFisico().posicaoM.y);
+      const potenciaConveccaoW = objeto.coeficienteConveccaoWPorM2C * (densidadeLocal / 1.225) * objeto.areaTermicaM2
         * (objeto.temperaturaC - this.temperaturaAmbienteC);
-      if (potenciaConveccaoW !== 0) objeto.aplicarEnergiaTermicaPeloCore(-potenciaConveccaoW * dtS, dtS);
+      // Um subpasso nunca transfere mais energia que a necessária ao equilíbrio.
+      const energiaEquilibrioJ = objeto.capacidadeTermicaJPorC * Math.abs(objeto.temperaturaC - this.temperaturaAmbienteC);
+      const energiaConveccaoJ = Math.sign(potenciaConveccaoW) * Math.min(Math.abs(potenciaConveccaoW * dtS), energiaEquilibrioJ);
+      if (energiaConveccaoJ !== 0) objeto.aplicarEnergiaTermicaPeloCore(-energiaConveccaoJ, dtS);
       const velocidadeRelativa = objeto.getEstadoFisico().velocidadeMps.subtrair(this.atmosfera.velocidadeArMps);
       const forcaArrastoN = this.atmosfera.calcularArrasto(objeto, objeto.getEstadoFisico().velocidadeMps);
       const potenciaDissipadaNoArW = Math.max(0, -forcaArrastoN.produtoEscalar(velocidadeRelativa));

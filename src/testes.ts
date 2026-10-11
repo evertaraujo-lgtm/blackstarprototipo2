@@ -35,6 +35,7 @@ import { BracoArticuladoDeBancada } from './physics/objetos/mecanismos/BracoArti
 import { Porta, BatenteDePorta } from './physics/objetos/mecanismos/Porta';
 import { criarEnsaioPortaVertical } from './physics/cenarios/EnsaioPortaVertical';
 import { TracePLC } from './visualizacao/TracePLC';
+import { RegistroEnsaioBancada } from './visualizacao/RegistroEnsaioBancada';
 import { AutotunadorPosicionamentoMotorEletrico } from './physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico';
 import { ExecutorPassoFixo } from './simulacao/ExecutorPassoFixo';
 
@@ -197,6 +198,7 @@ interface CenárioVisual {
   readonly pontoPousoSelecionavel?: () => boolean;
   /** Sinais analógicos adicionais registrados no trace da bancada. */
   readonly canaisTrace?: readonly CanalTrace[];
+  readonly obterConfiguracaoEnsaio?: () => unknown;
   readonly motorRotacionalControlavel?: MotorEletricoRotacional;
   readonly motorRotacionalSecundarioControlavel?: MotorEletricoRotacional;
   readonly painelSolarControlavel?: PainelSolar;
@@ -2305,6 +2307,38 @@ interface CanalTrace {
 const limiteAmostrasTrace = 6_000;
 let tracePLC = new TracePLC(10, limiteAmostrasTrace);
 let tempoTraceSelecionadoS: number | undefined;
+const traceEnabled = document.querySelector<HTMLInputElement>('#trace-enabled')!;
+const exportFlight = document.querySelector<HTMLButtonElement>('#export-flight')!;
+let registroEnsaio: RegistroEnsaioBancada;
+let mundoDoRegistro: MundoFisico | undefined;
+
+// Captura as entradas físicas antes de seus handlers. Observação e Play não
+// são comandos físicos: o diário usa o número de passos, não o relógio da tela.
+const eventosDeComando = new Map<string, string>([
+  ...['toggle-electric', 'toggle-hydraulic', 'toggle-fuel', 'toggle-control', 'ignite-engine', 'disconnect-fuel-tank', 'disconnect-oxidizer-tank', 'cable-switch', 'cable-connect', 'cable-break', 'advance-cylinder', 'retract-cylinder', 'solar-panel-toggle'].map((id) => [id, 'click'] as const),
+  ...['bss04-mode', 'bss03-propulsion-group', 'bss03-landing-mode', 'connection-selector', 'current-limit', 'cable-resistance', 'advance-speed-input', 'retract-speed-input'].map((id) => [id, 'change'] as const),
+  ...['throttle-input', 'gimbal-input'].map((id) => [id, 'input'] as const),
+]);
+for (const tipo of ['click', 'change', 'input']) document.addEventListener(tipo, (evento) => {
+  const alvo = evento.target;
+  if (!(alvo instanceof HTMLElement) || eventosDeComando.get(alvo.id) !== tipo || !registroEnsaio) return;
+  if (['cable-switch', 'cable-connect', 'cable-break', 'current-limit', 'cable-resistance'].includes(alvo.id)) {
+    registroEnsaio.registrarEntrada('change:connection-selector', connectionSelector.value);
+  }
+  const valor = alvo instanceof HTMLInputElement && alvo.type === 'checkbox' ? alvo.checked
+    : alvo instanceof HTMLInputElement || alvo instanceof HTMLSelectElement ? alvo.value : undefined;
+  registroEnsaio.registrarEntrada(`${tipo}:${alvo.id}`, valor);
+}, true);
+exportFlight.addEventListener('click', () => {
+  const conteudo = { ...registroEnsaio.exportar(), trace: {
+    canais: tracePLC.canais.map(({ nome, escala }) => ({ nome, escala })), amostras: tracePLC.amostras,
+    registroLigado: traceEnabled.checked, limiteAmostras: limiteAmostrasTrace,
+  } };
+  const url = URL.createObjectURL(new Blob([JSON.stringify(conteudo, null, 2)], { type: 'application/json' }));
+  const link = document.createElement('a');
+  link.href = url; link.download = 'ensaio-bancada.json'; link.click();
+  URL.revokeObjectURL(url);
+});
 
 const obterCanaisTrace = (): readonly CanalTrace[] => {
   const cenário = cenarioAtual();
@@ -2344,6 +2378,7 @@ const obterIndiceTraceMaisProximo = (tempoS: number): number => {
 };
 
 const registrarTraceSensores = (forcar = false): void => {
+  if (!traceEnabled.checked) return;
   tracePLC.registrar(cenarioAtual().mundo.tempoS, forcar);
 };
 
@@ -3110,6 +3145,13 @@ const desenhar = (): void => {
 const carregarCenarioAtual = (): void => {
   executorPassoFixo.reiniciar();
   const cenário = cenarioAtual();
+  if (mundoDoRegistro !== cenário.mundo) {
+    mundoDoRegistro = cenário.mundo;
+    registroEnsaio = new RegistroEnsaioBancada(1 / 240, {
+      nome: cenário.nome, parametros: cenário.obterConfiguracaoEnsaio?.(),
+      estadoInicial: cenário.objetos.map((objeto) => ({ id: objeto.id, massaKg: objeto.massaKg, temperaturaC: objeto.temperaturaC, integridade: objeto.integridadeEstrutural, estado: objeto.getEstadoFisico() })),
+    });
+  }
   if (cenário.motorRotacionalControlavel) carregarPerfilPid(cenário.motorRotacionalControlavel);
   configurarTracePLCDoCenario();
   tempoTraceSelecionadoS = undefined;
@@ -3456,6 +3498,8 @@ canvas.addEventListener('click', evento => {
   const alvo = switchSobPonteiro(evento);
   if (alvo) {
     connectionSelector.value = alvo.conexao.id;
+    registroEnsaio.registrarEntrada('change:connection-selector', alvo.conexao.id);
+    registroEnsaio.registrarEntrada('click:cable-switch');
     alternarInterruptor(alvo.conexao);
     atualizarControlesDoPropulsor(); desenhar();
     return;
@@ -3466,7 +3510,10 @@ canvas.addEventListener('click', evento => {
   const { escala, origemX, soloY } = obterTransformacaoDaBancada();
   if (ponto.y < soloY) return;
   const xM = Math.round(((ponto.x - origemX) / escala) * 10) / 10;
-  if (cenário.selecionarPontoPousoX(xM)) desenhar();
+  if (cenário.selecionarPontoPousoX(xM)) {
+    registroEnsaio.registrarEntrada('alvo-pouso-x-m', xM);
+    desenhar();
+  }
 });
 sensorTraceCanvas.addEventListener('click', (evento) => {
   if (tracePLC.amostras.length === 0) return;
@@ -3675,6 +3722,7 @@ const executar = (agoraMs: number): void => {
   executorPassoFixo.avancarAte(agoraMs, obterEscalaTemporalAtual(), (passoS) => {
     cenário.atualizarControle?.();
     cenário.mundo.avancar(passoS);
+    registroEnsaio.registrarPasso(passoS);
   });
   // Controladores automáticos usam a mesma API dos botões; refletir no mesmo
   // quadro a ação atualmente disponível evita inverter a leitura operacional.

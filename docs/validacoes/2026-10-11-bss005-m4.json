@@ -1,0 +1,3214 @@
+{
+  "marco": "M4",
+  "data": "2026-10-11",
+  "base": "e724d0b44429469aa9de91495dc3833b1927d85e",
+  "arquivosSha256": {
+    "src/cenarios/BancadaBss.ts": "b4003aad45d7af13023e4dcb75fc44af9eaa6f6ee01dea3a2d862502bad4e030",
+    "src/cenarios/TelemetriaMissaoBss.ts": "4adede4154ca73c48bdd6e2a20298a75e799d7e38017a72855ef95c2dd683d49",
+    "src/cenarios/TelemetriaMissaoBss.test.ts": "424c7e3c7a7e16ba0c53b4574f34c2f581887a9e760ddc8372a33cb67e146b01",
+    "src/physics/solucionadores/SistemaAtmosferico.ts": "6266356f0f5ea59a6a346d230ea9fb452cd12893ee2d05833194f31aa2dbb565",
+    "src/physics/solucionadores/SistemaTermico.ts": "4eecc89eb28d488d62b1b0f2d383edc94b6e50514c21ad16eaad42dabd3d621c",
+    "src/physics/solucionadores/AtmosferaTermicaM4.test.ts": "941e30fe00c49b9bf3802ff98db8173bf3e648e0d083ed6fca5d2cabcb1c0006",
+    "src/visualizacao/RegistroEnsaioBancada.ts": "99e718a43817a6612ed35b239e7279745132f2bd3b207d3dbe9090e185946695",
+    "src/visualizacao/RegistroEnsaioBancada.test.ts": "8316da4355437c0e59f56e397207282ed1142cf1335bd3518845cec404ae7801",
+    "src/testes.ts": "3b5df3ae375ab5147ea0ece4082a0401861b25af702e2171507a36e8ee45416a",
+    "src/style.css": "a6d933e2f69cbc16c9cd417b1a4effc095a88d4f6b43ef4299a12768c946624b",
+    "tests.html": "e27677b23d1f5be66027c73a95b397dbce755394d2360d571f57623051ffe08e",
+    "README.md": "2c847d4b318b9a704e019a81ed4144d68cef97bec6c565bfb995f338aa50ba7d"
+  },
+  "validacoes": {
+    "testesPertinentesAprovados": 39,
+    "novosTestesAprovados": 18,
+    "falhasFinais": 0,
+    "typecheck": "aprovado",
+    "build": "aprovado; 78 módulos; JS da bancada 224,03 kB",
+    "suitePrincipal": {
+      "aprovados": 35,
+      "assertions": [
+        {
+          "arquivo": "src/cenarios/TelemetriaMissaoBss.test.ts",
+          "testes": [
+            {
+              "nome": "M4 — telemetria e reprodução de entradas BSS informa delta-v ideal e distingue ausência de vazão de Isp zero",
+              "status": "passed"
+            },
+            {
+              "nome": "M4 — telemetria e reprodução de entradas BSS respeita mistura, massa conectada, ruptura e diagnósticos de falha",
+              "status": "passed"
+            },
+            {
+              "nome": "M4 — telemetria e reprodução de entradas BSS reproduz voo completo com trace desligado e ligado usando o mesmo diário de entradas",
+              "status": "passed"
+            }
+          ]
+        },
+        {
+          "arquivo": "src/visualizacao/RegistroEnsaioBancada.test.ts",
+          "testes": [
+            {
+              "nome": "diário de ensaio da bancada preserva ordem e passo das entradas e exporta cópias independentes",
+              "status": "passed"
+            },
+            {
+              "nome": "diário de ensaio da bancada recusa dt variável e entradas não finitas",
+              "status": "passed"
+            }
+          ]
+        },
+        {
+          "arquivo": "src/visualizacao/TracePLC.test.ts",
+          "testes": [
+            {
+              "nome": "TracePLC registra canais digitais e evita amostras repetidas",
+              "status": "passed"
+            },
+            {
+              "nome": "TracePLC registra canais analogicos com escala de corrente",
+              "status": "passed"
+            },
+            {
+              "nome": "TracePLC normaliza sinais booleanos para 0 e 1",
+              "status": "passed"
+            },
+            {
+              "nome": "TracePLC recusa o décimo primeiro canal",
+              "status": "passed"
+            },
+            {
+              "nome": "TracePLC registra os 11 canais do BSS-006 quando a capacidade é configurada pelo cenário",
+              "status": "passed"
+            },
+            {
+              "nome": "TracePLC recusa capacidade de canais inválida: 0",
+              "status": "passed"
+            },
+            {
+              "nome": "TracePLC recusa capacidade de canais inválida: -1",
+              "status": "passed"
+            },
+            {
+              "nome": "TracePLC recusa capacidade de canais inválida: 1.5",
+              "status": "passed"
+            },
+            {
+              "nome": "TracePLC recusa capacidade de canais inválida: NaN",
+              "status": "passed"
+            },
+            {
+              "nome": "TracePLC recusa capacidade de canais inválida: Infinity",
+              "status": "passed"
+            }
+          ]
+        },
+        {
+          "arquivo": "src/physics/solucionadores/AtmosferaTermicaM4.test.ts",
+          "testes": [
+            {
+              "nome": "M4 — atmosfera e térmica compartilhadas densidade em 0 m: 1.225 kg/m³",
+              "status": "passed"
+            },
+            {
+              "nome": "M4 — atmosfera e térmica compartilhadas densidade em 11000 m: 0.363918 kg/m³",
+              "status": "passed"
+            },
+            {
+              "nome": "M4 — atmosfera e térmica compartilhadas densidade em 15000 m: 0.193674 kg/m³",
+              "status": "passed"
+            },
+            {
+              "nome": "M4 — atmosfera e térmica compartilhadas mantém continuidade na tropopausa, decaimento e escala de densidade configurada",
+              "status": "passed"
+            },
+            {
+              "nome": "M4 — atmosfera e térmica compartilhadas arrasto, aquecimento e aleta usam a mesma densidade local em 0 m",
+              "status": "passed"
+            },
+            {
+              "nome": "M4 — atmosfera e térmica compartilhadas arrasto, aquecimento e aleta usam a mesma densidade local em 11000 m",
+              "status": "passed"
+            },
+            {
+              "nome": "M4 — atmosfera e térmica compartilhadas arrasto, aquecimento e aleta usam a mesma densidade local em 15000 m",
+              "status": "passed"
+            },
+            {
+              "nome": "M4 — atmosfera e térmica compartilhadas troca ambiente escala com densidade em 0 m, respeita temperatura em °C",
+              "status": "passed"
+            },
+            {
+              "nome": "M4 — atmosfera e térmica compartilhadas troca ambiente escala com densidade em 11000 m, respeita temperatura em °C",
+              "status": "passed"
+            },
+            {
+              "nome": "M4 — atmosfera e térmica compartilhadas troca ambiente escala com densidade em 15000 m, respeita temperatura em °C",
+              "status": "passed"
+            },
+            {
+              "nome": "M4 — atmosfera e térmica compartilhadas vácuo elimina arrasto, aquecimento por ar e convecção ambiente; geração interna permanece",
+              "status": "passed"
+            },
+            {
+              "nome": "M4 — atmosfera e térmica compartilhadas convecção pode aquecer ou resfriar sem atravessar equilíbrio em dt grande",
+              "status": "passed"
+            },
+            {
+              "nome": "M4 — atmosfera e térmica compartilhadas fluxo relativo aquece e degrada progressivamente até colapso térmico de forma reproduzível",
+              "status": "passed"
+            }
+          ]
+        },
+        {
+          "arquivo": "src/physics/objetos/componentes/AletaAerodinamica.test.ts",
+          "testes": [
+            {
+              "nome": "AletaAerodinamica limita curso e velocidade do atuador, e produz força lateral somente em fluxo atmosférico",
+              "status": "passed"
+            },
+            {
+              "nome": "AletaAerodinamica não move sem alimentação no circuito ou sem permissivo do sistema elétrico",
+              "status": "passed"
+            },
+            {
+              "nome": "aleta — força líquida no core contabiliza um único arrasto e sustentação em deflexão -0.1 rad",
+              "status": "passed"
+            },
+            {
+              "nome": "aleta — força líquida no core contabiliza um único arrasto e sustentação em deflexão 0 rad",
+              "status": "passed"
+            },
+            {
+              "nome": "aleta — força líquida no core contabiliza um único arrasto e sustentação em deflexão 0.1 rad",
+              "status": "passed"
+            },
+            {
+              "nome": "aleta — força líquida no core não produz força com fluxo nulo ou vácuo e mantém sustentação perpendicular ao vento relativo",
+              "status": "passed"
+            }
+          ]
+        },
+        {
+          "arquivo": "src/physics/objetos/veiculos/Bss04Missao.test.ts",
+          "testes": [
+            {
+              "nome": "BSS-004 — pouso automático fuzzy-PID mantém o gimbal ativo, amortece a deriva horizontal e pousa suavemente",
+              "status": "passed"
+            }
+          ]
+        }
+      ]
+    },
+    "coreTermicoExistente": {
+      "aprovados": 3,
+      "omitidos": 47,
+      "filtro": "calor|aquece"
+    },
+    "missaoBss005": {
+      "aprovados": 1,
+      "omitidos": 11,
+      "filtro": "referência"
+    },
+    "atmosferaReferenciasKgM3": [
+      [
+        0,
+        1.225
+      ],
+      [
+        11000,
+        0.363918
+      ],
+      [
+        15000,
+        0.193674
+      ]
+    ],
+    "limiteDtFisicoS": 0.004166666666666667
+  },
+  "bancada": {
+    "smoke": {
+      "reports": [
+        {
+          "prefix": "BSS-001",
+          "name": "BSS-001 — primeiro lançamento de sucesso",
+          "t": 0.5999999999999991,
+          "ignicao": [
+            true
+          ],
+          "empuxo": [
+            40000
+          ],
+          "vazao": [
+            4
+          ],
+          "before": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 120
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 480
+            }
+          ],
+          "after": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 119.52000000000044
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 478.08000000000175
+            }
+          ],
+          "dados": "Ambiente local: ρ 1.2242 kg/m³ · q 0.028 kPa\nDelta-v ideal restante: não aplicável m/s\nHipótese: Tsiolkovsky ideal; Isp nominal constante; mistura CH4/O2 1:4; sem perdas por gravidade/arrasto, dano ou reserva de pouso\nMotor — diagnóstico atual: operacional\nSol: irradiância vertical descendente · 1.000 W/m²\nPainel: 2500 W · energia gerada 1500 J\nBateria: 10574 / 30000 J (35.2%)\nFonte do propulsor: bateria conectada · cabo fechado\nPartida: comando manual pelos controles da bancada\nControle de inclinação: manual\nGPS idealizado: X 0.00 m · Y 6.55 m\nAltitude derivada do GPS: 6.55 m\nVelocidade derivada do GPS: vertical 6.78 m/s · horizontal 0.00 m/s\nInclinação do sensor de nível: 0.00° · gimbal 0.00°\nAutoridade do gimbal: sem comando alimentado\nMassa conectada: 1892.6 kg · peso 18560 N\nTanques: CH4 119.5 kg · O2 478.1 kg\nCadeia: íntegra · vazão 4.00 kg/s\nEmpuxo: 40000 N · ignição ativa · integridade 100%\nModelo propulsivo: ensaio paramétrico\nFluxo reagido: 4.00 kg/s\nEfeito térmico simplificado: 2.00 MW · carcaça 0.30 MW · jato 1.40 MW"
+        },
+        {
+          "prefix": "BSS-002",
+          "name": "BSS-002 — controle de inclinação PID",
+          "t": 1.1458333333333306,
+          "ignicao": [
+            true
+          ],
+          "empuxo": [
+            40000
+          ],
+          "vazao": [
+            4
+          ],
+          "before": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 120
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 480
+            }
+          ],
+          "after": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 119.08333333333417
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 476.33333333333667
+            }
+          ],
+          "dados": "Ambiente local: ρ 1.2236 kg/m³ · q 0.102 kPa\nDelta-v ideal restante: não aplicável m/s\nHipótese: Tsiolkovsky ideal; Isp nominal constante; mistura CH4/O2 1:4; sem perdas por gravidade/arrasto, dano ou reserva de pouso\nMotor — diagnóstico atual: operacional\nSol: irradiância vertical descendente · 1.000 W/m²\nPainel: 2500 W · energia gerada 2865 J\nBateria: 29996 / 30000 J (100.0%)\nFonte do propulsor: bateria conectada · cabo fechado\nPartida: comando manual pelos controles da bancada\nControle de inclinação: PID automático\nGPS idealizado: X 0.04 m · Y 11.93 m\nAltitude derivada do GPS: 11.93 m\nVelocidade derivada do GPS: vertical 12.89 m/s · horizontal 0.09 m/s\nInclinação do sensor de nível: -0.06° · gimbal -0.10°\nAutoridade do gimbal: inclinacao\nMassa conectada: 1890.4 kg · peso 18539 N\nTanques: CH4 119.1 kg · O2 476.3 kg\nCadeia: íntegra · vazão 4.00 kg/s\nEmpuxo: 40000 N · ignição ativa · integridade 100%\nModelo propulsivo: ensaio paramétrico\nFluxo reagido: 4.00 kg/s\nEfeito térmico simplificado: 2.00 MW · carcaça 0.30 MW · jato 1.40 MW"
+        },
+        {
+          "prefix": "BSS-003",
+          "name": "BSS-003 — decolagem e pouso sob comando manual",
+          "t": 1.1458333333333306,
+          "ignicao": [
+            true
+          ],
+          "empuxo": [
+            20000
+          ],
+          "vazao": [
+            0.5
+          ],
+          "before": [
+            {
+              "id": "bss03-tanque-decolagem",
+              "kg": 250
+            },
+            {
+              "id": "bss03-tanque-pouso",
+              "kg": 500
+            }
+          ],
+          "after": [
+            {
+              "id": "bss03-tanque-decolagem",
+              "kg": 248.8541666666677
+            },
+            {
+              "id": "bss03-tanque-pouso",
+              "kg": 500
+            }
+          ],
+          "dados": "Sequência automática: inexistente\nGrupo selecionado: Motores de decolagem · tanque dedicado\nControlador selecionado: inclinacao\nAltitude atual: 8.28 m\nVelocidade vertical: 7.42 m/s\nVelocidade horizontal: 0.00 m/s\nTanque de decolagem: 248.9 kg\nTanque reservado ao pouso: 500.0 kg\nThrottle calculado no pouso: 0.0%\nGimbal calculado no pouso: 0.00°\nMotores: quatro unidades externas sob o casco\nTrem de pouso: sapatas externas a ±2,8 m\nIntegridade mínima: 100.0%"
+        },
+        {
+          "prefix": "BSS-004",
+          "name": "BSS-004 — controle de inclinação e pernas fixas",
+          "t": 0.7499999999999986,
+          "ignicao": [
+            true
+          ],
+          "empuxo": [
+            40000
+          ],
+          "vazao": [
+            4
+          ],
+          "before": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 120
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 480
+            }
+          ],
+          "after": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 119.40000000000055
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 477.6000000000022
+            }
+          ],
+          "dados": "Ambiente local: ρ 1.2241 kg/m³ · q 0.033 kPa\nDelta-v ideal restante: não aplicável m/s\nHipótese: Tsiolkovsky ideal; Isp nominal constante; mistura CH4/O2 1:4; sem perdas por gravidade/arrasto, dano ou reserva de pouso\nMotor — diagnóstico atual: operacional\nSol: irradiância vertical descendente · 1.000 W/m²\nPainel: 2500 W · energia gerada 1875 J\nTrem de pouso: duas pernas fixas com sapatas laterais\nBateria: 29996 / 30000 J (100.0%)\nFonte do propulsor: bateria conectada · cabo fechado\nPartida: comando manual pelos controles da bancada\nControle de inclinação: PID automático\nGPS idealizado: X 0.01 m · Y 7.58 m\nAltitude derivada do GPS: 7.58 m\nVelocidade derivada do GPS: vertical 7.38 m/s · horizontal 0.05 m/s\nInclinação do sensor de nível: -0.10° · gimbal -0.20°\nAutoridade do gimbal: inclinacao\nMassa conectada: 2032.0 kg · peso 19927 N\nTanques: CH4 119.4 kg · O2 477.6 kg\nCadeia: íntegra · vazão 4.00 kg/s\nEmpuxo: 40000 N · ignição ativa · integridade 100%\nModelo propulsivo: ensaio paramétrico\nFluxo reagido: 4.00 kg/s\nEfeito térmico simplificado: 2.00 MW · carcaça 0.30 MW · jato 1.40 MW"
+        },
+        {
+          "prefix": "BSS-005",
+          "name": "BSS-005 — tanques ampliados · meta 15 km",
+          "t": 1.1458333333333306,
+          "ignicao": [
+            true
+          ],
+          "empuxo": [
+            119999.99999999997
+          ],
+          "vazao": [
+            34.96169873067182
+          ],
+          "before": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 600
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 2400
+            }
+          ],
+          "after": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 591.9879440408721
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 2367.9517761634884
+            }
+          ],
+          "dados": "Ambiente local: ρ 1.2234 kg/m³ · q 0.134 kPa\nDelta-v ideal restante: 2848.4 m/s\nHipótese: Tsiolkovsky ideal; Isp nominal constante; mistura CH4/O2 1:4; sem perdas por gravidade/arrasto, dano ou reserva de pouso\nMotor — diagnóstico atual: operacional\nSol: irradiância vertical descendente · 1.000 W/m²\nPainel: 2500 W · energia gerada 2865 J\nTrem de pouso: duas pernas fixas com sapatas laterais\nBateria: 992220 / 1000000 J (99.2%)\nFonte do propulsor: bateria conectada · cabo fechado\nPartida: comando manual pelos controles da bancada\nControle de inclinação: PID automático\nGPS idealizado: X 0.01 m · Y 13.31 m\nAltitude derivada do GPS: 13.31 m\nVelocidade derivada do GPS: vertical 14.81 m/s · horizontal 0.03 m/s\nInclinação do sensor de nível: -0.01° · gimbal -0.03°\nAutoridade do gimbal: inclinacao\nMassa conectada: 5249.1 kg · peso 51476 N\nTanques: CH4 592.0 kg · O2 2368.0 kg\nCadeia: íntegra · vazão 34.96 kg/s\nEmpuxo: 120000 N · ignição ativa · integridade 100%\nIsp nominal: 350 s · efetivo: 350.0 s · referência ao nível do mar, constante com altitude\nFluxo reagido: 34.96 kg/s\nEfeito térmico simplificado: 6.00 MW · carcaça 0.90 MW · jato 4.20 MW"
+        },
+        {
+          "prefix": "BSS-006",
+          "name": "BSS-006 — pouso guiado por alvo",
+          "t": 1.045833333333331,
+          "ignicao": [
+            true
+          ],
+          "empuxo": [
+            119999.99999999997
+          ],
+          "vazao": [
+            34.96169873067182
+          ],
+          "before": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 600
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 2400
+            }
+          ],
+          "after": [
+            {
+              "id": "tanque-decolagem-metano",
+              "kg": 592.6871780154869
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "kg": 2370.7487120619476
+            }
+          ],
+          "dados": "Ambiente local: ρ 1.2236 kg/m³ · q 0.106 kPa\nDelta-v ideal restante: 2800.9 m/s\nHipótese: Tsiolkovsky ideal; Isp nominal constante; mistura CH4/O2 1:4; sem perdas por gravidade/arrasto, dano ou reserva de pouso\nMotor — diagnóstico atual: operacional\nSol: irradiância vertical descendente · 1.000 W/m²\nPainel: 2500 W · energia gerada 2615 J\nTrem de pouso: duas pernas fixas com sapatas laterais\nPonto de pouso: X 0.0 m · seleção bloqueada após decolagem\nControle aerodinâmico: 2 grid fins físicas · deflexão 0.0° · torque disponível somente com fluxo atmosférico\nBateria: 992877 / 1000000 J (99.3%)\nFonte do propulsor: bateria conectada · cabo fechado\nPartida: comando manual pelos controles da bancada\nControle de inclinação: PID automático\nGPS idealizado: X 0.01 m · Y 11.73 m\nAltitude derivada do GPS: 11.73 m\nVelocidade derivada do GPS: vertical 13.18 m/s · horizontal 0.02 m/s\nInclinação do sensor de nível: -0.02° · gimbal -0.03°\nAutoridade do gimbal: inclinacao\nMassa conectada: 5312.6 kg · peso 52099 N\nTanques: CH4 592.7 kg · O2 2370.7 kg\nCadeia: íntegra · vazão 34.96 kg/s\nEmpuxo: 120000 N · ignição ativa · integridade 100%\nIsp nominal: 350 s · efetivo: 350.0 s · referência ao nível do mar, constante com altitude\nFluxo reagido: 34.96 kg/s\nEfeito térmico simplificado: 6.00 MW · carcaça 0.90 MW · jato 4.20 MW"
+        }
+      ],
+      "errors": [],
+      "traceDesligado": {
+        "passos": 144,
+        "entradas": [
+          {
+            "passo": 0,
+            "acao": "click:toggle-electric"
+          },
+          {
+            "passo": 0,
+            "acao": "click:toggle-hydraulic"
+          },
+          {
+            "passo": 0,
+            "acao": "click:toggle-fuel"
+          },
+          {
+            "passo": 0,
+            "acao": "click:toggle-control"
+          },
+          {
+            "passo": 0,
+            "acao": "click:solar-panel-toggle"
+          },
+          {
+            "passo": 0,
+            "acao": "click:solar-panel-toggle"
+          },
+          {
+            "passo": 0,
+            "acao": "input:throttle-input",
+            "valor": "65"
+          },
+          {
+            "passo": 0,
+            "acao": "click:ignite-engine"
+          }
+        ],
+        "sinais": 0
+      },
+      "layout": {
+        "larguraTela": 1280,
+        "larguraPagina": 1265
+      }
+    },
+    "vooCompletoBss006": {
+      "exportacao": {
+        "versao": 1,
+        "dtS": 0.004166666666666667,
+        "passosExecutados": 18360,
+        "configuracao": {
+          "nome": "BSS-006 — pouso guiado por alvo",
+          "parametros": {
+            "id": "bss-006",
+            "nome": "BSS-006 — pouso guiado por alvo",
+            "descricao": "Variante do BSS-005 com duas grid fins físicas e gimbal coordenados para a descida. Antes da decolagem, clique no solo para escolher o ponto de pouso. No modo Pouso, a guia usa o gimbal com empuxo e as grid fins com fluxo atmosférico para reduzir o erro horizontal; o core continua calculando forças, torque e contato.",
+            "controleDeInclinacaoPid": true,
+            "inclinacaoInicialRad": 0,
+            "energiaInicialDaBateriaJ": 1000000,
+            "capacidadeBateriaJ": 1000000,
+            "deslocamentoLateralDoPainelM": 0.8,
+            "painelMovel": false,
+            "incluirPainelSolar": true,
+            "incluirPernasFixas": true,
+            "incluirAletasAerodinamicas": true,
+            "incluirGuiaPousoPorAlvo": true,
+            "fatorTanques": 5,
+            "fatorPropulsor": 3,
+            "impulsoEspecificoNominalS": 350,
+            "dtS": 0.004166666666666667,
+            "densidadeAtmosfericaKgM3": 1.225,
+            "velocidadeArMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "estadoInicial": [
+            {
+              "id": "bss-006",
+              "massaKg": 800,
+              "temperaturaC": 20,
+              "integridade": 1,
+              "estado": {
+                "posicaoM": {
+                  "x": 0,
+                  "y": 4.8,
+                  "z": 0
+                },
+                "velocidadeMps": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "orientacaoRad": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "velocidadeAngularRadps": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              }
+            },
+            {
+              "id": "painel-decolagem-solar",
+              "massaKg": 35,
+              "temperaturaC": 20,
+              "integridade": 1,
+              "estado": {
+                "posicaoM": {
+                  "x": 0.8,
+                  "y": 14.754927840030092,
+                  "z": 0
+                },
+                "velocidadeMps": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "orientacaoRad": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "velocidadeAngularRadps": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              }
+            },
+            {
+              "id": "bateria-decolagem-solar",
+              "massaKg": 50,
+              "temperaturaC": 20,
+              "integridade": 1,
+              "estado": {
+                "posicaoM": {
+                  "x": 0,
+                  "y": 14.029927840030092,
+                  "z": 0
+                },
+                "velocidadeMps": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "orientacaoRad": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "velocidadeAngularRadps": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              }
+            },
+            {
+              "id": "tanque-decolagem-metano",
+              "massaKg": 1126.323192878316,
+              "temperaturaC": 20,
+              "integridade": 1,
+              "estado": {
+                "posicaoM": {
+                  "x": 0,
+                  "y": 9.232481960007522,
+                  "z": 0
+                },
+                "velocidadeMps": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "orientacaoRad": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "velocidadeAngularRadps": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              }
+            },
+            {
+              "id": "tanque-decolagem-oxidante",
+              "massaKg": 2867.8428381140584,
+              "temperaturaC": 20,
+              "integridade": 1,
+              "estado": {
+                "posicaoM": {
+                  "x": 0,
+                  "y": 11.947445880022569,
+                  "z": 0
+                },
+                "velocidadeMps": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "orientacaoRad": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "velocidadeAngularRadps": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              }
+            },
+            {
+              "id": "propulsor-decolagem-solar",
+              "massaKg": 270,
+              "temperaturaC": 20,
+              "integridade": 1,
+              "estado": {
+                "posicaoM": {
+                  "x": 0,
+                  "y": 1.1,
+                  "z": 0
+                },
+                "velocidadeMps": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "orientacaoRad": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 1.5707963267948966
+                },
+                "velocidadeAngularRadps": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              }
+            },
+            {
+              "id": "bss04-perna-esquerda",
+              "massaKg": 45,
+              "temperaturaC": 20,
+              "integridade": 1,
+              "estado": {
+                "posicaoM": {
+                  "x": -1.8,
+                  "y": 1.7999999999999998,
+                  "z": 0
+                },
+                "velocidadeMps": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "orientacaoRad": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "velocidadeAngularRadps": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              }
+            },
+            {
+              "id": "bss04-sapata-esquerda",
+              "massaKg": 25,
+              "temperaturaC": 20,
+              "integridade": 1,
+              "estado": {
+                "posicaoM": {
+                  "x": -2.15,
+                  "y": 0.14999999999999947,
+                  "z": 0
+                },
+                "velocidadeMps": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "orientacaoRad": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "velocidadeAngularRadps": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              }
+            },
+            {
+              "id": "bss04-perna-direita",
+              "massaKg": 45,
+              "temperaturaC": 20,
+              "integridade": 1,
+              "estado": {
+                "posicaoM": {
+                  "x": 1.8,
+                  "y": 1.7999999999999998,
+                  "z": 0
+                },
+                "velocidadeMps": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "orientacaoRad": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "velocidadeAngularRadps": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              }
+            },
+            {
+              "id": "bss04-sapata-direita",
+              "massaKg": 25,
+              "temperaturaC": 20,
+              "integridade": 1,
+              "estado": {
+                "posicaoM": {
+                  "x": 2.15,
+                  "y": 0.14999999999999947,
+                  "z": 0
+                },
+                "velocidadeMps": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "orientacaoRad": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "velocidadeAngularRadps": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              }
+            },
+            {
+              "id": "bss06-grid-fin-esquerda",
+              "massaKg": 30,
+              "temperaturaC": 20,
+              "integridade": 1,
+              "estado": {
+                "posicaoM": {
+                  "x": -1.8,
+                  "y": 15.854927840030092,
+                  "z": 0
+                },
+                "velocidadeMps": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "orientacaoRad": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "velocidadeAngularRadps": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              }
+            },
+            {
+              "id": "bss06-grid-fin-direita",
+              "massaKg": 30,
+              "temperaturaC": 20,
+              "integridade": 1,
+              "estado": {
+                "posicaoM": {
+                  "x": 1.8,
+                  "y": 15.854927840030092,
+                  "z": 0
+                },
+                "velocidadeMps": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "orientacaoRad": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "velocidadeAngularRadps": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                }
+              }
+            }
+          ]
+        },
+        "entradas": [
+          {
+            "passo": 0,
+            "acao": "alvo-pouso-x-m",
+            "valor": 34.6
+          },
+          {
+            "passo": 0,
+            "acao": "click:toggle-electric"
+          },
+          {
+            "passo": 0,
+            "acao": "click:toggle-hydraulic"
+          },
+          {
+            "passo": 0,
+            "acao": "click:toggle-fuel"
+          },
+          {
+            "passo": 0,
+            "acao": "click:toggle-control"
+          },
+          {
+            "passo": 0,
+            "acao": "input:throttle-input",
+            "valor": "65"
+          },
+          {
+            "passo": 0,
+            "acao": "click:ignite-engine"
+          },
+          {
+            "passo": 2880,
+            "acao": "change:bss04-mode",
+            "valor": "pouso"
+          }
+        ],
+        "reproducao": "Recriar a configuração inicial na mesma revisão do código; aplicar entradas em ordem antes do passo indicado; avançar exatamente dtS por passosExecutados. Sem aleatoriedade nos cenários BSS atuais.",
+        "trace": {
+          "canais": [
+            {
+              "nome": "THROTTLE",
+              "escala": {
+                "minimo": 0,
+                "maximo": 100,
+                "unidade": "%"
+              }
+            },
+            {
+              "nome": "EMPUXO",
+              "escala": {
+                "minimo": 0,
+                "maximo": 120,
+                "unidade": "kN"
+              }
+            },
+            {
+              "nome": "EFEITO TÉRMICO",
+              "escala": {
+                "minimo": 0,
+                "maximo": 6,
+                "unidade": "MW"
+              }
+            },
+            {
+              "nome": "GIMBAL",
+              "escala": {
+                "minimo": -15,
+                "maximo": 15,
+                "unidade": "°"
+              }
+            },
+            {
+              "nome": "MASSA",
+              "escala": {
+                "minimo": 0,
+                "maximo": 5884.082634091613,
+                "unidade": "kg"
+              }
+            },
+            {
+              "nome": "ALTITUDE",
+              "escala": {
+                "minimo": 0,
+                "maximo": 20000,
+                "unidade": "m"
+              }
+            },
+            {
+              "nome": "VELOCIDADE Y",
+              "escala": {
+                "minimo": -120,
+                "maximo": 450,
+                "unidade": "m/s"
+              }
+            },
+            {
+              "nome": "PRESSÃO DINÂMICA",
+              "escala": {
+                "minimo": 0,
+                "maximo": 100,
+                "unidade": "kPa"
+              }
+            },
+            {
+              "nome": "ISP EFETIVO",
+              "escala": {
+                "minimo": 0,
+                "maximo": 350,
+                "unidade": "s (0 sem vazão)"
+              }
+            },
+            {
+              "nome": "DELTA-V IDEAL",
+              "escala": {
+                "minimo": 0,
+                "maximo": 4000,
+                "unidade": "m/s"
+              }
+            },
+            {
+              "nome": "VELOCIDADE X",
+              "escala": {
+                "minimo": -20,
+                "maximo": 20,
+                "unidade": "m/s"
+              }
+            },
+            {
+              "nome": "ALVO X",
+              "escala": {
+                "minimo": -50,
+                "maximo": 50,
+                "unidade": "m"
+              }
+            },
+            {
+              "nome": "ERRO X",
+              "escala": {
+                "minimo": -50,
+                "maximo": 50,
+                "unidade": "m"
+              }
+            },
+            {
+              "nome": "ATITUDE",
+              "escala": {
+                "minimo": -180,
+                "maximo": 180,
+                "unidade": "°"
+              }
+            },
+            {
+              "nome": "VEL. ANGULAR",
+              "escala": {
+                "minimo": -90,
+                "maximo": 90,
+                "unidade": "°/s"
+              }
+            },
+            {
+              "nome": "GRID FINS",
+              "escala": {
+                "minimo": -25,
+                "maximo": 25,
+                "unidade": "°"
+              }
+            }
+          ],
+          "amostras": [
+            {
+              "tempoS": 0,
+              "sinais": [
+                65,
+                0,
+                0,
+                0,
+                5349.1660309923745,
+                4.8,
+                0,
+                0,
+                0,
+                2824.3946209695027,
+                0,
+                34.6,
+                34.6,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "tempoS": 1.499999999999996,
+              "sinais": [
+                65,
+                77.99999999999999,
+                3.8999999999999995,
+                -0.02491826158900993,
+                5315.078374730057,
+                10.204826579406085,
+                7.1868124368160675,
+                0.031605068663048554,
+                350,
+                2802.452063386672,
+                0.020540983114221072,
+                34.6,
+                34.58702804033178,
+                -0.012415719131278442,
+                0.00575604254536046,
+                0
+              ]
+            },
+            {
+              "tempoS": 3.000000000000044,
+              "sinais": [
+                65,
+                77.99999999999999,
+                3.8999999999999995,
+                -0.031182204554248576,
+                5280.990718467739,
+                26.322903173506162,
+                14.239954535157022,
+                0.12388785597269439,
+                350,
+                2780.3683259950003,
+                0.03900628812264827,
+                34.6,
+                34.54340227884767,
+                -0.014725105189494297,
+                0.0037694866571744558,
+                0
+              ]
+            },
+            {
+              "tempoS": 4.500000000000065,
+              "sinais": [
+                65,
+                77.99999999999999,
+                3.8999999999999995,
+                -0.031102832405729208,
+                5246.903062205421,
+                52.760306869356036,
+                20.909104866436934,
+                0.2664274200516424,
+                350,
+                2758.141580303804,
+                0.05510924325978071,
+                34.6,
+                34.47292001047151,
+                -0.013975500665523399,
+                0.0022692015183447623,
+                0
+              ]
+            },
+            {
+              "tempoS": 5.99999999999998,
+              "sinais": [
+                65,
+                77.99999999999999,
+                3.8999999999999995,
+                -0.028966157018990153,
+                5212.815405943103,
+                88.78661780359332,
+                27.00048576057957,
+                0.4427376654809066,
+                350,
+                2735.769962068184,
+                0.06806496703499576,
+                34.6,
+                34.380241627505065,
+                -0.01234441206366302,
+                0.0016013818195130265,
+                0
+              ]
+            },
+            {
+              "tempoS": 7.499999999999894,
+              "sinais": [
+                65,
+                77.99999999999999,
+                3.8999999999999995,
+                -0.026292090639892962,
+                5178.727749680785,
+                133.43642932295654,
+                32.3959329117033,
+                0.634625821587079,
+                350,
+                2713.2515703507283,
+                0.07750810408357334,
+                34.6,
+                34.270645918751455,
+                -0.010548192066163507,
+                0.0012922329306600683,
+                0
+              ]
+            },
+            {
+              "tempoS": 8.99999999999981,
+              "sinais": [
+                65,
+                77.99999999999999,
+                3.8999999999999995,
+                -0.023695379691492605,
+                5144.640093418467,
+                185.6253221307862,
+                37.053418518555446,
+                0.8260555360367856,
+                350,
+                2690.584466552224,
+                0.08355568898755517,
+                34.6,
+                34.14944538554792,
+                -0.008866005382075548,
+                0.001078476078118974,
+                0
+              ]
+            },
+            {
+              "tempoS": 10.499999999999725,
+              "sinais": [
+                65,
+                77.99999999999999,
+                3.8999999999999995,
+                -0.0214499762996999,
+                5110.552437156149,
+                244.25519413877774,
+                40.99351846218619,
+                1.0053711311408,
+                350,
+                2667.7666734101576,
+                0.08666352965842967,
+                34.6,
+                34.0214464733778,
+                -0.007419674314845028,
+                0.0008788456074152418,
+                0
+              ]
+            },
+            {
+              "tempoS": 11.99999999999964,
+              "sinais": [
+                65,
+                77.99999999999999,
+                3.8999999999999995,
+                -0.01966041433870349,
+                5076.464780893831,
+                308.2934408398713,
+                44.27937867634089,
+                1.16576788258863,
+                350,
+                2644.7961739636967,
+                0.0874528560418639,
+                34.6,
+                33.89060923663428,
+                -0.006251049846003287,
+                0.0006871835315350046,
+                0
+              ]
+            },
+            {
+              "tempoS": 13.499999999999554,
+              "sinais": [
+                0,
+                0,
+                0,
+                0.2928679456927922,
+                5076.464780893831,
+                360.65648847426576,
+                26.16667244081738,
+                0.40505137021422344,
+                0,
+                2644.7961739636967,
+                0.09355015404965585,
+                34.6,
+                33.754562137069186,
+                0.13243657261805805,
+                0.16791084235532622,
+                0
+              ]
+            },
+            {
+              "tempoS": 14.999999999999469,
+              "sinais": [
+                0,
+                0,
+                0,
+                0.9870471095475534,
+                5076.464780893831,
+                387.929872265825,
+                10.500310144318904,
+                0.0650582418001101,
+                0,
+                2644.7961739636967,
+                0.09733362085824426,
+                34.6,
+                33.610916348098314,
+                0.46047931338551107,
+                0.2548574755535622,
+                0
+              ]
+            },
+            {
+              "tempoS": 16.499999999999385,
+              "sinais": [
+                0,
+                0,
+                0,
+                7.064250519302567,
+                5076.464780893831,
+                392.53055423171355,
+                -4.275377332383269,
+                0.010785540915768626,
+                0,
+                2644.7961739636967,
+                0.09749888628444602,
+                34.6,
+                33.464517916948274,
+                0.8566739262191501,
+                0.2658434464554548,
+                0
+              ]
+            },
+            {
+              "tempoS": 17.9999999999993,
+              "sinais": [
+                35.51807880741512,
+                42.62169456889813,
+                2.1310847284449066,
+                -2.662196964879292,
+                5065.4349511511045,
+                379.057184164643,
+                -11.286924406549057,
+                0.07523936193340333,
+                350,
+                2637.33051094745,
+                -0.1326220625336811,
+                34.6,
+                33.98504113002977,
+                -5.205305645827729,
+                -4.15804501567625,
+                -3.395474047764455
+              ]
+            },
+            {
+              "tempoS": 19.499999999999215,
+              "sinais": [
+                39.670302034677995,
+                47.604362441613596,
+                2.3802181220806795,
+                1.3445782755261775,
+                5045.195335164465,
+                361.3765166374488,
+                -11.981640302616768,
+                0.08624554755721653,
+                350.00000000000006,
+                2623.588720106145,
+                1.4969711897148033,
+                34.6,
+                32.25648711053849,
+                -1.7085179557173178,
+                1.8572153003108829,
+                1.6451153037007669
+              ]
+            },
+            {
+              "tempoS": 20.99999999999913,
+              "sinais": [
+                39.95673282989384,
+                47.9480793958726,
+                2.39740396979363,
+                -0.4120522317314688,
+                5024.286597011086,
+                343.34626093142,
+                -12.042890654420011,
+                0.08775571808254633,
+                350,
+                2609.334612381423,
+                1.7503639623592544,
+                34.6,
+                30.095148576936875,
+                -2.1282053116462185,
+                0.5978083167482185,
+                -0.6682280028051123
+              ]
+            },
+            {
+              "tempoS": 22.499999999999044,
+              "sinais": [
+                39.765894464062626,
+                47.719073356875136,
+                2.3859536678437574,
+                0.23269134863018232,
+                5003.3815966514685,
+                325.2819458163019,
+                -12.040274978432931,
+                0.0883547209813072,
+                349.99999999999994,
+                2595.023625981633,
+                1.9690895938450232,
+                34.6,
+                27.17564898997805,
+                -0.7952300300695758,
+                0.19268682793385314,
+                0.20847160101560422
+              ]
+            },
+            {
+              "tempoS": 23.99999999999896,
+              "sinais": [
+                39.59751550723301,
+                47.51701860867959,
+                2.37585093043398,
+                0.05093531566765376,
+                4982.570747849559,
+                307.2232504855309,
+                -12.037859966060944,
+                0.08875839436145874,
+                349.99999999999994,
+                2580.71757892952,
+                2.0867774866388173,
+                34.6,
+                24.144765629623983,
+                -0.4989767877632527,
+                0.44148312816250945,
+                -0.048377503004708
+              ]
+            },
+            {
+              "tempoS": 25.499999999998874,
+              "sinais": [
+                39.423362874529985,
+                47.30803544943598,
+                2.365401772471799,
+                0.07260955873880379,
+                4961.851128999121,
+                289.168934155931,
+                -12.034797761658004,
+                0.0887194228157321,
+                350.00000000000006,
+                2566.4147624641832,
+                2.025510126241649,
+                34.6,
+                21.04608382818172,
+                -0.05538822569704967,
+                0.14019828892023062,
+                0.0017733606510702575
+              ]
+            },
+            {
+              "tempoS": 26.99999999999879,
+              "sinais": [
+                39.25429112239158,
+                47.10514934686988,
+                2.3552574673434945,
+                0.07135126722025707,
+                4941.221039028825,
+                271.11851682539077,
+                -12.032472672444314,
+                0.08861648183038777,
+                349.99999999999994,
+                2552.1142855288977,
+                1.930447357412062,
+                34.6,
+                18.070079686416136,
+                0.19406487806844208,
+                0.16879992082789155,
+                0.00854501476091887
+              ]
+            },
+            {
+              "tempoS": 28.499999999998703,
+              "sinais": [
+                39.08702693630816,
+                46.904432323569786,
+                2.345221616178489,
+                0.050622322760576224,
+                4920.679108925253,
+                253.07137325560643,
+                -12.030422562389264,
+                0.08839049135624438,
+                350,
+                2537.8154724179385,
+                1.7718040342156276,
+                34.6,
+                15.291387752813797,
+                0.36311810597140076,
+                0.08046932505484551,
+                -0.0026247041378040584
+              ]
+            },
+            {
+              "tempoS": 29.999999999998618,
+              "sinais": [
+                38.92066201521316,
+                46.70479441825578,
+                2.335239720912789,
+                0.045545191716232766,
+                4900.224658913379,
+                235.02718147176216,
+                -12.028530631624163,
+                0.08816106243693392,
+                350.00000000000006,
+                2523.5181176230008,
+                1.5950893817999099,
+                34.6,
+                12.763488270688025,
+                0.46937651590486346,
+                0.05202887729071901,
+                0.005367273432319147
+              ]
+            },
+            {
+              "tempoS": 31.499999999998533,
+              "sinais": [
+                38.75470866035872,
+                46.50565039243045,
+                2.3252825196215223,
+                0.03156942780297807,
+                4879.857317102985,
+                216.98574264261944,
+                -12.02673648503994,
+                0.08795011291352615,
+                349.99999999999994,
+                2509.2222275413287,
+                1.4070193869496688,
+                34.6,
+                10.512377086826397,
+                0.5193859335564524,
+                0.02109293772985532,
+                0.0017449741418525636
+              ]
+            },
+            {
+              "tempoS": 32.9999999999993,
+              "sinais": [
+                38.589037721323905,
+                46.30684526558868,
+                2.315342263279434,
+                0.02202449961859988,
+                4859.576932216701,
+                198.9469430678445,
+                -12.025012006949888,
+                0.08778423968504943,
+                349.99999999999994,
+                2494.9279632994426,
+                1.220754376554923,
+                34.6,
+                8.54245634606676,
+                0.5359021407763468,
+                0.00048583805156041706,
+                0.003192429687584305
+              ]
+            },
+            {
+              "tempoS": 34.50000000000049,
+              "sinais": [
+                38.42357353774663,
+                46.10828824529594,
+                2.305414412264797,
+                0.011746856868753321,
+                4839.383375840464,
+                180.9106857628588,
+                -12.023345467409799,
+                0.08767100151930182,
+                349.99999999999994,
+                2480.6355037320604,
+                1.0432474662831543,
+                34.6,
+                6.846312755824883,
+                0.5254282844969184,
+                -0.012953986733434689,
+                0.0025200669468716723
+              ]
+            },
+            {
+              "tempoS": 36.000000000001684,
+              "sinais": [
+                38.25839680378776,
+                45.91007616454531,
+                2.2955038082272656,
+                0.0028113844202227014,
+                4819.276520100071,
+                162.87688230148223,
+                -12.021740715069882,
+                0.08760983723986765,
+                350.00000000000006,
+                2466.345029829175,
+                0.8789717384224329,
+                34.6,
+                5.4068437111683885,
+                0.49859763722156614,
+                -0.02216283625190305,
+                0.0024319165361239444
+              ]
+            },
+            {
+              "tempoS": 37.50000000000288,
+              "sinais": [
+                38.093576542262326,
+                45.712291850714784,
+                2.2856145925357394,
+                -0.005259968452574968,
+                4799.256197746128,
+                144.84543762085545,
+                -12.020201240747676,
+                0.08759559709128717,
+                350,
+                2452.0566962080516,
+                0.730654175312092,
+                34.6,
+                4.202017305536749,
+                0.4612467286546529,
+                -0.02709585136364797,
+                0.0021589900743588892
+              ]
+            },
+            {
+              "tempoS": 39.00000000000407,
+              "sinais": [
+                37.92920031338083,
+                45.51504037605698,
+                2.2757520188028493,
+                -0.01236727826375929,
+                4779.322197799644,
+                126.81624939504316,
+                -12.018732572140742,
+                0.08762073862754782,
+                349.99999999999994,
+                2437.770627409206,
+                0.599292816864766,
+                34.6,
+                3.206978251469529,
+                0.41849496164819516,
+                -0.02948374986509109,
+                0.0018833369023263699
+              ]
+            },
+            {
+              "tempoS": 40.500000000005265,
+              "sinais": [
+                37.76533938476893,
+                45.3184072617227,
+                2.265920363086135,
+                -0.01852131657727133,
+                4759.4742683916875,
+                108.7892087067789,
+                -12.017338147550364,
+                0.08767746521435422,
+                350,
+                2423.4869192950655,
+                0.4849674926770433,
+                34.6,
+                2.3961178960387173,
+                0.3738474366184252,
+                -0.02978827996215014,
+                0.00163178099689353
+              ]
+            },
+            {
+              "tempoS": 42.00000000000646,
+              "sinais": [
+                37.602051312689255,
+                45.122461575227106,
+                2.2561230787613553,
+                -0.023812013561757387,
+                4739.712123330455,
+                90.7642025184368,
+                -12.016019826071087,
+                0.08775854371228199,
+                350.00000000000006,
+                2409.20564319122,
+                0.3869754883219733,
+                34.6,
+                1.7443444254754041,
+                0.3297885952562021,
+                -0.028768463863160388,
+                0.0013782647132086978
+              ]
+            },
+            {
+              "tempoS": 43.50000000000765,
+              "sinais": [
+                43.258843038796506,
+                51.91061164655581,
+                2.5955305823277905,
+                -0.03850181804223763,
+                4718.473496653688,
+                73.22632773531154,
+                -10.901146372338461,
+                0.07233010535357623,
+                350,
+                2393.7908378869042,
+                0.2979205401050158,
+                34.6,
+                1.2323536171271385,
+                0.2634468738667782,
+                -0.05645332025655354,
+                -0.007682700424404333
+              ]
+            },
+            {
+              "tempoS": 45.000000000008846,
+              "sinais": [
+                43.12963988968702,
+                51.755567867624414,
+                2.5877783933812206,
+                -0.031030208006990585,
+                4695.720338515877,
+                58.52503516933521,
+                -8.72879714644298,
+                0.0464393437301598,
+                350,
+                2377.1996259743164,
+                0.2343401925052432,
+                34.6,
+                0.832616865022338,
+                0.23364809618698817,
+                -0.010298220697840345,
+                0.005480525067758761
+              ]
+            },
+            {
+              "tempoS": 46.50000000001004,
+              "sinais": [
+                42.11562220825308,
+                50.53874664990368,
+                2.526937332495184,
+                -0.03895621964401748,
+                4673.365153198047,
+                46.87604353121919,
+                -6.875245910632966,
+                0.028841091679386227,
+                349.99999999999994,
+                2360.820127032198,
+                0.1760260169544348,
+                34.6,
+                0.527416397097241,
+                0.20505377333500407,
+                -0.017783762284926848,
+                0
+              ]
+            },
+            {
+              "tempoS": 48.000000000011234,
+              "sinais": [
+                41.15905994011626,
+                49.390871928139504,
+                2.4695435964069747,
+                -0.03935262289106625,
+                4651.535914728508,
+                37.71565870060655,
+                -5.400800789528701,
+                0.01781149340399924,
+                350,
+                2344.750201609191,
+                0.12988080115176504,
+                34.6,
+                0.29908874026781973,
+                0.18040928017180202,
+                -0.01750821531979386,
+                0
+              ]
+            },
+            {
+              "tempoS": 49.50000000001243,
+              "sinais": [
+                40.33910435492818,
+                48.40692522591382,
+                2.4203462612956907,
+                -0.04104944172837189,
+                4630.172551946918,
+                30.522636719918207,
+                -4.239613300172538,
+                0.010982362751945344,
+                350,
+                2328.9500528937474,
+                0.09329057488598336,
+                34.6,
+                0.13291505665521441,
+                0.1553706859771304,
+                -0.015499264381048395,
+                0
+              ]
+            },
+            {
+              "tempoS": 51.00000000001362,
+              "sinais": [
+                39.645136621158684,
+                47.57416394539042,
+                2.3787081972695208,
+                -0.0420406242659239,
+                4609.205257631587,
+                24.87690212846192,
+                -3.3273128047201697,
+                0.006767361443422435,
+                350,
+                2313.3717864989417,
+                0.06456823722951537,
+                34.6,
+                0.015499975326697779,
+                0.1330548740351839,
+                -0.014092841925810737,
+                0
+              ]
+            },
+            {
+              "tempoS": 52.500000000014815,
+              "sinais": [
+                39.05769907426028,
+                46.86923888911232,
+                2.3434619444556164,
+                -0.04266476659364088,
+                4588.573030450763,
+                20.44609329401098,
+                -2.611362902714937,
+                0.0041696836007333584,
+                350,
+                2297.9731375425554,
+                0.04253600217100942,
+                34.6,
+                -0.06404113703529646,
+                0.11352183514655169,
+                -0.012022782447534765,
+                0
+              ]
+            },
+            {
+              "tempoS": 54.00000000001601,
+              "sinais": [
+                38.55808785845271,
+                46.26970543014325,
+                2.3134852715071625,
+                -0.043156565885028565,
+                4568.225005171582,
+                16.968367925658733,
+                -2.049915359146731,
+                0.0025700386669856787,
+                350,
+                2282.718634511008,
+                0.025897891236103216,
+                34.6,
+                -0.11472208651765214,
+                0.09694906802738627,
+                -0.010058919116237864,
+                0
+              ]
+            },
+            {
+              "tempoS": 55.5000000000172,
+              "sinais": [
+                38.12987035721525,
+                45.7558444286583,
+                2.2877922214329143,
+                -0.04350432162603885,
+                4548.1195533097725,
+                14.23786222536931,
+                -1.6098420454325015,
+                0.001585294557203705,
+                350,
+                2267.5790998506545,
+                0.013615586699117015,
+                34.6,
+                -0.14384813997216384,
+                0.08328498874850353,
+                -0.008200627223334077,
+                0
+              ]
+            },
+            {
+              "tempoS": 57.000000000018396,
+              "sinais": [
+                37.75913013353217,
+                45.310956160238604,
+                2.2655478080119305,
+                -0.043789382840274026,
+                4528.223002394474,
+                12.092951569299371,
+                -1.2650036127301814,
+                0.000979020028109656,
+                350.00000000000006,
+                2252.5308383216775,
+                0.004786603771051378,
+                34.6,
+                -0.15725001411892237,
+                0.07226905283177815,
+                -0.006526024114865239,
+                0
+              ]
+            },
+            {
+              "tempoS": 58.50000000001959,
+              "sinais": [
+                37.43434572108812,
+                44.921214865305735,
+                2.246060743265287,
+                -0.04403492008867196,
+                4508.508338897815,
+                10.406876431704532,
+                -0.9948234016165991,
+                0.0006055707954490028,
+                350,
+                2237.554784155586,
+                -0.0013450948619819236,
+                34.6,
+                -0.15952291166201604,
+                0.06359779930262216,
+                -0.00507710294114381,
+                0
+              ]
+            },
+            {
+              "tempoS": 60.00000000002078,
+              "sinais": [
+                37.146127513440035,
+                44.575353016128034,
+                2.228767650806402,
+                -0.044261209525011086,
+                4488.954017883456,
+                9.080298126056721,
+                -0.7831325235787332,
+                0.0003753346426407898,
+                350,
+                2222.635702136405,
+                -0.005402101617914563,
+                34.6,
+                -0.15422900939881856,
+                0.05693200369084905,
+                -0.003851346331909513,
+                0
+              ]
+            },
+            {
+              "tempoS": 61.50000000002198,
+              "sinais": [
+                36.88691002741771,
+                44.26429203290124,
+                2.213214601645062,
+                -0.044480369588990626,
+                4469.542925307458,
+                8.035410131207144,
+                -0.6172429693211184,
+                0.00023321385534217357,
+                350,
+                2207.7614812612987,
+                -0.0078927993515066,
+                34.6,
+                -0.1440844563117878,
+                0.05194102428549198,
+                -0.0028400387356257674,
+                0
+              ]
+            },
+            {
+              "tempoS": 63.00000000002317,
+              "sinais": [
+                36.650648569214084,
+                43.9807782830569,
+                2.199038914152845,
+                -0.0446985472352474,
+                4450.261502016065,
+                7.211293789748719,
+                -0.4872085085584807,
+                0.0001453418952300874,
+                350,
+                2192.922532039571,
+                -0.00922543184540171,
+                34.6,
+                -0.13112026891291606,
+                0.048318990410371944,
+                -0.0020219206850423375,
+                0
+              ]
+            },
+            {
+              "tempoS": 64.5000000000235,
+              "sinais": [
+                36.432543746141185,
+                43.71905249536941,
+                2.1859526247684706,
+                -0.04491941703969124,
+                4431.099020139554,
+                6.560263809467311,
+                -0.38523822068075286,
+                9.090083979350564e-05,
+                350,
+                2178.1112842783464,
+                -0.009723834514156864,
+                34.6,
+                -0.11682029158853169,
+                0.0457938886249981,
+                -0.001372711835946962,
+                0
+              ]
+            },
+            {
+              "tempoS": 66.00000000002214,
+              "sinais": [
+                36.22880284725093,
+                43.47456341670112,
+                2.173728170835056,
+                -0.04514454818889431,
+                4412.046994449022,
+                6.044997675182028,
+                -0.30523288627945244,
+                5.708864788158674e-05,
+                350.00000000000006,
+                2163.3217754821135,
+                -0.009641115490268819,
+                34.6,
+                -0.1022374900353995,
+                0.04413139603912248,
+                -0.0008672409947755251,
+                0
+              ]
+            },
+            {
+              "tempoS": 67.50000000002078,
+              "sinais": [
+                36.03643932863944,
+                43.24372719436733,
+                2.162186359718367,
+                -0.0453745332398667,
+                4393.098708777676,
+                5.636283845024074,
+                -0.2424195602543622,
+                3.602696311112847e-05,
+                350.00000000000006,
+                2148.5493175187594,
+                -0.009172036760243786,
+                34.6,
+                -0.08809048712663525,
+                0.04313425700938269,
+                -0.00048138500289184966,
+                0
+              ]
+            },
+            {
+              "tempoS": 69.00000000001941,
+              "sinais": [
+                35.853107746430524,
+                43.02372929571663,
+                2.1511864647858316,
+                -0.04560938095485583,
+                4374.24883811121,
+                5.311257141967114,
+                -0.19306417241377433,
+                2.2862403409027553e-05,
+                350.00000000000006,
+                2133.790229024718,
+                -0.008463852360294843,
+                34.6,
+                -0.07484275164755161,
+                0.04263983746388781,
+                -0.0001932310044795695,
+                0
+              ]
+            },
+            {
+              "tempoS": 70.50000000001805,
+              "sinais": [
+                35.676969825845475,
+                42.81236379101457,
+                2.1406181895507284,
+                -0.04584881991120026,
+                4355.493148851863,
+                5.052016985202989,
+                -0.15424587797819206,
+                1.4601005029123666e-05,
+                350,
+                2119.041621981157,
+                -0.007625611478175998,
+                34.6,
+                -0.06276667770254107,
+                0.04251644910698285,
+                1.6526272756015504e-05,
+                0
+              ]
+            },
+            {
+              "tempoS": 72.00000000001668,
+              "sinais": [
+                35.50658692636428,
+                42.60790431163713,
+                2.1303952155818564,
+                -0.0460924694765722,
+                4336.828262172562,
+                4.844546009824567,
+                -0.12368011907135423,
+                9.392694902413607e-06,
+                350,
+                2104.301232327474,
+                -0.006736055549594731,
+                34.6,
+                -0.05199478152295001,
+                0.042659280143523125,
+                0.00016443211305492252,
+                0
+              ]
+            },
+            {
+              "tempoS": 73.50000000001532,
+              "sinais": [
+                0,
+                0,
+                0,
+                -0.018468551219279795,
+                4332.4342192559,
+                4.800005902568972,
+                0.019215716971265923,
+                2.2975976035009194e-07,
+                0,
+                2100.821860082636,
+                -0.0024590864669315677,
+                34.6,
+                -0.05323700388412789,
+                -0.00012078315518960207,
+                0.029353146407073146,
+                0
+              ]
+            },
+            {
+              "tempoS": 75.00000000001396,
+              "sinais": [
+                0,
+                0,
+                0,
+                0.01200587699471136,
+                4332.4342192559,
+                4.800012562404995,
+                0.009197990230069727,
+                1.7765315239521062e-07,
+                0,
+                2100.821860082636,
+                -0.014337943867503207,
+                34.6,
+                -0.05324842108954897,
+                -0.00025706267421322525,
+                0.17114615010336767,
+                0
+              ]
+            },
+            {
+              "tempoS": 76.50000000001259,
+              "sinais": [
+                0,
+                0,
+                0,
+                -0.03730787907926814,
+                4332.4342192559,
+                4.800031331412102,
+                0.025836369988451454,
+                4.176455140570555e-07,
+                0,
+                2100.821860082636,
+                0.0038296892084592965,
+                34.6,
+                -0.05328059648414296,
+                -0.0006411338681900448,
+                -0.04571324921476285,
+                0
+              ]
+            }
+          ],
+          "registroLigado": true,
+          "limiteAmostras": 6000
+        }
+      },
+      "estadoExportado": [
+        {
+          "id": "bss-006",
+          "estado": {
+            "posicaoM": {
+              "x": 34.653280596484144,
+              "y": 4.800031331412102,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.0038296892084592965,
+              "y": 0.025836369988451454,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -1.1189896945963619e-05
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.0007978467105823242
+            }
+          },
+          "kg": 800,
+          "temperaturaC": 20.31077803176284,
+          "integridade": 1
+        },
+        {
+          "id": "painel-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": 35.45339199105034,
+              "y": 14.754950218901218,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.011772188496956338,
+              "y": 0.025198003744197377,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -1.1189896945963619e-05
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.0007978467105823242
+            }
+          },
+          "kg": 35,
+          "temperaturaC": 20,
+          "integridade": 1
+        },
+        {
+          "id": "bateria-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": 34.65338387842515,
+              "y": 14.029959170864474,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.01119375677407859,
+              "y": 0.02583628758529456,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -1.1189896945963619e-05
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.0007978467105823242
+            }
+          },
+          "kg": 50,
+          "temperaturaC": 20,
+          "integridade": 1
+        },
+        {
+          "id": "tanque-decolagem-metano",
+          "estado": {
+            "posicaoM": {
+              "x": 34.65333019550031,
+              "y": 9.23251329114153,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.007366130359744915,
+              "y": 0.02583633041603956,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -1.1189896945963619e-05
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.0007978467105823242
+            }
+          },
+          "kg": 922.9768305310208,
+          "temperaturaC": 20,
+          "integridade": 1
+        },
+        {
+          "id": "tanque-decolagem-oxidante",
+          "estado": {
+            "posicaoM": {
+              "x": 34.65336057566671,
+              "y": 11.947477210986806,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.009532255392543161,
+              "y": 0.025836306177323732,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -1.1189896945963619e-05
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.0007978467105823242
+            }
+          },
+          "kg": 2054.4573887248785,
+          "temperaturaC": 20,
+          "integridade": 1
+        },
+        {
+          "id": "propulsor-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": 34.65323919386528,
+              "y": 1.1000313316422226,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.0008776563794882977,
+              "y": 0.025836403021394724,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 1.5707851368979506
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.0007978467105823242
+            }
+          },
+          "kg": 270,
+          "temperaturaC": 212.52731880148963,
+          "integridade": 1
+        },
+        {
+          "id": "bss04-perna-esquerda",
+          "estado": {
+            "posicaoM": {
+              "x": 32.8532470269057,
+              "y": 1.8000514734150634,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.0014361651469431318,
+              "y": 0.027272520850877377,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -1.1189896945963619e-05
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.0007978467105823242
+            }
+          },
+          "kg": 45,
+          "temperaturaC": 20,
+          "integridade": 1
+        },
+        {
+          "id": "bss04-sapata-esquerda",
+          "estado": {
+            "posicaoM": {
+              "x": 32.50322856359751,
+              "y": 0.15005538998192236,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.00011972119930228186,
+              "y": 0.027551781930470896,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -1.1189896945963619e-05
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.0007978467105823242
+            }
+          },
+          "kg": 25,
+          "temperaturaC": 20.039514299134595,
+          "integridade": 1
+        },
+        {
+          "id": "bss04-perna-direita",
+          "estado": {
+            "posicaoM": {
+              "x": 36.453247026680636,
+              "y": 1.8000111897840032,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.0014361330067805995,
+              "y": 0.024400272692960575,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -1.1189896945963619e-05
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.0007978467105823242
+            }
+          },
+          "kg": 45,
+          "temperaturaC": 20,
+          "integridade": 1
+        },
+        {
+          "id": "bss04-sapata-direita",
+          "estado": {
+            "posicaoM": {
+              "x": 36.803228563328716,
+              "y": 0.15000727342362374,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.00011968280966451889,
+              "y": 0.024121041075181357,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -1.1189896945963619e-05
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.0007978467105823242
+            }
+          },
+          "kg": 25,
+          "temperaturaC": 20.039201436578413,
+          "integridade": 1
+        },
+        {
+          "id": "bss06-grid-fin-esquerda",
+          "estado": {
+            "posicaoM": {
+              "x": 32.85340430010031,
+              "y": 15.8549793125631,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.012649843090879324,
+              "y": 0.027272395370976393,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -1.1189896945963619e-05
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.0007978467105823242
+            }
+          },
+          "kg": 30,
+          "temperaturaC": 30.056805032938858,
+          "integridade": 1
+        },
+        {
+          "id": "bss06-grid-fin-direita",
+          "estado": {
+            "posicaoM": {
+              "x": 36.453404299874514,
+              "y": 15.854939028934872,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.012649810950719055,
+              "y": 0.024400147213060174,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -1.1189896945963619e-05
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.0007978467105823242
+            }
+          },
+          "kg": 30,
+          "temperaturaC": 30.05736515229026,
+          "integridade": 1
+        }
+      ],
+      "clicadoXM": 34.6,
+      "scenario": "BSS-006 — pouso guiado por alvo",
+      "mode": "pouso",
+      "switchState": {
+        "omega": 1.2370617593024949e-05,
+        "authority": [
+          {
+            "idAtuador": "propulsor-decolagem-solar",
+            "recurso": "gimbal",
+            "valor": -0.0003466000438704389,
+            "idControlador": "inclinacao"
+          }
+        ],
+        "t": 11.81249999999965,
+        "x": 0.6929924304389192,
+        "y": 300.02554580226695,
+        "vx": 0.08745835848622746,
+        "vy": 43.90161109577259,
+        "theta": -0.00011138490768135486,
+        "throttle": 0.65,
+        "thrust": 77999.99999999999,
+        "gimbal": -0.0003466000438704389,
+        "mass": 5080.72573792662,
+        "integrity": 1,
+        "broken": 0
+      },
+      "peak": 393.47300097702,
+      "impact": {
+        "before": {
+          "omega": 3.343772496571242e-06,
+          "authority": [
+            {
+              "idAtuador": "propulsor-decolagem-solar",
+              "recurso": "gimbal",
+              "valor": -0.0008054674137142738,
+              "idControlador": "guia-pouso-bss06"
+            },
+            {
+              "idAtuador": "propulsor-decolagem-solar",
+              "recurso": "throttle",
+              "valor": 0.35467533043280336,
+              "idControlador": "bss04-pouso-fuzzy-pid"
+            }
+          ],
+          "t": 72.35000000001637,
+          "x": 34.649674125396636,
+          "y": 4.802356011269779,
+          "vx": -0.006527413800010202,
+          "vy": -0.1175354751235686,
+          "theta": 0.0007456345548900126,
+          "throttle": 0.35467533043280336,
+          "thrust": 42561.0396519364,
+          "gimbal": -0.0008054674137142738,
+          "mass": 4332.4858854642935,
+          "integrity": 1,
+          "broken": 0
+        },
+        "after": {
+          "omega": -0.0034541810145160582,
+          "authority": [
+            {
+              "idAtuador": "propulsor-decolagem-solar",
+              "recurso": "gimbal",
+              "valor": -0.0008054793644351807,
+              "idControlador": "guia-pouso-bss06"
+            },
+            {
+              "idAtuador": "propulsor-decolagem-solar",
+              "recurso": "throttle",
+              "valor": 0.3546706957831789,
+              "idControlador": "bss04-pouso-fuzzy-pid"
+            }
+          ],
+          "t": 72.35416666668303,
+          "x": 34.64964693817207,
+          "y": 4.80208648125338,
+          "vx": 0.016587275953609662,
+          "vy": 0.026996637935164585,
+          "theta": 0.0007456485096893465,
+          "throttle": 0.3546706957831789,
+          "thrust": 42560.483493981454,
+          "gimbal": -0.0008054793644351807,
+          "mass": 4332.4342192559,
+          "integrity": 1,
+          "broken": 0
+        }
+      },
+      "settled": true,
+      "restSeconds": 3.495833333333402,
+      "restToleranceMps": 0.1,
+      "final": {
+        "omega": -0.0007978467105823242,
+        "authority": [
+          {
+            "idAtuador": "propulsor-decolagem-solar",
+            "recurso": "gimbal",
+            "valor": -0.0006511453268691396,
+            "idControlador": "inclinacao"
+          },
+          {
+            "idAtuador": "propulsor-decolagem-solar",
+            "recurso": "throttle",
+            "valor": 0,
+            "idControlador": "bss04-pouso-fuzzy-pid"
+          }
+        ],
+        "t": 76.50000000001259,
+        "x": 34.653280596484144,
+        "y": 4.800031331412102,
+        "vx": 0.0038296892084592965,
+        "vy": 0.025836369988451454,
+        "theta": -1.1189896945963619e-05,
+        "throttle": 0,
+        "thrust": 0,
+        "gimbal": -0.0006511453268691396,
+        "mass": 4332.4342192559,
+        "integrity": 1,
+        "broken": 0
+      },
+      "fuel": [
+        {
+          "id": "tanque-decolagem-metano",
+          "kg": 396.65363765270496
+        },
+        {
+          "id": "tanque-decolagem-oxidante",
+          "kg": 1586.6145506108198
+        }
+      ],
+      "records": [
+        {
+          "omega": -2.1746739853312883e-05,
+          "authority": [
+            {
+              "idAtuador": "propulsor-decolagem-solar",
+              "recurso": "gimbal",
+              "valor": 0,
+              "idControlador": "inclinacao"
+            }
+          ],
+          "t": 0.004166666666666667,
+          "x": -4.313047214030141e-07,
+          "y": 4.800082905342413,
+          "vx": -0.00010351313313197393,
+          "vy": 0.019897282183444748,
+          "theta": -9.061141605547038e-08,
+          "throttle": 0.65,
+          "thrust": 77999.99999999999,
+          "gimbal": 0,
+          "mass": 5349.071343058313,
+          "integrity": 1,
+          "broken": 0
+        },
+        {
+          "omega": 1.614785285350913e-05,
+          "authority": [
+            {
+              "idAtuador": "propulsor-decolagem-solar",
+              "recurso": "gimbal",
+              "valor": -0.000386544475901121,
+              "idControlador": "inclinacao"
+            }
+          ],
+          "t": 10.00416666666642,
+          "x": 0.5357540090408806,
+          "y": 224.22768568449538,
+          "vx": 0.08592237991403309,
+          "vy": 39.76722567037435,
+          "theta": -0.00013731462410769606,
+          "throttle": 0.65,
+          "thrust": 77999.99999999999,
+          "gimbal": -0.000386544475901121,
+          "mass": 5121.820301309526,
+          "integrity": 1,
+          "broken": 0
+        },
+        {
+          "omega": -0.014767893965588341,
+          "authority": [
+            {
+              "idAtuador": "propulsor-decolagem-solar",
+              "recurso": "gimbal",
+              "valor": 0.009757346992117404,
+              "idControlador": "guia-pouso-bss06"
+            },
+            {
+              "idAtuador": "propulsor-decolagem-solar",
+              "recurso": "throttle",
+              "valor": 0.3984176922603963,
+              "idControlador": "bss04-pouso-fuzzy-pid"
+            }
+          ],
+          "t": 20.004166666665853,
+          "x": 3.0399379996129046,
+          "y": 355.3268151070984,
+          "vx": 1.3071182930866239,
+          "vy": -12.013542372180742,
+          "theta": -0.02715778681964967,
+          "throttle": 0.3984176922603963,
+          "thrust": 47810.123071247544,
+          "gimbal": 0.009757346992117404,
+          "mass": 5038.185450418003,
+          "integrity": 1,
+          "broken": 0
+        },
+        {
+          "omega": 0.0009056506521685034,
+          "authority": [
+            {
+              "idAtuador": "propulsor-decolagem-solar",
+              "recurso": "gimbal",
+              "valor": 0.0007943605176414888,
+              "idControlador": "guia-pouso-bss06"
+            },
+            {
+              "idAtuador": "propulsor-decolagem-solar",
+              "recurso": "throttle",
+              "valor": 0.3892020080999202,
+              "idControlador": "bss04-pouso-fuzzy-pid"
+            }
+          ],
+          "t": 30.004166666665284,
+          "x": 21.843155767140253,
+          "y": 234.97706261522424,
+          "vx": 1.5945690787298266,
+          "vy": -12.028525561244496,
+          "theta": 0.008195939178463438,
+          "throttle": 0.3892020080999202,
+          "thrust": 46704.240971990424,
+          "gimbal": 0.0007943605176414888,
+          "mass": 4900.1679623994105,
+          "integrity": 1,
+          "broken": 0
+        },
+        {
+          "omega": -0.0005210264103670674,
+          "authority": [
+            {
+              "idAtuador": "propulsor-decolagem-solar",
+              "recurso": "gimbal",
+              "valor": -0.00028924205555257864,
+              "idControlador": "guia-pouso-bss06"
+            },
+            {
+              "idAtuador": "propulsor-decolagem-solar",
+              "recurso": "throttle",
+              "valor": 0.3781989849289179,
+              "idControlador": "bss04-pouso-fuzzy-pid"
+            }
+          ],
+          "t": 40.00000000000487,
+          "x": 31.95248801544685,
+          "y": 114.79799057794693,
+          "vx": 0.5212167430623298,
+          "vy": -12.01779454425838,
+          "theta": 0.006785206584606143,
+          "throttle": 0.3781989849289179,
+          "thrust": 45383.87819147013,
+          "gimbal": -0.00028924205555257864,
+          "mass": 4766.080698525023,
+          "integrity": 1,
+          "broken": 0
+        },
+        {
+          "omega": -0.00026377479885329014,
+          "authority": [
+            {
+              "idAtuador": "propulsor-decolagem-solar",
+              "recurso": "gimbal",
+              "valor": -0.0007212097188211322,
+              "idControlador": "guia-pouso-bss06"
+            },
+            {
+              "idAtuador": "propulsor-decolagem-solar",
+              "recurso": "throttle",
+              "valor": 0.4009472373290696,
+              "idControlador": "bss04-pouso-fuzzy-pid"
+            }
+          ],
+          "t": 50.000000000012825,
+          "x": 34.51107543785466,
+          "y": 28.486848105140453,
+          "vx": 0.0828954889507819,
+          "vy": -3.9106951201298723,
+          "theta": 0.0025783117808675527,
+          "throttle": 0.4009472373290696,
+          "thrust": 48113.66847948835,
+          "gimbal": -0.0007212097188211322,
+          "mass": 4623.14267098157,
+          "integrity": 1,
+          "broken": 0
+        },
+        {
+          "omega": -6.721867412642735e-05,
+          "authority": [
+            {
+              "idAtuador": "propulsor-decolagem-solar",
+              "recurso": "gimbal",
+              "valor": -0.0007725038371265188,
+              "idControlador": "guia-pouso-bss06"
+            },
+            {
+              "idAtuador": "propulsor-decolagem-solar",
+              "recurso": "throttle",
+              "valor": 0.37146127513440036,
+              "idControlador": "bss04-pouso-fuzzy-pid"
+            }
+          ],
+          "t": 60.00000000002078,
+          "x": 34.75422900939882,
+          "y": 9.080298126056721,
+          "vx": -0.005402101617914563,
+          "vy": -0.7831325235787332,
+          "theta": 0.00099365091416288,
+          "throttle": 0.37146127513440036,
+          "thrust": 44575.353016128036,
+          "gimbal": -0.0007725038371265188,
+          "mass": 4488.954017883456,
+          "integrity": 1,
+          "broken": 0
+        },
+        {
+          "omega": -7.986491000869723e-07,
+          "authority": [
+            {
+              "idAtuador": "propulsor-decolagem-solar",
+              "recurso": "gimbal",
+              "valor": -0.0007988113529064887,
+              "idControlador": "guia-pouso-bss06"
+            },
+            {
+              "idAtuador": "propulsor-decolagem-solar",
+              "recurso": "throttle",
+              "valor": 0.3573497917429046,
+              "idControlador": "bss04-pouso-fuzzy-pid"
+            }
+          ],
+          "t": 70.0000000000185,
+          "x": 34.66665127767525,
+          "y": 5.1320557629497845,
+          "vx": -0.00791406916842228,
+          "vy": -0.16616697123365073,
+          "theta": 0.0007421721237558847,
+          "throttle": 0.3573497917429046,
+          "thrust": 42881.97500914855,
+          "gimbal": -0.0007988113529064887,
+          "mass": 4361.734804594913,
+          "integrity": 1,
+          "broken": 0
+        }
+      ],
+      "errors": [],
+      "status": "Pouso · toque · alvo -0.2 m/s · throttle 0%"
+    },
+    "replayDoJsonExportado": {
+      "passos": 18360,
+      "dtS": 0.004166666666666667,
+      "entradasAplicadas": 8,
+      "entradas": [
+        {
+          "passo": 0,
+          "acao": "alvo-pouso-x-m",
+          "valor": 34.6
+        },
+        {
+          "passo": 0,
+          "acao": "click:toggle-electric"
+        },
+        {
+          "passo": 0,
+          "acao": "click:toggle-hydraulic"
+        },
+        {
+          "passo": 0,
+          "acao": "click:toggle-fuel"
+        },
+        {
+          "passo": 0,
+          "acao": "click:toggle-control"
+        },
+        {
+          "passo": 0,
+          "acao": "input:throttle-input",
+          "valor": "65"
+        },
+        {
+          "passo": 0,
+          "acao": "click:ignite-engine"
+        },
+        {
+          "passo": 2880,
+          "acao": "change:bss04-mode",
+          "valor": "pouso"
+        }
+      ],
+      "erroMaximoNumerico": 2.8194335754960775e-11,
+      "tempoS": 76.50000000001259,
+      "integridadeMinima": 1,
+      "fixadoresRompidos": 0,
+      "final": [
+        {
+          "id": "bss-006",
+          "estado": {
+            "posicaoM": {
+              "x": 34.653280596511834,
+              "y": 4.800031331410703,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.003829689208461077,
+              "y": 0.025836369988459652,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -1.118989696587722e-05
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.0007978467105829431
+            }
+          },
+          "kg": 800,
+          "temperaturaC": 20.31077803176284,
+          "integridade": 1
+        },
+        {
+          "id": "painel-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": 35.45339199107853,
+              "y": 14.754950218900989,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.011772188496965213,
+              "y": 0.025198003744204684,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -1.118989696587722e-05
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.0007978467105829431
+            }
+          },
+          "kg": 35,
+          "temperaturaC": 20,
+          "integridade": 1
+        },
+        {
+          "id": "bateria-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": 34.65338387845313,
+              "y": 14.02995917086361,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.01119375677408651,
+              "y": 0.02583628758530253,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -1.118989696587722e-05
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.0007978467105829431
+            }
+          },
+          "kg": 50,
+          "temperaturaC": 20,
+          "integridade": 1
+        },
+        {
+          "id": "tanque-decolagem-metano",
+          "estado": {
+            "posicaoM": {
+              "x": 34.65333019552823,
+              "y": 9.232513291141132,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.007366130359750236,
+              "y": 0.02583633041604758,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -1.118989696587722e-05
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.0007978467105829431
+            }
+          },
+          "kg": 922.9768305310213,
+          "temperaturaC": 20,
+          "integridade": 1
+        },
+        {
+          "id": "tanque-decolagem-oxidante",
+          "estado": {
+            "posicaoM": {
+              "x": 34.653360575694755,
+              "y": 11.94747721098592,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.009532255392549774,
+              "y": 0.02583630617733165,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -1.118989696587722e-05
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.0007978467105829431
+            }
+          },
+          "kg": 2054.45738872488,
+          "temperaturaC": 20,
+          "integridade": 1
+        },
+        {
+          "id": "propulsor-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": 34.653239193893214,
+              "y": 1.1000313316429615,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.0008776563794894937,
+              "y": 0.02583640302140273,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 1.5707851368979306
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.0007978467105829431
+            }
+          },
+          "kg": 270,
+          "temperaturaC": 212.52731880148963,
+          "integridade": 1
+        },
+        {
+          "id": "bss04-perna-esquerda",
+          "estado": {
+            "posicaoM": {
+              "x": 32.85324702693352,
+              "y": 1.8000514734147153,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.0014361651469438933,
+              "y": 0.027272520850886585,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -1.118989696587722e-05
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.0007978467105829431
+            }
+          },
+          "kg": 45,
+          "temperaturaC": 20,
+          "integridade": 1
+        },
+        {
+          "id": "bss04-sapata-esquerda",
+          "estado": {
+            "posicaoM": {
+              "x": 32.50322856362562,
+              "y": 0.15005538998171097,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.0001197211993021318,
+              "y": 0.027551781930480093,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -1.118989696587722e-05
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.0007978467105829431
+            }
+          },
+          "kg": 25,
+          "temperaturaC": 20.039514299134584,
+          "integridade": 1
+        },
+        {
+          "id": "bss04-perna-direita",
+          "estado": {
+            "posicaoM": {
+              "x": 36.45324702670808,
+              "y": 1.8000111897833815,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.0014361330067811434,
+              "y": 0.02440027269296786,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -1.118989696587722e-05
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.0007978467105829431
+            }
+          },
+          "kg": 45,
+          "temperaturaC": 20,
+          "integridade": 1
+        },
+        {
+          "id": "bss04-sapata-direita",
+          "estado": {
+            "posicaoM": {
+              "x": 36.803228563356264,
+              "y": 0.15000727342363795,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.00011968280966454838,
+              "y": 0.02412104107518834,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -1.118989696587722e-05
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.0007978467105829431
+            }
+          },
+          "kg": 25,
+          "temperaturaC": 20.0392014365784,
+          "integridade": 1
+        },
+        {
+          "id": "bss06-grid-fin-esquerda",
+          "estado": {
+            "posicaoM": {
+              "x": 32.85340430012815,
+              "y": 15.854979312562419,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.012649843090888522,
+              "y": 0.02727239537098559,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -1.118989696587722e-05
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.0007978467105829431
+            }
+          },
+          "kg": 30,
+          "temperaturaC": 30.05680503293885,
+          "integridade": 1
+        },
+        {
+          "id": "bss06-grid-fin-direita",
+          "estado": {
+            "posicaoM": {
+              "x": 36.45340429990268,
+              "y": 15.854939028936219,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.012649810950729867,
+              "y": 0.024400147213066888,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -1.118989696587722e-05
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.0007978467105829431
+            }
+          },
+          "kg": 30,
+          "temperaturaC": 30.05736515229026,
+          "integridade": 1
+        }
+      ]
+    },
+    "cssReal": true,
+    "viewport": [
+      1280,
+      900
+    ]
+  },
+  "limites": [
+    "Retorno de 15 km não reexecutado nem qualificado neste marco; falha registrada na M2/M3 continua em aberto.",
+    "Convecção ambiente com escala linear de densidade, sem Reynolds/Mach; temperatura uniforme de 20 °C por padrão.",
+    "Atmosfera em duas camadas, altitude geométrica aproximada por geopotencial, escopo até 20 km.",
+    "Delta-v ideal não desconta perdas, degradação, indisponibilidade de sistemas ou reserva.",
+    "Diário identifica entradas por ID do controle; reprodução requer mesma revisão e fábrica. Sem importador automático na tela.",
+    "Diagnóstico do motor é leitura dos bloqueios atuais, não histórico latched de causa de falha.",
+    "Ensaio térmico com fluxo prescrito não qualifica trajetória de reentrada."
+  ]
+}

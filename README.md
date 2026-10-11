@@ -1,6 +1,6 @@
 # Black Star Space — Protótipo 2
 
-O foco atual é a simulação dos foguetes BSS-001, BSS-002 e BSS-003:
+O foco atual é a simulação dos foguetes BSS-001 a BSS-006:
 decolagem manual, controle de inclinação e operação de subida e pouso.
 Outros ensaios físicos continuam no código para regressão e evolução futura,
 mas não aparecem na bancada principal.
@@ -15,6 +15,7 @@ a bancada é apenas uma interface de observação e comando; o mesmo
 - gravidade local uniforme, integração temporal com subpassos e unidades SI;
 - colisões, contatos com superfícies, atrito, dissipação, dano e rotação;
 - atmosfera padrão, vento e arrasto relativo ao ar;
+- densidade por altitude (troposfera até 11 km e camada isotérmica até 20 km);
 - rodas, aderência, tração e frenagem condicionadas ao contato real;
 - tanques de propelente e baterias físicas com recursos finitos;
 - cadeia operacional elétrica → hidráulica → combustível → controle, com bateria de 28 V e cabo físico;
@@ -99,7 +100,7 @@ npm install
 npm run dev
 ```
 
-A bancada principal mostra os três cenários de foguetes BSS. Os ensaios de
+A bancada principal mostra os seis cenários de foguetes BSS. Os ensaios de
 outros componentes permanecem no código para regressão e evolução futura.
 
 Os comandos da tela chamam operações públicas do domínio. Por exemplo, a
@@ -111,6 +112,45 @@ padrão). O propulsor só produz empuxo, calor e jato quando sua ignição está
 confirmada e a cadeia entrega os recursos necessários. Perda de bateria, cabo,
 linha, válvula, propelente ou integridade interrompe a operação no passo físico
 correspondente.
+
+O BSS-004 acrescenta duas pernas fixas e modos Decolagem/Pouso com controle
+vertical fuzzy-PID. O BSS-005 amplia os tanques para 600 kg de CH4 e 2.400 kg
+de O2, com motor idealizado de 120 kN e Isp de 350 s: a vazão nominal total é
+34,96 kg/s. O Isp permanece constante com altitude; os 6 MW indicam um efeito
+térmico simplificado, sem representar potência química total.
+
+O BSS-006 acrescenta grid fins alimentadas pela elétrica e autorizadas pelo
+controle. Antes da decolagem, um clique no solo define o alvo horizontal.
+Durante a descida, gimbal e aletas solicitam forças e torque ao mesmo core;
+o computador arbitra uma única autoridade por recurso. Sem motor há apenas
+autoridade aerodinâmica disponível, dependente do fluxo de ar.
+
+Os ensaios M2/M3 demonstram pousos de baixa altitude. **A missão de retorno de
+15 km continua reprovada:** o perfil vertical esgota a reserva antes da
+aproximação. Atingir 15 km na subida não qualifica o pouso. Resultados e
+limitações estão em [M2](docs/validacoes/2026-10-11-bss005-m2.md),
+[M3](docs/validacoes/2026-10-11-bss005-m3.md) e
+[M4](docs/validacoes/2026-10-11-bss005-m4.md).
+
+O trace dos BSS-004/005/006 mostra throttle, empuxo, efeito térmico, gimbal,
+massa, altitude, velocidades, atitude e pressão dinâmica. Motores químicos
+também mostram Isp efetivo (zero no gráfico indica ausência de vazão) e
+delta-v **ideal restante**. A estimativa usa Tsiolkovsky, Isp nominal constante
+e somente a massa que pode reagir em mistura CH4/O2 1:4; ignora perdas,
+integridade e reserva de pouso. Não é uma previsão da altitude ou do retorno.
+Os dados físicos mostram os bloqueios atuais do motor; não são um histórico
+de causas de falha.
+
+**Registrar trace** controla apenas o histórico de sinais. **Exportar ensaio**
+salva JSON com configuração inicial, estados, entradas operacionais em ordem,
+índice do passo de aplicação e `dt = 1/240 s`. O diário de entradas permanece
+completo mesmo com trace desligado; sinais possuem janela de 6.000 amostras.
+Para reproduzir, use a mesma revisão e fábrica do cenário, aplique as entradas
+antes do passo indicado e avance o total de passos exportado. Cliques nos
+botões são identificados pelo ID do controle; o alvo clicado é armazenado em
+metros. O arquivo é um registro para ensaios, sem importador automático na
+tela. Reset e seleção de cenário iniciam um novo diário; Play preserva os
+comandos feitos antes da partida. Os cenários BSS não usam aleatoriedade.
 
 ## Desenvolvimento e validação
 
@@ -129,7 +169,23 @@ de verdade física.
 O núcleo atual resolve dinâmica estrutural no plano XY: usa rotação em torno do
 eixo Z e inércia planar. A evolução para corpo rígido espacial completo exige
 orientação 3D e tensor de inércia. Superfícies de contato ainda são planos; o
-modelo de atmosfera usa densidade constante configurável.
+modelo atmosférico aproxima altitude geométrica por geopotencial e usa duas
+camadas da atmosfera padrão, com densidade de referência configurável
+(1,225 kg/m³ por padrão; zero declara vácuo). Acima de 20 km, o trecho
+isotérmico é extrapolação sem qualificação; vento e gravidade são uniformes.
+
+Arrasto, aletas e aquecimento por arrasto consultam a mesma densidade local.
+A convecção ambiente usa `h_local = h_referencia × rho_local / 1,225` e
+`Q = h_local × area × (T_objeto - T_ambiente) × dt`, limitada à energia de
+equilíbrio térmico. O coeficiente é uma calibração concentrada, sem correlação
+de Reynolds, Mach ou convecção forçada; a temperatura ambiente é um reservatório
+uniforme configurável em °C (20 °C por padrão), independente da temperatura
+usada no perfil hidrostático de densidade. O fluxo relativo entra no
+aquecimento aerodinâmico pela parcela declarada de `-arrasto · velocidade_relativa`.
+Vácuo elimina essas trocas com o ar ambiente; calor interno e jatos de gases
+do próprio motor continuam possíveis. Radiação, distribuição espacial de calor,
+química de alta temperatura e balanço energético integral dos jatos permanecem
+fora deste modelo. A M4 não qualifica um modelo de reentrada.
 
 Esses limites são deliberados para o marco atual e não mudam a separação entre
 domínio, core físico e interface.
