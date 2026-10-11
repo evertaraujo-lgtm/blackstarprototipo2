@@ -198,7 +198,7 @@ O cenário visual oferece seleção manual entre decolagem e pouso, mas isso nã
 
 **Resultados publicados para troca de modo a 300 m; apogeu ~358,4 m:**
 
-| Alvo X (m) | X no toque (m) | Erro absoluto (m) | |v vertical| no toque (m/s) | |v horizontal| no toque (m/s) |
+| Alvo X (m) | X no toque (m) | Erro absoluto (m) | Módulo V vertical no toque (m/s) | Módulo V horizontal no toque (m/s) |
 |---:|---:|---:|---:|---:|
 | 0 | 0,529 | 0,529 | 0,131 | 0,001 |
 | +34,7 | +35,122 | 0,422 | 0,131 | 0,027 |
