@@ -3,12 +3,12 @@
 **Data da revisão:** 2026-10-10  
 **Repositório:** `evertaraujo-lgtm/blackstarprototipo2`  
 **Commit-base analisado:** `72b6666700ee5410fb254f2d32647dfe59ef345b` (`Improve BSS05 flight and descent physics`)  
-**Status atual (11/10/2026):** os marcos M0–M4 e M6 foram entregues e aprovados no escopo ensaiado; **a missão de 15 km com retorno permanece NÃO QUALIFICADA**. As seções 2–7 são registros históricos de diagnóstico e backlog, e os estados mais recentes prevalecem conforme a seção 8.
+**Status atual (11/10/2026):** os marcos M0–M4, M6 e M7 foram entregues e aprovados no escopo ensaiado; **a missão de 15 km com retorno permanece NÃO QUALIFICADA**. As seções 2–7 são registros históricos de diagnóstico e backlog, e os estados mais recentes prevalecem conforme a seção 8.
 **Prioridade geral:** consistência física antes de adicionar recursos visuais ou aumentar o alcance da missão.
 
 **Atualização de 10/10/2026:** a seção 7 revisa o commit `c699ea8b082ee2f7ce1f8778d3cb7d38c91443ff` e prevalece sobre diagnósticos antigos **apenas quando indicar expressamente uma correção já realizada**. As seções 2–6 preservam o histórico e o backlog original do BSS-005.
 
-**Atualização de 11/10/2026:** a seção 8 consolida a auditoria após M0–M4 e os marcos M5–M7; as seções 8.5–8.7 registram M6, a auditoria remota e M7. Essas seções substituem a leitura dos itens antigos ainda marcados como pendentes quando a correção já foi comprovada. Não reescreva o histórico como se o código antigo ainda estivesse vigente.
+**Atualização de 11/10/2026:** a seção 8 consolida a auditoria após M0–M4 e os marcos M5–M7; as seções 8.5–8.8 registram M6, a auditoria remota, a entrega M7 e o parecer final independente. Essas seções substituem a leitura dos itens antigos ainda marcados como pendentes quando a correção já foi comprovada. Não reescreva o histórico como se o código antigo ainda estivesse vigente.
 
 ## 1. Instruções para o Codex
 
@@ -337,7 +337,7 @@ Os três terminaram com empuxo zero, integridade informada de 100%, sem fixadore
 - [x] **P1-B (parte coberta) — Guiagem lateral:** corrigidos sinais, cálculo com cargas aerodinâmicas existentes e robustez nos casos M3. Permanecem limitações de ângulo de ataque, Mach, vento por altitude e sensores.
 - [x] **P2 — Referências atmosféricas e convecção por densidade:** verificadas na M4 dentro de 0–20 km, com tratamento de vácuo. Temperatura ambiente uniforme, convecção parametrizada, sem correlação completa de Reynolds/Mach, radiação ou balanço energético completo.
 - [x] **P2 — Telemetria, registro de entradas e replay:** ampliados na M4; reprodução integral demonstrada em uma missão BSS-006, não em todos os cenários ou falhas possíveis.
-- [ ] **P0-C / R2 — Intertravamento físico de toque seguro (M7):** implementação, explicação reproduzível dos 300 m e CI verde apresentados ao auditor; falta a decisão formal de aceite. A referência histórica de 34 mm por 600 s permanece como pendência separada.
+- [x] **P0-C / R2 — Instrumentação de contato e classificação de toque/pouso (M7): APROVADA no escopo validado.** CI verde e diagnóstico de 300 m reproduzível, sem declarar pouso seguro. A penetração histórica de 34 mm por 600 s continua aberta e não foi validada como resolvida; ver seção 8.8.
 - [ ] **P1-C / R3 — Sensores, rajadas, falhas por fase e contingências:** permanecem sem qualificação abrangente.
 
 ### 8.3 Problemas abertos e próximos marcos sugeridos
@@ -393,7 +393,7 @@ Preservar as evidências M0–M7 e verificar tanto o comportamento nominal quant
 
 **Próximo trabalho:** obter um diário BSS-005 real, versioná-lo preservando a revisão necessária à reprodução e executar M5-B/M5-C. A M7 foi implementada no commit seguinte, com a reprodução dos 34 mm ainda pendente; depois de M5, prosseguir com M8 (sensores/contingências) em commit independente. Não ajustar limites para fabricar um pouso bem-sucedido.
 
-### 8.7 M7 — contato e classificação do pouso (evidências entregues para reavaliação)
+### 8.7 M7 — contato e classificação do pouso (evidências inspecionadas; aceite na seção 8.8)
 
 - **[Implementado]** O resolvedor publica os contatos do último subpasso, separando observação de proximidade (2 mm) da resolução de forças, que continua exigindo contato geométrico real. O mundo oferece consultas por superfície e por objeto.
 - **[Implementado]** BSS-006 usa apoio físico bilateral para cortar o motor. BSS-005 registra primeiro contato, toque seguro, repouso contínuo e falha de pouso em eventos distintos.
@@ -405,3 +405,23 @@ Preservar as evidências M0–M7 e verificar tanto o comportamento nominal quant
 - **[CI verde]** O CI `38164445519` passou: 53 arquivos e 366 testes, mais checagem TypeScript e build de produção.
 - **[Gate de auditoria]** Os dois requisitos expressos pelo auditor — CI verde e explicação demonstrável do ensaio de 300 m — foram atendidos e documentados. A M7 aguarda a decisão formal de aceite; não iniciar M8 como prioridade antes dela. A referência histórica de 34 mm por 600 s continua aberta, separada desses requisitos de aceite.
 - **[Limitação independente do gate]** A telemetria atual não substitui replay do caso de 600 s. A causa e o objeto exato da penetração histórica de 34 mm continuam sem confirmação; manter essa investigação aberta sem tratá-la como bloqueio dos dois critérios de aceite definidos pelo auditor.
+
+### 8.8 Parecer final da auditoria M7 — **APROVADA no escopo instrumentado**
+
+**Data:** 11/10/2026 (horário de Brasília). **HEAD auditado:** [`2935df0`](https://github.com/evertaraujo-lgtm/blackstarprototipo2/commit/2935df05b9530665b4b3ce1803fee948f02b63e6). O marco M7 foi entregue originalmente em `dc2d696` e corrigido/analisado em `ecd6648`, `194d373`, `5f5b114` e `2935df0`.
+
+**Critérios de aceite estabelecidos na auditoria anterior, agora atendidos:**
+- [x] **CI completo verde.** [GitHub Actions `38164727925`](https://github.com/evertaraujo-lgtm/blackstarprototipo2/actions/runs/38164727925): `Testes determinísticos`, `Checagem TypeScript` e `Build de produção` concluíram com sucesso. O registro anterior [`38164445519`](https://github.com/evertaraujo-lgtm/blackstarprototipo2/actions/runs/38164445519) informa **53 arquivos e 366 testes aprovados**. Os testes não foram executados localmente pelo auditor.
+- [x] **Rejeição dos 300 m demonstrada em teste determinístico.** Primeiro contato em `69,7833 s`; registro transitório de toque bilateral seguro em `69,9000 s` com `0,00578 rad/s`; em `69,9208 s` a taxa angular sobe para `0,01179 rad/s` (limite `0,01 rad/s`). Maior repouso contínuo: `0,02083 s`, quando são exigidos `3 s`. A reprovação do perfil de 300 m permanece **correta segundo os critérios atuais**; não houve alteração arbitrária dos limites para tornar o pouso positivo.
+- [x] **Primeiro impacto preservado sem sobrescrita.** O resolvedor registra ocorrências múltiplas por objeto/superfície no subpasso, distinguindo o primeiro impacto de carga/destroço do toque posterior de casco, perna ou sapata. O cenário de 15 km permanece falha; impacto de painel desprendido documentado a `-84,698 m/s` em `328,908 s`. O teste da falha sem reserva foi alterado para verificar a velocidade normal **do ponto de contato correto**, não a velocidade do casco em outro instante.
+
+**Escopo de aprovação:** instrumentação do resolvedor de contato; distinção entre proximidade, impactos e apoios observados; intertravamento por detecção bilateral na bancada BSS-006; registro de primeiro contato, toque, instabilidade e repouso na missão BSS-005, sob as condições testadas. **Não** representa qualificação de todo pouso, da missão de 15 km, de dinâmica 3D, ou da futura captura na torre.
+
+**Pendências que NÃO bloqueiam o aceite desse escopo, mas continuam obrigatórias:**
+- [ ] **P0-C histórico:** reproduzir/explicar a penetração de aproximadamente **34 mm** em ensaio destrutivo de **600 s** e identificar o objeto. A telemetria de M7 ainda não demonstrou seu fechamento.
+- [ ] **Semântica de apoio:** atualmente `emApoio` pode resultar de proximidade de até `2 mm` e velocidade normal posterior pequena, mesmo sem impulso de sustentação neste subpasso; distinguir na instrumentação futura **proximidade/contato/força normal positiva/apoio sustentado** antes de usar o mesmo sinal como critério de captura do BSS-007.
+- [ ] **Intertravamento:** em BSS-006 a confirmação bilateral é memorizada (`contatoDePousoConfirmado ||= apoioBilateral`) para não reacelerar após toque. Isso é uma escolha válida de corte terminal, **não** uma prova de que o veículo permaneceu apoiado; testar perda posterior de apoio e estados de falha na M8/torre.
+- [ ] **Missão M5-B/M5-C:** obter/reproduzir o diário manual de 15 km com acionamento do controle de pouso na descida, próximo de 1 km, e qualificar orçamento e retorno. O teste M2 de troca na subida não valida essa operação.
+
+**Decisão operacional:** M7 liberada **no escopo acima**; iniciar planejamento e implementação incremental da M8, conservando em backlog explícito a investigação dos 34 mm e a semântica de apoio necessária para a futura torre. Nenhum limite físico ou critério de teste foi afrouxado por este parecer.
+
