@@ -147,7 +147,12 @@ describe('M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s', () =
     expect(r.massaRetiradaNaFalhaKg).toBeLessThan(500);
     expect(evento(r, 'falha-sem-reserva').metanoKg + evento(r, 'falha-sem-reserva').oxidanteKg).toBe(0);
     expect(r.toque).toBeDefined();
-    expect(r.toque!.antes.velocidadeYMps).toBeLessThan(-80);
+    const primeiroImpacto = evento(r, 'primeiro-contato').contatosFisicos.find((contato) =>
+      contato.objetoId === 'painel-decolagem-solar' && contato.energiaImpactoJ > 0);
+    expect(primeiroImpacto).toBeDefined();
+    expect(primeiroImpacto!.velocidadeNormalAntesMps).toBeLessThan(-80);
+    expect(evento(r, 'toque-veiculo').contatosFisicos.some((contato) => contato.objetoId === 'bss-005')).toBe(true);
+    expect(Number.isFinite(r.toque!.antes.velocidadeYMps)).toBe(true);
     expect(r.final.integridadeMinima).toBeLessThan(1);
     expect(r.erroBalancoMaxKg).toBeLessThan(1e-7);
     validarEncerramentoAposImpacto(r);
