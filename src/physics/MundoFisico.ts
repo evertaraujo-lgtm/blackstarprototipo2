@@ -1,4 +1,4 @@
-import { Objeto } from './objetos/base/Objeto';
+import { Objeto, type CondicoesAtmosfericas } from './objetos/base/Objeto';
 import { FixadorEstrutural } from './conexoes/FixadorEstrutural';
 import { ChumbadorAoSolo } from './conexoes/ChumbadorAoSolo';
 import { SuperficiePlano } from './SuperficiePlano';
@@ -171,6 +171,15 @@ export class MundoFisico {
   public obterForcaArrastoAtmosferico(objeto: Objeto): Vetor3 {
     this.exigirRegistro(objeto);
     return this.atmosfera.calcularArrasto(objeto, objeto.getEstadoFisico().velocidadeMps);
+  }
+
+  /** Leitura do mesmo ambiente usado na integração; não modifica a física. */
+  public obterCondicoesAtmosfericas(objeto: Objeto): CondicoesAtmosfericas {
+    this.exigirRegistro(objeto);
+    return {
+      densidadeArKgM3: this.atmosfera.obterDensidadeArKgM3(objeto.getEstadoFisico().posicaoM.y),
+      velocidadeArMps: this.velocidadeArMps,
+    };
   }
 
   public avancar(deltaS: number): void {
