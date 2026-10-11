@@ -84,10 +84,16 @@ describe('M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s', () =
     expect(r.erroBalancoMaxKg).toBeLessThan(1e-7);
     expect(r.motivos).toContain('instabilidade-apos-toque');
     expect(r.motivos).toContain('sem-repouso-continuo');
+    expect(r.causasFalhaPouso).toContain('velocidade-angular');
+    expect(r.maiorRepousoContinuoS).toBeLessThan(CRITERIOS_POUSO_BSS005.duracaoRepousoS);
+    expect(evento(r, 'pouso-falhou').velocidadeAngularRadps)
+      .toBeGreaterThanOrEqual(CRITERIOS_POUSO_BSS005.velocidadeAngularMaxRadps);
     const semHistorico = await executarCooperativamente({ altitudeTrocaParaPousoM: 300, throttleDecolagem: 0.65, registrarAmostras: false });
     expect(semHistorico.amostras).toEqual([]);
     expect(semHistorico.final).toEqual(r.final);
     expect(semHistorico.toque).toEqual(r.toque);
+    expect(semHistorico.causasFalhaPouso).toEqual(r.causasFalhaPouso);
+    expect(semHistorico.maiorRepousoContinuoS).toBe(r.maiorRepousoContinuoS);
     exportarEvidencia('observabilidade', { historicoNaoAlteraResultado: true });
   }, 360000);
 

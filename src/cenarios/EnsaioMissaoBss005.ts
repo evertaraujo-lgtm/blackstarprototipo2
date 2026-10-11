@@ -84,6 +84,16 @@ export function atendeLimitesDeToqueBss005(leitura: Pick<LeituraMissaoBss005,
     && Math.abs(leitura.velocidadeAngularRadps) < CRITERIOS_POUSO_BSS005.velocidadeAngularMaxRadps;
 }
 
+function causasLimitesDeToqueBss005(leitura: Pick<LeituraMissaoBss005,
+  'velocidadeXMps' | 'velocidadeYMps' | 'orientacaoRad' | 'velocidadeAngularRadps'>): string[] {
+  const causas: string[] = [];
+  if (Math.abs(leitura.velocidadeYMps) >= CRITERIOS_POUSO_BSS005.velocidadeVerticalToqueMaxMps) causas.push('velocidade-vertical');
+  if (Math.abs(leitura.velocidadeXMps) >= CRITERIOS_POUSO_BSS005.velocidadeHorizontalToqueMaxMps) causas.push('velocidade-horizontal');
+  if (Math.abs(leitura.orientacaoRad) >= CRITERIOS_POUSO_BSS005.inclinacaoMaxRad) causas.push('inclinacao');
+  if (Math.abs(leitura.velocidadeAngularRadps) >= CRITERIOS_POUSO_BSS005.velocidadeAngularMaxRadps) causas.push('velocidade-angular');
+  return causas;
+}
+
 export const menorAlturaDoObjetoM = (objeto: Objeto): number => {
   const e = objeto.getEstadoFisico();
   return Math.min(...objeto.getPontosDeContatoLocaisM().map((ponto) => e.posicaoM.y
@@ -202,10 +212,18 @@ export function* avancarEnsaioMissaoBss005(configuracao: ConfiguracaoEnsaioBss00
   let esgotou = false, danificou = false, perdeuControle = false;
   let toque: { antes: LeituraMissaoBss005; depois: LeituraMissaoBss005 } | undefined;
   let pousoSeguro = false, falhouPouso = false, contatoUnilateralS = 0, tempoAposPrimeiroContatoS = 0;
-  let apogeu = inicial, repousoContinuoS = 0, consumoMotorKg = 0, maxPressaoDinamicaPa = 0;
+  let apogeu = inicial, repousoContinuoS = 0, maiorRepousoContinuoS = 0, consumoMotorKg = 0, maxPressaoDinamicaPa = 0;
   let maiorPenetracaoContatoM = 0, objetoComMaiorPenetracaoId: string | undefined;
   let erroBalancoMaxKg = 0, proximaAmostraS = config.intervaloAmostraS;
+  const causasFalhaPouso: string[] = [];
   let ultimoEstado = ler();
+  const registrarFalhaPouso = (causas: readonly string[]) => {
+    if (falhouPouso) return;
+    falhouPouso = true;
+    causasFalhaPouso.push(...causas);
+    fase = 'falha-pouso';
+    evento('pouso-falhou');
+  };
   const numeroPassos = Math.ceil(config.limiteEnsaioS / config.dtS);
   for (let passo = 0; passo < numeroPassos; passo++) {
     let antes = ultimoEstado;
@@ -255,10 +273,10 @@ export function* avancarEnsaioMissaoBss005(configuracao: ConfiguracaoEnsaioBss00
       && contato.penetracaoM >= 0 && (contato.emApoio || contato.velocidadeNormalAntesMps < 0));
     if (desceu && !toque && houveContatoDePouso) {
       fase = 'contato'; toque = { antes, depois: ler() }; evento('toque-veiculo');
-      const velocidadesSeguras = atendeLimitesDeToqueBss005(antes);
-      if (!velocidadesSeguras || depois.integridadeMinima < 1 || depois.fixadoresRompidos.length > 0) {
-        falhouPouso = true; fase = 'falha-pouso'; evento('pouso-falhou');
-      }
+      const causas = causasLimitesDeToqueBss005(antes);
+      if (depois.integridadeMinima < 1) causas.push('dano-estrutural');
+      if (depois.fixadoresRompidos.length > 0) causas.push('vinculo-rompido');
+      if (causas.length > 0) registrarFalhaPouso(causas);
     }
     if (toque && !pousoSeguro && !falhouPouso) {
       tempoAposPrimeiroContatoS += config.dtS;
@@ -266,9 +284,15 @@ export function* avancarEnsaioMissaoBss005(configuracao: ConfiguracaoEnsaioBss00
       contatoUnilateralS = apoiadas ? 0 : contatoUnilateralS + config.dtS;
       const atitudeEstavel = Math.abs(depois.orientacaoRad) < CRITERIOS_POUSO_BSS005.inclinacaoMaxRad
         && depois.velocidadeAngularMaximaComponentesRadps < CRITERIOS_POUSO_BSS005.velocidadeAngularMaxRadps;
-      if (depois.integridadeMinima < 1 || depois.fixadoresRompidos.length > 0
-        || tempoAposPrimeiroContatoS > CRITERIOS_POUSO_BSS005.limiteContatoUnilateralS && (!apoiadas || !atitudeEstavel)) {
-        falhouPouso = true; fase = 'falha-pouso'; evento('pouso-falhou');
+      const causas: string[] = [];
+      if (depois.integridadeMinima < 1) causas.push('dano-estrutural');
+      if (depois.fixadoresRompidos.length > 0) causas.push('vinculo-rompido');
+      if (tempoAposPrimeiroContatoS > CRITERIOS_POUSO_BSS005.limiteContatoUnilateralS && !apoiadas) causas.push('apoio-unilateral');
+      if (tempoAposPrimeiroContatoS > CRITERIOS_POUSO_BSS005.limiteContatoUnilateralS && !atitudeEstavel) {
+        causas.push(...causasLimitesDeToqueBss005(depois));
+      }
+      if (causas.length > 0) {
+        registrarFalhaPouso(causas);
       } else if (apoiadas && atitudeEstavel) {
         pousoSeguro = true; evento('toque-seguro');
       }
@@ -276,10 +300,12 @@ export function* avancarEnsaioMissaoBss005(configuracao: ConfiguracaoEnsaioBss00
     if (toque && pousoSeguro && !falhouPouso) {
       const apoiadas = depois.sapatasApoiadas.length === 2;
       contatoUnilateralS = apoiadas ? 0 : contatoUnilateralS + config.dtS;
-      if (!atendeLimitesDeToqueBss005(depois) || depois.integridadeMinima < 1
-        || depois.fixadoresRompidos.length > 0
-        || contatoUnilateralS > CRITERIOS_POUSO_BSS005.limiteContatoUnilateralS) {
-        falhouPouso = true; fase = 'falha-pouso'; evento('pouso-falhou');
+      const causas = causasLimitesDeToqueBss005(depois);
+      if (depois.integridadeMinima < 1) causas.push('dano-estrutural');
+      if (depois.fixadoresRompidos.length > 0) causas.push('vinculo-rompido');
+      if (contatoUnilateralS > CRITERIOS_POUSO_BSS005.limiteContatoUnilateralS) causas.push('apoio-unilateral');
+      if (causas.length > 0) {
+        registrarFalhaPouso(causas);
       }
     }
     if (!danificou && depois.integridadeMinima < 1) { danificou = true; evento('dano-estrutural'); }
@@ -290,6 +316,7 @@ export function* avancarEnsaioMissaoBss005(configuracao: ConfiguracaoEnsaioBss00
       && depois.velocidadeAngularMaximaComponentesRadps <= CRITERIOS_POUSO_BSS005.velocidadeAngularMaxRadps
       && (!toque || depois.sapatasApoiadas.length === 2);
     repousoContinuoS = repousou ? repousoContinuoS + config.dtS : 0;
+    maiorRepousoContinuoS = Math.max(maiorRepousoContinuoS, repousoContinuoS);
     ultimoEstado = depois;
     if (config.registrarAmostras && depois.tempoS >= proximaAmostraS) { amostras.push(depois); proximaAmostraS += config.intervaloAmostraS; }
     if (repousoContinuoS >= CRITERIOS_POUSO_BSS005.duracaoRepousoS) { fase = 'repouso'; evento('repouso-estavel'); ultimoEstado = ler(); break; }
@@ -319,7 +346,8 @@ export function* avancarEnsaioMissaoBss005(configuracao: ConfiguracaoEnsaioBss00
     || (repousoContinuoS >= CRITERIOS_POUSO_BSS005.duracaoRepousoS && motivos.length > 0);
   return {
     configuracao: config, criterios: CRITERIOS_POUSO_BSS005, inicial, final: ultimoEstado,
-    decolou, modoPousoSelecionado, apogeu, toque, pousoSeguro, repousoContinuoS,
+    decolou, modoPousoSelecionado, apogeu, toque, pousoSeguro, repousoContinuoS, maiorRepousoContinuoS,
+    causasFalhaPouso,
     consumoMotorKg, massaRetiradaNaFalhaKg, erroBalancoMaxKg, maxPressaoDinamicaPa,
     maiorPenetracaoContatoM, objetoComMaiorPenetracaoId,
     resultado: motivos.length === 0 ? 'pouso-seguro' as const : falhaConfirmada ? 'falha' as const : 'inconclusivo' as const,
