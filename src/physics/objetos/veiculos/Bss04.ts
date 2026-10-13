@@ -1,8 +1,9 @@
+import type { EstadoFisico } from '../base/Objeto';
 import { Vetor3 } from '../../Vetor3';
 import { Objeto } from '../base/Objeto';
 
 /** Cria duas pernas fixas e suas sapatas como corpos físicos do BSS-04. */
-export function criarPernasFixasBss04(centroCascoM: Vetor3, prefixoId = 'bss04'): readonly Objeto[] {
+export function criarPernasFixasBss04(centroCascoM: Vetor3, prefixoId = 'bss04', transformarEstado: (p: Vetor3) => Partial<EstadoFisico> = (p) => ({ posicaoM: p })): readonly Objeto[] {
   return [-1, 1].flatMap((lado) => {
     const nomeLado = lado < 0 ? 'esquerda' : 'direita';
     const xPernaM = centroCascoM.x + lado * 1.8;
@@ -16,9 +17,7 @@ export function criarPernasFixasBss04(centroCascoM: Vetor3, prefixoId = 'bss04')
         resistenciaColisaoJ: 500_000,
         limiteTermicoC: 1_000,
         coeficienteAtrito: 0.9,
-        estadoInicial: {
-          posicaoM: new Vetor3(xPernaM, alturaCascoM - 3, centroCascoM.z),
-        },
+        estadoInicial: transformarEstado(new Vetor3(xPernaM, alturaCascoM - 3, centroCascoM.z)),
       }),
       new Objeto({
         id: `${prefixoId}-sapata-${nomeLado}`,
@@ -27,9 +26,7 @@ export function criarPernasFixasBss04(centroCascoM: Vetor3, prefixoId = 'bss04')
         resistenciaColisaoJ: 500_000,
         limiteTermicoC: 1_000,
         coeficienteAtrito: 0.95,
-        estadoInicial: {
-          posicaoM: new Vetor3(xSapataM, alturaCascoM - 4.65, centroCascoM.z),
-        },
+        estadoInicial: transformarEstado(new Vetor3(xSapataM, alturaCascoM - 4.65, centroCascoM.z)),
       }),
     ];
   });

@@ -161,6 +161,7 @@ export class MundoFisico {
   }
 
   public registrarSensoresVeiculo(sensores: SensoresVeiculoComposto): void {
+    sensores.configurarAmbienteInicial(this.ambiente);
     this.sistemaSensores.registrarSensoresVeiculo(sensores);
   }
 
@@ -213,6 +214,13 @@ export class MundoFisico {
       densidadeArKgM3: this.atmosfera.obterDensidadeNaPosicaoKgM3(objeto.getEstadoFisico().posicaoM),
       velocidadeArMps: this.velocidadeArAtualMps,
     };
+  }
+
+  public obterMenorDistanciaSuperficieM(objeto: Objeto, superficie: SuperficieFisica): number {
+    this.exigirRegistro(objeto);
+    const pontos = superficie.candidatosContato(this.obterPontosOrientados(objeto, objeto.getPontosDeContatoLocaisM()))
+      .filter((p) => superficie.contemProjecao(p));
+    return pontos.length ? Math.min(...pontos.map((p) => superficie.distanciaAssinadaM(p))) : Infinity;
   }
 
   /** Contatos e apoios efetivamente resolvidos pelo core no último subpasso. */

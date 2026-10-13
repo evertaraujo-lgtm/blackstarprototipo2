@@ -1,3 +1,6 @@
+import { CampoCentral } from '../physics/ambiente/CampoGravitacional';
+import { obterTelemetriaOrbital } from '../physics/ambiente/TelemetriaOrbital';
+import { ReferencialEsferico } from '../physics/ambiente/ReferencialFisico';
 import { MundoFisico } from '../physics/MundoFisico';
 import { VeiculoComposto } from '../physics/objetos/veiculos/VeiculoComposto';
 import { TanquePropelente } from '../physics/objetos/fontes-de-energia/TanquePropelente';
@@ -23,7 +26,18 @@ export const obterTelemetriaMissaoBss = (
     ? isp * GRAVIDADE_PADRAO_MPS2 * Math.log(massaKg / massaFinalIdealKg) : undefined;
   const ambiente = mundo.obterCondicoesAtmosfericas(veiculo);
   const vRel = veiculo.getEstadoFisico().velocidadeMps.subtrair(ambiente.velocidadeArMps);
+  const estado = veiculo.getEstadoFisico();
+  const ref = mundo.ambiente.referencial;
+  const velocidadeLocal = ref.vetorParaLocal(estado.velocidadeMps, estado.posicaoM);
   return {
+    modeloFisico: mundo.obterConfiguracaoFisica(),
+    altitudeGeometricaM: ref.altitudeGeometricaM(estado.posicaoM),
+    velocidadeRadialMps: velocidadeLocal.y, velocidadeTangencialMps: velocidadeLocal.x,
+    atitudeLocalRad: ref.atitudeLocalRad(estado.orientacaoRad.z, estado.posicaoM),
+    atitudeInercialRad: estado.orientacaoRad.z,
+    gravidadeLocalMps2: mundo.obterGravidadeMps2(estado.posicaoM).magnitude,
+    orbital: mundo.ambiente.campo instanceof CampoCentral && ref instanceof ReferencialEsferico
+      ? obterTelemetriaOrbital(estado.posicaoM, estado.velocidadeMps, mundo.ambiente.campo, ref.raioM) : undefined,
     massaKg, combustivelKg, reagivelKg, deltaVIdealMps,
     impulsoEspecificoEfetivoS: motor.impulsoEspecificoEfetivoS,
     densidadeArKgM3: ambiente.densidadeArKgM3,

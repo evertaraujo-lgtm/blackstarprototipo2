@@ -9,8 +9,10 @@ export interface ReferencialFisico {
   radial(p: Vetor3): Vetor3;
   tangencial(p: Vetor3): Vetor3;
   posicaoHorizontalM(p: Vetor3): number;
+  erroHorizontalM(alvoM: number, p: Vetor3): number;
   posicaoPorArcoM(sM: number, altitudeM: number): Vetor3;
   atitudeLocalRad(thetaInercialRad: number, p: Vetor3): number;
+  atitudeInercialRad(thetaLocalRad: number, p: Vetor3): number;
   taxaAtitudeLocalRadps(omegaRadps: number, p: Vetor3, v: Vetor3): number;
   vetorParaLocal(v: Vetor3, p: Vetor3): Vetor3;
   vetorParaGlobal(vLocal: Vetor3, p: Vetor3): Vetor3;
@@ -23,8 +25,10 @@ export class ReferencialPlano implements ReferencialFisico {
   public radial(_p: Vetor3): Vetor3 { return new Vetor3(0, 1, 0); }
   public tangencial(_p: Vetor3): Vetor3 { return new Vetor3(1, 0, 0); }
   public posicaoHorizontalM(p: Vetor3): number { return p.x; }
+  public erroHorizontalM(alvo: number, p: Vetor3): number { return alvo - p.x; }
   public posicaoPorArcoM(s: number, h: number): Vetor3 { return new Vetor3(s, h, 0); }
   public atitudeLocalRad(theta: number, _p: Vetor3): number { return normalizarAngulo(theta); }
+  public atitudeInercialRad(theta: number, _p: Vetor3): number { return theta; }
   public taxaAtitudeLocalRadps(omega: number, _p: Vetor3, _v: Vetor3): number { return omega; }
   public vetorParaLocal(v: Vetor3, _p: Vetor3): Vetor3 { return v; }
   public vetorParaGlobal(v: Vetor3, _p: Vetor3): Vetor3 { return v; }
@@ -48,6 +52,7 @@ export class ReferencialEsferico implements ReferencialFisico {
   public tangencial(p: Vetor3): Vetor3 { const n = this.radial(p); return new Vetor3(n.y, -n.x, 0); }
   /** Arco assinado em [-πR,πR]; não é longitude geográfica nem coordenada desenrolada. */
   public posicaoHorizontalM(p: Vetor3): number { const r = this.radial(p); return this.raioM * Math.atan2(r.x, r.y); }
+  public erroHorizontalM(alvo: number, p: Vetor3): number { return this.raioM * normalizarAngulo((alvo - this.posicaoHorizontalM(p)) / this.raioM); }
   public posicaoPorArcoM(s: number, h: number): Vetor3 {
     if (!Number.isFinite(s) || !Number.isFinite(h) || h <= -this.raioM) throw new Error('Coordenadas radiais inválidas.');
     const phi = s / this.raioM;
@@ -56,6 +61,10 @@ export class ReferencialEsferico implements ReferencialFisico {
   public atitudeLocalRad(theta: number, p: Vetor3): number {
     const n = this.radial(p);
     return normalizarAngulo(theta - Math.atan2(-n.x, n.y));
+  }
+  public atitudeInercialRad(theta: number, p: Vetor3): number {
+    const n = this.radial(p);
+    return theta + Math.atan2(-n.x, n.y);
   }
   public taxaAtitudeLocalRadps(omega: number, p: Vetor3, v: Vetor3): number {
     return omega + v.produtoEscalar(this.tangencial(p)) / this.vetorRadial(p).magnitude;

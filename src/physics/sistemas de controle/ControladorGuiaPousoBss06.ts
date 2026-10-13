@@ -6,6 +6,7 @@ import { Vetor3 } from '../Vetor3';
 import { ControladorAletasAerodinamicas } from './ControladorAletasAerodinamicas';
 
 export interface LeiturasGuiaPousoBss06 {
+  readonly gravidadeLocalMps2?: number;
   readonly erroHorizontalM: number;
   readonly velocidadeHorizontalMps: number;
   readonly velocidadeVerticalMps: number;
@@ -79,6 +80,7 @@ export class ControladorGuiaPousoBss06 implements ControladorDeVoo {
       orientacaoRad: leituras.inclinacaoRad,
       velocidadeAngularRadps: leituras.velocidadeAngularRadps ?? contexto.velocidadeAngularRadps,
       massaKg: leituras.massaInstantaneaKg ?? contexto.massaKg,
+      gravidadeLocalMps2: leituras.gravidadeLocalMps2 ?? contexto.gravidadeLocalMps2,
     });
   }
 
@@ -86,8 +88,8 @@ export class ControladorGuiaPousoBss06 implements ControladorDeVoo {
   public atualizar(leituras: LeiturasGuiaPousoBss06): readonly SolicitacaoDeAtuador[] {
     const valores = [leituras.erroHorizontalM, leituras.velocidadeHorizontalMps, leituras.velocidadeVerticalMps,
       leituras.orientacaoRad, leituras.velocidadeAngularRadps, leituras.massaKg, leituras.empuxoN, leituras.densidadeArKgM3,
-      leituras.forcaAerodinamicaXN ?? 0, leituras.torqueAerodinamicoNm ?? 0];
-    if (!valores.every(Number.isFinite) || leituras.massaKg <= 0 || leituras.empuxoN < 0 || leituras.densidadeArKgM3 < 0) {
+      leituras.forcaAerodinamicaXN ?? 0, leituras.torqueAerodinamicoNm ?? 0, leituras.gravidadeLocalMps2 ?? 9.80665];
+    if (!valores.every(Number.isFinite) || leituras.massaKg <= 0 || leituras.empuxoN < 0 || leituras.densidadeArKgM3 < 0 || (leituras.gravidadeLocalMps2 ?? 9.80665) < 0) {
       throw new Error('Leituras de guia do BSS-006 devem ser finitas e fisicamente válidas.');
     }
     if (!this.habilitado || !this.estaEnergizado() || leituras.atuadoresConectados === false) {
@@ -108,7 +110,7 @@ export class ControladorGuiaPousoBss06 implements ControladorDeVoo {
     // F_x = -T sin(theta + delta). Peso é apenas escala da referência quando
     // T é pequeno; empuxoDisponivelN continua sendo o T real, inclusive zero.
     // O gimbal inferior corrige atitude: delta positivo gera torque negativo.
-    const escalaReferenciaN = Math.max(leituras.empuxoN, leituras.massaKg * 9.80665, 1);
+    const escalaReferenciaN = Math.max(leituras.empuxoN, leituras.massaKg * (leituras.gravidadeLocalMps2 ?? 9.80665), 1);
     const razaoEmpuxo = limitar((aceleracaoHorizontalAlvoMps2 * leituras.massaKg
       - (leituras.forcaAerodinamicaXN ?? 0)) / escalaReferenciaN, -0.25, 0.25);
     const gimbal = this.propulsor.obterEstadoDaVetorizacao();

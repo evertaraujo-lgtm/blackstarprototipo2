@@ -1,3 +1,6 @@
+import { AmbientePlano, type AmbienteFisico } from '../physics/ambiente/AmbienteFisico';
+import { SuperficieEsferica } from '../physics/SuperficieEsferica';
+import { ReferencialEsferico } from '../physics/ambiente/ReferencialFisico';
 import { MundoFisico, type RajadaVento } from '../physics/MundoFisico';
 import { Objeto } from '../physics/objetos/base/Objeto';
 import { SuperficiePlano } from '../physics/SuperficiePlano';
@@ -22,6 +25,9 @@ import { GuiaLinear } from '../physics/conexoes/GuiaLinear';
 import { obterTelemetriaMissaoBss } from './TelemetriaMissaoBss';
 
 export interface ConfiguracaoBancadaDecolagem {
+  ambienteFisico?: AmbienteFisico;
+  /** Arco do sítio de lançamento no plano orbital; não é latitude/longitude. */
+  arcoBaseM?: number;
   id: string;
   nome: string;
   descricao: string;
@@ -57,10 +63,15 @@ export const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBanc
   incluirPainelSolar: true,
 }) => {
   const mundo = new MundoFisico(1 / 240, {
+    ambiente: configuracao.ambienteFisico ?? new AmbientePlano(),
     densidadeAtmosfericaKgM3: configuracao.densidadeAtmosfericaKgM3 ?? 1.225,
     velocidadeArMps: configuracao.velocidadeArMps,
     rajadasVento: configuracao.rajadasVento,
   });
+  const ref = mundo.ambiente.referencial;
+  const ancora = ref.posicaoPorArcoM(configuracao.arcoBaseM ?? 0, 0);
+  const estadoInicial = (p: Vetor3, theta = 0) => ({ posicaoM: ref.localParaGlobal(p, ancora),
+    orientacaoRad: new Vetor3(0, 0, ref.atitudeInercialRad(theta, ancora)) });
   const deslocamentoVerticalInicialM = configuracao.incluirPernasFixas ? 0.3 : 0;
   const alturaInicialDoCascoM = 4.5 + deslocamentoVerticalInicialM;
   const fatorTanques = configuracao.fatorTanques ?? 1;
@@ -91,14 +102,11 @@ export const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBanc
     : centroBateriaM + 0.725;
   const base = (id: string, massaBaseKg: number, dimensoesM: Vetor3, posicaoM: Vetor3) => ({
     id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 500_000, limiteTermicoC: 1_000,
-    estadoInicial: { posicaoM: posicaoM.adicionar(new Vetor3(0, deslocamentoVerticalInicialM, 0)) },
+    estadoInicial: estadoInicial(posicaoM.adicionar(new Vetor3(0, deslocamentoVerticalInicialM, 0))),
   });
   const veiculo = new VeiculoComposto({
     ...base(configuracao.id, 800, new Vetor3(3.2, 6, 2.4), new Vetor3(0, alturaInicialDoCascoM, 0)),
-    estadoInicial: {
-      posicaoM: new Vetor3(0, alturaInicialDoCascoM, 0),
-      orientacaoRad: new Vetor3(0, 0, configuracao.inclinacaoInicialRad),
-    },
+    estadoInicial: estadoInicial(new Vetor3(0, alturaInicialDoCascoM, 0), configuracao.inclinacaoInicialRad),
     // 7 m² calibra a face de referência X×Z; tombado, a projeção usa a geometria XY.
     // A área e o centro de pressão representam o casco; os objetos expostos e as
     // grid fins contribuem separadamente quando declaram suas próprias áreas.
@@ -157,7 +165,7 @@ export const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBanc
     massaBaseKg: 90 * fatorPropulsor,
     empuxoMaximoN, vazaoMaximaKgS: vazaoCombustivelMaximaKgS, propelenteCompativel: 'metano',
     vetorizacao: { limiteAngularRad: 15 * Math.PI / 180, velocidadeAngularMaximaRadps: 90 * Math.PI / 180 },
-    estadoInicial: { posicaoM: new Vetor3(0, 0.8 + deslocamentoVerticalInicialM, 0), orientacaoRad: new Vetor3(0, 0, Math.PI / 2) },
+    estadoInicial: estadoInicial(new Vetor3(0, 0.8 + deslocamentoVerticalInicialM, 0), Math.PI / 2),
   });
   const alcanceLinhasM = alcanceConexoesLongasM;
   const valvulaCombustivel = new ValvulaPropelente({ id: 'valvula-decolagem-metano', vazaoMaximaKgS: vazaoCombustivelMaximaKgS });
@@ -179,7 +187,7 @@ export const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBanc
   });
   propulsor.definirThrottle(0.65);
   const pernasFixas = configuracao.incluirPernasFixas
-    ? criarPernasFixasBss04(new Vetor3(0, alturaInicialDoCascoM, 0), configuracao.id === 'bss-005' ? 'bss05' : 'bss04')
+    ? criarPernasFixasBss04(new Vetor3(0, alturaInicialDoCascoM, 0), configuracao.id === 'bss-005' ? 'bss05' : 'bss04', estadoInicial)
     : [];
   const aletasAerodinamicas = configuracao.incluirAletasAerodinamicas ? [-1, 1].map((lado) => new AletaAerodinamica({
     ...base(`bss06-grid-fin-${lado < 0 ? 'esquerda' : 'direita'}`, 30, new Vetor3(0.4, 1.5, 0.5), new Vetor3(lado * 1.8, centroPainelM + 1.1, 0)),
@@ -212,7 +220,9 @@ export const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBanc
     obterEsforcoSolicitadoN: () => propulsor.empuxoAtualN,
   }));
   for (const fixador of fixadores) veiculo.adicionarFixador(fixador);
-  const solo = new SuperficiePlano('solo-decolagem-solar', 'concreto', 0, 1_000_000, 0.04, 0.9);
+  const solo = ref instanceof ReferencialEsferico
+    ? new SuperficieEsferica('solo-decolagem-solar', ref.centroM, ref.raioM, 1_000_000, 0.04, 0.9)
+    : new SuperficiePlano('solo-decolagem-solar', 'concreto', 0, 1_000_000, 0.04, 0.9);
   mundo.registrarSuperficie(solo);
   // O painel entra antes dos consumidores para a energia percorrer a instalação no mesmo passo físico.
   veiculo.registrarNoMundo(mundo);
@@ -239,33 +249,34 @@ export const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBanc
     });
   };
 
-  const alturaInicialM = veiculo.getEstadoFisico().posicaoM.y;
-  const pesoAtualN = (): number => veiculo.massaInstantaneaDoConjuntoKg * Math.abs(MundoFisico.gravidadeTerrestreMps2.y);
+  const alturaInicialM = ref.altitudeGeometricaM(veiculo.getEstadoFisico().posicaoM);
+  const pesoAtualN = (): number => veiculo.massaInstantaneaDoConjuntoKg * mundo.obterGravidadeMps2(veiculo.getEstadoFisico().posicaoM).magnitude;
   const controleAletasEnergizado = (): boolean => !bateria.estaDescarregada && bateria.integridadeEstrutural > 0
     && propulsor.sistemaEstaOperacional('elétrico') && propulsor.sistemaEstaOperacional('controle');
   const controladorAletas = aletasAerodinamicas.length > 0
     ? new ControladorAletasAerodinamicas(aletasAerodinamicas, controleAletasEnergizado)
     : undefined;
-  let alvoPousoXM = 0;
+  let alvoPousoXM = configuracao.arcoBaseM ?? 0;
   let jaDecolou = false;
   const controladorGuiaPouso = configuracao.incluirGuiaPousoPorAlvo
     ? new ControladorGuiaPousoBss06(aletasAerodinamicas, propulsor, controleAletasEnergizado, () => {
       const estado = veiculo.getEstadoFisico();
-      if (estado.posicaoM.y > alturaInicialM + 0.5) jaDecolou = true;
+      if (ref.altitudeGeometricaM(estado.posicaoM) > alturaInicialM + 0.5) jaDecolou = true;
       const conectados = veiculo.obterObjetosFisicosConectados();
       const centroMassaM = veiculo.centroDeMassaDoConjuntoM;
       const cargas = mundo.obterCargasAerodinamicas(conectados, centroMassaM);
       const bracoM = propulsor.getEstadoFisico().posicaoM.subtrair(centroMassaM);
       const c = Math.cos(estado.orientacaoRad.z), s = Math.sin(estado.orientacaoRad.z);
       return {
-        forcaAerodinamicaXN: cargas.forcaN.x, torqueAerodinamicoNm: cargas.torqueNm.z,
+        gravidadeLocalMps2: mundo.obterGravidadeMps2(estado.posicaoM).magnitude,
+        forcaAerodinamicaXN: cargas.forcaN.produtoEscalar(ref.tangencial(estado.posicaoM)), torqueAerodinamicoNm: cargas.torqueNm.z,
         bracoPropulsorLocalM: new Vetor3(bracoM.x * c + bracoM.y * s, -bracoM.x * s + bracoM.y * c, 0),
-        erroHorizontalM: alvoPousoXM - estado.posicaoM.x,
-        velocidadeHorizontalMps: estado.velocidadeMps.x, velocidadeVerticalMps: estado.velocidadeMps.y,
-        orientacaoRad: estado.orientacaoRad.z, velocidadeAngularRadps: estado.velocidadeAngularRadps.z,
+        erroHorizontalM: ref.erroHorizontalM(alvoPousoXM, estado.posicaoM),
+        velocidadeHorizontalMps: ref.vetorParaLocal(estado.velocidadeMps, estado.posicaoM).x, velocidadeVerticalMps: ref.vetorParaLocal(estado.velocidadeMps, estado.posicaoM).y,
+        orientacaoRad: ref.atitudeLocalRad(estado.orientacaoRad.z, estado.posicaoM), velocidadeAngularRadps: ref.taxaAtitudeLocalRadps(estado.velocidadeAngularRadps.z, estado.posicaoM, estado.velocidadeMps),
         massaKg: veiculo.massaInstantaneaDoConjuntoKg, empuxoN: propulsor.empuxoAtualN,
         densidadeArKgM3: mundo.obterCondicoesAtmosfericas(veiculo).densidadeArKgM3,
-        velocidadeArMps: mundo.velocidadeDoArMps,
+        velocidadeArMps: ref.vetorParaLocal(mundo.velocidadeDoArMps, estado.posicaoM),
         emModoPouso: modoBss04 === 'pouso' && jaDecolou,
         atuadoresConectados: [propulsor, ...aletasAerodinamicas].every((atuador) => conectados.includes(atuador)),
       };
@@ -277,9 +288,9 @@ export const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBanc
   }
   const atualizarControleAletas = (): void => {
     const estado = veiculo.getEstadoFisico();
-    if (estado.posicaoM.y > alturaInicialM + 0.5) jaDecolou = true;
+    if (ref.altitudeGeometricaM(estado.posicaoM) > alturaInicialM + 0.5) jaDecolou = true;
     if (!configuracao.incluirGuiaPousoPorAlvo) {
-      controladorAletas?.atualizar(estado.orientacaoRad.z, estado.velocidadeAngularRadps.z, estado.velocidadeMps.y);
+      controladorAletas?.atualizar(ref.atitudeLocalRad(estado.orientacaoRad.z, estado.posicaoM), ref.taxaAtitudeLocalRadps(estado.velocidadeAngularRadps.z, estado.posicaoM, estado.velocidadeMps), ref.vetorParaLocal(estado.velocidadeMps.subtrair(mundo.velocidadeDoArMps), estado.posicaoM).y);
     }
   };
   let modoBss04: 'decolagem' | 'pouso' = 'decolagem';
@@ -319,7 +330,7 @@ export const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBanc
   return {
     nome: configuracao.nome,
     obterDadosMissao,
-    obterConfiguracaoEnsaio: () => ({ ...configuracao, dtS: 1 / 240, densidadeAtmosfericaKgM3: configuracao.densidadeAtmosfericaKgM3 ?? 1.225, velocidadeArMps: configuracao.velocidadeArMps ?? Vetor3.zero }),
+    obterConfiguracaoEnsaio: () => { const { ambienteFisico: _ambiente, ...parametros } = configuracao; return { ...parametros, dtS: 1 / 240, densidadeAtmosfericaKgM3: configuracao.densidadeAtmosfericaKgM3 ?? 1.225, velocidadeArMps: configuracao.velocidadeArMps ?? Vetor3.zero, modeloFisico: mundo.obterConfiguracaoFisica() }; },
     descricao: configuracao.descricao,
     mundo, objetos: [veiculo, ...veiculo.modulosFisicos, ...(configuracao.incluirPainelSolar && configuracao.painelMovel && hastePainel ? [hastePainel, painel] : [])], superficies: [solo], velocidadeTempo: 3, limiteVerticalM: 70, limiteHorizontalM: 12,
     seguirObjeto: veiculo, cameraY: () => veiculo.getEstadoFisico().posicaoM.y, conexoesEletricas: [...(configuracao.incluirPainelSolar ? [painel.conexaoCarga] : []), propulsor.conexaoEletrica!, ...(cilindroPainel ? [cilindroPainel.conexaoEletrica] : []), ...aletasAerodinamicas.map((aleta) => aleta.conexaoEletrica)],
@@ -333,20 +344,20 @@ export const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBanc
         { nome: 'GIMBAL', cor: '#22d3ee', obterSinal: () => propulsor.obterEstadoDaVetorizacao().anguloAtualRad * 180 / Math.PI, escala: { minimo: -15, maximo: 15, unidade: '°' } },
         ...(aletasAerodinamicas.length > 0 ? [{ nome: 'GRID FINS', cor: '#38bdf8', obterSinal: () => aletasAerodinamicas[0]!.deflexaoAtualRad * 180 / Math.PI, escala: { minimo: -25, maximo: 25, unidade: '°' } }] : []),
         { nome: 'MASSA', cor: '#c084fc', obterSinal: () => veiculo.massaInstantaneaDoConjuntoKg, escala: { minimo: 0, maximo: veiculo.massaInstantaneaDoConjuntoKg * 1.1, unidade: 'kg' } },
-        { nome: 'ALTITUDE', cor: '#e2e8f0', obterSinal: () => veiculo.getEstadoFisico().posicaoM.y, escala: { minimo: 0, maximo: 20_000, unidade: 'm' } },
-        { nome: 'VELOCIDADE Y', cor: '#a3e635', obterSinal: () => veiculo.getEstadoFisico().velocidadeMps.y, escala: { minimo: -120, maximo: 450, unidade: 'm/s' } },
+        { nome: 'ALTITUDE', cor: '#e2e8f0', obterSinal: () => ref.altitudeGeometricaM(veiculo.getEstadoFisico().posicaoM), escala: { minimo: 0, maximo: 20_000, unidade: 'm' } },
+        { nome: mundo.ambiente.campo.modelo === 'central' ? 'VELOCIDADE RADIAL' : 'VELOCIDADE Y', cor: '#a3e635', obterSinal: () => veiculo.obterLeiturasDosSensores().velocidadeVerticalMps, escala: { minimo: -120, maximo: 450, unidade: 'm/s' } },
         { nome: 'PRESSÃO DINÂMICA', cor: '#fbbf24', obterSinal: () => obterDadosMissao().pressaoDinamicaPa / 1_000, escala: { minimo: 0, maximo: 100, unidade: 'kPa' } },
         ...(configuracao.impulsoEspecificoNominalS === undefined ? [] : [
           { nome: 'ISP EFETIVO', cor: '#93c5fd', obterSinal: () => obterDadosMissao().impulsoEspecificoEfetivoS ?? 0, escala: { minimo: 0, maximo: configuracao.impulsoEspecificoNominalS, unidade: 's (0 sem vazão)' } },
           { nome: 'DELTA-V IDEAL', cor: '#d8b4fe', obterSinal: () => obterDadosMissao().deltaVIdealMps ?? 0, escala: { minimo: 0, maximo: 4_000, unidade: 'm/s' } },
         ]),
-        { nome: 'VELOCIDADE X', cor: '#4ade80', obterSinal: () => veiculo.obterLeiturasDosSensores().velocidadeHorizontalMps, escala: { minimo: -20, maximo: 20, unidade: 'm/s' } },
+        { nome: mundo.ambiente.campo.modelo === 'central' ? 'VELOCIDADE TANGENCIAL' : 'VELOCIDADE X', cor: '#4ade80', obterSinal: () => veiculo.obterLeiturasDosSensores().velocidadeHorizontalMps, escala: { minimo: -20, maximo: 20, unidade: 'm/s' } },
         ...(configuracao.incluirGuiaPousoPorAlvo ? [
           { nome: 'ALVO X', cor: '#22d3ee', obterSinal: () => alvoPousoXM, escala: { minimo: -50, maximo: 50, unidade: 'm' } },
-          { nome: 'ERRO X', cor: '#f472b6', obterSinal: () => alvoPousoXM - veiculo.getEstadoFisico().posicaoM.x, escala: { minimo: -50, maximo: 50, unidade: 'm' } },
+          { nome: 'ERRO X', cor: '#f472b6', obterSinal: () => ref.erroHorizontalM(alvoPousoXM, veiculo.getEstadoFisico().posicaoM), escala: { minimo: -50, maximo: 50, unidade: 'm' } },
         ] : []),
-        { nome: 'ATITUDE', cor: '#e879f9', obterSinal: () => veiculo.getEstadoFisico().orientacaoRad.z * 180 / Math.PI, escala: { minimo: -180, maximo: 180, unidade: '°' } },
-        { nome: 'VEL. ANGULAR', cor: '#fb7185', obterSinal: () => veiculo.getEstadoFisico().velocidadeAngularRadps.z * 180 / Math.PI, escala: { minimo: -90, maximo: 90, unidade: '°/s' } },
+        { nome: mundo.ambiente.campo.modelo === 'central' ? 'ATITUDE LOCAL' : 'ATITUDE', cor: '#e879f9', obterSinal: () => veiculo.obterLeiturasDosSensores().inclinacaoRad * 180 / Math.PI, escala: { minimo: -180, maximo: 180, unidade: '°' } },
+        { nome: 'VEL. ANGULAR', cor: '#fb7185', obterSinal: () => veiculo.obterLeiturasDosSensores().velocidadeAngularRadps! * 180 / Math.PI, escala: { minimo: -90, maximo: 90, unidade: '°/s' } },
       ],
       ativarModoBss04: (modo: 'decolagem' | 'pouso') => {
         modoBss04 = modo;
@@ -365,9 +376,9 @@ export const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBanc
       },
       ...(configuracao.incluirGuiaPousoPorAlvo ? {
         obterPontoPousoX: () => alvoPousoXM,
-        pontoPousoSelecionavel: () => !jaDecolou && veiculo.getEstadoFisico().posicaoM.y <= alturaInicialM + 0.5,
+        pontoPousoSelecionavel: () => !jaDecolou && ref.altitudeGeometricaM(veiculo.getEstadoFisico().posicaoM) <= alturaInicialM + 0.5,
         selecionarPontoPousoX: (xM: number) => {
-          if (!Number.isFinite(xM) || jaDecolou || veiculo.getEstadoFisico().posicaoM.y > alturaInicialM + 0.5) return false;
+          if (!Number.isFinite(xM) || jaDecolou || ref.altitudeGeometricaM(veiculo.getEstadoFisico().posicaoM) > alturaInicialM + 0.5) return false;
           alvoPousoXM = xM;
           return true;
         },
@@ -399,7 +410,7 @@ export const IMPULSO_ESPECIFICO_NOMINAL_BSS005_S = 350;
 
 /** BSS-004 com tanques ampliados e propulsão química idealizada coerente. */
 export const criarTesteBss005 = (
-  ambiente: Pick<ConfiguracaoBancadaDecolagem, 'velocidadeArMps' | 'rajadasVento' | 'densidadeAtmosfericaKgM3'> = {},
+  ambiente: Pick<ConfiguracaoBancadaDecolagem, 'velocidadeArMps' | 'rajadasVento' | 'densidadeAtmosfericaKgM3' | 'ambienteFisico' | 'arcoBaseM'> = {},
 ) => criarTesteDecolagemComPainelSolar({
   ...ambiente,
   id: 'bss-005',
@@ -419,7 +430,7 @@ export const criarTesteBss005 = (
 });
 
 /** BSS-005 com controle aerodinâmico ativo durante a descida atmosférica. */
-export const criarTesteBss006 = (ambiente: Pick<ConfiguracaoBancadaDecolagem, 'velocidadeArMps' | 'densidadeAtmosfericaKgM3'> = {}) => criarTesteDecolagemComPainelSolar({
+export const criarTesteBss006 = (ambiente: Pick<ConfiguracaoBancadaDecolagem, 'velocidadeArMps' | 'densidadeAtmosfericaKgM3' | 'ambienteFisico' | 'arcoBaseM'> = {}) => criarTesteDecolagemComPainelSolar({
   ...ambiente,
   id: 'bss-006',
   nome: 'BSS-006 — pouso guiado por alvo',

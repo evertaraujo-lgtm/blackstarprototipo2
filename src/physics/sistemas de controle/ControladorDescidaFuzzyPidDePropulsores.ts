@@ -92,10 +92,10 @@ export class ControladorDescidaFuzzyPidDePropulsores implements ControladorDeVoo
     if (!this.habilitado || !c) return this.obterUltimoComando();
     if (!Number.isFinite(dtS) || dtS <= 0) throw new Error('Passo do controle de pouso deve ser positivo e finito.');
     const massaKg = leituras.massaInstantaneaKg ?? 0;
-    const entradas = [leituras.altitudeM, leituras.velocidadeVerticalMps, massaKg];
+    const entradas = [leituras.altitudeM, leituras.velocidadeVerticalMps, massaKg, leituras.gravidadeLocalMps2 ?? GRAVIDADE_MPS2];
     const amostraAtual = leituras.sensoresValidos !== false
       && (leituras.idadeLeituraS === undefined || leituras.idadeLeituraS <= IDADE_MAXIMA_LEITURA_SENSOR_S);
-    if (!amostraAtual || !entradas.every(Number.isFinite) || massaKg <= 0) {
+    if (!amostraAtual || !entradas.every(Number.isFinite) || massaKg <= 0 || (leituras.gravidadeLocalMps2 ?? GRAVIDADE_MPS2) < 0) {
       this.reiniciar();
       this.comandoAtual = {
         fase: 'falha-de-sensores', throttle: 0, velocidadeVerticalAlvoMps: 0,
@@ -152,7 +152,7 @@ export class ControladorDescidaFuzzyPidDePropulsores implements ControladorDeVoo
       || this.comandoAtual.fase === 'aguardando-descida'
       || this.comandoAtual.fase === 'falha-de-sensores';
     const derivadaErroPorS = reentradaDoControle ? 0 : (erroVelocidadeMps - this.erroAnterior) / dtS;
-    const throttleSustentacao = massaKg * GRAVIDADE_MPS2 / c.empuxoMaximoN;
+    const throttleSustentacao = massaKg * (leituras.gravidadeLocalMps2 ?? GRAVIDADE_MPS2) / c.empuxoMaximoN;
     const throttleSemLimite = throttleSustentacao
       + c.ganhoProporcionalThrottlePorMps * erroVelocidadeMps
       + c.ganhoIntegralThrottlePorM * this.integralErro

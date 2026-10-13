@@ -1,8 +1,14 @@
+import { AmbientePlano, type AmbienteFisico } from '../ambiente/AmbienteFisico';
+import type { ReferencialFisico } from '../ambiente/ReferencialFisico';
 import { Objeto } from '../objetos/base/Objeto';
 import { Vetor3 } from '../Vetor3';
 
 export interface LeiturasVeiculoComposto {
   readonly posicaoGpsM: Vetor3;
+  readonly posicaoHorizontalM?: number;
+  readonly orientacaoInercialRad?: number;
+  readonly velocidadeAngularInercialRadps?: number;
+  readonly gravidadeLocalMps2?: number;
   readonly altitudeM: number;
   readonly velocidadeVerticalMps: number;
   readonly velocidadeHorizontalMps: number;
@@ -40,11 +46,12 @@ export class GpsIdealizado {
 
 /** Sensor interno de nível: lê a orientação física real do casco. */
 export class SensorNivelInterno {
-  public constructor(private readonly objeto: Objeto) {}
+  public constructor(private readonly objeto: Objeto, private readonly obterReferencial?: () => ReferencialFisico) {}
 
   public obterInclinacaoRad(): number {
     const orientacaoRad = this.objeto.getEstadoFisico().orientacaoRad.z;
-    return Math.atan2(Math.sin(orientacaoRad), Math.cos(orientacaoRad));
+    return this.obterReferencial ? this.obterReferencial().atitudeLocalRad(orientacaoRad, this.objeto.getEstadoFisico().posicaoM)
+      : Math.atan2(Math.sin(orientacaoRad), Math.cos(orientacaoRad));
   }
 }
 
@@ -55,60 +62,71 @@ export class SensoresVeiculoComposto {
   private leiturasAtuais: LeiturasVeiculoComposto;
   private tempoSimuladoS = 0;
   private readonly historicoAmostras: AmostraFisica[] = [];
+  private ambiente: AmbienteFisico = new AmbientePlano();
+  private inicioHistorico = 0;
+  private amostraCongelada?: AmostraFisica;
   private falhaInjetada?: FalhaSensorVeiculo;
 
   public constructor(
     private readonly objeto: Objeto,
-    altitudeDeReferenciaM = 0,
+    private readonly altitudeDeReferenciaM = 0,
     private readonly obterMassaInstantaneaKg: () => number = () => objeto.massaKg,
   ) {
     if (!Number.isFinite(altitudeDeReferenciaM)) throw new Error('Altitude de referência deve ser finita.');
     this.gps = new GpsIdealizado(objeto);
-    this.nivel = new SensorNivelInterno(objeto);
-    const posicaoInicialM = this.gps.obterPosicaoM();
-    const velocidadeInicialMps = objeto.getEstadoFisico().velocidadeMps;
-    this.leiturasAtuais = {
-      posicaoGpsM: posicaoInicialM,
-      altitudeM: posicaoInicialM.y - altitudeDeReferenciaM,
-      velocidadeVerticalMps: velocidadeInicialMps.y,
-      velocidadeHorizontalMps: velocidadeInicialMps.x,
-      inclinacaoRad: this.nivel.obterInclinacaoRad(),
-      velocidadeAngularRadps: objeto.getEstadoFisico().velocidadeAngularRadps.z,
-      massaInstantaneaKg: this.obterMassaInstantaneaKg(),
-      tempoAmostraS: 0,
-      idadeLeituraS: 0,
-      sensoresValidos: true,
-    };
+    this.nivel = new SensorNivelInterno(objeto, () => this.ambiente.referencial);
+    this.leiturasAtuais = { ...this.criarAmostra(), idadeLeituraS: 0, sensoresValidos: true };
     this.historicoAmostras.push({ ...this.leiturasAtuais, tempoAmostraS: 0 });
-    this.altitudeDeReferenciaM = altitudeDeReferenciaM;
   }
 
-  private readonly altitudeDeReferenciaM: number;
+  /** O mundo injeta o referencial uma única vez antes de evoluir os sensores. */
+  public configurarAmbienteInicial(ambiente: AmbienteFisico): void {
+    if (this.tempoSimuladoS !== 0) throw new Error('Não é permitido trocar o modelo de sensores durante a missão.');
+    this.ambiente = ambiente;
+    this.leiturasAtuais = { ...this.criarAmostra(), idadeLeituraS: 0, sensoresValidos: true };
+    this.historicoAmostras.length = 0;
+    this.inicioHistorico = 0;
+    this.historicoAmostras.push({ ...this.leiturasAtuais, tempoAmostraS: 0 });
+  }
+
+  private criarAmostra(): AmostraFisica {
+    const e = this.objeto.getEstadoFisico();
+    const ref = this.ambiente.referencial;
+    const local = ref.vetorParaLocal(e.velocidadeMps, e.posicaoM);
+    return {
+      posicaoGpsM: e.posicaoM,
+      altitudeM: ref.altitudeGeometricaM(e.posicaoM) - this.altitudeDeReferenciaM,
+      posicaoHorizontalM: ref.posicaoHorizontalM(e.posicaoM),
+      velocidadeVerticalMps: local.y, velocidadeHorizontalMps: local.x,
+      inclinacaoRad: this.nivel.obterInclinacaoRad(),
+      orientacaoInercialRad: e.orientacaoRad.z,
+      velocidadeAngularRadps: ref.taxaAtitudeLocalRadps(e.velocidadeAngularRadps.z, e.posicaoM, e.velocidadeMps),
+      velocidadeAngularInercialRadps: e.velocidadeAngularRadps.z,
+      gravidadeLocalMps2: this.ambiente.campo.aceleracaoEm(e.posicaoM).magnitude,
+      massaInstantaneaKg: this.obterMassaInstantaneaKg(), tempoAmostraS: this.tempoSimuladoS,
+    };
+  }
 
   public atualizar(dtS: number): void {
     if (!Number.isFinite(dtS) || dtS <= 0) throw new Error('Passo dos sensores deve ser positivo e finito.');
     this.tempoSimuladoS += dtS;
-    const posicaoAtualM = this.gps.obterPosicaoM();
-    const velocidadeAtualMps = this.gpsObjeto.getEstadoFisico().velocidadeMps;
-    const amostraAtual: AmostraFisica = {
-      posicaoGpsM: posicaoAtualM,
-      altitudeM: posicaoAtualM.y - this.altitudeDeReferenciaM,
-      velocidadeVerticalMps: velocidadeAtualMps.y,
-      velocidadeHorizontalMps: velocidadeAtualMps.x,
-      inclinacaoRad: this.nivel.obterInclinacaoRad(),
-      velocidadeAngularRadps: this.objeto.getEstadoFisico().velocidadeAngularRadps.z,
-      massaInstantaneaKg: this.obterMassaInstantaneaKg(),
-      tempoAmostraS: this.tempoSimuladoS,
-    };
+    const amostraAtual = this.criarAmostra();
     this.historicoAmostras.push(amostraAtual);
-    while (this.historicoAmostras.length > 1
-      && this.historicoAmostras[1]!.tempoAmostraS < this.tempoSimuladoS - 60) this.historicoAmostras.shift();
+    // Mesmo histórico de 60 s, com descarte por índice (amortizado O(1)); não
+    // desloca milhares de amostras a cada subpasso de uma missão prolongada.
+    while (this.historicoAmostras.length - this.inicioHistorico > 1
+      && this.historicoAmostras[this.inicioHistorico + 1]!.tempoAmostraS < this.tempoSimuladoS - 60) this.inicioHistorico++;
+    if (this.inicioHistorico > 16384) {
+      this.historicoAmostras.splice(0, this.inicioHistorico);
+      this.inicioHistorico = 0;
+    }
 
     const falhaAtiva = this.falhaInjetada && this.tempoSimuladoS >= this.falhaInjetada.iniciarEmS
       ? this.falhaInjetada : undefined;
     let amostraEntregue = amostraAtual;
     if (falhaAtiva?.tipo === 'congelado') {
-      amostraEntregue = this.obterUltimaAmostraAte(falhaAtiva.iniciarEmS);
+      this.amostraCongelada ??= this.obterUltimaAmostraAte(falhaAtiva.iniciarEmS);
+      amostraEntregue = this.amostraCongelada;
     } else if (falhaAtiva?.tipo === 'atraso') {
       const instanteDesejadoS = this.tempoSimuladoS - falhaAtiva.atrasoS;
       amostraEntregue = this.obterUltimaAmostraAte(instanteDesejadoS);
@@ -145,23 +163,18 @@ export class SensoresVeiculoComposto {
       || (falha.tipo === 'atraso' && (falha.atrasoS <= 0 || falha.atrasoS > 60))) {
       throw new Error('Configuração inválida para falha de sensor.');
     }
+    this.amostraCongelada = undefined;
     this.falhaInjetada = { ...falha };
   }
 
-  public limparFalhaInjetada(): void { this.falhaInjetada = undefined; }
+  public limparFalhaInjetada(): void { this.falhaInjetada = undefined; this.amostraCongelada = undefined; }
 
   private obterUltimaAmostraAte(tempoS: number): AmostraFisica {
-    for (let indice = this.historicoAmostras.length - 1; indice >= 0; indice -= 1) {
+    for (let indice = this.historicoAmostras.length - 1; indice >= this.inicioHistorico; indice -= 1) {
       const amostra = this.historicoAmostras[indice]!;
       if (amostra.tempoAmostraS <= tempoS) return amostra;
     }
-    return this.historicoAmostras[0]!;
-  }
-
-  private get gpsObjeto(): Objeto {
-    // O GPS expõe posição por interface; a velocidade permanece sob autoridade
-    // do mesmo objeto físico e não deve ser reconstruída por diferença finita.
-    return this.objeto;
+    return this.historicoAmostras[this.inicioHistorico]!;
   }
 
   public obterLeituras(): LeiturasVeiculoComposto {

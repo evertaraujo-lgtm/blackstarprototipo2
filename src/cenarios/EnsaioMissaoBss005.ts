@@ -1,3 +1,4 @@
+import type { AmbienteFisico } from '../physics/ambiente/AmbienteFisico';
 import { criarTesteBss005 } from './BancadaBss';
 import type { Objeto } from '../physics/objetos/base/Objeto';
 import { TanquePropelente } from '../physics/objetos/fontes-de-energia/TanquePropelente';
@@ -10,6 +11,7 @@ export type FalhaEnsaioBss005 = 'nenhuma' | 'sem-reserva-no-corte' | 'perda-cont
   | 'sensor-congelado-na-descida' | 'sensor-atrasado-na-descida';
 export type FaseEnsaioBss005 = 'solo' | 'decolagem' | 'subida' | 'corte' | 'descida' | 'frenagem' | 'contato' | 'repouso' | 'falha-pouso';
 export interface ConfiguracaoEnsaioBss005 {
+  readonly ambienteFisico?: AmbienteFisico;
   readonly altitudeTrocaParaPousoM?: number;
   readonly throttleDecolagem?: number;
   readonly falha?: FalhaEnsaioBss005;
@@ -115,21 +117,23 @@ export function lerMissaoBss005(cenario: CenarioBss005, fase: FaseEnsaioBss005):
   const relativo = e.velocidadeMps.subtrair(ambiente.velocidadeArMps);
   const massa = casco.massaInstantaneaDoConjuntoKg;
   const motorConectadoAoCasco = casco.obterObjetosFisicosConectados().includes(motor);
-  const gravidade = Math.abs(MundoFisico.gravidadeTerrestreMps2.y);
+  const gravidade = cenario.mundo.obterGravidadeMps2(e.posicaoM).magnitude;
   const arrasto = cenario.objetos.reduce((soma, objeto) => soma.adicionar(cenario.mundo.obterForcaArrastoAtmosferico(objeto)), Vetor3.zero);
   const solo = cenario.superficies[0]!;
-  const soloM = solo.alturaM;
-  const altura = (objeto: Objeto) => menorAlturaDoObjetoM(objeto) - soloM;
+  const ref = cenario.mundo.ambiente.referencial;
+  const altura = (objeto: Objeto) => cenario.mundo.obterMenorDistanciaSuperficieM(objeto, solo);
+  const velocidadeLocal = ref.vetorParaLocal(e.velocidadeMps, e.posicaoM);
+  const arLocal = ref.vetorParaLocal(ambiente.velocidadeArMps, e.posicaoM);
   const tanques = cenario.objetos.filter((objeto): objeto is TanquePropelente => objeto instanceof TanquePropelente);
   const kg = (tipo: string) => tanques.filter((tanque) => tanque.tipoPropelente === tipo).reduce((soma, tanque) => soma + tanque.massaPropelenteKg, 0);
   const gimbal = motor.obterEstadoDaVetorizacao();
   const leiturasSensores = casco.obterLeiturasDosSensores();
   return {
-    tempoS: cenario.mundo.tempoS, fase, altitudeM: e.posicaoM.y, posicaoXM: e.posicaoM.x,
-    velocidadeXMps: e.velocidadeMps.x, velocidadeYMps: e.velocidadeMps.y,
-    velocidadeArXMps: ambiente.velocidadeArMps.x, velocidadeArYMps: ambiente.velocidadeArMps.y,
-    orientacaoRad: Math.atan2(Math.sin(e.orientacaoRad.z), Math.cos(e.orientacaoRad.z)),
-    velocidadeAngularRadps: e.velocidadeAngularRadps.z,
+    tempoS: cenario.mundo.tempoS, fase, altitudeM: ref.altitudeGeometricaM(e.posicaoM), posicaoXM: ref.posicaoHorizontalM(e.posicaoM),
+    velocidadeXMps: velocidadeLocal.x, velocidadeYMps: velocidadeLocal.y,
+    velocidadeArXMps: arLocal.x, velocidadeArYMps: arLocal.y,
+    orientacaoRad: ref.atitudeLocalRad(e.orientacaoRad.z, e.posicaoM),
+    velocidadeAngularRadps: ref.taxaAtitudeLocalRadps(e.velocidadeAngularRadps.z, e.posicaoM, e.velocidadeMps),
     massaConectadaKg: massa, massaTotalObjetosKg: cenario.objetos.reduce((soma, objeto) => soma + objeto.massaKg, 0),
     metanoKg: kg('metano'), oxidanteKg: kg('oxigenio'), empuxoN: motor.empuxoAtualN, motorConectadoAoCasco,
     empuxoPeso: motorConectadoAoCasco ? motor.empuxoAtualN / (massa * gravidade) : 0,
@@ -149,7 +153,7 @@ export function lerMissaoBss005(cenario: CenarioBss005, fase: FaseEnsaioBss005):
     objetos: cenario.objetos.map((objeto) => {
       const estado = objeto.getEstadoFisico();
       return { id: objeto.id, massaKg: objeto.massaKg, integridade: objeto.integridadeEstrutural, temperaturaC: objeto.temperaturaC,
-        velocidadeXMps: estado.velocidadeMps.x, velocidadeYMps: estado.velocidadeMps.y,
+        velocidadeXMps: ref.vetorParaLocal(estado.velocidadeMps, estado.posicaoM).x, velocidadeYMps: ref.vetorParaLocal(estado.velocidadeMps, estado.posicaoM).y,
         velocidadeAngularRadps: estado.velocidadeAngularRadps.z, menorAlturaGeometriaM: altura(objeto) };
     }),
     contatos: cenario.mundo.obterContatosComSuperficie().filter((contato) => contato.superficieId === solo.id
@@ -189,7 +193,7 @@ export function* avancarEnsaioMissaoBss005(configuracao: ConfiguracaoEnsaioBss00
     || !Number.isFinite(config.intervaloAmostraS) || config.intervaloAmostraS <= 0
     || !['nenhuma', 'sem-reserva-no-corte', 'perda-controle-no-corte', 'sem-combustivel-inicial',
       'sensor-congelado-na-descida', 'sensor-atrasado-na-descida'].includes(config.falha)) throw new Error('Configuração de ensaio BSS-005 inválida.');
-  const cenario = criarTesteBss005({ rajadasVento: configuracao.rajadasVento });
+  const cenario = criarTesteBss005({ ambienteFisico: configuracao.ambienteFisico, rajadasVento: configuracao.rajadasVento });
   const motor = cenario.propulsorControlavel;
   // Colisão de carga/destroço é registrada, mas não substitui o toque do casco
   // ou do trem de pouso na avaliação de pouso da missão.
@@ -368,7 +372,7 @@ export function* avancarEnsaioMissaoBss005(configuracao: ConfiguracaoEnsaioBss00
       'atitude-ou-rotacao-no-toque', 'vinculos-rompidos'].includes(motivo))
     || (repousoContinuoS >= CRITERIOS_POUSO_BSS005.duracaoRepousoS && motivos.length > 0);
   return {
-    configuracao: config, criterios: CRITERIOS_POUSO_BSS005, inicial, final: ultimoEstado,
+    modeloFisico: cenario.mundo.obterConfiguracaoFisica(), configuracao: config, criterios: CRITERIOS_POUSO_BSS005, inicial, final: ultimoEstado,
     decolou, modoPousoSelecionado, apogeu, toque, pousoSeguro, repousoContinuoS, maiorRepousoContinuoS,
     causasFalhaPouso,
     consumoMotorKg, massaRetiradaNaFalhaKg, erroBalancoMaxKg, maxPressaoDinamicaPa,

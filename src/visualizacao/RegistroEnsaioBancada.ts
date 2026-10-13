@@ -34,7 +34,7 @@ export class RegistroEnsaioBancada {
       passosExecutados: this.passos,
       configuracao: JSON.parse(this.configuracaoJson) as unknown,
       entradas: this.entradas.map((entrada) => ({ ...entrada })),
-      reproducao: 'Recriar a configuração inicial na mesma revisão do código; aplicar entradas em ordem antes do passo indicado; avançar exatamente dtS por passosExecutados. Sem aleatoriedade nos cenários BSS atuais.',
+      reproducao: 'Recriar a configuração inicial no modelo físico e constantes registrados, na mesma revisão do código; aplicar entradas em ordem antes do passo indicado; avançar exatamente dtS por passosExecutados. Sem aleatoriedade nos cenários BSS atuais.',
     };
   }
 }

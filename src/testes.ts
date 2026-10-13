@@ -1,3 +1,4 @@
+import type { SuperficieFisica } from './physics/SuperficieFisica';
 import { criarTesteDecolagemComPainelSolar, criarTesteBss005, criarTesteBss006 } from './cenarios/BancadaBss';
 import { GeradorCA } from './physics/objetos/fontes-de-energia/GeradorCA';
 import { TravaPorta } from './physics/objetos/mecanismos/TravaPorta';
@@ -182,7 +183,7 @@ interface CenárioVisual {
   /** Ocultação por carenagem pertence apenas à apresentação; os corpos continuam no mundo. */
   readonly objetosEnclausurados?: readonly Objeto[];
   readonly conexoesEletricas?: readonly ConexaoEletricaVisual[];
-  readonly superficies: readonly SuperficiePlano[];
+  readonly superficies: readonly SuperficieFisica[];
   /** Escala temporal inicial da apresentação; o operador pode alterá-la na bancada. */
   readonly velocidadeTempo: number;
   /** Modalidade apresentada e agrupada pela bancada; não altera o core. */
@@ -3201,7 +3202,7 @@ const carregarCenarioAtual = (): void => {
   if (mundoDoRegistro !== cenário.mundo) {
     mundoDoRegistro = cenário.mundo;
     registroEnsaio = new RegistroEnsaioBancada(1 / 240, {
-      nome: cenário.nome, parametros: cenário.obterConfiguracaoEnsaio?.(),
+      nome: cenário.nome, parametros: cenário.obterConfiguracaoEnsaio?.(), modeloFisico: cenário.mundo.obterConfiguracaoFisica(),
       estadoInicial: cenário.objetos.map((objeto) => ({ id: objeto.id, massaKg: objeto.massaKg, temperaturaC: objeto.temperaturaC, integridade: objeto.integridadeEstrutural, estado: objeto.getEstadoFisico() })),
     });
   }

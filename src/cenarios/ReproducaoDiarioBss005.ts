@@ -1,3 +1,4 @@
+import type { AmbienteFisico } from '../physics/ambiente/AmbienteFisico';
 import { criarTesteBss005 } from './BancadaBss';
 import { lerMissaoBss005, type FaseEnsaioBss005, type LeituraMissaoBss005 } from './EnsaioMissaoBss005';
 import { PainelSolar } from '../physics/objetos/fontes-de-energia/PainelSolar';
@@ -22,7 +23,15 @@ export interface EventoReplayBss005 {
   readonly leitura: LeituraMissaoBss005;
 }
 
+export interface OpcoesReplayBss005 {
+  readonly ambienteFisico?: AmbienteFisico;
+  readonly arcoBaseM?: number;
+  /** Reexecução identificada; não promete equivalência exata à revisão histórica. */
+  readonly permitirDiarioLegadoSemModelo?: boolean;
+}
 export interface ResultadoReplayBss005 {
+  readonly modeloFisico: object;
+  readonly diarioLegadoSemModelo: boolean;
   readonly dtS: number;
   readonly passosExecutados: number;
   readonly inicial: LeituraMissaoBss005;
@@ -44,7 +53,7 @@ function normalizarParaComparacao(valor: unknown): unknown {
   return Object.fromEntries(Object.keys(valor).sort().map((chave) => [chave, normalizarParaComparacao(valor[chave])]));
 }
 
-function validarDiario(diario: DiarioBss005, cenario: ReturnType<typeof criarTesteBss005>): void {
+function validarDiario(diario: DiarioBss005, cenario: ReturnType<typeof criarTesteBss005>, opcoes: OpcoesReplayBss005): boolean {
   if (diario.versao !== 1 || diario.dtS !== DT_BANCADA_S
     || !Number.isSafeInteger(diario.passosExecutados) || diario.passosExecutados < 0
     || !Array.isArray(diario.entradas)) {
@@ -53,8 +62,13 @@ function validarDiario(diario: DiarioBss005, cenario: ReturnType<typeof criarTes
   const configuracao = ehRegistro(diario.configuracao) ? diario.configuracao : undefined;
   const parametros = configuracao && ehRegistro(configuracao.parametros) ? configuracao.parametros : undefined;
   const configuracaoAtual = cenario.obterConfiguracaoEnsaio?.();
+  const diarioLegado = parametros?.modeloFisico === undefined;
+  if (diarioLegado && !opcoes.permitirDiarioLegadoSemModelo) throw new Error('Diário histórico sem modelo físico: exige opção explícita de reexecução legada.');
+  if (!diarioLegado && JSON.stringify(normalizarParaComparacao(parametros?.modeloFisico))
+    !== JSON.stringify(normalizarParaComparacao(configuracaoAtual?.modeloFisico))) throw new Error('Modelo físico incompatível com o diário.');
+  const compararAtual = diarioLegado && configuracaoAtual ? Object.fromEntries(Object.entries(configuracaoAtual).filter(([k]) => k !== 'modeloFisico')) : configuracaoAtual;
   if (!configuracao || configuracao.nome !== cenario.nome || !parametros || !configuracaoAtual
-    || JSON.stringify(normalizarParaComparacao(parametros)) !== JSON.stringify(normalizarParaComparacao(configuracaoAtual))) {
+    || JSON.stringify(normalizarParaComparacao(parametros)) !== JSON.stringify(normalizarParaComparacao(compararAtual))) {
     throw new Error('Diário não corresponde à configuração atual do BSS-005.');
   }
 
@@ -81,15 +95,16 @@ function validarDiario(diario: DiarioBss005, cenario: ReturnType<typeof criarTes
     }
     passoAnterior = entrada.passo;
   }
+  return diarioLegado;
 }
 
 /**
  * Reproduz entradas físicas exportadas pela bancada na montagem BSS-005 atual.
  * As entradas são aplicadas antes do passo indicado; a função não injeta estados.
  */
-export function* avancarReplayDiarioBss005(diario: DiarioBss005, intervaloAmostraS = 5) {
-  const cenario = criarTesteBss005();
-  validarDiario(diario, cenario);
+export function* avancarReplayDiarioBss005(diario: DiarioBss005, intervaloAmostraS = 5, opcoes: OpcoesReplayBss005 = {}) {
+  const cenario = criarTesteBss005({ ...(opcoes.ambienteFisico ? { ambienteFisico: opcoes.ambienteFisico } : {}), ...(opcoes.arcoBaseM !== undefined ? { arcoBaseM: opcoes.arcoBaseM } : {}) });
+  const diarioLegadoSemModelo = validarDiario(diario, cenario, opcoes);
   if (!Number.isFinite(intervaloAmostraS) || intervaloAmostraS <= 0) throw new Error('Intervalo de amostragem inválido em s.');
 
   const motor = cenario.propulsorControlavel;
@@ -206,12 +221,12 @@ export function* avancarReplayDiarioBss005(diario: DiarioBss005, intervaloAmostr
   }
   const final = ler();
   if (amostras.at(-1) !== final) amostras.push(final);
-  return { dtS: diario.dtS, passosExecutados: diario.passosExecutados, inicial, final, eventos, amostras, comandos, erroBalancoMaxKg } satisfies ResultadoReplayBss005;
+  return { modeloFisico: cenario.mundo.obterConfiguracaoFisica(), diarioLegadoSemModelo, dtS: diario.dtS, passosExecutados: diario.passosExecutados, inicial, final, eventos, amostras, comandos, erroBalancoMaxKg } satisfies ResultadoReplayBss005;
 }
 
 /** Executor síncrono útil para diários curtos e testes. */
-export function executarReplayDiarioBss005(diario: DiarioBss005, intervaloAmostraS = 5): ResultadoReplayBss005 {
-  const replay = avancarReplayDiarioBss005(diario, intervaloAmostraS);
+export function executarReplayDiarioBss005(diario: DiarioBss005, intervaloAmostraS = 5, opcoes: OpcoesReplayBss005 = {}): ResultadoReplayBss005 {
+  const replay = avancarReplayDiarioBss005(diario, intervaloAmostraS, opcoes);
   let passo = replay.next();
   while (!passo.done) passo = replay.next();
   return passo.value;
