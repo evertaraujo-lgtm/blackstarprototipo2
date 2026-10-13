@@ -46,3 +46,9 @@ M10-A: auditoria concluída; fontes examinadas acima. Validação: 5 testes (Exe
 MontagemBss (src/veiculos) recebe MundoFisico/SuperficieFisica e monta os mesmos objetos/controladores, sem criar ambiente ou UI. DefinicaoBss006 concentra configuração histórica compartilhada com BSS-005; TelemetriaBss é domínio e o caminho antigo reexporta. BancadaBss mantém descrição, trace e controles experimentais e delega montagem/coordenação. Ordem dos objetos/fontes/sensores e fórmulas preservadas. Sem mudança no core físico.
 
 14 testes em três arquivos aprovados (160,39s), incluindo voos da bancada com alvo/vento, sem ignição, falha elétrica e regressão exata dos snapshots pré-extração de 00db5fe. Referência imutável em docs/validacoes/2026-10-13-m10-base-m9.json. Typecheck e build aprovados. Parâmetros: 600kg CH4/2400kg O2, 120kN, Isp350s, bateria1MJ, duas grid fins e pernas históricas.
+
+### M10-C — Portas e execução
+
+ContratoMissao separa definição, instância, comandos, eventos e objetivos. CicloMissao mantém apenas execução/pausa e índice; tempo pertence ao core. ExecutorMissao agenda comandos na fronteira do passo e opera qualquer InstanciaMissao<C,O>, sem conhecimento de veículo/ambiente. Rejeita orçamento/ordem inválidos antes de avançar; pausa não fabrica tempo. Horizonte do executor não encerra fisicamente uma missão.
+
+Dois testes com corpo orbital inerte (outro consumidor da mesma porta), retomada e agenda aprovados; typecheck e build aprovados. Nenhuma dependência de DOM/Canvas/Firebase/RAF/data real na camada.
