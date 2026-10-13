@@ -52,3 +52,11 @@ MontagemBss (src/veiculos) recebe MundoFisico/SuperficieFisica e monta os mesmos
 ContratoMissao separa definição, instância, comandos, eventos e objetivos. CicloMissao mantém apenas execução/pausa e índice; tempo pertence ao core. ExecutorMissao agenda comandos na fronteira do passo e opera qualquer InstanciaMissao<C,O>, sem conhecimento de veículo/ambiente. Rejeita orçamento/ordem inválidos antes de avançar; pausa não fabrica tempo. Horizonte do executor não encerra fisicamente uma missão.
 
 Dois testes com corpo orbital inerte (outro consumidor da mesma porta), retomada e agenda aprovados; typecheck e build aprovados. Nenhuma dependência de DOM/Canvas/Firebase/RAF/data real na camada.
+
+### M10-D — BSS006_VOO_EXPERIMENTAL
+
+AmbienteLancamento cria Terra XY estática, atmosfera M9, vento local projetado e uma única superfície esférica, com material da bancada. MissaoBss006 mantém mundo/montagem privados; aceita sistemas, ignição explícita com permissivos, corte elétrico do motor conforme API histórica, throttle manual, alvo local (bloqueado após decolagem), modo/atitude e falhas reais de cabos/linhas. Perfil automático observa altitude física e seleciona Pouso aos 300m; não altera cinemática. Objetivos e eventos são observações das ações/core.
+
+ObservacaoBss006 inclui corpos/geometry, telemetria, atuadores/arbitragem, energia/consumo, integridade, contatos/normal/impulso e classificações separadas. SnapshotMissao copia e congela dados para não ceder referências do core à UI. Sem encerramento artificial; reinício cria instância nova. Apoio bilateral exige reação normal positiva em ambas as sapatas no mesmo passo por 3s, quietude e motor cortado; proximidade isolada não é aprovação. Segurança estrutural exige também limites de toque e ausência de dano/ruptura.
+
+Quatro testes aprovados: preparação/ignição negada, voo com empuxo/vazão/consumo positivos, pausa/reinicialização, isolamento de snapshots e sítio em outro ponto terrestre. Typecheck/build aprovados. Primeira execução do teste de metadados usava chave ambiente inexistente; corrigida a expectativa para a API real achatada do MundoFisico (nenhuma mudança física).
