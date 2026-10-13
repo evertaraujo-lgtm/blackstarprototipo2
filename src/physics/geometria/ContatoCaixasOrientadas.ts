@@ -27,12 +27,13 @@ export function obterContatoCaixasOrientadas(
   caixaA: CaixaOrientada,
   caixaB: CaixaOrientada,
   toleranciaContatoM = 0,
+  somentePlanoXY = false,
 ): ContatoCaixasOrientadas | undefined {
   if (!Number.isFinite(toleranciaContatoM) || toleranciaContatoM < 0) {
     throw new Error('Tolerância de contato deve ser finita e não negativa.');
   }
   if (caixaA.orientacaoZRad === 0 && caixaB.orientacaoZRad === 0 && !caixaA.verticesLocais2D && !caixaB.verticesLocais2D) {
-    return obterContatoAabb(caixaA, caixaB, toleranciaContatoM);
+    return obterContatoAabb(caixaA, caixaB, toleranciaContatoM, somentePlanoXY);
   }
   const a = obterVertices2D(caixaA);
   const b = obterVertices2D(caixaB);
@@ -59,19 +60,19 @@ export function obterContatoCaixasOrientadas(
     y: (caixaA.posicaoM.y + caixaB.posicaoM.y) / 2,
   };
   const z = obterCentroDaIntersecao(caixaA.posicaoM.z, caixaA.dimensoesM.z, caixaB.posicaoM.z, caixaB.dimensoesM.z);
-  if (sobreposicaoZ < penetracaoM) {
+  if (!somentePlanoXY && sobreposicaoZ < penetracaoM) {
     return { normal: new Vetor3(0, 0, caixaB.posicaoM.z >= caixaA.posicaoM.z ? 1 : -1), penetracaoM: Math.max(0, sobreposicaoZ), pontoM: new Vetor3(ponto.x, ponto.y, z) };
   }
   return { normal: new Vetor3(normal.x, normal.y, 0), penetracaoM: Math.max(0, penetracaoM), pontoM: new Vetor3(ponto.x, ponto.y, z) };
 }
 
-function obterContatoAabb(caixaA: CaixaOrientada, caixaB: CaixaOrientada, toleranciaContatoM: number): ContatoCaixasOrientadas | undefined {
+function obterContatoAabb(caixaA: CaixaOrientada, caixaB: CaixaOrientada, toleranciaContatoM: number, somentePlanoXY: boolean): ContatoCaixasOrientadas | undefined {
   const diferenca = caixaB.posicaoM.subtrair(caixaA.posicaoM);
   const sobreposicaoX = ((caixaA.dimensoesM.x + caixaB.dimensoesM.x) / 2) - Math.abs(diferenca.x);
   const sobreposicaoY = ((caixaA.dimensoesM.y + caixaB.dimensoesM.y) / 2) - Math.abs(diferenca.y);
   const sobreposicaoZ = ((caixaA.dimensoesM.z + caixaB.dimensoesM.z) / 2) - Math.abs(diferenca.z);
   if (sobreposicaoX < -toleranciaContatoM || sobreposicaoY < -toleranciaContatoM || sobreposicaoZ < -toleranciaContatoM) return undefined;
-  if (sobreposicaoX <= sobreposicaoY && sobreposicaoX <= sobreposicaoZ) {
+  if (sobreposicaoX <= sobreposicaoY && (somentePlanoXY || sobreposicaoX <= sobreposicaoZ)) {
     const sinal = diferenca.x >= 0 ? 1 : -1;
     return {
       normal: new Vetor3(sinal, 0, 0), penetracaoM: Math.max(0, sobreposicaoX),
@@ -82,7 +83,7 @@ function obterContatoAabb(caixaA: CaixaOrientada, caixaB: CaixaOrientada, tolera
       ),
     };
   }
-  if (sobreposicaoY <= sobreposicaoZ) {
+  if (somentePlanoXY || sobreposicaoY <= sobreposicaoZ) {
     const sinal = diferenca.y >= 0 ? 1 : -1;
     return {
       normal: new Vetor3(0, sinal, 0), penetracaoM: Math.max(0, sobreposicaoY),

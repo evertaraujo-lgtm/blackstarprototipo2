@@ -125,6 +125,29 @@ Telemetria distingue atitude local/inercial, g local e osculadores orbitais. Lei
 
 Correção adicional necessária de sensores: amostra congelada agora permanece retida além da janela de histórico de 60 s (caso de 70 s coberto). Descarte do histórico por cursor preserva amostras/tempo e evita shift O(n) por subpasso. Atraso usa a última amostra <= instante solicitado; a quantização de até um passo é testada, em vez de presumir interpolação contínua. Limite de obsolescência 0,25 s preservado. TypeScript/build (3,65 s), diff-check e smoke Chrome da bancada aprovados, zero erros JS. CI remoto não executado.
 
+### M9-F — regressão integrada e estado de qualificação (13/10)
+
+As fábricas reais da tela BSS-002/003/004 foram extraídas sem alterar dimensões, massa, materiais, energia, empuxo, reservas ou ganhos; seis fábricas compartilhadas aceitam ambiente explícito. Campanha usa 65%, mudança manual na subida a 80 m (corte para BSS-001/002, modo pouso para os demais) e watchdog observacional 120 s. É um perfil de comparação, não uma missão manual de 15 km nem uma declaração universal de pouso. JSON completo: docs/validacoes/2026-10-13-m9-bss-comparacao.json.
+
+Achado adicional obrigatório: a geometria SAT/AABB legada podia escolher Z como eixo de menor penetração, inclusive após ruptura de ilhas. Isso contrariava dinâmica orbital estritamente 2D e foi detectado pela rejeição do core na campanha BSS-001/002. Agora contato entre corpos e pontos de superfície operam explicitamente em XY no ambiente central; espessura em Z não produz movimento/torque fora do plano. Legado conserva sua resolução anterior. Atrito entre corpos centrais usa vertical local para o envelope de apoio. Este achado completa/corrige a descrição inicial de SAT predominantemente XY da M9-A. Quatro regressões novas cobrem placas finas alinhadas/giradas, queda de placa e opt-in vs seleção Z legada. Nenhuma componente cinemática é apagada como correção posterior: o impulso é calculado no plano correto.
+
+| BSS | Apogeu legado/central (m) | Consumo até observação legado/central (kg) | Resultado do perfil nos dois ambientes |
+|---|---:|---:|---|
+| BSS-001 | 106.536 / 106.413 | 16.369 / 16.380 | dano no retorno balístico sem controle de pouso |
+| BSS-002 | 106.380 / 106.384 | 16.369 / 16.391 | dano no retorno balístico sem controle de pouso |
+| BSS-003 | 85.306 / 85.208 | 21.997 / 16.097 | íntegro; apoio bilateral contínuo não qualificado |
+| BSS-004 | 100.501 / 100.398 | 67.393 / 68.355 | íntegro; apoio bilateral contínuo não qualificado |
+| BSS-005 | 117.310 / 117.219 | 506.143 / 512.601 | íntegro; apoio bilateral contínuo não qualificado |
+| BSS-006 | 111.861 / 111.664 | 589.221 / 606.525 | íntegro; apoio bilateral contínuo não qualificado |
+
+Diferenças de apogeu <0,2 m neste envelope: campo superficial 9,82025 versus g0 legado 9,80665, drift KDK versus Euler e instante discreto de mudança em 80 m. Os consumos são totais até 120 s e incluem atuação pós-toque: BSS-003 mantém throttle de sustentação paramétrico 0,6; transições discretas/contacto alteram esse regime sem reajustar ganhos. No retorno destrutivo BSS-001, contato posterior de casco difere (-8,51 versus -2,81 m/s) porque destroços deixam de escapar pelo eixo Z no novo modelo; primeiro impacto e dano continuam separados do toque do veículo. Não atribuir todas as diferenças exclusivamente a g.
+
+**Qualificação separada:** BSS-006 preserva vínculos, integridade 1 e toque a aproximadamente -0,1200/-0,1204 m/s. Repouso geométrico dentro dos limites históricos da bancada >=3 s foi observado nos dois ambientes (maior janela: 78,1417/18,6917 s). Já a maior janela com apoio bilateral contínuo foi somente 0,02083 s em ambos, abaixo dos mesmos 3 s exigidos. Não se relaxou limite nem se declarou pouso bilateral seguro. A asserção inicial que pressupunha qualificação bilateral falhou também no legado; foi corrigida para testar e registrar explicitamente as duas classificações, preservando a reprovação bilateral. Essa é extensão observacional do backlog M7, não solução dos 34 mm. BSS-003/004/005 deste perfil de 80 m também não recebem qualificação de repouso bilateral; ganhos/materiais não foram ajustados para fabricar sucesso.
+
+Falha elétrica BSS-006: queda, integridade mínima zero e rupturas nos dois ambientes. Ausência de ignição: zero empuxo e zero consumo nas 12 combinações BSS/ambiente. Campanha comparativa de oito testes executada (sete passaram inicialmente; pressuposição bilateral foi investigada e dois BSS006 repetidos com classificação corrigida). 55 core, 4 colisões planares, 13 superfície/atmosfera e 10 orbitais aprovados. Os seis BSS passaram no Chrome, com tempo/ignição/consumo positivos e zero erros JS; coletor corrigido para escopo lexical e para solicitar throttle 65% no BSS-003 (nasce a zero). TypeScript/build aprovados; verificação final de suíte completa prevista no M9-G. CI remoto sem execução, sem push.
+
+M9-F entregue como campanha/regressão e matriz explícita de qualificação; NÃO qualifica todos os pousos nem o retorno de 15 km. A aprovação do núcleo conservativo/orbital não equivale à qualificação dos veículos ou do apoio contínuo de foguetes altos.
+
 ## Inventário de ocorrências na base (reproduzível)
 
 Busca em todo `src`, exceto testes: `posicaoM.y|velocidadeMps.[xy]|alturaM|gravidadeTerrestreMps2|9.80665`. Este índice lista todas as linhas encontradas, inclusive geometria cartesiana legítima e laboratórios preservados. Cada ocorrência deve ser interpretada com a matriz acima; contagem não implica que toda linha deva mudar.

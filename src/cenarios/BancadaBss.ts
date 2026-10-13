@@ -49,8 +49,9 @@ export interface ConfiguracaoBancadaDecolagem {
   densidadeAtmosfericaKgM3?: number;
 }
 
-/** Decolagem integrada alimentada por painel solar e bateria física. */
-export const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBancadaDecolagem = {
+export type AmbienteBancadaBss = Pick<ConfiguracaoBancadaDecolagem, 'velocidadeArMps' | 'rajadasVento' | 'densidadeAtmosfericaKgM3' | 'ambienteFisico' | 'arcoBaseM'>;
+
+const CONFIGURACAO_BSS001: ConfiguracaoBancadaDecolagem = {
   id: 'bss-001',
   nome: 'BSS-001 — primeiro lançamento de sucesso',
   descricao: 'BSS-001, primeiro foguete do protótipo a completar um lançamento de sucesso. Veículo composto físico com casco, tanques de metano e oxigênio, cadeia de alimentação bipropelente, bateria e painel solar. O Sol simulado incide verticalmente de cima para baixo por toda a atmosfera; a bateria acumula energia e o operador comanda manualmente os sistemas, o gimbal e a ignição.',
@@ -61,7 +62,10 @@ export const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBanc
   deslocamentoLateralDoPainelM: 0,
   painelMovel: false,
   incluirPainelSolar: true,
-}) => {
+};
+
+/** Decolagem integrada alimentada por painel solar e bateria física. */
+export const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBancadaDecolagem = CONFIGURACAO_BSS001) => {
   const mundo = new MundoFisico(1 / 240, {
     ambiente: configuracao.ambienteFisico ?? new AmbientePlano(),
     densidadeAtmosfericaKgM3: configuracao.densidadeAtmosfericaKgM3 ?? 1.225,
@@ -448,4 +452,35 @@ export const criarTesteBss006 = (ambiente: Pick<ConfiguracaoBancadaDecolagem, 'v
   fatorTanques: 5,
   fatorPropulsor: 3,
   impulsoEspecificoNominalS: IMPULSO_ESPECIFICO_NOMINAL_BSS005_S,
+});
+
+export const criarTesteBss001 = (ambiente: AmbienteBancadaBss = {}) => criarTesteDecolagemComPainelSolar({ ...CONFIGURACAO_BSS001, ...ambiente });
+
+/** Fábricas extraídas de src/testes.ts na M9-F; parâmetros históricos preservados. */
+export const criarTesteBss002 = (ambiente: AmbienteBancadaBss = {}) => criarTesteDecolagemComPainelSolar({
+  ...ambiente,
+  id: 'bss-002',
+  nome: 'BSS-002 — controle de inclinação PID',
+  descricao: 'BSS-002 valida o controle de inclinação do primeiro foguete em decolagem vertical. O sensor de nível do casco fornece a leitura ao computador de voo, que mantém o gimbal neutro quando a atitude está alinhada e corrige desvios físicos durante o voo. A ignição, o throttle e os demais sistemas continuam sob comando manual da bancada.',
+  controleDeInclinacaoPid: true,
+  inclinacaoInicialRad: 0,
+  energiaInicialDaBateriaJ: 30_000,
+  deslocamentoLateralDoPainelM: 0.8,
+  painelMovel: false,
+  incluirPainelSolar: true,
+});
+
+/** Variante do BSS-002 com pernas fixas estruturais, uma em cada lado. */
+export const criarTesteBss004 = (ambiente: AmbienteBancadaBss = {}) => criarTesteDecolagemComPainelSolar({
+  ...ambiente,
+  id: 'bss-004',
+  nome: 'BSS-004 — controle de inclinação e pernas fixas',
+  descricao: 'Cópia do BSS-002 com duas pernas fixas, uma de cada lado do casco. Cada perna e sua sapata são objetos físicos ligados estruturalmente ao foguete. As sapatas apoiam o veículo no solo e mantêm o motor afastado da superfície; ignição, throttle e controle de inclinação continuam sob comando manual da bancada.',
+  controleDeInclinacaoPid: true,
+  inclinacaoInicialRad: 0,
+  energiaInicialDaBateriaJ: 30_000,
+  deslocamentoLateralDoPainelM: 0.8,
+  painelMovel: false,
+  incluirPainelSolar: true,
+  incluirPernasFixas: true,
 });

@@ -6,6 +6,7 @@ import { Vetor3 } from '../Vetor3';
 import { ResolvedorEsforcoEstrutural } from './ResolvedorEsforcoEstrutural';
 
 export interface ContextoResolvedorContatoSuperficie {
+  readonly somentePlanoXY?: boolean;
   readonly obterObjetos: () => Iterable<Objeto>;
   readonly obterSuperficies: () => Iterable<SuperficieFisica>;
   readonly obterConjuntoEstrutural: (objeto: Objeto) => ConjuntoEstruturalRigido | undefined;
@@ -121,7 +122,7 @@ export class ResolvedorContatoSuperficie {
     return objeto.getPontosDeContatoLocaisM().map((ponto) => new Vetor3(
       estado.posicaoM.x + (ponto.x * cosseno) - (ponto.y * seno),
       estado.posicaoM.y + (ponto.x * seno) + (ponto.y * cosseno),
-      estado.posicaoM.z + ponto.z,
+      this.contexto.somentePlanoXY ? 0 : estado.posicaoM.z + ponto.z,
     ));
   }
 

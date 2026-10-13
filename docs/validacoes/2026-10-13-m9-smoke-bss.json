@@ -1,0 +1,41 @@
+{
+  "cenarios": [
+    {
+      "cenario": "BSS-001 \u2014 primeiro lan\u00e7amento de sucesso",
+      "tempo": "BSS-001 \u2014 primeiro lan\u00e7amento de sucesso\nt = 2.446 s \u00b7 3,0\u00d7",
+      "ignicao": "\u2713 1 igni\u00e7\u00f5es confirmadas",
+      "metanoRestanteKg": 118.7
+    },
+    {
+      "cenario": "BSS-002 \u2014 controle de inclina\u00e7\u00e3o PID",
+      "tempo": "BSS-002 \u2014 controle de inclina\u00e7\u00e3o PID\nt = 2.400 s \u00b7 3,0\u00d7",
+      "ignicao": "\u2713 1 igni\u00e7\u00f5es confirmadas",
+      "metanoRestanteKg": 118.8
+    },
+    {
+      "cenario": "BSS-004 \u2014 controle de inclina\u00e7\u00e3o e pernas fixas",
+      "tempo": "BSS-004 \u2014 controle de inclina\u00e7\u00e3o e pernas fixas\nt = 2.450 s \u00b7 3,0\u00d7",
+      "ignicao": "\u2713 1 igni\u00e7\u00f5es confirmadas",
+      "metanoRestanteKg": 118.7
+    },
+    {
+      "cenario": "BSS-005 \u2014 tanques ampliados \u00b7 meta 15 km",
+      "tempo": "BSS-005 \u2014 tanques ampliados \u00b7 meta 15 km\nt = 2.450 s \u00b7 3,0\u00d7",
+      "ignicao": "\u2713 1 igni\u00e7\u00f5es confirmadas",
+      "metanoRestanteKg": 588.9
+    },
+    {
+      "cenario": "BSS-006 \u2014 pouso guiado por alvo",
+      "tempo": "BSS-006 \u2014 pouso guiado por alvo\nt = 2.446 s \u00b7 3,0\u00d7",
+      "ignicao": "\u2713 1 igni\u00e7\u00f5es confirmadas",
+      "metanoRestanteKg": 588.9
+    },
+    {
+      "cenario": "BSS-003 \u2014 decolagem e pouso sob comando manual",
+      "tempo": "BSS-003 \u2014 decolagem e pouso sob comando manual\nt = 2.446 s \u00b7 3,0\u00d7",
+      "ignicao": "\u2713 2 igni\u00e7\u00f5es confirmadas",
+      "metanoRestanteKg": 248.4
+    }
+  ],
+  "errosJS": 0
+}

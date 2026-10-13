@@ -6,6 +6,8 @@ import { Vetor3 } from '../Vetor3';
 import { ResolvedorEsforcoEstrutural } from './ResolvedorEsforcoEstrutural';
 
 export interface ContextoResolvedorColisoes {
+  readonly somentePlanoXY?: boolean;
+  readonly verticalEm?: (p: Vetor3) => Vetor3;
   readonly obterObjetos: () => Iterable<Objeto>;
   readonly obterConjuntoEstrutural: (objeto: Objeto) => ConjuntoEstruturalRigido | undefined;
   readonly obterFixadores: () => Iterable<FixadorEstrutural>;
@@ -28,7 +30,7 @@ export class ResolvedorColisoes {
         if (this.contexto.deveIgnorarColisao?.(objetoA, objetoB)) continue;
         if (this.estaoNaMesmaIlhaEstrutural(objetoA, objetoB)) continue;
         const usarGeometriaEspecifica = objetoA.getEstadoFisico().orientacaoRad.z !== 0 || objetoB.getEstadoFisico().orientacaoRad.z !== 0;
-        const contato = obterContatoCaixasOrientadas(this.obterCaixa(objetoA, usarGeometriaEspecifica), this.obterCaixa(objetoB, usarGeometriaEspecifica));
+        const contato = obterContatoCaixasOrientadas(this.obterCaixa(objetoA, usarGeometriaEspecifica), this.obterCaixa(objetoB, usarGeometriaEspecifica), 0, this.contexto.somentePlanoXY ?? false);
         if (contato && contato.penetracaoM > 0) {
           this.resolverContato(objetoA, objetoB, contato.normal, contato.penetracaoM, contato.pontoM, dtS);
         }
@@ -103,7 +105,7 @@ export class ResolvedorColisoes {
     const velocidadeContatoAtualB = velocidadeB.adicionar(velocidadeAngularB.produtoVetorial(bracoB));
     const velocidadeRelativaAtual = velocidadeContatoAtualB.subtrair(velocidadeContatoAtualA);
     const velocidadeTangencial = velocidadeRelativaAtual.subtrair(normal.multiplicar(velocidadeRelativaAtual.produtoEscalar(normal)));
-    if (Math.abs(normal.y) >= 0.95 && velocidadeTangencial.magnitude > 1e-9 && impulsoNormalNs > 0) {
+    if (Math.abs(normal.produtoEscalar(this.contexto.verticalEm?.(pontoContatoM) ?? new Vetor3(0, 1, 0))) >= 0.95 && velocidadeTangencial.magnitude > 1e-9 && impulsoNormalNs > 0) {
       const direcaoAtrito = velocidadeTangencial.multiplicar(1 / velocidadeTangencial.magnitude);
       const inerciaA = objetoA.getMomentoInerciaKgM2();
       const inerciaB = objetoB.getMomentoInerciaKgM2();

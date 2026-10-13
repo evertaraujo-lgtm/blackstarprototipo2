@@ -1,0 +1,1284 @@
+{
+  "dtS": 0.004166666666666667,
+  "comando": "65%; troca/corte manual em subida a 80m; watchdog observacional 120s",
+  "evidencias": [
+    {
+      "nome": "BSS-001 \u2014 primeiro lan\u00e7amento de sucesso",
+      "modelo": {
+        "revisao": "plano-m8",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "campo": {
+          "modelo": "uniforme",
+          "aceleracaoMps2": {
+            "x": 0,
+            "y": -9.80665,
+            "z": 0
+          }
+        },
+        "integracao": "euler-semi-implicito",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "extrapolacao-legada",
+        "densidadeNivelMarKgM3": 1.225
+      },
+      "falha": "nenhuma",
+      "eventoTroca": {
+        "tempoS": 6.295833333333296,
+        "altitudeM": 80.06715781768425,
+        "velocidadeRadialMps": 23.258693202536488,
+        "combustivelKg": 583.6308333333268
+      },
+      "apogeuM": 106.53598422069118,
+      "consumoKg": 16.36916666667321,
+      "restanteKg": 583.6308333333268,
+      "picoVelocidadeRadialMps": 41.540414233291095,
+      "picoEmpuxoN": 26000,
+      "primeiroImpacto": {
+        "tempoS": 13.2833333333329,
+        "objetoId": "propulsor-decolagem-solar",
+        "superficieId": "solo-decolagem-solar",
+        "pontoContatoM": {
+          "x": -0.7000000000015123,
+          "y": -0.1027604234541244,
+          "z": 0
+        },
+        "penetracaoM": 0.10276042345419337,
+        "velocidadeNormalAntesMps": -41.57061383464424,
+        "velocidadeNormalDepoisMps": 9.142988964938557,
+        "energiaImpactoJ": 1556964.4256528665,
+        "normal": {
+          "x": 0,
+          "y": 1,
+          "z": 0
+        },
+        "impulsoNormalNs": 94536.22375983771,
+        "emProximidade": false,
+        "emContatoGeometrico": true,
+        "sustentacaoAplicada": true,
+        "emApoio": false
+      },
+      "toqueVeiculo": {
+        "tempoS": 15.237499999999455,
+        "objetoId": "bss-001",
+        "superficieId": "solo-decolagem-solar",
+        "pontoContatoM": {
+          "x": 2.8889499363908673,
+          "y": -0.027209851655959127,
+          "z": 0
+        },
+        "penetracaoM": 0.027209851655959127,
+        "velocidadeNormalAntesMps": -8.506918593996073,
+        "velocidadeNormalDepoisMps": 2.4312112658429905,
+        "energiaImpactoJ": 28947.065585950448,
+        "normal": {
+          "x": 0,
+          "y": 1,
+          "z": 0
+        },
+        "impulsoNormalNs": 6219.686667523162,
+        "emProximidade": false,
+        "emContatoGeometrico": true,
+        "sustentacaoAplicada": true,
+        "emApoio": false
+      },
+      "integridadeMinima": 0,
+      "fixadoresRompidos": [
+        "fixador-decolagem-painel-decolagem-solar",
+        "fixador-decolagem-bateria-decolagem-solar",
+        "fixador-decolagem-tanque-decolagem-metano",
+        "fixador-decolagem-tanque-decolagem-oxidante",
+        "fixador-decolagem-propulsor-decolagem-solar"
+      ],
+      "tempoFinalS": 119.99999999997303,
+      "repousoContinuoS": 0,
+      "estado": "dano"
+    },
+    {
+      "nome": "BSS-001 \u2014 primeiro lan\u00e7amento de sucesso",
+      "modelo": {
+        "revisao": "terra-esferica-m9",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "raioM": 6371000,
+        "g0ReferenciaIspMps2": 9.80665,
+        "campo": {
+          "modelo": "central",
+          "centroM": {
+            "x": 0,
+            "y": -6371000,
+            "z": 0
+          },
+          "muM3S2": 398600441800000
+        },
+        "integracao": "verlet-gravitacional",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "vacuo-simplificado-25km",
+        "densidadeNivelMarKgM3": 1.225
+      },
+      "falha": "nenhuma",
+      "eventoTroca": {
+        "tempoS": 6.2999999999999625,
+        "altitudeM": 80.0521062752232,
+        "velocidadeRadialMps": 23.202698999383657,
+        "combustivelKg": 583.6199999999934
+      },
+      "apogeuM": 106.41336383111775,
+      "consumoKg": 16.38000000000659,
+      "restanteKg": 583.6199999999934,
+      "picoVelocidadeRadialMps": 41.55506760932362,
+      "picoEmpuxoN": 26000,
+      "primeiroImpacto": {
+        "tempoS": 13.274999999999567,
+        "objetoId": "propulsor-decolagem-solar",
+        "superficieId": "solo-decolagem-solar",
+        "pontoContatoM": {
+          "x": -6.305280035867611e-07,
+          "y": -0.07258872019477303,
+          "z": 0
+        },
+        "penetracaoM": 0.07258872035890818,
+        "velocidadeNormalAntesMps": -41.58530572553992,
+        "velocidadeNormalDepoisMps": 10.445069126197575,
+        "energiaImpactoJ": 1624384.1501692862,
+        "normal": {
+          "x": -9.896845248324508e-14,
+          "y": 1,
+          "z": 0
+        },
+        "impulsoNormalNs": 97745.30280397013,
+        "emProximidade": false,
+        "emContatoGeometrico": true,
+        "sustentacaoAplicada": true,
+        "emApoio": false
+      },
+      "toqueVeiculo": {
+        "tempoS": 17.933333333332637,
+        "objetoId": "bss-001",
+        "superficieId": "solo-decolagem-solar",
+        "pontoContatoM": {
+          "x": -0.5427587066471873,
+          "y": -0.0078546152131036,
+          "z": 0
+        },
+        "penetracaoM": 0.007854592986404896,
+        "velocidadeNormalAntesMps": -2.8111046135562594,
+        "velocidadeNormalDepoisMps": 1.65726647512408,
+        "energiaImpactoJ": 3160.9236593429146,
+        "normal": {
+          "x": -8.519207460623706e-08,
+          "y": 0.9999999999999964,
+          "z": 0
+        },
+        "impulsoNormalNs": 3735.07448930831,
+        "emProximidade": false,
+        "emContatoGeometrico": true,
+        "sustentacaoAplicada": true,
+        "emApoio": false
+      },
+      "integridadeMinima": 0,
+      "fixadoresRompidos": [
+        "fixador-decolagem-painel-decolagem-solar",
+        "fixador-decolagem-bateria-decolagem-solar",
+        "fixador-decolagem-tanque-decolagem-metano",
+        "fixador-decolagem-tanque-decolagem-oxidante",
+        "fixador-decolagem-propulsor-decolagem-solar"
+      ],
+      "tempoFinalS": 119.99999999997303,
+      "repousoContinuoS": 0,
+      "estado": "dano"
+    },
+    {
+      "nome": "BSS-002 \u2014 controle de inclina\u00e7\u00e3o PID",
+      "modelo": {
+        "revisao": "plano-m8",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "campo": {
+          "modelo": "uniforme",
+          "aceleracaoMps2": {
+            "x": 0,
+            "y": -9.80665,
+            "z": 0
+          }
+        },
+        "integracao": "euler-semi-implicito",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "extrapolacao-legada",
+        "densidadeNivelMarKgM3": 1.225
+      },
+      "falha": "nenhuma",
+      "eventoTroca": {
+        "tempoS": 6.295833333333296,
+        "altitudeM": 80.01125291928068,
+        "velocidadeRadialMps": 23.225463846103136,
+        "combustivelKg": 583.6308333333268
+      },
+      "apogeuM": 106.37987570311536,
+      "consumoKg": 16.36916666667321,
+      "restanteKg": 583.6308333333268,
+      "picoVelocidadeRadialMps": 41.309113361645274,
+      "picoEmpuxoN": 26000,
+      "primeiroImpacto": {
+        "tempoS": 13.279166666666233,
+        "objetoId": "propulsor-decolagem-solar",
+        "superficieId": "solo-decolagem-solar",
+        "pontoContatoM": {
+          "x": 3.0473296992434915,
+          "y": -0.07877336603704602,
+          "z": 0
+        },
+        "penetracaoM": 0.07877336603704602,
+        "velocidadeNormalAntesMps": -41.35778227172167,
+        "velocidadeNormalDepoisMps": 10.22666437359351,
+        "energiaImpactoJ": 1592662.1438603688,
+        "normal": {
+          "x": 0,
+          "y": 1,
+          "z": 0
+        },
+        "impulsoNormalNs": 96749.00509490419,
+        "emProximidade": false,
+        "emContatoGeometrico": true,
+        "sustentacaoAplicada": true,
+        "emApoio": false
+      },
+      "toqueVeiculo": {
+        "tempoS": 15.520833333332773,
+        "objetoId": "bss-002",
+        "superficieId": "solo-decolagem-solar",
+        "pontoContatoM": {
+          "x": -0.391140783683934,
+          "y": -0.023659161577308296,
+          "z": 0
+        },
+        "penetracaoM": 0.023659161577308296,
+        "velocidadeNormalAntesMps": -8.299758193011542,
+        "velocidadeNormalDepoisMps": 6.292121598080903,
+        "energiaImpactoJ": 27554.394424984883,
+        "normal": {
+          "x": 0,
+          "y": 1,
+          "z": 0
+        },
+        "impulsoNormalNs": 11743.956074000229,
+        "emProximidade": false,
+        "emContatoGeometrico": true,
+        "sustentacaoAplicada": true,
+        "emApoio": false
+      },
+      "integridadeMinima": 0,
+      "fixadoresRompidos": [
+        "fixador-decolagem-painel-decolagem-solar",
+        "fixador-decolagem-bateria-decolagem-solar",
+        "fixador-decolagem-tanque-decolagem-metano",
+        "fixador-decolagem-tanque-decolagem-oxidante",
+        "fixador-decolagem-propulsor-decolagem-solar"
+      ],
+      "tempoFinalS": 119.99999999997303,
+      "repousoContinuoS": 0,
+      "estado": "dano"
+    },
+    {
+      "nome": "BSS-002 \u2014 controle de inclina\u00e7\u00e3o PID",
+      "modelo": {
+        "revisao": "terra-esferica-m9",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "raioM": 6371000,
+        "g0ReferenciaIspMps2": 9.80665,
+        "campo": {
+          "modelo": "central",
+          "centroM": {
+            "x": 0,
+            "y": -6371000,
+            "z": 0
+          },
+          "muM3S2": 398600441800000
+        },
+        "integracao": "verlet-gravitacional",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "vacuo-simplificado-25km",
+        "densidadeNivelMarKgM3": 1.225
+      },
+      "falha": "nenhuma",
+      "eventoTroca": {
+        "tempoS": 6.304166666666629,
+        "altitudeM": 80.0929587520659,
+        "velocidadeRadialMps": 23.182915720059547,
+        "combustivelKg": 583.60916666666
+      },
+      "apogeuM": 106.38371668756008,
+      "consumoKg": 16.39083333333997,
+      "restanteKg": 583.60916666666,
+      "picoVelocidadeRadialMps": 41.34379192796431,
+      "picoEmpuxoN": 26000,
+      "primeiroImpacto": {
+        "tempoS": 13.279166666666233,
+        "objetoId": "propulsor-decolagem-solar",
+        "superficieId": "solo-decolagem-solar",
+        "pontoContatoM": {
+          "x": 3.0496715771804412,
+          "y": -0.04145440206758939,
+          "z": 0
+        },
+        "penetracaoM": 0.041453671641647816,
+        "velocidadeNormalAntesMps": -41.3925338716613,
+        "velocidadeNormalDepoisMps": 10.219288497913434,
+        "energiaImpactoJ": 1595400.1277391484,
+        "normal": {
+          "x": 4.786802067216282e-07,
+          "y": 0.9999999999998853,
+          "z": 0
+        },
+        "impulsoNormalNs": 96800.07191397107,
+        "emProximidade": false,
+        "emContatoGeometrico": true,
+        "sustentacaoAplicada": true,
+        "emApoio": false
+      },
+      "toqueVeiculo": {
+        "tempoS": 15.520833333332773,
+        "objetoId": "bss-002",
+        "superficieId": "solo-decolagem-solar",
+        "pontoContatoM": {
+          "x": -0.3844184956802146,
+          "y": -0.02074765109277088,
+          "z": 0
+        },
+        "penetracaoM": 0.020747640170156956,
+        "velocidadeNormalAntesMps": -8.331495836985994,
+        "velocidadeNormalDepoisMps": 6.312461729259659,
+        "energiaImpactoJ": 27765.52915268598,
+        "normal": {
+          "x": -6.03388003346574e-08,
+          "y": 0.9999999999999982,
+          "z": 0
+        },
+        "impulsoNormalNs": 11782.488922559376,
+        "emProximidade": false,
+        "emContatoGeometrico": true,
+        "sustentacaoAplicada": true,
+        "emApoio": false
+      },
+      "integridadeMinima": 0,
+      "fixadoresRompidos": [
+        "fixador-decolagem-painel-decolagem-solar",
+        "fixador-decolagem-bateria-decolagem-solar",
+        "fixador-decolagem-tanque-decolagem-metano",
+        "fixador-decolagem-tanque-decolagem-oxidante",
+        "fixador-decolagem-propulsor-decolagem-solar"
+      ],
+      "tempoFinalS": 119.99999999997303,
+      "repousoContinuoS": 0,
+      "estado": "dano"
+    },
+    {
+      "nome": "BSS-003 \u2014 decolagem e pouso sob comando manual",
+      "modelo": {
+        "revisao": "plano-m8",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "campo": {
+          "modelo": "uniforme",
+          "aceleracaoMps2": {
+            "x": 0,
+            "y": -9.80665,
+            "z": 0
+          }
+        },
+        "integracao": "euler-semi-implicito",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "extrapolacao-legada",
+        "densidadeNivelMarKgM3": 1.225
+      },
+      "falha": "nenhuma",
+      "eventoTroca": {
+        "tempoS": 14.062499999999522,
+        "altitudeM": 80.03404623448576,
+        "velocidadeRadialMps": 10.258055664763418,
+        "combustivelKg": 740.8593750000563
+      },
+      "apogeuM": 85.30646291355939,
+      "consumoKg": 21.996735108748226,
+      "restanteKg": 728.0032648912518,
+      "picoVelocidadeRadialMps": 12.687827294206091,
+      "picoEmpuxoN": 13000,
+      "primeiroImpacto": {
+        "tempoS": 24.179166666665616,
+        "objetoId": "bss03-sapata-esquerda",
+        "superficieId": "solo-bss03",
+        "pontoContatoM": {
+          "x": -3.7000000000013418,
+          "y": -0.0055448129053788375,
+          "z": 0
+        },
+        "penetracaoM": 0.005544812905378893,
+        "velocidadeNormalAntesMps": -4.181687928247899,
+        "velocidadeNormalDepoisMps": -1.2393018569121101,
+        "energiaImpactoJ": 5667.726928724977,
+        "normal": {
+          "x": 0,
+          "y": 1,
+          "z": 0
+        },
+        "impulsoNormalNs": 3944.121523554289,
+        "emProximidade": false,
+        "emContatoGeometrico": true,
+        "sustentacaoAplicada": true,
+        "emApoio": false
+      },
+      "toqueVeiculo": {
+        "tempoS": 24.179166666665616,
+        "objetoId": "bss03-sapata-esquerda",
+        "superficieId": "solo-bss03",
+        "pontoContatoM": {
+          "x": -3.7000000000013418,
+          "y": -0.0055448129053788375,
+          "z": 0
+        },
+        "penetracaoM": 0.005544812905378893,
+        "velocidadeNormalAntesMps": -4.181687928247899,
+        "velocidadeNormalDepoisMps": -1.2393018569121101,
+        "energiaImpactoJ": 5667.726928724977,
+        "normal": {
+          "x": 0,
+          "y": 1,
+          "z": 0
+        },
+        "impulsoNormalNs": 3944.121523554289,
+        "emProximidade": false,
+        "emContatoGeometrico": true,
+        "sustentacaoAplicada": true,
+        "emApoio": false
+      },
+      "integridadeMinima": 1,
+      "fixadoresRompidos": [
+        "fixador-bss03-bss03-sapata-esquerda",
+        "fixador-bss03-bss03-sapata-direita"
+      ],
+      "tempoFinalS": 119.99999999997303,
+      "repousoContinuoS": 0,
+      "estado": "sem-repouso-no-watchdog"
+    },
+    {
+      "nome": "BSS-003 \u2014 decolagem e pouso sob comando manual",
+      "modelo": {
+        "revisao": "terra-esferica-m9",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "raioM": 6371000,
+        "g0ReferenciaIspMps2": 9.80665,
+        "campo": {
+          "modelo": "central",
+          "centroM": {
+            "x": 0,
+            "y": -6371000,
+            "z": 0
+          },
+          "muM3S2": 398600441800000
+        },
+        "integracao": "verlet-gravitacional",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "vacuo-simplificado-25km",
+        "densidadeNivelMarKgM3": 1.225
+      },
+      "falha": "nenhuma",
+      "eventoTroca": {
+        "tempoS": 14.14583333333285,
+        "altitudeM": 80.01648051850498,
+        "velocidadeRadialMps": 10.163502993626484,
+        "combustivelKg": 740.8052083333899
+      },
+      "apogeuM": 85.20757261384279,
+      "consumoKg": 16.09722824355788,
+      "restanteKg": 733.9027717564421,
+      "picoVelocidadeRadialMps": 12.689138428155324,
+      "picoEmpuxoN": 13000,
+      "primeiroImpacto": {
+        "tempoS": 24.258333333332278,
+        "objetoId": "bss03-sapata-esquerda",
+        "superficieId": "solo-bss03",
+        "pontoContatoM": {
+          "x": -1.8999999999980492,
+          "y": -0.003346866477886678,
+          "z": 0
+        },
+        "penetracaoM": 0.003346583805978298,
+        "velocidadeNormalAntesMps": -4.183569371086633,
+        "velocidadeNormalDepoisMps": 0.10021789890655565,
+        "energiaImpactoJ": 12341.385425293533,
+        "normal": {
+          "x": -2.9822633825083795e-07,
+          "y": 0.9999999999999556,
+          "z": 0
+        },
+        "impulsoNormalNs": 8584.399684109001,
+        "emProximidade": false,
+        "emContatoGeometrico": true,
+        "sustentacaoAplicada": true,
+        "emApoio": false
+      },
+      "toqueVeiculo": {
+        "tempoS": 24.258333333332278,
+        "objetoId": "bss03-sapata-esquerda",
+        "superficieId": "solo-bss03",
+        "pontoContatoM": {
+          "x": -1.8999999999980492,
+          "y": -0.003346866477886678,
+          "z": 0
+        },
+        "penetracaoM": 0.003346583805978298,
+        "velocidadeNormalAntesMps": -4.183569371086633,
+        "velocidadeNormalDepoisMps": 0.10021789890655565,
+        "energiaImpactoJ": 12341.385425293533,
+        "normal": {
+          "x": -2.9822633825083795e-07,
+          "y": 0.9999999999999556,
+          "z": 0
+        },
+        "impulsoNormalNs": 8584.399684109001,
+        "emProximidade": false,
+        "emContatoGeometrico": true,
+        "sustentacaoAplicada": true,
+        "emApoio": false
+      },
+      "integridadeMinima": 1,
+      "fixadoresRompidos": [
+        "fixador-bss03-bss03-tanque-pouso",
+        "fixador-bss03-bss03-sapata-esquerda",
+        "fixador-bss03-bss03-sapata-direita"
+      ],
+      "tempoFinalS": 119.99999999997303,
+      "repousoContinuoS": 0,
+      "estado": "sem-repouso-no-watchdog"
+    },
+    {
+      "nome": "BSS-004 \u2014 controle de inclina\u00e7\u00e3o e pernas fixas",
+      "modelo": {
+        "revisao": "plano-m8",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "campo": {
+          "modelo": "uniforme",
+          "aceleracaoMps2": {
+            "x": 0,
+            "y": -9.80665,
+            "z": 0
+          }
+        },
+        "integracao": "euler-semi-implicito",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "extrapolacao-legada",
+        "densidadeNivelMarKgM3": 1.225
+      },
+      "falha": "nenhuma",
+      "eventoTroca": {
+        "tempoS": 7.195833333333245,
+        "altitudeM": 80.06572464910552,
+        "velocidadeRadialMps": 20.335981228690667,
+        "combustivelKg": 581.2908333333258
+      },
+      "apogeuM": 100.50085968101473,
+      "consumoKg": 67.39343148468765,
+      "restanteKg": 532.6065685153123,
+      "picoVelocidadeRadialMps": 20.335981228690667,
+      "picoEmpuxoN": 26000,
+      "primeiroImpacto": {
+        "tempoS": 34.29583333333366,
+        "objetoId": "bss04-sapata-esquerda",
+        "superficieId": "solo-decolagem-solar",
+        "pontoContatoM": {
+          "x": 6.239793462484498,
+          "y": -0.0001917374105244729,
+          "z": 0
+        },
+        "penetracaoM": 0.0001917374105244729,
+        "velocidadeNormalAntesMps": -0.40654103933907615,
+        "velocidadeNormalDepoisMps": 0.21336408441930715,
+        "energiaImpactoJ": 103.36552337527834,
+        "normal": {
+          "x": 0,
+          "y": 1,
+          "z": 0
+        },
+        "impulsoNormalNs": 923.4580142495486,
+        "emProximidade": false,
+        "emContatoGeometrico": true,
+        "sustentacaoAplicada": true,
+        "emApoio": false
+      },
+      "toqueVeiculo": {
+        "tempoS": 34.29583333333366,
+        "objetoId": "bss04-sapata-esquerda",
+        "superficieId": "solo-decolagem-solar",
+        "pontoContatoM": {
+          "x": 6.239793462484498,
+          "y": -0.0001917374105244729,
+          "z": 0
+        },
+        "penetracaoM": 0.0001917374105244729,
+        "velocidadeNormalAntesMps": -0.40654103933907615,
+        "velocidadeNormalDepoisMps": 0.21336408441930715,
+        "energiaImpactoJ": 103.36552337527834,
+        "normal": {
+          "x": 0,
+          "y": 1,
+          "z": 0
+        },
+        "impulsoNormalNs": 923.4580142495486,
+        "emProximidade": false,
+        "emContatoGeometrico": true,
+        "sustentacaoAplicada": true,
+        "emApoio": false
+      },
+      "integridadeMinima": 1,
+      "fixadoresRompidos": [],
+      "tempoFinalS": 119.99999999997303,
+      "repousoContinuoS": 0,
+      "estado": "sem-repouso-no-watchdog"
+    },
+    {
+      "nome": "BSS-004 \u2014 controle de inclina\u00e7\u00e3o e pernas fixas",
+      "modelo": {
+        "revisao": "terra-esferica-m9",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "raioM": 6371000,
+        "g0ReferenciaIspMps2": 9.80665,
+        "campo": {
+          "modelo": "central",
+          "centroM": {
+            "x": 0,
+            "y": -6371000,
+            "z": 0
+          },
+          "muM3S2": 398600441800000
+        },
+        "integracao": "verlet-gravitacional",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "vacuo-simplificado-25km",
+        "densidadeNivelMarKgM3": 1.225
+      },
+      "falha": "nenhuma",
+      "eventoTroca": {
+        "tempoS": 7.204166666666578,
+        "altitudeM": 80.06415227986872,
+        "velocidadeRadialMps": 20.275864731177837,
+        "combustivelKg": 581.2691666666591
+      },
+      "apogeuM": 100.39798924513161,
+      "consumoKg": 68.35526413993148,
+      "restanteKg": 531.6447358600685,
+      "picoVelocidadeRadialMps": 20.275864731177837,
+      "picoEmpuxoN": 26000,
+      "primeiroImpacto": {
+        "tempoS": 34.720833333334,
+        "objetoId": "bss04-sapata-esquerda",
+        "superficieId": "solo-decolagem-solar",
+        "pontoContatoM": {
+          "x": 6.369299907790446,
+          "y": -0.0007756593143155022,
+          "z": 0
+        },
+        "penetracaoM": 0.0007724761962890625,
+        "velocidadeNormalAntesMps": -0.4048333227725331,
+        "velocidadeNormalDepoisMps": 0.2123941671956364,
+        "energiaImpactoJ": 102.45924274276362,
+        "normal": {
+          "x": 9.997331515559122e-07,
+          "y": 0.9999999999995004,
+          "z": 0
+        },
+        "impulsoNormalNs": 919.2226743913816,
+        "emProximidade": false,
+        "emContatoGeometrico": true,
+        "sustentacaoAplicada": true,
+        "emApoio": false
+      },
+      "toqueVeiculo": {
+        "tempoS": 34.720833333334,
+        "objetoId": "bss04-sapata-esquerda",
+        "superficieId": "solo-decolagem-solar",
+        "pontoContatoM": {
+          "x": 6.369299907790446,
+          "y": -0.0007756593143155022,
+          "z": 0
+        },
+        "penetracaoM": 0.0007724761962890625,
+        "velocidadeNormalAntesMps": -0.4048333227725331,
+        "velocidadeNormalDepoisMps": 0.2123941671956364,
+        "energiaImpactoJ": 102.45924274276362,
+        "normal": {
+          "x": 9.997331515559122e-07,
+          "y": 0.9999999999995004,
+          "z": 0
+        },
+        "impulsoNormalNs": 919.2226743913816,
+        "emProximidade": false,
+        "emContatoGeometrico": true,
+        "sustentacaoAplicada": true,
+        "emApoio": false
+      },
+      "integridadeMinima": 1,
+      "fixadoresRompidos": [],
+      "tempoFinalS": 119.99999999997303,
+      "repousoContinuoS": 0,
+      "estado": "sem-repouso-no-watchdog"
+    },
+    {
+      "nome": "BSS-005 \u2014 tanques ampliados \u00b7 meta 15 km",
+      "modelo": {
+        "revisao": "plano-m8",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "campo": {
+          "modelo": "uniforme",
+          "aceleracaoMps2": {
+            "x": 0,
+            "y": -9.80665,
+            "z": 0
+          }
+        },
+        "integracao": "euler-semi-implicito",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "extrapolacao-legada",
+        "densidadeNivelMarKgM3": 1.225
+      },
+      "falha": "nenhuma",
+      "eventoTroca": {
+        "tempoS": 5.487500000000009,
+        "altitudeM": 80.00374187382754,
+        "velocidadeRadialMps": 27.34540903911411,
+        "combustivelKg": 2875.2959908403536
+      },
+      "apogeuM": 117.30950009865522,
+      "consumoKg": 506.1429218441358,
+      "restanteKg": 2493.857078155864,
+      "picoVelocidadeRadialMps": 27.34540903911411,
+      "picoEmpuxoN": 77999.99999999999,
+      "primeiroImpacto": {
+        "tempoS": 35.19166666666771,
+        "objetoId": "bss05-sapata-esquerda",
+        "superficieId": "solo-decolagem-solar",
+        "pontoContatoM": {
+          "x": -0.19540558850801654,
+          "y": -0.0007950453507249988,
+          "z": 0
+        },
+        "penetracaoM": 0.0007950453507249988,
+        "velocidadeNormalAntesMps": -0.4792310011358099,
+        "velocidadeNormalDepoisMps": 0.15925384752080296,
+        "energiaImpactoJ": 361.530322901786,
+        "normal": {
+          "x": 0,
+          "y": 1,
+          "z": 0
+        },
+        "impulsoNormalNs": 2739.9690956286277,
+        "emProximidade": false,
+        "emContatoGeometrico": true,
+        "sustentacaoAplicada": true,
+        "emApoio": false
+      },
+      "toqueVeiculo": {
+        "tempoS": 35.19166666666771,
+        "objetoId": "bss05-sapata-esquerda",
+        "superficieId": "solo-decolagem-solar",
+        "pontoContatoM": {
+          "x": -0.19540558850801654,
+          "y": -0.0007950453507249988,
+          "z": 0
+        },
+        "penetracaoM": 0.0007950453507249988,
+        "velocidadeNormalAntesMps": -0.4792310011358099,
+        "velocidadeNormalDepoisMps": 0.15925384752080296,
+        "energiaImpactoJ": 361.530322901786,
+        "normal": {
+          "x": 0,
+          "y": 1,
+          "z": 0
+        },
+        "impulsoNormalNs": 2739.9690956286277,
+        "emProximidade": false,
+        "emContatoGeometrico": true,
+        "sustentacaoAplicada": true,
+        "emApoio": false
+      },
+      "integridadeMinima": 1,
+      "fixadoresRompidos": [
+        "fixador-decolagem-tanque-decolagem-oxidante"
+      ],
+      "tempoFinalS": 119.99999999997303,
+      "repousoContinuoS": 0,
+      "estado": "sem-repouso-no-watchdog"
+    },
+    {
+      "nome": "BSS-005 \u2014 tanques ampliados \u00b7 meta 15 km",
+      "modelo": {
+        "revisao": "terra-esferica-m9",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "raioM": 6371000,
+        "g0ReferenciaIspMps2": 9.80665,
+        "campo": {
+          "modelo": "central",
+          "centroM": {
+            "x": 0,
+            "y": -6371000,
+            "z": 0
+          },
+          "muM3S2": 398600441800000
+        },
+        "integracao": "verlet-gravitacional",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "vacuo-simplificado-25km",
+        "densidadeNivelMarKgM3": 1.225
+      },
+      "falha": "nenhuma",
+      "eventoTroca": {
+        "tempoS": 5.491666666666675,
+        "altitudeM": 80.03416988812387,
+        "velocidadeRadialMps": 27.297124028922365,
+        "combustivelKg": 2875.2013029062914
+      },
+      "apogeuM": 117.21897652372718,
+      "consumoKg": 512.6006809227911,
+      "restanteKg": 2487.399319077209,
+      "picoVelocidadeRadialMps": 27.297124028922365,
+      "picoEmpuxoN": 77999.99999999999,
+      "primeiroImpacto": {
+        "tempoS": 35.616666666668046,
+        "objetoId": "bss05-sapata-esquerda",
+        "superficieId": "solo-decolagem-solar",
+        "pontoContatoM": {
+          "x": -0.15822430423493972,
+          "y": -0.0004931470532760496,
+          "z": 0
+        },
+        "penetracaoM": 0.0004931455478072166,
+        "velocidadeNormalAntesMps": -0.47937671993213404,
+        "velocidadeNormalDepoisMps": 0.1598396262416044,
+        "energiaImpactoJ": 361.3491545509369,
+        "normal": {
+          "x": -2.483508150167745e-08,
+          "y": 0.9999999999999998,
+          "z": 0
+        },
+        "impulsoNormalNs": 2737.7635891763866,
+        "emProximidade": false,
+        "emContatoGeometrico": true,
+        "sustentacaoAplicada": true,
+        "emApoio": false
+      },
+      "toqueVeiculo": {
+        "tempoS": 35.616666666668046,
+        "objetoId": "bss05-sapata-esquerda",
+        "superficieId": "solo-decolagem-solar",
+        "pontoContatoM": {
+          "x": -0.15822430423493972,
+          "y": -0.0004931470532760496,
+          "z": 0
+        },
+        "penetracaoM": 0.0004931455478072166,
+        "velocidadeNormalAntesMps": -0.47937671993213404,
+        "velocidadeNormalDepoisMps": 0.1598396262416044,
+        "energiaImpactoJ": 361.3491545509369,
+        "normal": {
+          "x": -2.483508150167745e-08,
+          "y": 0.9999999999999998,
+          "z": 0
+        },
+        "impulsoNormalNs": 2737.7635891763866,
+        "emProximidade": false,
+        "emContatoGeometrico": true,
+        "sustentacaoAplicada": true,
+        "emApoio": false
+      },
+      "integridadeMinima": 1,
+      "fixadoresRompidos": [
+        "fixador-decolagem-tanque-decolagem-oxidante"
+      ],
+      "tempoFinalS": 119.99999999997303,
+      "repousoContinuoS": 0,
+      "estado": "sem-repouso-no-watchdog"
+    },
+    {
+      "nome": "BSS-006 \u2014 pouso guiado por alvo",
+      "modelo": {
+        "revisao": "plano-m8",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "campo": {
+          "modelo": "uniforme",
+          "aceleracaoMps2": {
+            "x": 0,
+            "y": -9.80665,
+            "z": 0
+          }
+        },
+        "integracao": "euler-semi-implicito",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "extrapolacao-legada",
+        "densidadeNivelMarKgM3": 1.225
+      },
+      "falha": "nenhuma",
+      "eventoTroca": {
+        "tempoS": 5.670833333333332,
+        "altitudeM": 80.101794757022,
+        "velocidadeRadialMps": 25.717699516199144,
+        "combustivelKg": 2871.129721741626
+      },
+      "apogeuM": 111.86074417524173,
+      "consumoKg": 589.2207733185924,
+      "restanteKg": 2410.7792266814076,
+      "picoVelocidadeRadialMps": 25.717699516199144,
+      "picoEmpuxoN": 77999.99999999999,
+      "primeiroImpacto": {
+        "tempoS": 40.650000000005384,
+        "objetoId": "bss04-sapata-esquerda",
+        "superficieId": "solo-decolagem-solar",
+        "pontoContatoM": {
+          "x": -2.7837524484208185,
+          "y": -0.000413467415844998,
+          "z": 0
+        },
+        "penetracaoM": 0.000413467415844998,
+        "velocidadeNormalAntesMps": -0.11996107761768778,
+        "velocidadeNormalDepoisMps": 0.035358329508924084,
+        "energiaImpactoJ": 22.809352831848674,
+        "normal": {
+          "x": 0,
+          "y": 1,
+          "z": 0
+        },
+        "impulsoNormalNs": 690.5870731612987,
+        "emProximidade": false,
+        "emContatoGeometrico": true,
+        "sustentacaoAplicada": true,
+        "emApoio": true
+      },
+      "toqueVeiculo": {
+        "tempoS": 40.650000000005384,
+        "objetoId": "bss04-sapata-esquerda",
+        "superficieId": "solo-decolagem-solar",
+        "pontoContatoM": {
+          "x": -2.7837524484208185,
+          "y": -0.000413467415844998,
+          "z": 0
+        },
+        "penetracaoM": 0.000413467415844998,
+        "velocidadeNormalAntesMps": -0.11996107761768778,
+        "velocidadeNormalDepoisMps": 0.035358329508924084,
+        "energiaImpactoJ": 22.809352831848674,
+        "normal": {
+          "x": 0,
+          "y": 1,
+          "z": 0
+        },
+        "impulsoNormalNs": 690.5870731612987,
+        "emProximidade": false,
+        "emContatoGeometrico": true,
+        "sustentacaoAplicada": true,
+        "emApoio": true
+      },
+      "integridadeMinima": 1,
+      "fixadoresRompidos": [],
+      "tempoFinalS": 119.99999999997303,
+      "repousoContinuoS": 0.008333333333333333,
+      "maiorRepousoBilateralS": 0.020833333333333332,
+      "maiorRepousoGeometricoS": 78.14166666667776,
+      "repousoBilateralQualificado": false,
+      "repousoGeometricoQualificado": true,
+      "estado": "sem-repouso-no-watchdog"
+    },
+    {
+      "nome": "BSS-006 \u2014 pouso guiado por alvo",
+      "modelo": {
+        "revisao": "terra-esferica-m9",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "raioM": 6371000,
+        "g0ReferenciaIspMps2": 9.80665,
+        "campo": {
+          "modelo": "central",
+          "centroM": {
+            "x": 0,
+            "y": -6371000,
+            "z": 0
+          },
+          "muM3S2": 398600441800000
+        },
+        "integracao": "verlet-gravitacional",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "vacuo-simplificado-25km",
+        "densidadeNivelMarKgM3": 1.225
+      },
+      "falha": "nenhuma",
+      "eventoTroca": {
+        "tempoS": 5.670833333333332,
+        "altitudeM": 80.0282133910805,
+        "velocidadeRadialMps": 25.658409099200156,
+        "combustivelKg": 2871.129721741626
+      },
+      "apogeuM": 111.66351175028831,
+      "consumoKg": 606.5249282804357,
+      "restanteKg": 2393.4750717195643,
+      "picoVelocidadeRadialMps": 25.658409099200156,
+      "picoEmpuxoN": 77999.99999999999,
+      "primeiroImpacto": {
+        "tempoS": 41.86666666667302,
+        "objetoId": "bss04-sapata-esquerda",
+        "superficieId": "solo-decolagem-solar",
+        "pontoContatoM": {
+          "x": -2.7872598284882746,
+          "y": -0.00018045579955480728,
+          "z": 0
+        },
+        "penetracaoM": 0.00017984583973884583,
+        "velocidadeNormalAntesMps": -0.1203597382165714,
+        "velocidadeNormalDepoisMps": 0.03576242313784694,
+        "energiaImpactoJ": 22.893771596476313,
+        "normal": {
+          "x": -4.3749173262705316e-07,
+          "y": 0.9999999999999043,
+          "z": 0
+        },
+        "impulsoNormalNs": 690.8471193978856,
+        "emProximidade": false,
+        "emContatoGeometrico": true,
+        "sustentacaoAplicada": true,
+        "emApoio": true
+      },
+      "toqueVeiculo": {
+        "tempoS": 41.86666666667302,
+        "objetoId": "bss04-sapata-esquerda",
+        "superficieId": "solo-decolagem-solar",
+        "pontoContatoM": {
+          "x": -2.7872598284882746,
+          "y": -0.00018045579955480728,
+          "z": 0
+        },
+        "penetracaoM": 0.00017984583973884583,
+        "velocidadeNormalAntesMps": -0.1203597382165714,
+        "velocidadeNormalDepoisMps": 0.03576242313784694,
+        "energiaImpactoJ": 22.893771596476313,
+        "normal": {
+          "x": -4.3749173262705316e-07,
+          "y": 0.9999999999999043,
+          "z": 0
+        },
+        "impulsoNormalNs": 690.8471193978856,
+        "emProximidade": false,
+        "emContatoGeometrico": true,
+        "sustentacaoAplicada": true,
+        "emApoio": true
+      },
+      "integridadeMinima": 1,
+      "fixadoresRompidos": [],
+      "tempoFinalS": 119.99999999997303,
+      "repousoContinuoS": 0.004166666666666667,
+      "maiorRepousoBilateralS": 0.020833333333333332,
+      "maiorRepousoGeometricoS": 18.691666666665927,
+      "repousoBilateralQualificado": false,
+      "repousoGeometricoQualificado": true,
+      "estado": "sem-repouso-no-watchdog"
+    },
+    {
+      "nome": "BSS-006 \u2014 pouso guiado por alvo",
+      "modelo": {
+        "revisao": "plano-m8",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "campo": {
+          "modelo": "uniforme",
+          "aceleracaoMps2": {
+            "x": 0,
+            "y": -9.80665,
+            "z": 0
+          }
+        },
+        "integracao": "euler-semi-implicito",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "extrapolacao-legada",
+        "densidadeNivelMarKgM3": 1.225
+      },
+      "falha": "eletrica",
+      "eventoTroca": {
+        "tempoS": 5.670833333333332,
+        "altitudeM": 80.101794757022,
+        "velocidadeRadialMps": 25.717699516199144,
+        "combustivelKg": 2871.129721741626
+      },
+      "apogeuM": 111.86074417524173,
+      "consumoKg": 128.87027825837413,
+      "restanteKg": 2871.129721741626,
+      "picoVelocidadeRadialMps": 41.668729267412566,
+      "picoEmpuxoN": 77999.99999999999,
+      "primeiroImpacto": {
+        "tempoS": 13.016666666666248,
+        "objetoId": "bss04-sapata-esquerda",
+        "superficieId": "solo-decolagem-solar",
+        "pontoContatoM": {
+          "x": -2.1428832792375183,
+          "y": -0.014986105493103391,
+          "z": 0
+        },
+        "penetracaoM": 0.014986105493103391,
+        "velocidadeNormalAntesMps": -41.688911330859426,
+        "velocidadeNormalDepoisMps": -8.272914446406515,
+        "energiaImpactoJ": 2978312.852862404,
+        "normal": {
+          "x": 0,
+          "y": 1,
+          "z": 0
+        },
+        "impulsoNormalNs": 162456.28608467645,
+        "emProximidade": false,
+        "emContatoGeometrico": true,
+        "sustentacaoAplicada": true,
+        "emApoio": false
+      },
+      "toqueVeiculo": {
+        "tempoS": 13.016666666666248,
+        "objetoId": "bss04-sapata-esquerda",
+        "superficieId": "solo-decolagem-solar",
+        "pontoContatoM": {
+          "x": -2.1428832792375183,
+          "y": -0.014986105493103391,
+          "z": 0
+        },
+        "penetracaoM": 0.014986105493103391,
+        "velocidadeNormalAntesMps": -41.688911330859426,
+        "velocidadeNormalDepoisMps": -8.272914446406515,
+        "energiaImpactoJ": 2978312.852862404,
+        "normal": {
+          "x": 0,
+          "y": 1,
+          "z": 0
+        },
+        "impulsoNormalNs": 162456.28608467645,
+        "emProximidade": false,
+        "emContatoGeometrico": true,
+        "sustentacaoAplicada": true,
+        "emApoio": false
+      },
+      "integridadeMinima": 0,
+      "fixadoresRompidos": [
+        "fixador-decolagem-bateria-decolagem-solar",
+        "fixador-decolagem-tanque-decolagem-metano",
+        "fixador-decolagem-tanque-decolagem-oxidante",
+        "fixador-decolagem-propulsor-decolagem-solar",
+        "fixador-decolagem-bss04-sapata-esquerda",
+        "fixador-decolagem-bss04-sapata-direita"
+      ],
+      "tempoFinalS": 119.99999999997303,
+      "repousoContinuoS": 0,
+      "maiorRepousoBilateralS": 0,
+      "maiorRepousoGeometricoS": 0,
+      "repousoBilateralQualificado": false,
+      "repousoGeometricoQualificado": false,
+      "estado": "dano"
+    },
+    {
+      "nome": "BSS-006 \u2014 pouso guiado por alvo",
+      "modelo": {
+        "revisao": "terra-esferica-m9",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "raioM": 6371000,
+        "g0ReferenciaIspMps2": 9.80665,
+        "campo": {
+          "modelo": "central",
+          "centroM": {
+            "x": 0,
+            "y": -6371000,
+            "z": 0
+          },
+          "muM3S2": 398600441800000
+        },
+        "integracao": "verlet-gravitacional",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "vacuo-simplificado-25km",
+        "densidadeNivelMarKgM3": 1.225
+      },
+      "falha": "eletrica",
+      "eventoTroca": {
+        "tempoS": 5.670833333333332,
+        "altitudeM": 80.0282133910805,
+        "velocidadeRadialMps": 25.658409099200156,
+        "combustivelKg": 2871.129721741626
+      },
+      "apogeuM": 111.66351175028831,
+      "consumoKg": 128.87027825837413,
+      "restanteKg": 2871.129721741626,
+      "picoVelocidadeRadialMps": 41.68539693498031,
+      "picoEmpuxoN": 77999.99999999999,
+      "primeiroImpacto": {
+        "tempoS": 13.004166666666249,
+        "objetoId": "bss04-sapata-esquerda",
+        "superficieId": "solo-decolagem-solar",
+        "pontoContatoM": {
+          "x": -2.143310218359349,
+          "y": -0.06896078186850853,
+          "z": 0
+        },
+        "penetracaoM": 0.06896042171865702,
+        "velocidadeNormalAntesMps": -41.70566469352642,
+        "velocidadeNormalDepoisMps": -8.280250972051274,
+        "energiaImpactoJ": 2980595.9736678875,
+        "normal": {
+          "x": -3.3641661302131224e-07,
+          "y": 0.9999999999999434,
+          "z": 0
+        },
+        "impulsoNormalNs": 162500.51395027243,
+        "emProximidade": false,
+        "emContatoGeometrico": true,
+        "sustentacaoAplicada": true,
+        "emApoio": false
+      },
+      "toqueVeiculo": {
+        "tempoS": 13.004166666666249,
+        "objetoId": "bss04-sapata-esquerda",
+        "superficieId": "solo-decolagem-solar",
+        "pontoContatoM": {
+          "x": -2.143310218359349,
+          "y": -0.06896078186850853,
+          "z": 0
+        },
+        "penetracaoM": 0.06896042171865702,
+        "velocidadeNormalAntesMps": -41.70566469352642,
+        "velocidadeNormalDepoisMps": -8.280250972051274,
+        "energiaImpactoJ": 2980595.9736678875,
+        "normal": {
+          "x": -3.3641661302131224e-07,
+          "y": 0.9999999999999434,
+          "z": 0
+        },
+        "impulsoNormalNs": 162500.51395027243,
+        "emProximidade": false,
+        "emContatoGeometrico": true,
+        "sustentacaoAplicada": true,
+        "emApoio": false
+      },
+      "integridadeMinima": 0,
+      "fixadoresRompidos": [
+        "fixador-decolagem-bateria-decolagem-solar",
+        "fixador-decolagem-tanque-decolagem-metano",
+        "fixador-decolagem-tanque-decolagem-oxidante",
+        "fixador-decolagem-propulsor-decolagem-solar",
+        "fixador-decolagem-bss04-sapata-esquerda",
+        "fixador-decolagem-bss04-perna-direita",
+        "fixador-decolagem-bss04-sapata-direita"
+      ],
+      "tempoFinalS": 119.99999999997303,
+      "repousoContinuoS": 0,
+      "maiorRepousoBilateralS": 0,
+      "maiorRepousoGeometricoS": 0,
+      "repousoBilateralQualificado": false,
+      "repousoGeometricoQualificado": false,
+      "estado": "dano"
+    }
+  ],
+  "coletas": "BSS001\u2013005 e aus\u00eancia de igni\u00e7\u00e3o na campanha completa; BSS006 e perda el\u00e9trica na reexecu\u00e7\u00e3o que separa crit\u00e9rios geom\u00e9trico/bilateral. Mesma f\u00edsica, dt e comandos; observa\u00e7\u00e3o n\u00e3o solicita for\u00e7as."
+}

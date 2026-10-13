@@ -104,6 +104,8 @@ export class MundoFisico {
       (objeto) => this.obterConjuntoEstruturalDoObjeto(objeto),
     );
     this.resolvedorColisoes = new ResolvedorColisoes({
+      somentePlanoXY: this.ambiente.campo.modelo === 'central',
+      verticalEm: (p) => this.ambiente.referencial.radial(p),
       obterObjetos: () => this.objetos.values(),
       obterConjuntoEstrutural: (objeto) => this.obterConjuntoEstruturalDoObjeto(objeto),
       obterFixadores: () => this.fixadores.values(),
@@ -113,6 +115,7 @@ export class MundoFisico {
       deveIgnorarColisao: (objetoA, objetoB) => [...this.juntasRotacionaisDeBancada.values()].some((junta) => junta.ignoraColisaoEntre(objetoA, objetoB)),
     });
     this.resolvedorContatoSuperficie = new ResolvedorContatoSuperficie({
+      somentePlanoXY: this.ambiente.campo.modelo === 'central',
       obterObjetos: () => this.objetos.values(),
       obterSuperficies: () => this.superficies.values(),
       obterConjuntoEstrutural: (objeto) => this.obterConjuntoEstruturalDoObjeto(objeto),
@@ -344,6 +347,10 @@ export class MundoFisico {
   private validarVetorPlanar(v: Vetor3): void {
     if (this.ambiente.campo.modelo === 'central' && v.z !== 0) throw new Error('Dinâmica orbital M9 restrita a XY; componente Z não permitida.');
   }
+  private validarForcaPlanar(f: ForcaAplicada): void {
+    this.validarVetorPlanar(f.forcaN); this.validarVetorPlanar(f.pontoM);
+    if (f.torqueNm && (f.torqueNm.x !== 0 || f.torqueNm.y !== 0)) throw new Error('Torque orbital somente em Z.');
+  }
   private validarEstadoPlanar(objeto: Objeto): void {
     if (this.ambiente.campo.modelo !== 'central') return;
     const e = objeto.getEstadoFisico();
@@ -362,7 +369,7 @@ export class MundoFisico {
       const forcasOperacionais = objeto.obterForcasOperacionais().map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM, torqueNm: forca.torqueNm }));
       const forcasAerodinamicas = objeto.obterForcasAerodinamicas({ densidadeArKgM3: this.atmosfera.obterDensidadeNaPosicaoKgM3(estado.posicaoM), velocidadeArMps: this.velocidadeArAtualMps })
         .map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM }));
-      if (this.ambiente.campo.modelo === 'central') for (const f of [...forcas, ...forcasOperacionais, ...forcasAerodinamicas]) this.validarVetorPlanar(f.forcaN);
+      if (this.ambiente.campo.modelo === 'central') for (const f of [...forcas, ...forcasOperacionais, ...forcasAerodinamicas]) this.validarForcaPlanar(f);
       const forcasDasJuntas = [...this.juntasRotacionaisDeBancada.values()].flatMap((junta) => junta.obterForcasPara(objeto));
       this.integrador.integrarObjeto(objeto, [...forcas, ...forcasOperacionais, ...forcasAerodinamicas, ...forcasDasJuntas, { forcaN: this.obterForcaArrastoAtmosferico(objeto), pontoM: objeto.obterCentroPressaoM() }], this.integracao === 'verlet-gravitacional' ? Vetor3.zero : this.obterGravidadeMps2(estado.posicaoM), dtS);
       objeto.registrarUso(dtS / 3600);
@@ -382,7 +389,7 @@ export class MundoFisico {
         }
         objeto.registrarUso(dtS / 3600);
       }
-      if (this.ambiente.campo.modelo === 'central') for (const f of forcasDoConjunto) this.validarVetorPlanar(f.forcaN);
+      if (this.ambiente.campo.modelo === 'central') for (const f of forcasDoConjunto) this.validarForcaPlanar(f);
       conjunto.integrar(forcasDoConjunto, dtS);
     }
   }
