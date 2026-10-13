@@ -1,0 +1,119 @@
+{
+  "dataLocal": "2026-10-13",
+  "marco": "M9-A\u2013G",
+  "tipo": "Valida\u00e7\u00e3o local; sem push/deploy e sem CI remoto",
+  "node": "20.20.0",
+  "dependenciasLocais": {
+    "typescript": "5.9.3",
+    "vite": "7.3.6",
+    "vitest": "3.2.7"
+  },
+  "suiteCompleta": {
+    "comando": "npm test -- --run --maxWorkers=1 --reporter=verbose",
+    "arquivos": 60,
+    "aprovados": 439,
+    "falhas": 0,
+    "codigoSaida": 0,
+    "duracaoS": 1181.18
+  },
+  "complementar": {
+    "comando": "npm test -- src/cenarios/BancadaBssCentral.test.ts src/physics/ambiente/BaseMissoesM9.test.ts src/physics/ambiente/SensoresControleM9.test.ts --maxWorkers=1 --reporter=verbose",
+    "arquivos": 3,
+    "aprovados": 25,
+    "falhas": 0,
+    "codigoSaida": 0,
+    "duracaoS": 194.81,
+    "testesNovosForaDaColetaGlobal": 4,
+    "observacao": "Os outros 21 j\u00e1 estavam na su\u00edte global; sensores repetidos ap\u00f3s fixture de 70s permanecer explicitamente no exterior terrestre."
+  },
+  "totalDistintosAprovados": 443,
+  "totalArquivosDistintos": 61,
+  "orbitasFinal": {
+    "comando": "M9_EVIDENCIAS_DIR=/tmp/blackstar-m9-evidencias-final npm test -- src/physics/ambiente/DinamicaOrbital.test.ts src/physics/ambiente/CampoGravitacional.test.ts --maxWorkers=1",
+    "aprovados": 17,
+    "falhas": 0,
+    "duracaoS": 4.34,
+    "observacao": "Inclui dt explorat\u00f3rio 2 s, n\u00e3o qualificado por exceder 10m radial; sem relaxamento de toler\u00e2ncia."
+  },
+  "typecheck": "aprovado, sa\u00edda 0",
+  "build": "aprovado, sa\u00edda 0; entradas principal/testes/orbitas",
+  "ciRemoto": "n\u00e3o executado: commits locais, push reservado ao operador; nenhuma declara\u00e7\u00e3o de CI verde",
+  "npmCiNestaExecucao": false,
+  "smoke": [
+    "Seis BSS com tempo/igni\u00e7\u00e3o/consumo positivos e zero erros JS",
+    "Orbital circular >1 volta e el\u00edptico e=0,1; exporta\u00e7\u00e3o inicial preservada",
+    "C\u00e2mera/zoom sem altera\u00e7\u00e3o f\u00edsica; desktop e mobile inspecionados"
+  ],
+  "envelopeBss006Central": {
+    "trocaNaSubidaM": 300,
+    "casos": [
+      {
+        "alvoM": 34.7,
+        "ventoXMps": 0
+      },
+      {
+        "alvoM": -34.7,
+        "ventoXMps": 0
+      },
+      {
+        "alvoM": 0,
+        "ventoXMps": 5
+      },
+      {
+        "alvoM": 0,
+        "ventoXMps": -5
+      }
+    ],
+    "criterios": {
+      "velocidadeRadialToqueMaxMps": 0.2,
+      "velocidadeTangencialToqueMaxMps": 0.2,
+      "atitudeLocalMaxRad": 0.01,
+      "taxaAtitudeLocalMaxRadps": 0.01,
+      "erroAlvoMaxM": 1,
+      "repousoGeometricoContinuoS": 3,
+      "velocidadeCascoMaxMps": 0.05,
+      "velocidadeComponentesMaxMps": 0.1,
+      "rotacaoComponentesMaxRadps": 0.01,
+      "integridadeMinima": 1,
+      "fixadoresRompidos": 0
+    },
+    "qualificacaoBilateralContinua": false
+  },
+  "pendencias": [
+    "Apoio bilateral cont\u00ednuo n\u00e3o qualificado nos BSS da campanha de 80m",
+    "Penetra\u00e7\u00e3o hist\u00f3rica ~34mm n\u00e3o fechada",
+    "Di\u00e1rio manual/retorno 15km M5-B/C pendente; ensaio M2 de troca na subida continua falha",
+    "M8-B incompleto",
+    "Rota\u00e7\u00e3o terrestre, reentrada/alta atmosfera e inclina\u00e7\u00e3o orbital/3D n\u00e3o implementadas",
+    "Sem BSS-007 ou orbitador"
+  ],
+  "sha256Fontes": {
+    "orbitas.html": "26eea06b9f71163b99760bbaf7899d4da40142db58fb63271ebeef90a843f0c4",
+    "src/cenarios/BancadaBss.ts": "7f9bce7c449587dbe7d885151c4c5b1cb30d47067224e40768c57213163bdb03",
+    "src/cenarios/BancadaBss003.ts": "9df35cd1ac4dd2bdf210a8ea603cbaa2aa3632feea0f9c8f359518c5d15dc2d3",
+    "src/cenarios/BancadaBssCentral.test.ts": "b25dad57a47e459296052505926385a7ce50c9c74726641c15bee50818efaa4d",
+    "src/cenarios/EnsaioOrbitalInerte.ts": "434aa8a4d2524d4fb8ad28bec1b34d5aee664fe2c2e501db867e1c7765c747ab",
+    "src/orbitas.ts": "b6d1cc7db9003a4ea82e48abb020de627c9cec4270aec7a829be6856dc484a09",
+    "src/physics/MundoFisico.ts": "949c7bbbeaef104f933f9124649b15fdd7ef373ce55eac0446af187457ce437f",
+    "src/physics/SuperficieEsferica.ts": "44c065ad0e13632d792da3051941a4c7e100971f5fd317f659f2e2ee57951015",
+    "src/physics/SuperficieFisica.ts": "3d126db132b2610cb0ab4436038b4621f5e9ac18f4bcd94cb12399846a22c886",
+    "src/physics/SuperficiePlano.ts": "b3dc3a039809a55c9a003b2c4793bf252ba3f4049a458ff6a50d16651888217e",
+    "src/physics/SuperficiePlanoLocal.ts": "29f709ba6bf4f799b4d0af668646e6c8d626dda51411897180f2899d6c3cc8d7",
+    "src/physics/ambiente/AmbienteFisico.ts": "069f2aba9082f470edafddb6dcf9e30fb00f57754956f0a2145d9c3ac53fcec0",
+    "src/physics/ambiente/BaseMissoesM9.test.ts": "c4cfb6c5262f98bbc1542f11f2ad5f9096638d28caa6d2633c6e18880f35a90b",
+    "src/physics/ambiente/CampoGravitacional.test.ts": "7dd191dee9835c69109451399d694be40e7cc27ecd0363a43b11768ac829faa8",
+    "src/physics/ambiente/CampoGravitacional.ts": "262bad0d7f1c20ddca77c62494699d96e5a2309310bd8f575dfc512631019a06",
+    "src/physics/ambiente/ColisoesPlanarM9.test.ts": "057ae165b763e11f3cf5300f0f3df65f4d504d78d5bffdeaa66424c95f7a8a55",
+    "src/physics/ambiente/DinamicaOrbital.test.ts": "7f887b1e573a0354f996e98f44c66162676177ac8ec633a2ae4863c54f0925fc",
+    "src/physics/ambiente/EstadoInicialLocal.ts": "8a3473430a6cb0128cdd837b43cdf2b5ee51f0d573cd00d5fb1d40bfe026516c",
+    "src/physics/ambiente/ReferencialFisico.ts": "d99bd0789122e156ad127c35f6dfc2a238ed5d2ef0eaf825a9a18bd769b776a6",
+    "src/physics/ambiente/SensoresControleM9.test.ts": "49fba42aa12a83894ad0c19512e37aa282ca0f487421b65128c4a59092b45fdb",
+    "src/physics/ambiente/SuperficieAtmosferaM9.test.ts": "96bd02f79cc38d41ce8f4b42f9e23328065924600fff9c8fe675ca67336c15ff",
+    "src/physics/ambiente/TelemetriaOrbital.ts": "280ffb08ea35ba647a6c9824dde03fa945a27419c24f592221cb6bd90bb5b00d",
+    "src/physics/conexoes/FixadorEstrutural.ts": "32d6bbd56650afe335c1c2cfb82ae79556d0b2bba0f8b605e1818c3893122830",
+    "src/physics/sensores/SensoresVeiculoComposto.ts": "3a19a5e3b2ff27fa0d697e46c2b26e6c0d74baf10cfd8f1d113d3283090b33b9",
+    "src/physics/solucionadores/ResolvedorColisoes.ts": "1bef7528215ddfbe87e6afdc30f205c65d8e377c44c5a7c27dbaa5f65ec0fc27",
+    "src/physics/solucionadores/ResolvedorContatoSuperficie.ts": "dba87899923d8b67cafb4d38418f5ddd88e99e48a50af9c536eeac96918cfd8b",
+    "src/visualizacao/CameraFisica2D.ts": "8d5a20f87ba67ffb4da18c91e456b8e4b7e0621e69d1157f74464518273014fb"
+  }
+}

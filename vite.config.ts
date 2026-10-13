@@ -8,6 +8,7 @@ export default defineConfig({
       input: {
         principal: resolve(import.meta.dirname, 'index.html'),
         testes: resolve(import.meta.dirname, 'tests.html'),
+        orbitas: resolve(import.meta.dirname, 'orbitas.html'),
       },
     },
   },

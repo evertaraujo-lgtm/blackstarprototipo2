@@ -1,0 +1,41 @@
+{
+  "circular": {
+    "passos": 6009,
+    "leitura": {
+      "raioM": 6771000.29376016,
+      "altitudeM": 400000.29376016,
+      "velocidadeInercialMps": 7672.598315509015,
+      "velocidadeCircularMps": 7672.598481946988,
+      "velocidadeEscapeMps": 10850.692831812652,
+      "energiaEspecificaJPorKg": -29434385.009599335,
+      "momentoAngularEspecificoM2S": -51951165448.21457,
+      "excentricidade": 1.668956490204664e-07,
+      "perigeuM": 399998.86994965747,
+      "apogeuM": 400001.13005053997,
+      "periodoS": 5544.8550959809145,
+      "interceptaSuperficie": false,
+      "estado": "orbital"
+    }
+  },
+  "eliptica": {
+    "passos": 1199,
+    "leitura": {
+      "raioM": 7289749.524717192,
+      "altitudeM": 918749.5247171922,
+      "velocidadeInercialMps": 7508.479851644005,
+      "velocidadeCircularMps": 7394.564214956467,
+      "velocidadeEscapeMps": 10457.493000630195,
+      "energiaEspecificaJPorKg": -26490945.087842762,
+      "momentoAngularEspecificoM2S": -54486841994.8391,
+      "excentricidade": 0.10000026548453875,
+      "perigeuM": 399998.36582234316,
+      "apogeuM": 1904669.1078468356,
+      "periodoS": 6494.2121516779225,
+      "interceptaSuperficie": false,
+      "estado": "orbital"
+    }
+  },
+  "cameraNaoAlteraFisica": true,
+  "mobileSemTransbordamento": true,
+  "errosJS": 0
+}

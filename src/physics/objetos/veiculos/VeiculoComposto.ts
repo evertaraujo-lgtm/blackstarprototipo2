@@ -151,7 +151,7 @@ export class VeiculoComposto extends Objeto {
     while (houveAlteracao) {
       houveAlteracao = false;
       for (const fixador of this.fixadores.values()) {
-        if (fixador.estaRompido) continue;
+        if (!fixador.estaAtivo) continue;
         if (conectados.has(fixador.objetoA) && !conectados.has(fixador.objetoB)) {
           conectados.add(fixador.objetoB); houveAlteracao = true;
         }

@@ -85,6 +85,10 @@ describe('M9-C — dois corpos inertes em vácuo explícito', () => {
     expect(resultados[1].metricas.desvioRadialM).toBeLessThan(resultados[0].metricas.desvioRadialM / 3);
     expect(resultados[2].metricas.desvioRadialM).toBeLessThan(resultados[1].metricas.desvioRadialM / 3);
     expect(propagar(1, 0, 'verlet-gravitacional', 3).estado).toEqual(resultados[0].estado);
+    const exploratorio = propagar(2);
+    // Passo fora do envelope qualificado: conserva energia, mas excede o
+    // orçamento radial de 10 m. Não ampliar tolerância para aprová-lo.
+    expect(exploratorio.metricas.desvioRadialM).toBeGreaterThan(10);
     const kdk = propagar(1);
     const legado = propagar(1, 0, 'euler-semi-implicito');
     expect(kdk.metricas.desvioRadialM).toBeLessThan(10);

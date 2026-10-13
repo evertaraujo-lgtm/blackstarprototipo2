@@ -20,6 +20,7 @@ export interface DefinicaoFixadorEstrutural {
 /** Conexão rígida simples que falha por esforço e preserva o conjunto físico. */
 export class FixadorEstrutural {
   private rompido = false;
+  private liberado = false;
   private readonly deslocamentoInicialM: Vetor3;
   private readonly orientacaoInicialARad: Vetor3;
   private readonly orientacaoRelativaInicialRad: Vetor3;
@@ -48,6 +49,14 @@ export class FixadorEstrutural {
 
   public get id(): string { return this.definicao.id; }
   public get estaRompido(): boolean { return this.rompido; }
+  public get estaAtivo(): boolean { return !this.rompido && !this.liberado; }
+  public get estado(): 'integro' | 'rompido' | 'liberado' { return this.rompido ? 'rompido' : this.liberado ? 'liberado' : 'integro'; }
+  /** Comando de separação. O mundo reconstrói a topologia sem fabricar impulso. */
+  public liberar(): boolean {
+    if (!this.estaAtivo) return false;
+    this.liberado = true;
+    return true;
+  }
   public get resistenciaTracaoN(): number { return this.definicao.resistenciaTracaoN; }
   public get temperaturaC(): number { return this.temperaturaAtualC; }
   public get limiteTermicoC(): number { return this.definicao.limiteTermicoC ?? 500; }
@@ -70,7 +79,7 @@ export class FixadorEstrutural {
    * massa; é usada pelo core para medir energia de impacto sem subestimá-la.
    */
   public obterMassaEfetivaNoContato(objeto: Objeto, pontoContatoM: Vetor3, normal: Vetor3): number | undefined {
-    if (this.rompido || (objeto !== this.objetoA && objeto !== this.objetoB)) return undefined;
+    if (!this.estaAtivo || (objeto !== this.objetoA && objeto !== this.objetoB)) return undefined;
     const estadoA = this.objetoA.getEstadoFisico();
     const estadoB = this.objetoB.getEstadoFisico();
     const massaA = this.objetoA.massaKg;
@@ -87,7 +96,7 @@ export class FixadorEstrutural {
 
   /** Avaliado pelo core após a preparação operacional e antes da integração. */
   public prepararPasso(dtS = 0): void {
-    if (this.rompido) return;
+    if (!this.estaAtivo) return;
     this.esforcoFisicoAtualN = 0;
     this.esforcoCompressaoAtualN = 0;
     if (dtS > 0) {
@@ -102,7 +111,7 @@ export class FixadorEstrutural {
   /** Recebe o esforço calculado pelo core a partir de um impulso de contato. */
   public registrarEsforcoFisicoN(esforcoN: number): void {
     if (!Number.isFinite(esforcoN) || esforcoN < 0) throw new Error('Esforço físico do fixador inválido.');
-    if (this.rompido) return;
+    if (!this.estaAtivo) return;
     this.esforcoFisicoAtualN = Math.max(this.esforcoFisicoAtualN, esforcoN);
     this.maiorEsforcoFisicoRegistradoN = Math.max(this.maiorEsforcoFisicoRegistradoN, esforcoN);
     if (this.esforcoFisicoAtualN > this.resistenciaTracaoEfetivaN) this.rompido = true;
@@ -111,7 +120,7 @@ export class FixadorEstrutural {
   /** Recebe a compressão axial calculada pelo core quando essa capacidade foi declarada. */
   public registrarEsforcoDeCompressaoFisicoN(esforcoN: number): void {
     if (!Number.isFinite(esforcoN) || esforcoN < 0) throw new Error('Esforço físico do fixador inválido.');
-    if (this.rompido || this.definicao.resistenciaCompressaoN === undefined) return;
+    if (!this.estaAtivo || this.definicao.resistenciaCompressaoN === undefined) return;
     this.esforcoCompressaoAtualN = Math.max(this.esforcoCompressaoAtualN, esforcoN);
     this.maiorEsforcoCompressaoRegistradoN = Math.max(this.maiorEsforcoCompressaoRegistradoN, esforcoN);
     const fatorTermico = this.resistenciaTracaoEfetivaN / this.resistenciaTracaoN;
@@ -125,7 +134,7 @@ export class FixadorEstrutural {
    * por tensor de inércia e orientação espacial.
    */
   public aplicarRestricao(dtS: number): void {
-    if (this.rompido) return;
+    if (!this.estaAtivo) return;
     if (!Number.isFinite(dtS) || dtS <= 0) throw new Error('Passo temporal do fixador inválido.');
     const estadoA = this.objetoA.getEstadoFisico();
     const estadoB = this.objetoB.getEstadoFisico();

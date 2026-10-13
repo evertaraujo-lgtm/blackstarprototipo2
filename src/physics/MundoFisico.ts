@@ -1,3 +1,4 @@
+import { SuperficiePlano } from './SuperficiePlano';
 import { AmbientePlano, type AmbienteFisico } from './ambiente/AmbienteFisico';
 import { Objeto, type CondicoesAtmosfericas } from './objetos/base/Objeto';
 import { FixadorEstrutural } from './conexoes/FixadorEstrutural';
@@ -86,9 +87,11 @@ export class MundoFisico {
     this.integracao = configuracao.integracao ?? (this.ambiente.campo.modelo === 'central' ? 'verlet-gravitacional' : 'euler-semi-implicito');
     this.densidadeAtmosfericaNivelMarKgM3 = configuracao.densidadeAtmosfericaKgM3 ?? MundoFisico.densidadeAtmosferaPadraoKgM3;
     this.velocidadeArBaseMps = configuracao.velocidadeArMps ?? Vetor3.zero;
+    this.validarVetorPlanar(this.velocidadeArBaseMps);
     this.velocidadeArAtualMps = this.velocidadeArBaseMps;
     this.rajadasVento = [...(configuracao.rajadasVento ?? [])].sort((a, b) => a.inicioS - b.inicioS);
     for (const rajada of this.rajadasVento) {
+      this.validarVetorPlanar(rajada.velocidadeAdicionalMps);
       if (!Number.isFinite(rajada.inicioS) || rajada.inicioS < 0 || !Number.isFinite(rajada.duracaoS) || rajada.duracaoS <= 0
         || ![rajada.velocidadeAdicionalMps.x, rajada.velocidadeAdicionalMps.y, rajada.velocidadeAdicionalMps.z].every(Number.isFinite)) {
         throw new Error('Perfil de rajada de vento inválido.');
@@ -142,6 +145,9 @@ export class MundoFisico {
   }
 
   public registrarSuperficie(superficie: SuperficieFisica): void {
+    if (this.ambiente.campo.modelo === 'central' && superficie instanceof SuperficiePlano) {
+      throw new Error('Plano infinito incompatível com Terra esférica: use superfície esférica ou plataforma local finita.');
+    }
     if (this.superficies.has(superficie.id)) throw new Error(`Superfície já registrada: ${superficie.id}.`);
     this.superficies.set(superficie.id, superficie);
   }
@@ -221,6 +227,14 @@ export class MundoFisico {
 
   public obterMenorDistanciaSuperficieM(objeto: Objeto, superficie: SuperficieFisica): number {
     this.exigirRegistro(objeto);
+    if (superficie instanceof SuperficiePlano) {
+      // Mesma distância assinada da geometria genérica, sem construir XYZ
+      // para cada vértice nas leituras intensivas dos diários legados.
+      const e = objeto.getEstadoFisico(), seno = Math.sin(e.orientacaoRad.z), cosseno = Math.cos(e.orientacaoRad.z);
+      const distancia = Math.min(...objeto.getPontosDeContatoLocaisM().map(p => e.posicaoM.y + p.x * seno + p.y * cosseno - superficie.alturaM));
+      if (!Number.isFinite(distancia)) throw new Error('Geometria de contato não finita.');
+      return distancia;
+    }
     const pontos = superficie.candidatosContato(this.obterPontosOrientados(objeto, objeto.getPontosDeContatoLocaisM()))
       .filter((p) => superficie.contemProjecao(p));
     return pontos.length ? Math.min(...pontos.map((p) => superficie.distanciaAssinadaM(p))) : Infinity;
@@ -397,7 +411,7 @@ export class MundoFisico {
   private sincronizarConjuntosEstruturais(dtS: number, avancarOrientacao: boolean): void {
     const adjacencias = new Map<Objeto, Set<Objeto>>();
     for (const fixador of this.fixadores.values()) {
-      if (fixador.estaRompido) continue;
+      if (!fixador.estaAtivo) continue;
       const adjacentesA = adjacencias.get(fixador.objetoA) ?? new Set<Objeto>();
       adjacentesA.add(fixador.objetoB); adjacencias.set(fixador.objetoA, adjacentesA);
       const adjacentesB = adjacencias.get(fixador.objetoB) ?? new Set<Objeto>();

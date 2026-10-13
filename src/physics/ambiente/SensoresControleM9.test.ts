@@ -12,8 +12,8 @@ import { executarReplayDiarioBss005 } from '../../cenarios/ReproducaoDiarioBss00
 
 const ambiente = new AmbienteTerrestre();
 const ref = ambiente.referencial;
-function sensor(phi: number) {
-  const p = ref.posicaoPorArcoM(phi * ref.raioM, 1000);
+function sensor(phi: number, altitudeM = 1000) {
+  const p = ref.posicaoPorArcoM(phi * ref.raioM, altitudeM);
   const o = new Objeto({ id: 'sensor', massaBaseKg: 100, dimensoesM: new Vetor3(1, 1, 1),
     resistenciaColisaoJ: 1e6, limiteTermicoC: 1000, estadoInicial: { posicaoM: p,
       velocidadeMps: ref.vetorParaGlobal(new Vetor3(12, -7, 0), p),
@@ -47,7 +47,8 @@ describe('M9-E — sensores e controles recebem geometria compartilhada', () => 
     expect(l.gravidadeLocalMps2).toBeCloseTo(ambiente.campo.muM3S2 / (ref.raioM + 1000) ** 2, 12);
   });
   it('congelamento persiste além da janela de histórico de 60 s', () => {
-    const a = sensor(0);
+    // Permanece no exterior do planeta durante os 70 s em queda livre.
+    const a = sensor(0, 400000);
     a.sensores.injetarFalha({ tipo: 'congelado', iniciarEmS: 0 });
     const inicial = a.sensores.obterLeituras();
     for (let i = 0; i < 70; i++) a.mundo.avancar(1);

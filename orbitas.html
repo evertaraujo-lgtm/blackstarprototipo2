@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Black Star — Ensaios orbitais 2D</title>
+  </head>
+  <body class="test-page">
+    <main class="test-shell orbital-shell">
+      <header class="test-header">
+        <div><p class="eyebrow">BLACK STAR SPACE / NÚCLEO FÍSICO</p><h1>Ensaios orbitais</h1><p class="subtitle">Corpo inerte · Terra esférica estática · plano XY · vácuo explícito</p></div>
+        <a class="back-link" href="/tests.html">Bancada de foguetes</a>
+      </header>
+      <section class="orbital-controls" aria-label="Observação orbital">
+        <label>Ensaio <select id="orbital-tipo"><option value="circular">Circular · 400 km</option><option value="eliptica">Elíptica · e = 0,1</option></select></label>
+        <button id="orbital-play" type="button">Iniciar</button>
+        <button id="orbital-reset" class="secondary-button" type="button">Reiniciar</button>
+        <label>Tempo <select id="orbital-tempo"><option value="1">1×</option><option value="60" selected>60×</option><option value="600">600×</option></select></label>
+        <label>Câmera <select id="orbital-camera"><option value="planeta">Planeta</option><option value="veiculo">Acompanhar corpo</option></select></label>
+        <label>Zoom <input id="orbital-zoom" type="range" min="0.5" max="8" step="0.1" value="1" /></label>
+        <button id="orbital-exportar" class="secondary-button" type="button">Exportar ensaio</button>
+      </section>
+      <canvas id="orbital-canvas" width="1200" height="700" aria-label="Terra e trajetória do corpo de prova em escala"></canvas>
+      <output id="orbital-dados" class="orbital-readout" aria-live="off"></output>
+      <p class="subtitle">Condições orbitais iniciais prescritas para validar o ambiente. Sem foguete, motor ou inserção orbital automática. O marcador do corpo e a seta radial são símbolos fora de escala dimensional. O passo físico é fixo; câmera e zoom apenas consultam o mundo.</p>
+    </main>
+    <script type="module" src="/src/orbitas.ts"></script>
+  </body>
+</html>

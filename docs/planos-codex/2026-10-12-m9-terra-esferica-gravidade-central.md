@@ -1,6 +1,8 @@
 # M9 — Terra esférica e gravidade central (2D)
 
 Data: 2026-10-12. Base auditada: `450126a`. Complexidade: 9/10.
+Estado final: arquitetura M9-A–G entregue e validada localmente; qualificação de órbitas de corpos inertes concluída, qualificação de pouso bilateral dos veículos permanece limitada.
+
 Autorização: adendo de execução autônoma M9-A–G; commits locais, sem push e sem deploy Firebase.
 
 ## M9-A — diagnóstico e proposta antes de alterar a física
@@ -147,6 +149,49 @@ Diferenças de apogeu <0,2 m neste envelope: campo superficial 9,82025 versus g0
 Falha elétrica BSS-006: queda, integridade mínima zero e rupturas nos dois ambientes. Ausência de ignição: zero empuxo e zero consumo nas 12 combinações BSS/ambiente. Campanha comparativa de oito testes executada (sete passaram inicialmente; pressuposição bilateral foi investigada e dois BSS006 repetidos com classificação corrigida). 55 core, 4 colisões planares, 13 superfície/atmosfera e 10 orbitais aprovados. Os seis BSS passaram no Chrome, com tempo/ignição/consumo positivos e zero erros JS; coletor corrigido para escopo lexical e para solicitar throttle 65% no BSS-003 (nasce a zero). TypeScript/build aprovados; verificação final de suíte completa prevista no M9-G. CI remoto sem execução, sem push.
 
 M9-F entregue como campanha/regressão e matriz explícita de qualificação; NÃO qualifica todos os pousos nem o retorno de 15 km. A aprovação do núcleo conservativo/orbital não equivale à qualificação dos veículos ou do apoio contínuo de foguetes altos.
+
+### M9-G — capacidades e demonstração concluídas (13/10)
+
+`criarEstadoInicialLocal` disponibiliza DTO SI com altitude/arco, radial/tangencial e atitude/taxa local, convertido em estado inicial inercial XY. Não muda corpos em voo. `FixadorEstrutural.liberar()` distingue liberação de ruptura; core, esforço estrutural, massa conectada e mecanismos consultam estaAtivo. Corpos permanecem no mundo e a separação não injeta velocidade, energia ou impulso. Comparação com dois corpos livres prova a continuidade física após comando. Não há BSS-007, orbitador ou piloto de inserção.
+
+API central rejeita solo plano infinito e vento fora de XY. Superfícies planas de laboratório seguem no legado; infraestrutura planetária usa plataforma finita. Consulta de altura de geometria plana na telemetria foi otimizada sem alocar XYZ de cada vértice: igualdade IEEE exata contra a consulta genérica conferida em quatro orientações. A suíte completa inicial foi interrompida para qualificar essa otimização e reiniciada na fonte final; não é tratada como aprovação global.
+
+Demonstração mínima em /orbitas.html, incluída no build, com link na bancada, corpo de prova padrão inerte, Terra estática XY, vácuo explícito, circular 400 km/elipse e=0,1, câmera planeta/veículo e zoom. CameraFisica2D projeta coordenadas relativas para pixels e inverte somente Y de apresentação. Trajetória/escala/vertical radial consultam o mundo. Pixels lógicos adaptam texto/réguas ao viewport móvel. Exportação guarda snapshot inicial, modelo/constantes, dt=1 s e passos para reexecução de dois corpos; não é uma missão operacional de lançamento.
+
+25 testes pertinentes aprovados (11 novos de base, 4 fixadores, 6 veículo composto, 4 porta); tipos e build aprovados. Chrome: corpo circular avançou >5600 passos de 1 s (mais de uma volta), elíptico avançou em torno de 1200 passos com e próximo de 0,1, exportação confirmou snapshot inicial e μ, câmera/zoom pausados preservaram estado, mobile sem transbordamento e zero erros JS. Capturas localmente inspecionadas; evidências em docs/validacoes/2026-10-13-m9-smoke-orbital.json. Resultado final: **439 testes em 60 arquivos**, zero falhas, saída 0, 1181,18 s, `npm test -- --run --maxWorkers=1 --reporter=verbose`. Campanha complementar de 25 testes em 3 arquivos passou em 194,81 s, incluindo quatro casos novos BSS-006 central (subida a 300 m, alvos ±34,7 m ou vento ±5 m/s) e repetição de base/sensores. **443 testes distintos em 61 arquivos aprovados.** Limites de toque radial/tangencial <0,2 m/s, atitude/taxa local <0,01, erro de alvo <1 m, integridade 1 e repouso geométrico 3 s foram mantidos. Não qualifica o apoio bilateral contínuo; a fixture de sensor congelado por 70 s usa 400 km para permanecer no exterior do planeta. Tipos/build finais e diff-check aprovados. Relatório máquina, hashes e comandos: docs/validacoes/2026-10-13-m9-validacao-final.json.
+
+Os 17 testes de campo/orbitais foram repetidos na fonte final (4,34 s), acrescentando dt exploratório 2 s: excursão radial 17,3885 m, acima dos 10 m permitidos, apesar de conservar energia. Esse passo NÃO foi qualificado; dt<=1 s permanece o envelope publicado. Nova evidência em docs/validacoes/2026-10-13-m9-orbitas-final.json, preservando a coleta histórica M9-C de 12/10. Node 20.20.0, TS 5.9.3, Vitest 3.2.7, Vite 7.3.6. Comandos do workflow de testes/tipos/build executados localmente; npm ci não repetido. **CI remoto não executado, commits sem push conforme pedido.** Nenhum deploy Firebase.
+
+### Estado de aprovação e limites para o programa futuro
+
+| Critério | Evidência/estado |
+|---|---|
+| Campo central | Testes A/B, μ e R fornecidos, singularidade rejeitada |
+| Circular 400 km | 3 voltas, dt 1/0,5/0,25 s, reproduzível sem motor/arrasto |
+| Elipse | e=0,1, apsides/período analíticos e convergência |
+| Conservação | Energia/momento quantificados no JSON, limites da M9-A atendidos |
+| Referenciais em todo o plano | Cinco posições angulares, round-trip e taxa local; XY estrito |
+| Atmosfera radial | Mesma geometria para core/térmica/aero, transição simplificada identificada |
+| Contato sem normal fixa global | Solo circular e plataforma orientada, impulso/dano/ruptura/apoios; regressões XY após separação |
+| Controles operacionais | Leituras locais/gravidade, portas de energia/ignição, arbitragem; pouso bilateral contínuo dos BSS não qualificado |
+| Legado reproduzível | Ambiente plano explícito; suíte/regressões e replay versionado; dados antigos sem modelo identificados |
+| Limitações documentadas | Terra sem rotação, duas dimensões, atmosfera/termal simplificadas; sem lançador/reentrada qualificados |
+
+A base matemática/arquitetural permite preparar missões futuras. A aprovação do programa de pouso/captura continua condicionada a fechar a semântica de reação normal/apoio e a instabilidade bilateral. emApoio histórico ainda inclui proximidade; sustentacaoAplicada indica impulso normal positivo no subpasso (inclusive impacto), não sustentação contínua. Atrito de apoio conserva estimativa normal legada m*g no limite; não inferir força real de sustentação somente por proximidade/bit. Não habilitar rotação, missões tripuladas, reentrada orbital ou captura em torre usando estas aprovações.
+
+### Commits locais por marco
+
+| Marco | Commit |
+|---|---|
+| M9-A | 14c70d7 — documentação da auditoria |
+| M9-B | 4d4001a — campo isolado |
+| M9-C | b0a2307 — referenciais/órbitas |
+| M9-D | cfd9354 — atmosfera/contato |
+| M9-E | a23d809 — sensores/controle/replay |
+| M9-F | ce5181b — campanha seis BSS/colisões XY |
+| M9-G | Commit final desta documentação/capacidades; consultar HEAD após entrega |
+
+Próximas atividades: (1) investigar apoio unilateral/bilateral e caso histórico 34 mm com replay, preservando impulsos/energia; (2) obter diário manual M5-B/C de 15 km e qualificar orçamento/retorno; (3) ampliar contingências M8-B e qualificar controladores por envelope; (4) integrar rotação numa fase própria (fundações/ar/plataforma móvel em referencial inercial); (5) ampliar atmosfera/reentrada antes de trajetórias atmosféricas orbitais; (6) somente então definir veículo BSS-007/cronograma de missão com operador. Sem deploy/push nesta execução.
 
 ## Inventário de ocorrências na base (reproduzível)
 

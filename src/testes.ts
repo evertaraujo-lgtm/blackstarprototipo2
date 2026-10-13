@@ -2547,7 +2547,7 @@ const desenhar = (): void => {
 
   if (cenário.fixadores) {
     for (const fixador of cenário.fixadores) {
-      if (fixador.estaRompido) continue;
+      if (!fixador.estaAtivo) continue;
       const estadoA = fixador.objetoA.getEstadoFisico();
       const estadoB = fixador.objetoB.getEstadoFisico();
       const inicioX = origemX + estadoA.posicaoM.x * escala;

@@ -152,6 +152,41 @@ metros. O arquivo é um registro para ensaios, sem importador automático na
 tela. Reset e seleção de cenário iniciam um novo diário; Play preserva os
 comandos feitos antes da partida. Os cenários BSS não usam aleatoriedade.
 
+## Terra esférica e ensaios orbitais M9
+
+A bancada BSS-001–006 mantém o ambiente legado por padrão. O ambiente esférico
+é explícito: `new MundoFisico(dt, { ambiente: new AmbienteTerrestre() })`.
+Ele usa Terra estática, dinâmica estritamente XY, gravidade `-μr/|r|³`,
+R=6.371.000 m e μ=3,986004418×10¹⁴ m³/s². O centro está em (0,-R,0);
+posição/velocidade são inerciais e as leituras operacionais usam vertical e
+tangente locais. g0=9,80665 m/s² continua sendo referência de Isp e não é
+substituído pela gravidade superficial calculada (9,820250487 m/s²).
+
+O link **Órbitas** na bancada abre `/orbitas.html`: corpo de prova inerte,
+circular a 400 km ou elíptico e=0,1, em vácuo explícito. Clique Iniciar e
+escolha 600× para observar uma volta em poucos segundos. Câmera/zoom só mudam
+a apresentação; Exportar ensaio preserva condições iniciais e modelo.
+É uma inicialização ADM para validar dois corpos, sem lançador, propulsão,
+manobra de inserção ou BSS-007.
+
+KDK gravitacional é opt-in no ambiente central; o legado conserva Euler.
+Passos de até 1 s foram qualificados para os corpos inertes exteriores em
+vácuo; sistemas ativos e contato da bancada continuam usando 1/240 s.
+Forças operacionais/dissipativas mantêm discretização explícita. A suíte
+mede energia, momento angular, apsides, período e dependência de dt; os
+resultados estão no plano M9 e em `docs/validacoes/2026-10-12-m9-orbitas.json`.
+
+`ReferencialFisico` centraliza altitude, velocidades, atitude/taxa locais,
+transformações de âncora e arco no plano. `criarEstadoInicialLocal` gera
+somente condições iniciais de ensaio; não reposiciona corpos em voo.
+`FixadorEstrutural.liberar()` separa a topologia sem impulso artificial,
+preservando os corpos no mundo; liberação e ruptura têm estados distintos.
+
+Novos diários registram modelo, constantes, integração e atmosfera. Replay
+rejeita modelo diferente; arquivos antigos sem versão física exigem
+`permitirDiarioLegadoSemModelo: true` e são identificados como reexecuções
+legadas, sem promessa de equivalência exata à revisão histórica.
+
 ## Desenvolvimento e validação
 
 ```bash
@@ -168,11 +203,24 @@ de verdade física.
 
 O núcleo atual resolve dinâmica estrutural no plano XY: usa rotação em torno do
 eixo Z e inércia planar. A evolução para corpo rígido espacial completo exige
-orientação 3D e tensor de inércia. Superfícies de contato ainda são planos; o
-modelo atmosférico aproxima altitude geométrica por geopotencial e usa duas
-camadas da atmosfera padrão, com densidade de referência configurável
-(1,225 kg/m³ por padrão; zero declara vácuo). Acima de 20 km, o trecho
-isotérmico é extrapolação sem qualificação; vento e gravidade são uniformes.
+orientação 3D e tensor de inércia. O ambiente central rejeita dinâmica fora de
+XY e solo plano infinito; usa secção circular terrestre ou plataforma local
+finita. Laboratórios legados preservam SuperficiePlano. Não há mudança de
+inclinação orbital, longitude geográfica completa ou latitude real da base.
+
+O perfil atmosférico de duas camadas permanece validado em 0–20 km, com
+1,225 kg/m³ ao nível do mar por padrão (zero declara vácuo). No ambiente central
+usa altitude radial e transição simplificada ao vácuo entre 20–25 km: não é
+modelo da alta atmosfera. Legado preserva a extrapolação histórica. Ar/solo
+são estáticos; vento/rajadas são vetores inerciais explícitos. Rotação terrestre
+exige fase futura própria com superfície, fundações, ar e velocidades iniciais
+coerentes, sem Coriolis fictício no inercial.
+
+A campanha M9 compara os seis BSS sem mudar parâmetros. BSS-006 preserva o
+repouso geométrico da bancada no perfil ensaiado, mas apoio bilateral contínuo
+por 3 s permanece não qualificado nos dois ambientes. A penetração histórica
+de ~34 mm, contingências M8-B e o retorno manual de 15 km continuam pendentes.
+Não há qualificação de reentrada orbital, CFD ou lançador real.
 
 Arrasto, aletas e aquecimento por arrasto consultam a mesma densidade local.
 A convecção ambiente usa `h_local = h_referencia × rho_local / 1,225` e

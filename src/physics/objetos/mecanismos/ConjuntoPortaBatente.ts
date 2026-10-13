@@ -49,7 +49,7 @@ export class ConjuntoPortaBatente {
     return this.pecasDoBatente.every(peca => peca.integridadeEstrutural > 0)
       && !this.definicao.guiaDaPorta.estaRompida
       && (this.definicao.guiaDaTrava === undefined || !this.definicao.guiaDaTrava.estaRompida)
-      && this.fixadoresDoBatente.every(fixador => !fixador.estaRompido)
+      && this.fixadoresDoBatente.every(fixador => fixador.estaAtivo)
       && this.chumbadoresDoBatente.every(chumbador => !chumbador.estaRompido);
   }
 
@@ -58,7 +58,7 @@ export class ConjuntoPortaBatente {
     if (this.pecasDoBatente.some(peca => peca.integridadeEstrutural === 0)) motivos.push('peça do batente destruída');
     if (this.definicao.guiaDaPorta.estaRompida) motivos.push('guia da porta rompida');
     if (this.definicao.guiaDaTrava?.estaRompida) motivos.push('guia da trava rompida');
-    if (this.fixadoresDoBatente.some(fixador => fixador.estaRompido)) motivos.push('união do batente rompida');
+    if (this.fixadoresDoBatente.some(fixador => !fixador.estaAtivo)) motivos.push(this.fixadoresDoBatente.some(f => f.estaRompido) ? 'união do batente rompida' : 'união do batente liberada');
     if (this.chumbadoresDoBatente.some(chumbador => chumbador.estaRompido)) motivos.push('batente sem fundação');
     return motivos;
   }

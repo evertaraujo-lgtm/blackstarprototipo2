@@ -22,7 +22,7 @@ export class ResolvedorEsforcoEstrutural {
   ): void {
     if (impulsoNs <= 0 || !Number.isFinite(impulsoNs) || !Number.isFinite(dtS) || dtS <= 0) return;
     const membrosDaIlha = new Set(membros);
-    const fixadores = [...fixadoresRegistrados].filter((fixador) => !fixador.estaRompido
+    const fixadores = [...fixadoresRegistrados].filter((fixador) => fixador.estaAtivo
       && membrosDaIlha.has(fixador.objetoA) && membrosDaIlha.has(fixador.objetoB));
     const massaTotalKg = membros.reduce((soma, membro) => soma + membro.massaKg, 0);
     if (massaTotalKg <= 0) return;
