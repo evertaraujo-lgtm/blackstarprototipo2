@@ -57,6 +57,8 @@ export interface ObservacaoBss006 {
   readonly fixadores: readonly { readonly id: string; readonly estado: 'integro' | 'liberado' | 'rompido' }[];
   readonly corpos: readonly CorpoObservado[];
   readonly contatos: readonly ContatoSuperficieFisico[];
+  readonly conexoesEletricas: readonly { readonly id: string; readonly fonteId: string; readonly destinoId: string;
+    readonly estado: 'energizada' | 'desligada' | 'rompida' | 'desconectada' }[];
   readonly pouso: {
     readonly contatoInicial: boolean;
     readonly toqueRetorno: boolean;

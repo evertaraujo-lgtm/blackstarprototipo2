@@ -1,9 +1,10 @@
+import { ControladorPerfilVooExperimental } from '../physics/sistemas de controle/ControladorPerfilVooExperimental';
 import { DEFINICAO_BSS006 } from '../veiculos/DefinicaoBss006';
 import type { MontagemBss } from '../veiculos/MontagemBss';
 import { copiarSnapshot } from './SnapshotMissao';
 import { CicloMissao } from './CicloMissao';
 import { criarAmbienteLancamento, PASSO_MISSAO_BSS_S } from './AmbienteLancamento';
-import type { EventoMissao, InstanciaMissao, ResultadoComandoMissao } from './ContratoMissao';
+import type { EventoMissao, InstanciaMissao, ResultadoComandoMissao, DefinicaoMissao } from './ContratoMissao';
 import type { ComandoBss006, ConfiguracaoMissaoBss006, ObservacaoBss006, SistemaBss } from './TiposMissaoBss006';
 
 export const ID_MISSAO_BSS006 = 'BSS006_VOO_EXPERIMENTAL';
@@ -17,7 +18,7 @@ export const CRITERIOS_RETORNO_BSS006 = Object.freeze({
 
 /** Instância operacional. Toda cinemática permanece exclusivamente no MundoFisico. */
 export class MissaoBss006 implements InstanciaMissao<ComandoBss006, ObservacaoBss006> {
-  public readonly id = ID_MISSAO_BSS006;
+  public readonly id: string;
   public readonly passoS = PASSO_MISSAO_BSS_S;
   public readonly configuracao: Readonly<Required<ConfiguracaoMissaoBss006>>;
   private readonly ciclo = new CicloMissao();
@@ -26,7 +27,7 @@ export class MissaoBss006 implements InstanciaMissao<ComandoBss006, ObservacaoBs
   private readonly eventos: EventoMissao[] = [];
   private decolou = false;
   private desceu = false;
-  private transicao = false;
+  private readonly perfil: ControladorPerfilVooExperimental;
   private contatoInicial = true;
   private toqueRetorno = false;
   private limitesToque = false;
@@ -41,7 +42,9 @@ export class MissaoBss006 implements InstanciaMissao<ComandoBss006, ObservacaoBs
   private rompeu = new Set<string>();
   private picoAltitudeM = 0;
 
-  public constructor(configuracao: ConfiguracaoMissaoBss006 = {}) {
+  public constructor(configuracao: ConfiguracaoMissaoBss006 = {}, id: string = ID_MISSAO_BSS006) {
+    if (typeof id !== 'string' || id.trim().length === 0) throw new Error('Identificação de missão inválida.');
+    this.id = id;
     this.configuracao = Object.freeze({ arcoBaseM: configuracao.arcoBaseM ?? 0,
       ventoTangencialMps: configuracao.ventoTangencialMps ?? 0,
       alvoPousoLocalM: configuracao.alvoPousoLocalM ?? 0,
@@ -50,6 +53,7 @@ export class MissaoBss006 implements InstanciaMissao<ComandoBss006, ObservacaoBs
     const c = this.configuracao;
     if (![c.arcoBaseM, c.ventoTangencialMps, c.alvoPousoLocalM, c.altitudeTransicaoM].every(Number.isFinite)
       || c.altitudeTransicaoM <= 5.3 || typeof c.transicaoAutomatica !== 'boolean') throw new Error('Configuração de missão inválida.');
+    this.perfil = new ControladorPerfilVooExperimental(c.altitudeTransicaoM, c.transicaoAutomatica);
     this.ambiente = criarAmbienteLancamento(c.arcoBaseM, c.ventoTangencialMps);
     this.veiculo = DEFINICAO_BSS006.montar(this.ambiente.mundo, this.ambiente.solo, c.arcoBaseM);
     if (!this.veiculo.selecionarAlvo(c.arcoBaseM + c.alvoPousoLocalM)) throw new Error('Alvo inicial inválido.');
@@ -115,8 +119,8 @@ export class MissaoBss006 implements InstanciaMissao<ComandoBss006, ObservacaoBs
     if (this.estadoExecucao !== 'executando') return false;
     const { mundo, solo } = this.ambiente, v = this.veiculo, ref = mundo.ambiente.referencial;
     const antes = v.veiculo.getEstadoFisico();
-    if (!this.transicao && this.configuracao.transicaoAutomatica && ref.altitudeGeometricaM(antes.posicaoM) >= this.configuracao.altitudeTransicaoM) {
-      v.ativarModo('pouso'); this.transicao = true;
+    if (this.perfil.atualizar(ref.altitudeGeometricaM(antes.posicaoM)) === 'pouso') {
+      v.ativarModo('pouso');
       this.evento('missao', 'transicao-pouso', `Modo pouso aos ${ref.altitudeGeometricaM(antes.posicaoM).toFixed(3)} m.`);
     }
     v.atualizarControleAletas(); mundo.avancar(this.passoS); this.ciclo.registrarPasso();
@@ -183,6 +187,10 @@ export class MissaoBss006 implements InstanciaMissao<ComandoBss006, ObservacaoBs
       corpos: v.objetos.map(o => ({ id: o.id, estado: o.getEstadoFisico(), dimensoesM: { ...o.dimensoesM },
         massaKg: o.massaKg, integridade: o.integridadeEstrutural, temperaturaC: o.temperaturaC,
         deflexaoRad: v.aletasAerodinamicas.find(a => a === o)?.deflexaoAtualRad })),
+      conexoesEletricas: [v.painel.conexaoCarga, v.propulsor.conexaoEletrica!, ...v.aletasAerodinamicas.map(a => a.conexaoEletrica)].map(c => ({
+        id: c.id, fonteId: c.fonte.id, destinoId: c.destino.id,
+        estado: c.estaRompida ? 'rompida' : c.estaDesconectada ? 'desconectada' : c.estaEnergizada ? 'energizada' : 'desligada',
+      })),
       contatos: mundo.obterContatosComSuperficie(), pouso: { contatoInicial: this.contatoInicial, toqueRetorno: this.toqueRetorno,
         repousoGeometricoS: this.repousoS, maiorRepousoGeometricoS: this.maiorRepousoS,
         apoioBilateralObservado: this.bilateralObservado, apoioBilateralSustentadoS: this.bilateralS,
@@ -206,4 +214,4 @@ export class MissaoBss006 implements InstanciaMissao<ComandoBss006, ObservacaoBs
   }
 }
 export const BSS006_VOO_EXPERIMENTAL = Object.freeze({ id: ID_MISSAO_BSS006,
-  revisao: 'm10-voo-experimental-1', criar: (configuracao: ConfiguracaoMissaoBss006 = {}) => new MissaoBss006(configuracao) });
+  revisao: 'm10-voo-experimental-1', criar: (configuracao: ConfiguracaoMissaoBss006 = {}) => new MissaoBss006(configuracao) } satisfies DefinicaoMissao<ConfiguracaoMissaoBss006, ComandoBss006, ObservacaoBss006>);

@@ -60,3 +60,60 @@ AmbienteLancamento cria Terra XY estática, atmosfera M9, vento local projetado 
 ObservacaoBss006 inclui corpos/geometry, telemetria, atuadores/arbitragem, energia/consumo, integridade, contatos/normal/impulso e classificações separadas. SnapshotMissao copia e congela dados para não ceder referências do core à UI. Sem encerramento artificial; reinício cria instância nova. Apoio bilateral exige reação normal positiva em ambas as sapatas no mesmo passo por 3s, quietude e motor cortado; proximidade isolada não é aprovação. Segurança estrutural exige também limites de toque e ausência de dano/ruptura.
 
 Quatro testes aprovados: preparação/ignição negada, voo com empuxo/vazão/consumo positivos, pausa/reinicialização, isolamento de snapshots e sítio em outro ponto terrestre. Typecheck/build aprovados. Primeira execução do teste de metadados usava chave ambiente inexistente; corrigida a expectativa para a API real achatada do MundoFisico (nenhuma mudança física).
+
+## Inicialização e fronteiras finais
+
+```mermaid
+flowchart TD
+  CLI[CLI Node] --> Porta[InstanciaMissao: comandos / passos / snapshots]
+  Executor[ExecutorMissao genérico] --> Porta
+  Cena[Canvas / HUD / Entrada / câmera] --> Porta
+  Porta --> Registro[RegistroMissao e diário versionado]
+  Registro --> Instancia[MissaoBss006]
+  Instancia --> Ambiente[AmbienteLancamento: Terra M9 e uma superfície]
+  Instancia --> Montagem[DefinicaoBss006 / MontagemBss]
+  Bancada[BancadaBss legada] --> Montagem
+  Montagem --> Core[MundoFisico / objetos / sensores / controladores]
+  Ambiente --> Core
+```
+
+A bancada continua possuindo comandos de manutenção e observação dos objetos. A nova apresentação recebe somente a porta e snapshots; não recebe mundo/veículo mutáveis. Ela não importa a bancada, e a missão não importa apresentação/cenários. A extração generaliza somente a montagem efetivamente compartilhada pelos BSS, sem framework de jogo.
+
+Exemplo TypeScript sem navegador (mesma definição que a página):
+
+```ts
+import { criarMissaoBss006Registrada } from './src/missoes/ReplayMissaoBss006';
+import { executarMissaoAtePasso } from './src/missoes/ExecutorMissao';
+const missao = criarMissaoBss006Registrada({ alvoPousoLocalM: 34.7, ventoTangencialMps: 0 });
+for (const sistema of ['elétrico', 'hidráulico', 'combustível', 'controle'] as const)
+  missao.receberComando({ tipo: 'sistema', sistema, ligar: true });
+missao.receberComando({ tipo: 'throttle', valor: 0.65 });
+missao.receberComando({ tipo: 'ignicao' });
+missao.iniciar();
+executarMissaoAtePasso(missao, 90 * 240);
+const leitura = missao.observar();
+const diario = missao.exportar();
+```
+
+CLI: `npm run missao:executar -- --segundos 90 --alvo=-34.7 --vento=5 --saida /tmp/voo.json`. Reexecução: `npm run missao:executar -- --replay /tmp/voo.json --saida /tmp/replay.json`. O vite-node já é fornecido pelo Vitest no lockfile; nenhuma dependência/motor novo. O CLI é adaptador Node, e não parte do domínio. dt sempre 1/240s; orçamento arredondado a um número inteiro de passos. Perfil padrão automático300m; outra definição pode instanciar MissaoBss006 com outro id e configuração, usando a mesma montagem. Executor aceita qualquer implementação da porta (teste com corpo orbital inerte).
+
+### Observação e encerramento
+
+- Contato inicial: geometria do veículo na superfície no carregamento; não conta como retorno.
+- Toque de retorno: primeiro impulso normal positivo em casco/pernas/sapatas após descida. Leituras de velocidade/atitude do passo anterior são usadas nos limites de toque.
+- Repouso geométrico: geometria a <=1mm da superfície, casco <=0,05m/s, todos os componentes <=0,1m/s e taxa <=0,01rad/s, empuxo zero, durante3s.
+- Apoio bilateral observado: bit emApoio em ambas as sapatas, inclui proximidade do core, não prova sustentação.
+- Apoio bilateral sustentado: reações normais positivas em ambas as sapatas no mesmo passo, quietude/motor cortado durante3s; duração distinta, sem flexibilização.
+- Pouso estruturalmente seguro: também requer toque radial/tangencial <0,2m/s, atitude/taxa <0,01, alvo <1m, integridade1 e nenhum vínculo rompido. Não inferir a partir de screenshot/repouso geométrico.
+
+Não existe watchdog físico no jogo. A missão permanece observável após toque/dano/repouso; pausa só por comando do operador. O horizonte dos testes/CLI é orçamento de coleta e não um evento de conclusão fabricado.
+
+### M10-E — Campanha independente e equivalência
+
+Nove referências completas da bancada em Terra esférica, coletadas em instâncias independentes, aprovadas (351,41s incluindo um teste de serialização). Dez testes de missão/observação aprovados (335,17s): alvos0/±34,7m, ventos±5m/s, sem ignição, falhas reais de cabo elétrico/linha CH4/linha O2 e determinismo com diferentes frequências de observação. Todas as assinaturas SHA-256 dos estados físicos nos passos amostrados e os estados finais completos coincidiram exatamente com a bancada. Cada assinatura inclui todos os estados dos componentes, massa/integridade/temperatura, sensores, energia elétrica, empuxo/vazão/throttle/ignição, gimbal/grid fins, arbitragem, contatos/impulsos e fixadores; o estado final também é comparado campo a campo. Nenhum parâmetro/ganho/tolerância do veículo mudou.
+
+Primeira campanha pareada (dois mundos no mesmo teste) excedeu120s de tempo de execução. Mantido o timeout de120s, a comparação foi dividida em rodadas completas independentes com referências verificáveis; critérios físicos permaneceram iguais. Um erro do coletor usava a primeira FonteEletrica (painel solar idealizado com energia infinita) ao procurar bateria, gerando null na serialização. Corrigido para Bateria explícita, acrescentada rejeição de números não finitos nas assinaturas e todas as referências foram coletadas novamente. Isso corrigiu instrumentação, não física. As referências M9 e todos os resultados históricos foram preservados.
+
+Cinco casos nominais: apogeu≈381,99–383,88m, integridade1 e repouso geométrico3s. Segurança com apoio bilateral sustentado continua não qualificada; medição tem critério distinto de emApoio/proximidade. Sem ignição: 3000kg de propelentes restantes, empuxo0, sem decolagem/toque de retorno. Nas três perdas de alimentação houve corte de empuxo, queda e dano/ruptura reais (integridade mínima0), reproduzidos exatamente nos dois contextos.
+
+Referências: docs/validacoes/2026-10-13-m10-referencia-bancada.json. Resultados: docs/validacoes/2026-10-13-m10-missoes.json. ControladorPerfilVooExperimental na pasta de controladores recebe altitude compartilhada e solicita somente uma transição operacional; não calcula vertical nem modifica cinemática. Snapshot inclui ligações elétricas reais para apresentação das fontes expostas. Typecheck e build aprovados.

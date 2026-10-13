@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { BSS006_VOO_EXPERIMENTAL } from './MissaoBss006';
+import { BSS006_VOO_EXPERIMENTAL, MissaoBss006 } from './MissaoBss006';
 import { executarMissaoAtePasso } from './ExecutorMissao';
 
 export function preparar(m: ReturnType<typeof BSS006_VOO_EXPERIMENTAL.criar>) {
@@ -49,4 +49,10 @@ describe('M10-D — primeira missão independente', () => {
     expect(() => BSS006_VOO_EXPERIMENTAL.criar({ altitudeTransicaoM: -1 })).toThrow();
     expect(() => BSS006_VOO_EXPERIMENTAL.criar({ ventoTangencialMps: Infinity })).toThrow();
   });
+});
+
+it('permite outro plano identificado usando o mesmo veículo e executor', () => {
+  const m = new MissaoBss006({ transicaoAutomatica: false, altitudeTransicaoM: 80 }, 'BSS006_PERFIL_MANUAL');
+  expect(m.id).toBe('BSS006_PERFIL_MANUAL'); expect(m.observar().corpos[0].id).toBe('bss-006');
+  m.iniciar(); executarMissaoAtePasso(m, 1); expect(m.observar().passo).toBe(1);
 });
