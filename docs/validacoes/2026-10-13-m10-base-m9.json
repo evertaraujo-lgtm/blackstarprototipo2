@@ -1,0 +1,3497 @@
+{
+  "revisaoBase": "00db5fe",
+  "passoS": 0.004166666666666667,
+  "inicial": [
+    {
+      "modelo": {
+        "revisao": "plano-m8",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "campo": {
+          "modelo": "uniforme",
+          "aceleracaoMps2": {
+            "x": 0,
+            "y": -9.80665,
+            "z": 0
+          }
+        },
+        "integracao": "euler-semi-implicito",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "extrapolacao-legada",
+        "densidadeNivelMarKgM3": 1.225
+      },
+      "tempoS": 0,
+      "objetos": [
+        {
+          "id": "bss-001",
+          "estado": {
+            "posicaoM": {
+              "x": 0,
+              "y": 4.5,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 800,
+          "dimensoesM": {
+            "x": 3.2,
+            "y": 6,
+            "z": 2.4
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "painel-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": 0,
+              "y": 13.2,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 35,
+          "dimensoesM": {
+            "x": 3,
+            "y": 0.25,
+            "z": 2
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bateria-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": 0,
+              "y": 12,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 30,
+          "dimensoesM": {
+            "x": 1.2,
+            "y": 0.8,
+            "z": 1
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "tanque-decolagem-metano",
+          "estado": {
+            "posicaoM": {
+              "x": 0,
+              "y": 8.5,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 300,
+          "dimensoesM": {
+            "x": 2,
+            "y": 1.5,
+            "z": 1.8
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "tanque-decolagem-oxidante",
+          "estado": {
+            "posicaoM": {
+              "x": 0,
+              "y": 10.3,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 640,
+          "dimensoesM": {
+            "x": 2,
+            "y": 1.5,
+            "z": 1.8
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "propulsor-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": 0,
+              "y": 0.8,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 1.5707963267948966
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 90,
+          "dimensoesM": {
+            "x": 1.6,
+            "y": 1.4,
+            "z": 1.4
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        }
+      ],
+      "contatos": [],
+      "fixadores": [
+        {
+          "id": "fixador-decolagem-painel-decolagem-solar",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bateria-decolagem-solar",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-tanque-decolagem-metano",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-tanque-decolagem-oxidante",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-propulsor-decolagem-solar",
+          "estado": "integro"
+        }
+      ],
+      "dados": {
+        "modeloFisico": {
+          "revisao": "plano-m8",
+          "plano": "XY",
+          "rotacaoRadps": 0,
+          "campo": {
+            "modelo": "uniforme",
+            "aceleracaoMps2": {
+              "x": 0,
+              "y": -9.80665,
+              "z": 0
+            }
+          },
+          "integracao": "euler-semi-implicito",
+          "maxDtS": 0.004166666666666667,
+          "politicaAtmosferica": "extrapolacao-legada",
+          "densidadeNivelMarKgM3": 1.225
+        },
+        "altitudeGeometricaM": 4.5,
+        "velocidadeRadialMps": 0,
+        "velocidadeTangencialMps": 0,
+        "atitudeLocalRad": 0,
+        "atitudeInercialRad": 0,
+        "gravidadeLocalMps2": 9.80665,
+        "massaKg": 1895,
+        "combustivelKg": 600,
+        "reagivelKg": 600,
+        "densidadeArKgM3": 1.2244708717831951,
+        "pressaoDinamicaPa": 0,
+        "diagnosticoMotor": [
+          "elétrico",
+          "hidráulico",
+          "combustível",
+          "controle",
+          "ignição não realizada"
+        ],
+        "hipoteseDeltaV": "Tsiolkovsky ideal; Isp nominal constante; mistura CH4/O2 1:4; sem perdas por gravidade/arrasto, dano ou reserva de pouso"
+      },
+      "arbitragem": []
+    },
+    {
+      "modelo": {
+        "revisao": "plano-m8",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "campo": {
+          "modelo": "uniforme",
+          "aceleracaoMps2": {
+            "x": 0,
+            "y": -9.80665,
+            "z": 0
+          }
+        },
+        "integracao": "euler-semi-implicito",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "extrapolacao-legada",
+        "densidadeNivelMarKgM3": 1.225
+      },
+      "tempoS": 0,
+      "objetos": [
+        {
+          "id": "bss-005",
+          "estado": {
+            "posicaoM": {
+              "x": 0,
+              "y": 4.8,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 800,
+          "dimensoesM": {
+            "x": 3.2,
+            "y": 6,
+            "z": 2.4
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "painel-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": 0.8,
+              "y": 14.754927840030092,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 35,
+          "dimensoesM": {
+            "x": 3,
+            "y": 0.25,
+            "z": 2
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bateria-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": 0,
+              "y": 14.029927840030092,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 50,
+          "dimensoesM": {
+            "x": 1.2,
+            "y": 0.8,
+            "z": 1
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "tanque-decolagem-metano",
+          "estado": {
+            "posicaoM": {
+              "x": 0,
+              "y": 9.232481960007522,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 1126.323192878316,
+          "dimensoesM": {
+            "x": 3.419951893353394,
+            "y": 2.5649639200150456,
+            "z": 3.077956704018055
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "tanque-decolagem-oxidante",
+          "estado": {
+            "posicaoM": {
+              "x": 0,
+              "y": 11.947445880022569,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 2867.8428381140584,
+          "dimensoesM": {
+            "x": 3.419951893353394,
+            "y": 2.5649639200150456,
+            "z": 3.077956704018055
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "propulsor-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": 0,
+              "y": 1.1,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 1.5707963267948966
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 270,
+          "dimensoesM": {
+            "x": 1.6,
+            "y": 1.4,
+            "z": 1.4
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bss05-perna-esquerda",
+          "estado": {
+            "posicaoM": {
+              "x": -1.8,
+              "y": 1.7999999999999998,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 45,
+          "dimensoesM": {
+            "x": 0.4,
+            "y": 3.3,
+            "z": 0.5
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bss05-sapata-esquerda",
+          "estado": {
+            "posicaoM": {
+              "x": -2.15,
+              "y": 0.14999999999999947,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 25,
+          "dimensoesM": {
+            "x": 1.3,
+            "y": 0.3,
+            "z": 1.2
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bss05-perna-direita",
+          "estado": {
+            "posicaoM": {
+              "x": 1.8,
+              "y": 1.7999999999999998,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 45,
+          "dimensoesM": {
+            "x": 0.4,
+            "y": 3.3,
+            "z": 0.5
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bss05-sapata-direita",
+          "estado": {
+            "posicaoM": {
+              "x": 2.15,
+              "y": 0.14999999999999947,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 25,
+          "dimensoesM": {
+            "x": 1.3,
+            "y": 0.3,
+            "z": 1.2
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        }
+      ],
+      "contatos": [],
+      "fixadores": [
+        {
+          "id": "fixador-decolagem-painel-decolagem-solar",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bateria-decolagem-solar",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-tanque-decolagem-metano",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-tanque-decolagem-oxidante",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-propulsor-decolagem-solar",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss05-perna-esquerda",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss05-sapata-esquerda",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss05-perna-direita",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss05-sapata-direita",
+          "estado": "integro"
+        }
+      ],
+      "dados": {
+        "modeloFisico": {
+          "revisao": "plano-m8",
+          "plano": "XY",
+          "rotacaoRadps": 0,
+          "campo": {
+            "modelo": "uniforme",
+            "aceleracaoMps2": {
+              "x": 0,
+              "y": -9.80665,
+              "z": 0
+            }
+          },
+          "integracao": "euler-semi-implicito",
+          "maxDtS": 0.004166666666666667,
+          "politicaAtmosferica": "extrapolacao-legada",
+          "densidadeNivelMarKgM3": 1.225
+        },
+        "altitudeGeometricaM": 4.8,
+        "velocidadeRadialMps": 0,
+        "velocidadeTangencialMps": 0,
+        "atitudeLocalRad": 0,
+        "atitudeInercialRad": 0,
+        "gravidadeLocalMps2": 9.80665,
+        "massaKg": 5289.1660309923745,
+        "combustivelKg": 3000,
+        "reagivelKg": 3000,
+        "deltaVIdealMps": 2874.481645185234,
+        "densidadeArKgM3": 1.2244356027866912,
+        "pressaoDinamicaPa": 0,
+        "diagnosticoMotor": [
+          "elétrico",
+          "hidráulico",
+          "combustível",
+          "controle",
+          "ignição não realizada"
+        ],
+        "hipoteseDeltaV": "Tsiolkovsky ideal; Isp nominal constante; mistura CH4/O2 1:4; sem perdas por gravidade/arrasto, dano ou reserva de pouso"
+      },
+      "arbitragem": []
+    },
+    {
+      "modelo": {
+        "revisao": "plano-m8",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "campo": {
+          "modelo": "uniforme",
+          "aceleracaoMps2": {
+            "x": 0,
+            "y": -9.80665,
+            "z": 0
+          }
+        },
+        "integracao": "euler-semi-implicito",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "extrapolacao-legada",
+        "densidadeNivelMarKgM3": 1.225
+      },
+      "tempoS": 0,
+      "objetos": [
+        {
+          "id": "bss-006",
+          "estado": {
+            "posicaoM": {
+              "x": 0,
+              "y": 4.8,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 800,
+          "dimensoesM": {
+            "x": 3.2,
+            "y": 6,
+            "z": 2.4
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "painel-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": 0.8,
+              "y": 14.754927840030092,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 35,
+          "dimensoesM": {
+            "x": 3,
+            "y": 0.25,
+            "z": 2
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bateria-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": 0,
+              "y": 14.029927840030092,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 50,
+          "dimensoesM": {
+            "x": 1.2,
+            "y": 0.8,
+            "z": 1
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "tanque-decolagem-metano",
+          "estado": {
+            "posicaoM": {
+              "x": 0,
+              "y": 9.232481960007522,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 1126.323192878316,
+          "dimensoesM": {
+            "x": 3.419951893353394,
+            "y": 2.5649639200150456,
+            "z": 3.077956704018055
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "tanque-decolagem-oxidante",
+          "estado": {
+            "posicaoM": {
+              "x": 0,
+              "y": 11.947445880022569,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 2867.8428381140584,
+          "dimensoesM": {
+            "x": 3.419951893353394,
+            "y": 2.5649639200150456,
+            "z": 3.077956704018055
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "propulsor-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": 0,
+              "y": 1.1,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 1.5707963267948966
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 270,
+          "dimensoesM": {
+            "x": 1.6,
+            "y": 1.4,
+            "z": 1.4
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bss04-perna-esquerda",
+          "estado": {
+            "posicaoM": {
+              "x": -1.8,
+              "y": 1.7999999999999998,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 45,
+          "dimensoesM": {
+            "x": 0.4,
+            "y": 3.3,
+            "z": 0.5
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bss04-sapata-esquerda",
+          "estado": {
+            "posicaoM": {
+              "x": -2.15,
+              "y": 0.14999999999999947,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 25,
+          "dimensoesM": {
+            "x": 1.3,
+            "y": 0.3,
+            "z": 1.2
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bss04-perna-direita",
+          "estado": {
+            "posicaoM": {
+              "x": 1.8,
+              "y": 1.7999999999999998,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 45,
+          "dimensoesM": {
+            "x": 0.4,
+            "y": 3.3,
+            "z": 0.5
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bss04-sapata-direita",
+          "estado": {
+            "posicaoM": {
+              "x": 2.15,
+              "y": 0.14999999999999947,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 25,
+          "dimensoesM": {
+            "x": 1.3,
+            "y": 0.3,
+            "z": 1.2
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bss06-grid-fin-esquerda",
+          "estado": {
+            "posicaoM": {
+              "x": -1.8,
+              "y": 15.854927840030092,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 30,
+          "dimensoesM": {
+            "x": 0.4,
+            "y": 1.5,
+            "z": 0.5
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bss06-grid-fin-direita",
+          "estado": {
+            "posicaoM": {
+              "x": 1.8,
+              "y": 15.854927840030092,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 30,
+          "dimensoesM": {
+            "x": 0.4,
+            "y": 1.5,
+            "z": 0.5
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        }
+      ],
+      "contatos": [],
+      "fixadores": [
+        {
+          "id": "fixador-decolagem-painel-decolagem-solar",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bateria-decolagem-solar",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-tanque-decolagem-metano",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-tanque-decolagem-oxidante",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-propulsor-decolagem-solar",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss04-perna-esquerda",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss04-sapata-esquerda",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss04-perna-direita",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss04-sapata-direita",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss06-grid-fin-esquerda",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss06-grid-fin-direita",
+          "estado": "integro"
+        }
+      ],
+      "dados": {
+        "modeloFisico": {
+          "revisao": "plano-m8",
+          "plano": "XY",
+          "rotacaoRadps": 0,
+          "campo": {
+            "modelo": "uniforme",
+            "aceleracaoMps2": {
+              "x": 0,
+              "y": -9.80665,
+              "z": 0
+            }
+          },
+          "integracao": "euler-semi-implicito",
+          "maxDtS": 0.004166666666666667,
+          "politicaAtmosferica": "extrapolacao-legada",
+          "densidadeNivelMarKgM3": 1.225
+        },
+        "altitudeGeometricaM": 4.8,
+        "velocidadeRadialMps": 0,
+        "velocidadeTangencialMps": 0,
+        "atitudeLocalRad": 0,
+        "atitudeInercialRad": 0,
+        "gravidadeLocalMps2": 9.80665,
+        "massaKg": 5349.1660309923745,
+        "combustivelKg": 3000,
+        "reagivelKg": 3000,
+        "deltaVIdealMps": 2824.3946209695027,
+        "densidadeArKgM3": 1.2244356027866912,
+        "pressaoDinamicaPa": 0,
+        "diagnosticoMotor": [
+          "elétrico",
+          "hidráulico",
+          "combustível",
+          "controle",
+          "ignição não realizada"
+        ],
+        "hipoteseDeltaV": "Tsiolkovsky ideal; Isp nominal constante; mistura CH4/O2 1:4; sem perdas por gravidade/arrasto, dano ou reserva de pouso"
+      },
+      "arbitragem": []
+    },
+    {
+      "modelo": {
+        "revisao": "terra-esferica-m9",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "raioM": 6371000,
+        "g0ReferenciaIspMps2": 9.80665,
+        "campo": {
+          "modelo": "central",
+          "centroM": {
+            "x": 0,
+            "y": -6371000,
+            "z": 0
+          },
+          "muM3S2": 398600441800000
+        },
+        "integracao": "verlet-gravitacional",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "vacuo-simplificado-25km",
+        "densidadeNivelMarKgM3": 1.225
+      },
+      "tempoS": 0,
+      "objetos": [
+        {
+          "id": "bss-006",
+          "estado": {
+            "posicaoM": {
+              "x": 0,
+              "y": 4.8,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 800,
+          "dimensoesM": {
+            "x": 3.2,
+            "y": 6,
+            "z": 2.4
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "painel-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": 0.8,
+              "y": 14.754927840030092,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 35,
+          "dimensoesM": {
+            "x": 3,
+            "y": 0.25,
+            "z": 2
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bateria-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": 0,
+              "y": 14.029927840030092,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 50,
+          "dimensoesM": {
+            "x": 1.2,
+            "y": 0.8,
+            "z": 1
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "tanque-decolagem-metano",
+          "estado": {
+            "posicaoM": {
+              "x": 0,
+              "y": 9.232481960007522,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 1126.323192878316,
+          "dimensoesM": {
+            "x": 3.419951893353394,
+            "y": 2.5649639200150456,
+            "z": 3.077956704018055
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "tanque-decolagem-oxidante",
+          "estado": {
+            "posicaoM": {
+              "x": 0,
+              "y": 11.947445880022569,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 2867.8428381140584,
+          "dimensoesM": {
+            "x": 3.419951893353394,
+            "y": 2.5649639200150456,
+            "z": 3.077956704018055
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "propulsor-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": 0,
+              "y": 1.1,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 1.5707963267948966
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 270,
+          "dimensoesM": {
+            "x": 1.6,
+            "y": 1.4,
+            "z": 1.4
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bss04-perna-esquerda",
+          "estado": {
+            "posicaoM": {
+              "x": -1.8,
+              "y": 1.7999999999999998,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 45,
+          "dimensoesM": {
+            "x": 0.4,
+            "y": 3.3,
+            "z": 0.5
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bss04-sapata-esquerda",
+          "estado": {
+            "posicaoM": {
+              "x": -2.15,
+              "y": 0.14999999999999947,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 25,
+          "dimensoesM": {
+            "x": 1.3,
+            "y": 0.3,
+            "z": 1.2
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bss04-perna-direita",
+          "estado": {
+            "posicaoM": {
+              "x": 1.8,
+              "y": 1.7999999999999998,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 45,
+          "dimensoesM": {
+            "x": 0.4,
+            "y": 3.3,
+            "z": 0.5
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bss04-sapata-direita",
+          "estado": {
+            "posicaoM": {
+              "x": 2.15,
+              "y": 0.14999999999999947,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 25,
+          "dimensoesM": {
+            "x": 1.3,
+            "y": 0.3,
+            "z": 1.2
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bss06-grid-fin-esquerda",
+          "estado": {
+            "posicaoM": {
+              "x": -1.8,
+              "y": 15.854927840030092,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 30,
+          "dimensoesM": {
+            "x": 0.4,
+            "y": 1.5,
+            "z": 0.5
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bss06-grid-fin-direita",
+          "estado": {
+            "posicaoM": {
+              "x": 1.8,
+              "y": 15.854927840030092,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          "massaKg": 30,
+          "dimensoesM": {
+            "x": 0.4,
+            "y": 1.5,
+            "z": 0.5
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        }
+      ],
+      "contatos": [],
+      "fixadores": [
+        {
+          "id": "fixador-decolagem-painel-decolagem-solar",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bateria-decolagem-solar",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-tanque-decolagem-metano",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-tanque-decolagem-oxidante",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-propulsor-decolagem-solar",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss04-perna-esquerda",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss04-sapata-esquerda",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss04-perna-direita",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss04-sapata-direita",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss06-grid-fin-esquerda",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss06-grid-fin-direita",
+          "estado": "integro"
+        }
+      ],
+      "dados": {
+        "modeloFisico": {
+          "revisao": "terra-esferica-m9",
+          "plano": "XY",
+          "rotacaoRadps": 0,
+          "raioM": 6371000,
+          "g0ReferenciaIspMps2": 9.80665,
+          "campo": {
+            "modelo": "central",
+            "centroM": {
+              "x": 0,
+              "y": -6371000,
+              "z": 0
+            },
+            "muM3S2": 398600441800000
+          },
+          "integracao": "verlet-gravitacional",
+          "maxDtS": 0.004166666666666667,
+          "politicaAtmosferica": "vacuo-simplificado-25km",
+          "densidadeNivelMarKgM3": 1.225
+        },
+        "altitudeGeometricaM": 4.7999999998137355,
+        "velocidadeRadialMps": 0,
+        "velocidadeTangencialMps": 0,
+        "atitudeLocalRad": 0,
+        "atitudeInercialRad": 0,
+        "gravidadeLocalMps2": 9.820235689654082,
+        "orbital": {
+          "raioM": 6371004.8,
+          "altitudeM": 4.7999999998137355,
+          "velocidadeInercialMps": 0,
+          "velocidadeCircularMps": 7909.789422981971,
+          "velocidadeEscapeMps": 11186.131477496361,
+          "energiaEspecificaJPorKg": -62564768.71591747,
+          "momentoAngularEspecificoM2S": 0,
+          "excentricidade": 1,
+          "perigeuM": -6371000,
+          "apogeuM": 4.7999999998137355,
+          "periodoS": 1789.2782608474236,
+          "interceptaSuperficie": true,
+          "estado": "suborbital"
+        },
+        "massaKg": 5349.1660309923745,
+        "combustivelKg": 3000,
+        "reagivelKg": 3000,
+        "deltaVIdealMps": 2824.3946209695027,
+        "densidadeArKgM3": 1.2244356027867143,
+        "pressaoDinamicaPa": 0,
+        "diagnosticoMotor": [
+          "elétrico",
+          "hidráulico",
+          "combustível",
+          "controle",
+          "ignição não realizada"
+        ],
+        "hipoteseDeltaV": "Tsiolkovsky ideal; Isp nominal constante; mistura CH4/O2 1:4; sem perdas por gravidade/arrasto, dano ou reserva de pouso"
+      },
+      "arbitragem": []
+    }
+  ],
+  "final": [
+    {
+      "modelo": {
+        "revisao": "plano-m8",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "campo": {
+          "modelo": "uniforme",
+          "aceleracaoMps2": {
+            "x": 0,
+            "y": -9.80665,
+            "z": 0
+          }
+        },
+        "integracao": "euler-semi-implicito",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "extrapolacao-legada",
+        "densidadeNivelMarKgM3": 1.225
+      },
+      "tempoS": 1.9999999999999942,
+      "objetos": [
+        {
+          "id": "bss-001",
+          "estado": {
+            "posicaoM": {
+              "x": -3.654757211641861e-16,
+              "y": 12.33887960929249,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": -5.5908696823067375e-15,
+              "y": 7.805293986394261,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 1.0674563439157565e-15
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 9.98505011698313e-16
+            }
+          },
+          "massaKg": 800,
+          "dimensoesM": {
+            "x": 3.2,
+            "y": 6,
+            "z": 2.4
+          },
+          "integridade": 1,
+          "temperaturaC": 20.00016556545734
+        },
+        {
+          "id": "painel-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": -9.652345913231249e-15,
+              "y": 21.038879609292465,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": -1.4277863284082036e-14,
+              "y": 7.805293986394261,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 1.0674563439157565e-15
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 9.98505011698313e-16
+            }
+          },
+          "massaKg": 35,
+          "dimensoesM": {
+            "x": 3,
+            "y": 0.25,
+            "z": 2
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bateria-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": -8.371398300532348e-15,
+              "y": 19.83887960929247,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": -1.3079657270044065e-14,
+              "y": 7.805293986394261,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 1.0674563439157565e-15
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 9.98505011698313e-16
+            }
+          },
+          "massaKg": 30,
+          "dimensoesM": {
+            "x": 1.2,
+            "y": 0.8,
+            "z": 1
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "tanque-decolagem-metano",
+          "estado": {
+            "posicaoM": {
+              "x": -4.6353010968272014e-15,
+              "y": 16.338879609292476,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": -9.584889729099976e-15,
+              "y": 7.805293986394261,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 1.0674563439157565e-15
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 9.98505011698313e-16
+            }
+          },
+          "massaKg": 298.9599999999996,
+          "dimensoesM": {
+            "x": 2,
+            "y": 1.5,
+            "z": 1.8
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "tanque-decolagem-oxidante",
+          "estado": {
+            "posicaoM": {
+              "x": -6.55672251587556e-15,
+              "y": 18.138879609292466,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": -1.1382198750156931e-14,
+              "y": 7.805293986394261,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 1.0674563439157565e-15
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 9.98505011698313e-16
+            }
+          },
+          "massaKg": 635.8399999999983,
+          "dimensoesM": {
+            "x": 2,
+            "y": 1.5,
+            "z": 1.8
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "propulsor-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": 3.584112751324114e-15,
+              "y": 8.63887960929249,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": -1.896401139022978e-15,
+              "y": 7.805293986394261,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 1.5707963267948977
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": 9.98505011698313e-16
+            }
+          },
+          "massaKg": 90,
+          "dimensoesM": {
+            "x": 1.6,
+            "y": 1.4,
+            "z": 1.4
+          },
+          "integridade": 1,
+          "temperaturaC": 28.662346989820257
+        }
+      ],
+      "contatos": [],
+      "fixadores": [
+        {
+          "id": "fixador-decolagem-painel-decolagem-solar",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bateria-decolagem-solar",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-tanque-decolagem-metano",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-tanque-decolagem-oxidante",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-propulsor-decolagem-solar",
+          "estado": "integro"
+        }
+      ],
+      "dados": {
+        "modeloFisico": {
+          "revisao": "plano-m8",
+          "plano": "XY",
+          "rotacaoRadps": 0,
+          "campo": {
+            "modelo": "uniforme",
+            "aceleracaoMps2": {
+              "x": 0,
+              "y": -9.80665,
+              "z": 0
+            }
+          },
+          "integracao": "euler-semi-implicito",
+          "maxDtS": 0.004166666666666667,
+          "politicaAtmosferica": "extrapolacao-legada",
+          "densidadeNivelMarKgM3": 1.225
+        },
+        "altitudeGeometricaM": 12.33887960929249,
+        "velocidadeRadialMps": 7.805293986394261,
+        "velocidadeTangencialMps": -5.5908696823067375e-15,
+        "atitudeLocalRad": 1.0674563439157565e-15,
+        "atitudeInercialRad": 1.0674563439157565e-15,
+        "gravidadeLocalMps2": 9.80665,
+        "massaKg": 1889.799999999998,
+        "combustivelKg": 594.7999999999979,
+        "reagivelKg": 594.7999999999979,
+        "impulsoEspecificoEfetivoS": 1019.7162129779283,
+        "densidadeArKgM3": 1.2235495621840633,
+        "pressaoDinamicaPa": 37.270918974350096,
+        "diagnosticoMotor": [],
+        "hipoteseDeltaV": "Tsiolkovsky ideal; Isp nominal constante; mistura CH4/O2 1:4; sem perdas por gravidade/arrasto, dano ou reserva de pouso"
+      },
+      "arbitragem": []
+    },
+    {
+      "modelo": {
+        "revisao": "plano-m8",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "campo": {
+          "modelo": "uniforme",
+          "aceleracaoMps2": {
+            "x": 0,
+            "y": -9.80665,
+            "z": 0
+          }
+        },
+        "integracao": "euler-semi-implicito",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "extrapolacao-legada",
+        "densidadeNivelMarKgM3": 1.225
+      },
+      "tempoS": 1.9999999999999942,
+      "objetos": [
+        {
+          "id": "bss-005",
+          "estado": {
+            "posicaoM": {
+              "x": 0.024896293631985776,
+              "y": 14.769381309646068,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.0258344259052975,
+              "y": 9.973601467750624,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.000311732407942515
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022572413601327297
+            }
+          },
+          "massaKg": 800,
+          "dimensoesM": {
+            "x": 3.2,
+            "y": 6,
+            "z": 2.4
+          },
+          "integridade": 1,
+          "temperaturaC": 20.000343879351224
+        },
+        {
+          "id": "painel-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": 0.8279995283373489,
+              "y": 24.72405928005835,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.028081436989459176,
+              "y": 9.973420187966841,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.000311732407942515
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022572413601327297
+            }
+          },
+          "massaKg": 35,
+          "dimensoesM": {
+            "x": 3,
+            "y": 0.25,
+            "z": 2
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bateria-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": 0.02777356121609329,
+              "y": 23.99930870120732,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.027917843291222908,
+              "y": 9.973600818281884,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.000311732407942515
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022572413601327297
+            }
+          },
+          "massaKg": 50,
+          "dimensoesM": {
+            "x": 1.2,
+            "y": 0.8,
+            "z": 1
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "tanque-decolagem-metano",
+          "estado": {
+            "posicaoM": {
+              "x": 0.02627804188416165,
+              "y": 19.201863054285703,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.02683494401750089,
+              "y": 9.973601155856693,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.000311732407942515
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022572413601327297
+            }
+          },
+          "massaKg": 1117.2331512083645,
+          "dimensoesM": {
+            "x": 3.419951893353394,
+            "y": 2.5649639200150456,
+            "z": 3.077956704018055
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "tanque-decolagem-oxidante",
+          "estado": {
+            "posicaoM": {
+              "x": 0.027124384110717492,
+              "y": 21.91682684238461,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.027447776872876837,
+              "y": 9.973600964816825,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.000311732407942515
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022572413601327297
+            }
+          },
+          "massaKg": 2831.4826714342526,
+          "dimensoesM": {
+            "x": 3.419951893353394,
+            "y": 2.5649639200150456,
+            "z": 3.077956704018055
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "propulsor-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": 0.023742883741279364,
+              "y": 11.069381489423671,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.024999246642628536,
+              "y": 9.973601728103075,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 1.570484594386954
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022572413601327297
+            }
+          },
+          "massaKg": 270,
+          "dimensoesM": {
+            "x": 1.6,
+            "y": 1.4,
+            "z": 1.4
+          },
+          "integridade": 1,
+          "temperaturaC": 28.665226643828092
+        },
+        {
+          "id": "bss05-perna-esquerda",
+          "estado": {
+            "posicaoM": {
+              "x": -1.7760388161173102,
+              "y": 11.769942573736898,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.02515738018810966,
+              "y": 9.974007982272289,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.000311732407942515
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022572413601327297
+            }
+          },
+          "massaKg": 45,
+          "dimensoesM": {
+            "x": 0.4,
+            "y": 3.3,
+            "z": 0.5
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bss05-sapata-esquerda",
+          "estado": {
+            "posicaoM": {
+              "x": -2.126553157576088,
+              "y": 10.120051760249003,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.02478496000971887,
+              "y": 9.974087101819174,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.000311732407942515
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022572413601327297
+            }
+          },
+          "massaKg": 25,
+          "dimensoesM": {
+            "x": 1.3,
+            "y": 0.3,
+            "z": 1.2
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bss05-perna-direita",
+          "estado": {
+            "posicaoM": {
+              "x": 1.823961008963923,
+              "y": 11.76882033708646,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.02515712687221134,
+              "y": 9.973195375422124,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.000311732407942515
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022572413601327297
+            }
+          },
+          "massaKg": 45,
+          "dimensoesM": {
+            "x": 0.4,
+            "y": 3.3,
+            "z": 0.5
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bss05-sapata-direita",
+          "estado": {
+            "posicaoM": {
+              "x": 2.1734466334931453,
+              "y": 10.118711310916565,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.024784657437951437,
+              "y": 9.973116488081478,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.000311732407942515
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022572413601327297
+            }
+          },
+          "massaKg": 25,
+          "dimensoesM": {
+            "x": 1.3,
+            "y": 0.3,
+            "z": 1.2
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        }
+      ],
+      "contatos": [],
+      "fixadores": [
+        {
+          "id": "fixador-decolagem-painel-decolagem-solar",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bateria-decolagem-solar",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-tanque-decolagem-metano",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-tanque-decolagem-oxidante",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-propulsor-decolagem-solar",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss05-perna-esquerda",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss05-sapata-esquerda",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss05-perna-direita",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss05-sapata-direita",
+          "estado": "integro"
+        }
+      ],
+      "dados": {
+        "modeloFisico": {
+          "revisao": "plano-m8",
+          "plano": "XY",
+          "rotacaoRadps": 0,
+          "campo": {
+            "modelo": "uniforme",
+            "aceleracaoMps2": {
+              "x": 0,
+              "y": -9.80665,
+              "z": 0
+            }
+          },
+          "integracao": "euler-semi-implicito",
+          "maxDtS": 0.004166666666666667,
+          "politicaAtmosferica": "extrapolacao-legada",
+          "densidadeNivelMarKgM3": 1.225
+        },
+        "altitudeGeometricaM": 14.769381309646068,
+        "velocidadeRadialMps": 9.973601467750624,
+        "velocidadeTangencialMps": 0.0258344259052975,
+        "atitudeLocalRad": -0.000311732407942515,
+        "atitudeInercialRad": -0.000311732407942515,
+        "gravidadeLocalMps2": 9.80665,
+        "massaKg": 5243.715822642617,
+        "combustivelKg": 2954.5497916502427,
+        "reagivelKg": 2954.5497916502427,
+        "deltaVIdealMps": 2844.8599385311613,
+        "impulsoEspecificoEfetivoS": 350,
+        "densidadeArKgM3": 1.223264011170433,
+        "pressaoDinamicaPa": 60.84111126362387,
+        "diagnosticoMotor": [],
+        "hipoteseDeltaV": "Tsiolkovsky ideal; Isp nominal constante; mistura CH4/O2 1:4; sem perdas por gravidade/arrasto, dano ou reserva de pouso"
+      },
+      "arbitragem": [
+        {
+          "idAtuador": "propulsor-decolagem-solar",
+          "recurso": "gimbal",
+          "valor": -0.0006960027567512021,
+          "idControlador": "inclinacao"
+        }
+      ]
+    },
+    {
+      "modelo": {
+        "revisao": "plano-m8",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "campo": {
+          "modelo": "uniforme",
+          "aceleracaoMps2": {
+            "x": 0,
+            "y": -9.80665,
+            "z": 0
+          }
+        },
+        "integracao": "euler-semi-implicito",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "extrapolacao-legada",
+        "densidadeNivelMarKgM3": 1.225
+      },
+      "tempoS": 1.9999999999999942,
+      "objetos": [
+        {
+          "id": "bss-006",
+          "estado": {
+            "posicaoM": {
+              "x": 0.023945105302972322,
+              "y": 14.398723494364052,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.024518499576792877,
+              "y": 9.565759473889646,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.000291167314118934
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022280839818988489
+            }
+          },
+          "massaKg": 800,
+          "dimensoesM": {
+            "x": 3.2,
+            "y": 6,
+            "z": 2.4
+          },
+          "integridade": 1,
+          "temperaturaC": 20.00030578250197
+        },
+        {
+          "id": "painel-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": 0.8268436209520844,
+              "y": 24.3534179785647,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.026736489109287304,
+              "y": 9.565580581357464,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.000291167314118934
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022280839818988489
+            }
+          },
+          "massaKg": 35,
+          "dimensoesM": {
+            "x": 3,
+            "y": 0.25,
+            "z": 2
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bateria-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": 0.026632558563692475,
+              "y": 23.628650943144876,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.02657500492706458,
+              "y": 9.565758875102489,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.000291167314118934
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022280839818988489
+            }
+          },
+          "massaKg": 50,
+          "dimensoesM": {
+            "x": 1.2,
+            "y": 0.8,
+            "z": 1
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "tanque-decolagem-metano",
+          "estado": {
+            "posicaoM": {
+              "x": 0.025235699151912594,
+              "y": 18.831205266482197,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.025506093740444383,
+              "y": 9.565759186334498,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.000291167314118934
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022280839818988489
+            }
+          },
+          "massaKg": 1117.2331512083645,
+          "dimensoesM": {
+            "x": 3.419951893353394,
+            "y": 2.5649639200150456,
+            "z": 3.077956704018055
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "tanque-decolagem-oxidante",
+          "estado": {
+            "posicaoM": {
+              "x": 0.02602620789326355,
+              "y": 21.54616907141209,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.026111010476964326,
+              "y": 9.56575901020251,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.000291167314118934
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022280839818988489
+            }
+          },
+          "massaKg": 2831.4826714342526,
+          "dimensoesM": {
+            "x": 3.419951893353394,
+            "y": 2.5649639200150456,
+            "z": 3.077956704018055
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "propulsor-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": 0.022867786255954543,
+              "y": 10.698723651204084,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.02369410853843558,
+              "y": 9.565759713925377,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 1.5705051594807777
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022280839818988489
+            }
+          },
+          "massaKg": 270,
+          "dimensoesM": {
+            "x": 1.6,
+            "y": 1.4,
+            "z": 1.4
+          },
+          "integridade": 1,
+          "temperaturaC": 28.665226619166795
+        },
+        {
+          "id": "bss04-perna-esquerda",
+          "estado": {
+            "posicaoM": {
+              "x": -1.7769283203264734,
+              "y": 11.399247722689678,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.02385019118469674,
+              "y": 9.566160723612953,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.000291167314118934
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022280839818988489
+            }
+          },
+          "massaKg": 45,
+          "dimensoesM": {
+            "x": 0.4,
+            "y": 3.3,
+            "z": 0.5
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bss04-sapata-esquerda",
+          "estado": {
+            "posicaoM": {
+              "x": -2.1274087315517662,
+              "y": 9.749349701190386,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.023482580049349822,
+              "y": 9.566238813591974,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.000291167314118934
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022280839818988489
+            }
+          },
+          "massaKg": 25,
+          "dimensoesM": {
+            "x": 1.3,
+            "y": 0.3,
+            "z": 1.2
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bss04-perna-direita",
+          "estado": {
+            "posicaoM": {
+              "x": 1.8230715270723918,
+              "y": 11.398199520373659,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.02384995763641773,
+              "y": 9.56535861341347,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.000291167314118934
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022280839818988489
+            }
+          },
+          "massaKg": 45,
+          "dimensoesM": {
+            "x": 0.4,
+            "y": 3.3,
+            "z": 0.5
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bss04-sapata-direita",
+          "estado": {
+            "posicaoM": {
+              "x": 2.1725910861746747,
+              "y": 9.748097681757388,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.023482301088905453,
+              "y": 9.56528073752037,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.000291167314118934
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022280839818988489
+            }
+          },
+          "massaKg": 25,
+          "dimensoesM": {
+            "x": 1.3,
+            "y": 0.3,
+            "z": 1.2
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bss06-grid-fin-esquerda",
+          "estado": {
+            "posicaoM": {
+              "x": -1.772835984794984,
+              "y": 25.454174966942603,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.026981747010664105,
+              "y": 9.566159811806228,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.000291167314118934
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022280839818988489
+            }
+          },
+          "massaKg": 30,
+          "dimensoesM": {
+            "x": 0.4,
+            "y": 1.5,
+            "z": 0.5
+          },
+          "integridade": 1,
+          "temperaturaC": 20.00980090498142
+        },
+        {
+          "id": "bss06-grid-fin-direita",
+          "estado": {
+            "posicaoM": {
+              "x": 1.8271638626038844,
+              "y": 25.453126764626536,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.026981513462385084,
+              "y": 9.565357701606745,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.000291167314118934
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022280839818988489
+            }
+          },
+          "massaKg": 30,
+          "dimensoesM": {
+            "x": 0.4,
+            "y": 1.5,
+            "z": 0.5
+          },
+          "integridade": 1,
+          "temperaturaC": 20.009800956397147
+        }
+      ],
+      "contatos": [],
+      "fixadores": [
+        {
+          "id": "fixador-decolagem-painel-decolagem-solar",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bateria-decolagem-solar",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-tanque-decolagem-metano",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-tanque-decolagem-oxidante",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-propulsor-decolagem-solar",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss04-perna-esquerda",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss04-sapata-esquerda",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss04-perna-direita",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss04-sapata-direita",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss06-grid-fin-esquerda",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss06-grid-fin-direita",
+          "estado": "integro"
+        }
+      ],
+      "dados": {
+        "modeloFisico": {
+          "revisao": "plano-m8",
+          "plano": "XY",
+          "rotacaoRadps": 0,
+          "campo": {
+            "modelo": "uniforme",
+            "aceleracaoMps2": {
+              "x": 0,
+              "y": -9.80665,
+              "z": 0
+            }
+          },
+          "integracao": "euler-semi-implicito",
+          "maxDtS": 0.004166666666666667,
+          "politicaAtmosferica": "extrapolacao-legada",
+          "densidadeNivelMarKgM3": 1.225
+        },
+        "altitudeGeometricaM": 14.398723494364052,
+        "velocidadeRadialMps": 9.565759473889646,
+        "velocidadeTangencialMps": 0.024518499576792877,
+        "atitudeLocalRad": -0.00029116731411893404,
+        "atitudeInercialRad": -0.000291167314118934,
+        "gravidadeLocalMps2": 9.80665,
+        "massaKg": 5303.715822642617,
+        "combustivelKg": 2954.5497916502427,
+        "reagivelKg": 2954.5497916502427,
+        "deltaVIdealMps": 2795.106593805122,
+        "impulsoEspecificoEfetivoS": 350,
+        "densidadeArKgM3": 1.2233075551458816,
+        "pressaoDinamicaPa": 55.96898468707116,
+        "diagnosticoMotor": [],
+        "hipoteseDeltaV": "Tsiolkovsky ideal; Isp nominal constante; mistura CH4/O2 1:4; sem perdas por gravidade/arrasto, dano ou reserva de pouso"
+      },
+      "arbitragem": [
+        {
+          "idAtuador": "propulsor-decolagem-solar",
+          "recurso": "gimbal",
+          "valor": -0.0006533955610982821,
+          "idControlador": "inclinacao"
+        }
+      ]
+    },
+    {
+      "modelo": {
+        "revisao": "terra-esferica-m9",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "raioM": 6371000,
+        "g0ReferenciaIspMps2": 9.80665,
+        "campo": {
+          "modelo": "central",
+          "centroM": {
+            "x": 0,
+            "y": -6371000,
+            "z": 0
+          },
+          "muM3S2": 398600441800000
+        },
+        "integracao": "verlet-gravitacional",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "vacuo-simplificado-25km",
+        "densidadeNivelMarKgM3": 1.225
+      },
+      "tempoS": 1.9999999999999942,
+      "objetos": [
+        {
+          "id": "bss-006",
+          "estado": {
+            "posicaoM": {
+              "x": 0.023946867253812544,
+              "y": 14.413218527227755,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.024521609195783688,
+              "y": 9.539930928311858,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00029122351823460493
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022287698339109688
+            }
+          },
+          "massaKg": 800,
+          "dimensoesM": {
+            "x": 3.2,
+            "y": 6,
+            "z": 2.4
+          },
+          "integridade": 1,
+          "temperaturaC": 20.000303286236946
+        },
+        {
+          "id": "painel-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": 0.8268459423977262,
+              "y": 24.367912966302153,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.026740281462944715,
+              "y": 9.539751980588022,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00029122351823460493
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022287698339109688
+            }
+          },
+          "massaKg": 35,
+          "dimensoesM": {
+            "x": 3,
+            "y": 0.25,
+            "z": 2
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bateria-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": 0.026634839274442632,
+              "y": 23.643145975857486,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.026578747582452964,
+              "y": 9.539930329224763,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00029122351823460493
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022287698339109688
+            }
+          },
+          "massaKg": 50,
+          "dimensoesM": {
+            "x": 1.2,
+            "y": 0.8,
+            "z": 1
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "tanque-decolagem-metano",
+          "estado": {
+            "posicaoM": {
+              "x": 0.02523771022647102,
+              "y": 18.8457002992733,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.025509507362073223,
+              "y": 9.53993064061267,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00029122351823460493
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022287698339109688
+            }
+          },
+          "massaKg": 1117.2331512083645,
+          "dimensoesM": {
+            "x": 3.419951893353394,
+            "y": 2.5649639200150456,
+            "z": 3.077956704018055
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "tanque-decolagem-oxidante",
+          "estado": {
+            "posicaoM": {
+              "x": 0.026028371559961686,
+              "y": 21.56066410415879,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.026114610304922115,
+              "y": 9.539930464392457,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00029122351823460493
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022287698339109688
+            }
+          },
+          "massaKg": 2831.4826714342526,
+          "dimensoesM": {
+            "x": 3.419951893353394,
+            "y": 2.5649639200150456,
+            "z": 3.077956704018055
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "propulsor-decolagem-solar",
+          "estado": {
+            "posicaoM": {
+              "x": 0.02286934025157553,
+              "y": 10.71321868412834,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.023696964392206157,
+              "y": 9.539931168467826,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": 1.570505103276662
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022287698339109688
+            }
+          },
+          "massaKg": 270,
+          "dimensoesM": {
+            "x": 1.6,
+            "y": 1.4,
+            "z": 1.4
+          },
+          "integridade": 1,
+          "temperaturaC": 28.665226621095087
+        },
+        {
+          "id": "bss04-perna-esquerda",
+          "estado": {
+            "posicaoM": {
+              "x": -1.7769267269585143,
+              "y": 11.41374285676985,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.02385309510659704,
+              "y": 9.540332301586005,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00029122351823460493
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022287698339109688
+            }
+          },
+          "massaKg": 45,
+          "dimensoesM": {
+            "x": 0.4,
+            "y": 3.3,
+            "z": 0.5
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bss04-sapata-esquerda",
+          "estado": {
+            "posicaoM": {
+              "x": -2.1274072309148555,
+              "y": 9.763844854969008,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.02348537081705267,
+              "y": 9.540410415623464,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00029122351823460493
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022287698339109688
+            }
+          },
+          "massaKg": 25,
+          "dimensoesM": {
+            "x": 1.3,
+            "y": 0.3,
+            "z": 1.2
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bss04-perna-direita",
+          "estado": {
+            "posicaoM": {
+              "x": 1.82307312038143,
+              "y": 11.412694452119016,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.02385286144133109,
+              "y": 9.539529944479822,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00029122351823460493
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022287698339109688
+            }
+          },
+          "massaKg": 45,
+          "dimensoesM": {
+            "x": 0.4,
+            "y": 3.3,
+            "z": 0.5
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bss04-sapata-direita",
+          "estado": {
+            "posicaoM": {
+              "x": 2.1725925867412084,
+              "y": 9.762592593858312,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.0234850917168739,
+              "y": 9.539452044635523,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00029122351823460493
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022287698339109688
+            }
+          },
+          "massaKg": 25,
+          "dimensoesM": {
+            "x": 1.3,
+            "y": 0.3,
+            "z": 1.2
+          },
+          "integridade": 1,
+          "temperaturaC": 20
+        },
+        {
+          "id": "bss06-grid-fin-esquerda",
+          "estado": {
+            "posicaoM": {
+              "x": -1.7728336014822705,
+              "y": 25.468670100792735,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.026985614892526204,
+              "y": 9.540331389322546,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00029122351823460493
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022287698339109688
+            }
+          },
+          "massaKg": 30,
+          "dimensoesM": {
+            "x": 0.4,
+            "y": 1.5,
+            "z": 0.5
+          },
+          "integridade": 1,
+          "temperaturaC": 20.009720755305423
+        },
+        {
+          "id": "bss06-grid-fin-direita",
+          "estado": {
+            "posicaoM": {
+              "x": 1.8271662458576785,
+              "y": 25.467621696141904,
+              "z": 0
+            },
+            "velocidadeMps": {
+              "x": 0.026985381227260255,
+              "y": 9.539529032216363,
+              "z": 0
+            },
+            "orientacaoRad": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00029122351823460493
+            },
+            "velocidadeAngularRadps": {
+              "x": 0,
+              "y": 0,
+              "z": -0.00022287698339109688
+            }
+          },
+          "massaKg": 30,
+          "dimensoesM": {
+            "x": 0.4,
+            "y": 1.5,
+            "z": 0.5
+          },
+          "integridade": 1,
+          "temperaturaC": 20.00972080567792
+        }
+      ],
+      "contatos": [],
+      "fixadores": [
+        {
+          "id": "fixador-decolagem-painel-decolagem-solar",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bateria-decolagem-solar",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-tanque-decolagem-metano",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-tanque-decolagem-oxidante",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-propulsor-decolagem-solar",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss04-perna-esquerda",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss04-sapata-esquerda",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss04-perna-direita",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss04-sapata-direita",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss06-grid-fin-esquerda",
+          "estado": "integro"
+        },
+        {
+          "id": "fixador-decolagem-bss06-grid-fin-direita",
+          "estado": "integro"
+        }
+      ],
+      "dados": {
+        "modeloFisico": {
+          "revisao": "terra-esferica-m9",
+          "plano": "XY",
+          "rotacaoRadps": 0,
+          "raioM": 6371000,
+          "g0ReferenciaIspMps2": 9.80665,
+          "campo": {
+            "modelo": "central",
+            "centroM": {
+              "x": 0,
+              "y": -6371000,
+              "z": 0
+            },
+            "muM3S2": 398600441800000
+          },
+          "integracao": "verlet-gravitacional",
+          "maxDtS": 0.004166666666666667,
+          "politicaAtmosferica": "vacuo-simplificado-25km",
+          "densidadeNivelMarKgM3": 1.225
+        },
+        "altitudeGeometricaM": 14.41321852710098,
+        "velocidadeRadialMps": 9.539930928404027,
+        "velocidadeTangencialMps": 0.024521573337842592,
+        "atitudeLocalRad": -0.0002912197595133557,
+        "atitudeInercialRad": -0.00029122351823460493,
+        "gravidadeLocalMps2": 9.820206054184963,
+        "orbital": {
+          "raioM": 6371014.413218527,
+          "altitudeM": 14.41321852710098,
+          "velocidadeInercialMps": 9.539962443651374,
+          "velocidadeCircularMps": 7909.783455442269,
+          "velocidadeEscapeMps": 11186.12303812078,
+          "energiaEspecificaJPorKg": -62564628.806546524,
+          "momentoAngularEspecificoM2S": -156227.2971701903,
+          "excentricidade": 0.999999999990389,
+          "perigeuM": -6370999.999969385,
+          "apogeuM": 19.04704941716045,
+          "periodoS": 1789.2842627275745,
+          "interceptaSuperficie": true,
+          "estado": "suborbital"
+        },
+        "massaKg": 5303.715822642617,
+        "combustivelKg": 2954.5497916502427,
+        "reagivelKg": 2954.5497916502427,
+        "deltaVIdealMps": 2795.106593805122,
+        "impulsoEspecificoEfetivoS": 350,
+        "densidadeArKgM3": 1.2233058522825357,
+        "pressaoDinamicaPa": 55.667073158385186,
+        "diagnosticoMotor": [],
+        "hipoteseDeltaV": "Tsiolkovsky ideal; Isp nominal constante; mistura CH4/O2 1:4; sem perdas por gravidade/arrasto, dano ou reserva de pouso"
+      },
+      "arbitragem": [
+        {
+          "idAtuador": "propulsor-decolagem-solar",
+          "recurso": "gimbal",
+          "valor": -0.0006535146597800391,
+          "idControlador": "inclinacao"
+        }
+      ]
+    }
+  ]
+}

@@ -40,3 +40,9 @@ Apoio bilateral contínuo M9/M7 não qualificado, penetração histórica ~34mm,
 ## Evidências e estado
 
 M10-A: auditoria concluída; fontes examinadas acima. Validação: 5 testes (ExecutorPassoFixo/TelemetriaMissaoBss) aprovados; typecheck e build aprovados. Base pré-extração adicional coletada em 00db5fe com 1 teste, quatro montagens e 480 passos cada (2s), para comparação exata na M10-B. CI remoto será consultado se disponível; execução local não equivale a aprovação do CI.
+
+### M10-B — Montagem independente
+
+MontagemBss (src/veiculos) recebe MundoFisico/SuperficieFisica e monta os mesmos objetos/controladores, sem criar ambiente ou UI. DefinicaoBss006 concentra configuração histórica compartilhada com BSS-005; TelemetriaBss é domínio e o caminho antigo reexporta. BancadaBss mantém descrição, trace e controles experimentais e delega montagem/coordenação. Ordem dos objetos/fontes/sensores e fórmulas preservadas. Sem mudança no core físico.
+
+14 testes em três arquivos aprovados (160,39s), incluindo voos da bancada com alvo/vento, sem ignição, falha elétrica e regressão exata dos snapshots pré-extração de 00db5fe. Referência imutável em docs/validacoes/2026-10-13-m10-base-m9.json. Typecheck e build aprovados. Parâmetros: 600kg CH4/2400kg O2, 120kN, Isp350s, bateria1MJ, duas grid fins e pernas históricas.
