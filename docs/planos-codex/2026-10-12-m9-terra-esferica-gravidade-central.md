@@ -76,6 +76,12 @@ M5-B/C: diário manual de 15 km não disponível, retorno não qualificado; miss
 
 M9-A: auditoria de fonte completa por busca, documentação preservada. TypeScript e build aprovados (Vite, 12,05 s); git diff --check aprovado. Suíte completa de base iniciada, ainda sem resumo global neste commit: nenhum sucesso global presumido. Até aqui 3 testes de telemetria/replay e 7 da trava passaram. Validação orbital usará exclusivamente corpos de prova inertes com posições/velocidades iniciais explícitas, sem dependência de qualquer BSS ou decolagem. CI remoto não consultável para commits não publicados; validações locais não serão chamadas de CI verde.
 
+### M9-B — campo isolado concluído
+
+`CampoGravitacional`, `CampoUniforme` e `CampoCentral` adicionados sem ligação aos cenários. Constantes separadas de g0; g superficial calculado=9,820250487 m/s². Sete testes isolados aprovados: superfície/15/100/400 km em cinco posições angulares, continuidade e singularidades. TypeScript/build (4,64 s) aprovados após corrigir a inferência TypeScript literal do parâmetro μ; sem mudança numérica. CI remoto não executado (sem push).
+
+Base: suíte ampla interrompida após timeout BSS-003 (90 s). Caso está sendo repetido isoladamente antes de atribuir falha ao código; a física nova ainda não estava conectada. Não se declara aprovação global.
+
 ## Inventário de ocorrências na base (reproduzível)
 
 Busca em todo `src`, exceto testes: `posicaoM.y|velocidadeMps.[xy]|alturaM|gravidadeTerrestreMps2|9.80665`. Este índice lista todas as linhas encontradas, inclusive geometria cartesiana legítima e laboratórios preservados. Cada ocorrência deve ser interpretada com a matriz acima; contagem não implica que toda linha deva mudar.
