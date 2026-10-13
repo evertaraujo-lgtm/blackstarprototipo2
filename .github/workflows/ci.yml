@@ -28,10 +28,13 @@ jobs:
         run: npm ci
 
       - name: Testes determinísticos
-        run: npm test -- --run
+        run: npm test -- --run --maxWorkers=1
 
       - name: Checagem TypeScript
         run: npm run typecheck
+
+      - name: Missões sem APIs de navegador
+        run: npm run typecheck:missoes
 
       - name: Build de produção
         run: npm run build

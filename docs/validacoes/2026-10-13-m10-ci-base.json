@@ -1,0 +1,45 @@
+{
+  "baseSha": "00db5fe36410904643fe5232ab3b128ffef70ae1",
+  "runId": 38374376873,
+  "url": "https://github.com/evertaraujo-lgtm/blackstarprototipo2/actions/runs/38374376873",
+  "status": "completed",
+  "conclusao": "success",
+  "event": "push",
+  "jobs": [
+    {
+      "nome": "Testes, tipos e build",
+      "conclusao": "success",
+      "etapas": [
+        {
+          "nome": "Set up job",
+          "conclusao": "success"
+        },
+        {
+          "nome": "Checkout",
+          "conclusao": "success"
+        },
+        {
+          "nome": "Node.js",
+          "conclusao": "success"
+        },
+        {
+          "nome": "Instalar dependências",
+          "conclusao": "success"
+        },
+        {
+          "nome": "Testes determinísticos",
+          "conclusao": "success"
+        },
+        {
+          "nome": "Checagem TypeScript",
+          "conclusao": "success"
+        },
+        {
+          "nome": "Build de produção",
+          "conclusao": "success"
+        }
+      ]
+    }
+  ],
+  "m10": "Commits locais; CI de M10 pendente de push, sem declaração de aprovação remota."
+}

@@ -9,7 +9,9 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "preview": "vite preview",
-    "deploy": "npx firebase-tools deploy --only hosting"
+    "deploy": "npx firebase-tools deploy --only hosting",
+    "typecheck:missoes": "tsc --noEmit -p tsconfig.missoes.json",
+    "missao:executar": "vite-node scripts/executar-missao.ts"
   },
   "devDependencies": {
     "typescript": "^5.8.3",
