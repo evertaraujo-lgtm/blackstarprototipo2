@@ -82,6 +82,29 @@ M9-A: auditoria de fonte completa por busca, documentação preservada. TypeScri
 
 Base: suíte ampla interrompida após timeout BSS-003 (90 s). Caso está sendo repetido isoladamente antes de atribuir falha ao código; a física nova ainda não estava conectada. Não se declara aprovação global.
 
+### M9-C — referenciais e dinâmica de dois corpos concluídos
+
+Ambiente plano preserva Euler e configurações anteriores; ambiente central opt-in usa KDK gravitacional. O mundo aplica meia contribuição gravitacional, drift/forças operacionais existentes e meia contribuição no estado novo. Ilhas recebem força em cada membro, incluindo torque de gradiente; as filas de força/impulso, consumo e contatos continuam no pipeline único. Sem troca global do integrador. Referencial público para altitude/arco/radial/tangencial, transformações de âncora e atitude/taxa local; estado/comandos centrais fora de XY rejeitados. Telemetria orbital osculadora distingue energia, interceptação de superfície e trajetórias ligadas/de escape.
+
+Corpos de prova Objeto inertes, material já declarado pelos testes do core (limite térmico 1000 °C), sem foguete, propulsão, decolagem ou manobra. Vácuo explícito. Velocidade circular=7672,598648 m/s; período analítico=5544,855096 s. Período medido pelo cruzamento interpolado de voltas completas, não pelo período analítico da telemetria.
+
+| Caso | dt(s) | Voltas | Excursão/erro apsides (m) | Erro período(s) | Erro energia relativo máximo | Erro momento angular relativo máximo |
+|---|---:|---:|---:|---:|---:|---:|
+| verlet-gravitacional, e=0 | 1 | 3 | 4.34712 | 0.00237327 | 4.13558e-13 | 1.12133e-14 |
+| verlet-gravitacional, e=0 | 0.5 | 3 | 1.08678 | 0.000593319 | 6.4948e-14 | 2.15383e-14 |
+| verlet-gravitacional, e=0 | 0.25 | 3 | 0.271696 | 0.00014833 | 6.89448e-14 | 3.37508e-14 |
+| verlet-gravitacional, e=0 | 1 | 3 | 4.34712 | 0.00237327 | 4.13558e-13 | 1.12133e-14 |
+| verlet-gravitacional, e=0 | 1 | 1 | 4.34712 | 0.00237327 | 4.1056e-13 | 1.12133e-14 |
+| euler-semi-implicito, e=0 | 1 | 1 | 3840.65 | 0.00504313 | 1.28404e-06 | 3.33067e-15 |
+| verlet-gravitacional, e=0.1 | 1 | 1 | 4.55052 | 0.00241093 | 1.00048e-07 | 7.77156e-15 |
+| verlet-gravitacional, e=0.1 | 0.5 | 1 | 1.13519 | 0.000602732 | 2.50121e-08 | 9.76996e-15 |
+
+Todos os limites quantitativos definidos na M9-A foram atendidos pelo KDK. Elipse e=0,1: período 6494,211629 s, apogeu analítico 1904666,667 m. Queda radial, escape 0,99/1/1,01×v_escape, singularidade/planaridade, ilhas/ruptura e repetição determinística cobertos. Falhas iniciais foram uma comparação extra sem fundamento exigindo melhoria por fator 1000 (substituída por comparar ambos contra o orçamento de 10 m previamente estabelecido) e assert Object.is distinguindo -0; nenhum limite físico foi afrouxado. Independência da massa é conferida com arredondamento Float64 explícito.
+
+72 testes aprovados (55 do core legado + 17 do campo/dinâmica); após melhoria da medição de período os 10 orbitais passaram novamente. TypeScript/build (3,45 s) e diff-check aprovados. Base BSS-003 isolada passou em 57,25 s sem aumento do timeout de 90 s; timeout na execução ampla atribuído à concorrência no ambiente. CI remoto ainda não executado, sem push.
+
+Limites: gravidade KDK de segunda ordem no problema conservativo; drag/propulsão mantêm discretização operacional explícita e requerem passos de bancada. dt<=1 s qualificado para corpos inertes no exterior terrestre; atmosfera/solo/sensores centrais ainda serão integrados nos marcos seguintes. Modelo não possui rotação planetária ou propagação 3D.
+
 ## Inventário de ocorrências na base (reproduzível)
 
 Busca em todo `src`, exceto testes: `posicaoM.y|velocidadeMps.[xy]|alturaM|gravidadeTerrestreMps2|9.80665`. Este índice lista todas as linhas encontradas, inclusive geometria cartesiana legítima e laboratórios preservados. Cada ocorrência deve ser interpretada com a matriz acima; contagem não implica que toda linha deva mudar.
