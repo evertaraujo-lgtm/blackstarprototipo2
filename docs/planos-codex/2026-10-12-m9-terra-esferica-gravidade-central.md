@@ -1,0 +1,105 @@
+# M9 — Terra esférica e gravidade central (2D)
+
+Data: 2026-10-12. Base auditada: `450126a`. Complexidade: 9/10.
+Autorização: adendo de execução autônoma M9-A–G; commits locais, sem push e sem deploy Firebase.
+
+## M9-A — diagnóstico e proposta antes de alterar a física
+
+Leitura: AGENTS.md completo; plano de engenharia BSS-005 de 2026-10-10, inclusive consolidação M0–M8-A; relatórios Markdown/JSON M0–M6 e voo BSS-006. M7 e M8-A não têm relatórios independentes: as evidências e limites são registrados nas seções 8.7–8.9 do plano anterior e nos testes. Não se presume que M8-B esteja concluída. O pedido M9 autoriza avançar apesar do backlog anterior. Nenhum resultado histórico será reescrito.
+
+Protótipo 1 consultado: `src/js/core/physical_core.js` calcula aceleração em coordenadas radiais/tangenciais com termos de transporte, mas deriva μ de g superficial, limita raio artificialmente e usa atmosfera exponencial. `src/js/world/terra.js` é apresentação. Reaproveitar a separação de responsabilidades, não portar essas aproximações: o novo modelo usa posição/velocidade cartesiana inercial e μ fornecido, sem termos fictícios de Coriolis.
+
+### Hipóteses encontradas e matriz de impacto
+
+| Subsistema/módulos | Hipótese atual | Alteração necessária | Impacto | Risco |
+|---|---|---|---|---|
+| MundoFisico/IntegradorFisico | g=(0,-9,80665,0), Euler semi-implícito; mesma g em qualquer ponto | CampoGravitacional por posição; qualificação de integração orbital opt-in | Todos os corpos livres | Alto: deriva de energia e alteração de missões antigas |
+| ConjuntoEstruturalRigido | Soma peso uniforme em cada membro, dinâmica XY | Campo por membro, incluindo torque de gradiente; preservar CM/inércia/impulsos | Ilhas e separação | Alto: massa variável e ordem da integração |
+| SistemaAtmosferico | h=Y; ar com vetor global único; duas camadas extrapoladas | Geometria injetada, altitude radial, limite explícito do perfil | Casco, paraquedas, grid fins | Alto: arrasto duplicado ou vácuo implícito |
+| SistemaTermico | rho(Y), mesmo arrasto do core | Consultar mesma geometria e política atmosférica | Convecção, aquecimento e dano | Médio: não qualificar reentrada |
+| SuperficiePlano/ResolvedorContatoSuperficie | plano infinito, normal +Y, menor Y; apoio por extremos X; μN por abs(g.y) | Interface de distância assinada/projeção/normal; círculo terrestre no plano; plataformas locais finitas | Apoio, impulso, torque, penetração e atrito | Muito alto: preservar snapshots M7 e regressões |
+| MundoFisico/SistemaSensores | tração/fim de curso por Y<=alturaM | Consultar geometria de superfície | Rodas, switches, pernas/sapatas | Alto: proximidade não é força de apoio |
+| SensoresVeiculoComposto/SensorNivelInterno | GPS global; altitude=Y-ref, velocidades Vy/Vx; nível=theta; omega inercial | Serviço único de referencial; altitude geométrica, radial/tangencial, atitude/taxa local e inercial distintas | PID/Fuzzy-PID/GNC | Alto: sinal e taxa da vertical móvel |
+| ControladorGuiaPousoBss06/BancadaBss | alvo X; Fx global; vento global misturado com velocidades locais; peso g0 | Erro em arco local, projeções de força/vento, g local lido do mundo | Gimbal e grid fins | Alto: manter arbitragem M3 e ganhos |
+| ControladorDescidaFuzzyPid | sustentação por massa*g0 | Ler g local via sensores; legado usa g0 | Throttle e frenagem | Médio: sem controlador orbital |
+| ControladorPouso/Desaceleracao/Inclinacao/Gimbal/Aletas | grandezas chamadas verticais/horizontais recebidas por interfaces | Fornecer grandezas locais coerentes, sem geometria nos controladores | Transições, PID e sensores obsoletos | Alto: envelope de qualificação limitado |
+| EnsaioMissaoBss005 | leitura Y/X, menorY-solo, velocidade absoluta zero em repouso | Leituras geométricas e projeções; Terra estática mantém repouso inercial zero | Primeiro impacto/toque bilateral/repouso | Alto: classificações de falha não virar sucesso |
+| TelemetriaMissaoBss/RegistroEnsaioBancada/ReproducaoDiarioBss005 | modelo implícito; replay compara fábrica atual | Versão/constantes/modelo em novos diários; rejeitar modelos incompatíveis; diários antigos explicitamente legados | Reprodutibilidade | Alto: não alegar equivalência histórica |
+| testes.ts/sandbox | câmera XY, réguas, linha do solo y constante, ângulos Canvas=-theta | Câmera separada, demonstração orbital mínima após validação | Observação em metros/km | Médio: não mover estado físico |
+| ResolvedorColisoes | SAT XY genérico; atrito entre corpos apenas normal quase +Y | Preservar colisões; restrição angular do atrito precisa de extensão específica antes de veículos terrestres planetários | Objetos independentes | Médio: não declarar qualificação global inexistente |
+| ChumbadorAoSolo/GuiaLinear/TravaPorta | fundação estática; guia X/Y; trava compensa g0 | Preservar laboratórios legados; Terra estática permite ancoragem montada; rotação futura exige outro contrato | Infraestrutura | Alto se rotação for adicionada incompletamente |
+| VeiculoTerrestre | limite de aderência=m*g0 e eixos do chassi | Preservar bancada terrestre; não qualificar tração planetária sem reação normal real | Domínio terrestre | Médio, fora da migração dos BSS |
+| Bocal/propulsão química | g0 define Isp | Preservar g0=9,80665 separado do campo μ/r² | Empuxo/consumo | Alto se g local substituir g0 |
+| Bss03/Bss04/montagens | coordenadas iniciais locais, thetaZ e peças em XY | Fábrica opt-in com transformação rígida de toda a montagem | BSS-001–006 | Alto: não ajustar massas, forças ou ganhos |
+
+### O que pode ser preservado
+
+Vetor3 e estado SI; Objeto e suas propriedades de massa/integridade/térmica; SAT de caixas orientadas; FixadorEstrutural/ResolvedorEsforcoEstrutural; conexões elétricas, bombas/linhas/válvulas, Bocal e g0 de Isp; atuador de gimbal e limites físicos; aerodinâmica por vetor de fluxo de Aleta/VeiculoAlado/Paraquedas; PID matemático, gerenciador de arbitragem e computador de voo por interfaces; TracePLC, persistência desacoplada e diários antigos. Referências a x/y em rotação de peças e geometria local são operações cartesianas legítimas, não hipóteses de vertical terrestre. Guias/mecanismos e bancadas planas permanecem explicitamente locais.
+
+### Decisões propostas
+
+- Ambiente legado permanece padrão: campo uniforme e referencial plano, integração Euler original. Ambiente terrestre esférico é configuração explícita, independente do ID do BSS.
+- Campo gravitacional reutilizável separado da geometria operacional. Terra esférica estática com R=6.371.000 m, μ=3,986004418e14 m³/s², g0=9,80665 m/s² somente referência de Isp. Não calibrar μ para g0.
+- Plano orbital XY, z=0, rotação somente em Z. Cenários centrais rejeitam estado inicial/forças fora do plano. Centro C=(0,-R,0), origem inercial translada no ponto inicial de lançamento e eixos fixos. Translação não cria referencial em rotação.
+- r=p-C; a=-μr/|r|³; h=|r|-R. er=r/|r|, et=(er.y,-er.x,0); vt=v·et, vr=v·er. Vertical física thetaVertical=atan2(-er.x,er.y); thetaLocal=wrap(thetaInercial-thetaVertical). Taxa local=omegaZ+vt/|r|. Serviço único expõe essas operações e transformações cartesianas locais de uma âncora fixa; arco s=R atan2(rx,ry) é posição operacional no plano, não longitude geográfica.
+- JS number/Float64: escala de ~1e7 m oferece resolução absoluta da ordem de nanômetros; verificar round-trip e conservação. Posição renderizada é diferença para câmera, nunca nova posição física.
+- Propor kick–drift–kick para gravidade variável como opção do ambiente central; forças não gravitacionais continuam pelo passo operacional original, sem duplicar consumo/ignição. Reavaliar gravidade em cada corpo/membro após drift. Não substituir Euler globalmente. Qualificação de dois corpos em vácuo e sem propulsão; forças dissipativas mantêm erro de primeira ordem.
+- Superfície geométrica com material separado por contrato. Manter classe SuperficiePlano/material e normal +Y para legado; adicionar círculo terrestre e plano local com orientação/extensão finita. Solver usa distância assinada, normal e projeções tangenciais, incluindo CM efetivo, fixadores, energia e calor.
+- Perfil atmosférico M4 intacto até 20 km. Ambiente central requer política explícita: transição simplificada para vácuo entre 20 e 25 km (hipótese numérica, não fronteira física); órbitas de validação usam vácuo explícito desde o início. Ambiente antigo preserva extrapolação histórica identificada. Ar e solo estáticos no inercial, vento/rajadas vetoriais documentados.
+- Rotação terrestre fica para fase posterior: definir fundação móvel, ar solidário, vPlataforma=Ω×r e limites geométricos 2D antes de ativar. Não representar latitude/longitude reais, inclinação orbital ou manobras fora do plano.
+
+### Estratégia quantitativa de validação (definida antes da implementação)
+
+Exatidão algébrica: erros relativos <=1e-12 para campo/projeções (altitude/round-trip absoluto <=1e-8 m); singularidade central rejeitada, sem regularização arbitrária. Campo exterior pontual somente: não é gravidade de interior da Terra.
+
+Órbita circular de 400 km: velocidade sqrt(μ/r), período 2π sqrt(r³/μ); qualificar dt<=1 s em vácuo por 3 voltas. Orçamento inicial: excursão radial <=10 m, erro relativo de energia <=1e-6, momento angular <=1e-10, erro de período <=0,1 s/volta. Esses limites atendem observação de órbita em km com precisão métrica e não navegação real; validar convergência ao reduzir dt, sem relaxar limites para passar. Avaliar Euler e KDK com mesmos estados e passos 1/0,5/0,25 s, registrar também dt exploratório maior. Elipse e=0,1, perigeu=R+400 km: erro de apsides <=10 m, energia <=1e-6 e período <=0,1 s. Queda radial curta: direção/momento angular e energia <=1e-6. Escape: energia abaixo/próxima/acima de zero e raio crescente; não classificar elipse com perigeu dentro da Terra como órbita utilizável.
+
+Contato: comparar plano antes/depois sem alterar tolerância de observação 2 mm; testar orientações cardinais e oblíquas, impulso normal/atrito/calor/dano/ruptura, ilhas e apoio bilateral, contato após ruptura e ausência de apoio. Não encobrir 34 mm por tolerância nova. Camada atmosférica: pontos M4/continuidades, mesmo rho para core/térmica/superfícies, vácuo sem arrasto/convecção. Sensores: mesma geometria em todo o círculo, idade/congelamento/atraso/desvio e taxa da vertical; observação não altera física. Controle: gimbal/fin/throttle por portas existentes em montagens transformadas, saturação/sem energia/sem fluxo, sem mudar ganhos.
+
+### Matriz de regressões e sequência
+
+| Marco | Entrega | Regressão/qualificação |
+|---|---|---|
+| M9-A | Esta auditoria + inventário versionado; somente documentação | Base, tipos/build; CI remoto não executado sem push |
+| M9-B | Campo uniforme/central + constantes | A/B, singularidade, massas e direções; cenários intactos |
+| M9-C | Referenciais 2D + integração opt-in | C–G, circular/elipse, energia/h, passos, ilhas e eventos |
+| M9-D | Altitude radial/atmosfera/contato | Core plano, atmosfera M4, círculo em todos os quadrantes, dano/fixadores |
+| M9-E | Sensores, GNC, telemetria, modelo/replay | M3/M4/M5/M8-A, local vs inercial, modelo incompatível |
+| M9-F | Campanha BSS-001–006 legado vs central | Decolagem, subida/apogeu, consumo, descida/apoio/danos/falhas; diferenças explícitas |
+| M9-G | API ambiental e demonstração mínima qualificada | Separação/suborbital/replay, build, smoke e comandos do CI local; sem BSS-007 |
+
+### Pendências históricas preservadas
+
+M5-B/C: diário manual de 15 km não disponível, retorno não qualificado; missão que ativa pouso ainda na subida não substitui esse perfil. M7: penetração histórica ~34 mm em 600 s sem causa/objeto confirmado, emApoio inclui proximidade 2 mm sem impulso positivo e corte bilateral retido não comprova apoio posterior. M8-B: falhas combinadas/por fase e recuperação ainda incompletas. Sem Mach/stall/CFD, radiatividade/reentrada orbital, balanço térmico integral de propulsão ou rotação terrestre. Nenhuma dessas pendências desaparece com a gravidade central.
+
+## Evidências por marco
+
+M9-A: auditoria de fonte completa por busca, documentação preservada. TypeScript e build aprovados (Vite, 12,05 s); git diff --check aprovado. Suíte completa de base iniciada, ainda sem resumo global neste commit: nenhum sucesso global presumido. Até aqui 3 testes de telemetria/replay e 7 da trava passaram. Validação orbital usará exclusivamente corpos de prova inertes com posições/velocidades iniciais explícitas, sem dependência de qualquer BSS ou decolagem. CI remoto não consultável para commits não publicados; validações locais não serão chamadas de CI verde.
+
+## Inventário de ocorrências na base (reproduzível)
+
+Busca em todo `src`, exceto testes: `posicaoM.y|velocidadeMps.[xy]|alturaM|gravidadeTerrestreMps2|9.80665`. Este índice lista todas as linhas encontradas, inclusive geometria cartesiana legítima e laboratórios preservados. Cada ocorrência deve ser interpretada com a matriz acima; contagem não implica que toda linha deva mudar.
+
+| Arquivo | Linhas na revisão auditada |
+|---|---|
+| `src/cenarios/BancadaBss.ts` | 242, 243, 254, 264, 280, 282, 325, 336, 337, 368, 370, 392 |
+| `src/cenarios/EnsaioMissaoBss005.ts` | 105, 118, 121, 128, 129, 152 |
+| `src/physics/MundoFisico.ts` | 49, 118, 199, 309, 312, 322, 323, 375, 386 |
+| `src/physics/SuperficiePlano.ts` | 10, 21 |
+| `src/physics/cenarios/EnsaioPortaVertical.ts` | 62, 63 |
+| `src/physics/conexoes/GuiaLinear.ts` | 32, 33, 43, 44, 46 |
+| `src/physics/conexoes/JuntaRotacionalDeBancada.ts` | 50 |
+| `src/physics/geometria/ContatoCaixasOrientadas.ts` | 47, 59, 80, 91, 101, 113, 121 |
+| `src/physics/objetos/base/ObjetoTriangularRetangulo.ts` | 27, 29, 30, 31 |
+| `src/physics/objetos/mecanismos/TravaPorta.ts` | 53, 54, 85, 95, 108 |
+| `src/physics/objetos/propulsao/combustao/Bocal.ts` | 3 |
+| `src/physics/objetos/veiculos/VeiculoAlado.ts` | 45 |
+| `src/physics/objetos/veiculos/VeiculoTerrestre.ts` | 146 |
+| `src/physics/sensores/SistemaSensores.ts` | 58 |
+| `src/physics/sensores/SwitchFimDeCurso.ts` | 15, 37, 46, 123, 124, 125 |
+| `src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.ts` | 38 |
+| `src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts` | 111 |
+| `src/physics/solucionadores/ResolvedorContatoSuperficie.ts` | 58, 112, 264 |
+| `src/physics/solucionadores/SistemaAtmosferico.ts` | 10, 42 |
+| `src/physics/solucionadores/SistemaTermico.ts` | 21 |
+| `src/testes.ts` | 261, 267, 270, 275, 278, 280, 284, 289, 290, 293, 299, 300, 350, 354, 357, 362, 390, 391, 454, 514, 551, 552, 554, 597, 601, 602, 646, 647, 648, 822, 827, 858, 859, 860, 864, 865, 867, 892, 893, 931, 944, 963, 964, 991, 992, 1020, 1024, 1118, 1189, 1231, 1319, 1360, 1367, 1368, 1422, 1423, 1425, 1459, 1460, 1462, 1494, 1495, 1497, 1532, 1533, 1534, 1536, 1572, 1632, 1675, 1696, 1697, 1708, 1713, 1757, 1831, 1971, 2021, 2067, 2103, 2104, 2125, 2143, 2144, 2150, 2151, 2175, 2177, 2178, 2190, 2200, 2216, 2698, 2699, 2710, 2712, 2735, 2755, 2787, 3181, 3520 |
