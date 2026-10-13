@@ -14,15 +14,45 @@
           <h1>Simulação de foguetes</h1>
           <p class="subtitle">Decolagem, controle de inclinação e pouso dos foguetes BSS.</p>
         </div>
-        <a class="back-link" href="/">Voltar</a>
+        <div class="test-header-actions">
+          <button id="toggle-control-layout" class="layout-toggle secondary-button" type="button" aria-pressed="false" title="Alternar posição dos painéis de controle">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M10 4v16M6 8h1m-1 4h1m-1 4h1" /></svg>
+            <span>Painéis à esquerda</span>
+          </button>
+          <a class="back-link" href="/">Voltar</a>
+        </div>
       </header>
 
       <section class="test-layout" aria-label="Execução de testes físicos">
         <aside class="test-controls" aria-label="Comandos da bancada">
-          <h2>Comandos</h2>
+          <section class="test-control-group test-command-group" aria-labelledby="test-command-heading">
+          <h2 id="test-command-heading">Comandos do teste</h2>
           <label class="scenario-picker" for="scenario-selector">Teste a visualizar
             <select id="scenario-selector" aria-label="Escolher teste físico"></select>
           </label>
+          <div class="execution-controls">
+            <button id="play-tests" class="test-icon-button" type="button" aria-label="Iniciar teste" title="Iniciar teste">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m8 5 12 7-12 7z" /></svg>
+            </button>
+            <button id="deploy-parachute" class="test-icon-button secondary-button" type="button" aria-label="Acionar paraquedas" title="Acionar paraquedas">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 10a9 9 0 0 1 18 0H3Z" /><path d="m3 10 9 10 9-10M12 10v10M7.5 10l4.5 10m4.5-10L12 20" /></svg>
+            </button>
+            <button id="skip-test" class="test-icon-button secondary-button" type="button" aria-label="Pular teste atual" title="Pular teste atual">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 5 11 7-11 7zM19 5v14" /></svg>
+            </button>
+            <button id="reset-tests" class="test-icon-button secondary-button" type="button" aria-label="Reiniciar teste" title="Reiniciar teste">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 7v5h-5M20 12a8 8 0 1 1-2.34-5.66L20 9" /></svg>
+            </button>
+          </div>
+          <div id="solar-panel-controls" class="propulsion-controls" aria-label="Comandos do painel solar" hidden>
+            <button id="solar-panel-toggle" type="button">Desdobrar painel</button>
+            <output id="solar-panel-status">Estado: dobrado</output>
+          </div>
+          </section>
+
+          <section class="test-control-group test-slider-group" aria-labelledby="test-slider-heading">
+          <h2 id="test-slider-heading">Sliders</h2>
+          <div class="test-slider-grid">
           <label id="time-scale-control" class="throttle-control" for="time-scale-input">Escala do tempo
             <output id="time-scale-value">1,0×</output>
             <input id="time-scale-input" type="range" min="0.1" max="30" step="0.1" value="1" aria-label="Escala temporal da simulação" />
@@ -43,6 +73,43 @@
             <output id="gimbal-value">0°</output>
             <input id="gimbal-input" type="range" min="-5" max="5" step="0.1" value="0" aria-label="Gimbal do propulsor vetorizado" />
           </label>
+          <label id="rotary-motor-control" class="throttle-control" for="rotary-motor-input" hidden>Motor do braço
+            <output id="rotary-motor-value">0°</output>
+            <input id="rotary-motor-input" type="range" min="-180" max="180" step="1" value="0" aria-label="Ângulo do braço articulado de bancada" />
+          </label>
+          <label id="rotary-motor-secondary-control" class="throttle-control" for="rotary-motor-secondary-input" hidden>Motor esquerdo
+            <output id="rotary-motor-secondary-value">180°</output>
+            <input id="rotary-motor-secondary-input" type="range" min="-180" max="180" step="1" value="180" aria-label="Ângulo do braço esquerdo" />
+          </label>
+          <fieldset id="parachute-settings" class="parachute-settings">
+            <legend>Paraquedas</legend>
+            <label>Área <input id="parachute-area" type="number" min="1" max="100" step="1" /> m²</label>
+            <output id="parachute-calculated-values"></output>
+          </fieldset>
+          <div id="rotary-motor-autotune" class="autotune-control" hidden>
+            <button id="rotary-motor-autotune-button" type="button" class="secondary-button">Calibrar ganhos PID</button>
+            <progress id="rotary-motor-autotune-progress" max="100" value="0" aria-label="Progresso do autotune"></progress>
+            <output id="rotary-motor-autotune-status">Aguardando calibração</output>
+            <div class="pid-gains-grid" aria-label="Ganhos do controlador PID">
+              <label>Kp <input id="pid-kp-input" type="number" min="0" step="0.1" /></label>
+              <label>Ki <input id="pid-ki-input" type="number" min="0" step="0.1" /></label>
+              <label>Kd <input id="pid-kd-input" type="number" min="0" step="0.1" /></label>
+              <label>Acel. <input id="pid-acceleration-input" type="number" min="0.01" step="0.01" /> rad/s²</label>
+            </div>
+          </div>
+          <div id="cylinder-speed-controls" class="cylinder-speed-settings">
+            <label id="advance-speed-control" for="advance-speed-input">Velocidade de avanço
+              <input id="advance-speed-input" type="number" min="0.01" step="0.01" value="0.50" /> m/s
+            </label>
+            <label id="retract-speed-control" for="retract-speed-input">Velocidade de recuo
+              <input id="retract-speed-input" type="number" min="0.01" step="0.01" value="0.40" /> m/s
+            </label>
+          </div>
+          </div>
+          </section>
+
+          <section class="test-control-group test-system-group" aria-labelledby="test-system-heading">
+          <h2 id="test-system-heading">Comandos de sistema</h2>
           <fieldset id="bss03-controls" class="parachute-settings" hidden>
             <legend>BSS-003 · operação manual</legend>
             <label>Grupo
@@ -64,50 +131,20 @@
             </label>
             <output id="bss04-control-status">Decolagem · gimbal automático ativo</output>
           </fieldset>
-          <label id="rotary-motor-control" class="throttle-control" for="rotary-motor-input" hidden>Motor do braço
-            <output id="rotary-motor-value">0°</output>
-            <input id="rotary-motor-input" type="range" min="-180" max="180" step="1" value="0" aria-label="Ângulo do braço articulado de bancada" />
-          </label>
-          <div id="solar-panel-controls" class="propulsion-controls" aria-label="Comandos do painel solar" hidden>
-            <button id="solar-panel-toggle" type="button">Desdobrar painel</button>
-            <output id="solar-panel-status">Estado: dobrado</output>
-          </div>
-          <div id="rotary-motor-autotune" class="autotune-control" hidden>
-            <button id="rotary-motor-autotune-button" type="button" class="secondary-button">Calibrar ganhos PID</button>
-            <progress id="rotary-motor-autotune-progress" max="100" value="0" aria-label="Progresso do autotune"></progress>
-            <output id="rotary-motor-autotune-status">Aguardando calibração</output>
-            <div class="pid-gains-grid" aria-label="Ganhos do controlador PID">
-              <label>Kp <input id="pid-kp-input" type="number" min="0" step="0.1" /></label>
-              <label>Ki <input id="pid-ki-input" type="number" min="0" step="0.1" /></label>
-              <label>Kd <input id="pid-kd-input" type="number" min="0" step="0.1" /></label>
-              <label>Acel. <input id="pid-acceleration-input" type="number" min="0.01" step="0.01" /> rad/s²</label>
-            </div>
-          </div>
-          <label id="rotary-motor-secondary-control" class="throttle-control" for="rotary-motor-secondary-input" hidden>Motor esquerdo
-            <output id="rotary-motor-secondary-value">180°</output>
-            <input id="rotary-motor-secondary-input" type="range" min="-180" max="180" step="1" value="180" aria-label="Ângulo do braço esquerdo" />
-          </label>
-          <fieldset id="parachute-settings" class="parachute-settings">
-            <legend>Paraquedas</legend>
-            <label>Área <input id="parachute-area" type="number" min="1" max="100" step="1" /> m²</label>
-            <output id="parachute-calculated-values"></output>
-          </fieldset>
-          <div class="execution-controls">
-            <button id="play-tests" type="button">▶ Iniciar teste</button>
-            <button id="deploy-parachute" type="button" class="secondary-button">◖ Acionar paraquedas</button>
-            <button id="skip-test" type="button" class="secondary-button">⏭ Pular teste atual</button>
-            <button id="reset-tests" type="button" class="secondary-button">↺ Reiniciar</button>
-          </div>
-          <div class="propulsion-controls" aria-label="Sistemas do propulsor">
-            <button id="toggle-electric" type="button" class="secondary-button">Desligar elétrica</button>
-            <button id="toggle-hydraulic" type="button" class="secondary-button">Desligar hidráulica</button>
-            <button id="toggle-fuel" type="button" class="secondary-button">Desligar combustível</button>
-            <button id="toggle-control" type="button" class="secondary-button">Desligar controle</button>
+          <div class="propulsion-controls system-controls" aria-label="Sistemas do propulsor">
+            <button id="toggle-electric" type="button" class="secondary-button system-toggle" aria-label="Desligar elétrica" title="Sistema elétrico: ligado">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.2 2.5 5.8 13h5.1l-.7 8.5L18.2 11h-5.1l.1-8.5Z" /></svg>
+            </button>
+            <button id="toggle-hydraulic" type="button" class="secondary-button system-toggle" aria-label="Desligar hidráulica" title="Sistema hidráulico: ligado">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3h8v5l2 2v8H6v-8l2-2V3Zm0 5h8M12 10v5m-3 3v2m6-2v2M4 21h16" /></svg>
+            </button>
+            <button id="toggle-fuel" type="button" class="secondary-button system-toggle" aria-label="Desligar combustível" title="Sistema de combustível: ligado">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5S5.5 10 5.5 14.5a6.5 6.5 0 0 0 13 0C18.5 10 12 2.5 12 2.5Z" /><path d="M9 15a3 3 0 0 0 3 3" /></svg>
+            </button>
+            <button id="toggle-control" type="button" class="secondary-button system-toggle" aria-label="Desligar controle" title="Sistema de controle: ligado">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="2" /><path d="M9 9h6v6H9zM9 2v3m6-3v3M9 19v3m6-3v3M2 9h3m-3 6h3m14-6h3m-3 6h3" /></svg>
+            </button>
             <button id="ignite-engine" type="button">⚡ Realizar ignição</button>
-          </div>
-          <div id="tank-disconnect-controls" class="tank-disconnect-controls" aria-label="Falhas nas linhas de alimentação">
-            <button id="disconnect-fuel-tank" type="button" class="secondary-button">Simular ruptura: linha de metano</button>
-            <button id="disconnect-oxidizer-tank" type="button" class="secondary-button">Simular ruptura: linha de oxigênio</button>
           </div>
           <section id="door-controls" class="door-controls" aria-label="Operação da porta vertical" hidden>
             <h3>Porta vertical</h3>
@@ -128,12 +165,14 @@
             <button id="raise-platform" type="button">↑ Subir plataforma</button>
             <button id="advance-cylinder" type="button">→ Avançar cilindro</button>
             <button id="retract-cylinder" type="button" class="secondary-button">← Recuar cilindro</button>
-            <label id="advance-speed-control" class="throttle-control" for="advance-speed-input">Velocidade de avanço
-              <input id="advance-speed-input" type="number" min="0.01" step="0.01" value="0.50" /> m/s
-            </label>
-            <label id="retract-speed-control" class="throttle-control" for="retract-speed-input">Velocidade de recuo
-              <input id="retract-speed-input" type="number" min="0.01" step="0.01" value="0.40" /> m/s
-            </label>
+          </div>
+          </section>
+
+          <section class="test-control-group test-failure-group" aria-labelledby="test-failure-heading">
+          <h2 id="test-failure-heading">Simulações de falhas</h2>
+          <div id="tank-disconnect-controls" class="tank-disconnect-controls" aria-label="Falhas nas linhas de alimentação">
+            <button id="disconnect-fuel-tank" type="button" class="secondary-button">Simular ruptura: linha de metano</button>
+            <button id="disconnect-oxidizer-tank" type="button" class="secondary-button">Simular ruptura: linha de oxigênio</button>
           </div>
           <fieldset id="electrical-controls" class="parachute-settings" hidden>
             <legend>Conexão elétrica</legend>
@@ -145,6 +184,7 @@
             <label>Resistência <input id="cable-resistance" type="number" min="0" step="0.01" aria-label="Resistência do cabo em ohms" /> Ω</label>
             <output id="electrical-readout"></output>
           </fieldset>
+          </section>
         </aside>
         <div class="simulation-panel">
           <canvas id="test-canvas" width="900" height="500" aria-label="Canvas de simulação física"></canvas>

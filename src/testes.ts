@@ -25,6 +25,7 @@ import { Bocal } from './physics/objetos/propulsao/combustao/Bocal';
 import { FixadorEstrutural } from './physics/conexoes/FixadorEstrutural';
 import { ChumbadorAoSolo } from './physics/conexoes/ChumbadorAoSolo';
 import { Paraquedas } from './physics/objetos/componentes/Paraquedas';
+import { AletaAerodinamica } from './physics/objetos/componentes/AletaAerodinamica';
 import { Vetor3 } from './physics/Vetor3';
 import { CorpoDeCilindroEletrico, HasteDeCilindroEletrico } from './physics/objetos/atuadores/CilindroEletrico';
 import { SwitchFimDeCurso } from './physics/sensores/SwitchFimDeCurso';
@@ -40,6 +41,8 @@ import { AutotunadorPosicionamentoMotorEletrico } from './physics/sistemas de co
 import { ExecutorPassoFixo } from './simulacao/ExecutorPassoFixo';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#test-canvas');
+const testLayout = document.querySelector<HTMLElement>('.test-layout');
+const toggleControlLayoutButton = document.querySelector<HTMLButtonElement>('#toggle-control-layout');
 const playButton = document.querySelector<HTMLButtonElement>('#play-tests');
 const scenarioSelector = document.querySelector<HTMLSelectElement>('#scenario-selector');
 const skipButton = document.querySelector<HTMLButtonElement>('#skip-test');
@@ -104,6 +107,7 @@ const tankDisconnectControls = document.querySelector<HTMLElement>('#tank-discon
 const disconnectFuelTankButton = document.querySelector<HTMLButtonElement>('#disconnect-fuel-tank');
 const disconnectOxidizerTankButton = document.querySelector<HTMLButtonElement>('#disconnect-oxidizer-tank');
 const cylinderControls = document.querySelector<HTMLElement>('#cylinder-controls');
+const cylinderSpeedControls = document.querySelector<HTMLElement>('#cylinder-speed-controls');
 const advanceCylinderButton = document.querySelector<HTMLButtonElement>('#advance-cylinder');
 const retractCylinderButton = document.querySelector<HTMLButtonElement>('#retract-cylinder');
 const advanceSpeedControl = document.querySelector<HTMLLabelElement>('#advance-speed-control');
@@ -133,7 +137,7 @@ if (!solarPanelControls || !solarPanelToggle || !solarPanelStatus) {
   throw new Error('A bancada de testes não encontrou os controles do painel solar.');
 }
 
-if (!bss03Controls || !bss03PropulsionGroup || !bss03LandingMode || !bss03ControlStatus || !bss04Controls || !bss04Mode || !bss04ControlStatus || !electricalControls || !connectionSelector || !cableSwitchButton || !cableConnectButton || !cableBreakButton || !currentLimitInput || !cableResistanceInput || !electricalReadout || !doorControls || !doorPowerButton || !doorControlButton || !openDoorButton || !closeDoorButton || !doorOpenLed || !doorClosedLed || !doorChainStatus || !canvas || !sensorTraceCanvas || !traceTime || !traceCursorInput || !traceLiveButton || !playButton || !scenarioSelector || !skipButton || !resetButton || !scenarioName || !scenarioDescription || !simulationTime || !testStatus || !testResult || !vehicleSpeed || !scenarioData || !timeScaleInput || !timeScaleValue || !zoomInput || !zoomValue || !showConnectionsInput || !throttleControl || !throttleInput || !throttleValue || !gimbalControl || !gimbalInput || !gimbalValue || !rotaryMotorControl || !rotaryMotorInput || !rotaryMotorValue || !rotaryMotorAutotune || !rotaryMotorAutotuneButton || !rotaryMotorAutotuneProgress || !rotaryMotorAutotuneStatus || !rotaryMotorSecondaryControl || !rotaryMotorSecondaryInput || !rotaryMotorSecondaryValue || !pidKpInput || !pidKiInput || !pidKdInput || !pidAccelerationInput || !parachuteSettings || !parachuteAreaInput || !parachuteCalculatedValues || !toggleElectric || !toggleHydraulic || !toggleFuel || !toggleControl || !igniteButton || !deployParachuteButton || !propulsionControls || !tankDisconnectControls || !disconnectFuelTankButton || !disconnectOxidizerTankButton || !cylinderControls || !raisePlatformButton || !advanceCylinderButton || !retractCylinderButton || !advanceSpeedControl || !retractSpeedControl || !advanceSpeedInput || !retractSpeedInput) {
+if (!bss03Controls || !bss03PropulsionGroup || !bss03LandingMode || !bss03ControlStatus || !bss04Controls || !bss04Mode || !bss04ControlStatus || !electricalControls || !connectionSelector || !cableSwitchButton || !cableConnectButton || !cableBreakButton || !currentLimitInput || !cableResistanceInput || !electricalReadout || !doorControls || !doorPowerButton || !doorControlButton || !openDoorButton || !closeDoorButton || !doorOpenLed || !doorClosedLed || !doorChainStatus || !testLayout || !toggleControlLayoutButton || !canvas || !sensorTraceCanvas || !traceTime || !traceCursorInput || !traceLiveButton || !playButton || !scenarioSelector || !skipButton || !resetButton || !scenarioName || !scenarioDescription || !simulationTime || !testStatus || !testResult || !vehicleSpeed || !scenarioData || !timeScaleInput || !timeScaleValue || !zoomInput || !zoomValue || !showConnectionsInput || !throttleControl || !throttleInput || !throttleValue || !gimbalControl || !gimbalInput || !gimbalValue || !rotaryMotorControl || !rotaryMotorInput || !rotaryMotorValue || !rotaryMotorAutotune || !rotaryMotorAutotuneButton || !rotaryMotorAutotuneProgress || !rotaryMotorAutotuneStatus || !rotaryMotorSecondaryControl || !rotaryMotorSecondaryInput || !rotaryMotorSecondaryValue || !pidKpInput || !pidKiInput || !pidKdInput || !pidAccelerationInput || !parachuteSettings || !parachuteAreaInput || !parachuteCalculatedValues || !toggleElectric || !toggleHydraulic || !toggleFuel || !toggleControl || !igniteButton || !deployParachuteButton || !propulsionControls || !tankDisconnectControls || !disconnectFuelTankButton || !disconnectOxidizerTankButton || !cylinderControls || !cylinderSpeedControls || !raisePlatformButton || !advanceCylinderButton || !retractCylinderButton || !advanceSpeedControl || !retractSpeedControl || !advanceSpeedInput || !retractSpeedInput) {
   throw new Error('A bancada de testes não encontrou os elementos obrigatórios.');
 }
 
@@ -141,6 +145,32 @@ const contexto = canvas.getContext('2d');
 if (!contexto) throw new Error('Canvas 2D indisponível.');
 const contextoTrace = sensorTraceCanvas.getContext('2d');
 if (!contextoTrace) throw new Error('Canvas do trace indisponível.');
+
+const chaveLayoutControles = 'starship-prototype-2:testes:paineis-a-esquerda';
+try {
+  if (localStorage.getItem(chaveLayoutControles) === 'true') {
+    testLayout.dataset.controlsLayout = 'left';
+    toggleControlLayoutButton.setAttribute('aria-pressed', 'true');
+  }
+} catch {
+  // A preferência é opcional; a bancada continua usando o layout padrão.
+}
+toggleControlLayoutButton.addEventListener('click', () => {
+  const ativarColunaEsquerda = testLayout.dataset.controlsLayout !== 'left';
+  if (ativarColunaEsquerda) testLayout.dataset.controlsLayout = 'left';
+  else delete testLayout.dataset.controlsLayout;
+  toggleControlLayoutButton.setAttribute('aria-pressed', String(ativarColunaEsquerda));
+  try {
+    localStorage.setItem(chaveLayoutControles, String(ativarColunaEsquerda));
+  } catch {
+    // A preferência vale para a sessão atual mesmo sem armazenamento local.
+  }
+});
+
+const definirDescricaoComando = (botao: HTMLButtonElement, descricao: string): void => {
+  botao.setAttribute('aria-label', descricao);
+  botao.title = descricao;
+};
 
 type ModalidadeTeste = 'mecânica' | 'térmica';
 
@@ -2384,7 +2414,7 @@ const registrarTraceSensores = (forcar = false): void => {
 
 const configurarTracePLCDoCenario = (): void => {
   const canais = obterCanaisTrace();
-  // A capacidade acompanha os sinais do cenário, inclusive os 11 do BSS-006.
+  // A capacidade e a altura acompanham a quantidade de sinais do cenário.
   tracePLC = new TracePLC(Math.max(1, canais.length), limiteAmostrasTrace);
   for (const canal of canais) tracePLC.adicionarSinal(canal.nome, canal.obterSinal, canal.cor, canal.escala);
   sensorTraceCanvas.height = Math.max(220, canais.length * 52 + 52);
@@ -2395,7 +2425,7 @@ const desenharTraceSensores = (): void => {
   const canais = tracePLC.canais;
   const largura = sensorTraceCanvas.width;
   const altura = sensorTraceCanvas.height;
-  const margem = { esquerda: 78, direita: 14, superior: 24, inferior: 28 };
+  const margem = { esquerda: 220, direita: 14, superior: 24, inferior: 28 };
   const larguraGrafico = largura - margem.esquerda - margem.direita;
   const alturaGrafico = altura - margem.superior - margem.inferior;
   contextoTrace.clearRect(0, 0, largura, altura);
@@ -2790,7 +2820,30 @@ const desenhar = (): void => {
             ? '#34d399'
             : objeto.dimensoesM.x > 1 ? '#a78bfa' : '#22d3ee';
     contexto.strokeStyle = '#e2e8f0';
-    if (objeto instanceof MotorEletricoRotacional) {
+    if (objeto instanceof AletaAerodinamica) {
+      const corda = Math.max(8, larguraObjeto);
+      const comprimento = Math.max(12, alturaObjeto);
+      const ladoInterno = objeto.id.includes('esquerda') ? 1 : -1;
+      const inicioCorda = -ladoInterno * corda / 2 - corda / 2;
+      contexto.translate(ladoInterno * corda / 2, 0);
+      contexto.rotate(-objeto.deflexaoAtualRad);
+      contexto.fillStyle = objeto.integridadeEstrutural === 0 ? '#ef4444' : '#0e7490';
+      contexto.strokeStyle = objeto.integridadeEstrutural < 1 ? '#f59e0b' : '#7dd3fc';
+      contexto.lineWidth = Math.max(1, Math.min(2, escala * 0.035));
+      contexto.fillRect(inicioCorda, -comprimento / 2, corda, comprimento);
+      contexto.strokeRect(inicioCorda, -comprimento / 2, corda, comprimento);
+      for (const fracao of [-1 / 3, 0, 1 / 3]) {
+        const yGrade = fracao * comprimento;
+        contexto.beginPath();
+        contexto.moveTo(inicioCorda, yGrade);
+        contexto.lineTo(inicioCorda + corda, yGrade);
+        contexto.stroke();
+      }
+      contexto.fillStyle = '#facc15';
+      contexto.beginPath();
+      contexto.arc(0, 0, Math.max(2, Math.min(4, corda * 0.22)), 0, Math.PI * 2);
+      contexto.fill();
+    } else if (objeto instanceof MotorEletricoRotacional) {
       const raio = Math.min(larguraObjeto, alturaObjeto) * 0.43;
       contexto.fillStyle = '#1e293b';
       contexto.fillRect(-larguraObjeto * 0.42, -alturaObjeto * 0.38, larguraObjeto * 0.84, alturaObjeto * 0.76);
@@ -3262,6 +3315,7 @@ const atualizarControlesDoPropulsor = (): void => {
   }
   advanceSpeedControl.hidden = velocidadesDoCilindro === undefined;
   retractSpeedControl.hidden = velocidadesDoCilindro === undefined;
+  cylinderSpeedControls.hidden = velocidadesDoCilindro === undefined;
   advanceSpeedInput.disabled = velocidadesDoCilindro === undefined;
   retractSpeedInput.disabled = velocidadesDoCilindro === undefined;
   if (velocidadesDoCilindro) {
@@ -3287,11 +3341,17 @@ const atualizarControlesDoPropulsor = (): void => {
     const eletricaIndisponivel = id === 'elétrico' && propulsoresDoGrupo.some((motor) => !motor.fonteEletricaEstaConectada);
     const todosOperacionais = propulsoresDoGrupo.length > 0 && propulsoresDoGrupo.every((motor) => motor.sistemaEstaOperacional(id));
     botao.disabled = propulsoresDoGrupo.length === 0 || combustivelIndisponivel || eletricaIndisponivel;
-    botao.textContent = eletricaIndisponivel
+    botao.dataset.state = eletricaIndisponivel || combustivelIndisponivel
+      ? 'unavailable'
+      : todosOperacionais ? 'on' : 'off';
+    botao.setAttribute('aria-pressed', String(todosOperacionais));
+    const descricao = eletricaIndisponivel
       ? 'Elétrica indisponível (sem fonte)'
       : combustivelIndisponivel
       ? 'Combustível indisponível'
       : todosOperacionais ? `Desligar ${nome}` : `Ligar ${nome}`;
+    botao.setAttribute('aria-label', descricao);
+    botao.title = descricao;
   });
   const quantidadeIgnitada = propulsoresDoGrupo.filter((motor) => motor.estaIgnitado).length;
   igniteButton.disabled = propulsoresDoGrupo.length === 0 || quantidadeIgnitada === propulsoresDoGrupo.length;
@@ -3347,9 +3407,10 @@ const atualizarControlesDoPropulsor = (): void => {
   }
   deployParachuteButton.hidden = objetoComParaquedas === undefined;
   deployParachuteButton.disabled = objetoComParaquedas === undefined || objetoComParaquedas.paraquedasEstaAberto;
-  deployParachuteButton.textContent = objetoComParaquedas?.paraquedasEstaAberto
-    ? '✓ Paraquedas aberto'
-    : '◖ Acionar paraquedas';
+  definirDescricaoComando(
+    deployParachuteButton,
+    objetoComParaquedas?.paraquedasEstaAberto ? 'Paraquedas aberto' : 'Acionar paraquedas',
+  );
   if (propulsor) {
     const porcentagem = Math.round(propulsor.throttleAtual * 100);
     throttleInput.value = String(porcentagem);
@@ -3737,12 +3798,12 @@ const executar = (agoraMs: number): void => {
     emExecucao = false;
     if (proximoIndice === undefined) {
       indiceAtual = cenarios.length;
-      playButton.textContent = '▶ Executar novamente';
+      definirDescricaoComando(playButton, 'Executar novamente');
       return;
     }
     indiceAtual = proximoIndice;
     scenarioSelector.value = String(indiceAtual);
-    playButton.textContent = '▶ Iniciar próximo teste';
+    definirDescricaoComando(playButton, 'Iniciar próximo teste');
     return;
   }
   window.requestAnimationFrame(executar);
@@ -3757,7 +3818,7 @@ playButton.addEventListener('click', () => {
     preencherSeletorDeCenarios();
   }
   emExecucao = true;
-  playButton.textContent = 'Teste em execução…';
+  definirDescricaoComando(playButton, 'Teste em execução');
   carregarCenarioAtual();
   window.requestAnimationFrame(executar);
 });
@@ -3767,7 +3828,7 @@ scenarioSelector.addEventListener('change', () => {
   const novoIndice = Number(scenarioSelector.value);
   cenarios = construirCenarios();
   indiceAtual = Number.isInteger(novoIndice) && indicesExibiveis().includes(novoIndice) ? novoIndice : primeiroIndiceExibivel();
-  playButton.textContent = '▶ Iniciar teste selecionado';
+  definirDescricaoComando(playButton, 'Iniciar teste selecionado');
   preencherSeletorDeCenarios();
   carregarCenarioAtual();
 });
@@ -3783,7 +3844,7 @@ skipButton.addEventListener('click', () => {
     indiceAtual = proximoIndice;
   }
   scenarioSelector.value = String(indiceAtual);
-  playButton.textContent = '▶ Iniciar próximo teste';
+  definirDescricaoComando(playButton, 'Iniciar próximo teste');
   carregarCenarioAtual();
 });
 
@@ -3793,7 +3854,7 @@ resetButton.addEventListener('click', () => {
   cenarios = construirCenarios();
   indiceAtual = indicesExibiveis().includes(indiceSelecionado) ? indiceSelecionado : primeiroIndiceExibivel();
   preencherSeletorDeCenarios();
-  playButton.textContent = '▶ Iniciar teste';
+  definirDescricaoComando(playButton, 'Iniciar teste');
   carregarCenarioAtual();
 });
 

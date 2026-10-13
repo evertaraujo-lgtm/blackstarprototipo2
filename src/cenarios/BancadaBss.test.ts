@@ -3,6 +3,8 @@ import { setImmediate } from 'node:timers/promises';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { TanquePropelente } from '../physics/objetos/fontes-de-energia/TanquePropelente';
+import { AletaAerodinamica } from '../physics/objetos/componentes/AletaAerodinamica';
+import { TracePLC } from '../visualizacao/TracePLC';
 import { criarTesteBss006 } from './BancadaBss';
 import { Vetor3 } from '../physics/Vetor3';
 
@@ -10,6 +12,43 @@ const DT_S = 1 / 240;
 // A ilha permanece física após o toque. Pequenas oscilações numéricas do
 // apoio são admissíveis; nenhum corpo é congelado para concluir o ensaio.
 const TOLERANCIA_REPOUSO_MPS = 0.1;
+
+it('registra no trace a deflexão real das grid fins durante a descida guiada', () => {
+  const cenario = criarTesteBss006();
+  const aletas = cenario.objetos.filter((objeto): objeto is AletaAerodinamica => objeto instanceof AletaAerodinamica);
+  const canais = cenario.canaisTrace!;
+  const canal = canais.find((item) => item.nome === 'GRID FINS');
+  expect(aletas).toHaveLength(2);
+  expect(canal).toBeDefined();
+  const indiceCanal = canais.indexOf(canal!);
+  const trace = new TracePLC(canais.length, 10_000);
+  for (const item of canais) trace.adicionarSinal(item.nome, item.obterSinal, item.cor, item.escala);
+
+  const motor = cenario.propulsorControlavel;
+  expect(cenario.selecionarPontoPousoX!(34.7)).toBe(true);
+  for (const sistema of ['elétrico', 'hidráulico', 'combustível', 'controle'] as const) motor.ligarSistema(sistema);
+  motor.definirThrottle(0.65);
+  expect(motor.solicitarIgnicao()).toBe(true);
+
+  let modoPousoAtivado = false;
+  let anguloObservado = 0;
+  for (let passo = 0; passo < 180 * 240; passo += 1) {
+    const antes = cenario.seguirObjeto.getEstadoFisico();
+    if (!modoPousoAtivado && antes.posicaoM.y >= 80 && antes.velocidadeMps.y > 0) {
+      cenario.ativarModoBss04!('pouso');
+      modoPousoAtivado = true;
+    }
+    cenario.atualizarControle?.();
+    cenario.mundo.avancar(1 / 240);
+    trace.registrar(cenario.mundo.tempoS, true);
+    anguloObservado = trace.amostras.at(-1)!.sinais[indiceCanal]!;
+    if (modoPousoAtivado && Math.abs(anguloObservado) > 1e-5) break;
+  }
+
+  expect(modoPousoAtivado).toBe(true);
+  expect(Math.abs(anguloObservado)).toBeGreaterThan(0);
+  expect(anguloObservado).toBeCloseTo(aletas[0]!.deflexaoAtualRad * 180 / Math.PI, 9);
+}, 30_000);
 
 describe('BSS-006 — voo completo da montagem usada pela interface', () => {
   it.each([

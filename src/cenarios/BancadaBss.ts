@@ -331,6 +331,7 @@ export const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBanc
         { nome: 'EMPUXO', cor: '#facc15', obterSinal: () => propulsor.empuxoAtualN / 1_000, escala: { minimo: 0, maximo: propulsor.empuxoMaximoN / 1_000, unidade: 'kN' } },
         { nome: 'EFEITO TÉRMICO', cor: '#fb7185', obterSinal: () => propulsor.potenciaTermicaAtualW / 1_000_000, escala: { minimo: 0, maximo: propulsor.potenciaTermicaMaximaW / 1_000_000, unidade: 'MW' } },
         { nome: 'GIMBAL', cor: '#22d3ee', obterSinal: () => propulsor.obterEstadoDaVetorizacao().anguloAtualRad * 180 / Math.PI, escala: { minimo: -15, maximo: 15, unidade: '°' } },
+        ...(aletasAerodinamicas.length > 0 ? [{ nome: 'GRID FINS', cor: '#38bdf8', obterSinal: () => aletasAerodinamicas[0]!.deflexaoAtualRad * 180 / Math.PI, escala: { minimo: -25, maximo: 25, unidade: '°' } }] : []),
         { nome: 'MASSA', cor: '#c084fc', obterSinal: () => veiculo.massaInstantaneaDoConjuntoKg, escala: { minimo: 0, maximo: veiculo.massaInstantaneaDoConjuntoKg * 1.1, unidade: 'kg' } },
         { nome: 'ALTITUDE', cor: '#e2e8f0', obterSinal: () => veiculo.getEstadoFisico().posicaoM.y, escala: { minimo: 0, maximo: 20_000, unidade: 'm' } },
         { nome: 'VELOCIDADE Y', cor: '#a3e635', obterSinal: () => veiculo.getEstadoFisico().velocidadeMps.y, escala: { minimo: -120, maximo: 450, unidade: 'm/s' } },
@@ -346,7 +347,6 @@ export const criarTesteDecolagemComPainelSolar = (configuracao: ConfiguracaoBanc
         ] : []),
         { nome: 'ATITUDE', cor: '#e879f9', obterSinal: () => veiculo.getEstadoFisico().orientacaoRad.z * 180 / Math.PI, escala: { minimo: -180, maximo: 180, unidade: '°' } },
         { nome: 'VEL. ANGULAR', cor: '#fb7185', obterSinal: () => veiculo.getEstadoFisico().velocidadeAngularRadps.z * 180 / Math.PI, escala: { minimo: -90, maximo: 90, unidade: '°/s' } },
-        ...(aletasAerodinamicas.length > 0 ? [{ nome: 'GRID FINS', cor: '#38bdf8', obterSinal: () => aletasAerodinamicas[0]!.deflexaoAtualRad * 180 / Math.PI, escala: { minimo: -25, maximo: 25, unidade: '°' } }] : []),
       ],
       ativarModoBss04: (modo: 'decolagem' | 'pouso') => {
         modoBss04 = modo;
