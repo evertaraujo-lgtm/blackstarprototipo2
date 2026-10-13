@@ -105,6 +105,16 @@ Todos os limites quantitativos definidos na M9-A foram atendidos pelo KDK. Elips
 
 Limites: gravidade KDK de segunda ordem no problema conservativo; drag/propulsão mantêm discretização operacional explícita e requerem passos de bancada. dt<=1 s qualificado para corpos inertes no exterior terrestre; atmosfera/solo/sensores centrais ainda serão integrados nos marcos seguintes. Modelo não possui rotação planetária ou propagação 3D.
 
+### M9-D — atmosfera e geometria de superfície concluídas
+
+SuperficieFisica separa contrato geométrico/material; plano legado permanece disponível. SuperficieEsferica é secção circular XY (Z somente espessura de geometria), com distância radial, normal externa e candidatos em arestas de geometria convexa, incluindo tangência no interior de face. SuperficiePlanoLocal representa face superior estática finita e orientada, sem virar plano global. Resolvedor compartilhado projeta apoios na tangente e usa g·normal no atrito; preserva cada snapshot de primeiro impulso e energia, dano e ruptura. Sensores de contato e detecção de tração consultam a mesma geometria. Chumbadores continuam fundações estáticas, não Terra em rotação.
+
+Atmosfera e térmica consultam uma única altitude geométrica; perfil M4 intacto em 0–20 km. Ambiente central usa transição suave 20–25 km para vácuo, identificada como hipótese simplificada. Legado mantém extrapolação identificada. Flags de proximidade/contato/impulso se somam ao emApoio histórico; o sinal histórico não é reclassificado silenciosamente como sustentação contínua.
+
+102 testes distintos pertinentes aprovados nas execuções finais: 55 core, 13 M4, 4 switches, 13 esféricos, 10 veículos terrestres legados, 4 fixadores, 3 arraste de switch. Cobertura nova: contato/repouso nas cinco direções, apoios bilaterais em 0/90°, atrito/calor, impacto destrutivo com ruptura e preservação de impulso, plataforma finita, ausência de sustentação em proximidade, vácuo radial/sem convecção e fundação/switch a 90°. Fixtures iniciais corrigidas para declarar compressão de fixador, sinal PLC numérico e resistência estrutural obrigatória; nenhum critério de aceitação foi relaxado. TypeScript/build (2,61 s) aprovados. Chrome real iniciou BSS-001 por controles, t=5,896 s, empuxo=26 kN, vazão=2,60 kg/s, consumo positivo e zero erros JS. Sem deploy.
+
+Limitações: superfície usa a geometria convexa declarada dos corpos; não há relevo/CCD ou lados sólidos da plataforma (modelar infraestrutura volumétrica como Objetos). Normal e velocidade da superfície são contratos separados; todas as superfícies desta fase são estáticas. Atrito entre corpos independentes ainda tem envelope quase horizontal legado e tração terrestre ainda usa g0 paramétrico; esses mecanismos de laboratório não são qualificados como transporte planetário. Investigação dos 34 mm continua aberta; tolerância de contato 2 mm preservada.
+
 ## Inventário de ocorrências na base (reproduzível)
 
 Busca em todo `src`, exceto testes: `posicaoM.y|velocidadeMps.[xy]|alturaM|gravidadeTerrestreMps2|9.80665`. Este índice lista todas as linhas encontradas, inclusive geometria cartesiana legítima e laboratórios preservados. Cada ocorrência deve ser interpretada com a matriz acima; contagem não implica que toda linha deva mudar.

@@ -18,7 +18,7 @@ export class SistemaTermico {
       // Modelo concentrado: h é a calibração a 1,225 kg/m³; a rarefação
       // reduz a troca. Sem gás ambiente não há convecção ambiente.
       // Não modela convecção forçada/Reynolds; o fluxo entra no aquecimento por arrasto.
-      const densidadeLocal = this.atmosfera.obterDensidadeArKgM3(objeto.getEstadoFisico().posicaoM.y);
+      const densidadeLocal = this.atmosfera.obterDensidadeNaPosicaoKgM3(objeto.getEstadoFisico().posicaoM);
       const potenciaConveccaoW = objeto.coeficienteConveccaoWPorM2C * (densidadeLocal / 1.225) * objeto.areaTermicaM2
         * (objeto.temperaturaC - this.temperaturaAmbienteC);
       // Um subpasso nunca transfere mais energia que a necessária ao equilíbrio.

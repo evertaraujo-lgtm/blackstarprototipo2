@@ -1,7 +1,7 @@
 import { obterContatoCaixasOrientadas } from '../geometria/ContatoCaixasOrientadas';
 import { ConjuntoEstruturalRigido } from '../estruturas/ConjuntoEstruturalRigido';
 import { Objeto } from '../objetos/base/Objeto';
-import { SuperficiePlano } from '../SuperficiePlano';
+import { SuperficieFisica } from '../SuperficieFisica';
 import { SwitchFimDeCurso } from './SwitchFimDeCurso';
 import type { SensoresVeiculoComposto } from './SensoresVeiculoComposto';
 
@@ -12,7 +12,7 @@ export class SistemaSensores {
 
   public constructor(
     private readonly obterObjetos: () => Iterable<Objeto>,
-    private readonly obterSuperficies: () => Iterable<SuperficiePlano>,
+    private readonly obterSuperficies: () => Iterable<SuperficieFisica>,
     private readonly obterConjuntoEstrutural: (objeto: Objeto) => ConjuntoEstruturalRigido | undefined,
   ) {}
 
@@ -55,7 +55,7 @@ export class SistemaSensores {
         continue;
       }
       const tocaSuperficie = [...this.obterSuperficies()].find((superficie) =>
-        switchFimDeCurso.obterPontosDaFaceSensivelM().some((ponto) => ponto.y <= superficie.alturaM + toleranciaContatoM),
+        switchFimDeCurso.obterPontosDaFaceSensivelM().some((ponto) => superficie.contemProjecao(ponto) && superficie.distanciaAssinadaM(ponto) <= toleranciaContatoM),
       );
       switchFimDeCurso.atualizarContatoPeloCore(tocaSuperficie ? { id: tocaSuperficie.id, tipo: 'superficie' } : undefined);
     }

@@ -1,3 +1,4 @@
+import { ReferencialPlano, type ReferencialFisico } from '../ambiente/ReferencialFisico';
 import { Objeto } from '../objetos/base/Objeto';
 import { Vetor3 } from '../Vetor3';
 
@@ -14,6 +15,8 @@ export class SistemaAtmosferico {
   public constructor(
     public readonly densidadeArNivelMarKgM3: number,
     velocidadeArMps: Vetor3,
+    private readonly referencial: ReferencialFisico = new ReferencialPlano(),
+    public readonly politicaAltitude: 'extrapolacao-legada' | 'vacuo-simplificado-25km' = 'extrapolacao-legada',
   ) {
     if (!Number.isFinite(densidadeArNivelMarKgM3) || densidadeArNivelMarKgM3 < 0) {
       throw new Error('Densidade atmosférica deve ser finita e não negativa.');
@@ -34,12 +37,20 @@ export class SistemaAtmosferico {
     if (this.densidadeArNivelMarKgM3 === 0) return 0;
     const altitude = Math.max(0, altitudeM);
     const densidadePadrao = SistemaAtmosferico.calcularDensidadePadrao(altitude);
-    return densidadePadrao * (this.densidadeArNivelMarKgM3 / SistemaAtmosferico.densidadeReferenciaKgM3);
+    // Faixa M4 preservada até 20 km. Transição C1 explicitamente simplificada,
+    // não modelo da alta atmosfera nem fronteira física do espaço.
+    const x = Math.max(0, Math.min(1, (altitude - 20_000) / 5_000));
+    const fator = this.politicaAltitude === 'vacuo-simplificado-25km' ? 1 - x * x * (3 - 2 * x) : 1;
+    return fator * densidadePadrao * (this.densidadeArNivelMarKgM3 / SistemaAtmosferico.densidadeReferenciaKgM3);
+  }
+
+  public obterDensidadeNaPosicaoKgM3(p: Vetor3): number {
+    return this.obterDensidadeArKgM3(this.referencial.altitudeGeometricaM(p));
   }
 
   /** Arrasto em N, sempre oposto à velocidade relativa ao ar. */
   public calcularArrasto(objeto: Objeto, velocidadeMps: Vetor3): Vetor3 {
-    const densidadeArKgM3 = this.obterDensidadeArKgM3(objeto.getEstadoFisico().posicaoM.y);
+    const densidadeArKgM3 = this.obterDensidadeNaPosicaoKgM3(objeto.getEstadoFisico().posicaoM);
     if (densidadeArKgM3 === 0) return Vetor3.zero;
     const velocidadeRelativa = velocidadeMps.subtrair(this.velocidadeArMps);
     const moduloVelocidade = velocidadeRelativa.magnitude;
