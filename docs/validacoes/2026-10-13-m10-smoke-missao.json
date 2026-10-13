@@ -1,0 +1,43 @@
+{
+  "buildProducao": true,
+  "missao": "BSS006_VOO_EXPERIMENTAL",
+  "subida": {
+    "fase": "Em execução · subida",
+    "h": 347.7266742484644,
+    "y": 352.7266741961788,
+    "eventos": "11.82 s Modo pouso aos 300.157 m.\n0.45 s Veículo afastou-se do solo.\n0.00 s Avanço físico iniciado.\n0.00 s ignicao: Comando aplicado.\n0.00 s sistema: Comando aplicado.\n0.00 s sistema: Comando aplicado.\n0.00 s sistema: Comando aplicado.\n0.00 s sistema: Comando aplicado.\n0.00 s BSS-006 preparado na plataforma costeira.",
+    "repouso": "Retorno ainda não observado.",
+    "empuxo": "0.0 kN / 0.00 kg/s"
+  },
+  "descida": {
+    "fase": "Em execução · descida",
+    "h": 376.16243071015924,
+    "y": 381.1624306054177,
+    "eventos": "15.95 s Velocidade radial negativa após subida.\n11.82 s Modo pouso aos 300.157 m.\n0.45 s Veículo afastou-se do solo.\n0.00 s Avanço físico iniciado.\n0.00 s ignicao: Comando aplicado.\n0.00 s sistema: Comando aplicado.\n0.00 s sistema: Comando aplicado.\n0.00 s sistema: Comando aplicado.\n0.00 s sistema: Comando aplicado.\n0.00 s BSS-006 preparado na plataforma costeira.",
+    "repouso": "Retorno ainda não observado.",
+    "empuxo": "32.8 kN / 9.57 kg/s"
+  },
+  "final": {
+    "tempoS": 77.6666666666782,
+    "altitudeM": 4.800069073215127,
+    "metanoKg": 395.75315620766247,
+    "integridade": 1,
+    "pouso": {
+      "contatoInicial": true,
+      "toqueRetorno": true,
+      "repousoGeometricoS": 0.28333333333333355,
+      "maiorRepousoGeometricoS": 3.687500000000078,
+      "apoioBilateralObservado": true,
+      "apoioBilateralSustentadoS": 0,
+      "maiorApoioBilateralSustentadoS": 0,
+      "pousoEstruturalmenteSeguro": false,
+      "limitesToqueAtendidos": true
+    }
+  },
+  "cameraSubidaDescida": true,
+  "transicaoAutomatica300m": true,
+  "zoomSemMudancaFisica": true,
+  "reinicioSemEstadoResidual": true,
+  "mobileSemTransbordamento": true,
+  "errosJS": 0
+}

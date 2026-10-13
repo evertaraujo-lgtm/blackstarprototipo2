@@ -1,0 +1,26 @@
+{
+  "paginas": [
+    {
+      "pagina": "/",
+      "titulo": "Black Star Space | Engenharia e simulação espacial",
+      "carregou": true
+    },
+    {
+      "pagina": "/tests.html",
+      "titulo": "Simulação de foguetes — Black Star Space",
+      "carregou": true
+    },
+    {
+      "pagina": "/orbitas.html",
+      "titulo": "Black Star — Ensaios orbitais 2D",
+      "carregou": true
+    },
+    {
+      "pagina": "/missao.html",
+      "titulo": "Black Star — Missão BSS-006",
+      "carregou": true
+    }
+  ],
+  "errosJS": 0,
+  "buildProducao": true
+}

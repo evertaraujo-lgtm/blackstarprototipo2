@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="theme-color" content="#091724"/><title>Black Star — Missão BSS-006</title></head>
+<body>
+<div class="pagina-missao">
+<header><div><p class="marca">BLACK STAR SPACE / ENGENHARIA DE MISSÃO</p><h1>Voo experimental <span>BSS-006</span></h1><p class="subtitulo">Subida a 300 metros e tentativa de retorno · Terra esférica 2D</p></div><nav><a href="/">Início</a><a href="/tests.html">Bancada</a><a href="/orbitas.html">Órbitas</a></nav></header>
+<main>
+<section class="voo" aria-label="Acompanhamento do voo">
+<div class="barra-voo"><span id="estado-execucao">Preparada</span><div><button id="iniciar">▶ Iniciar</button><button id="pausar" disabled>Ⅱ Pausar</button><button id="reiniciar">↻ Reiniciar</button></div></div>
+<canvas id="cena-missao" aria-label="BSS-006 e plataforma costeira; câmera segue a posição física" role="img"></canvas>
+<div class="metricas" aria-live="off"><div><small>ALTITUDE</small><strong id="altitude">0 m</strong></div><div><small>VELOCIDADE RADIAL</small><strong id="velocidade-radial">0 m/s</strong></div><div><small>VELOCIDADE TANGENCIAL</small><strong id="velocidade-tangencial">0 m/s</strong></div><div><small>ATITUDE LOCAL</small><strong id="atitude">0°</strong></div></div>
+<div class="observacao"><label>Zoom <input id="zoom" type="range" min="0.05" max="0.8" value="0.12" step="0.01"/></label><label>Tempo <select id="escala-tempo"><option value="1">1×</option><option value="3" selected>3×</option><option value="10">10×</option></select></label><span id="tempo-missao">t = 0 s</span></div>
+</section>
+<aside aria-label="Comandos de missão">
+<section class="painel"><h2>Preparação e motor</h2><div class="sistemas"><button data-sistema="elétrico" title="Sistema elétrico">ϟ Elétrico</button><button data-sistema="hidráulico" title="Sistema hidráulico">◈ Hidráulico</button><button data-sistema="combustível" title="Alimentação de propelentes">♢ Combustível</button><button data-sistema="controle" title="Computador de voo">⚙ Controle</button></div><button id="preparar" class="largo">Preparar os quatro sistemas</button><div class="dupla"><button id="ignicao" class="primario">Ignição</button><button id="cortar">Cortar motor</button></div><label class="slider">Throttle <output id="throttle-valor">65%</output><input id="throttle" type="range" min="0" max="100" step="1" value="65"/></label><p id="autoridade-throttle" class="nota">Throttle manual na subida.</p><p id="retorno-comando" role="status">Prepare os sistemas, solicite ignição e inicie o avanço.</p></section>
+<section class="painel"><h2>Plano de retorno</h2><div class="dupla"><button id="modo-decolagem">Subida</button><button id="modo-pouso">Pouso</button></div><p class="nota">Transição automática para pouso aos 300 m.</p><label>Alvo lateral <span class="campo"><input id="alvo-pouso" type="number" min="-50" max="50" step="0.1" value="0"/><span>m</span><button id="aplicar-alvo">Aplicar</button></span></label><p id="erro-alvo" class="nota">Erro de alvo: 0 m</p><label>Vento inicial <span class="campo"><input id="vento-inicial" type="number" min="-5" max="5" step="1" value="0"/><span>m/s</span></span></label><p class="nota">O vento é aplicado ao reiniciar a missão.</p></section>
+<section class="painel"><h2>Estado do veículo</h2><dl><div><dt>Empuxo / vazão</dt><dd id="empuxo">0 kN / 0 kg/s</dd></div><div><dt>CH₄ / O₂</dt><dd id="propelentes">600 / 2400 kg</dd></div><div><dt>Massa conectada</dt><dd id="massa">—</dd></div><div><dt>Bateria</dt><dd id="bateria">100%</dd></div><div><dt>Integridade mínima</dt><dd id="integridade">100%</dd></div><div><dt>Gimbal / grid fins</dt><dd id="atuadores">—</dd></div><div><dt>Controle de descida</dt><dd id="controlador">—</dd></div></dl><details><summary>Componentes e contatos</summary><pre id="componentes"></pre></details><p id="estado-pouso" class="nota">Retorno ainda não observado.</p><button id="exportar" class="largo">Exportar diário da missão</button></section>
+</aside>
+<section class="registro painel"><div><h2>Eventos e objetivos</h2><ul id="objetivos"></ul></div><ol id="eventos" aria-label="Eventos da missão"></ol></section>
+</main>
+<footer>Voo experimental em ambiente terrestre estático. Torre visual; plataforma demarcada no solo físico. Repouso geométrico não comprova apoio bilateral sustentado. BSS-006 ainda sem homologação de retorno a 15 km.</footer>
+</div><script type="module" src="/src/missao.ts"></script>
+</body></html>

@@ -5,10 +5,10 @@ decolagem manual, controle de inclinação e operação de subida e pouso.
 Outros ensaios físicos continuam no código para regressão e evolução futura,
 mas não aparecem na bancada principal.
 
-Núcleo físico determinístico e bancada visual para experimentar objetos,
-veículos e sistemas espaciais. O projeto é uma base TypeScript independente:
+Núcleo físico determinístico, bancada visual e primeira missão independente
+para experimentar objetos, veículos e sistemas espaciais. O projeto é uma base TypeScript independente:
 a bancada é apenas uma interface de observação e comando; o mesmo
-`MundoFisico` será usado pela simulação do jogo.
+`MundoFisico` é usado pela primeira cena do jogo.
 
 ## O que já é simulado
 
@@ -248,3 +248,44 @@ npm run deploy
 
 O vínculo com o projeto Firebase é feito por `firebase use --add` para não
 registrar no repositório um identificador de projeto inexistente.
+
+## Primeira missão do jogo — M10
+
+`/missao.html` opera **BSS006_VOO_EXPERIMENTAL**, sem carregar a bancada.
+Prepare os sistemas, solicite ignição e inicie o avanço. O perfil seleciona
+Pouso automaticamente aos 300 m; alvo lateral pode ser escolhido antes da
+decolagem. Pausa, reinício, câmera, escalas, telemetria e exportação do diário
+consultam a mesma missão que os testes automatizados. Torre visual e costa
+não criam colisões; a plataforma é demarcada na superfície esférica existente.
+
+A construção compartilhada está em `src/veiculos/DefinicaoBss006.ts` e
+`MontagemBss.ts`. A bancada antiga e a missão usam os mesmos parâmetros,
+objetos, sistemas e controladores. A missão mantém seu mundo privado e
+oferece snapshots copiados/congelados à apresentação.
+
+Execução sem navegador com as ferramentas TypeScript já instaladas:
+
+```bash
+npm run missao:executar -- --segundos 90 --alvo=34.7 --vento=5 --saida /tmp/bss006.json
+npm run missao:executar -- --segundos 2 --sem-ignicao --saida /tmp/bss006-sem-ignicao.json
+npm run missao:executar -- --replay /tmp/bss006.json --saida /tmp/bss006-replay.json
+npm run typecheck:missoes
+```
+
+O orçamento de segundos encerra a coleta do CLI; não declara o voo encerrado
+nem classifica o pouso. O executor genérico recebe uma porta de missão,
+sem conhecer o veículo. `RegistroMissao` registra comandos por passo,
+amostras e eventos; `reproduzirDiarioBss006` valida revisão, modelo físico,
+condições iniciais e resultados antes de aceitar equivalência técnica.
+A checagem `typecheck:missoes` compila o domínio sem tipos DOM/Node.
+
+Repouso geométrico e apoio bilateral sustentado são observações separadas.
+A experiência não homologa retorno de 15 km, reentrada ou missão orbital.
+O plano e as evidências estão em
+[docs/planos-codex/2026-10-13-m10-missoes-independentes.md](docs/planos-codex/2026-10-13-m10-missoes-independentes.md).
+
+O replay estrito foi validado em voos completos no mesmo runtime Node. Na
+comparação Chrome/Node, os estados físicos e eventos coincidiram, mas uma
+amostra do período orbital estimado diferiu em cerca de 4,55 × 10⁻¹³ s.
+A comparação estrita rejeita essa diferença; igualdade bit a bit entre
+engines JavaScript distintas permanece fora da qualificação atual.

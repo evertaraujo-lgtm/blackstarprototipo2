@@ -1,0 +1,124 @@
+{
+  "data": "2026-10-13",
+  "marcos": "M10-A–G",
+  "baseGit": "00db5fe36410904643fe5232ab3b128ffef70ae1",
+  "runtime": {
+    "node": "20.20.0",
+    "chrome": "145.0.7632.116",
+    "typescript": "5.9.3",
+    "vitest": "3.2.7",
+    "vite": "7.3.6"
+  },
+  "suiteCompleta": {
+    "comando": "npm test -- --run --maxWorkers=1 --reporter=verbose",
+    "arquivos": 71,
+    "testesAprovados": 482,
+    "falhas": 0,
+    "codigoSaida": 0,
+    "duracaoS": 2115.78
+  },
+  "checagens": {
+    "typecheck": "aprovado, saída0",
+    "typecheck:missoes": "aprovado com libES2022/types[]; sem DOM/Node",
+    "build": "aprovado, quatro páginas",
+    "diffCheck": "aprovado",
+    "npmCiRepetido": false
+  },
+  "campanha": {
+    "perfis": 9,
+    "comparacaoBancadaMissao": "estados físicos/controles/massa/consumo/energia/integridade/contatos/arbitragem idênticos nos passos amostrados e finais",
+    "semIgnicao": "sem empuxo/consumo/decolagem",
+    "falhas": [
+      "cabo elétrico",
+      "linha metano",
+      "linha oxidante"
+    ],
+    "resultadoFalhas": "corte, queda com dano mensurável e ruptura; integridade mínima0"
+  },
+  "smoke": {
+    "buildProducao": true,
+    "paginas": [
+      "index.html",
+      "tests.html",
+      "orbitas.html",
+      "missao.html"
+    ],
+    "seisBssComIgnicaoConsumo": true,
+    "missaoSubidaDescidaContato": true,
+    "cameraAcompanha": true,
+    "reinicioSemResidual": true,
+    "mobile390pxSemOverflow": true,
+    "errosJS": 0,
+    "capturas": [
+      "m10/missao-plataforma.png",
+      "m10/missao-descida.png",
+      "m10/missao-mobile.png"
+    ]
+  },
+  "replay": {
+    "nodeCompleto": "aprovado; gravação/reexecução no mesmo runtime e referência CLI18308passos",
+    "chromeNode": "estados físicos, comandos, eventos e final idênticos em18640passos/78amostras; uma diferença de4,547473508864641e-13s em período orbital derivado; replay estrito rejeitou sem relaxamento"
+  },
+  "alteracoesLeisParametrosVeiculos": false,
+  "relaxamentoLimitesFisicosOuTimeouts": false,
+  "novaDependenciaGrafica": false,
+  "ciRemoto": {
+    "base": "success, run38374376873, confirmado via GitHub",
+    "m10": "pendente de push; nenhuma declaração de aprovação remota"
+  },
+  "push": false,
+  "deploy": false,
+  "bss007Orbitador": false,
+  "pendencias": [
+    "apoio bilateral sustentado não qualificado",
+    "penetração histórica ~34mm",
+    "diário manual 15km M5-B/C e M8-B incompletos",
+    "rotação/alta atmosfera/reentrada sem qualificação",
+    "exatidão global de replay entre engines JS não prometida"
+  ],
+  "sha256Fontes": {
+    ".github/workflows/ci.yml": "be6b8ba70df67c4fcfa2be9ffbb2a108770fa340ab9d9f06d8791d2a3781346a",
+    "index.html": "cb514b0cc68c517228fe5b2560660dcfe134b7a24cd92e90685b21670acb68fe",
+    "missao.html": "c61473bed030c6d5599307947580fd9aa1ab70b725d730aaf9a7b285ffdee807",
+    "package.json": "788110e140d798ff0e6e382ef22734758821e610ec30052dea18c535dfe65717",
+    "scripts/executar-missao.ts": "9794b78023efaae283c467f4c4e01428807c0e040b20e04f28f63624870bfb26",
+    "src/apresentacao/missao/CameraMissao.test.ts": "26c1d3ca679818759ecf3be4e6df3ad031c4521b3fa01a15cd706ca866264802",
+    "src/apresentacao/missao/CameraMissao.ts": "df391eef8ee78ccfa56f27b47c65b103e63d0d8f5025e237c50c01437b9a1ec8",
+    "src/apresentacao/missao/CenaMissao.ts": "9c12d1b2836905b180febc2aad555c52dc913b0e9d04c792ccbcbf864ff62092",
+    "src/apresentacao/missao/EntradaMissao.ts": "30189195a3d2db48bc025cd73f2652a4ddc93a08d062f60418754e6ee243fcc2",
+    "src/apresentacao/missao/HudMissao.ts": "a0f656a5359e42335285144f297f334f7b94c4dd40439d2a809748716a8664be",
+    "src/apresentacao/missao/RenderizadorMissao.ts": "4dfc6969ba2e68df83d39d58d517f709c8bb32dae309c70f7cfbc4ad85d5dc80",
+    "src/cenarios/BancadaBss.ts": "fed7d3e20dc2e9c83c8f98bd016bd25c24e64bb64c69c2893880ce7b6c230a02",
+    "src/cenarios/TelemetriaMissaoBss.ts": "09d38ad98ad88b40fdc7c877380c5d71e507b6ba4dfba106de14f3fa868c06ca",
+    "src/missao.css": "e2e377c41f955ed1fecb33ce5987403c1983ddee98b13a303cbc9190aa9bd375",
+    "src/missao.ts": "749213a132c1d08712e7f4ceb720b1f22d33e058372deedbfee79c83d714d229",
+    "src/missoes/AmbienteLancamento.ts": "6602742b7527dd2060c32c33b8063dc6b268ec6cb95c2e73f807f9feb539e504",
+    "src/missoes/ArquiteturaMissao.test.ts": "32882d77cf1cd7af2e3ac54c488d4d6f3747bbc61d79c896db8fd0e4a7a7f069",
+    "src/missoes/CicloMissao.ts": "a7b141cbf03048300fec071b87836c1a1986644ddcf614ae761931317363e69e",
+    "src/missoes/ContratoMissao.ts": "a13fdc7f8feff492e6cedef905c6f7a8a49cc844d299dcb9ecd408fd6ecc58d4",
+    "src/missoes/ExecutorMissao.test.ts": "abbcb9c692ad1bace0286e068755c49711f4bad32e1a12aaeb82f0622c83cd6e",
+    "src/missoes/ExecutorMissao.ts": "c4b3a361fb8ee7bdf4aad2ad7ac1f45fe8aa11431265a5808b71af37eb0c48cd",
+    "src/missoes/MissaoBss006.test.ts": "69735adbd7f91fabb232780c02174e085e9ffd290eda50dbc4c6e6065de87a5a",
+    "src/missoes/MissaoBss006.ts": "0905fb61f5f429573142aa46e0f4f03dc1c3811b9dbd4e9080a3c08e773c7da0",
+    "src/missoes/ObservacaoFisicaM10.test.ts": "1c5a5a71a1272ec280b1ccb87abc1ba92530a2680af4123840c0b545799fc95d",
+    "src/missoes/ReferenciaBancadaM10.test.ts": "b51036b979edca0ce93470130ee7ffcdc6017dbe5414e2561fe78727604876d6",
+    "src/missoes/RegistroMissao.ts": "a954683b42e97f13de45d2b77c29db11b3c2944ef68f2e11266b1c77befb39f6",
+    "src/missoes/ReplayMissaoBss006.test.ts": "f3dd2ae57f173df4800947eea72f2740efe2db0d2a816cf4be6fd794ed058598",
+    "src/missoes/ReplayMissaoBss006.ts": "0fc8f2729c252b853968bee7308605ca57fcc8d3481bbea45ae4b9af383fd326",
+    "src/missoes/SnapshotMissao.ts": "067a7a35506af24fce10c7d33575740005e3a47efcbf81a7cdcbb1ebfefe6847",
+    "src/missoes/TiposMissaoBss006.ts": "957d09be31314f978752c5730b5fd5ff8394dee8be69a551fe6ae20e1a47dbdb",
+    "src/missoes/ValidacaoMissaoBss006.test.ts": "c0dd0a5b5526028182dc9269d1ff27aac31c99110d9398315968694cb3193a24",
+    "src/physics/sistemas de controle/ControladorPerfilVooExperimental.test.ts": "dcca5f1e859df3e655262d88ae0e5efd05ce1046d73bb02406ebfeed7917ea22",
+    "src/physics/sistemas de controle/ControladorPerfilVooExperimental.ts": "4ae26168863dc379dde4bc9a297ec93b700853051ff7e5ea9d685ad39e82bee4",
+    "src/validacao/ReferenciaBancadaM10.ts": "72f72849e76a8ab1dd38629947c2d06abfdf8a8f7fb531b0508453b6005aca0b",
+    "src/veiculos/DefinicaoBss006.ts": "01fc858996ec14f167409fb992ef88dc9dc2d8d2fcd0f0578b3aa3b159dd65e9",
+    "src/veiculos/MontagemBss.test.ts": "bc17c1d95fdc8919aa9dd407ff529d77fdd1987a9d142b7d4434b7beab9615ae",
+    "src/veiculos/MontagemBss.ts": "4f5bd70c29fe7b1d44f3cd8118d3186f2c7e2b5362373ec9c8145d60b308556b",
+    "src/veiculos/TelemetriaBss.ts": "6eb8f15be13adb57908f0544b9d6d61e155c191513fd4972e006a27b2a942d12",
+    "src/visualizacao/ConexoesEletricas.ts": "e0c52aeca529a38b0a48fe6361868b48906fc6061ffd8caacb98b764ad56710a",
+    "tests.html": "636687b4d60c41732f63e0913a142413bd6156fc30dfc7ffc9b675491258acb9",
+    "tsconfig.json": "3619f0e5232647185b506318115be7ae2f5155fa28beb90315c9ae8c5758ebf8",
+    "tsconfig.missoes.json": "7267ba1eefd50f61b2c71767bb96e5bc61fd46cb792986c943282a368e0118ca",
+    "vite.config.ts": "d72b164893dc315253da3f7251ad9fa38b12624d62a94d7fa6c52b85d532246f"
+  }
+}

@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { readFileSync } from 'node:fs';
 import { criarMissaoBss006Registrada, reproduzirDiarioBss006, validarComandoBss006 } from './ReplayMissaoBss006';
 import { executarMissaoAtePasso } from './ExecutorMissao';
 
@@ -38,3 +39,12 @@ describe('M10-F — diário portátil e replay versionado', () => {
     expect(() => reproduzirDiarioBss006({})).toThrow('inválido');
   });
 });
+
+it('reexecuta diário Node de voo completo, incluindo transição e repouso geométrico', () => {
+  // Referência imutável produzida pelo CLI real; não repete a gravação inteira em cada suíte.
+  const original = JSON.parse(readFileSync('docs/validacoes/2026-10-13-m10-diario-node.json', 'utf8'));
+  expect(original.passosExecutados).toBe(18308);
+  expect(original.final.pouso.repousoGeometricoS).toBeGreaterThanOrEqual(3);
+  expect(original.final.integridadeMinima).toBe(1);
+  expect(JSON.parse(JSON.stringify(reproduzirDiarioBss006(original).exportar()))).toEqual(original);
+}, 120_000);

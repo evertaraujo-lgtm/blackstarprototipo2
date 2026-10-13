@@ -1,0 +1,16 @@
+{
+  "passos": 18640,
+  "amostras": 78,
+  "estadosFisicosIguais": true,
+  "finalExato": true,
+  "eventosExatos": true,
+  "diferencas": [
+    {
+      "caminho": ".amostras[9].observacao.engenharia.orbital.periodoS",
+      "node": 1789.3836606998943,
+      "chrome": 1789.3836606998948,
+      "delta": -4.547473508864641e-13
+    }
+  ],
+  "observacao": "Replay estrito rejeita diferenças: nenhum limite/tolerância relaxado."
+}

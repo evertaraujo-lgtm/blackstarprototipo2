@@ -127,3 +127,60 @@ CLI Node em scripts/executar-missao.ts; testes de execução2s confirmaram480pas
 Seis testes pertinentes finais aprovados (13,87s), mais dez de missão/perfil/replay na rodada anterior (12,75s, sem somar repetições ao total distinto). Grafo transitivo verificado com AST: domínio só depende de missoes/veiculos/physics. `npm run typecheck:missoes` passou com lib ES2022 e types[], sem DOM/Node. Typecheck principal/build aprovados. Workflow CI acrescenta essa checagem e executa testes em um worker para evitar disputa de CPU nos ensaios longos, mantendo todos os limites físicos e timeouts anteriores.
 
 CI remoto da base00db5fe confirmado: [run38374376873](https://github.com/evertaraujo-lgtm/blackstarprototipo2/actions/runs/38374376873), completed/success, etapas de instalação, testes, tipos e build aprovadas. Evidência normalizada em docs/validacoes/2026-10-13-m10-ci-base.json. Isto aprova a base M9, **não os commits locais da M10**, cuja confirmação remota aguarda push do operador. Sem deploy.
+
+### M10-G — Primeira cena 2D e validação de apresentação
+
+missao.html e src/missao.ts são entrada de apresentação, separados de CenaMissao (adaptador RAF/passos), EntradaMissao (DOM→comandos), HudMissao (snapshots→texto), RenderizadorMissao (Canvas) e CameraMissao (projeção radial). CameraFisica2D da M9 é reutilizada. Desenha os12corpos reais, orientação com sinal Canvas invertido, grid fins pela deflexão efetiva, exaustão por empuxo/gimbal reais e cabos das fontes expostas ligados/desligados/rompidos. terminalEletricoDoEstadoM generaliza a geometria visual já existente sem acessar objetos mutáveis. A câmera acompanha o casco com deslocamento de enquadramento5m e escala em metros. Torre/costa são visuais; demarcação da plataforma não acrescenta uma segunda superfície.
+
+Página oferece sistemas individuais/preparação, ignição/corte, throttle manual, alvo pré-decolagem, modo Pouso/Subida, zoom/tempo, início/pausa/reinício e exportação de diário. Throttle indica autoridade automática em pouso. Metano/O2, energia, massa/integridade, atitude/taxas, empuxo/vazão, gimbal/fins, contatos/componentes, objetivos e eventos usam snapshots. Reinício cria nova missão e limpa acumulador temporal. Link adicionado à landing/bancada; Vite possui quatro entradas.
+
+Smoke no Chrome145 do **build de produção local** passou: missão carregada sem bancada, contato inicial verdadeiro, sistemas/ignição, empuxo/vazão/consumo positivos, subida, transição automática a300,157m em11,82s, descida, câmera nas duas fases, toque e repouso geométrico. Pausa aos77,67s: integridade1, CH4≈395,75kg, maior janela geométrica3,6875s, apoio bilateral sustentado0 e segurança não qualificada. Janela geométrica atual podia ser menor após oscilações; UI não congela corpos nem converte janela histórica em sustentação atual. Zoom pausado preservou estado, reinício eliminou tempo/consumo/eventos anteriores, viewport390px sem transbordamento, zero erros JS.
+
+Os seis BSS legados no build também receberam ignição, avançaram tempo e consumiram CH4; orbitas.html avançou corpo inerte, e as quatro páginas carregaram sem erros JS. Capturas de plataforma/descida/mobile inspecionadas em docs/validacoes/m10. Evidências JSON: m10-smoke-missao, m10-smoke-bancada, m10-smoke-paginas. Testes de câmera/isolamento e os seis testes anteriores de conexões visuais passaram.
+
+#### Limitação de exatidão entre runtimes (não ocultada)
+
+Reexecução do diário Chrome em Node reproduziu **todos os estados físicos, comandos, eventos e estado final exatamente**, ao longo18640passos e78amostras. Porém, uma única amostra do período orbital osculador estimado difere em4,547473508864641e-13s (1789,3836606998943 vs1789,3836606998948s). Node20.20.0 e Chrome145 usam runtimes distintos. É uma grandeza derivada, sem influência nos controladores ou na integração; nenhum estado físico divergiu. O replay estrito compara o diário inteiro e **rejeitou** essa diferença. Não se relaxou sua igualdade nem os limites físicos, e não se declara replay bit-idêntico Chrome↔Node. Evidência: docs/validacoes/2026-10-13-m10-replay-chrome-node.json.
+
+Gravação e reexecução completas no mesmo Node passaram (106,61s) até transição, contato e repouso geométrico. Para evitar repetir a gravação inteira em cada suíte, o CLI oficial coletou uma referência imutável de18308passos/76,283s em docs/validacoes/2026-10-13-m10-diario-node.json; o teste completo reproduz esse diário (mantém timeout120s e todos os critérios), aprovado em49,04s. O comparador usa JSON normalizado para confrontar o DTO persistido com vetores de instância; não altera a igualdade dos valores. A campanha curta continua testando gravação, comando negado, pausa/retomada e reexecução no mesmo runtime. Melhoria futura: registrar identidade do runtime no adaptador e apresentar relatório de diferenças derivadas, preservando validação física estrita.
+
+Typecheck principal, checagem sem DOM/Node e build das quatro páginas aprovados. Suíte completa final confirmada: **482 testes em71arquivos aprovados**, zero falhas, saída0, duração2115,78s (35min15,78s), `npm test -- --run --maxWorkers=1 --reporter=verbose`. Typecheck principal/headless e build finais aprovados; diff-check limpo. Relatório máquina/hashes em docs/validacoes/2026-10-13-m10-validacao-final.json.
+
+## Inventário de módulos entregues
+
+| Grupo | Criados / modificados | Fronteira |
+|---|---|---|
+| Veículo | src/veiculos/MontagemBss.ts, DefinicaoBss006.ts, TelemetriaBss.ts | Composição/portas de controle e consulta, sem ambiente/UI |
+| Adaptadores antigos | BancadaBss.ts, TelemetriaMissaoBss.ts | Preservam API/trace/descrição e delegam definição física |
+| Missão | ContratoMissao, CicloMissao, AmbienteLancamento, TiposMissaoBss006, MissaoBss006, SnapshotMissao | Configuração, instância privada, operações, eventos, objetivos e observação |
+| Execução/registro | ExecutorMissao, RegistroMissao, ReplayMissaoBss006; scripts/executar-missao.ts | Portas genéricas; I/O exclusivamente no CLI |
+| Controle de perfil | physics/sistemas de controle/ControladorPerfilVooExperimental | Solicita transição uma vez; core controla toda cinemática |
+| Apresentação | missao.html, src/missao.ts/css; apresentacao/missao/{Cena,Entrada,Hud,Renderizador,Camera}Missao | DOM/Canvas/câmera isolados da missão |
+| Visual compartilhado | visualizacao/ConexoesEletricas.ts | Terminal recebe estado/dimensão de snapshot; wrapper antigo preservado |
+| Build/acesso | vite.config.ts, index.html, tests.html, package.json, tsconfig.missoes.json, tsconfig.json, ci.yml | Quatro páginas, CLI e verificação headless |
+| Validação | Novos testes de montagem, contrato, missão, perfil, equivalência, observação, grafo, replay/câmera; validacao/ReferenciaBancadaM10 | Instrumentação Node isolada, não importada pelo domínio |
+
+MundoFisico, Objeto, VeiculoComposto, Propulsor, ComputadorDeVoo, sensores e resolvedores existentes não receberam mudanças de leis/parametrização na M10. A missão não depende de BancadaBss ou EnsaioMissaoBss005. A execução orbital inerte e os relatórios M0–M9 permanecem preservados.
+
+## Próximas atividades recomendadas
+
+1. Investigar reação normal/apoio bilateral e a pendência histórica de penetração com casos reproduzíveis no core, fora da refatoração M10.
+2. Ampliar contingências de sensores/energia (M8-B) e definir os envelopes de operação qualificados por missão.
+3. Acrescentar identificação do runtime e diagnóstico de diferenças derivadas ao diário, sem prometer igualdade bit a bit entre engines/revisões.
+4. Evoluir objetivos/ambientes por novas definições e manter renderizadores como consumidores das portas.
+5. Definir BSS-007 somente em uma missão de engenharia futura aprovada; ele não foi desenvolvido aqui.
+
+
+## Estado final e commits
+
+M10-A–G implementados e validados localmente; nenhum marco arquitetural bloqueado. A experiência visual foi efetivamente operada no Chrome, e a missão funciona sem a bancada no Node. A qualificação física permanece limitada aos envelopes ensaiados e às pendências anteriores; não se homologa15km/apoio bilateral sustentado. CI remoto da M10 pendente do push do operador. Nenhum push/deploy nesta execução.
+
+| Marco | Commit local |
+|---|---|
+| M10-A | d5170dd — auditoria |
+| M10-B | 14f6c52 — montagem compartilhada |
+| M10-C | b582a1a — portas/executor |
+| M10-D | 497a389 — voo independente |
+| M10-E | bc02348 — equivalência/falhas |
+| M10-F | 2a4f355 — diário/replay/CLI/isolamento |
+| M10-G | Commit que contém este estado final; consultar HEAD após entrega |

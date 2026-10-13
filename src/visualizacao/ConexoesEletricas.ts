@@ -1,4 +1,4 @@
-import type { Objeto } from '../physics/objetos/base/Objeto';
+import type { EstadoFisico, Objeto } from '../physics/objetos/base/Objeto';
 import type { ConexaoEletrica } from '../physics/conexoes/ConexaoEletrica';
 import { Vetor3 } from '../physics/Vetor3';
 
@@ -11,8 +11,11 @@ export function conexoesEletricasExpostas(conexoes: readonly ConexaoEletricaVisu
 
 /** Terminal no meio da face esquerda local; acompanha translação e rotação reais. */
 export function terminalEletricoM(objeto: Objeto): Vetor3 {
-  const estado = objeto.getEstadoFisico();
-  const xLocal = -objeto.dimensoesM.x / 2;
+  return terminalEletricoDoEstadoM(objeto.getEstadoFisico(), objeto.dimensoesM);
+}
+/** A mesma geometria de terminal pode consumir snapshots de apresentação. */
+export function terminalEletricoDoEstadoM(estado: EstadoFisico, dimensoesM: { readonly x: number }): Vetor3 {
+  const xLocal = -dimensoesM.x / 2;
   return estado.posicaoM.adicionar(new Vetor3(xLocal * Math.cos(estado.orientacaoRad.z), xLocal * Math.sin(estado.orientacaoRad.z), 0));
 }
 
