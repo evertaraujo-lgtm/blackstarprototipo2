@@ -1,0 +1,40 @@
+{
+  "marco": "M11-A",
+  "tipo": "auditoria-somente-documentacao",
+  "base": "1d74cfae935e0440796351927dad0460413e06e2",
+  "requisitosRecebidos": "Texto interrompido em 6. Profundidade fin; continuação solicitada.",
+  "codigoFisicoAlterado": false,
+  "validacaoHidrodinamicaExecutada": false,
+  "testes": {
+    "comando": "npm test -- src/physics/conexoes/FixadorEstrutural.test.ts --maxWorkers=1",
+    "aprovados": 4,
+    "falhas": 0,
+    "exitCode": 0
+  },
+  "typecheck": {
+    "exitCode": 0
+  },
+  "typecheckMissoes": {
+    "exitCode": 0
+  },
+  "build": {
+    "exitCode": 0,
+    "modulos": 109,
+    "paginas": [
+      "index.html",
+      "tests.html",
+      "orbitas.html",
+      "missao.html"
+    ]
+  },
+  "ciBase": {
+    "sha": "1d74cfae935e0440796351927dad0460413e06e2",
+    "runId": 38460625103,
+    "status": "completed",
+    "conclusion": "success",
+    "url": "https://github.com/evertaraujo-lgtm/blackstarprototipo2/actions/runs/38460625103"
+  },
+  "ciM11": "Pendente de push pelo operador",
+  "pushExecutado": false,
+  "deployExecutado": false
+}
