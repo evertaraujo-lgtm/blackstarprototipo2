@@ -6,7 +6,7 @@ Data: 2026-10-13. Base real: `1d74cfa`, `main` limpa e sincronizada com a refer�
 
 O pedido inicial chegou interrompido em `6. Profundidade fin`. A auditoria foi registrada em `ef634ce` antes da implementação. A especificação completa M11-A–H foi recebida posteriormente, com autorização autônoma. Este é o documento canônico solicitado; o primeiro relatório permanece como registro da auditoria inicial.
 
-**M11-A concluída. M11-B em implementação; C–H pendentes.** A física histórica permanece em variante legada, sem migração silenciosa. Constantes de cenário e propriedades aquáticas novas serão hipóteses explícitas, nunca ajustes das massas/dimensões históricas.
+**M11-A–G concluídas em commits separados; M11-H em qualificação final.** A física histórica permanece em variante legada, sem migração silenciosa. Propriedades aquáticas são hipóteses explícitas, sem ajustes das massas/dimensões históricas. Os registros cronológicos A–G abaixo descrevem suas revisões na época de cada commit; a revisão aquática 2 e suas evidências M11-H substituem a revisão 1 para aprovação física final.
 
 ## M11-A — Inventário do núcleo existente
 
@@ -258,3 +258,110 @@ Três testes da missão aquática e quatro de costa aprovados: variante isolada,
 Mundos aquáticos exigem declaração geométrica para TODOS os corpos, inclusive volume/área zero para componentes internos: ausência é erro de configuração antes do avanço, não flutuabilidade presumida ou objeto silenciosamente transparente. Os testes analíticos de costa/GM/velocidade terminal/energia complementam a campanha M11-H.
 
 Para executar sem navegador: `npm run missao:executar -- --amerissagem --segundos 120 --saida /tmp/amerissagem.json`. Motores nascem desligados nesse ensaio. Para a interface: `npm run dev`, abrir `/missao.html`, selecionar Amerissagem M11 e Iniciar. Reinício aplica as condições escolhidas. Replay: `npm run missao:executar -- --replay /tmp/amerissagem.json --saida /tmp/replay.json`.
+
+## M11-H — Qualificação final, revisão aquática 2
+
+### Correção encontrada durante a qualificação
+
+Um corpo completamente imerso, inicialmente imóvel e com `massa = rho × volume`, revelou deriva na revisão 1. A gravidade recebia dois meio-passos KDK, enquanto o empuxo era aplicado inteiro antes do deslocamento. Apesar da soma de forças nula, a posição acumulava aproximadamente `g × dt² / 2` por passo. O teste de flutuação anterior não isolava esse equilíbrio neutro. A primeira execução da suíte completa foi interrompida para corrigir a composição; não foi registrada como aprovada.
+
+Na revisão **`agua-incompressivel-prismas-m11-2`**, gravidade e empuxo hidrostático recebem ambos meio-passo antes/depois do deslocamento. Resistência e forças operacionais continuam no caminho explícito existente; nenhuma substituição global do integrador. Os impulsos hidrostáticos são `Femp × dt/2`, aplicados pelo core em B, com os braços e a inércia reais da ilha. Não há trava de posição, ajuste de velocidade ou torque independente. Mundos sem água retornam imediatamente da operação hidrostática e conservam a integração M9/M10.
+
+O corpo neutro de 4.000 kg e 4 m³, a -5 m em água de 1.000 kg/m³, permaneceu com **deslocamento e velocidade exatamente zero após 10 s**. O teste exige erro <1e-8 m e <1e-8 m/s. Foi acrescentada também uma regressão que impede classificar como flutuação livre um corpo apoiado no fundo, mesmo quando o empuxo já corresponde a mais de 98% do peso. A observação expõe `apoio-solido-submerso`; o contato não afeta os critérios nem a integração por uma exceção aquática.
+
+Essas correções mudaram a fase das oscilações passivas. O resultado anterior de equilíbrio aos ~76 s é **histórico da revisão 1**, não evidência de aprovação da revisão 2. Seus dados e capturas foram preservados. Não se alteraram Cd, massas, ganhos, dimensões ou limites observacionais para recuperar esse tempo. A revisão da missão passou a `m11-amerissagem-2`; replay incompatível não é aceito como equivalente.
+
+Na inspeção de fronteiras encontrou-se ainda a forma explicitamente interna com fração deslocadora zero: a otimização de imersão completa criava elementos de volume zero e o arrasto tentava dividir 0/0. Uma regressão com giro reproduziu `Escalar deve ser finito`; a geometria agora devolve lista vazia para espessura deslocadora zero. O teste cobre seco/parcial/total, ausência de cargas e ausência de restrição temporal fictícia. Formas de volume positivo, incluindo todos os componentes do BSS deste ensaio, conservam a mesma lógica e trajetória da revisão 2.
+
+A campanha iniciada antes dessa última correção manteve o módulo geométrico anterior no cache do processo: terminou com 517 aprovações, uma falha no caso zero e um erro RPC do runner. Não foi aprovada nem usada como resultado final. Log preservado em `m11/revisao2-regressao-cache-anterior.log`. Os oito casos de qualificação passaram em processo novo (`revisao2-qualificacao-fresca.log`); a repetição final completa usa fontes congelados desde o início.
+
+O erro de comunicação do Vitest ocorreu numa campanha com replay de voo longo síncrono. O teste histórico M10 de replay passou a invocar o CLI real em processo filho aguardado assincronamente, mantendo o runner responsivo. Conservou o diário de referência, as verificações de 18.308 passos/repouso/integridade e a comparação integral, bem como o watchdog original de 120 s. Nenhuma API de domínio ou equação mudou por essa correção de infraestrutura de testes. Verificação isolada passou em 58,735 s sem erro RPC (`revisao2-replay-runner-responsivo.log`). Navegador e servidores temporários foram encerrados antes da repetição completa para evitar verificações concorrentes.
+
+### Matriz quantitativa dos corpos de prova
+
+Coletor reproduzível: `scripts/validar-hidrodinamica.ts`, executado com `npm run agua:validar -- --saida /tmp/hidrodinamica.json`. Usa objetos inertes no mesmo `MundoFisico`, atmosfera padrão de 1,225 kg/m³, gravidade central, água uniforme de 1.000 kg/m³ e geometria/condições iniciais declaradas. Os números são da revisão 2, em `docs/validacoes/2026-10-13-m11-2-hidrodinamica.json`.
+
+| Ensaio obrigatório | Evidência / resultado | Orçamento de erro e justificativa |
+|---|---|---|
+| 1 — Arquimedes seco/parcial/total | Prisma 2×2×1 m: V = 0, 2 e 4 m³; empuxos 0, 19.640,5041 e 39.281,0266 N; coincidência com `rho × V × g(B)` | Volume 1e-6 m³, comparação algébrica do campo local e dois pontos da Terra; não exige g = g0 |
+| 2 — Calado analítico | Bloco 4×1×1 m, 1.000 kg: calado previsto 0,25 m; erro de altura do centro após 120 s **2,107 mm** | 5 mm = 2% do calado. Continua oscilando: não se congela o estado nem se declara equilíbrio exato pelo instante final |
+| Equilíbrio neutro | 4 m³, 4.000 kg, totalmente imerso: erro de posição **0 m** e velocidade **0 m/s** em 10 s | 1e-8 m / m/s; verifica composição conservativa, sem contato sólido |
+| 3 — Afundamento | Bloco 4 m³, 6.000 kg continua descendo; velocidade terminal difere **0,2425%** da solução `sqrt(2(m-rho V)g/(rho Cd A))` | 2% para terminal, compatível com resistência quadrática e observação após o transiente; massa conservada |
+| 4 — Estabilidade angular | Prismas largo/alto a 0,001 rad: sinal restaurador/desestabilizador e momento analítico por GM; erros relativos **8,69e-7 / 7,70e-7** | 1%, cobre linearização de pequena inclinação e curvatura local; casos espelhados verificam sinais |
+| 5 — Arrasto | Velocidades 2/4 m/s: força -4.000/-16.000 N, relação v²; giro produz torque oposto e energia decrescente | Comparação algébrica, massa invariável e forças finitas. Energia de giro não cresce sem fonte |
+| 6 — BSS-006 | Entrada, momento entre G/B, crescimento de rotação e oscilação lateral sem propulsão; ver trajetória abaixo | Momentos e cargas medidos, integridade 1, nenhum contato com fundo. Não basta atingir um ângulo |
+| 7 — Costa | Terra/água/fundo, corpo ocupando ambos os domínios e extrusão Z; volume analítico costeiro 19,5 m³ | Erro <0,003 m³ incorpora aproximação tangente. Nenhum impulso rígido na interface livre |
+| 8 — Determinismo e passo | Replay completo Node de 120 s byte a byte; caso inerte a 50 m/s: diferença de posição **25,68 µm** entre dt máximo 1/240 e 1/480 s, e **4,111 mm** entre 1/240 e 1/960 s | 5 cm para o deslocamento de alta velocidade. Subpassos internos pela derivada de carga, sem truncar velocidade; diferenças entre passos não são erro absoluto analítico |
+| Entrada rápida / dano | 60 m/s em 0/45/90°, degradação estrutural real, BSS com ignição/consumo e integridade <0,2; diferença energética **1,2231%** ao refinar passo | 2% para trabalho de entrada. Não qualifica picos reais de pressão/slamming |
+| 9 — Regressão M0–M10 | Campanha final completa em confirmação; inclui órbitas inertes, seis BSS e missões independentes | Limites e referências históricos preservados; sem água não há nova física |
+
+Existem 36 testes novos em sete arquivos (costa, hidrostática, dinâmica, ensaio BSS, entrada/dano, missão e qualificação). Não se alteraram limites históricos para fazê-los passar. A hipótese física simplificada permanece limitada aos casos e passos examinados, sem promessa de estabilidade para qualquer entrada ou dimensão.
+
+No refinamento a 50 m/s, as posições finais Y foram -17,01025313 / -17,01027881 / -17,01436453 m para os três dt máximos. O número inteiro de subdivisões adaptativas pode produzir passos internos iguais ou diferentes a partir desses máximos; não se infere ordem de convergência pelo par quase coincidente. Todos permaneceram dentro do orçamento de 5 cm. No teste de giro neutro totalmente imerso, energia cinética total caiu de 1.333,3333 para 858,3805 J em 1 s, sem aumento entre amostras; massa 4.000 kg constante.
+
+### Geometria deslocadora e capacidade de sustentação
+
+O volume deslocável declarado soma **100,7487792 m³**, separado dos 108,532 m³ de caixas de colisão encontrados na auditoria. Casco e dois tanques somam 100,08 m³, nas dimensões históricas, sob hipótese estanque. Os demais 0,6687792 m³ representam material exclusivo das peças permeáveis/lâminas, conforme M11-E e a definição versionada `HidrodinamicaBss006`. Não se soma o conteúdo interno de um tanque ao seu volume externo.
+
+Massa total inicial: **5.349,1660309923745 kg**; água: **1.025 kg/m³**. O volume que equilibraria o peso em campo local aproximadamente uniforme é `m/rho = 5,2186985668 m³`. A capacidade máxima excede amplamente a massa, mas isso não demonstra estabilidade vertical: inicialmente B fica muito abaixo de G e a inclinação produz momento desestabilizador. Após a rotação, a distribuição ao longo do corpo oferece uma orientação lateral restauradora. A assimetria histórica e a gravidade radial impedem impor exatamente 90°.
+
+### Trajetória final do BSS-006
+
+Evidência integral no Chrome: `2026-10-13-m11-2-diario-browser.json`, 40.918 passos externos de 1/240 s, amostras por segundo mais o estado final; CSV `2026-10-13-m11-2-amerissagem.csv`. Uma única trajetória física originou esta tabela. As pausas usadas para capturar a cena não avançam tempo físico e constam no diário.
+
+| Tempo (s) | Altitude casco (m) | Velocidade radial (m/s) | Atitude local (°) | omega (rad/s) | Volume submerso (m³) | Empuxo (N) | Momento aquático (N·m) | Estado observado |
+|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| 0,000 | 5,003 | -0,500 | 0,29 | 0 | 0 | 0 | 0 | seco |
+| 1,000 | 1,912 | -2,016 | 0,39 | 0,00646 | 8,5549 | 86.111,1 | 1.559,2 | entrada |
+| 5,000 | 2,191 | -0,035 | 29,45 | 0,47653 | 4,2854 | 43.135,7 | 27.401,3 | tombamento |
+| 7,000 | 2,922 | 1,565 | 99,68 | -0,01734 | 0,3345 | 3.366,5 | 2.774,9 | oscilação |
+| 30,000 | 1,530 | -0,052 | 90,80 | -0,00232 | 5,1705 | 52.045,0 | -4.401,5 | oscilação |
+| 60,000 | 1,525 | -0,020 | 90,72 | 0,00026 | 5,2066 | 52.408,6 | 567,9 | oscilação |
+| 120,000 | 1,524 | -0,005 | 90,72 | -0,00190 | 5,2265 | 52.608,8 | 1.107,2 | oscilação |
+| 170,000 | 1,525 | -0,006 | 90,72 | -0,00154 | 5,2098 | 52.440,2 | 548,6 | flutuação estável |
+
+Eventos medidos: entrada na água a **0,1541667 s**, tombamento a **4,075 s**, janela de equilíbrio completada a **169,675 s**. Estado final capturado a **170,491667 s**: atitude **90,746°**, volume **5,212411976 m³**, empuxo **52.466,873 N**, momento **-651,938 N·m**, janela contínua **3,8167 s**, integridade **1**, motores **0 N**, metano **600 kg** e oxidante **2.400 kg**, sem contatos sólidos. A massa deslocada difere aproximadamente 0,121% da massa do veículo; há movimento residual e o core continua disponível para observação.
+
+G final `(188,253398; 1,466485; 0)` m e B `(188,240944; -0,118013; 0)` m. Braço horizontal ~12,45 mm e forças nos elementos explicam o momento residual; ele não é definido por um objetivo de atitude. A entrada do casco e das peças durante o tombamento pode chegar a velocidades locais maiores que os 0,5 m/s iniciais: o campo gravitacional acelera a queda, e a rotação acrescenta velocidade nos pontos. O pico agregado de entrada de **15,309 m/s** não é velocidade de translação final.
+
+O diário Node de 120 s (`2026-10-13-m11-2-diario-node.json`) foi reexecutado integralmente com as mesmas entradas; `cmp` confirmou igualdade byte a byte. Aos 120 s seu estado ainda é **oscilação**, sem janela de equilíbrio aprovada: momento ~1.107 N·m excede naquele instante o critério do braço de 2 cm. Não se usa esse diário como prova de flutuação estável. A amplitude angular/momento diminui em janelas sucessivas, sem motor, e a cena continuou até observar os critérios existentes.
+
+Node usa perturbação exatamente 0,005 rad; a entrada em graus no Chrome converteu para 0,005000000042491582 rad. Não se afirma identidade estrita entre essas trajetórias/engines nem se misturam amostras para construir uma trajetória fictícia. O teste curto automatizado de replay também rejeita parâmetros/modelos adulterados.
+
+### Apresentação validada
+
+Smoke revisão 2 em `2026-10-13-m11-2-smoke-missao.json`: seleção da variante, avanço físico até flutuação observada, câmera, escalas, telemetria, pausa/continuação, zoom sem alteração física, reinício sem resíduo, preparação/ignição com empuxo e consumo efetivos em outra instância, corte, retorno à variante M10 e viewport 390 px sem overflow. **Zero erros JavaScript.** O cenário não encerra ao entrar na água, tombar ou completar a janela de equilíbrio.
+
+Capturas de execução efetiva, inspecionadas: `docs/validacoes/m11/revisao2-entrada.png` a 1,1625 s, `revisao2-tombamento.png` a 5,825 s, `revisao2-flutuacao.png` a 170,491667 s, além de costa e mobile. Imagens são evidências do Canvas consultando a missão, sem movimentos independentes. Os arquivos sem prefixo `revisao2` permanecem como evidências cronológicas da revisão 1.
+
+Build final também verificado em servidor preview local: quatro páginas carregaram, órbita avançou fisicamente, e os seis BSS da bancada receberam sistemas/ignição com consumo mensurável. Na variante aquática do bundle de produção, entrada ocorreu em 0,1541667 s; aos 1,166667 s havia 10,1377 m³ deslocados, empuxo ~102.043,8 N e nenhum contato sólido. Pausa/reinício sem resíduo e zero erros JavaScript confirmados. Evidências separadas em `2026-10-13-m11-2-smoke-paginas.json`, `-smoke-bancada.json` e `-smoke-agua-producao.json`; esse smoke curto não substitui a demonstração física longa da cena.
+
+### Limitações e pendências preservadas
+
+- Dinâmica XY, Terra esférica sem rotação, água de densidade uniforme, nível estático e corrente tangencial prescrita. Sem ondas/CFD, maré, cavitação, ar preso ou latitude 3D.
+- Interface/fundo recortados por planos tangentes locais dentro de regiões radiais. Pequenos erros de curvatura documentados; extensão planetária de um corpo e batimetria real não qualificadas.
+- Prismas equivalentes com frações de material/vazios e Cd de estudo. Nenhuma prova experimental de impermeabilidade do casco/tanques; avaria não inunda automaticamente. Geometria inicialmente sobreposta é rejeitada, mas não há união booleana dinâmica de destroços interpenetrados.
+- Trabalho de arrasto durante entrada é uma aproximação energética de carregamento, sem impulso extra. Picos de pressão, massa adicionada e slamming detalhado não qualificados. Cargas nos vínculos são axiais em pontes; flexão e redes redundantes permanecem futuras.
+- Ar/água não recebem simultaneamente arrasto integral. A parcela emersa controla a exposição ao ar; troca térmica aquática, pressão profunda e inundação progressiva não implementadas.
+- Flutuação observada por 3 s é evidência operacional desta configuração, não certificação de equilíbrio assintótico ou amerissagem real. Apoio no fundo é excluído. Os veículos históricos não foram alterados para garantir um resultado visual.
+- Penetração histórica ~34 mm, repouso bilateral contínuo terrestre, retorno de 15 km e etapas M8 ainda não qualificadas continuam nas referências anteriores. Esta migração não oculta essas pendências.
+- CI da base M10 (`1d74cfa`) confirmado como `success`, run [38460625103](https://github.com/evertaraujo-lgtm/blackstarprototipo2/actions/runs/38460625103). Commits M11 somente locais: CI deles permanece pendente do push pelo operador; não se declara CI M11 aprovado. Nenhum deploy executado.
+
+### Registro incremental e reprodução
+
+| Marco | Commit local | Entrega |
+|---|---|---|
+| M11-A | `ef634ce` | Auditoria documental, inventário e riscos |
+| M11-B | `04d4cf5` | Costa radial e fundo distinto da interface livre |
+| M11-C | `9142316` | Volumes exclusivos, centro de empuxo e Arquimedes |
+| M11-D | `ca110c4` | Resistência distribuída, exposição e subpassos |
+| M11-E | `6d99d64` | Ensaio BSS passivo e hipótese geométrica explícita |
+| M11-F | `4eff06c` | Carregamento energético de entrada, dano e vínculos |
+| M11-G | `6d0dc38` | Missão independente, replay, telemetria e Canvas |
+| M11-H | Commit que contém este fechamento | Correção do equilíbrio neutro, qualificação e evidências finais |
+
+Comandos finais de qualificação: `npm test -- --run --maxWorkers=1 --reporter=verbose`, `npm run typecheck`, `npm run typecheck:missoes`, `npm run build`. Um worker evita concorrência entre ensaios físicos prolongados nesta máquina, sem relaxar watchdogs dos testes. Confirmação da campanha final e resumo verificável serão anexados antes de aprovar M11-H.
+
+Reprodução do ensaio longo: `npm run missao:executar -- --amerissagem --segundos 180 --saida /tmp/amerissagem.json`; replay no mesmo runtime: `npm run missao:executar -- --replay /tmp/amerissagem.json --saida /tmp/replay.json`. Arquivos históricos versionados não são sobrescritos. O orçamento do CLI delimita a coleta, não define repouso ou sucesso.
+
+Próximas atividades: medir estanqueidade/volumes e Cd com referência física; investigar entrada com massa adicionada/slamming quando necessário; modelar inundação/dano de compartimentos, flexão e troca térmica; campanhas com correntes e retorno controlado aquático. BSS-007, orbitador e deploy continuam fora do escopo.

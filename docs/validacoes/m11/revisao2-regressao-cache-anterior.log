@@ -1,0 +1,564 @@
+
+> starship-prototype-2@0.1.0 test
+> vitest run --run --maxWorkers=1 --reporter=verbose
+
+
+ RUN  v3.2.7 /media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2
+
+ ✓ src/cenarios/ComparacaoBssM9.test.ts > M9-F — mesma montagem, comandos e critérios, ambiente legado vs central > BSS-001: decolagem, apogeu e retorno medidos 29019ms
+ ✓ src/cenarios/ComparacaoBssM9.test.ts > M9-F — mesma montagem, comandos e critérios, ambiente legado vs central > BSS-002: decolagem, apogeu e retorno medidos 24114ms
+ ✓ src/cenarios/ComparacaoBssM9.test.ts > M9-F — mesma montagem, comandos e critérios, ambiente legado vs central > BSS-003: decolagem, apogeu e retorno medidos 88722ms
+ ✓ src/cenarios/ComparacaoBssM9.test.ts > M9-F — mesma montagem, comandos e critérios, ambiente legado vs central > BSS-004: decolagem, apogeu e retorno medidos 94043ms
+ ✓ src/cenarios/ComparacaoBssM9.test.ts > M9-F — mesma montagem, comandos e critérios, ambiente legado vs central > BSS-005: decolagem, apogeu e retorno medidos 83076ms
+ ✓ src/cenarios/ComparacaoBssM9.test.ts > M9-F — mesma montagem, comandos e critérios, ambiente legado vs central > BSS-006: decolagem, apogeu e retorno medidos 113895ms
+ ✓ src/cenarios/ComparacaoBssM9.test.ts > M9-F — mesma montagem, comandos e critérios, ambiente legado vs central > BSS-006: falha elétrica continua causando queda/dano nos dois ambientes 72940ms
+ ✓ src/cenarios/ComparacaoBssM9.test.ts > M9-F — mesma montagem, comandos e critérios, ambiente legado vs central > sem ignição não cria empuxo/consumo nos seis cenários em ambos os ambientes 421ms
+ ✓ src/cenarios/EnsaioMissaoBss005.test.ts > M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s > reprova toque com lateral fora do limite 3ms
+ ✓ src/cenarios/EnsaioMissaoBss005.test.ts > M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s > reprova toque com inclinação fora do limite 0ms
+ ✓ src/cenarios/EnsaioMissaoBss005.test.ts > M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s > reprova toque com rotação fora do limite 0ms
+ ✓ src/cenarios/EnsaioMissaoBss005.test.ts > M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s > observa o ambiente usado no core e a leitura não altera o estado físico 43ms
+ ✓ src/cenarios/EnsaioMissaoBss005.test.ts > M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s > separa toque seguro de repouso quando o apoio bilateral não persiste 179743ms
+ ✓ src/cenarios/EnsaioMissaoBss005.test.ts > M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s > reprova e reproduz o retorno nominal de 15 km, sem esconder o esgotamento e o impacto 124479ms
+ ✓ src/cenarios/EnsaioMissaoBss005.test.ts > M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s > falha por ausência deliberada de reserva no corte e mantém balanço de massa explícito 73519ms
+ ✓ src/cenarios/EnsaioMissaoBss005.test.ts > M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s > corta a propulsão na perda de controle e registra a queda e o estado após o impacto 77304ms
+ ✓ src/cenarios/EnsaioMissaoBss005.test.ts > M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s > injeta congelamento na fase de descida, detecta leitura obsoleta e reprova sem inventar recuperação 77514ms
+ ✓ src/cenarios/EnsaioMissaoBss005.test.ts > M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s > nega a partida sem combustível e não inventa decolagem nem consumo 1475ms
+ ✓ src/cenarios/EnsaioMissaoBss005.test.ts > M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s > registra uma rajada programada no ambiente físico do ensaio BSS-005 21ms
+ ✓ src/cenarios/EnsaioMissaoBss005.test.ts > M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s > classifica um watchdog curto como inconclusivo, sem inventar falha física ou pouso 182ms
+ ✓ src/cenarios/EnsaioMissaoBss005.test.ts > M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s > rejeita dt inválido ou acima do passo de bancada: 0 3ms
+ ✓ src/cenarios/EnsaioMissaoBss005.test.ts > M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s > rejeita dt inválido ou acima do passo de bancada: -1 1ms
+ ✓ src/cenarios/EnsaioMissaoBss005.test.ts > M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s > rejeita dt inválido ou acima do passo de bancada: NaN 1ms
+ ✓ src/cenarios/EnsaioMissaoBss005.test.ts > M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s > rejeita dt inválido ou acima do passo de bancada: Infinity 0ms
+ ✓ src/cenarios/EnsaioMissaoBss005.test.ts > M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s > rejeita dt inválido ou acima do passo de bancada: 0.016666666666666666 1ms
+ ✓ src/missoes/ValidacaoMissaoBss006.test.ts > M10-E — equivalência exata e determinismo em instâncias independentes > 'alvo-zero': mesmos estados, controles, massa, contatos e consumo da bancada 56273ms
+ ✓ src/missoes/ValidacaoMissaoBss006.test.ts > M10-E — equivalência exata e determinismo em instâncias independentes > 'alvo-direita': mesmos estados, controles, massa, contatos e consumo da bancada 56830ms
+ ✓ src/missoes/ValidacaoMissaoBss006.test.ts > M10-E — equivalência exata e determinismo em instâncias independentes > 'alvo-esquerda': mesmos estados, controles, massa, contatos e consumo da bancada 57566ms
+ ✓ src/missoes/ValidacaoMissaoBss006.test.ts > M10-E — equivalência exata e determinismo em instâncias independentes > 'vento-direita': mesmos estados, controles, massa, contatos e consumo da bancada 54051ms
+ ✓ src/missoes/ValidacaoMissaoBss006.test.ts > M10-E — equivalência exata e determinismo em instâncias independentes > 'vento-esquerda': mesmos estados, controles, massa, contatos e consumo da bancada 55837ms
+ ✓ src/missoes/ValidacaoMissaoBss006.test.ts > M10-E — equivalência exata e determinismo em instâncias independentes > 'sem-ignicao': mesmos estados, controles, massa, contatos e consumo da bancada 1766ms
+ ✓ src/missoes/ValidacaoMissaoBss006.test.ts > M10-E — equivalência exata e determinismo em instâncias independentes > 'falha-eletrica': mesmos estados, controles, massa, contatos e consumo da bancada 29429ms
+ ✓ src/missoes/ValidacaoMissaoBss006.test.ts > M10-E — equivalência exata e determinismo em instâncias independentes > 'falha-metano': mesmos estados, controles, massa, contatos e consumo da bancada 27922ms
+ ✓ src/missoes/ValidacaoMissaoBss006.test.ts > M10-E — equivalência exata e determinismo em instâncias independentes > 'falha-oxidante': mesmos estados, controles, massa, contatos e consumo da bancada 27076ms
+ ✓ src/missoes/ValidacaoMissaoBss006.test.ts > M10-E — equivalência exata e determinismo em instâncias independentes > observações frequentes não alteram determinismo de estado e eventos 2891ms
+ ✓ src/missoes/ReferenciaBancadaM10.test.ts > M10-E — referência independente do voo na bancada > 'alvo-zero': coleta física completa em instância separada 57203ms
+ ✓ src/missoes/ReferenciaBancadaM10.test.ts > M10-E — referência independente do voo na bancada > 'alvo-direita': coleta física completa em instância separada 53910ms
+ ✓ src/missoes/ReferenciaBancadaM10.test.ts > M10-E — referência independente do voo na bancada > 'alvo-esquerda': coleta física completa em instância separada 57922ms
+ ✓ src/missoes/ReferenciaBancadaM10.test.ts > M10-E — referência independente do voo na bancada > 'vento-direita': coleta física completa em instância separada 56741ms
+ ✓ src/missoes/ReferenciaBancadaM10.test.ts > M10-E — referência independente do voo na bancada > 'vento-esquerda': coleta física completa em instância separada 54497ms
+ ✓ src/missoes/ReferenciaBancadaM10.test.ts > M10-E — referência independente do voo na bancada > 'sem-ignicao': coleta física completa em instância separada 1795ms
+ ✓ src/missoes/ReferenciaBancadaM10.test.ts > M10-E — referência independente do voo na bancada > 'falha-eletrica': coleta física completa em instância separada 28301ms
+ ✓ src/missoes/ReferenciaBancadaM10.test.ts > M10-E — referência independente do voo na bancada > 'falha-metano': coleta física completa em instância separada 30884ms
+ ✓ src/missoes/ReferenciaBancadaM10.test.ts > M10-E — referência independente do voo na bancada > 'falha-oxidante': coleta física completa em instância separada 28370ms
+ ✓ src/cenarios/BancadaBssCentral.test.ts > M9-G — envelope da guiagem BSS-006 em Terra esférica > repouso geométrico após subida a 300m, alvo 34.7, vento +0 57588ms
+ ✓ src/cenarios/BancadaBssCentral.test.ts > M9-G — envelope da guiagem BSS-006 em Terra esférica > repouso geométrico após subida a 300m, alvo -34.7, vento +0 70019ms
+ ✓ src/cenarios/BancadaBssCentral.test.ts > M9-G — envelope da guiagem BSS-006 em Terra esférica > repouso geométrico após subida a 300m, alvo +0, vento 5 60486ms
+ ✓ src/cenarios/BancadaBssCentral.test.ts > M9-G — envelope da guiagem BSS-006 em Terra esférica > repouso geométrico após subida a 300m, alvo +0, vento -5 66077ms
+ ✓ src/cenarios/BancadaBss.test.ts > registra no trace a deflexão real das grid fins durante a descida guiada 3549ms
+ ✓ src/cenarios/BancadaBss.test.ts > BSS-006 — voo completo da montagem usada pela interface > decola, muda para pouso a 80 m e repousa no alvo X=+0 com vento +0 m/s 14975ms
+ ✓ src/cenarios/BancadaBss.test.ts > BSS-006 — voo completo da montagem usada pela interface > decola, muda para pouso a 300 m e repousa no alvo X=+0 com vento +0 m/s 23866ms
+ ✓ src/cenarios/BancadaBss.test.ts > BSS-006 — voo completo da montagem usada pela interface > decola, muda para pouso a 300 m e repousa no alvo X=34.7 com vento +0 m/s 29384ms
+ ✓ src/cenarios/BancadaBss.test.ts > BSS-006 — voo completo da montagem usada pela interface > decola, muda para pouso a 300 m e repousa no alvo X=-34.7 com vento +0 m/s 27030ms
+ ✓ src/cenarios/BancadaBss.test.ts > BSS-006 — voo completo da montagem usada pela interface > decola, muda para pouso a 300 m e repousa no alvo X=+0 com vento -5 m/s 22280ms
+ ✓ src/cenarios/BancadaBss.test.ts > BSS-006 — voo completo da montagem usada pela interface > decola, muda para pouso a 300 m e repousa no alvo X=+0 com vento 5 m/s 20780ms
+ ✓ src/cenarios/BancadaBss.test.ts > BSS-006 — voo completo da montagem usada pela interface > aguarda no solo sem comando de ignição mesmo com o modo pouso selecionado 356ms
+ ✓ src/cenarios/BancadaBss.test.ts > BSS-006 — voo completo da montagem usada pela interface > a perda elétrica interrompe controle e propulsão e a queda produz dano estrutural real 4488ms
+ ✓ src/cenarios/BancadaBss.test.ts > retoma o PID de atitude ao sair de Pouso e preserva a ignição explícita nas transições 941ms
+ ✓ src/missoes/ReplayMissaoBss006.test.ts > M10-F — diário portátil e replay versionado > reproduz JSON com comandos negados, pausa, retomada, telemetria e eventos exatos 5720ms
+ ✓ src/missoes/ReplayMissaoBss006.test.ts > M10-F — diário portátil e replay versionado > rejeita física/revisão/estado inicial/agenda adulterados antes de executar 49ms
+ ✓ src/missoes/ReplayMissaoBss006.test.ts > M10-F — diário portátil e replay versionado > rejeita entrada sem tipo, não finita ou campo cinemático e conserva snapshot original 7ms
+ ✓ src/missoes/ReplayMissaoBss006.test.ts > reexecuta diário Node de voo completo, incluindo transição e repouso geométrico 57062ms
+ ✓ src/missoes/EnsaioAmerissagem.test.ts > BSS-006: estabilidade passiva na água > tomba por momento do empuxo, sem motor, e preserva massa/estrutura 26729ms
+ ✓ src/missoes/EnsaioAmerissagem.test.ts > BSS-006: estabilidade passiva na água > inclinação inicial oposta gera momento oposto, mantendo montagem comum 5597ms
+ ✓ src/physics/objetos/veiculos/Bss03Missao.test.ts > BSS-03 — decolagem e retorno controlado > sobe, transfere o controle e toca o solo sem romper a estrutura 36504ms
+ ✓ src/cenarios/ControleLateralM3.test.ts > M3 — resposta física lateral e de atitude > reduz deriva com sinal -1, com e sem grid fins 4797ms
+ ✓ src/cenarios/ControleLateralM3.test.ts > M3 — resposta física lateral e de atitude > reduz deriva com sinal 1, com e sem grid fins 4802ms
+ ✓ src/cenarios/ControleLateralM3.test.ts > M3 — resposta física lateral e de atitude > recupera atitude perturbada de sinal -1 sem pico na referência 2002ms
+ ✓ src/cenarios/ControleLateralM3.test.ts > M3 — resposta física lateral e de atitude > recupera atitude perturbada de sinal 1 sem pico na referência 1763ms
+ ✓ src/cenarios/ControleLateralM3.test.ts > M3 — resposta física lateral e de atitude > mantém redução de deriva com vento -5 m/s, massa 700 kg e tanque y=-1 m 2090ms
+ ✓ src/cenarios/ControleLateralM3.test.ts > M3 — resposta física lateral e de atitude > mantém redução de deriva com vento 5 m/s, massa 1800 kg e tanque y=4 m 2031ms
+ ✓ src/cenarios/ControleLateralM3.test.ts > M3 — resposta física lateral e de atitude > freia a deriva e reduz erro observado nos quadrantes alvo=-20 m e vx=-5 m/s 2108ms
+ ✓ src/cenarios/ControleLateralM3.test.ts > M3 — resposta física lateral e de atitude > freia a deriva e reduz erro observado nos quadrantes alvo=-20 m e vx=5 m/s 2090ms
+ ✓ src/cenarios/ControleLateralM3.test.ts > M3 — resposta física lateral e de atitude > freia a deriva e reduz erro observado nos quadrantes alvo=20 m e vx=-5 m/s 2659ms
+ ✓ src/cenarios/ControleLateralM3.test.ts > M3 — resposta física lateral e de atitude > freia a deriva e reduz erro observado nos quadrantes alvo=20 m e vx=5 m/s 2151ms
+ ✓ src/cenarios/ControleLateralM3.test.ts > M3 — resposta física lateral e de atitude > gimbal genérico de descida freia fisicamente a deriva de sinal -1 631ms
+ ✓ src/cenarios/ControleLateralM3.test.ts > M3 — resposta física lateral e de atitude > gimbal genérico de descida freia fisicamente a deriva de sinal 1 588ms
+ ✓ src/cenarios/ControleLateralM3.test.ts > M3 — resposta física lateral e de atitude > respeita saturação e atraso sem esconder autoridade insuficiente 535ms
+ ✓ src/cenarios/ControleLateralM3.test.ts > M3 — resposta física lateral e de atitude > sem empuxo usa somente aerodinâmica; em vácuo explícito não cria correção física 3687ms
+ ✓ src/cenarios/ControleLateralM3.test.ts > M3 — resposta física lateral e de atitude > perda de controle e elétrica limpa autoridade e congela atuação; exige nova ignição 371ms
+ ✓ src/cenarios/ControleLateralM3.test.ts > M3 — resposta física lateral e de atitude > repete exatamente a trajetória com vento e mesmos comandos 1590ms
+ ✓ src/physics/agua/EntradaAquatica.test.ts > Entrada: trabalho resistivo, integridade e cargas dos vínculos > entrada rápida causa dano mensurável em diferentes atitudes, sem colisão rígida 2008ms
+ ✓ src/physics/agua/EntradaAquatica.test.ts > Entrada: trabalho resistivo, integridade e cargas dos vínculos > não danifica apenas por tocar água e não reaplica energia de entrada a cada passo 30ms
+ ✓ src/physics/agua/EntradaAquatica.test.ts > Entrada: trabalho resistivo, integridade e cargas dos vínculos > dano não acrescenta um segundo impulso e energia converge com dt 812ms
+ ✓ src/physics/agua/EntradaAquatica.test.ts > Entrada: trabalho resistivo, integridade e cargas dos vínculos > cargas iguais por massa não rompem vínculo; empuxo desigual produz tração e ruptura 15ms
+ ✓ src/physics/agua/EntradaAquatica.test.ts > Entrada: trabalho resistivo, integridade e cargas dos vínculos > impacto aquático do BSS com empuxo ativo expõe dano e degrada propulsão 16666ms
+ ✓ src/cenarios/TelemetriaMissaoBss.test.ts > M4 — telemetria e reprodução de entradas BSS > informa delta-v ideal e distingue ausência de vazão de Isp zero 39ms
+ ✓ src/cenarios/TelemetriaMissaoBss.test.ts > M4 — telemetria e reprodução de entradas BSS > respeita mistura, massa conectada, ruptura e diagnósticos de falha 9ms
+ ✓ src/cenarios/TelemetriaMissaoBss.test.ts > M4 — telemetria e reprodução de entradas BSS > reproduz voo completo com trace desligado e ligado usando o mesmo diário de entradas 32815ms
+ ✓ src/physics/cenarios/TravaPorta.test.ts > Trava fail-safe da porta > é um Objeto com comportamento de Cilindro e nasce avançada sem energia 182ms
+ ✓ src/physics/cenarios/TravaPorta.test.ts > Trava fail-safe da porta > o comando abrir recua a trava antes de autorizar o movimento da porta 191ms
+ ✓ src/physics/cenarios/TravaPorta.test.ts > Trava fail-safe da porta > sensor de porta aberta avança a trava e ela sustenta a porta sem energia 10376ms
+ ✓ src/physics/cenarios/TravaPorta.test.ts > Trava fail-safe da porta > não sustenta a porta à distância quando perde o encaixe físico 693ms
+ ✓ src/physics/cenarios/TravaPorta.test.ts > Trava fail-safe da porta > comando fechar recua a trava e só depois permite a descida 695ms
+ ✓ src/physics/cenarios/TravaPorta.test.ts > Trava fail-safe da porta > perda de CC durante o recuo aciona o retorno mecânico ao avanço 47ms
+ ✓ src/physics/cenarios/TravaPorta.test.ts > Trava fail-safe da porta > sofre dano acima de 150 °C e falha totalmente a 700 °C 2ms
+ ✓ src/missoes/MissaoAmerissagem.test.ts > M11-G — Missão aquática independente > preserva a missão terrestre e carrega água somente na variante explícita 56ms
+ ✓ src/missoes/MissaoAmerissagem.test.ts > M11-G — Missão aquática independente > observa entrada real, aceita corte, pausa e cria novo ensaio sem resíduo 3307ms
+ ✓ src/missoes/MissaoAmerissagem.test.ts > M11-G — Missão aquática independente > registra configuração/forças aquáticas e reproduz estados e eventos estritamente 5019ms
+ ✓ src/physics/agua/DinamicaAquatica.test.ts > Arrasto distribuído e estabilidade > segue v² e se opõe à translação, com área orientada 14ms
+ ✓ src/physics/agua/DinamicaAquatica.test.ts > Arrasto distribuído e estabilidade > resiste ao giro por forças de velocidade local e dissipa trabalho relativo 3ms
+ ✓ src/physics/agua/DinamicaAquatica.test.ts > Arrasto distribuído e estabilidade > usa corrente física em vez da velocidade absoluta 1ms
+ ✓ src/physics/agua/DinamicaAquatica.test.ts > Arrasto distribuído e estabilidade > centro de empuxo restaura corpo largo e desestabiliza corpo alto, com sinais espelhados 8ms
+ ✓ src/physics/agua/DinamicaAquatica.test.ts > Arrasto distribuído e estabilidade > atinge calado analítico sem ancoragem e preserva massa 6179ms
+ ✓ src/physics/agua/DinamicaAquatica.test.ts > Arrasto distribuído e estabilidade > corpo denso afunda, mesmo tendo empuxo e resistência 359ms
+ ✓ src/physics/agua/DinamicaAquatica.test.ts > Arrasto distribuído e estabilidade > reduz exposição do ar continuamente e elimina arrasto atmosférico submerso 2ms
+ ✓ src/physics/agua/DinamicaAquatica.test.ts > Arrasto distribuído e estabilidade > refina dt sem cortar velocidade e é determinístico 628ms
+ ✓ src/physics/objetos/veiculos/Bss05Missao.test.ts > BSS-005 — capacidade da montagem real com Isp nominal de 350 s > decola e atinge 15 km, registrando a reserva em vez de presumir retorno seguro 10083ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > aplica rajadas programadas no tempo da missão e retorna ao vento base 8ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > rejeita rajadas com duração, início ou componentes inválidos 2ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > aplica gravidade terrestre de modo determinístico 3ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > expõe apoio de superfície resolvido pelo core para cada objeto em contato 4ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > registra impacto rápido sem classificá-lo como apoio estável 3ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > não infere apoio bilateral quando apenas uma sapata alcança o solo 3ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > faz 50 quadrados de massas distintas caírem juntos no vácuo e atingirem o solo 908ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > faz 50 quadrados de massas distintas a 46° caírem e tocarem o solo pela geometria rotacionada 2213ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > rompe apenas os fixadores fracos de 10 grupos de três quadrados até o solo 2421ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > converte força resultante em aceleração conforme a massa instantânea 3ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > mantém a força externa durante todo o avanço com subpasso máximo de 1 s 2ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > mantém a força externa durante todo o avanço com subpasso máximo de 0.016666666666666666 s 4ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > mantém a força externa durante todo o avanço com subpasso máximo de 0.008333333333333333 s 7ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > aplica impulso externo em N.s uma única vez com subpasso máximo de 1 s 2ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > aplica impulso externo em N.s uma única vez com subpasso máximo de 0.016666666666666666 s 7ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > aplica impulso externo em N.s uma única vez com subpasso máximo de 0.008333333333333333 s 10ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > transfere calor convectivo de um jato térmico para objeto no seu cone 2ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > converte dissipação de atrito no solo em calor no objeto e no concreto 7ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > aquece o objeto pela parcela declarada da potência dissipada no arrasto atmosférico 4ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > não inverte o deslocamento de uma bancada rígida quando uma força horizontal baixa é aplicada 714ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > mantém a bancada no concreto enquanto o chumbador suporta o esforço de propulsão 9ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > rompe o chumbador e libera a bancada quando o esforço excede sua resistência 1ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > gera rotação quando uma força é aplicada fora do centro de massa 1ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > subdivide dt grande e mantém o mesmo resultado para a mesma sequência 1ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > registra dano apenas quando o impacto excede a resistência 0ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > resolve colisão frontal com dissipação material e separa os objetos sem encerrar a simulação 2ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > aplica dano de colisão sem interromper a evolução dos objetos 1ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > aplica integridade esperada para resistência de colisão de 100 J 1ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > aplica integridade esperada para resistência de colisão de 150 J 1ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > aplica integridade esperada para resistência de colisão de 200 J 0ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > aplica integridade esperada para resistência de colisão de 400 J 0ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > gera torque em colisão fora do centro de massa de retângulos com base tripla 1ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > devolve impulso ao quadrado e transfere energia para rotação no impacto fora do centro 2ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > reproduz queda livre em vácuo de 10 m dentro da tolerância numérica 47ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > reproduz queda livre em vácuo de 100 m dentro da tolerância numérica 126ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > reproduz queda livre em vácuo de 10000 m dentro da tolerância numérica 488ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > faz cubo rotacionado de 46° tocar o solo pela quina mais baixa 7ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > mantém trajetória de chegada a 45° quando velocidade horizontal e vertical têm mesmo módulo 5ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > faz objeto de maior área frontal cair mais devagar com a mesma massa 45ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > reduz o arrasto com a altitude usando o perfil atmosférico do core em qualquer mundo 1ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > gera torque de tombamento em descida balística quando o arrasto atua abaixo do centro de massa 28ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > resolve impacto contra o solo pelo mesmo modelo de colisão dos objetos 6ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > usa a quina mais baixa da geometria rotacionada no contato com o solo 1ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > reduz deslizamento no solo por atrito de contato 53ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > mostra objeto de 1 kg caindo 50 m e colidindo com solo de concreto 22ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > dissipa os quiques até o objeto de 1 kg entrar em repouso no solo 90ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > mantém dois quadrados de 1 kg inicialmente empilhados ao cair 10 m 1ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > mantém quadrado superior de 0,5 kg apoiado sobre quadrado inferior de 1 kg após queda conjunta de 10 m 1ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > resolve quadrado de 1 kg caindo 10 m sobre outro igual em repouso no solo 1ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > resolve quadrado leve de 0,5 kg caindo 10 m sobre quadrado de 1 kg em repouso no solo 1ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > mantém resposta contínua quando a massa que cai muda de 1 kg para 0,99 kg 523ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > transfere impacto para o segundo elemento de uma pilha de dez quadrados sem vínculos estruturais 313ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > apoia a face inferior de uma parede retangular de 4000 kg no solo 24ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > colide veículo com a face de base de uma parede já tombada 1ms
+ ✓ src/physics/MundoFisico.test.ts > MundoFisico > danifica objeto de 100 kg que cai 50 m contra solo de concreto 13ms
+ ✓ src/veiculos/MontagemBss.test.ts > M10-B — referência física pré-extração (M9-G) > mantém identidade, geometria, massa, energia, consumo, contatos e arbitragem 3039ms
+ ✓ src/veiculos/MontagemBss.test.ts > definição direta e bancada compartilham parâmetros e estados exatos 12ms
+ ✓ src/physics/cenarios/EnsaioPortaVertical.test.ts > Porta vertical — atmosfera padrão, SI, dt máximo 1/240 s > apoia a bateria pela face inferior no solo antes e durante a operação 181ms
+ ✓ src/physics/cenarios/EnsaioPortaVertical.test.ts > Porta vertical — atmosfera padrão, SI, dt máximo 1/240 s > nasce fechada e exige alimentação antes do controle e dos comandos 230ms
+ ✓ src/physics/cenarios/EnsaioPortaVertical.test.ts > Porta vertical — atmosfera padrão, SI, dt máximo 1/240 s > abre, retém contra gravidade e fecha pelos sensores físicos 1494ms
+ ✓ src/physics/cenarios/EnsaioPortaVertical.test.ts > Porta vertical — atmosfera padrão, SI, dt máximo 1/240 s > bloqueia fonte indisponível: {"energiaInicialJ":0} 9ms
+ ✓ src/physics/cenarios/EnsaioPortaVertical.test.ts > Porta vertical — atmosfera padrão, SI, dt máximo 1/240 s > bloqueia fonte indisponível: {"tensaoBateriaV":12} 6ms
+ ✓ src/physics/cenarios/EnsaioPortaVertical.test.ts > Porta vertical — atmosfera padrão, SI, dt máximo 1/240 s > perda de alimentação cancela controle e deixa a porta cair sem congelar a física 399ms
+ ✓ src/physics/cenarios/EnsaioPortaVertical.test.ts > Porta vertical — atmosfera padrão, SI, dt máximo 1/240 s > impacto de fechamento acima da resistência produz dano mensurável 20ms
+ ✓ src/physics/cenarios/EnsaioPortaVertical.test.ts > Porta vertical — atmosfera padrão, SI, dt máximo 1/240 s > dano a 150 °C é progressivo até a fusão a 700 °C na porta e no batente 5ms
+ ✓ src/physics/cenarios/EnsaioPortaVertical.test.ts > Porta vertical — atmosfera padrão, SI, dt máximo 1/240 s > esgotamento da bateria cancela a cadeia no próprio passo, sem partida automática 27ms
+ ✓ src/physics/cenarios/EnsaioPortaVertical.test.ts > Porta vertical — atmosfera padrão, SI, dt máximo 1/240 s > rompe uma guia fraca sob esforço lateral e libera o movimento no mesmo core 5ms
+ ✓ src/physics/cenarios/EnsaioPortaVertical.test.ts > Porta vertical — atmosfera padrão, SI, dt máximo 1/240 s > fixação fraca rompe e o batente deixa de ficar ancorado artificialmente 41ms
+ ✓ src/physics/cenarios/EnsaioPortaVertical.test.ts > Porta vertical — atmosfera padrão, SI, dt máximo 1/240 s > reproduz o mesmo ciclo com os mesmos comandos e subpassos 1446ms
+ ✓ src/physics/cenarios/EnsaioPortaVertical.test.ts > Porta vertical — atmosfera padrão, SI, dt máximo 1/240 s > ignora realimentação forjada pela API de comandos e respeita os sensores reais 10ms
+ ✓ src/physics/cenarios/EnsaioPortaVertical.test.ts > Porta vertical — atmosfera padrão, SI, dt máximo 1/240 s > degrada a força com a integridade e corta a operação quando a porta funde 5ms
+ ✓ src/physics/cenarios/EnsaioPortaVertical.test.ts > Porta vertical — atmosfera padrão, SI, dt máximo 1/240 s > corta a força quando a conexão elétrica executa abrirInterruptor 20ms
+ ✓ src/physics/cenarios/EnsaioPortaVertical.test.ts > Porta vertical — atmosfera padrão, SI, dt máximo 1/240 s > corta a força quando a conexão elétrica executa desconectar 39ms
+ ✓ src/physics/cenarios/EnsaioPortaVertical.test.ts > Porta vertical — atmosfera padrão, SI, dt máximo 1/240 s > corta a força quando a conexão elétrica executa romper 30ms
+ ✓ src/physics/cenarios/EnsaioPortaVertical.test.ts > Porta vertical — atmosfera padrão, SI, dt máximo 1/240 s > não levanta a porta quando a conexão não entrega potência suficiente: {"correnteMaximaA":0.1} 32ms
+ ✓ src/physics/cenarios/EnsaioPortaVertical.test.ts > Porta vertical — atmosfera padrão, SI, dt máximo 1/240 s > não levanta a porta quando a conexão não entrega potência suficiente: {"resistenciaCaboOhm":100} 30ms
+ ✓ src/physics/objetos/veiculos/Bss04Missao.test.ts > BSS-004 — pouso automático fuzzy-PID > mantém o gimbal ativo, amortece a deriva horizontal e pousa suavemente 4127ms
+ ✓ src/missoes/MissaoBss006.test.ts > M10-D — primeira missão independente > nasce na plataforma esférica, separa início de ignição e recusa permissivos inválidos 1282ms
+ ✓ src/missoes/MissaoBss006.test.ts > M10-D — primeira missão independente > aciona forças reais, pausa sem consumo e reinicializa por definição sem estado residual 1801ms
+ ✓ src/missoes/MissaoBss006.test.ts > M10-D — primeira missão independente > snapshots e eventos não oferecem acesso mutável à instância física 13ms
+ ✓ src/missoes/MissaoBss006.test.ts > M10-D — primeira missão independente > configuração local em outro ponto da Terra usa geometria/atitude radial e valida entradas 9ms
+ ✓ src/missoes/MissaoBss006.test.ts > permite outro plano identificado usando o mesmo veículo e executor 13ms
+ ✓ src/physics/cenarios/PortaComPotenciaCA.test.ts > Porta com comando CC e potência CA — SI, atmosfera padrão, dt ≤ 1/240 s > CC sozinho alimenta o controle e não move a carga; CA sozinho não fecha K1 112ms
+ ✓ src/physics/cenarios/PortaComPotenciaCA.test.ts > Porta com comando CC e potência CA — SI, atmosfera padrão, dt ≤ 1/240 s > abre e fecha com energia do gerador e consumo independente de comando 2162ms
+ ✓ src/physics/cenarios/PortaComPotenciaCA.test.ts > Porta com comando CC e potência CA — SI, atmosfera padrão, dt ≤ 1/240 s > perda de cc corta potência sem retorno automático 46ms
+ ✓ src/physics/cenarios/PortaComPotenciaCA.test.ts > Porta com comando CC e potência CA — SI, atmosfera padrão, dt ≤ 1/240 s > perda de ca corta potência sem retorno automático 120ms
+ ✓ src/physics/cenarios/PortaComPotenciaCA.test.ts > Porta com comando CC e potência CA — SI, atmosfera padrão, dt ≤ 1/240 s > perda de gerador corta potência sem retorno automático 67ms
+ ✓ src/physics/cenarios/PortaComPotenciaCA.test.ts > Porta com comando CC e potência CA — SI, atmosfera padrão, dt ≤ 1/240 s > ruptura de cc interrompe a cadeia 35ms
+ ✓ src/physics/cenarios/PortaComPotenciaCA.test.ts > Porta com comando CC e potência CA — SI, atmosfera padrão, dt ≤ 1/240 s > ruptura de ca interrompe a cadeia 38ms
+ ✓ src/physics/cenarios/PortaComPotenciaCA.test.ts > Porta com comando CC e potência CA — SI, atmosfera padrão, dt ≤ 1/240 s > limitação de corrente CC derruba bobina, sem usar energia CA para sustentar o controle 17ms
+ ✓ src/physics/cenarios/PortaComPotenciaCA.test.ts > Porta com comando CC e potência CA — SI, atmosfera padrão, dt ≤ 1/240 s > limitação de potência CA não aumenta o consumo CC 59ms
+ ✓ src/physics/cenarios/PortaComPotenciaCA.test.ts > Porta com comando CC e potência CA — SI, atmosfera padrão, dt ≤ 1/240 s > gerador degrada acima de 125 °C e falha a 180 °C sem representar fusão 4ms
+ ✓ src/physics/cenarios/PortaComPotenciaCA.test.ts > Porta com comando CC e potência CA — SI, atmosfera padrão, dt ≤ 1/240 s > orçamento do gerador é compartilhado e as perdas conservam energia 1ms
+ ✓ src/physics/cenarios/PortaComPotenciaCA.test.ts > Porta com comando CC e potência CA — SI, atmosfera padrão, dt ≤ 1/240 s > repete estados e consumos com a mesma sequência 451ms
+ ✓ src/physics/ambiente/DinamicaOrbital.test.ts > M9-C — dois corpos inertes em vácuo explícito > projeções e transformações são consistentes em todo o plano e a vertical móvel tem taxa própria 9ms
+ ✓ src/physics/ambiente/DinamicaOrbital.test.ts > M9-C — dois corpos inertes em vácuo explícito > órbita circular de 400 km: 3 voltas, convergência e repetição determinística 2285ms
+ ✓ src/physics/ambiente/DinamicaOrbital.test.ts > M9-C — dois corpos inertes em vácuo explícito > elipse e=0,1 conserva energia/momento e reproduz apsides e período de Kepler 245ms
+ ✓ src/physics/ambiente/DinamicaOrbital.test.ts > M9-C — dois corpos inertes em vácuo explícito > queda radial independe de massa e conserva energia sem apoio artificial 10ms
+ ✓ src/physics/ambiente/DinamicaOrbital.test.ts > M9-C — dois corpos inertes em vácuo explícito > limite de escape: fator 0.99 13ms
+ ✓ src/physics/ambiente/DinamicaOrbital.test.ts > M9-C — dois corpos inertes em vácuo explícito > limite de escape: fator 1 13ms
+ ✓ src/physics/ambiente/DinamicaOrbital.test.ts > M9-C — dois corpos inertes em vácuo explícito > limite de escape: fator 1.01 12ms
+ ✓ src/physics/ambiente/DinamicaOrbital.test.ts > M9-C — dois corpos inertes em vácuo explícito > ilha recebe gravidade e ruptura libera módulos mantendo dinâmica central 5ms
+ ✓ src/physics/ambiente/DinamicaOrbital.test.ts > M9-C — dois corpos inertes em vácuo explícito > rejeita corpos e comandos fora de XY 2ms
+ ✓ src/physics/ambiente/DinamicaOrbital.test.ts > M9-C — dois corpos inertes em vácuo explícito > exporta evidências somente quando solicitado 0ms
+ × src/physics/agua/QualificacaoAquatica.test.ts > M11-H — Referências analíticas e limites do meio > volume interno declarado zero não aplica cargas nem produz NaN durante imersão e giro 46ms
+   → Escalar deve ser finito.
+ ✓ src/physics/agua/QualificacaoAquatica.test.ts > M11-H — Referências analíticas e limites do meio > corpo neutro totalmente imerso permanece em equilíbrio sem deriva cinemática 546ms
+ ✓ src/physics/agua/QualificacaoAquatica.test.ts > M11-H — Referências analíticas e limites do meio > apoio no fundo não aprova flutuação mesmo quando empuxo fica a menos de 2% do peso 1390ms
+ ✓ src/physics/agua/QualificacaoAquatica.test.ts > M11-H — Referências analíticas e limites do meio > rejeita objeto sem geometria aquática em vez de pressupor volume/arrasto 3ms
+ ✓ src/physics/agua/QualificacaoAquatica.test.ts > M11-H — Referências analíticas e limites do meio > recorta costa pelo volume inteiro, inclusive quando centro está em terra 2ms
+ ✓ src/physics/agua/QualificacaoAquatica.test.ts > M11-H — Referências analíticas e limites do meio > momento de pequena inclinação concorda com metacentro analítico a 1% 1ms
+ ✓ src/physics/agua/QualificacaoAquatica.test.ts > M11-H — Referências analíticas e limites do meio > velocidade terminal de corpo denso concorda com equilíbrio de forças a 2% 433ms
+ ✓ src/physics/agua/QualificacaoAquatica.test.ts > M11-H — Referências analíticas e limites do meio > rotação passiva totalmente imersa não ganha energia cinética 76ms
+ ✓ src/physics/objetos/veiculos/VeiculoTerrestre.test.ts > VeiculoTerrestre > posiciona as rodas para tocar o solo por tangência, não pelo centro de massa 5ms
+ ✓ src/physics/objetos/veiculos/VeiculoTerrestre.test.ts > VeiculoTerrestre > apoia o chassi no solo quando o veículo está de cabeça para baixo, sem atravessá-lo 8ms
+ ✓ src/physics/objetos/veiculos/VeiculoTerrestre.test.ts > VeiculoTerrestre > não produz tração nem frenagem quando está invertido e apoiado somente pelo chassi 45ms
+ ✓ src/physics/objetos/veiculos/VeiculoTerrestre.test.ts > VeiculoTerrestre > acelera horizontalmente pela tração das rodas sem alterar estado cinemático diretamente 56ms
+ ✓ src/physics/objetos/veiculos/VeiculoTerrestre.test.ts > VeiculoTerrestre > freia reduzindo a velocidade horizontal por força oposta ao movimento 42ms
+ ✓ src/physics/objetos/veiculos/VeiculoTerrestre.test.ts > VeiculoTerrestre > colide com parede retangular de 4000 kg e transfere-lhe movimento 295ms
+ ✓ src/physics/objetos/veiculos/VeiculoTerrestre.test.ts > VeiculoTerrestre > acelera contra uma rampa triangular reta inclinada a 30 graus partindo de 0 m/s 298ms
+ ✓ src/physics/objetos/veiculos/VeiculoTerrestre.test.ts > VeiculoTerrestre > acelera contra uma rampa triangular reta inclinada a 30 graus partindo de 5 m/s 292ms
+ ✓ src/physics/objetos/veiculos/VeiculoTerrestre.test.ts > VeiculoTerrestre > acelera contra uma rampa triangular reta inclinada a 30 graus partindo de 10 m/s 192ms
+ ✓ src/physics/objetos/veiculos/VeiculoTerrestre.test.ts > VeiculoTerrestre > acelera contra uma rampa triangular reta inclinada a 30 graus partindo de 20 m/s 226ms
+ ✓ src/physics/objetos/propulsao/PropulsaoQuimica.test.ts > Propulsão química idealizada — montagem real BSS-005 > fecha empuxo, Isp e perda de massa com throttle 0 43ms
+ ✓ src/physics/objetos/propulsao/PropulsaoQuimica.test.ts > Propulsão química idealizada — montagem real BSS-005 > fecha empuxo, Isp e perda de massa com throttle 0.5 11ms
+ ✓ src/physics/objetos/propulsao/PropulsaoQuimica.test.ts > Propulsão química idealizada — montagem real BSS-005 > fecha empuxo, Isp e perda de massa com throttle 1 6ms
+ ✓ src/physics/objetos/propulsao/PropulsaoQuimica.test.ts > Propulsão química idealizada — montagem real BSS-005 > preserva unidades e balanço com dt = 0.004166666666666667 s 5ms
+ ✓ src/physics/objetos/propulsao/PropulsaoQuimica.test.ts > Propulsão química idealizada — montagem real BSS-005 > preserva unidades e balanço com dt = 0.0020833333333333333 s 6ms
+ ✓ src/physics/objetos/propulsao/PropulsaoQuimica.test.ts > Propulsão química idealizada — montagem real BSS-005 > reduz empuxo uma vez por dano, mantendo o consumo real 7ms
+ ✓ src/physics/objetos/propulsao/PropulsaoQuimica.test.ts > Propulsão química idealizada — montagem real BSS-005 > interrompe a alimentação conjunta quando falta metano 10ms
+ ✓ src/physics/objetos/propulsao/PropulsaoQuimica.test.ts > Propulsão química idealizada — montagem real BSS-005 > interrompe a alimentação conjunta quando falta oxidante 7ms
+ ✓ src/physics/objetos/propulsao/PropulsaoQuimica.test.ts > Propulsão química idealizada — montagem real BSS-005 > limita os dois fluxos pela reserva restante e contabiliza o último pulso parcial 13ms
+ ✓ src/physics/objetos/propulsao/PropulsaoQuimica.test.ts > Propulsão química idealizada — montagem real BSS-005 > partilha a energia disponível entre bombas sem alterar a mistura 12ms
+ ✓ src/physics/objetos/propulsao/PropulsaoQuimica.test.ts > Propulsão química idealizada — montagem real BSS-005 > contabiliza o último pulso elétrico parcial e bloqueia o passo seguinte 3ms
+ ✓ src/physics/objetos/propulsao/PropulsaoQuimica.test.ts > Propulsão química idealizada — montagem real BSS-005 > rejeita uma configuração química cujo empuxo não fecha com Isp e vazão 4ms
+ ✓ src/physics/objetos/propulsao/PropulsaoQuimica.test.ts > Propulsão química idealizada — montagem real BSS-005 > produz dano mensurável ao acelerar por empuxo contra uma barreira física 913ms
+ ✓ src/physics/objetos/propulsao/PropulsaoQuimica.test.ts > Propulsão química idealizada — montagem real BSS-005 > não gera empuxo nem consumo sem ignicao 3ms
+ ✓ src/physics/objetos/propulsao/PropulsaoQuimica.test.ts > Propulsão química idealizada — montagem real BSS-005 > não gera empuxo nem consumo sem controle 2ms
+ ✓ src/physics/objetos/propulsao/PropulsaoQuimica.test.ts > Propulsão química idealizada — montagem real BSS-005 > não gera empuxo nem consumo sem eletrica 2ms
+ ✓ src/physics/objetos/propulsao/PropulsaoQuimica.test.ts > Propulsão química idealizada — montagem real BSS-005 > não gera empuxo nem consumo sem integridade 3ms
+ ✓ src/physics/objetos/propulsao/PropulsaoQuimica.test.ts > Propulsão química idealizada — montagem real BSS-005 > limpa as leituras de fluxo ao zerar o throttle 6ms
+ ✓ src/physics/objetos/propulsao/PropulsaoQuimica.test.ts > Bocal químico e combustão > rejeita mistura incorreta e não aplica empuxo a material sem reação 1ms
+ ✓ src/physics/objetos/propulsao/PropulsaoQuimica.test.ts > Bocal químico e combustão > rejeita Isp inválido 0 1ms
+ ✓ src/physics/objetos/propulsao/PropulsaoQuimica.test.ts > Bocal químico e combustão > rejeita Isp inválido -1 0ms
+ ✓ src/physics/objetos/propulsao/PropulsaoQuimica.test.ts > Bocal químico e combustão > rejeita Isp inválido NaN 0ms
+ ✓ src/physics/objetos/propulsao/PropulsaoQuimica.test.ts > Bocal químico e combustão > rejeita Isp inválido Infinity 0ms
+ ✓ src/physics/objetos/propulsao/PropulsaoQuimica.test.ts > Bocal químico e combustão > exige dt válido para converter massa em vazão 1ms
+ ✓ src/physics/ambiente/SuperficieAtmosferaM9.test.ts > M9-D — altitude radial, superfície e atmosfera compartilhadas > preserva perfil M4 até 20km em qualquer posição e usa transição explícita ao vácuo 7ms
+ ✓ src/physics/ambiente/SuperficieAtmosferaM9.test.ts > M9-D — altitude radial, superfície e atmosfera compartilhadas > contato/repouso usa normal radial em phi=0 189ms
+ ✓ src/physics/ambiente/SuperficieAtmosferaM9.test.ts > M9-D — altitude radial, superfície e atmosfera compartilhadas > contato/repouso usa normal radial em phi=0.3 188ms
+ ✓ src/physics/ambiente/SuperficieAtmosferaM9.test.ts > M9-D — altitude radial, superfície e atmosfera compartilhadas > contato/repouso usa normal radial em phi=1.5707963267948966 133ms
+ ✓ src/physics/ambiente/SuperficieAtmosferaM9.test.ts > M9-D — altitude radial, superfície e atmosfera compartilhadas > contato/repouso usa normal radial em phi=3.141592653589793 95ms
+ ✓ src/physics/ambiente/SuperficieAtmosferaM9.test.ts > M9-D — altitude radial, superfície e atmosfera compartilhadas > contato/repouso usa normal radial em phi=-1.5707963267948966 73ms
+ ✓ src/physics/ambiente/SuperficieAtmosferaM9.test.ts > M9-D — altitude radial, superfície e atmosfera compartilhadas > vácuo radial elimina arrasto e convecção, mantendo o corpo no core 2ms
+ ✓ src/physics/ambiente/SuperficieAtmosferaM9.test.ts > M9-D — altitude radial, superfície e atmosfera compartilhadas > impacto excessivo produz dano e preserva primeiro impulso quando rompe a ilha 9ms
+ ✓ src/physics/ambiente/SuperficieAtmosferaM9.test.ts > M9-D — altitude radial, superfície e atmosfera compartilhadas > plataforma finita orientada funciona e não intercepta objeto fora da extensão 8ms
+ ✓ src/physics/ambiente/SuperficieAtmosferaM9.test.ts > M9-D — altitude radial, superfície e atmosfera compartilhadas > ilha mantém apoio bilateral e atrito radial em phi=0 166ms
+ ✓ src/physics/ambiente/SuperficieAtmosferaM9.test.ts > M9-D — altitude radial, superfície e atmosfera compartilhadas > ilha mantém apoio bilateral e atrito radial em phi=1.5707963267948966 116ms
+ ✓ src/physics/ambiente/SuperficieAtmosferaM9.test.ts > M9-D — altitude radial, superfície e atmosfera compartilhadas > proximidade sem impulso permanece distinta de sustentação 1ms
+ ✓ src/physics/ambiente/SuperficieAtmosferaM9.test.ts > M9-D — altitude radial, superfície e atmosfera compartilhadas > switch de contato observa superfície radial e fundação permanece estática 7ms
+ ✓ src/physics/ambiente/SensoresControleM9.test.ts > M9-E — sensores e controles recebem geometria compartilhada > GPS e nível em phi=0 preservam leituras locais 8ms
+ ✓ src/physics/ambiente/SensoresControleM9.test.ts > M9-E — sensores e controles recebem geometria compartilhada > GPS e nível em phi=0.3 preservam leituras locais 1ms
+ ✓ src/physics/ambiente/SensoresControleM9.test.ts > M9-E — sensores e controles recebem geometria compartilhada > GPS e nível em phi=1.5707963267948966 preservam leituras locais 1ms
+ ✓ src/physics/ambiente/SensoresControleM9.test.ts > M9-E — sensores e controles recebem geometria compartilhada > GPS e nível em phi=3.141592653589793 preservam leituras locais 1ms
+ ✓ src/physics/ambiente/SensoresControleM9.test.ts > M9-E — sensores e controles recebem geometria compartilhada > GPS e nível em phi=-1.5707963267948966 preservam leituras locais 1ms
+ ✓ src/physics/ambiente/SensoresControleM9.test.ts > M9-E — sensores e controles recebem geometria compartilhada > congelamento persiste além da janela de histórico de 60 s 379ms
+ ✓ src/physics/ambiente/SensoresControleM9.test.ts > M9-E — sensores e controles recebem geometria compartilhada > PID em dois sítios distintos produz a mesma solicitação local 4ms
+ ✓ src/physics/ambiente/SensoresControleM9.test.ts > M9-E — sensores e controles recebem geometria compartilhada > congelamento/atraso/desvio em ambiente central conservam física e idade 9ms
+ ✓ src/physics/ambiente/SensoresControleM9.test.ts > M9-E — sensores e controles recebem geometria compartilhada > montagem a 90° conserva conexões/partida/autoridade e altitude de lançamento 624ms
+ ✓ src/physics/ambiente/SensoresControleM9.test.ts > M9-E — sensores e controles recebem geometria compartilhada > replay aceita somente o modelo físico registrado e identifica diários históricos 20ms
+ ✓ src/physics/objetos/veiculos/VeiculoComposto.test.ts > VeiculoComposto > exige massa estrutural positiva para o corpo central físico 5ms
+ ✓ src/physics/objetos/veiculos/VeiculoComposto.test.ts > VeiculoComposto > coordena dois propulsores simétricos sem criar rotação artificial no conjunto 129ms
+ ✓ src/physics/objetos/veiculos/VeiculoComposto.test.ts > VeiculoComposto > preserva a subida quando a massa de propelente altera o centro de massa 734ms
+ ✓ src/physics/objetos/veiculos/VeiculoComposto.test.ts > VeiculoComposto > expõe instrumentação do casco a partir do GPS e do sensor de nível 4ms
+ ✓ src/physics/objetos/veiculos/VeiculoComposto.test.ts > VeiculoComposto > usa sensores e propulsores reais para frear uma descida pelo controle de pouso 206ms
+ ✓ src/physics/objetos/veiculos/VeiculoComposto.test.ts > VeiculoComposto > remove módulo rompido da massa e do centro de massa do conjunto 10ms
+ ✓ src/physics/ambiente/GeografiaCosteira.test.ts > Costa radial e fundo real > mantém praia, normal e projeção em 0 m 6ms
+ ✓ src/physics/ambiente/GeografiaCosteira.test.ts > Costa radial e fundo real > mantém praia, normal e projeção em 1000000 m 2ms
+ ✓ src/physics/ambiente/GeografiaCosteira.test.ts > Costa radial e fundo real > cruza nível do mar sem contato rígido, mas encontra terra e fundo 863ms
+ ✓ src/physics/ambiente/GeografiaCosteira.test.ts > Costa radial e fundo real > inclui a quebra da costa quando um corpo abrange terra e água 2ms
+ ✓ src/physics/objetos/veiculos/VeiculoAlado.test.ts > VeiculoAlado > gera sustentação positiva a partir de velocidade horizontal relativa ao ar 5ms
+ ✓ src/physics/objetos/veiculos/VeiculoAlado.test.ts > VeiculoAlado > não gera sustentação após estol por ângulo de ataque excessivo 1ms
+ ✓ src/physics/objetos/veiculos/VeiculoAlado.test.ts > VeiculoAlado > corta a tração ao ultrapassar 1 m, retorna ao solo e freia pelas rodas 1754ms
+ ✓ src/missoes/ArquiteturaMissao.test.ts > grafo transitivo do domínio não depende de bancada, apresentação ou APIs externas 894ms
+ ✓ src/physics/conexoes/FixadorEstrutural.test.ts > FixadorEstrutural > mantém veículo e propulsor como conjunto quando suporta o empuxo 207ms
+ ✓ src/physics/conexoes/FixadorEstrutural.test.ts > FixadorEstrutural > rompe antes de transmitir empuxo acima da resistência declarada 32ms
+ ✓ src/physics/conexoes/FixadorEstrutural.test.ts > FixadorEstrutural > converte força fora do centro de massa em rotação comum do conjunto 3ms
+ ✓ src/physics/conexoes/FixadorEstrutural.test.ts > FixadorEstrutural > transmite a massa do conjunto para o dano quando uma peça toca o solo 2ms
+ ✓ src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts > ControladorAletasAerodinamicas > amortece a rotação após o corte do motor usando o fluxo atmosférico 474ms
+ ✓ src/physics/objetos/propulsao/Propulsor.test.ts > Propulsor > declara tensão nominal padrão, que pode ser configurada e valida em volts 8ms
+ ✓ src/physics/objetos/propulsao/Propulsor.test.ts > Propulsor > sem fonte elétrica conectada não liga, não ignita nem produz empuxo 6ms
+ ✓ src/physics/objetos/propulsao/Propulsor.test.ts > Propulsor > não gera potência térmica nem jato sem ignição e empuxo efetivos 1ms
+ ✓ src/physics/objetos/propulsao/Propulsor.test.ts > Propulsor > consome a carga finita da bateria e corta o empuxo quando ela descarrega 3ms
+ ✓ src/physics/objetos/propulsao/Propulsor.test.ts > Propulsor > rejeita bateria de tensão incompatível e rompe o cabo quando ela se afasta 2ms
+ ✓ src/physics/objetos/propulsao/Propulsor.test.ts > Propulsor > gera empuxo proporcional ao throttle de 0.25 2ms
+ ✓ src/physics/objetos/propulsao/Propulsor.test.ts > Propulsor > gera empuxo proporcional ao throttle de 0.5 2ms
+ ✓ src/physics/objetos/propulsao/Propulsor.test.ts > Propulsor > gera empuxo proporcional ao throttle de 1 2ms
+ ✓ src/physics/objetos/propulsao/Propulsor.test.ts > Propulsor > não gera empuxo sem propelente ou com sistema obrigatório em falha 3ms
+ ✓ src/physics/objetos/propulsao/Propulsor.test.ts > Propulsor > rompe a mangueira de 10 m e interrompe o empuxo quando o propulsor se afasta do tanque 1ms
+ ✓ src/physics/objetos/propulsao/Propulsor.test.ts > Propulsor > exige a sequência elétrica, hidráulica, combustível, controle e ignição 1ms
+ ✓ src/physics/objetos/propulsao/Propulsor.test.ts > Propulsor > não permite ligar hidráulico sem elétrica e exige nova ignição após uma falha 2ms
+ ✓ src/physics/objetos/propulsao/Propulsor.test.ts > Propulsor > empurra uma parede de 10000 kg por contato, sem qualquer fixação 133ms
+ ✓ src/physics/objetos/propulsao/Propulsor.test.ts > Propulsor > sofre dano estrutural ao atingir uma barreira após acelerar por empuxo 98ms
+ ✓ src/physics/objetos/propulsao/Propulsor.test.ts > Propulsor > perde eficiência progressivamente por dano e falha ao perder toda integridade 4ms
+ ✓ src/physics/objetos/propulsao/Propulsor.test.ts > Propulsor > move um veículo passivo por atrito quando está apenas apoiado sobre ele 234ms
+ ✓ src/physics/objetos/propulsao/Propulsor.test.ts > Propulsor > desliza uma bancada sem fundação quando o empuxo supera o atrito com o concreto 716ms
+ ✓ src/physics/objetos/propulsao/Propulsor.test.ts > Propulsor > corta ignição, combustível e empuxo pela conexão elétrica: abrirInterruptor 12ms
+ ✓ src/physics/objetos/propulsao/Propulsor.test.ts > Propulsor > corta ignição, combustível e empuxo pela conexão elétrica: desconectar 1ms
+ ✓ src/physics/objetos/propulsao/Propulsor.test.ts > Propulsor > corta ignição, combustível e empuxo pela conexão elétrica: romper 10ms
+ ✓ src/physics/objetos/propulsao/Propulsor.test.ts > Propulsor > rompe o cabo por alcance mesmo com o propulsor desligado 2ms
+ ✓ src/cenarios/ReproducaoDiarioBss005.test.ts > replay de diário manual BSS-005 > reaplica comandos pelos métodos públicos e reproduz massa e estado determinísticos 298ms
+ ✓ src/cenarios/ReproducaoDiarioBss005.test.ts > replay de diário manual BSS-005 > rejeita diário de outra montagem antes de avançar o core 12ms
+ ✓ src/cenarios/ReproducaoDiarioBss005.test.ts > replay de diário manual BSS-005 > rejeita diário com estado físico inicial diferente da montagem atual 4ms
+ ✓ src/cenarios/ReproducaoDiarioBss005.test.ts > replay de diário manual BSS-005 > rejeita diário sem fotografia do estado inicial 6ms
+ ✓ src/cenarios/ReproducaoDiarioBss005.test.ts > replay de diário manual BSS-005 > falha claramente quando o diário contém uma ação ainda não suportada 76ms
+ ✓ src/physics/cenarios/ConjuntoPortaBatente.test.ts > Conjunto composto da porta e do batente > agrupa os corpos físicos sem duplicar a porta ou suas peças 19ms
+ ✓ src/physics/cenarios/ConjuntoPortaBatente.test.ts > Conjunto composto da porta e do batente > corta a força real quando o batente perde a fundação, embora o comando permaneça solicitado 189ms
+ ✓ src/physics/cenarios/ConjuntoPortaBatente.test.ts > Conjunto composto da porta e do batente > destruir qualquer peça do batente invalida o caminho de reação do cilindro 11ms
+ ✓ src/physics/cenarios/ConjuntoPortaBatente.test.ts > Conjunto composto da porta e do batente > rompimento da guia também elimina a reação necessária ao movimento 5ms
+ ✓ src/physics/ambiente/BaseMissoesM9.test.ts > M9-G — interfaces para ensaios suborbitais/orbitais e separação futura > estado inicial local é transformado uma vez e recupera grandezas operacionais 7ms
+ ✓ src/physics/ambiente/BaseMissoesM9.test.ts > M9-G — interfaces para ensaios suborbitais/orbitais e separação futura > liberação sem impulso preserva estados, remove massa do agregado e libera dois corpos no mesmo core 23ms
+ ✓ src/physics/ambiente/BaseMissoesM9.test.ts > M9-G — interfaces para ensaios suborbitais/orbitais e separação futura > demonstração circular usa corpo inerte e mantém o snapshot inicial 83ms
+ ✓ src/physics/ambiente/BaseMissoesM9.test.ts > M9-G — interfaces para ensaios suborbitais/orbitais e separação futura > demonstração eliptica usa corpo inerte e mantém o snapshot inicial 72ms
+ ✓ src/physics/ambiente/BaseMissoesM9.test.ts > M9-G — interfaces para ensaios suborbitais/orbitais e separação futura > telemetria orbital também rejeita vetores fora do plano 4ms
+ ✓ src/physics/ambiente/BaseMissoesM9.test.ts > M9-G — interfaces para ensaios suborbitais/orbitais e separação futura > API central rejeita solo global plano e vento fora de XY 2ms
+ ✓ src/physics/ambiente/BaseMissoesM9.test.ts > M9-G — interfaces para ensaios suborbitais/orbitais e separação futura > consulta otimizada do plano mantém igualdade exata em theta=0 1ms
+ ✓ src/physics/ambiente/BaseMissoesM9.test.ts > M9-G — interfaces para ensaios suborbitais/orbitais e separação futura > consulta otimizada do plano mantém igualdade exata em theta=0.3 1ms
+ ✓ src/physics/ambiente/BaseMissoesM9.test.ts > M9-G — interfaces para ensaios suborbitais/orbitais e separação futura > consulta otimizada do plano mantém igualdade exata em theta=1.5707963267948966 1ms
+ ✓ src/physics/ambiente/BaseMissoesM9.test.ts > M9-G — interfaces para ensaios suborbitais/orbitais e separação futura > consulta otimizada do plano mantém igualdade exata em theta=3.141592653589793 1ms
+ ✓ src/physics/ambiente/BaseMissoesM9.test.ts > M9-G — interfaces para ensaios suborbitais/orbitais e separação futura > câmera round-trip não altera o mundo e respeita Y físico positivo 2ms
+ ✓ src/physics/objetos/componentes/Paraquedas.test.ts > Paraquedas > compõe a massa do objeto e perde a capacidade de abertura ao exceder sua resistência 6ms
+ ✓ src/physics/objetos/componentes/Paraquedas.test.ts > Paraquedas > aumenta o arrasto efetivo e reduz a velocidade vertical de queda quando aberto 94ms
+ ✓ src/physics/objetos/componentes/Paraquedas.test.ts > Paraquedas > produz o mesmo arrasto com o estágio rotacionado quando o fluxo de ar é o mesmo 24ms
+ ✓ src/physics/objetos/componentes/Paraquedas.test.ts > Paraquedas > desacelera horizontalmente um veículo quando o paraquedas abre em atmosfera 79ms
+ ✓ src/physics/solucionadores/AerodinamicaM6.test.ts > M6 — projeção aerodinâmica do veículo completo > aumenta a área projetada do casco tombado usando a mesma calibração de face de referência 9ms
+ ✓ src/physics/solucionadores/AerodinamicaM6.test.ts > M6 — projeção aerodinâmica do veículo completo > aplica arrasto no centro de pressão orientado e transmite torque ao core 5ms
+ ✓ src/physics/solucionadores/AerodinamicaM6.test.ts > M6 — projeção aerodinâmica do veículo completo > transmite o momento aerodinâmico ao conjunto estrutural rígido 5ms
+ ✓ src/physics/solucionadores/AerodinamicaM6.test.ts > M6 — projeção aerodinâmica do veículo completo > compara queda longitudinal, lateral e girando sob a mesma massa e atmosfera 108ms
+ ✓ src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts > ControladorGuiaPousoBss06 > comanda torque coordenado no gimbal e nas grid fins para inclinar em direção ao alvo 7ms
+ ✓ src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts > ControladorGuiaPousoBss06 > freia uma deriva para a direita quando o alvo permanece no ponto de origem 1ms
+ ✓ src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts > ControladorGuiaPousoBss06 > reduz a deflexão de guia quando a pressão dinâmica cresce 1ms
+ ✓ src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts > ControladorGuiaPousoBss06 > produz aceleração física na direção do alvo usando as grid fins 165ms
+ ✓ src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts > ControladorGuiaPousoBss06 > não aceita os comandos sem a cadeia elétrica e de controle autorizada 8ms
+ ✓ src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts > ControladorGuiaPousoBss06 > mantém a atitude-alvo contínua quando o empuxo é cortado durante a descida 5ms
+ ✓ src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts > guiagem — autoridade, sinais e transições > corrige atitude e deriva de sinal -1, e não escreve no motor 2ms
+ ✓ src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts > guiagem — autoridade, sinais e transições > corrige atitude e deriva de sinal 1, e não escreve no motor 1ms
+ ✓ src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts > guiagem — autoridade, sinais e transições > valida os quadrantes x=-100 e vx=-5 2ms
+ ✓ src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts > guiagem — autoridade, sinais e transições > valida os quadrantes x=-100 e vx=5 2ms
+ ✓ src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts > guiagem — autoridade, sinais e transições > valida os quadrantes x=100 e vx=-5 1ms
+ ✓ src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts > guiagem — autoridade, sinais e transições > valida os quadrantes x=100 e vx=5 1ms
+ ✓ src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts > guiagem — autoridade, sinais e transições > cede o gimbal na subida, no apogeu e ao voltar para decolagem, neutralizando as aletas 5ms
+ ✓ src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts > guiagem — autoridade, sinais e transições > usa densidade local e fluxo relativo para q e expõe saturação sem inventar empuxo 2ms
+ ✓ src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts > guiagem — compensação de forças e torque reais > equilibra o torque no braço inferior e conserva a direção desejada do empuxo 1ms
+ ✓ src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts > MotorEletricoRotacional > gira a haste pela junta quando recebe energia e comando angular 57ms
+ ✓ src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts > MotorEletricoRotacional > mantem a posicao inicial travada ate receber comando de movimento 48ms
+ ✓ src/physics/objetos/veiculos/Bss04PernasFixas.test.ts > BSS-04 — pernas fixas > apoia nas duas sapatas ao tocar a 0.2 m/s 208ms
+ ✓ src/physics/objetos/veiculos/Bss04PernasFixas.test.ts > BSS-04 — pernas fixas > apoia nas duas sapatas ao tocar a 0.7 m/s 118ms
+ ✓ src/physics/objetos/componentes/AletaAerodinamica.test.ts > AletaAerodinamica > limita curso e velocidade do atuador, e produz força lateral somente em fluxo atmosférico 9ms
+ ✓ src/physics/objetos/componentes/AletaAerodinamica.test.ts > AletaAerodinamica > não move sem alimentação no circuito ou sem permissivo do sistema elétrico 2ms
+ ✓ src/physics/objetos/componentes/AletaAerodinamica.test.ts > aleta — força líquida no core > contabiliza um único arrasto e sustentação em deflexão -0.1 rad 101ms
+ ✓ src/physics/objetos/componentes/AletaAerodinamica.test.ts > aleta — força líquida no core > contabiliza um único arrasto e sustentação em deflexão 0 rad 4ms
+ ✓ src/physics/objetos/componentes/AletaAerodinamica.test.ts > aleta — força líquida no core > contabiliza um único arrasto e sustentação em deflexão 0.1 rad 2ms
+ ✓ src/physics/objetos/componentes/AletaAerodinamica.test.ts > aleta — força líquida no core > não produz força com fluxo nulo ou vácuo e mantém sustentação perpendicular ao vento relativo 2ms
+ ✓ src/visualizacao/ConexoesEletricas.test.ts > Conexões elétricas de fontes expostas > mantém cabos renderizados no estado energizada, sem alterar energia ou movimento 25ms
+ ✓ src/visualizacao/ConexoesEletricas.test.ts > Conexões elétricas de fontes expostas > mantém cabos renderizados no estado desligada, sem alterar energia ou movimento 3ms
+ ✓ src/visualizacao/ConexoesEletricas.test.ts > Conexões elétricas de fontes expostas > mantém cabos renderizados no estado rompida, sem alterar energia ou movimento 3ms
+ ✓ src/visualizacao/ConexoesEletricas.test.ts > Conexões elétricas de fontes expostas > expõe alvo de clique apenas para o switch CC visível 3ms
+ ✓ src/visualizacao/ConexoesEletricas.test.ts > Conexões elétricas de fontes expostas > oculta os cabos internos de uma fonte enclausurada sem removê-la da simulação 55ms
+ ✓ src/visualizacao/ConexoesEletricas.test.ts > Conexões elétricas de fontes expostas > ancora o terminal na face real ao transladar e girar o corpo 2ms
+ ✓ src/physics/agua/Hidrostática.test.ts > Arquimedes e geometria XY extrudada > calcula seco/parcial/total e centro em 0 m 15ms
+ ✓ src/physics/agua/Hidrostática.test.ts > Arquimedes e geometria XY extrudada > calcula seco/parcial/total e centro em 1000000 m 6ms
+ ✓ src/physics/agua/Hidrostática.test.ts > Arquimedes e geometria XY extrudada > recorta corpo inclinado, preserva volume e centro de empuxo 11ms
+ ✓ src/physics/agua/Hidrostática.test.ts > Arquimedes e geometria XY extrudada > rejeita volume sobreposto em vez de duplicar empuxo 4ms
+ ✓ src/physics/agua/Hidrostática.test.ts > Arquimedes e geometria XY extrudada > integra empuxo no mundo sem piso aquático ou escrita cinemática externa 34ms
+ ✓ src/physics/agua/Hidrostática.test.ts > Arquimedes e geometria XY extrudada > volume e forças não dependem da massa do objeto 5ms
+ ✓ src/physics/objetos/veiculos/Bss02PousoSuave.test.ts > BSS-02 — toque vertical suave > preserva casco e módulos ao tocar o solo a 0.2 m/s 51ms
+ ✓ src/physics/objetos/veiculos/Bss02PousoSuave.test.ts > BSS-02 — toque vertical suave > preserva casco e módulos ao tocar o solo a 0.7 m/s 20ms
+ ✓ src/physics/sistemas de controle/GerenciadorDeControladores.test.ts > GerenciadorDeControladores > mantém vários controles ativos quando seus recursos ou atuadores são independentes 5ms
+ ✓ src/physics/sistemas de controle/GerenciadorDeControladores.test.ts > GerenciadorDeControladores > arbitra apenas a disputa do mesmo atuador e recurso pela prioridade 1ms
+ ✓ src/physics/sistemas de controle/GerenciadorDeControladores.test.ts > arbitragem rastreável > resolve empates pelo id, mantém throttle independente e limpa comandos ao perder energia 22ms
+ ✓ src/physics/sistemas de controle/GerenciadorDeControladores.test.ts > não conserva integral do PID que cede o gimbal à guiagem 56ms
+ ✓ src/physics/objetos/propulsao/PropulsorVetorizado.test.ts > PropulsorVetorizado > atinge o comando dentro da taxa do atuador e desvia a força de empuxo 15ms
+ ✓ src/physics/objetos/propulsao/PropulsorVetorizado.test.ts > PropulsorVetorizado > não move o atuador quando a cadeia de sistemas deixa de autorizá-lo 2ms
+ ✓ src/physics/objetos/propulsao/PropulsorVetorizado.test.ts > PropulsorVetorizado > preserva a posição e rejeita novos comandos após travamento mecânico 1ms
+ ✓ src/physics/objetos/propulsao/PropulsorVetorizado.test.ts > PropulsorVetorizado > mantém o conjunto sem rotação quando 5° alinham o empuxo ao centro de massa 54ms
+ ✓ src/physics/objetos/atuadores/Cilindro.test.ts > Cilindro sem corpo físico > mantém comandos, reversão e fins de curso sem possuir massa ou posição 9ms
+ ✓ src/physics/objetos/atuadores/Cilindro.test.ts > Cilindro sem corpo físico > uma porta herda Objeto e movimento por força com bateria de 0 J (vácuo explícito) 37ms
+ ✓ src/physics/objetos/atuadores/Cilindro.test.ts > Cilindro sem corpo físico > uma porta herda Objeto e movimento por força com bateria de 100000 J (vácuo explícito) 18ms
+ ✓ src/physics/ambiente/ColisoesPlanarM9.test.ts > M9-F — colisões não introduzem dinâmica fora do plano > placas finas em Z colidem por XY com orientação 0 16ms
+ ✓ src/physics/ambiente/ColisoesPlanarM9.test.ts > M9-F — colisões não introduzem dinâmica fora do plano > placas finas em Z colidem por XY com orientação 0.1 6ms
+ ✓ src/physics/ambiente/ColisoesPlanarM9.test.ts > M9-F — colisões não introduzem dinâmica fora do plano > placa tombando no planeta não adquire giro X/Y por espessura em Z 41ms
+ ✓ src/physics/ambiente/ColisoesPlanarM9.test.ts > M9-F — colisões não introduzem dinâmica fora do plano > consulta opt-in XY preserva a seleção Z do modelo legado 0ms
+ ✓ src/physics/sensores/SwitchFimDeCurso.test.ts > SwitchFimDeCurso > retorna sinal 1/true quando sua face externa encontra outro objeto 13ms
+ ✓ src/physics/sensores/SwitchFimDeCurso.test.ts > SwitchFimDeCurso > acompanha a rotação do hospedeiro e desaciona quando o alvo deixa o curso 4ms
+ ✓ src/physics/sensores/SwitchFimDeCurso.test.ts > SwitchFimDeCurso > detecta uma superfície pelo volume sensível sem participar da colisão 8ms
+ ✓ src/physics/sensores/SwitchFimDeCurso.test.ts > SwitchFimDeCurso > usa diferencial mecânico de liberação sem acionar à distância (vácuo explícito) 25ms
+ ✓ src/physics/conexoes/ConexaoEletrica.test.ts > ConexaoEletrica — DC, A/V/ohms/J/s > fornece energia ideal e compartilha o limite entre várias cargas no mesmo passo 13ms
+ ✓ src/physics/conexoes/ConexaoEletrica.test.ts > ConexaoEletrica — DC, A/V/ohms/J/s > aplica queda V=RI e perdas I²R conservando energia ao dividir solicitações 3ms
+ ✓ src/physics/conexoes/ConexaoEletrica.test.ts > ConexaoEletrica — DC, A/V/ohms/J/s > limita a corrente continuamente e não cria energia sob carga excessiva 2ms
+ ✓ src/physics/conexoes/ConexaoEletrica.test.ts > ConexaoEletrica — DC, A/V/ohms/J/s > respeita a potência máxima transferível de uma resistência elevada 2ms
+ ✓ src/physics/conexoes/ConexaoEletrica.test.ts > ConexaoEletrica — DC, A/V/ohms/J/s > compõe vários resistores e interruptores em série 3ms
+ ✓ src/physics/conexoes/ConexaoEletrica.test.ts > ConexaoEletrica — DC, A/V/ohms/J/s > esgota a bateria descontando também as perdas, sem saldo negativo 2ms
+ ✓ src/physics/conexoes/ConexaoEletrica.test.ts > ConexaoEletrica — DC, A/V/ohms/J/s > desconecta, reconecta desligada e não repara uma ruptura 2ms
+ ✓ src/physics/conexoes/ConexaoEletrica.test.ts > ConexaoEletrica — DC, A/V/ohms/J/s > rompe por alcance mesmo sem carga, sem mudar posições dos corpos 5ms
+ ✓ src/physics/conexoes/ConexaoEletrica.test.ts > ConexaoEletrica — DC, A/V/ohms/J/s > faz a mesma transferência total em subpassos equivalentes 5ms
+ ✓ src/physics/conexoes/ConexaoEletrica.test.ts > ConexaoEletrica — DC, A/V/ohms/J/s > valida parâmetros e bloqueia corrente zero e fonte destruída 6ms
+ ✓ src/apresentacao/missao/CameraMissao.test.ts > M10-G — projeção independente > centraliza conjunto, acompanha sítio radial, faz round-trip e respeita sinal Canvas 24ms
+ ✓ src/apresentacao/missao/CameraMissao.test.ts > M10-G — projeção independente > zoom e enquadramento não alteram física, consumo ou eventos 13ms
+ ✓ src/missoes/ObservacaoFisicaM10.test.ts > projeção física dos snapshots corresponde à bancada e conserva energia finita 51ms
+ ✓ src/simulacao/ExecutorPassoFixo.test.ts > ExecutorPassoFixo > ignora o primeiro timestamp e pequenos regressos do relógio de renderização 3ms
+ ✓ src/simulacao/ExecutorPassoFixo.test.ts > ExecutorPassoFixo > reproduz estado e comandos com cadências de renderização diferentes 29ms
+ ✓ src/physics/objetos/veiculos/ComputadorDeVoo.test.ts > ComputadorDeVoo > comanda o gimbal no sentido restaurador para inclinação positiva 6ms
+ ✓ src/physics/objetos/veiculos/ComputadorDeVoo.test.ts > ComputadorDeVoo > aplica o controle de pouso no throttle e no gimbal a partir dos sensores 4ms
+ ✓ src/physics/objetos/veiculos/ComputadorDeVoo.test.ts > ComputadorDeVoo > em leitura obsoleta corta throttle e mantém o gimbal no ângulo físico atual 2ms
+ ✓ src/physics/objetos/veiculos/ComputadorDeVoo.test.ts > ComputadorDeVoo > mantém ignição explícita e torna pouso e PID de inclinação mutuamente exclusivos 1ms
+ ✓ src/physics/objetos/veiculos/ComputadorDeVoo.test.ts > ComputadorDeVoo > mantém o gimbal de descida ativo enquanto o throttle fuzzy-PID assume o pouso 1ms
+ ✓ src/physics/objetos/veiculos/ComputadorDeVoo.test.ts > ComputadorDeVoo > usa o gimbal para frear deriva horizontal apenas durante a descida 5ms
+ ✓ src/missoes/ExecutorMissao.test.ts > M10-C — contrato e executor genérico > opera corpo inerte sem depender de propulsão ou BSS e respeita pausa 22ms
+ ✓ src/missoes/ExecutorMissao.test.ts > M10-C — contrato e executor genérico > agenda na fronteira correta e rejeita orçamento/ordem inválidos antes de avançar 4ms
+ ✓ src/physics/solucionadores/AtmosferaTermicaM4.test.ts > M4 — atmosfera e térmica compartilhadas > densidade em 0 m: 1.225 kg/m³ 3ms
+ ✓ src/physics/solucionadores/AtmosferaTermicaM4.test.ts > M4 — atmosfera e térmica compartilhadas > densidade em 11000 m: 0.363918 kg/m³ 0ms
+ ✓ src/physics/solucionadores/AtmosferaTermicaM4.test.ts > M4 — atmosfera e térmica compartilhadas > densidade em 15000 m: 0.193674 kg/m³ 0ms
+ ✓ src/physics/solucionadores/AtmosferaTermicaM4.test.ts > M4 — atmosfera e térmica compartilhadas > mantém continuidade na tropopausa, decaimento e escala de densidade configurada 3ms
+ ✓ src/physics/solucionadores/AtmosferaTermicaM4.test.ts > M4 — atmosfera e térmica compartilhadas > arrasto, aquecimento e aleta usam a mesma densidade local em 0 m 10ms
+ ✓ src/physics/solucionadores/AtmosferaTermicaM4.test.ts > M4 — atmosfera e térmica compartilhadas > arrasto, aquecimento e aleta usam a mesma densidade local em 11000 m 1ms
+ ✓ src/physics/solucionadores/AtmosferaTermicaM4.test.ts > M4 — atmosfera e térmica compartilhadas > arrasto, aquecimento e aleta usam a mesma densidade local em 15000 m 1ms
+ ✓ src/physics/solucionadores/AtmosferaTermicaM4.test.ts > M4 — atmosfera e térmica compartilhadas > troca ambiente escala com densidade em 0 m, respeita temperatura em °C 1ms
+ ✓ src/physics/solucionadores/AtmosferaTermicaM4.test.ts > M4 — atmosfera e térmica compartilhadas > troca ambiente escala com densidade em 11000 m, respeita temperatura em °C 0ms
+ ✓ src/physics/solucionadores/AtmosferaTermicaM4.test.ts > M4 — atmosfera e térmica compartilhadas > troca ambiente escala com densidade em 15000 m, respeita temperatura em °C 0ms
+ ✓ src/physics/solucionadores/AtmosferaTermicaM4.test.ts > M4 — atmosfera e térmica compartilhadas > vácuo elimina arrasto, aquecimento por ar e convecção ambiente; geração interna permanece 1ms
+ ✓ src/physics/solucionadores/AtmosferaTermicaM4.test.ts > M4 — atmosfera e térmica compartilhadas > convecção pode aquecer ou resfriar sem atravessar equilíbrio em dt grande 1ms
+ ✓ src/physics/solucionadores/AtmosferaTermicaM4.test.ts > M4 — atmosfera e térmica compartilhadas > fluxo relativo aquece e degrada progressivamente até colapso térmico de forma reproduzível 4ms
+ ✓ src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.test.ts > AutotunadorPosicionamentoMotorEletrico > simula candidatos, informa progresso e aplica os ganhos selecionados 30ms
+ ✓ src/physics/objetos/atuadores/CilindroEletrico.test.ts > CilindroEletrico > converte comando elétrico em força física na haste, limitada pela velocidade configurada 18ms
+ ✓ src/physics/objetos/fontes-de-energia/GeradorCA.test.ts > Gerador CA RMS > esgota reserva mecânica sem criar energia e bloqueia partida 4ms
+ ✓ src/physics/objetos/fontes-de-energia/GeradorCA.test.ts > Gerador CA RMS > rejeita dt inválido 0 2ms
+ ✓ src/physics/objetos/fontes-de-energia/GeradorCA.test.ts > Gerador CA RMS > rejeita dt inválido -1 1ms
+ ✓ src/physics/objetos/fontes-de-energia/GeradorCA.test.ts > Gerador CA RMS > rejeita dt inválido NaN 0ms
+ ✓ src/physics/objetos/fontes-de-energia/GeradorCA.test.ts > Gerador CA RMS > rejeita dt inválido Infinity 1ms
+ ✓ src/physics/objetos/fontes-de-energia/GeradorCA.test.ts > Gerador CA RMS > rejeita potência, reserva, frequência, eficiência e limite térmico inválidos 2ms
+ ✓ src/physics/objetos/fontes-de-energia/GeradorCA.test.ts > Gerador CA RMS > conserva energia ao subdividir o tempo 1ms
+ ✓ src/physics/objetos/fontes-de-energia/GeradorCA.test.ts > Gerador CA RMS > prepara fonte antes da carga mesmo quando registrada depois no mundo 7ms
+ ✓ src/physics/ambiente/CampoGravitacional.test.ts > M9-B — campo gravitacional independente de veículos > valida μ/r² a 0 m em todo o plano 8ms
+ ✓ src/physics/ambiente/CampoGravitacional.test.ts > M9-B — campo gravitacional independente de veículos > valida μ/r² a 15000 m em todo o plano 2ms
+ ✓ src/physics/ambiente/CampoGravitacional.test.ts > M9-B — campo gravitacional independente de veículos > valida μ/r² a 100000 m em todo o plano 2ms
+ ✓ src/physics/ambiente/CampoGravitacional.test.ts > M9-B — campo gravitacional independente de veículos > valida μ/r² a 400000 m em todo o plano 1ms
+ ✓ src/physics/ambiente/CampoGravitacional.test.ts > M9-B — campo gravitacional independente de veículos > mantém g0 distinto da gravidade superficial e não depende de massa/atitude 2ms
+ ✓ src/physics/ambiente/CampoGravitacional.test.ts > M9-B — campo gravitacional independente de veículos > rejeita singularidade e constantes inválidas sem produzir NaN 3ms
+ ✓ src/physics/ambiente/CampoGravitacional.test.ts > M9-B — campo gravitacional independente de veículos > campo varia continuamente em torno da plataforma 0ms
+ ✓ src/physics/sensores/SensoresVeiculoComposto.test.ts > SensorNivelInterno > normaliza a inclinacao para -180 a +180 graus 3ms
+ ✓ src/physics/sensores/SensoresVeiculoComposto.test.ts > SensoresVeiculoComposto — injeção determinística M8 > detecta congelamento pela idade da amostra e conserva estado físico independente 10ms
+ ✓ src/physics/sensores/SensoresVeiculoComposto.test.ts > SensoresVeiculoComposto — injeção determinística M8 > reproduz atraso e desvio com tempo simulado, sem relógio externo 3ms
+ ✓ src/physics/objetos/veiculos/Bss03.test.ts > Bss03 > arma o PID de subida sem ligar sistemas, ignição ou throttle 7ms
+ ✓ src/physics/objetos/veiculos/Bss03.test.ts > Bss03 > troca os controladores somente quando o operador solicita 2ms
+ ✓ src/physics/objetos/veiculos/Bss03.test.ts > Bss03 > não corta a decolagem se o comando explícito de pouso não conseguir ignitar os motores de pouso 2ms
+ ✓ src/physics/objetos/veiculos/Bss03.test.ts > Bss03 > assume o pouso por um único comando do operador depois de confirmar seus permissivos 4ms
+ ✓ src/physics/objetos/propulsao/CadeiaPropulsao.test.ts > Cadeia de propulsão > transfere combustível e oxidante por linhas, bombas e válvulas até câmara e bocal 6ms
+ ✓ src/physics/objetos/propulsao/CadeiaPropulsao.test.ts > Cadeia de propulsão > corta o fluxo e a combustão quando uma linha rompe por afastamento 1ms
+ ✓ src/physics/objetos/propulsao/CadeiaPropulsao.test.ts > Cadeia de propulsão > desconecta uma linha individualmente sem alterar a existência física do tanque 1ms
+ ✓ src/physics/objetos/propulsao/CadeiaPropulsao.test.ts > Cadeia de propulsão > marca como rompida uma mangueira que se solta e corta seu fluxo 1ms
+ ✓ src/physics/objetos/propulsao/CadeiaPropulsao.test.ts > Cadeia de propulsão > faz o próprio propulsor gerar empuxo somente pela cadeia bipropelente configurada 5ms
+ ✓ src/visualizacao/TracePLC.test.ts > TracePLC > registra canais digitais e evita amostras repetidas 6ms
+ ✓ src/visualizacao/TracePLC.test.ts > TracePLC > registra canais analogicos com escala de corrente 1ms
+ ✓ src/visualizacao/TracePLC.test.ts > TracePLC > normaliza sinais booleanos para 0 e 1 1ms
+ ✓ src/visualizacao/TracePLC.test.ts > TracePLC > recusa o décimo primeiro canal 2ms
+ ✓ src/visualizacao/TracePLC.test.ts > TracePLC > registra os 11 canais do BSS-006 quando a capacidade é configurada pelo cenário 2ms
+ ✓ src/visualizacao/TracePLC.test.ts > TracePLC > recusa capacidade de canais inválida: 0 1ms
+ ✓ src/visualizacao/TracePLC.test.ts > TracePLC > recusa capacidade de canais inválida: -1 0ms
+ ✓ src/visualizacao/TracePLC.test.ts > TracePLC > recusa capacidade de canais inválida: 1.5 0ms
+ ✓ src/visualizacao/TracePLC.test.ts > TracePLC > recusa capacidade de canais inválida: NaN 1ms
+ ✓ src/visualizacao/TracePLC.test.ts > TracePLC > recusa capacidade de canais inválida: Infinity 0ms
+ ✓ src/physics/sistemas de controle/ControladorPouso.test.ts > ControladorPouso > permanece inativo até ser habilitado 5ms
+ ✓ src/physics/sistemas de controle/ControladorPouso.test.ts > ControladorPouso > reduz a velocidade-alvo perto do solo e eleva o throttle ao cair rápido 1ms
+ ✓ src/physics/sistemas de controle/ControladorPouso.test.ts > ControladorPouso > mantém a descida dentro do perfil seguro a 20 m de altitude 1ms
+ ✓ src/physics/sistemas de controle/ControladorPouso.test.ts > ControladorPouso > mantém a descida dentro do perfil seguro a 200 m de altitude 0ms
+ ✓ src/physics/sistemas de controle/ControladorPouso.test.ts > ControladorPouso > mantém a descida dentro do perfil seguro a 2000 m de altitude 1ms
+ ✓ src/physics/sistemas de controle/ControladorPouso.test.ts > ControladorPouso > usa inclinação e deriva horizontal para solicitar gimbal restaurador limitado 1ms
+ ✓ src/physics/sistemas de controle/ControladorPouso.test.ts > ControladorPouso > corta o throttle somente no envelope seguro de toque 1ms
+ ✓ src/physics/sistemas de controle/ControladorPouso.test.ts > ControladorPouso > corta o empuxo se uma frenagem inverter a velocidade para subida 1ms
+ ✓ src/physics/sistemas de controle/ControladorPouso.test.ts > ControladorPouso > entra em estado seguro quando uma leitura deixa de ser finita 1ms
+ ✓ src/physics/sistemas de controle/ControladorPouso.test.ts > ControladorPouso > entra em estado seguro quando a leitura excede a idade permitida 1ms
+ ✓ src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.test.ts > ControladorDescidaFuzzyPidDePropulsores > reduz suavemente a velocidade-alvo conforme a altitude cai 4ms
+ ✓ src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.test.ts > ControladorDescidaFuzzyPidDePropulsores > usa a massa instantânea no throttle de sustentação 1ms
+ ✓ src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.test.ts > ControladorDescidaFuzzyPidDePropulsores > comanda empuxo máximo quando a descida excede a curva segura 0ms
+ ✓ src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.test.ts > ControladorDescidaFuzzyPidDePropulsores > corta o empuxo durante a subida e libera quando a nave desce 1ms
+ ✓ src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.test.ts > ControladorDescidaFuzzyPidDePropulsores > corta o motor ao alcançar a faixa segura de toque 1ms
+ ✓ src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.test.ts > ControladorDescidaFuzzyPidDePropulsores > falha de forma segura quando a massa deixa de ser válida 0ms
+ ✓ src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.test.ts > ControladorDescidaFuzzyPidDePropulsores > corta a solicitação quando a amostra de sensores está obsoleta 3ms
+ ✓ src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.test.ts > ControladorDescidaFuzzyPidDePropulsores > mantém potência antes do contato e corta depois do apoio quando há sensor nas sapatas 1ms
+ ✓ src/physics/sistemas de controle/ControladorInclinacaoPid.test.ts > ControladorInclinacaoPid > permanece inativo até ser habilitado e limita o comando 4ms
+ ✓ src/physics/sistemas de controle/ControladorInclinacaoPid.test.ts > PID de atitude — transições e saturação > não cria pico derivativo na habilitação ou na troca da referência 1ms
+ ✓ src/physics/sistemas de controle/ControladorInclinacaoPid.test.ts > PID de atitude — transições e saturação > limpa integral e derivada ao desabilitar; não acumula integral saturada 6ms
+ ✓ src/physics/objetos/base/Objeto.test.ts > Objeto > expõe e preserva todas as propriedades físicas fundamentais configuradas 7ms
+ ✓ src/physics/objetos/base/Objeto.test.ts > Objeto > aplica dano somente acima da resistência estrutural e mantém os pontos de contato do volume 3ms
+ ✓ src/physics/objetos/base/Objeto.test.ts > Objeto > acumula calor em graus Celsius e degrada progressivamente acima do limite térmico 1ms
+ ✓ src/physics/sensores/SwitchFimDeCursoArraste.test.ts > ajuste de montagem do SwitchFimDeCurso > desloca o volume sensível sem mover o objeto hospedeiro 6ms
+ ✓ src/physics/sensores/SwitchFimDeCursoArraste.test.ts > ajuste de montagem do SwitchFimDeCurso > considera qualquer contato como fim de curso, sem filtrar a identidade do alvo 2ms
+ ✓ src/physics/sensores/SwitchFimDeCursoArraste.test.ts > ajuste de montagem do SwitchFimDeCurso > expõe as entradas atuais do cilindro no trace 2ms
+ ✓ src/visualizacao/RegistroEnsaioBancada.test.ts > diário de ensaio da bancada > preserva ordem e passo das entradas e exporta cópias independentes 7ms
+ ✓ src/visualizacao/RegistroEnsaioBancada.test.ts > diário de ensaio da bancada > recusa dt variável e entradas não finitas 3ms
+ ✓ src/physics/sistemas de controle/ControladorDesaceleracao.test.ts > ControladorDesaceleracao > permanece inativo até a queda ultrapassar a velocidade configurada 5ms
+ ✓ src/physics/sistemas de controle/ControladorDesaceleracao.test.ts > ControladorDesaceleracao > usa PID de velocidade para elevar potência durante queda rápida acima da faixa de pouso 1ms
+ ✓ src/physics/sistemas de controle/ControladorDesaceleracao.test.ts > ControladorDesaceleracao > cede o throttle ao pouso ao entrar na altitude mínima 1ms
+ ✓ src/physics/objetos/fontes-de-energia/PainelSolar.test.ts > PainelSolar > carrega uma bateria vazia com o circuito fechado e para com sombra ou switch aberto 7ms
+ ✓ src/physics/objetos/fontes-de-energia/PainelSolar.test.ts > PainelSolar > não gera energia dobrado e passa a funcionar somente após desdobrar 1ms
+ ✓ src/physics/sistemas de controle/ControladoresDePropulsores.test.ts > adaptadores de controles de propulsores > corta o throttle quando a desaceleração deixa de atuar 4ms
+ ✓ src/physics/sistemas de controle/ControladoresDePropulsores.test.ts > adaptadores de controles de propulsores > cede a atuação quando o controle de pouso fica fora da faixa configurada 2ms
+ ✓ src/physics/objetos/fontes-de-energia/Bateria.test.ts > Bateria > mantém carga finita e entrega no máximo a energia armazenada 4ms
+ ✓ src/physics/objetos/fontes-de-energia/Bateria.test.ts > Bateria > valida tensão, capacidade e carga inicial 2ms
+ ✓ src/physics/sistemas de controle/ControladorPerfilVooExperimental.test.ts > perfil solicita pouso uma vez na fronteira, sem rearmar durante oscilações de altitude 4ms
+ ✓ src/physics/sistemas de controle/ControladorPerfilVooExperimental.test.ts > perfil manual e leituras inválidas não acionam operação automática 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/physics/agua/QualificacaoAquatica.test.ts > M11-H — Referências analíticas e limites do meio > volume interno declarado zero não aplica cargas nem produz NaN durante imersão e giro
+Error: Escalar deve ser finito.
+ ❯ Vetor3.multiplicar src/physics/Vetor3.ts:24:42
+     22| 
+     23|   public multiplicar(escalar: number): Vetor3 {
+     24|     if (!Number.isFinite(escalar)) throw new Error('Escalar deve ser f…
+       |                                          ^
+     25|     return new Vetor3(this.x * escalar, this.y * escalar, this.z * esc…
+     26|   }
+ ❯ SistemaHidrodinamico.calcular src/physics/agua/SistemaHidrodinamico.ts:61:21
+ ❯ src/physics/agua/QualificacaoAquatica.test.ts:29:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+⎯⎯⎯⎯⎯⎯ Unhandled Errors ⎯⎯⎯⎯⎯⎯
+
+Vitest caught 1 unhandled error during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.
+
+⎯⎯⎯⎯⎯⎯ Unhandled Error ⎯⎯⎯⎯⎯⎯⎯
+Error: [vitest-worker]: Timeout calling "onTaskUpdate"
+ ❯ Object.onTimeoutError node_modules/vitest/dist/chunks/rpc.-pEldfrD.js:53:10
+ ❯ Timeout._onTimeout node_modules/vitest/dist/chunks/index.B521nVV-.js:59:62
+ ❯ listOnTimeout node:internal/timers:581:17
+ ❯ processTimers node:internal/timers:519:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+
+ Test Files  1 failed | 77 passed (78)
+      Tests  1 failed | 517 passed (518)
+     Errors  1 error
+   Start at  23:21:54
+   Duration  2551.58s (transform 4.72s, setup 0ms, collect 20.74s, tests 2482.52s, environment 39ms, prepare 23.99s)
+

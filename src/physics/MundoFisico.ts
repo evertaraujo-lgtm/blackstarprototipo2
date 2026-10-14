@@ -26,7 +26,7 @@ import type { PrismaDeslocador } from './agua/GeometriaSubmersa';
 export interface ConfiguracaoMundoFisico {
   readonly regioesAquaticas?: readonly RegiaoAquatica[];
   readonly ambiente?: AmbienteFisico;
-  /** KDK somente para gravidade; forças dissipativas/operacionais usam passo explícito. */
+  /** KDK para gravidade e empuxo hidrostático declarado; dissipação/operação usam passo explícito. */
   readonly integracao?: 'euler-semi-implicito' | 'verlet-gravitacional';
   /** Densidade de referência ao nível do mar; o core aplica a variação padrão com altitude. Zero declara vácuo. */
   readonly densidadeAtmosfericaKgM3?: number;
@@ -345,9 +345,9 @@ export class MundoFisico {
       }
       if ([...this.fixadores.values()].filter(f => f.estaAtivo).length !== ativosAntes) this.sincronizarConjuntosEstruturais(0, false);
     }
-    if (this.integracao === 'verlet-gravitacional') this.aplicarKickGravitacional(dtS / 2);
+    if (this.integracao === 'verlet-gravitacional') { this.aplicarKickGravitacional(dtS / 2); this.aplicarKickHidrostatico(dtS / 2); }
     this.integrarCorpos(dtS);
-    if (this.integracao === 'verlet-gravitacional') this.aplicarKickGravitacional(dtS / 2);
+    if (this.integracao === 'verlet-gravitacional') { this.aplicarKickGravitacional(dtS / 2); this.aplicarKickHidrostatico(dtS / 2); }
     this.resolvedorColisoes.resolver(dtS);
     this.resolvedorContatoSuperficie.resolver(dtS);
     this.sincronizarConjuntosEstruturais(dtS, false);
@@ -404,6 +404,14 @@ export class MundoFisico {
       else this.integrador.aplicarImpulsoNoPonto(objeto, impulso, p);
     }
   }
+  private aplicarKickHidrostatico(dtS: number): void {
+    if (!this.hidrodinamica) return;
+    for (const objeto of this.objetos.values()) for (const f of this.hidrodinamica.obterEmpuxos(objeto)) {
+      const impulso = f.forcaN.multiplicar(dtS), conjunto = this.obterConjuntoEstruturalDoObjeto(objeto);
+      if (conjunto) conjunto.aplicarImpulsoNoPonto(impulso, f.pontoM);
+      else this.integrador.aplicarImpulsoNoPonto(objeto, impulso, f.pontoM);
+    }
+  }
 
   private validarVetorPlanar(v: Vetor3): void {
     if (this.ambiente.campo.modelo === 'central' && v.z !== 0) throw new Error('Dinâmica orbital M9 restrita a XY; componente Z não permitida.');
@@ -432,7 +440,7 @@ export class MundoFisico {
         .map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM }));
       if (this.ambiente.campo.modelo === 'central') for (const f of [...forcas, ...forcasOperacionais, ...forcasAerodinamicas]) this.validarForcaPlanar(f);
       const forcasDasJuntas = [...this.juntasRotacionaisDeBancada.values()].flatMap((junta) => junta.obterForcasPara(objeto));
-      const forcasAquaticas = this.hidrodinamica?.calcular(objeto).forcas ?? [];
+      const forcasAquaticas = this.hidrodinamica?.calcular(objeto, estado.posicaoM, this.integracao !== 'verlet-gravitacional').forcas ?? [];
       this.integrador.integrarObjeto(objeto, [...forcas, ...forcasOperacionais, ...forcasAerodinamicas, ...forcasDasJuntas, { forcaN: this.obterForcaArrastoAtmosferico(objeto), pontoM: objeto.obterCentroPressaoM() }, ...forcasAquaticas], this.integracao === 'verlet-gravitacional' ? Vetor3.zero : this.obterGravidadeMps2(estado.posicaoM), dtS);
       objeto.registrarUso(dtS / 3600);
     }
@@ -446,7 +454,7 @@ export class MundoFisico {
         forcasDoConjunto.push(...objeto.obterForcasAerodinamicas(this.obterCondicoesAtmosfericas(objeto)).map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM })));
         if (this.integracao === 'euler-semi-implicito') forcasDoConjunto.push({ forcaN: this.obterGravidadeMps2(estado.posicaoM).multiplicar(objeto.massaKg), pontoM: estado.posicaoM });
         forcasDoConjunto.push({ forcaN: this.obterForcaArrastoAtmosferico(objeto), pontoM: objeto.obterCentroPressaoM() });
-        forcasDoConjunto.push(...(this.hidrodinamica?.calcular(objeto, conjunto.obterCentroDeMassaAtual()).forcas ?? []));
+        forcasDoConjunto.push(...(this.hidrodinamica?.calcular(objeto, conjunto.obterCentroDeMassaAtual(), this.integracao !== 'verlet-gravitacional').forcas ?? []));
         for (const junta of this.juntasRotacionaisDeBancada.values()) {
           if (junta.objetoBase === objeto || junta.braco === objeto) forcasDoConjunto.push(...junta.obterForcasPara(objeto));
         }

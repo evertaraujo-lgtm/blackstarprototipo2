@@ -1,0 +1,472 @@
+{
+  "marco": "M11-H",
+  "revisao": "m11-amerissagem-2",
+  "runtime": "Node, mesma instalação nas duas execuções",
+  "comandos": [
+    "npm run missao:executar -- --amerissagem --segundos 120 --saida /tmp/blackstar-m11-2-diario-node.json",
+    "npm run missao:executar -- --replay /tmp/blackstar-m11-2-diario-node.json --saida /tmp/blackstar-m11-2-replay-node.json"
+  ],
+  "comparacaoIntegralByteAByte": true,
+  "sha256Diario": "c3a0153aa99fc156968dabb6dbd2ed4d30e47476734ee6cc26d5c0bb281684e8",
+  "sha256Replay": "c3a0153aa99fc156968dabb6dbd2ed4d30e47476734ee6cc26d5c0bb281684e8",
+  "passosExecutados": 28800,
+  "eventos": [
+    {
+      "sequencia": 0,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "missao-carregada",
+      "descricao": "BSS-006 preparado em ensaio de aproximação sobre oceano."
+    },
+    {
+      "sequencia": 1,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "ensaio-adm-aproximacao",
+      "descricao": "Condição inicial ADM sobre oceano: motores desligados, sem trajetória de lançamento presumida."
+    },
+    {
+      "sequencia": 2,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "execucao-iniciada",
+      "descricao": "Avanço físico iniciado."
+    },
+    {
+      "sequencia": 3,
+      "passo": 37,
+      "tempoS": 0.15416666666666673,
+      "categoria": "fisico",
+      "tipo": "entrada-na-agua",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    },
+    {
+      "sequencia": 4,
+      "passo": 37,
+      "tempoS": 0.15416666666666673,
+      "categoria": "fisico",
+      "tipo": "imersao-parcial",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    },
+    {
+      "sequencia": 5,
+      "passo": 978,
+      "tempoS": 4.075000000000028,
+      "categoria": "fisico",
+      "tipo": "tombamento-observado",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    }
+  ],
+  "amostras": 121,
+  "final": {
+    "tempoS": 119.99999999997316,
+    "aquatico": {
+      "estado": "oscilacao",
+      "volumeSubmersoM3": 5.226510307822032,
+      "volumeDeslocavelM3": 100.74877920000002,
+      "fracaoSubmersa": 0.05187666142779456,
+      "centroEmpuxoM": {
+        "x": 188.68556421249508,
+        "y": -0.11738053598368503,
+        "z": 0
+      },
+      "centroMassaM": {
+        "x": 188.66465242659498,
+        "y": 1.4668098144252943,
+        "z": 0
+      },
+      "forcaEmpuxoN": {
+        "x": 1.5580785019051213,
+        "y": 52608.78327525344,
+        "z": 0
+      },
+      "forcaArrastoN": {
+        "x": 0.6185310977494787,
+        "y": 0.021967757300251883,
+        "z": 0
+      },
+      "momentoHidrodinamicoNm": {
+        "x": 0,
+        "y": 0,
+        "z": 1107.2026709525535
+      },
+      "velocidadeEntradaMps": 15.30891536715378,
+      "energiaEntradaJ": 28724.939419602433,
+      "potenciaDissipadaW": 0.014518468268222867,
+      "equilibrioContinuoS": 0,
+      "equilibrioObservado": false,
+      "componentes": [
+        {
+          "objetoId": "bss-006",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 46.080000000000005,
+          "volumeSubmersoM3": 1.0900360402177502,
+          "fracaoSubmersa": 0.023655296011669925,
+          "centroEmpuxoM": {
+            "x": 192.94583405506964,
+            "y": -0.04389655988651331,
+            "z": 0
+          },
+          "forcaEmpuxoN": {
+            "x": 0.33228833658871976,
+            "y": 10972.037764838149,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0.024594694820476815,
+            "y": 0.008924327247973003,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 46973.8784638847
+          },
+          "potenciaDissipadaW": 0.0003653703170394147,
+          "velocidadeEntradaMps": 0.004542664751241993,
+          "energiaEntradaJ": 141.4435832021318,
+          "picoVelocidadeEntradaMps": 1.770208455685786
+        },
+        {
+          "objetoId": "painel-decolagem-solar",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.12,
+          "volumeSubmersoM3": 0,
+          "fracaoSubmersa": 0,
+          "forcaEmpuxoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "potenciaDissipadaW": 0,
+          "velocidadeEntradaMps": 0,
+          "energiaEntradaJ": 0,
+          "picoVelocidadeEntradaMps": 0.00034279050127001583
+        },
+        {
+          "objetoId": "bateria-decolagem-solar",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.288,
+          "volumeSubmersoM3": 0,
+          "fracaoSubmersa": 0,
+          "forcaEmpuxoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "potenciaDissipadaW": 0,
+          "velocidadeEntradaMps": 0,
+          "energiaEntradaJ": 0,
+          "picoVelocidadeEntradaMps": 0.00025213083197644486
+        },
+        {
+          "objetoId": "tanque-decolagem-metano",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 27.000000000000004,
+          "volumeSubmersoM3": 1.9056242866122841,
+          "fracaoSubmersa": 0.07057867728193644,
+          "centroEmpuxoM": {
+            "x": 188.98356082383873,
+            "y": -0.1236605632518144,
+            "z": 0
+          },
+          "forcaEmpuxoN": {
+            "x": 0.5689841353849714,
+            "y": 19181.551243792044,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0.08177203150125459,
+            "y": -0.025880129991971014,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 6118.192414897652
+          },
+          "potenciaDissipadaW": 0.0011426462935316447,
+          "velocidadeEntradaMps": 0,
+          "energiaEntradaJ": 254.7800976125052,
+          "picoVelocidadeEntradaMps": 1.7730971561239546
+        },
+        {
+          "objetoId": "tanque-decolagem-oxidante",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 27.000000000000004,
+          "volumeSubmersoM3": 2.174975161698948,
+          "fracaoSubmersa": 0.08055463561847954,
+          "centroEmpuxoM": {
+            "x": 186.2721320823252,
+            "y": -0.14061579426888748,
+            "z": 0
+          },
+          "forcaEmpuxoN": {
+            "x": 0.640089998430683,
+            "y": 21892.77185163045,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0.11660184020735931,
+            "y": -0.08426856466585186,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": -52377.47134790977
+          },
+          "potenciaDissipadaW": 0.002253360576243289,
+          "velocidadeEntradaMps": 0,
+          "energiaEntradaJ": 501.75831943247573,
+          "picoVelocidadeEntradaMps": 1.986227458442757
+        },
+        {
+          "objetoId": "propulsor-decolagem-solar",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.14699999999999996,
+          "volumeSubmersoM3": 0,
+          "fracaoSubmersa": 0,
+          "forcaEmpuxoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "potenciaDissipadaW": 0,
+          "velocidadeEntradaMps": 0.011562027466573773,
+          "energiaEntradaJ": 0,
+          "picoVelocidadeEntradaMps": 0.012117376586637665
+        },
+        {
+          "objetoId": "bss04-perna-esquerda",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.01128960000000003,
+          "volumeSubmersoM3": 0.01128960000000003,
+          "fracaoSubmersa": 1,
+          "centroEmpuxoM": {
+            "x": 196.37164951811087,
+            "y": -0.24194441165090733,
+            "z": 0
+          },
+          "forcaEmpuxoN": {
+            "x": 0.003502645764350636,
+            "y": 113.63837586532188,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0.13180741486202768,
+            "y": 0.10709673555038232,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 876.8970598964547
+          },
+          "potenciaDissipadaW": 0.00282719831703389,
+          "velocidadeEntradaMps": 0.010276956674344523,
+          "energiaEntradaJ": 3125.1806099448286,
+          "picoVelocidadeEntradaMps": 4.909228119825542
+        },
+        {
+          "objetoId": "bss04-sapata-esquerda",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.015600000000000001,
+          "volumeSubmersoM3": 0.014585219293049395,
+          "fracaoSubmersa": 0.9349499546826535,
+          "centroEmpuxoM": {
+            "x": 198.24642012386465,
+            "y": -0.6107538963700789,
+            "z": 0
+          },
+          "forcaEmpuxoN": {
+            "x": 0.004568327883829932,
+            "y": 146.8112974729718,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0.1528503134436531,
+            "y": 0.15490850028595465,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 1408.527010759359
+          },
+          "potenciaDissipadaW": 0.004189598410144529,
+          "velocidadeEntradaMps": 0.0134155589766973,
+          "energiaEntradaJ": 4022.8355075684285,
+          "picoVelocidadeEntradaMps": 5.462198870007529
+        },
+        {
+          "objetoId": "bss04-perna-direita",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.01128960000000003,
+          "volumeSubmersoM3": 0,
+          "fracaoSubmersa": 0,
+          "forcaEmpuxoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "potenciaDissipadaW": 0,
+          "velocidadeEntradaMps": 0.01019112321729176,
+          "energiaEntradaJ": 0,
+          "picoVelocidadeEntradaMps": 0.010704289114556093
+        },
+        {
+          "objetoId": "bss04-sapata-direita",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.015600000000000001,
+          "volumeSubmersoM3": 0,
+          "fracaoSubmersa": 0,
+          "forcaEmpuxoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "potenciaDissipadaW": 0,
+          "velocidadeEntradaMps": 0.013313033568560022,
+          "energiaEntradaJ": 0,
+          "picoVelocidadeEntradaMps": 0.013922191932194215
+        },
+        {
+          "objetoId": "bss06-grid-fin-esquerda",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.030000000000000006,
+          "volumeSubmersoM3": 0.030000000000000013,
+          "fracaoSubmersa": 1,
+          "centroEmpuxoM": {
+            "x": 182.39282019380192,
+            "y": -0.417196042996655,
+            "z": 0
+          },
+          "forcaEmpuxoN": {
+            "x": 0.008645057852566652,
+            "y": 301.97274165449784,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0.11090480291470717,
+            "y": -0.1388131111262352,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": -1892.8209305758437
+          },
+          "potenciaDissipadaW": 0.003740294354230099,
+          "velocidadeEntradaMps": 0,
+          "energiaEntradaJ": 20678.941301842064,
+          "picoVelocidadeEntradaMps": 15.30891536715378
+        },
+        {
+          "objetoId": "bss06-grid-fin-direita",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.030000000000000006,
+          "volumeSubmersoM3": 0,
+          "fracaoSubmersa": 0,
+          "forcaEmpuxoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "potenciaDissipadaW": 0,
+          "velocidadeEntradaMps": 0,
+          "energiaEntradaJ": 0,
+          "picoVelocidadeEntradaMps": 3.717723668450026e-05
+        }
+      ]
+    },
+    "casco": {
+      "posicaoM": {
+        "x": 193.4243146547617,
+        "y": 1.5212465035045395,
+        "z": 0
+      },
+      "velocidadeMps": {
+        "x": -0.009440597507060207,
+        "y": -0.004542378135745433,
+        "z": 0
+      },
+      "orientacaoRad": {
+        "x": 0,
+        "y": 0,
+        "z": 1.583332601932151
+      },
+      "velocidadeAngularRadps": {
+        "x": 0,
+        "y": 0,
+        "z": -0.0018972733974155882
+      }
+    },
+    "integridadeMinima": 1,
+    "empuxoMotorN": 0
+  },
+  "limitacao": "Aos 120 s ainda há oscilação; não comprova janela de equilíbrio. Sem promessa de identidade entre engines JavaScript."
+}

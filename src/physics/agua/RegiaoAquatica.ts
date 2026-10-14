@@ -27,7 +27,7 @@ export class RegiaoAquatica {
     });
   }
   public obterConfiguracao() {
-    return { id: this.id, modelo: 'agua-incompressivel-prismas-m11', densidadeKgM3: this.densidadeKgM3,
+    return { id: this.id, modelo: 'agua-incompressivel-prismas-m11-2', densidadeKgM3: this.densidadeKgM3,
       correnteTangencialMps: this.correnteTangencialMps, costa: this.costa.configuracao, ondas: false };
   }
 }

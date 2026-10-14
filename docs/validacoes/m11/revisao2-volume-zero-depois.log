@@ -1,0 +1,14 @@
+
+> starship-prototype-2@0.1.0 test
+> vitest run src/physics/agua/QualificacaoAquatica.test.ts -t volume interno declarado zero --maxWorkers=1
+
+
+ RUN  v3.2.7 /media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2
+
+ ✓ src/physics/agua/QualificacaoAquatica.test.ts (8 tests | 7 skipped) 14ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 7 skipped (8)
+   Start at  23:32:29
+   Duration  1.82s (transform 812ms, setup 0ms, collect 998ms, tests 14ms, environment 0ms, prepare 324ms)
+

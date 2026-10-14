@@ -1,0 +1,66 @@
+{
+  "marco": "M11-H",
+  "revisao": "m11-amerissagem-2",
+  "buildProducao": true,
+  "pagina": "missao.html",
+  "tempoS": 1.166666666666666,
+  "volumeSubmersoM3": 10.137713185862017,
+  "forcaEmpuxoN": {
+    "x": 3.2037008522069033,
+    "y": 102043.77653846904,
+    "z": 0
+  },
+  "contatosSolidos": [],
+  "eventos": [
+    {
+      "sequencia": 0,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "missao-carregada",
+      "descricao": "BSS-006 preparado em ensaio de aproximação sobre oceano."
+    },
+    {
+      "sequencia": 1,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "ensaio-adm-aproximacao",
+      "descricao": "Condição inicial ADM sobre oceano: motores desligados, sem trajetória de lançamento presumida."
+    },
+    {
+      "sequencia": 2,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "execucao-iniciada",
+      "descricao": "Avanço físico iniciado."
+    },
+    {
+      "sequencia": 3,
+      "passo": 37,
+      "tempoS": 0.15416666666666673,
+      "categoria": "fisico",
+      "tipo": "entrada-na-agua",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    },
+    {
+      "sequencia": 4,
+      "passo": 37,
+      "tempoS": 0.15416666666666673,
+      "categoria": "fisico",
+      "tipo": "imersao-parcial",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    },
+    {
+      "sequencia": 5,
+      "passo": 280,
+      "tempoS": 1.166666666666666,
+      "categoria": "missao",
+      "tipo": "execucao-pausada",
+      "descricao": "Avanço físico pausado."
+    }
+  ],
+  "reinicioSemResiduo": true,
+  "errosJS": 0
+}

@@ -1,0 +1,271 @@
+{
+  "modelo": "m11-amerissagem-1",
+  "runtime": "Node 20.20.0",
+  "passos": 28800,
+  "tempoS": 119.99999999997317,
+  "replayEstritoAprovado": true,
+  "comparacaoBytesIdenticos": true,
+  "parametros": {
+    "id": "BSS006_AMERISSAGEM_EXPERIMENTAL",
+    "revisaoMissao": "m11-amerissagem-1",
+    "revisaoVeiculo": "bss006-m9-parametros-m10-montagem",
+    "configuracao": {
+      "arcoBaseM": 0,
+      "ventoTangencialMps": 0,
+      "alvoPousoLocalM": 0,
+      "altitudeTransicaoM": 300,
+      "transicaoAutomatica": true,
+      "ensaioAquatico": {
+        "inclinacaoInicialRad": 0.005,
+        "velocidadeInicialMps": 0.5,
+        "altitudeInicialM": 5
+      }
+    },
+    "modeloFisico": {
+      "revisao": "terra-esferica-m9",
+      "plano": "XY",
+      "rotacaoRadps": 0,
+      "raioM": 6371000,
+      "g0ReferenciaIspMps2": 9.80665,
+      "campo": {
+        "modelo": "central",
+        "centroM": {
+          "x": 0,
+          "y": -6371000,
+          "z": 0
+        },
+        "muM3S2": 398600441800000
+      },
+      "integracao": "verlet-gravitacional",
+      "maxDtS": 0.004166666666666667,
+      "politicaAtmosferica": "vacuo-simplificado-25km",
+      "densidadeNivelMarKgM3": 1.225,
+      "hidrodinamica": {
+        "regioes": [
+          {
+            "id": "oceano-experimental",
+            "modelo": "agua-incompressivel-prismas-m11",
+            "densidadeKgM3": 1025,
+            "correnteTangencialMps": 0,
+            "costa": {
+              "inicioArcoM": 60,
+              "profundidadeM": 50,
+              "larguraRampaM": 50,
+              "larguraFundoM": 2000,
+              "nivelMarM": 0
+            },
+            "ondas": false
+          }
+        ],
+        "volumes": [
+          {
+            "objetoId": "bss-006",
+            "dimensoesM": {
+              "x": 3.2,
+              "y": 6,
+              "z": 2.4
+            },
+            "coeficienteArrasto": 1.1,
+            "fracaoDeslocamento": 1
+          },
+          {
+            "objetoId": "painel-decolagem-solar",
+            "dimensoesM": {
+              "x": 3,
+              "y": 0.02,
+              "z": 2
+            },
+            "coeficienteArrasto": 1.1
+          },
+          {
+            "objetoId": "bateria-decolagem-solar",
+            "dimensoesM": {
+              "x": 1.2,
+              "y": 0.8,
+              "z": 1
+            },
+            "coeficienteArrasto": 1.1,
+            "fracaoDeslocamento": 0.3
+          },
+          {
+            "objetoId": "tanque-decolagem-metano",
+            "dimensoesM": {
+              "x": 3.419951893353394,
+              "y": 2.5649639200150456,
+              "z": 3.077956704018055
+            },
+            "coeficienteArrasto": 1.1,
+            "fracaoDeslocamento": 1
+          },
+          {
+            "objetoId": "tanque-decolagem-oxidante",
+            "dimensoesM": {
+              "x": 3.419951893353394,
+              "y": 2.5649639200150456,
+              "z": 3.077956704018055
+            },
+            "coeficienteArrasto": 1.1,
+            "fracaoDeslocamento": 1
+          },
+          {
+            "objetoId": "propulsor-decolagem-solar",
+            "dimensoesM": {
+              "x": 1.5,
+              "y": 1.4,
+              "z": 1.4
+            },
+            "coeficienteArrasto": 1.1,
+            "centroLocalM": {
+              "x": -0.05,
+              "y": 0,
+              "z": 0
+            },
+            "fracaoDeslocamento": 0.05
+          },
+          {
+            "objetoId": "bss04-perna-esquerda",
+            "dimensoesM": {
+              "x": 0.4,
+              "y": 3.15,
+              "z": 0.5
+            },
+            "coeficienteArrasto": 1.1,
+            "centroLocalM": {
+              "x": 0,
+              "y": 0.075,
+              "z": 0
+            },
+            "fracaoDeslocamento": 0.017920000000000047
+          },
+          {
+            "objetoId": "bss04-sapata-esquerda",
+            "dimensoesM": {
+              "x": 1.3,
+              "y": 0.01,
+              "z": 1.2
+            },
+            "coeficienteArrasto": 1.1,
+            "centroLocalM": {
+              "x": 0,
+              "y": -0.145,
+              "z": 0
+            }
+          },
+          {
+            "objetoId": "bss04-perna-direita",
+            "dimensoesM": {
+              "x": 0.4,
+              "y": 3.15,
+              "z": 0.5
+            },
+            "coeficienteArrasto": 1.1,
+            "centroLocalM": {
+              "x": 0,
+              "y": 0.075,
+              "z": 0
+            },
+            "fracaoDeslocamento": 0.017920000000000047
+          },
+          {
+            "objetoId": "bss04-sapata-direita",
+            "dimensoesM": {
+              "x": 1.3,
+              "y": 0.01,
+              "z": 1.2
+            },
+            "coeficienteArrasto": 1.1,
+            "centroLocalM": {
+              "x": 0,
+              "y": -0.145,
+              "z": 0
+            }
+          },
+          {
+            "objetoId": "bss06-grid-fin-esquerda",
+            "dimensoesM": {
+              "x": 0.4,
+              "y": 1.5,
+              "z": 0.5
+            },
+            "coeficienteArrasto": 1.1,
+            "fracaoDeslocamento": 0.1
+          },
+          {
+            "objetoId": "bss06-grid-fin-direita",
+            "dimensoesM": {
+              "x": 0.4,
+              "y": 1.5,
+              "z": 0.5
+            },
+            "coeficienteArrasto": 1.1,
+            "fracaoDeslocamento": 0.1
+          }
+        ]
+      }
+    },
+    "reproducao": "Mesma revisão de código, modelo, parâmetros, comandos e dt; sem equivalência prometida entre revisões."
+  },
+  "massaDeslocadaRelativaErro": 0.0005555557389751442,
+  "estado": "flutuacao-estavel",
+  "equilibrioContinuoS": 46.96250000001041,
+  "anguloGraus": 90.73246490503612,
+  "integridade": 1,
+  "eventos": [
+    {
+      "sequencia": 0,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "missao-carregada",
+      "descricao": "BSS-006 preparado em ensaio de aproximação sobre oceano."
+    },
+    {
+      "sequencia": 1,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "ensaio-adm-aproximacao",
+      "descricao": "Condição inicial ADM sobre oceano: motores desligados, sem trajetória de lançamento presumida."
+    },
+    {
+      "sequencia": 2,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "execucao-iniciada",
+      "descricao": "Avanço físico iniciado."
+    },
+    {
+      "sequencia": 3,
+      "passo": 37,
+      "tempoS": 0.15416666666666673,
+      "categoria": "fisico",
+      "tipo": "entrada-na-agua",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    },
+    {
+      "sequencia": 4,
+      "passo": 37,
+      "tempoS": 0.15416666666666673,
+      "categoria": "fisico",
+      "tipo": "imersao-parcial",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    },
+    {
+      "sequencia": 5,
+      "passo": 972,
+      "tempoS": 4.050000000000025,
+      "categoria": "fisico",
+      "tipo": "tombamento-observado",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    },
+    {
+      "sequencia": 6,
+      "passo": 18249,
+      "tempoS": 76.03750000001315,
+      "categoria": "fisico",
+      "tipo": "equilibrio-flutuacao-observado",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    }
+  ]
+}

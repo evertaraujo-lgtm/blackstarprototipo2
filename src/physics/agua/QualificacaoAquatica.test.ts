@@ -7,6 +7,8 @@ import { GeografiaCosteira } from '../ambiente/GeografiaCosteira';
 import { RegiaoAquatica } from './RegiaoAquatica';
 import { calcularGeometriaSubmersa } from './GeometriaSubmersa';
 import { SistemaHidrodinamico } from './SistemaHidrodinamico';
+import { SuperficieCosteira } from '../SuperficieCosteira';
+import { AcompanhamentoAmerissagem } from '../../missoes/ObservacaoAmerissagem';
 
 function base(inicio = -100) {
   const ambiente = new AmbienteTerrestre(), ref = ambiente.referencial;
@@ -18,6 +20,52 @@ function objeto(id: string, d: Vetor3, massa: number, posicaoM: Vetor3, theta = 
     estadoInicial: { posicaoM, orientacaoRad: new Vetor3(0, 0, theta), velocidadeAngularRadps: new Vetor3(0, 0, omega) } });
 }
 describe('M11-H — Referências analíticas e limites do meio', () => {
+  it('volume interno declarado zero não aplica cargas nem produz NaN durante imersão e giro', () => {
+    const { ambiente, agua } = base();
+    for (const h of [2, 0, -5]) {
+      const o = objeto(`interno-${h}`, new Vetor3(2, 2, 1), 1000, new Vetor3(0, h, 0), 0.4, 1);
+      const sistema = new SistemaHidrodinamico([agua], p => ambiente.campo.aceleracaoEm(p));
+      sistema.registrar(o, { dimensoesM: o.dimensoesM, fracaoDeslocamento: 0, coeficienteArrasto: 1 });
+      const cargas = sistema.calcular(o), imersao = cargas.estados[0];
+      expect(cargas.forcas).toHaveLength(0);
+      expect(imersao.volumeSubmersoM3).toBe(0); expect(imersao.centroEmpuxoM).toBeUndefined();
+      expect(imersao.forcaArrastoN.magnitude).toBe(0); expect(imersao.torqueHidrodinamicoNm.magnitude).toBe(0);
+      expect(sistema.limitePassoS(o, o.massaKg, o.getMomentoInerciaKgM2().z, o.getEstadoFisico().posicaoM)).toBe(Infinity);
+    }
+  });
+  it('corpo neutro totalmente imerso permanece em equilíbrio sem deriva cinemática', () => {
+    const { ambiente, agua } = base(), o = objeto('neutro-estatico', new Vetor3(2, 2, 1), 4000, new Vetor3(0, -5, 0));
+    const m = new MundoFisico(1 / 240, { ambiente, regioesAquaticas: [agua] }); m.registrarObjeto(o);
+    m.registrarGeometriaAquatica(o, { dimensoesM: o.dimensoesM, coeficienteArrasto: 1 });
+    m.avancar(10);
+    expect(o.getEstadoFisico().posicaoM.subtrair(new Vetor3(0, -5, 0)).magnitude).toBeLessThan(1e-8);
+    expect(o.getEstadoFisico().velocidadeMps.magnitude).toBeLessThan(1e-8);
+  });
+  it('apoio no fundo não aprova flutuação mesmo quando empuxo fica a menos de 2% do peso', () => {
+    const ambiente = new AmbienteTerrestre(), costa = new GeografiaCosteira(ambiente.referencial,
+      // Profundidade maior que a diagonal do cubo: apoio no fundo totalmente imerso, sem cortar água/ar no topo.
+      { inicioArcoM: -100, profundidadeM: 2, larguraRampaM: 1, larguraFundoM: 1000, nivelMarM: 0 });
+    // Inicia em repouso tangente ao fundo: isola apoio sustentado de um quique transitório de chegada.
+    const agua = new RegiaoAquatica('raso', costa, 1000), o = objeto('quase-neutro', new Vetor3(1, 1, 1), 1010, new Vetor3(0, -1.5, 0));
+    const m = new MundoFisico(1 / 240, { ambiente, regioesAquaticas: [agua] }); m.registrarObjeto(o);
+    m.registrarGeometriaAquatica(o, { dimensoesM: o.dimensoesM, coeficienteArrasto: 1 });
+    m.registrarSuperficie(new SuperficieCosteira('fundo', ambiente.campo.centroM, ambiente.referencial.raioM, costa));
+    const observador = new AcompanhamentoAmerissagem();
+    for (let i = 0; i < 1200; i++) {
+      m.avancar(1 / 240); const e = o.getEstadoFisico();
+      observador.atualizar({ componentes: m.obterImersao(o), G: e.posicaoM, massaKg: o.massaKg,
+        gravidadeMps2: m.obterGravidadeMps2(e.posicaoM).magnitude, velocidadeMps: e.velocidadeMps.magnitude,
+        velocidadeRadialMps: e.velocidadeMps.y, atitudeRad: e.orientacaoRad.z, omegaRadps: e.velocidadeAngularRadps.z,
+        empuxoMotorN: 0, contatoSolido: m.obterContatosDoObjeto(o).some(c => c.emContatoGeometrico || c.impulsoNormalNs > 0) }, 1 / 240);
+    }
+    const e = o.getEstadoFisico(), s = observador.observar({ componentes: m.obterImersao(o), G: e.posicaoM, massaKg: o.massaKg,
+      gravidadeMps2: m.obterGravidadeMps2(e.posicaoM).magnitude, velocidadeMps: e.velocidadeMps.magnitude, velocidadeRadialMps: e.velocidadeMps.y,
+      atitudeRad: e.orientacaoRad.z, omegaRadps: e.velocidadeAngularRadps.z, empuxoMotorN: 0,
+      contatoSolido: m.obterContatosDoObjeto(o).some(c => c.emContatoGeometrico || c.impulsoNormalNs > 0) });
+    expect(m.obterContatosDoObjeto(o).some(c => c.impulsoNormalNs > 0)).toBe(true);
+    expect(Math.abs(s.forcaEmpuxoN.magnitude / (o.massaKg * m.obterGravidadeMps2(e.posicaoM).magnitude) - 1)).toBeLessThan(0.02);
+    expect(s.equilibrioObservado).toBe(false); expect(s.estado).toBe('apoio-solido-submerso');
+  });
   it('rejeita objeto sem geometria aquática em vez de pressupor volume/arrasto', () => {
     const { ambiente, agua } = base(), m = new MundoFisico(1 / 240, { ambiente, regioesAquaticas: [agua] });
     m.registrarObjeto(objeto('sem-geometria', new Vetor3(1, 1, 1), 1000, Vetor3.zero));

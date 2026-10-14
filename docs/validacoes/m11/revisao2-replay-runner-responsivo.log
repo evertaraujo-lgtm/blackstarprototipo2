@@ -1,0 +1,15 @@
+
+> starship-prototype-2@0.1.0 test
+> vitest run src/missoes/ReplayMissaoBss006.test.ts -t reexecuta diário Node de voo completo --maxWorkers=1
+
+
+ RUN  v3.2.7 /media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2
+
+ ✓ src/missoes/ReplayMissaoBss006.test.ts (4 tests | 3 skipped) 58738ms
+   ✓ reexecuta diário Node de voo completo, incluindo transição e repouso geométrico  58735ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 3 skipped (4)
+   Start at  00:11:30
+   Duration  61.21s (transform 1.40s, setup 0ms, collect 1.81s, tests 58.74s, environment 1ms, prepare 304ms)
+

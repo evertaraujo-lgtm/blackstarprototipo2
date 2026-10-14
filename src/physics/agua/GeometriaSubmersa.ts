@@ -55,6 +55,8 @@ export function verticesPrismaM(e: EstadoFisico, p: PrismaDeslocador): readonly 
 /** 2D extrudado em Z: células são integração distribuída, sem massas/corpos adicionais. */
 export function calcularGeometriaSubmersa(e: EstadoFisico, p: PrismaDeslocador, agua: RegiaoAquatica): GeometriaImersa {
   const d = p.dimensoesM, nx = p.colunas ?? 2, ny = p.linhas ?? 8, espessura = d.z * (p.fracaoDeslocamento ?? 1);
+  // Componente interno sem exposição: não cria elementos de volume nulo (0/0 no arrasto).
+  if (espessura === 0) return { volumeTotalM3: 0, volumeSubmersoM3: 0, elementos: [], fracaoGeometrica: 0 };
   const cos = Math.cos(e.orientacaoRad.z), sin = Math.sin(e.orientacaoRad.z), c = p.centroLocalM ?? Vetor3.zero;
   const girar = (x: number, y: number) => new Vetor3(x * cos - y * sin, x * sin + y * cos, 0);
   const contorno = verticesPrismaM(e, p).map(v => v.subtrair(e.posicaoM));

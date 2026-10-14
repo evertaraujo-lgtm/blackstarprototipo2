@@ -24,7 +24,7 @@ function canonico(x: unknown): string {
   return JSON.stringify(x);
 }
 function identificacao(m: ReturnType<typeof BSS006_VOO_EXPERIMENTAL.criar>) {
-  return { id: m.id, revisaoMissao: m.configuracao.ensaioAquatico ? 'm11-amerissagem-1' : BSS006_VOO_EXPERIMENTAL.revisao, revisaoVeiculo: DEFINICAO_BSS006.revisao,
+  return { id: m.id, revisaoMissao: m.configuracao.ensaioAquatico ? 'm11-amerissagem-2' : BSS006_VOO_EXPERIMENTAL.revisao, revisaoVeiculo: DEFINICAO_BSS006.revisao,
     configuracao: m.configuracao, modeloFisico: m.observar().cenario.modeloFisico,
     reproducao: 'Mesma revisão de código, modelo, parâmetros, comandos e dt; sem equivalência prometida entre revisões.' };
 }

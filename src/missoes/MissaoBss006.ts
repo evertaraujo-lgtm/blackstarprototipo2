@@ -237,14 +237,16 @@ export class MissaoBss006 implements InstanciaMissao<ComandoBss006, ObservacaoBs
   }
   private medidasAquaticas(): MedidasAmerissagem {
     const v = this.veiculo, m = this.ambiente.mundo, e = v.veiculo.getEstadoFisico(), ref = m.ambiente.referencial;
-    return { componentes: v.veiculo.obterObjetosFisicosConectados().flatMap(o => m.obterImersao(o)), G: v.veiculo.centroDeMassaDoConjuntoM,
+    const conectados = v.veiculo.obterObjetosFisicosConectados();
+    return { componentes: conectados.flatMap(o => m.obterImersao(o)), G: v.veiculo.centroDeMassaDoConjuntoM,
       massaKg: v.veiculo.massaInstantaneaDoConjuntoKg, gravidadeMps2: m.obterGravidadeMps2(e.posicaoM).magnitude,
       velocidadeMps: e.velocidadeMps.magnitude, velocidadeRadialMps: ref.vetorParaLocal(e.velocidadeMps, e.posicaoM).y,
-      atitudeRad: ref.atitudeLocalRad(e.orientacaoRad.z, e.posicaoM), omegaRadps: e.velocidadeAngularRadps.z, empuxoMotorN: v.propulsor.empuxoAtualN };
+      atitudeRad: ref.atitudeLocalRad(e.orientacaoRad.z, e.posicaoM), omegaRadps: e.velocidadeAngularRadps.z, empuxoMotorN: v.propulsor.empuxoAtualN,
+      contatoSolido: conectados.some(o => m.obterContatosDoObjeto(o).some(c => c.emContatoGeometrico || c.impulsoNormalNs > 0)) };
   }
 }
 export const BSS006_VOO_EXPERIMENTAL = Object.freeze({ id: ID_MISSAO_BSS006,
   revisao: 'm10-voo-experimental-1', criar: (configuracao: ConfiguracaoMissaoBss006 = {}) => new MissaoBss006(configuracao) } satisfies DefinicaoMissao<ConfiguracaoMissaoBss006, ComandoBss006, ObservacaoBss006>);
-export const BSS006_AMERISSAGEM_EXPERIMENTAL = Object.freeze({ id: ID_AMERISSAGEM_BSS006, revisao: 'm11-amerissagem-1',
+export const BSS006_AMERISSAGEM_EXPERIMENTAL = Object.freeze({ id: ID_AMERISSAGEM_BSS006, revisao: 'm11-amerissagem-2',
   criar: (configuracao: ConfiguracaoMissaoBss006 = {}) => new MissaoBss006({ ...configuracao,
     ensaioAquatico: configuracao.ensaioAquatico ?? { inclinacaoInicialRad: 0.005, velocidadeInicialMps: 0.5, altitudeInicialM: 5 } }, ID_AMERISSAGEM_BSS006) });

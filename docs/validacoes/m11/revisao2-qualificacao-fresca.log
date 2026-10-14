@@ -1,0 +1,17 @@
+
+> starship-prototype-2@0.1.0 test
+> vitest run src/physics/agua/QualificacaoAquatica.test.ts --maxWorkers=1
+
+
+ RUN  v3.2.7 /media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2
+
+ ✓ src/physics/agua/QualificacaoAquatica.test.ts (8 tests) 2687ms
+   ✓ M11-H — Referências analíticas e limites do meio > corpo neutro totalmente imerso permanece em equilíbrio sem deriva cinemática  590ms
+   ✓ M11-H — Referências analíticas e limites do meio > apoio no fundo não aprova flutuação mesmo quando empuxo fica a menos de 2% do peso  1528ms
+   ✓ M11-H — Referências analíticas e limites do meio > velocidade terminal de corpo denso concorda com equilíbrio de forças a 2%  469ms
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  00:06:14
+   Duration  4.57s (transform 928ms, setup 0ms, collect 1.15s, tests 2.69s, environment 0ms, prepare 334ms)
+

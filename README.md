@@ -289,3 +289,28 @@ comparação Chrome/Node, os estados físicos e eventos coincidiram, mas uma
 amostra do período orbital estimado diferiu em cerca de 4,55 × 10⁻¹³ s.
 A comparação estrita rejeita essa diferença; igualdade bit a bit entre
 engines JavaScript distintas permanece fora da qualificação atual.
+
+## Oceano físico e amerissagem — M11
+
+Em `/missao.html`, selecione **Amerissagem M11 · ensaio ADM** e pressione
+Iniciar. O BSS-006 começa quase vertical sobre a água, com motores desligados.
+Empuxo no centro do volume deslocado e arrasto distribuído determinam entrada,
+rotação e flutuação. A costa, o nível livre e o fundo são geometria do domínio;
+a água não possui colisão rígida no nível do mar.
+
+Este ensaio declara uma hipótese de compartimentos estanques e peças
+permeáveis, mantendo massas, dimensões de colisão e controladores históricos.
+Não constitui qualificação de estanqueidade ou de amerissagem do veículo real.
+A variante terrestre M10 continua sendo o padrão.
+
+```bash
+npm run missao:executar -- --amerissagem --segundos 180 --saida /tmp/amerissagem.json
+npm run missao:executar -- --replay /tmp/amerissagem.json --saida /tmp/amerissagem-replay.json
+npm run agua:validar -- --saida /tmp/hidrodinamica.json
+```
+
+O terceiro comando coleta comparações analíticas com corpos inertes no mesmo
+núcleo físico. Flutuação livre e apoio no fundo são observações distintas;
+uma janela de equilíbrio não interrompe a evolução física. Hipóteses, erros,
+capturas e evidências estão no
+[plano M11](docs/planos-codex/2026-10-13-m11-hidrodinamica-amerissagem.md).

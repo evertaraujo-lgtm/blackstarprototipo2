@@ -45,13 +45,13 @@ export class SistemaHidrodinamico {
   public verificarDeclaracoes(objetos: Iterable<Objeto>): void {
     for (const o of objetos) if (!this.formas.has(o)) throw new Error(`Geometria aquática não declarada: ${o.id}. Declare deslocamento/área explicitamente, inclusive zero para componentes internos.`);
   }
-  public calcular(objeto: Objeto, referenciaM = objeto.getEstadoFisico().posicaoM): { forcas: readonly ForcaAplicada[]; estados: readonly EstadoImersao[] } {
+  public calcular(objeto: Objeto, referenciaM = objeto.getEstadoFisico().posicaoM, incluirEmpuxo = true): { forcas: readonly ForcaAplicada[]; estados: readonly EstadoImersao[] } {
     const p = this.formas.get(objeto); if (!p) return { forcas: [], estados: [] };
     const e = objeto.getEstadoFisico(), estados: EstadoImersao[] = [], forcas: ForcaAplicada[] = [];
     for (const [indice, agua] of this.regioes.entries()) {
       const g = this.geometrias(objeto, p)[indice], B = g.centroEmpuxoM;
       const forcaEmpuxoN = B ? this.gravidade(B).multiplicar(-agua.densidadeKgM3 * g.volumeSubmersoM3) : Vetor3.zero;
-      if (B) forcas.push({ forcaN: forcaEmpuxoN, pontoM: B });
+      if (B && incluirEmpuxo) forcas.push({ forcaN: forcaEmpuxoN, pontoM: B });
       let forcaArrastoN = Vetor3.zero, torqueArrasto = Vetor3.zero, potenciaDissipadaW = 0;
       for (const el of g.elementos) {
         const v = e.velocidadeMps.adicionar(e.velocidadeAngularRadps.produtoVetorial(el.centroM.subtrair(e.posicaoM)))
@@ -73,6 +73,12 @@ export class SistemaHidrodinamico {
         energiaEntradaJ: entrada?.energiaJ ?? 0, picoVelocidadeEntradaMps: entrada?.picoMps ?? 0 });
     }
     return { forcas, estados };
+  }
+  /** Forças conservativas, para a mesma composição kick–drift–kick da gravidade. */
+  public obterEmpuxos(objeto: Objeto): readonly ForcaAplicada[] {
+    const p = this.formas.get(objeto); if (!p) return [];
+    return this.geometrias(objeto, p).flatMap((g, i) => g.centroEmpuxoM ? [{ pontoM: g.centroEmpuxoM,
+      forcaN: this.gravidade(g.centroEmpuxoM).multiplicar(-this.regioes[i].densidadeKgM3 * g.volumeSubmersoM3) }] : []);
   }
   /** Trabalho resistivo na fase de volume crescente: modelo energético de entrada, sem impulso adicional. */
   public atualizarCarregamento(objeto: Objeto, dtS: number): void {

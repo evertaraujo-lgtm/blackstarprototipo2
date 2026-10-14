@@ -1,0 +1,524 @@
+{
+  "marco": "M11-H",
+  "modelo": "Corpos inertes, água uniforme 1000 kg/m³, atmosfera 1,225 kg/m³; sem propulsão.",
+  "estatico": [
+    {
+      "h": 2,
+      "volumeAnaliticoM3": 0,
+      "volumeMedidoM3": 0,
+      "forcaAnaliticaN": 0,
+      "forcaMedidaN": 0
+    },
+    {
+      "h": 0,
+      "volumeAnaliticoM3": 2,
+      "volumeMedidoM3": 2,
+      "forcaAnaliticaN": 19640.504056925423,
+      "forcaMedidaN": 19640.504056925423
+    },
+    {
+      "h": -2,
+      "volumeAnaliticoM3": 4,
+      "volumeMedidoM3": 4,
+      "forcaAnaliticaN": 39281.02661064494,
+      "forcaMedidaN": 39281.02661064494
+    }
+  ],
+  "equilibrio": {
+    "altitudeAnaliticaM": 0.25,
+    "estado": {
+      "posicaoM": {
+        "x": -3.014040735156025e-16,
+        "y": 0.24948411884576968,
+        "z": 0
+      },
+      "velocidadeMps": {
+        "x": -3.4418473270263052e-18,
+        "y": -0.003094511008499983,
+        "z": 0
+      },
+      "orientacaoRad": {
+        "x": 0,
+        "y": 0,
+        "z": -3.829617409107467e-18
+      },
+      "velocidadeAngularRadps": {
+        "x": 0,
+        "y": 0,
+        "z": -5.0620333705753456e-17
+      }
+    },
+    "imersao": {
+      "objetoId": "inerte",
+      "regiaoId": "agua-de-prova",
+      "volumeTotalM3": 4,
+      "volumeSubmersoM3": 1.0020635246169212,
+      "fracaoSubmersa": 0.2505158811542303,
+      "centroEmpuxoM": {
+        "x": -2.9229677526672425e-16,
+        "y": -0.12525794057711517,
+        "z": 0
+      },
+      "forcaEmpuxoN": {
+        "x": -4.514755795389765e-19,
+        "y": 9840.515202629977,
+        "z": 0
+      },
+      "forcaArrastoN": {
+        "x": 3.474774104310953e-17,
+        "y": 0.004797879345059947,
+        "z": 0
+      },
+      "torqueHidrodinamicoNm": {
+        "x": 0,
+        "y": 0,
+        "z": 8.979115204429239e-14
+      },
+      "potenciaDissipadaW": 0.000014847090450742694,
+      "velocidadeEntradaMps": 0.003094511008499983,
+      "energiaEntradaJ": 0,
+      "picoVelocidadeEntradaMps": 0
+    },
+    "integridade": 1,
+    "massaKg": 1000,
+    "erroCaladoM": 0.0005158811542303188,
+    "erroMassaDeslocadaRelativo": 0.002063524616921164
+  },
+  "afundamento": {
+    "estado": {
+      "posicaoM": {
+        "x": -6.929437331200015e-35,
+        "y": -20.861437284554892,
+        "z": 0
+      },
+      "velocidadeMps": {
+        "x": -7.39457389677913e-35,
+        "y": -4.410278587593487,
+        "z": 0
+      },
+      "orientacaoRad": {
+        "x": 0,
+        "y": 0,
+        "z": -3.139358907954272e-17
+      },
+      "velocidadeAngularRadps": {
+        "x": 0,
+        "y": 0,
+        "z": -1.1886266690540363e-17
+      }
+    },
+    "imersao": {
+      "objetoId": "inerte",
+      "regiaoId": "agua-de-prova",
+      "volumeTotalM3": 4,
+      "volumeSubmersoM3": 4,
+      "fracaoSubmersa": 1,
+      "centroEmpuxoM": {
+        "x": -6.929437331200015e-35,
+        "y": -20.861437284554892,
+        "z": 0
+      },
+      "forcaEmpuxoN": {
+        "x": -4.272451972737319e-37,
+        "y": 39281.25919584119,
+        "z": 0
+      },
+      "forcaArrastoN": {
+        "x": 0,
+        "y": 19450.5572201856,
+        "z": 0
+      },
+      "torqueHidrodinamicoNm": {
+        "x": 0,
+        "y": 0,
+        "z": -2.2737367544323206e-13
+      },
+      "potenciaDissipadaW": 85782.37602494648,
+      "velocidadeEntradaMps": 4.410278587593487,
+      "energiaEntradaJ": 0,
+      "picoVelocidadeEntradaMps": 0
+    },
+    "integridade": 1,
+    "massaKg": 6000,
+    "terminalAnaliticaMps": 4.431774994053804,
+    "erroTerminalRelativo": 0.0048505184692722025
+  },
+  "angular": [
+    {
+      "dimensoesM": {
+        "x": 4,
+        "y": 2,
+        "z": 1
+      },
+      "GM": 0.8333333333333333,
+      "torqueAnaliticoNm": -32.73416829021309,
+      "torqueMedidoNm": -32.734196728873535,
+      "erroRelativo": 8.687760200132288e-7
+    },
+    {
+      "dimensoesM": {
+        "x": 1,
+        "y": 8,
+        "z": 1
+      },
+      "GM": -1.9791666666666665,
+      "torqueAnaliticoNm": 77.74364968925609,
+      "torqueMedidoNm": 77.74370953923543,
+      "erroRelativo": 7.698375310560834e-7
+    }
+  ],
+  "arrasto": [
+    {
+      "vMps": 2,
+      "analiticoN": -4000,
+      "medidoN": -4000
+    },
+    {
+      "vMps": 4,
+      "analiticoN": -16000,
+      "medidoN": -16000
+    }
+  ],
+  "refinamento": [
+    {
+      "dtS": 0.004166666666666667,
+      "estado": {
+        "posicaoM": {
+          "x": 9.406532106583225e-35,
+          "y": -17.002419442203387,
+          "z": 0
+        },
+        "velocidadeMps": {
+          "x": 2.5098640546962086e-36,
+          "y": -6.507600698171026,
+          "z": 0
+        },
+        "orientacaoRad": {
+          "x": 0,
+          "y": 0,
+          "z": -2.5682732291326874e-17
+        },
+        "velocidadeAngularRadps": {
+          "x": 0,
+          "y": 0,
+          "z": -2.1934011446073608e-17
+        }
+      },
+      "imersao": {
+        "objetoId": "inerte",
+        "regiaoId": "agua-de-prova",
+        "volumeTotalM3": 4,
+        "volumeSubmersoM3": 4,
+        "fracaoSubmersa": 1,
+        "centroEmpuxoM": {
+          "x": 9.406532106583225e-35,
+          "y": -17.002419442203387,
+          "z": 0
+        },
+        "forcaEmpuxoN": {
+          "x": 5.799732605269549e-37,
+          "y": 39281.21160913933,
+          "z": 0
+        },
+        "forcaArrastoN": {
+          "x": -6.310887241768095e-30,
+          "y": 42348.86684683604,
+          "z": 0
+        },
+        "torqueHidrodinamicoNm": {
+          "x": 0,
+          "y": 0,
+          "z": 9.094947017729282e-13
+        },
+        "potenciaDissipadaW": 275589.5154592219,
+        "velocidadeEntradaMps": 6.507600698171026,
+        "energiaEntradaJ": 0,
+        "picoVelocidadeEntradaMps": 50
+      },
+      "integridade": 1,
+      "massaKg": 6000
+    },
+    {
+      "dtS": 0.0020833333333333333,
+      "estado": {
+        "posicaoM": {
+          "x": 9.439390184598846e-35,
+          "y": -17.00246733444151,
+          "z": 0
+        },
+        "velocidadeMps": {
+          "x": -1.6782593759080502e-36,
+          "y": -6.507682173175296,
+          "z": 0
+        },
+        "orientacaoRad": {
+          "x": 0,
+          "y": 0,
+          "z": -2.4394299724693223e-17
+        },
+        "velocidadeAngularRadps": {
+          "x": 0,
+          "y": 0,
+          "z": -1.5433039490835365e-17
+        }
+      },
+      "imersao": {
+        "objetoId": "inerte",
+        "regiaoId": "agua-de-prova",
+        "volumeTotalM3": 4,
+        "volumeSubmersoM3": 4,
+        "fracaoSubmersa": 1,
+        "centroEmpuxoM": {
+          "x": 9.439390184598846e-35,
+          "y": -17.00246733444151,
+          "z": 0
+        },
+        "forcaEmpuxoN": {
+          "x": 5.819991725792289e-37,
+          "y": 39281.21160972991,
+          "z": 0
+        },
+        "forcaArrastoN": {
+          "x": 7.888609052210118e-31,
+          "y": 42349.92726706354,
+          "z": 0
+        },
+        "torqueHidrodinamicoNm": {
+          "x": 0,
+          "y": 0,
+          "z": 4.547473508864641e-13
+        },
+        "potenciaDissipadaW": 275599.8667111398,
+        "velocidadeEntradaMps": 6.507682173175296,
+        "energiaEntradaJ": 0,
+        "picoVelocidadeEntradaMps": 50
+      },
+      "integridade": 1,
+      "massaKg": 6000
+    },
+    {
+      "dtS": 0.0010416666666666667,
+      "estado": {
+        "posicaoM": {
+          "x": 1.37745488207051e-34,
+          "y": -17.008786015003192,
+          "z": 0
+        },
+        "velocidadeMps": {
+          "x": 1.9258417430434186e-34,
+          "y": -6.513468462130838,
+          "z": 0
+        },
+        "orientacaoRad": {
+          "x": 0,
+          "y": 0,
+          "z": -3.666436738945828e-17
+        },
+        "velocidadeAngularRadps": {
+          "x": 0,
+          "y": 0,
+          "z": -3.9450897960854233e-17
+        }
+      },
+      "imersao": {
+        "objetoId": "inerte",
+        "regiaoId": "agua-de-prova",
+        "volumeTotalM3": 4,
+        "volumeSubmersoM3": 4,
+        "fracaoSubmersa": 1,
+        "centroEmpuxoM": {
+          "x": 1.37745488207051e-34,
+          "y": -17.008786015003192,
+          "z": 0
+        },
+        "forcaEmpuxoN": {
+          "x": 8.492896133518765e-37,
+          "y": 39281.21168764738,
+          "z": 0
+        },
+        "forcaArrastoN": {
+          "x": 0,
+          "y": 42425.27140717306,
+          "z": 0
+        },
+        "torqueHidrodinamicoNm": {
+          "x": 0,
+          "y": 0,
+          "z": 1.3642420526593924e-12
+        },
+        "potenciaDissipadaW": 276335.667307963,
+        "velocidadeEntradaMps": 6.513468462130838,
+        "energiaEntradaJ": 0,
+        "picoVelocidadeEntradaMps": 50
+      },
+      "integridade": 1,
+      "massaKg": 6000
+    }
+  ],
+  "erroPosicao240vs480M": 0.00004789223812196042,
+  "impactos": [
+    {
+      "dtS": 0.004166666666666667,
+      "estado": {
+        "posicaoM": {
+          "x": -1.1464570632559999e-21,
+          "y": -8.708038308023134,
+          "z": 0
+        },
+        "velocidadeMps": {
+          "x": -1.0316705240071162e-21,
+          "y": -8.10113561449342,
+          "z": 0
+        },
+        "orientacaoRad": {
+          "x": 0,
+          "y": 0,
+          "z": 8.821874197711487e-18
+        },
+        "velocidadeAngularRadps": {
+          "x": 0,
+          "y": 0,
+          "z": -4.8155255862510625e-18
+        }
+      },
+      "imersao": {
+        "objetoId": "inerte",
+        "regiaoId": "agua-de-prova",
+        "volumeTotalM3": 1,
+        "volumeSubmersoM3": 1,
+        "fracaoSubmersa": 1,
+        "centroEmpuxoM": {
+          "x": -1.1464570632559999e-21,
+          "y": -8.708038308023134,
+          "z": 0
+        },
+        "forcaEmpuxoN": {
+          "x": -1.7671545595861428e-24,
+          "y": 9820.277332235097,
+          "z": 0
+        },
+        "forcaArrastoN": {
+          "x": 4.1788514122290584e-18,
+          "y": 32814.19912220684,
+          "z": 0
+        },
+        "torqueHidrodinamicoNm": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "potenciaDissipadaW": 265832.27716998855,
+        "velocidadeEntradaMps": 8.10113561449342,
+        "energiaEntradaJ": 818104.9103274369,
+        "picoVelocidadeEntradaMps": 60.08183540659933
+      },
+      "integridade": 0,
+      "massaKg": 2000
+    },
+    {
+      "dtS": 0.0020833333333333333,
+      "estado": {
+        "posicaoM": {
+          "x": -3.3237823787574947e-20,
+          "y": -8.697471046541901,
+          "z": 0
+        },
+        "velocidadeMps": {
+          "x": -2.7157717834835494e-20,
+          "y": -8.099068201793258,
+          "z": 0
+        },
+        "orientacaoRad": {
+          "x": 0,
+          "y": 0,
+          "z": -6.094563403782179e-17
+        },
+        "velocidadeAngularRadps": {
+          "x": 0,
+          "y": 0,
+          "z": -1.30117893995062e-16
+        }
+      },
+      "imersao": {
+        "objetoId": "inerte",
+        "regiaoId": "agua-de-prova",
+        "volumeTotalM3": 1,
+        "volumeSubmersoM3": 1,
+        "fracaoSubmersa": 1,
+        "centroEmpuxoM": {
+          "x": -3.3237823787574947e-20,
+          "y": -8.697471046541901,
+          "z": 0
+        },
+        "forcaEmpuxoN": {
+          "x": -5.123294491103721e-23,
+          "y": 9820.277299658243,
+          "z": 0
+        },
+        "forcaArrastoN": {
+          "x": 1.0997610447468744e-16,
+          "y": 32797.452868649336,
+          "z": 0
+        },
+        "torqueHidrodinamicoNm": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "potenciaDissipadaW": 265628.80762829084,
+        "velocidadeEntradaMps": 8.099068201793258,
+        "energiaEntradaJ": 808185.7299723353,
+        "picoVelocidadeEntradaMps": 60.061376553744125
+      },
+      "integridade": 0,
+      "massaKg": 2000
+    }
+  ],
+  "erroEnergiaEntradaRelativo": 0.012273392101888714,
+  "energiaRotacional": [
+    {
+      "tempoS": 0,
+      "energiaJ": 1333.3333333333333
+    },
+    {
+      "tempoS": 0.09999999999999999,
+      "energiaJ": 1269.9736673682773
+    },
+    {
+      "tempoS": 0.2000000000000002,
+      "energiaJ": 1211.029175291071
+    },
+    {
+      "tempoS": 0.30000000000000016,
+      "energiaJ": 1156.0988616503334
+    },
+    {
+      "tempoS": 0.3999999999999998,
+      "energiaJ": 1104.8262518548927
+    },
+    {
+      "tempoS": 0.49999999999999944,
+      "energiaJ": 1056.8935886767024
+    },
+    {
+      "tempoS": 0.5999999999999991,
+      "energiaJ": 1012.016892679773
+    },
+    {
+      "tempoS": 0.6999999999999987,
+      "energiaJ": 969.9417426435392
+    },
+    {
+      "tempoS": 0.7999999999999984,
+      "energiaJ": 930.439658477424
+    },
+    {
+      "tempoS": 0.899999999999998,
+      "energiaJ": 893.3049902672857
+    },
+    {
+      "tempoS": 0.9999999999999977,
+      "energiaJ": 858.3522340934868
+    }
+  ]
+}

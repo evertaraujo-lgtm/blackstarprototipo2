@@ -1,0 +1,4212 @@
+{
+  "marco": "M11-G",
+  "pagina": "missao.html",
+  "ambiente": "dev-local",
+  "revisao": "m11-amerissagem-2",
+  "entrada": {
+    "aquatico": {
+      "estado": "flutuacao-instavel",
+      "volumeSubmersoM3": 10.122600051434167,
+      "volumeDeslocavelM3": 100.74877920000002,
+      "fracaoSubmersa": 0.10047367453792597,
+      "centroEmpuxoM": {
+        "x": 200.01961632614322,
+        "y": -0.6785391672765586,
+        "z": 0
+      },
+      "centroMassaM": {
+        "x": 199.97181045765265,
+        "y": 6.4644199695998426,
+        "z": 0
+      },
+      "forcaEmpuxoN": {
+        "x": 3.1989218613443966,
+        "y": 101891.651340745,
+        "z": 0
+      },
+      "forcaArrastoN": {
+        "x": -148.75857612453717,
+        "y": 1089.261001090885,
+        "z": 0
+      },
+      "momentoHidrodinamicoNm": {
+        "x": 0,
+        "y": 0,
+        "z": 3555.0099558669413
+      },
+      "velocidadeEntradaMps": 4.170385455816581,
+      "energiaEntradaJ": 21628.11858963162,
+      "potenciaDissipadaW": 547.1244166883416,
+      "equilibrioContinuoS": 0,
+      "equilibrioObservado": false,
+      "componentes": [
+        {
+          "objetoId": "bss-006",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 46.080000000000005,
+          "volumeSubmersoM3": 9.924385293645852,
+          "fracaoSubmersa": 0.21537294474057836,
+          "centroEmpuxoM": {
+            "x": 200.01928988017127,
+            "y": -0.6492591445483247,
+            "z": 0
+          },
+          "forcaEmpuxoN": {
+            "x": 3.136277306554629,
+            "y": 99896.46846448304,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": -27.798049097189576,
+            "y": 266.48325885699717,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 4572.354790412651
+          },
+          "potenciaDissipadaW": 132.58454929219806,
+          "velocidadeEntradaMps": 0.4920066019904,
+          "energiaEntradaJ": 4664.238843567176,
+          "picoVelocidadeEntradaMps": 4.164332259097693
+        },
+        {
+          "objetoId": "painel-decolagem-solar",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.12,
+          "volumeSubmersoM3": 0,
+          "fracaoSubmersa": 0,
+          "forcaEmpuxoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "potenciaDissipadaW": 0,
+          "velocidadeEntradaMps": 0.4839210255730359,
+          "energiaEntradaJ": 0,
+          "picoVelocidadeEntradaMps": 0.5233597018390868
+        },
+        {
+          "objetoId": "bateria-decolagem-solar",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.288,
+          "volumeSubmersoM3": 0,
+          "fracaoSubmersa": 0,
+          "forcaEmpuxoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "potenciaDissipadaW": 0,
+          "velocidadeEntradaMps": 0.4928588397584296,
+          "energiaEntradaJ": 0,
+          "picoVelocidadeEntradaMps": 0.5321501013789804
+        },
+        {
+          "objetoId": "tanque-decolagem-metano",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 27.000000000000004,
+          "volumeSubmersoM3": 0,
+          "fracaoSubmersa": 0,
+          "forcaEmpuxoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "potenciaDissipadaW": 0,
+          "velocidadeEntradaMps": 0.4924158718614466,
+          "energiaEntradaJ": 0,
+          "picoVelocidadeEntradaMps": 0.5317169200683122
+        },
+        {
+          "objetoId": "tanque-decolagem-oxidante",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 27.000000000000004,
+          "volumeSubmersoM3": 0,
+          "fracaoSubmersa": 0,
+          "forcaEmpuxoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "potenciaDissipadaW": 0,
+          "velocidadeEntradaMps": 0.49266655572140083,
+          "energiaEntradaJ": 0,
+          "picoVelocidadeEntradaMps": 0.5319620655150997
+        },
+        {
+          "objetoId": "propulsor-decolagem-solar",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.14699999999999996,
+          "volumeSubmersoM3": 0.14699999999999996,
+          "fracaoSubmersa": 1,
+          "centroEmpuxoM": {
+            "x": 200.0361152092284,
+            "y": -2.045309319122545,
+            "z": 0
+          },
+          "forcaEmpuxoN": {
+            "x": 0.04645847928295341,
+            "y": 1479.667189997902,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": -41.450557739855796,
+            "y": 304.0677366260956,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": -240.83539377541047
+          },
+          "potenciaDissipadaW": 152.31165233945052,
+          "velocidadeEntradaMps": 0.4916649648513322,
+          "energiaEntradaJ": 13581.384329623846,
+          "picoVelocidadeEntradaMps": 4.166145420631277
+        },
+        {
+          "objetoId": "bss04-perna-esquerda",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.01128960000000003,
+          "volumeSubmersoM3": 0.010060299043919215,
+          "fracaoSubmersa": 0.891112089349418,
+          "centroEmpuxoM": {
+            "x": 198.23079626870725,
+            "y": -1.4065384158504002,
+            "z": 0
+          },
+          "forcaEmpuxoN": {
+            "x": 0.003150802118069426,
+            "y": 101.26456756641167,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": -5.77547135618566,
+            "y": 48.89110533168312,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": -307.88416967401923
+          },
+          "potenciaDissipadaW": 25.38840948290853,
+          "velocidadeEntradaMps": 0.5119903420012837,
+          "energiaEntradaJ": 1680.4386518692356,
+          "picoVelocidadeEntradaMps": 4.170385455816581
+        },
+        {
+          "objetoId": "bss04-sapata-esquerda",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.015600000000000001,
+          "volumeSubmersoM3": 0.015600000000000001,
+          "fracaoSubmersa": 1,
+          "centroEmpuxoM": {
+            "x": 197.89472618594056,
+            "y": -3.1078431072640162,
+            "z": 0
+          },
+          "forcaEmpuxoN": {
+            "x": 0.004877511249764536,
+            "y": 157.02595825879988,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": -35.89655471074293,
+            "y": 234.50447346752378,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": -1157.8868290344637
+          },
+          "potenciaDissipadaW": 123.79593542624573,
+          "velocidadeEntradaMps": 0.5157775854170317,
+          "energiaEntradaJ": 30.98725772474991,
+          "picoVelocidadeEntradaMps": 2.0728021662826093
+        },
+        {
+          "objetoId": "bss04-perna-direita",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.01128960000000003,
+          "volumeSubmersoM3": 0.009954458744397987,
+          "fracaoSubmersa": 0.8817370628186969,
+          "centroEmpuxoM": {
+            "x": 201.83079631553386,
+            "y": -1.3918862706340926,
+            "z": 0
+          },
+          "forcaEmpuxoN": {
+            "x": 0.003174272411867035,
+            "y": 100.19920392209349,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": -5.465248312662384,
+            "y": 42.70978414054339,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 221.78665362060553
+          },
+          "potenciaDissipadaW": 20.472824570864805,
+          "velocidadeEntradaMps": 0.4714688559627951,
+          "energiaEntradaJ": 1637.698276516365,
+          "picoVelocidadeEntradaMps": 4.161931924392833
+        },
+        {
+          "objetoId": "bss04-sapata-direita",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.015600000000000001,
+          "volumeSubmersoM3": 0.015600000000000001,
+          "fracaoSubmersa": 1,
+          "centroEmpuxoM": {
+            "x": 202.19458262148154,
+            "y": -3.072705751976584,
+            "z": 0
+          },
+          "forcaEmpuxoN": {
+            "x": 0.004983489727113794,
+            "y": 157.0259565167562,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": -32.372694907900836,
+            "y": 192.604642668042,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 467.4749043175775
+          },
+          "potenciaDissipadaW": 92.571045576674,
+          "velocidadeEntradaMps": 0.4673769090038894,
+          "energiaEntradaJ": 33.371230330241424,
+          "picoVelocidadeEntradaMps": 2.1631530924308744
+        },
+        {
+          "objetoId": "bss06-grid-fin-esquerda",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.030000000000000006,
+          "volumeSubmersoM3": 0,
+          "fracaoSubmersa": 0,
+          "forcaEmpuxoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "potenciaDissipadaW": 0,
+          "velocidadeEntradaMps": 0.513288047708533,
+          "energiaEntradaJ": 0,
+          "picoVelocidadeEntradaMps": 0.5522405758362455
+        },
+        {
+          "objetoId": "bss06-grid-fin-direita",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.030000000000000006,
+          "volumeSubmersoM3": 0,
+          "fracaoSubmersa": 0,
+          "forcaEmpuxoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "potenciaDissipadaW": 0,
+          "velocidadeEntradaMps": 0.47276665105443727,
+          "energiaEntradaJ": 0,
+          "picoVelocidadeEntradaMps": 0.5123892003281486
+        }
+      ]
+    },
+    "id": "BSS006_AMERISSAGEM_EXPERIMENTAL",
+    "passo": 279,
+    "tempoS": 1.1624999999999994,
+    "execucao": "pausada",
+    "fase": "agua",
+    "modo": "decolagem",
+    "casco": {
+      "posicaoM": {
+        "x": 200.0054721668266,
+        "y": 1.704565479314379,
+        "z": 0
+      },
+      "velocidadeMps": {
+        "x": 0.024784155558470727,
+        "y": -0.4920073802842332,
+        "z": 0
+      },
+      "orientacaoRad": {
+        "x": 0,
+        "y": 0,
+        "z": 0.008171568915641747
+      },
+      "velocidadeAngularRadps": {
+        "x": 0,
+        "y": 0,
+        "z": 0.01125633786126968
+      }
+    },
+    "altitudeM": 1.7077048746868968,
+    "deslocamentoHorizontalM": 200.00541858953423,
+    "velocidadeRadialMps": -0.4920066019904,
+    "velocidadeTangencialMps": 0.0247996011814843,
+    "atitudeLocalRad": 0.008202962012265436,
+    "taxaAtitudeLocalRadps": 0.011256341753844556,
+    "alvoPousoLocalM": 0,
+    "erroAlvoM": -200.00541858953423,
+    "empuxoN": 0,
+    "vazaoKgS": 0,
+    "throttle": 0.65,
+    "ignitado": false,
+    "metanoKg": 600,
+    "oxidanteKg": 2400,
+    "energiaEletricaJ": 1000000,
+    "sistemas": {
+      "elétrico": false,
+      "hidráulico": false,
+      "combustível": false,
+      "controle": false
+    },
+    "integridadeMinima": 1,
+    "fixadores": [
+      {
+        "id": "fixador-decolagem-painel-decolagem-solar",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-bateria-decolagem-solar",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-tanque-decolagem-metano",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-tanque-decolagem-oxidante",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-propulsor-decolagem-solar",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-bss04-perna-esquerda",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-bss04-sapata-esquerda",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-bss04-perna-direita",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-bss04-sapata-direita",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-bss06-grid-fin-esquerda",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-bss06-grid-fin-direita",
+        "estado": "integro"
+      }
+    ],
+    "corpos": [
+      {
+        "id": "bss-006",
+        "estado": {
+          "posicaoM": {
+            "x": 200.0054721668266,
+            "y": 1.704565479314379,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": 0.024784155558470727,
+            "y": -0.4920073802842332,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 0.008171568915641747
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.01125633786126968
+          }
+        },
+        "dimensoesM": {
+          "x": 3.2,
+          "y": 6,
+          "z": 2.4
+        },
+        "massaKg": 800,
+        "integridade": 1,
+        "temperaturaC": 20.000026337227688
+      },
+      {
+        "id": "painel-decolagem-solar",
+        "estado": {
+          "posicaoM": {
+            "x": 200.724098983584,
+            "y": 11.665698135716628,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": -0.08734171910291973,
+            "y": -0.48391827403864274,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 0.008171568915641747
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.01125633786126968
+          }
+        },
+        "dimensoesM": {
+          "x": 3,
+          "y": 0.25,
+          "z": 2
+        },
+        "massaKg": 35,
+        "integridade": 1,
+        "temperaturaC": 20
+      },
+      {
+        "id": "bateria-decolagem-solar",
+        "estado": {
+          "posicaoM": {
+            "x": 199.9300500147818,
+            "y": 10.9341851589731,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": -0.07910756188679148,
+            "y": -0.49285635750987306,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 0.008171568915641747
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.01125633786126968
+          }
+        },
+        "dimensoesM": {
+          "x": 1.2,
+          "y": 0.8,
+          "z": 1
+        },
+        "massaKg": 50,
+        "integridade": 1,
+        "temperaturaC": 20
+      },
+      {
+        "id": "tanque-decolagem-metano",
+        "estado": {
+          "posicaoM": {
+            "x": 199.96925223812102,
+            "y": 6.1368994516766495,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": -0.02510769314842254,
+            "y": -0.49241508403905415,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 0.008171568915641747
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.01125633786126968
+          }
+        },
+        "dimensoesM": {
+          "x": 3.419951893353394,
+          "y": 2.5649639200150456,
+          "z": 3.077956704018055
+        },
+        "massaKg": 1126.323192878316,
+        "integridade": 1,
+        "temperaturaC": 20
+      },
+      {
+        "id": "tanque-decolagem-oxidante",
+        "estado": {
+          "posicaoM": {
+            "x": 199.9470669702489,
+            "y": 8.851772726964633,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": -0.0556672239855959,
+            "y": -0.49266480890976533,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 0.008171568915641747
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.01125633786126968
+          }
+        },
+        "dimensoesM": {
+          "x": 3.419951893353394,
+          "y": 2.5649639200150456,
+          "z": 3.077956704018055
+        },
+        "massaKg": 2867.8428381140584,
+        "integridade": 1,
+        "temperaturaC": 20
+      },
+      {
+        "id": "propulsor-decolagem-solar",
+        "estado": {
+          "posicaoM": {
+            "x": 200.03570663532972,
+            "y": -1.995310988476719,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": 0.06643121512488841,
+            "y": -0.4916670508917058,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 1.5789678957105382
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.01125633786126968
+          }
+        },
+        "dimensoesM": {
+          "x": 1.6,
+          "y": 1.4,
+          "z": 1.4
+        },
+        "massaKg": 270,
+        "integridade": 1,
+        "temperaturaC": 20
+      },
+      {
+        "id": "bss04-perna-esquerda",
+        "estado": {
+          "posicaoM": {
+            "x": 198.23004669749832,
+            "y": -1.3100430197880373,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": 0.05871760734382263,
+            "y": -0.5119921692144952,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 0.008171568915641747
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.01125633786126968
+          }
+        },
+        "dimensoesM": {
+          "x": 0.4,
+          "y": 3.3,
+          "z": 0.5
+        },
+        "massaKg": 45,
+        "integridade": 1,
+        "temperaturaC": 20
+      },
+      {
+        "id": "bss04-sapata-esquerda",
+        "estado": {
+          "posicaoM": {
+            "x": 197.89354132163436,
+            "y": -2.962847948391122,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": 0.07732213803895066,
+            "y": -0.5157799874173536,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 0.008171568915641747
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.01125633786126968
+          }
+        },
+        "dimensoesM": {
+          "x": 1.3,
+          "y": 0.3,
+          "z": 1.2
+        },
+        "massaKg": 25,
+        "integridade": 1,
+        "temperaturaC": 20
+      },
+      {
+        "id": "bss04-perna-direita",
+        "estado": {
+          "posicaoM": {
+            "x": 201.82992650399777,
+            "y": -1.2806256990822806,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": 0.0583864760429853,
+            "y": -0.4714707058525756,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 0.008171568915641747
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.01125633786126968
+          }
+        },
+        "dimensoesM": {
+          "x": 0.4,
+          "y": 3.3,
+          "z": 0.5
+        },
+        "massaKg": 45,
+        "integridade": 1,
+        "temperaturaC": 20
+      },
+      {
+        "id": "bss04-sapata-direita",
+        "estado": {
+          "posicaoM": {
+            "x": 202.19339775717535,
+            "y": -2.92771059310369,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": 0.07692662009628386,
+            "y": -0.46737935062394953,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 0.008171568915641747
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.01125633786126968
+          }
+        },
+        "dimensoesM": {
+          "x": 1.3,
+          "y": 0.3,
+          "z": 1.2
+        },
+        "massaKg": 25,
+        "integridade": 1,
+        "temperaturaC": 20
+      },
+      {
+        "id": "bss06-grid-fin-esquerda",
+        "estado": {
+          "posicaoM": {
+            "x": 198.11519716422987,
+            "y": 12.744415567192856,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": -0.0994841269684572,
+            "y": -0.5132849543641742,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 0.008171568915641747
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.01125633786126968
+          }
+        },
+        "dimensoesM": {
+          "x": 0.4,
+          "y": 1.5,
+          "z": 0.5
+        },
+        "massaKg": 30,
+        "integridade": 1,
+        "temperaturaC": 20.00086853547807,
+        "deflexaoRad": 0
+      },
+      {
+        "id": "bss06-grid-fin-direita",
+        "estado": {
+          "posicaoM": {
+            "x": 201.7150769707293,
+            "y": 12.773832887898616,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": -0.09981525826929454,
+            "y": -0.47276349100225423,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 0.008171568915641747
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.01125633786126968
+          }
+        },
+        "dimensoesM": {
+          "x": 0.4,
+          "y": 1.5,
+          "z": 0.5
+        },
+        "massaKg": 30,
+        "integridade": 1,
+        "temperaturaC": 20.000862761781892,
+        "deflexaoRad": 0
+      }
+    ],
+    "conexoesEletricas": [
+      {
+        "id": "cabo-painel-decolagem-solar-carga",
+        "fonteId": "painel-decolagem-solar",
+        "destinoId": "bateria-decolagem-solar",
+        "estado": "energizada"
+      },
+      {
+        "id": "cabo-propulsor-decolagem-solar",
+        "fonteId": "bateria-decolagem-solar",
+        "destinoId": "propulsor-decolagem-solar",
+        "estado": "desligada"
+      },
+      {
+        "id": "cabo-bss06-grid-fin-esquerda",
+        "fonteId": "bateria-decolagem-solar",
+        "destinoId": "bss06-grid-fin-esquerda",
+        "estado": "energizada"
+      },
+      {
+        "id": "cabo-bss06-grid-fin-direita",
+        "fonteId": "bateria-decolagem-solar",
+        "destinoId": "bss06-grid-fin-direita",
+        "estado": "energizada"
+      }
+    ],
+    "contatos": [],
+    "pouso": {
+      "contatoInicial": false,
+      "toqueRetorno": false,
+      "repousoGeometricoS": 0,
+      "maiorRepousoGeometricoS": 0,
+      "apoioBilateralObservado": false,
+      "apoioBilateralSustentadoS": 0,
+      "maiorApoioBilateralSustentadoS": 0,
+      "pousoEstruturalmenteSeguro": false,
+      "limitesToqueAtendidos": false
+    },
+    "objetivos": [
+      {
+        "id": "entrada",
+        "descricao": "Entrada física sem piso líquido",
+        "estado": "atingido"
+      },
+      {
+        "id": "flutuacao",
+        "descricao": "Equilíbrio de forças e momentos por 3 s, sem propulsão",
+        "estado": "pendente"
+      },
+      {
+        "id": "integridade",
+        "descricao": "Preservar integridade estrutural",
+        "estado": "pendente"
+      }
+    ],
+    "diagnosticoMotor": [
+      "elétrico",
+      "hidráulico",
+      "combustível",
+      "controle",
+      "ignição não realizada"
+    ],
+    "faseControlador": "inativo",
+    "gimbalRad": 0,
+    "sensores": {
+      "validos": true,
+      "idadeS": 0
+    },
+    "arbitragem": [],
+    "engenharia": {
+      "modeloFisico": {
+        "revisao": "terra-esferica-m9",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "raioM": 6371000,
+        "g0ReferenciaIspMps2": 9.80665,
+        "campo": {
+          "modelo": "central",
+          "centroM": {
+            "x": 0,
+            "y": -6371000,
+            "z": 0
+          },
+          "muM3S2": 398600441800000
+        },
+        "integracao": "verlet-gravitacional",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "vacuo-simplificado-25km",
+        "densidadeNivelMarKgM3": 1.225,
+        "hidrodinamica": {
+          "regioes": [
+            {
+              "id": "oceano-experimental",
+              "modelo": "agua-incompressivel-prismas-m11-2",
+              "densidadeKgM3": 1025,
+              "correnteTangencialMps": 0,
+              "costa": {
+                "inicioArcoM": 60,
+                "profundidadeM": 50,
+                "larguraRampaM": 50,
+                "larguraFundoM": 2000,
+                "nivelMarM": 0
+              },
+              "ondas": false
+            }
+          ],
+          "volumes": [
+            {
+              "objetoId": "bss-006",
+              "dimensoesM": {
+                "x": 3.2,
+                "y": 6,
+                "z": 2.4
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 1
+            },
+            {
+              "objetoId": "painel-decolagem-solar",
+              "dimensoesM": {
+                "x": 3,
+                "y": 0.02,
+                "z": 2
+              },
+              "coeficienteArrasto": 1.1
+            },
+            {
+              "objetoId": "bateria-decolagem-solar",
+              "dimensoesM": {
+                "x": 1.2,
+                "y": 0.8,
+                "z": 1
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 0.3
+            },
+            {
+              "objetoId": "tanque-decolagem-metano",
+              "dimensoesM": {
+                "x": 3.419951893353394,
+                "y": 2.5649639200150456,
+                "z": 3.077956704018055
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 1
+            },
+            {
+              "objetoId": "tanque-decolagem-oxidante",
+              "dimensoesM": {
+                "x": 3.419951893353394,
+                "y": 2.5649639200150456,
+                "z": 3.077956704018055
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 1
+            },
+            {
+              "objetoId": "propulsor-decolagem-solar",
+              "dimensoesM": {
+                "x": 1.5,
+                "y": 1.4,
+                "z": 1.4
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": -0.05,
+                "y": 0,
+                "z": 0
+              },
+              "fracaoDeslocamento": 0.05
+            },
+            {
+              "objetoId": "bss04-perna-esquerda",
+              "dimensoesM": {
+                "x": 0.4,
+                "y": 3.15,
+                "z": 0.5
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": 0,
+                "y": 0.075,
+                "z": 0
+              },
+              "fracaoDeslocamento": 0.017920000000000047
+            },
+            {
+              "objetoId": "bss04-sapata-esquerda",
+              "dimensoesM": {
+                "x": 1.3,
+                "y": 0.01,
+                "z": 1.2
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": 0,
+                "y": -0.145,
+                "z": 0
+              }
+            },
+            {
+              "objetoId": "bss04-perna-direita",
+              "dimensoesM": {
+                "x": 0.4,
+                "y": 3.15,
+                "z": 0.5
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": 0,
+                "y": 0.075,
+                "z": 0
+              },
+              "fracaoDeslocamento": 0.017920000000000047
+            },
+            {
+              "objetoId": "bss04-sapata-direita",
+              "dimensoesM": {
+                "x": 1.3,
+                "y": 0.01,
+                "z": 1.2
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": 0,
+                "y": -0.145,
+                "z": 0
+              }
+            },
+            {
+              "objetoId": "bss06-grid-fin-esquerda",
+              "dimensoesM": {
+                "x": 0.4,
+                "y": 1.5,
+                "z": 0.5
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 0.1
+            },
+            {
+              "objetoId": "bss06-grid-fin-direita",
+              "dimensoesM": {
+                "x": 0.4,
+                "y": 1.5,
+                "z": 0.5
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 0.1
+            }
+          ]
+        }
+      },
+      "altitudeGeometricaM": 1.7077048746868968,
+      "velocidadeRadialMps": -0.4920066019904,
+      "velocidadeTangencialMps": 0.0247996011814843,
+      "atitudeLocalRad": 0.008202962012265436,
+      "atitudeInercialRad": 0.008171568915641747,
+      "gravidadeLocalMps2": 9.820245222558235,
+      "orbital": {
+        "raioM": 6371001.707704875,
+        "altitudeM": 1.7077048746868968,
+        "velocidadeInercialMps": 0.4926312176678418,
+        "velocidadeCircularMps": 7909.791342570242,
+        "velocidadeEscapeMps": 11186.134192204128,
+        "energiaEspecificaJPorKg": -62564798.9616564,
+        "momentoAngularEspecificoM2S": -157998.3014776363,
+        "excentricidade": 0.99999999999017,
+        "perigeuM": -6370999.999968686,
+        "apogeuM": 1.7200299482792616,
+        "periodoS": 1789.276963359758,
+        "interceptaSuperficie": true,
+        "estado": "suborbital"
+      },
+      "massaKg": 5349.1660309923745,
+      "combustivelKg": 3000,
+      "reagivelKg": 3000,
+      "deltaVIdealMps": 2824.3946209695027,
+      "densidadeArKgM3": 0.9610105743242292,
+      "pressaoDinamicaPa": 0.11661167385401194,
+      "diagnosticoMotor": [
+        "elétrico",
+        "hidráulico",
+        "combustível",
+        "controle",
+        "ignição não realizada"
+      ],
+      "hipoteseDeltaV": "Tsiolkovsky ideal; Isp nominal constante; mistura CH4/O2 1:4; sem perdas por gravidade/arrasto, dano ou reserva de pouso"
+    },
+    "cenario": {
+      "ancoraM": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "centroTerraM": {
+        "x": 0,
+        "y": -6371000,
+        "z": 0
+      },
+      "costa": {
+        "inicioArcoM": 60,
+        "profundidadeM": 50,
+        "larguraRampaM": 50,
+        "larguraFundoM": 2000,
+        "nivelMarM": 0
+      },
+      "raioTerraM": 6371000,
+      "arcoBaseM": 0,
+      "altitudeTransicaoM": 300,
+      "modeloFisico": {
+        "revisao": "terra-esferica-m9",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "raioM": 6371000,
+        "g0ReferenciaIspMps2": 9.80665,
+        "campo": {
+          "modelo": "central",
+          "centroM": {
+            "x": 0,
+            "y": -6371000,
+            "z": 0
+          },
+          "muM3S2": 398600441800000
+        },
+        "integracao": "verlet-gravitacional",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "vacuo-simplificado-25km",
+        "densidadeNivelMarKgM3": 1.225,
+        "hidrodinamica": {
+          "regioes": [
+            {
+              "id": "oceano-experimental",
+              "modelo": "agua-incompressivel-prismas-m11-2",
+              "densidadeKgM3": 1025,
+              "correnteTangencialMps": 0,
+              "costa": {
+                "inicioArcoM": 60,
+                "profundidadeM": 50,
+                "larguraRampaM": 50,
+                "larguraFundoM": 2000,
+                "nivelMarM": 0
+              },
+              "ondas": false
+            }
+          ],
+          "volumes": [
+            {
+              "objetoId": "bss-006",
+              "dimensoesM": {
+                "x": 3.2,
+                "y": 6,
+                "z": 2.4
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 1
+            },
+            {
+              "objetoId": "painel-decolagem-solar",
+              "dimensoesM": {
+                "x": 3,
+                "y": 0.02,
+                "z": 2
+              },
+              "coeficienteArrasto": 1.1
+            },
+            {
+              "objetoId": "bateria-decolagem-solar",
+              "dimensoesM": {
+                "x": 1.2,
+                "y": 0.8,
+                "z": 1
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 0.3
+            },
+            {
+              "objetoId": "tanque-decolagem-metano",
+              "dimensoesM": {
+                "x": 3.419951893353394,
+                "y": 2.5649639200150456,
+                "z": 3.077956704018055
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 1
+            },
+            {
+              "objetoId": "tanque-decolagem-oxidante",
+              "dimensoesM": {
+                "x": 3.419951893353394,
+                "y": 2.5649639200150456,
+                "z": 3.077956704018055
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 1
+            },
+            {
+              "objetoId": "propulsor-decolagem-solar",
+              "dimensoesM": {
+                "x": 1.5,
+                "y": 1.4,
+                "z": 1.4
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": -0.05,
+                "y": 0,
+                "z": 0
+              },
+              "fracaoDeslocamento": 0.05
+            },
+            {
+              "objetoId": "bss04-perna-esquerda",
+              "dimensoesM": {
+                "x": 0.4,
+                "y": 3.15,
+                "z": 0.5
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": 0,
+                "y": 0.075,
+                "z": 0
+              },
+              "fracaoDeslocamento": 0.017920000000000047
+            },
+            {
+              "objetoId": "bss04-sapata-esquerda",
+              "dimensoesM": {
+                "x": 1.3,
+                "y": 0.01,
+                "z": 1.2
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": 0,
+                "y": -0.145,
+                "z": 0
+              }
+            },
+            {
+              "objetoId": "bss04-perna-direita",
+              "dimensoesM": {
+                "x": 0.4,
+                "y": 3.15,
+                "z": 0.5
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": 0,
+                "y": 0.075,
+                "z": 0
+              },
+              "fracaoDeslocamento": 0.017920000000000047
+            },
+            {
+              "objetoId": "bss04-sapata-direita",
+              "dimensoesM": {
+                "x": 1.3,
+                "y": 0.01,
+                "z": 1.2
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": 0,
+                "y": -0.145,
+                "z": 0
+              }
+            },
+            {
+              "objetoId": "bss06-grid-fin-esquerda",
+              "dimensoesM": {
+                "x": 0.4,
+                "y": 1.5,
+                "z": 0.5
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 0.1
+            },
+            {
+              "objetoId": "bss06-grid-fin-direita",
+              "dimensoesM": {
+                "x": 0.4,
+                "y": 1.5,
+                "z": 0.5
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 0.1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "tombamento": {
+    "aquatico": {
+      "estado": "tombamento",
+      "volumeSubmersoM3": 2.7845326455007267,
+      "volumeDeslocavelM3": 100.74877920000002,
+      "fracaoSubmersa": 0.027638376043972214,
+      "centroEmpuxoM": {
+        "x": 201.3292618106468,
+        "y": -0.3414914947140568,
+        "z": 0
+      },
+      "centroMassaM": {
+        "x": 195.6578911746932,
+        "y": 4.163975915435252,
+        "z": 0
+      },
+      "forcaEmpuxoN": {
+        "x": 0.8857233829059147,
+        "y": 28028.431232644612,
+        "z": 0
+      },
+      "forcaArrastoN": {
+        "x": -6146.926565068981,
+        "y": -8331.455326146648,
+        "z": 0
+      },
+      "momentoHidrodinamicoNm": {
+        "x": 0,
+        "y": 0,
+        "z": 63573.74379079555
+      },
+      "velocidadeEntradaMps": 10.48110770622063,
+      "energiaEntradaJ": 21631.623200856084,
+      "potenciaDissipadaW": 29425.39069016884,
+      "equilibrioContinuoS": 0,
+      "equilibrioObservado": false,
+      "componentes": [
+        {
+          "objetoId": "bss-006",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 46.080000000000005,
+          "volumeSubmersoM3": 2.6924497467879216,
+          "fracaoSubmersa": 0.0584298990188351,
+          "centroEmpuxoM": {
+            "x": 201.27598338306728,
+            "y": -0.3274107607405585,
+            "z": 0
+          },
+          "forcaEmpuxoN": {
+            "x": 0.8562063718473462,
+            "y": 27101.546955686947,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": -343.30824654398515,
+            "y": -415.9794139004274,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 148256.67919730485
+          },
+          "potenciaDissipadaW": 634.7867313907108,
+          "velocidadeEntradaMps": 0.649643006944779,
+          "energiaEntradaJ": 4666.767804346281,
+          "picoVelocidadeEntradaMps": 4.164332259097693
+        },
+        {
+          "objetoId": "painel-decolagem-solar",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.12,
+          "volumeSubmersoM3": 0,
+          "fracaoSubmersa": 0,
+          "forcaEmpuxoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "potenciaDissipadaW": 0,
+          "velocidadeEntradaMps": 8.432132459636787,
+          "energiaEntradaJ": 0,
+          "picoVelocidadeEntradaMps": 8.41513106857256
+        },
+        {
+          "objetoId": "bateria-decolagem-solar",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.288,
+          "volumeSubmersoM3": 0,
+          "fracaoSubmersa": 0,
+          "forcaEmpuxoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "potenciaDissipadaW": 0,
+          "velocidadeEntradaMps": 8.19812992145902,
+          "energiaEntradaJ": 0,
+          "picoVelocidadeEntradaMps": 8.182703281561578
+        },
+        {
+          "objetoId": "tanque-decolagem-metano",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 27.000000000000004,
+          "volumeSubmersoM3": 0,
+          "fracaoSubmersa": 0,
+          "forcaEmpuxoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "potenciaDissipadaW": 0,
+          "velocidadeEntradaMps": 4.274649049431069,
+          "energiaEntradaJ": 0,
+          "picoVelocidadeEntradaMps": 4.2665052779934145
+        },
+        {
+          "objetoId": "tanque-decolagem-oxidante",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 27.000000000000004,
+          "volumeSubmersoM3": 0,
+          "fracaoSubmersa": 0,
+          "forcaEmpuxoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "potenciaDissipadaW": 0,
+          "velocidadeEntradaMps": 6.49502025308417,
+          "energiaEntradaJ": 0,
+          "picoVelocidadeEntradaMps": 6.482754971030213
+        },
+        {
+          "objetoId": "propulsor-decolagem-solar",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.14699999999999996,
+          "volumeSubmersoM3": 0.06519329871280488,
+          "fracaoSubmersa": 0.4434918279782646,
+          "centroEmpuxoM": {
+            "x": 203.09598280591297,
+            "y": -0.31525558671062237,
+            "z": 0
+          },
+          "forcaEmpuxoN": {
+            "x": 0.020919108832483158,
+            "y": 656.2199504667113,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": -997.4812806663559,
+            "y": -3815.4962824360296,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": -28431.107662087357
+          },
+          "potenciaDissipadaW": 10225.273222587115,
+          "velocidadeEntradaMps": 0,
+          "energiaEntradaJ": 13581.384329623846,
+          "picoVelocidadeEntradaMps": 4.166145420631277
+        },
+        {
+          "objetoId": "bss04-perna-esquerda",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.01128960000000003,
+          "volumeSubmersoM3": 0.01128960000000003,
+          "fracaoSubmersa": 1,
+          "centroEmpuxoM": {
+            "x": 201.52716758424035,
+            "y": -1.1151565513722916,
+            "z": 0
+          },
+          "forcaEmpuxoN": {
+            "x": 0.003594605289833273,
+            "y": 113.63840700736888,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": -2259.116915484813,
+            "y": -1866.9380828527592,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": -24302.610488737842
+          },
+          "potenciaDissipadaW": 6829.681596231524,
+          "velocidadeEntradaMps": 0,
+          "energiaEntradaJ": 1680.9968438010299,
+          "picoVelocidadeEntradaMps": 4.170385455816581
+        },
+        {
+          "objetoId": "bss04-sapata-esquerda",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.015600000000000001,
+          "volumeSubmersoM3": 0.015600000000000001,
+          "fracaoSubmersa": 1,
+          "centroEmpuxoM": {
+            "x": 202.99829015921026,
+            "y": -2.3214725835188723,
+            "z": 0
+          },
+          "forcaEmpuxoN": {
+            "x": 0.005003296936252159,
+            "y": 157.02591948358634,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": -2547.020122373827,
+            "y": -2233.041546957432,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": -31949.217255684096
+          },
+          "potenciaDissipadaW": 11735.649139959487,
+          "velocidadeEntradaMps": 0,
+          "energiaEntradaJ": 30.98725772474991,
+          "picoVelocidadeEntradaMps": 2.0728021662826093
+        },
+        {
+          "objetoId": "bss04-perna-direita",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.01128960000000003,
+          "volumeSubmersoM3": 0,
+          "fracaoSubmersa": 0,
+          "forcaEmpuxoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "potenciaDissipadaW": 0,
+          "velocidadeEntradaMps": 0,
+          "energiaEntradaJ": 1638.1157350299338,
+          "picoVelocidadeEntradaMps": 4.161931924392833
+        },
+        {
+          "objetoId": "bss04-sapata-direita",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.015600000000000001,
+          "volumeSubmersoM3": 0,
+          "fracaoSubmersa": 0,
+          "forcaEmpuxoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "potenciaDissipadaW": 0,
+          "velocidadeEntradaMps": 0,
+          "energiaEntradaJ": 33.371230330241424,
+          "picoVelocidadeEntradaMps": 2.1631530924308744
+        },
+        {
+          "objetoId": "bss06-grid-fin-esquerda",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.030000000000000006,
+          "volumeSubmersoM3": 0,
+          "fracaoSubmersa": 0,
+          "forcaEmpuxoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "potenciaDissipadaW": 0,
+          "velocidadeEntradaMps": 10.498237993906706,
+          "energiaEntradaJ": 0,
+          "picoVelocidadeEntradaMps": 10.48110770622063
+        },
+        {
+          "objetoId": "bss06-grid-fin-direita",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.030000000000000006,
+          "volumeSubmersoM3": 0,
+          "fracaoSubmersa": 0,
+          "forcaEmpuxoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "potenciaDissipadaW": 0,
+          "velocidadeEntradaMps": 8.88308938301395,
+          "energiaEntradaJ": 0,
+          "picoVelocidadeEntradaMps": 8.863825427317463
+        }
+      ]
+    },
+    "id": "BSS006_AMERISSAGEM_EXPERIMENTAL",
+    "passo": 1398,
+    "tempoS": 5.825000000000033,
+    "execucao": "pausada",
+    "fase": "agua",
+    "modo": "decolagem",
+    "casco": {
+      "posicaoM": {
+        "x": 199.82854731558325,
+        "y": 1.869858387100761,
+        "z": 0
+      },
+      "velocidadeMps": {
+        "x": -1.3951400282944664,
+        "y": -0.649599248243248,
+        "z": 0
+      },
+      "orientacaoRad": {
+        "x": 0,
+        "y": 0,
+        "z": 1.069005554562835
+      },
+      "velocidadeAngularRadps": {
+        "x": 0,
+        "y": 0,
+        "z": 0.9328081328618364
+      }
+    },
+    "altitudeM": 1.872992230579257,
+    "deslocamentoHorizontalM": 199.82848860133703,
+    "velocidadeRadialMps": -0.649643006944779,
+    "velocidadeTangencialMps": -1.3951196527163623,
+    "atitudeLocalRad": 1.06903691988831,
+    "taxaAtitudeLocalRadps": 0.9328079138822033,
+    "alvoPousoLocalM": 0,
+    "erroAlvoM": -199.82848860133703,
+    "empuxoN": 0,
+    "vazaoKgS": 0,
+    "throttle": 0.65,
+    "ignitado": false,
+    "metanoKg": 600,
+    "oxidanteKg": 2400,
+    "energiaEletricaJ": 1000000,
+    "sistemas": {
+      "elétrico": false,
+      "hidráulico": false,
+      "combustível": false,
+      "controle": false
+    },
+    "integridadeMinima": 1,
+    "fixadores": [
+      {
+        "id": "fixador-decolagem-painel-decolagem-solar",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-bateria-decolagem-solar",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-tanque-decolagem-metano",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-tanque-decolagem-oxidante",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-propulsor-decolagem-solar",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-bss04-perna-esquerda",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-bss04-sapata-esquerda",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-bss04-perna-direita",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-bss04-sapata-direita",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-bss06-grid-fin-esquerda",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-bss06-grid-fin-direita",
+        "estado": "integro"
+      }
+    ],
+    "corpos": [
+      {
+        "id": "bss-006",
+        "estado": {
+          "posicaoM": {
+            "x": 199.82854731558325,
+            "y": 1.869858387100761,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": -1.3951400282944664,
+            "y": -0.649599248243248,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 1.069005554562835
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.9328081328618364
+          }
+        },
+        "dimensoesM": {
+          "x": 3.2,
+          "y": 6,
+          "z": 2.4
+        },
+        "massaKg": 800,
+        "integridade": 1,
+        "temperaturaC": 20.000029656898786
+      },
+      {
+        "id": "painel-decolagem-solar",
+        "estado": {
+          "posicaoM": {
+            "x": 191.48563402044172,
+            "y": 7.359520129863892,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": -6.515941148604397,
+            "y": -8.431936621712397,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 1.069005554562835
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.9328081328618364
+          }
+        },
+        "dimensoesM": {
+          "x": 3,
+          "y": 0.25,
+          "z": 2
+        },
+        "massaKg": 35,
+        "integridade": 1,
+        "temperaturaC": 20
+      },
+      {
+        "id": "bateria-decolagem-solar",
+        "estado": {
+          "posicaoM": {
+            "x": 191.7364608594407,
+            "y": 6.309419707600487,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": -5.536398934395445,
+            "y": -8.197963306354115,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 1.069005554562835
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.9328081328618364
+          }
+        },
+        "dimensoesM": {
+          "x": 1.2,
+          "y": 0.8,
+          "z": 1
+        },
+        "massaKg": 50,
+        "integridade": 1,
+        "temperaturaC": 20
+      },
+      {
+        "id": "tanque-decolagem-metano",
+        "estado": {
+          "posicaoM": {
+            "x": 195.94249014836316,
+            "y": 4.0018658962080025,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": -3.3838939721122068,
+            "y": -4.274544978592158,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 1.069005554562835
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.9328081328618364
+          }
+        },
+        "dimensoesM": {
+          "x": 3.419951893353394,
+          "y": 2.5649639200150456,
+          "z": 3.077956704018055
+        },
+        "massaKg": 1126.323192878316,
+        "integridade": 1,
+        "temperaturaC": 20
+      },
+      {
+        "id": "tanque-decolagem-oxidante",
+        "estado": {
+          "posicaoM": {
+            "x": 193.5622198854921,
+            "y": 5.307753549367806,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": -4.602036595583529,
+            "y": -6.49488043820746,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 1.069005554562835
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.9328081328618364
+          }
+        },
+        "dimensoesM": {
+          "x": 3.419951893353394,
+          "y": 2.5649639200150456,
+          "z": 3.077956704018055
+        },
+        "massaKg": 2867.8428381140584,
+        "integridade": 1,
+        "temperaturaC": 20
+      },
+      {
+        "id": "propulsor-decolagem-solar",
+        "estado": {
+          "posicaoM": {
+            "x": 203.07242098465733,
+            "y": 0.09017200487273502,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": 0.2649659029912952,
+            "y": 2.3763124922454173,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 2.6398018813577315
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.9328081328618364
+          }
+        },
+        "dimensoesM": {
+          "x": 1.6,
+          "y": 1.4,
+          "z": 1.4
+        },
+        "massaKg": 270,
+        "integridade": 1,
+        "temperaturaC": 20
+      },
+      {
+        "id": "bss04-perna-esquerda",
+        "estado": {
+          "posicaoM": {
+            "x": 201.5929217802351,
+            "y": -1.1512312753363734,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": 1.4229569789317131,
+            "y": 0.9962236017977304,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 1.069005554562835
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.9328081328618364
+          }
+        },
+        "dimensoesM": {
+          "x": 0.4,
+          "y": 3.3,
+          "z": 0.5
+        },
+        "massaKg": 45,
+        "integridade": 1,
+        "temperaturaC": 20
+      },
+      {
+        "id": "bss04-sapata-esquerda",
+        "estado": {
+          "posicaoM": {
+            "x": 202.8711653802871,
+            "y": -2.251728117188314,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": 2.449509383199969,
+            "y": 2.188579627704832,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 1.069005554562835
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.9328081328618364
+          }
+        },
+        "dimensoesM": {
+          "x": 1.3,
+          "y": 0.3,
+          "z": 1.2
+        },
+        "massaKg": 25,
+        "integridade": 1,
+        "temperaturaC": 20
+      },
+      {
+        "id": "bss04-perna-direita",
+        "estado": {
+          "posicaoM": {
+            "x": 203.324508530511,
+            "y": 2.004970132411353,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": -1.5211733631653437,
+            "y": 2.6114618052109,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 1.069005554562835
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.9328081328618364
+          }
+        },
+        "dimensoesM": {
+          "x": 0.4,
+          "y": 3.3,
+          "z": 0.5
+        },
+        "massaKg": 45,
+        "integridade": 1,
+        "temperaturaC": 20
+      },
+      {
+        "id": "bss04-sapata-direita",
+        "estado": {
+          "posicaoM": {
+            "x": 204.93944955422776,
+            "y": 1.518179119843702,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": -1.0670907476381903,
+            "y": 4.117891926226122,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 1.069005554562835
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.9328081328618364
+          }
+        },
+        "dimensoesM": {
+          "x": 1.3,
+          "y": 0.3,
+          "z": 1.2
+        },
+        "massaKg": 25,
+        "integridade": 1,
+        "temperaturaC": 20
+      },
+      {
+        "id": "bss06-grid-fin-esquerda",
+        "estado": {
+          "posicaoM": {
+            "x": 189.2706487150973,
+            "y": 5.609137286852601,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": -4.883169797021642,
+            "y": -10.49809292870714,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 1.069005554562835
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.9328081328618364
+          }
+        },
+        "dimensoesM": {
+          "x": 0.4,
+          "y": 1.5,
+          "z": 0.5
+        },
+        "massaKg": 30,
+        "integridade": 1,
+        "temperaturaC": 20.01406816894638,
+        "deflexaoRad": 0
+      },
+      {
+        "id": "bss06-grid-fin-direita",
+        "estado": {
+          "posicaoM": {
+            "x": 191.00223546537322,
+            "y": 8.765338694600352,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": -7.827300139118723,
+            "y": -8.882854725293956,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 1.069005554562835
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.9328081328618364
+          }
+        },
+        "dimensoesM": {
+          "x": 0.4,
+          "y": 1.5,
+          "z": 0.5
+        },
+        "massaKg": 30,
+        "integridade": 1,
+        "temperaturaC": 20.014402445893715,
+        "deflexaoRad": 0
+      }
+    ],
+    "conexoesEletricas": [
+      {
+        "id": "cabo-painel-decolagem-solar-carga",
+        "fonteId": "painel-decolagem-solar",
+        "destinoId": "bateria-decolagem-solar",
+        "estado": "energizada"
+      },
+      {
+        "id": "cabo-propulsor-decolagem-solar",
+        "fonteId": "bateria-decolagem-solar",
+        "destinoId": "propulsor-decolagem-solar",
+        "estado": "desligada"
+      },
+      {
+        "id": "cabo-bss06-grid-fin-esquerda",
+        "fonteId": "bateria-decolagem-solar",
+        "destinoId": "bss06-grid-fin-esquerda",
+        "estado": "energizada"
+      },
+      {
+        "id": "cabo-bss06-grid-fin-direita",
+        "fonteId": "bateria-decolagem-solar",
+        "destinoId": "bss06-grid-fin-direita",
+        "estado": "energizada"
+      }
+    ],
+    "contatos": [],
+    "pouso": {
+      "contatoInicial": false,
+      "toqueRetorno": false,
+      "repousoGeometricoS": 0,
+      "maiorRepousoGeometricoS": 0,
+      "apoioBilateralObservado": false,
+      "apoioBilateralSustentadoS": 0,
+      "maiorApoioBilateralSustentadoS": 0,
+      "pousoEstruturalmenteSeguro": false,
+      "limitesToqueAtendidos": false
+    },
+    "objetivos": [
+      {
+        "id": "entrada",
+        "descricao": "Entrada física sem piso líquido",
+        "estado": "atingido"
+      },
+      {
+        "id": "flutuacao",
+        "descricao": "Equilíbrio de forças e momentos por 3 s, sem propulsão",
+        "estado": "pendente"
+      },
+      {
+        "id": "integridade",
+        "descricao": "Preservar integridade estrutural",
+        "estado": "pendente"
+      }
+    ],
+    "diagnosticoMotor": [
+      "elétrico",
+      "hidráulico",
+      "combustível",
+      "controle",
+      "ignição não realizada"
+    ],
+    "faseControlador": "inativo",
+    "gimbalRad": 0,
+    "sensores": {
+      "validos": true,
+      "idadeS": 0
+    },
+    "arbitragem": [],
+    "engenharia": {
+      "modeloFisico": {
+        "revisao": "terra-esferica-m9",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "raioM": 6371000,
+        "g0ReferenciaIspMps2": 9.80665,
+        "campo": {
+          "modelo": "central",
+          "centroM": {
+            "x": 0,
+            "y": -6371000,
+            "z": 0
+          },
+          "muM3S2": 398600441800000
+        },
+        "integracao": "verlet-gravitacional",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "vacuo-simplificado-25km",
+        "densidadeNivelMarKgM3": 1.225,
+        "hidrodinamica": {
+          "regioes": [
+            {
+              "id": "oceano-experimental",
+              "modelo": "agua-incompressivel-prismas-m11-2",
+              "densidadeKgM3": 1025,
+              "correnteTangencialMps": 0,
+              "costa": {
+                "inicioArcoM": 60,
+                "profundidadeM": 50,
+                "larguraRampaM": 50,
+                "larguraFundoM": 2000,
+                "nivelMarM": 0
+              },
+              "ondas": false
+            }
+          ],
+          "volumes": [
+            {
+              "objetoId": "bss-006",
+              "dimensoesM": {
+                "x": 3.2,
+                "y": 6,
+                "z": 2.4
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 1
+            },
+            {
+              "objetoId": "painel-decolagem-solar",
+              "dimensoesM": {
+                "x": 3,
+                "y": 0.02,
+                "z": 2
+              },
+              "coeficienteArrasto": 1.1
+            },
+            {
+              "objetoId": "bateria-decolagem-solar",
+              "dimensoesM": {
+                "x": 1.2,
+                "y": 0.8,
+                "z": 1
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 0.3
+            },
+            {
+              "objetoId": "tanque-decolagem-metano",
+              "dimensoesM": {
+                "x": 3.419951893353394,
+                "y": 2.5649639200150456,
+                "z": 3.077956704018055
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 1
+            },
+            {
+              "objetoId": "tanque-decolagem-oxidante",
+              "dimensoesM": {
+                "x": 3.419951893353394,
+                "y": 2.5649639200150456,
+                "z": 3.077956704018055
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 1
+            },
+            {
+              "objetoId": "propulsor-decolagem-solar",
+              "dimensoesM": {
+                "x": 1.5,
+                "y": 1.4,
+                "z": 1.4
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": -0.05,
+                "y": 0,
+                "z": 0
+              },
+              "fracaoDeslocamento": 0.05
+            },
+            {
+              "objetoId": "bss04-perna-esquerda",
+              "dimensoesM": {
+                "x": 0.4,
+                "y": 3.15,
+                "z": 0.5
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": 0,
+                "y": 0.075,
+                "z": 0
+              },
+              "fracaoDeslocamento": 0.017920000000000047
+            },
+            {
+              "objetoId": "bss04-sapata-esquerda",
+              "dimensoesM": {
+                "x": 1.3,
+                "y": 0.01,
+                "z": 1.2
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": 0,
+                "y": -0.145,
+                "z": 0
+              }
+            },
+            {
+              "objetoId": "bss04-perna-direita",
+              "dimensoesM": {
+                "x": 0.4,
+                "y": 3.15,
+                "z": 0.5
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": 0,
+                "y": 0.075,
+                "z": 0
+              },
+              "fracaoDeslocamento": 0.017920000000000047
+            },
+            {
+              "objetoId": "bss04-sapata-direita",
+              "dimensoesM": {
+                "x": 1.3,
+                "y": 0.01,
+                "z": 1.2
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": 0,
+                "y": -0.145,
+                "z": 0
+              }
+            },
+            {
+              "objetoId": "bss06-grid-fin-esquerda",
+              "dimensoesM": {
+                "x": 0.4,
+                "y": 1.5,
+                "z": 0.5
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 0.1
+            },
+            {
+              "objetoId": "bss06-grid-fin-direita",
+              "dimensoesM": {
+                "x": 0.4,
+                "y": 1.5,
+                "z": 0.5
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 0.1
+            }
+          ]
+        }
+      },
+      "altitudeGeometricaM": 1.872992230579257,
+      "velocidadeRadialMps": -0.649643006944779,
+      "velocidadeTangencialMps": -1.3951196527163623,
+      "atitudeLocalRad": 1.06903691988831,
+      "atitudeInercialRad": 1.069005554562835,
+      "gravidadeLocalMps2": 9.820244713011268,
+      "orbital": {
+        "raioM": 6371001.872992231,
+        "altitudeM": 1.872992230579257,
+        "velocidadeInercialMps": 1.5389590254024559,
+        "velocidadeCircularMps": 7909.791239965618,
+        "velocidadeEscapeMps": 11186.134047099278,
+        "energiaEspecificaJPorKg": -62564796.27563939,
+        "momentoAngularEspecificoM2S": 8888309.920504214,
+        "excentricidade": 0.9999999688905116,
+        "perigeuM": -6370999.900900694,
+        "apogeuM": 1.8944802917540073,
+        "periodoS": 1789.2770785849812,
+        "interceptaSuperficie": true,
+        "estado": "suborbital"
+      },
+      "massaKg": 5349.1660309923745,
+      "combustivelKg": 3000,
+      "reagivelKg": 3000,
+      "deltaVIdealMps": 2824.3946209695027,
+      "densidadeArKgM3": 1.153215987938317,
+      "pressaoDinamicaPa": 1.3656354217605433,
+      "diagnosticoMotor": [
+        "elétrico",
+        "hidráulico",
+        "combustível",
+        "controle",
+        "ignição não realizada"
+      ],
+      "hipoteseDeltaV": "Tsiolkovsky ideal; Isp nominal constante; mistura CH4/O2 1:4; sem perdas por gravidade/arrasto, dano ou reserva de pouso"
+    },
+    "cenario": {
+      "ancoraM": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "centroTerraM": {
+        "x": 0,
+        "y": -6371000,
+        "z": 0
+      },
+      "costa": {
+        "inicioArcoM": 60,
+        "profundidadeM": 50,
+        "larguraRampaM": 50,
+        "larguraFundoM": 2000,
+        "nivelMarM": 0
+      },
+      "raioTerraM": 6371000,
+      "arcoBaseM": 0,
+      "altitudeTransicaoM": 300,
+      "modeloFisico": {
+        "revisao": "terra-esferica-m9",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "raioM": 6371000,
+        "g0ReferenciaIspMps2": 9.80665,
+        "campo": {
+          "modelo": "central",
+          "centroM": {
+            "x": 0,
+            "y": -6371000,
+            "z": 0
+          },
+          "muM3S2": 398600441800000
+        },
+        "integracao": "verlet-gravitacional",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "vacuo-simplificado-25km",
+        "densidadeNivelMarKgM3": 1.225,
+        "hidrodinamica": {
+          "regioes": [
+            {
+              "id": "oceano-experimental",
+              "modelo": "agua-incompressivel-prismas-m11-2",
+              "densidadeKgM3": 1025,
+              "correnteTangencialMps": 0,
+              "costa": {
+                "inicioArcoM": 60,
+                "profundidadeM": 50,
+                "larguraRampaM": 50,
+                "larguraFundoM": 2000,
+                "nivelMarM": 0
+              },
+              "ondas": false
+            }
+          ],
+          "volumes": [
+            {
+              "objetoId": "bss-006",
+              "dimensoesM": {
+                "x": 3.2,
+                "y": 6,
+                "z": 2.4
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 1
+            },
+            {
+              "objetoId": "painel-decolagem-solar",
+              "dimensoesM": {
+                "x": 3,
+                "y": 0.02,
+                "z": 2
+              },
+              "coeficienteArrasto": 1.1
+            },
+            {
+              "objetoId": "bateria-decolagem-solar",
+              "dimensoesM": {
+                "x": 1.2,
+                "y": 0.8,
+                "z": 1
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 0.3
+            },
+            {
+              "objetoId": "tanque-decolagem-metano",
+              "dimensoesM": {
+                "x": 3.419951893353394,
+                "y": 2.5649639200150456,
+                "z": 3.077956704018055
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 1
+            },
+            {
+              "objetoId": "tanque-decolagem-oxidante",
+              "dimensoesM": {
+                "x": 3.419951893353394,
+                "y": 2.5649639200150456,
+                "z": 3.077956704018055
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 1
+            },
+            {
+              "objetoId": "propulsor-decolagem-solar",
+              "dimensoesM": {
+                "x": 1.5,
+                "y": 1.4,
+                "z": 1.4
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": -0.05,
+                "y": 0,
+                "z": 0
+              },
+              "fracaoDeslocamento": 0.05
+            },
+            {
+              "objetoId": "bss04-perna-esquerda",
+              "dimensoesM": {
+                "x": 0.4,
+                "y": 3.15,
+                "z": 0.5
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": 0,
+                "y": 0.075,
+                "z": 0
+              },
+              "fracaoDeslocamento": 0.017920000000000047
+            },
+            {
+              "objetoId": "bss04-sapata-esquerda",
+              "dimensoesM": {
+                "x": 1.3,
+                "y": 0.01,
+                "z": 1.2
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": 0,
+                "y": -0.145,
+                "z": 0
+              }
+            },
+            {
+              "objetoId": "bss04-perna-direita",
+              "dimensoesM": {
+                "x": 0.4,
+                "y": 3.15,
+                "z": 0.5
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": 0,
+                "y": 0.075,
+                "z": 0
+              },
+              "fracaoDeslocamento": 0.017920000000000047
+            },
+            {
+              "objetoId": "bss04-sapata-direita",
+              "dimensoesM": {
+                "x": 1.3,
+                "y": 0.01,
+                "z": 1.2
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": 0,
+                "y": -0.145,
+                "z": 0
+              }
+            },
+            {
+              "objetoId": "bss06-grid-fin-esquerda",
+              "dimensoesM": {
+                "x": 0.4,
+                "y": 1.5,
+                "z": 0.5
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 0.1
+            },
+            {
+              "objetoId": "bss06-grid-fin-direita",
+              "dimensoesM": {
+                "x": 0.4,
+                "y": 1.5,
+                "z": 0.5
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 0.1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "final": {
+    "aquatico": {
+      "estado": "flutuacao-estavel",
+      "volumeSubmersoM3": 5.2124119758888545,
+      "volumeDeslocavelM3": 100.74877920000002,
+      "fracaoSubmersa": 0.05173672591646504,
+      "centroEmpuxoM": {
+        "x": 188.24094411907242,
+        "y": -0.1180132406697012,
+        "z": 0
+      },
+      "centroMassaM": {
+        "x": 188.2533976050544,
+        "y": 1.4664845228199286,
+        "z": 0
+      },
+      "forcaEmpuxoN": {
+        "x": 1.5502140748343678,
+        "y": 52466.872901147755,
+        "z": 0
+      },
+      "forcaArrastoN": {
+        "x": 0.11377869845814051,
+        "y": 0.07002484208259763,
+        "z": 0
+      },
+      "momentoHidrodinamicoNm": {
+        "x": 0,
+        "y": 0,
+        "z": -651.9375006534633
+      },
+      "velocidadeEntradaMps": 15.308915360867061,
+      "energiaEntradaJ": 28724.939420567447,
+      "potenciaDissipadaW": 0.0024914251171368777,
+      "equilibrioContinuoS": 3.8166666666667513,
+      "equilibrioObservado": true,
+      "componentes": [
+        {
+          "objetoId": "bss-006",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 46.080000000000005,
+          "volumeSubmersoM3": 1.0633347135667688,
+          "fracaoSubmersa": 0.023075840138167724,
+          "centroEmpuxoM": {
+            "x": 192.50414217419785,
+            "y": -0.04327290843819065,
+            "z": 0
+          },
+          "forcaEmpuxoN": {
+            "x": 0.3234066196278945,
+            "y": 10703.268700525332,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0.004330557370327126,
+            "y": -0.0016175093110458827,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 45497.34471330119
+          },
+          "potenciaDissipadaW": 2.9530290769107444e-05,
+          "velocidadeEntradaMps": 0,
+          "energiaEntradaJ": 141.44358320326188,
+          "picoVelocidadeEntradaMps": 1.7702084557304465
+        },
+        {
+          "objetoId": "painel-decolagem-solar",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.12,
+          "volumeSubmersoM3": 0,
+          "fracaoSubmersa": 0,
+          "forcaEmpuxoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "potenciaDissipadaW": 0,
+          "velocidadeEntradaMps": 0.011787921864017496,
+          "energiaEntradaJ": 0,
+          "picoVelocidadeEntradaMps": 0.011916398524176744
+        },
+        {
+          "objetoId": "bateria-decolagem-solar",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.288,
+          "volumeSubmersoM3": 0,
+          "fracaoSubmersa": 0,
+          "forcaEmpuxoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "potenciaDissipadaW": 0,
+          "velocidadeEntradaMps": 0.010777057955669137,
+          "energiaEntradaJ": 0,
+          "picoVelocidadeEntradaMps": 0.010880284278434727
+        },
+        {
+          "objetoId": "tanque-decolagem-metano",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 27.000000000000004,
+          "volumeSubmersoM3": 1.907034792564707,
+          "fracaoSubmersa": 0.07063091824313729,
+          "centroEmpuxoM": {
+            "x": 188.57201429956507,
+            "y": -0.12375016929115668,
+            "z": 0
+          },
+          "forcaEmpuxoN": {
+            "x": 0.568165301453516,
+            "y": 19195.749054785098,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0.016121015109593465,
+            "y": 0.014346270392607424,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 6117.0163933486665
+          },
+          "potenciaDissipadaW": 0.0001426622431939853,
+          "velocidadeEntradaMps": 0.004182774226163496,
+          "energiaEntradaJ": 254.78009773218136,
+          "picoVelocidadeEntradaMps": 1.773097155152144
+        },
+        {
+          "objetoId": "tanque-decolagem-oxidante",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 27.000000000000004,
+          "volumeSubmersoM3": 2.186216291807159,
+          "fracaoSubmersa": 0.0809709737706355,
+          "centroEmpuxoM": {
+            "x": 185.86082594623005,
+            "y": -0.1413256510435692,
+            "z": 0
+          },
+          "forcaEmpuxoN": {
+            "x": 0.6419775534551322,
+            "y": 22005.9223427642,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0.02488970286159472,
+            "y": 0.041462243297925576,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": -52649.77908647482
+          },
+          "potenciaDissipadaW": 0.00045608322231352775,
+          "velocidadeEntradaMps": 0.007914602114475868,
+          "energiaEntradaJ": 501.7583194662099,
+          "picoVelocidadeEntradaMps": 1.9862274572105831
+        },
+        {
+          "objetoId": "propulsor-decolagem-solar",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.14699999999999996,
+          "volumeSubmersoM3": 0,
+          "fracaoSubmersa": 0,
+          "forcaEmpuxoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "potenciaDissipadaW": 0,
+          "velocidadeEntradaMps": 0,
+          "energiaEntradaJ": 0,
+          "picoVelocidadeEntradaMps": 0.00030728229636856877
+        },
+        {
+          "objetoId": "bss04-perna-esquerda",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.01128960000000003,
+          "volumeSubmersoM3": 0.01128960000000003,
+          "fracaoSubmersa": 1,
+          "centroEmpuxoM": {
+            "x": 195.96117757344857,
+            "y": -0.23873485678763812,
+            "z": 0
+          },
+          "forcaEmpuxoN": {
+            "x": 0.0034953242448993904,
+            "y": 113.63837575150163,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0.027378767694106583,
+            "y": -0.03633666410747552,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 875.6595346496082
+          },
+          "potenciaDissipadaW": 0.0003617510643096632,
+          "velocidadeEntradaMps": 0,
+          "energiaEntradaJ": 3125.1806095965662,
+          "picoVelocidadeEntradaMps": 4.90922810868624
+        },
+        {
+          "objetoId": "bss04-sapata-esquerda",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.015600000000000001,
+          "volumeSubmersoM3": 0.014536577950218897,
+          "fracaoSubmersa": 0.9318319198858267,
+          "centroEmpuxoM": {
+            "x": 197.83614346232932,
+            "y": -0.6087110265496525,
+            "z": 0
+          },
+          "forcaEmpuxoN": {
+            "x": 0.004543669863867724,
+            "y": 146.321685361964,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0.014143553997148312,
+            "y": -0.02876989562915684,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 1401.9257648163432
+          },
+          "potenciaDissipadaW": 0.0003056453500796146,
+          "velocidadeEntradaMps": 0,
+          "energiaEntradaJ": 4022.8355102286882,
+          "picoVelocidadeEntradaMps": 5.462198867392951
+        },
+        {
+          "objetoId": "bss04-perna-direita",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.01128960000000003,
+          "volumeSubmersoM3": 0,
+          "fracaoSubmersa": 0,
+          "forcaEmpuxoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "potenciaDissipadaW": 0,
+          "velocidadeEntradaMps": 0,
+          "energiaEntradaJ": 0,
+          "picoVelocidadeEntradaMps": 0.0003245162845527081
+        },
+        {
+          "objetoId": "bss04-sapata-direita",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.015600000000000001,
+          "volumeSubmersoM3": 0,
+          "fracaoSubmersa": 0,
+          "forcaEmpuxoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "potenciaDissipadaW": 0,
+          "velocidadeEntradaMps": 0,
+          "energiaEntradaJ": 0,
+          "picoVelocidadeEntradaMps": 0.0002852659191722512
+        },
+        {
+          "objetoId": "bss06-grid-fin-esquerda",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.030000000000000006,
+          "volumeSubmersoM3": 0.030000000000000013,
+          "fracaoSubmersa": 1,
+          "centroEmpuxoM": {
+            "x": 181.98243009511665,
+            "y": -0.4203975923127332,
+            "z": 0
+          },
+          "forcaEmpuxoN": {
+            "x": 0.00862560618905804,
+            "y": 301.9727419596609,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0.026915101425370305,
+            "y": 0.08094039743974286,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": -1894.104820294454
+          },
+          "potenciaDissipadaW": 0.001195752946470979,
+          "velocidadeEntradaMps": 0.013253370289253054,
+          "energiaEntradaJ": 20678.94130034054,
+          "picoVelocidadeEntradaMps": 15.308915360867061
+        },
+        {
+          "objetoId": "bss06-grid-fin-direita",
+          "regiaoId": "oceano-experimental",
+          "volumeTotalM3": 0.030000000000000006,
+          "volumeSubmersoM3": 0,
+          "fracaoSubmersa": 0,
+          "forcaEmpuxoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "torqueHidrodinamicoNm": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "potenciaDissipadaW": 0,
+          "velocidadeEntradaMps": 0.013317818550703353,
+          "energiaEntradaJ": 0,
+          "picoVelocidadeEntradaMps": 0.013484512174050323
+        }
+      ]
+    },
+    "id": "BSS006_AMERISSAGEM_EXPERIMENTAL",
+    "passo": 40918,
+    "tempoS": 170.49166666659391,
+    "execucao": "pausada",
+    "fase": "agua",
+    "modo": "decolagem",
+    "casco": {
+      "posicaoM": {
+        "x": 193.01303436629613,
+        "y": 1.5231041341876788,
+        "z": 0
+      },
+      "velocidadeMps": {
+        "x": -0.00708676022705294,
+        "y": 0.0019100663921142068,
+        "z": 0
+      },
+      "orientacaoRad": {
+        "x": 0,
+        "y": 0,
+        "z": 1.5837912328150927
+      },
+      "velocidadeAngularRadps": {
+        "x": 0,
+        "y": 0,
+        "z": 0.001374658196411792
+      }
+    },
+    "altitudeM": 1.5260278517380357,
+    "deslocamentoHorizontalM": 193.01298816395888,
+    "velocidadeRadialMps": 0.0019098516938953855,
+    "velocidadeTangencialMps": -0.0070868180903243564,
+    "atitudeLocalRad": 1.583821528371232,
+    "taxaAtitudeLocalRadps": 0.00137465708405637,
+    "alvoPousoLocalM": 0,
+    "erroAlvoM": -193.01298816395888,
+    "empuxoN": 0,
+    "vazaoKgS": 0,
+    "throttle": 0.65,
+    "ignitado": false,
+    "metanoKg": 600,
+    "oxidanteKg": 2400,
+    "energiaEletricaJ": 1000000,
+    "sistemas": {
+      "elétrico": false,
+      "hidráulico": false,
+      "combustível": false,
+      "controle": false
+    },
+    "integridadeMinima": 1,
+    "fixadores": [
+      {
+        "id": "fixador-decolagem-painel-decolagem-solar",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-bateria-decolagem-solar",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-tanque-decolagem-metano",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-tanque-decolagem-oxidante",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-propulsor-decolagem-solar",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-bss04-perna-esquerda",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-bss04-sapata-esquerda",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-bss04-perna-direita",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-bss04-sapata-direita",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-bss06-grid-fin-esquerda",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-decolagem-bss06-grid-fin-direita",
+        "estado": "integro"
+      }
+    ],
+    "corpos": [
+      {
+        "id": "bss-006",
+        "estado": {
+          "posicaoM": {
+            "x": 193.01303436629613,
+            "y": 1.5231041341876788,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": -0.00708676022705294,
+            "y": 0.0019100663921142068,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 1.5837912328150927
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.001374658196411792
+          }
+        },
+        "dimensoesM": {
+          "x": 3.2,
+          "y": 6,
+          "z": 2.4
+        },
+        "massaKg": 800,
+        "integridade": 1,
+        "temperaturaC": 20.00010462869894
+      },
+      {
+        "id": "painel-decolagem-solar",
+        "estado": {
+          "posicaoM": {
+            "x": 183.0485514145074,
+            "y": 2.193676877234882,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": -0.008008568544573116,
+            "y": -0.011787691770567746,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 1.5837912328150927
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.001374658196411792
+          }
+        },
+        "dimensoesM": {
+          "x": 3,
+          "y": 0.25,
+          "z": 2
+        },
+        "massaKg": 35,
+        "integridade": 1,
+        "temperaturaC": 20
+      },
+      {
+        "id": "bateria-decolagem-solar",
+        "estado": {
+          "posicaoM": {
+            "x": 183.78388583309967,
+            "y": 1.4031654650253242,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": -0.006921885552422187,
+            "y": -0.010776858284946159,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 1.5837912328150927
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.001374658196411792
+          }
+        },
+        "dimensoesM": {
+          "x": 1.2,
+          "y": 0.8,
+          "z": 1
+        },
+        "massaKg": 50,
+        "integridade": 1,
+        "temperaturaC": 20
+      },
+      {
+        "id": "tanque-decolagem-metano",
+        "estado": {
+          "posicaoM": {
+            "x": 188.58092665227852,
+            "y": 1.465506068787441,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": -0.007007582574353041,
+            "y": -0.0041825668043400125,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 1.5837912328150927
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.001374658196411792
+          }
+        },
+        "dimensoesM": {
+          "x": 3.419951893353394,
+          "y": 2.5649639200150456,
+          "z": 3.077956704018055
+        },
+        "massaKg": 1126.323192878316,
+        "integridade": 1,
+        "temperaturaC": 20
+      },
+      {
+        "id": "tanque-decolagem-oxidante",
+        "estado": {
+          "posicaoM": {
+            "x": 185.86619196373448,
+            "y": 1.4302263607513706,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": -0.006959085034534241,
+            "y": -0.007914399095030503,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 1.5837912328150927
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.001374658196411792
+          }
+        },
+        "dimensoesM": {
+          "x": 3.419951893353394,
+          "y": 2.5649639200150456,
+          "z": 3.077956704018055
+        },
+        "massaKg": 2867.8428381140584,
+        "integridade": 1,
+        "temperaturaC": 20
+      },
+      {
+        "id": "propulsor-decolagem-solar",
+        "estado": {
+          "posicaoM": {
+            "x": 196.71272196566477,
+            "y": 1.5711839332491815,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": -0.007152853516914666,
+            "y": 0.006995872274749396,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 3.1545875596099893
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.001374658196411792
+          }
+        },
+        "dimensoesM": {
+          "x": 1.6,
+          "y": 1.4,
+          "z": 1.4
+        },
+        "massaKg": 270,
+        "integridade": 1,
+        "temperaturaC": 20
+      },
+      {
+        "id": "bss04-perna-esquerda",
+        "estado": {
+          "posicaoM": {
+            "x": 196.03617124100333,
+            "y": -0.23776026626612135,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": -0.004666173546199388,
+            "y": 0.0060658462758051935,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 1.5837912328150927
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.001374658196411792
+          }
+        },
+        "dimensoesM": {
+          "x": 0.4,
+          "y": 3.3,
+          "z": 0.5
+        },
+        "massaKg": 45,
+        "integridade": 1,
+        "temperaturaC": 20
+      },
+      {
+        "id": "bss04-sapata-esquerda",
+        "estado": {
+          "posicaoM": {
+            "x": 197.69058001630867,
+            "y": -0.5662897233816793,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": -0.0042145578352127695,
+            "y": 0.008340092858994293,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 1.5837912328150927
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.001374658196411792
+          }
+        },
+        "dimensoesM": {
+          "x": 1.3,
+          "y": 0.3,
+          "z": 1.2
+        },
+        "massaKg": 25,
+        "integridade": 1,
+        "temperaturaC": 20
+      },
+      {
+        "id": "bss04-perna-direita",
+        "estado": {
+          "posicaoM": {
+            "x": 195.9893908959705,
+            "y": 3.3619357763628175,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": -0.00961452521579035,
+            "y": 0.006001539291074879,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 1.5837912328150927
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.001374658196411792
+          }
+        },
+        "dimensoesM": {
+          "x": 0.4,
+          "y": 3.3,
+          "z": 0.5
+        },
+        "massaKg": 45,
+        "integridade": 1,
+        "temperaturaC": 20
+      },
+      {
+        "id": "bss04-sapata-direita",
+        "estado": {
+          "posicaoM": {
+            "x": 197.63470349307505,
+            "y": 3.7333472164251194,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": -0.010125088996113099,
+            "y": 0.008263281738344192,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 1.5837912328150927
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.001374658196411792
+          }
+        },
+        "dimensoesM": {
+          "x": 1.3,
+          "y": 0.3,
+          "z": 1.2
+        },
+        "massaKg": 25,
+        "integridade": 1,
+        "temperaturaC": 20
+      },
+      {
+        "id": "bss06-grid-fin-esquerda",
+        "estado": {
+          "posicaoM": {
+            "x": 181.98243009511665,
+            "y": -0.4203975923127332,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": -0.00441510964897868,
+            "y": -0.013253244180637547,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 1.5837912328150927
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.001374658196411792
+          }
+        },
+        "dimensoesM": {
+          "x": 0.4,
+          "y": 1.5,
+          "z": 0.5
+        },
+        "massaKg": 30,
+        "integridade": 1,
+        "temperaturaC": 20.03890428101321,
+        "deflexaoRad": 0
+      },
+      {
+        "id": "bss06-grid-fin-direita",
+        "estado": {
+          "posicaoM": {
+            "x": 181.93564975008385,
+            "y": 3.1792984503162343,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": -0.009363461318569681,
+            "y": -0.013317551165367866,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 1.5837912328150927
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": 0.001374658196411792
+          }
+        },
+        "dimensoesM": {
+          "x": 0.4,
+          "y": 1.5,
+          "z": 0.5
+        },
+        "massaKg": 30,
+        "integridade": 1,
+        "temperaturaC": 20.045985696912176,
+        "deflexaoRad": 0
+      }
+    ],
+    "conexoesEletricas": [
+      {
+        "id": "cabo-painel-decolagem-solar-carga",
+        "fonteId": "painel-decolagem-solar",
+        "destinoId": "bateria-decolagem-solar",
+        "estado": "energizada"
+      },
+      {
+        "id": "cabo-propulsor-decolagem-solar",
+        "fonteId": "bateria-decolagem-solar",
+        "destinoId": "propulsor-decolagem-solar",
+        "estado": "desligada"
+      },
+      {
+        "id": "cabo-bss06-grid-fin-esquerda",
+        "fonteId": "bateria-decolagem-solar",
+        "destinoId": "bss06-grid-fin-esquerda",
+        "estado": "energizada"
+      },
+      {
+        "id": "cabo-bss06-grid-fin-direita",
+        "fonteId": "bateria-decolagem-solar",
+        "destinoId": "bss06-grid-fin-direita",
+        "estado": "energizada"
+      }
+    ],
+    "contatos": [],
+    "pouso": {
+      "contatoInicial": false,
+      "toqueRetorno": false,
+      "repousoGeometricoS": 0,
+      "maiorRepousoGeometricoS": 0,
+      "apoioBilateralObservado": false,
+      "apoioBilateralSustentadoS": 0,
+      "maiorApoioBilateralSustentadoS": 0,
+      "pousoEstruturalmenteSeguro": false,
+      "limitesToqueAtendidos": false
+    },
+    "objetivos": [
+      {
+        "id": "entrada",
+        "descricao": "Entrada física sem piso líquido",
+        "estado": "atingido"
+      },
+      {
+        "id": "flutuacao",
+        "descricao": "Equilíbrio de forças e momentos por 3 s, sem propulsão",
+        "estado": "atingido"
+      },
+      {
+        "id": "integridade",
+        "descricao": "Preservar integridade estrutural",
+        "estado": "pendente"
+      }
+    ],
+    "diagnosticoMotor": [
+      "elétrico",
+      "hidráulico",
+      "combustível",
+      "controle",
+      "ignição não realizada"
+    ],
+    "faseControlador": "inativo",
+    "gimbalRad": 0,
+    "sensores": {
+      "validos": true,
+      "idadeS": 0
+    },
+    "arbitragem": [],
+    "engenharia": {
+      "modeloFisico": {
+        "revisao": "terra-esferica-m9",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "raioM": 6371000,
+        "g0ReferenciaIspMps2": 9.80665,
+        "campo": {
+          "modelo": "central",
+          "centroM": {
+            "x": 0,
+            "y": -6371000,
+            "z": 0
+          },
+          "muM3S2": 398600441800000
+        },
+        "integracao": "verlet-gravitacional",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "vacuo-simplificado-25km",
+        "densidadeNivelMarKgM3": 1.225,
+        "hidrodinamica": {
+          "regioes": [
+            {
+              "id": "oceano-experimental",
+              "modelo": "agua-incompressivel-prismas-m11-2",
+              "densidadeKgM3": 1025,
+              "correnteTangencialMps": 0,
+              "costa": {
+                "inicioArcoM": 60,
+                "profundidadeM": 50,
+                "larguraRampaM": 50,
+                "larguraFundoM": 2000,
+                "nivelMarM": 0
+              },
+              "ondas": false
+            }
+          ],
+          "volumes": [
+            {
+              "objetoId": "bss-006",
+              "dimensoesM": {
+                "x": 3.2,
+                "y": 6,
+                "z": 2.4
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 1
+            },
+            {
+              "objetoId": "painel-decolagem-solar",
+              "dimensoesM": {
+                "x": 3,
+                "y": 0.02,
+                "z": 2
+              },
+              "coeficienteArrasto": 1.1
+            },
+            {
+              "objetoId": "bateria-decolagem-solar",
+              "dimensoesM": {
+                "x": 1.2,
+                "y": 0.8,
+                "z": 1
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 0.3
+            },
+            {
+              "objetoId": "tanque-decolagem-metano",
+              "dimensoesM": {
+                "x": 3.419951893353394,
+                "y": 2.5649639200150456,
+                "z": 3.077956704018055
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 1
+            },
+            {
+              "objetoId": "tanque-decolagem-oxidante",
+              "dimensoesM": {
+                "x": 3.419951893353394,
+                "y": 2.5649639200150456,
+                "z": 3.077956704018055
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 1
+            },
+            {
+              "objetoId": "propulsor-decolagem-solar",
+              "dimensoesM": {
+                "x": 1.5,
+                "y": 1.4,
+                "z": 1.4
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": -0.05,
+                "y": 0,
+                "z": 0
+              },
+              "fracaoDeslocamento": 0.05
+            },
+            {
+              "objetoId": "bss04-perna-esquerda",
+              "dimensoesM": {
+                "x": 0.4,
+                "y": 3.15,
+                "z": 0.5
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": 0,
+                "y": 0.075,
+                "z": 0
+              },
+              "fracaoDeslocamento": 0.017920000000000047
+            },
+            {
+              "objetoId": "bss04-sapata-esquerda",
+              "dimensoesM": {
+                "x": 1.3,
+                "y": 0.01,
+                "z": 1.2
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": 0,
+                "y": -0.145,
+                "z": 0
+              }
+            },
+            {
+              "objetoId": "bss04-perna-direita",
+              "dimensoesM": {
+                "x": 0.4,
+                "y": 3.15,
+                "z": 0.5
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": 0,
+                "y": 0.075,
+                "z": 0
+              },
+              "fracaoDeslocamento": 0.017920000000000047
+            },
+            {
+              "objetoId": "bss04-sapata-direita",
+              "dimensoesM": {
+                "x": 1.3,
+                "y": 0.01,
+                "z": 1.2
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": 0,
+                "y": -0.145,
+                "z": 0
+              }
+            },
+            {
+              "objetoId": "bss06-grid-fin-esquerda",
+              "dimensoesM": {
+                "x": 0.4,
+                "y": 1.5,
+                "z": 0.5
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 0.1
+            },
+            {
+              "objetoId": "bss06-grid-fin-direita",
+              "dimensoesM": {
+                "x": 0.4,
+                "y": 1.5,
+                "z": 0.5
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 0.1
+            }
+          ]
+        }
+      },
+      "altitudeGeometricaM": 1.5260278517380357,
+      "velocidadeRadialMps": 0.0019098516938953855,
+      "velocidadeTangencialMps": -0.0070868180903243564,
+      "atitudeLocalRad": 1.583821528371232,
+      "atitudeInercialRad": 1.5837912328150927,
+      "gravidadeLocalMps2": 9.820245782631227,
+      "orbital": {
+        "raioM": 6371001.526027852,
+        "altitudeM": 1.5260278517380357,
+        "velocidadeInercialMps": 0.007339654224690944,
+        "velocidadeCircularMps": 7909.7914553490045,
+        "velocidadeEscapeMps": 11186.134351697383,
+        "energiaEspecificaJPorKg": -62564800.86708519,
+        "momentoAngularEspecificoM2S": 45150.12886813826,
+        "excentricidade": 0.9999999999991973,
+        "perigeuM": -6370999.999997443,
+        "apogeuM": 1.526028037071228,
+        "periodoS": 1789.2768816203516,
+        "interceptaSuperficie": true,
+        "estado": "suborbital"
+      },
+      "massaKg": 5349.1660309923745,
+      "combustivelKg": 3000,
+      "reagivelKg": 3000,
+      "deltaVIdealMps": 2824.3946209695027,
+      "densidadeArKgM3": 1.1965567808014355,
+      "pressaoDinamicaPa": 3.222957047133978e-05,
+      "diagnosticoMotor": [
+        "elétrico",
+        "hidráulico",
+        "combustível",
+        "controle",
+        "ignição não realizada"
+      ],
+      "hipoteseDeltaV": "Tsiolkovsky ideal; Isp nominal constante; mistura CH4/O2 1:4; sem perdas por gravidade/arrasto, dano ou reserva de pouso"
+    },
+    "cenario": {
+      "ancoraM": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "centroTerraM": {
+        "x": 0,
+        "y": -6371000,
+        "z": 0
+      },
+      "costa": {
+        "inicioArcoM": 60,
+        "profundidadeM": 50,
+        "larguraRampaM": 50,
+        "larguraFundoM": 2000,
+        "nivelMarM": 0
+      },
+      "raioTerraM": 6371000,
+      "arcoBaseM": 0,
+      "altitudeTransicaoM": 300,
+      "modeloFisico": {
+        "revisao": "terra-esferica-m9",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "raioM": 6371000,
+        "g0ReferenciaIspMps2": 9.80665,
+        "campo": {
+          "modelo": "central",
+          "centroM": {
+            "x": 0,
+            "y": -6371000,
+            "z": 0
+          },
+          "muM3S2": 398600441800000
+        },
+        "integracao": "verlet-gravitacional",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "vacuo-simplificado-25km",
+        "densidadeNivelMarKgM3": 1.225,
+        "hidrodinamica": {
+          "regioes": [
+            {
+              "id": "oceano-experimental",
+              "modelo": "agua-incompressivel-prismas-m11-2",
+              "densidadeKgM3": 1025,
+              "correnteTangencialMps": 0,
+              "costa": {
+                "inicioArcoM": 60,
+                "profundidadeM": 50,
+                "larguraRampaM": 50,
+                "larguraFundoM": 2000,
+                "nivelMarM": 0
+              },
+              "ondas": false
+            }
+          ],
+          "volumes": [
+            {
+              "objetoId": "bss-006",
+              "dimensoesM": {
+                "x": 3.2,
+                "y": 6,
+                "z": 2.4
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 1
+            },
+            {
+              "objetoId": "painel-decolagem-solar",
+              "dimensoesM": {
+                "x": 3,
+                "y": 0.02,
+                "z": 2
+              },
+              "coeficienteArrasto": 1.1
+            },
+            {
+              "objetoId": "bateria-decolagem-solar",
+              "dimensoesM": {
+                "x": 1.2,
+                "y": 0.8,
+                "z": 1
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 0.3
+            },
+            {
+              "objetoId": "tanque-decolagem-metano",
+              "dimensoesM": {
+                "x": 3.419951893353394,
+                "y": 2.5649639200150456,
+                "z": 3.077956704018055
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 1
+            },
+            {
+              "objetoId": "tanque-decolagem-oxidante",
+              "dimensoesM": {
+                "x": 3.419951893353394,
+                "y": 2.5649639200150456,
+                "z": 3.077956704018055
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 1
+            },
+            {
+              "objetoId": "propulsor-decolagem-solar",
+              "dimensoesM": {
+                "x": 1.5,
+                "y": 1.4,
+                "z": 1.4
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": -0.05,
+                "y": 0,
+                "z": 0
+              },
+              "fracaoDeslocamento": 0.05
+            },
+            {
+              "objetoId": "bss04-perna-esquerda",
+              "dimensoesM": {
+                "x": 0.4,
+                "y": 3.15,
+                "z": 0.5
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": 0,
+                "y": 0.075,
+                "z": 0
+              },
+              "fracaoDeslocamento": 0.017920000000000047
+            },
+            {
+              "objetoId": "bss04-sapata-esquerda",
+              "dimensoesM": {
+                "x": 1.3,
+                "y": 0.01,
+                "z": 1.2
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": 0,
+                "y": -0.145,
+                "z": 0
+              }
+            },
+            {
+              "objetoId": "bss04-perna-direita",
+              "dimensoesM": {
+                "x": 0.4,
+                "y": 3.15,
+                "z": 0.5
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": 0,
+                "y": 0.075,
+                "z": 0
+              },
+              "fracaoDeslocamento": 0.017920000000000047
+            },
+            {
+              "objetoId": "bss04-sapata-direita",
+              "dimensoesM": {
+                "x": 1.3,
+                "y": 0.01,
+                "z": 1.2
+              },
+              "coeficienteArrasto": 1.1,
+              "centroLocalM": {
+                "x": 0,
+                "y": -0.145,
+                "z": 0
+              }
+            },
+            {
+              "objetoId": "bss06-grid-fin-esquerda",
+              "dimensoesM": {
+                "x": 0.4,
+                "y": 1.5,
+                "z": 0.5
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 0.1
+            },
+            {
+              "objetoId": "bss06-grid-fin-direita",
+              "dimensoesM": {
+                "x": 0.4,
+                "y": 1.5,
+                "z": 0.5
+              },
+              "coeficienteArrasto": 1.1,
+              "fracaoDeslocamento": 0.1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "eventos": [
+    {
+      "sequencia": 0,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "missao-carregada",
+      "descricao": "BSS-006 preparado em ensaio de aproximação sobre oceano."
+    },
+    {
+      "sequencia": 1,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "ensaio-adm-aproximacao",
+      "descricao": "Condição inicial ADM sobre oceano: motores desligados, sem trajetória de lançamento presumida."
+    },
+    {
+      "sequencia": 2,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "execucao-iniciada",
+      "descricao": "Avanço físico iniciado."
+    },
+    {
+      "sequencia": 3,
+      "passo": 37,
+      "tempoS": 0.15416666666666673,
+      "categoria": "fisico",
+      "tipo": "entrada-na-agua",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    },
+    {
+      "sequencia": 4,
+      "passo": 37,
+      "tempoS": 0.15416666666666673,
+      "categoria": "fisico",
+      "tipo": "imersao-parcial",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    },
+    {
+      "sequencia": 5,
+      "passo": 279,
+      "tempoS": 1.1624999999999994,
+      "categoria": "missao",
+      "tipo": "execucao-pausada",
+      "descricao": "Avanço físico pausado."
+    },
+    {
+      "sequencia": 6,
+      "passo": 279,
+      "tempoS": 1.1624999999999994,
+      "categoria": "missao",
+      "tipo": "execucao-iniciada",
+      "descricao": "Avanço físico iniciado."
+    },
+    {
+      "sequencia": 7,
+      "passo": 978,
+      "tempoS": 4.075000000000029,
+      "categoria": "fisico",
+      "tipo": "tombamento-observado",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    },
+    {
+      "sequencia": 8,
+      "passo": 1398,
+      "tempoS": 5.825000000000033,
+      "categoria": "missao",
+      "tipo": "execucao-pausada",
+      "descricao": "Avanço físico pausado."
+    },
+    {
+      "sequencia": 9,
+      "passo": 1398,
+      "tempoS": 5.825000000000033,
+      "categoria": "missao",
+      "tipo": "execucao-iniciada",
+      "descricao": "Avanço físico iniciado."
+    },
+    {
+      "sequencia": 10,
+      "passo": 40722,
+      "tempoS": 169.674999999928,
+      "categoria": "fisico",
+      "tipo": "equilibrio-flutuacao-observado",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    },
+    {
+      "sequencia": 11,
+      "passo": 40918,
+      "tempoS": 170.49166666659391,
+      "categoria": "missao",
+      "tipo": "execucao-pausada",
+      "descricao": "Avanço físico pausado."
+    }
+  ],
+  "reinicioSemResiduo": true,
+  "zoomSemMudancaFisica": true,
+  "controleMotor": {
+    "empuxoN": 77999.99999999999,
+    "metanoKg": 598.7879944440065
+  },
+  "mobileSemOverflow": true,
+  "errosJS": 0
+}
