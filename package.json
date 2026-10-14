@@ -12,7 +12,8 @@
     "deploy": "npx firebase-tools deploy --only hosting",
     "typecheck:missoes": "tsc --noEmit -p tsconfig.missoes.json",
     "missao:executar": "vite-node scripts/executar-missao.ts",
-    "agua:validar": "vite-node scripts/validar-hidrodinamica.ts"
+    "agua:validar": "vite-node scripts/validar-hidrodinamica.ts",
+    "missao:benchmark": "vite-node scripts/benchmark-missao.ts"
   },
   "devDependencies": {
     "typescript": "^5.8.3",

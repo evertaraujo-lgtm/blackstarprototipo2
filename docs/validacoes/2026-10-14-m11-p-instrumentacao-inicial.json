@@ -1,0 +1,216 @@
+{
+  "formato": "blackstar-benchmark-m11-p-1",
+  "ambiente": {
+    "cpu": "Intel(R) Core(TM) i3-4005U CPU @ 1.70GHz",
+    "ramBytes": 8261316608,
+    "node": "v20.20.0",
+    "plataforma": "linux"
+  },
+  "parametros": {
+    "segundos": 8,
+    "passoS": 0.004166666666666667,
+    "observacaoCadaPassos": 8,
+    "replayCadaPassos": 240,
+    "instrumentado": true,
+    "terra": false
+  },
+  "duracaoMs": 250084.577564,
+  "cpuMs": 247618.151,
+  "cpuMsPorSegundoSimulado": 30952.268875,
+  "fases": {
+    "seca": {
+      "passos": 36,
+      "avancoMs": 1360.1555470000026,
+      "observacaoMs": 17.679224999999406
+    },
+    "entrada": {
+      "passos": 948,
+      "avancoMs": 139056.37474699994,
+      "observacaoMs": 1039.9896030000791
+    },
+    "tombamento-oscilacao": {
+      "passos": 936,
+      "avancoMs": 107631.25568300046,
+      "observacaoMs": 813.8165509999671
+    }
+  },
+  "exportarMs": 17.106671999994433,
+  "serializarMs": 3.022153000027174,
+  "diarioBytes": 223178,
+  "memoria": [],
+  "gcMs": 0,
+  "gcEventos": 0,
+  "contadores": {
+    "mundo.avancar": {
+      "chamadas": 1920,
+      "totalMs": 225977.66558500007,
+      "proprioMs": 500.5479910008098
+    },
+    "mundo.integrarPasso": {
+      "chamadas": 3919,
+      "totalMs": 199105.82682699987,
+      "proprioMs": 22936.635874977583
+    },
+    "mundo.integrarCorpos": {
+      "chamadas": 3919,
+      "totalMs": 16558.49920299911,
+      "proprioMs": 1332.7528080042453
+    },
+    "mundo.sincronizarConjuntosEstruturais": {
+      "chamadas": 7838,
+      "totalMs": 3140.4407680009817,
+      "proprioMs": 463.0113030021471
+    },
+    "mundo.aplicarKickGravitacional": {
+      "chamadas": 7838,
+      "totalMs": 35766.99843799847,
+      "proprioMs": 877.1811309958475
+    },
+    "mundo.aplicarKickHidrostatico": {
+      "chamadas": 7838,
+      "totalMs": 56246.10357099927,
+      "proprioMs": 1344.6106780005498
+    },
+    "agua.calcular": {
+      "chamadas": 170148,
+      "totalMs": 73485.14660500626,
+      "proprioMs": 16255.647234010703
+    },
+    "agua.geometrias": {
+      "chamadas": 487838,
+      "totalMs": 99938.22698900044,
+      "proprioMs": 51895.56908098344
+    },
+    "agua.limitePassoS": {
+      "chamadas": 47028,
+      "totalMs": 22663.954020998186,
+      "proprioMs": 2827.9873759833895
+    },
+    "agua.atualizarCarregamento": {
+      "chamadas": 47028,
+      "totalMs": 38471.56196799997,
+      "proprioMs": 1467.0701759969138
+    },
+    "ilha.aplicarImpulsoNoPonto": {
+      "chamadas": 136448,
+      "totalMs": 50431.495195998476,
+      "proprioMs": 24525.068820942353
+    },
+    "ilha.obterCentroDeMassaAtual": {
+      "chamadas": 275185,
+      "totalMs": 17195.70578100021,
+      "proprioMs": 10165.303391021742
+    },
+    "ilha.obterInerciaCompostaZ": {
+      "chamadas": 339507,
+      "totalMs": 3908.001525003079,
+      "proprioMs": 3908.001525003079
+    },
+    "ilha.sincronizar": {
+      "chamadas": 7838,
+      "totalMs": 2676.9893089988345,
+      "proprioMs": 1286.7369410058718
+    },
+    "ilha.integrar": {
+      "chamadas": 3919,
+      "totalMs": 3423.954779000329,
+      "proprioMs": 1690.3754559871895
+    },
+    "missao.avancarPasso": {
+      "chamadas": 1920,
+      "totalMs": 247958.85568399995,
+      "proprioMs": 378.7298710022051
+    },
+    "missao.observar": {
+      "chamadas": 251,
+      "totalMs": 1977.9077679996235,
+      "proprioMs": 450.2138719989548
+    },
+    "missao.medidasAquaticas": {
+      "chamadas": 2422,
+      "totalMs": 22917.60576000031,
+      "proprioMs": 562.0918430052393
+    },
+    "vetor.adicionar": {
+      "chamadas": 34942023,
+      "totalMs": 36091.80855105592,
+      "proprioMs": 36091.80855105592
+    },
+    "vetor.subtrair": {
+      "chamadas": 38119457,
+      "totalMs": 39208.29211895721,
+      "proprioMs": 39208.29211895721
+    },
+    "vetor.multiplicar": {
+      "chamadas": 22728699,
+      "totalMs": 24719.887592078678,
+      "proprioMs": 24719.887592078678
+    },
+    "vetor.produtoVetorial": {
+      "chamadas": 6545023,
+      "totalMs": 7060.8529129855215,
+      "proprioMs": 7060.8529129855215
+    }
+  },
+  "reconstrucoes": 121051,
+  "hashObservacoes": "bdbb0f5adc9974df4f0c0936d3d772440236ebf769270328ee512c4367c7c35b",
+  "hashDiario": "4e6904667639118be5e9ce6f01262e8accf1b857678a20ae0fd86317a663f6a1",
+  "final": {
+    "tempoS": 7.999999999999961,
+    "atitudeRad": 1.601573123884381,
+    "volumeM3": 9.518919728592033,
+    "estado": "tombamento",
+    "integridade": 1
+  },
+  "eventos": [
+    {
+      "sequencia": 0,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "missao-carregada",
+      "descricao": "BSS-006 preparado em ensaio de aproximação sobre oceano."
+    },
+    {
+      "sequencia": 1,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "ensaio-adm-aproximacao",
+      "descricao": "Condição inicial ADM sobre oceano: motores desligados, sem trajetória de lançamento presumida."
+    },
+    {
+      "sequencia": 2,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "execucao-iniciada",
+      "descricao": "Avanço físico iniciado."
+    },
+    {
+      "sequencia": 3,
+      "passo": 37,
+      "tempoS": 0.15416666666666673,
+      "categoria": "fisico",
+      "tipo": "entrada-na-agua",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    },
+    {
+      "sequencia": 4,
+      "passo": 37,
+      "tempoS": 0.15416666666666673,
+      "categoria": "fisico",
+      "tipo": "imersao-parcial",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    },
+    {
+      "sequencia": 5,
+      "passo": 978,
+      "tempoS": 4.075000000000028,
+      "categoria": "fisico",
+      "tipo": "tombamento-observado",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    }
+  ],
+  "observacao": "Diagnóstico instrumentado, não medida de velocidade sem profiler. Operações vetoriais contadas são limite inferior de alocações."
+}
