@@ -6,7 +6,7 @@ Data: 2026-10-13. Base real: `1d74cfa`, `main` limpa e sincronizada com a refer�
 
 O pedido inicial chegou interrompido em `6. Profundidade fin`. A auditoria foi registrada em `ef634ce` antes da implementação. A especificação completa M11-A–H foi recebida posteriormente, com autorização autônoma. Este é o documento canônico solicitado; o primeiro relatório permanece como registro da auditoria inicial.
 
-**M11-A–G concluídas em commits separados; M11-H em qualificação final.** A física histórica permanece em variante legada, sem migração silenciosa. Propriedades aquáticas são hipóteses explícitas, sem ajustes das massas/dimensões históricas. Os registros cronológicos A–G abaixo descrevem suas revisões na época de cada commit; a revisão aquática 2 e suas evidências M11-H substituem a revisão 1 para aprovação física final.
+**M11-A–H concluídas e validadas localmente, em commits incrementais.** Campanha final: **518 testes / 78 arquivos aprovados**, sem erros RPC; TypeScript da aplicação e do domínio de missões e build de produção aprovados. CI M11 pendente do push pelo operador. A física histórica permanece em variante legada, sem migração silenciosa. Propriedades aquáticas são hipóteses explícitas, sem ajustes das massas/dimensões históricas. Os registros cronológicos A–G abaixo descrevem suas revisões na época de cada commit; a revisão aquática 2 e suas evidências M11-H substituem a revisão 1 para aprovação física final.
 
 ## M11-A — Inventário do núcleo existente
 
@@ -293,7 +293,7 @@ Coletor reproduzível: `scripts/validar-hidrodinamica.ts`, executado com `npm ru
 | 7 — Costa | Terra/água/fundo, corpo ocupando ambos os domínios e extrusão Z; volume analítico costeiro 19,5 m³ | Erro <0,003 m³ incorpora aproximação tangente. Nenhum impulso rígido na interface livre |
 | 8 — Determinismo e passo | Replay completo Node de 120 s byte a byte; caso inerte a 50 m/s: diferença de posição **25,68 µm** entre dt máximo 1/240 e 1/480 s, e **4,111 mm** entre 1/240 e 1/960 s | 5 cm para o deslocamento de alta velocidade. Subpassos internos pela derivada de carga, sem truncar velocidade; diferenças entre passos não são erro absoluto analítico |
 | Entrada rápida / dano | 60 m/s em 0/45/90°, degradação estrutural real, BSS com ignição/consumo e integridade <0,2; diferença energética **1,2231%** ao refinar passo | 2% para trabalho de entrada. Não qualifica picos reais de pressão/slamming |
-| 9 — Regressão M0–M10 | Campanha final completa em confirmação; inclui órbitas inertes, seis BSS e missões independentes | Limites e referências históricos preservados; sem água não há nova física |
+| 9 — Regressão M0–M10 | **518 testes / 78 arquivos aprovados** na campanha final, incluindo os 36 novos casos; órbitas inertes, seis BSS e missões independentes preservados | Limites e referências históricos preservados; sem água não há nova física |
 
 Existem 36 testes novos em sete arquivos (costa, hidrostática, dinâmica, ensaio BSS, entrada/dano, missão e qualificação). Não se alteraram limites históricos para fazê-los passar. A hipótese física simplificada permanece limitada aos casos e passos examinados, sem promessa de estabilidade para qualquer entrada ou dimensão.
 
@@ -358,9 +358,14 @@ Build final também verificado em servidor preview local: quatro páginas carreg
 | M11-E | `6d99d64` | Ensaio BSS passivo e hipótese geométrica explícita |
 | M11-F | `4eff06c` | Carregamento energético de entrada, dano e vínculos |
 | M11-G | `6d0dc38` | Missão independente, replay, telemetria e Canvas |
-| M11-H | Commit que contém este fechamento | Correção do equilíbrio neutro, qualificação e evidências finais |
+| M11-H — correções | `2da4331` | Equilíbrio neutro, geometria zero, runner responsivo e evidências aquáticas verificadas |
+| M11-H — campanha final | Commit que contém este fechamento | Confirmação da suíte completa e registro de qualificação local |
 
-Comandos finais de qualificação: `npm test -- --run --maxWorkers=1 --reporter=verbose`, `npm run typecheck`, `npm run typecheck:missoes`, `npm run build`. Um worker evita concorrência entre ensaios físicos prolongados nesta máquina, sem relaxar watchdogs dos testes. Confirmação da campanha final e resumo verificável serão anexados antes de aprovar M11-H.
+Comandos finais de qualificação: `npm test -- --run --maxWorkers=1 --reporter=verbose`, `npm run typecheck`, `npm run typecheck:missoes`, `npm run build`. **Todos finalizaram com exit code 0.** Suíte completa em **2.238,44 s** (37 min 18 s), com 518 testes em 78 arquivos, nenhuma falha e nenhum erro não tratado. Build: quatro páginas, 117 módulos, 4,15 s. Um worker evita concorrência entre ensaios físicos prolongados nesta máquina, sem relaxar watchdogs dos testes; é também o modo usado no workflow existente.
+
+Resumo verificável em `docs/validacoes/2026-10-13-m11-h-validacao.json`, incluindo hashes SHA-256 dos fontes M11, replay e logs. Logs finais preservados em `docs/validacoes/m11/revisao2-final-{regressao,typecheck,typecheck-missoes,build}.log`. CSVs usam o terminador CRLF padrão do exportador CSV; logs mantêm stdout original, incluindo linhas em branco. Dados não foram alterados para satisfazer uma checagem de whitespace de código. Checagem de whitespace dos fontes, scripts e documentação aprovada.
+
+A campanha terminou na madrugada de 2026-10-14; os caminhos mantêm a data 2026-10-13 solicitada para o plano. GitHub consultado para o commit físico `2da4331`: nenhuma execução remota, pois não houve push. Não há marco bloqueado localmente. A qualificação se limita ao modelo e condições descritos, sem homologação de estanqueidade, entrada rápida real, retorno de 15 km ou apoio bilateral terrestre contínuo.
 
 Reprodução do ensaio longo: `npm run missao:executar -- --amerissagem --segundos 180 --saida /tmp/amerissagem.json`; replay no mesmo runtime: `npm run missao:executar -- --replay /tmp/amerissagem.json --saida /tmp/replay.json`. Arquivos históricos versionados não são sobrescritos. O orçamento do CLI delimita a coleta, não define repouso ou sucesso.
 

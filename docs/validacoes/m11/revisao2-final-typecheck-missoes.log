@@ -1,0 +1,4 @@
+
+> starship-prototype-2@0.1.0 typecheck:missoes
+> tsc --noEmit -p tsconfig.missoes.json
+

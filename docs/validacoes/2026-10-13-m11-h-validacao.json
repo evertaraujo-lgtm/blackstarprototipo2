@@ -1,0 +1,160 @@
+{
+  "marco": "M11-H",
+  "estado": "concluido",
+  "coletadoUTC": "2026-10-14T03:53:41.837813+00:00",
+  "baseM10": "1d74cfae935e0440796351927dad0460413e06e2",
+  "revisaoFisicaAquatica": "agua-incompressivel-prismas-m11-2",
+  "revisaoMissao": "m11-amerissagem-2",
+  "validacoes": {
+    "testes": {
+      "exitCode": 0,
+      "log": "docs/validacoes/m11/revisao2-final-regressao.log",
+      "sha256": "f545561ccf0f0f28a21cbc620d8f75b034d85b25ade6571cbe4511a7aef84305",
+      "arquivos": 78,
+      "testes": 518,
+      "comando": "npm test -- --run --maxWorkers=1 --reporter=verbose",
+      "duracao": "2238.44s (transform 4.11s, setup 0ms, collect 17.59s, tests 2179.26s, environment 33ms, prepare 20.39s)"
+    },
+    "typecheck": {
+      "exitCode": 0,
+      "log": "docs/validacoes/m11/revisao2-final-typecheck.log",
+      "sha256": "7f71ed74225185b354912ea74bd05399b5341aa6611cf24e179473bb1b817ff7"
+    },
+    "typecheckMissoes": {
+      "exitCode": 0,
+      "log": "docs/validacoes/m11/revisao2-final-typecheck-missoes.log",
+      "sha256": "cd4a500dbfb708ccde6a603d8e7b6ee1674ca816bd15e4e3ca6976d58643ef01"
+    },
+    "build": {
+      "exitCode": 0,
+      "log": "docs/validacoes/m11/revisao2-final-build.log",
+      "sha256": "9f1caafb5fa7a5c2c668daf34b19a46cfa2740944b82ea1217a598ae777afa05"
+    },
+    "smokePaginas": {
+      "resultado": "aprovado",
+      "evidencia": "docs/validacoes/2026-10-13-m11-2-smoke-paginas.json",
+      "errosJS": 0
+    },
+    "smokeBancada": {
+      "resultado": "aprovado",
+      "evidencia": "docs/validacoes/2026-10-13-m11-2-smoke-bancada.json",
+      "errosJS": 0
+    },
+    "smokeAguaProducao": {
+      "resultado": "aprovado",
+      "evidencia": "docs/validacoes/2026-10-13-m11-2-smoke-agua-producao.json",
+      "errosJS": 0
+    },
+    "smokeAmerissagemLonga": {
+      "resultado": "aprovado",
+      "evidencia": "docs/validacoes/2026-10-13-m11-2-smoke-missao.json",
+      "errosJS": 0
+    }
+  },
+  "replayIntegralMesmoRuntime": true,
+  "assinaturaReplay": "c3a0153aa99fc156968dabb6dbd2ed4d30e47476734ee6cc26d5c0bb281684e8",
+  "resultados": {
+    "erroCaladoM": 0.002106551442852961,
+    "desvioNeutroM": 0,
+    "erroTerminalRelativo": 0.002424715455029869,
+    "erroEnergiaEntradaRelativo": 0.012230567981846852,
+    "refinamentoPosicao240vs480M": 2.568453099627277e-05,
+    "amerissagemFinal": {
+      "tempoS": 170.49166666659391,
+      "estado": "flutuacao-estavel",
+      "atitudeLocalRad": 1.583821528371232,
+      "volumeSubmersoM3": 5.2124119758888545,
+      "equilibrioContinuoS": 3.8166666666667513,
+      "integridade": 1,
+      "contatosSolidos": [],
+      "empuxoMotorN": 0
+    },
+    "eventosAquaticos": [
+      {
+        "sequencia": 3,
+        "passo": 37,
+        "tempoS": 0.15416666666666673,
+        "categoria": "fisico",
+        "tipo": "entrada-na-agua",
+        "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+      },
+      {
+        "sequencia": 4,
+        "passo": 37,
+        "tempoS": 0.15416666666666673,
+        "categoria": "fisico",
+        "tipo": "imersao-parcial",
+        "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+      },
+      {
+        "sequencia": 7,
+        "passo": 978,
+        "tempoS": 4.075000000000029,
+        "categoria": "fisico",
+        "tipo": "tombamento-observado",
+        "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+      },
+      {
+        "sequencia": 10,
+        "passo": 40722,
+        "tempoS": 169.674999999928,
+        "categoria": "fisico",
+        "tipo": "equilibrio-flutuacao-observado",
+        "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+      }
+    ]
+  },
+  "ci": {
+    "baseM10": "success",
+    "runBaseM10": 38460625103,
+    "urlBaseM10": "https://github.com/evertaraujo-lgtm/blackstarprototipo2/actions/runs/38460625103",
+    "M11": "pendente: commits locais sem push"
+  },
+  "push": false,
+  "deploy": false,
+  "fontesM11Sha256": {
+    "missao.html": "114dc4dbb7bc71cd28663d31177dee9c273345f37c0f5f3933a42eaacacf5c9c",
+    "package.json": "03533fce9819096949a87b5e3cc4cf150651691783a9a64d12313c3c2e379872",
+    "scripts/executar-missao.ts": "703f78bcf94530af66ee2c7ef1e3f18281755b722014a47f96cd1759135b4956",
+    "scripts/validar-hidrodinamica.ts": "bd1369127ba658f88d63abc218a2fe282361c23e70531b943989413519fe2ee9",
+    "src/apresentacao/missao/CenaMissao.ts": "e9ccdac58cefe830774ebc8460881070000afb350846cf8b8ecbdb1ed89b307c",
+    "src/apresentacao/missao/HudMissao.ts": "560a526ff4b720b207183cc18dc4d5dd30e254c8b295ca4f5435b09978f7e76e",
+    "src/apresentacao/missao/RenderizadorMissao.ts": "599edd0b69129ad53d362f1b292bfd9924ed97d7ed826995fdd5877a70d05dad",
+    "src/missao.css": "6d3ec5d8d0d8338b99f6b6466a2ac727b1b998dbdeb24cbaa778154433419f0d",
+    "src/missoes/AmbienteAmerissagem.ts": "44f642fd4731e7a62a12bab1f5a04c835449408b2bf6d819e36549e935b7fa87",
+    "src/missoes/EnsaioAmerissagem.test.ts": "95bad43adb5aca8e310b4b0ffac2a512f2d04b0c795e94ea5b07833e9d68b84e",
+    "src/missoes/EnsaioAmerissagem.ts": "af1985987822f7407981c952c34d77618d21c4b3da7614e5b896cd23cbdc8d65",
+    "src/missoes/MissaoAmerissagem.test.ts": "9b689f19c2c2db7436be7fe635e3fe27edec26fbfc100cdd4c6fc7955e9b5581",
+    "src/missoes/MissaoBss006.ts": "9a5989d3a0495f793654c55f1151d3ed039bcafc6b2b08d1361cece1d88851d1",
+    "src/missoes/ObservacaoAmerissagem.ts": "0bd488e15d0e1d247760093511ca003cf33c6c1197f5eaf120b46908a26d0463",
+    "src/missoes/ReplayMissaoBss006.test.ts": "acbd4f196e1be3ee685a61a8f87593f5e511b8be2dd524a8c103b153dfb83214",
+    "src/missoes/ReplayMissaoBss006.ts": "9c7528d6244ff918888c3c8e748925e2fd4a12cbea603294fc2acabc0fb18a47",
+    "src/missoes/TiposMissaoBss006.ts": "0ab10acf9bec8d40fff2af47a12b0d60cc17ffcd3e47bec8151da560a2c416ba",
+    "src/physics/MundoFisico.ts": "2b5cf40f1669d411a30cc2fa10f02f05a70e02a8a43a3888219c651e95ccbc04",
+    "src/physics/SuperficieCosteira.ts": "678d7dfbe3d6458cc41a8ee675af66819cc8dafa48fe084b42d0ba63f9822eda",
+    "src/physics/agua/DinamicaAquatica.test.ts": "e4eb92a4a5c195d22993b38c2dc31eaa373c8aecfafda3bd82ccb5081589de07",
+    "src/physics/agua/EntradaAquatica.test.ts": "138f3590c9751f091fe2bcad75d7fcf261c61c4dd3fd87d9d76e6edf6926e459",
+    "src/physics/agua/GeometriaSubmersa.ts": "870f669eb4e18cd5c56ef40565268306838b5234fd4fce411b736d0e5ba349aa",
+    "src/physics/agua/QualificacaoAquatica.test.ts": "8778a5455d5edfb38ec41598c8d92dd913bd256569329a05a6f10a4e743db0f5",
+    "src/physics/agua/RegiaoAquatica.ts": "2d0ed12e03aedeb32b105c765f8c1fc2280af614b85ff0f80f5698afd708812a",
+    "src/physics/agua/SistemaHidrodinamico.ts": "41fe4f400e766c153766c372f86dcbcf8d828897e25b39455fc05d58b5ca7e33",
+    "src/physics/ambiente/GeografiaCosteira.test.ts": "fa17014e8eab240e2bf23a8257c2d6050cf816d587d485060f0ce40ad14a7ea9",
+    "src/physics/ambiente/GeografiaCosteira.ts": "6959212caa0e2e469359b895180f1b918fef40d3469ad6d3c99fe67b43d0e021",
+    "src/physics/estruturas/ConjuntoEstruturalRigido.ts": "daad49c02c72677413c0b6ed70f6e44bb7bb58c93f15dffa66446e190b906cd9",
+    "src/physics/objetos/base/Objeto.ts": "db023771896f4f6ff4190175b9f82ecb037748582504855b48f50e9b36580110",
+    "src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts": "41f94680eb1484a4c7c13ff636d5753b9c5274e68c79e832a5a4e341c27da411",
+    "src/physics/solucionadores/SistemaAtmosferico.ts": "f79096e5db05a7718273a92cfe75d372bf6018e6fd2fd868a419beb8b1dca6a0",
+    "src/physics/solucionadores/SistemaTermico.ts": "1d2a3e26e03d91e2b8150c4cc1c5490a8458da076612c35a04de153cc6d0f70b",
+    "src/veiculos/DefinicaoBss006.ts": "6084e67955a1e9dc0c63669cbc9509988b1c0e7a0d8fcf2ff162f6b9171f7907",
+    "src/veiculos/HidrodinamicaBss006.ts": "ad0898e88f1c0adcde86402799e8ff9027bd2677eb52fc6e4e35b75bf8692418",
+    "src/veiculos/MontagemBss.ts": "9b4e22f0e9836073be1f359c29c5556ddcd87abd8eed7c5c5a45277c53cd7159"
+  },
+  "limitacoes": [
+    "Geometria estanque é hipótese de engenharia; não qualifica o veículo real.",
+    "Prismas XY extrudados, Terra sem rotação, Cd de estudo e corrente prescrita.",
+    "Slamming detalhado, pressão profunda, inundação e troca térmica com água não qualificados.",
+    "Janela observada de equilíbrio não é prova de repouso assintótico.",
+    "Replay estrito entre engines distintas não qualificado."
+  ],
+  "coletasIntermediarias": "Revisão 1 preservada, substituída para aprovação pela revisão 2; execuções completas interrompidas/incompletas não são declaradas aprovadas."
+}

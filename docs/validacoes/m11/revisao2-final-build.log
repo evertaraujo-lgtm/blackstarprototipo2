@@ -1,0 +1,32 @@
+
+> starship-prototype-2@0.1.0 build
+> vite build
+
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 117 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/orbitas.html                                   2.61 kB │ gzip:  1.14 kB
+dist/missao.html                                    6.51 kB │ gzip:  2.53 kB
+dist/index.html                                     9.68 kB │ gzip:  2.74 kB
+dist/tests.html                                    15.67 kB │ gzip:  4.03 kB
+dist/assets/emblema-DRa8WgVE.png                1,566.09 kB
+dist/assets/bss-006-BvH-gqVE.png                1,750.68 kB
+dist/assets/pouso-costa-C-gCJrWG.png            2,315.57 kB
+dist/assets/oficina-D7IenbVv.png                2,527.83 kB
+dist/assets/robo-orbita-s8TVif-y.png            2,556.30 kB
+dist/assets/porto-CltFAULX.png                  2,669.82 kB
+dist/assets/montagem-Dvpne6rv.png               2,766.00 kB
+dist/assets/orbitas-D3xsGjyj.css                    0.79 kB │ gzip:  0.36 kB
+dist/assets/missao-miQydAZz.css                     5.05 kB │ gzip:  1.78 kB
+dist/assets/style-CYqJRdwJ.css                     26.91 kB │ gzip:  5.97 kB
+dist/assets/CameraFisica2D-BQsOyltP.js              0.59 kB │ gzip:  0.33 kB
+dist/assets/modulepreload-polyfill-B5Qt9EMX.js      0.71 kB │ gzip:  0.40 kB
+dist/assets/principal-D-RR433a.js                   1.29 kB │ gzip:  0.60 kB
+dist/assets/orbitas-DHYRGHD8.js                     5.50 kB │ gzip:  2.44 kB
+dist/assets/missao-vSLCc2GG.js                     42.00 kB │ gzip: 13.31 kB
+dist/assets/SuperficieEsferica-Cj59H2D-.js         68.45 kB │ gzip: 17.94 kB
+dist/assets/testes-BDWu18xp.js                     92.66 kB │ gzip: 28.31 kB
+dist/assets/ConexoesEletricas-Bw49H-R6.js          98.70 kB │ gzip: 23.24 kB
+✓ built in 4.15s
