@@ -185,3 +185,13 @@ Apoio bilateral contínuo terrestre não qualificado; penetração histórica ~3
 Configuração inicial dos ensaios: costa a +60 m da base, rampa de 50 m, fundo a -50 m por 2.000 m, segunda rampa de 50 m, nível 0 m. São condições explícitas de uma baía de estudo, não batimetria medida do litoral paulista. Nenhuma missão histórica passou a usar essa geografia automaticamente.
 
 Quatro testes aprovados: praia/fundo/normal/projeção em arco zero e a 1.000 km; corpo que atravessa o nível do mar sem impulso rígido, mas toca o fundo; corpo que ocupa terra e água e inclui a quebra costeira entre vértices. Tolerância de projeção 1 µm verificada. O gradiente fornece distância normal local de primeira ordem, com projeção iterativa; em penetrações profundas atravessando uma quebra, a resposta ainda é uma aproximação do resolvedor de sólidos existente.
+
+## M11-C — Volume e empuxo
+
+`RegiaoAquatica` é um meio separado do solo. `GeometriaSubmersa` recorta prismas orientados em células por três regiões disjuntas da baía; integra área e primeiro momento em coordenadas relativas ao corpo e extruda em Z. Interface livre radial é aproximada pelo plano tangente na escala do corpo, não por um plano global. Erro vertical máximo de curvatura de uma forma de extensão D é aproximadamente D²/(8R); para 20 m, <8 µm. Marés/ondas ausentes. Recorte do fundo/próximo das praias usa a aproximação tangente local e precisa dos testes de refinamento específicos.
+
+`SistemaHidrodinamico` rejeita regiões aquáticas e geometrias deslocadoras inicialmente sobrepostas. Componentes internos devem declarar região exclusiva ou deslocamento zero, sem duplicação do volume externo. As formas permanecem associadas ao objeto real após separação. Sobreposições transitórias entre destroços ainda dependem do resolvedor de colisões de sólidos; não há união booleana dinâmica de destroços interpenetrados.
+
+O mundo registra formas explicitamente e soma empuxo no centro do volume imerso às forças do corpo ou da ilha existente. Usa a gravidade local de M9 e massa instantânea existente. Sem água, preserva o caminho e metadados anteriores. Observações aquáticas são consultas de forças/geometria, não estado cinemático paralelo.
+
+Seis testes aprovados: seco/parcial/total em dois locais terrestres, rotação ±45°/90°, rejeição de sobreposição, integração real sem piso e independência do empuxo em relação à massa. Comparação de volume com solução analítica a 1e-6 m³; força com Arquimedes e campo local. Typecheck, typecheck de missões e build aprovados. Arrasto/entrada são os próximos marcos, não capacidades validadas neste commit.

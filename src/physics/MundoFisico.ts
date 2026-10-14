@@ -19,8 +19,12 @@ import { SistemaSensores } from './sensores/SistemaSensores';
 import { SensoresVeiculoComposto } from './sensores/SensoresVeiculoComposto';
 import { GuiaLinear } from './conexoes/GuiaLinear';
 import { JuntaRotacionalDeBancada } from './conexoes/JuntaRotacionalDeBancada';
+import { SistemaHidrodinamico, type EstadoImersao } from './agua/SistemaHidrodinamico';
+import type { RegiaoAquatica } from './agua/RegiaoAquatica';
+import type { PrismaDeslocador } from './agua/GeometriaSubmersa';
 
 export interface ConfiguracaoMundoFisico {
+  readonly regioesAquaticas?: readonly RegiaoAquatica[];
   readonly ambiente?: AmbienteFisico;
   /** KDK somente para gravidade; forças dissipativas/operacionais usam passo explícito. */
   readonly integracao?: 'euler-semi-implicito' | 'verlet-gravitacional';
@@ -80,6 +84,7 @@ export class MundoFisico {
   private readonly resolvedorColisoes: ResolvedorColisoes;
   private readonly resolvedorContatoSuperficie: ResolvedorContatoSuperficie;
   private readonly sistemaSensores: SistemaSensores;
+  private readonly hidrodinamica?: SistemaHidrodinamico;
 
   public constructor(private readonly maxDtS = 1 / 60, configuracao: ConfiguracaoMundoFisico = {}) {
     if (!Number.isFinite(maxDtS) || maxDtS <= 0) throw new Error('maxDt deve ser positivo.');
@@ -100,6 +105,8 @@ export class MundoFisico {
     if (!Number.isFinite(this.densidadeAtmosfericaNivelMarKgM3) || this.densidadeAtmosfericaNivelMarKgM3 < 0) throw new Error('Densidade atmosférica deve ser finita e não negativa.');
     this.atmosfera = new SistemaAtmosferico(this.densidadeAtmosfericaNivelMarKgM3, this.velocidadeArAtualMps, this.ambiente.referencial,
       this.ambiente.campo.modelo === 'central' ? 'vacuo-simplificado-25km' : 'extrapolacao-legada');
+    if (configuracao.regioesAquaticas?.length) this.hidrodinamica = new SistemaHidrodinamico(
+      [...configuracao.regioesAquaticas], p => this.obterGravidadeMps2(p));
     this.sistemaTermico = new SistemaTermico(this.atmosfera, configuracao.temperaturaAmbienteC ?? 20);
     this.sistemaSensores = new SistemaSensores(
       () => this.objetos.values(),
@@ -137,6 +144,17 @@ export class MundoFisico {
 
   public get tempoS(): number { return this.tempoMissaoS; }
   public get velocidadeDoArMps(): Vetor3 { return this.velocidadeArAtualMps; }
+
+  public registrarGeometriaAquatica(objeto: Objeto, prisma: PrismaDeslocador): void {
+    this.exigirRegistro(objeto);
+    if (!this.hidrodinamica) throw new Error('Mundo sem região aquática declarada.');
+    this.hidrodinamica.registrar(objeto, prisma);
+  }
+  public obterImersao(objeto: Objeto): readonly EstadoImersao[] {
+    this.exigirRegistro(objeto);
+    const G = this.obterConjuntoEstruturalDoObjeto(objeto)?.obterCentroDeMassaAtual() ?? objeto.getEstadoFisico().posicaoM;
+    return this.hidrodinamica?.calcular(objeto, G).estados ?? [];
+  }
 
   public registrarObjeto(objeto: Objeto): void {
     if (this.objetos.has(objeto.id)) throw new Error(`Objeto já registrado: ${objeto.id}.`);
@@ -343,7 +361,8 @@ export class MundoFisico {
   public obterGravidadeMps2(posicaoM: Vetor3): Vetor3 { return this.ambiente.campo.aceleracaoEm(posicaoM); }
 
   public obterConfiguracaoFisica(): object {
-    return { ...this.ambiente.obterConfiguracao(), integracao: this.integracao, maxDtS: this.maxDtS, politicaAtmosferica: this.atmosfera.politicaAltitude, densidadeNivelMarKgM3: this.densidadeAtmosfericaNivelMarKgM3 };
+    return { ...this.ambiente.obterConfiguracao(), integracao: this.integracao, maxDtS: this.maxDtS, politicaAtmosferica: this.atmosfera.politicaAltitude, densidadeNivelMarKgM3: this.densidadeAtmosfericaNivelMarKgM3,
+      ...(this.hidrodinamica ? { hidrodinamica: this.hidrodinamica.obterConfiguracao() } : {}) };
   }
 
   /** Metade do impulso gravitacional em cada membro, preservando torque de gradiente. */
@@ -385,7 +404,8 @@ export class MundoFisico {
         .map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM }));
       if (this.ambiente.campo.modelo === 'central') for (const f of [...forcas, ...forcasOperacionais, ...forcasAerodinamicas]) this.validarForcaPlanar(f);
       const forcasDasJuntas = [...this.juntasRotacionaisDeBancada.values()].flatMap((junta) => junta.obterForcasPara(objeto));
-      this.integrador.integrarObjeto(objeto, [...forcas, ...forcasOperacionais, ...forcasAerodinamicas, ...forcasDasJuntas, { forcaN: this.obterForcaArrastoAtmosferico(objeto), pontoM: objeto.obterCentroPressaoM() }], this.integracao === 'verlet-gravitacional' ? Vetor3.zero : this.obterGravidadeMps2(estado.posicaoM), dtS);
+      const forcasAquaticas = this.hidrodinamica?.calcular(objeto).forcas ?? [];
+      this.integrador.integrarObjeto(objeto, [...forcas, ...forcasOperacionais, ...forcasAerodinamicas, ...forcasDasJuntas, { forcaN: this.obterForcaArrastoAtmosferico(objeto), pontoM: objeto.obterCentroPressaoM() }, ...forcasAquaticas], this.integracao === 'verlet-gravitacional' ? Vetor3.zero : this.obterGravidadeMps2(estado.posicaoM), dtS);
       objeto.registrarUso(dtS / 3600);
     }
     for (const conjunto of this.conjuntosEstruturais.values()) {
@@ -398,6 +418,7 @@ export class MundoFisico {
         forcasDoConjunto.push(...objeto.obterForcasAerodinamicas({ densidadeArKgM3: this.atmosfera.obterDensidadeNaPosicaoKgM3(estado.posicaoM), velocidadeArMps: this.velocidadeArAtualMps }).map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM })));
         if (this.integracao === 'euler-semi-implicito') forcasDoConjunto.push({ forcaN: this.obterGravidadeMps2(estado.posicaoM).multiplicar(objeto.massaKg), pontoM: estado.posicaoM });
         forcasDoConjunto.push({ forcaN: this.obterForcaArrastoAtmosferico(objeto), pontoM: objeto.obterCentroPressaoM() });
+        forcasDoConjunto.push(...(this.hidrodinamica?.calcular(objeto, conjunto.obterCentroDeMassaAtual()).forcas ?? []));
         for (const junta of this.juntasRotacionaisDeBancada.values()) {
           if (junta.objetoBase === objeto || junta.braco === objeto) forcasDoConjunto.push(...junta.obterForcasPara(objeto));
         }
