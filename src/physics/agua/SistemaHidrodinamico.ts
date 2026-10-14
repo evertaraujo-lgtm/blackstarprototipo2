@@ -10,11 +10,14 @@ export interface EstadoImersao {
   readonly centroEmpuxoM?: Vetor3; readonly forcaEmpuxoN: Vetor3;
   readonly forcaArrastoN: Vetor3; readonly torqueHidrodinamicoNm: Vetor3;
   readonly potenciaDissipadaW: number; readonly velocidadeEntradaMps: number;
+  readonly energiaEntradaJ: number; readonly picoVelocidadeEntradaMps: number;
 }
 /** Cargas físicas em pontos: não escreve cinemática ou integra um mundo paralelo. */
 export class SistemaHidrodinamico {
   private readonly formas = new Map<Objeto, PrismaDeslocador>();
   private readonly cache = new Map<Objeto, { posicao: Vetor3; theta: number; geometria: readonly GeometriaImersa[] }>();
+  private readonly entradas = new Map<string, { volumeAnteriorM3: number; energiaJ: number; picoMps: number; ativa: boolean;
+    potenciaAnteriorW: number; dtAnteriorS: number; distanciaMinimaM: number; distanciaMaximaM: number }>();
   public constructor(public readonly regioes: readonly RegiaoAquatica[], private readonly gravidade: (p: Vetor3) => Vetor3) {
     if (new Set(regioes.map(r => r.id)).size !== regioes.length) throw new Error('Região aquática duplicada.');
     for (let i = 0; i < regioes.length; i++) for (let j = i + 1; j < regioes.length; j++) {
@@ -59,16 +62,47 @@ export class SistemaHidrodinamico {
         potenciaDissipadaW += Math.max(0, -f.produtoEscalar(v));
       }
       const vr = e.velocidadeMps.subtrair(agua.velocidadeEm(e.posicaoM));
+      const entrada = this.entradas.get(`${objeto.id}/${agua.id}`);
       estados.push({ objetoId: objeto.id, regiaoId: agua.id, volumeTotalM3: g.volumeTotalM3,
         volumeSubmersoM3: g.volumeSubmersoM3, fracaoSubmersa: g.fracaoGeometrica, centroEmpuxoM: B,
         forcaEmpuxoN, forcaArrastoN, torqueHidrodinamicoNm: torqueArrasto.adicionar(B ? B.subtrair(referenciaM).produtoVetorial(forcaEmpuxoN) : Vetor3.zero),
-        potenciaDissipadaW, velocidadeEntradaMps: Math.max(0, -vr.produtoEscalar(agua.costa.referencial.radial(e.posicaoM))) });
+        potenciaDissipadaW, velocidadeEntradaMps: Math.max(0, -vr.produtoEscalar(agua.costa.referencial.radial(e.posicaoM))),
+        energiaEntradaJ: entrada?.energiaJ ?? 0, picoVelocidadeEntradaMps: entrada?.picoMps ?? 0 });
     }
     return { forcas, estados };
   }
+  /** Trabalho resistivo na fase de volume crescente: modelo energético de entrada, sem impulso adicional. */
+  public atualizarCarregamento(objeto: Objeto, dtS: number): void {
+    const forma = this.formas.get(objeto); if (!forma) return;
+    const vertices = verticesPrismaM(objeto.getEstadoFisico(), forma);
+    for (const [i, s] of this.calcular(objeto).estados.entries()) {
+      const chave = `${objeto.id}/${s.regiaoId}`;
+      const agua = this.regioes[i], alturas = vertices.map(p => agua.costa.referencial.altitudeGeometricaM(p) - agua.costa.configuracao.nivelMarM);
+      const minimo = Math.min(...alturas), maximo = Math.max(...alturas);
+      let e = this.entradas.get(chave);
+      if (!e) { e = { volumeAnteriorM3: 0, energiaJ: 0, picoMps: 0, ativa: false, potenciaAnteriorW: 0,
+        dtAnteriorS: 0, distanciaMinimaM: minimo, distanciaMaximaM: maximo }; this.entradas.set(chave, e); }
+      if (s.volumeSubmersoM3 === 0) e.ativa = false;
+      if (e.volumeAnteriorM3 === 0 && s.velocidadeEntradaMps > 0) { e.ativa = true; e.energiaJ = 0; e.picoMps = s.velocidadeEntradaMps; }
+      if (e.ativa && s.volumeSubmersoM3 > 0 && s.velocidadeEntradaMps > 0 && s.volumeSubmersoM3 >= e.volumeAnteriorM3) {
+        // Integra o intervalo anterior por trapézio, localizando entrada/imersão completa por cruzamento dos extremos.
+        const inicio = e.distanciaMinimaM > 0 && minimo < 0 ? e.distanciaMinimaM / (e.distanciaMinimaM - minimo) : 0;
+        const fim = e.distanciaMaximaM > 0 && maximo < 0 ? e.distanciaMaximaM / (e.distanciaMaximaM - maximo) : 1;
+        const antes = e.energiaJ;
+        e.energiaJ += Math.max(0, fim - inicio) * e.dtAnteriorS * (e.potenciaAnteriorW
+          + (s.potenciaDissipadaW - e.potenciaAnteriorW) * (inicio + fim) / 2);
+        e.picoMps = Math.max(e.picoMps, s.velocidadeEntradaMps);
+        objeto.aplicarDanoPorCarregamentoPeloCore(antes, e.energiaJ);
+      } else e.ativa = false;
+      if (s.fracaoSubmersa >= 1 - 1e-12) e.ativa = false;
+      e.volumeAnteriorM3 = s.volumeSubmersoM3;
+      e.potenciaAnteriorW = s.potenciaDissipadaW; e.dtAnteriorS = dtS;
+      e.distanciaMinimaM = minimo; e.distanciaMaximaM = maximo;
+    }
+  }
   private geometrias(o: Objeto, p: PrismaDeslocador): readonly GeometriaImersa[] {
     const e = o.getEstadoFisico(), c = this.cache.get(o);
-    if (c?.posicao === e.posicaoM && c.theta === e.orientacaoRad.z) return c.geometria;
+    if (c && c.posicao.x === e.posicaoM.x && c.posicao.y === e.posicaoM.y && c.posicao.z === e.posicaoM.z && c.theta === e.orientacaoRad.z) return c.geometria;
     const geometria = this.regioes.map(a => calcularGeometriaSubmersa(e, p, a));
     this.cache.set(o, { posicao: e.posicaoM, theta: e.orientacaoRad.z, geometria }); return geometria;
   }

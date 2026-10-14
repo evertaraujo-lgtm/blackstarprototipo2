@@ -1,6 +1,8 @@
 import { FixadorEstrutural } from '../conexoes/FixadorEstrutural';
 import { Objeto } from '../objetos/base/Objeto';
 import { Vetor3 } from '../Vetor3';
+import type { ForcaAplicada } from '../tipos/ForcaAplicada';
+import type { ConjuntoEstruturalRigido } from '../estruturas/ConjuntoEstruturalRigido';
 
 /**
  * Converte o impulso externo recebido por uma ilha rígida em esforço interno
@@ -12,6 +14,27 @@ import { Vetor3 } from '../Vetor3';
  * permanecem extensão futura, pois exigem distribuição de esforços estática.
  */
 export class ResolvedorEsforcoEstrutural {
+  /** Reação axial para cargas contínuas distribuídas: desconta aceleração comum e angular da ilha. */
+  public registrarCargasDistribuidas(conjunto: ConjuntoEstruturalRigido,
+    cargas: readonly { readonly objeto: Objeto; readonly forcas: readonly ForcaAplicada[] }[], fixadoresRegistrados: Iterable<FixadorEstrutural>): void {
+    const membros = new Set(conjunto.membros), G = conjunto.obterCentroDeMassaAtual();
+    const fixadores = [...fixadoresRegistrados].filter(f => f.estaAtivo && membros.has(f.objetoA) && membros.has(f.objetoB));
+    let F = Vetor3.zero, torque = 0;
+    for (const c of cargas) for (const f of c.forcas) { F = F.adicionar(f.forcaN); torque += f.pontoM.subtrair(G).produtoVetorial(f.forcaN).z + (f.torqueNm?.z ?? 0); }
+    const a = F.multiplicar(1 / conjunto.massaTotalKg), alfa = new Vetor3(0, 0, torque / conjunto.momentoInerciaZKgM2);
+    const omega = conjunto.membros[0].getEstadoFisico().velocidadeAngularRadps;
+    const esforcos = fixadores.map(f => {
+      const lado = this.obterMembrosAlcancaveis(f.objetoA, membros, fixadores, f);
+      if (lado.has(f.objetoB)) return { f, axialN: 0 }; // Malhas redundantes permanecem fora do modelo axial.
+      const grupo = conjunto.membros.filter(o => lado.has(o)), massa = grupo.reduce((s, o) => s + o.massaKg, 0);
+      const Ga = this.obterCentroDeMassa(grupo), Gb = this.obterCentroDeMassa(conjunto.membros.filter(o => !lado.has(o)));
+      const braco = Ga.subtrair(G), eixo = Gb.subtrair(Ga);
+      const ext = cargas.filter(c => lado.has(c.objeto)).flatMap(c => c.forcas).reduce((s, c) => s.adicionar(c.forcaN), Vetor3.zero);
+      const reacao = a.adicionar(alfa.produtoVetorial(braco)).adicionar(omega.produtoVetorial(omega.produtoVetorial(braco))).multiplicar(massa).subtrair(ext);
+      return { f, axialN: eixo.magnitude > 1e-9 ? reacao.produtoEscalar(eixo.multiplicar(1 / eixo.magnitude)) : 0 };
+    });
+    for (const { f, axialN } of esforcos) { f.registrarEsforcoFisicoN(Math.max(0, axialN)); f.registrarEsforcoDeCompressaoFisicoN(Math.max(0, -axialN)); }
+  }
   public registrarImpulsoDeContato(
     objetoDeContato: Objeto,
     membros: readonly Objeto[],

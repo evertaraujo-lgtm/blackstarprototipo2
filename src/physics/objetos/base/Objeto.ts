@@ -284,6 +284,15 @@ export class Objeto {
     this.integridade = Math.max(0, this.integridade - danoRelativo);
   }
 
+  /** Energia mecânica acumulada de um único carregamento, sem reaplicar o dano dos subpassos anteriores. */
+  public aplicarDanoPorCarregamentoPeloCore(energiaAnteriorJ: number, energiaTotalJ: number): void {
+    if (![energiaAnteriorJ, energiaTotalJ].every(Number.isFinite) || energiaAnteriorJ < 0 || energiaTotalJ < energiaAnteriorJ)
+      throw new Error('Energia de carregamento inválida.');
+    const danoAntes = Math.max(0, energiaAnteriorJ / this.resistenciaColisaoJ - 1);
+    const danoDepois = Math.max(0, energiaTotalJ / this.resistenciaColisaoJ - 1);
+    this.integridade = Math.max(0, this.integridade - (danoDepois - danoAntes));
+  }
+
   /** API do core térmico: energia positiva aquece, negativa resfria. */
   public aplicarEnergiaTermicaPeloCore(energiaJ: number, dtS: number): void {
     if (!Number.isFinite(energiaJ) || !Number.isFinite(dtS) || dtS <= 0) throw new Error('Atualização térmica inválida.');

@@ -325,6 +325,24 @@ export class MundoFisico {
     for (const chumbador of this.chumbadoresAoSolo.values()) chumbador.prepararPasso();
     this.sincronizarConjuntosEstruturais(0, false);
     if (aplicarImpulsos) this.aplicarImpulsosPendentes();
+    if (this.hidrodinamica) {
+      for (const o of this.objetos.values()) this.hidrodinamica.atualizarCarregamento(o, dtS);
+      for (const conjunto of this.conjuntosEstruturais.values()) {
+        const cargas = conjunto.membros.map(objeto => {
+          const e = objeto.getEstadoFisico();
+          const forcas: ForcaAplicada[] = [
+            { forcaN: this.obterGravidadeMps2(e.posicaoM).multiplicar(objeto.massaKg), pontoM: e.posicaoM },
+            { forcaN: this.obterForcaArrastoAtmosferico(objeto), pontoM: objeto.obterCentroPressaoM() },
+            ...(this.hidrodinamica?.calcular(objeto).forcas ?? []),
+            ...objeto.obterForcasOperacionais().map(f => ({ ...f, pontoM: f.pontoM ?? e.posicaoM })),
+            ...objeto.obterForcasAerodinamicas(this.obterCondicoesAtmosfericas(objeto)).map(f => ({ ...f, pontoM: f.pontoM ?? e.posicaoM })),
+            ...(this.forcasPendentes.get(objeto.id) ?? []).map(f => ({ ...f, pontoM: f.pontoM ?? e.posicaoM })),
+          ]; return { objeto, forcas };
+        });
+        this.resolvedorEsforcoEstrutural.registrarCargasDistribuidas(conjunto, cargas, this.fixadores.values());
+      }
+      this.sincronizarConjuntosEstruturais(0, false);
+    }
     if (this.integracao === 'verlet-gravitacional') this.aplicarKickGravitacional(dtS / 2);
     this.integrarCorpos(dtS);
     if (this.integracao === 'verlet-gravitacional') this.aplicarKickGravitacional(dtS / 2);
