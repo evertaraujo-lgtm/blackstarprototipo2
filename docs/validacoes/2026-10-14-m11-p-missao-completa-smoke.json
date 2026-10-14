@@ -1,0 +1,131 @@
+{
+  "buildProducao": true,
+  "escalaSolicitada": 1,
+  "entrada": {
+    "tempoS": 0.37083333333333335,
+    "atitudeLocalRad": 0.0050008134474957295,
+    "integridadeMinima": 1
+  },
+  "tombamento": {
+    "tempoS": 5.120833333333364,
+    "atitudeLocalRad": 0.5738977697147705,
+    "integridadeMinima": 1
+  },
+  "final": {
+    "tempoS": 169.94166666659441,
+    "atitudeLocalRad": 1.5835416668342888,
+    "integridadeMinima": 1
+  },
+  "aquaticoFinal": {
+    "estado": "flutuacao-estavel",
+    "volumeSubmersoM3": 5.207179242636784,
+    "equilibrioContinuoS": 3.266666666666724,
+    "equilibrioObservado": true
+  },
+  "eventos": [
+    {
+      "sequencia": 0,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "missao-carregada",
+      "descricao": "BSS-006 preparado em ensaio de aproximação sobre oceano."
+    },
+    {
+      "sequencia": 1,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "ensaio-adm-aproximacao",
+      "descricao": "Condição inicial ADM sobre oceano: motores desligados, sem trajetória de lançamento presumida."
+    },
+    {
+      "sequencia": 2,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "execucao-iniciada",
+      "descricao": "Avanço físico iniciado."
+    },
+    {
+      "sequencia": 3,
+      "passo": 37,
+      "tempoS": 0.15416666666666673,
+      "categoria": "fisico",
+      "tipo": "entrada-na-agua",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    },
+    {
+      "sequencia": 4,
+      "passo": 37,
+      "tempoS": 0.15416666666666673,
+      "categoria": "fisico",
+      "tipo": "imersao-parcial",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    },
+    {
+      "sequencia": 5,
+      "passo": 89,
+      "tempoS": 0.37083333333333335,
+      "categoria": "missao",
+      "tipo": "execucao-pausada",
+      "descricao": "Avanço físico pausado."
+    },
+    {
+      "sequencia": 6,
+      "passo": 89,
+      "tempoS": 0.37083333333333335,
+      "categoria": "missao",
+      "tipo": "execucao-iniciada",
+      "descricao": "Avanço físico iniciado."
+    },
+    {
+      "sequencia": 7,
+      "passo": 978,
+      "tempoS": 4.075000000000029,
+      "categoria": "fisico",
+      "tipo": "tombamento-observado",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    },
+    {
+      "sequencia": 8,
+      "passo": 1229,
+      "tempoS": 5.120833333333364,
+      "categoria": "missao",
+      "tipo": "execucao-pausada",
+      "descricao": "Avanço físico pausado."
+    },
+    {
+      "sequencia": 9,
+      "passo": 1229,
+      "tempoS": 5.120833333333364,
+      "categoria": "missao",
+      "tipo": "execucao-iniciada",
+      "descricao": "Avanço físico iniciado."
+    },
+    {
+      "sequencia": 10,
+      "passo": 40722,
+      "tempoS": 169.674999999928,
+      "categoria": "fisico",
+      "tipo": "equilibrio-flutuacao-observado",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    },
+    {
+      "sequencia": 11,
+      "passo": 40786,
+      "tempoS": 169.94166666659441,
+      "categoria": "missao",
+      "tipo": "execucao-pausada",
+      "descricao": "Avanço físico pausado."
+    }
+  ],
+  "reinicioSemResiduo": true,
+  "zoomSemMudancaFisica": true,
+  "controleMotor": {
+    "empuxoN": 77999.99999999999,
+    "metanoKg": 598.4849930550081
+  },
+  "mobileSemOverflow": true,
+  "errosJS": 0
+}

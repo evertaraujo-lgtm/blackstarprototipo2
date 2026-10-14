@@ -1,0 +1,254 @@
+{
+  "formato": "blackstar-benchmark-m11-p-1",
+  "ambiente": {
+    "cpu": "Intel(R) Core(TM) i3-4005U CPU @ 1.70GHz",
+    "ramBytes": 8261316608,
+    "node": "v20.20.0",
+    "plataforma": "linux"
+  },
+  "parametros": {
+    "segundos": 171,
+    "passoS": 0.004166666666666667,
+    "observacaoCadaPassos": 8,
+    "replayCadaPassos": 240,
+    "instrumentado": false,
+    "terra": false
+  },
+  "duracaoMs": 138492.395668,
+  "cpuMs": 153952.767,
+  "cpuMsPorSegundoSimulado": 900.3085789473683,
+  "fases": {
+    "seca": {
+      "passos": 36,
+      "avancoMs": 281.51394599999685,
+      "observacaoMs": 11.862828000000263
+    },
+    "entrada": {
+      "passos": 948,
+      "avancoMs": 6242.547276999982,
+      "observacaoMs": 157.09263300000703
+    },
+    "tombamento-oscilacao": {
+      "passos": 39744,
+      "avancoMs": 122146.30208900085,
+      "observacaoMs": 5635.8401669999785
+    },
+    "equilibrio": {
+      "passos": 312,
+      "avancoMs": 969.0128939995775,
+      "observacaoMs": 44.577205999870785
+    }
+  },
+  "exportarMs": 94.62124700000277,
+  "serializarMs": 56.9791789999872,
+  "diarioBytes": 3595237,
+  "memoria": [
+    {
+      "tempoS": 10,
+      "rss": 156692480,
+      "heapTotal": 80617472,
+      "heapUsed": 52542296,
+      "external": 3235211,
+      "arrayBuffers": 176747
+    },
+    {
+      "tempoS": 20,
+      "rss": 158326784,
+      "heapTotal": 81928192,
+      "heapUsed": 49373896,
+      "external": 3066819,
+      "arrayBuffers": 134507
+    },
+    {
+      "tempoS": 30,
+      "rss": 167235584,
+      "heapTotal": 91365376,
+      "heapUsed": 62289624,
+      "external": 3066819,
+      "arrayBuffers": 134507
+    },
+    {
+      "tempoS": 40,
+      "rss": 169078784,
+      "heapTotal": 91365376,
+      "heapUsed": 57920008,
+      "external": 3067876,
+      "arrayBuffers": 135564
+    },
+    {
+      "tempoS": 50,
+      "rss": 157716480,
+      "heapTotal": 83501056,
+      "heapUsed": 54671696,
+      "external": 3067876,
+      "arrayBuffers": 135564
+    },
+    {
+      "tempoS": 60,
+      "rss": 168353792,
+      "heapTotal": 94961664,
+      "heapUsed": 61156168,
+      "external": 3067876,
+      "arrayBuffers": 135564
+    },
+    {
+      "tempoS": 70,
+      "rss": 169795584,
+      "heapTotal": 95223808,
+      "heapUsed": 52082408,
+      "external": 3067876,
+      "arrayBuffers": 135564
+    },
+    {
+      "tempoS": 80,
+      "rss": 173203456,
+      "heapTotal": 98631680,
+      "heapUsed": 70245168,
+      "external": 3067876,
+      "arrayBuffers": 135564
+    },
+    {
+      "tempoS": 90,
+      "rss": 173674496,
+      "heapTotal": 99434496,
+      "heapUsed": 54613760,
+      "external": 3067876,
+      "arrayBuffers": 135564
+    },
+    {
+      "tempoS": 100,
+      "rss": 169713664,
+      "heapTotal": 96362496,
+      "heapUsed": 50795224,
+      "external": 3067876,
+      "arrayBuffers": 135564
+    },
+    {
+      "tempoS": 110,
+      "rss": 178626560,
+      "heapTotal": 105275392,
+      "heapUsed": 68755464,
+      "external": 3067876,
+      "arrayBuffers": 135564
+    },
+    {
+      "tempoS": 120,
+      "rss": 180068352,
+      "heapTotal": 105799680,
+      "heapUsed": 53110848,
+      "external": 3067876,
+      "arrayBuffers": 135564
+    },
+    {
+      "tempoS": 130,
+      "rss": 185180160,
+      "heapTotal": 111042560,
+      "heapUsed": 72000480,
+      "external": 3067876,
+      "arrayBuffers": 135564
+    },
+    {
+      "tempoS": 140,
+      "rss": 187023360,
+      "heapTotal": 111566848,
+      "heapUsed": 50196032,
+      "external": 3067876,
+      "arrayBuffers": 135564
+    },
+    {
+      "tempoS": 150,
+      "rss": 187285504,
+      "heapTotal": 111566848,
+      "heapUsed": 71504072,
+      "external": 3067876,
+      "arrayBuffers": 135564
+    },
+    {
+      "tempoS": 160,
+      "rss": 185970688,
+      "heapTotal": 109993984,
+      "heapUsed": 50755400,
+      "external": 3067876,
+      "arrayBuffers": 135564
+    },
+    {
+      "tempoS": 170,
+      "rss": 186363904,
+      "heapTotal": 110256128,
+      "heapUsed": 68985080,
+      "external": 3067876,
+      "arrayBuffers": 135564
+    }
+  ],
+  "gcMs": 3714.3053167164326,
+  "gcEventos": 5530,
+  "contadores": {},
+  "reconstrucoes": 0,
+  "hashObservacoes": "661d91b657477fab3a34abb91a47facad9751323b1f9b6719db5c933b0887714",
+  "hashDiario": "b1e6cd0046eb33fe3e64137e31c059dd5dd736eb0ca87a509f08d5860c636019",
+  "final": {
+    "tempoS": 170.99999999992679,
+    "atitudeRad": 1.5836483003343742,
+    "volumeM3": 5.221196173099905,
+    "estado": "flutuacao-estavel",
+    "integridade": 1
+  },
+  "eventos": [
+    {
+      "sequencia": 0,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "missao-carregada",
+      "descricao": "BSS-006 preparado em ensaio de aproximação sobre oceano."
+    },
+    {
+      "sequencia": 1,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "ensaio-adm-aproximacao",
+      "descricao": "Condição inicial ADM sobre oceano: motores desligados, sem trajetória de lançamento presumida."
+    },
+    {
+      "sequencia": 2,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "execucao-iniciada",
+      "descricao": "Avanço físico iniciado."
+    },
+    {
+      "sequencia": 3,
+      "passo": 37,
+      "tempoS": 0.15416666666666673,
+      "categoria": "fisico",
+      "tipo": "entrada-na-agua",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    },
+    {
+      "sequencia": 4,
+      "passo": 37,
+      "tempoS": 0.15416666666666673,
+      "categoria": "fisico",
+      "tipo": "imersao-parcial",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    },
+    {
+      "sequencia": 5,
+      "passo": 978,
+      "tempoS": 4.075000000000028,
+      "categoria": "fisico",
+      "tipo": "tombamento-observado",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    },
+    {
+      "sequencia": 6,
+      "passo": 40722,
+      "tempoS": 169.674999999928,
+      "categoria": "fisico",
+      "tipo": "equilibrio-flutuacao-observado",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    }
+  ]
+}

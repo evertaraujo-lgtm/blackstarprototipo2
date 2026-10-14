@@ -1,0 +1,19 @@
+{
+  "hashesExatos": true,
+  "reducaoCpu": 0.756503433229604,
+  "reducaoParede": 0.7612041908054874,
+  "reducaoTempoGc": 0.7937212456592388,
+  "reducaoEventosGc": 0.6518728360088133,
+  "diarios": {
+    "camposExatos": true,
+    "observacoes": 174,
+    "numerosComparados": 121392,
+    "erroNumericoMaximo": 0,
+    "erroEnergiaJ": 0,
+    "erroMomentoAngularKgM2S": 0,
+    "notaEnergia": "Gravidade relativa ao nível do mar + cinética translacional/rotacional; não inclui potencial hidrostático. Comparação de regressão, sem afirmar conservação no meio dissipativo.",
+    "entrada": 0.15416666666666673,
+    "tombamento": 4.075000000000028,
+    "equilibrio": 169.674999999928
+  }
+}

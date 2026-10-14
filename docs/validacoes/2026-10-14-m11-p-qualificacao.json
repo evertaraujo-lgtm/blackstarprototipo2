@@ -1,0 +1,25 @@
+{
+  "testes": 526,
+  "arquivosTeste": 80,
+  "testesHistoricosPreservados": 518,
+  "novosTestes": 8,
+  "duracaoS": 1207.43,
+  "exitCode": 0,
+  "fontesCongelados": {
+    "arquivos": 214,
+    "sha256": "37cfc68046b623c9e8bd1ba02222e884a5297f54cfb1191a901aa28a9c9550ff"
+  },
+  "typecheck": "aprovado",
+  "typecheckMissoes": "aprovado",
+  "build": "aprovado",
+  "smokeProducao": "aprovado",
+  "replay171s": "exato",
+  "ciBase": {
+    "sha": "a309ae2ec6c350460176790d5af5183e5f6354ea",
+    "run": 38548986493,
+    "conclusao": "success"
+  },
+  "ciCommitsLocais": "não disponível antes do push do operador",
+  "push": false,
+  "deploy": false
+}

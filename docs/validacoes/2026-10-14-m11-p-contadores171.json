@@ -1,0 +1,440 @@
+{
+  "formato": "blackstar-benchmark-m11-p-1",
+  "ambiente": {
+    "cpu": "Intel(R) Core(TM) i3-4005U CPU @ 1.70GHz",
+    "ramBytes": 8261316608,
+    "node": "v20.20.0",
+    "plataforma": "linux"
+  },
+  "parametros": {
+    "segundos": 171,
+    "passoS": 0.004166666666666667,
+    "observacaoCadaPassos": 8,
+    "replayCadaPassos": 240,
+    "instrumentado": false,
+    "contagemSemRelogio": true,
+    "vetores": false,
+    "terra": false
+  },
+  "duracaoMs": 137868.636928,
+  "cpuMs": 145965.025,
+  "cpuMsPorSegundoSimulado": 853.5966374269005,
+  "fases": {
+    "seca": {
+      "passos": 36,
+      "avancoMs": 255.41915299999891,
+      "observacaoMs": 9.545667000000321
+    },
+    "entrada": {
+      "passos": 948,
+      "avancoMs": 6094.304720000007,
+      "observacaoMs": 152.3585000000112
+    },
+    "tombamento-oscilacao": {
+      "passos": 39744,
+      "avancoMs": 121857.47766099905,
+      "observacaoMs": 5585.264315000466
+    },
+    "equilibrio": {
+      "passos": 312,
+      "avancoMs": 929.127914999437,
+      "observacaoMs": 41.50105799987796
+    }
+  },
+  "exportarMs": 92.42655000000377,
+  "serializarMs": 49.42291500000283,
+  "diarioBytes": 3595237,
+  "memoria": [
+    {
+      "tempoS": 10,
+      "rss": 155017216,
+      "heapTotal": 79011840,
+      "heapUsed": 50184304,
+      "external": 3165595,
+      "arrayBuffers": 222327
+    },
+    {
+      "tempoS": 20,
+      "rss": 154353664,
+      "heapTotal": 80060416,
+      "heapUsed": 50824040,
+      "external": 3066819,
+      "arrayBuffers": 134507
+    },
+    {
+      "tempoS": 30,
+      "rss": 155983872,
+      "heapTotal": 80846848,
+      "heapUsed": 45106232,
+      "external": 3066819,
+      "arrayBuffers": 134507
+    },
+    {
+      "tempoS": 40,
+      "rss": 152416256,
+      "heapTotal": 79273984,
+      "heapUsed": 43272264,
+      "external": 3067876,
+      "arrayBuffers": 135564
+    },
+    {
+      "tempoS": 50,
+      "rss": 153350144,
+      "heapTotal": 82157568,
+      "heapUsed": 57464760,
+      "external": 3067876,
+      "arrayBuffers": 135564
+    },
+    {
+      "tempoS": 60,
+      "rss": 157335552,
+      "heapTotal": 84443136,
+      "heapUsed": 44134504,
+      "external": 3067876,
+      "arrayBuffers": 135564
+    },
+    {
+      "tempoS": 70,
+      "rss": 160088064,
+      "heapTotal": 87588864,
+      "heapUsed": 52231272,
+      "external": 3067876,
+      "arrayBuffers": 135564
+    },
+    {
+      "tempoS": 80,
+      "rss": 169132032,
+      "heapTotal": 96501760,
+      "heapUsed": 59675560,
+      "external": 3067876,
+      "arrayBuffers": 135564
+    },
+    {
+      "tempoS": 90,
+      "rss": 183025664,
+      "heapTotal": 109363200,
+      "heapUsed": 83556264,
+      "external": 3067876,
+      "arrayBuffers": 135564
+    },
+    {
+      "tempoS": 100,
+      "rss": 195600384,
+      "heapTotal": 122470400,
+      "heapUsed": 93723056,
+      "external": 3067876,
+      "arrayBuffers": 135564
+    },
+    {
+      "tempoS": 110,
+      "rss": 197148672,
+      "heapTotal": 123330560,
+      "heapUsed": 55838432,
+      "external": 3067876,
+      "arrayBuffers": 135564
+    },
+    {
+      "tempoS": 120,
+      "rss": 197279744,
+      "heapTotal": 123330560,
+      "heapUsed": 64850104,
+      "external": 3067876,
+      "arrayBuffers": 135564
+    },
+    {
+      "tempoS": 130,
+      "rss": 197279744,
+      "heapTotal": 123330560,
+      "heapUsed": 88761616,
+      "external": 3067876,
+      "arrayBuffers": 135564
+    },
+    {
+      "tempoS": 140,
+      "rss": 195104768,
+      "heapTotal": 121233408,
+      "heapUsed": 53067200,
+      "external": 3067876,
+      "arrayBuffers": 135564
+    },
+    {
+      "tempoS": 150,
+      "rss": 195104768,
+      "heapTotal": 121233408,
+      "heapUsed": 62064200,
+      "external": 3067876,
+      "arrayBuffers": 135564
+    },
+    {
+      "tempoS": 160,
+      "rss": 195104768,
+      "heapTotal": 121233408,
+      "heapUsed": 87711832,
+      "external": 3067876,
+      "arrayBuffers": 135564
+    },
+    {
+      "tempoS": 170,
+      "rss": 192610304,
+      "heapTotal": 118611968,
+      "heapUsed": 58254232,
+      "external": 3067876,
+      "arrayBuffers": 135564
+    }
+  ],
+  "gcMs": 3746.4983125925064,
+  "gcEventos": 5537,
+  "contadores": {
+    "mundo.avancar": {
+      "chamadas": 41040,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "mundo.integrarPasso": {
+      "chamadas": 43230,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "mundo.integrarCorpos": {
+      "chamadas": 43230,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "mundo.sincronizarConjuntosEstruturais": {
+      "chamadas": 86460,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "mundo.aplicarKickGravitacional": {
+      "chamadas": 86460,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "mundo.aplicarKickHidrostatico": {
+      "chamadas": 86460,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "agua.calcular": {
+      "chamadas": 2112408,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "agua.geometrias": {
+      "chamadas": 5619342,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "agua.limitePassoS": {
+      "chamadas": 518760,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "agua.atualizarCarregamento": {
+      "chamadas": 518760,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "ilha.aplicarImpulsoNoPonto": {
+      "chamadas": 0,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "ilha.aplicarImpulsosSequenciais": {
+      "chamadas": 172847,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "ilha.obterCentroDeMassaAtual": {
+      "chamadas": 1939380,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "ilha.obterInerciaCompostaZ": {
+      "chamadas": 907745,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "ilha.sincronizar": {
+      "chamadas": 86460,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "ilha.integrar": {
+      "chamadas": 43230,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "missao.avancarPasso": {
+      "chamadas": 41040,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "missao.observar": {
+      "chamadas": 5304,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "missao.medidasAquaticas": {
+      "chamadas": 46344,
+      "totalMs": 0,
+      "proprioMs": 0
+    }
+  },
+  "chamadasPorFase": {
+    "inicializacao": {
+      "missao.observar": 2,
+      "agua.geometrias": 26,
+      "missao.medidasAquaticas": 2,
+      "agua.calcular": 24
+    },
+    "seca": {
+      "missao.avancarPasso": 36,
+      "mundo.avancar": 36,
+      "agua.limitePassoS": 432,
+      "agua.geometrias": 4696,
+      "mundo.integrarPasso": 36,
+      "mundo.sincronizarConjuntosEstruturais": 72,
+      "ilha.obterCentroDeMassaAtual": 1549,
+      "ilha.sincronizar": 72,
+      "ilha.obterInerciaCompostaZ": 672,
+      "agua.atualizarCarregamento": 432,
+      "agua.calcular": 1776,
+      "mundo.aplicarKickGravitacional": 72,
+      "ilha.aplicarImpulsosSequenciais": 72,
+      "mundo.aplicarKickHidrostatico": 72,
+      "mundo.integrarCorpos": 36,
+      "ilha.integrar": 36,
+      "missao.medidasAquaticas": 40,
+      "missao.observar": 4
+    },
+    "entrada": {
+      "missao.avancarPasso": 948,
+      "mundo.avancar": 948,
+      "ilha.obterInerciaCompostaZ": 45044,
+      "ilha.obterCentroDeMassaAtual": 81491,
+      "agua.limitePassoS": 25740,
+      "agua.geometrias": 263940,
+      "mundo.integrarPasso": 2145,
+      "mundo.sincronizarConjuntosEstruturais": 4290,
+      "ilha.sincronizar": 4290,
+      "agua.atualizarCarregamento": 25740,
+      "agua.calcular": 90072,
+      "mundo.aplicarKickGravitacional": 4290,
+      "ilha.aplicarImpulsosSequenciais": 8579,
+      "mundo.aplicarKickHidrostatico": 4290,
+      "mundo.integrarCorpos": 2145,
+      "ilha.integrar": 2145,
+      "missao.medidasAquaticas": 1071,
+      "missao.observar": 123
+    },
+    "tombamento-oscilacao": {
+      "missao.avancarPasso": 39744,
+      "mundo.avancar": 39744,
+      "ilha.obterInerciaCompostaZ": 855477,
+      "ilha.obterCentroDeMassaAtual": 1842108,
+      "agua.limitePassoS": 488844,
+      "agua.geometrias": 5309886,
+      "mundo.integrarPasso": 40737,
+      "mundo.sincronizarConjuntosEstruturais": 81474,
+      "ilha.sincronizar": 81474,
+      "agua.atualizarCarregamento": 488844,
+      "agua.calcular": 2005056,
+      "mundo.aplicarKickGravitacional": 81474,
+      "ilha.aplicarImpulsosSequenciais": 162948,
+      "mundo.aplicarKickHidrostatico": 81474,
+      "mundo.integrarCorpos": 40737,
+      "ilha.integrar": 40737,
+      "missao.medidasAquaticas": 44877,
+      "missao.observar": 5133
+    },
+    "equilibrio": {
+      "missao.avancarPasso": 312,
+      "mundo.avancar": 312,
+      "ilha.obterInerciaCompostaZ": 6552,
+      "ilha.obterCentroDeMassaAtual": 14232,
+      "agua.limitePassoS": 3744,
+      "agua.geometrias": 40794,
+      "mundo.integrarPasso": 312,
+      "mundo.sincronizarConjuntosEstruturais": 624,
+      "ilha.sincronizar": 624,
+      "agua.atualizarCarregamento": 3744,
+      "agua.calcular": 15480,
+      "mundo.aplicarKickGravitacional": 624,
+      "ilha.aplicarImpulsosSequenciais": 1248,
+      "mundo.aplicarKickHidrostatico": 624,
+      "mundo.integrarCorpos": 312,
+      "ilha.integrar": 312,
+      "missao.medidasAquaticas": 354,
+      "missao.observar": 42
+    }
+  },
+  "reconstrucoes": 1536247,
+  "hashObservacoes": "661d91b657477fab3a34abb91a47facad9751323b1f9b6719db5c933b0887714",
+  "hashDiario": "b1e6cd0046eb33fe3e64137e31c059dd5dd736eb0ca87a509f08d5860c636019",
+  "final": {
+    "tempoS": 170.99999999992679,
+    "atitudeRad": 1.5836483003343742,
+    "volumeM3": 5.221196173099905,
+    "estado": "flutuacao-estavel",
+    "integridade": 1
+  },
+  "eventos": [
+    {
+      "sequencia": 0,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "missao-carregada",
+      "descricao": "BSS-006 preparado em ensaio de aproximação sobre oceano."
+    },
+    {
+      "sequencia": 1,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "ensaio-adm-aproximacao",
+      "descricao": "Condição inicial ADM sobre oceano: motores desligados, sem trajetória de lançamento presumida."
+    },
+    {
+      "sequencia": 2,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "execucao-iniciada",
+      "descricao": "Avanço físico iniciado."
+    },
+    {
+      "sequencia": 3,
+      "passo": 37,
+      "tempoS": 0.15416666666666673,
+      "categoria": "fisico",
+      "tipo": "entrada-na-agua",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    },
+    {
+      "sequencia": 4,
+      "passo": 37,
+      "tempoS": 0.15416666666666673,
+      "categoria": "fisico",
+      "tipo": "imersao-parcial",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    },
+    {
+      "sequencia": 5,
+      "passo": 978,
+      "tempoS": 4.075000000000028,
+      "categoria": "fisico",
+      "tipo": "tombamento-observado",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    },
+    {
+      "sequencia": 6,
+      "passo": 40722,
+      "tempoS": 169.674999999928,
+      "categoria": "fisico",
+      "tipo": "equilibrio-flutuacao-observado",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    }
+  ]
+}

@@ -12,18 +12,29 @@ import { Vetor3 } from '../src/physics/Vetor3';
 
 // Instrumentação exclusivamente no adaptador Node: nenhum relógio no domínio.
 const { values } = parseArgs({ options: { segundos: { type: 'string', default: '171' },
-  saida: { type: 'string' }, diario: { type: 'string' }, instrumentar: { type: 'boolean' },
+  saida: { type: 'string' }, diario: { type: 'string' }, instrumentar: { type: 'boolean' }, contar: { type: 'boolean' }, vetores: { type: 'boolean' },
   'observacao-passos': { type: 'string', default: '8' }, terra: { type: 'boolean' } } });
 const segundos = Number(values.segundos), frequencia = Number(values['observacao-passos']);
 if (!(segundos > 0 && Number.isFinite(segundos)) || !Number.isSafeInteger(frequencia) || frequencia < 1) throw new Error('Parâmetros inválidos.');
 const medidas: Record<string, { chamadas: number; totalMs: number; proprioMs: number }> = {};
 const pilha: { filhosMs: number }[] = [], restaurar: (() => void)[] = [];
 let reconstrucoes = 0;
+let faseAtual = 'inicializacao';
+const chamadasPorFase: Record<string, Record<string, number>> = {};
 function instrumentar(prototipo: object, nomes: string[], prefixo: string) {
   const p = prototipo as Record<string, (...args: unknown[]) => unknown>;
   for (const nome of nomes) {
-    const original = p[nome], medida = medidas[`${prefixo}.${nome}`] = { chamadas: 0, totalMs: 0, proprioMs: 0 };
+    const chave = `${prefixo}.${nome}`, original = p[nome], medida = medidas[chave] = { chamadas: 0, totalMs: 0, proprioMs: 0 };
     p[nome] = function (this: unknown, ...args: unknown[]) {
+      const contagens = chamadasPorFase[faseAtual] ??= {};
+      contagens[chave] = (contagens[chave] ?? 0) + 1;
+      if (!values.instrumentar) {
+        medida.chamadas++;
+        const anterior = nome === 'geometrias' ? (this as { cache: Map<unknown, { geometria: unknown }> }).cache.get(args[0])?.geometria : undefined;
+        const r = original.apply(this, args);
+        if (nome === 'geometrias' && r !== anterior) reconstrucoes++;
+        return r;
+      }
       const frame = { filhosMs: 0 }, inicio = performance.now(); pilha.push(frame); medida.chamadas++;
       let anterior: unknown;
       if (nome === 'geometrias') anterior = (this as { cache: Map<unknown, { geometria: unknown }> }).cache.get(args[0])?.geometria;
@@ -39,12 +50,12 @@ function instrumentar(prototipo: object, nomes: string[], prefixo: string) {
     restaurar.push(() => { p[nome] = original; });
   }
 }
-if (values.instrumentar) {
+if (values.instrumentar || values.contar) {
   instrumentar(MundoFisico.prototype, ['avancar', 'integrarPasso', 'integrarCorpos', 'sincronizarConjuntosEstruturais', 'aplicarKickGravitacional', 'aplicarKickHidrostatico'], 'mundo');
   instrumentar(SistemaHidrodinamico.prototype, ['calcular', 'geometrias', 'limitePassoS', 'atualizarCarregamento'], 'agua');
-  instrumentar(ConjuntoEstruturalRigido.prototype, ['aplicarImpulsoNoPonto', 'obterCentroDeMassaAtual', 'obterInerciaCompostaZ', 'sincronizar', 'integrar'], 'ilha');
+  instrumentar(ConjuntoEstruturalRigido.prototype, ['aplicarImpulsoNoPonto', 'aplicarImpulsosSequenciais', 'obterCentroDeMassaAtual', 'obterInerciaCompostaZ', 'sincronizar', 'integrar'], 'ilha');
   instrumentar(MissaoBss006.prototype, ['avancarPasso', 'observar', 'medidasAquaticas'], 'missao');
-  instrumentar(Vetor3.prototype, ['adicionar', 'subtrair', 'multiplicar', 'produtoVetorial'], 'vetor');
+  if (values.instrumentar || values.vetores) instrumentar(Vetor3.prototype, ['adicionar', 'subtrair', 'multiplicar', 'produtoVetorial'], 'vetor');
 }
 let gcMs = 0, gcEventos = 0;
 const gc = new PerformanceObserver(lista => { for (const e of lista.getEntries()) { gcMs += e.duration; gcEventos++; } });
@@ -61,6 +72,7 @@ const passos = Math.round(segundos / m.passoS), cpuInicial = process.cpuUsage(),
 for (let i = 1; i <= passos; i++) {
   // Janelas fixas comuns às duas implementações; não controlam o voo.
   const t = (i - 1) * m.passoS, fase = t < 0.15 ? 'seca' : t < 4.1 ? 'entrada' : t < 169.7 ? 'tombamento-oscilacao' : 'equilibrio';
+  faseAtual = fase;
   let f = fases.get(fase); if (!f) { f = { passos: 0, avancoMs: 0, observacaoMs: 0 }; fases.set(fase, f); }
   const a = performance.now(); if (!m.avancarPasso()) throw new Error('Missão não avançou.'); f.avancoMs += performance.now() - a; f.passos++;
   if (i % frequencia === 0) { const a = performance.now(), o = m.observar(); f.observacaoMs += performance.now() - a; hash.update(JSON.stringify(o)); }
@@ -71,10 +83,10 @@ const e = performance.now(), diario = m.exportar(), exportarMs = performance.now
 const s = performance.now(), serializado = JSON.stringify(diario), serializarMs = performance.now() - s;
 await new Promise<void>(r => setImmediate(r)); gc.disconnect(); for (const r of restaurar) r();
 const resultado = { formato: 'blackstar-benchmark-m11-p-1', ambiente: { cpu: cpus()[0].model, ramBytes: totalmem(), node: process.version, plataforma: process.platform },
-  parametros: { segundos, passoS: m.passoS, observacaoCadaPassos: frequencia, replayCadaPassos: diario.intervaloAmostraPassos, instrumentado: !!values.instrumentar, terra: !!values.terra },
+  parametros: { segundos, passoS: m.passoS, observacaoCadaPassos: frequencia, replayCadaPassos: diario.intervaloAmostraPassos, instrumentado: !!values.instrumentar, contagemSemRelogio: !!values.contar, vetores: !!values.vetores, terra: !!values.terra },
   duracaoMs, cpuMs: (cpu.user + cpu.system) / 1000, cpuMsPorSegundoSimulado: (cpu.user + cpu.system) / 1000 / segundos,
   fases: Object.fromEntries(fases), exportarMs, serializarMs, diarioBytes: Buffer.byteLength(serializado), memoria, gcMs, gcEventos,
-  contadores: medidas, reconstrucoes, hashObservacoes: hash.digest('hex'), hashDiario: createHash('sha256').update(serializado).digest('hex'),
+  contadores: medidas, chamadasPorFase, reconstrucoes, hashObservacoes: hash.digest('hex'), hashDiario: createHash('sha256').update(serializado).digest('hex'),
   final: { tempoS: diario.final.tempoS, atitudeRad: diario.final.atitudeLocalRad, volumeM3: diario.final.aquatico?.volumeSubmersoM3,
     estado: diario.final.aquatico?.estado, integridade: diario.final.integridadeMinima }, eventos: diario.eventos };
 if (values.diario) writeFileSync(values.diario, serializado);

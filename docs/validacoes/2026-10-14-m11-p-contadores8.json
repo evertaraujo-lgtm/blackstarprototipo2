@@ -1,0 +1,306 @@
+{
+  "formato": "blackstar-benchmark-m11-p-1",
+  "ambiente": {
+    "cpu": "Intel(R) Core(TM) i3-4005U CPU @ 1.70GHz",
+    "ramBytes": 8261316608,
+    "node": "v20.20.0",
+    "plataforma": "linux"
+  },
+  "parametros": {
+    "segundos": 8,
+    "passoS": 0.004166666666666667,
+    "observacaoCadaPassos": 8,
+    "replayCadaPassos": 240,
+    "instrumentado": false,
+    "contagemSemRelogio": true,
+    "vetores": true,
+    "terra": false
+  },
+  "duracaoMs": 16941.229926,
+  "cpuMs": 19961.12,
+  "cpuMsPorSegundoSimulado": 2495.14,
+  "fases": {
+    "seca": {
+      "passos": 36,
+      "avancoMs": 255.90830799999958,
+      "observacaoMs": 8.820631999999932
+    },
+    "entrada": {
+      "passos": 948,
+      "avancoMs": 9107.777688999999,
+      "observacaoMs": 160.48467400000573
+    },
+    "tombamento-oscilacao": {
+      "passos": 936,
+      "avancoMs": 7139.5084000000115,
+      "observacaoMs": 142.7338620000064
+    }
+  },
+  "exportarMs": 6.84367199999906,
+  "serializarMs": 3.0697220000001835,
+  "diarioBytes": 223178,
+  "memoria": [],
+  "gcMs": 0,
+  "gcEventos": 0,
+  "contadores": {
+    "mundo.avancar": {
+      "chamadas": 1920,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "mundo.integrarPasso": {
+      "chamadas": 3919,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "mundo.integrarCorpos": {
+      "chamadas": 3919,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "mundo.sincronizarConjuntosEstruturais": {
+      "chamadas": 7838,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "mundo.aplicarKickGravitacional": {
+      "chamadas": 7838,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "mundo.aplicarKickHidrostatico": {
+      "chamadas": 7838,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "agua.calcular": {
+      "chamadas": 167136,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "agua.geometrias": {
+      "chamadas": 484826,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "agua.limitePassoS": {
+      "chamadas": 47028,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "agua.atualizarCarregamento": {
+      "chamadas": 47028,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "ilha.aplicarImpulsoNoPonto": {
+      "chamadas": 0,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "ilha.aplicarImpulsosSequenciais": {
+      "chamadas": 15603,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "ilha.obterCentroDeMassaAtual": {
+      "chamadas": 151352,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "ilha.obterInerciaCompostaZ": {
+      "chamadas": 82214,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "ilha.sincronizar": {
+      "chamadas": 7838,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "ilha.integrar": {
+      "chamadas": 3919,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "missao.avancarPasso": {
+      "chamadas": 1920,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "missao.observar": {
+      "chamadas": 251,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "missao.medidasAquaticas": {
+      "chamadas": 2171,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "vetor.adicionar": {
+      "chamadas": 9634038,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "vetor.subtrair": {
+      "chamadas": 16490919,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "vetor.multiplicar": {
+      "chamadas": 12491961,
+      "totalMs": 0,
+      "proprioMs": 0
+    },
+    "vetor.produtoVetorial": {
+      "chamadas": 2960312,
+      "totalMs": 0,
+      "proprioMs": 0
+    }
+  },
+  "chamadasPorFase": {
+    "inicializacao": {
+      "vetor.multiplicar": 1598,
+      "vetor.adicionar": 1046,
+      "vetor.subtrair": 2916,
+      "vetor.produtoVetorial": 18,
+      "missao.observar": 2,
+      "agua.geometrias": 26,
+      "missao.medidasAquaticas": 2,
+      "agua.calcular": 24
+    },
+    "seca": {
+      "missao.avancarPasso": 36,
+      "vetor.subtrair": 94463,
+      "mundo.avancar": 36,
+      "agua.limitePassoS": 432,
+      "agua.geometrias": 4696,
+      "mundo.integrarPasso": 36,
+      "vetor.multiplicar": 72765,
+      "mundo.sincronizarConjuntosEstruturais": 72,
+      "ilha.obterCentroDeMassaAtual": 1549,
+      "ilha.sincronizar": 72,
+      "vetor.adicionar": 38775,
+      "ilha.obterInerciaCompostaZ": 672,
+      "agua.atualizarCarregamento": 432,
+      "agua.calcular": 1776,
+      "vetor.produtoVetorial": 3068,
+      "mundo.aplicarKickGravitacional": 72,
+      "ilha.aplicarImpulsosSequenciais": 72,
+      "mundo.aplicarKickHidrostatico": 72,
+      "mundo.integrarCorpos": 36,
+      "ilha.integrar": 36,
+      "missao.medidasAquaticas": 40,
+      "missao.observar": 4
+    },
+    "entrada": {
+      "missao.avancarPasso": 948,
+      "vetor.subtrair": 9084012,
+      "mundo.avancar": 948,
+      "ilha.obterInerciaCompostaZ": 45044,
+      "ilha.obterCentroDeMassaAtual": 81491,
+      "agua.limitePassoS": 25740,
+      "agua.geometrias": 263940,
+      "mundo.integrarPasso": 2145,
+      "vetor.multiplicar": 6773525,
+      "mundo.sincronizarConjuntosEstruturais": 4290,
+      "ilha.sincronizar": 4290,
+      "vetor.adicionar": 5188330,
+      "agua.atualizarCarregamento": 25740,
+      "agua.calcular": 90072,
+      "vetor.produtoVetorial": 1719064,
+      "mundo.aplicarKickGravitacional": 4290,
+      "ilha.aplicarImpulsosSequenciais": 8579,
+      "mundo.aplicarKickHidrostatico": 4290,
+      "mundo.integrarCorpos": 2145,
+      "ilha.integrar": 2145,
+      "missao.medidasAquaticas": 1071,
+      "missao.observar": 123
+    },
+    "tombamento-oscilacao": {
+      "missao.avancarPasso": 936,
+      "vetor.subtrair": 7309528,
+      "mundo.avancar": 936,
+      "ilha.obterInerciaCompostaZ": 36498,
+      "ilha.obterCentroDeMassaAtual": 68312,
+      "agua.limitePassoS": 20856,
+      "agua.geometrias": 216164,
+      "vetor.produtoVetorial": 1238162,
+      "vetor.adicionar": 4405887,
+      "vetor.multiplicar": 5644073,
+      "mundo.integrarPasso": 1738,
+      "mundo.sincronizarConjuntosEstruturais": 3476,
+      "ilha.sincronizar": 3476,
+      "agua.atualizarCarregamento": 20856,
+      "agua.calcular": 75264,
+      "mundo.aplicarKickGravitacional": 3476,
+      "ilha.aplicarImpulsosSequenciais": 6952,
+      "mundo.aplicarKickHidrostatico": 3476,
+      "mundo.integrarCorpos": 1738,
+      "ilha.integrar": 1738,
+      "missao.medidasAquaticas": 1058,
+      "missao.observar": 122
+    }
+  },
+  "reconstrucoes": 121051,
+  "hashObservacoes": "bdbb0f5adc9974df4f0c0936d3d772440236ebf769270328ee512c4367c7c35b",
+  "hashDiario": "4e6904667639118be5e9ce6f01262e8accf1b857678a20ae0fd86317a663f6a1",
+  "final": {
+    "tempoS": 7.999999999999961,
+    "atitudeRad": 1.601573123884381,
+    "volumeM3": 9.518919728592033,
+    "estado": "tombamento",
+    "integridade": 1
+  },
+  "eventos": [
+    {
+      "sequencia": 0,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "missao-carregada",
+      "descricao": "BSS-006 preparado em ensaio de aproximação sobre oceano."
+    },
+    {
+      "sequencia": 1,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "ensaio-adm-aproximacao",
+      "descricao": "Condição inicial ADM sobre oceano: motores desligados, sem trajetória de lançamento presumida."
+    },
+    {
+      "sequencia": 2,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "execucao-iniciada",
+      "descricao": "Avanço físico iniciado."
+    },
+    {
+      "sequencia": 3,
+      "passo": 37,
+      "tempoS": 0.15416666666666673,
+      "categoria": "fisico",
+      "tipo": "entrada-na-agua",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    },
+    {
+      "sequencia": 4,
+      "passo": 37,
+      "tempoS": 0.15416666666666673,
+      "categoria": "fisico",
+      "tipo": "imersao-parcial",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    },
+    {
+      "sequencia": 5,
+      "passo": 978,
+      "tempoS": 4.075000000000028,
+      "categoria": "fisico",
+      "tipo": "tombamento-observado",
+      "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+    }
+  ]
+}

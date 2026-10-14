@@ -46,7 +46,7 @@ Hash de observações a 30 Hz: `661d91b657477fab3a34abb91a47facad9751323b1f9b671
 
 ## Qualificação
 
-Pendente. Nenhum resultado deste documento aprova antecipadamente o marco.
+Concluída localmente, com evidências e resultados finais na seção M11-P-D. A CI remota dos novos commits aguarda o push do operador.
 
 CI da base M11-H confirmado: [execução 38548986493](https://github.com/evertaraujo-lgtm/blackstarprototipo2/actions/runs/38548986493), conclusão success. Isso não qualifica os commits locais M11-P. Typechecks e build do adaptador de benchmark passaram.
 
@@ -66,7 +66,7 @@ Equivalência: teste do lote versus aplicação individual usa 27 impulsos fora 
 
 Validação dirigida final B: 35 testes aprovados (água, missão aquática, equivalência e caches); Objeto também aprovado na campanha anterior. Typechecks principal e sem navegador aprovados; build das quatro páginas aprovado. O teste novo de posição média usa 5×10⁻¹⁵ m de tolerância para a diferença de uma ULP entre 14/3 e 7×(20/30); nenhuma tolerância histórica foi alterada. As verificações de trajetória/replay permanecem estritas.
 
-A medição longa final e regressões completas seguem na M11-P-D.
+A medição longa final e as regressões completas estão registradas na seção M11-P-D.
 
 ## M11-P-C — Apresentação e relógio
 
@@ -77,3 +77,54 @@ A cena usa o modo explícito do ExecutorPassoFixo que acumula todo o tempo real.
 Benchmark visual final no mesmo Chrome/i3, 30,010 s reais: 29,979 s simulados (**0,999×**), 895 desenhos (**29,82 FPS**), 286 atualizações do relógio/HUD (**9,53 Hz**), zero long tasks e zero erros JS. Canvas consumiu 795,0 ms no total. A razão inclui referência inicial do RAF e defasagem de até um quadro do snapshot visual. Resumo em `2026-10-14-m11-p-browser-depois.json`. Worker não foi necessário para esse objetivo; não foi adicionada dependência.
 
 Testes: os dois testes anteriores do executor e três novos passaram; estes verificam drenagem integral de atrasos, orçamento cooperativo, pausa sem perda de saldo e igualdade da sequência de dt sob cadências diferentes. Typechecks e build aprovados. Smoke de produção: missão terrestre com empuxo/vazão/consumo/subida, câmera, zoom sem alterar física, modo pouso, pausa e reinício; variante aquática com entrada, empuxo, ausência de contato rígido e reinício; seis BSS históricos com ignição e consumo; landing, bancada e página orbital carregadas, órbita avançada. Zero erros JS, inclusive no viewport móvel. Resumo: `2026-10-14-m11-p-smoke.json`. Ajuste visual final do indicador também teve build e smoke aquático aprovados.
+
+## M11-P-D — Desempenho e equivalência longa
+
+Mesmos parâmetros, Node, i3, frequência de observação e profiler nativo por amostragem. Processos separados; nenhum teste pesado ou navegador ativo concorria com a medição principal. A comparação não usa a duração do profiler de decoradores.
+
+| Grandeza | Antes | Depois | Redução |
+|---|---:|---:|---:|
+| CPU / 171 s simulados | 632,258 s | 153,953 s | **75,65%** |
+| CPU / segundo simulado | 3,697 s | 0,900 s | **75,65%** |
+| Tempo de parede | 579,962 s | 138,492 s | **76,12%** |
+| Avanço da missão, sem observações de apresentação | 560,539 s | 129,639 s | 76,87% |
+| Consulta de observações completas a 30 Hz, incluindo snapshots | 13,848 s | 5,849 s | 57,76% |
+| Exportação do snapshot do diário completo | 114,90 ms | 94,62 ms | 17,65% |
+| Serialização JSON | 56,88 ms | 56,98 ms | sem ganho significativo |
+| Tempo observado de GC | 18,006 s | 3,714 s | 79,37% |
+| Eventos de GC | 15.885 | 5.530 | 65,19% |
+| RSS máximo amostrado | 220,77 MB | 187,29 MB | 15,17% |
+| Heap usado máximo amostrado | 90,75 MB | 72,00 MB | 20,66% |
+
+MB decimais; memória amostrada a cada dez segundos simulados, não medida de pico instantâneo/alocação exata. O heap final variou de 61,25 para 68,99 MB, conforme a fase do coletor; não é apresentado como prova de redução da memória retida. O diário tem os mesmos bytes/amostras e continua crescendo com a duração. Não houve GC forçado, redução de frequência do replay ou exclusão de partes da missão.
+
+| Fase | Avanço antes | Avanço depois | Observação antes/depois |
+|---|---:|---:|---:|
+| Seca | 0,583 s | 0,282 s | 12,58 / 11,86 ms |
+| Entrada | 25,353 s | 6,243 s | 358,22 / 157,09 ms |
+| Tombamento/oscilação | 531,482 s | 122,146 s | 13,406 / 5,636 s |
+| Intervalo final | 3,120 s | 0,969 s | 70,68 / 44,58 ms |
+
+Contagem separada, sem relógio por método: `--contar` registra chamadas por fase; `--contar --vetores --segundos 8` conta operações vetoriais. Não se comparam suas durações às medições principais. O caso de oito segundos manteve exatamente 3.919 passos internos e 121.051 reconstruções geométricas; as operações vetoriais caíram de 102.335.202 para 41.577.230 (**59,37% menos**). Reconstruções não foram omitidas quando a pose mudava. Na trajetória completa: 41.040 passos externos, 43.230 internos, 1.536.247 reconstruções. Não houve alteração do passo/resolução/tolerâncias. Resumos: `2026-10-14-m11-p-contadores{8,171}.json`.
+
+Reprodução da contagem: `npm run missao:benchmark -- --contar --saida /tmp/contadores.json`. A instrumentação é isolada ao processo CLI; não adiciona relógio ou contadores ao estado do mundo. As consultas de física, missão e snapshots aparecem separadamente no profiler; o registro periódico mantém a chamada de observação a cada 240 passos e a exportação é medida fora do intervalo de integração.
+
+Equivalência: os hashes completos a 30 Hz e do diário a 1 Hz permanecem idênticos. Comparação estrutural de 174 observações (incluindo repetições de inicial/final), **121.392 números**, erro máximo zero. Isso abrange posição, velocidade, orientação, taxa angular, volumes, centros, forças, momentos, potência dissipada, energia de entrada, contatos, massa, consumo, integridade, sensores e objetivos. Energia mecânica derivada e momento angular composto sobre G tiveram diferença **zero** em todas essas observações. Energia inclui cinética translacional/rotacional e potencial gravitacional relativo ao nível do mar; potencial hidrostático não exposto pelo modelo não foi inventado. Essa é uma comparação de regressão, não uma alegação de conservação total num meio dissipativo.
+
+Comparador reproduzível: `node node_modules/vite-node/vite-node.mjs scripts/comparar-desempenho-missao.ts --diario-antes /tmp/m11-p-baseline-diario.json --diario-depois /tmp/m11-p-final-diario.json`. Sem os argumentos dos diários, verifica os hashes e as reduções usando os resumos versionados. Resultado: `2026-10-14-m11-p-equivalencia.json`.
+
+Smoke longo de produção a 1× chegou ao equilíbrio passivo: entrada t=0,154166667 s, tombamento t=4,075 s, equilíbrio t=169,675 s. Captura final t=169,941666667 s, V=5,207179243 m³, atitude=1,583541667 rad, integridade 100%, sem contatos sólidos. O endpoint é o momento real da pausa, não foi ajustado ao benchmark Node de 171 s. Zoom não alterou física, partida/corte funcionaram, reinício não deixou resíduos, viewport móvel sem overflow e zero erros JS. Resumo pequeno: `2026-10-14-m11-p-missao-completa-smoke.json`; diário/capturas completos em /tmp.
+
+## Limitações e próximos trabalhos
+
+As medições qualificam este i3-4005U/8 GB com Linux/Node 20.20.0 e Chrome headless 145, na configuração descrita. Não qualificam outros navegadores, máquinas, muitas missões simultâneas ou sessões de horas. Frequência atingida é medida, não promessa universal. O indicador informa atrasos e mantém os passos quando houver carga adicional.
+
+A serialização completa do diário não melhorou significativamente; persistência/streaming de longas sessões merece benchmark próprio. Os caches pressupõem os contratos de vetores/configuração imutáveis; alterações de configuração devem ocorrer pelas APIs de domínio ou construção de nova missão. As limitações físicas M9–M11 permanecem as mesmas; nenhuma hipótese de ondas, inundação, slamming detalhado ou qualificação de lançador real foi adicionada. Novas otimizações ou worker só devem ser escolhidos com medição de cargas que excedam o caso atual.
+
+Qualificação final: **526 testes aprovados, 80 arquivos, exit 0**, em 1.207,43 s. Todos os 518 testes históricos preservados, oito novos; nenhum removido, ignorado ou enfraquecido. Fontes congelados durante a campanha: 214 arquivos, SHA-256 `37cfc68046b623c9e8bd1ba02222e884a5297f54cfb1191a901aa28a9c9550ff`, conferido antes/depois. Inclui regressões orbitais M9, terrestres, missão, hidro, contato, integridade, controles e replay histórico M10. Logs compactos `2026-10-14-m11-p-{testes,tipos,build}.log`; resumo `2026-10-14-m11-p-qualificacao.json`.
+
+Typecheck principal, typecheck de missões sem navegador e build de produção aprovados com os fontes finais. Replay técnico do diário pré-otimização de 171 s aprovado no executor real, com comparação integral exata; resumo `2026-10-14-m11-p-replay.json`. Nenhuma tolerância de regressão foi necessária: houve igualdade exata no contrato JSON/diário, além da comparação por componentes do lote versus os impulsos individuais.
+
+CI da base M11-H confirmada success. Consulta para o commit local C retornou zero execuções: **CI dos novos commits pendente do push do operador**, não declarada aprovada. Nenhum push ou deploy foi feito. M11-P-A/B/C/D concluídos e qualificados localmente; resta a verificação remota depois do push.
+
+Commits: A `34f2999`, B `67c6178`, C `b0c5da2`; D é o commit de qualificação que contém este relatório e as evidências finais.

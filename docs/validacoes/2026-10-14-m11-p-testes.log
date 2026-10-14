@@ -1,0 +1,195 @@
+
+> starship-prototype-2@0.1.0 test
+> vitest run --maxWorkers=1
+
+
+ RUN  v3.2.7 /media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2
+
+ ✓ src/cenarios/EnsaioMissaoBss005.test.ts (17 tests) 345312ms
+   ✓ M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s > separa toque seguro de repouso quando o apoio bilateral não persiste  122436ms
+   ✓ M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s > reprova e reproduz o retorno nominal de 15 km, sem esconder o esgotamento e o impacto  82531ms
+   ✓ M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s > falha por ausência deliberada de reserva no corte e mantém balanço de massa explícito  45365ms
+   ✓ M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s > corta a propulsão na perda de controle e registra a queda e o estado após o impacto  46281ms
+   ✓ M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s > injeta congelamento na fase de descida, detecta leitura obsoleta e reprova sem inventar recuperação  47958ms
+   ✓ M2 — BSS-005, mesma montagem da interface, dt fixo de 1/240 s > nega a partida sem combustível e não inventa decolagem nem consumo  545ms
+ ✓ src/cenarios/ComparacaoBssM9.test.ts (8 tests) 277735ms
+   ✓ M9-F — mesma montagem, comandos e critérios, ambiente legado vs central > BSS-001: decolagem, apogeu e retorno medidos  19698ms
+   ✓ M9-F — mesma montagem, comandos e critérios, ambiente legado vs central > BSS-002: decolagem, apogeu e retorno medidos  18632ms
+   ✓ M9-F — mesma montagem, comandos e critérios, ambiente legado vs central > BSS-003: decolagem, apogeu e retorno medidos  51347ms
+   ✓ M9-F — mesma montagem, comandos e critérios, ambiente legado vs central > BSS-004: decolagem, apogeu e retorno medidos  41251ms
+   ✓ M9-F — mesma montagem, comandos e critérios, ambiente legado vs central > BSS-005: decolagem, apogeu e retorno medidos  41063ms
+   ✓ M9-F — mesma montagem, comandos e critérios, ambiente legado vs central > BSS-006: decolagem, apogeu e retorno medidos  54178ms
+   ✓ M9-F — mesma montagem, comandos e critérios, ambiente legado vs central > BSS-006: falha elétrica continua causando queda/dano nos dois ambientes  51335ms
+ ✓ src/missoes/ValidacaoMissaoBss006.test.ts (10 tests) 108595ms
+   ✓ M10-E — equivalência exata e determinismo em instâncias independentes > 'alvo-zero': mesmos estados, controles, massa, contatos e consumo da bancada  13890ms
+   ✓ M10-E — equivalência exata e determinismo em instâncias independentes > 'alvo-direita': mesmos estados, controles, massa, contatos e consumo da bancada  13809ms
+   ✓ M10-E — equivalência exata e determinismo em instâncias independentes > 'alvo-esquerda': mesmos estados, controles, massa, contatos e consumo da bancada  14093ms
+   ✓ M10-E — equivalência exata e determinismo em instâncias independentes > 'vento-direita': mesmos estados, controles, massa, contatos e consumo da bancada  12872ms
+   ✓ M10-E — equivalência exata e determinismo em instâncias independentes > 'vento-esquerda': mesmos estados, controles, massa, contatos e consumo da bancada  12947ms
+   ✓ M10-E — equivalência exata e determinismo em instâncias independentes > 'sem-ignicao': mesmos estados, controles, massa, contatos e consumo da bancada  587ms
+   ✓ M10-E — equivalência exata e determinismo em instâncias independentes > 'falha-eletrica': mesmos estados, controles, massa, contatos e consumo da bancada  13648ms
+   ✓ M10-E — equivalência exata e determinismo em instâncias independentes > 'falha-metano': mesmos estados, controles, massa, contatos e consumo da bancada  12552ms
+   ✓ M10-E — equivalência exata e determinismo em instâncias independentes > 'falha-oxidante': mesmos estados, controles, massa, contatos e consumo da bancada  13490ms
+   ✓ M10-E — equivalência exata e determinismo em instâncias independentes > observações frequentes não alteram determinismo de estado e eventos  700ms
+ ✓ src/missoes/ReferenciaBancadaM10.test.ts (9 tests) 105016ms
+   ✓ M10-E — referência independente do voo na bancada > 'alvo-zero': coleta física completa em instância separada  13545ms
+   ✓ M10-E — referência independente do voo na bancada > 'alvo-direita': coleta física completa em instância separada  13316ms
+   ✓ M10-E — referência independente do voo na bancada > 'alvo-esquerda': coleta física completa em instância separada  13699ms
+   ✓ M10-E — referência independente do voo na bancada > 'vento-direita': coleta física completa em instância separada  12440ms
+   ✓ M10-E — referência independente do voo na bancada > 'vento-esquerda': coleta física completa em instância separada  13398ms
+   ✓ M10-E — referência independente do voo na bancada > 'sem-ignicao': coleta física completa em instância separada  540ms
+   ✓ M10-E — referência independente do voo na bancada > 'falha-eletrica': coleta física completa em instância separada  13076ms
+   ✓ M10-E — referência independente do voo na bancada > 'falha-metano': coleta física completa em instância separada  12441ms
+   ✓ M10-E — referência independente do voo na bancada > 'falha-oxidante': coleta física completa em instância separada  12554ms
+ ✓ src/cenarios/BancadaBssCentral.test.ts (4 tests) 53946ms
+   ✓ M9-G — envelope da guiagem BSS-006 em Terra esférica > repouso geométrico após subida a 300m, alvo 34.7, vento +0  13954ms
+   ✓ M9-G — envelope da guiagem BSS-006 em Terra esférica > repouso geométrico após subida a 300m, alvo -34.7, vento +0  14097ms
+   ✓ M9-G — envelope da guiagem BSS-006 em Terra esférica > repouso geométrico após subida a 300m, alvo +0, vento 5  13178ms
+   ✓ M9-G — envelope da guiagem BSS-006 em Terra esférica > repouso geométrico após subida a 300m, alvo +0, vento -5  12713ms
+ ✓ src/cenarios/BancadaBss.test.ts (10 tests) 92082ms
+   ✓ registra no trace a deflexão real das grid fins durante a descida guiada  2108ms
+   ✓ BSS-006 — voo completo da montagem usada pela interface > decola, muda para pouso a 80 m e repousa no alvo X=+0 com vento +0 m/s  9894ms
+   ✓ BSS-006 — voo completo da montagem usada pela interface > decola, muda para pouso a 300 m e repousa no alvo X=+0 com vento +0 m/s  15044ms
+   ✓ BSS-006 — voo completo da montagem usada pela interface > decola, muda para pouso a 300 m e repousa no alvo X=34.7 com vento +0 m/s  14861ms
+   ✓ BSS-006 — voo completo da montagem usada pela interface > decola, muda para pouso a 300 m e repousa no alvo X=-34.7 com vento +0 m/s  15381ms
+   ✓ BSS-006 — voo completo da montagem usada pela interface > decola, muda para pouso a 300 m e repousa no alvo X=+0 com vento -5 m/s  15851ms
+   ✓ BSS-006 — voo completo da montagem usada pela interface > decola, muda para pouso a 300 m e repousa no alvo X=+0 com vento 5 m/s  14889ms
+   ✓ BSS-006 — voo completo da montagem usada pela interface > a perda elétrica interrompe controle e propulsão e a queda produz dano estrutural real  3171ms
+   ✓ retoma o PID de atitude ao sair de Pouso e preserva a ignição explícita nas transições  682ms
+ ✓ src/missoes/ReplayMissaoBss006.test.ts (4 tests) 18010ms
+   ✓ M10-F — diário portátil e replay versionado > reproduz JSON com comandos negados, pausa, retomada, telemetria e eventos exatos  1716ms
+   ✓ reexecuta diário Node de voo completo, incluindo transição e repouso geométrico  16239ms
+ ✓ src/physics/objetos/veiculos/Bss03Missao.test.ts (1 test) 23676ms
+   ✓ BSS-03 — decolagem e retorno controlado > sobe, transfere o controle e toca o solo sem romper a estrutura  23673ms
+ ✓ src/missoes/EnsaioAmerissagem.test.ts (2 tests) 9898ms
+   ✓ BSS-006: estabilidade passiva na água > tomba por momento do empuxo, sem motor, e preserva massa/estrutura  8138ms
+   ✓ BSS-006: estabilidade passiva na água > inclinação inicial oposta gera momento oposto, mantendo montagem comum  1756ms
+ ✓ src/cenarios/ControleLateralM3.test.ts (16 tests) 23319ms
+   ✓ M3 — resposta física lateral e de atitude > reduz deriva com sinal -1, com e sem grid fins  3469ms
+   ✓ M3 — resposta física lateral e de atitude > reduz deriva com sinal 1, com e sem grid fins  2559ms
+   ✓ M3 — resposta física lateral e de atitude > recupera atitude perturbada de sinal -1 sem pico na referência  1386ms
+   ✓ M3 — resposta física lateral e de atitude > recupera atitude perturbada de sinal 1 sem pico na referência  1360ms
+   ✓ M3 — resposta física lateral e de atitude > mantém redução de deriva com vento -5 m/s, massa 700 kg e tanque y=-1 m  1504ms
+   ✓ M3 — resposta física lateral e de atitude > mantém redução de deriva com vento 5 m/s, massa 1800 kg e tanque y=4 m  1472ms
+   ✓ M3 — resposta física lateral e de atitude > freia a deriva e reduz erro observado nos quadrantes alvo=-20 m e vx=-5 m/s  1559ms
+   ✓ M3 — resposta física lateral e de atitude > freia a deriva e reduz erro observado nos quadrantes alvo=-20 m e vx=5 m/s  1421ms
+   ✓ M3 — resposta física lateral e de atitude > freia a deriva e reduz erro observado nos quadrantes alvo=20 m e vx=-5 m/s  1387ms
+   ✓ M3 — resposta física lateral e de atitude > freia a deriva e reduz erro observado nos quadrantes alvo=20 m e vx=5 m/s  1908ms
+   ✓ M3 — resposta física lateral e de atitude > gimbal genérico de descida freia fisicamente a deriva de sinal -1  622ms
+   ✓ M3 — resposta física lateral e de atitude > gimbal genérico de descida freia fisicamente a deriva de sinal 1  640ms
+   ✓ M3 — resposta física lateral e de atitude > respeita saturação e atraso sem esconder autoridade insuficiente  401ms
+   ✓ M3 — resposta física lateral e de atitude > sem empuxo usa somente aerodinâmica; em vácuo explícito não cria correção física  2447ms
+   ✓ M3 — resposta física lateral e de atitude > repete exatamente a trajetória com vento e mesmos comandos  973ms
+ ✓ src/cenarios/TelemetriaMissaoBss.test.ts (3 tests) 18163ms
+   ✓ M4 — telemetria e reprodução de entradas BSS > reproduz voo completo com trace desligado e ligado usando o mesmo diário de entradas  18135ms
+ ✓ src/missoes/RegressaoDesempenho.test.ts (1 test) 13299ms
+   ✓ preserva exatamente a trajetória de entrada e tombamento anterior à M11-P  13297ms
+ ✓ src/physics/cenarios/TravaPorta.test.ts (7 tests) 7560ms
+   ✓ Trava fail-safe da porta > sensor de porta aberta avança a trava e ela sustenta a porta sem energia  6399ms
+   ✓ Trava fail-safe da porta > não sustenta a porta à distância quando perde o encaixe físico  401ms
+   ✓ Trava fail-safe da porta > comando fechar recua a trava e só depois permite a descida  433ms
+ ✓ src/physics/agua/EntradaAquatica.test.ts (5 tests) 8209ms
+   ✓ Entrada: trabalho resistivo, integridade e cargas dos vínculos > entrada rápida causa dano mensurável em diferentes atitudes, sem colisão rígida  882ms
+   ✓ Entrada: trabalho resistivo, integridade e cargas dos vínculos > dano não acrescenta um segundo impulso e energia converge com dt  392ms
+   ✓ Entrada: trabalho resistivo, integridade e cargas dos vínculos > impacto aquático do BSS com empuxo ativo expõe dano e degrada propulsão  6890ms
+ ✓ src/physics/objetos/veiculos/Bss05Missao.test.ts (1 test) 6479ms
+   ✓ BSS-005 — capacidade da montagem real com Isp nominal de 350 s > decola e atinge 15 km, registrando a reserva em vez de presumir retorno seguro  6475ms
+ ✓ src/physics/MundoFisico.test.ts (55 tests) 5872ms
+   ✓ MundoFisico > faz 50 quadrados de massas distintas caírem juntos no vácuo e atingirem o solo  678ms
+   ✓ MundoFisico > faz 50 quadrados de massas distintas a 46° caírem e tocarem o solo pela geometria rotacionada  1584ms
+   ✓ MundoFisico > rompe apenas os fixadores fracos de 10 grupos de três quadrados até o solo  1784ms
+   ✓ MundoFisico > não inverte o deslocamento de uma bancada rígida quando uma força horizontal baixa é aplicada  461ms
+   ✓ MundoFisico > reproduz queda livre em vácuo de 10000 m dentro da tolerância numérica  355ms
+   ✓ MundoFisico > mantém resposta contínua quando a massa que cai muda de 1 kg para 0,99 kg  364ms
+ ✓ src/physics/agua/DinamicaAquatica.test.ts (8 tests) 3510ms
+   ✓ Arrasto distribuído e estabilidade > atinge calado analítico sem ancoragem e preserva massa  2854ms
+   ✓ Arrasto distribuído e estabilidade > refina dt sem cortar velocidade e é determinístico  401ms
+ ✓ src/missoes/MissaoBss006.test.ts (5 tests) 1261ms
+   ✓ M10-D — primeira missão independente > nasce na plataforma esférica, separa início de ignição e recusa permissivos inválidos  634ms
+   ✓ M10-D — primeira missão independente > aciona forças reais, pausa sem consumo e reinicializa por definição sem estado residual  604ms
+ ✓ src/missoes/MissaoAmerissagem.test.ts (3 tests) 3492ms
+   ✓ M11-G — Missão aquática independente > observa entrada real, aceita corte, pausa e cria novo ensaio sem resíduo  1533ms
+   ✓ M11-G — Missão aquática independente > registra configuração/forças aquáticas e reproduz estados e eventos estritamente  1909ms
+ ✓ src/physics/cenarios/EnsaioPortaVertical.test.ts (19 tests) 2690ms
+   ✓ Porta vertical — atmosfera padrão, SI, dt máximo 1/240 s > abre, retém contra gravidade e fecha pelos sensores físicos  963ms
+   ✓ Porta vertical — atmosfera padrão, SI, dt máximo 1/240 s > reproduz o mesmo ciclo com os mesmos comandos e subpassos  1003ms
+ ✓ src/physics/objetos/veiculos/Bss04Missao.test.ts (1 test) 2851ms
+   ✓ BSS-004 — pouso automático fuzzy-PID > mantém o gimbal ativo, amortece a deriva horizontal e pousa suavemente  2848ms
+ ✓ src/physics/cenarios/PortaComPotenciaCA.test.ts (12 tests) 2247ms
+   ✓ Porta com comando CC e potência CA — SI, atmosfera padrão, dt ≤ 1/240 s > abre e fecha com energia do gerador e consumo independente de comando  1572ms
+   ✓ Porta com comando CC e potência CA — SI, atmosfera padrão, dt ≤ 1/240 s > repete estados e consumos com a mesma sequência  328ms
+ ✓ src/veiculos/MontagemBss.test.ts (2 tests) 1738ms
+   ✓ M10-B — referência física pré-extração (M9-G) > mantém identidade, geometria, massa, energia, consumo, contatos e arbitragem  1725ms
+ ✓ src/physics/ambiente/DinamicaOrbital.test.ts (10 tests) 3217ms
+   ✓ M9-C — dois corpos inertes em vácuo explícito > órbita circular de 400 km: 3 voltas, convergência e repetição determinística  2975ms
+ ✓ src/physics/agua/QualificacaoAquatica.test.ts (8 tests) 1542ms
+   ✓ M11-H — Referências analíticas e limites do meio > corpo neutro totalmente imerso permanece em equilíbrio sem deriva cinemática  366ms
+   ✓ M11-H — Referências analíticas e limites do meio > apoio no fundo não aprova flutuação mesmo quando empuxo fica a menos de 2% do peso  834ms
+ ✓ src/physics/objetos/veiculos/VeiculoTerrestre.test.ts (10 tests) 1145ms
+ ✓ src/physics/objetos/propulsao/PropulsaoQuimica.test.ts (24 tests) 863ms
+   ✓ Propulsão química idealizada — montagem real BSS-005 > produz dano mensurável ao acelerar por empuxo contra uma barreira física  739ms
+ ✓ src/physics/ambiente/SensoresControleM9.test.ts (10 tests) 685ms
+   ✓ M9-E — sensores e controles recebem geometria compartilhada > montagem a 90° conserva conexões/partida/autoridade e altitude de lançamento  343ms
+ ✓ src/physics/objetos/veiculos/VeiculoComposto.test.ts (6 tests) 771ms
+   ✓ VeiculoComposto > preserva a subida quando a massa de propelente altera o centro de massa  520ms
+ ✓ src/missoes/ArquiteturaMissao.test.ts (1 test) 712ms
+   ✓ grafo transitivo do domínio não depende de bancada, apresentação ou APIs externas  709ms
+ ✓ src/physics/ambiente/SuperficieAtmosferaM9.test.ts (13 tests) 791ms
+ ✓ src/physics/objetos/veiculos/VeiculoAlado.test.ts (3 tests) 776ms
+   ✓ VeiculoAlado > corta a tração ao ultrapassar 1 m, retorna ao solo e freia pelas rodas  765ms
+ ✓ src/physics/ambiente/GeografiaCosteira.test.ts (4 tests) 559ms
+   ✓ Costa radial e fundo real > cruza nível do mar sem contato rígido, mas encontra terra e fundo  546ms
+ ✓ src/physics/objetos/propulsao/Propulsor.test.ts (21 tests) 408ms
+ ✓ src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts (1 test) 359ms
+   ✓ ControladorAletasAerodinamicas > amortece a rotação após o corte do motor usando o fluxo atmosférico  357ms
+ ✓ src/cenarios/ReproducaoDiarioBss005.test.ts (5 tests) 233ms
+ ✓ src/physics/cenarios/ConjuntoPortaBatente.test.ts (4 tests) 180ms
+ ✓ src/physics/conexoes/FixadorEstrutural.test.ts (4 tests) 170ms
+ ✓ src/physics/ambiente/BaseMissoesM9.test.ts (11 tests) 171ms
+ ✓ src/physics/objetos/componentes/Paraquedas.test.ts (4 tests) 158ms
+ ✓ src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts (15 tests) 99ms
+ ✓ src/physics/solucionadores/AerodinamicaM6.test.ts (4 tests) 100ms
+ ✓ src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts (2 tests) 109ms
+ ✓ src/physics/objetos/componentes/AletaAerodinamica.test.ts (6 tests) 100ms
+ ✓ src/physics/objetos/veiculos/Bss04PernasFixas.test.ts (2 tests) 85ms
+ ✓ src/visualizacao/ConexoesEletricas.test.ts (6 tests) 89ms
+ ✓ src/physics/objetos/veiculos/Bss02PousoSuave.test.ts (2 tests) 65ms
+ ✓ src/physics/sistemas de controle/GerenciadorDeControladores.test.ts (4 tests) 72ms
+ ✓ src/physics/objetos/propulsao/PropulsorVetorizado.test.ts (4 tests) 66ms
+ ✓ src/physics/ambiente/ColisoesPlanarM9.test.ts (4 tests) 59ms
+ ✓ src/simulacao/ExecutorPassoFixo.test.ts (5 tests) 47ms
+ ✓ src/physics/objetos/atuadores/Cilindro.test.ts (3 tests) 52ms
+ ✓ src/physics/agua/Hidrostática.test.ts (6 tests) 55ms
+ ✓ src/physics/sensores/SwitchFimDeCurso.test.ts (4 tests) 41ms
+ ✓ src/physics/conexoes/ConexaoEletrica.test.ts (10 tests) 44ms
+ ✓ src/apresentacao/missao/CameraMissao.test.ts (2 tests) 38ms
+ ✓ src/missoes/ObservacaoFisicaM10.test.ts (1 test) 40ms
+ ✓ src/physics/solucionadores/AtmosferaTermicaM4.test.ts (13 tests) 27ms
+ ✓ src/missoes/ExecutorMissao.test.ts (2 tests) 28ms
+ ✓ src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.test.ts (1 test) 26ms
+ ✓ src/physics/objetos/veiculos/ComputadorDeVoo.test.ts (6 tests) 23ms
+ ✓ src/physics/ambiente/CampoGravitacional.test.ts (7 tests) 18ms
+ ✓ src/physics/objetos/atuadores/CilindroEletrico.test.ts (1 test) 20ms
+ ✓ src/physics/objetos/fontes-de-energia/GeradorCA.test.ts (8 tests) 20ms
+ ✓ src/visualizacao/TracePLC.test.ts (10 tests) 17ms
+ ✓ src/physics/DesempenhoFisico.test.ts (4 tests) 19ms
+ ✓ src/physics/objetos/propulsao/CadeiaPropulsao.test.ts (5 tests) 18ms
+ ✓ src/physics/sensores/SensoresVeiculoComposto.test.ts (3 tests) 19ms
+ ✓ src/physics/objetos/veiculos/Bss03.test.ts (4 tests) 18ms
+ ✓ src/physics/sensores/SwitchFimDeCursoArraste.test.ts (3 tests) 12ms
+ ✓ src/physics/objetos/base/Objeto.test.ts (3 tests) 13ms
+ ✓ src/physics/sistemas de controle/ControladorPouso.test.ts (10 tests) 14ms
+ ✓ src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.test.ts (8 tests) 14ms
+ ✓ src/visualizacao/RegistroEnsaioBancada.test.ts (2 tests) 11ms
+ ✓ src/physics/sistemas de controle/ControladorInclinacaoPid.test.ts (3 tests) 12ms
+ ✓ src/physics/objetos/fontes-de-energia/PainelSolar.test.ts (2 tests) 9ms
+ ✓ src/physics/sistemas de controle/ControladorDesaceleracao.test.ts (3 tests) 10ms
+ ✓ src/physics/sistemas de controle/ControladoresDePropulsores.test.ts (2 tests) 10ms
+ ✓ src/physics/sistemas de controle/ControladorPerfilVooExperimental.test.ts (2 tests) 8ms
+ ✓ src/physics/objetos/fontes-de-energia/Bateria.test.ts (2 tests) 9ms
+
+ Test Files  80 passed (80)
+      Tests  526 passed (526)
+   Start at  19:48:26
+   Duration  1207.43s (transform 3.72s, setup 0ms, collect 17.07s, tests 1149.24s, environment 34ms, prepare 20.45s)
+
