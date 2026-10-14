@@ -2,7 +2,7 @@ import type { EventoMissao } from '../../missoes/ContratoMissao';
 import type { ObservacaoBss006 } from '../../missoes/TiposMissaoBss006';
 
 export function atualizarHudMissao(raiz: HTMLElement, o: ObservacaoBss006, eventos: readonly EventoMissao[]): void {
-  const texto = (id: string, valor: string) => { raiz.querySelector<HTMLElement>(`#${id}`)!.textContent = valor; };
+  const texto = (id: string, valor: string) => { const e = raiz.querySelector<HTMLElement>(`#${id}`)!; if (e.textContent !== valor) e.textContent = valor; };
   const graus = (rad: number) => (rad * 180 / Math.PI).toFixed(2);
   raiz.querySelector<HTMLElement>('#configuracao-aquatica')!.hidden = !o.aquatico;
   raiz.querySelector<HTMLElement>('#painel-aquatico')!.hidden = !o.aquatico;
@@ -44,12 +44,22 @@ export function atualizarHudMissao(raiz: HTMLElement, o: ObservacaoBss006, event
   texto('estado-pouso', o.aquatico ? 'Amerissagem avaliada por imersão, forças e momentos. Apoio bilateral terrestre não se aplica.' : o.pouso.toqueRetorno
     ? `Contato de retorno observado. Repouso geométrico: ${o.pouso.repousoGeometricoS.toFixed(2)} s. Apoio bilateral sustentado: ${o.pouso.apoioBilateralSustentadoS.toFixed(3)} s. ${o.pouso.pousoEstruturalmenteSeguro ? 'Critérios de pouso seguro atendidos.' : 'Pouso seguro não qualificado.'}`
     : 'Retorno ainda não observado.');
-  const objetivos = raiz.querySelector<HTMLUListElement>('#objetivos')!; objetivos.replaceChildren(...o.objetivos.map(obj => {
-    const li = document.createElement('li'); li.textContent = `${obj.estado === 'atingido' ? '✓' : obj.estado === 'falhou' ? '!' : '○'} ${obj.descricao} · ${obj.estado.replaceAll('-', ' ')}`; li.dataset.estado = obj.estado; return li;
-  }));
+  const objetivos = raiz.querySelector<HTMLUListElement>('#objetivos')!;
+  const chaveObjetivos = JSON.stringify(o.objetivos);
+  if (objetivos.dataset.chave !== chaveObjetivos) {
+    objetivos.dataset.chave = chaveObjetivos;
+    objetivos.replaceChildren(...o.objetivos.map(obj => {
+      const li = document.createElement('li'); li.textContent = `${obj.estado === 'atingido' ? '✓' : obj.estado === 'falhou' ? '!' : '○'} ${obj.descricao} · ${obj.estado.replaceAll('-', ' ')}`;
+      li.dataset.estado = obj.estado; return li;
+    }));
+  }
   const lista = raiz.querySelector<HTMLOListElement>('#eventos')!;
-  lista.replaceChildren(...eventos.slice(-14).reverse().map(e => { const li = document.createElement('li');
-    const time = document.createElement('span'); time.textContent = `${e.tempoS.toFixed(2)} s`;
-    li.append(time, document.createTextNode(` ${e.descricao}`)); return li;
-  }));
+  const chaveEventos = JSON.stringify(eventos.slice(-14));
+  if (lista.dataset.chave !== chaveEventos) {
+    lista.dataset.chave = chaveEventos;
+    lista.replaceChildren(...eventos.slice(-14).reverse().map(e => {
+      const li = document.createElement('li'), time = document.createElement('span'); time.textContent = `${e.tempoS.toFixed(2)} s`;
+      li.append(time, document.createTextNode(` ${e.descricao}`)); return li;
+    }));
+  }
 }

@@ -1,0 +1,158 @@
+{
+  "terra": {
+    "missao": "BSS006_VOO_EXPERIMENTAL",
+    "inicial": {
+      "altitudeM": 4.7999999998137355,
+      "corpos": 12,
+      "contatoInicial": true
+    },
+    "voo": {
+      "tempoS": 2.3291666666666773,
+      "altitudeM": 17.818725996650755,
+      "empuxoN": 77999.99999999999,
+      "vazaoKgS": 22.725104174936686,
+      "metanoKg": 589.413888971869,
+      "camera": {
+        "x": 0.03295800231259405,
+        "y": 22.81872599634406
+      }
+    },
+    "zoomSemMudancaFisica": true,
+    "reinicioSemEstadoResidual": true,
+    "mobileSemTransbordamento": true,
+    "errosJS": 0
+  },
+  "agua": {
+    "marco": "M11-H",
+    "revisao": "m11-amerissagem-2",
+    "buildProducao": true,
+    "pagina": "missao.html",
+    "tempoS": 0.5124999999999998,
+    "volumeSubmersoM3": 0.11994020722548249,
+    "forcaEmpuxoN": {
+      "x": 0.03790345281225035,
+      "y": 1207.2891803631994,
+      "z": 0
+    },
+    "contatosSolidos": [],
+    "eventos": [
+      {
+        "sequencia": 0,
+        "passo": 0,
+        "tempoS": 0,
+        "categoria": "missao",
+        "tipo": "missao-carregada",
+        "descricao": "BSS-006 preparado em ensaio de aproximação sobre oceano."
+      },
+      {
+        "sequencia": 1,
+        "passo": 0,
+        "tempoS": 0,
+        "categoria": "missao",
+        "tipo": "ensaio-adm-aproximacao",
+        "descricao": "Condição inicial ADM sobre oceano: motores desligados, sem trajetória de lançamento presumida."
+      },
+      {
+        "sequencia": 2,
+        "passo": 0,
+        "tempoS": 0,
+        "categoria": "missao",
+        "tipo": "execucao-iniciada",
+        "descricao": "Avanço físico iniciado."
+      },
+      {
+        "sequencia": 3,
+        "passo": 37,
+        "tempoS": 0.15416666666666673,
+        "categoria": "fisico",
+        "tipo": "entrada-na-agua",
+        "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+      },
+      {
+        "sequencia": 4,
+        "passo": 37,
+        "tempoS": 0.15416666666666673,
+        "categoria": "fisico",
+        "tipo": "imersao-parcial",
+        "descricao": "Evento derivado da imersão, forças e estado físico medidos."
+      },
+      {
+        "sequencia": 5,
+        "passo": 123,
+        "tempoS": 0.5124999999999998,
+        "categoria": "missao",
+        "tipo": "execucao-pausada",
+        "descricao": "Avanço físico pausado."
+      }
+    ],
+    "reinicioSemResiduo": true,
+    "errosJS": 0
+  },
+  "bancada": {
+    "cenarios": [
+      {
+        "cenario": "BSS-001 — primeiro lançamento de sucesso",
+        "tempo": "BSS-001 — primeiro lançamento de sucesso\nt = 2.446 s · 3,0×",
+        "ignicao": "✓ 1 ignições confirmadas",
+        "metanoRestanteKg": 118.7
+      },
+      {
+        "cenario": "BSS-002 — controle de inclinação PID",
+        "tempo": "BSS-002 — controle de inclinação PID\nt = 2.396 s · 3,0×",
+        "ignicao": "✓ 1 ignições confirmadas",
+        "metanoRestanteKg": 118.8
+      },
+      {
+        "cenario": "BSS-004 — controle de inclinação e pernas fixas",
+        "tempo": "BSS-004 — controle de inclinação e pernas fixas\nt = 2.446 s · 3,0×",
+        "ignicao": "✓ 1 ignições confirmadas",
+        "metanoRestanteKg": 118.7
+      },
+      {
+        "cenario": "BSS-005 — tanques ampliados · meta 15 km",
+        "tempo": "BSS-005 — tanques ampliados · meta 15 km\nt = 2.450 s · 3,0×",
+        "ignicao": "✓ 1 ignições confirmadas",
+        "metanoRestanteKg": 588.9
+      },
+      {
+        "cenario": "BSS-006 — pouso guiado por alvo",
+        "tempo": "BSS-006 — pouso guiado por alvo\nt = 2.450 s · 3,0×",
+        "ignicao": "✓ 1 ignições confirmadas",
+        "metanoRestanteKg": 588.9
+      },
+      {
+        "cenario": "BSS-003 — decolagem e pouso sob comando manual",
+        "tempo": "BSS-003 — decolagem e pouso sob comando manual\nt = 2.446 s · 3,0×",
+        "ignicao": "✓ 2 ignições confirmadas",
+        "metanoRestanteKg": 248.4
+      }
+    ],
+    "errosJS": 0
+  },
+  "paginas": {
+    "paginas": [
+      {
+        "pagina": "/",
+        "titulo": "Black Star Space | Engenharia e simulação espacial",
+        "carregou": true
+      },
+      {
+        "pagina": "/tests.html",
+        "titulo": "Simulação de foguetes — Black Star Space",
+        "carregou": true
+      },
+      {
+        "pagina": "/orbitas.html",
+        "titulo": "Black Star — Ensaios orbitais 2D",
+        "carregou": true
+      },
+      {
+        "pagina": "/missao.html",
+        "titulo": "Black Star — Missão BSS-006",
+        "carregou": true
+      }
+    ],
+    "errosJS": 0,
+    "buildProducao": true
+  }
+}

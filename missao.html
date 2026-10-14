@@ -7,9 +7,10 @@
 <main>
 <section class="voo" aria-label="Acompanhamento do voo">
 <div class="barra-voo"><span id="estado-execucao">Preparada</span><div><button id="iniciar">▶ Iniciar</button><button id="pausar" disabled>Ⅱ Pausar</button><button id="reiniciar">↻ Reiniciar</button></div></div>
+<p id="desempenho-missao" class="subtitulo">Simulação preparada</p>
 <canvas id="cena-missao" aria-label="BSS-006 e plataforma costeira; câmera segue a posição física" role="img"></canvas>
 <div class="metricas" aria-live="off"><div><small>ALTITUDE</small><strong id="altitude">0 m</strong></div><div><small>VELOCIDADE RADIAL</small><strong id="velocidade-radial">0 m/s</strong></div><div><small>VELOCIDADE TANGENCIAL</small><strong id="velocidade-tangencial">0 m/s</strong></div><div><small>ATITUDE LOCAL</small><strong id="atitude">0°</strong></div></div>
-<div class="observacao"><label>Zoom <input id="zoom" type="range" min="0.05" max="0.8" value="0.12" step="0.01"/></label><label>Tempo <select id="escala-tempo"><option value="1">1×</option><option value="3" selected>3×</option><option value="10">10×</option></select></label><span id="tempo-missao">t = 0 s</span></div>
+<div class="observacao"><label>Zoom <input id="zoom" type="range" min="0.05" max="0.8" value="0.12" step="0.01"/></label><label>Tempo <select id="escala-tempo"><option value="1" selected>1×</option><option value="3">3×</option><option value="10">10×</option></select></label><span id="tempo-missao">t = 0 s</span></div>
 </section>
 <aside aria-label="Comandos de missão">
 <section class="painel"><h2>Cenário físico</h2><label>Missão <select id="variante-missao"><option value="terra">Voo experimental M10 · plataforma</option><option value="agua">Amerissagem M11 · ensaio ADM</option></select></label><div id="configuracao-aquatica" hidden><label>Inclinação inicial <span class="campo"><input id="inclinacao-ensaio" type="number" min="-10" max="10" step="0.1" value="0.2864789"/><span>°</span></span></label><label>Velocidade inicial de descida <span class="campo"><input id="velocidade-ensaio" type="number" min="0" max="100" step="0.5" value="0.5"/><span>m/s</span></span></label><p class="nota">Ensaio de aproximação inicializado sobre o oceano, motores desligados. Compartimentos estanques são hipótese de engenharia. Reinicie para aplicar os valores.</p></div></section>

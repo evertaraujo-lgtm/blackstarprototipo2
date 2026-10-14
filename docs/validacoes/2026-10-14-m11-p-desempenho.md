@@ -67,3 +67,13 @@ Equivalência: teste do lote versus aplicação individual usa 27 impulsos fora 
 Validação dirigida final B: 35 testes aprovados (água, missão aquática, equivalência e caches); Objeto também aprovado na campanha anterior. Typechecks principal e sem navegador aprovados; build das quatro páginas aprovado. O teste novo de posição média usa 5×10⁻¹⁵ m de tolerância para a diferença de uma ULP entre 14/3 e 7×(20/30); nenhuma tolerância histórica foi alterada. As verificações de trajetória/replay permanecem estritas.
 
 A medição longa final e regressões completas seguem na M11-P-D.
+
+## M11-P-C — Apresentação e relógio
+
+Canvas com relógio de desenho próprio, alvo 30 FPS; HUD a 10 Hz. Comandos, reinício e resize pedem atualização imediata. Textos somente mudam quando necessário; listas de eventos/objetivos preservam seus elementos quando os dados são iguais. O relógio de desenho mantém sua fase para evitar cair para 20 FPS por arredondamentos do RAF.
+
+A cena usa o modo explícito do ExecutorPassoFixo que acumula todo o tempo real. O orçamento cooperativo é 12 ms por quadro (ao menos um passo, máximo 240); ele limita trabalho da apresentação, sem mudar dt, resolução ou forças. O saldo permanece pendente, é exposto no HUD e é preservado ao pausar/continuar. Reiniciar cria uma missão nova. O modo legado do executor permanece disponível à bancada; sua API anterior é compatível. Replay mantém uma amostra a cada 240 passos. Escala inicial visual 1×; 3× e 10× continuam disponíveis, com atraso transparente se o hardware não acompanhar.
+
+Benchmark visual final no mesmo Chrome/i3, 30,010 s reais: 29,979 s simulados (**0,999×**), 895 desenhos (**29,82 FPS**), 286 atualizações do relógio/HUD (**9,53 Hz**), zero long tasks e zero erros JS. Canvas consumiu 795,0 ms no total. A razão inclui referência inicial do RAF e defasagem de até um quadro do snapshot visual. Resumo em `2026-10-14-m11-p-browser-depois.json`. Worker não foi necessário para esse objetivo; não foi adicionada dependência.
+
+Testes: os dois testes anteriores do executor e três novos passaram; estes verificam drenagem integral de atrasos, orçamento cooperativo, pausa sem perda de saldo e igualdade da sequência de dt sob cadências diferentes. Typechecks e build aprovados. Smoke de produção: missão terrestre com empuxo/vazão/consumo/subida, câmera, zoom sem alterar física, modo pouso, pausa e reinício; variante aquática com entrada, empuxo, ausência de contato rígido e reinício; seis BSS históricos com ignição e consumo; landing, bancada e página orbital carregadas, órbita avançada. Zero erros JS, inclusive no viewport móvel. Resumo: `2026-10-14-m11-p-smoke.json`. Ajuste visual final do indicador também teve build e smoke aquático aprovados.
