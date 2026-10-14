@@ -23,6 +23,9 @@ import { obterTelemetriaMissaoBss } from './TelemetriaBss';
 import type { SuperficieFisica } from '../physics/SuperficieFisica';
 
 export interface ParametrosMontagemBss {
+  /** Somente condição inicial de ensaio ADM; não é comando cinemático de voo. */
+  estadoInicialEnsaio?: { readonly centroCascoLocalM: Vetor3; readonly velocidadeLocalMps: Vetor3;
+    readonly inclinacaoRad: number; readonly velocidadeAngularRadps: number };
   /** Arco do sítio de lançamento no plano orbital; não é latitude/longitude. */
   arcoBaseM?: number;
   id: string;
@@ -46,10 +49,19 @@ export interface ParametrosMontagemBss {
 export function montarVeiculoBss(mundo: MundoFisico, solo: SuperficieFisica, configuracao: ParametrosMontagemBss) {
   const ref = mundo.ambiente.referencial;
   const ancora = ref.posicaoPorArcoM(configuracao.arcoBaseM ?? 0, 0);
-  const estadoInicial = (p: Vetor3, theta = 0) => ({ posicaoM: ref.localParaGlobal(p, ancora),
-    orientacaoRad: new Vetor3(0, 0, ref.atitudeInercialRad(theta, ancora)) });
   const deslocamentoVerticalInicialM = configuracao.incluirPernasFixas ? 0.3 : 0;
   const alturaInicialDoCascoM = 4.5 + deslocamentoVerticalInicialM;
+  const estadoInicial = (p: Vetor3, theta = 0) => {
+    const ensaio = configuracao.estadoInicialEnsaio;
+    if (!ensaio) return { posicaoM: ref.localParaGlobal(p, ancora), orientacaoRad: new Vetor3(0, 0, ref.atitudeInercialRad(theta, ancora)) };
+    if (![ensaio.inclinacaoRad, ensaio.velocidadeAngularRadps].every(Number.isFinite)) throw new Error('Condição inicial angular inválida.');
+    const q = p.subtrair(new Vetor3(0, alturaInicialDoCascoM, 0)), c = Math.cos(ensaio.inclinacaoRad), s = Math.sin(ensaio.inclinacaoRad);
+    const braco = new Vetor3(q.x * c - q.y * s, q.x * s + q.y * c, 0);
+    return { posicaoM: ref.localParaGlobal(ensaio.centroCascoLocalM.adicionar(braco), ancora),
+      orientacaoRad: new Vetor3(0, 0, ref.atitudeInercialRad(theta + ensaio.inclinacaoRad, ancora)),
+      velocidadeMps: ref.vetorParaGlobal(ensaio.velocidadeLocalMps.adicionar(new Vetor3(0, 0, ensaio.velocidadeAngularRadps).produtoVetorial(braco)), ancora),
+      velocidadeAngularRadps: new Vetor3(0, 0, ensaio.velocidadeAngularRadps) };
+  };
   const fatorTanques = configuracao.fatorTanques ?? 1;
   const fatorPropulsor = configuracao.fatorPropulsor ?? 1;
   const empuxoMaximoN = 40_000 * fatorPropulsor;

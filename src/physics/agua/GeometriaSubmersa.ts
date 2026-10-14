@@ -57,10 +57,19 @@ export function calcularGeometriaSubmersa(e: EstadoFisico, p: PrismaDeslocador, 
   const d = p.dimensoesM, nx = p.colunas ?? 2, ny = p.linhas ?? 8, espessura = d.z * (p.fracaoDeslocamento ?? 1);
   const cos = Math.cos(e.orientacaoRad.z), sin = Math.sin(e.orientacaoRad.z), c = p.centroLocalM ?? Vetor3.zero;
   const girar = (x: number, y: number) => new Vetor3(x * cos - y * sin, x * sin + y * cos, 0);
-  const recortes = agua.recortesEm(e.posicaoM), elementos: ElementoSubmerso[] = [];
+  const contorno = verticesPrismaM(e, p).map(v => v.subtrair(e.posicaoM));
+  const distancia = (q: Vetor3, plano: PlanoRecorte) => e.posicaoM.subtrair(plano.ancoraM).adicionar(q).produtoEscalar(plano.normal);
+  const recortes = agua.recortesEm(e.posicaoM).filter(planos =>
+    !planos.some(plano => contorno.every(q => distancia(q, plano) > 0)));
+  const totalmenteImerso = recortes.length === 1 && recortes[0].every(plano => contorno.every(q => distancia(q, plano) <= 0));
+  const elementos: ElementoSubmerso[] = [];
   for (let ix = 0; ix < nx; ix++) for (let iy = 0; iy < ny; iy++) {
     const x0 = c.x - d.x / 2 + d.x * ix / nx, x1 = x0 + d.x / nx;
     const y0 = c.y - d.y / 2 + d.y * iy / ny, y1 = y0 + d.y / ny;
+    if (totalmenteImerso) {
+      elementos.push({ volumeM3: d.x * d.y * espessura / (nx * ny), centroM: e.posicaoM.adicionar(girar((x0 + x1) / 2, (y0 + y1) / 2)) });
+      continue;
+    }
     const vertices = [girar(x0, y0), girar(x1, y0), girar(x1, y1), girar(x0, y1)];
     for (const planos of recortes) {
       let poligono = vertices;

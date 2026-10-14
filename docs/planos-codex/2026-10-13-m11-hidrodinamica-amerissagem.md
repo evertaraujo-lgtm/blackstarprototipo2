@@ -205,3 +205,26 @@ Ar atmosférico, forças aerodinâmicas de componentes e convecção do ar receb
 Além do dt máximo do mundo, a água impõe subpassos pela rigidez hidrostática e pela derivada de resistência translacional/angular. Limite da variação local de carga de 1% por passo; nenhuma velocidade é truncada. Inicialmente, o teste a 50 m/s mostrou diferença de 11,59 cm entre 1/240 e 1/480 s. O refinamento automático de precisão corrigiu o caso mantendo orçamento de erro de 5 cm. O bloco em equilíbrio ainda oscilava 6,34 mm aos 60 s com arrasto quadrático; prolongou-se a observação a 120 s, mantendo limite de 5 mm e Cd/massa/volume.
 
 14 testes aquáticos aprovados: Arquimedes/geometria, resistência v²/área orientada, giro passivo, corrente, estabilidade com inclinações espelhadas, calado analítico a 5 mm (2% de 0,25 m), corpo denso afundando, exposição do ar e determinismo/refinamento. Typechecks e build aprovados. Testes não equivalem à qualificação de entrada rápida/dano, que pertence à M11-F.
+
+## M11-E — BSS-006 passivo e variante geométrica explícita
+
+`EnsaioAmerissagem` usa a mesma `MontagemBss`, com condição inicial ADM definida no construtor dos objetos. Nenhuma pose/velocidade é reescrita depois da inicialização. Casco em x local 200 m, h local 5 m; velocidade inicial -0,5 m/s, inclinação 0,005 rad e omega zero. Atmosfera padrão, água uniforme 1.025 kg/m³ sem corrente. A curvatura acrescenta ~3,14 mm à altitude radial da inicialização tangente, registrada na telemetria.
+
+`HidrodinamicaBss006` declara uma **hipótese de engenharia de estanqueidade**, não uma propriedade historicamente validada: casco e ambos os tanques são prismas externos estanques nas dimensões existentes; caixa da bateria desloca 30% de seu invólucro como geometria permeável equivalente; painel é lâmina de 20 mm; motor aberto desloca 5% do prisma exposto, retirando 100 mm que sobrepunham o casco; grid fins deslocam 10% do prisma (90% de vazios); pernas têm seção de parede equivalente de 2 mm e trecho exclusivo de 3,15 m; sapatas são lâminas de 10 mm. Cd 1,1 por forma é parâmetro de estudo de resistência, sem calibração experimental. Frações equivalentes representam material/vazios explicitamente e não são calculadas por massa/densidade. Massa histórica, geometria de colisão, combustível, empuxo e ganhos não mudam.
+
+Os volumes estanques são suficientes para sustentar 5.349,166 kg; a massa fica alta na vertical, enquanto o empuxo inicial atua na parte baixa. A perturbação faz crescer o braço entre G e B e o momento positivo. Após a rotação, o volume distribuído ao longo do veículo oferece estabilidade lateral. O equilíbrio não é imposto exatamente a 90°.
+
+Coleta determinística de 120 s em `docs/validacoes/2026-10-13-m11-e-amerissagem.json` (antes do modelo energético M11-F):
+
+| t (s) | Altitude casco (m) | Velocidade (m/s) | Atitude local (rad) | omega (rad/s) | V sub (m³) | Empuxo (N) | Momento aquático (N·m) |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 0 | 5,003 | 0,500 | 0,00503 | 0 | 0 | 0 | 0 |
+| 1 | 1,913 | 2,018 | 0,00683 | 0,00648 | 8,543 | 85.995 | 1.551 |
+| 5 | 2,189 | 0,207 | 0,52639 | 0,48594 | 4,227 | 42.553 | 26.315 |
+| 7 | 2,964 | 1,711 | 1,73746 | -0,01607 | 0,168 | 1.688 | 3.811 |
+| 30 | 1,528 | 0,080 | 1,58454 | -0,00377 | 5,225 | 52.593 | -2.690 |
+| 120 | 1,525 | 0,021 | 1,58358 | -0,000301 | 5,216 | 52.501 | 204 |
+
+Aos 120 s: inclinação ~90,73°, erro da massa deslocada ~0,0556%, integridade 1, nenhum contato com fundo e nenhum consumo/empuxo propulsivo. Oscilação amortecida e deriva horizontal residual permanecem físicas; posição não foi congelada. A entrada das peças baixas é mais lenta que a entrada posterior do casco, cujo intervalo inclui queda por gravidade; esta condição inicial não qualifica controle de descida aquático.
+
+Dois testes do BSS passivo aprovados: crescimento do momento físico e tombamento sem propulsão, e perturbação de sinal oposto com momento oposto. Testes de montagem histórica também passaram exatamente; 16 testes adicionais de geometria/arrasto/montagem aprovados. Typechecks e build aprovados. Otimização geométrica descarta regiões completamente secas e integra células totalmente molhadas sem recortes repetidos, mantendo as mesmas equações.
