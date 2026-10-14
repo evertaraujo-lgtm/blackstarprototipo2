@@ -24,7 +24,7 @@ function canonico(x: unknown): string {
   return JSON.stringify(x);
 }
 function identificacao(m: ReturnType<typeof BSS006_VOO_EXPERIMENTAL.criar>) {
-  return { id: m.id, revisaoMissao: BSS006_VOO_EXPERIMENTAL.revisao, revisaoVeiculo: DEFINICAO_BSS006.revisao,
+  return { id: m.id, revisaoMissao: m.configuracao.ensaioAquatico ? 'm11-amerissagem-1' : BSS006_VOO_EXPERIMENTAL.revisao, revisaoVeiculo: DEFINICAO_BSS006.revisao,
     configuracao: m.configuracao, modeloFisico: m.observar().cenario.modeloFisico,
     reproducao: 'Mesma revisão de código, modelo, parâmetros, comandos e dt; sem equivalência prometida entre revisões.' };
 }
@@ -40,9 +40,13 @@ export function reproduzirDiarioBss006(valor: unknown): RegistroMissao<ComandoBs
     || !Number.isSafeInteger(valor.intervaloAmostraPassos) || (valor.intervaloAmostraPassos as number) <= 0)
     throw new Error('Diário de missão inválido.');
   const config = valor.identificacao.configuracao;
-  if (Object.keys(config).some(k => !['arcoBaseM', 'ventoTangencialMps', 'alvoPousoLocalM', 'altitudeTransicaoM', 'transicaoAutomatica'].includes(k))
+  if (Object.keys(config).some(k => !['arcoBaseM', 'ventoTangencialMps', 'alvoPousoLocalM', 'altitudeTransicaoM', 'transicaoAutomatica', 'ensaioAquatico'].includes(k))
     || ['arcoBaseM', 'ventoTangencialMps', 'alvoPousoLocalM', 'altitudeTransicaoM'].some(k => typeof config[k] !== 'number' || !Number.isFinite(config[k]))
     || typeof config.transicaoAutomatica !== 'boolean') throw new Error('Configuração do diário inválida.');
+  if (config.ensaioAquatico !== undefined && (!objeto(config.ensaioAquatico)
+    || Object.keys(config.ensaioAquatico).some(k => !['inclinacaoInicialRad', 'velocidadeInicialMps', 'altitudeInicialM'].includes(k))
+    || ['inclinacaoInicialRad', 'velocidadeInicialMps', 'altitudeInicialM'].some(k => typeof (config.ensaioAquatico as Record<string, unknown>)[k] !== 'number'
+      || !Number.isFinite((config.ensaioAquatico as Record<string, unknown>)[k])))) throw new Error('Condição aquática do diário inválida.');
   const original = valor as unknown as DiarioMissao<ComandoBss006, ObservacaoBss006>;
   const m = criarMissaoBss006Registrada(config, original.intervaloAmostraPassos);
   if (canonico(m.exportar().identificacao) !== canonico(original.identificacao)

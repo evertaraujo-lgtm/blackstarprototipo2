@@ -2,6 +2,8 @@ import { Vetor3 } from '../../physics/Vetor3';
 import type { ObservacaoBss006, CorpoObservado } from '../../missoes/TiposMissaoBss006';
 import { terminalEletricoDoEstadoM } from '../../visualizacao/ConexoesEletricas';
 import { CameraMissao } from './CameraMissao';
+import { ReferencialEsferico } from '../../physics/ambiente/ReferencialFisico';
+import { GeografiaCosteira } from '../../physics/ambiente/GeografiaCosteira';
 
 const COR = (c: CorpoObservado): string => c.integridade <= 0 ? '#57464d' :
   c.id.includes('grid-fin') ? '#57cfbb' : c.id.includes('tanque') ? '#d8e5ec' :
@@ -42,6 +44,7 @@ export class RenderizadorMissao {
       ctx.lineWidth = 1.25; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(rotaX, a.y); ctx.lineTo(rotaX, b.y); ctx.lineTo(b.x, b.y); ctx.stroke();
       ctx.setLineDash([]);
     }
+    if (o.cenario.costa) { this.agua(ctx, camera, o); ctx.fillStyle = '#9ce6ec'; ctx.font = '11px system-ui'; ctx.fillText('OCEANO FÍSICO · 1025 kg/m³', 24, 81); }
     this.reguas(ctx, camera, o);
     ctx.fillStyle = '#071522bd'; ctx.fillRect(14, 14, Math.min(290, largura - 28), 48);
     ctx.fillStyle = '#eff7f9'; ctx.font = '12px ui-monospace, monospace';
@@ -51,21 +54,43 @@ export class RenderizadorMissao {
   }
   private terreno(ctx: CanvasRenderingContext2D, camera: CameraMissao, o: ObservacaoBss006) {
     const c = o.cenario.centroTerraM, centro = new Vetor3(c.x, c.y, c.z), R = o.cenario.raioTerraM;
+    const ref = new ReferencialEsferico(centro, R), costa = o.cenario.costa ? new GeografiaCosteira(ref, o.cenario.costa) : undefined;
     ctx.beginPath();
     for (let px = -10; px <= camera.larguraPx + 10; px += 10) {
       const eixo = camera.pontoNaTela(px, camera.alturaPx / 2).subtrair(centro);
       const x = eixo.produtoEscalar(camera.tangencial), y = Math.sqrt(Math.max(0, R * R - x * x));
-      const p = camera.projetar(centro.adicionar(camera.tangencial.multiplicar(x)).adicionar(camera.radial.multiplicar(y)));
+      const livre = centro.adicionar(camera.tangencial.multiplicar(x)).adicionar(camera.radial.multiplicar(y));
+      const p = camera.projetar(costa ? ref.posicaoPorArcoM(ref.posicaoHorizontalM(livre), costa.alturaSoloM(ref.posicaoHorizontalM(livre))) : livre);
       if (px === -10) ctx.moveTo(px, p.y); else ctx.lineTo(px, p.y);
     }
     ctx.lineTo(camera.larguraPx + 10, camera.alturaPx + 10); ctx.lineTo(-10, camera.alturaPx + 10); ctx.closePath();
     ctx.fillStyle = '#34433c'; ctx.fill(); ctx.strokeStyle = '#7d9c79'; ctx.lineWidth = 2; ctx.stroke();
+    if (costa) { this.agua(ctx, camera, o, true); return; }
     // Costa no cenário distante: apresentação, sem superfície de água simulada.
     const base = camera.projetar(o.cenario.ancoraM);
     if (base.y < camera.alturaPx && base.y > -10) {
       ctx.fillStyle = '#316a76'; ctx.fillRect(Math.max(0, base.x + 160), base.y + 4, camera.larguraPx, 28);
       ctx.strokeStyle = '#73a8ae'; ctx.beginPath(); ctx.moveTo(base.x + 160, base.y + 7); ctx.lineTo(camera.larguraPx, base.y + 7); ctx.stroke();
     }
+  }
+  /** Mesmo nível radial e perfil de fundo do domínio; máscara visual não participa da física. */
+  private agua(ctx: CanvasRenderingContext2D, camera: CameraMissao, o: ObservacaoBss006, fundo = false) {
+    const c = o.cenario.centroTerraM, centro = new Vetor3(c.x, c.y, c.z), R = o.cenario.raioTerraM;
+    const ref = new ReferencialEsferico(centro, R), costa = new GeografiaCosteira(ref, o.cenario.costa!);
+    const topo: { x: number; y: number; molhado: boolean }[] = [], base: { x: number; y: number }[] = [];
+    for (let px = -10; px <= camera.larguraPx + 10; px += 10) {
+      const eixo = camera.pontoNaTela(px, camera.alturaPx / 2).subtrair(centro), x = eixo.produtoEscalar(camera.tangencial);
+      const p = centro.adicionar(camera.tangencial.multiplicar(x)).adicionar(camera.radial.multiplicar(Math.sqrt(Math.max(0, R * R - x * x))));
+      const s = ref.posicaoHorizontalM(p), h = costa.alturaSoloM(s);
+      topo.push({ ...camera.projetar(ref.posicaoPorArcoM(s, costa.configuracao.nivelMarM)), molhado: h < costa.configuracao.nivelMarM });
+      base.push(camera.projetar(ref.posicaoPorArcoM(s, h)));
+    }
+    ctx.beginPath(); topo.forEach((p, i) => i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y));
+    for (const p of base.reverse()) ctx.lineTo(p.x, p.y); ctx.closePath();
+    ctx.fillStyle = fundo ? '#184d70' : '#46b6ce45'; ctx.fill();
+    ctx.beginPath(); let anteriorMolhado = false;
+    topo.forEach(p => { if (p.molhado) { if (anteriorMolhado) ctx.lineTo(p.x, p.y); else ctx.moveTo(p.x, p.y); } anteriorMolhado = p.molhado; });
+    ctx.strokeStyle = '#8cd5de'; ctx.lineWidth = 2; ctx.stroke();
   }
   private infraestrutura(ctx: CanvasRenderingContext2D, camera: CameraMissao, o: ObservacaoBss006) {
     const ancora = o.cenario.ancoraM, centro = o.cenario.centroTerraM;

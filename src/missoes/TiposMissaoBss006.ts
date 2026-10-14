@@ -2,6 +2,8 @@ import type { EstadoFisico } from '../physics/objetos/base/Objeto';
 import type { ContatoSuperficieFisico } from '../physics/solucionadores/ResolvedorContatoSuperficie';
 import type { obterTelemetriaMissaoBss } from '../veiculos/TelemetriaBss';
 import type { EstadoExecucaoMissao, ObjetivoMissao } from './ContratoMissao';
+import type { ObservacaoAmerissagem } from './ObservacaoAmerissagem';
+import type { ConfiguracaoCosta } from '../physics/ambiente/GeografiaCosteira';
 
 export type SistemaBss = 'elétrico' | 'hidráulico' | 'combustível' | 'controle';
 export type ComandoBss006 =
@@ -14,6 +16,8 @@ export type ComandoBss006 =
   | { readonly tipo: 'controle-atitude'; readonly habilitar: boolean }
   | { readonly tipo: 'falha-alimentacao'; readonly alimentacao: 'eletrica' | 'metano' | 'oxidante' };
 export interface ConfiguracaoMissaoBss006 {
+  /** Variante ADM explícita, aproximação sobre oceano; ausente preserva exatamente M10. */
+  readonly ensaioAquatico?: { readonly inclinacaoInicialRad: number; readonly velocidadeInicialMps: number; readonly altitudeInicialM: number };
   readonly arcoBaseM?: number;
   readonly ventoTangencialMps?: number;
   readonly alvoPousoLocalM?: number;
@@ -30,11 +34,12 @@ export interface CorpoObservado {
   readonly deflexaoRad?: number;
 }
 export interface ObservacaoBss006 {
+  readonly aquatico?: ObservacaoAmerissagem;
   readonly id: string;
   readonly passo: number;
   readonly tempoS: number;
   readonly execucao: EstadoExecucaoMissao;
-  readonly fase: 'solo' | 'subida' | 'descida' | 'contato' | 'falha';
+  readonly fase: 'solo' | 'subida' | 'descida' | 'contato' | 'falha' | 'agua';
   readonly modo: 'decolagem' | 'pouso';
   readonly casco: EstadoFisico;
   readonly altitudeM: number;
@@ -78,6 +83,7 @@ export interface ObservacaoBss006 {
   readonly arbitragem: readonly { readonly idControlador: string; readonly idAtuador: string; readonly recurso: string; readonly valor: number }[];
   readonly engenharia: ReturnType<typeof obterTelemetriaMissaoBss>;
   readonly cenario: { readonly ancoraM: { readonly x: number; readonly y: number; readonly z: number };
+    readonly costa?: ConfiguracaoCosta;
     readonly centroTerraM: { readonly x: number; readonly y: number; readonly z: number }; readonly raioTerraM: number;
     readonly arcoBaseM: number; readonly altitudeTransicaoM: number; readonly modeloFisico: object };
 }

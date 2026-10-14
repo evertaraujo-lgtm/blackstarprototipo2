@@ -22,6 +22,7 @@ export class CenaMissao {
       reiniciar: () => this.reiniciar(), exportar: () => this.exportar(),
     });
     raiz.querySelector<HTMLInputElement>('#zoom')!.addEventListener('input', () => { this.sujo = true; });
+    raiz.querySelector<HTMLSelectElement>('#variante-missao')!.addEventListener('change', () => this.reiniciar());
     window.addEventListener('resize', () => { this.sujo = true; });
     window.addEventListener('pagehide', () => cancelAnimationFrame(this.quadro), { once: true });
     this.quadro = requestAnimationFrame(t => this.animar(t));
@@ -36,14 +37,17 @@ export class CenaMissao {
     try {
       const vento = Number(this.raiz.querySelector<HTMLInputElement>('#vento-inicial')!.value);
       const alvo = Number(this.raiz.querySelector<HTMLInputElement>('#alvo-pouso')!.value);
-      const nova = criarMissaoBss006Registrada({ ventoTangencialMps: vento, alvoPousoLocalM: alvo });
+      const agua = this.raiz.querySelector<HTMLSelectElement>('#variante-missao')!.value === 'agua';
+      const nova = criarMissaoBss006Registrada({ ventoTangencialMps: vento, alvoPousoLocalM: alvo,
+        ...(agua ? { ensaioAquatico: { inclinacaoInicialRad: Number(this.raiz.querySelector<HTMLInputElement>('#inclinacao-ensaio')!.value) * Math.PI / 180,
+          velocidadeInicialMps: Number(this.raiz.querySelector<HTMLInputElement>('#velocidade-ensaio')!.value), altitudeInicialM: 5 } } : {}) });
       this.missao = nova; this.observacao = nova.observar(); this.executor.reiniciar(); this.sujo = true;
-      this.mensagem('Nova missão preparada. Sistemas e ignição desligados.');
+      this.mensagem(agua ? 'Ensaio físico sobre oceano preparado. Inicie para observar entrada e estabilidade passiva.' : 'Nova missão preparada. Sistemas e ignição desligados.');
     } catch (error) { this.mensagem(error instanceof Error ? error.message : String(error)); }
   }
   private exportar() {
     const url = URL.createObjectURL(new Blob([JSON.stringify(this.missao.exportar(), null, 2)], { type: 'application/json' }));
-    const a = document.createElement('a'); a.href = url; a.download = 'BSS006_VOO_EXPERIMENTAL.json'; a.click(); URL.revokeObjectURL(url);
+    const a = document.createElement('a'); a.href = url; a.download = `${this.missao.id}.json`; a.click(); URL.revokeObjectURL(url);
   }
   private animar(instanteMs: number) {
     try {
@@ -58,6 +62,9 @@ export class CenaMissao {
         // Observação para acessibilidade e testes de integração; não é uma porta de escrita física.
         canvas.dataset.altitude = String(this.observacao.altitudeM); canvas.dataset.passo = String(this.observacao.passo);
         canvas.dataset.cameraX = String(camera.centroM.x); canvas.dataset.cameraY = String(camera.centroM.y);
+        canvas.dataset.estadoAquatico = this.observacao.aquatico?.estado ?? 'sem-agua';
+        canvas.dataset.volumeSubmerso = String(this.observacao.aquatico?.volumeSubmersoM3 ?? 0);
+        canvas.dataset.integridade = String(this.observacao.integridadeMinima);
         atualizarHudMissao(this.raiz, this.observacao, this.missao.obterEventos()); this.sujo = false;
       }
     } catch (error) { this.missao.pausar(); this.executor.reiniciar(); this.sujo = true; this.mensagem(`Execução interrompida: ${error instanceof Error ? error.message : String(error)}`); console.error(error); }

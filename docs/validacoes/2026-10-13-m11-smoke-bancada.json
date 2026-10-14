@@ -1,0 +1,41 @@
+{
+  "cenarios": [
+    {
+      "cenario": "BSS-001 — primeiro lançamento de sucesso",
+      "tempo": "BSS-001 — primeiro lançamento de sucesso\nt = 1.746 s · 3,0×",
+      "ignicao": "✓ 1 ignições confirmadas",
+      "metanoRestanteKg": 119.1
+    },
+    {
+      "cenario": "BSS-002 — controle de inclinação PID",
+      "tempo": "BSS-002 — controle de inclinação PID\nt = 1.946 s · 3,0×",
+      "ignicao": "✓ 1 ignições confirmadas",
+      "metanoRestanteKg": 119.0
+    },
+    {
+      "cenario": "BSS-004 — controle de inclinação e pernas fixas",
+      "tempo": "BSS-004 — controle de inclinação e pernas fixas\nt = 2.346 s · 3,0×",
+      "ignicao": "✓ 1 ignições confirmadas",
+      "metanoRestanteKg": 118.8
+    },
+    {
+      "cenario": "BSS-005 — tanques ampliados · meta 15 km",
+      "tempo": "BSS-005 — tanques ampliados · meta 15 km\nt = 2.046 s · 3,0×",
+      "ignicao": "✓ 1 ignições confirmadas",
+      "metanoRestanteKg": 590.7
+    },
+    {
+      "cenario": "BSS-006 — pouso guiado por alvo",
+      "tempo": "BSS-006 — pouso guiado por alvo\nt = 2.146 s · 3,0×",
+      "ignicao": "✓ 1 ignições confirmadas",
+      "metanoRestanteKg": 590.2
+    },
+    {
+      "cenario": "BSS-003 — decolagem e pouso sob comando manual",
+      "tempo": "BSS-003 — decolagem e pouso sob comando manual\nt = 2.150 s · 3,0×",
+      "ignicao": "✓ 2 ignições confirmadas",
+      "metanoRestanteKg": 248.6
+    }
+  ],
+  "errosJS": 0
+}

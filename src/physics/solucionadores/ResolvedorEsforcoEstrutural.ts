@@ -20,7 +20,9 @@ export class ResolvedorEsforcoEstrutural {
     const membros = new Set(conjunto.membros), G = conjunto.obterCentroDeMassaAtual();
     const fixadores = [...fixadoresRegistrados].filter(f => f.estaAtivo && membros.has(f.objetoA) && membros.has(f.objetoB));
     let F = Vetor3.zero, torque = 0;
+    const resultantes = new Map<Objeto, Vetor3>();
     for (const c of cargas) for (const f of c.forcas) { F = F.adicionar(f.forcaN); torque += f.pontoM.subtrair(G).produtoVetorial(f.forcaN).z + (f.torqueNm?.z ?? 0); }
+    for (const c of cargas) resultantes.set(c.objeto, c.forcas.reduce((s, f) => s.adicionar(f.forcaN), Vetor3.zero));
     const a = F.multiplicar(1 / conjunto.massaTotalKg), alfa = new Vetor3(0, 0, torque / conjunto.momentoInerciaZKgM2);
     const omega = conjunto.membros[0].getEstadoFisico().velocidadeAngularRadps;
     const esforcos = fixadores.map(f => {
@@ -29,7 +31,7 @@ export class ResolvedorEsforcoEstrutural {
       const grupo = conjunto.membros.filter(o => lado.has(o)), massa = grupo.reduce((s, o) => s + o.massaKg, 0);
       const Ga = this.obterCentroDeMassa(grupo), Gb = this.obterCentroDeMassa(conjunto.membros.filter(o => !lado.has(o)));
       const braco = Ga.subtrair(G), eixo = Gb.subtrair(Ga);
-      const ext = cargas.filter(c => lado.has(c.objeto)).flatMap(c => c.forcas).reduce((s, c) => s.adicionar(c.forcaN), Vetor3.zero);
+      const ext = grupo.reduce((s, o) => s.adicionar(resultantes.get(o) ?? Vetor3.zero), Vetor3.zero);
       const reacao = a.adicionar(alfa.produtoVetorial(braco)).adicionar(omega.produtoVetorial(omega.produtoVetorial(braco))).multiplicar(massa).subtrair(ext);
       return { f, axialN: eixo.magnitude > 1e-9 ? reacao.produtoEscalar(eixo.multiplicar(1 / eixo.magnitude)) : 0 };
     });

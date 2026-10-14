@@ -291,6 +291,7 @@ export class MundoFisico {
 
   public avancar(deltaS: number): void {
     if (!Number.isFinite(deltaS) || deltaS <= 0) throw new Error('deltaS deve ser positivo e finito.');
+    this.hidrodinamica?.verificarDeclaracoes(this.objetos.values());
     try {
       let restante = deltaS;
       let primeiroPasso = true;
@@ -326,6 +327,7 @@ export class MundoFisico {
     this.sincronizarConjuntosEstruturais(0, false);
     if (aplicarImpulsos) this.aplicarImpulsosPendentes();
     if (this.hidrodinamica) {
+      const ativosAntes = [...this.fixadores.values()].filter(f => f.estaAtivo).length;
       for (const o of this.objetos.values()) this.hidrodinamica.atualizarCarregamento(o, dtS);
       for (const conjunto of this.conjuntosEstruturais.values()) {
         const cargas = conjunto.membros.map(objeto => {
@@ -341,7 +343,7 @@ export class MundoFisico {
         });
         this.resolvedorEsforcoEstrutural.registrarCargasDistribuidas(conjunto, cargas, this.fixadores.values());
       }
-      this.sincronizarConjuntosEstruturais(0, false);
+      if ([...this.fixadores.values()].filter(f => f.estaAtivo).length !== ativosAntes) this.sincronizarConjuntosEstruturais(0, false);
     }
     if (this.integracao === 'verlet-gravitacional') this.aplicarKickGravitacional(dtS / 2);
     this.integrarCorpos(dtS);

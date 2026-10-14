@@ -4,10 +4,15 @@ import type { MontagemBss } from '../veiculos/MontagemBss';
 import { copiarSnapshot } from './SnapshotMissao';
 import { CicloMissao } from './CicloMissao';
 import { criarAmbienteLancamento, PASSO_MISSAO_BSS_S } from './AmbienteLancamento';
+import { criarAmbienteAmerissagem } from './AmbienteAmerissagem';
+import { registrarHidrodinamicaBss006 } from '../veiculos/HidrodinamicaBss006';
+import { Vetor3 } from '../physics/Vetor3';
+import { AcompanhamentoAmerissagem, type MedidasAmerissagem } from './ObservacaoAmerissagem';
 import type { EventoMissao, InstanciaMissao, ResultadoComandoMissao, DefinicaoMissao } from './ContratoMissao';
 import type { ComandoBss006, ConfiguracaoMissaoBss006, ObservacaoBss006, SistemaBss } from './TiposMissaoBss006';
 
 export const ID_MISSAO_BSS006 = 'BSS006_VOO_EXPERIMENTAL';
+export const ID_AMERISSAGEM_BSS006 = 'BSS006_AMERISSAGEM_EXPERIMENTAL';
 const SISTEMAS: readonly SistemaBss[] = ['elétrico', 'hidráulico', 'combustível', 'controle'];
 /** Limites da M9-G, separados da resposta física do contato. */
 export const CRITERIOS_RETORNO_BSS006 = Object.freeze({
@@ -20,7 +25,8 @@ export const CRITERIOS_RETORNO_BSS006 = Object.freeze({
 export class MissaoBss006 implements InstanciaMissao<ComandoBss006, ObservacaoBss006> {
   public readonly id: string;
   public readonly passoS = PASSO_MISSAO_BSS_S;
-  public readonly configuracao: Readonly<Required<ConfiguracaoMissaoBss006>>;
+  public readonly configuracao: Readonly<Required<Omit<ConfiguracaoMissaoBss006, 'ensaioAquatico'>> & Pick<ConfiguracaoMissaoBss006, 'ensaioAquatico'>>;
+  private readonly acompanhamentoAquatico = new AcompanhamentoAmerissagem();
   private readonly ciclo = new CicloMissao();
   private readonly ambiente: ReturnType<typeof criarAmbienteLancamento>;
   private readonly veiculo: MontagemBss;
@@ -44,22 +50,30 @@ export class MissaoBss006 implements InstanciaMissao<ComandoBss006, ObservacaoBs
 
   public constructor(configuracao: ConfiguracaoMissaoBss006 = {}, id: string = ID_MISSAO_BSS006) {
     if (typeof id !== 'string' || id.trim().length === 0) throw new Error('Identificação de missão inválida.');
-    this.id = id;
+    this.id = configuracao.ensaioAquatico && id === ID_MISSAO_BSS006 ? ID_AMERISSAGEM_BSS006 : id;
     this.configuracao = Object.freeze({ arcoBaseM: configuracao.arcoBaseM ?? 0,
       ventoTangencialMps: configuracao.ventoTangencialMps ?? 0,
       alvoPousoLocalM: configuracao.alvoPousoLocalM ?? 0,
       altitudeTransicaoM: configuracao.altitudeTransicaoM ?? 300,
-      transicaoAutomatica: configuracao.transicaoAutomatica ?? true });
+      transicaoAutomatica: configuracao.transicaoAutomatica ?? true,
+      ...(configuracao.ensaioAquatico ? { ensaioAquatico: Object.freeze({ ...configuracao.ensaioAquatico }) } : {}) });
     const c = this.configuracao;
     if (![c.arcoBaseM, c.ventoTangencialMps, c.alvoPousoLocalM, c.altitudeTransicaoM].every(Number.isFinite)
       || c.altitudeTransicaoM <= 5.3 || typeof c.transicaoAutomatica !== 'boolean') throw new Error('Configuração de missão inválida.');
     this.perfil = new ControladorPerfilVooExperimental(c.altitudeTransicaoM, c.transicaoAutomatica);
-    this.ambiente = criarAmbienteLancamento(c.arcoBaseM, c.ventoTangencialMps);
-    this.veiculo = DEFINICAO_BSS006.montar(this.ambiente.mundo, this.ambiente.solo, c.arcoBaseM);
+    const ensaio = c.ensaioAquatico;
+    if (ensaio && (!Object.values(ensaio).every(Number.isFinite) || ensaio.velocidadeInicialMps < 0
+      || ensaio.altitudeInicialM < 3 || Math.abs(ensaio.inclinacaoInicialRad) > Math.PI / 12)) throw new Error('Condição de ensaio aquático inválida.');
+    this.ambiente = ensaio ? criarAmbienteAmerissagem(c.arcoBaseM, c.ventoTangencialMps) : criarAmbienteLancamento(c.arcoBaseM, c.ventoTangencialMps);
+    this.veiculo = DEFINICAO_BSS006.montar(this.ambiente.mundo, this.ambiente.solo, c.arcoBaseM, ensaio ? {
+      centroCascoLocalM: new Vetor3(200, ensaio.altitudeInicialM, 0), velocidadeLocalMps: new Vetor3(0, -ensaio.velocidadeInicialMps, 0),
+      inclinacaoRad: ensaio.inclinacaoInicialRad, velocidadeAngularRadps: 0 } : undefined);
+    if (ensaio) registrarHidrodinamicaBss006(this.ambiente.mundo, this.veiculo);
     if (!this.veiculo.selecionarAlvo(c.arcoBaseM + c.alvoPousoLocalM)) throw new Error('Alvo inicial inválido.');
     // Contato inicial deriva da geometria, não de um contato de retorno fabricado.
     this.contatoInicial = this.veiculo.objetos.some(o => this.ambiente.mundo.obterMenorDistanciaSuperficieM(o, this.ambiente.solo) <= CRITERIOS_RETORNO_BSS006.distanciaGeometricaM);
-    this.evento('missao', 'missao-carregada', 'BSS-006 preparado na plataforma costeira.');
+    this.evento('missao', 'missao-carregada', ensaio ? 'BSS-006 preparado em ensaio de aproximação sobre oceano.' : 'BSS-006 preparado na plataforma costeira.');
+    if (ensaio) this.evento('missao', 'ensaio-adm-aproximacao', 'Condição inicial ADM sobre oceano: motores desligados, sem trajetória de lançamento presumida.');
   }
   public get passosExecutados(): number { return this.ciclo.passosExecutados; }
   public get estadoExecucao() { return this.ciclo.estadoExecucao; }
@@ -83,7 +97,8 @@ export class MissaoBss006 implements InstanciaMissao<ComandoBss006, ObservacaoBs
         if (!aceito) motivo = m.diagnosticoOperacional.join(' · '); break;
       case 'ignicao': aceito = m.solicitarIgnicao();
         if (!aceito) motivo = m.diagnosticoOperacional.join(' · '); break;
-      case 'desligar-motor': v.veiculo.desligarPropulsor(m.id); break;
+      case 'desligar-motor': v.veiculo.desligarPropulsor(m.id);
+        if (this.configuracao.ensaioAquatico) this.evento('missao', 'desligamento-motor', 'Desligamento solicitado pela operação sem alteração cinemática.'); break;
       case 'throttle':
         if (!Number.isFinite(comando.valor) || comando.valor < 0 || comando.valor > 1) return this.negar('Throttle deve estar entre 0 e 1.');
         if (v.obterModo() === 'pouso') return this.negar('Throttle sob autoridade do controlador de pouso.');
@@ -125,6 +140,8 @@ export class MissaoBss006 implements InstanciaMissao<ComandoBss006, ObservacaoBs
     }
     v.atualizarControleAletas(); mundo.avancar(this.passoS); this.ciclo.registrarPasso();
     const e = v.veiculo.getEstadoFisico(), h = ref.altitudeGeometricaM(e.posicaoM);
+    if (this.configuracao.ensaioAquatico) for (const tipo of this.acompanhamentoAquatico.atualizar(this.medidasAquaticas(), this.passoS))
+      this.evento('fisico', tipo, 'Evento derivado da imersão, forças e estado físico medidos.');
     const vr = ref.vetorParaLocal(e.velocidadeMps, e.posicaoM).y;
     this.picoAltitudeM = Math.max(this.picoAltitudeM, h);
     if (!this.decolou && h > v.alturaInicialM + 0.5) { this.decolou = true; this.evento('fisico', 'decolagem', 'Veículo afastou-se do solo.'); }
@@ -172,8 +189,9 @@ export class MissaoBss006 implements InstanciaMissao<ComandoBss006, ObservacaoBs
     const e = v.veiculo.getEstadoFisico(), engenharia = v.obterDadosMissao();
     const leitura = v.veiculo.obterLeiturasDosSensores();
     const observacao: ObservacaoBss006 = {
+      ...(this.configuracao.ensaioAquatico ? { aquatico: this.acompanhamentoAquatico.observar(this.medidasAquaticas()) } : {}),
       id: this.id, passo: this.passosExecutados, tempoS: mundo.tempoS, execucao: this.estadoExecucao,
-      fase: this.integridadeMinima < 1 ? 'falha' : this.toqueRetorno ? 'contato' : this.desceu ? 'descida' : this.decolou ? 'subida' : 'solo',
+      fase: this.integridadeMinima < 1 ? 'falha' : this.configuracao.ensaioAquatico ? 'agua' : this.toqueRetorno ? 'contato' : this.desceu ? 'descida' : this.decolou ? 'subida' : 'solo',
       modo: v.obterModo(), casco: e, altitudeM: engenharia.altitudeGeometricaM,
       deslocamentoHorizontalM: -ref.erroHorizontalM(this.configuracao.arcoBaseM, e.posicaoM),
       velocidadeRadialMps: engenharia.velocidadeRadialMps, velocidadeTangencialMps: engenharia.velocidadeTangencialMps,
@@ -195,7 +213,11 @@ export class MissaoBss006 implements InstanciaMissao<ComandoBss006, ObservacaoBs
         repousoGeometricoS: this.repousoS, maiorRepousoGeometricoS: this.maiorRepousoS,
         apoioBilateralObservado: this.bilateralObservado, apoioBilateralSustentadoS: this.bilateralS,
         maiorApoioBilateralSustentadoS: this.maiorBilateralS, pousoEstruturalmenteSeguro: this.seguro, limitesToqueAtendidos: this.limitesToque },
-      objetivos: [
+      objetivos: this.configuracao.ensaioAquatico ? [
+        { id: 'entrada', descricao: 'Entrada física sem piso líquido', estado: this.obterEventos().some(e => e.tipo === 'entrada-na-agua') ? 'atingido' : 'pendente' },
+        { id: 'flutuacao', descricao: 'Equilíbrio de forças e momentos por 3 s, sem propulsão', estado: this.acompanhamentoAquatico.observar(this.medidasAquaticas()).equilibrioObservado ? 'atingido' : 'pendente' },
+        { id: 'integridade', descricao: 'Preservar integridade estrutural', estado: this.integridadeMinima < 1 ? 'falhou' : 'pendente' },
+      ] : [
         { id: 'decolagem', descricao: 'Decolar por propulsão física', estado: this.decolou ? 'atingido' : 'pendente' },
         { id: 'subida', descricao: `Alcançar ${this.configuracao.altitudeTransicaoM} m`, estado: this.picoAltitudeM >= this.configuracao.altitudeTransicaoM ? 'atingido' : 'pendente' },
         { id: 'retorno', descricao: 'Tentar retorno e observar contato', estado: this.toqueRetorno ? 'atingido' : 'pendente' },
@@ -207,11 +229,22 @@ export class MissaoBss006 implements InstanciaMissao<ComandoBss006, ObservacaoBs
       sensores: { validos: leitura.sensoresValidos !== false, idadeS: leitura.idadeLeituraS ?? 0 },
       arbitragem: v.veiculo.obterSolicitacoesAplicadas().map(s => ({ ...s })), engenharia,
       cenario: { ancoraM: { ...this.ambiente.ancoraM }, centroTerraM: { ...this.ambiente.solo.centroM },
+        ...('costa' in this.ambiente.solo ? { costa: (this.ambiente.solo as ReturnType<typeof criarAmbienteAmerissagem>['solo']).costa.configuracao } : {}),
         raioTerraM: this.ambiente.solo.raioM, arcoBaseM: this.configuracao.arcoBaseM,
         altitudeTransicaoM: this.configuracao.altitudeTransicaoM, modeloFisico: mundo.obterConfiguracaoFisica() },
     };
     return copiarSnapshot(observacao);
   }
+  private medidasAquaticas(): MedidasAmerissagem {
+    const v = this.veiculo, m = this.ambiente.mundo, e = v.veiculo.getEstadoFisico(), ref = m.ambiente.referencial;
+    return { componentes: v.veiculo.obterObjetosFisicosConectados().flatMap(o => m.obterImersao(o)), G: v.veiculo.centroDeMassaDoConjuntoM,
+      massaKg: v.veiculo.massaInstantaneaDoConjuntoKg, gravidadeMps2: m.obterGravidadeMps2(e.posicaoM).magnitude,
+      velocidadeMps: e.velocidadeMps.magnitude, velocidadeRadialMps: ref.vetorParaLocal(e.velocidadeMps, e.posicaoM).y,
+      atitudeRad: ref.atitudeLocalRad(e.orientacaoRad.z, e.posicaoM), omegaRadps: e.velocidadeAngularRadps.z, empuxoMotorN: v.propulsor.empuxoAtualN };
+  }
 }
 export const BSS006_VOO_EXPERIMENTAL = Object.freeze({ id: ID_MISSAO_BSS006,
   revisao: 'm10-voo-experimental-1', criar: (configuracao: ConfiguracaoMissaoBss006 = {}) => new MissaoBss006(configuracao) } satisfies DefinicaoMissao<ConfiguracaoMissaoBss006, ComandoBss006, ObservacaoBss006>);
+export const BSS006_AMERISSAGEM_EXPERIMENTAL = Object.freeze({ id: ID_AMERISSAGEM_BSS006, revisao: 'm11-amerissagem-1',
+  criar: (configuracao: ConfiguracaoMissaoBss006 = {}) => new MissaoBss006({ ...configuracao,
+    ensaioAquatico: configuracao.ensaioAquatico ?? { inclinacaoInicialRad: 0.005, velocidadeInicialMps: 0.5, altitudeInicialM: 5 } }, ID_AMERISSAGEM_BSS006) });

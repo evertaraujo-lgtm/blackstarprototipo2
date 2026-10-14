@@ -18,6 +18,6 @@ export const PARAMETROS_BSS006 = Object.freeze({ ...PARAMETROS_BSS005,
 
 export const DEFINICAO_BSS006 = Object.freeze({
   id: 'bss-006', revisao: 'bss006-m9-parametros-m10-montagem',
-  montar: (mundo: MundoFisico, solo: SuperficieFisica, arcoBaseM = 0) =>
-    montarVeiculoBss(mundo, solo, { ...PARAMETROS_BSS006, id: 'bss-006', arcoBaseM }),
+  montar: (mundo: MundoFisico, solo: SuperficieFisica, arcoBaseM = 0, estadoInicialEnsaio?: ParametrosMontagemBss['estadoInicialEnsaio']) =>
+    montarVeiculoBss(mundo, solo, { ...PARAMETROS_BSS006, id: 'bss-006', arcoBaseM, ...(estadoInicialEnsaio ? { estadoInicialEnsaio } : {}) }),
 });

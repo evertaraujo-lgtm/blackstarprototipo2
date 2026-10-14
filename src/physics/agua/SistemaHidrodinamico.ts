@@ -42,6 +42,9 @@ export class SistemaHidrodinamico {
     }
     this.formas.set(objeto, Object.freeze({ ...forma }));
   }
+  public verificarDeclaracoes(objetos: Iterable<Objeto>): void {
+    for (const o of objetos) if (!this.formas.has(o)) throw new Error(`Geometria aquática não declarada: ${o.id}. Declare deslocamento/área explicitamente, inclusive zero para componentes internos.`);
+  }
   public calcular(objeto: Objeto, referenciaM = objeto.getEstadoFisico().posicaoM): { forcas: readonly ForcaAplicada[]; estados: readonly EstadoImersao[] } {
     const p = this.formas.get(objeto); if (!p) return { forcas: [], estados: [] };
     const e = objeto.getEstadoFisico(), estados: EstadoImersao[] = [], forcas: ForcaAplicada[] = [];

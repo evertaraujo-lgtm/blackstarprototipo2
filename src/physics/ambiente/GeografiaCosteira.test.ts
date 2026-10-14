@@ -26,6 +26,7 @@ describe('Costa radial e fundo real', () => {
     const criar = (id: string, x: number) => new Objeto({ id, massaBaseKg: 10, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 1000,
       limiteTermicoC: 1000, estadoInicial: { posicaoM: r.posicaoPorArcoM(x, 1) } });
     const terra = criar('terra', 0), mar = criar('mar', 200); m.registrarObjeto(terra); m.registrarObjeto(mar);
+    expect(m.obterMenorDistanciaSuperficieM(terra, s)).toBeCloseTo(0.5, 6);
     m.avancar(1);
     expect(r.altitudeGeometricaM(terra.getEstadoFisico().posicaoM)).toBeGreaterThanOrEqual(0.49999);
     expect(r.altitudeGeometricaM(mar.getEstadoFisico().posicaoM)).toBeLessThan(-3);

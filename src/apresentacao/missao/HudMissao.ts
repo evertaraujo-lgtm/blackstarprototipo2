@@ -4,6 +4,18 @@ import type { ObservacaoBss006 } from '../../missoes/TiposMissaoBss006';
 export function atualizarHudMissao(raiz: HTMLElement, o: ObservacaoBss006, eventos: readonly EventoMissao[]): void {
   const texto = (id: string, valor: string) => { raiz.querySelector<HTMLElement>(`#${id}`)!.textContent = valor; };
   const graus = (rad: number) => (rad * 180 / Math.PI).toFixed(2);
+  raiz.querySelector<HTMLElement>('#configuracao-aquatica')!.hidden = !o.aquatico;
+  raiz.querySelector<HTMLElement>('#painel-aquatico')!.hidden = !o.aquatico;
+  if (o.aquatico) {
+    const a = o.aquatico, coord = (p?: { x: number; y: number }) => p ? `(${p.x.toFixed(3)}, ${p.y.toFixed(3)}) m` : 'não definido (seco)';
+    texto('imersao-aquatica', `${a.estado.replaceAll('-', ' ')} · ${(a.fracaoSubmersa * 100).toFixed(2)}%`);
+    texto('volume-aquatico', `${a.volumeSubmersoM3.toFixed(4)} / ${a.volumeDeslocavelM3.toFixed(3)} m³`);
+    texto('forcas-aquaticas', `${a.forcaEmpuxoN.magnitude.toFixed(0)} / ${a.forcaArrastoN.magnitude.toFixed(0)} N`);
+    texto('momento-aquatico', `${a.momentoHidrodinamicoNm.z.toFixed(1)} N·m / ${graus(o.taxaAtitudeLocalRadps)} °/s`);
+    texto('entrada-aquatica', `${a.velocidadeEntradaMps.toFixed(2)} m/s / ${(a.energiaEntradaJ / 1000).toFixed(2)} kJ`);
+    texto('equilibrio-aquatico', `${a.equilibrioContinuoS.toFixed(2)} s${a.equilibrioObservado ? ' · janela de equilíbrio observada' : ''}`);
+    texto('centros-aquaticos', `G ${coord(a.centroMassaM)}\nB ${coord(a.centroEmpuxoM)}\nÁgua: 1025 kg/m³ · fundo a -50 m · sem ondas`);
+  }
   texto('estado-execucao', `${o.execucao === 'executando' ? 'Em execução' : o.execucao === 'pausada' ? 'Pausada' : 'Preparada'} · ${o.fase}`);
   texto('altitude', `${o.altitudeM.toFixed(1)} m`); texto('velocidade-radial', `${o.velocidadeRadialMps.toFixed(2)} m/s`);
   texto('velocidade-tangencial', `${o.velocidadeTangencialMps.toFixed(2)} m/s`); texto('atitude', `${graus(o.atitudeLocalRad)}°`);
@@ -29,7 +41,7 @@ export function atualizarHudMissao(raiz: HTMLElement, o: ObservacaoBss006, event
   raiz.querySelector<HTMLInputElement>('#alvo-pouso')!.disabled = decolou;
   texto('componentes', o.corpos.map(c => `${c.id}: ${(c.integridade * 100).toFixed(1)}% · ${c.massaKg.toFixed(1)} kg`).join('\n')
     + `\nContatos: ${o.contatos.length} · fixadores rompidos: ${o.fixadores.filter(f => f.estado === 'rompido').length}`);
-  texto('estado-pouso', o.pouso.toqueRetorno
+  texto('estado-pouso', o.aquatico ? 'Amerissagem avaliada por imersão, forças e momentos. Apoio bilateral terrestre não se aplica.' : o.pouso.toqueRetorno
     ? `Contato de retorno observado. Repouso geométrico: ${o.pouso.repousoGeometricoS.toFixed(2)} s. Apoio bilateral sustentado: ${o.pouso.apoioBilateralSustentadoS.toFixed(3)} s. ${o.pouso.pousoEstruturalmenteSeguro ? 'Critérios de pouso seguro atendidos.' : 'Pouso seguro não qualificado.'}`
     : 'Retorno ainda não observado.');
   const objetivos = raiz.querySelector<HTMLUListElement>('#objetivos')!; objetivos.replaceChildren(...o.objetivos.map(obj => {
