@@ -17,6 +17,7 @@ export class SistemaAtmosferico {
     velocidadeArMps: Vetor3,
     private readonly referencial: ReferencialFisico = new ReferencialPlano(),
     public readonly politicaAltitude: 'extrapolacao-legada' | 'vacuo-simplificado-25km' = 'extrapolacao-legada',
+    private readonly exposicaoAoAr: (o: Objeto) => number = () => 1,
   ) {
     if (!Number.isFinite(densidadeArNivelMarKgM3) || densidadeArNivelMarKgM3 < 0) {
       throw new Error('Densidade atmosférica deve ser finita e não negativa.');
@@ -58,7 +59,7 @@ export class SistemaAtmosferico {
     const areaFrontalM2 = objeto.getAreaArrastoEfetivaM2(velocidadeRelativa);
     if (areaFrontalM2 === 0) return Vetor3.zero;
     const magnitudeArrastoN = 0.5 * densidadeArKgM3
-      * objeto.getCoeficienteArrastoEfetivo(velocidadeRelativa) * areaFrontalM2 * moduloVelocidade ** 2;
+      * objeto.getCoeficienteArrastoEfetivo(velocidadeRelativa) * areaFrontalM2 * moduloVelocidade ** 2 * this.exposicaoAoAr(objeto);
     return velocidadeRelativa.multiplicar(-magnitudeArrastoN / moduloVelocidade);
   }
 

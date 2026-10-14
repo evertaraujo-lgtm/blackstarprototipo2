@@ -68,6 +68,7 @@ export class ConjuntoEstruturalRigido {
   public contem(objeto: Objeto): boolean { return this.objetos.includes(objeto); }
 
   public get membros(): readonly Objeto[] { return this.objetos; }
+  public get momentoInerciaZKgM2(): number { return this.obterInerciaCompostaZ(); }
 
   /** Reação da fundação rígida: preserva a geometria montada da ilha inteira. */
   public restringirAoSolo(): void {

@@ -104,10 +104,10 @@ export class MundoFisico {
     }
     if (!Number.isFinite(this.densidadeAtmosfericaNivelMarKgM3) || this.densidadeAtmosfericaNivelMarKgM3 < 0) throw new Error('Densidade atmosférica deve ser finita e não negativa.');
     this.atmosfera = new SistemaAtmosferico(this.densidadeAtmosfericaNivelMarKgM3, this.velocidadeArAtualMps, this.ambiente.referencial,
-      this.ambiente.campo.modelo === 'central' ? 'vacuo-simplificado-25km' : 'extrapolacao-legada');
+      this.ambiente.campo.modelo === 'central' ? 'vacuo-simplificado-25km' : 'extrapolacao-legada', o => this.fracaoExpostaAr(o));
     if (configuracao.regioesAquaticas?.length) this.hidrodinamica = new SistemaHidrodinamico(
       [...configuracao.regioesAquaticas], p => this.obterGravidadeMps2(p));
-    this.sistemaTermico = new SistemaTermico(this.atmosfera, configuracao.temperaturaAmbienteC ?? 20);
+    this.sistemaTermico = new SistemaTermico(this.atmosfera, configuracao.temperaturaAmbienteC ?? 20, o => this.fracaoExpostaAr(o));
     this.sistemaSensores = new SistemaSensores(
       () => this.objetos.values(),
       () => this.superficies.values(),
@@ -155,6 +155,7 @@ export class MundoFisico {
     const G = this.obterConjuntoEstruturalDoObjeto(objeto)?.obterCentroDeMassaAtual() ?? objeto.getEstadoFisico().posicaoM;
     return this.hidrodinamica?.calcular(objeto, G).estados ?? [];
   }
+  private fracaoExpostaAr(o: Objeto): number { return this.hidrodinamica?.fracaoExpostaAr(o) ?? 1; }
 
   public registrarObjeto(objeto: Objeto): void {
     if (this.objetos.has(objeto.id)) throw new Error(`Objeto já registrado: ${objeto.id}.`);
@@ -238,7 +239,7 @@ export class MundoFisico {
   public obterCondicoesAtmosfericas(objeto: Objeto): CondicoesAtmosfericas {
     this.exigirRegistro(objeto);
     return {
-      densidadeArKgM3: this.atmosfera.obterDensidadeNaPosicaoKgM3(objeto.getEstadoFisico().posicaoM),
+      densidadeArKgM3: this.atmosfera.obterDensidadeNaPosicaoKgM3(objeto.getEstadoFisico().posicaoM) * this.fracaoExpostaAr(objeto),
       velocidadeArMps: this.velocidadeArAtualMps,
     };
   }
@@ -294,7 +295,14 @@ export class MundoFisico {
       let restante = deltaS;
       let primeiroPasso = true;
       while (restante > 0) {
-        const passoS = Math.min(restante, this.maxDtS);
+        let passoS = Math.min(restante, this.maxDtS);
+        if (this.hidrodinamica) for (const objeto of this.objetos.values()) {
+          const conjunto = this.obterConjuntoEstruturalDoObjeto(objeto);
+          passoS = Math.min(passoS, this.hidrodinamica.limitePassoS(objeto, conjunto?.massaTotalKg ?? objeto.massaKg,
+            conjunto?.momentoInerciaZKgM2 ?? objeto.getMomentoInerciaKgM2().z,
+            conjunto?.obterCentroDeMassaAtual() ?? objeto.getEstadoFisico().posicaoM));
+        }
+        if (!Number.isFinite(passoS) || passoS <= 0) throw new Error('Passo hidrodinâmico não finito.');
         this.integrarPasso(passoS, primeiroPasso);
         primeiroPasso = false;
         restante -= passoS;
@@ -400,7 +408,7 @@ export class MundoFisico {
       const forcas = (this.forcasPendentes.get(objeto.id) ?? [])
         .map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM }));
       const forcasOperacionais = objeto.obterForcasOperacionais().map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM, torqueNm: forca.torqueNm }));
-      const forcasAerodinamicas = objeto.obterForcasAerodinamicas({ densidadeArKgM3: this.atmosfera.obterDensidadeNaPosicaoKgM3(estado.posicaoM), velocidadeArMps: this.velocidadeArAtualMps })
+      const forcasAerodinamicas = objeto.obterForcasAerodinamicas(this.obterCondicoesAtmosfericas(objeto))
         .map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM }));
       if (this.ambiente.campo.modelo === 'central') for (const f of [...forcas, ...forcasOperacionais, ...forcasAerodinamicas]) this.validarForcaPlanar(f);
       const forcasDasJuntas = [...this.juntasRotacionaisDeBancada.values()].flatMap((junta) => junta.obterForcasPara(objeto));
@@ -415,7 +423,7 @@ export class MundoFisico {
         forcasDoConjunto.push(...(this.forcasPendentes.get(objeto.id) ?? [])
           .map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM })));
         forcasDoConjunto.push(...objeto.obterForcasOperacionais().map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM, torqueNm: forca.torqueNm })));
-        forcasDoConjunto.push(...objeto.obterForcasAerodinamicas({ densidadeArKgM3: this.atmosfera.obterDensidadeNaPosicaoKgM3(estado.posicaoM), velocidadeArMps: this.velocidadeArAtualMps }).map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM })));
+        forcasDoConjunto.push(...objeto.obterForcasAerodinamicas(this.obterCondicoesAtmosfericas(objeto)).map((forca) => ({ forcaN: forca.forcaN, pontoM: forca.pontoM ?? estado.posicaoM })));
         if (this.integracao === 'euler-semi-implicito') forcasDoConjunto.push({ forcaN: this.obterGravidadeMps2(estado.posicaoM).multiplicar(objeto.massaKg), pontoM: estado.posicaoM });
         forcasDoConjunto.push({ forcaN: this.obterForcaArrastoAtmosferico(objeto), pontoM: objeto.obterCentroPressaoM() });
         forcasDoConjunto.push(...(this.hidrodinamica?.calcular(objeto, conjunto.obterCentroDeMassaAtual()).forcas ?? []));

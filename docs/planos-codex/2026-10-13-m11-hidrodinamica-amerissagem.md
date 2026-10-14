@@ -195,3 +195,13 @@ Quatro testes aprovados: praia/fundo/normal/projeção em arco zero e a 1.000 km
 O mundo registra formas explicitamente e soma empuxo no centro do volume imerso às forças do corpo ou da ilha existente. Usa a gravidade local de M9 e massa instantânea existente. Sem água, preserva o caminho e metadados anteriores. Observações aquáticas são consultas de forças/geometria, não estado cinemático paralelo.
 
 Seis testes aprovados: seco/parcial/total em dois locais terrestres, rotação ±45°/90°, rejeição de sobreposição, integração real sem piso e independência do empuxo em relação à massa. Comparação de volume com solução analítica a 1e-6 m³; força com Arquimedes e campo local. Typecheck, typecheck de missões e build aprovados. Arrasto/entrada são os próximos marcos, não capacidades validadas neste commit.
+
+## M11-D — Resistência distribuída e integração
+
+Arrasto quadrático por elemento imerso, com velocidade translacional + omega×braço e corrente tangencial local. Área projetada do prisma é ponderada pela fração volumétrica de cada elemento: aproximação de resistência distribuída, não resolução de pressão em cada face. Cd declarado por forma. Esta ponderação mantém resistência contínua na entrada/saída, mas não representa slamming ou ar preso. Dissipação rotacional vem das forças locais; nenhum amortecimento angular constante.
+
+Ar atmosférico, forças aerodinâmicas de componentes e convecção do ar recebem apenas a fração geométrica emersa. A fração molhada das formas permeáveis é geométrica, distinta do volume efetivamente deslocado. Convecção aquática detalhada não implementada. Cache geométrico usa apenas pose imutável e não altera o estado.
+
+Além do dt máximo do mundo, a água impõe subpassos pela rigidez hidrostática e pela derivada de resistência translacional/angular. Limite da variação local de carga de 1% por passo; nenhuma velocidade é truncada. Inicialmente, o teste a 50 m/s mostrou diferença de 11,59 cm entre 1/240 e 1/480 s. O refinamento automático de precisão corrigiu o caso mantendo orçamento de erro de 5 cm. O bloco em equilíbrio ainda oscilava 6,34 mm aos 60 s com arrasto quadrático; prolongou-se a observação a 120 s, mantendo limite de 5 mm e Cd/massa/volume.
+
+14 testes aquáticos aprovados: Arquimedes/geometria, resistência v²/área orientada, giro passivo, corrente, estabilidade com inclinações espelhadas, calado analítico a 5 mm (2% de 0,25 m), corpo denso afundando, exposição do ar e determinismo/refinamento. Typechecks e build aprovados. Testes não equivalem à qualificação de entrada rápida/dano, que pertence à M11-F.
