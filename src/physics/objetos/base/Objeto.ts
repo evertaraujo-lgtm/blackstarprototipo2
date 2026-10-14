@@ -70,6 +70,7 @@ export class Objeto {
   private integridade = 1;
   private horasVidaUtilConsumidas = 0;
   private estado: EstadoFisico;
+  private inerciaCalculada?: { massaKg: number; x: number; y: number; z: number; valor: Vetor3 };
   private paraquedasAcoplado?: Paraquedas;
   private temperaturaAtualC: number;
   private energiaTermicaDeAtritoJ = 0;
@@ -111,12 +112,12 @@ export class Objeto {
       throw new Error('Fração de aquecimento aerodinâmico deve estar entre 0 e 1.');
     }
 
-    this.estado = {
+    this.estado = Object.freeze({
       posicaoM: definicao.estadoInicial?.posicaoM ?? Vetor3.zero,
       velocidadeMps: definicao.estadoInicial?.velocidadeMps ?? Vetor3.zero,
       orientacaoRad: definicao.estadoInicial?.orientacaoRad ?? Vetor3.zero,
       velocidadeAngularRadps: definicao.estadoInicial?.velocidadeAngularRadps ?? Vetor3.zero,
-    };
+    });
     if (definicao.temperaturaFalhaTotalC !== undefined && (!Number.isFinite(definicao.temperaturaFalhaTotalC) || definicao.temperaturaFalhaTotalC <= definicao.limiteTermicoC)) throw new Error('Temperatura de falha total inválida.');
     this.temperaturaAtualC = definicao.temperaturaInicialC ?? 20;
   }
@@ -146,7 +147,8 @@ export class Objeto {
   public get horasConsumidas(): number { return this.horasVidaUtilConsumidas; }
 
   public getEstadoFisico(): EstadoFisico {
-    return { ...this.estado };
+    // Estado somente para leitura; cada escrita do core substitui o snapshot inteiro.
+    return this.estado;
   }
 
   /**
@@ -325,17 +327,21 @@ export class Objeto {
 
   /** API reservada ao MundoFisico; não deve ser chamada por controladores ou UI. */
   public atualizarEstadoPeloCore(estado: EstadoFisico): void {
-    this.estado = estado;
+    this.estado = Object.freeze(estado);
   }
 
   /** Aproximação de paralelepípedo homogêneo nos eixos locais. */
   public getMomentoInerciaKgM2(): Vetor3 {
     const { x, y, z } = this.dimensoesM;
     const massa = this.massaKg;
-    return new Vetor3(
+    const cache = this.inerciaCalculada;
+    if (cache && cache.massaKg === massa && cache.x === x && cache.y === y && cache.z === z) return cache.valor;
+    const valor = new Vetor3(
       (massa * (y ** 2 + z ** 2)) / 12,
       (massa * (x ** 2 + z ** 2)) / 12,
       (massa * (x ** 2 + y ** 2)) / 12,
     );
+    this.inerciaCalculada = { massaKg: massa, x, y, z, valor };
+    return valor;
   }
 }

@@ -188,8 +188,9 @@ export class MissaoBss006 implements InstanciaMissao<ComandoBss006, ObservacaoBs
     const { mundo } = this.ambiente, v = this.veiculo, ref = mundo.ambiente.referencial;
     const e = v.veiculo.getEstadoFisico(), engenharia = v.obterDadosMissao();
     const leitura = v.veiculo.obterLeiturasDosSensores();
+    const aquatico = this.configuracao.ensaioAquatico ? this.acompanhamentoAquatico.observar(this.medidasAquaticas()) : undefined;
     const observacao: ObservacaoBss006 = {
-      ...(this.configuracao.ensaioAquatico ? { aquatico: this.acompanhamentoAquatico.observar(this.medidasAquaticas()) } : {}),
+      ...(aquatico ? { aquatico } : {}),
       id: this.id, passo: this.passosExecutados, tempoS: mundo.tempoS, execucao: this.estadoExecucao,
       fase: this.integridadeMinima < 1 ? 'falha' : this.configuracao.ensaioAquatico ? 'agua' : this.toqueRetorno ? 'contato' : this.desceu ? 'descida' : this.decolou ? 'subida' : 'solo',
       modo: v.obterModo(), casco: e, altitudeM: engenharia.altitudeGeometricaM,
@@ -215,7 +216,7 @@ export class MissaoBss006 implements InstanciaMissao<ComandoBss006, ObservacaoBs
         maiorApoioBilateralSustentadoS: this.maiorBilateralS, pousoEstruturalmenteSeguro: this.seguro, limitesToqueAtendidos: this.limitesToque },
       objetivos: this.configuracao.ensaioAquatico ? [
         { id: 'entrada', descricao: 'Entrada física sem piso líquido', estado: this.obterEventos().some(e => e.tipo === 'entrada-na-agua') ? 'atingido' : 'pendente' },
-        { id: 'flutuacao', descricao: 'Equilíbrio de forças e momentos por 3 s, sem propulsão', estado: this.acompanhamentoAquatico.observar(this.medidasAquaticas()).equilibrioObservado ? 'atingido' : 'pendente' },
+        { id: 'flutuacao', descricao: 'Equilíbrio de forças e momentos por 3 s, sem propulsão', estado: aquatico!.equilibrioObservado ? 'atingido' : 'pendente' },
         { id: 'integridade', descricao: 'Preservar integridade estrutural', estado: this.integridadeMinima < 1 ? 'falhou' : 'pendente' },
       ] : [
         { id: 'decolagem', descricao: 'Decolar por propulsão física', estado: this.decolou ? 'atingido' : 'pendente' },

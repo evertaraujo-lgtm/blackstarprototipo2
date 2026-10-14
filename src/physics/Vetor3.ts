@@ -1,5 +1,7 @@
 /** Vetor imutável em unidades SI. */
 export class Vetor3 {
+  // Cache privado não enumerável: vetores são imutáveis, inclusive nos snapshots congelados.
+  #modulo?: number;
   public static readonly zero = new Vetor3(0, 0, 0);
 
   public constructor(
@@ -7,7 +9,7 @@ export class Vetor3 {
     public readonly y: number,
     public readonly z: number,
   ) {
-    if (![x, y, z].every(Number.isFinite)) {
+    if (!Number.isFinite(x) || !Number.isFinite(y) || !Number.isFinite(z)) {
       throw new Error('Componentes de Vetor3 devem ser números finitos.');
     }
   }
@@ -38,6 +40,6 @@ export class Vetor3 {
   }
 
   public get magnitude(): number {
-    return Math.hypot(this.x, this.y, this.z);
+    return this.#modulo ??= Math.hypot(this.x, this.y, this.z);
   }
 }

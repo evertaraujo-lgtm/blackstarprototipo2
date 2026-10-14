@@ -51,3 +51,19 @@ Pendente. Nenhum resultado deste documento aprova antecipadamente o marco.
 CI da base M11-H confirmado: [execução 38548986493](https://github.com/evertaraujo-lgtm/blackstarprototipo2/actions/runs/38548986493), conclusão success. Isso não qualifica os commits locais M11-P. Typechecks e build do adaptador de benchmark passaram.
 
 Baseline visual Chrome headless 145, viewport 1280×1000, DPR=1, escala solicitada 1×: em 30,042 s reais avançou 11,5125 s simulados (**0,383×**). Canvas: 232 desenhos, 318,9 ms totais (1,06% da janela); HUD: 232 atualizações; 231 long tasks, máximo 391 ms; nenhum erro JS. Arquivo `2026-10-14-m11-p-browser-antes.json`. A lentidão vem predominantemente da física; worker não substituiria a remoção de desperdício, e não é escolhido nesta etapa. O relógio visual anterior ainda descartava deltas acima de 50 ms; o baseline registra tempo realmente simulado, não o tempo solicitado.
+
+## M11-P-B — Alterações do núcleo
+
+- Recorte: distâncias escalares mantêm subtração, soma e produto escalar na ordem original; offsets são calculados uma vez por plano. Região completamente rejeitada retorna volume zero antes de construir células. A resolução 2×8 e todos os limites adaptativos continuam iguais.
+- Região: planos laterais constantes são pré-calculados; normal/tangente/topo da mesma pose são compartilhados entre as três seções. Não há redução de precisão/resolução.
+- Vetor: validação finita sem array temporário; Math.hypot memoizado em campo privado não enumerável. Vetores têm contrato imutável; consulta também funciona nos snapshots congelados, sem alterar JSON.
+- Objeto: estado cinemático readonly é congelado a cada escrita do core, permitindo consultas sem cópia redundante. Estados anteriores continuam válidos e não recebem escritas futuras. Inércia por corpo é invalidada pela massa e pelas três dimensões atuais.
+- Ilha: reduções escalares mantêm a ordem dos produtos/somas; centro é reutilizado somente com as mesmas referências imutáveis de posição e mesmas massas por membro, incluindo redistribuição de massa sem alteração do total.
+- Kicks conservativos: aplicação sequencial em lote calcula cada impulso e cada projeção, na ordem anterior, usando escalares temporários. Publica as velocidades dos membros ao fim. Não soma impulsos para trocar o algoritmo; colisões e impulsos externos mantêm sua API individual. Pose, massa e geometria não mudam entre kicks. Nenhuma força, torque ou subpasso foi desligado.
+- Missão: uma única medida aquática por observar() alimenta telemetria e objetivos; a observação continua somente para leitura.
+
+Equivalência: teste do lote versus aplicação individual usa 27 impulsos fora do centro, velocidades iniciais diferentes e três cargas, comparando todos os componentes exatamente. Entrada/tombamento de oito segundos preservou exatamente os hashes de 240 observações e do diário anterior: `bdbb0f5adc9974df4f0c0936d3d772440236ebf769270328ee512c4367c7c35b` / `4e6904667639118be5e9ce6f01262e8accf1b857678a20ae0fd86317a663f6a1`.
+
+Validação dirigida final B: 35 testes aprovados (água, missão aquática, equivalência e caches); Objeto também aprovado na campanha anterior. Typechecks principal e sem navegador aprovados; build das quatro páginas aprovado. O teste novo de posição média usa 5×10⁻¹⁵ m de tolerância para a diferença de uma ULP entre 14/3 e 7×(20/30); nenhuma tolerância histórica foi alterada. As verificações de trajetória/replay permanecem estritas.
+
+A medição longa final e regressões completas seguem na M11-P-D.

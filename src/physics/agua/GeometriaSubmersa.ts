@@ -26,7 +26,9 @@ export function validarPrisma(p: PrismaDeslocador): void {
 }
 /** Recorte convexo, usando coordenadas relativas ao corpo para evitar cancelamento planetocêntrico. */
 function recortar(vertices: readonly Vetor3[], plano: PlanoRecorte, origem: Vetor3): Vetor3[] {
-  const d = (v: Vetor3) => origem.subtrair(plano.ancoraM).adicionar(v).produtoEscalar(plano.normal);
+  // Mesma ordem das operações vetoriais originais, sem alocar vetores por vértice.
+  const ox = origem.x - plano.ancoraM.x, oy = origem.y - plano.ancoraM.y, oz = origem.z - plano.ancoraM.z;
+  const d = (v: Vetor3) => (ox + v.x) * plano.normal.x + (oy + v.y) * plano.normal.y + (oz + v.z) * plano.normal.z;
   const resultado: Vetor3[] = [];
   for (let i = 0; i < vertices.length; i++) {
     const a = vertices[i], b = vertices[(i + 1) % vertices.length], da = d(a), db = d(b);
@@ -60,9 +62,15 @@ export function calcularGeometriaSubmersa(e: EstadoFisico, p: PrismaDeslocador, 
   const cos = Math.cos(e.orientacaoRad.z), sin = Math.sin(e.orientacaoRad.z), c = p.centroLocalM ?? Vetor3.zero;
   const girar = (x: number, y: number) => new Vetor3(x * cos - y * sin, x * sin + y * cos, 0);
   const contorno = verticesPrismaM(e, p).map(v => v.subtrair(e.posicaoM));
-  const distancia = (q: Vetor3, plano: PlanoRecorte) => e.posicaoM.subtrair(plano.ancoraM).adicionar(q).produtoEscalar(plano.normal);
+  const distancia = (q: Vetor3, plano: PlanoRecorte) =>
+    ((e.posicaoM.x - plano.ancoraM.x) + q.x) * plano.normal.x
+    + ((e.posicaoM.y - plano.ancoraM.y) + q.y) * plano.normal.y
+    + ((e.posicaoM.z - plano.ancoraM.z) + q.z) * plano.normal.z;
   const recortes = agua.recortesEm(e.posicaoM).filter(planos =>
     !planos.some(plano => contorno.every(q => distancia(q, plano) > 0)));
+  // Todos os recortes rejeitados: nenhuma célula pode deslocar água nesta pose.
+  if (recortes.length === 0) return { volumeTotalM3: d.x * d.y * espessura, volumeSubmersoM3: 0,
+    centroEmpuxoM: undefined, elementos: [], fracaoGeometrica: 0 };
   const totalmenteImerso = recortes.length === 1 && recortes[0].every(plano => contorno.every(q => distancia(q, plano) <= 0));
   const elementos: ElementoSubmerso[] = [];
   for (let ix = 0; ix < nx; ix++) for (let iy = 0; iy < ny; iy++) {

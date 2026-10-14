@@ -395,22 +395,28 @@ export class MundoFisico {
 
   /** Metade do impulso gravitacional em cada membro, preservando torque de gradiente. */
   private aplicarKickGravitacional(dtS: number): void {
+    const lotes = new Map<ConjuntoEstruturalRigido, { impulsoNs: Vetor3; pontoM: Vetor3 }[]>();
     for (const objeto of this.objetos.values()) {
       this.validarEstadoPlanar(objeto);
       const p = objeto.getEstadoFisico().posicaoM;
       const impulso = this.obterGravidadeMps2(p).multiplicar(objeto.massaKg * dtS);
       const conjunto = this.obterConjuntoEstruturalDoObjeto(objeto);
-      if (conjunto) conjunto.aplicarImpulsoNoPonto(impulso, p);
-      else this.integrador.aplicarImpulsoNoPonto(objeto, impulso, p);
+      if (conjunto) {
+        const lote = lotes.get(conjunto) ?? []; lote.push({ impulsoNs: impulso, pontoM: p }); lotes.set(conjunto, lote);
+      } else this.integrador.aplicarImpulsoNoPonto(objeto, impulso, p);
     }
+    for (const [conjunto, lote] of lotes) conjunto.aplicarImpulsosSequenciais(lote);
   }
   private aplicarKickHidrostatico(dtS: number): void {
     if (!this.hidrodinamica) return;
+    const lotes = new Map<ConjuntoEstruturalRigido, { impulsoNs: Vetor3; pontoM: Vetor3 }[]>();
     for (const objeto of this.objetos.values()) for (const f of this.hidrodinamica.obterEmpuxos(objeto)) {
       const impulso = f.forcaN.multiplicar(dtS), conjunto = this.obterConjuntoEstruturalDoObjeto(objeto);
-      if (conjunto) conjunto.aplicarImpulsoNoPonto(impulso, f.pontoM);
-      else this.integrador.aplicarImpulsoNoPonto(objeto, impulso, f.pontoM);
+      if (conjunto) {
+        const lote = lotes.get(conjunto) ?? []; lote.push({ impulsoNs: impulso, pontoM: f.pontoM }); lotes.set(conjunto, lote);
+      } else this.integrador.aplicarImpulsoNoPonto(objeto, impulso, f.pontoM);
     }
+    for (const [conjunto, lote] of lotes) conjunto.aplicarImpulsosSequenciais(lote);
   }
 
   private validarVetorPlanar(v: Vetor3): void {

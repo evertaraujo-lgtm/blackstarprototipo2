@@ -10,6 +10,7 @@ export class ConjuntoEstruturalRigido {
   private readonly estadosDeMontagem = new Map<Objeto, EstadoFisico>();
   private anguloDoConjuntoRad: number;
   private massaDasReferenciasKg: number;
+  private centroCalculado?: { valor: Vetor3; posicoes: readonly Vetor3[]; massas: readonly number[] };
 
   public constructor(private readonly objetos: readonly Objeto[]) {
     const objetoDeReferencia = objetos[0];
@@ -41,8 +42,8 @@ export class ConjuntoEstruturalRigido {
     const inerciaZ = this.obterInerciaCompostaZ();
     const momentoAngularZ = this.objetos.reduce((soma, objeto) => {
       const estado = objeto.getEstadoFisico();
-      const braco = estado.posicaoM.subtrair(centroMassa);
-      return soma + braco.produtoVetorial(estado.velocidadeMps.multiplicar(objeto.massaKg)).z
+      const bx = estado.posicaoM.x - centroMassa.x, by = estado.posicaoM.y - centroMassa.y;
+      return soma + (bx * (estado.velocidadeMps.y * objeto.massaKg) - by * (estado.velocidadeMps.x * objeto.massaKg))
         + objeto.getMomentoInerciaKgM2().z * estado.velocidadeAngularRadps.z;
     }, 0);
     const velocidadeAngularZ = momentoAngularZ / inerciaZ;
@@ -109,11 +110,17 @@ export class ConjuntoEstruturalRigido {
   }
 
   public obterCentroDeMassaAtual(): Vetor3 {
+    const cache = this.centroCalculado;
+    if (cache && this.objetos.every((o, i) => cache.posicoes[i] === o.getEstadoFisico().posicaoM && cache.massas[i] === o.massaKg)) return cache.valor;
     const massaTotalKg = this.massaTotalKg;
-    return this.objetos.reduce(
-      (soma, objeto) => soma.adicionar(objeto.getEstadoFisico().posicaoM.multiplicar(objeto.massaKg / massaTotalKg)),
-      Vetor3.zero,
-    );
+    let x = 0, y = 0, z = 0;
+    for (const objeto of this.objetos) {
+      const p = objeto.getEstadoFisico().posicaoM, peso = objeto.massaKg / massaTotalKg;
+      x += p.x * peso; y += p.y * peso; z += p.z * peso;
+    }
+    const valor = new Vetor3(x, y, z);
+    this.centroCalculado = { valor, posicoes: this.objetos.map(o => o.getEstadoFisico().posicaoM), massas: this.objetos.map(o => o.massaKg) };
+    return valor;
   }
 
   /** Velocidade física do corpo rígido no ponto de contato informado. */
@@ -135,13 +142,47 @@ export class ConjuntoEstruturalRigido {
     const proximaVelocidadeAngular = new Vetor3(0, 0, proximaVelocidadeAngularZ);
     for (const objeto of this.objetos) {
       const estado = objeto.getEstadoFisico();
-      const braco = estado.posicaoM.subtrair(centroMassa);
+      const bx = estado.posicaoM.x - centroMassa.x, by = estado.posicaoM.y - centroMassa.y, bz = estado.posicaoM.z - centroMassa.z;
       objeto.atualizarEstadoPeloCore({
         ...estado,
-        velocidadeMps: proximaVelocidadeCentro.adicionar(proximaVelocidadeAngular.produtoVetorial(braco)),
+        // Expansão exata do produto vetorial: preserva a ordem e os zeros com sinal.
+        velocidadeMps: new Vetor3(proximaVelocidadeCentro.x + (0 * bz - proximaVelocidadeAngularZ * by),
+          proximaVelocidadeCentro.y + (proximaVelocidadeAngularZ * bx - 0 * bz), proximaVelocidadeCentro.z + (0 * by - 0 * bx)),
         velocidadeAngularRadps: proximaVelocidadeAngular,
       });
     }
+  }
+
+  /**
+   * Kicks sem mudança de pose/massa: reproduz cada projeção na ordem original.
+   * Mantém as velocidades intermediárias em escalares locais e publica só ao fim.
+   * Não soma impulsos nem altera arredondamento, colisões ou a integração temporal.
+   */
+  public aplicarImpulsosSequenciais(impulsos: readonly { impulsoNs: Vetor3; pontoM: Vetor3 }[]): void {
+    if (impulsos.length === 0) return;
+    const G = this.obterCentroDeMassaAtual(), massa = this.massaTotalKg, I = this.obterInerciaCompostaZ();
+    const membros = this.objetos.map(o => {
+      const e = o.getEstadoFisico();
+      return { o, e, m: o.massaKg, peso: o.massaKg / massa, propria: o.getMomentoInerciaKgM2().z,
+        bx: e.posicaoM.x - G.x, by: e.posicaoM.y - G.y, bz: e.posicaoM.z - G.z,
+        vx: e.velocidadeMps.x, vy: e.velocidadeMps.y, vz: e.velocidadeMps.z, w: e.velocidadeAngularRadps.z };
+    });
+    for (const { impulsoNs: j, pontoM: p } of impulsos) {
+      let vx = 0, vy = 0, vz = 0, L = 0;
+      for (const b of membros) {
+        vx += b.vx * b.peso; vy += b.vy * b.peso; vz += b.vz * b.peso;
+        L = L + (b.bx * (b.vy * b.m) - b.by * (b.vx * b.m)) + b.propria * b.w;
+      }
+      vx += j.x * (1 / massa); vy += j.y * (1 / massa); vz += j.z * (1 / massa);
+      const w = L / I + ((p.x - G.x) * j.y - (p.y - G.y) * j.x) / I;
+      for (const b of membros) {
+        b.vx = vx + (0 * b.bz - w * b.by); b.vy = vy + (w * b.bx - 0 * b.bz);
+        b.vz = vz + (0 * b.by - 0 * b.bx); b.w = w;
+        if (!Number.isFinite(b.vx) || !Number.isFinite(b.vy) || !Number.isFinite(b.vz) || !Number.isFinite(w)) throw new Error('Componentes de Vetor3 devem ser números finitos.');
+      }
+    }
+    for (const b of membros) b.o.atualizarEstadoPeloCore({ ...b.e,
+      velocidadeMps: new Vetor3(b.vx, b.vy, b.vz), velocidadeAngularRadps: new Vetor3(0, 0, b.w) });
   }
 
   /** Corrige penetração por translação da ilha inteira, nunca de um membro isolado. */
@@ -180,17 +221,20 @@ export class ConjuntoEstruturalRigido {
   }
 
   private obterVelocidadeDoCentroAtual(): Vetor3 {
-    return this.objetos.reduce(
-      (soma, objeto) => soma.adicionar(objeto.getEstadoFisico().velocidadeMps.multiplicar(objeto.massaKg / this.massaTotalKg)),
-      Vetor3.zero,
-    );
+    const massaTotalKg = this.massaTotalKg;
+    let x = 0, y = 0, z = 0;
+    for (const objeto of this.objetos) {
+      const v = objeto.getEstadoFisico().velocidadeMps, peso = objeto.massaKg / massaTotalKg;
+      x += v.x * peso; y += v.y * peso; z += v.z * peso;
+    }
+    return new Vetor3(x, y, z);
   }
 
   private obterVelocidadeAngularAtual(centroMassa: Vetor3): number {
     const momentoAngularZ = this.objetos.reduce((soma, objeto) => {
       const estado = objeto.getEstadoFisico();
-      const braco = estado.posicaoM.subtrair(centroMassa);
-      return soma + braco.produtoVetorial(estado.velocidadeMps.multiplicar(objeto.massaKg)).z
+      const bx = estado.posicaoM.x - centroMassa.x, by = estado.posicaoM.y - centroMassa.y;
+      return soma + (bx * (estado.velocidadeMps.y * objeto.massaKg) - by * (estado.velocidadeMps.x * objeto.massaKg))
         + objeto.getMomentoInerciaKgM2().z * estado.velocidadeAngularRadps.z;
     }, 0);
     return momentoAngularZ / this.obterInerciaCompostaZ();
