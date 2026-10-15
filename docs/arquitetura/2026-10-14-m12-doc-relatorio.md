@@ -286,3 +286,98 @@ O cabeçalho fica junto ao nó de tipo/método abstrato e é associado pelo comp
 A comparação por arquivo manteve a AST executável idêntica; nenhuma assinatura
 ou fluxo foi alterado. Catálogo inclui esses contratos separadamente das funções
 com corpo, dos callbacks anônimos de execução e dos testes.
+
+## Qualificação final — 2026-10-15
+
+| Escopo | Resultado |
+|---|---:|
+| Implementações nomeadas de produção | 1.461 |
+| Cabeçalhos JSDoc com vínculo correto ao catálogo | 1.461 / 1.461 (100%) |
+| Contratos de implementação com revisão explicitamente registrada | 936 |
+| Descrições existentes/extraídas de operações simples, sem certificação semântica | 525 |
+| Implementações marcadas REVISÃO NECESSÁRIA | 0 |
+| Assinaturas declarativas de portas/tipos, documentadas separadamente | 137 |
+| Callbacks anônimos de produção inventariados | 577 |
+| Funções/callbacks de testes inventariados | 1.098 |
+| Entradas totais do inventário | 3.273 |
+| Adições, remoções ou assinaturas divergentes após geração | 0 |
+| Arquivos preexistentes com AST executável divergente da M11-P | 0 |
+
+`@reviewed` significa que a descrição foi confrontada com implementação/consumo;
+não significa homologação física nem cobertura de execução de cada ramo. As 525
+descrições sem essa marca continuam distinguíveis no catálogo. A associação de
+arquivos de testes é estática por import direto; efeitos transitivos de chamadas,
+qualidade das descrições e invariantes não são comprovados automaticamente.
+
+### Validações executadas
+
+- `npm run test:documentacao`: **19 testes aprovados**, em dois arquivos.
+- `npm run typecheck`: aprovado.
+- `npm run typecheck:missoes`: aprovado, preservando domínio sem APIs de navegador.
+- `npm run build`: aprovado; mesmos nomes/hash dos assets JS da aplicação antes
+  e depois do último lote de comentários.
+- `npm run docs:verificar -- --base-executavel`: aprovado, sem catálogo/mapa
+  desatualizado, deriva estrutural ou alteração executável contra `555635b`.
+- `git diff --check`: sem erros de whitespace ao fechar os lotes.
+- Smoke no Chrome headless sobre build local: landing, tests.html, orbitas.html
+  e missao.html carregaram, sem overflow desktop nem exceção JavaScript; ensaio
+  orbital avançou no navegador.
+- Missão terrestre: 0,35 s simulados, empuxo de aproximadamente 78 kN, metano de
+  600 para 598,4092427077585 kg, câmera acompanhando; reinício em 0 s, sem ignição
+  ou consumo residual. Variante aquática: 0,220833 s, 0,0312 m³ submersos, zero
+  contatos sólidos, integridade 1 e motor desligado; reinício seco confirmado.
+- Os seis cenários BSS ativos da bancada avançaram. Nos BSS-001/002/004/005/006
+  foram observados empuxo e fluxo não nulos e consumo. O painel BSS-003 não expõe
+  empuxo/vazão numéricos; foram confirmadas ignições e queda da reserva de 250
+  para 249,5 kg. O smoke não substitui ensaio completo de pouso.
+
+Evidências resumidas: [m12-doc-smoke.json](../validacoes/m12-doc-smoke.json).
+Não foram adicionados diários gigantes nem capturas de profiling. As falhas
+iniciais dos scripts de smoke (espera de navegação/seletor/escopo de variável)
+foram corrigidas no adaptador de teste temporário; nenhuma exigiu alteração da
+aplicação. Preview e navegador próprios do ensaio foram encerrados.
+
+A suíte física histórica não foi repetida nesta alteração documental, conforme
+AGENTS.md §65. Nenhum teste histórico foi removido, ignorado ou enfraquecido; a
+prova de preservação percorreu todos os TypeScript preexistentes, inclusive
+scripts, testes e caminhos Unicode. Os 1.098 itens da tabela são funções AST em
+testes, não quantidade de testes executados nesta rodada.
+
+### Commits verificáveis
+
+| Etapa/lote | Commit |
+|---|---|
+| A — mapa e contrato inicial | `d9f1c07` |
+| B — inventário AST | `8226d14` |
+| C1 — núcleo e interações | `e545901` |
+| C2 — corpos/componentes | `a5b12a3` |
+| C3 — sensores/controle | `6e818b1` |
+| C4 — montagem/missão/replay | `c729de0` |
+| C5 — apresentação/adaptadores | `c165f5d` |
+| D — auditoria e testes de rastreabilidade | `fd9bee3` |
+| E — diretriz permanente | `6611feb` |
+| C6 — superfícies/contatos/esforços | `c2816e0` |
+| C7 — revisão de sensores/controle | `b5bc087` |
+| C8 — atuadores/mecanismos/energia | `659ad42` |
+| C9 — revisão de missão/replay/observação | `5f5cbf2` |
+| C10 — cenários históricos | `d7bcd14` |
+| C11 — bancada/renderer/trace | `c6273d6` |
+| C12 — portas declarativas e evidência visual | `5fa55cb` |
+
+### Impacto e próximos trabalhos
+
+O simulador mantém algoritmos, assinaturas, parâmetros físicos e resultados
+executáveis. Foram introduzidas somente ferramentas de análise/documentação e
+seus testes; a CI consulta o catálogo antes da campanha física. AGENTS.md §69
+exige CONTRATO DE IMPACTO FUNCIONAL para implementações futuras, incluindo funções
+reutilizadas e efeitos/invariantes, com atualização deste mapa/catálogo.
+
+Os achados arquiteturais permanecem para marcos próprios: orientação/gravidade
+fixas em mecanismos locais, precisão temporal visual do trace, critérios de
+encerramento arquivados, contratos de imutabilidade superficial, limites do
+modelo auxiliar de autotune, esforço em malhas estruturais redundantes e
+convergência das duas famílias de replay/câmera. Não houve refatoração executável
+para corrigir esses achados nesta tarefa.
+
+A CI remota da base foi confirmada; a CI dos commits M12 depende do envio pelo
+operador. Não foi realizado push nem deploy.
