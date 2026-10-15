@@ -4,6 +4,12 @@ Referência inicial: `555635b` (M11-P-D). O mapa descreve implementações exist
 capacidades futuras de AGENTS.md não são capacidades presentes. O catálogo AST
 contém o inventário individual de funções e uma seção própria de testes.
 
+A infraestrutura documental formata assinaturas e tipos de retorno inferidos
+com aliases do TypeChecker no contexto da declaração. O catálogo não deve
+incorporar o caminho absoluto do checkout nos imports de tipos. A regressão
+M12-DOC-FIX compara checkouts independentes com Unicode/espaços e executa a CLI
+real; `docs:verificar` permanece somente leitura e rejeita artefatos divergentes.
+
 ## Árvore de responsabilidades
 
 ```text
