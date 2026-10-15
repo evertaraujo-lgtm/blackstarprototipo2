@@ -962,6 +962,132 @@
     "categoria": "callback"
   },
   {
+    "id": "scripts/documentacao/reprodutibilidade.test.ts::novaRaiz:ArrowFunction",
+    "assinatura": "(nome: string): string",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/reprodutibilidade.test.ts::observar:ArrowFunction",
+    "assinatura": "(parametro?: string): string",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/reprodutibilidade.test.ts::escreverFontes:ArrowFunction",
+    "assinatura": "(raiz: string): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/reprodutibilidade.test.ts::escreverFontes.[callback]:ArrowFunction#1",
+    "assinatura": "(f: Funcao): boolean",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/reprodutibilidade.test.ts::analisar:ArrowFunction",
+    "assinatura": "(raiz: string): { programa: ts.Program; fontes: ts.SourceFile[]; checker: ts.TypeChecker; analise: Analise; }",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/reprodutibilidade.test.ts::analisar.[callback]:ArrowFunction#1",
+    "assinatura": "(a: string): string",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/reprodutibilidade.test.ts::analisar.[callback]:ArrowFunction#2",
+    "assinatura": "(a: string): ts.SourceFile",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/reprodutibilidade.test.ts::analisar.[callback]:ArrowFunction#3",
+    "assinatura": "(a: string): string",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/reprodutibilidade.test.ts::executar:ArrowFunction",
+    "assinatura": "(raiz: string, modo: \"gerar\" | \"verificar\"): string",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/reprodutibilidade.test.ts::lerArtefatos:ArrowFunction",
+    "assinatura": "(raiz: string): string[]",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/reprodutibilidade.test.ts::lerArtefatos.[callback]:ArrowFunction#1",
+    "assinatura": "(a: string): string",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/reprodutibilidade.test.ts::estadoArquivos:ArrowFunction",
+    "assinatura": "(raiz: string): object",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/reprodutibilidade.test.ts::estadoArquivos.[callback]:ArrowFunction#1",
+    "assinatura": "(e: Dirent<string>): boolean",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/reprodutibilidade.test.ts::estadoArquivos.[callback]:ArrowFunction#2",
+    "assinatura": "(e: Dirent<string>): [string, { hash: string; mtimeMs: number; }]",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/reprodutibilidade.test.ts::[callback]:ArrowFunction#1",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/reprodutibilidade.test.ts::[callback]:ArrowFunction#2",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/reprodutibilidade.test.ts::[callback]#2.[callback]:ArrowFunction#1",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/reprodutibilidade.test.ts::[callback]#2.[callback]#1.original:ArrowFunction",
+    "assinatura": "(p: ReturnType<typeof analisar>): string",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/reprodutibilidade.test.ts::[callback]#2.[callback]#1.[callback]:ArrowFunction#1",
+    "assinatura": "(f: Funcao): string",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/reprodutibilidade.test.ts::[callback]#2.[callback]#1.[callback]:ArrowFunction#2",
+    "assinatura": "(f: Funcao): string",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/reprodutibilidade.test.ts::[callback]#2.[callback]:ArrowFunction#2",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
     "id": "scripts/validar-hidrodinamica.ts::criar:FunctionDeclaration",
     "assinatura": "(massaKg: number, d: Vetor3, h: number, v?: Vetor3, theta?: number, omega?: number, dt?: number): { m: MundoFisico; o: Objeto; agua: RegiaoAquatica; ambiente: AmbienteTerrestre; }",
     "modificadores": [],

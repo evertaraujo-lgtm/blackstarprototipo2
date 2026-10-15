@@ -135,6 +135,7 @@ function fatosCorpo(no: Declaracao, fonte: ts.SourceFile, impressor: ts.Printer)
  * @param checker Resolução de tipos do programa; fixtures podem omiti-la.
  * @returns Inventário sem executar as fontes. Efeitos transitivos não são inferidos.
  * @remarks Percorre fontes próprias e emite inventário de funções/contratos, módulos, herança e imports. IDs usam escopo/espécie/ordinal; TypeChecker fornece assinaturas inferidas quando disponível. Não executa fontes nem aprova semântica.
+ * @remarks Tipos inferidos são formatados no contexto da declaração para usar aliases/imports relativos ao módulo, independentes do diretório do checkout. Não normaliza valores literais. Regressão em reprodutibilidade.test.ts.
  * @contract f-252d75a79d2738ad
  * @reviewed M12-DOC: contrato confrontado com implementação.
  */
@@ -169,7 +170,7 @@ export function analisarFontes(fontes: readonly ts.SourceFile[], checker?: ts.Ty
         const assinaturaTipo = checker?.getSignatureFromDeclaration(no);
         const assinatura = assinaturaTipo ? checker!.signatureToString(assinaturaTipo, no, ts.TypeFormatFlags.NoTruncation | ts.TypeFormatFlags.UseAliasDefinedOutsideCurrentScope)
           : `(${no.parameters.map(p => p.getText(fonte)).join(', ')}): ${no.type?.getText(fonte) ?? 'inferido'}`;
-        const retorno = assinaturaTipo ? checker!.typeToString(checker!.getReturnTypeOfSignature(assinaturaTipo), no, ts.TypeFormatFlags.NoTruncation)
+        const retorno = assinaturaTipo ? checker!.typeToString(checker!.getReturnTypeOfSignature(assinaturaTipo), no, ts.TypeFormatFlags.NoTruncation | ts.TypeFormatFlags.UseAliasDefinedOutsideCurrentScope)
           : no.type?.getText(fonte) ?? 'inferido';
         const categoria = /\.(test|spec)\.[cm]?[jt]sx?$/.test(arquivo) ? 'teste' : !no.body ? 'contrato' : nome ? 'producao' : 'callback';
         funcoes.push({ id, arquivo, inicio: no.getStart(fonte), linha: fonte.getLineAndCharacterOfPosition(no.getStart(fonte)).line + 1,
