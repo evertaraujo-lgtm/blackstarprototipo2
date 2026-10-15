@@ -247,3 +247,12 @@ sustentado. TracePLC registra mudanças imediatamente e pode omitir sinais iguai
 em intervalos menores que 0,05 s; não é replay integral. A UI orbital legada
 limita delta real, diferentemente do acompanhamento de atraso da cena de missão.
 Comentários e catálogo foram atualizados com AST executável preservada.
+
+### C10 — Bancada: queda, impacto, mobilidade e ensaios térmicos
+
+78 contratos da bancada foram revisados com as implementações: preparação de
+corpos/vínculos, medições e critérios visuais. Limites históricos de critérios
+legados (como altura não orientada em alguns encerramentos) estão explícitos,
+sem modificar a execução. As funções `validar` descrevem exatamente os critérios
+que verificam; aprovação visual local não foi ampliada para homologação física.
+AST executável idêntica antes/depois do lote e catálogo regenerado.

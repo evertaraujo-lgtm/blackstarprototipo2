@@ -23572,15 +23572,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::definirDescricaoComando:ArrowFunction</code> · [fonte L172](../../src/testes.ts#L172) |
 | Assinatura | <code> (botao: HTMLButtonElement, descricao: string): void</code> |
-| Responsabilidade | Escritas diretas: `botao.title`. Dependências diretas: `botao.setAttribute`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Define aria-label e title do botão com mesma descrição acessível; altera apenas DOM. |
 | Entradas | <code>botao: HTMLButtonElement</code>; <code>descricao: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>botao.title</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>botao.setAttribute</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `botao.title`. Dependências diretas: `botao.setAttribute`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-5e1aa4998dc58a80 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Define aria-label e title do botão com mesma descrição acessível; altera apenas DOM. @contract f-5e1aa4998dc58a80 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -24066,15 +24066,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarCuboEmQueda:ArrowFunction</code> · [fonte L266](../../src/testes.ts#L266) |
 | Assinatura | <code> (alturaM: number, massaKg?: number, opcoes?: OpcoesQueda): CenárioVisual</code> |
-| Responsabilidade | Dependências diretas: `MundoFisico`, `Objeto`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Monta cubo de massa/altura fornecidas em vácuo explícito sobre concreto, calcula referência analítica de chegada/quique e devolve cenário observável. Registro do primeiro retorno e término são callbacks; não impõe trajetória. |
 | Entradas | <code>alturaM: number</code>; <code>massaKg = 10</code>; <code>opcoes: OpcoesQueda = {}</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{<br>    nome: opcoes.nome ?? `Queda livre — ${massaKg} kg de ${alturaM.toLocaleString('pt-BR')} m`,<br>    descricao: opcoes.descricao ?? `Cubo de ${massaKg} kg e 1 × 1 × 1 m em vácuo, caindo sobre uma superfície de concreto. Compara a velocidad… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>MundoFisico</code>; <code>Objeto</code>; <code>Vetor3</code>; <code>SuperficiePlano</code>; <code>mundo.registrarObjeto</code>; <code>mundo.registrarSuperficie</code>; <code>Math.abs</code>; <code>Math.sin</code>; <code>Math.cos</code>; <code>Math.sqrt</code>; <code>alturaM.toLocaleString</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `MundoFisico`, `Objeto`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-dbf330c6fa6ed9b9 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Monta cubo de massa/altura fornecidas em vácuo explícito sobre concreto, calcula referência analítica de chegada/quique e devolve cenário observável. Registro do primeiro retorno e término são callbacks; não impõe trajetória. @contract f-dbf330c6fa6ed9b9 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -24085,15 +24085,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarCuboEmQueda.deveEncerrar:ArrowFunction</code> · [fonte L298](../../src/testes.ts#L298) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Devolve `instanteDoImpactoS !== undefined &amp;&amp; emRepousoSobreSolo`. Dependências diretas: `cubo.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Registra primeiro Vy positivo como retorno do impacto e só encerra após proximidade do solo e &#124;Vy&#124;≤0,05 m/s. Este critério legado usa altura não orientada e não verifica repouso angular. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>instanteDoImpactoS !== undefined &amp;&amp; emRepousoSobreSolo</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>instanteDoImpactoS</code>; <code>velocidadeDeRetornoMps</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>cubo.getEstadoFisico</code>; <code>Math.abs</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>instanteDoImpactoS === undefined &amp;&amp; velocidadeVerticalMps &gt; 0</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `instanteDoImpactoS !== undefined &amp;&amp; emRepousoSobreSolo`. Dependências diretas: `cubo.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-cbcc6d1962d50548 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Registra primeiro Vy positivo como retorno do impacto e só encerra após proximidade do solo e &#124;Vy&#124;≤0,05 m/s. Este critério legado usa altura não orientada e não verifica repouso angular. @contract f-cbcc6d1962d50548 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -24104,15 +24104,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarCuboEmQueda.validar:ArrowFunction</code> · [fonte L310](../../src/testes.ts#L310) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `velocidade.toFixed`, `velocidadeEsperada.toFixed`, `quiqueEsperadoMps.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Compara primeiro quique com previsão por energia/resistência/dissipação, tolerância 0,2 m/s, e exige destruição quando energia prevista supera resistência; devolve diagnóstico textual sem mudar física. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${aprovado ? 'APROVADO' : 'DIVERGENTE'} · velocidade de quique ${velocidade.toFixed(2)} m/s; chegada ${velocidadeEsperada.toFixed(2)} m/s; quique previsto ${quiqueEsperadoMps.toFixed(2)} m/s; energia ${energiaImpactoJ.toFixed(1)} J; ${resu… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.min</code>; <code>Math.abs</code>; <code>Math.round</code>; <code>velocidade.toFixed</code>; <code>velocidadeEsperada.toFixed</code>; <code>quiqueEsperadoMps.toFixed</code>; <code>energiaImpactoJ.toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `velocidade.toFixed`, `velocidadeEsperada.toFixed`, `quiqueEsperadoMps.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a8aeab6fd86d21a1 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Compara primeiro quique com previsão por energia/resistência/dissipação, tolerância 0,2 m/s, e exige destruição quando energia prevista supera resistência; devolve diagnóstico textual sem mudar física. @contract f-a8aeab6fd86d21a1 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -24142,15 +24142,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.obterAmplitudeVerticalM:ArrowFunction</code> · [fonte L359](../../src/testes.ts#L359) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Devolve `Math.max(...alturas) - Math.min(...alturas)`. Dependências diretas: `quadrados.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Retorna máximo menos mínimo dos Y atuais em m entre cinquenta corpos; exige coleção não vazia. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>Math.max(...alturas) - Math.min(...alturas)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>quadrados.map</code>; <code>Math.max</code>; <code>Math.min</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `Math.max(...alturas) - Math.min(...alturas)`. Dependências diretas: `quadrados.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-85a9fb36c442772b */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Retorna máximo menos mínimo dos Y atuais em m entre cinquenta corpos; exige coleção não vazia. @contract f-85a9fb36c442772b @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -24161,15 +24161,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.obterAmplitudeVelocidadeMps:ArrowFunction</code> · [fonte L364](../../src/testes.ts#L364) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Devolve `Math.max(...velocidades) - Math.min(...velocidades)`. Dependências diretas: `quadrados.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Retorna dispersão máxima de Vy em m/s entre corpos para observar independência da massa antes do impacto. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>Math.max(...velocidades) - Math.min(...velocidades)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>quadrados.map</code>; <code>Math.max</code>; <code>Math.min</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `Math.max(...velocidades) - Math.min(...velocidades)`. Dependências diretas: `quadrados.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-55545d24657cb055 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Retorna dispersão máxima de Vy em m/s entre corpos para observar independência da massa antes do impacto. @contract f-55545d24657cb055 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -24199,15 +24199,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.atualizarMedicoesAntesDoContato:ArrowFunction</code> · [fonte L374](../../src/testes.ts#L374) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | Dependências diretas: `quadrados.some`, `obterAmplitudeVerticalM`, `obterAmplitudeVelocidadeMps`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Acumula maiores dispersões de Y/Vy enquanto nenhum corpo alcança envelope de solo; primeiro contato encerra coleta pré-impacto de forma retida. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>houveContatoComSolo</code>; <code>maiorDispersaoVerticalAntesDoContatoM</code>; <code>maiorDispersaoDeVelocidadeAntesDoContatoMps</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>quadrados.some</code>; <code>Math.max</code>; <code>obterAmplitudeVerticalM</code>; <code>obterAmplitudeVelocidadeMps</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>algumNoSolo</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `quadrados.some`, `obterAmplitudeVerticalM`, `obterAmplitudeVelocidadeMps`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-80dcccca0e8e1db1 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Acumula maiores dispersões de Y/Vy enquanto nenhum corpo alcança envelope de solo; primeiro contato encerra coleta pré-impacto de forma retida. @contract f-80dcccca0e8e1db1 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -24237,15 +24237,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.deveEncerrar:ArrowFunction</code> · [fonte L398](../../src/testes.ts#L398) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Devolve `houveContatoComSolo &amp;&amp; objetosEmRepouso(mundo, quadrados)`. Dependências diretas: `atualizarMedicoesAntesDoContato`, `objetosEmRepouso`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Atualiza medições e exige primeiro contato observado mais repouso dos corpos pelo critério compartilhado. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>houveContatoComSolo &amp;&amp; objetosEmRepouso(mundo, quadrados)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>atualizarMedicoesAntesDoContato</code>; <code>objetosEmRepouso</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `houveContatoComSolo &amp;&amp; objetosEmRepouso(mundo, quadrados)`. Dependências diretas: `atualizarMedicoesAntesDoContato`, `objetosEmRepouso`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6293586dd4d540f2 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Atualiza medições e exige primeiro contato observado mais repouso dos corpos pelo critério compartilhado. @contract f-6293586dd4d540f2 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -24275,15 +24275,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.dados:ArrowFunction</code> · [fonte L405](../../src/testes.ts#L405) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `quadrados[0].getEstadoFisico`, `(orientacaoInicialRad * 180 / Math.PI).toFixed`, `alturaDeApoioM.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Formata parâmetros do ensaio em vácuo, referência Vy=g×t e dispersões pré-impacto; previsão de queda não é usada para mover corpos. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Ambiente: vácuo (ρ = 0 kg/m³)\nSolo: concreto a 0 m\nCorpos: 50 quadrados de 1 × 1 × 1 m\nMassas: 1 a 50 kg\nRotação inicial: ${(orientacaoInicialRad * 180 / Math.PI).toFixed(0)}°\nAltura geométrica de apoio: ${alturaDeApoioM.toFixed(3)} m… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>quadrados[0].getEstadoFisico</code>; <code>(orientacaoInicialRad * 180 / Math.PI).toFixed</code>; <code>alturaDeApoioM.toFixed</code>; <code>mundo.tempoS.toFixed</code>; <code>estadoInicial.velocidadeMps.y.toFixed</code>; <code>velocidadeEsperadaMps.toFixed</code>; <code>maiorDispersaoVerticalAntesDoContatoM.toExponential</code>; <code>maiorDispersaoDeVelocidadeAntesDoContatoMps.toExponential</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `quadrados[0].getEstadoFisico`, `(orientacaoInicialRad * 180 / Math.PI).toFixed`, `alturaDeApoioM.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a7c10a3f0609af45 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Formata parâmetros do ensaio em vácuo, referência Vy=g×t e dispersões pré-impacto; previsão de queda não é usada para mover corpos. @contract f-a7c10a3f0609af45 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -24294,15 +24294,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.validar:ArrowFunction</code> · [fonte L411](../../src/testes.ts#L411) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `maiorDispersaoVerticalAntesDoContatoM.toExponential`, `maiorDispersaoDeVelocidadeAntesDoContatoMps.toExponential`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Exige contato observado e dispersões pré-impacto de posição/velocidade até 1e-9 nas unidades SI correspondentes; retorna avaliação visual. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${aprovado ? 'APROVADO' : 'DIVERGENTE'} · 50 massas distintas chegaram ao solo; antes do impacto Δy=${maiorDispersaoVerticalAntesDoContatoM.toExponential(2)} m; Δvy=${maiorDispersaoDeVelocidadeAntesDoContatoMps.toExponential(2)} m/s`</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>maiorDispersaoVerticalAntesDoContatoM.toExponential</code>; <code>maiorDispersaoDeVelocidadeAntesDoContatoMps.toExponential</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `maiorDispersaoVerticalAntesDoContatoM.toExponential`, `maiorDispersaoDeVelocidadeAntesDoContatoMps.toExponential`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-df2c959b97a8280d */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Exige contato observado e dispersões pré-impacto de posição/velocidade até 1e-9 nas unidades SI correspondentes; retorna avaliação visual. @contract f-df2c959b97a8280d @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -24332,15 +24332,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.proximaFracaoAleatoria:ArrowFunction</code> · [fonte L427](../../src/testes.ts#L427) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Devolve `estadoDaSemente / 2 ** 32`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Avança semente LCG uint32 com multiplicador 1664525/incremento 1013904223 e retorna fração em [0,1); torna orientações iniciais reproduzíveis. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>estadoDaSemente / 2 ** 32</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>estadoDaSemente</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.imul</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `estadoDaSemente / 2 ** 32`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3502332e23c3c357 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Avança semente LCG uint32 com multiplicador 1664525/incremento 1013904223 e retorna fração em [0,1); torna orientações iniciais reproduzíveis. @contract f-3502332e23c3c357 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -24427,15 +24427,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.telemetria:ArrowFunction</code> · [fonte L495](../../src/testes.ts#L495) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `fixadores.filter`, `cameraY().toFixed`, `cameraY`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Resume grupos, fixadores íntegros/rompidos e Y médio observado; não modifica topologia. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${grupos.length} grupos · ${fixadores.filter((fixador) =&gt; !fixador.estaRompido).length}/${fixadores.length} fixadores íntegros · ${fixadores.filter((fixador) =&gt; fixador.estaRompido).length} rompidos · y médio=${cameraY().toFixed(2)} m`</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>fixadores.filter</code>; <code>cameraY().toFixed</code>; <code>cameraY</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `fixadores.filter`, `cameraY().toFixed`, `cameraY`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e17ee494ded967ab */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Resume grupos, fixadores íntegros/rompidos e Y médio observado; não modifica topologia. @contract f-e17ee494ded967ab @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -24446,15 +24446,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.dados:ArrowFunction</code> · [fonte L497](../../src/testes.ts#L497) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `grupos.map((grupo) =&gt; { const estados = grupo.perfisDosFixadores.map(({ fixador, deveRomper }) =&gt; { const esperado = deveRomper ? 'ruptura esperada' : 'controle íntegro'; return `${fixador.estaRompido ? 'ROMPIDO' : 'íntegro'} · ${esperado} (tração ${fixador.picoEsforcoFisicoN.toFixed(0)} / ${fixador.resistenciaTracaoN.toFixed(0)} N; compressão ${fixador.picoEsforcoCompressaoFisicoN.toFixed(0)} N)`; }).join(' · '); const orientacoes = grupo.orientacoesIniciaisGraus.map((angulo) =&gt; `${angulo.toFixed(1)}°`).join(' / '); return `Grupo ${grupo.indiceGrupo + 1}: 3 × ${grupo.massaPorQuadradoKg} kg; ângulos ${orientacoes}; fixadores ${estados}`; }).join`, `grupos.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Detalha massas/ângulos iniciais e esforços/resistências de cada fixador, distinguindo ruptura esperada do estado real. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>grupos.map((grupo) =&gt; {<br>    const estados = grupo.perfisDosFixadores.map(({ fixador, deveRomper }) =&gt; {<br>        const esperado = deveRomper ? 'ruptura esperada' : 'controle íntegro';<br>        return `${fixador.estaRompido ? 'ROMPIDO' : 'ínte… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>grupos.map((grupo) =&gt; {<br>    const estados = grupo.perfisDosFixadores.map(({ fixador, deveRomper }) =&gt; {<br>        const esperado = deveRomper ? 'ruptura esperada' : 'controle íntegro';<br>        return `${fixador.estaRompido ? 'ROMPIDO' : 'ínte… [continua na fonte]</code>; <code>grupos.map</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `grupos.map((grupo) =&gt; { const estados = grupo.perfisDosFixadores.map(({ fixador, deveRomper }) =&gt; { const esperado = deveRomper ? 'ruptura esperada' : 'controle íntegro'; return `${fixador.estaRompido ? 'ROMPIDO' : 'íntegro'} · ${esperado} (tração ${fixador.picoEsforcoFisicoN.toFixed(0)} / ${fixador.resistenciaTracaoN.toFixed(0)} N; compressão ${fixador.picoEsforcoCompressaoFisicoN.toFixed(0)} N)`; }).join(' · '); const orientacoes = grupo.orientacoesIniciaisGraus.map((angulo) =&gt; `${angulo.toFixed(1)}°`).join(' / '); return `Grupo ${grupo.indiceGrupo + 1}: 3 × ${grupo.massaPorQuadradoKg} kg; ângulos ${orientacoes}; fixadores ${estados}`; }).join`, `grupos.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-77548d7cadbeb5d0 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Detalha massas/ângulos iniciais e esforços/resistências de cada fixador, distinguindo ruptura esperada do estado real. @contract f-77548d7cadbeb5d0 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -24465,15 +24465,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.validar:ArrowFunction</code> · [fonte L506](../../src/testes.ts#L506) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `fixadores.every`, `grupos.every`, `fixadores.filter`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Compara rupturas com ids previstos e espaçamento de grupos íntegros com tolerância 0,02 m; mostra semente e resultado sem corrigir vínculos. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${rupturasCorretas &amp;&amp; espacamentosValidos ? 'APROVADO' : 'DIVERGENTE'} · seed de orientação ${sementeOrientacoes}; ${fixadores.filter((fixador) =&gt; fixador.estaRompido).length}/${idsDeFixadoresQueDevemRomper.size} rupturas esperadas; espaça… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>fixadores.every</code>; <code>grupos.every</code>; <code>fixadores.filter</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `fixadores.every`, `grupos.every`, `fixadores.filter`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0bba3566ae072405 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Compara rupturas com ids previstos e espaçamento de grupos íntegros com tolerância 0,02 m; mostra semente e resultado sem corrigir vínculos. @contract f-0bba3566ae072405 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -24484,15 +24484,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarColisaoFrontal:ArrowFunction</code> · [fonte L520](../../src/testes.ts#L520) |
 | Assinatura | <code> (): CenárioVisual</code> |
-| Responsabilidade | Dependências diretas: `MundoFisico`, `Objeto`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Monta dois cubos de 2 kg com velocidades iniciais opostas ±5 m/s, sem solo; denominação histórica elástica não substitui dissipação/arrasto do modelo compartilhado. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{<br>    nome: 'Colisão frontal elástica',<br>    descricao: 'Dois cubos resistentes de mesma massa devolvem impulso. O quique é calculado pela energia do impacto e resistência estrutural.',<br>    mundo,<br>    objetos: [esquerdo, direito],<br>    superf… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>MundoFisico</code>; <code>Objeto</code>; <code>Vetor3</code>; <code>mundo.registrarObjeto</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `MundoFisico`, `Objeto`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e19673e01b1a45ec */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Monta dois cubos de 2 kg com velocidades iniciais opostas ±5 m/s, sem solo; denominação histórica elástica não substitui dissipação/arrasto do modelo compartilhado. @contract f-e19673e01b1a45ec @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -24522,15 +24522,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarColisaoFrontal.validar:ArrowFunction</code> · [fonte L545](../../src/testes.ts#L545) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `esquerdo.getEstadoFisico`, `direito.getEstadoFisico`, `esquerdo.getEstadoFisico().velocidadeMps.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Verifica inversão dos sinais de Vx após encontro e relata velocidades; não comprova conservação de energia nem repouso. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${esquerdo.getEstadoFisico().velocidadeMps.x &lt; 0 &amp;&amp; direito.getEstadoFisico().velocidadeMps.x &gt; 0 ? 'APROVADO' : 'DIVERGENTE'} · velocidades x: ${esquerdo.getEstadoFisico().velocidadeMps.x.toFixed(2)} / ${direito.getEstadoFisico().velocida… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>esquerdo.getEstadoFisico</code>; <code>direito.getEstadoFisico</code>; <code>esquerdo.getEstadoFisico().velocidadeMps.x.toFixed</code>; <code>direito.getEstadoFisico().velocidadeMps.x.toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `esquerdo.getEstadoFisico`, `direito.getEstadoFisico`, `esquerdo.getEstadoFisico().velocidadeMps.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-456485f9a74eafaf */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Verifica inversão dos sinais de Vx após encontro e relata velocidades; não comprova conservação de energia nem repouso. @contract f-456485f9a74eafaf @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -24541,15 +24541,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteQuadradosEmpilhados:ArrowFunction</code> · [fonte L550](../../src/testes.ts#L550) |
 | Assinatura | <code> (tipo: "queda-conjunta" &#124; "queda-conjunta-superior-leve" &#124; "queda-sobre-apoio" &#124; "leve-sobre-pesado-apoiado" &#124; "quase-igual-sobre-apoiado"): CenárioVisual</code> |
-| Responsabilidade | Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Objeto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Monta dois corpos independentes no concreto, variando massas próximas/distintas e queda conjunta/sobre apoio; sem fixadores, resposta vem da cadeia de contatos. |
 | Entradas | <code>tipo: 'queda-conjunta' &#124; 'queda-conjunta-superior-leve' &#124; 'queda-sobre-apoio' &#124; 'leve-sobre-pesado-apoiado' &#124; 'quase-igual-sobre-apoiado'</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{<br>    nome: quaseIgual ? 'Quadrado de 0,99 kg sobre 1 kg apoiado — queda de 10 m' : leveSobrePesado ? 'Quadrado leve sobre pesado apoiado — queda de 10 m' : tipo === 'queda-sobre-apoio' ? 'Quadrado sobre quadrado apoiado — queda de 10 m' : … [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>MundoFisico</code>; <code>SuperficiePlano</code>; <code>Objeto</code>; <code>Vetor3</code>; <code>mundo.registrarSuperficie</code>; <code>mundo.registrarObjeto</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Objeto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-22ad3aa804f130e4 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Monta dois corpos independentes no concreto, variando massas próximas/distintas e queda conjunta/sobre apoio; sem fixadores, resposta vem da cadeia de contatos. @contract f-22ad3aa804f130e4 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -24560,15 +24560,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteQuadradosEmpilhados.deveEncerrar:ArrowFunction</code> · [fonte L583](../../src/testes.ts#L583) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Dependências diretas: `objetosEmRepouso`, `inferior.getEstadoFisico`, `superior.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Exige repouso compartilhado e posições Y sem penetrar os níveis de apoio de 0,5/1,5 m, tolerância 1e-8 m. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>objetosEmRepouso(mundo, [inferior, superior])<br>    &amp;&amp; inferior.getEstadoFisico().posicaoM.y &gt;= 0.5 - 1e-8<br>    &amp;&amp; superior.getEstadoFisico().posicaoM.y &gt;= 1.5 - 1e-8</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>objetosEmRepouso</code>; <code>inferior.getEstadoFisico</code>; <code>superior.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `objetosEmRepouso`, `inferior.getEstadoFisico`, `superior.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d0e1518807309979 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Exige repouso compartilhado e posições Y sem penetrar os níveis de apoio de 0,5/1,5 m, tolerância 1e-8 m. @contract f-d0e1518807309979 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -24579,15 +24579,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteQuadradosEmpilhados.validar:ArrowFunction</code> · [fonte L587](../../src/testes.ts#L587) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `superior.getEstadoFisico`, `inferior.getEstadoFisico`, `distanciaM.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Relata separação vertical e integridades; aprova separação mínima de 1 m com tolerância 1e-8 m, sem mover corpos. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${distanciaM &gt;= 1 - 1e-8 ? 'APROVADO' : 'DIVERGENTE'} · separação vertical ${distanciaM.toFixed(3)} m; integridade ${Math.round(inferior.integridadeEstrutural * 100)}% / ${Math.round(superior.integridadeEstrutural * 100)}%`</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>superior.getEstadoFisico</code>; <code>inferior.getEstadoFisico</code>; <code>distanciaM.toFixed</code>; <code>Math.round</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `superior.getEstadoFisico`, `inferior.getEstadoFisico`, `distanciaM.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3be35d81e9204ad0 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Relata separação vertical e integridades; aprova separação mínima de 1 m com tolerância 1e-8 m, sem mover corpos. @contract f-3be35d81e9204ad0 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -24598,15 +24598,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTestePilhaDezQuadradosAtingida:ArrowFunction</code> · [fonte L595](../../src/testes.ts#L595) |
 | Assinatura | <code> (exibirNaBancada?: boolean): CenárioVisual</code> |
-| Responsabilidade | Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Array.from`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Registra dez cubos soltos de 1 kg e projétil passivo de 2 kg a 10 m/s contra segundo elemento; transmite esforços apenas por contatos do core. |
 | Entradas | <code>exibirNaBancada = false</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{<br>    nome: 'Pilha de 10 quadrados — impacto no segundo elemento',<br>    descricao: 'Dez quadrados independentes, cada um com 1 kg e 1 × 1 m, estão apenas encostados sobre concreto: não há fixadores entre eles. Um quadrado de 2 kg vem pela es… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>MundoFisico</code>; <code>SuperficiePlano</code>; <code>Array.from</code>; <code>Objeto</code>; <code>Vetor3</code>; <code>mundo.registrarSuperficie</code>; <code>mundo.registrarObjeto</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Array.from`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-469e567265e56109 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Registra dez cubos soltos de 1 kg e projétil passivo de 2 kg a 10 m/s contra segundo elemento; transmite esforços apenas por contatos do core. @contract f-469e567265e56109 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -24636,15 +24636,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTestePilhaDezQuadradosAtingida.telemetria:ArrowFunction</code> · [fonte L634](../../src/testes.ts#L634) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `projetil.getEstadoFisico().velocidadeMps.x.toFixed`, `projetil.getEstadoFisico`, `segundoQuadrado.getEstadoFisico().posicaoM.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Consulta Vx do projétil e X do segundo cubo para acompanhar transferência de impulso. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`projetil ${projetil.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s · segundo quadrado x=${segundoQuadrado.getEstadoFisico().posicaoM.x.toFixed(2)} m`</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>projetil.getEstadoFisico().velocidadeMps.x.toFixed</code>; <code>projetil.getEstadoFisico</code>; <code>segundoQuadrado.getEstadoFisico().posicaoM.x.toFixed</code>; <code>segundoQuadrado.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `projetil.getEstadoFisico().velocidadeMps.x.toFixed`, `projetil.getEstadoFisico`, `segundoQuadrado.getEstadoFisico().posicaoM.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f7fe4737bfc25077 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta Vx do projétil e X do segundo cubo para acompanhar transferência de impulso. @contract f-f7fe4737bfc25077 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -24655,15 +24655,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTestePilhaDezQuadradosAtingida.dados:ArrowFunction</code> · [fonte L636](../../src/testes.ts#L636) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `(segundoQuadrado.getEstadoFisico().posicaoM.x - xDaPilhaM).toFixed`, `segundoQuadrado.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Formata configuração e deslocamento real do segundo elemento da pilha, explicitando ausência de fixadores. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Pilha: 10 corpos soltos de 1 kg\nProjétil: 2 kg, 1 × 1 m\nImpacto: segundo quadrado (altura 1,5 m)\nVelocidade inicial: 10,0 m/s\nFixadores: nenhum\nDeslocamento do segundo: ${(segundoQuadrado.getEstadoFisico().posicaoM.x - xDaPilhaM).toFi… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>(segundoQuadrado.getEstadoFisico().posicaoM.x - xDaPilhaM).toFixed</code>; <code>segundoQuadrado.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `(segundoQuadrado.getEstadoFisico().posicaoM.x - xDaPilhaM).toFixed`, `segundoQuadrado.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-025ab06a42ab29d3 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Formata configuração e deslocamento real do segundo elemento da pilha, explicitando ausência de fixadores. @contract f-025ab06a42ab29d3 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -24674,15 +24674,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTestePilhaDezQuadradosAtingida.validar:ArrowFunction</code> · [fonte L638](../../src/testes.ts#L638) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `segundoQuadrado.getEstadoFisico`, `deslocamentoSegundoM.toFixed`, `projetil.getEstadoFisico().velocidadeMps.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Observa transferência por deslocamento ou velocidade do segundo cubo acima de 0,05 m ou m/s; não encerra nem estabiliza a pilha. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${houveTransferencia ? 'APROVADO' : 'AGUARDANDO IMPACTO'} · segundo quadrado deslocou ${deslocamentoSegundoM.toFixed(3)} m; projétil ${projetil.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s; sem vínculos estruturais`</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>segundoQuadrado.getEstadoFisico</code>; <code>Math.abs</code>; <code>deslocamentoSegundoM.toFixed</code>; <code>projetil.getEstadoFisico().velocidadeMps.x.toFixed</code>; <code>projetil.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `segundoQuadrado.getEstadoFisico`, `deslocamentoSegundoM.toFixed`, `projetil.getEstadoFisico().velocidadeMps.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-05506179a6be9ef8 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Observa transferência por deslocamento ou velocidade do segundo cubo acima de 0,05 m ou m/s; não encerra nem estabiliza a pilha. @contract f-05506179a6be9ef8 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -24769,15 +24769,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTestePilhaEstruturalDezCubos.telemetria:ArrowFunction</code> · [fonte L691](../../src/testes.ts#L691) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `cuboSuperior.getEstadoFisico().posicaoM.y.toFixed`, `cuboSuperior.getEstadoFisico`, `fixadores.filter`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Resume altura do cubo superior e quantidade de fixadores íntegros da ilha. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`topo y=${cuboSuperior.getEstadoFisico().posicaoM.y.toFixed(2)} m · fixadores íntegros ${fixadores.filter((fixador) =&gt; !fixador.estaRompido).length}/${fixadores.length}`</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>cuboSuperior.getEstadoFisico().posicaoM.y.toFixed</code>; <code>cuboSuperior.getEstadoFisico</code>; <code>fixadores.filter</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `cuboSuperior.getEstadoFisico().posicaoM.y.toFixed`, `cuboSuperior.getEstadoFisico`, `fixadores.filter`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6fb9189ecfe71eb9 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Resume altura do cubo superior e quantidade de fixadores íntegros da ilha. @contract f-6fb9189ecfe71eb9 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -24788,15 +24788,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTestePilhaEstruturalDezCubos.dados:ArrowFunction</code> · [fonte L693](../../src/testes.ts#L693) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `cuboSuperior.getEstadoFisico().posicaoM.y.toFixed`, `cuboSuperior.getEstadoFisico`, `fixadores.every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Descreve dez massas, resistências de vínculos/chumbador e altura/topologia atuais; não cria apoio adicional. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Cubos: 10 × (1 × 1 × 1 m; 1 kg)\nFixadores: ${fixadores.length}, resistência de 100.000 N cada\nBase: cubo 1 preso ao concreto por chumbador de 100.000 N (${chumbadorDaBase.estaRompido ? 'ROMPIDO' : 'íntegro'})\nTopo: ${cuboSuperior.getEst… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>cuboSuperior.getEstadoFisico().posicaoM.y.toFixed</code>; <code>cuboSuperior.getEstadoFisico</code>; <code>fixadores.every</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `cuboSuperior.getEstadoFisico().posicaoM.y.toFixed`, `cuboSuperior.getEstadoFisico`, `fixadores.every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ab8e04be20d92ae9 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Descreve dez massas, resistências de vínculos/chumbador e altura/topologia atuais; não cria apoio adicional. @contract f-ab8e04be20d92ae9 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -24807,15 +24807,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTestePilhaEstruturalDezCubos.validar:ArrowFunction</code> · [fonte L695](../../src/testes.ts#L695) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `fixadores.every`, `cuboSuperior.getEstadoFisico`, `cuboSuperior.getEstadoFisico().posicaoM.y.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Exige fixadores íntegros e topo em 9,5 m dentro de 1e-12 m; diagnóstico do ensaio ancorado, sem qualificar colisões gerais. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${fixadores.every((fixador) =&gt; !fixador.estaRompido) &amp;&amp; Math.abs(cuboSuperior.getEstadoFisico().posicaoM.y - 9.5) &lt; 1e-12 ? 'APROVADO' : 'DIVERGENTE'} · topo ${cuboSuperior.getEstadoFisico().posicaoM.y.toFixed(3)} m; fixadores ${fixadores.… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>fixadores.every</code>; <code>Math.abs</code>; <code>cuboSuperior.getEstadoFisico</code>; <code>cuboSuperior.getEstadoFisico().posicaoM.y.toFixed</code>; <code>fixadores.filter</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `fixadores.every`, `cuboSuperior.getEstadoFisico`, `cuboSuperior.getEstadoFisico().posicaoM.y.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-983e04aeb4f840d3 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Exige fixadores íntegros e topo em 9,5 m dentro de 1e-12 m; diagnóstico do ensaio ancorado, sem qualificar colisões gerais. @contract f-983e04aeb4f840d3 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -24978,15 +24978,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.dados:ArrowFunction</code> · [fonte L790](../../src/testes.ts#L790) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `cuboAlvo.getEstadoFisico().posicaoM.subtrair(propulsor.getEstadoFisico().posicaoM).magnitude.toFixed`, `cuboAlvo.getEstadoFisico().posicaoM.subtrair`, `cuboAlvo.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Formata aquecimento dos cubos vizinhos/alvo, integridade, potência térmica e condição de vínculos/ancoragens. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`MODALIDADE: TÉRMICA\nAlvo: cubo 6, a ${cuboAlvo.getEstadoFisico().posicaoM.subtrair(propulsor.getEstadoFisico().posicaoM).magnitude.toFixed(1)} m do propulsor\nMontagem: motor e tanque presos a suporte chumbado ao concreto\nTemperatura cub… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>cuboAlvo.getEstadoFisico().posicaoM.subtrair(propulsor.getEstadoFisico().posicaoM).magnitude.toFixed</code>; <code>cuboAlvo.getEstadoFisico().posicaoM.subtrair</code>; <code>cuboAlvo.getEstadoFisico</code>; <code>propulsor.getEstadoFisico</code>; <code>cubos[4].temperaturaC.toFixed</code>; <code>cuboAlvo.temperaturaC.toFixed</code>; <code>cubos[6].temperaturaC.toFixed</code>; <code>(cuboAlvo.integridadeEstrutural * 100).toFixed</code>; <code>propulsor.empuxoAtualN.toFixed</code>; <code>(propulsor.potenciaTermicaAtualW / 1000000).toFixed</code>; <code>fixadores.filter</code>; <code>fixadoresDoSuporte.filter</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `cuboAlvo.getEstadoFisico().posicaoM.subtrair(propulsor.getEstadoFisico().posicaoM).magnitude.toFixed`, `cuboAlvo.getEstadoFisico().posicaoM.subtrair`, `cuboAlvo.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-608e7f34d5da17cb */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Formata aquecimento dos cubos vizinhos/alvo, integridade, potência térmica e condição de vínculos/ancoragens. @contract f-608e7f34d5da17cb @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25016,15 +25016,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.validar:ArrowFunction</code> · [fonte L794](../../src/testes.ts#L794) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `cuboAlvo.temperaturaC.toFixed`, `(cuboAlvo.integridadeEstrutural * 100).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Aprova observação de temperatura acima de 20 °C com perda mensurável de integridade do cubo alvo; não aplica calor nem dano aqui. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${cuboAlvo.temperaturaC &gt; 20 &amp;&amp; cuboAlvo.integridadeEstrutural &lt; 1 ? 'APROVADO' : 'AQUECENDO'} · cubo 6: ${cuboAlvo.temperaturaC.toFixed(1)} °C; integridade ${(cuboAlvo.integridadeEstrutural * 100).toFixed(1)}%`</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>cuboAlvo.temperaturaC.toFixed</code>; <code>(cuboAlvo.integridadeEstrutural * 100).toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `cuboAlvo.temperaturaC.toFixed`, `(cuboAlvo.integridadeEstrutural * 100).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-324bdcf1ea9e1dae */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Aprova observação de temperatura acima de 20 °C com perda mensurável de integridade do cubo alvo; não aplica calor nem dano aqui. @contract f-324bdcf1ea9e1dae @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25035,15 +25035,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarColisaoPorResistencia:ArrowFunction</code> · [fonte L799](../../src/testes.ts#L799) |
 | Assinatura | <code> (resistenciaJ: number): CenárioVisual</code> |
-| Responsabilidade | Dependências diretas: `MundoFisico`, `criarColisor`, `mundo.registrarObjeto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Monta colisão de cubos de 2 kg a ±10 m/s com resistência em J fornecida para comparar dano; sem chão ou propulsão contínua. |
 | Entradas | <code>resistenciaJ: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{<br>    nome: `Resistência a colisão — ${resistenciaJ} J`,<br>    descricao: 'Colisão com energia aproximada de 200 J. Compare a integridade resultante com o limite estrutural de cada objeto.',<br>    mundo,<br>    objetos: [esquerdo, direito],<br>    su… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>MundoFisico</code>; <code>criarColisor</code>; <code>mundo.registrarObjeto</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `MundoFisico`, `criarColisor`, `mundo.registrarObjeto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-9d873142be7398e9 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Monta colisão de cubos de 2 kg a ±10 m/s com resistência em J fornecida para comparar dano; sem chão ou propulsão contínua. @contract f-9d873142be7398e9 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25054,15 +25054,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarColisaoPorResistencia.criarColisor:ArrowFunction</code> · [fonte L802](../../src/testes.ts#L802) |
 | Assinatura | <code> (id: string, x: number, velocidadeX: number): Objeto</code> |
-| Responsabilidade | Dependências diretas: `Objeto`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Cria cubo com resistência comum, posição X m e velocidade X m/s iniciais; não registra nem dispara força contínua. |
 | Entradas | <code>id: string</code>; <code>x: number</code>; <code>velocidadeX: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Objeto</code>; expressões retornadas: <code>new Objeto({<br>    id, massaBaseKg: 2, dimensoesM: new Vetor3(1, 1, 1),<br>    resistenciaColisaoJ: resistenciaJ, limiteTermicoC: 1000,<br>    estadoInicial: { posicaoM: new Vetor3(x, 1, 0), velocidadeMps: new Vetor3(velocidadeX, 0, 0) },<br>})</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Objeto</code>; <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `Objeto`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8ee50490a90c7a83 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Cria cubo com resistência comum, posição X m e velocidade X m/s iniciais; não registra nem dispara força contínua. @contract f-8ee50490a90c7a83 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25111,15 +25111,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarColisaoComTorque:ArrowFunction</code> · [fonte L827](../../src/testes.ts#L827) |
 | Assinatura | <code> (): CenárioVisual</code> |
-| Responsabilidade | Dependências diretas: `MundoFisico`, `Objeto`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Monta retângulos de 10 kg, 3×1 m e velocidades opostas com desnível de 0,05 m para observar impulso excêntrico e rotação. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{<br>    nome: 'Colisão com torque — base tripla',<br>    descricao: 'Retângulos de 3 × 1 m colidem fora do centro de massa. O impulso cria velocidade angular.',<br>    mundo,<br>    objetos: [esquerdo, direito],<br>    superficies: [],<br>    velocidadeTemp… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>MundoFisico</code>; <code>Objeto</code>; <code>Vetor3</code>; <code>mundo.registrarObjeto</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `MundoFisico`, `Objeto`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-69299328e68e3692 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Monta retângulos de 10 kg, 3×1 m e velocidades opostas com desnível de 0,05 m para observar impulso excêntrico e rotação. @contract f-69299328e68e3692 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25149,15 +25149,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarColisaoComTorque.validar:ArrowFunction</code> · [fonte L852](../../src/testes.ts#L852) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Devolve ``${giro &gt; 0.01 ? 'APROVADO' : 'DIVERGENTE'} · velocidade angular total ${giro.toFixed(3)} rad/s``. Dependências diretas: `esquerdo.getEstadoFisico`, `direito.getEstadoFisico`, `giro.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Aprova soma dos módulos de ωZ acima de 0,01 rad/s e relata giro; não altera orientação nem exige estado final. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${giro &gt; 0.01 ? 'APROVADO' : 'DIVERGENTE'} · velocidade angular total ${giro.toFixed(3)} rad/s`</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.abs</code>; <code>esquerdo.getEstadoFisico</code>; <code>direito.getEstadoFisico</code>; <code>giro.toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve ``${giro &gt; 0.01 ? 'APROVADO' : 'DIVERGENTE'} · velocidade angular total ${giro.toFixed(3)} rad/s``. Dependências diretas: `esquerdo.getEstadoFisico`, `direito.getEstadoFisico`, `giro.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-36c7690734a52f73 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Aprova soma dos módulos de ωZ acima de 0,01 rad/s e relata giro; não altera orientação nem exige estado final. @contract f-36c7690734a52f73 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25168,15 +25168,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteImpactoNoRetangulo:ArrowFunction</code> · [fonte L860](../../src/testes.ts#L860) |
 | Assinatura | <code> (nomeDoImpacto: string, alturaDeImpactoM: number, indice: number): CenárioVisual</code> |
-| Responsabilidade | Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Objeto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Monta alvo alto de 10 kg sobre concreto e projétil passivo de 1 kg a 20 m/s na altura indicada; permite comparar impacto central/acima/abaixo sem motor. |
 | Entradas | <code>nomeDoImpacto: string</code>; <code>alturaDeImpactoM: number</code>; <code>indice: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{<br>    nome: `Retângulo — ${nomeDoImpacto}`,<br>    descricao: `Retângulo de 1 × 10 m e 10 kg sobre concreto. Um quadrado passivo de 1 × 1 m e 1 kg é disparado horizontalmente a ${alturaDeImpactoM.toFixed(2)} m; após o impulso inicial, atua ape… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>MundoFisico</code>; <code>SuperficiePlano</code>; <code>Objeto</code>; <code>Vetor3</code>; <code>mundo.registrarSuperficie</code>; <code>mundo.registrarObjeto</code>; <code>alturaDeImpactoM.toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Objeto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f00cc81d6d6940d8 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Monta alvo alto de 10 kg sobre concreto e projétil passivo de 1 kg a 20 m/s na altura indicada; permite comparar impacto central/acima/abaixo sem motor. @contract f-f00cc81d6d6940d8 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25187,15 +25187,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteImpactoNoRetangulo.deveEncerrar:ArrowFunction</code> · [fonte L888](../../src/testes.ts#L888) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Dependências diretas: `[retangulo, quadrado].every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Exige ambos próximos do solo e velocidades linear/angular até 0,05 SI; proximidade usa meia altura fixa, limitação do critério legado após rotação. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>[retangulo, quadrado].every((objeto) =&gt; {<br>    const estado = objeto.getEstadoFisico();<br>    const apoiado = estado.posicaoM.y &lt;= solo.alturaM + objeto.dimensoesM.y / 2 + 0.01;<br>    return apoiado &amp;&amp; estado.velocidadeMps.magnitude &lt;= 0.05 &amp;&amp; e… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>[retangulo, quadrado].every</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `[retangulo, quadrado].every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7b59fe12d19933f9 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Exige ambos próximos do solo e velocidades linear/angular até 0,05 SI; proximidade usa meia altura fixa, limitação do critério legado após rotação. @contract f-7b59fe12d19933f9 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25206,15 +25206,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteImpactoNoRetangulo.validar:ArrowFunction</code> · [fonte L894](../../src/testes.ts#L894) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `retangulo.getEstadoFisico`, `quadrado.getEstadoFisico`, `giroRadps.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Exige quique do projétil e ausência/presença de giro acima de 0,01 rad/s conforme altura central de 5 m ou excêntrica; avaliação consulta estado atual. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${aprovado ? 'APROVADO' : 'DIVERGENTE'} · rotação ${giroRadps.toFixed(3)} rad/s; velocidade final do quadrado ${velocidadeDoQuadradoMps.toFixed(2)} m/s; ${efeitoEsperado}`</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>retangulo.getEstadoFisico</code>; <code>quadrado.getEstadoFisico</code>; <code>Math.abs</code>; <code>giroRadps.toFixed</code>; <code>velocidadeDoQuadradoMps.toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `retangulo.getEstadoFisico`, `quadrado.getEstadoFisico`, `giroRadps.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f8366873efbab1c8 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Exige quique do projétil e ausência/presença de giro acima de 0,01 rad/s conforme altura central de 5 m ou excêntrica; avaliação consulta estado atual. @contract f-f8366873efbab1c8 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25225,15 +25225,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteParaquedas:ArrowFunction</code> · [fonte L910](../../src/testes.ts#L910) |
 | Assinatura | <code> (): CenárioVisual</code> |
-| Responsabilidade | Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Objeto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Monta queda de 1000 m em atmosfera 1,225 kg/m³ com dossel de 25 m² e comando de abertura a 200 m; desaceleração permanece no arrasto do core. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{<br>    nome: 'Paraquedas — queda de 1.000 m, abertura a 200 m',<br>    descricao: 'Quadrado de 10 kg cai em atmosfera padrão. Ao atingir 200 m acima do solo, o paraquedas de 25 m² é acionado; ele aumenta o arrasto efetivo e reduz a velocidade v… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>MundoFisico</code>; <code>SuperficiePlano</code>; <code>Objeto</code>; <code>Vetor3</code>; <code>quadrado.acoplarParaquedas</code>; <code>Paraquedas</code>; <code>mundo.registrarObjeto</code>; <code>mundo.registrarSuperficie</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Objeto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8932613c77dd0f17 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Monta queda de 1000 m em atmosfera 1,225 kg/m³ com dossel de 25 m² e comando de abertura a 200 m; desaceleração permanece no arrasto do core. @contract f-8932613c77dd0f17 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25244,15 +25244,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteParaquedas.atualizarControle:ArrowFunction</code> · [fonte L927](../../src/testes.ts#L927) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | Dependências diretas: `quadrado.getEstadoFisico`, `quadrado.acionarParaquedas`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Ao passar Y=200 m pela primeira vez com dossel fechado, registra altura/Vy e solicita abertura; não reduz velocidade diretamente. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>alturaDeAberturaM</code>; <code>velocidadeAntesDaAberturaMps</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>quadrado.getEstadoFisico</code>; <code>quadrado.acionarParaquedas</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!quadrado.paraquedasEstaAberto &amp;&amp; estado.posicaoM.y &lt;= 200</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `quadrado.getEstadoFisico`, `quadrado.acionarParaquedas`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a1c2b5b101617fbd */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Ao passar Y=200 m pela primeira vez com dossel fechado, registra altura/Vy e solicita abertura; não reduz velocidade diretamente. @contract f-a1c2b5b101617fbd @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25282,15 +25282,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteParaquedas.dados:ArrowFunction</code> · [fonte L938](../../src/testes.ts#L938) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `quadrado.getEstadoFisico().posicaoM.y.toFixed`, `quadrado.getEstadoFisico`, `quadrado.getEstadoFisico().velocidadeMps.y.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Formata altura/Vy atuais, abertura real e medidas registradas no comando do dossel. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Altura: ${quadrado.getEstadoFisico().posicaoM.y.toFixed(1)} m\nVelocidade vertical: ${quadrado.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s\nParaquedas: ${quadrado.paraquedasEstaAberto ? 'ABERTO' : 'fechado'}\nAbertura: ${alturaDeAber… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>quadrado.getEstadoFisico().posicaoM.y.toFixed</code>; <code>quadrado.getEstadoFisico</code>; <code>quadrado.getEstadoFisico().velocidadeMps.y.toFixed</code>; <code>alturaDeAberturaM?.toFixed</code>; <code>velocidadeAntesDaAberturaMps?.toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `quadrado.getEstadoFisico().posicaoM.y.toFixed`, `quadrado.getEstadoFisico`, `quadrado.getEstadoFisico().velocidadeMps.y.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b8975f70d228ec2c */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Formata altura/Vy atuais, abertura real e medidas registradas no comando do dossel. @contract f-b8975f70d228ec2c @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25320,15 +25320,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteParaquedas.validar:ArrowFunction</code> · [fonte L942](../../src/testes.ts#L942) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `(alturaDeAberturaM ?? 0).toFixed`, `quadrado.getEstadoFisico().velocidadeMps.y.toFixed`, `quadrado.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Exige dossel aberto e Vy de abertura abaixo de -5 m/s; relata velocidade final sem afirmar homologação de pouso. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${quadrado.paraquedasEstaAberto &amp;&amp; (velocidadeAntesDaAberturaMps ?? 0) &lt; -5 ? 'APROVADO' : 'DIVERGENTE'} · abertura a ${(alturaDeAberturaM ?? 0).toFixed(1)} m; velocidade vertical final ${quadrado.getEstadoFisico().velocidadeMps.y.toFixed(… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>(alturaDeAberturaM ?? 0).toFixed</code>; <code>quadrado.getEstadoFisico().velocidadeMps.y.toFixed</code>; <code>quadrado.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `(alturaDeAberturaM ?? 0).toFixed`, `quadrado.getEstadoFisico().velocidadeMps.y.toFixed`, `quadrado.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d39419a1cb33cb6a */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Exige dossel aberto e Vy de abertura abaixo de -5 m/s; relata velocidade final sem afirmar homologação de pouso. @contract f-d39419a1cb33cb6a @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25339,15 +25339,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteAreaDeContato:ArrowFunction</code> · [fonte L947](../../src/testes.ts#L947) |
 | Assinatura | <code> (): CenárioVisual</code> |
-| Responsabilidade | Dependências diretas: `MundoFisico`, `criarObjetoComArea`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Monta queda atmosférica de duas massas de 10 kg com áreas 100 e 1 m², sem superfície de solo; compara arrasto sem tratar área como massa. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{<br>    nome: 'Arrasto atmosférico — 100 m² × 1 m²',<br>    descricao: 'Dois objetos de 10 kg caem no ar a 1,225 kg/m³. O retângulo roxo tem 100 m² de área frontal; o azul, 1 m².',<br>    mundo,<br>    objetos: [areaGrande, areaPequena],<br>    superfici… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>MundoFisico</code>; <code>criarObjetoComArea</code>; <code>Vetor3</code>; <code>mundo.registrarObjeto</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `MundoFisico`, `criarObjetoComArea`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-78560aec215c531c */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Monta queda atmosférica de duas massas de 10 kg com áreas 100 e 1 m², sem superfície de solo; compara arrasto sem tratar área como massa. @contract f-78560aec215c531c @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25358,15 +25358,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteAreaDeContato.criarObjetoComArea:ArrowFunction</code> · [fonte L950](../../src/testes.ts#L950) |
 | Assinatura | <code> (id: string, x: number, areaFrontalM2: number, dimensoesM: Vetor3): Objeto</code> |
-| Responsabilidade | Dependências diretas: `Objeto`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Cria corpo de 10 kg na altura inicial de 100 m com dimensões/área frontal fornecidas e Cd=1. |
 | Entradas | <code>id: string</code>; <code>x: number</code>; <code>areaFrontalM2: number</code>; <code>dimensoesM: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Objeto</code>; expressões retornadas: <code>new Objeto({<br>    id, massaBaseKg: 10, dimensoesM, resistenciaColisaoJ: 10000, limiteTermicoC: 1000,<br>    areaFrontalM2, coeficienteArrasto: 1,<br>    estadoInicial: { posicaoM: new Vetor3(x, 100, 0) },<br>})</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Objeto</code>; <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `Objeto`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b348e63520dd9538 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Cria corpo de 10 kg na altura inicial de 100 m com dimensões/área frontal fornecidas e Cd=1. @contract f-b348e63520dd9538 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25396,15 +25396,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteAreaDeContato.validar:ArrowFunction</code> · [fonte L970](../../src/testes.ts#L970) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `areaGrande.getEstadoFisico`, `areaPequena.getEstadoFisico`, `velocidadeGrande.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Compara módulos de Vy e aprova corpo de maior área descendo mais lentamente; consulta instantânea, sem integrar previsão. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${velocidadeGrande &lt; velocidadePequena ? 'APROVADO' : 'DIVERGENTE'} · 100 m²: ${velocidadeGrande.toFixed(2)} m/s · 1 m²: ${velocidadePequena.toFixed(2)} m/s`</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.abs</code>; <code>areaGrande.getEstadoFisico</code>; <code>areaPequena.getEstadoFisico</code>; <code>velocidadeGrande.toFixed</code>; <code>velocidadePequena.toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `areaGrande.getEstadoFisico`, `areaPequena.getEstadoFisico`, `velocidadeGrande.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ee3cf207c6cbdabd */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Compara módulos de Vy e aprova corpo de maior área descendo mais lentamente; consulta instantânea, sem integrar previsão. @contract f-ee3cf207c6cbdabd @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25415,15 +25415,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarVeiculoTerrestre:ArrowFunction</code> · [fonte L979](../../src/testes.ts#L979) |
 | Assinatura | <code> (id: string, x: number, velocidadeX?: number, coeficienteAtritoEntreObjetos?: number): VeiculoTerrestre</code> |
-| Responsabilidade | Dependências diretas: `VeiculoTerrestre`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Cria veículo de 1500 kg, quatro rodas, limites de tração/freio e aderência históricos; recebe posição/velocidade X iniciais e atrito entre objetos. |
 | Entradas | <code>id: string</code>; <code>x: number</code>; <code>velocidadeX = 0</code>; <code>coeficienteAtritoEntreObjetos = 0</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>VeiculoTerrestre</code>; expressões retornadas: <code>new VeiculoTerrestre({<br>    id,<br>    massaBaseKg: 1500,<br>    dimensoesM: new Vetor3(4, 1.5, 1.8),<br>    resistenciaColisaoJ: 50000,<br>    limiteTermicoC: 1000,<br>    quantidadeRodas: 4,<br>    forcaTracaoMaximaN: 4500,<br>    forcaFrenagemMaximaN: 9000,<br> … [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>VeiculoTerrestre</code>; <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `VeiculoTerrestre`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d438adb1c19da010 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Cria veículo de 1500 kg, quatro rodas, limites de tração/freio e aderência históricos; recebe posição/velocidade X iniciais e atrito entre objetos. @contract f-d438adb1c19da010 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25434,15 +25434,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteVeiculoTerrestre:ArrowFunction</code> · [fonte L996](../../src/testes.ts#L996) |
 | Assinatura | <code> (tipo: "aceleracao" &#124; "frenagem" &#124; "colisao"): CenárioVisual</code> |
-| Responsabilidade | Dependências diretas: `MundoFisico`, `SuperficiePlano`, `criarVeiculoTerrestre`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Registra veículo sobre pista e configura variante de aceleração, frenagem desde 12 m/s ou colisão contra parede móvel de 4000 kg; comandos geram forças do domínio. |
 | Entradas | <code>tipo: 'aceleracao' &#124; 'frenagem' &#124; 'colisao'</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{<br>    nome: 'Veículo com rodas — aceleração',<br>    descricao: 'Veículo terrestre de 1.500 kg, quatro rodas e tração máxima de 4.500 N. A aderência dos pneus limita a força; o core integra o deslocamento sobre a pista.',<br>    mundo, objetos: [… [continua na fonte]</code>; <code>{<br>    nome: 'Veículo com rodas — frenagem',<br>    descricao: 'O mesmo veículo de 1.500 kg inicia a 12 m/s. Os freios geram uma força oposta ao movimento, também limitada pela aderência dos pneus.',<br>    mundo, objetos: [veiculo], superficies: … [continua na fonte]</code>; <code>{<br>    nome: 'Veículo com rodas — colisão contra parede de 4.000 kg',<br>    descricao: 'Veículo de 1.500 kg acelera pela própria tração em direção a uma parede retangular móvel de 4.000 kg. A colisão deve transferir impulso à parede; ela não é… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>MundoFisico</code>; <code>SuperficiePlano</code>; <code>criarVeiculoTerrestre</code>; <code>mundo.registrarSuperficie</code>; <code>mundo.registrarObjeto</code>; <code>veiculo.definirComandoTracao</code>; <code>veiculo.definirComandoFreio</code>; <code>Objeto</code>; <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>tipo === 'aceleracao'</code>; <code>tipo === 'frenagem'</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `criarVeiculoTerrestre`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a55798ad7c842b5b */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Registra veículo sobre pista e configura variante de aceleração, frenagem desde 12 m/s ou colisão contra parede móvel de 4000 kg; comandos geram forças do domínio. @contract f-a55798ad7c842b5b @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25472,15 +25472,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteVeiculoTerrestre.validar:ArrowFunction</code> · [fonte L1012](../../src/testes.ts#L1012) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `veiculo.getEstadoFisico`, `estado.velocidadeMps.x.toFixed`, `estado.posicaoM.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Avalia variante correspondente: aceleração Vx&gt;5 m/s, frenagem 0≤Vx&lt;6 m/s, ou parede móvel Vx&gt;0,05 m/s; retorna texto, sem impor velocidade. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${estado.velocidadeMps.x &gt; 5 ? 'APROVADO' : 'DIVERGENTE'} · velocidade ${estado.velocidadeMps.x.toFixed(2)} m/s; deslocamento ${estado.posicaoM.x.toFixed(2)} m; massa ${veiculo.massaKg.toLocaleString('pt-BR')} kg`</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>veiculo.getEstadoFisico</code>; <code>estado.velocidadeMps.x.toFixed</code>; <code>estado.posicaoM.x.toFixed</code>; <code>veiculo.massaKg.toLocaleString</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `veiculo.getEstadoFisico`, `estado.velocidadeMps.x.toFixed`, `estado.posicaoM.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a29fedf29d6843e6 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Avalia variante correspondente: aceleração Vx&gt;5 m/s, frenagem 0≤Vx&lt;6 m/s, ou parede móvel Vx&gt;0,05 m/s; retorna texto, sem impor velocidade. @contract f-a29fedf29d6843e6 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25510,15 +25510,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteVeiculoTerrestre.validar:ArrowFunction#2</code> · [fonte L1028](../../src/testes.ts#L1028) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Devolve ``${velocidade &gt;= 0 &amp;&amp; velocidade &lt; 6 ? 'APROVADO' : 'DIVERGENTE'} · velocidade inicial 12,00 m/s; final ${velocidade.toFixed(2)} m/s``. Dependências diretas: `veiculo.getEstadoFisico`, `velocidade.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Avalia variante correspondente: aceleração Vx&gt;5 m/s, frenagem 0≤Vx&lt;6 m/s, ou parede móvel Vx&gt;0,05 m/s; retorna texto, sem impor velocidade. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${velocidade &gt;= 0 &amp;&amp; velocidade &lt; 6 ? 'APROVADO' : 'DIVERGENTE'} · velocidade inicial 12,00 m/s; final ${velocidade.toFixed(2)} m/s`</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>veiculo.getEstadoFisico</code>; <code>velocidade.toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve ``${velocidade &gt;= 0 &amp;&amp; velocidade &lt; 6 ? 'APROVADO' : 'DIVERGENTE'} · velocidade inicial 12,00 m/s; final ${velocidade.toFixed(2)} m/s``. Dependências diretas: `veiculo.getEstadoFisico`, `velocidade.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7bf545a865c8b3f1 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Avalia variante correspondente: aceleração Vx&gt;5 m/s, frenagem 0≤Vx&lt;6 m/s, ou parede móvel Vx&gt;0,05 m/s; retorna texto, sem impor velocidade. @contract f-7bf545a865c8b3f1 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25548,15 +25548,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteVeiculoTerrestre.validar:ArrowFunction#3</code> · [fonte L1049](../../src/testes.ts#L1049) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `parede.getEstadoFisico`, `veiculo.getEstadoFisico`, `velocidadeParede.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Avalia variante correspondente: aceleração Vx&gt;5 m/s, frenagem 0≤Vx&lt;6 m/s, ou parede móvel Vx&gt;0,05 m/s; retorna texto, sem impor velocidade. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${velocidadeParede &gt; 0.05 ? 'APROVADO' : 'DIVERGENTE'} · parede: ${velocidadeParede.toFixed(2)} m/s; veículo após impacto: ${velocidadeVeiculo.toFixed(2)} m/s; parede deslocada ${(parede.getEstadoFisico().posicaoM.x - 16).toFixed(3)} m`</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>parede.getEstadoFisico</code>; <code>veiculo.getEstadoFisico</code>; <code>velocidadeParede.toFixed</code>; <code>velocidadeVeiculo.toFixed</code>; <code>(parede.getEstadoFisico().posicaoM.x - 16).toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `parede.getEstadoFisico`, `veiculo.getEstadoFisico`, `velocidadeParede.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-66e497ad71cbe410 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Avalia variante correspondente: aceleração Vx&gt;5 m/s, frenagem 0≤Vx&lt;6 m/s, ou parede móvel Vx&gt;0,05 m/s; retorna texto, sem impor velocidade. @contract f-66e497ad71cbe410 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25567,15 +25567,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteVeiculoContraRampa30Graus:ArrowFunction</code> · [fonte L1058](../../src/testes.ts#L1058) |
 | Assinatura | <code> (velocidadeInicialMps: number): CenárioVisual</code> |
-| Responsabilidade | Dependências diretas: `MundoFisico`, `SuperficiePlano`, `criarVeiculoTerrestre`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Monta veículo com velocidade inicial fornecida e tração ativa contra rampa triangular móvel de 4000 kg/30°, registrada como objeto geométrico real. |
 | Entradas | <code>velocidadeInicialMps: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{<br>    nome: `Veículo com rodas — rampa triangular a 30° (${velocidadeInicialMps} m/s)`,<br>    descricao: `Veículo de 1.500 kg parte de ${velocidadeInicialMps} m/s e continua acelerando pela pista até uma rampa triangular reta de 4.000 kg. A h… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>MundoFisico</code>; <code>SuperficiePlano</code>; <code>criarVeiculoTerrestre</code>; <code>Math.tan</code>; <code>ObjetoTriangularRetangulo</code>; <code>Vetor3</code>; <code>mundo.registrarSuperficie</code>; <code>mundo.registrarObjeto</code>; <code>veiculo.definirComandoTracao</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `criarVeiculoTerrestre`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7a67283f8ce0fb41 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Monta veículo com velocidade inicial fornecida e tração ativa contra rampa triangular móvel de 4000 kg/30°, registrada como objeto geométrico real. @contract f-7a67283f8ce0fb41 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25605,15 +25605,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteVeiculoContraRampa30Graus.validar:ArrowFunction</code> · [fonte L1080](../../src/testes.ts#L1080) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `rampa.getEstadoFisico`, `velocidadeRampa.toFixed`, `veiculo.getEstadoFisico().velocidadeMps.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Aprova transferência quando rampa tem Vx&gt;0,05 m/s; relata integridade do veículo sem declarar transposição da rampa. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${velocidadeRampa &gt; 0.05 ? 'APROVADO' : 'DIVERGENTE'} · inclinação 30°; rampa ${velocidadeRampa.toFixed(2)} m/s; veículo ${veiculo.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s; integridade ${Math.round(veiculo.integridadeEstrutural * … [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>rampa.getEstadoFisico</code>; <code>velocidadeRampa.toFixed</code>; <code>veiculo.getEstadoFisico().velocidadeMps.x.toFixed</code>; <code>veiculo.getEstadoFisico</code>; <code>Math.round</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `rampa.getEstadoFisico`, `velocidadeRampa.toFixed`, `veiculo.getEstadoFisico().velocidadeMps.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-41d9e16f937eef16 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Aprova transferência quando rampa tem Vx&gt;0,05 m/s; relata integridade do veículo sem declarar transposição da rampa. @contract f-41d9e16f937eef16 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25624,15 +25624,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteVeiculoAlado:ArrowFunction</code> · [fonte L1088](../../src/testes.ts#L1088) |
 | Assinatura | <code> (): CenárioVisual</code> |
-| Responsabilidade | Dependências diretas: `MundoFisico`, `SuperficiePlano`, `VeiculoAlado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Registra veículo alado com asa e rodas reais; tração inicial, corte acima de 1 m e freio no retorno são comandos condicionados ao estado físico. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{<br>    nome: 'Veículo alado — decolagem a 1 m e retorno',<br>    descricao: 'Veículo de 1.500 kg acelera progressivamente; a asa gera sustentação. Ao ultrapassar 1 m de altura, a tração é desligada. Ao retornar à pista, inicia frenagem pelas ro… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>MundoFisico</code>; <code>SuperficiePlano</code>; <code>VeiculoAlado</code>; <code>Vetor3</code>; <code>mundo.registrarSuperficie</code>; <code>mundo.registrarObjeto</code>; <code>veiculo.definirComandoTracao</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `VeiculoAlado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ba0a81a527cb57a2 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Registra veículo alado com asa e rodas reais; tração inicial, corte acima de 1 m e freio no retorno são comandos condicionados ao estado físico. @contract f-ba0a81a527cb57a2 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25643,15 +25643,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteVeiculoAlado.atualizarControle:ArrowFunction</code> · [fonte L1110](../../src/testes.ts#L1110) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | Dependências diretas: `veiculo.getEstadoFisico`, `veiculo.definirComandoTracao`, `veiculo.definirComandoFreio`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Uma vez acima de Y=1 m retira tração; ao retornar abaixo de 0,77 m descendo registra retorno e solicita freio, sem manipular altitude. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>tracaoDesligada</code>; <code>pousou</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>veiculo.getEstadoFisico</code>; <code>veiculo.definirComandoTracao</code>; <code>veiculo.definirComandoFreio</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!tracaoDesligada &amp;&amp; estado.posicaoM.y &gt;= 1</code>; <code>tracaoDesligada &amp;&amp; estado.posicaoM.y &lt;= 0.77 &amp;&amp; estado.velocidadeMps.y &lt;= 0</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `veiculo.getEstadoFisico`, `veiculo.definirComandoTracao`, `veiculo.definirComandoFreio`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1b7673e97f9aae1b */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Uma vez acima de Y=1 m retira tração; ao retornar abaixo de 0,77 m descendo registra retorno e solicita freio, sem manipular altitude. @contract f-1b7673e97f9aae1b @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25700,15 +25700,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteVeiculoAlado.validar:ArrowFunction</code> · [fonte L1126](../../src/testes.ts#L1126) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Verifica que corte de tração e retorno foram observados; relata integridade sem qualificar segurança estrutural. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${tracaoDesligada &amp;&amp; pousou ? 'APROVADO' : 'DIVERGENTE'} · tração desligada a 1 m; frenagem no retorno; integridade ${Math.round(veiculo.integridadeEstrutural * 100)}%`</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.round</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8ec3d2560431599d */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Verifica que corte de tração e retorno foram observados; relata integridade sem qualificar segurança estrutural. @contract f-8ec3d2560431599d @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25757,15 +25757,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteVeiculoComposto:ArrowFunction</code> · [fonte L1169](../../src/testes.ts#L1169) |
 | Assinatura | <code> (): CenárioVisual</code> |
-| Responsabilidade | Dependências diretas: `MundoFisico`, `VeiculoComposto`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Monta casco físico, tanque, dois motores de 8 kN e dossel, unidos por três fixadores; registra conjunto e solicita partida única após 1 s via API comum. Não cria massa/estado duplicados. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{<br>    nome: 'Veículo composto — tanque, dois propulsores e paraquedas',<br>    descricao: 'O corpo central, tanque e dois propulsores são Objetos físicos independentes unidos por três fixadores. O computador de voo solicita a partida dos dois … [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>MundoFisico</code>; <code>VeiculoComposto</code>; <code>Vetor3</code>; <code>TanquePropelente</code>; <code>criarPropulsor</code>; <code>propulsorA.conectarTanque</code>; <code>propulsorB.conectarTanque</code>; <code>veiculo.acoplarParaquedas</code>; <code>Paraquedas</code>; <code>veiculo.adicionarModulo</code>; <code>veiculo.instalarPropulsor</code>; <code>FixadorEstrutural</code>; <code>veiculo.adicionarFixador</code>; <code>veiculo.registrarNoMundo</code>; <code>veiculo.definirThrottleDeTodosOsPropulsores</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `MundoFisico`, `VeiculoComposto`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1db093dc3b0ff718 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Monta casco físico, tanque, dois motores de 8 kN e dossel, unidos por três fixadores; registra conjunto e solicita partida única após 1 s via API comum. Não cria massa/estado duplicados. @contract f-1db093dc3b0ff718 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25776,15 +25776,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteVeiculoComposto.criarPropulsor:ArrowFunction</code> · [fonte L1182](../../src/testes.ts#L1182) |
 | Assinatura | <code> (id: string, x: number): Propulsor</code> |
-| Responsabilidade | Dependências diretas: `Propulsor`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Cria motor de 50 kg, 8 kN e vazão 2 kg/s com posição lateral e eixo inicial vertical; não ignita automaticamente. |
 | Entradas | <code>id: string</code>; <code>x: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Propulsor</code>; expressões retornadas: <code>new Propulsor({<br>    id, massaBaseKg: 50, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100000, limiteTermicoC: 1000,<br>    empuxoMaximoN: 8000, vazaoMaximaKgS: 2, propelenteCompativel: 'metano',<br>    estadoInicial: { posicaoM: new Veto… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Propulsor</code>; <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `Propulsor`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a2a61e885f9389e0 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Cria motor de 50 kg, 8 kN e vazão 2 kg/s com posição lateral e eixo inicial vertical; não ignita automaticamente. @contract f-a2a61e885f9389e0 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25852,15 +25852,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteVeiculoComposto.atualizarControle:ArrowFunction</code> · [fonte L1214](../../src/testes.ts#L1214) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | Dependências diretas: `veiculo.solicitarIgnicaoDosPropulsores`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Após 1 s simulado registra partida comandada e solicita sequência/ignição dos motores uma única vez. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>partidaComandada</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>veiculo.solicitarIgnicaoDosPropulsores</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!partidaComandada &amp;&amp; mundo.tempoS &gt;= 1</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `veiculo.solicitarIgnicaoDosPropulsores`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e9dea5bdff66cb8f */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Após 1 s simulado registra partida comandada e solicita sequência/ignição dos motores uma única vez. @contract f-e9dea5bdff66cb8f @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25871,15 +25871,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteVeiculoComposto.telemetria:ArrowFunction</code> · [fonte L1221](../../src/testes.ts#L1221) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `veiculo.massaInstantaneaDoConjuntoKg.toFixed`, `veiculo.getEstadoFisico().velocidadeMps.y.toFixed`, `veiculo.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Resume massa conectada instantânea e Vy do casco, sem usar massa nominal na dinâmica. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`massa conectada ${veiculo.massaInstantaneaDoConjuntoKg.toFixed(1)} kg · velocidade vertical ${veiculo.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s`</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>veiculo.massaInstantaneaDoConjuntoKg.toFixed</code>; <code>veiculo.getEstadoFisico().velocidadeMps.y.toFixed</code>; <code>veiculo.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `veiculo.massaInstantaneaDoConjuntoKg.toFixed`, `veiculo.getEstadoFisico().velocidadeMps.y.toFixed`, `veiculo.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-564e7ade316db02a */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Resume massa conectada instantânea e Vy do casco, sem usar massa nominal na dinâmica. @contract f-564e7ade316db02a @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25890,15 +25890,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteVeiculoComposto.dados:ArrowFunction</code> · [fonte L1223](../../src/testes.ts#L1223) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `veiculo.massaInstantaneaDoConjuntoKg.toFixed`, `massaInicialKg.toFixed`, `veiculo.centroDeMassaDoConjuntoM.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Formata massa/G, módulos conectados, reserva, empuxos, ignições, paraquedas e fixadores a partir das consultas reais. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Massa conectada: ${veiculo.massaInstantaneaDoConjuntoKg.toFixed(1)} / ${massaInicialKg.toFixed(1)} kg\nCentro de massa: (${veiculo.centroDeMassaDoConjuntoM.x.toFixed(2)}, ${veiculo.centroDeMassaDoConjuntoM.y.toFixed(2)}) m\nMódulos ligados… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>veiculo.massaInstantaneaDoConjuntoKg.toFixed</code>; <code>massaInicialKg.toFixed</code>; <code>veiculo.centroDeMassaDoConjuntoM.x.toFixed</code>; <code>veiculo.centroDeMassaDoConjuntoM.y.toFixed</code>; <code>veiculo.obterObjetosFisicosConectados</code>; <code>tanque.massaPropelenteKg.toFixed</code>; <code>tanque.massaPropelenteInicialKg.toFixed</code>; <code>propulsorA.empuxoAtualN.toFixed</code>; <code>propulsorB.empuxoAtualN.toFixed</code>; <code>fixadores.map((fixador) =&gt; fixador.estaRompido ? 'ROMPIDO' : 'íntegro').join</code>; <code>fixadores.map</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `veiculo.massaInstantaneaDoConjuntoKg.toFixed`, `massaInicialKg.toFixed`, `veiculo.centroDeMassaDoConjuntoM.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-384d0dad27d50275 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Formata massa/G, módulos conectados, reserva, empuxos, ignições, paraquedas e fixadores a partir das consultas reais. @contract f-384d0dad27d50275 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -25928,15 +25928,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteVeiculoComposto.validar:ArrowFunction</code> · [fonte L1227](../../src/testes.ts#L1227) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `veiculo.massaInstantaneaDoConjuntoKg.toFixed`, `(propulsorA.empuxoAtualN + propulsorB.empuxoAtualN).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Exige comando de partida e empuxo positivo nos dois motores; diagnóstico de atuação não certifica missão completa. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${partidaComandada &amp;&amp; propulsorA.empuxoAtualN &gt; 0 &amp;&amp; propulsorB.empuxoAtualN &gt; 0 ? 'APROVADO' : 'AGUARDANDO PARTIDA'} · massa conectada ${veiculo.massaInstantaneaDoConjuntoKg.toFixed(1)} kg; empuxo total ${(propulsorA.empuxoAtualN + propul… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>veiculo.massaInstantaneaDoConjuntoKg.toFixed</code>; <code>(propulsorA.empuxoAtualN + propulsorB.empuxoAtualN).toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `veiculo.massaInstantaneaDoConjuntoKg.toFixed`, `(propulsorA.empuxoAtualN + propulsorB.empuxoAtualN).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-efa8684535f246fe */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Exige comando de partida e empuxo positivo nos dois motores; diagnóstico de atuação não certifica missão completa. @contract f-efa8684535f246fe @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -26099,15 +26099,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTestePropulsorComBateria.dados:ArrowFunction</code> · [fonte L1308](../../src/testes.ts#L1308) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `bateria.energiaArmazenadaJ.toFixed`, `bateria.capacidadeEnergiaJ.toFixed`, `(bateria.percentualDeCarga * 100).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Relata reserva elétrica/propelentes, linhas, empuxo/vazão, chumbador e diagnóstico operacional atual. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Bateria: ${bateria.energiaArmazenadaJ.toFixed(0)} / ${bateria.capacidadeEnergiaJ.toFixed(0)} J (${(bateria.percentualDeCarga * 100).toFixed(1)}%)\nLinhas: metano ${linhaCombustivel.vazaoAtualKgS.toFixed(2)} kg/s ${linhaCombustivel.estaDesc… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>bateria.energiaArmazenadaJ.toFixed</code>; <code>bateria.capacidadeEnergiaJ.toFixed</code>; <code>(bateria.percentualDeCarga * 100).toFixed</code>; <code>linhaCombustivel.vazaoAtualKgS.toFixed</code>; <code>linhaOxidante.vazaoAtualKgS.toFixed</code>; <code>propulsor.empuxoAtualN.toFixed</code>; <code>propulsor.vazaoAtualKgS.toFixed</code>; <code>tanque.massaPropelenteKg.toFixed</code>; <code>oxidante.massaPropelenteKg.toFixed</code>; <code>propulsor.diagnosticoOperacional.join</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `bateria.energiaArmazenadaJ.toFixed`, `bateria.capacidadeEnergiaJ.toFixed`, `(bateria.percentualDeCarga * 100).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0ee87f7c3701781d */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Relata reserva elétrica/propelentes, linhas, empuxo/vazão, chumbador e diagnóstico operacional atual. @contract f-0ee87f7c3701781d @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -26137,15 +26137,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTestePropulsorComBateria.validar:ArrowFunction</code> · [fonte L1312](../../src/testes.ts#L1312) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `(bateria.percentualDeCarga * 100).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Aprova descarga da bateria acompanhada de empuxo zero; não atribui sucesso somente à recusa de ignição. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${bateria.estaDescarregada &amp;&amp; propulsor.empuxoAtualN === 0 ? 'APROVADO' : 'EXECUTANDO'} · carga ${(bateria.percentualDeCarga * 100).toFixed(1)}%; ignição ${propulsor.estaIgnitado ? 'ativa' : 'cortada'}`</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>(bateria.percentualDeCarga * 100).toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `(bateria.percentualDeCarga * 100).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-957017c8c5009de9 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Aprova descarga da bateria acompanhada de empuxo zero; não atribui sucesso somente à recusa de ignição. @contract f-957017c8c5009de9 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -26156,15 +26156,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTestePropulsorContraParede:ArrowFunction</code> · [fonte L1317](../../src/testes.ts#L1317) |
 | Assinatura | <code> (throttle: number): CenárioVisual</code> |
-| Responsabilidade | Dependências diretas: `MundoFisico`, `SuperficiePlano`, `TanquePropelente`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Monta motor horizontal de 20 kN e tanque conectado empurrando parede móvel de 10000 kg por contato, com throttle fornecido e partida sequenciada; sem fixação à parede. |
 | Entradas | <code>throttle: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{<br>    nome: `Propulsor horizontal — parede de 10.000 kg (${Math.round(throttle * 100)}%)`,<br>    descricao: `Propulsor de 20.000 N recebe metano de tanque conectado a 9 m e empurra horizontalmente, por contato, uma parede livre de 10.000 kg. … [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>MundoFisico</code>; <code>SuperficiePlano</code>; <code>TanquePropelente</code>; <code>Vetor3</code>; <code>Propulsor</code>; <code>Objeto</code>; <code>propulsor.conectarTanque</code>; <code>propulsor.definirThrottle</code>; <code>criarPartidaAutomaticaBasica</code>; <code>mundo.registrarSuperficie</code>; <code>mundo.registrarObjeto</code>; <code>Math.round</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `TanquePropelente`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-cd1e85610704eab1 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Monta motor horizontal de 20 kN e tanque conectado empurrando parede móvel de 10000 kg por contato, com throttle fornecido e partida sequenciada; sem fixação à parede. @contract f-cd1e85610704eab1 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -26194,15 +26194,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTestePropulsorContraParede.dados:ArrowFunction</code> · [fonte L1350](../../src/testes.ts#L1350) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `propulsor.empuxoAtualN.toFixed`, `propulsor.vazaoAtualKgS.toFixed`, `tanque.massaPropelenteKg.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Formata empuxo, consumo, integridades, mangueira e cadeia operacional; texto nominal da mangueira não recalcula comprimento real nesta função. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Empuxo: ${propulsor.empuxoAtualN.toFixed(0)} N\nVazão: ${propulsor.vazaoAtualKgS.toFixed(2)} kg/s\nMetano: ${tanque.massaPropelenteKg.toFixed(2)} / ${tanque.massaPropelenteInicialKg.toFixed(2)} kg\nConsumido: ${tanque.massaPropelenteConsum… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>propulsor.empuxoAtualN.toFixed</code>; <code>propulsor.vazaoAtualKgS.toFixed</code>; <code>tanque.massaPropelenteKg.toFixed</code>; <code>tanque.massaPropelenteInicialKg.toFixed</code>; <code>tanque.massaPropelenteConsumidaKg.toFixed</code>; <code>(propulsor.integridadeEstrutural * 100).toFixed</code>; <code>(parede.integridadeEstrutural * 100).toFixed</code>; <code>propulsor.obterEstadoDoSistema</code>; <code>propulsor.diagnosticoOperacional.join</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `propulsor.empuxoAtualN.toFixed`, `propulsor.vazaoAtualKgS.toFixed`, `tanque.massaPropelenteKg.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f39cfd47cfb9cd7c */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Formata empuxo, consumo, integridades, mangueira e cadeia operacional; texto nominal da mangueira não recalcula comprimento real nesta função. @contract f-f39cfd47cfb9cd7c @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -26213,15 +26213,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTestePropulsorContraParede.deveEncerrar:ArrowFunction</code> · [fonte L1352](../../src/testes.ts#L1352) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Devolve `false`. Dependências diretas: `parede.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Atualiza pico de Vx da parede e retorna false: ensaio fica disponível para observação/avanço manual. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>false</code>; expressões retornadas: <code>false</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>picoVelocidadeParedeMps</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.max</code>; <code>parede.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `false`. Dependências diretas: `parede.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6f6b6e9f3f9c07c6 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Atualiza pico de Vx da parede e retorna false: ensaio fica disponível para observação/avanço manual. @contract f-6f6b6e9f3f9c07c6 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -26232,15 +26232,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTestePropulsorContraParede.validar:ArrowFunction</code> · [fonte L1357](../../src/testes.ts#L1357) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `propulsor.empuxoAtualN.toFixed`, `tanque.massaPropelenteKg.toFixed`, `picoVelocidadeParedeMps.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Aprova pico positivo de velocidade da parede registrado durante execução e relata empuxo/reserva; sem modificar contato. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${picoVelocidadeParedeMps &gt; 0 ? 'APROVADO' : 'DIVERGENTE'} · empuxo ${propulsor.empuxoAtualN.toFixed(0)} N; propelente ${tanque.massaPropelenteKg.toFixed(2)} kg; pico da parede ${picoVelocidadeParedeMps.toFixed(2)} m/s`</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>propulsor.empuxoAtualN.toFixed</code>; <code>tanque.massaPropelenteKg.toFixed</code>; <code>picoVelocidadeParedeMps.toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `propulsor.empuxoAtualN.toFixed`, `tanque.massaPropelenteKg.toFixed`, `picoVelocidadeParedeMps.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d12d62ac17892aa0 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Aprova pico positivo de velocidade da parede registrado durante execução e relata empuxo/reserva; sem modificar contato. @contract f-d12d62ac17892aa0 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -26251,15 +26251,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor:ArrowFunction</code> · [fonte L1362](../../src/testes.ts#L1362) |
 | Assinatura | <code> (comParedeOposta?: boolean): CenárioVisual</code> |
-| Responsabilidade | Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Objeto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Monta fundação/bancada ancoradas, motor/tanque fixados e parede de exaustão; variante inclui parede oposta de controle. Calor/dano vêm do cone térmico compartilhado, com partida sequenciada e throttle 0,5. |
 | Entradas | <code>comParedeOposta = false</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{<br>    nome: comParedeOposta ? 'Propulsor térmico — duas paredes equidistantes' : 'Propulsor térmico — chama contra parede',<br>    descricao: comParedeOposta<br>        ? 'Propulsor em uma bancada física fica entre duas paredes térmicas idênticas… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>MundoFisico</code>; <code>SuperficiePlano</code>; <code>Objeto</code>; <code>Vetor3</code>; <code>Propulsor</code>; <code>TanquePropelente</code>; <code>criarParedeTermica</code>; <code>propulsor.conectarTanque</code>; <code>propulsor.definirThrottle</code>; <code>FixadorEstrutural</code>; <code>ChumbadorAoSolo</code>; <code>[parede, ...(paredeOposta ? [paredeOposta] : [])].map</code>; <code>mundo.registrarSuperficie</code>; <code>mundo.registrarObjeto</code>; <code>mundo.registrarFixador</code>; <code>mundo.registrarChumbadorAoSolo</code>; <code>criarPartidaAutomaticaBasica</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Objeto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1cc664985c1f7596 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Monta fundação/bancada ancoradas, motor/tanque fixados e parede de exaustão; variante inclui parede oposta de controle. Calor/dano vêm do cone térmico compartilhado, com partida sequenciada e throttle 0,5. @contract f-1cc664985c1f7596 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -26270,15 +26270,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor.criarParedeTermica:ArrowFunction</code> · [fonte L1375](../../src/testes.ts#L1375) |
 | Assinatura | <code> (id: string, x: number): Objeto</code> |
-| Responsabilidade | Dependências diretas: `Objeto`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Cria parede de 5000 kg com limite 300 °C, capacidade 15 kJ/°C e propriedades de convecção/dano declaradas; ancoragem é registrada separadamente. |
 | Entradas | <code>id: string</code>; <code>x: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Objeto</code>; expressões retornadas: <code>new Objeto({ id, massaBaseKg: 5000, dimensoesM: new Vetor3(1, 4, 1), resistenciaColisaoJ: 1000000, limiteTermicoC: 300, capacidadeTermicaJPorC: 15000, areaTermicaM2: 4, coeficienteConveccaoWPorM2C: 20, taxaDanoTermicoPorSegundo: 0.08, estad… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Objeto</code>; <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `Objeto`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2e17f90f4f2db60b */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Cria parede de 5000 kg com limite 300 °C, capacidade 15 kJ/°C e propriedades de convecção/dano declaradas; ancoragem é registrada separadamente. @contract f-2e17f90f4f2db60b @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -26403,15 +26403,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor.telemetria:ArrowFunction</code> · [fonte L1408](../../src/testes.ts#L1408) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `parede.temperaturaC.toFixed`, `paredeOposta.temperaturaC.toFixed`, `(parede.integridadeEstrutural * 100).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Compara temperaturas da parede de exaustão e controle, quando presente; senão mostra integridade do alvo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>paredeOposta<br>    ? `exaustão ${parede.temperaturaC.toFixed(1)} °C · oposta ${paredeOposta.temperaturaC.toFixed(1)} °C`<br>    : `parede ${parede.temperaturaC.toFixed(1)} °C · integridade ${(parede.integridadeEstrutural * 100).toFixed(0)}%`</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>parede.temperaturaC.toFixed</code>; <code>paredeOposta.temperaturaC.toFixed</code>; <code>(parede.integridadeEstrutural * 100).toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `parede.temperaturaC.toFixed`, `paredeOposta.temperaturaC.toFixed`, `(parede.integridadeEstrutural * 100).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-4a3867417658f0c0 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Compara temperaturas da parede de exaustão e controle, quando presente; senão mostra integridade do alvo. @contract f-4a3867417658f0c0 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -26422,15 +26422,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor.dados:ArrowFunction</code> · [fonte L1412](../../src/testes.ts#L1412) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `(propulsor.potenciaTermicaAtualW / 1_000_000).toFixed`, `propulsor.temperaturaC.toFixed`, `bancada.temperaturaC.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Expõe temperaturas, potência, limites térmicos, ancoragens e resistências efetivas dos fixadores, mantendo °C na fronteira. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`MODALIDADE: TÉRMICA\nAmbiente: 20 °C\nPotência térmica: ${(propulsor.potenciaTermicaAtualW / 1000000).toFixed(2)} MW\nTemperatura motor / bancada / tanque / parede de exaustão: ${propulsor.temperaturaC.toFixed(1)} / ${bancada.temperaturaC.… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>(propulsor.potenciaTermicaAtualW / 1000000).toFixed</code>; <code>propulsor.temperaturaC.toFixed</code>; <code>bancada.temperaturaC.toFixed</code>; <code>tanque.temperaturaC.toFixed</code>; <code>parede.temperaturaC.toFixed</code>; <code>paredeOposta.temperaturaC.toFixed</code>; <code>(paredeOposta.integridadeEstrutural * 100).toFixed</code>; <code>chumbadoresDasParedes.map((chumbador) =&gt; chumbador.estaRompido ? 'ROMPIDO' : 'íntegro').join</code>; <code>chumbadoresDasParedes.map</code>; <code>(parede.integridadeEstrutural * 100).toFixed</code>; <code>fixadorMotor.temperaturaC.toFixed</code>; <code>fixadorMotor.resistenciaTracaoEfetivaN.toFixed</code>; <code>fixadorTanque.temperaturaC.toFixed</code>; <code>fixadorTanque.resistenciaTracaoEfetivaN.toFixed</code>; <code>parede.resistenciaColisaoJ.toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `(propulsor.potenciaTermicaAtualW / 1_000_000).toFixed`, `propulsor.temperaturaC.toFixed`, `bancada.temperaturaC.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d3d9266382c1802b */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Expõe temperaturas, potência, limites térmicos, ancoragens e resistências efetivas dos fixadores, mantendo °C na fronteira. @contract f-d3d9266382c1802b @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -26460,15 +26460,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor.validar:ArrowFunction</code> · [fonte L1416](../../src/testes.ts#L1416) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `parede.temperaturaC.toFixed`, `(parede.integridadeEstrutural * 100).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Aprova dano mensurável na parede e relata temperatura/integridade; não aplica energia pelo diagnóstico. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${parede.integridadeEstrutural &lt; 1 ? 'APROVADO' : 'AQUECENDO'} · parede ${parede.temperaturaC.toFixed(1)} °C; integridade ${(parede.integridadeEstrutural * 100).toFixed(1)}%`</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>parede.temperaturaC.toFixed</code>; <code>(parede.integridadeEstrutural * 100).toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `parede.temperaturaC.toFixed`, `(parede.integridadeEstrutural * 100).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7f6b8a8d41977c61 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Aprova dano mensurável na parede e relata temperatura/integridade; não aplica energia pelo diagnóstico. @contract f-7f6b8a8d41977c61 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -26479,15 +26479,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteImpactoDestrutivoDoPropulsor:ArrowFunction</code> · [fonte L1421](../../src/testes.ts#L1421) |
 | Assinatura | <code> (): CenárioVisual</code> |
-| Responsabilidade | Dependências diretas: `MundoFisico`, `SuperficiePlano`, `TanquePropelente`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Monta tanque/motor fixados acelerando a throttle 1 contra barreira de 100 milhões kg a 70 m; dano emerge de colisão com resistência declarada, sem evento visual destrutivo artificial. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{<br>    nome: 'Propulsor horizontal — impacto destrutivo',<br>    descricao: 'Conjunto tanque–propulsor preso por fixador acelera com 20.000 N contra uma barreira de 100.000.000 kg. O impacto é resolvido pelo core e excede a resistência de colis… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>MundoFisico</code>; <code>SuperficiePlano</code>; <code>TanquePropelente</code>; <code>Vetor3</code>; <code>Propulsor</code>; <code>Objeto</code>; <code>propulsor.conectarTanque</code>; <code>propulsor.definirThrottle</code>; <code>FixadorEstrutural</code>; <code>criarPartidaAutomaticaBasica</code>; <code>mundo.registrarSuperficie</code>; <code>mundo.registrarObjeto</code>; <code>mundo.registrarFixador</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `TanquePropelente`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-945c7104981eb86d */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Monta tanque/motor fixados acelerando a throttle 1 contra barreira de 100 milhões kg a 70 m; dano emerge de colisão com resistência declarada, sem evento visual destrutivo artificial. @contract f-945c7104981eb86d @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -26555,15 +26555,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteImpactoDestrutivoDoPropulsor.dados:ArrowFunction</code> · [fonte L1459](../../src/testes.ts#L1459) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `propulsor.empuxoAtualN.toFixed`, `propulsor.getEstadoFisico().velocidadeMps.x.toFixed`, `propulsor.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Expõe empuxo, velocidade, integridades e vínculo para auditar dano físico esperado. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Empuxo: ${propulsor.empuxoAtualN.toFixed(0)} N\nVelocidade do propulsor: ${propulsor.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s\nIntegridade do propulsor: ${(propulsor.integridadeEstrutural * 100).toFixed(1)}%\nIntegridade da barrei… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>propulsor.empuxoAtualN.toFixed</code>; <code>propulsor.getEstadoFisico().velocidadeMps.x.toFixed</code>; <code>propulsor.getEstadoFisico</code>; <code>(propulsor.integridadeEstrutural * 100).toFixed</code>; <code>(parede.integridadeEstrutural * 100).toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `propulsor.empuxoAtualN.toFixed`, `propulsor.getEstadoFisico().velocidadeMps.x.toFixed`, `propulsor.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a08277dae7e77843 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Expõe empuxo, velocidade, integridades e vínculo para auditar dano físico esperado. @contract f-a08277dae7e77843 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -26593,15 +26593,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTesteImpactoDestrutivoDoPropulsor.validar:ArrowFunction</code> · [fonte L1463](../../src/testes.ts#L1463) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `(propulsor.integridadeEstrutural * 100).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Aprova perda de integridade do motor abaixo de 1; não confunde animação de impacto com dano medido. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${propulsor.integridadeEstrutural &lt; 1 ? 'APROVADO' : 'DIVERGENTE'} · integridade final do propulsor ${(propulsor.integridadeEstrutural * 100).toFixed(1)}%`</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>(propulsor.integridadeEstrutural * 100).toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `(propulsor.integridadeEstrutural * 100).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-74dcee686cfc81c9 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Aprova perda de integridade do motor abaixo de 1; não confunde animação de impacto com dano medido. @contract f-74dcee686cfc81c9 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -26726,15 +26726,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTestePropulsorEmBancadaLivre.dados:ArrowFunction</code> · [fonte L1518](../../src/testes.ts#L1518) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `massaApoiadaKg().toFixed`, `massaApoiadaKg`, `(massaApoiadaKg() * Math.abs(MundoFisico.gravidadeTerrestreMps2.y) / 5).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Relata massa/peso, pressão média, limite μN, temperaturas/calor por atrito e fixadores; cálculo exibido não substitui forças do mundo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Bancada: 500 kg; área de apoio 5,00 m²\nFixação ao solo: nenhuma\nAtrito bancada–concreto: μ = 0,65\nMassa apoiada instantânea: ${massaApoiadaKg().toFixed(1)} kg\nPressão média de apoio: ${(massaApoiadaKg() * Math.abs(MundoFisico.gravidade… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>massaApoiadaKg().toFixed</code>; <code>massaApoiadaKg</code>; <code>(massaApoiadaKg() * Math.abs(MundoFisico.gravidadeTerrestreMps2.y) / 5).toFixed</code>; <code>Math.abs</code>; <code>limiteAtritoN().toFixed</code>; <code>limiteAtritoN</code>; <code>propulsor.empuxoAtualN.toFixed</code>; <code>bancada.temperaturaC.toFixed</code>; <code>concreto.temperaturaC.toFixed</code>; <code>bancada.energiaTermicaDeAtritoAcumuladaJ.toFixed</code>; <code>concreto.energiaTermicaDeAtritoAcumuladaJ.toFixed</code>; <code>bancada.getEstadoFisico().posicaoM.x.toFixed</code>; <code>bancada.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `massaApoiadaKg().toFixed`, `massaApoiadaKg`, `(massaApoiadaKg() * Math.abs(MundoFisico.gravidadeTerrestreMps2.y) / 5).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-257f81d9ea32ffe7 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Relata massa/peso, pressão média, limite μN, temperaturas/calor por atrito e fixadores; cálculo exibido não substitui forças do mundo. @contract f-257f81d9ea32ffe7 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -26764,15 +26764,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTestePropulsorEmBancadaLivre.validar:ArrowFunction</code> · [fonte L1522](../../src/testes.ts#L1522) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `limiteAtritoN`, `bancada.getEstadoFisico`, `propulsor.empuxoAtualN.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Exige empuxo acima do limite de atrito e deslocamento X da bancada maior que 0,01 m; avaliação não aplica empuxo adicional. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${propulsor.empuxoAtualN &gt; limiteAtritoN() &amp;&amp; bancada.getEstadoFisico().posicaoM.x &gt; 0.01 ? 'APROVADO' : 'AGUARDANDO IGNIÇÃO'} · empuxo ${propulsor.empuxoAtualN.toFixed(0)} N; atrito máximo ${limiteAtritoN().toFixed(0)} N; bancada x=${banc… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>limiteAtritoN</code>; <code>bancada.getEstadoFisico</code>; <code>propulsor.empuxoAtualN.toFixed</code>; <code>limiteAtritoN().toFixed</code>; <code>bancada.getEstadoFisico().posicaoM.x.toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `limiteAtritoN`, `bancada.getEstadoFisico`, `propulsor.empuxoAtualN.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e042ed2e2e1d709b */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Exige empuxo acima do limite de atrito e deslocamento X da bancada maior que 0,01 m; avaliação não aplica empuxo adicional. @contract f-e042ed2e2e1d709b @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -26783,15 +26783,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTestePropulsorSobreVeiculoPassivo:ArrowFunction</code> · [fonte L1527](../../src/testes.ts#L1527) |
 | Assinatura | <code> (): CenárioVisual</code> |
-| Responsabilidade | Dependências diretas: `MundoFisico`, `SuperficiePlano`, `criarVeiculoTerrestre`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Monta chassi sem tração própria, motor/tanque fixados e dossel manual; throttle inicial 0,7 mantém 14 kN abaixo do fixador de 15 kN, permitindo ensaiar ruptura por aumento operacional. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{<br>    nome: 'Propulsor sobre veículo — paraquedas e ruptura a 15.000 N',<br>    descricao: 'Veículo de 1.500 kg repousa sobre rodas, sem tração própria. O teste inicia a 70%: 14.000 N mantêm propulsor e tanque fixados ao chassi e aceleram o co… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>MundoFisico</code>; <code>SuperficiePlano</code>; <code>criarVeiculoTerrestre</code>; <code>TanquePropelente</code>; <code>Vetor3</code>; <code>Propulsor</code>; <code>propulsor.conectarTanque</code>; <code>propulsor.definirThrottle</code>; <code>veiculo.acoplarParaquedas</code>; <code>Paraquedas</code>; <code>criarPartidaAutomaticaBasica</code>; <code>FixadorEstrutural</code>; <code>mundo.registrarSuperficie</code>; <code>mundo.registrarObjeto</code>; <code>mundo.registrarFixador</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `criarVeiculoTerrestre`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e21949a17311a407 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Monta chassi sem tração própria, motor/tanque fixados e dossel manual; throttle inicial 0,7 mantém 14 kN abaixo do fixador de 15 kN, permitindo ensaiar ruptura por aumento operacional. @contract f-e21949a17311a407 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -26859,15 +26859,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTestePropulsorSobreVeiculoPassivo.dados:ArrowFunction</code> · [fonte L1580](../../src/testes.ts#L1580) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `propulsor.empuxoAtualN.toFixed`, `mundo.obterForcaArrastoAtmosferico(veiculo).magnitude.toFixed`, `mundo.obterForcaArrastoAtmosferico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Relata arrasto real do chassi, força, vínculos, deslocamento e velocidades; distingue paraquedas aberto de fluxo suficiente. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Tração própria: 0 N\nEmpuxo: ${propulsor.empuxoAtualN.toFixed(0)} N\nParaquedas do conjunto: ${veiculo.paraquedasEstaAberto ? 'ABERTO — arrasto ativo quando houver fluxo' : 'fechado'}\nArrasto no chassi: ${mundo.obterForcaArrastoAtmosferic… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>propulsor.empuxoAtualN.toFixed</code>; <code>mundo.obterForcaArrastoAtmosferico(veiculo).magnitude.toFixed</code>; <code>mundo.obterForcaArrastoAtmosferico</code>; <code>fixador.resistenciaTracaoN.toFixed</code>; <code>fixadorTanque.resistenciaTracaoN.toFixed</code>; <code>veiculo.getEstadoFisico().velocidadeMps.x.toFixed</code>; <code>veiculo.getEstadoFisico</code>; <code>veiculo.getEstadoFisico().posicaoM.x.toFixed</code>; <code>propulsor.getEstadoFisico().velocidadeMps.x.toFixed</code>; <code>propulsor.getEstadoFisico</code>; <code>picoVelocidadeVeiculoMps.toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `propulsor.empuxoAtualN.toFixed`, `mundo.obterForcaArrastoAtmosferico(veiculo).magnitude.toFixed`, `mundo.obterForcaArrastoAtmosferico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f92d0b17e9b4c6aa */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Relata arrasto real do chassi, força, vínculos, deslocamento e velocidades; distingue paraquedas aberto de fluxo suficiente. @contract f-f92d0b17e9b4c6aa @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -26878,15 +26878,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTestePropulsorSobreVeiculoPassivo.deveEncerrar:ArrowFunction</code> · [fonte L1582](../../src/testes.ts#L1582) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Devolve `false`. Dependências diretas: `veiculo.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Acumula pico de Vx do veículo e mantém ensaio aberto para operação manual. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>false</code>; expressões retornadas: <code>false</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>picoVelocidadeVeiculoMps</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.max</code>; <code>veiculo.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `false`. Dependências diretas: `veiculo.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-109076a06f4e9267 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Acumula pico de Vx do veículo e mantém ensaio aberto para operação manual. @contract f-109076a06f4e9267 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -26897,15 +26897,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarTestePropulsorSobreVeiculoPassivo.validar:ArrowFunction</code> · [fonte L1587](../../src/testes.ts#L1587) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Relata operacional enquanto fixador íntegro e aprovação de ruptura quando rompido; não altera resistência para produzir resultado. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${fixador.estaRompido ? 'APROVADO' : 'OPERACIONAL'} · fixador de 15.000 N ${fixador.estaRompido ? 'rompeu acima do limite' : 'permanece íntegro a 14.000 N'}`</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6fa7e5e75a64c85f */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Relata operacional enquanto fixador íntegro e aprovação de ruptura quando rompido; não altera resistência para produzir resultado. @contract f-6fa7e5e75a64c85f @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
