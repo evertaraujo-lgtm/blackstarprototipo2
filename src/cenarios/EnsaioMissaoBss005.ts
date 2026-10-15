@@ -83,7 +83,9 @@ export interface LeituraMissaoBss005 {
   readonly velocidadeAngularMaximaComponentesRadps: number;
 }
 
-/** Limites do veículo no instante anterior à resposta do core ao primeiro contato. */
+/** Limites do veículo no instante anterior à resposta do core ao primeiro contato.
+ * @contract f-de6aadae2b4cd7e6
+ */
 export function atendeLimitesDeToqueBss005(leitura: Pick<LeituraMissaoBss005,
   'velocidadeXMps' | 'velocidadeYMps' | 'orientacaoRad' | 'velocidadeAngularRadps'>): boolean {
   return Math.abs(leitura.velocidadeYMps) < CRITERIOS_POUSO_BSS005.velocidadeVerticalToqueMaxMps
@@ -92,6 +94,7 @@ export function atendeLimitesDeToqueBss005(leitura: Pick<LeituraMissaoBss005,
     && Math.abs(leitura.velocidadeAngularRadps) < CRITERIOS_POUSO_BSS005.velocidadeAngularMaxRadps;
 }
 
+/** Devolve `causas`. Dependências diretas: `causas.push`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0daf5806d1df6633 */
 function causasLimitesDeToqueBss005(leitura: Pick<LeituraMissaoBss005,
   'velocidadeXMps' | 'velocidadeYMps' | 'orientacaoRad' | 'velocidadeAngularRadps'>): string[] {
   const causas: string[] = [];
@@ -102,13 +105,16 @@ function causasLimitesDeToqueBss005(leitura: Pick<LeituraMissaoBss005,
   return causas;
 }
 
+/** Dependências diretas: `objeto.getEstadoFisico`, `objeto.getPontosDeContatoLocaisM().map`, `objeto.getPontosDeContatoLocaisM`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-9053c7e543fe455e */
 export const menorAlturaDoObjetoM = (objeto: Objeto): number => {
   const e = objeto.getEstadoFisico();
   return Math.min(...objeto.getPontosDeContatoLocaisM().map((ponto) => e.posicaoM.y
     + ponto.x * Math.sin(e.orientacaoRad.z) + ponto.y * Math.cos(e.orientacaoRad.z)));
 };
 
-/** Observação somente por consultas públicas; pressão dinâmica é grandeza derivada, em Pa. */
+/** Observação somente por consultas públicas; pressão dinâmica é grandeza derivada, em Pa.
+ * @contract f-1d2ac94000dba1d0
+ */
 export function lerMissaoBss005(cenario: CenarioBss005, fase: FaseEnsaioBss005): LeituraMissaoBss005 {
   const casco = cenario.seguirObjeto;
   const motor = cenario.propulsorControlavel;
@@ -121,10 +127,12 @@ export function lerMissaoBss005(cenario: CenarioBss005, fase: FaseEnsaioBss005):
   const arrasto = cenario.objetos.reduce((soma, objeto) => soma.adicionar(cenario.mundo.obterForcaArrastoAtmosferico(objeto)), Vetor3.zero);
   const solo = cenario.superficies[0]!;
   const ref = cenario.mundo.ambiente.referencial;
+  /** Devolve `cenario.mundo.obterMenorDistanciaSuperficieM(objeto, solo)`. Dependências diretas: `cenario.mundo.obterMenorDistanciaSuperficieM`. Efeitos indiretos seguem as dependências chamadas. @contract f-c7d307657a752f79 */
   const altura = (objeto: Objeto) => cenario.mundo.obterMenorDistanciaSuperficieM(objeto, solo);
   const velocidadeLocal = ref.vetorParaLocal(e.velocidadeMps, e.posicaoM);
   const arLocal = ref.vetorParaLocal(ambiente.velocidadeArMps, e.posicaoM);
   const tanques = cenario.objetos.filter((objeto): objeto is TanquePropelente => objeto instanceof TanquePropelente);
+  /** Devolve `tanques.filter((tanque) => tanque.tipoPropelente === tipo).reduce((soma, tanque) => soma + tanque.massaPropelenteKg, 0)`. Dependências diretas: `tanques.filter((tanque) => tanque.tipoPropelente === tipo).reduce`, `tanques.filter`. Efeitos indiretos seguem as dependências chamadas. @contract f-172675eaf378e0c9 */
   const kg = (tipo: string) => tanques.filter((tanque) => tanque.tipoPropelente === tipo).reduce((soma, tanque) => soma + tanque.massaPropelenteKg, 0);
   const gimbal = motor.obterEstadoDaVetorizacao();
   const leiturasSensores = casco.obterLeiturasDosSensores();
@@ -176,6 +184,7 @@ export function lerMissaoBss005(cenario: CenarioBss005, fase: FaseEnsaioBss005):
  * Script de bancada: somente partida pública e troca de modo, sem piloto novo.
  * Cede a cada 2400 passos para o executor poder processar mensagens externas;
  * a pausa não usa relógio real nem modifica dt, comandos ou estados físicos.
+ * @contract f-6cace55e6c0bde57
  */
 export function* avancarEnsaioMissaoBss005(configuracao: ConfiguracaoEnsaioBss005 = {}) {
   const config = {
@@ -203,13 +212,16 @@ export function* avancarEnsaioMissaoBss005(configuracao: ConfiguracaoEnsaioBss00
     .map((objeto) => objeto.id));
   const tanques = cenario.objetos.filter((objeto): objeto is TanquePropelente => objeto instanceof TanquePropelente);
   let fase: FaseEnsaioBss005 = 'solo';
+  /** Devolve `lerMissaoBss005(cenario, fase)`. Dependências diretas: `lerMissaoBss005`. Efeitos indiretos seguem as dependências chamadas. @contract f-343cd371cf181d2c */
   const ler = () => lerMissaoBss005(cenario, fase);
   const inicial = ler();
   const amostras: LeituraMissaoBss005[] = config.registrarAmostras ? [inicial] : [];
   const eventos: { tipo: string; leitura: LeituraMissaoBss005 }[] = [];
   const comandos: { tempoS: number; operacao: string; aceito: boolean; valor?: string | number }[] = [];
+  /** Devolve `eventos.push({ tipo, leitura: ler() })`. Dependências diretas: `eventos.push`, `ler`. Efeitos indiretos seguem as dependências chamadas. @contract f-4b676dcb51d939c6 */
   const evento = (tipo: string) => eventos.push({ tipo, leitura: ler() });
   let massaRetiradaNaFalhaKg = 0;
+  /** Dependências diretas: `tanque.fornecerPropelente`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f83aae4aa6f46468 */
   const retirarReserva = () => {
     for (const tanque of tanques) massaRetiradaNaFalhaKg += tanque.fornecerPropelente(tanque.massaPropelenteKg);
   };
@@ -232,6 +244,7 @@ export function* avancarEnsaioMissaoBss005(configuracao: ConfiguracaoEnsaioBss00
   let erroBalancoMaxKg = 0, proximaAmostraS = config.intervaloAmostraS;
   const causasFalhaPouso: string[] = [];
   let ultimoEstado = ler();
+  /** Dependências diretas: `causasFalhaPouso.push`, `evento`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6ab216b281a41730 */
   const registrarFalhaPouso = (causas: readonly string[]) => {
     if (falhouPouso) return;
     falhouPouso = true;
@@ -383,7 +396,9 @@ export function* avancarEnsaioMissaoBss005(configuracao: ConfiguracaoEnsaioBss00
   };
 }
 
-/** Executor síncrono para coletores sem um loop de mensagens. */
+/** Executor síncrono para coletores sem um loop de mensagens.
+ * @contract f-9c2f792f44b85690
+ */
 export function executarEnsaioMissaoBss005(configuracao: ConfiguracaoEnsaioBss005 = {}) {
   const ensaio = avancarEnsaioMissaoBss005(configuracao);
   let passo = ensaio.next();

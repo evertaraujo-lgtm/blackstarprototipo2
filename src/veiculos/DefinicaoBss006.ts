@@ -18,6 +18,7 @@ export const PARAMETROS_BSS006 = Object.freeze({ ...PARAMETROS_BSS005,
 
 export const DEFINICAO_BSS006 = Object.freeze({
   id: 'bss-006', revisao: 'bss006-m9-parametros-m10-montagem',
+  /** Devolve `montarVeiculoBss(mundo, solo, { ...PARAMETROS_BSS006, id: 'bss-006', arcoBaseM, ...(estadoInicialEnsaio ? { estadoInicialEnsaio } : {}) })`. Dependências diretas: `montarVeiculoBss`. Efeitos indiretos seguem as dependências chamadas. @contract f-2f5724b4057c7208 */
   montar: (mundo: MundoFisico, solo: SuperficieFisica, arcoBaseM = 0, estadoInicialEnsaio?: ParametrosMontagemBss['estadoInicialEnsaio']) =>
     montarVeiculoBss(mundo, solo, { ...PARAMETROS_BSS006, id: 'bss-006', arcoBaseM, ...(estadoInicialEnsaio ? { estadoInicialEnsaio } : {}) }),
 });

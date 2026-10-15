@@ -24,6 +24,7 @@ export class AcompanhamentoAmerissagem {
   private imersaoRegistrada = false;
   private tombamentoRegistrado = false;
   private afundamentoRegistrado = false;
+  /** Agrega volumes/centros/cargas e classifica seco, entrada, imersão, tombamento, oscilação, equilíbrio ou afundamento pelas medidas atuais e janela observada. Contato sólido submerso é distinto de flutuação; apenas leitura, sem forças. @contract f-1b2d123e0fbf8914 @reviewed M12-DOC: implementação lida. */
   public observar(m: MedidasAmerissagem): ObservacaoAmerissagem {
     const c = m.componentes, V = c.reduce((s, x) => s + x.volumeSubmersoM3, 0), total = c.reduce((s, x) => s + x.volumeTotalM3, 0);
     const B = V > 0 ? m.G.adicionar(c.reduce((s, x) => s.adicionar((x.centroEmpuxoM ?? m.G).subtrair(m.G).multiplicar(x.volumeSubmersoM3 / V)), Vetor3.zero)) : undefined;
@@ -41,6 +42,7 @@ export class AcompanhamentoAmerissagem {
       energiaEntradaJ: c.reduce((s, x) => s + x.energiaEntradaJ, 0), potenciaDissipadaW: c.reduce((s, x) => s + x.potenciaDissipadaW, 0),
       equilibrioContinuoS: this.equilibrioS, equilibrioObservado: this.equilibrioRegistrado, componentes: c };
   }
+  /** Atualiza janela de equilíbrio livre: motor zero, v<0,05 m/s, |ω|<0,005 rad/s, força a 2% do peso e momento residual <peso·0,02 m durante 3 s. Registra uma vez eventos medidos de água/tombamento/imersão/equilíbrio/afundamento; não comanda tombamento nem encerra dinâmica. @contract f-b5aa46b29c0ec0d9 @reviewed M12-DOC: implementação lida. */
   public atualizar(m: MedidasAmerissagem, dtS: number): readonly string[] {
     const a = this.observar(m), peso = m.massaKg * m.gravidadeMps2, eventos: string[] = [];
     // Equilíbrio observado: força a 2%, braço residual equivalente de 2 cm, quietude e motor cortado por 3 s.

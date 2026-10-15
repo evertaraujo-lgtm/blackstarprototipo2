@@ -183,6 +183,15 @@ e informa atraso. O desenho não define `dt`, nem garante 1× em qualquer máqui
   Validação/serialização semelhantes podem divergir; não unificadas neste marco.
 - Integração isolada e de ilha repetem relações força/impulso/torque; ilha precisa
   de massa/G/I compostos. Equivalência e ordem numérica estão cobertas pela M11-P.
+- `Vetor3` expõe componentes `readonly` pelo TypeScript; o congelamento do
+  registro físico é superficial. A invariância dos vetores do core é um contrato
+  dos consumidores, não proteção contra casts/JavaScript arbitrário. Os DTOs de
+  `copiarSnapshot` recebem cópias com congelamento recursivo. Caches dependem de
+  respeitar esse contrato. Nenhum reforço executável foi adicionado aqui.
+- `exigirRegistro` valida presença de ID, sem comparar a instância com o registro;
+  o chamador deve fornecer o mesmo objeto registrado.
+- `avancar` não é transacional: uma exceção depois de subpassos pode conservar
+  efeitos parciais; as filas externas são limpas em `finally`.
 - Métodos públicos `...PeloCore` expressam autoridade por convenção. A API não
   impede, por tipo, que outro consumidor os invoque; auditar chamadas em mudanças.
 - Cache geométrico aquático depende de pose e configuração imóvel. Ondas/correntes

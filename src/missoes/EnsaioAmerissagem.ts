@@ -4,7 +4,9 @@ import { montarVeiculoBss } from '../veiculos/MontagemBss';
 import { registrarHidrodinamicaBss006 } from '../veiculos/HidrodinamicaBss006';
 import { criarAmbienteAmerissagem } from './AmbienteAmerissagem';
 
-/** Ensaio ADM de aproximação. Inicialização explícita, sem correções posteriores de posição/ângulo. */
+/** Ensaio ADM de aproximação. Inicialização explícita, sem correções posteriores de posição/ângulo.
+ * @contract f-12deb531d4750ffb
+ */
 export function criarEnsaioAmerissagem(inclinacaoRad = 0.005, velocidadeEntradaMps = 0.5, altitudeInicialM = 5) {
   const ambiente = criarAmbienteAmerissagem();
   const v = montarVeiculoBss(ambiente.mundo, ambiente.solo, { ...PARAMETROS_BSS006, id: 'bss-006',

@@ -4,7 +4,9 @@ import type { PrismaDeslocador } from '../physics/agua/GeometriaSubmersa';
 import type { MontagemBss } from './MontagemBss';
 
 /** Variante explícita de engenharia: casco/tanques estanques, componentes externos permeáveis.
- * Dimensões/massas/controle históricos inalterados; isto não comprova estanqueidade do veículo real. */
+ * Dimensões/massas/controle históricos inalterados; isto não comprova estanqueidade do veículo real.
+ * @contract f-af9fca02b4f4ccdc
+ */
 export function registrarHidrodinamicaBss006(mundo: MundoFisico, v: MontagemBss): void {
   for (const o of v.objetos) {
     let p: PrismaDeslocador = { dimensoesM: o.dimensoesM, coeficienteArrasto: 1.1 };

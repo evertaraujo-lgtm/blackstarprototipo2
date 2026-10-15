@@ -134,3 +134,11 @@ horizontal e arbitragem. Memória dos controladores é distinta da cinemática;
 leituras locais vêm do referencial compartilhado. Demais hipóteses não
 confirmadas permanecem identificadas no catálogo. AST executável preservada
 por arquivo; sem mudanças de ganhos, dt, parâmetros ou lógica de atuação.
+
+### C4 — Montagem, cenários, missão, diário e executor
+
+21 módulos, 155 declarações documentadas. Contratos descrevem instância e
+comandos, observação copiada, amostragem e agenda de replay, separando ciclo
+operacional do tempo físico. A amerissagem classifica medidas e acumula janela
+de equilíbrio; esses eventos não aplicam torque nem encerram o mundo.
+AST executável preservada em cada arquivo. Não foram criadas missões/veículos.

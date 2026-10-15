@@ -7,7 +7,9 @@ import { TanquePropelente } from '../physics/objetos/fontes-de-energia/TanquePro
 import { Propulsor } from '../physics/objetos/propulsao/Propulsor';
 import { GRAVIDADE_PADRAO_MPS2 } from '../physics/objetos/propulsao/combustao/Bocal';
 
-/** Leituras e estimativas de engenharia; não solicita ações nem modifica a física. */
+/** Leituras e estimativas de engenharia; não solicita ações nem modifica a física.
+ * @contract f-4b8411290e34c3a4
+ */
 export const obterTelemetriaMissaoBss = (
   mundo: MundoFisico, veiculo: VeiculoComposto, motor: Propulsor, tanques: readonly TanquePropelente[],
 ) => {

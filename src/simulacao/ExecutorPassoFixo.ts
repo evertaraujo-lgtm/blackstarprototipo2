@@ -12,6 +12,7 @@ export class ExecutorPassoFixo {
   private acumuladoS = 0;
   private ultimoInstanteRealMs?: number;
 
+  /** Escritas diretas: `this.passoS`, `this.deltaRealMaximoS`, `this.preservarTempoReal`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-fd1a2d2565c3f4ad */
   public constructor(
     public readonly passoS: number,
     private readonly deltaRealMaximoS = 0.05,
@@ -21,7 +22,9 @@ export class ExecutorPassoFixo {
     if (!Number.isFinite(deltaRealMaximoS) || deltaRealMaximoS <= 0) throw new Error('Delta real máximo deve ser positivo e finito.');
   }
 
-  /** Retorna quantos passos físicos foram executados neste quadro. */
+  /** Retorna quantos passos físicos foram executados neste quadro.
+   * @contract f-43accb474e314552
+   */
   public avancar(deltaRealS: number, escalaTemporal: number, executarPasso: (passoS: number) => void, limite?: LimiteExecucaoPassos): number {
     if (!Number.isFinite(deltaRealS) || deltaRealS < 0) throw new Error('Delta real deve ser finito e não negativo.');
     if (!Number.isFinite(escalaTemporal) || escalaTemporal <= 0) throw new Error('Escala temporal deve ser positiva e finita.');
@@ -42,6 +45,7 @@ export class ExecutorPassoFixo {
   /**
    * Avança a partir de timestamps do requestAnimationFrame. O primeiro quadro
    * apenas estabelece a referência, e arredondamentos regressivos são ignorados.
+   * @contract f-959c6d231a3a8516
    */
   public avancarAte(instanteRealMs: number, escalaTemporal: number, executarPasso: (passoS: number) => void, limite?: LimiteExecucaoPassos): number {
     if (!Number.isFinite(instanteRealMs) || instanteRealMs < 0) throw new Error('Instante real deve ser finito e não negativo.');
@@ -55,10 +59,14 @@ export class ExecutorPassoFixo {
     return this.avancar(deltaRealS, escalaTemporal, executarPasso, limite);
   }
 
+  /** Devolve `this.acumuladoS`. Efeitos indiretos seguem as dependências chamadas. @contract f-7d4f5893017d32c8 */
   public get tempoPendenteS(): number { return this.acumuladoS; }
-  /** Pausa explícita exclui o relógio parado, preservando trabalho já acumulado. */
+  /** Pausa explícita exclui o relógio parado, preservando trabalho já acumulado.
+   * @contract f-158c15b5ed7fb296
+   */
   public suspenderReferenciaRelogio(): void { this.ultimoInstanteRealMs = undefined; }
 
+  /** Escritas diretas: `this.acumuladoS`, `this.ultimoInstanteRealMs`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7205103b168f9360 */
   public reiniciar(): void {
     this.acumuladoS = 0;
     this.ultimoInstanteRealMs = undefined;

@@ -7,7 +7,9 @@ import { Objeto } from '../physics/objetos/base/Objeto';
 import { Vetor3 } from '../physics/Vetor3';
 import { SuperficieEsferica } from '../physics/SuperficieEsferica';
 
-/** Ensaio/ADM de corpo padrão da bancada. Não é veículo ou missão de lançamento. */
+/** Ensaio/ADM de corpo padrão da bancada. Não é veículo ou missão de lançamento.
+ * @contract f-b2090ed5afdb1862
+ */
 export function criarEnsaioOrbitalInerte(tipo: 'circular' | 'eliptica' = 'circular') {
   if (tipo !== 'circular' && tipo !== 'eliptica') throw new Error('Ensaio orbital desconhecido.');
   const ambiente = new AmbienteTerrestre();
@@ -26,6 +28,7 @@ export function criarEnsaioOrbitalInerte(tipo: 'circular' | 'eliptica' = 'circul
   });
   const solo = new SuperficieEsferica('terra', ambiente.campo.centroM);
   mundo.registrarSuperficie(solo); mundo.registrarObjeto(corpo);
+  /** Devolve `obterTelemetriaOrbital(e.posicaoM, e.velocidadeMps, ambiente.campo)`. Dependências diretas: `corpo.getEstadoFisico`, `obterTelemetriaOrbital`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-283b09640d871e52 */
   const ler = () => {
     const e = corpo.getEstadoFisico();
     return obterTelemetriaOrbital(e.posicaoM, e.velocidadeMps, ambiente.campo);
@@ -33,6 +36,7 @@ export function criarEnsaioOrbitalInerte(tipo: 'circular' | 'eliptica' = 'circul
   const inicial = ler();
   const estadoInicial = corpo.getEstadoFisico();
   return { tipo, ambiente, mundo, corpo, solo, ler, inicial,
+    /** Dependências diretas: `mundo.obterConfiguracaoFisica`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b386a16ed26e78ae */
     obterConfiguracao: () => ({ tipo, modeloFisico: mundo.obterConfiguracaoFisica(), estadoInicial,
       hipotese: 'Ensaio ADM de corpo inerte; condições orbitais iniciais prescritas; Terra estática XY e vácuo explícito.' }) };
 }

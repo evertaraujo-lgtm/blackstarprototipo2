@@ -48,6 +48,7 @@ export class MissaoBss006 implements InstanciaMissao<ComandoBss006, ObservacaoBs
   private rompeu = new Set<string>();
   private picoAltitudeM = 0;
 
+  /** Instancia BSS-006 compartilhado em ambiente terrestre ou ADM aquático explícito, valida configuração e instala objetivos/perfil observacional. Posições/altitudes/arcos m, vento m/s, inclinação rad. Condições cinemáticas são somente iniciais da montagem; água mantém motor desligado e geometrias exclusivas. Registra eventos de preparação; não cria dinâmica paralela. @contract f-3193da7b000083f4 @reviewed M12-DOC: implementação lida. */
   public constructor(configuracao: ConfiguracaoMissaoBss006 = {}, id: string = ID_MISSAO_BSS006) {
     if (typeof id !== 'string' || id.trim().length === 0) throw new Error('Identificação de missão inválida.');
     this.id = configuracao.ensaioAquatico && id === ID_MISSAO_BSS006 ? ID_AMERISSAGEM_BSS006 : id;
@@ -75,18 +76,24 @@ export class MissaoBss006 implements InstanciaMissao<ComandoBss006, ObservacaoBs
     this.evento('missao', 'missao-carregada', ensaio ? 'BSS-006 preparado em ensaio de aproximação sobre oceano.' : 'BSS-006 preparado na plataforma costeira.');
     if (ensaio) this.evento('missao', 'ensaio-adm-aproximacao', 'Condição inicial ADM sobre oceano: motores desligados, sem trajetória de lançamento presumida.');
   }
+  /** Consulta índice de passos da porta operacional, sem medir relógio real. @contract f-9f8a7f5d74cdcfde @reviewed M12-DOC: implementação lida. */
   public get passosExecutados(): number { return this.ciclo.passosExecutados; }
+  /** Consulta estado do CicloMissao; observação não inicia/pausa execução. @contract f-4aba6874dd99f6b1 @reviewed M12-DOC: implementação lida. */
   public get estadoExecucao() { return this.ciclo.estadoExecucao; }
+  /** Inicia avanço operacional uma única vez por transição e registra evento com passo/tempo físico atuais. @contract f-1f954842c6cd8a04 @reviewed M12-DOC: implementação lida. */
   public iniciar(): void {
     if (this.estadoExecucao === 'executando') return;
     this.ciclo.iniciar(); this.evento('missao', 'execucao-iniciada', 'Avanço físico iniciado.');
   }
+  /** Pausa apenas uma instância executando e registra evento; preserva mundo e índice. @contract f-c699fde575a7bd06 @reviewed M12-DOC: implementação lida. */
   public pausar(): void {
     if (this.estadoExecucao !== 'executando') return;
     this.ciclo.pausar(); this.evento('missao', 'execucao-pausada', 'Avanço físico pausado.');
   }
+  /** Devolve cópias dos registros de eventos para evitar cessão da lista interna mutável. @contract f-424e17b18d641cee @reviewed M12-DOC: implementação lida. */
   public obterEventos(): readonly EventoMissao[] { return this.eventos.map(e => ({ ...e })); }
 
+  /** Valida comandos tipados e chama as operações públicas de sistemas, ignição, motor, throttle, alvo, modos e falhas; registra aceitação/negação. Throttle em [0,1], alvo m. Controle de pouso detém recursos correspondentes; comandos não escrevem posição/velocidade/atitude. Falha de alimentação rompe a conexão real; efeitos operacionais são avaliados pelos componentes/core. @contract f-8bc70d8d30dcccf1 @reviewed M12-DOC: implementação lida. */
   public receberComando(comando: ComandoBss006): ResultadoComandoMissao {
     const v = this.veiculo, m = v.propulsor;
     let aceito = true, motivo = 'Comando aplicado.';
@@ -122,14 +129,17 @@ export class MissaoBss006 implements InstanciaMissao<ComandoBss006, ObservacaoBs
     this.evento('comando', aceito ? 'comando-aceito' : 'comando-negado', `${comando.tipo}: ${motivo}`);
     return { aceito, motivo };
   }
+  /** Registra comando negado com motivo e devolve aceito=false; não altera cinemática. @contract f-443431eb1878c71a @reviewed M12-DOC: implementação lida. */
   private negar(motivo: string): ResultadoComandoMissao {
     this.evento('comando', 'comando-negado', motivo); return { aceito: false, motivo };
   }
+  /** Acrescenta evento ordenado por sequência e passo, usando tempo físico do mundo; registro não comanda a dinâmica. @contract f-3baadc15a0bce759 @reviewed M12-DOC: implementação lida. */
   private evento(categoria: EventoMissao['categoria'], tipo: string, descricao: string): void {
     this.eventos.push({ sequencia: this.eventos.length, passo: this.passosExecutados,
       tempoS: this.ambiente.mundo.tempoS, categoria, tipo, descricao });
   }
 
+  /** Executa um passo fixo quando executando: perfil/controle, mundo físico e índice; deriva eventos de voo, contato, integridade e objetivos. Não avança em preparada/pausada (retorna false). Toque inicial, retorno, repouso geométrico, bilateral e pouso seguro têm critérios distintos. Eventos aquáticos refletem medidas; nenhum estado impõe tombamento/equilíbrio. Retorna true após avanço. @contract f-43c5d88f46da2134 @reviewed M12-DOC: implementação lida. */
   public avancarPasso(): boolean {
     if (this.estadoExecucao !== 'executando') return false;
     const { mundo, solo } = this.ambiente, v = this.veiculo, ref = mundo.ambiente.referencial;
@@ -184,6 +194,7 @@ export class MissaoBss006 implements InstanciaMissao<ComandoBss006, ObservacaoBs
     return true;
   }
 
+  /** Constrói observação operacional e física atual a partir de estados/sensores do mundo e devolve snapshot copiado/congelado. Inclui corpos, recursos, contatos, atmosfera, órbita derivada, objetivos e água quando configurada. Reutiliza uma medição aquática na observação; pode preencher caches de consulta, mas não avança física. @contract f-274d318fa20f44aa @reviewed M12-DOC: implementação lida. */
   public observar(): ObservacaoBss006 {
     const { mundo } = this.ambiente, v = this.veiculo, ref = mundo.ambiente.referencial;
     const e = v.veiculo.getEstadoFisico(), engenharia = v.obterDadosMissao();
@@ -236,6 +247,7 @@ export class MissaoBss006 implements InstanciaMissao<ComandoBss006, ObservacaoBs
     };
     return copiarSnapshot(observacao);
   }
+  /** Dependências diretas: `v.veiculo.getEstadoFisico`, `v.veiculo.obterObjetosFisicosConectados`, `conectados.flatMap`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a43b3c4853d45a6a */
   private medidasAquaticas(): MedidasAmerissagem {
     const v = this.veiculo, m = this.ambiente.mundo, e = v.veiculo.getEstadoFisico(), ref = m.ambiente.referencial;
     const conectados = v.veiculo.obterObjetosFisicosConectados();
@@ -247,7 +259,9 @@ export class MissaoBss006 implements InstanciaMissao<ComandoBss006, ObservacaoBs
   }
 }
 export const BSS006_VOO_EXPERIMENTAL = Object.freeze({ id: ID_MISSAO_BSS006,
-  revisao: 'm10-voo-experimental-1', criar: (configuracao: ConfiguracaoMissaoBss006 = {}) => new MissaoBss006(configuracao) } satisfies DefinicaoMissao<ConfiguracaoMissaoBss006, ComandoBss006, ObservacaoBss006>);
+  revisao: 'm10-voo-experimental-1', /** Devolve `new MissaoBss006(configuracao)`. Dependências diretas: `MissaoBss006`. Efeitos indiretos seguem as dependências chamadas. @contract f-104139f1cce7dbda */
+                                     criar: (configuracao: ConfiguracaoMissaoBss006 = {}) => new MissaoBss006(configuracao) } satisfies DefinicaoMissao<ConfiguracaoMissaoBss006, ComandoBss006, ObservacaoBss006>);
 export const BSS006_AMERISSAGEM_EXPERIMENTAL = Object.freeze({ id: ID_AMERISSAGEM_BSS006, revisao: 'm11-amerissagem-2',
+  /** Dependências diretas: `MissaoBss006`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8fc2ee381f47845c */
   criar: (configuracao: ConfiguracaoMissaoBss006 = {}) => new MissaoBss006({ ...configuracao,
     ensaioAquatico: configuracao.ensaioAquatico ?? { inclinacaoInicialRad: 0.005, velocidadeInicialMps: 0.5, altitudeInicialM: 5 } }, ID_AMERISSAGEM_BSS006) });

@@ -45,12 +45,15 @@ export interface ParametrosMontagemBss {
 }
 
 
-/** Montagem física compartilhada; ambiente e superfície são fornecidos pelo consumidor. */
+/** Montagem física compartilhada; ambiente e superfície são fornecidos pelo consumidor.
+ * @contract f-fd616459b962f64d
+ */
 export function montarVeiculoBss(mundo: MundoFisico, solo: SuperficieFisica, configuracao: ParametrosMontagemBss) {
   const ref = mundo.ambiente.referencial;
   const ancora = ref.posicaoPorArcoM(configuracao.arcoBaseM ?? 0, 0);
   const deslocamentoVerticalInicialM = configuracao.incluirPernasFixas ? 0.3 : 0;
   const alturaInicialDoCascoM = 4.5 + deslocamentoVerticalInicialM;
+  /** Dependências diretas: `ref.localParaGlobal`, `Vetor3`, `ref.atitudeInercialRad`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-65edae0a6d02c533 */
   const estadoInicial = (p: Vetor3, theta = 0) => {
     const ensaio = configuracao.estadoInicialEnsaio;
     if (!ensaio) return { posicaoM: ref.localParaGlobal(p, ancora), orientacaoRad: new Vetor3(0, 0, ref.atitudeInercialRad(theta, ancora)) };
@@ -88,6 +91,7 @@ export function montarVeiculoBss(mundo: MundoFisico, solo: SuperficieFisica, con
   const centroPainelM = fatorTanques === 1
     ? 13.2
     : centroBateriaM + 0.725;
+  /** Dependências diretas: `estadoInicial`, `posicaoM.adicionar`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-29c573fab3c95107 */
   const base = (id: string, massaBaseKg: number, dimensoesM: Vetor3, posicaoM: Vetor3) => ({
     id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 500_000, limiteTermicoC: 1_000,
     estadoInicial: estadoInicial(posicaoM.adicionar(new Vetor3(0, deslocamentoVerticalInicialM, 0))),
@@ -116,6 +120,7 @@ export function montarVeiculoBss(mundo: MundoFisico, solo: SuperficieFisica, con
   const painel = new PainelSolar({
     ...base('painel-decolagem-solar', 35, new Vetor3(3, 0.25, 2), new Vetor3(configuracao.painelMovel ? 0 : configuracao.deslocamentoLateralDoPainelM, centroPainelM, 0)),
     areaAtivaM2: 10, irradianciaWPorM2: 1_000, eficiencia: 0.25, destino: bateria,
+    /** Devolve `1`. Efeitos indiretos seguem as dependências chamadas. @contract f-209951e3f470fe6e */
     obterFatorIluminacao: () => 1,
   });
   let cilindroPainel: CorpoDeCilindroEletrico | undefined;
@@ -140,6 +145,7 @@ export function montarVeiculoBss(mundo: MundoFisico, solo: SuperficieFisica, con
     fixadorPainelHaste = new FixadorEstrutural({
       id: 'fixador-painel-haste-bss-003', objetoA: hastePainel, objetoB: painel,
       resistenciaTracaoN: 20_000, resistenciaCompressaoN: 20_000,
+      /** Devolve `cilindroPainel!.forcaNaHasteN`. Efeitos indiretos seguem as dependências chamadas. @contract f-3a4f01c7d556607a */
       obterEsforcoSolicitadoN: () => cilindroPainel!.forcaNaHasteN,
     });
     batentePainelRecuo = new Objeto(base('batente-painel-recuo-bss-003', 18, new Vetor3(0.3, 1.2, 2), new Vetor3(-1.7, 13.2, 0)));
@@ -187,6 +193,7 @@ export function montarVeiculoBss(mundo: MundoFisico, solo: SuperficieFisica, con
     potenciaNominalAtuadorW: 1_000,
     potenciaEmRepousoW: 10,
     fonteEletrica: bateria,
+    /** Devolve `propulsor.sistemaEstaOperacional('elétrico') && propulsor.sistemaEstaOperacional('controle')`. Dependências diretas: `propulsor.sistemaEstaOperacional`. Efeitos indiretos seguem as dependências chamadas. @contract f-378732a2348d4c39 */
     operacaoAutorizada: () => propulsor.sistemaEstaOperacional('elétrico') && propulsor.sistemaEstaOperacional('controle'),
   })) : [];
   const painelFazParteDoCasco = configuracao.incluirPainelSolar && !configuracao.painelMovel;
@@ -205,6 +212,7 @@ export function montarVeiculoBss(mundo: MundoFisico, solo: SuperficieFisica, con
     // fixadores dimensionados para transmitir a reação do veículo ao tocar.
     resistenciaTracaoN: modulo === propulsor || modulo.id.startsWith('bss04-perna-') || modulo.id.startsWith('bss04-sapata-') || modulo.id.startsWith('bss05-perna-') || modulo.id.startsWith('bss05-sapata-') ? 1_000_000 : 300_000,
     resistenciaCompressaoN: modulo === propulsor || modulo.id.startsWith('bss04-perna-') || modulo.id.startsWith('bss04-sapata-') || modulo.id.startsWith('bss05-perna-') || modulo.id.startsWith('bss05-sapata-') ? 1_000_000 : 300_000,
+    /** Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. @contract f-d732a358ed22749d */
     obterEsforcoSolicitadoN: () => propulsor.empuxoAtualN,
   }));
   for (const fixador of fixadores) veiculo.adicionarFixador(fixador);
@@ -216,6 +224,7 @@ export function montarVeiculoBss(mundo: MundoFisico, solo: SuperficieFisica, con
     mundo.registrarFixador(fixadorPainelHaste);
     mundo.registrarGuiaLinear(guiaPainel);
   }
+  /** Dependências diretas: `painel.getEstadoFisico`, `cilindroPainel.limparSelo`, `cilindroPainel.definirEntradas`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-91b1b8d5cb264877 */
   const atualizarControlePainel = (): void => {
     if (!cilindroPainel) return;
     const xPainelM = painel.getEstadoFisico().posicaoM.x;
@@ -234,7 +243,9 @@ export function montarVeiculoBss(mundo: MundoFisico, solo: SuperficieFisica, con
   };
 
   const alturaInicialM = ref.altitudeGeometricaM(veiculo.getEstadoFisico().posicaoM);
+  /** Devolve `veiculo.massaInstantaneaDoConjuntoKg * mundo.obterGravidadeMps2(veiculo.getEstadoFisico().posicaoM).magnitude`. Dependências diretas: `mundo.obterGravidadeMps2`, `veiculo.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-75d31f7dd71b5b26 */
   const pesoAtualN = (): number => veiculo.massaInstantaneaDoConjuntoKg * mundo.obterGravidadeMps2(veiculo.getEstadoFisico().posicaoM).magnitude;
+  /** Dependências diretas: `propulsor.sistemaEstaOperacional`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-cd5e42939c301cd0 */
   const controleAletasEnergizado = (): boolean => !bateria.estaDescarregada && bateria.integridadeEstrutural > 0
     && propulsor.sistemaEstaOperacional('elétrico') && propulsor.sistemaEstaOperacional('controle');
   const controladorAletas = aletasAerodinamicas.length > 0
@@ -270,6 +281,7 @@ export function montarVeiculoBss(mundo: MundoFisico, solo: SuperficieFisica, con
     veiculo.registrarControlador(controladorGuiaPouso);
     controladorGuiaPouso.habilitar();
   }
+  /** Dependências diretas: `veiculo.getEstadoFisico`, `ref.altitudeGeometricaM`, `controladorAletas?.atualizar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-42ae0febce41ba45 */
   const atualizarControleAletas = (): void => {
     const estado = veiculo.getEstadoFisico();
     if (ref.altitudeGeometricaM(estado.posicaoM) > alturaInicialM + 0.5) jaDecolou = true;
@@ -297,6 +309,7 @@ export function montarVeiculoBss(mundo: MundoFisico, solo: SuperficieFisica, con
     ...(configuracao.incluirGuiaPousoPorAlvo ? {
       // O corte terminal usa apoio confirmado pelo resolvedor do MundoFisico.
       // A confirmação fica retida para não rearmar o throttle por oscilação de contato.
+      /** Devolve `contatoDePousoConfirmado`. Dependências diretas: `pernasFixas.filter`, `sapatas.every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-fb341cea057240b3 */
       obterContatoComSolo: () => {
         const sapatas = pernasFixas.filter((perna) => perna.id.includes('sapata'));
         const apoioBilateral = sapatas.length === 2 && sapatas.every((sapata) =>
@@ -306,12 +319,15 @@ export function montarVeiculoBss(mundo: MundoFisico, solo: SuperficieFisica, con
       },
     } : {}),
   };
+  /** Devolve `obterTelemetriaMissaoBss(mundo, veiculo, propulsor, [tanqueCombustivel, tanqueOxidante])`. Dependências diretas: `obterTelemetriaMissaoBss`. Efeitos indiretos seguem as dependências chamadas. @contract f-918543f1d71adc01 */
   const obterDadosMissao = () => obterTelemetriaMissaoBss(mundo, veiculo, propulsor, [tanqueCombustivel, tanqueOxidante]);
+  /** Dependências diretas: `veiculo.habilitarControleDeDescidaFuzzyPid`, `veiculo.desabilitarControleDeDescidaFuzzyPid`, `veiculo.definirThrottleDoPropulsor`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ab7b56e553ea101b */
   const ativarModo = (modo: 'decolagem' | 'pouso'): void => {
     modoBss04 = modo;
     if (modo === 'pouso') veiculo.habilitarControleDeDescidaFuzzyPid(configuracaoPousoBss04, [propulsor.id]);
     else { veiculo.desabilitarControleDeDescidaFuzzyPid(); veiculo.definirThrottleDoPropulsor(propulsor.id, 0); }
   };
+  /** Dependências diretas: `ref.altitudeGeometricaM`, `veiculo.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f67c4a96b3d7ea5e */
   const selecionarAlvo = (xM: number): boolean => {
     if (!Number.isFinite(xM) || jaDecolou || ref.altitudeGeometricaM(veiculo.getEstadoFisico().posicaoM) > alturaInicialM + 0.5) return false;
     alvoPousoXM = xM; return true;
@@ -320,8 +336,13 @@ export function montarVeiculoBss(mundo: MundoFisico, solo: SuperficieFisica, con
     linhaCombustivel, linhaOxidante, fixadores, cilindroPainel, hastePainel, guiaPainel, fixadorPainelHaste,
     controladorAletas, controladorGuiaPouso, atualizarControleAletas, atualizarControlePainel,
     alturaInicialM, pesoAtualN, obterDadosMissao, ativarModo, selecionarAlvo,
-    obterModo: () => modoBss04, obterAlvo: () => alvoPousoXM, obterJaDecolou: () => jaDecolou,
+    /** Devolve `modoBss04`. Efeitos indiretos seguem as dependências chamadas. @contract f-8f01637e749d5ead */
+    obterModo: () => modoBss04, /** Devolve `alvoPousoXM`. Efeitos indiretos seguem as dependências chamadas. @contract f-89da056e4336bb78 */
+                                obterAlvo: () => alvoPousoXM, /** Devolve `jaDecolou`. Efeitos indiretos seguem as dependências chamadas. @contract f-a1df9c4915553b9f */
+                                                              obterJaDecolou: () => jaDecolou,
+    /** Devolve `comandoPainel`. Efeitos indiretos seguem as dependências chamadas. @contract f-25edd5deba3c2b21 */
     obterComandoPainel: () => comandoPainel,
+    /** Dependências diretas: `atualizarControlePainel`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-def29dca4b27c7ee */
     comandarPainel: (comando: 'avancar' | 'recuar') => { comandoPainel = comando; atualizarControlePainel(); },
     objetos: [veiculo, ...veiculo.modulosFisicos, ...(configuracao.incluirPainelSolar && configuracao.painelMovel && hastePainel ? [hastePainel, painel] : [])],
   };

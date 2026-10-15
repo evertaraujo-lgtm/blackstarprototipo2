@@ -45,14 +45,17 @@ export interface ResultadoReplayBss005 {
 const DT_BANCADA_S = 1 / 240;
 const PASSOS_POR_YIELD = 2_400;
 
+/** Devolve `typeof valor === 'object' && valor !== null`. Efeitos indiretos seguem as dependências chamadas. @contract f-8eaee0207c980ead */
 const ehRegistro = (valor: unknown): valor is Record<string, unknown> => typeof valor === 'object' && valor !== null;
 
+/** Dependências diretas: `Array.isArray`, `valor.map`, `ehRegistro`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-fd493bfc9aba0ec7 */
 function normalizarParaComparacao(valor: unknown): unknown {
   if (Array.isArray(valor)) return valor.map(normalizarParaComparacao);
   if (!ehRegistro(valor)) return valor;
   return Object.fromEntries(Object.keys(valor).sort().map((chave) => [chave, normalizarParaComparacao(valor[chave])]));
 }
 
+/** Devolve `diarioLegado`. Dependências diretas: `Array.isArray`, `Error`, `ehRegistro`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-dcaca9b45456e308 */
 function validarDiario(diario: DiarioBss005, cenario: ReturnType<typeof criarTesteBss005>, opcoes: OpcoesReplayBss005): boolean {
   if (diario.versao !== 1 || diario.dtS !== DT_BANCADA_S
     || !Number.isSafeInteger(diario.passosExecutados) || diario.passosExecutados < 0
@@ -101,6 +104,7 @@ function validarDiario(diario: DiarioBss005, cenario: ReturnType<typeof criarTes
 /**
  * Reproduz entradas físicas exportadas pela bancada na montagem BSS-005 atual.
  * As entradas são aplicadas antes do passo indicado; a função não injeta estados.
+ * @contract f-62b5d2e391bcfcfb
  */
 export function* avancarReplayDiarioBss005(diario: DiarioBss005, intervaloAmostraS = 5, opcoes: OpcoesReplayBss005 = {}) {
   const cenario = criarTesteBss005({ ...(opcoes.ambienteFisico ? { ambienteFisico: opcoes.ambienteFisico } : {}), ...(opcoes.arcoBaseM !== undefined ? { arcoBaseM: opcoes.arcoBaseM } : {}) });
@@ -109,6 +113,7 @@ export function* avancarReplayDiarioBss005(diario: DiarioBss005, intervaloAmostr
 
   const motor = cenario.propulsorControlavel;
   let fase: FaseEnsaioBss005 = 'solo';
+  /** Devolve `lerMissaoBss005(cenario, fase)`. Dependências diretas: `lerMissaoBss005`. Efeitos indiretos seguem as dependências chamadas. @contract f-977932fc8649ebf1 */
   const ler = () => lerMissaoBss005(cenario, fase);
   const inicial = ler();
   const eventos: EventoReplayBss005[] = [];
@@ -119,8 +124,10 @@ export function* avancarReplayDiarioBss005(diario: DiarioBss005, intervaloAmostr
   let empuxoAnteriorN = motor.empuxoAtualN;
   let erroBalancoMaxKg = 0;
   let consumoMotorKg = 0;
+  /** Devolve `eventos.push({ tipo, passo, leitura: ler() })`. Dependências diretas: `eventos.push`, `ler`. Efeitos indiretos seguem as dependências chamadas. @contract f-80a704ecf90ed9bb */
   const registrarEvento = (tipo: string, passo: number) => eventos.push({ tipo, passo, leitura: ler() });
 
+  /** Dependências diretas: `motor.sistemaEstaOperacional`, `motor.desligarSistema`, `motor.ligarSistema`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2a710b27f7ccdfac */
   const aplicar = (entrada: EntradaDiarioBss005, passo: number): void => {
     let aceito = true;
     switch (entrada.acao) {
@@ -224,7 +231,9 @@ export function* avancarReplayDiarioBss005(diario: DiarioBss005, intervaloAmostr
   return { modeloFisico: cenario.mundo.obterConfiguracaoFisica(), diarioLegadoSemModelo, dtS: diario.dtS, passosExecutados: diario.passosExecutados, inicial, final, eventos, amostras, comandos, erroBalancoMaxKg } satisfies ResultadoReplayBss005;
 }
 
-/** Executor síncrono útil para diários curtos e testes. */
+/** Executor síncrono útil para diários curtos e testes.
+ * @contract f-ce87eaf7c160a0fd
+ */
 export function executarReplayDiarioBss005(diario: DiarioBss005, intervaloAmostraS = 5, opcoes: OpcoesReplayBss005 = {}): ResultadoReplayBss005 {
   const replay = avancarReplayDiarioBss005(diario, intervaloAmostraS, opcoes);
   let passo = replay.next();

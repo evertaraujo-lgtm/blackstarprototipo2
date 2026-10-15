@@ -1,7 +1,11 @@
 import type { InstanciaMissao } from './ContratoMissao';
 
 export interface ComandoAgendado<C> { readonly passo: number; readonly comando: C }
-/** Executor genérico por passos; independente de veículo, navegador e relógio real. */
+/** Executor genérico por passos; independente de veículo, navegador e relógio real.
+ * @remarks Executa missão genérica até índice inteiro final, aplicando comandos ordenados antes dos respectivos passos; agenda deve ficar no intervalo [inicial,final). Falha se preparada/pausada impedir avanço; retorna observação final, sem relógio real ou encerramento artificial de voo.
+ * @contract f-4fb79278b0d3fc06
+ * @reviewed M12-DOC: contrato confrontado com implementação.
+ */
 export function executarMissaoAtePasso<C, O>(missao: InstanciaMissao<C, O>, passoFinal: number,
   comandos: readonly ComandoAgendado<C>[] = []): O {
   const inicial = missao.passosExecutados;
