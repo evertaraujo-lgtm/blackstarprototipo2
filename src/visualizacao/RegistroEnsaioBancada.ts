@@ -10,7 +10,7 @@ export class RegistroEnsaioBancada {
   private readonly entradas: EntradaEnsaioBancada[] = [];
   private readonly configuracaoJson: string;
 
-  /** Escritas diretas: `this.dtS`, `this.configuracaoJson`. Dependências diretas: `Error`, `JSON.stringify`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b8117d1c26329bb7 */
+  /** Valida dt positivo s e captura configuração por serialização JSON, isolando alterações posteriores do objeto de entrada. @contract f-b8117d1c26329bb7 @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly dtS: number, configuracao: unknown) {
     if (!Number.isFinite(dtS) || dtS <= 0) throw new Error('dt do ensaio deve ser positivo em s.');
     this.configuracaoJson = JSON.stringify(configuracao);
@@ -32,7 +32,7 @@ export class RegistroEnsaioBancada {
     this.entradas.push({ passo: this.passos, acao, valor });
   }
 
-  /** Dependências diretas: `JSON.parse`, `this.entradas.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7ad5c8aac70ef81d */
+  /** Retorna diário v1 com configuração desserializada, entradas copiadas e instrução de reprodução pela mesma revisão/modelo/dt; não reexecuta missão. @contract f-7ad5c8aac70ef81d @reviewed M12-DOC: implementação lida. */
   public exportar() {
     return {
       versao: 1,

@@ -5,7 +5,7 @@ import type { ComandoBss006, ConfiguracaoMissaoBss006, ObservacaoBss006 } from '
 
 /** Devolve `c !== null && typeof c === 'object' && !Array.isArray(c)`. Dependências diretas: `Array.isArray`. Efeitos indiretos seguem as dependências chamadas. @contract f-8da6d56d70ab70fd */
 const objeto = (c: unknown): c is Record<string, unknown> => c !== null && typeof c === 'object' && !Array.isArray(c);
-/** Dependências diretas: `objeto`, `somente`, `['elétrico', 'hidráulico', 'combustível', 'controle'].includes`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-26ac88fd2a26c0ac */
+/** Valida formato estrito dos comandos JSON, rejeita campos extras e números não finitos; limites operacionais como throttle permanecem no domínio. Não executa comando. @contract f-26ac88fd2a26c0ac @reviewed M12-DOC: implementação lida. */
 export function validarComandoBss006(c: unknown): c is ComandoBss006 {
   if (!objeto(c)) return false;
   /** Devolve `Object.keys(c).every(k => ['tipo', ...campos].includes(k))`. Dependências diretas: `Object.keys(c).every`, `Object.keys`. Efeitos indiretos seguem as dependências chamadas. @contract f-bf10058ae855df76 */
@@ -21,19 +21,19 @@ export function validarComandoBss006(c: unknown): c is ComandoBss006 {
     default: return false;
   }
 }
-/** Dependências diretas: `Array.isArray`, `x.map(canonico).join`, `x.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-aa695e4429461bd5 */
+/** Serializa arrays/objetos deterministicamente com chaves ordenadas e omitindo propriedades undefined; exige dados JSON compatíveis para comparar identificação de replay. @contract f-aa695e4429461bd5 @reviewed M12-DOC: implementação lida. */
 function canonico(x: unknown): string {
   if (Array.isArray(x)) return `[${x.map(canonico).join(',')}]`;
   if (objeto(x)) return `{${Object.keys(x).filter(k => x[k] !== undefined).sort().map(k => `${JSON.stringify(k)}:${canonico(x[k])}`).join(',')}}`;
   return JSON.stringify(x);
 }
-/** Dependências diretas: `m.observar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-69293707bdab20bc */
+/** Registra id, revisões de missão/veículo, parâmetros e modelo ativo, explicitando reprodução na mesma revisão e sem equivalência prometida entre revisões. @contract f-69293707bdab20bc @reviewed M12-DOC: implementação lida. */
 function identificacao(m: ReturnType<typeof BSS006_VOO_EXPERIMENTAL.criar>) {
   return { id: m.id, revisaoMissao: m.configuracao.ensaioAquatico ? 'm11-amerissagem-2' : BSS006_VOO_EXPERIMENTAL.revisao, revisaoVeiculo: DEFINICAO_BSS006.revisao,
     configuracao: m.configuracao, modeloFisico: m.observar().cenario.modeloFisico,
     reproducao: 'Mesma revisão de código, modelo, parâmetros, comandos e dt; sem equivalência prometida entre revisões.' };
 }
-/** Devolve `new RegistroMissao(m, identificacao(m), validarComandoBss006, intervaloAmostraPassos)`. Dependências diretas: `BSS006_VOO_EXPERIMENTAL.criar`, `RegistroMissao`, `identificacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d84de2b281d11400 */
+/** Cria missão independente e a envolve em RegistroMissao com identificação, validador e intervalo de amostra em passos; não executa navegador nem física automaticamente. @contract f-d84de2b281d11400 @reviewed M12-DOC: implementação lida. */
 export function criarMissaoBss006Registrada(configuracao: ConfiguracaoMissaoBss006 = {}, intervaloAmostraPassos = 240) {
   const m = BSS006_VOO_EXPERIMENTAL.criar(configuracao);
   return new RegistroMissao(m, identificacao(m), validarComandoBss006, intervaloAmostraPassos);

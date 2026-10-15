@@ -22,7 +22,7 @@ function criar(massaKg: number, d: Vetor3, h: number, v = Vetor3.zero, theta = 0
   m.registrarObjeto(o); m.registrarGeometriaAquatica(o, { dimensoesM: d, coeficienteArrasto: 1 });
   return { m, o, agua, ambiente };
 }
-/** Devolve `{ estado: p.o.getEstadoFisico(), imersao: p.m.obterImersao(p.o)[0], integridade: p.o.integridadeEstrutural, massaKg: p.o.massaKg }`. Dependências diretas: `p.m.avancar`, `p.o.getEstadoFisico`, `p.m.obterImersao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-930543e3bb9ffa60 */
+/** Avança corpo de prova por quantidade arredondada de segundos×240 passos de 1/240 s; devolve estado físico, primeira imersão, massa kg e integridade para evidência quantitativa. Altera somente mundo pelo avanço autorizado. @contract f-930543e3bb9ffa60 @reviewed M12-DOC: implementação lida. */
 function avancar(p: ReturnType<typeof criar>, segundos: number) {
   for (let n = 0; n < Math.round(segundos * 240); n++) p.m.avancar(1 / 240);
   return { estado: p.o.getEstadoFisico(), imersao: p.m.obterImersao(p.o)[0], integridade: p.o.integridadeEstrutural, massaKg: p.o.massaKg };
@@ -46,7 +46,7 @@ const refinamento = [1 / 240, 1 / 480, 1 / 960].map(dtS => {
 });
 const impactos = [1 / 240, 1 / 480].map(dtS => ({ dtS, ...avancar(criar(2000, new Vetor3(1, 1, 1), 0.8, new Vetor3(0, -60, 0), 0, 0, dtS), 0.5) }));
 const giro = criar(4000, new Vetor3(2, 2, 1), -5, Vetor3.zero, 0, 1);
-/** Devolve `0.5 * giro.o.massaKg * e.velocidadeMps.magnitude ** 2 + 0.5 * giro.o.getMomentoInerciaKgM2().z * e.velocidadeAngularRadps.z ** 2`. Dependências diretas: `giro.o.getEstadoFisico`, `giro.o.getMomentoInerciaKgM2`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f5c4e74607c32ba4 */
+/** Consulta energia cinética translacional e rotacional Z do corpo de prova em J; não inclui potencial gravitacional nem trabalho de empuxo. @contract f-f5c4e74607c32ba4 @reviewed M12-DOC: implementação lida. */
 const energia = () => { const e = giro.o.getEstadoFisico(); return 0.5 * giro.o.massaKg * e.velocidadeMps.magnitude ** 2 + 0.5 * giro.o.getMomentoInerciaKgM2().z * e.velocidadeAngularRadps.z ** 2; };
 const energiaInicialJ = energia(), historiaGiro = [{ tempoS: 0, energiaJ: energiaInicialJ }];
 const neutro = avancar(criar(4000, new Vetor3(2, 2, 1), -5), 10);

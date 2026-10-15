@@ -4,7 +4,7 @@ import { createHash } from 'node:crypto';
 import type { criarTesteBss006 } from '../cenarios/BancadaBss';
 import type { ObservacaoBss006 } from '../missoes/TiposMissaoBss006';
 
-/** Dependências diretas: `b.objetos.map`, `b.obterDadosMissao`, `b.mundo.obterContatosComSuperficie`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3b5aba79d123ca41 */
+/** Projeta estado da bancada para formato comparável: corpos, engenharia, contatos, motor, arbitragem, fixadores, sistemas, energia e sensores. Apenas consulta, sem avançar missão. @contract f-3b5aba79d123ca41 @reviewed M12-DOC: implementação lida. */
 export function fisicaBancada(b: ReturnType<typeof criarTesteBss006>) {
   const v = b.seguirObjeto, m = b.propulsorControlavel;
   return { tempoS: b.mundo.tempoS,
@@ -20,7 +20,7 @@ export function fisicaBancada(b: ReturnType<typeof criarTesteBss006>) {
     sensores: { validos: v.obterLeiturasDosSensores().sensoresValidos !== false, idadeS: v.obterLeiturasDosSensores().idadeLeituraS ?? 0 },
   };
 }
-/** Dependências diretas: `o.corpos.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b1e526c99539b31e */
+/** Projeta snapshot da missão para o mesmo conjunto de campos da bancada, preservando valores físicos sem arredondamento. @contract f-b1e526c99539b31e @reviewed M12-DOC: implementação lida. */
 export function fisicaMissao(o: ObservacaoBss006) {
   return { tempoS: o.tempoS,
     corpos: o.corpos.map(c => ({ id: c.id, estado: c.estado, massaKg: c.massaKg, integridade: c.integridade, temperaturaC: c.temperaturaC, deflexaoRad: c.deflexaoRad })),
@@ -28,7 +28,7 @@ export function fisicaMissao(o: ObservacaoBss006) {
     throttle: o.throttle, ignitado: o.ignitado, gimbalRad: o.gimbalRad, arbitragem: o.arbitragem,
     fixadores: o.fixadores, sistemas: o.sistemas, energiaEletricaJ: o.energiaEletricaJ, sensores: o.sensores };
 }
-/** Dependências diretas: `createHash('sha256').update(JSON.stringify(o, (_chave, valor) => { if (typeof valor === 'number' && !Number.isFinite(valor)) throw new Error('Grandeza não finita na evidência física.'); return valor; })).digest`, `createHash('sha256').update`, `createHash`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-dab75627890b3399 */
+/** Calcula SHA-256 da serialização do registro físico, rejeitando qualquer número não finito; igualdade exige mesma ordem/estrutura além dos mesmos valores. @contract f-dab75627890b3399 @reviewed M12-DOC: implementação lida. */
 export function hashFisica(o: unknown): string { return createHash('sha256').update(JSON.stringify(o, (_chave, valor) => {
   if (typeof valor === 'number' && !Number.isFinite(valor)) throw new Error('Grandeza não finita na evidência física.');
   return valor;

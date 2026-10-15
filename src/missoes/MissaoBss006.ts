@@ -247,7 +247,7 @@ export class MissaoBss006 implements InstanciaMissao<ComandoBss006, ObservacaoBs
     };
     return copiarSnapshot(observacao);
   }
-  /** Dependências diretas: `v.veiculo.getEstadoFisico`, `v.veiculo.obterObjetosFisicosConectados`, `conectados.flatMap`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a43b3c4853d45a6a */
+  /** Agrega imersões dos componentes conectados, G/massa, gravidade local, velocidades, atitude e empuxo reais; observa contato sólido separadamente. Fornece medidas ao classificador passivo sem comandar tombamento. @contract f-a43b3c4853d45a6a @reviewed M12-DOC: implementação lida. */
   private medidasAquaticas(): MedidasAmerissagem {
     const v = this.veiculo, m = this.ambiente.mundo, e = v.veiculo.getEstadoFisico(), ref = m.ambiente.referencial;
     const conectados = v.veiculo.obterObjetosFisicosConectados();
@@ -260,8 +260,9 @@ export class MissaoBss006 implements InstanciaMissao<ComandoBss006, ObservacaoBs
 }
 export const BSS006_VOO_EXPERIMENTAL = Object.freeze({ id: ID_MISSAO_BSS006,
   revisao: 'm10-voo-experimental-1', /** Devolve `new MissaoBss006(configuracao)`. Dependências diretas: `MissaoBss006`. Efeitos indiretos seguem as dependências chamadas. @contract f-104139f1cce7dbda */
+                                     /** Cria variante identificada de amerissagem com perturbação inicial 0,005 rad, velocidade 0,5 m/s e altitude 5 m quando ensaio não fornecido; reutiliza mesma missão/veículo, sem animar dinâmica. @contract f-104139f1cce7dbda @reviewed M12-DOC: implementação lida. */
                                      criar: (configuracao: ConfiguracaoMissaoBss006 = {}) => new MissaoBss006(configuracao) } satisfies DefinicaoMissao<ConfiguracaoMissaoBss006, ComandoBss006, ObservacaoBss006>);
 export const BSS006_AMERISSAGEM_EXPERIMENTAL = Object.freeze({ id: ID_AMERISSAGEM_BSS006, revisao: 'm11-amerissagem-2',
-  /** Dependências diretas: `MissaoBss006`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8fc2ee381f47845c */
+  /** Cria variante identificada de amerissagem com perturbação inicial 0,005 rad, velocidade 0,5 m/s e altitude 5 m quando ensaio não fornecido; reutiliza mesma missão/veículo, sem animar dinâmica. @contract f-8fc2ee381f47845c @reviewed M12-DOC: implementação lida. */
   criar: (configuracao: ConfiguracaoMissaoBss006 = {}) => new MissaoBss006({ ...configuracao,
     ensaioAquatico: configuracao.ensaioAquatico ?? { inclinacaoInicialRad: 0.005, velocidadeInicialMps: 0.5, altitudeInicialM: 5 } }, ID_AMERISSAGEM_BSS006) });

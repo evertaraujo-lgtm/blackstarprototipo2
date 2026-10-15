@@ -19,7 +19,7 @@ let ultimoTimestamp: number | undefined;
 let acumuladorS = 0;
 const DT_S = 1;
 
-/** Escritas diretas: `play.textContent`. Dependências diretas: `criarEnsaioOrbitalInerte`, `ensaio.corpo.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-16848ec4b453ff12 */
+/** Recria ensaio circular/elíptico escolhido, reinicia trilha e acumulador visual e pausa execução; não reutiliza estado residual da missão anterior. @contract f-16848ec4b453ff12 @reviewed M12-DOC: implementação lida. */
 function reiniciar(): void {
   ensaio = criarEnsaioOrbitalInerte(tipo.value === 'eliptica' ? 'eliptica' : 'circular');
   pontos = [ensaio.corpo.getEstadoFisico().posicaoM];
@@ -37,7 +37,7 @@ document.querySelector('#orbital-exportar')!.addEventListener('click', () => {
   URL.revokeObjectURL(url);
 });
 
-/** Escritas diretas: `canvas.width`, `canvas.height`, `ctx.fillStyle`, `ctx.strokeStyle`. Dependências diretas: `ensaio.corpo.getEstadoFisico`, `ensaio.ler`, `CameraFisica2D`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-caa69db0599506b2 */
+/** Consulta ensaio e projeta Terra, trajetória, corpo e radial em Canvas por câmera/zoom; atualiza indicadores orbitais e erros relativos. Conversões para km/pixels/graus não alteram estado físico. @contract f-caa69db0599506b2 @reviewed M12-DOC: implementação lida. */
 function desenhar(): void {
   // Pixels lógicos acompanham o viewport: réguas e texto continuam legíveis
   // no celular, sem transformar coordenadas ou dimensões do corpo físico.
@@ -73,7 +73,7 @@ function desenhar(): void {
   const momentoErro = Math.abs(m.momentoAngularEspecificoM2S / ensaio.inicial.momentoAngularEspecificoM2S - 1);
   dados.textContent = `t = ${ensaio.mundo.tempoS.toFixed(0)} s · ${m.estado} · altura ${(m.altitudeM / 1000).toFixed(3)} km · velocidade inercial ${m.velocidadeInercialMps.toFixed(2)} m/s\nPerigeu previsto ${(m.perigeuM / 1000).toFixed(3)} km · apogeu previsto ${((m.apogeuM ?? 0) / 1000).toFixed(3)} km · período previsto ${m.periodoS?.toFixed(3)} s\nEnergia específica ${m.energiaEspecificaJPorKg.toFixed(2)} J/kg · momento angular ${m.momentoAngularEspecificoM2S.toExponential(6)} m²/s\nVariação relativa de energia ${energiaErro.toExponential(3)} · momento angular ${momentoErro.toExponential(3)} · massa ${ensaio.corpo.massaKg.toFixed(1)} kg`;
 }
-/** Dependências diretas: `Number`, `ensaio.mundo.avancar`, `pontos.push`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a8bbee59e2fde294 */
+/** Acumula delta real limitado a 0,25 s vezes escala, avança até 200 passos fixos por quadro e preserva restante no acumulador. Registra trilha a cada 5 s até 10 mil pontos, desenha e agenda próximo quadro; o corte de delta real pertence a esta UI orbital legada. @contract f-a8bbee59e2fde294 @reviewed M12-DOC: implementação lida. */
 function executar(timestamp: number): void {
   if (rodando && ultimoTimestamp !== undefined && timestamp > ultimoTimestamp) {
     acumuladorS += Math.min((timestamp - ultimoTimestamp) / 1000, 0.25) * Number(tempo.value);

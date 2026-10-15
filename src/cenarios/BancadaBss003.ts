@@ -20,7 +20,7 @@ export const criarTesteBss003 = (configuracao: AmbienteBancadaBss = {}) => {
   const ancora = ref.posicaoPorArcoM(configuracao.arcoBaseM ?? 0, 0);
   /** Devolve `({ posicaoM: ref.localParaGlobal(p, ancora), orientacaoRad: new Vetor3(0, 0, ref.atitudeInercialRad(theta, ancora)) })`. Dependências diretas: `ref.localParaGlobal`, `Vetor3`, `ref.atitudeInercialRad`. Efeitos indiretos seguem as dependências chamadas. @contract f-5bab94d42b4fc0a5 */
   const estadoInicial = (p: Vetor3, theta = 0) => ({ posicaoM: ref.localParaGlobal(p, ancora), orientacaoRad: new Vetor3(0, 0, ref.atitudeInercialRad(theta, ancora)) });
-  /** Dependências diretas: `estadoInicial`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-92a3f1dc54f50636 */
+  /** Monta definição física comum com massa kg/dimensões m fornecidas, resistência 2 MJ, dissipação 0,35, limite 1000 °C e estado inicial; não registra corpo. @contract f-92a3f1dc54f50636 @reviewed M12-DOC: implementação lida. */
   const base = (id: string, massaBaseKg: number, dimensoesM: Vetor3, posicaoM: Vetor3) => ({
     id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 2_000_000, dissipacaoImpacto: 0.35,
     limiteTermicoC: 1_000, estadoInicial: estadoInicial(posicaoM),
@@ -72,7 +72,7 @@ export const criarTesteBss003 = (configuracao: AmbienteBancadaBss = {}) => {
     ...base('bss03-bateria', 60, new Vetor3(1.2, 0.6, 1), new Vetor3(0, 2.6, 0)),
     tensaoNominalV: 28, capacidadeEnergiaJ: 500_000, energiaInicialJ: 500_000,
   });
-  /** Devolve `motor`. Dependências diretas: `PropulsorVetorizado`, `base`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6d1a598a90fa3d6e */
+  /** Cria motor vetorizado de 20 kN com pose inicial e limites declarados, conecta tanque/bateria por 8 m e retorna componente; não solicita ignição. @contract f-6d1a598a90fa3d6e @reviewed M12-DOC: implementação lida. */
   const criarMotor = (id: string, xM: number, tanque: TanquePropelente): PropulsorVetorizado => {
     const motor = new PropulsorVetorizado({
       ...base(id, 70, new Vetor3(0.8, 1, 1), new Vetor3(xM, 0.8, 0)),
@@ -142,9 +142,9 @@ export const criarTesteBss003 = (configuracao: AmbienteBancadaBss = {}) => {
     get propulsorVetorizadoControlavel() { return grupoAtivo().propulsores[0]; },
     /** Devolve `grupoAtivoId`. Efeitos indiretos seguem as dependências chamadas. @contract f-b82e0b216aba750c */
     obterGrupoPropulsaoAtivo: () => grupoAtivoId,
-    /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-226c23f267ef239d */
+    /** Atualiza seleção operacional somente para grupos decolagem/pouso conhecidos; não move peças nem liga motores. @contract f-226c23f267ef239d @reviewed M12-DOC: implementação lida. */
     selecionarGrupoPropulsao: (id: string) => { if (id === 'decolagem' || id === 'pouso') grupoAtivoId = id; },
-    /** Dependências diretas: `nave.retornarAoControleDeInclinacao`, `nave.acionarModoDePouso`, `resultados.every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-92746b577e7f712d */
+    /** Encaminha escolha de controle ao veículo; ao pedir pouso seleciona grupo correspondente somente se todos os resultados operacionais forem aceitos. @contract f-92746b577e7f712d @reviewed M12-DOC: implementação lida. */
     ativarControleBss03: (controle: 'inclinacao' | 'pouso' | 'manual') => {
       if (controle === 'inclinacao') nave.retornarAoControleDeInclinacao();
       else if (controle === 'pouso') {
@@ -158,11 +158,11 @@ export const criarTesteBss003 = (configuracao: AmbienteBancadaBss = {}) => {
     permiteAjustarThrottle: true,
     /** Devolve `false`. Efeitos indiretos seguem as dependências chamadas. @contract f-adc2cc705824c723 */
     deveEncerrar: () => false,
-    /** Dependências diretas: `integridadeMinima`, `(integridadeMinima() * 100).toFixed`, `tanquePouso.massaPropelenteKg.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-21067880911bf1d1 */
+    /** Relata integridade mínima com limiar 0,999, controle ativo e reserva; diagnóstico não certifica missão completa. @contract f-21067880911bf1d1 @reviewed M12-DOC: implementação lida. */
     validar: () => `${integridadeMinima() >= 0.999 ? 'ÍNTEGRO' : 'DANIFICADO'} · controle ${nave.controleAtivoBss03}; integridade mínima ${(integridadeMinima() * 100).toFixed(1)}%; reserva de pouso ${tanquePouso.massaPropelenteKg.toFixed(1)} kg`,
-    /** Dependências diretas: `nave.obterLeiturasDosSensores`, `l.altitudeM.toFixed`, `l.velocidadeVerticalMps.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-467615ffe4325938 */
+    /** Formata grupo/controle, altitude m, velocidade vertical m/s e inclinação em graus a partir dos sensores. @contract f-467615ffe4325938 @reviewed M12-DOC: implementação lida. */
     telemetria: () => { const l = nave.obterLeiturasDosSensores(); return `grupo ${grupoAtivoId} · controle ${nave.controleAtivoBss03} · altitude ${l.altitudeM.toFixed(1)} m · vy=${l.velocidadeVerticalMps.toFixed(2)} m/s · inclinação ${(l.inclinacaoRad * 180 / Math.PI).toFixed(1)}°`; },
-    /** Dependências diretas: `nave.obterLeiturasDosSensores`, `nave.obterUltimoComandoDePouso`, `grupoAtivo`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a2964316aee1051a */
+    /** Compõe observação detalhada de reservas, velocidades, comandos de pouso e integridade sem avançar controles/física. @contract f-a2964316aee1051a @reviewed M12-DOC: implementação lida. */
     dados: () => { const l = nave.obterLeiturasDosSensores(); const comando = nave.obterUltimoComandoDePouso(); return `Sequência automática: inexistente\nGrupo selecionado: ${grupoAtivo().nome}\nControlador selecionado: ${nave.controleAtivoBss03}\nAltitude atual: ${l.altitudeM.toFixed(2)} m\nVelocidade vertical: ${l.velocidadeVerticalMps.toFixed(2)} m/s\nVelocidade horizontal: ${l.velocidadeHorizontalMps.toFixed(2)} m/s\nTanque de decolagem: ${tanqueDecolagem.massaPropelenteKg.toFixed(1)} kg\nTanque reservado ao pouso: ${tanquePouso.massaPropelenteKg.toFixed(1)} kg\nThrottle calculado no pouso: ${((comando?.throttle ?? 0) * 100).toFixed(1)}%\nGimbal calculado no pouso: ${((comando?.anguloGimbalRad ?? 0) * 180 / Math.PI).toFixed(2)}°\nMotores: quatro unidades externas sob o casco\nTrem de pouso: sapatas externas a ±2,8 m\nIntegridade mínima: ${(integridadeMinima() * 100).toFixed(1)}%`; },
   };
 };

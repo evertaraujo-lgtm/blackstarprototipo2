@@ -28,7 +28,7 @@ export function criarEnsaioOrbitalInerte(tipo: 'circular' | 'eliptica' = 'circul
   });
   const solo = new SuperficieEsferica('terra', ambiente.campo.centroM);
   mundo.registrarSuperficie(solo); mundo.registrarObjeto(corpo);
-  /** Devolve `obterTelemetriaOrbital(e.posicaoM, e.velocidadeMps, ambiente.campo)`. Dependências diretas: `corpo.getEstadoFisico`, `obterTelemetriaOrbital`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-283b09640d871e52 */
+  /** Calcula telemetria orbital do estado real do corpo inerte usando campo do ambiente; não depende de propulsão/manobras. @contract f-283b09640d871e52 @reviewed M12-DOC: implementação lida. */
   const ler = () => {
     const e = corpo.getEstadoFisico();
     return obterTelemetriaOrbital(e.posicaoM, e.velocidadeMps, ambiente.campo);
@@ -36,7 +36,7 @@ export function criarEnsaioOrbitalInerte(tipo: 'circular' | 'eliptica' = 'circul
   const inicial = ler();
   const estadoInicial = corpo.getEstadoFisico();
   return { tipo, ambiente, mundo, corpo, solo, ler, inicial,
-    /** Dependências diretas: `mundo.obterConfiguracaoFisica`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b386a16ed26e78ae */
+    /** Expõe tipo de órbita, revisão/constantes físicas, estado inicial e hipótese ADM de Terra estática XY/vácuo explícito para reprodução. @contract f-b386a16ed26e78ae @reviewed M12-DOC: implementação lida. */
     obterConfiguracao: () => ({ tipo, modeloFisico: mundo.obterConfiguracaoFisica(), estadoInicial,
       hipotese: 'Ensaio ADM de corpo inerte; condições orbitais iniciais prescritas; Terra estática XY e vácuo explícito.' }) };
 }

@@ -48,14 +48,14 @@ const PASSOS_POR_YIELD = 2_400;
 /** Devolve `typeof valor === 'object' && valor !== null`. Efeitos indiretos seguem as dependências chamadas. @contract f-8eaee0207c980ead */
 const ehRegistro = (valor: unknown): valor is Record<string, unknown> => typeof valor === 'object' && valor !== null;
 
-/** Dependências diretas: `Array.isArray`, `valor.map`, `ehRegistro`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-fd493bfc9aba0ec7 */
+/** Copia recursivamente arrays/registros ordenando chaves; preserva valores escalares para comparação JSON independente da ordem de propriedades. @contract f-fd493bfc9aba0ec7 @reviewed M12-DOC: implementação lida. */
 function normalizarParaComparacao(valor: unknown): unknown {
   if (Array.isArray(valor)) return valor.map(normalizarParaComparacao);
   if (!ehRegistro(valor)) return valor;
   return Object.fromEntries(Object.keys(valor).sort().map((chave) => [chave, normalizarParaComparacao(valor[chave])]));
 }
 
-/** Devolve `diarioLegado`. Dependências diretas: `Array.isArray`, `Error`, `ehRegistro`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-dcaca9b45456e308 */
+/** Valida versão/dt/passos, configuração/modelo e estado físico inicial contra cenário; diário sem modelo exige opção explícita legada. Exige entradas ordenadas no intervalo e números finitos, retorna indicador legado; incompatibilidade lança erro sem reproduzir física. @contract f-dcaca9b45456e308 @reviewed M12-DOC: implementação lida. */
 function validarDiario(diario: DiarioBss005, cenario: ReturnType<typeof criarTesteBss005>, opcoes: OpcoesReplayBss005): boolean {
   if (diario.versao !== 1 || diario.dtS !== DT_BANCADA_S
     || !Number.isSafeInteger(diario.passosExecutados) || diario.passosExecutados < 0
@@ -127,7 +127,7 @@ export function* avancarReplayDiarioBss005(diario: DiarioBss005, intervaloAmostr
   /** Devolve `eventos.push({ tipo, passo, leitura: ler() })`. Dependências diretas: `eventos.push`, `ler`. Efeitos indiretos seguem as dependências chamadas. @contract f-80a704ecf90ed9bb */
   const registrarEvento = (tipo: string, passo: number) => eventos.push({ tipo, passo, leitura: ler() });
 
-  /** Dependências diretas: `motor.sistemaEstaOperacional`, `motor.desligarSistema`, `motor.ligarSistema`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2a710b27f7ccdfac */
+  /** Traduz entrada histórica em operação de domínio (sistemas, ignição, throttle/gimbal, modo, rupturas ou painel), converte unidades de UI e registra aceitação/evento. Ação desconhecida lança erro; não escreve estado cinemático. @contract f-2a710b27f7ccdfac @reviewed M12-DOC: implementação lida. */
   const aplicar = (entrada: EntradaDiarioBss005, passo: number): void => {
     let aceito = true;
     switch (entrada.acao) {

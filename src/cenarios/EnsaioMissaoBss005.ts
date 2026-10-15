@@ -94,7 +94,7 @@ export function atendeLimitesDeToqueBss005(leitura: Pick<LeituraMissaoBss005,
     && Math.abs(leitura.velocidadeAngularRadps) < CRITERIOS_POUSO_BSS005.velocidadeAngularMaxRadps;
 }
 
-/** Devolve `causas`. Dependências diretas: `causas.push`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0daf5806d1df6633 */
+/** Lista grandezas que atingem/excedem critérios históricos de toque: velocidades vertical/horizontal, inclinação e taxa angular. Não modifica limiares nem estado do ensaio. @contract f-0daf5806d1df6633 @reviewed M12-DOC: implementação lida. */
 function causasLimitesDeToqueBss005(leitura: Pick<LeituraMissaoBss005,
   'velocidadeXMps' | 'velocidadeYMps' | 'orientacaoRad' | 'velocidadeAngularRadps'>): string[] {
   const causas: string[] = [];
@@ -105,7 +105,7 @@ function causasLimitesDeToqueBss005(leitura: Pick<LeituraMissaoBss005,
   return causas;
 }
 
-/** Dependências diretas: `objeto.getEstadoFisico`, `objeto.getPontosDeContatoLocaisM().map`, `objeto.getPontosDeContatoLocaisM`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-9053c7e543fe455e */
+/** Calcula menor Y global dos pontos de contato orientados pela pose; consulta legado cartesiano, não altitude radial geral. @contract f-9053c7e543fe455e @reviewed M12-DOC: implementação lida. */
 export const menorAlturaDoObjetoM = (objeto: Objeto): number => {
   const e = objeto.getEstadoFisico();
   return Math.min(...objeto.getPontosDeContatoLocaisM().map((ponto) => e.posicaoM.y
@@ -221,7 +221,7 @@ export function* avancarEnsaioMissaoBss005(configuracao: ConfiguracaoEnsaioBss00
   /** Devolve `eventos.push({ tipo, leitura: ler() })`. Dependências diretas: `eventos.push`, `ler`. Efeitos indiretos seguem as dependências chamadas. @contract f-4b676dcb51d939c6 */
   const evento = (tipo: string) => eventos.push({ tipo, leitura: ler() });
   let massaRetiradaNaFalhaKg = 0;
-  /** Dependências diretas: `tanque.fornecerPropelente`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f83aae4aa6f46468 */
+  /** Injeta falha prescrita retirando todo propelente disponível pelos métodos dos tanques e acumula massa kg retirada; não altera massa cinemática diretamente. @contract f-f83aae4aa6f46468 @reviewed M12-DOC: implementação lida. */
   const retirarReserva = () => {
     for (const tanque of tanques) massaRetiradaNaFalhaKg += tanque.fornecerPropelente(tanque.massaPropelenteKg);
   };
@@ -244,7 +244,7 @@ export function* avancarEnsaioMissaoBss005(configuracao: ConfiguracaoEnsaioBss00
   let erroBalancoMaxKg = 0, proximaAmostraS = config.intervaloAmostraS;
   const causasFalhaPouso: string[] = [];
   let ultimoEstado = ler();
-  /** Dependências diretas: `causasFalhaPouso.push`, `evento`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6ab216b281a41730 */
+  /** Marca primeira falha, acumula causas, muda fase e registra evento uma única vez; evento observa critérios, sem impor trajetória. @contract f-6ab216b281a41730 @reviewed M12-DOC: implementação lida. */
   const registrarFalhaPouso = (causas: readonly string[]) => {
     if (falhouPouso) return;
     falhouPouso = true;

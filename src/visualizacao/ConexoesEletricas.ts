@@ -5,7 +5,7 @@ import { Vetor3 } from '../physics/Vetor3';
 /** O renderer consulta a conexão de domínio usada pelo consumidor. */
 export type ConexaoEletricaVisual = ConexaoEletrica;
 
-/** Devolve `conexoes.filter((conexao) => objetosVisiveis.includes(conexao.fonte))`. Dependências diretas: `conexoes.filter`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-aff2a7f3384f78eb */
+/** Filtra conexões cuja fonte integra a lista visível; ocultação é exclusivamente visual e não remove cabo do domínio. @contract f-aff2a7f3384f78eb @reviewed M12-DOC: implementação lida. */
 export function conexoesEletricasExpostas(conexoes: readonly ConexaoEletricaVisual[], objetosVisiveis: readonly Objeto[]): readonly ConexaoEletricaVisual[] {
   return conexoes.filter((conexao) => objetosVisiveis.includes(conexao.fonte));
 }
@@ -32,7 +32,7 @@ export interface AlvoSwitchEletrico {
   readonly altura: number;
 }
 
-/** Devolve `alvos`. Escritas diretas: `contexto.lineJoin`, `contexto.lineCap`, `contexto.lineWidth`, `contexto.strokeStyle`. Dependências diretas: `conexoesEletricasExpostas(conexoes, objetosVisiveis).entries`, `conexoesEletricasExpostas`, `projetar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7100ba216535c7cc */
+/** Projeta terminais físicos e desenha dois condutores, interruptor e diagnóstico corrente/tensão mesmo desligados; diferencia ruptura/desconexão. Retorna regiões clicáveis de fontes CC sem operar circuitos. @contract f-7100ba216535c7cc @reviewed M12-DOC: implementação lida. */
 export function desenharConexoesEletricas(
   contexto: CanvasRenderingContext2D,
   conexoes: readonly ConexaoEletricaVisual[],
@@ -56,7 +56,7 @@ export function desenharConexoesEletricas(
     contexto.lineCap = 'round';
     // Dois condutores, inclusive desligados. A separação em pixels é somente visual.
     for (const [deslocamento, cor] of [[-3, '#f87171'], [3, '#60a5fa']] as const) {
-      /** Dependências diretas: `contexto.beginPath`, `contexto.moveTo`, `contexto.lineTo`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e03c60a41fd7c22d */
+      /** Constrói caminho ortogonal do condutor no Canvas em pixels; chamado para contorno e traço, sem mudar geometria do cabo físico. @contract f-e03c60a41fd7c22d @reviewed M12-DOC: implementação lida. */
       const caminho = () => {
         contexto.beginPath();
         contexto.moveTo(inicio.x, inicio.y + deslocamento);

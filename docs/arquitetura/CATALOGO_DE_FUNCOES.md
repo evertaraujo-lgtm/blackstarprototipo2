@@ -895,15 +895,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>scripts/validar-hidrodinamica.ts::avancar:FunctionDeclaration</code> · [fonte L26](../../scripts/validar-hidrodinamica.ts#L26) |
 | Assinatura | <code> (p: ReturnType&lt;typeof criar&gt;, segundos: number): { estado: EstadoFisico; imersao: EstadoImersao; integridade: number; massaKg: number; }</code> |
-| Responsabilidade | Devolve `{ estado: p.o.getEstadoFisico(), imersao: p.m.obterImersao(p.o)[0], integridade: p.o.integridadeEstrutural, massaKg: p.o.massaKg }`. Dependências diretas: `p.m.avancar`, `p.o.getEstadoFisico`, `p.m.obterImersao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Avança corpo de prova por quantidade arredondada de segundos×240 passos de 1/240 s; devolve estado físico, primeira imersão, massa kg e integridade para evidência quantitativa. Altera somente mundo pelo avanço autorizado. |
 | Entradas | <code>p: ReturnType&lt;typeof criar&gt;</code>; <code>segundos: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ estado: import("/media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/physics/objetos/base/Objeto").EstadoFisico; imersao: import("/media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/physics/agua/SistemaHidrodinamico").EstadoImersao; integridade: number; massaKg: number; }</code>; expressões retornadas: <code>{ estado: p.o.getEstadoFisico(), imersao: p.m.obterImersao(p.o)[0], integridade: p.o.integridadeEstrutural, massaKg: p.o.massaKg }</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>n</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.round</code>; <code>p.m.avancar</code>; <code>p.o.getEstadoFisico</code>; <code>p.m.obterImersao</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `{ estado: p.o.getEstadoFisico(), imersao: p.m.obterImersao(p.o)[0], integridade: p.o.integridadeEstrutural, massaKg: p.o.massaKg }`. Dependências diretas: `p.m.avancar`, `p.o.getEstadoFisico`, `p.m.obterImersao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-930543e3bb9ffa60 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Avança corpo de prova por quantidade arredondada de segundos×240 passos de 1/240 s; devolve estado físico, primeira imersão, massa kg e integridade para evidência quantitativa. Altera somente mundo pelo avanço autorizado. @contract f-930543e3bb9ffa60 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -914,15 +914,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>scripts/validar-hidrodinamica.ts::energia:ArrowFunction</code> · [fonte L50](../../scripts/validar-hidrodinamica.ts#L50) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Devolve `0.5 * giro.o.massaKg * e.velocidadeMps.magnitude ** 2 + 0.5 * giro.o.getMomentoInerciaKgM2().z * e.velocidadeAngularRadps.z ** 2`. Dependências diretas: `giro.o.getEstadoFisico`, `giro.o.getMomentoInerciaKgM2`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Consulta energia cinética translacional e rotacional Z do corpo de prova em J; não inclui potencial gravitacional nem trabalho de empuxo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>0.5 * giro.o.massaKg * e.velocidadeMps.magnitude ** 2 + 0.5 * giro.o.getMomentoInerciaKgM2().z * e.velocidadeAngularRadps.z ** 2</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>giro.o.getEstadoFisico</code>; <code>giro.o.getMomentoInerciaKgM2</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `0.5 * giro.o.massaKg * e.velocidadeMps.magnitude ** 2 + 0.5 * giro.o.getMomentoInerciaKgM2().z * e.velocidadeAngularRadps.z ** 2`. Dependências diretas: `giro.o.getEstadoFisico`, `giro.o.getMomentoInerciaKgM2`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f5c4e74607c32ba4 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta energia cinética translacional e rotacional Z do corpo de prova em J; não inclui potencial gravitacional nem trabalho de empuxo. @contract f-f5c4e74607c32ba4 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -1074,15 +1074,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor.iniciar:ArrowFunction</code> · [fonte L31](../../src/apresentacao/missao/CenaMissao.ts#L31) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | Escritas diretas: `this.ultimaMedicaoMs`. Dependências diretas: `this.missao.iniciar`, `this.executor.suspenderReferenciaRelogio`, `this.marcarAtualizacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Envia iniciar à missão, suspende referência do relógio visual, limpa medição de desempenho e solicita atualização; não altera dt da física. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.ultimaMedicaoMs</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.missao.iniciar</code>; <code>this.executor.suspenderReferenciaRelogio</code>; <code>this.marcarAtualizacao</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.ultimaMedicaoMs`. Dependências diretas: `this.missao.iniciar`, `this.executor.suspenderReferenciaRelogio`, `this.marcarAtualizacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0cb26e3d6ed78dae */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Envia iniciar à missão, suspende referência do relógio visual, limpa medição de desempenho e solicita atualização; não altera dt da física. @contract f-0cb26e3d6ed78dae @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -1093,15 +1093,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor.pausar:ArrowFunction</code> · [fonte L33](../../src/apresentacao/missao/CenaMissao.ts#L33) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | Dependências diretas: `this.missao.pausar`, `this.executor.suspenderReferenciaRelogio`, `this.marcarAtualizacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Envia pausa à missão, suspende referência temporal e marca atualização visual; preserva estado físico/replay. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.missao.pausar</code>; <code>this.executor.suspenderReferenciaRelogio</code>; <code>this.marcarAtualizacao</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.missao.pausar`, `this.executor.suspenderReferenciaRelogio`, `this.marcarAtualizacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-708b37502b6ec84d */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Envia pausa à missão, suspende referência temporal e marca atualização visual; preserva estado físico/replay. @contract f-708b37502b6ec84d @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -1736,15 +1736,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/cenarios/BancadaBss.ts::criarTesteDecolagemComPainelSolar.descricaoMissao:ArrowFunction</code> · [fonte L57](../../src/cenarios/BancadaBss.ts#L57) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `obterDadosMissao`, `dados.densidadeArKgM3.toFixed`, `(dados.pressaoDinamicaPa / 1_000).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Formata densidade kg/m³, pressão dinâmica kPa, delta-v ideal/hipótese e diagnóstico real do motor; consulta dados sem avançar mundo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Ambiente local: ρ ${dados.densidadeArKgM3.toFixed(4)} kg/m³ · q ${(dados.pressaoDinamicaPa / 1000).toFixed(3)} kPa\nDelta-v ideal restante: ${dados.deltaVIdealMps?.toFixed(1) ?? 'não aplicável'} m/s\nHipótese: ${dados.hipoteseDeltaV}\nMoto… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>obterDadosMissao</code>; <code>dados.densidadeArKgM3.toFixed</code>; <code>(dados.pressaoDinamicaPa / 1000).toFixed</code>; <code>dados.deltaVIdealMps?.toFixed</code>; <code>dados.diagnosticoMotor.join</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/BancadaBssCentral.test.ts](../../src/cenarios/BancadaBssCentral.test.ts); [src/cenarios/ComparacaoBssM9.test.ts](../../src/cenarios/ComparacaoBssM9.test.ts); [src/cenarios/EnsaioMissaoBss005.test.ts](../../src/cenarios/EnsaioMissaoBss005.test.ts); [src/cenarios/ReproducaoDiarioBss005.test.ts](../../src/cenarios/ReproducaoDiarioBss005.test.ts); [src/cenarios/TelemetriaMissaoBss.test.ts](../../src/cenarios/TelemetriaMissaoBss.test.ts); [src/missoes/ObservacaoFisicaM10.test.ts](../../src/missoes/ObservacaoFisicaM10.test.ts); [src/missoes/ReferenciaBancadaM10.test.ts](../../src/missoes/ReferenciaBancadaM10.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/objetos/propulsao/PropulsaoQuimica.test.ts](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts); [src/physics/objetos/veiculos/Bss05Missao.test.ts](../../src/physics/objetos/veiculos/Bss05Missao.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `obterDadosMissao`, `dados.densidadeArKgM3.toFixed`, `(dados.pressaoDinamicaPa / 1_000).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0249aa454d59c855 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Formata densidade kg/m³, pressão dinâmica kPa, delta-v ideal/hipótese e diagnóstico real do motor; consulta dados sem avançar mundo. @contract f-0249aa454d59c855 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -1755,15 +1755,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/cenarios/BancadaBss.ts::criarTesteDecolagemComPainelSolar.obterConfiguracaoEnsaio:ArrowFunction</code> · [fonte L65](../../src/cenarios/BancadaBss.ts#L65) |
 | Assinatura | <code> (): { dtS: number; densidadeAtmosfericaKgM3: number; velocidadeArMps: Vetor3; modeloFisico: object; nome: string; descricao: string; rajadasVento?: readonly RajadaVento[]; estadoInicialEnsaio?: { readonly centroCascoLocalM: Vetor3; readonly velocidadeLocalMps: Vetor3; readonly inclinacaoRad: number; readonly velocidadeAngularRadps: number; }; arcoBaseM?: number; id: string; controleDeInclinacaoPid: boolean; inclinacaoInicialRad: number; energiaInicialDaBateriaJ: number; deslocamentoLateralDoPainelM: number; painelMovel: boolean; incluirPainelSolar: boolean; incluirPernasFixas?: boolean; incluirAletasAerodinamicas?: boolean; incluirGuiaPousoPorAlvo?: boolean; fatorTanques?: number; fatorPropulsor?: number; capacidadeBateriaJ?: number; impulsoEspecificoNominalS?: number; }</code> |
-| Responsabilidade | Dependências diretas: `mundo.obterConfiguracaoFisica`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Exporta parâmetros reproduzíveis, dt=1/240 s, atmosfera/vento explícitos e revisão física do mundo; substitui instância do ambiente por metadados, sem serializar serviços. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ dtS: number; densidadeAtmosfericaKgM3: number; velocidadeArMps: Vetor3; modeloFisico: object; nome: string; descricao: string; rajadasVento?: readonly RajadaVento[]; estadoInicialEnsaio?: { readonly centroCascoLocalM: Vetor3; readonly velocidadeLocalMps: Vetor3; readonly inclinacaoRad: number; readonly velocidadeAngularRadps: number; }; arcoBaseM?: number; id: string; controleDeInclinacaoPid: boolean; inclinacaoInicialRad: number; energiaInicialDaBateriaJ: number; deslocamentoLateralDoPainelM: number; painelMovel: boolean; incluirPainelSolar: boolean; incluirPernasFixas?: boolean; incluirAletasAerodinamicas?: boolean; incluirGuiaPousoPorAlvo?: boolean; fatorTanques?: number; fatorPropulsor?: number; capacidadeBateriaJ?: number; impulsoEspecificoNominalS?: number; }</code>; expressões retornadas: <code>{ ...parametros, dtS: 1 / 240, densidadeAtmosfericaKgM3: configuracao.densidadeAtmosfericaKgM3 ?? 1.225, velocidadeArMps: configuracao.velocidadeArMps ?? Vetor3.zero, modeloFisico: mundo.obterConfiguracaoFisica() }</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>mundo.obterConfiguracaoFisica</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/BancadaBssCentral.test.ts](../../src/cenarios/BancadaBssCentral.test.ts); [src/cenarios/ComparacaoBssM9.test.ts](../../src/cenarios/ComparacaoBssM9.test.ts); [src/cenarios/EnsaioMissaoBss005.test.ts](../../src/cenarios/EnsaioMissaoBss005.test.ts); [src/cenarios/ReproducaoDiarioBss005.test.ts](../../src/cenarios/ReproducaoDiarioBss005.test.ts); [src/cenarios/TelemetriaMissaoBss.test.ts](../../src/cenarios/TelemetriaMissaoBss.test.ts); [src/missoes/ObservacaoFisicaM10.test.ts](../../src/missoes/ObservacaoFisicaM10.test.ts); [src/missoes/ReferenciaBancadaM10.test.ts](../../src/missoes/ReferenciaBancadaM10.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/objetos/propulsao/PropulsaoQuimica.test.ts](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts); [src/physics/objetos/veiculos/Bss05Missao.test.ts](../../src/physics/objetos/veiculos/Bss05Missao.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `mundo.obterConfiguracaoFisica`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3fc2a973a85a23dc */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Exporta parâmetros reproduzíveis, dt=1/240 s, atmosfera/vento explícitos e revisão física do mundo; substitui instância do ambiente por metadados, sem serializar serviços. @contract f-3fc2a973a85a23dc @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -2097,15 +2097,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/cenarios/BancadaBss.ts::criarTesteDecolagemComPainelSolar.obterStatusControleBss04:ArrowFunction</code> · [fonte L114](../../src/cenarios/BancadaBss.ts#L114) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `obterModo`, `veiculo.obterUltimoComandoDeDescidaFuzzyPid`, `comando.velocidadeVerticalAlvoMps.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Descreve modo decolagem, pouso aguardando ignição ou fase/comando calculado pelo Fuzzy-PID; não comanda transição. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>'Decolagem · controle de throttle manual · gimbal automático ativo'</code>; <code>'Pouso automático selecionado · aguardando ignição do motor'</code>; <code>`Pouso · ${comando.fase} · alvo ${comando.velocidadeVerticalAlvoMps.toFixed(1)} m/s · throttle ${(comando.throttle * 100).toFixed(0)}%`</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>obterModo</code>; <code>veiculo.obterUltimoComandoDeDescidaFuzzyPid</code>; <code>comando.velocidadeVerticalAlvoMps.toFixed</code>; <code>(comando.throttle * 100).toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>obterModo() === 'decolagem'</code>; <code>!propulsor.estaIgnitado</code>; exceções: — |
 | Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/BancadaBssCentral.test.ts](../../src/cenarios/BancadaBssCentral.test.ts); [src/cenarios/ComparacaoBssM9.test.ts](../../src/cenarios/ComparacaoBssM9.test.ts); [src/cenarios/EnsaioMissaoBss005.test.ts](../../src/cenarios/EnsaioMissaoBss005.test.ts); [src/cenarios/ReproducaoDiarioBss005.test.ts](../../src/cenarios/ReproducaoDiarioBss005.test.ts); [src/cenarios/TelemetriaMissaoBss.test.ts](../../src/cenarios/TelemetriaMissaoBss.test.ts); [src/missoes/ObservacaoFisicaM10.test.ts](../../src/missoes/ObservacaoFisicaM10.test.ts); [src/missoes/ReferenciaBancadaM10.test.ts](../../src/missoes/ReferenciaBancadaM10.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/objetos/propulsao/PropulsaoQuimica.test.ts](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts); [src/physics/objetos/veiculos/Bss05Missao.test.ts](../../src/physics/objetos/veiculos/Bss05Missao.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `obterModo`, `veiculo.obterUltimoComandoDeDescidaFuzzyPid`, `comando.velocidadeVerticalAlvoMps.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-698bde57b8711707 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Descreve modo decolagem, pouso aguardando ignição ou fase/comando calculado pelo Fuzzy-PID; não comanda transição. @contract f-698bde57b8711707 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -2249,15 +2249,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/cenarios/BancadaBss.ts::criarTesteDecolagemComPainelSolar.telemetria:ArrowFunction</code> · [fonte L146](../../src/cenarios/BancadaBss.ts#L146) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `veiculo.obterLeiturasDosSensores`, `(bateria.percentualDeCarga * 100).toFixed`, `leituras.altitudeM.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Formata leituras atuais de bateria, altitude, empuxo/peso, alvo e deflexão real das grid fins; conversões para graus/percentual pertencem à apresentação. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`bateria ${(bateria.percentualDeCarga * 100).toFixed(1)}% · altitude GPS ${leituras.altitudeM.toFixed(1)} m · empuxo ${propulsor.empuxoAtualN.toFixed(0)} / peso ${pesoAtualN().toFixed(0)} N${configuracao.incluirGuiaPousoPorAlvo ? ` · alvo x… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>veiculo.obterLeiturasDosSensores</code>; <code>(bateria.percentualDeCarga * 100).toFixed</code>; <code>leituras.altitudeM.toFixed</code>; <code>propulsor.empuxoAtualN.toFixed</code>; <code>pesoAtualN().toFixed</code>; <code>pesoAtualN</code>; <code>obterAlvo().toFixed</code>; <code>obterAlvo</code>; <code>(aletasAerodinamicas[0]!.deflexaoAtualRad * 180 / Math.PI).toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/BancadaBssCentral.test.ts](../../src/cenarios/BancadaBssCentral.test.ts); [src/cenarios/ComparacaoBssM9.test.ts](../../src/cenarios/ComparacaoBssM9.test.ts); [src/cenarios/EnsaioMissaoBss005.test.ts](../../src/cenarios/EnsaioMissaoBss005.test.ts); [src/cenarios/ReproducaoDiarioBss005.test.ts](../../src/cenarios/ReproducaoDiarioBss005.test.ts); [src/cenarios/TelemetriaMissaoBss.test.ts](../../src/cenarios/TelemetriaMissaoBss.test.ts); [src/missoes/ObservacaoFisicaM10.test.ts](../../src/missoes/ObservacaoFisicaM10.test.ts); [src/missoes/ReferenciaBancadaM10.test.ts](../../src/missoes/ReferenciaBancadaM10.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/objetos/propulsao/PropulsaoQuimica.test.ts](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts); [src/physics/objetos/veiculos/Bss05Missao.test.ts](../../src/physics/objetos/veiculos/Bss05Missao.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `veiculo.obterLeiturasDosSensores`, `(bateria.percentualDeCarga * 100).toFixed`, `leituras.altitudeM.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-323e6dfc4ea32b08 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Formata leituras atuais de bateria, altitude, empuxo/peso, alvo e deflexão real das grid fins; conversões para graus/percentual pertencem à apresentação. @contract f-323e6dfc4ea32b08 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -2268,15 +2268,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/cenarios/BancadaBss.ts::criarTesteDecolagemComPainelSolar.dados:ArrowFunction</code> · [fonte L148](../../src/cenarios/BancadaBss.ts#L148) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `veiculo.obterLeiturasDosSensores`, `descricaoMissao`, `painel.potenciaAtualW.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Compõe painel de engenharia de energia, sensores, atuadores, propelentes e calor com unidades de apresentação. Não integra estado nem deriva sucesso a partir de animação. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${descricaoMissao()}${configuracao.incluirPainelSolar ? `Sol: irradiância vertical descendente · 1.000 W/m²\nPainel: ${painel.potenciaAtualW.toFixed(0)} W · energia gerada ${painel.energiaGeradaJ.toFixed(0)} J\n` : ''}${configuracao.inclui… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>veiculo.obterLeiturasDosSensores</code>; <code>descricaoMissao</code>; <code>painel.potenciaAtualW.toFixed</code>; <code>painel.energiaGeradaJ.toFixed</code>; <code>obterAlvo().toFixed</code>; <code>obterAlvo</code>; <code>obterJaDecolou</code>; <code>(aletasAerodinamicas[0]!.deflexaoAtualRad * 180 / Math.PI).toFixed</code>; <code>obterComandoPainel</code>; <code>painel.getEstadoFisico().posicaoM.x.toFixed</code>; <code>painel.getEstadoFisico</code>; <code>painel.getEstadoFisico().velocidadeMps.x.toFixed</code>; <code>cilindroPainel.forcaNaHasteN.toFixed</code>; <code>bateria.energiaArmazenadaJ.toFixed</code>; <code>bateria.capacidadeEnergiaJ.toFixed</code>; <code>(bateria.percentualDeCarga * 100).toFixed</code>; <code>leituras.posicaoGpsM.x.toFixed</code>; <code>leituras.posicaoGpsM.y.toFixed</code>; <code>leituras.altitudeM.toFixed</code>; <code>leituras.velocidadeVerticalMps.toFixed</code>; <code>leituras.velocidadeHorizontalMps.toFixed</code>; <code>(leituras.inclinacaoRad * 180 / Math.PI).toFixed</code>; <code>(propulsor.obterEstadoDaVetorizacao().anguloAtualRad * 180 / Math.PI).toFixed</code>; <code>propulsor.obterEstadoDaVetorizacao</code>; <code>veiculo.obterSolicitacoesAplicadas().find</code>; <code>veiculo.obterSolicitacoesAplicadas</code>; <code>veiculo.massaInstantaneaDoConjuntoKg.toFixed</code>; <code>pesoAtualN().toFixed</code>; <code>pesoAtualN</code>; <code>tanqueCombustivel.massaPropelenteKg.toFixed</code>; <code>tanqueOxidante.massaPropelenteKg.toFixed</code>; <code>propulsor.vazaoAtualKgS.toFixed</code>; <code>propulsor.empuxoAtualN.toFixed</code>; <code>Math.round</code>; <code>propulsor.impulsoEspecificoNominalS.toFixed</code>; <code>propulsor.impulsoEspecificoEfetivoS?.toFixed</code>; <code>propulsor.vazaoReagidaKgS.toFixed</code>; <code>(propulsor.potenciaTermicaAtualW / 1e6).toFixed</code>; <code>(propulsor.potenciaTermicaNaCarcacaW / 1e6).toFixed</code>; <code>(propulsor.potenciaTermicaNoJatoW / 1e6).toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/BancadaBssCentral.test.ts](../../src/cenarios/BancadaBssCentral.test.ts); [src/cenarios/ComparacaoBssM9.test.ts](../../src/cenarios/ComparacaoBssM9.test.ts); [src/cenarios/EnsaioMissaoBss005.test.ts](../../src/cenarios/EnsaioMissaoBss005.test.ts); [src/cenarios/ReproducaoDiarioBss005.test.ts](../../src/cenarios/ReproducaoDiarioBss005.test.ts); [src/cenarios/TelemetriaMissaoBss.test.ts](../../src/cenarios/TelemetriaMissaoBss.test.ts); [src/missoes/ObservacaoFisicaM10.test.ts](../../src/missoes/ObservacaoFisicaM10.test.ts); [src/missoes/ReferenciaBancadaM10.test.ts](../../src/missoes/ReferenciaBancadaM10.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/objetos/propulsao/PropulsaoQuimica.test.ts](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts); [src/physics/objetos/veiculos/Bss05Missao.test.ts](../../src/physics/objetos/veiculos/Bss05Missao.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `veiculo.obterLeiturasDosSensores`, `descricaoMissao`, `painel.potenciaAtualW.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-96e6f7431e8acdce */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Compõe painel de engenharia de energia, sensores, atuadores, propelentes e calor com unidades de apresentação. Não integra estado nem deriva sucesso a partir de animação. @contract f-96e6f7431e8acdce @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -2287,15 +2287,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/cenarios/BancadaBss.ts::criarTesteDecolagemComPainelSolar.validar:ArrowFunction</code> · [fonte L150](../../src/cenarios/BancadaBss.ts#L150) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `veiculo.obterLeiturasDosSensores`, `pesoAtualN`, `propulsor.empuxoAtualN.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Emite aprovação visual de decolagem se ignitado, empuxo maior que peso, inclinação abaixo de 5° e subida acima de 0,5 m; não homologa pouso nem encerra simulação. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${propulsor.estaIgnitado &amp;&amp; propulsor.empuxoAtualN &gt; pesoAtualN() &amp;&amp; Math.abs(leituras.inclinacaoRad) &lt; 5 * Math.PI / 180 &amp;&amp; leituras.altitudeM &gt; alturaInicialM + 0.5 ? 'APROVADO' : 'AGUARDANDO DECOLAGEM'} · empuxo ${propulsor.empuxoAtualN… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>veiculo.obterLeiturasDosSensores</code>; <code>pesoAtualN</code>; <code>Math.abs</code>; <code>propulsor.empuxoAtualN.toFixed</code>; <code>pesoAtualN().toFixed</code>; <code>(leituras.inclinacaoRad * 180 / Math.PI).toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/BancadaBssCentral.test.ts](../../src/cenarios/BancadaBssCentral.test.ts); [src/cenarios/ComparacaoBssM9.test.ts](../../src/cenarios/ComparacaoBssM9.test.ts); [src/cenarios/EnsaioMissaoBss005.test.ts](../../src/cenarios/EnsaioMissaoBss005.test.ts); [src/cenarios/ReproducaoDiarioBss005.test.ts](../../src/cenarios/ReproducaoDiarioBss005.test.ts); [src/cenarios/TelemetriaMissaoBss.test.ts](../../src/cenarios/TelemetriaMissaoBss.test.ts); [src/missoes/ObservacaoFisicaM10.test.ts](../../src/missoes/ObservacaoFisicaM10.test.ts); [src/missoes/ReferenciaBancadaM10.test.ts](../../src/missoes/ReferenciaBancadaM10.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/objetos/propulsao/PropulsaoQuimica.test.ts](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts); [src/physics/objetos/veiculos/Bss05Missao.test.ts](../../src/physics/objetos/veiculos/Bss05Missao.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `veiculo.obterLeiturasDosSensores`, `pesoAtualN`, `propulsor.empuxoAtualN.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-c6d08f1b795a1d82 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Emite aprovação visual de decolagem se ignitado, empuxo maior que peso, inclinação abaixo de 5° e subida acima de 0,5 m; não homologa pouso nem encerra simulação. @contract f-c6d08f1b795a1d82 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -2443,15 +2443,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/cenarios/BancadaBss003.ts::criarTesteBss003.base:ArrowFunction</code> · [fonte L24](../../src/cenarios/BancadaBss003.ts#L24) |
 | Assinatura | <code> (id: string, massaBaseKg: number, dimensoesM: Vetor3, posicaoM: Vetor3): { id: string; massaBaseKg: number; dimensoesM: Vetor3; resistenciaColisaoJ: number; dissipacaoImpacto: number; limiteTermicoC: number; estadoInicial: { posicaoM: Vetor3; orientacaoRad: Vetor3; }; }</code> |
-| Responsabilidade | Dependências diretas: `estadoInicial`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Monta definição física comum com massa kg/dimensões m fornecidas, resistência 2 MJ, dissipação 0,35, limite 1000 °C e estado inicial; não registra corpo. |
 | Entradas | <code>id: string</code>; <code>massaBaseKg: number</code>; <code>dimensoesM: Vetor3</code>; <code>posicaoM: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ id: string; massaBaseKg: number; dimensoesM: Vetor3; resistenciaColisaoJ: number; dissipacaoImpacto: number; limiteTermicoC: number; estadoInicial: { posicaoM: Vetor3; orientacaoRad: Vetor3; }; }</code>; expressões retornadas: <code>({<br>    id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 2000000, dissipacaoImpacto: 0.35,<br>    limiteTermicoC: 1000, estadoInicial: estadoInicial(posicaoM),<br>})</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>estadoInicial</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/ComparacaoBssM9.test.ts](../../src/cenarios/ComparacaoBssM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `estadoInicial`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-92a3f1dc54f50636 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Monta definição física comum com massa kg/dimensões m fornecidas, resistência 2 MJ, dissipação 0,35, limite 1000 °C e estado inicial; não registra corpo. @contract f-92a3f1dc54f50636 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -2462,15 +2462,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/cenarios/BancadaBss003.ts::criarTesteBss003.criarMotor:ArrowFunction</code> · [fonte L76](../../src/cenarios/BancadaBss003.ts#L76) |
 | Assinatura | <code> (id: string, xM: number, tanque: TanquePropelente): PropulsorVetorizado</code> |
-| Responsabilidade | Devolve `motor`. Dependências diretas: `PropulsorVetorizado`, `base`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Cria motor vetorizado de 20 kN com pose inicial e limites declarados, conecta tanque/bateria por 8 m e retorna componente; não solicita ignição. |
 | Entradas | <code>id: string</code>; <code>xM: number</code>; <code>tanque: TanquePropelente</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>PropulsorVetorizado</code>; expressões retornadas: <code>motor</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>PropulsorVetorizado</code>; <code>base</code>; <code>Vetor3</code>; <code>estadoInicial</code>; <code>motor.conectarTanque</code>; <code>motor.conectarBateria</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/ComparacaoBssM9.test.ts](../../src/cenarios/ComparacaoBssM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `motor`. Dependências diretas: `PropulsorVetorizado`, `base`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6d1a598a90fa3d6e */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Cria motor vetorizado de 20 kN com pose inicial e limites declarados, conecta tanque/bateria por 8 m e retorna componente; não solicita ignição. @contract f-6d1a598a90fa3d6e @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -2633,15 +2633,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/cenarios/BancadaBss003.ts::criarTesteBss003.selecionarGrupoPropulsao:ArrowFunction</code> · [fonte L146](../../src/cenarios/BancadaBss003.ts#L146) |
 | Assinatura | <code> (id: string): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Atualiza seleção operacional somente para grupos decolagem/pouso conhecidos; não move peças nem liga motores. |
 | Entradas | <code>id: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>grupoAtivoId</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>id === 'decolagem' &#124;&#124; id === 'pouso'</code>; exceções: — |
 | Testes | [src/cenarios/ComparacaoBssM9.test.ts](../../src/cenarios/ComparacaoBssM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-226c23f267ef239d */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Atualiza seleção operacional somente para grupos decolagem/pouso conhecidos; não move peças nem liga motores. @contract f-226c23f267ef239d @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -2652,15 +2652,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/cenarios/BancadaBss003.ts::criarTesteBss003.ativarControleBss03:ArrowFunction</code> · [fonte L148](../../src/cenarios/BancadaBss003.ts#L148) |
 | Assinatura | <code> (controle: "inclinacao" &#124; "pouso" &#124; "manual"): void</code> |
-| Responsabilidade | Dependências diretas: `nave.retornarAoControleDeInclinacao`, `nave.acionarModoDePouso`, `resultados.every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Encaminha escolha de controle ao veículo; ao pedir pouso seleciona grupo correspondente somente se todos os resultados operacionais forem aceitos. |
 | Entradas | <code>controle: 'inclinacao' &#124; 'pouso' &#124; 'manual'</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>grupoAtivoId</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>nave.retornarAoControleDeInclinacao</code>; <code>nave.acionarModoDePouso</code>; <code>resultados.every</code>; <code>nave.desativarControlesAutomaticos</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>controle === 'inclinacao'</code>; <code>controle === 'pouso'</code>; <code>resultados.every((resultado) =&gt; resultado.aceito)</code>; exceções: — |
 | Testes | [src/cenarios/ComparacaoBssM9.test.ts](../../src/cenarios/ComparacaoBssM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `nave.retornarAoControleDeInclinacao`, `nave.acionarModoDePouso`, `resultados.every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-92746b577e7f712d */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Encaminha escolha de controle ao veículo; ao pedir pouso seleciona grupo correspondente somente se todos os resultados operacionais forem aceitos. @contract f-92746b577e7f712d @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -2709,15 +2709,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/cenarios/BancadaBss003.ts::criarTesteBss003.validar:ArrowFunction</code> · [fonte L162](../../src/cenarios/BancadaBss003.ts#L162) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `integridadeMinima`, `(integridadeMinima() * 100).toFixed`, `tanquePouso.massaPropelenteKg.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Relata integridade mínima com limiar 0,999, controle ativo e reserva; diagnóstico não certifica missão completa. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${integridadeMinima() &gt;= 0.999 ? 'ÍNTEGRO' : 'DANIFICADO'} · controle ${nave.controleAtivoBss03}; integridade mínima ${(integridadeMinima() * 100).toFixed(1)}%; reserva de pouso ${tanquePouso.massaPropelenteKg.toFixed(1)} kg`</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>integridadeMinima</code>; <code>(integridadeMinima() * 100).toFixed</code>; <code>tanquePouso.massaPropelenteKg.toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/ComparacaoBssM9.test.ts](../../src/cenarios/ComparacaoBssM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `integridadeMinima`, `(integridadeMinima() * 100).toFixed`, `tanquePouso.massaPropelenteKg.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-21067880911bf1d1 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Relata integridade mínima com limiar 0,999, controle ativo e reserva; diagnóstico não certifica missão completa. @contract f-21067880911bf1d1 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -2728,15 +2728,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/cenarios/BancadaBss003.ts::criarTesteBss003.telemetria:ArrowFunction</code> · [fonte L164](../../src/cenarios/BancadaBss003.ts#L164) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `nave.obterLeiturasDosSensores`, `l.altitudeM.toFixed`, `l.velocidadeVerticalMps.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Formata grupo/controle, altitude m, velocidade vertical m/s e inclinação em graus a partir dos sensores. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`grupo ${grupoAtivoId} · controle ${nave.controleAtivoBss03} · altitude ${l.altitudeM.toFixed(1)} m · vy=${l.velocidadeVerticalMps.toFixed(2)} m/s · inclinação ${(l.inclinacaoRad * 180 / Math.PI).toFixed(1)}°`</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>nave.obterLeiturasDosSensores</code>; <code>l.altitudeM.toFixed</code>; <code>l.velocidadeVerticalMps.toFixed</code>; <code>(l.inclinacaoRad * 180 / Math.PI).toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/ComparacaoBssM9.test.ts](../../src/cenarios/ComparacaoBssM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `nave.obterLeiturasDosSensores`, `l.altitudeM.toFixed`, `l.velocidadeVerticalMps.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-467615ffe4325938 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Formata grupo/controle, altitude m, velocidade vertical m/s e inclinação em graus a partir dos sensores. @contract f-467615ffe4325938 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -2747,15 +2747,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/cenarios/BancadaBss003.ts::criarTesteBss003.dados:ArrowFunction</code> · [fonte L166](../../src/cenarios/BancadaBss003.ts#L166) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Dependências diretas: `nave.obterLeiturasDosSensores`, `nave.obterUltimoComandoDePouso`, `grupoAtivo`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Compõe observação detalhada de reservas, velocidades, comandos de pouso e integridade sem avançar controles/física. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Sequência automática: inexistente\nGrupo selecionado: ${grupoAtivo().nome}\nControlador selecionado: ${nave.controleAtivoBss03}\nAltitude atual: ${l.altitudeM.toFixed(2)} m\nVelocidade vertical: ${l.velocidadeVerticalMps.toFixed(2)} m/s\nV… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>nave.obterLeiturasDosSensores</code>; <code>nave.obterUltimoComandoDePouso</code>; <code>grupoAtivo</code>; <code>l.altitudeM.toFixed</code>; <code>l.velocidadeVerticalMps.toFixed</code>; <code>l.velocidadeHorizontalMps.toFixed</code>; <code>tanqueDecolagem.massaPropelenteKg.toFixed</code>; <code>tanquePouso.massaPropelenteKg.toFixed</code>; <code>((comando?.throttle ?? 0) * 100).toFixed</code>; <code>((comando?.anguloGimbalRad ?? 0) * 180 / Math.PI).toFixed</code>; <code>(integridadeMinima() * 100).toFixed</code>; <code>integridadeMinima</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/ComparacaoBssM9.test.ts](../../src/cenarios/ComparacaoBssM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `nave.obterLeiturasDosSensores`, `nave.obterUltimoComandoDePouso`, `grupoAtivo`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a2964316aee1051a */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Compõe observação detalhada de reservas, velocidades, comandos de pouso e integridade sem avançar controles/física. @contract f-a2964316aee1051a @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -2789,15 +2789,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/cenarios/EnsaioMissaoBss005.ts::causasLimitesDeToqueBss005:FunctionDeclaration</code> · [fonte L98](../../src/cenarios/EnsaioMissaoBss005.ts#L98) |
 | Assinatura | <code> (leitura: Pick&lt;LeituraMissaoBss005, "velocidadeXMps" &#124; "velocidadeYMps" &#124; "orientacaoRad" &#124; "velocidadeAngularRadps"&gt;): string[]</code> |
-| Responsabilidade | Devolve `causas`. Dependências diretas: `causas.push`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Lista grandezas que atingem/excedem critérios históricos de toque: velocidades vertical/horizontal, inclinação e taxa angular. Não modifica limiares nem estado do ensaio. |
 | Entradas | <code>leitura: Pick&lt;LeituraMissaoBss005,<br>  'velocidadeXMps' &#124; 'velocidadeYMps' &#124; 'orientacaoRad' &#124; 'velocidadeAngularRadps'&gt;</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string[]</code>; expressões retornadas: <code>causas</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.abs</code>; <code>causas.push</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>Math.abs(leitura.velocidadeYMps) &gt;= CRITERIOS_POUSO_BSS005.velocidadeVerticalToqueMaxMps</code>; <code>Math.abs(leitura.velocidadeXMps) &gt;= CRITERIOS_POUSO_BSS005.velocidadeHorizontalToqueMaxMps</code>; <code>Math.abs(leitura.orientacaoRad) &gt;= CRITERIOS_POUSO_BSS005.inclinacaoMaxRad</code>; <code>Math.abs(leitura.velocidadeAngularRadps) &gt;= CRITERIOS_POUSO_BSS005.velocidadeAngularMaxRadps</code>; exceções: — |
 | Testes | [src/cenarios/EnsaioMissaoBss005.test.ts](../../src/cenarios/EnsaioMissaoBss005.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `causas`. Dependências diretas: `causas.push`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0daf5806d1df6633 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Lista grandezas que atingem/excedem critérios históricos de toque: velocidades vertical/horizontal, inclinação e taxa angular. Não modifica limiares nem estado do ensaio. @contract f-0daf5806d1df6633 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -2808,15 +2808,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/cenarios/EnsaioMissaoBss005.ts::menorAlturaDoObjetoM:ArrowFunction</code> · [fonte L109](../../src/cenarios/EnsaioMissaoBss005.ts#L109) |
 | Assinatura | <code>export (objeto: Objeto): number</code> |
-| Responsabilidade | Dependências diretas: `objeto.getEstadoFisico`, `objeto.getPontosDeContatoLocaisM().map`, `objeto.getPontosDeContatoLocaisM`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Calcula menor Y global dos pontos de contato orientados pela pose; consulta legado cartesiano, não altitude radial geral. |
 | Entradas | <code>objeto: Objeto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>Math.min(...objeto.getPontosDeContatoLocaisM().map((ponto) =&gt; e.posicaoM.y<br>    + ponto.x * Math.sin(e.orientacaoRad.z) + ponto.y * Math.cos(e.orientacaoRad.z)))</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>objeto.getEstadoFisico</code>; <code>Math.min</code>; <code>objeto.getPontosDeContatoLocaisM().map</code>; <code>objeto.getPontosDeContatoLocaisM</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/EnsaioMissaoBss005.test.ts](../../src/cenarios/EnsaioMissaoBss005.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `objeto.getEstadoFisico`, `objeto.getPontosDeContatoLocaisM().map`, `objeto.getPontosDeContatoLocaisM`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-9053c7e543fe455e */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Calcula menor Y global dos pontos de contato orientados pela pose; consulta legado cartesiano, não altitude radial geral. @contract f-9053c7e543fe455e @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -2941,15 +2941,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/cenarios/EnsaioMissaoBss005.ts::avancarEnsaioMissaoBss005.retirarReserva:ArrowFunction</code> · [fonte L225](../../src/cenarios/EnsaioMissaoBss005.ts#L225) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | Dependências diretas: `tanque.fornecerPropelente`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Injeta falha prescrita retirando todo propelente disponível pelos métodos dos tanques e acumula massa kg retirada; não altera massa cinemática diretamente. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>massaRetiradaNaFalhaKg</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>tanque.fornecerPropelente</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/EnsaioMissaoBss005.test.ts](../../src/cenarios/EnsaioMissaoBss005.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `tanque.fornecerPropelente`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f83aae4aa6f46468 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Injeta falha prescrita retirando todo propelente disponível pelos métodos dos tanques e acumula massa kg retirada; não altera massa cinemática diretamente. @contract f-f83aae4aa6f46468 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -2960,15 +2960,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/cenarios/EnsaioMissaoBss005.ts::avancarEnsaioMissaoBss005.registrarFalhaPouso:ArrowFunction</code> · [fonte L248](../../src/cenarios/EnsaioMissaoBss005.ts#L248) |
 | Assinatura | <code> (causas: readonly string[]): void</code> |
-| Responsabilidade | Dependências diretas: `causasFalhaPouso.push`, `evento`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Marca primeira falha, acumula causas, muda fase e registra evento uma única vez; evento observa critérios, sem impor trajetória. |
 | Entradas | <code>causas: readonly string[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>falhouPouso</code>; <code>fase</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>causasFalhaPouso.push</code>; <code>evento</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>falhouPouso</code>; exceções: — |
 | Testes | [src/cenarios/EnsaioMissaoBss005.test.ts](../../src/cenarios/EnsaioMissaoBss005.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `causasFalhaPouso.push`, `evento`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6ab216b281a41730 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Marca primeira falha, acumula causas, muda fase e registra evento uma única vez; evento observa critérios, sem impor trajetória. @contract f-6ab216b281a41730 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -3021,15 +3021,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/cenarios/EnsaioOrbitalInerte.ts::criarEnsaioOrbitalInerte.ler:ArrowFunction</code> · [fonte L32](../../src/cenarios/EnsaioOrbitalInerte.ts#L32) |
 | Assinatura | <code> (): { readonly raioM: number; readonly altitudeM: number; readonly velocidadeInercialMps: number; readonly velocidadeCircularMps: number; readonly velocidadeEscapeMps: number; readonly energiaEspecificaJPorKg: number; readonly momentoAngularEspecificoM2S: number; readonly excentricidade: number; readonly perigeuM: number; readonly apogeuM: number &#124; undefined; readonly periodoS: number &#124; undefined; readonly interceptaSuperficie: boolean; readonly estado: "orbital" &#124; "suborbital" &#124; "limite-de-escape" &#124; "escape"; }</code> |
-| Responsabilidade | Devolve `obterTelemetriaOrbital(e.posicaoM, e.velocidadeMps, ambiente.campo)`. Dependências diretas: `corpo.getEstadoFisico`, `obterTelemetriaOrbital`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Calcula telemetria orbital do estado real do corpo inerte usando campo do ambiente; não depende de propulsão/manobras. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ readonly raioM: number; readonly altitudeM: number; readonly velocidadeInercialMps: number; readonly velocidadeCircularMps: number; readonly velocidadeEscapeMps: number; readonly energiaEspecificaJPorKg: number; readonly momentoAngularEspecificoM2S: number; readonly excentricidade: number; readonly perigeuM: number; readonly apogeuM: number &#124; undefined; readonly periodoS: number &#124; undefined; readonly interceptaSuperficie: boolean; readonly estado: "orbital" &#124; "suborbital" &#124; "limite-de-escape" &#124; "escape"; }</code>; expressões retornadas: <code>obterTelemetriaOrbital(e.posicaoM, e.velocidadeMps, ambiente.campo)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>corpo.getEstadoFisico</code>; <code>obterTelemetriaOrbital</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/missoes/ExecutorMissao.test.ts](../../src/missoes/ExecutorMissao.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `obterTelemetriaOrbital(e.posicaoM, e.velocidadeMps, ambiente.campo)`. Dependências diretas: `corpo.getEstadoFisico`, `obterTelemetriaOrbital`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-283b09640d871e52 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Calcula telemetria orbital do estado real do corpo inerte usando campo do ambiente; não depende de propulsão/manobras. @contract f-283b09640d871e52 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -3040,15 +3040,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/cenarios/EnsaioOrbitalInerte.ts::criarEnsaioOrbitalInerte.obterConfiguracao:ArrowFunction</code> · [fonte L40](../../src/cenarios/EnsaioOrbitalInerte.ts#L40) |
 | Assinatura | <code> (): { tipo: "circular" &#124; "eliptica"; modeloFisico: object; estadoInicial: EstadoFisico; hipotese: string; }</code> |
-| Responsabilidade | Dependências diretas: `mundo.obterConfiguracaoFisica`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Expõe tipo de órbita, revisão/constantes físicas, estado inicial e hipótese ADM de Terra estática XY/vácuo explícito para reprodução. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ tipo: "circular" &#124; "eliptica"; modeloFisico: object; estadoInicial: import("/media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/physics/objetos/base/Objeto").EstadoFisico; hipotese: string; }</code>; expressões retornadas: <code>({ tipo, modeloFisico: mundo.obterConfiguracaoFisica(), estadoInicial,<br>    hipotese: 'Ensaio ADM de corpo inerte; condições orbitais iniciais prescritas; Terra estática XY e vácuo explícito.' })</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>mundo.obterConfiguracaoFisica</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/missoes/ExecutorMissao.test.ts](../../src/missoes/ExecutorMissao.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `mundo.obterConfiguracaoFisica`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b386a16ed26e78ae */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Expõe tipo de órbita, revisão/constantes físicas, estado inicial e hipótese ADM de Terra estática XY/vácuo explícito para reprodução. @contract f-b386a16ed26e78ae @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -3082,15 +3082,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/cenarios/ReproducaoDiarioBss005.ts::normalizarParaComparacao:FunctionDeclaration</code> · [fonte L52](../../src/cenarios/ReproducaoDiarioBss005.ts#L52) |
 | Assinatura | <code> (valor: unknown): unknown</code> |
-| Responsabilidade | Dependências diretas: `Array.isArray`, `valor.map`, `ehRegistro`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Copia recursivamente arrays/registros ordenando chaves; preserva valores escalares para comparação JSON independente da ordem de propriedades. |
 | Entradas | <code>valor: unknown</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>unknown</code>; expressões retornadas: <code>valor.map(normalizarParaComparacao)</code>; <code>valor</code>; <code>Object.fromEntries(Object.keys(valor).sort().map((chave) =&gt; [chave, normalizarParaComparacao(valor[chave])]))</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Array.isArray</code>; <code>valor.map</code>; <code>ehRegistro</code>; <code>Object.fromEntries</code>; <code>Object.keys(valor).sort().map</code>; <code>Object.keys(valor).sort</code>; <code>Object.keys</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>Array.isArray(valor)</code>; <code>!ehRegistro(valor)</code>; exceções: — |
 | Testes | [src/cenarios/ReproducaoDiarioBss005.test.ts](../../src/cenarios/ReproducaoDiarioBss005.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `Array.isArray`, `valor.map`, `ehRegistro`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-fd493bfc9aba0ec7 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Copia recursivamente arrays/registros ordenando chaves; preserva valores escalares para comparação JSON independente da ordem de propriedades. @contract f-fd493bfc9aba0ec7 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -3101,15 +3101,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/cenarios/ReproducaoDiarioBss005.ts::validarDiario:FunctionDeclaration</code> · [fonte L59](../../src/cenarios/ReproducaoDiarioBss005.ts#L59) |
 | Assinatura | <code> (diario: DiarioBss005, cenario: ReturnType&lt;typeof criarTesteBss005&gt;, opcoes: OpcoesReplayBss005): boolean</code> |
-| Responsabilidade | Devolve `diarioLegado`. Dependências diretas: `Array.isArray`, `Error`, `ehRegistro`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida versão/dt/passos, configuração/modelo e estado físico inicial contra cenário; diário sem modelo exige opção explícita legada. Exige entradas ordenadas no intervalo e números finitos, retorna indicador legado; incompatibilidade lança erro sem reproduzir física. |
 | Entradas | <code>diario: DiarioBss005</code>; <code>cenario: ReturnType&lt;typeof criarTesteBss005&gt;</code>; <code>opcoes: OpcoesReplayBss005</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>diarioLegado</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>passoAnterior</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isSafeInteger</code>; <code>Array.isArray</code>; <code>Error</code>; <code>ehRegistro</code>; <code>cenario.obterConfiguracaoEnsaio</code>; <code>JSON.stringify</code>; <code>normalizarParaComparacao</code>; <code>Object.fromEntries</code>; <code>Object.entries(configuracaoAtual).filter</code>; <code>Object.entries</code>; <code>cenario.objetos.map</code>; <code>Number.isFinite</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>diario.versao !== 1 &#124;&#124; diario.dtS !== DT_BANCADA_S<br>    &#124;&#124; !Number.isSafeInteger(diario.passosExecutados) &#124;&#124; diario.passosExecutados &lt; 0<br>    &#124;&#124; !Array.isArray(diario.entradas)</code>; <code>diarioLegado &amp;&amp; !opcoes.permitirDiarioLegadoSemModelo</code>; <code>!diarioLegado &amp;&amp; JSON.stringify(normalizarParaComparacao(parametros?.modeloFisico))<br>    !== JSON.stringify(normalizarParaComparacao(configuracaoAtual?.modeloFisico))</code>; <code>!configuracao &#124;&#124; configuracao.nome !== cenario.nome &#124;&#124; !parametros &#124;&#124; !configuracaoAtual<br>    &#124;&#124; JSON.stringify(normalizarParaComparacao(parametros)) !== JSON.stringify(normalizarParaComparacao(compararAtual))</code>; <code>!Array.isArray(configuracao.estadoInicial)<br>    &#124;&#124; JSON.stringify(normalizarParaComparacao(configuracao.estadoInicial))<br>        !== JSON.stringify(normalizarParaComparacao(estadoInicialAtual))</code>; <code>!Number.isSafeInteger(entrada.passo) &#124;&#124; entrada.passo &lt; passoAnterior &#124;&#124; entrada.passo &gt; diario.passosExecutados<br>    &#124;&#124; typeof entrada.acao !== 'string' &#124;&#124; !entrada.acao</code>; <code>typeof entrada.valor === 'number' &amp;&amp; !Number.isFinite(entrada.valor)</code>; exceções: <code>new Error('Diário BSS-005 inválido: versão, dt ou quantidade de passos incompatível.')</code>; <code>new Error('Diário histórico sem modelo físico: exige opção explícita de reexecução legada.')</code>; <code>new Error('Modelo físico incompatível com o diário.')</code>; <code>new Error('Diário não corresponde à configuração atual do BSS-005.')</code>; <code>new Error('Diário não corresponde ao estado físico inicial atual do BSS-005.')</code>; <code>new Error('Diário BSS-005 contém entradas fora de ordem ou inválidas.')</code>; <code>new Error('Diário BSS-005 contém valor não finito.')</code> |
 | Testes | [src/cenarios/ReproducaoDiarioBss005.test.ts](../../src/cenarios/ReproducaoDiarioBss005.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `diarioLegado`. Dependências diretas: `Array.isArray`, `Error`, `ehRegistro`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-dcaca9b45456e308 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida versão/dt/passos, configuração/modelo e estado físico inicial contra cenário; diário sem modelo exige opção explícita legada. Exige entradas ordenadas no intervalo e números finitos, retorna indicador legado; incompatibilidade lança erro sem reproduzir física. @contract f-dcaca9b45456e308 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -3177,15 +3177,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/cenarios/ReproducaoDiarioBss005.ts::avancarReplayDiarioBss005.aplicar:ArrowFunction</code> · [fonte L131](../../src/cenarios/ReproducaoDiarioBss005.ts#L131) |
 | Assinatura | <code> (entrada: EntradaDiarioBss005, passo: number): void</code> |
-| Responsabilidade | Dependências diretas: `motor.sistemaEstaOperacional`, `motor.desligarSistema`, `motor.ligarSistema`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Traduz entrada histórica em operação de domínio (sistemas, ignição, throttle/gimbal, modo, rupturas ou painel), converte unidades de UI e registra aceitação/evento. Ação desconhecida lança erro; não escreve estado cinemático. |
 | Entradas | <code>entrada: EntradaDiarioBss005</code>; <code>passo: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>aceito</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>motor.sistemaEstaOperacional</code>; <code>motor.desligarSistema</code>; <code>motor.ligarSistema</code>; <code>motor.solicitarIgnicao</code>; <code>Number</code>; <code>Number.isFinite</code>; <code>motor.definirThrottle</code>; <code>cenario.propulsorVetorizadoControlavel!.solicitarVetorizacao</code>; <code>cenario.ativarModoBss04</code>; <code>Error</code>; <code>linha!.romper</code>; <code>motor.interromperPorAlimentacaoDePropelenteIndisponivel</code>; <code>cenario.objetos.find</code>; <code>painel.definirStatus</code>; <code>comandos.push</code>; <code>registrarEvento</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>motor.sistemaEstaOperacional(sistema)</code>; <code>aceito</code>; <code>painel</code>; exceções: <code>new Error(`Modo BSS-005 inválido no passo ${passo}.`)</code>; <code>new Error(`Ação de diário BSS-005 ainda não suportada: ${entrada.acao}.`)</code> |
 | Testes | [src/cenarios/ReproducaoDiarioBss005.test.ts](../../src/cenarios/ReproducaoDiarioBss005.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `motor.sistemaEstaOperacional`, `motor.desligarSistema`, `motor.ligarSistema`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2a710b27f7ccdfac */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Traduz entrada histórica em operação de domínio (sistemas, ignição, throttle/gimbal, modo, rupturas ou painel), converte unidades de UI e registra aceitação/evento. Ação desconhecida lança erro; não escreve estado cinemático. @contract f-2a710b27f7ccdfac @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -3817,15 +3817,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/missoes/MissaoBss006.ts::MissaoBss006.medidasAquaticas:MethodDeclaration</code> · [fonte L251](../../src/missoes/MissaoBss006.ts#L251) |
 | Assinatura | <code>private (): MedidasAmerissagem</code> |
-| Responsabilidade | Dependências diretas: `v.veiculo.getEstadoFisico`, `v.veiculo.obterObjetosFisicosConectados`, `conectados.flatMap`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Agrega imersões dos componentes conectados, G/massa, gravidade local, velocidades, atitude e empuxo reais; observa contato sólido separadamente. Fornece medidas ao classificador passivo sem comandar tombamento. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>MedidasAmerissagem</code>; expressões retornadas: <code>{ componentes: conectados.flatMap(o =&gt; m.obterImersao(o)), G: v.veiculo.centroDeMassaDoConjuntoM,<br>    massaKg: v.veiculo.massaInstantaneaDoConjuntoKg, gravidadeMps2: m.obterGravidadeMps2(e.posicaoM).magnitude,<br>    velocidadeMps: e.velocidad… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>v.veiculo.getEstadoFisico</code>; <code>v.veiculo.obterObjetosFisicosConectados</code>; <code>conectados.flatMap</code>; <code>m.obterGravidadeMps2</code>; <code>ref.vetorParaLocal</code>; <code>ref.atitudeLocalRad</code>; <code>conectados.some</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/apresentacao/missao/CameraMissao.test.ts](../../src/apresentacao/missao/CameraMissao.test.ts); [src/missoes/MissaoAmerissagem.test.ts](../../src/missoes/MissaoAmerissagem.test.ts); [src/missoes/MissaoBss006.test.ts](../../src/missoes/MissaoBss006.test.ts); [src/missoes/ObservacaoFisicaM10.test.ts](../../src/missoes/ObservacaoFisicaM10.test.ts); [src/missoes/ValidacaoMissaoBss006.test.ts](../../src/missoes/ValidacaoMissaoBss006.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `v.veiculo.getEstadoFisico`, `v.veiculo.obterObjetosFisicosConectados`, `conectados.flatMap`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a43b3c4853d45a6a */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Agrega imersões dos componentes conectados, G/massa, gravidade local, velocidades, atitude e empuxo reais; observa contato sólido separadamente. Fornece medidas ao classificador passivo sem comandar tombamento. @contract f-a43b3c4853d45a6a @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -3834,17 +3834,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/MissaoBss006.ts::criar:ArrowFunction</code> · [fonte L263](../../src/missoes/MissaoBss006.ts#L263) |
+| Identificador | <code>src/missoes/MissaoBss006.ts::criar:ArrowFunction</code> · [fonte L264](../../src/missoes/MissaoBss006.ts#L264) |
 | Assinatura | <code> (configuracao?: ConfiguracaoMissaoBss006): MissaoBss006</code> |
-| Responsabilidade | Devolve `new MissaoBss006(configuracao)`. Dependências diretas: `MissaoBss006`. Efeitos indiretos seguem as dependências chamadas. |
+| Responsabilidade | Cria variante identificada de amerissagem com perturbação inicial 0,005 rad, velocidade 0,5 m/s e altitude 5 m quando ensaio não fornecido; reutiliza mesma missão/veículo, sem animar dinâmica. |
 | Entradas | <code>configuracao: ConfiguracaoMissaoBss006 = {}</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>MissaoBss006</code>; expressões retornadas: <code>new MissaoBss006(configuracao)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>MissaoBss006</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/apresentacao/missao/CameraMissao.test.ts](../../src/apresentacao/missao/CameraMissao.test.ts); [src/missoes/MissaoAmerissagem.test.ts](../../src/missoes/MissaoAmerissagem.test.ts); [src/missoes/MissaoBss006.test.ts](../../src/missoes/MissaoBss006.test.ts); [src/missoes/ObservacaoFisicaM10.test.ts](../../src/missoes/ObservacaoFisicaM10.test.ts); [src/missoes/ValidacaoMissaoBss006.test.ts](../../src/missoes/ValidacaoMissaoBss006.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Devolve `new MissaoBss006(configuracao)`. Dependências diretas: `MissaoBss006`. Efeitos indiretos seguem as dependências chamadas. @contract f-104139f1cce7dbda */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Cria variante identificada de amerissagem com perturbação inicial 0,005 rad, velocidade 0,5 m/s e altitude 5 m quando ensaio não fornecido; reutiliza mesma missão/veículo, sem animar dinâmica. @contract f-104139f1cce7dbda @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -3853,17 +3853,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/MissaoBss006.ts::criar:ArrowFunction#2</code> · [fonte L266](../../src/missoes/MissaoBss006.ts#L266) |
+| Identificador | <code>src/missoes/MissaoBss006.ts::criar:ArrowFunction#2</code> · [fonte L267](../../src/missoes/MissaoBss006.ts#L267) |
 | Assinatura | <code> (configuracao?: ConfiguracaoMissaoBss006): MissaoBss006</code> |
-| Responsabilidade | Dependências diretas: `MissaoBss006`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Cria variante identificada de amerissagem com perturbação inicial 0,005 rad, velocidade 0,5 m/s e altitude 5 m quando ensaio não fornecido; reutiliza mesma missão/veículo, sem animar dinâmica. |
 | Entradas | <code>configuracao: ConfiguracaoMissaoBss006 = {}</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>MissaoBss006</code>; expressões retornadas: <code>new MissaoBss006({ ...configuracao,<br>    ensaioAquatico: configuracao.ensaioAquatico ?? { inclinacaoInicialRad: 0.005, velocidadeInicialMps: 0.5, altitudeInicialM: 5 } }, ID_AMERISSAGEM_BSS006)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>MissaoBss006</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/apresentacao/missao/CameraMissao.test.ts](../../src/apresentacao/missao/CameraMissao.test.ts); [src/missoes/MissaoAmerissagem.test.ts](../../src/missoes/MissaoAmerissagem.test.ts); [src/missoes/MissaoBss006.test.ts](../../src/missoes/MissaoBss006.test.ts); [src/missoes/ObservacaoFisicaM10.test.ts](../../src/missoes/ObservacaoFisicaM10.test.ts); [src/missoes/ValidacaoMissaoBss006.test.ts](../../src/missoes/ValidacaoMissaoBss006.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `MissaoBss006`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8fc2ee381f47845c */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Cria variante identificada de amerissagem com perturbação inicial 0,005 rad, velocidade 0,5 m/s e altitude 5 m quando ensaio não fornecido; reutiliza mesma missão/veículo, sem animar dinâmica. @contract f-8fc2ee381f47845c @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -4190,15 +4190,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/missoes/ReplayMissaoBss006.ts::validarComandoBss006:FunctionDeclaration</code> · [fonte L9](../../src/missoes/ReplayMissaoBss006.ts#L9) |
 | Assinatura | <code>export (c: unknown): c is ComandoBss006</code> |
-| Responsabilidade | Dependências diretas: `objeto`, `somente`, `['elétrico', 'hidráulico', 'combustível', 'controle'].includes`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida formato estrito dos comandos JSON, rejeita campos extras e números não finitos; limites operacionais como throttle permanecem no domínio. Não executa comando. |
 | Entradas | <code>c: unknown</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>false</code>; <code>somente()</code>; <code>somente('sistema', 'ligar') &amp;&amp; typeof c.sistema === 'string' &amp;&amp; ['elétrico', 'hidráulico', 'combustível', 'controle'].includes(c.sistema) &amp;&amp; typeof c.ligar === 'boolean'</code>; <code>somente('valor') &amp;&amp; typeof c.valor === 'number' &amp;&amp; Number.isFinite(c.valor)</code>; <code>somente('deslocamentoM') &amp;&amp; typeof c.deslocamentoM === 'number' &amp;&amp; Number.isFinite(c.deslocamentoM)</code>; <code>somente('modo') &amp;&amp; (c.modo === 'decolagem' &#124;&#124; c.modo === 'pouso')</code>; <code>somente('habilitar') &amp;&amp; typeof c.habilitar === 'boolean'</code>; <code>somente('alimentacao') &amp;&amp; typeof c.alimentacao === 'string' &amp;&amp; ['eletrica', 'metano', 'oxidante'].includes(c.alimentacao)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>objeto</code>; <code>somente</code>; <code>['elétrico', 'hidráulico', 'combustível', 'controle'].includes</code>; <code>Number.isFinite</code>; <code>['eletrica', 'metano', 'oxidante'].includes</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!objeto(c)</code>; exceções: — |
 | Testes | [src/missoes/MissaoAmerissagem.test.ts](../../src/missoes/MissaoAmerissagem.test.ts); [src/missoes/ReplayMissaoBss006.test.ts](../../src/missoes/ReplayMissaoBss006.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `objeto`, `somente`, `['elétrico', 'hidráulico', 'combustível', 'controle'].includes`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-26ac88fd2a26c0ac */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida formato estrito dos comandos JSON, rejeita campos extras e números não finitos; limites operacionais como throttle permanecem no domínio. Não executa comando. @contract f-26ac88fd2a26c0ac @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -4228,15 +4228,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/missoes/ReplayMissaoBss006.ts::canonico:FunctionDeclaration</code> · [fonte L25](../../src/missoes/ReplayMissaoBss006.ts#L25) |
 | Assinatura | <code> (x: unknown): string</code> |
-| Responsabilidade | Dependências diretas: `Array.isArray`, `x.map(canonico).join`, `x.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Serializa arrays/objetos deterministicamente com chaves ordenadas e omitindo propriedades undefined; exige dados JSON compatíveis para comparar identificação de replay. |
 | Entradas | <code>x: unknown</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`[${x.map(canonico).join(',')}]`</code>; <code>`{${Object.keys(x).filter(k =&gt; x[k] !== undefined).sort().map(k =&gt; `${JSON.stringify(k)}:${canonico(x[k])}`).join(',')}}`</code>; <code>JSON.stringify(x)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Array.isArray</code>; <code>x.map(canonico).join</code>; <code>x.map</code>; <code>objeto</code>; <code>Object.keys(x).filter(k =&gt; x[k] !== undefined).sort().map(k =&gt; `${JSON.stringify(k)}:${canonico(x[k])}`).join</code>; <code>Object.keys(x).filter(k =&gt; x[k] !== undefined).sort().map</code>; <code>Object.keys(x).filter(k =&gt; x[k] !== undefined).sort</code>; <code>Object.keys(x).filter</code>; <code>Object.keys</code>; <code>JSON.stringify</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>Array.isArray(x)</code>; <code>objeto(x)</code>; exceções: — |
 | Testes | [src/missoes/MissaoAmerissagem.test.ts](../../src/missoes/MissaoAmerissagem.test.ts); [src/missoes/ReplayMissaoBss006.test.ts](../../src/missoes/ReplayMissaoBss006.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `Array.isArray`, `x.map(canonico).join`, `x.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-aa695e4429461bd5 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Serializa arrays/objetos deterministicamente com chaves ordenadas e omitindo propriedades undefined; exige dados JSON compatíveis para comparar identificação de replay. @contract f-aa695e4429461bd5 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -4247,15 +4247,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/missoes/ReplayMissaoBss006.ts::identificacao:FunctionDeclaration</code> · [fonte L31](../../src/missoes/ReplayMissaoBss006.ts#L31) |
 | Assinatura | <code> (m: ReturnType&lt;typeof BSS006_VOO_EXPERIMENTAL.criar&gt;): { id: string; revisaoMissao: string; revisaoVeiculo: "bss006-m9-parametros-m10-montagem"; configuracao: Readonly&lt;Required&lt;Omit&lt;ConfiguracaoMissaoBss006, "ensaioAquatico"&gt;&gt; &amp; Pick&lt;ConfiguracaoMissaoBss006, "ensaioAquatico"&gt;&gt;; modeloFisico: object; reproducao: string; }</code> |
-| Responsabilidade | Dependências diretas: `m.observar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Registra id, revisões de missão/veículo, parâmetros e modelo ativo, explicitando reprodução na mesma revisão e sem equivalência prometida entre revisões. |
 | Entradas | <code>m: ReturnType&lt;typeof BSS006_VOO_EXPERIMENTAL.criar&gt;</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ id: string; revisaoMissao: string; revisaoVeiculo: "bss006-m9-parametros-m10-montagem"; configuracao: Readonly&lt;Required&lt;Omit&lt;ConfiguracaoMissaoBss006, "ensaioAquatico"&gt;&gt; &amp; Pick&lt;ConfiguracaoMissaoBss006, "ensaioAquatico"&gt;&gt;; modeloFisico: object; reproducao: string; }</code>; expressões retornadas: <code>{ id: m.id, revisaoMissao: m.configuracao.ensaioAquatico ? 'm11-amerissagem-2' : BSS006_VOO_EXPERIMENTAL.revisao, revisaoVeiculo: DEFINICAO_BSS006.revisao,<br>    configuracao: m.configuracao, modeloFisico: m.observar().cenario.modeloFisico,<br> … [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>m.observar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/missoes/MissaoAmerissagem.test.ts](../../src/missoes/MissaoAmerissagem.test.ts); [src/missoes/ReplayMissaoBss006.test.ts](../../src/missoes/ReplayMissaoBss006.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `m.observar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-69293707bdab20bc */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Registra id, revisões de missão/veículo, parâmetros e modelo ativo, explicitando reprodução na mesma revisão e sem equivalência prometida entre revisões. @contract f-69293707bdab20bc @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -4266,15 +4266,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/missoes/ReplayMissaoBss006.ts::criarMissaoBss006Registrada:FunctionDeclaration</code> · [fonte L37](../../src/missoes/ReplayMissaoBss006.ts#L37) |
 | Assinatura | <code>export (configuracao?: ConfiguracaoMissaoBss006, intervaloAmostraPassos?: number): RegistroMissao&lt;ComandoBss006, ObservacaoBss006&gt;</code> |
-| Responsabilidade | Devolve `new RegistroMissao(m, identificacao(m), validarComandoBss006, intervaloAmostraPassos)`. Dependências diretas: `BSS006_VOO_EXPERIMENTAL.criar`, `RegistroMissao`, `identificacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Cria missão independente e a envolve em RegistroMissao com identificação, validador e intervalo de amostra em passos; não executa navegador nem física automaticamente. |
 | Entradas | <code>configuracao: ConfiguracaoMissaoBss006 = {}</code>; <code>intervaloAmostraPassos = 240</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>RegistroMissao&lt;ComandoBss006, ObservacaoBss006&gt;</code>; expressões retornadas: <code>new RegistroMissao(m, identificacao(m), validarComandoBss006, intervaloAmostraPassos)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>BSS006_VOO_EXPERIMENTAL.criar</code>; <code>RegistroMissao</code>; <code>identificacao</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/missoes/MissaoAmerissagem.test.ts](../../src/missoes/MissaoAmerissagem.test.ts); [src/missoes/ReplayMissaoBss006.test.ts](../../src/missoes/ReplayMissaoBss006.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `new RegistroMissao(m, identificacao(m), validarComandoBss006, intervaloAmostraPassos)`. Dependências diretas: `BSS006_VOO_EXPERIMENTAL.criar`, `RegistroMissao`, `identificacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d84de2b281d11400 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Cria missão independente e a envolve em RegistroMissao com identificação, validador e intervalo de amostra em passos; não executa navegador nem física automaticamente. @contract f-d84de2b281d11400 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -4331,15 +4331,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/orbitas.ts::reiniciar:FunctionDeclaration</code> · [fonte L23](../../src/orbitas.ts#L23) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | Escritas diretas: `play.textContent`. Dependências diretas: `criarEnsaioOrbitalInerte`, `ensaio.corpo.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Recria ensaio circular/elíptico escolhido, reinicia trilha e acumulador visual e pausa execução; não reutiliza estado residual da missão anterior. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>ensaio</code>; <code>pontos</code>; <code>rodando</code>; <code>ultimoTimestamp</code>; <code>acumuladorS</code>; <code>play.textContent</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>criarEnsaioOrbitalInerte</code>; <code>ensaio.corpo.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `play.textContent`. Dependências diretas: `criarEnsaioOrbitalInerte`, `ensaio.corpo.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-16848ec4b453ff12 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Recria ensaio circular/elíptico escolhido, reinicia trilha e acumulador visual e pausa execução; não reutiliza estado residual da missão anterior. @contract f-16848ec4b453ff12 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -4350,15 +4350,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/orbitas.ts::desenhar:FunctionDeclaration</code> · [fonte L41](../../src/orbitas.ts#L41) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | Escritas diretas: `canvas.width`, `canvas.height`, `ctx.fillStyle`, `ctx.strokeStyle`. Dependências diretas: `ensaio.corpo.getEstadoFisico`, `ensaio.ler`, `CameraFisica2D`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Consulta ensaio e projeta Terra, trajetória, corpo e radial em Canvas por câmera/zoom; atualiza indicadores orbitais e erros relativos. Conversões para km/pixels/graus não alteram estado físico. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>canvas.width</code>; <code>canvas.height</code>; <code>ctx.fillStyle</code>; <code>ctx.strokeStyle</code>; <code>ctx.lineWidth</code>; <code>ctx.font</code>; <code>dados.textContent</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.max</code>; <code>Math.round</code>; <code>ensaio.corpo.getEstadoFisico</code>; <code>ensaio.ler</code>; <code>Math.min</code>; <code>CameraFisica2D</code>; <code>Number</code>; <code>ctx.clearRect</code>; <code>camera.projetar</code>; <code>ctx.beginPath</code>; <code>ctx.arc</code>; <code>ctx.fill</code>; <code>ctx.stroke</code>; <code>ensaio.ambiente.campo.centroM.adicionar</code>; <code>Vetor3</code>; <code>ctx.setLineDash</code>; <code>Math.abs</code>; <code>pontos.forEach</code>; <code>ensaio.ambiente.referencial.radial</code>; <code>p.adicionar</code>; <code>radial.multiplicar</code>; <code>ctx.moveTo</code>; <code>ctx.lineTo</code>; <code>ctx.fillText</code>; <code>(barraPx * camera.metrosPorPixel / 1000).toFixed</code>; <code>ensaio.mundo.tempoS.toFixed</code>; <code>(m.altitudeM / 1000).toFixed</code>; <code>m.velocidadeInercialMps.toFixed</code>; <code>(m.perigeuM / 1000).toFixed</code>; <code>((m.apogeuM ?? 0) / 1000).toFixed</code>; <code>m.periodoS?.toFixed</code>; <code>m.energiaEspecificaJPorKg.toFixed</code>; <code>m.momentoAngularEspecificoM2S.toExponential</code>; <code>energiaErro.toExponential</code>; <code>momentoErro.toExponential</code>; <code>ensaio.corpo.massaKg.toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>canvas.width !== largura &#124;&#124; canvas.height !== altura</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `canvas.width`, `canvas.height`, `ctx.fillStyle`, `ctx.strokeStyle`. Dependências diretas: `ensaio.corpo.getEstadoFisico`, `ensaio.ler`, `CameraFisica2D`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-caa69db0599506b2 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta ensaio e projeta Terra, trajetória, corpo e radial em Canvas por câmera/zoom; atualiza indicadores orbitais e erros relativos. Conversões para km/pixels/graus não alteram estado físico. @contract f-caa69db0599506b2 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -4369,15 +4369,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/orbitas.ts::executar:FunctionDeclaration</code> · [fonte L77](../../src/orbitas.ts#L77) |
 | Assinatura | <code> (timestamp: number): void</code> |
-| Responsabilidade | Dependências diretas: `Number`, `ensaio.mundo.avancar`, `pontos.push`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Acumula delta real limitado a 0,25 s vezes escala, avança até 200 passos fixos por quadro e preserva restante no acumulador. Registra trilha a cada 5 s até 10 mil pontos, desenha e agenda próximo quadro; o corte de delta real pertence a esta UI orbital legada. |
 | Entradas | <code>timestamp: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>acumuladorS</code>; <code>passos</code>; <code>ultimoTimestamp</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.min</code>; <code>Number</code>; <code>ensaio.mundo.avancar</code>; <code>pontos.push</code>; <code>ensaio.corpo.getEstadoFisico</code>; <code>pontos.shift</code>; <code>desenhar</code>; <code>window.requestAnimationFrame</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>rodando &amp;&amp; ultimoTimestamp !== undefined &amp;&amp; timestamp &gt; ultimoTimestamp</code>; <code>ensaio.mundo.tempoS % 5 === 0</code>; <code>pontos.length &gt; 10000</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `Number`, `ensaio.mundo.avancar`, `pontos.push`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a8bbee59e2fde294 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Acumula delta real limitado a 0,25 s vezes escala, avança até 200 passos fixos por quadro e preserva restante no acumulador. Registra trilha a cada 5 s até 10 mil pontos, desenha e agenda próximo quadro; o corte de delta real pertence a esta UI orbital legada. @contract f-a8bbee59e2fde294 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -23416,15 +23416,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/simulacao/ExecutorPassoFixo.ts::ExecutorPassoFixo.constructor:Constructor</code> · [fonte L16](../../src/simulacao/ExecutorPassoFixo.ts#L16) |
 | Assinatura | <code>public (passoS: number, deltaRealMaximoS?: number, preservarTempoReal?: boolean): ExecutorPassoFixo</code> |
-| Responsabilidade | Escritas diretas: `this.passoS`, `this.deltaRealMaximoS`, `this.preservarTempoReal`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Exige passo simulado e limite de delta real positivos finitos em s; não consulta relógio nem avança mundo na construção. |
 | Entradas | <code>public readonly passoS: number</code>; <code>private readonly deltaRealMaximoS = 0.05</code>; <code>private readonly preservarTempoReal = false</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ExecutorPassoFixo</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.passoS</code>; <code>this.deltaRealMaximoS</code>; <code>this.preservarTempoReal</code>; <code>this.acumuladoS</code>; <code>this.ultimoInstanteRealMs</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(passoS) &#124;&#124; passoS &lt;= 0</code>; <code>!Number.isFinite(deltaRealMaximoS) &#124;&#124; deltaRealMaximoS &lt;= 0</code>; exceções: <code>new Error('Passo fixo deve ser positivo e finito.')</code>; <code>new Error('Delta real máximo deve ser positivo e finito.')</code> |
 | Testes | [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.passoS`, `this.deltaRealMaximoS`, `this.preservarTempoReal`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-fd1a2d2565c3f4ad */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Exige passo simulado e limite de delta real positivos finitos em s; não consulta relógio nem avança mundo na construção. @contract f-fd1a2d2565c3f4ad @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -23549,15 +23549,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/simulacao/ExecutorPassoFixo.ts::ExecutorPassoFixo.reiniciar:MethodDeclaration</code> · [fonte L70](../../src/simulacao/ExecutorPassoFixo.ts#L70) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Escritas diretas: `this.acumuladoS`, `this.ultimoInstanteRealMs`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Zera dívida temporal e apaga referência de timestamp; próximo quadro estabelece nova origem sem avanço residual. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.acumuladoS</code>; <code>this.ultimoInstanteRealMs</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.acumuladoS`, `this.ultimoInstanteRealMs`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7205103b168f9360 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Zera dívida temporal e apaga referência de timestamp; próximo quadro estabelece nova origem sem avanço residual. @contract f-7205103b168f9360 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -30055,15 +30055,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/validacao/ReferenciaBancadaM10.ts::fisicaBancada:FunctionDeclaration</code> · [fonte L8](../../src/validacao/ReferenciaBancadaM10.ts#L8) |
 | Assinatura | <code>export (b: ReturnType&lt;typeof criarTesteBss006&gt;): { tempoS: number; corpos: { id: string; estado: EstadoFisico; massaKg: number; integridade: number; temperaturaC: number; deflexaoRad: unknown; }[]; engenharia: { modeloFisico: object; altitudeGeometricaM: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; atitudeLocalRad: number; atitudeInercialRad: number; gravidadeLocalMps2: number; orbital: { readonly raioM: number; readonly altitudeM: number; readonly velocidadeInercialMps: number; readonly velocidadeCircularMps: number; readonly velocidadeEscapeMps: number; readonly energiaEspecificaJPorKg: number; readonly momentoAngularEspecificoM2S: number; readonly excentricidade: number; readonly perigeuM: number; readonly apogeuM: number &#124; undefined; readonly periodoS: number &#124; undefined; readonly interceptaSuperficie: boolean; readonly estado: "orbital" &#124; "suborbital" &#124; "limite-de-escape" &#124; "escape"; } &#124; undefined; massaKg: number; combustivelKg: number; reagivelKg: number; deltaVIdealMps: number &#124; undefined; impulsoEspecificoEfetivoS: number &#124; undefined; densidadeArKgM3: number; pressaoDinamicaPa: number; diagnosticoMotor: string[]; hipoteseDeltaV: string; }; contatos: readonly ContatoSuperficieFisico[]; empuxoN: number; vazaoKgS: number; throttle: number; ignitado: boolean; gimbalRad: number; arbitragem: readonly SolicitacaoArbitrada[]; fixadores: { id: string; estado: "integro" &#124; "liberado" &#124; "rompido"; }[]; sistemas: { [k: string]: boolean; }; energiaEletricaJ: number; sensores: { validos: boolean; idadeS: number; }; }</code> |
-| Responsabilidade | Dependências diretas: `b.objetos.map`, `b.obterDadosMissao`, `b.mundo.obterContatosComSuperficie`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Projeta estado da bancada para formato comparável: corpos, engenharia, contatos, motor, arbitragem, fixadores, sistemas, energia e sensores. Apenas consulta, sem avançar missão. |
 | Entradas | <code>b: ReturnType&lt;typeof criarTesteBss006&gt;</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ tempoS: number; corpos: { id: string; estado: import("/media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/physics/objetos/base/Objeto").EstadoFisico; massaKg: number; integridade: number; temperaturaC: number; deflexaoRad: unknown; }[]; engenharia: { modeloFisico: object; altitudeGeometricaM: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; atitudeLocalRad: number; atitudeInercialRad: number; gravidadeLocalMps2: number; orbital: { readonly raioM: number; readonly altitudeM: number; readonly velocidadeInercialMps: number; readonly velocidadeCircularMps: number; readonly velocidadeEscapeMps: number; readonly energiaEspecificaJPorKg: number; readonly momentoAngularEspecificoM2S: number; readonly excentricidade: number; readonly perigeuM: number; readonly apogeuM: number &#124; undefined; readonly periodoS: number &#124; undefined; readonly interceptaSuperficie: boolean; readonly estado: "orbital" &#124; "suborbital" &#124; "limite-de-escape" &#124; "escape"; } &#124; undefined; massaKg: number; combustivelKg: number; reagivelKg: number; deltaVIdealMps: number &#124; undefined; impulsoEspecificoEfetivoS: number &#124; undefined; densidadeArKgM3: number; pressaoDinamicaPa: number; diagnosticoMotor: string[]; hipoteseDeltaV: string; }; contatos: readonly import("/media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/physics/solucionadores/ResolvedorContatoSuperficie").ContatoSuperficieFisico[]; empuxoN: number; vazaoKgS: number; throttle: number; ignitado: boolean; gimbalRad: number; arbitragem: readonly import("/media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/physics/sistemas de controle/GerenciadorDeControladores").SolicitacaoArbitrada[]; fixadores: { id: string; estado: "integro" &#124; "liberado" &#124; "rompido"; }[]; sistemas: { [k: string]: boolean; }; energiaEletricaJ: number; sensores: { validos: boolean; idadeS: number; }; }</code>; expressões retornadas: <code>{ tempoS: b.mundo.tempoS,<br>    corpos: b.objetos.map(c =&gt; ({ id: c.id, estado: c.getEstadoFisico(), massaKg: c.massaKg,<br>        integridade: c.integridadeEstrutural, temperaturaC: c.temperaturaC,<br>        deflexaoRad: 'deflexaoAtualRad' in c … [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>b.objetos.map</code>; <code>b.obterDadosMissao</code>; <code>b.mundo.obterContatosComSuperficie</code>; <code>m.obterEstadoDaVetorizacao</code>; <code>v.obterSolicitacoesAplicadas</code>; <code>b.fixadores.map</code>; <code>Object.fromEntries</code>; <code>['elétrico', 'hidráulico', 'combustível', 'controle'].map</code>; <code>b.objetos.find</code>; <code>v.obterLeiturasDosSensores</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/missoes/ObservacaoFisicaM10.test.ts](../../src/missoes/ObservacaoFisicaM10.test.ts); [src/missoes/ReferenciaBancadaM10.test.ts](../../src/missoes/ReferenciaBancadaM10.test.ts); [src/missoes/ValidacaoMissaoBss006.test.ts](../../src/missoes/ValidacaoMissaoBss006.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `b.objetos.map`, `b.obterDadosMissao`, `b.mundo.obterContatosComSuperficie`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3b5aba79d123ca41 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Projeta estado da bancada para formato comparável: corpos, engenharia, contatos, motor, arbitragem, fixadores, sistemas, energia e sensores. Apenas consulta, sem avançar missão. @contract f-3b5aba79d123ca41 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -30074,15 +30074,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/validacao/ReferenciaBancadaM10.ts::fisicaMissao:FunctionDeclaration</code> · [fonte L24](../../src/validacao/ReferenciaBancadaM10.ts#L24) |
 | Assinatura | <code>export (o: ObservacaoBss006): { tempoS: number; corpos: { id: string; estado: EstadoFisico; massaKg: number; integridade: number; temperaturaC: number; deflexaoRad: number &#124; undefined; }[]; engenharia: { modeloFisico: object; altitudeGeometricaM: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; atitudeLocalRad: number; atitudeInercialRad: number; gravidadeLocalMps2: number; orbital: { readonly raioM: number; readonly altitudeM: number; readonly velocidadeInercialMps: number; readonly velocidadeCircularMps: number; readonly velocidadeEscapeMps: number; readonly energiaEspecificaJPorKg: number; readonly momentoAngularEspecificoM2S: number; readonly excentricidade: number; readonly perigeuM: number; readonly apogeuM: number &#124; undefined; readonly periodoS: number &#124; undefined; readonly interceptaSuperficie: boolean; readonly estado: "orbital" &#124; "suborbital" &#124; "limite-de-escape" &#124; "escape"; } &#124; undefined; massaKg: number; combustivelKg: number; reagivelKg: number; deltaVIdealMps: number &#124; undefined; impulsoEspecificoEfetivoS: number &#124; undefined; densidadeArKgM3: number; pressaoDinamicaPa: number; diagnosticoMotor: string[]; hipoteseDeltaV: string; }; contatos: readonly ContatoSuperficieFisico[]; empuxoN: number; vazaoKgS: number; throttle: number; ignitado: boolean; gimbalRad: number; arbitragem: readonly { readonly idControlador: string; readonly idAtuador: string; readonly recurso: string; readonly valor: number; }[]; fixadores: readonly { readonly id: string; readonly estado: "integro" &#124; "liberado" &#124; "rompido"; }[]; sistemas: Readonly&lt;Record&lt;SistemaBss, boolean&gt;&gt;; energiaEletricaJ: number; sensores: { readonly validos: boolean; readonly idadeS: number; }; }</code> |
-| Responsabilidade | Dependências diretas: `o.corpos.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Projeta snapshot da missão para o mesmo conjunto de campos da bancada, preservando valores físicos sem arredondamento. |
 | Entradas | <code>o: ObservacaoBss006</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ tempoS: number; corpos: { id: string; estado: import("/media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/physics/objetos/base/Objeto").EstadoFisico; massaKg: number; integridade: number; temperaturaC: number; deflexaoRad: number &#124; undefined; }[]; engenharia: { modeloFisico: object; altitudeGeometricaM: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; atitudeLocalRad: number; atitudeInercialRad: number; gravidadeLocalMps2: number; orbital: { readonly raioM: number; readonly altitudeM: number; readonly velocidadeInercialMps: number; readonly velocidadeCircularMps: number; readonly velocidadeEscapeMps: number; readonly energiaEspecificaJPorKg: number; readonly momentoAngularEspecificoM2S: number; readonly excentricidade: number; readonly perigeuM: number; readonly apogeuM: number &#124; undefined; readonly periodoS: number &#124; undefined; readonly interceptaSuperficie: boolean; readonly estado: "orbital" &#124; "suborbital" &#124; "limite-de-escape" &#124; "escape"; } &#124; undefined; massaKg: number; combustivelKg: number; reagivelKg: number; deltaVIdealMps: number &#124; undefined; impulsoEspecificoEfetivoS: number &#124; undefined; densidadeArKgM3: number; pressaoDinamicaPa: number; diagnosticoMotor: string[]; hipoteseDeltaV: string; }; contatos: readonly import("/media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/physics/solucionadores/ResolvedorContatoSuperficie").ContatoSuperficieFisico[]; empuxoN: number; vazaoKgS: number; throttle: number; ignitado: boolean; gimbalRad: number; arbitragem: readonly { readonly idControlador: string; readonly idAtuador: string; readonly recurso: string; readonly valor: number; }[]; fixadores: readonly { readonly id: string; readonly estado: "integro" &#124; "liberado" &#124; "rompido"; }[]; sistemas: Readonly&lt;Record&lt;import("/media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/TiposMissaoBss006").SistemaBss, boolean&gt;&gt;; energiaEletricaJ: number; sensores: { readonly validos: boolean; readonly idadeS: number; }; }</code>; expressões retornadas: <code>{ tempoS: o.tempoS,<br>    corpos: o.corpos.map(c =&gt; ({ id: c.id, estado: c.estado, massaKg: c.massaKg, integridade: c.integridade, temperaturaC: c.temperaturaC, deflexaoRad: c.deflexaoRad })),<br>    engenharia: o.engenharia, contatos: o.contato… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>o.corpos.map</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/missoes/ObservacaoFisicaM10.test.ts](../../src/missoes/ObservacaoFisicaM10.test.ts); [src/missoes/ReferenciaBancadaM10.test.ts](../../src/missoes/ReferenciaBancadaM10.test.ts); [src/missoes/ValidacaoMissaoBss006.test.ts](../../src/missoes/ValidacaoMissaoBss006.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `o.corpos.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b1e526c99539b31e */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Projeta snapshot da missão para o mesmo conjunto de campos da bancada, preservando valores físicos sem arredondamento. @contract f-b1e526c99539b31e @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -30093,15 +30093,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/validacao/ReferenciaBancadaM10.ts::hashFisica:FunctionDeclaration</code> · [fonte L32](../../src/validacao/ReferenciaBancadaM10.ts#L32) |
 | Assinatura | <code>export (o: unknown): string</code> |
-| Responsabilidade | Dependências diretas: `createHash('sha256').update(JSON.stringify(o, (_chave, valor) =&gt; { if (typeof valor === 'number' &amp;&amp; !Number.isFinite(valor)) throw new Error('Grandeza não finita na evidência física.'); return valor; })).digest`, `createHash('sha256').update`, `createHash`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Calcula SHA-256 da serialização do registro físico, rejeitando qualquer número não finito; igualdade exige mesma ordem/estrutura além dos mesmos valores. |
 | Entradas | <code>o: unknown</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>createHash('sha256').update(JSON.stringify(o, (_chave, valor) =&gt; {<br>    if (typeof valor === 'number' &amp;&amp; !Number.isFinite(valor))<br>        throw new Error('Grandeza não finita na evidência física.');<br>    return valor;<br>})).digest('hex')</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>createHash('sha256').update(JSON.stringify(o, (_chave, valor) =&gt; {<br>    if (typeof valor === 'number' &amp;&amp; !Number.isFinite(valor))<br>        throw new Error('Grandeza não finita na evidência física.');<br>    return valor;<br>})).digest</code>; <code>createHash('sha256').update</code>; <code>createHash</code>; <code>JSON.stringify</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/missoes/ObservacaoFisicaM10.test.ts](../../src/missoes/ObservacaoFisicaM10.test.ts); [src/missoes/ReferenciaBancadaM10.test.ts](../../src/missoes/ReferenciaBancadaM10.test.ts); [src/missoes/ValidacaoMissaoBss006.test.ts](../../src/missoes/ValidacaoMissaoBss006.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `createHash('sha256').update(JSON.stringify(o, (_chave, valor) =&gt; { if (typeof valor === 'number' &amp;&amp; !Number.isFinite(valor)) throw new Error('Grandeza não finita na evidência física.'); return valor; })).digest`, `createHash('sha256').update`, `createHash`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-dab75627890b3399 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Calcula SHA-256 da serialização do registro físico, rejeitando qualquer número não finito; igualdade exige mesma ordem/estrutura além dos mesmos valores. @contract f-dab75627890b3399 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -30181,15 +30181,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/veiculos/MontagemBss.ts::montarVeiculoBss.estadoInicial:ArrowFunction</code> · [fonte L57](../../src/veiculos/MontagemBss.ts#L57) |
 | Assinatura | <code> (p: Vetor3, theta?: number): { posicaoM: Vetor3; orientacaoRad: Vetor3; velocidadeMps?: undefined; velocidadeAngularRadps?: undefined; } &#124; { posicaoM: Vetor3; orientacaoRad: Vetor3; velocidadeMps: Vetor3; velocidadeAngularRadps: Vetor3; }</code> |
-| Responsabilidade | Dependências diretas: `ref.localParaGlobal`, `Vetor3`, `ref.atitudeInercialRad`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Converte montagem local para global; variante de ensaio gira peças em torno do casco e distribui v+ω×r, preservando pose relativa inicial. Valida grandezas angulares; não atualiza corpos já integrados. |
 | Entradas | <code>p: Vetor3</code>; <code>theta = 0</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ posicaoM: Vetor3; orientacaoRad: Vetor3; velocidadeMps?: undefined; velocidadeAngularRadps?: undefined; } &#124; { posicaoM: Vetor3; orientacaoRad: Vetor3; velocidadeMps: Vetor3; velocidadeAngularRadps: Vetor3; }</code>; expressões retornadas: <code>{ posicaoM: ref.localParaGlobal(p, ancora), orientacaoRad: new Vetor3(0, 0, ref.atitudeInercialRad(theta, ancora)) }</code>; <code>{ posicaoM: ref.localParaGlobal(ensaio.centroCascoLocalM.adicionar(braco), ancora),<br>    orientacaoRad: new Vetor3(0, 0, ref.atitudeInercialRad(theta + ensaio.inclinacaoRad, ancora)),<br>    velocidadeMps: ref.vetorParaGlobal(ensaio.velocidadeL… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>ref.localParaGlobal</code>; <code>Vetor3</code>; <code>ref.atitudeInercialRad</code>; <code>[ensaio.inclinacaoRad, ensaio.velocidadeAngularRadps].every</code>; <code>Error</code>; <code>p.subtrair</code>; <code>Math.cos</code>; <code>Math.sin</code>; <code>ensaio.centroCascoLocalM.adicionar</code>; <code>ref.vetorParaGlobal</code>; <code>ensaio.velocidadeLocalMps.adicionar</code>; <code>new Vetor3(0, 0, ensaio.velocidadeAngularRadps).produtoVetorial</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!ensaio</code>; <code>![ensaio.inclinacaoRad, ensaio.velocidadeAngularRadps].every(Number.isFinite)</code>; exceções: <code>new Error('Condição inicial angular inválida.')</code> |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `ref.localParaGlobal`, `Vetor3`, `ref.atitudeInercialRad`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-65edae0a6d02c533 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Converte montagem local para global; variante de ensaio gira peças em torno do casco e distribui v+ω×r, preservando pose relativa inicial. Valida grandezas angulares; não atualiza corpos já integrados. @contract f-65edae0a6d02c533 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -30200,15 +30200,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/veiculos/MontagemBss.ts::montarVeiculoBss.base:ArrowFunction</code> · [fonte L95](../../src/veiculos/MontagemBss.ts#L95) |
 | Assinatura | <code> (id: string, massaBaseKg: number, dimensoesM: Vetor3, posicaoM: Vetor3): { id: string; massaBaseKg: number; dimensoesM: Vetor3; resistenciaColisaoJ: number; limiteTermicoC: number; estadoInicial: { posicaoM: Vetor3; orientacaoRad: Vetor3; velocidadeMps?: undefined; velocidadeAngularRadps?: undefined; } &#124; { posicaoM: Vetor3; orientacaoRad: Vetor3; velocidadeMps: Vetor3; velocidadeAngularRadps: Vetor3; }; }</code> |
-| Responsabilidade | Dependências diretas: `estadoInicial`, `posicaoM.adicionar`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Cria definição comum SI com resistência 500 kJ/limite 1000 °C e estado transformado, incorporando deslocamento vertical inicial declarado. |
 | Entradas | <code>id: string</code>; <code>massaBaseKg: number</code>; <code>dimensoesM: Vetor3</code>; <code>posicaoM: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ id: string; massaBaseKg: number; dimensoesM: Vetor3; resistenciaColisaoJ: number; limiteTermicoC: number; estadoInicial: { posicaoM: Vetor3; orientacaoRad: Vetor3; velocidadeMps?: undefined; velocidadeAngularRadps?: undefined; } &#124; { posicaoM: Vetor3; orientacaoRad: Vetor3; velocidadeMps: Vetor3; velocidadeAngularRadps: Vetor3; }; }</code>; expressões retornadas: <code>({<br>    id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 500000, limiteTermicoC: 1000,<br>    estadoInicial: estadoInicial(posicaoM.adicionar(new Vetor3(0, deslocamentoVerticalInicialM, 0))),<br>})</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>estadoInicial</code>; <code>posicaoM.adicionar</code>; <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `estadoInicial`, `posicaoM.adicionar`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-29c573fab3c95107 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Cria definição comum SI com resistência 500 kJ/limite 1000 °C e estado transformado, incorporando deslocamento vertical inicial declarado. @contract f-29c573fab3c95107 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -30295,15 +30295,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/veiculos/MontagemBss.ts::montarVeiculoBss.atualizarControlePainel:ArrowFunction</code> · [fonte L228](../../src/veiculos/MontagemBss.ts#L228) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | Dependências diretas: `painel.getEstadoFisico`, `cilindroPainel.limparSelo`, `cilindroPainel.definirEntradas`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Consulta X do painel e limites com tolerância 1 mm; limpa selo ao atingir fim e envia entradas ao cilindro. Este painel móvel de bancada usa eixo X global, sem conversão geral radial. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>comandoPainel</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>painel.getEstadoFisico</code>; <code>cilindroPainel.limparSelo</code>; <code>cilindroPainel.definirEntradas</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!cilindroPainel</code>; <code>(comandoPainel === 'avancar' &amp;&amp; atingiuAvanco) &#124;&#124; (comandoPainel === 'recuar' &amp;&amp; atingiuRecuo)</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `painel.getEstadoFisico`, `cilindroPainel.limparSelo`, `cilindroPainel.definirEntradas`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-91b1b8d5cb264877 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta X do painel e limites com tolerância 1 mm; limpa selo ao atingir fim e envia entradas ao cilindro. Este painel móvel de bancada usa eixo X global, sem conversão geral radial. @contract f-91b1b8d5cb264877 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -30333,15 +30333,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/veiculos/MontagemBss.ts::montarVeiculoBss.controleAletasEnergizado:ArrowFunction</code> · [fonte L249](../../src/veiculos/MontagemBss.ts#L249) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Dependências diretas: `propulsor.sistemaEstaOperacional`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Autoriza controle das aletas com bateria carregada/íntegra e sistemas elétrico/controle do motor operacionais. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>!bateria.estaDescarregada &amp;&amp; bateria.integridadeEstrutural &gt; 0<br>    &amp;&amp; propulsor.sistemaEstaOperacional('elétrico') &amp;&amp; propulsor.sistemaEstaOperacional('controle')</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>propulsor.sistemaEstaOperacional</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `propulsor.sistemaEstaOperacional`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-cd5e42939c301cd0 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Autoriza controle das aletas com bateria carregada/íntegra e sistemas elétrico/controle do motor operacionais. @contract f-cd5e42939c301cd0 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -30352,15 +30352,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/veiculos/MontagemBss.ts::montarVeiculoBss.atualizarControleAletas:ArrowFunction</code> · [fonte L285](../../src/veiculos/MontagemBss.ts#L285) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | Dependências diretas: `veiculo.getEstadoFisico`, `ref.altitudeGeometricaM`, `controladorAletas?.atualizar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Registra decolagem por altitude radial acima de inicial+0,5 m; sem guiagem por alvo atualiza aletas usando atitude/taxa locais e velocidade radial relativa ao ar. Não aplica rotação diretamente. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>jaDecolou</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>veiculo.getEstadoFisico</code>; <code>ref.altitudeGeometricaM</code>; <code>controladorAletas?.atualizar</code>; <code>ref.atitudeLocalRad</code>; <code>ref.taxaAtitudeLocalRadps</code>; <code>ref.vetorParaLocal</code>; <code>estado.velocidadeMps.subtrair</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>ref.altitudeGeometricaM(estado.posicaoM) &gt; alturaInicialM + 0.5</code>; <code>!configuracao.incluirGuiaPousoPorAlvo</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `veiculo.getEstadoFisico`, `ref.altitudeGeometricaM`, `controladorAletas?.atualizar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-42ae0febce41ba45 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Registra decolagem por altitude radial acima de inicial+0,5 m; sem guiagem por alvo atualiza aletas usando atitude/taxa locais e velocidade radial relativa ao ar. Não aplica rotação diretamente. @contract f-42ae0febce41ba45 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -30371,15 +30371,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/veiculos/MontagemBss.ts::montarVeiculoBss.configuracaoPousoBss04.obterContatoComSolo:ArrowFunction</code> · [fonte L313](../../src/veiculos/MontagemBss.ts#L313) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Devolve `contatoDePousoConfirmado`. Dependências diretas: `pernasFixas.filter`, `sapatas.every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Exige duas sapatas com observação emApoio no solo selecionado e retém confirmação após primeira ocorrência; não prova apoio bilateral contínuo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>contatoDePousoConfirmado</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>contatoDePousoConfirmado</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>pernasFixas.filter</code>; <code>sapatas.every</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `contatoDePousoConfirmado`. Dependências diretas: `pernasFixas.filter`, `sapatas.every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-fb341cea057240b3 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Exige duas sapatas com observação emApoio no solo selecionado e retém confirmação após primeira ocorrência; não prova apoio bilateral contínuo. @contract f-fb341cea057240b3 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -30409,15 +30409,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/veiculos/MontagemBss.ts::montarVeiculoBss.ativarModo:ArrowFunction</code> · [fonte L325](../../src/veiculos/MontagemBss.ts#L325) |
 | Assinatura | <code> (modo: "decolagem" &#124; "pouso"): void</code> |
-| Responsabilidade | Dependências diretas: `veiculo.habilitarControleDeDescidaFuzzyPid`, `veiculo.desabilitarControleDeDescidaFuzzyPid`, `veiculo.definirThrottleDoPropulsor`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Registra modo e habilita Fuzzy-PID no pouso; ao voltar à decolagem desabilita Fuzzy-PID e solicita throttle zero, sem ignição automática. |
 | Entradas | <code>modo: 'decolagem' &#124; 'pouso'</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>modoBss04</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>veiculo.habilitarControleDeDescidaFuzzyPid</code>; <code>veiculo.desabilitarControleDeDescidaFuzzyPid</code>; <code>veiculo.definirThrottleDoPropulsor</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>modo === 'pouso'</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `veiculo.habilitarControleDeDescidaFuzzyPid`, `veiculo.desabilitarControleDeDescidaFuzzyPid`, `veiculo.definirThrottleDoPropulsor`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ab7b56e553ea101b */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Registra modo e habilita Fuzzy-PID no pouso; ao voltar à decolagem desabilita Fuzzy-PID e solicita throttle zero, sem ignição automática. @contract f-ab7b56e553ea101b @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -30428,15 +30428,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/veiculos/MontagemBss.ts::montarVeiculoBss.selecionarAlvo:ArrowFunction</code> · [fonte L331](../../src/veiculos/MontagemBss.ts#L331) |
 | Assinatura | <code> (xM: number): boolean</code> |
-| Responsabilidade | Dependências diretas: `ref.altitudeGeometricaM`, `veiculo.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Aceita alvo finito em m somente antes da decolagem observada e abaixo do limiar inicial+0,5 m; registra alvo ou retorna false. |
 | Entradas | <code>xM: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>false</code>; <code>true</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>alvoPousoXM</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>ref.altitudeGeometricaM</code>; <code>veiculo.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(xM) &#124;&#124; jaDecolou &#124;&#124; ref.altitudeGeometricaM(veiculo.getEstadoFisico().posicaoM) &gt; alturaInicialM + 0.5</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `ref.altitudeGeometricaM`, `veiculo.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f67c4a96b3d7ea5e */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Aceita alvo finito em m somente antes da decolagem observada e abaixo do limiar inicial+0,5 m; registra alvo ou retorna false. @contract f-f67c4a96b3d7ea5e @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -30523,15 +30523,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/veiculos/MontagemBss.ts::montarVeiculoBss.comandarPainel:ArrowFunction</code> · [fonte L346](../../src/veiculos/MontagemBss.ts#L346) |
 | Assinatura | <code> (comando: "avancar" &#124; "recuar"): void</code> |
-| Responsabilidade | Dependências diretas: `atualizarControlePainel`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Registra pedido de avanço/recuo/parada e reavalia entradas do cilindro; deslocamento depende de força/energia reais. |
 | Entradas | <code>comando: 'avancar' &#124; 'recuar'</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>comandoPainel</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>atualizarControlePainel</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `atualizarControlePainel`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-def29dca4b27c7ee */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Registra pedido de avanço/recuo/parada e reavalia entradas do cilindro; deslocamento depende de força/energia reais. @contract f-def29dca4b27c7ee @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -30630,15 +30630,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/visualizacao/ConexoesEletricas.ts::conexoesEletricasExpostas:FunctionDeclaration</code> · [fonte L9](../../src/visualizacao/ConexoesEletricas.ts#L9) |
 | Assinatura | <code>export (conexoes: readonly ConexaoEletricaVisual[], objetosVisiveis: readonly Objeto[]): readonly ConexaoEletricaVisual[]</code> |
-| Responsabilidade | Devolve `conexoes.filter((conexao) =&gt; objetosVisiveis.includes(conexao.fonte))`. Dependências diretas: `conexoes.filter`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Filtra conexões cuja fonte integra a lista visível; ocultação é exclusivamente visual e não remove cabo do domínio. |
 | Entradas | <code>conexoes: readonly ConexaoEletricaVisual[]</code>; <code>objetosVisiveis: readonly Objeto[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly ConexaoEletrica[]</code>; expressões retornadas: <code>conexoes.filter((conexao) =&gt; objetosVisiveis.includes(conexao.fonte))</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>conexoes.filter</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/visualizacao/ConexoesEletricas.test.ts](../../src/visualizacao/ConexoesEletricas.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `conexoes.filter((conexao) =&gt; objetosVisiveis.includes(conexao.fonte))`. Dependências diretas: `conexoes.filter`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-aff2a7f3384f78eb */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Filtra conexões cuja fonte integra a lista visível; ocultação é exclusivamente visual e não remove cabo do domínio. @contract f-aff2a7f3384f78eb @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -30687,15 +30687,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/visualizacao/ConexoesEletricas.ts::desenharConexoesEletricas:FunctionDeclaration</code> · [fonte L36](../../src/visualizacao/ConexoesEletricas.ts#L36) |
 | Assinatura | <code>export (contexto: CanvasRenderingContext2D, conexoes: readonly ConexaoEletricaVisual[], objetosVisiveis: readonly Objeto[], projetar: (pontoM: Vetor3) =&gt; { readonly x: number; readonly y: number; }): readonly AlvoSwitchEletrico[]</code> |
-| Responsabilidade | Devolve `alvos`. Escritas diretas: `contexto.lineJoin`, `contexto.lineCap`, `contexto.lineWidth`, `contexto.strokeStyle`. Dependências diretas: `conexoesEletricasExpostas(conexoes, objetosVisiveis).entries`, `conexoesEletricasExpostas`, `projetar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Projeta terminais físicos e desenha dois condutores, interruptor e diagnóstico corrente/tensão mesmo desligados; diferencia ruptura/desconexão. Retorna regiões clicáveis de fontes CC sem operar circuitos. |
 | Entradas | <code>contexto: CanvasRenderingContext2D</code>; <code>conexoes: readonly ConexaoEletricaVisual[]</code>; <code>objetosVisiveis: readonly Objeto[]</code>; <code>projetar: (pontoM: Vetor3) =&gt; { readonly x: number; readonly y: number }</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly AlvoSwitchEletrico[]</code>; expressões retornadas: <code>alvos</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>contexto.lineJoin</code>; <code>contexto.lineCap</code>; <code>contexto.lineWidth</code>; <code>contexto.strokeStyle</code>; <code>contexto.fillStyle</code>; <code>contexto.font</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>conexoesEletricasExpostas(conexoes, objetosVisiveis).entries</code>; <code>conexoesEletricasExpostas</code>; <code>projetar</code>; <code>terminalEletricoM</code>; <code>Math.min</code>; <code>Math.max</code>; <code>contexto.save</code>; <code>contexto.setLineDash</code>; <code>caminho</code>; <code>contexto.stroke</code>; <code>contexto.beginPath</code>; <code>contexto.arc</code>; <code>contexto.fill</code>; <code>alvos.push</code>; <code>contexto.fillRect</code>; <code>contexto.moveTo</code>; <code>contexto.lineTo</code>; <code>contexto.fillText</code>; <code>conexao.correnteAtualA.toFixed</code>; <code>conexao.tensaoSaidaV.toFixed</code>; <code>contexto.restore</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>conexao.fonte.tipoCorrente === 'CC'</code>; exceções: — |
 | Testes | [src/visualizacao/ConexoesEletricas.test.ts](../../src/visualizacao/ConexoesEletricas.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `alvos`. Escritas diretas: `contexto.lineJoin`, `contexto.lineCap`, `contexto.lineWidth`, `contexto.strokeStyle`. Dependências diretas: `conexoesEletricasExpostas(conexoes, objetosVisiveis).entries`, `conexoesEletricasExpostas`, `projetar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7100ba216535c7cc */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Projeta terminais físicos e desenha dois condutores, interruptor e diagnóstico corrente/tensão mesmo desligados; diferencia ruptura/desconexão. Retorna regiões clicáveis de fontes CC sem operar circuitos. @contract f-7100ba216535c7cc @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -30725,15 +30725,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/visualizacao/ConexoesEletricas.ts::desenharConexoesEletricas.caminho:ArrowFunction</code> · [fonte L60](../../src/visualizacao/ConexoesEletricas.ts#L60) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | Dependências diretas: `contexto.beginPath`, `contexto.moveTo`, `contexto.lineTo`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Constrói caminho ortogonal do condutor no Canvas em pixels; chamado para contorno e traço, sem mudar geometria do cabo físico. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>contexto.beginPath</code>; <code>contexto.moveTo</code>; <code>contexto.lineTo</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/visualizacao/ConexoesEletricas.test.ts](../../src/visualizacao/ConexoesEletricas.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `contexto.beginPath`, `contexto.moveTo`, `contexto.lineTo`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e03c60a41fd7c22d */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Constrói caminho ortogonal do condutor no Canvas em pixels; chamado para contorno e traço, sem mudar geometria do cabo físico. @contract f-e03c60a41fd7c22d @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -30748,15 +30748,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/visualizacao/RegistroEnsaioBancada.ts::RegistroEnsaioBancada.constructor:Constructor</code> · [fonte L14](../../src/visualizacao/RegistroEnsaioBancada.ts#L14) |
 | Assinatura | <code>public (dtS: number, configuracao: unknown): RegistroEnsaioBancada</code> |
-| Responsabilidade | Escritas diretas: `this.dtS`, `this.configuracaoJson`. Dependências diretas: `Error`, `JSON.stringify`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida dt positivo s e captura configuração por serialização JSON, isolando alterações posteriores do objeto de entrada. |
 | Entradas | <code>private readonly dtS: number</code>; <code>configuracao: unknown</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>RegistroEnsaioBancada</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.dtS</code>; <code>this.passos</code>; <code>this.entradas</code>; <code>this.configuracaoJson</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code>; <code>JSON.stringify</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(dtS) &#124;&#124; dtS &lt;= 0</code>; exceções: <code>new Error('dt do ensaio deve ser positivo em s.')</code> |
 | Testes | [src/cenarios/ReproducaoDiarioBss005.test.ts](../../src/cenarios/ReproducaoDiarioBss005.test.ts); [src/cenarios/TelemetriaMissaoBss.test.ts](../../src/cenarios/TelemetriaMissaoBss.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/visualizacao/RegistroEnsaioBancada.test.ts](../../src/visualizacao/RegistroEnsaioBancada.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.dtS`, `this.configuracaoJson`. Dependências diretas: `Error`, `JSON.stringify`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b8117d1c26329bb7 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida dt positivo s e captura configuração por serialização JSON, isolando alterações posteriores do objeto de entrada. @contract f-b8117d1c26329bb7 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -30805,15 +30805,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/visualizacao/RegistroEnsaioBancada.ts::RegistroEnsaioBancada.exportar:MethodDeclaration</code> · [fonte L36](../../src/visualizacao/RegistroEnsaioBancada.ts#L36) |
 | Assinatura | <code>public (): { versao: number; dtS: number; passosExecutados: number; configuracao: unknown; entradas: { passo: number; acao: string; valor?: string &#124; number &#124; boolean; }[]; reproducao: string; }</code> |
-| Responsabilidade | Dependências diretas: `JSON.parse`, `this.entradas.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Retorna diário v1 com configuração desserializada, entradas copiadas e instrução de reprodução pela mesma revisão/modelo/dt; não reexecuta missão. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ versao: number; dtS: number; passosExecutados: number; configuracao: unknown; entradas: { passo: number; acao: string; valor?: string &#124; number &#124; boolean; }[]; reproducao: string; }</code>; expressões retornadas: <code>{<br>    versao: 1,<br>    dtS: this.dtS,<br>    passosExecutados: this.passos,<br>    configuracao: JSON.parse(this.configuracaoJson) as unknown,<br>    entradas: this.entradas.map((entrada) =&gt; ({ ...entrada })),<br>    reproducao: 'Recriar a configuração i… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>JSON.parse</code>; <code>this.entradas.map</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/ReproducaoDiarioBss005.test.ts](../../src/cenarios/ReproducaoDiarioBss005.test.ts); [src/cenarios/TelemetriaMissaoBss.test.ts](../../src/cenarios/TelemetriaMissaoBss.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/visualizacao/RegistroEnsaioBancada.test.ts](../../src/visualizacao/RegistroEnsaioBancada.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `JSON.parse`, `this.entradas.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7ad5c8aac70ef81d */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Retorna diário v1 com configuração desserializada, entradas copiadas e instrução de reprodução pela mesma revisão/modelo/dt; não reexecuta missão. @contract f-7ad5c8aac70ef81d @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -30847,15 +30847,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/visualizacao/TracePLC.ts::TracePLC.constructor:Constructor</code> · [fonte L28](../../src/visualizacao/TracePLC.ts#L28) |
 | Assinatura | <code>public (limiteCanais?: number, limiteAmostras?: number): TracePLC</code> |
-| Responsabilidade | Escritas diretas: `this.limiteCanais`, `this.limiteAmostras`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Exige limites inteiros positivos de canais e amostras; mantém observação limitada em memória sem participar da física. |
 | Entradas | <code>private readonly limiteCanais = 10</code>; <code>private readonly limiteAmostras = 6_000</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>TracePLC</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.limiteCanais</code>; <code>this.limiteAmostras</code>; <code>this.canaisInternos</code>; <code>this.amostrasInternas</code>; <code>this.ultimoTempoS</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isInteger</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isInteger(limiteCanais) &#124;&#124; limiteCanais &lt;= 0</code>; <code>!Number.isInteger(limiteAmostras) &#124;&#124; limiteAmostras &lt;= 0</code>; exceções: <code>new Error('O limite de canais do TracePLC deve ser um inteiro positivo.')</code>; <code>new Error('O limite de amostras deve ser positivo.')</code> |
 | Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/TelemetriaMissaoBss.test.ts](../../src/cenarios/TelemetriaMissaoBss.test.ts); [src/visualizacao/TracePLC.test.ts](../../src/visualizacao/TracePLC.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.limiteCanais`, `this.limiteAmostras`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-eeb5e031f4aaf6c2 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Exige limites inteiros positivos de canais e amostras; mantém observação limitada em memória sem participar da física. @contract f-eeb5e031f4aaf6c2 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -30904,15 +30904,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/visualizacao/TracePLC.ts::TracePLC.adicionarSinal:MethodDeclaration</code> · [fonte L39](../../src/visualizacao/TracePLC.ts#L39) |
 | Assinatura | <code>public (nome: string, obterSinal: () =&gt; SinalTracePLC, cor: string, escala?: EscalaTracePLC): void</code> |
-| Responsabilidade | Dependências diretas: `Error`, `this.canaisInternos.push`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida nome/cor/porta de leitura, escala finita crescente e capacidade; adiciona canal sem avaliar sinal neste momento. |
 | Entradas | <code>nome: string</code>; <code>obterSinal: () =&gt; SinalTracePLC</code>; <code>cor: string</code>; <code>escala?: EscalaTracePLC</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Error</code>; <code>Number.isFinite</code>; <code>this.canaisInternos.push</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!nome &#124;&#124; !cor &#124;&#124; typeof obterSinal !== 'function'</code>; <code>escala &amp;&amp; (!Number.isFinite(escala.minimo) &#124;&#124; !Number.isFinite(escala.maximo) &#124;&#124; escala.maximo &lt;= escala.minimo)</code>; <code>this.canaisInternos.length &gt;= this.limiteCanais</code>; exceções: <code>new Error('Canal do TracePLC inválido.')</code>; <code>new Error('Escala do TracePLC inválida.')</code>; <code>new Error(`TracePLC limitado a ${this.limiteCanais} canais.`)</code> |
 | Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/TelemetriaMissaoBss.test.ts](../../src/cenarios/TelemetriaMissaoBss.test.ts); [src/visualizacao/TracePLC.test.ts](../../src/visualizacao/TracePLC.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `Error`, `this.canaisInternos.push`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f3ba099a9d5d7167 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida nome/cor/porta de leitura, escala finita crescente e capacidade; adiciona canal sem avaliar sinal neste momento. @contract f-f3ba099a9d5d7167 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -30942,15 +30942,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/visualizacao/TracePLC.ts::TracePLC.limpar:MethodDeclaration</code> · [fonte L47](../../src/visualizacao/TracePLC.ts#L47) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Escritas diretas: `this.canaisInternos.length`, `this.amostrasInternas.length`, `this.ultimoTempoS`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Esvazia canais/amostras e reinicia referência temporal; não reinicia mundo nem sensores. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.canaisInternos.length</code>; <code>this.amostrasInternas.length</code>; <code>this.ultimoTempoS</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/TelemetriaMissaoBss.test.ts](../../src/cenarios/TelemetriaMissaoBss.test.ts); [src/visualizacao/TracePLC.test.ts](../../src/visualizacao/TracePLC.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.canaisInternos.length`, `this.amostrasInternas.length`, `this.ultimoTempoS`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-11ed476f97388fe3 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Esvazia canais/amostras e reinicia referência temporal; não reinicia mundo nem sensores. @contract f-11ed476f97388fe3 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -30961,15 +30961,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/visualizacao/TracePLC.ts::TracePLC.registrar:MethodDeclaration</code> · [fonte L54](../../src/visualizacao/TracePLC.ts#L54) |
 | Assinatura | <code>public (tempoS: number, forcar?: boolean): void</code> |
-| Responsabilidade | Escritas diretas: `this.ultimoTempoS`. Dependências diretas: `Error`, `this.canaisInternos.map`, `this.amostrasInternas.at`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Lê sinais finitos/booleanos no tempo simulado s, convertendo booleano em 0/1. Mudança registra imediatamente; sinal igual em menos de 0,05 s é omitido salvo forçado. Limita histórico removendo mais antigo; não é amostragem física nem replay integral. |
 | Entradas | <code>tempoS: number</code>; <code>forcar = false</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.ultimoTempoS</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code>; <code>this.canaisInternos.map</code>; <code>this.amostrasInternas.at</code>; <code>ultima.sinais.every</code>; <code>this.amostrasInternas.push</code>; <code>this.amostrasInternas.shift</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(tempoS) &#124;&#124; tempoS &lt; 0</code>; <code>this.canaisInternos.length === 0</code>; <code>!forcar &amp;&amp; ultima &amp;&amp; tempoS - this.ultimoTempoS &lt; 0.05 &amp;&amp; mesmoSinal</code>; <code>this.amostrasInternas.length &gt; this.limiteAmostras</code>; exceções: <code>new Error('Tempo do TracePLC deve ser finito e não negativo.')</code> |
 | Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/TelemetriaMissaoBss.test.ts](../../src/cenarios/TelemetriaMissaoBss.test.ts); [src/visualizacao/TracePLC.test.ts](../../src/visualizacao/TracePLC.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.ultimoTempoS`. Dependências diretas: `Error`, `this.canaisInternos.map`, `this.amostrasInternas.at`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1b711a9b0f762a4a */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Lê sinais finitos/booleanos no tempo simulado s, convertendo booleano em 0/1. Mudança registra imediatamente; sinal igual em menos de 0,05 s é omitido salvo forçado. Limita histórico removendo mais antigo; não é amostragem física nem replay integral. @contract f-1b711a9b0f762a4a @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -30980,15 +30980,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/visualizacao/TracePLC.ts::TracePLC.obterIndiceMaisProximo:MethodDeclaration</code> · [fonte L72](../../src/visualizacao/TracePLC.ts#L72) |
 | Assinatura | <code>public (tempoS: number): number</code> |
-| Responsabilidade | Dependências diretas: `this.amostrasInternas.forEach`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Busca linearmente amostra com menor distância temporal; empate preserva primeira e lista vazia retorna índice zero. |
 | Entradas | <code>tempoS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>0</code>; <code>melhorIndice</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.amostrasInternas.forEach</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>this.amostrasInternas.length === 0</code>; exceções: — |
 | Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/TelemetriaMissaoBss.test.ts](../../src/cenarios/TelemetriaMissaoBss.test.ts); [src/visualizacao/TracePLC.test.ts](../../src/visualizacao/TracePLC.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.amostrasInternas.forEach`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-fc2ec4a5f9b91d62 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Busca linearmente amostra com menor distância temporal; empate preserva primeira e lista vazia retorna índice zero. @contract f-fc2ec4a5f9b91d62 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 

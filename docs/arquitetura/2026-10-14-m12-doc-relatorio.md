@@ -237,3 +237,13 @@ gerador/painel solar, alimentação química, bocal, paraquedas e veículos loca
 Foram diferenciados comando, orçamento energético, entrega, reação e integração.
 Hipóteses cartesianas remanescentes em mecanismos locais ficaram registradas no
 mapa e no código, sem refatoração. A prova por arquivo preservou AST executável.
+
+### C9 — Missões, replay, ensaios e observação
+
+60 contratos adicionais esclarecem identificação/validação dos replays,
+condições iniciais, configuração reproduzível, portas aquáticas e traces.
+A confirmação retida de contato bilateral não equivale a apoio continuamente
+sustentado. TracePLC registra mudanças imediatamente e pode omitir sinais iguais
+em intervalos menores que 0,05 s; não é replay integral. A UI orbital legada
+limita delta real, diferentemente do acompanhamento de atraso da cena de missão.
+Comentários e catálogo foram atualizados com AST executável preservada.

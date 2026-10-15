@@ -53,7 +53,7 @@ export function montarVeiculoBss(mundo: MundoFisico, solo: SuperficieFisica, con
   const ancora = ref.posicaoPorArcoM(configuracao.arcoBaseM ?? 0, 0);
   const deslocamentoVerticalInicialM = configuracao.incluirPernasFixas ? 0.3 : 0;
   const alturaInicialDoCascoM = 4.5 + deslocamentoVerticalInicialM;
-  /** Dependências diretas: `ref.localParaGlobal`, `Vetor3`, `ref.atitudeInercialRad`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-65edae0a6d02c533 */
+  /** Converte montagem local para global; variante de ensaio gira peças em torno do casco e distribui v+ω×r, preservando pose relativa inicial. Valida grandezas angulares; não atualiza corpos já integrados. @contract f-65edae0a6d02c533 @reviewed M12-DOC: implementação lida. */
   const estadoInicial = (p: Vetor3, theta = 0) => {
     const ensaio = configuracao.estadoInicialEnsaio;
     if (!ensaio) return { posicaoM: ref.localParaGlobal(p, ancora), orientacaoRad: new Vetor3(0, 0, ref.atitudeInercialRad(theta, ancora)) };
@@ -91,7 +91,7 @@ export function montarVeiculoBss(mundo: MundoFisico, solo: SuperficieFisica, con
   const centroPainelM = fatorTanques === 1
     ? 13.2
     : centroBateriaM + 0.725;
-  /** Dependências diretas: `estadoInicial`, `posicaoM.adicionar`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-29c573fab3c95107 */
+  /** Cria definição comum SI com resistência 500 kJ/limite 1000 °C e estado transformado, incorporando deslocamento vertical inicial declarado. @contract f-29c573fab3c95107 @reviewed M12-DOC: implementação lida. */
   const base = (id: string, massaBaseKg: number, dimensoesM: Vetor3, posicaoM: Vetor3) => ({
     id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 500_000, limiteTermicoC: 1_000,
     estadoInicial: estadoInicial(posicaoM.adicionar(new Vetor3(0, deslocamentoVerticalInicialM, 0))),
@@ -224,7 +224,7 @@ export function montarVeiculoBss(mundo: MundoFisico, solo: SuperficieFisica, con
     mundo.registrarFixador(fixadorPainelHaste);
     mundo.registrarGuiaLinear(guiaPainel);
   }
-  /** Dependências diretas: `painel.getEstadoFisico`, `cilindroPainel.limparSelo`, `cilindroPainel.definirEntradas`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-91b1b8d5cb264877 */
+  /** Consulta X do painel e limites com tolerância 1 mm; limpa selo ao atingir fim e envia entradas ao cilindro. Este painel móvel de bancada usa eixo X global, sem conversão geral radial. @contract f-91b1b8d5cb264877 @reviewed M12-DOC: implementação lida. */
   const atualizarControlePainel = (): void => {
     if (!cilindroPainel) return;
     const xPainelM = painel.getEstadoFisico().posicaoM.x;
@@ -245,7 +245,7 @@ export function montarVeiculoBss(mundo: MundoFisico, solo: SuperficieFisica, con
   const alturaInicialM = ref.altitudeGeometricaM(veiculo.getEstadoFisico().posicaoM);
   /** Devolve `veiculo.massaInstantaneaDoConjuntoKg * mundo.obterGravidadeMps2(veiculo.getEstadoFisico().posicaoM).magnitude`. Dependências diretas: `mundo.obterGravidadeMps2`, `veiculo.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-75d31f7dd71b5b26 */
   const pesoAtualN = (): number => veiculo.massaInstantaneaDoConjuntoKg * mundo.obterGravidadeMps2(veiculo.getEstadoFisico().posicaoM).magnitude;
-  /** Dependências diretas: `propulsor.sistemaEstaOperacional`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-cd5e42939c301cd0 */
+  /** Autoriza controle das aletas com bateria carregada/íntegra e sistemas elétrico/controle do motor operacionais. @contract f-cd5e42939c301cd0 @reviewed M12-DOC: implementação lida. */
   const controleAletasEnergizado = (): boolean => !bateria.estaDescarregada && bateria.integridadeEstrutural > 0
     && propulsor.sistemaEstaOperacional('elétrico') && propulsor.sistemaEstaOperacional('controle');
   const controladorAletas = aletasAerodinamicas.length > 0
@@ -281,7 +281,7 @@ export function montarVeiculoBss(mundo: MundoFisico, solo: SuperficieFisica, con
     veiculo.registrarControlador(controladorGuiaPouso);
     controladorGuiaPouso.habilitar();
   }
-  /** Dependências diretas: `veiculo.getEstadoFisico`, `ref.altitudeGeometricaM`, `controladorAletas?.atualizar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-42ae0febce41ba45 */
+  /** Registra decolagem por altitude radial acima de inicial+0,5 m; sem guiagem por alvo atualiza aletas usando atitude/taxa locais e velocidade radial relativa ao ar. Não aplica rotação diretamente. @contract f-42ae0febce41ba45 @reviewed M12-DOC: implementação lida. */
   const atualizarControleAletas = (): void => {
     const estado = veiculo.getEstadoFisico();
     if (ref.altitudeGeometricaM(estado.posicaoM) > alturaInicialM + 0.5) jaDecolou = true;
@@ -309,7 +309,7 @@ export function montarVeiculoBss(mundo: MundoFisico, solo: SuperficieFisica, con
     ...(configuracao.incluirGuiaPousoPorAlvo ? {
       // O corte terminal usa apoio confirmado pelo resolvedor do MundoFisico.
       // A confirmação fica retida para não rearmar o throttle por oscilação de contato.
-      /** Devolve `contatoDePousoConfirmado`. Dependências diretas: `pernasFixas.filter`, `sapatas.every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-fb341cea057240b3 */
+      /** Exige duas sapatas com observação emApoio no solo selecionado e retém confirmação após primeira ocorrência; não prova apoio bilateral contínuo. @contract f-fb341cea057240b3 @reviewed M12-DOC: implementação lida. */
       obterContatoComSolo: () => {
         const sapatas = pernasFixas.filter((perna) => perna.id.includes('sapata'));
         const apoioBilateral = sapatas.length === 2 && sapatas.every((sapata) =>
@@ -321,13 +321,13 @@ export function montarVeiculoBss(mundo: MundoFisico, solo: SuperficieFisica, con
   };
   /** Devolve `obterTelemetriaMissaoBss(mundo, veiculo, propulsor, [tanqueCombustivel, tanqueOxidante])`. Dependências diretas: `obterTelemetriaMissaoBss`. Efeitos indiretos seguem as dependências chamadas. @contract f-918543f1d71adc01 */
   const obterDadosMissao = () => obterTelemetriaMissaoBss(mundo, veiculo, propulsor, [tanqueCombustivel, tanqueOxidante]);
-  /** Dependências diretas: `veiculo.habilitarControleDeDescidaFuzzyPid`, `veiculo.desabilitarControleDeDescidaFuzzyPid`, `veiculo.definirThrottleDoPropulsor`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ab7b56e553ea101b */
+  /** Registra modo e habilita Fuzzy-PID no pouso; ao voltar à decolagem desabilita Fuzzy-PID e solicita throttle zero, sem ignição automática. @contract f-ab7b56e553ea101b @reviewed M12-DOC: implementação lida. */
   const ativarModo = (modo: 'decolagem' | 'pouso'): void => {
     modoBss04 = modo;
     if (modo === 'pouso') veiculo.habilitarControleDeDescidaFuzzyPid(configuracaoPousoBss04, [propulsor.id]);
     else { veiculo.desabilitarControleDeDescidaFuzzyPid(); veiculo.definirThrottleDoPropulsor(propulsor.id, 0); }
   };
-  /** Dependências diretas: `ref.altitudeGeometricaM`, `veiculo.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f67c4a96b3d7ea5e */
+  /** Aceita alvo finito em m somente antes da decolagem observada e abaixo do limiar inicial+0,5 m; registra alvo ou retorna false. @contract f-f67c4a96b3d7ea5e @reviewed M12-DOC: implementação lida. */
   const selecionarAlvo = (xM: number): boolean => {
     if (!Number.isFinite(xM) || jaDecolou || ref.altitudeGeometricaM(veiculo.getEstadoFisico().posicaoM) > alturaInicialM + 0.5) return false;
     alvoPousoXM = xM; return true;
@@ -342,7 +342,7 @@ export function montarVeiculoBss(mundo: MundoFisico, solo: SuperficieFisica, con
                                                               obterJaDecolou: () => jaDecolou,
     /** Devolve `comandoPainel`. Efeitos indiretos seguem as dependências chamadas. @contract f-25edd5deba3c2b21 */
     obterComandoPainel: () => comandoPainel,
-    /** Dependências diretas: `atualizarControlePainel`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-def29dca4b27c7ee */
+    /** Registra pedido de avanço/recuo/parada e reavalia entradas do cilindro; deslocamento depende de força/energia reais. @contract f-def29dca4b27c7ee @reviewed M12-DOC: implementação lida. */
     comandarPainel: (comando: 'avancar' | 'recuar') => { comandoPainel = comando; atualizarControlePainel(); },
     objetos: [veiculo, ...veiculo.modulosFisicos, ...(configuracao.incluirPainelSolar && configuracao.painelMovel && hastePainel ? [hastePainel, painel] : [])],
   };

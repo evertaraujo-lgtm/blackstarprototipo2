@@ -12,7 +12,7 @@ export class ExecutorPassoFixo {
   private acumuladoS = 0;
   private ultimoInstanteRealMs?: number;
 
-  /** Escritas diretas: `this.passoS`, `this.deltaRealMaximoS`, `this.preservarTempoReal`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-fd1a2d2565c3f4ad */
+  /** Exige passo simulado e limite de delta real positivos finitos em s; não consulta relógio nem avança mundo na construção. @contract f-fd1a2d2565c3f4ad @reviewed M12-DOC: implementação lida. */
   public constructor(
     public readonly passoS: number,
     private readonly deltaRealMaximoS = 0.05,
@@ -66,7 +66,7 @@ export class ExecutorPassoFixo {
    */
   public suspenderReferenciaRelogio(): void { this.ultimoInstanteRealMs = undefined; }
 
-  /** Escritas diretas: `this.acumuladoS`, `this.ultimoInstanteRealMs`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7205103b168f9360 */
+  /** Zera dívida temporal e apaga referência de timestamp; próximo quadro estabelece nova origem sem avanço residual. @contract f-7205103b168f9360 @reviewed M12-DOC: implementação lida. */
   public reiniciar(): void {
     this.acumuladoS = 0;
     this.ultimoInstanteRealMs = undefined;

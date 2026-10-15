@@ -27,9 +27,9 @@ export class CenaMissao {
       /** Devolve `this.comandar(c)`. Dependências diretas: `this.comandar`. Efeitos indiretos seguem as dependências chamadas. @contract f-bf3cbad72d905219 */
       comando: c => this.comandar(c), /** Devolve `this.comandar({ tipo: 'sistema', sistema, ligar: !this.observacao.sistemas[sistema] })`. Dependências diretas: `this.comandar`. Efeitos indiretos seguem as dependências chamadas. @contract f-9b0f3b326cfb1428 */
                                       sistema: sistema => this.comandar({ tipo: 'sistema', sistema, ligar: !this.observacao.sistemas[sistema] }),
-      /** Escritas diretas: `this.ultimaMedicaoMs`. Dependências diretas: `this.missao.iniciar`, `this.executor.suspenderReferenciaRelogio`, `this.marcarAtualizacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0cb26e3d6ed78dae */
+      /** Envia iniciar à missão, suspende referência do relógio visual, limpa medição de desempenho e solicita atualização; não altera dt da física. @contract f-0cb26e3d6ed78dae @reviewed M12-DOC: implementação lida. */
       iniciar: () => { this.missao.iniciar(); this.executor.suspenderReferenciaRelogio(); this.ultimaMedicaoMs = undefined; this.marcarAtualizacao(); },
-      /** Dependências diretas: `this.missao.pausar`, `this.executor.suspenderReferenciaRelogio`, `this.marcarAtualizacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-708b37502b6ec84d */
+      /** Envia pausa à missão, suspende referência temporal e marca atualização visual; preserva estado físico/replay. @contract f-708b37502b6ec84d @reviewed M12-DOC: implementação lida. */
       pausar: () => { this.missao.pausar(); this.executor.suspenderReferenciaRelogio(); this.marcarAtualizacao(); },
       /** Devolve `this.reiniciar()`. Dependências diretas: `this.reiniciar`. Efeitos indiretos seguem as dependências chamadas. @contract f-1a39899b6cf3205c */
       reiniciar: () => this.reiniciar(), /** Devolve `this.exportar()`. Dependências diretas: `this.exportar`. Efeitos indiretos seguem as dependências chamadas. @contract f-2106287cca02f63f */
