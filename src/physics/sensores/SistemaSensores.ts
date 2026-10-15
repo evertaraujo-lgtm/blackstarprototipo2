@@ -12,9 +12,9 @@ export class SistemaSensores {
 
   /** Instala fornecedores de corpos, superfícies e ilhas; cria registros de sensores vazios. Não amostra nem modifica cinemática durante a construção. @contract f-11d76a7fff48a0bd @reviewed M12-DOC: implementação lida. */
   public constructor(
-    private readonly obterObjetos: () => Iterable<Objeto>,
-    private readonly obterSuperficies: () => Iterable<SuperficieFisica>,
-    private readonly obterConjuntoEstrutural: (objeto: Objeto) => ConjuntoEstruturalRigido | undefined,
+    private readonly obterObjetos: /** Entrega iterador dos corpos registrados do mundo ao sistema consumidor; somente consulta de registro, sem cópia de dinâmica. @contract f-9bde32ce693b3b79 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => Iterable<Objeto>,
+    private readonly obterSuperficies: /** Entrega iterador das superfícies rígidas registradas para observação/resolução; interface livre da água não pertence a este registro. @contract f-c634f923a1000ef6 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => Iterable<SuperficieFisica>,
+    private readonly obterConjuntoEstrutural: /** Consulta ilha atual do corpo ou undefined se independente; identidade compartilhada evita autocontato e preserva massa/inércia compostas. @contract f-a9cbf159d7e7b124 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (objeto: Objeto) => ConjuntoEstruturalRigido | undefined,
   ) {}
 
   /** Rejeita id duplicado, registra sensor e reavalia imediatamente contatos; não cria força nem altera pose. @contract f-41e4ac6006256538 @reviewed M12-DOC: implementação lida. */

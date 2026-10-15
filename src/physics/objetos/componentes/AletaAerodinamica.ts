@@ -15,7 +15,7 @@ export interface DefinicaoAletaAerodinamica {
   readonly potenciaNominalAtuadorW: number;
   readonly potenciaEmRepousoW: number;
   readonly fonteEletrica: FonteEletrica;
-  readonly operacaoAutorizada?: () => boolean;
+  readonly operacaoAutorizada?: /** Consulta permissivo externo do atuador; false impede atuação, sem alterar pose ou substituir integridade/energia. @contract f-740741f36db4d1e3 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => boolean;
   readonly resistenciaColisaoJ: number;
   readonly limiteTermicoC: number;
   readonly estadoInicial?: ConstructorParameters<typeof Objeto>[0]['estadoInicial'];

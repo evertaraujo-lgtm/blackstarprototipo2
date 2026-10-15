@@ -25,7 +25,7 @@ export class RegistroMissao<C, O> implements InstanciaMissao<C, O> {
   private readonly identificacao: object;
   /** Decora instância de missão com registro em memória, identificador copiado/congelado e primeira observação no passo zero; exige intervalo de amostragem inteiro positivo. @contract f-4554d825e0078446 @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly instancia: InstanciaMissao<C, O>, identificacao: object,
-    private readonly validarComando: (c: unknown) => c is C, private readonly intervaloAmostraPassos = 240) {
+    private readonly validarComando: /** Validador injetado converte entrada desconhecida em comando tipado somente se formato aceito; não executa comando nem altera missão. @contract f-020f0a9a496837f4 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (c: unknown) => c is C, private readonly intervaloAmostraPassos = 240) {
     if (!Number.isSafeInteger(intervaloAmostraPassos) || intervaloAmostraPassos <= 0) throw new Error('Intervalo de amostra inválido.');
     this.identificacao = copiarSnapshot(identificacao); this.inicial = copiarSnapshot(instancia.observar());
     this.amostras.push({ passo: 0, observacao: this.inicial });

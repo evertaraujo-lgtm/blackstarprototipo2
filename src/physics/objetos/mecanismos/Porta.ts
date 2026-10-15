@@ -26,9 +26,9 @@ export interface DefinicaoPorta extends DefinicaoObjeto {
   readonly tensaoNominalV: number;
   readonly rigidezRetencaoNPorM: number;
   readonly potenciaEmRepousoW: number;
-  readonly obterTravaRecuada?: () => boolean;
-  readonly obterForcasDaTrava?: () => readonly ForcaFisicaSolicitada[];
-  readonly apoioEstruturalDisponivel?: () => boolean;
+  readonly obterTravaRecuada?: /** Consulta se trava foi recolhida antes de liberar movimento da folha; não comanda recuo por esta leitura. @contract f-b99653bcaa9220e0 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => boolean;
+  readonly obterForcasDaTrava?: /** Consulta solicitações de força em N da trava sobre a porta para o core aplicar; não impõe posição de apoio. @contract f-de3d43a65b18b36c @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => readonly ForcaFisicaSolicitada[];
+  readonly apoioEstruturalDisponivel?: /** Consulta integridade/topologia do suporte composto; indisponibilidade bloqueia atuação/sustentação prevista, sem ancoragem artificial. @contract f-781af0b95d28abeb @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => boolean;
 }
 
 /** Porta vertical: identidade física de Objeto e comportamento herdado do cilindro. */
@@ -209,7 +209,7 @@ export class Porta extends ComCilindro(Objeto) {
 /** Travessa física que recebe a reação do motor por interface de forças. */
 export class BatenteDePorta extends Objeto {
   /** Inicializa corpo físico do batente com propriedades herdadas; ancoragens/uniões são componentes externos. @contract f-f5c6f081fdd28132 @reviewed M12-DOC: implementação lida. */
-  public constructor(definicao: DefinicaoObjeto, private readonly obterReacao: () => readonly ForcaFisicaSolicitada[]) { super(definicao); }
+  public constructor(definicao: DefinicaoObjeto, private readonly obterReacao: /** Consulta solicitações de reação em N para integrar no batente; garante transmissão de esforço pelo core, sem manipulação de pose. @contract f-ccb805a5b10b5e7c @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => readonly ForcaFisicaSolicitada[]) { super(definicao); }
   /** Devolve `this.obterReacao()`. Dependências diretas: `this.obterReacao`. Efeitos indiretos seguem as dependências chamadas. @contract f-54331652b68582ed */
   public override obterForcasOperacionais(): readonly ForcaFisicaSolicitada[] { return this.obterReacao(); }
 }

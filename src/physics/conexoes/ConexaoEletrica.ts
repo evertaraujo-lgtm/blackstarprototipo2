@@ -4,6 +4,7 @@ import { Interruptor } from './eletrica/Interruptor';
 import { Resistor } from './eletrica/Resistor';
 
 export interface DestinoEletricoRecarregavel {
+  /** Recebe oferta não negativa em J e retorna energia efetivamente armazenada conforme capacidade/integridade; altera reserva do destino, não fonte por esta porta. @contract f-379a6000119fc4ae @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   receberEnergia(energiaJ: number): number;
 }
 

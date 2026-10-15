@@ -5,15 +5,15 @@ import { Objeto, type DefinicaoObjeto, type ForcaFisicaSolicitada } from '../bas
 
 export interface DefinicaoTravaPorta extends DefinicaoObjeto {
   readonly batente: Objeto;
-  readonly porta: () => Objeto;
+  readonly porta: /** Resolve folha física associada à trava por porta injetada, para ler massa/estado e calcular apoio; não duplica objeto. @contract f-b39a816efc5a1c38 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => Objeto;
   readonly conexaoComando: ConexaoEletrica;
-  readonly sensorPortaAberta: () => boolean;
-  readonly obterUltimoComandoOperacional: () => { readonly sequencia: number; readonly comando: 'abrir' | 'fechar' | 'parar' } | undefined;
+  readonly sensorPortaAberta: /** Consulta fim de curso real de abertura, usado para avanço da trava; não deduz evento por tempo de animação. @contract f-a6e457c0d3207bf0 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => boolean;
+  readonly obterUltimoComandoOperacional: /** Consulta comando e sequência para distinguir nova solicitação de movimento de comando mantido; pode retornar undefined antes do primeiro comando. @contract f-d56133f64d5ff640 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => { readonly sequencia: number; readonly comando: 'abrir' | 'fechar' | 'parar' } | undefined;
   readonly cursoM: number;
   readonly velocidadeMps: number;
   readonly forcaMaximaN: number;
   readonly potenciaRecuoW: number;
-  readonly apoioEstruturalDisponivel?: () => boolean;
+  readonly apoioEstruturalDisponivel?: /** Consulta integridade/topologia do suporte composto; indisponibilidade bloqueia atuação/sustentação prevista, sem ancoragem artificial. @contract f-f4979c809858ed66 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => boolean;
 }
 
 /**

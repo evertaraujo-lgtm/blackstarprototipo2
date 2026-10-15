@@ -145,15 +145,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>scripts/benchmark-missao.ts::[callback]:FunctionType#1</code> · [fonte L20](../../scripts/benchmark-missao.ts#L20) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Tipo de operação síncrona usado pela instrumentação Node; wrappers devem preservar argumentos, retorno, this e exceções. Restauração de métodos é efeito explícito do callback correspondente, sem relógio no domínio. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Tipo de operação síncrona usado pela instrumentação Node; wrappers devem preservar argumentos, retorno, this e exceções. Restauração de métodos é efeito explícito do callback correspondente, sem relógio no domínio. @contract f-b9550c1caa980d1d @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -183,15 +183,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>scripts/benchmark-missao.ts::instrumentar.[callback]:FunctionType#1</code> · [fonte L26](../../scripts/benchmark-missao.ts#L26) |
 | Assinatura | <code> (...args: unknown[]): unknown</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Tipo de operação síncrona usado pela instrumentação Node; wrappers devem preservar argumentos, retorno, this e exceções. Restauração de métodos é efeito explícito do callback correspondente, sem relógio no domínio. |
 | Entradas | <code>...args: unknown[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>unknown</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Tipo de operação síncrona usado pela instrumentação Node; wrappers devem preservar argumentos, retorno, this e exceções. Restauração de métodos é efeito explícito do callback correspondente, sem relógio no domínio. @contract f-156cf81e3abe130b @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -401,7 +401,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Identificador | <code>scripts/documentacao/ast.ts::analisarFontes:FunctionDeclaration</code> · [fonte L141](../../scripts/documentacao/ast.ts#L141) |
 | Assinatura | <code>export (fontes: readonly ts.SourceFile[], checker?: ts.TypeChecker, normalizar?: (arquivo: string) =&gt; string): Analise</code> |
 | Responsabilidade | Extrai funções e contratos de fontes próprias. IDs usam escopo lexical e espécie, independentes de linhas/comentários; overloads/callbacks usam ordinal por escopo. |
-| Entradas | <code>fontes: readonly ts.SourceFile[]</code>; <code>checker?: ts.TypeChecker</code>; <code>normalizar: (arquivo: string) =&gt; string = /** Normalizador padrão de caminho: devolve o argumento intacto quando o adaptador não fornece relativização. @contract f-d90e311d87e6f37b @reviewed M12-DOC: implementação lida. */<br>                                                                                                                                     a =&gt; a</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>fontes: readonly ts.SourceFile[]</code>; <code>checker?: ts.TypeChecker</code>; <code>normalizar: /** Porta de normalização de caminhos da análise AST: devolve caminho textual para IDs portáveis, sem executar fonte analisada. @contract f-ec30189f53efb391 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (arquivo: string) =&gt; string = /** Normalizador padrão de caminho: devolve o argumento intacto quando o adaptador não fornece relativização. @contract f-d90e311d87e6f37b @reviewed M12-DOC: implementação lida. */<br>                                                                                                                                     a =&gt; a</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Analise</code>; expressões retornadas: <code>{ funcoes, modulos }</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>ts.createPrinter</code>; <code>normalizar(fonte.fileName).replaceAll</code>; <code>normalizar</code>; <code>Map</code>; <code>visitar</code>; <code>modulos.push</code> |
@@ -419,15 +419,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>scripts/documentacao/ast.ts::analisarFontes.normalizar[tipo]:FunctionType</code> · [fonte L141](../../scripts/documentacao/ast.ts#L141) |
 | Assinatura | <code> (arquivo: string): string</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Porta de normalização de caminhos da análise AST: devolve caminho textual para IDs portáveis, sem executar fonte analisada. |
 | Entradas | <code>arquivo: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [scripts/documentacao/ast.test.ts](../../scripts/documentacao/ast.test.ts); [scripts/documentacao/cli.test.ts](../../scripts/documentacao/cli.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Porta de normalização de caminhos da análise AST: devolve caminho textual para IDs portáveis, sem executar fonte analisada. @contract f-ec30189f53efb391 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -1285,17 +1285,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/EntradaMissao.ts::AcoesApresentacaoMissao.comando:MethodSignature</code> · [fonte L4](../../src/apresentacao/missao/EntradaMissao.ts#L4) |
+| Identificador | <code>src/apresentacao/missao/EntradaMissao.ts::AcoesApresentacaoMissao.comando:MethodSignature</code> · [fonte L5](../../src/apresentacao/missao/EntradaMissao.ts#L5) |
 | Assinatura | <code> (c: ComandoBss006): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Porta para enviar comando tipado da entrada ao adaptador da missão; não recebe acesso à pose física. |
 | Entradas | <code>c: ComandoBss006</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Porta para enviar comando tipado da entrada ao adaptador da missão; não recebe acesso à pose física. @contract f-aa10bea9c0ca5993 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -1304,17 +1304,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/EntradaMissao.ts::AcoesApresentacaoMissao.sistema:MethodSignature</code> · [fonte L5](../../src/apresentacao/missao/EntradaMissao.ts#L5) |
+| Identificador | <code>src/apresentacao/missao/EntradaMissao.ts::AcoesApresentacaoMissao.sistema:MethodSignature</code> · [fonte L7](../../src/apresentacao/missao/EntradaMissao.ts#L7) |
 | Assinatura | <code> (s: SistemaBss): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Solicita alternância operacional do sistema indicado conforme observação atual; permissivos ficam no domínio. |
 | Entradas | <code>s: SistemaBss</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Solicita alternância operacional do sistema indicado conforme observação atual; permissivos ficam no domínio. @contract f-04bcc159990d45e8 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -1323,17 +1323,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/EntradaMissao.ts::AcoesApresentacaoMissao.iniciar:MethodSignature</code> · [fonte L6](../../src/apresentacao/missao/EntradaMissao.ts#L6) |
+| Identificador | <code>src/apresentacao/missao/EntradaMissao.ts::AcoesApresentacaoMissao.iniciar:MethodSignature</code> · [fonte L9](../../src/apresentacao/missao/EntradaMissao.ts#L9) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Solicita execução da missão e reestabelecimento da referência temporal da apresentação. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Solicita execução da missão e reestabelecimento da referência temporal da apresentação. @contract f-84cffe895eb695ad @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -1342,17 +1342,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/EntradaMissao.ts::AcoesApresentacaoMissao.pausar:MethodSignature</code> · [fonte L7](../../src/apresentacao/missao/EntradaMissao.ts#L7) |
+| Identificador | <code>src/apresentacao/missao/EntradaMissao.ts::AcoesApresentacaoMissao.pausar:MethodSignature</code> · [fonte L11](../../src/apresentacao/missao/EntradaMissao.ts#L11) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Solicita pausa da missão e suspensão da referência de relógio visual, sem apagar estado. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Solicita pausa da missão e suspensão da referência de relógio visual, sem apagar estado. @contract f-9c4550fa13ff8bca @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -1361,17 +1361,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/EntradaMissao.ts::AcoesApresentacaoMissao.reiniciar:MethodSignature</code> · [fonte L8](../../src/apresentacao/missao/EntradaMissao.ts#L8) |
+| Identificador | <code>src/apresentacao/missao/EntradaMissao.ts::AcoesApresentacaoMissao.reiniciar:MethodSignature</code> · [fonte L13](../../src/apresentacao/missao/EntradaMissao.ts#L13) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Solicita recriação da missão pela configuração da interface; não restaura estado por teletransporte. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Solicita recriação da missão pela configuração da interface; não restaura estado por teletransporte. @contract f-a2b107ef6249b429 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -1380,17 +1380,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/EntradaMissao.ts::AcoesApresentacaoMissao.exportar:MethodSignature</code> · [fonte L9](../../src/apresentacao/missao/EntradaMissao.ts#L9) |
+| Identificador | <code>src/apresentacao/missao/EntradaMissao.ts::AcoesApresentacaoMissao.exportar:MethodSignature</code> · [fonte L15](../../src/apresentacao/missao/EntradaMissao.ts#L15) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Solicita exportação do diário pelo adaptador do navegador; não publica dados em rede. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Solicita exportação do diário pelo adaptador do navegador; não publica dados em rede. @contract f-1fd6e69ed2e10747 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -1399,7 +1399,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao:FunctionDeclaration</code> · [fonte L14](../../src/apresentacao/missao/EntradaMissao.ts#L14) |
+| Identificador | <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao:FunctionDeclaration</code> · [fonte L20](../../src/apresentacao/missao/EntradaMissao.ts#L20) |
 | Assinatura | <code>export (raiz: HTMLElement, acoes: AcoesApresentacaoMissao): void</code> |
 | Responsabilidade | Tradução de entrada para comandos sem conhecer composição física ou mundo. |
 | Entradas | <code>raiz: HTMLElement</code>; <code>acoes: AcoesApresentacaoMissao</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -1418,10 +1418,10 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.clique:ArrowFunction</code> · [fonte L16](../../src/apresentacao/missao/EntradaMissao.ts#L16) |
+| Identificador | <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.clique:ArrowFunction</code> · [fonte L22](../../src/apresentacao/missao/EntradaMissao.ts#L22) |
 | Assinatura | <code> (id: string, agir: () =&gt; void): void</code> |
 | Responsabilidade | Associa botão identificado ao callback operacional recebido; instala listener DOM, sem conhecer mundo físico. |
-| Entradas | <code>id: string</code>; <code>agir: () =&gt; void</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>id: string</code>; <code>agir: /** Ação de apresentação invocada pelo listener de clique; envia operação à missão sem acesso mutável à cinemática. @contract f-aa40c4cf168237cd @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () =&gt; void</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: <code>raiz.querySelector&lt;HTMLButtonElement&gt;(`#${id}`)!.addEventListener('click', agir)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>raiz.querySelector&lt;HTMLButtonElement&gt;(`#${id}`)!.addEventListener</code>; <code>raiz.querySelector</code> |
@@ -1437,17 +1437,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.clique.agir[tipo]:FunctionType</code> · [fonte L16](../../src/apresentacao/missao/EntradaMissao.ts#L16) |
+| Identificador | <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.clique.agir[tipo]:FunctionType</code> · [fonte L22](../../src/apresentacao/missao/EntradaMissao.ts#L22) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Ação de apresentação invocada pelo listener de clique; envia operação à missão sem acesso mutável à cinemática. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Ação de apresentação invocada pelo listener de clique; envia operação à missão sem acesso mutável à cinemática. @contract f-aa40c4cf168237cd @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -3423,17 +3423,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/ContratoMissao.ts::InstanciaMissao.iniciar:MethodSignature</code> · [fonte L25](../../src/missoes/ContratoMissao.ts#L25) |
+| Identificador | <code>src/missoes/ContratoMissao.ts::InstanciaMissao.iniciar:MethodSignature</code> · [fonte L26](../../src/missoes/ContratoMissao.ts#L26) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Habilita avanço da instância preparada/pausada; não ignita motores nem avança tempo por relógio real. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/missoes/ExecutorMissao.test.ts](../../src/missoes/ExecutorMissao.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Habilita avanço da instância preparada/pausada; não ignita motores nem avança tempo por relógio real. @contract f-2f9e0038be674f24 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -3442,17 +3442,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/ContratoMissao.ts::InstanciaMissao.pausar:MethodSignature</code> · [fonte L26](../../src/missoes/ContratoMissao.ts#L26) |
+| Identificador | <code>src/missoes/ContratoMissao.ts::InstanciaMissao.pausar:MethodSignature</code> · [fonte L28](../../src/missoes/ContratoMissao.ts#L28) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Suspende avanço por passos mantendo estado físico e agenda reproduzível. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/missoes/ExecutorMissao.test.ts](../../src/missoes/ExecutorMissao.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Suspende avanço por passos mantendo estado físico e agenda reproduzível. @contract f-5c4e46f178b7b9fd @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -3461,17 +3461,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/ContratoMissao.ts::InstanciaMissao.receberComando:MethodSignature</code> · [fonte L27](../../src/missoes/ContratoMissao.ts#L27) |
+| Identificador | <code>src/missoes/ContratoMissao.ts::InstanciaMissao.receberComando:MethodSignature</code> · [fonte L30](../../src/missoes/ContratoMissao.ts#L30) |
 | Assinatura | <code> (comando: C): ResultadoComandoMissao</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Recebe comando de domínio tipado e retorna aceitação/motivo; efeitos passam pelas operações autorizadas, sem escrita cinemática pela interface. |
 | Entradas | <code>comando: C</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ResultadoComandoMissao</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/missoes/ExecutorMissao.test.ts](../../src/missoes/ExecutorMissao.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Recebe comando de domínio tipado e retorna aceitação/motivo; efeitos passam pelas operações autorizadas, sem escrita cinemática pela interface. @contract f-d4e766ef6daba9d7 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -3480,17 +3480,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/ContratoMissao.ts::InstanciaMissao.avancarPasso:MethodSignature</code> · [fonte L29](../../src/missoes/ContratoMissao.ts#L29) |
+| Identificador | <code>src/missoes/ContratoMissao.ts::InstanciaMissao.avancarPasso:MethodSignature</code> · [fonte L32](../../src/missoes/ContratoMissao.ts#L32) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Um passo fixo; devolve false enquanto preparada/pausada. |
+| Responsabilidade | Executa exatamente um passo fixo quando em execução e informa se avançou; preparada/pausada retorna false. Física permanece autoridade do mundo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/missoes/ExecutorMissao.test.ts](../../src/missoes/ExecutorMissao.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Um passo fixo; devolve false enquanto preparada/pausada. */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Executa exatamente um passo fixo quando em execução e informa se avançou; preparada/pausada retorna false. Física permanece autoridade do mundo. @contract f-c4e871af53a1b68a @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -3499,17 +3499,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/ContratoMissao.ts::InstanciaMissao.observar:MethodSignature</code> · [fonte L30](../../src/missoes/ContratoMissao.ts#L30) |
+| Identificador | <code>src/missoes/ContratoMissao.ts::InstanciaMissao.observar:MethodSignature</code> · [fonte L34](../../src/missoes/ContratoMissao.ts#L34) |
 | Assinatura | <code> (): O</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Entrega observação para consumidores sem expor objetos físicos mutáveis; implementações de missão usam snapshots copiados/congelados. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>O</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/missoes/ExecutorMissao.test.ts](../../src/missoes/ExecutorMissao.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Entrega observação para consumidores sem expor objetos físicos mutáveis; implementações de missão usam snapshots copiados/congelados. @contract f-f9f322a0c7e881ec @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -3518,17 +3518,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/ContratoMissao.ts::InstanciaMissao.obterEventos:MethodSignature</code> · [fonte L31](../../src/missoes/ContratoMissao.ts#L31) |
+| Identificador | <code>src/missoes/ContratoMissao.ts::InstanciaMissao.obterEventos:MethodSignature</code> · [fonte L36](../../src/missoes/ContratoMissao.ts#L36) |
 | Assinatura | <code> (): readonly EventoMissao[]</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta eventos sequenciados e datados no tempo simulado; eventos descrevem medidas/comandos e não determinam trajetória. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly EventoMissao[]</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/missoes/ExecutorMissao.test.ts](../../src/missoes/ExecutorMissao.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta eventos sequenciados e datados no tempo simulado; eventos descrevem medidas/comandos e não determinam trajetória. @contract f-0a5cd2525c97341a @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -3537,17 +3537,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/ContratoMissao.ts::DefinicaoMissao.criar:MethodSignature</code> · [fonte L36](../../src/missoes/ContratoMissao.ts#L36) |
+| Identificador | <code>src/missoes/ContratoMissao.ts::DefinicaoMissao.criar:MethodSignature</code> · [fonte L42](../../src/missoes/ContratoMissao.ts#L42) |
 | Assinatura | <code> (configuracao?: Configuracao): InstanciaMissao&lt;C, O&gt;</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Constrói nova instância independente a partir da configuração opcional, com mundo/veículo próprios; não inicia loop de navegador. |
 | Entradas | <code>configuracao?: Configuracao</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>InstanciaMissao&lt;C, O&gt;</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/missoes/ExecutorMissao.test.ts](../../src/missoes/ExecutorMissao.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Constrói nova instância independente a partir da configuração opcional, com mundo/veículo próprios; não inicia loop de navegador. @contract f-d515b6136cdb5afb @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -3921,7 +3921,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Identificador | <code>src/missoes/RegistroMissao.ts::RegistroMissao.constructor:Constructor</code> · [fonte L27](../../src/missoes/RegistroMissao.ts#L27) |
 | Assinatura | <code>public &lt;C, O&gt;(instancia: InstanciaMissao&lt;C, O&gt;, identificacao: object, validarComando: (c: unknown) =&gt; c is C, intervaloAmostraPassos?: number): RegistroMissao&lt;C, O&gt;</code> |
 | Responsabilidade | Decora instância de missão com registro em memória, identificador copiado/congelado e primeira observação no passo zero; exige intervalo de amostragem inteiro positivo. |
-| Entradas | <code>private readonly instancia: InstanciaMissao&lt;C, O&gt;</code>; <code>identificacao: object</code>; <code>private readonly validarComando: (c: unknown) =&gt; c is C</code>; <code>private readonly intervaloAmostraPassos = 240</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>private readonly instancia: InstanciaMissao&lt;C, O&gt;</code>; <code>identificacao: object</code>; <code>private readonly validarComando: /** Validador injetado converte entrada desconhecida em comando tipado somente se formato aceito; não executa comando nem altera missão. @contract f-020f0a9a496837f4 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (c: unknown) =&gt; c is C</code>; <code>private readonly intervaloAmostraPassos = 240</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>RegistroMissao&lt;C, O&gt;</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.instancia</code>; <code>this.validarComando</code>; <code>this.intervaloAmostraPassos</code>; <code>this.entradas</code>; <code>this.amostras</code>; <code>this.inicial</code>; <code>this.identificacao</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isSafeInteger</code>; <code>Error</code>; <code>copiarSnapshot</code>; <code>instancia.observar</code>; <code>this.amostras.push</code> |
@@ -3939,15 +3939,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/missoes/RegistroMissao.ts::RegistroMissao.constructor.validarComando[tipo]:FunctionType</code> · [fonte L28](../../src/missoes/RegistroMissao.ts#L28) |
 | Assinatura | <code> (c: unknown): c is C</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Validador injetado converte entrada desconhecida em comando tipado somente se formato aceito; não executa comando nem altera missão. |
 | Entradas | <code>c: unknown</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Validador injetado converte entrada desconhecida em comando tipado somente se formato aceito; não executa comando nem altera missão. @contract f-020f0a9a496837f4 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -5812,17 +5812,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.distanciaAssinadaM:MethodDeclaration</code> · [fonte L29](../../src/physics/SuperficieFisica.ts#L29) |
+| Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.distanciaAssinadaM:MethodDeclaration</code> · [fonte L30](../../src/physics/SuperficieFisica.ts#L30) |
 | Assinatura | <code>public abstract (pontoM: Vetor3): number</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Geometria especializada retorna distância assinada em m, negativa dentro do sólido; não é resposta de impacto nem interface líquida. |
 | Entradas | <code>pontoM: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Geometria especializada retorna distância assinada em m, negativa dentro do sólido; não é resposta de impacto nem interface líquida. @contract f-1131bf7a95c2e659 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -5831,17 +5831,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.normalEm:MethodDeclaration</code> · [fonte L30](../../src/physics/SuperficieFisica.ts#L30) |
+| Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.normalEm:MethodDeclaration</code> · [fonte L32](../../src/physics/SuperficieFisica.ts#L32) |
 | Assinatura | <code>public abstract (pontoM: Vetor3): Vetor3</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Geometria especializada fornece normal unitária exterior no ponto global; usada por contato, atrito e sensores. |
 | Entradas | <code>pontoM: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Geometria especializada fornece normal unitária exterior no ponto global; usada por contato, atrito e sensores. @contract f-f2cda6b8c44dc238 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -5850,17 +5850,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.projetar:MethodDeclaration</code> · [fonte L31](../../src/physics/SuperficieFisica.ts#L31) |
+| Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.projetar:MethodDeclaration</code> · [fonte L34](../../src/physics/SuperficieFisica.ts#L34) |
 | Assinatura | <code>public abstract (pontoM: Vetor3): Vetor3</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Geometria especializada projeta ponto global m na superfície; não move corpo nem aplica correção por si só. |
 | Entradas | <code>pontoM: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Geometria especializada projeta ponto global m na superfície; não move corpo nem aplica correção por si só. @contract f-aedd6eafbec7078d @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -5869,7 +5869,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.contemProjecao:MethodDeclaration</code> · [fonte L33](../../src/physics/SuperficieFisica.ts#L33) |
+| Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.contemProjecao:MethodDeclaration</code> · [fonte L36](../../src/physics/SuperficieFisica.ts#L36) |
 | Assinatura | <code>public (_pontoM: Vetor3): boolean</code> |
 | Responsabilidade | Contrato padrão sem bordas: aceita qualquer projeção. Superfícies finitas especializam esta consulta. |
 | Entradas | <code>_pontoM: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5888,7 +5888,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.velocidadeNoPonto:MethodDeclaration</code> · [fonte L35](../../src/physics/SuperficieFisica.ts#L35) |
+| Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.velocidadeNoPonto:MethodDeclaration</code> · [fonte L38](../../src/physics/SuperficieFisica.ts#L38) |
 | Assinatura | <code>public (_pontoM: Vetor3): Vetor3</code> |
 | Responsabilidade | Retorna velocidade nula em m/s: a superfície base é estática no referencial do mundo. |
 | Entradas | <code>_pontoM: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5907,7 +5907,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.candidatosContato:MethodDeclaration</code> · [fonte L37](../../src/physics/SuperficieFisica.ts#L37) |
+| Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.candidatosContato:MethodDeclaration</code> · [fonte L40](../../src/physics/SuperficieFisica.ts#L40) |
 | Assinatura | <code>public (pontos: readonly Vetor3[]): readonly Vetor3[]</code> |
 | Responsabilidade | Devolve os pontos fornecidos sem copiar ou acrescentar candidatos; especializações podem incluir contatos interiores às arestas. |
 | Entradas | <code>pontos: readonly Vetor3[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5926,7 +5926,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.integridadeEstrutural:GetAccessor</code> · [fonte L40](../../src/physics/SuperficieFisica.ts#L40) |
+| Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.integridadeEstrutural:GetAccessor</code> · [fonte L43](../../src/physics/SuperficieFisica.ts#L43) |
 | Assinatura | <code>public (): number</code> |
 | Responsabilidade | Consulta fração de integridade atual da superfície, sem modificar estado. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5945,7 +5945,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.temperaturaC:GetAccessor</code> · [fonte L42](../../src/physics/SuperficieFisica.ts#L42) |
+| Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.temperaturaC:GetAccessor</code> · [fonte L45](../../src/physics/SuperficieFisica.ts#L45) |
 | Assinatura | <code>public (): number</code> |
 | Responsabilidade | Consulta temperatura acumulada em graus Celsius, sem conversão para Kelvin. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5964,7 +5964,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.energiaTermicaDeAtritoAcumuladaJ:GetAccessor</code> · [fonte L44](../../src/physics/SuperficieFisica.ts#L44) |
+| Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.energiaTermicaDeAtritoAcumuladaJ:GetAccessor</code> · [fonte L47](../../src/physics/SuperficieFisica.ts#L47) |
 | Assinatura | <code>public (): number</code> |
 | Responsabilidade | Consulta em J a energia de atrito acumulada pela superfície. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5983,7 +5983,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.aplicarDanoPorImpacto:MethodDeclaration</code> · [fonte L47](../../src/physics/SuperficieFisica.ts#L47) |
+| Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.aplicarDanoPorImpacto:MethodDeclaration</code> · [fonte L50](../../src/physics/SuperficieFisica.ts#L50) |
 | Assinatura | <code>public (energiaJ: number): void</code> |
 | Responsabilidade | Rejeita energia negativa/não finita; acima da resistência em J reduz integridade pelo excesso relativo, limitada inferiormente a zero. Energia abaixo do limite não causa dano. |
 | Entradas | <code>energiaJ: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6002,7 +6002,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.aplicarCalorDeAtritoPeloCore:MethodDeclaration</code> · [fonte L56](../../src/physics/SuperficieFisica.ts#L56) |
+| Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.aplicarCalorDeAtritoPeloCore:MethodDeclaration</code> · [fonte L59](../../src/physics/SuperficieFisica.ts#L59) |
 | Assinatura | <code>public (energiaJ: number): void</code> |
 | Responsabilidade | Recebe a parcela de energia dissipada no par objeto–superfície. |
 | Entradas | <code>energiaJ: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6599,7 +6599,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Identificador | <code>src/physics/agua/SistemaHidrodinamico.ts::SistemaHidrodinamico.constructor:Constructor</code> · [fonte L22](../../src/physics/agua/SistemaHidrodinamico.ts#L22) |
 | Assinatura | <code>public (regioes: readonly RegiaoAquatica[], gravidade: (p: Vetor3) =&gt; Vetor3): SistemaHidrodinamico</code> |
 | Responsabilidade | Compõe regiões prescritas e consulta de gravidade; rejeita IDs duplicados e intervalos aquáticos sobrepostos. Não cria superfície rígida líquida. |
-| Entradas | <code>public readonly regioes: readonly RegiaoAquatica[]</code>; <code>private readonly gravidade: (p: Vetor3) =&gt; Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>public readonly regioes: readonly RegiaoAquatica[]</code>; <code>private readonly gravidade: /** Consulta campo gravitacional na posição global m e retorna vetor m/s²; empuxo usa direção oposta e intensidade local, sem campo duplicado. @contract f-aba0f086ddb09645 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (p: Vetor3) =&gt; Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>SistemaHidrodinamico</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.regioes</code>; <code>this.gravidade</code>; <code>this.formas</code>; <code>this.cache</code>; <code>this.entradas</code>; <code>i</code>; <code>j</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Map</code>; <code>Set</code>; <code>regioes.map</code>; <code>Error</code> |
@@ -6617,15 +6617,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/agua/SistemaHidrodinamico.ts::SistemaHidrodinamico.constructor.gravidade[tipo]:FunctionType</code> · [fonte L22](../../src/physics/agua/SistemaHidrodinamico.ts#L22) |
 | Assinatura | <code> (p: Vetor3): Vetor3</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta campo gravitacional na posição global m e retorna vetor m/s²; empuxo usa direção oposta e intensidade local, sem campo duplicado. |
 | Entradas | <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta campo gravitacional na posição global m e retorna vetor m/s²; empuxo usa direção oposta e intensidade local, sem campo duplicado. @contract f-aba0f086ddb09645 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -6847,17 +6847,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/AmbienteFisico.ts::AmbienteFisico.obterConfiguracao:MethodSignature</code> · [fonte L9](../../src/physics/ambiente/AmbienteFisico.ts#L9) |
+| Identificador | <code>src/physics/ambiente/AmbienteFisico.ts::AmbienteFisico.obterConfiguracao:MethodSignature</code> · [fonte L10](../../src/physics/ambiente/AmbienteFisico.ts#L10) |
 | Assinatura | <code> (): object</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Expõe revisão, geometria/referencial e constantes físicas ativas para registrar ensaios/replays sem serializar serviços do mundo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>object</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/BancadaBssCentral.test.ts](../../src/cenarios/BancadaBssCentral.test.ts); [src/cenarios/ComparacaoBssM9.test.ts](../../src/cenarios/ComparacaoBssM9.test.ts); [src/missoes/ObservacaoFisicaM10.test.ts](../../src/missoes/ObservacaoFisicaM10.test.ts); [src/missoes/ReferenciaBancadaM10.test.ts](../../src/missoes/ReferenciaBancadaM10.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Expõe revisão, geometria/referencial e constantes físicas ativas para registrar ensaios/replays sem serializar serviços do mundo. @contract f-f65d4a56ef06dbbd @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -6866,7 +6866,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/AmbienteFisico.ts::AmbientePlano.obterConfiguracao:MethodDeclaration</code> · [fonte L15](../../src/physics/ambiente/AmbienteFisico.ts#L15) |
+| Identificador | <code>src/physics/ambiente/AmbienteFisico.ts::AmbientePlano.obterConfiguracao:MethodDeclaration</code> · [fonte L16](../../src/physics/ambiente/AmbienteFisico.ts#L16) |
 | Assinatura | <code>public (): object</code> |
 | Responsabilidade | Identifica modelo legado plano-m8, plano XY, rotação nula e configuração do campo para distinguir revisões físicas em replay. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6885,7 +6885,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/AmbienteFisico.ts::AmbienteTerrestre.constructor:Constructor</code> · [fonte L21](../../src/physics/ambiente/AmbienteFisico.ts#L21) |
+| Identificador | <code>src/physics/ambiente/AmbienteFisico.ts::AmbienteTerrestre.constructor:Constructor</code> · [fonte L22](../../src/physics/ambiente/AmbienteFisico.ts#L22) |
 | Assinatura | <code>public (centroM?: Vetor3): AmbienteTerrestre</code> |
 | Responsabilidade | Cria campo central e referencial esférico compartilhando centro terrestre; rejeita centro fora de XY e mantém planeta sem rotação. |
 | Entradas | <code>centroM = new Vetor3(0, -TERRA.raioM, 0)</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6904,7 +6904,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/AmbienteFisico.ts::AmbienteTerrestre.obterConfiguracao:MethodDeclaration</code> · [fonte L27](../../src/physics/ambiente/AmbienteFisico.ts#L27) |
+| Identificador | <code>src/physics/ambiente/AmbienteFisico.ts::AmbienteTerrestre.obterConfiguracao:MethodDeclaration</code> · [fonte L28](../../src/physics/ambiente/AmbienteFisico.ts#L28) |
 | Assinatura | <code>public (): object</code> |
 | Responsabilidade | Expõe revisão M9, raio, campo e g0 de referência de Isp; não confunde g0 com gravidade superficial calculada. Rotação permanece zero. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6927,17 +6927,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/CampoGravitacional.ts::CampoGravitacional.aceleracaoEm:MethodSignature</code> · [fonte L8](../../src/physics/ambiente/CampoGravitacional.ts#L8) |
+| Identificador | <code>src/physics/ambiente/CampoGravitacional.ts::CampoGravitacional.aceleracaoEm:MethodSignature</code> · [fonte L9](../../src/physics/ambiente/CampoGravitacional.ts#L9) |
 | Assinatura | <code> (posicaoM: Vetor3): Vetor3</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta aceleração gravitacional global em m/s² para posição m, independente de orientação/massa do corpo; singularidades devem ser rejeitadas pelo modelo. |
 | Entradas | <code>posicaoM: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/CampoGravitacional.test.ts](../../src/physics/ambiente/CampoGravitacional.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta aceleração gravitacional global em m/s² para posição m, independente de orientação/massa do corpo; singularidades devem ser rejeitadas pelo modelo. @contract f-d84e2f25e040d596 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -6946,17 +6946,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/CampoGravitacional.ts::CampoGravitacional.obterConfiguracao:MethodSignature</code> · [fonte L9](../../src/physics/ambiente/CampoGravitacional.ts#L9) |
+| Identificador | <code>src/physics/ambiente/CampoGravitacional.ts::CampoGravitacional.obterConfiguracao:MethodSignature</code> · [fonte L11](../../src/physics/ambiente/CampoGravitacional.ts#L11) |
 | Assinatura | <code> (): object</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Expõe identificação/constantes do campo para reprodução e diagnóstico, sem integrar estado. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>object</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/CampoGravitacional.test.ts](../../src/physics/ambiente/CampoGravitacional.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Expõe identificação/constantes do campo para reprodução e diagnóstico, sem integrar estado. @contract f-e3c512cd6c35448a @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -6965,7 +6965,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/CampoGravitacional.ts::CampoUniforme.constructor:Constructor</code> · [fonte L15](../../src/physics/ambiente/CampoGravitacional.ts#L15) |
+| Identificador | <code>src/physics/ambiente/CampoGravitacional.ts::CampoUniforme.constructor:Constructor</code> · [fonte L17](../../src/physics/ambiente/CampoGravitacional.ts#L17) |
 | Assinatura | <code>public (aceleracaoMps2?: Vetor3): CampoUniforme</code> |
 | Responsabilidade | Armazena a aceleração prescrita em m/s²; o padrão usa −g₀ em Y, independentemente da posição. |
 | Entradas | <code>public readonly aceleracaoMps2 = new Vetor3(0, -TERRA.g0Mps2, 0)</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6984,7 +6984,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/CampoGravitacional.ts::CampoUniforme.aceleracaoEm:MethodDeclaration</code> · [fonte L17](../../src/physics/ambiente/CampoGravitacional.ts#L17) |
+| Identificador | <code>src/physics/ambiente/CampoGravitacional.ts::CampoUniforme.aceleracaoEm:MethodDeclaration</code> · [fonte L19](../../src/physics/ambiente/CampoGravitacional.ts#L19) |
 | Assinatura | <code>public (_posicaoM: Vetor3): Vetor3</code> |
 | Responsabilidade | Devolve o mesmo vetor prescrito em m/s²; ignora a posição, sem integrar corpos. |
 | Entradas | <code>_posicaoM: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7003,7 +7003,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/CampoGravitacional.ts::CampoUniforme.obterConfiguracao:MethodDeclaration</code> · [fonte L19](../../src/physics/ambiente/CampoGravitacional.ts#L19) |
+| Identificador | <code>src/physics/ambiente/CampoGravitacional.ts::CampoUniforme.obterConfiguracao:MethodDeclaration</code> · [fonte L21](../../src/physics/ambiente/CampoGravitacional.ts#L21) |
 | Assinatura | <code>public (): object</code> |
 | Responsabilidade | Exporta modelo e aceleração prescrita para identificação física de diários. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7022,7 +7022,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/CampoGravitacional.ts::CampoCentral.constructor:Constructor</code> · [fonte L26](../../src/physics/ambiente/CampoGravitacional.ts#L26) |
+| Identificador | <code>src/physics/ambiente/CampoGravitacional.ts::CampoCentral.constructor:Constructor</code> · [fonte L28](../../src/physics/ambiente/CampoGravitacional.ts#L28) |
 | Assinatura | <code>public (centroM?: Vetor3, muM3S2?: number): CampoCentral</code> |
 | Responsabilidade | Define centro inercial em m e μ em m³/s²; exige μ finito e positivo. Não ajusta μ para coincidir com g₀. |
 | Entradas | <code>public readonly centroM = new Vetor3(0, -TERRA.raioM, 0)</code>; <code>public readonly muM3S2: number = TERRA.muM3S2</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7041,7 +7041,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/CampoGravitacional.ts::CampoCentral.aceleracaoEm:MethodDeclaration</code> · [fonte L33](../../src/physics/ambiente/CampoGravitacional.ts#L33) |
+| Identificador | <code>src/physics/ambiente/CampoGravitacional.ts::CampoCentral.aceleracaoEm:MethodDeclaration</code> · [fonte L35](../../src/physics/ambiente/CampoGravitacional.ts#L35) |
 | Assinatura | <code>public (posicaoM: Vetor3): Vetor3</code> |
 | Responsabilidade | Calcula −μr/&#124;r&#124;³ em m/s², r=p−C, normalizando antes dos produtos para evitar overflow. Posição em m, r não nulo; lança erro para singularidade/resultado não finito. Campo pontual exterior, sem modelo do interior planetário. Aceleração independe de massa e orientação; não integra nem altera corpos. |
 | Entradas | <code>posicaoM: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7060,7 +7060,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/CampoGravitacional.ts::CampoCentral.obterConfiguracao:MethodDeclaration</code> · [fonte L43](../../src/physics/ambiente/CampoGravitacional.ts#L43) |
+| Identificador | <code>src/physics/ambiente/CampoGravitacional.ts::CampoCentral.obterConfiguracao:MethodDeclaration</code> · [fonte L45](../../src/physics/ambiente/CampoGravitacional.ts#L45) |
 | Assinatura | <code>public (): object</code> |
 | Responsabilidade | Exporta centro e μ, sem recalcular ou ajustar constantes físicas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7243,17 +7243,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialFisico.altitudeGeometricaM:MethodSignature</code> · [fonte L9](../../src/physics/ambiente/ReferencialFisico.ts#L9) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialFisico.altitudeGeometricaM:MethodSignature</code> · [fonte L10](../../src/physics/ambiente/ReferencialFisico.ts#L10) |
 | Assinatura | <code> (p: Vetor3): number</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta altitude geométrica em m na posição global; Y legado ou distância radial menos raio no ambiente esférico. Não integra estado. |
 | Entradas | <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta altitude geométrica em m na posição global; Y legado ou distância radial menos raio no ambiente esférico. Não integra estado. @contract f-32c19dab5cf11df0 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -7262,17 +7262,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialFisico.radial:MethodSignature</code> · [fonte L10](../../src/physics/ambiente/ReferencialFisico.ts#L10) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialFisico.radial:MethodSignature</code> · [fonte L12](../../src/physics/ambiente/ReferencialFisico.ts#L12) |
 | Assinatura | <code> (p: Vetor3): Vetor3</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Fornece direção unitária da vertical exterior local; implementação esférica rejeita centro singular e posições fora de XY. |
 | Entradas | <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Fornece direção unitária da vertical exterior local; implementação esférica rejeita centro singular e posições fora de XY. @contract f-77a1cecf5f96f583 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -7281,17 +7281,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialFisico.tangencial:MethodSignature</code> · [fonte L11](../../src/physics/ambiente/ReferencialFisico.ts#L11) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialFisico.tangencial:MethodSignature</code> · [fonte L14](../../src/physics/ambiente/ReferencialFisico.ts#L14) |
 | Assinatura | <code> (p: Vetor3): Vetor3</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Fornece tangente unitária XY local orientada para deslocamento horizontal positivo; ortogonal à radial. |
 | Entradas | <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Fornece tangente unitária XY local orientada para deslocamento horizontal positivo; ortogonal à radial. @contract f-dbe66e3fa902201a @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -7300,17 +7300,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialFisico.posicaoHorizontalM:MethodSignature</code> · [fonte L12](../../src/physics/ambiente/ReferencialFisico.ts#L12) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialFisico.posicaoHorizontalM:MethodSignature</code> · [fonte L16](../../src/physics/ambiente/ReferencialFisico.ts#L16) |
 | Assinatura | <code> (p: Vetor3): number</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta deslocamento horizontal em m; na Terra é arco principal assinado, não longitude geográfica nem arco desenrolado. |
 | Entradas | <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta deslocamento horizontal em m; na Terra é arco principal assinado, não longitude geográfica nem arco desenrolado. @contract f-10ceef4bf7c815be @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -7319,17 +7319,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialFisico.erroHorizontalM:MethodSignature</code> · [fonte L13](../../src/physics/ambiente/ReferencialFisico.ts#L13) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialFisico.erroHorizontalM:MethodSignature</code> · [fonte L18](../../src/physics/ambiente/ReferencialFisico.ts#L18) |
 | Assinatura | <code> (alvoM: number, p: Vetor3): number</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Retorna erro até alvo horizontal em m; no modelo esférico usa menor arco, preservando consistência da guiagem. |
 | Entradas | <code>alvoM: number</code>; <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Retorna erro até alvo horizontal em m; no modelo esférico usa menor arco, preservando consistência da guiagem. @contract f-11f170cdadae3da6 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -7338,17 +7338,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialFisico.posicaoPorArcoM:MethodSignature</code> · [fonte L14](../../src/physics/ambiente/ReferencialFisico.ts#L14) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialFisico.posicaoPorArcoM:MethodSignature</code> · [fonte L20](../../src/physics/ambiente/ReferencialFisico.ts#L20) |
 | Assinatura | <code> (sM: number, altitudeM: number): Vetor3</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Converte arco horizontal m e altitude m em posição global; não reposiciona objeto existente. |
 | Entradas | <code>sM: number</code>; <code>altitudeM: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Converte arco horizontal m e altitude m em posição global; não reposiciona objeto existente. @contract f-32bc39105e57c12e @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -7357,17 +7357,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialFisico.atitudeLocalRad:MethodSignature</code> · [fonte L15](../../src/physics/ambiente/ReferencialFisico.ts#L15) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialFisico.atitudeLocalRad:MethodSignature</code> · [fonte L22](../../src/physics/ambiente/ReferencialFisico.ts#L22) |
 | Assinatura | <code> (thetaInercialRad: number, p: Vetor3): number</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Converte orientação inercial Z em rad para inclinação relativa à vertical da posição; normaliza ângulo principal. |
 | Entradas | <code>thetaInercialRad: number</code>; <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Converte orientação inercial Z em rad para inclinação relativa à vertical da posição; normaliza ângulo principal. @contract f-bb374549079b2120 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -7376,17 +7376,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialFisico.atitudeInercialRad:MethodSignature</code> · [fonte L16](../../src/physics/ambiente/ReferencialFisico.ts#L16) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialFisico.atitudeInercialRad:MethodSignature</code> · [fonte L24](../../src/physics/ambiente/ReferencialFisico.ts#L24) |
 | Assinatura | <code> (thetaLocalRad: number, p: Vetor3): number</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Converte atitude relativa à vertical local em orientação inercial Z rad sem modificar corpo. |
 | Entradas | <code>thetaLocalRad: number</code>; <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Converte atitude relativa à vertical local em orientação inercial Z rad sem modificar corpo. @contract f-76b9ff9a34fdf3ee @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -7395,17 +7395,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialFisico.taxaAtitudeLocalRadps:MethodSignature</code> · [fonte L17](../../src/physics/ambiente/ReferencialFisico.ts#L17) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialFisico.taxaAtitudeLocalRadps:MethodSignature</code> · [fonte L26](../../src/physics/ambiente/ReferencialFisico.ts#L26) |
 | Assinatura | <code> (omegaRadps: number, p: Vetor3, v: Vetor3): number</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Converte ω inercial rad/s em taxa relativa à vertical móvel, usando posição/velocidade globais; legado conserva ω. |
 | Entradas | <code>omegaRadps: number</code>; <code>p: Vetor3</code>; <code>v: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Converte ω inercial rad/s em taxa relativa à vertical móvel, usando posição/velocidade globais; legado conserva ω. @contract f-d6c40078cd7b6e6a @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -7414,17 +7414,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialFisico.vetorParaLocal:MethodSignature</code> · [fonte L18](../../src/physics/ambiente/ReferencialFisico.ts#L18) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialFisico.vetorParaLocal:MethodSignature</code> · [fonte L28](../../src/physics/ambiente/ReferencialFisico.ts#L28) |
 | Assinatura | <code> (v: Vetor3, p: Vetor3): Vetor3</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Projeta vetor global na base tangencial/radial da posição, ordem local X/Y e Z preservado; unidade acompanha vetor de entrada. |
 | Entradas | <code>v: Vetor3</code>; <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Projeta vetor global na base tangencial/radial da posição, ordem local X/Y e Z preservado; unidade acompanha vetor de entrada. @contract f-c08531573a6c6b82 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -7433,17 +7433,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialFisico.vetorParaGlobal:MethodSignature</code> · [fonte L19](../../src/physics/ambiente/ReferencialFisico.ts#L19) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialFisico.vetorParaGlobal:MethodSignature</code> · [fonte L30](../../src/physics/ambiente/ReferencialFisico.ts#L30) |
 | Assinatura | <code> (vLocal: Vetor3, p: Vetor3): Vetor3</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Reconstrói vetor global por componentes tangencial/radial locais da posição; não soma translação. |
 | Entradas | <code>vLocal: Vetor3</code>; <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Reconstrói vetor global por componentes tangencial/radial locais da posição; não soma translação. @contract f-b338efcf6981cf9d @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -7452,17 +7452,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialFisico.localParaGlobal:MethodSignature</code> · [fonte L20](../../src/physics/ambiente/ReferencialFisico.ts#L20) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialFisico.localParaGlobal:MethodSignature</code> · [fonte L32](../../src/physics/ambiente/ReferencialFisico.ts#L32) |
 | Assinatura | <code> (pLocal: Vetor3, ancoraM: Vetor3): Vetor3</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Converte posição local m pela base tangente da âncora e soma âncora; não é transformação geodésica global. |
 | Entradas | <code>pLocal: Vetor3</code>; <code>ancoraM: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Converte posição local m pela base tangente da âncora e soma âncora; não é transformação geodésica global. @contract f-06d86c2607e07c1f @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -7471,17 +7471,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialFisico.globalParaLocal:MethodSignature</code> · [fonte L21](../../src/physics/ambiente/ReferencialFisico.ts#L21) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialFisico.globalParaLocal:MethodSignature</code> · [fonte L34](../../src/physics/ambiente/ReferencialFisico.ts#L34) |
 | Assinatura | <code> (p: Vetor3, ancoraM: Vetor3): Vetor3</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Converte posição global m em deslocamento na base tangente da âncora; consulta geométrica sem integração. |
 | Entradas | <code>p: Vetor3</code>; <code>ancoraM: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Converte posição global m em deslocamento na base tangente da âncora; consulta geométrica sem integração. @contract f-6c118ed37cf37521 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -7490,7 +7490,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialPlano.altitudeGeometricaM:MethodDeclaration</code> · [fonte L26](../../src/physics/ambiente/ReferencialFisico.ts#L26) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialPlano.altitudeGeometricaM:MethodDeclaration</code> · [fonte L39](../../src/physics/ambiente/ReferencialFisico.ts#L39) |
 | Assinatura | <code>public (p: Vetor3): number</code> |
 | Responsabilidade | Devolve Y em m no ambiente plano legado. |
 | Entradas | <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7509,7 +7509,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialPlano.radial:MethodDeclaration</code> · [fonte L28](../../src/physics/ambiente/ReferencialFisico.ts#L28) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialPlano.radial:MethodDeclaration</code> · [fonte L41](../../src/physics/ambiente/ReferencialFisico.ts#L41) |
 | Assinatura | <code>public (_p: Vetor3): Vetor3</code> |
 | Responsabilidade | Devolve vertical unitária +Y fixa do legado, independentemente da posição. |
 | Entradas | <code>_p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7528,7 +7528,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialPlano.tangencial:MethodDeclaration</code> · [fonte L30](../../src/physics/ambiente/ReferencialFisico.ts#L30) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialPlano.tangencial:MethodDeclaration</code> · [fonte L43](../../src/physics/ambiente/ReferencialFisico.ts#L43) |
 | Assinatura | <code>public (_p: Vetor3): Vetor3</code> |
 | Responsabilidade | Devolve tangente unitária +X fixa do legado. |
 | Entradas | <code>_p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7547,7 +7547,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialPlano.posicaoHorizontalM:MethodDeclaration</code> · [fonte L32](../../src/physics/ambiente/ReferencialFisico.ts#L32) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialPlano.posicaoHorizontalM:MethodDeclaration</code> · [fonte L45](../../src/physics/ambiente/ReferencialFisico.ts#L45) |
 | Assinatura | <code>public (p: Vetor3): number</code> |
 | Responsabilidade | Devolve coordenada X em m no legado. |
 | Entradas | <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7566,7 +7566,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialPlano.erroHorizontalM:MethodDeclaration</code> · [fonte L34](../../src/physics/ambiente/ReferencialFisico.ts#L34) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialPlano.erroHorizontalM:MethodDeclaration</code> · [fonte L47](../../src/physics/ambiente/ReferencialFisico.ts#L47) |
 | Assinatura | <code>public (alvo: number, p: Vetor3): number</code> |
 | Responsabilidade | Calcula alvo−X em m no plano legado. |
 | Entradas | <code>alvo: number</code>; <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7585,7 +7585,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialPlano.posicaoPorArcoM:MethodDeclaration</code> · [fonte L36](../../src/physics/ambiente/ReferencialFisico.ts#L36) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialPlano.posicaoPorArcoM:MethodDeclaration</code> · [fonte L49](../../src/physics/ambiente/ReferencialFisico.ts#L49) |
 | Assinatura | <code>public (s: number, h: number): Vetor3</code> |
 | Responsabilidade | Constrói posição XY (s,h) em m; no plano, s é deslocamento linear. |
 | Entradas | <code>s: number</code>; <code>h: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7604,7 +7604,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialPlano.atitudeLocalRad:MethodDeclaration</code> · [fonte L38](../../src/physics/ambiente/ReferencialFisico.ts#L38) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialPlano.atitudeLocalRad:MethodDeclaration</code> · [fonte L51](../../src/physics/ambiente/ReferencialFisico.ts#L51) |
 | Assinatura | <code>public (theta: number, _p: Vetor3): number</code> |
 | Responsabilidade | Normaliza atitude em rad; vertical local coincide com vertical inercial plana. |
 | Entradas | <code>theta: number</code>; <code>_p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7623,7 +7623,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialPlano.atitudeInercialRad:MethodDeclaration</code> · [fonte L40](../../src/physics/ambiente/ReferencialFisico.ts#L40) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialPlano.atitudeInercialRad:MethodDeclaration</code> · [fonte L53](../../src/physics/ambiente/ReferencialFisico.ts#L53) |
 | Assinatura | <code>public (theta: number, _p: Vetor3): number</code> |
 | Responsabilidade | Devolve atitude local em rad sem conversão adicional no legado. |
 | Entradas | <code>theta: number</code>; <code>_p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7642,7 +7642,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialPlano.taxaAtitudeLocalRadps:MethodDeclaration</code> · [fonte L42](../../src/physics/ambiente/ReferencialFisico.ts#L42) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialPlano.taxaAtitudeLocalRadps:MethodDeclaration</code> · [fonte L55](../../src/physics/ambiente/ReferencialFisico.ts#L55) |
 | Assinatura | <code>public (omega: number, _p: Vetor3, _v: Vetor3): number</code> |
 | Responsabilidade | Devolve taxa angular em rad/s; a vertical plana não gira com a posição. |
 | Entradas | <code>omega: number</code>; <code>_p: Vetor3</code>; <code>_v: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7661,7 +7661,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialPlano.vetorParaLocal:MethodDeclaration</code> · [fonte L44](../../src/physics/ambiente/ReferencialFisico.ts#L44) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialPlano.vetorParaLocal:MethodDeclaration</code> · [fonte L57](../../src/physics/ambiente/ReferencialFisico.ts#L57) |
 | Assinatura | <code>public (v: Vetor3, _p: Vetor3): Vetor3</code> |
 | Responsabilidade | Preserva o vetor no referencial plano, cujos eixos locais e globais coincidem. |
 | Entradas | <code>v: Vetor3</code>; <code>_p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7680,7 +7680,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialPlano.vetorParaGlobal:MethodDeclaration</code> · [fonte L46](../../src/physics/ambiente/ReferencialFisico.ts#L46) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialPlano.vetorParaGlobal:MethodDeclaration</code> · [fonte L59](../../src/physics/ambiente/ReferencialFisico.ts#L59) |
 | Assinatura | <code>public (v: Vetor3, _p: Vetor3): Vetor3</code> |
 | Responsabilidade | Preserva o vetor no referencial plano sem rotação de base. |
 | Entradas | <code>v: Vetor3</code>; <code>_p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7699,7 +7699,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialPlano.localParaGlobal:MethodDeclaration</code> · [fonte L48](../../src/physics/ambiente/ReferencialFisico.ts#L48) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialPlano.localParaGlobal:MethodDeclaration</code> · [fonte L61](../../src/physics/ambiente/ReferencialFisico.ts#L61) |
 | Assinatura | <code>public (p: Vetor3, ancora: Vetor3): Vetor3</code> |
 | Responsabilidade | Soma âncora e posição local em m; não reposiciona objetos registrados. |
 | Entradas | <code>p: Vetor3</code>; <code>ancora: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7718,7 +7718,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialPlano.globalParaLocal:MethodDeclaration</code> · [fonte L50](../../src/physics/ambiente/ReferencialFisico.ts#L50) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialPlano.globalParaLocal:MethodDeclaration</code> · [fonte L63](../../src/physics/ambiente/ReferencialFisico.ts#L63) |
 | Assinatura | <code>public (p: Vetor3, ancora: Vetor3): Vetor3</code> |
 | Responsabilidade | Subtrai âncora da posição global em m, sem alterar o vetor de origem. |
 | Entradas | <code>p: Vetor3</code>; <code>ancora: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7737,7 +7737,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.constructor:Constructor</code> · [fonte L55](../../src/physics/ambiente/ReferencialFisico.ts#L55) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.constructor:Constructor</code> · [fonte L68](../../src/physics/ambiente/ReferencialFisico.ts#L68) |
 | Assinatura | <code>public (centroM?: Vetor3, raioM?: number): ReferencialEsferico</code> |
 | Responsabilidade | Configura centro XY e raio positivo/finito em m; rejeita centro com Z≠0. |
 | Entradas | <code>public readonly centroM = new Vetor3(0, -TERRA.raioM, 0)</code>; <code>public readonly raioM: number = TERRA.raioM</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7756,7 +7756,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.altitudeGeometricaM:MethodDeclaration</code> · [fonte L62](../../src/physics/ambiente/ReferencialFisico.ts#L62) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.altitudeGeometricaM:MethodDeclaration</code> · [fonte L75](../../src/physics/ambiente/ReferencialFisico.ts#L75) |
 | Assinatura | <code>public (p: Vetor3): number</code> |
 | Responsabilidade | Calcula altitude radial &#124;p−C&#124;−R em m; não confunde Y global com altura. |
 | Entradas | <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7775,7 +7775,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.radial:MethodDeclaration</code> · [fonte L64](../../src/physics/ambiente/ReferencialFisico.ts#L64) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.radial:MethodDeclaration</code> · [fonte L77](../../src/physics/ambiente/ReferencialFisico.ts#L77) |
 | Assinatura | <code>public (p: Vetor3): Vetor3</code> |
 | Responsabilidade | Normaliza p−C para obter vertical unitária exterior; rejeita centro singular. |
 | Entradas | <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7794,7 +7794,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.tangencial:MethodDeclaration</code> · [fonte L70](../../src/physics/ambiente/ReferencialFisico.ts#L70) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.tangencial:MethodDeclaration</code> · [fonte L83](../../src/physics/ambiente/ReferencialFisico.ts#L83) |
 | Assinatura | <code>public (p: Vetor3): Vetor3</code> |
 | Responsabilidade | Constrói tangente unitária (nY,−nX,0) ortogonal à radial no plano XY. |
 | Entradas | <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7813,7 +7813,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.posicaoHorizontalM:MethodDeclaration</code> · [fonte L74](../../src/physics/ambiente/ReferencialFisico.ts#L74) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.posicaoHorizontalM:MethodDeclaration</code> · [fonte L87](../../src/physics/ambiente/ReferencialFisico.ts#L87) |
 | Assinatura | <code>public (p: Vetor3): number</code> |
 | Responsabilidade | Arco assinado em [-πR,πR]; não é longitude geográfica nem coordenada desenrolada. |
 | Entradas | <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7832,7 +7832,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.erroHorizontalM:MethodDeclaration</code> · [fonte L76](../../src/physics/ambiente/ReferencialFisico.ts#L76) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.erroHorizontalM:MethodDeclaration</code> · [fonte L89](../../src/physics/ambiente/ReferencialFisico.ts#L89) |
 | Assinatura | <code>public (alvo: number, p: Vetor3): number</code> |
 | Responsabilidade | Calcula erro de alvo pelo menor arco assinado em m, normalizando diferença angular; não é longitude geográfica. |
 | Entradas | <code>alvo: number</code>; <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7851,7 +7851,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.posicaoPorArcoM:MethodDeclaration</code> · [fonte L78](../../src/physics/ambiente/ReferencialFisico.ts#L78) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.posicaoPorArcoM:MethodDeclaration</code> · [fonte L91](../../src/physics/ambiente/ReferencialFisico.ts#L91) |
 | Assinatura | <code>public (s: number, h: number): Vetor3</code> |
 | Responsabilidade | Converte arco s em m e altitude h em m para C+(R+h)(sin(s/R),cos(s/R),0); exige valores finitos e h&gt;−R. |
 | Entradas | <code>s: number</code>; <code>h: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7870,7 +7870,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.atitudeLocalRad:MethodDeclaration</code> · [fonte L84](../../src/physics/ambiente/ReferencialFisico.ts#L84) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.atitudeLocalRad:MethodDeclaration</code> · [fonte L97](../../src/physics/ambiente/ReferencialFisico.ts#L97) |
 | Assinatura | <code>public (theta: number, p: Vetor3): number</code> |
 | Responsabilidade | Subtrai o ângulo da radial local da atitude inercial Z e normaliza resultado em rad. |
 | Entradas | <code>theta: number</code>; <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7889,7 +7889,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.atitudeInercialRad:MethodDeclaration</code> · [fonte L89](../../src/physics/ambiente/ReferencialFisico.ts#L89) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.atitudeInercialRad:MethodDeclaration</code> · [fonte L102](../../src/physics/ambiente/ReferencialFisico.ts#L102) |
 | Assinatura | <code>public (theta: number, p: Vetor3): number</code> |
 | Responsabilidade | Soma ao ângulo local a orientação da vertical radial; retorno rad, sem girar veículo. |
 | Entradas | <code>theta: number</code>; <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7908,7 +7908,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.taxaAtitudeLocalRadps:MethodDeclaration</code> · [fonte L94](../../src/physics/ambiente/ReferencialFisico.ts#L94) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.taxaAtitudeLocalRadps:MethodDeclaration</code> · [fonte L107](../../src/physics/ambiente/ReferencialFisico.ts#L107) |
 | Assinatura | <code>public (omega: number, p: Vetor3, v: Vetor3): number</code> |
 | Responsabilidade | Corrige ω inercial pela taxa de mudança da vertical local v_t/&#124;p−C&#124;; devolve rad/s. |
 | Entradas | <code>omega: number</code>; <code>p: Vetor3</code>; <code>v: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7927,7 +7927,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.vetorParaLocal:MethodDeclaration</code> · [fonte L98](../../src/physics/ambiente/ReferencialFisico.ts#L98) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.vetorParaLocal:MethodDeclaration</code> · [fonte L111](../../src/physics/ambiente/ReferencialFisico.ts#L111) |
 | Assinatura | <code>public (v: Vetor3, p: Vetor3): Vetor3</code> |
 | Responsabilidade | Projeta vetor na tangente e radial locais (ordem X,Y), preservando componente Z; não altera cinemática. |
 | Entradas | <code>v: Vetor3</code>; <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7946,7 +7946,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.vetorParaGlobal:MethodDeclaration</code> · [fonte L102](../../src/physics/ambiente/ReferencialFisico.ts#L102) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.vetorParaGlobal:MethodDeclaration</code> · [fonte L115](../../src/physics/ambiente/ReferencialFisico.ts#L115) |
 | Assinatura | <code>public (v: Vetor3, p: Vetor3): Vetor3</code> |
 | Responsabilidade | Reconstrói vetor global pela soma das componentes tangencial/radial e Z; base é consultada na posição informada. |
 | Entradas | <code>v: Vetor3</code>; <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7965,7 +7965,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.localParaGlobal:MethodDeclaration</code> · [fonte L106](../../src/physics/ambiente/ReferencialFisico.ts#L106) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.localParaGlobal:MethodDeclaration</code> · [fonte L119](../../src/physics/ambiente/ReferencialFisico.ts#L119) |
 | Assinatura | <code>public (p: Vetor3, ancora: Vetor3): Vetor3</code> |
 | Responsabilidade | Transforma deslocamento na base da âncora e soma translação; é carta local tangente, não conversão geodésica global. |
 | Entradas | <code>p: Vetor3</code>; <code>ancora: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -7984,7 +7984,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.globalParaLocal:MethodDeclaration</code> · [fonte L108](../../src/physics/ambiente/ReferencialFisico.ts#L108) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.globalParaLocal:MethodDeclaration</code> · [fonte L121](../../src/physics/ambiente/ReferencialFisico.ts#L121) |
 | Assinatura | <code>public (p: Vetor3, ancora: Vetor3): Vetor3</code> |
 | Responsabilidade | Subtrai âncora e projeta deslocamento na base local da âncora; não integra trajetória. |
 | Entradas | <code>p: Vetor3</code>; <code>ancora: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8003,7 +8003,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.vetorRadial:MethodDeclaration</code> · [fonte L110](../../src/physics/ambiente/ReferencialFisico.ts#L110) |
+| Identificador | <code>src/physics/ambiente/ReferencialFisico.ts::ReferencialEsferico.vetorRadial:MethodDeclaration</code> · [fonte L123](../../src/physics/ambiente/ReferencialFisico.ts#L123) |
 | Assinatura | <code>private (p: Vetor3): Vetor3</code> |
 | Responsabilidade | Exige posição em XY e devolve p−C em m; rejeita componente Z fora do plano. |
 | Entradas | <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8226,15 +8226,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/conexoes/ChumbadorAoSolo.ts::DefinicaoChumbadorAoSolo.obterEsforcoSolicitadoN[tipo]:FunctionType</code> · [fonte L10](../../src/physics/conexoes/ChumbadorAoSolo.ts#L10) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta esforço externo solicitado em N para verificar resistência do vínculo; core acrescenta cargas físicas observadas. Não rompe vínculo por esta leitura. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta esforço externo solicitado em N para verificar resistência do vínculo; core acrescenta cargas físicas observadas. Não rompe vínculo por esta leitura. @contract f-3edd21e1d5a19ecc @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -8437,17 +8437,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::DestinoEletricoRecarregavel.receberEnergia:MethodSignature</code> · [fonte L7](../../src/physics/conexoes/ConexaoEletrica.ts#L7) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::DestinoEletricoRecarregavel.receberEnergia:MethodSignature</code> · [fonte L8](../../src/physics/conexoes/ConexaoEletrica.ts#L8) |
 | Assinatura | <code> (energiaJ: number): number</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Recebe oferta não negativa em J e retorna energia efetivamente armazenada conforme capacidade/integridade; altera reserva do destino, não fonte por esta porta. |
 | Entradas | <code>energiaJ: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/conexoes/ConexaoEletrica.test.ts](../../src/physics/conexoes/ConexaoEletrica.test.ts); [src/physics/objetos/propulsao/CadeiaPropulsao.test.ts](../../src/physics/objetos/propulsao/CadeiaPropulsao.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Recebe oferta não negativa em J e retorna energia efetivamente armazenada conforme capacidade/integridade; altera reserva do destino, não fonte por esta porta. @contract f-379a6000119fc4ae @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -8456,7 +8456,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.constructor:Constructor</code> · [fonte L45](../../src/physics/conexoes/ConexaoEletrica.ts#L45) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.constructor:Constructor</code> · [fonte L46](../../src/physics/conexoes/ConexaoEletrica.ts#L46) |
 | Assinatura | <code>public (definicao: DefinicaoConexaoEletrica): ConexaoEletrica</code> |
 | Responsabilidade | Configura ligação DC/CA RMS por fonte/destino distintos, alcance m positivo, corrente A e resistência Ω não negativas; congela listas e cria interruptor principal. |
 | Entradas | <code>private readonly definicao: DefinicaoConexaoEletrica</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8475,7 +8475,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.id:GetAccessor</code> · [fonte L57](../../src/physics/conexoes/ConexaoEletrica.ts#L57) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.id:GetAccessor</code> · [fonte L58](../../src/physics/conexoes/ConexaoEletrica.ts#L58) |
 | Assinatura | <code>public (): string</code> |
 | Responsabilidade | Consulta identidade declarada da ligação, sem alterar conexão. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8494,7 +8494,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.fonte:GetAccessor</code> · [fonte L59](../../src/physics/conexoes/ConexaoEletrica.ts#L59) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.fonte:GetAccessor</code> · [fonte L60](../../src/physics/conexoes/ConexaoEletrica.ts#L60) |
 | Assinatura | <code>public (): FonteEletrica</code> |
 | Responsabilidade | Devolve a porta da fonte elétrica real, não uma cópia da energia. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8513,7 +8513,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.destino:GetAccessor</code> · [fonte L61](../../src/physics/conexoes/ConexaoEletrica.ts#L61) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.destino:GetAccessor</code> · [fonte L62](../../src/physics/conexoes/ConexaoEletrica.ts#L62) |
 | Assinatura | <code>public (): Objeto</code> |
 | Responsabilidade | Devolve o objeto consumidor real ligado ao circuito. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8532,7 +8532,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.comprimentoMaximoM:GetAccessor</code> · [fonte L63](../../src/physics/conexoes/ConexaoEletrica.ts#L63) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.comprimentoMaximoM:GetAccessor</code> · [fonte L64](../../src/physics/conexoes/ConexaoEletrica.ts#L64) |
 | Assinatura | <code>public (): number</code> |
 | Responsabilidade | Consulta alcance máximo configurado em m entre centros dos corpos. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8551,7 +8551,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.comprimentoAtualM:GetAccessor</code> · [fonte L65](../../src/physics/conexoes/ConexaoEletrica.ts#L65) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.comprimentoAtualM:GetAccessor</code> · [fonte L66](../../src/physics/conexoes/ConexaoEletrica.ts#L66) |
 | Assinatura | <code>public (): number</code> |
 | Responsabilidade | Mede distância euclidiana atual entre centros de fonte e consumidor em m; não verifica ruptura por si. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8570,7 +8570,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.correnteMaximaA:GetAccessor</code> · [fonte L67](../../src/physics/conexoes/ConexaoEletrica.ts#L67) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.correnteMaximaA:GetAccessor</code> · [fonte L68](../../src/physics/conexoes/ConexaoEletrica.ts#L68) |
 | Assinatura | <code>public (): number</code> |
 | Responsabilidade | Consulta limite ativo de corrente em A; zero bloqueia fornecimento. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8589,7 +8589,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.resistenciaCaboOhm:GetAccessor</code> · [fonte L69](../../src/physics/conexoes/ConexaoEletrica.ts#L69) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.resistenciaCaboOhm:GetAccessor</code> · [fonte L70](../../src/physics/conexoes/ConexaoEletrica.ts#L70) |
 | Assinatura | <code>public (): number</code> |
 | Responsabilidade | Consulta resistência própria configurada em Ω. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8608,7 +8608,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.resistenciaTotalOhm:GetAccessor</code> · [fonte L71](../../src/physics/conexoes/ConexaoEletrica.ts#L71) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.resistenciaTotalOhm:GetAccessor</code> · [fonte L72](../../src/physics/conexoes/ConexaoEletrica.ts#L72) |
 | Assinatura | <code>public (): number</code> |
 | Responsabilidade | Soma resistência do cabo e resistores em série, em Ω. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8627,7 +8627,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.estaRompida:GetAccessor</code> · [fonte L73](../../src/physics/conexoes/ConexaoEletrica.ts#L73) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.estaRompida:GetAccessor</code> · [fonte L74](../../src/physics/conexoes/ConexaoEletrica.ts#L74) |
 | Assinatura | <code>public (): boolean</code> |
 | Responsabilidade | Consulta ruptura irreversível registrada da ligação. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8646,7 +8646,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.estaDesconectada:GetAccessor</code> · [fonte L75](../../src/physics/conexoes/ConexaoEletrica.ts#L75) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.estaDesconectada:GetAccessor</code> · [fonte L76](../../src/physics/conexoes/ConexaoEletrica.ts#L76) |
 | Assinatura | <code>public (): boolean</code> |
 | Responsabilidade | Consulta desacoplamento operacional, distinto de ruptura. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8665,7 +8665,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.interruptorPrincipalFechado:GetAccessor</code> · [fonte L77](../../src/physics/conexoes/ConexaoEletrica.ts#L77) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.interruptorPrincipalFechado:GetAccessor</code> · [fonte L78](../../src/physics/conexoes/ConexaoEletrica.ts#L78) |
 | Assinatura | <code>public (): boolean</code> |
 | Responsabilidade | Consulta posição do interruptor principal de domínio. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8684,7 +8684,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.interruptorFechado:GetAccessor</code> · [fonte L79](../../src/physics/conexoes/ConexaoEletrica.ts#L79) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.interruptorFechado:GetAccessor</code> · [fonte L80](../../src/physics/conexoes/ConexaoEletrica.ts#L80) |
 | Assinatura | <code>public (): boolean</code> |
 | Responsabilidade | Exige principal e todos os interruptores em série fechados, sem acionar contatos. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8703,7 +8703,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.fonteDisponivel:GetAccessor</code> · [fonte L81](../../src/physics/conexoes/ConexaoEletrica.ts#L81) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.fonteDisponivel:GetAccessor</code> · [fonte L82](../../src/physics/conexoes/ConexaoEletrica.ts#L82) |
 | Assinatura | <code>public (): boolean</code> |
 | Responsabilidade | Consulta se fonte tem carga e integridade positiva. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8722,7 +8722,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.podeConduzir:GetAccessor</code> · [fonte L83](../../src/physics/conexoes/ConexaoEletrica.ts#L83) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.podeConduzir:GetAccessor</code> · [fonte L84](../../src/physics/conexoes/ConexaoEletrica.ts#L84) |
 | Assinatura | <code>public (): boolean</code> |
 | Responsabilidade | Verifica conexão íntegra/acoplada, alcance, disponibilidade e integridade de fonte/destino e corrente máxima positiva; não exige interruptores fechados. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8741,7 +8741,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.estaEnergizada:GetAccessor</code> · [fonte L88](../../src/physics/conexoes/ConexaoEletrica.ts#L88) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.estaEnergizada:GetAccessor</code> · [fonte L89](../../src/physics/conexoes/ConexaoEletrica.ts#L89) |
 | Assinatura | <code>public (): boolean</code> |
 | Responsabilidade | Combina permissivo físico de condução e fechamento de todos os interruptores. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8760,7 +8760,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.estaIndisponivel:GetAccessor</code> · [fonte L90](../../src/physics/conexoes/ConexaoEletrica.ts#L90) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.estaIndisponivel:GetAccessor</code> · [fonte L91](../../src/physics/conexoes/ConexaoEletrica.ts#L91) |
 | Assinatura | <code>public (): boolean</code> |
 | Responsabilidade | Nega condição de energização da própria ligação. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8779,7 +8779,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.tensaoNominalV:GetAccessor</code> · [fonte L92](../../src/physics/conexoes/ConexaoEletrica.ts#L92) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.tensaoNominalV:GetAccessor</code> · [fonte L93](../../src/physics/conexoes/ConexaoEletrica.ts#L93) |
 | Assinatura | <code>public (): number</code> |
 | Responsabilidade | Consulta tensão nominal da fonte em V. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8798,7 +8798,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.correnteAtualA:GetAccessor</code> · [fonte L94](../../src/physics/conexoes/ConexaoEletrica.ts#L94) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.correnteAtualA:GetAccessor</code> · [fonte L95](../../src/physics/conexoes/ConexaoEletrica.ts#L95) |
 | Assinatura | <code>public (): number</code> |
 | Responsabilidade | Devolve corrente média calculada em A se energizada; desenergizada retorna zero. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8817,7 +8817,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.tensaoSaidaV:GetAccessor</code> · [fonte L96](../../src/physics/conexoes/ConexaoEletrica.ts#L96) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.tensaoSaidaV:GetAccessor</code> · [fonte L97](../../src/physics/conexoes/ConexaoEletrica.ts#L97) |
 | Assinatura | <code>public (): number</code> |
 | Responsabilidade | Devolve max(0,Vfonte−I·R) em V se energizada; caso contrário zero. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8836,7 +8836,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.correnteLimitada:GetAccessor</code> · [fonte L98](../../src/physics/conexoes/ConexaoEletrica.ts#L98) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.correnteLimitada:GetAccessor</code> · [fonte L99](../../src/physics/conexoes/ConexaoEletrica.ts#L99) |
 | Assinatura | <code>public (): boolean</code> |
 | Responsabilidade | Consulta se alguma solicitação foi atendida parcialmente no passo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8855,7 +8855,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.energiaEntregueNoPassoJ:GetAccessor</code> · [fonte L100](../../src/physics/conexoes/ConexaoEletrica.ts#L100) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.energiaEntregueNoPassoJ:GetAccessor</code> · [fonte L101](../../src/physics/conexoes/ConexaoEletrica.ts#L101) |
 | Assinatura | <code>public (): number</code> |
 | Responsabilidade | Consulta energia entregue à carga no passo em J. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8874,7 +8874,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.energiaConsumidaNoPassoJ:GetAccessor</code> · [fonte L102](../../src/physics/conexoes/ConexaoEletrica.ts#L102) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.energiaConsumidaNoPassoJ:GetAccessor</code> · [fonte L103](../../src/physics/conexoes/ConexaoEletrica.ts#L103) |
 | Assinatura | <code>public (): number</code> |
 | Responsabilidade | Consulta energia retirada da fonte no passo em J. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8893,7 +8893,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.energiaDissipadaNoPassoJ:GetAccessor</code> · [fonte L104](../../src/physics/conexoes/ConexaoEletrica.ts#L104) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.energiaDissipadaNoPassoJ:GetAccessor</code> · [fonte L105](../../src/physics/conexoes/ConexaoEletrica.ts#L105) |
 | Assinatura | <code>public (): number</code> |
 | Responsabilidade | Consulta perdas do circuito no passo em J. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8912,7 +8912,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.energiaDissipadaAcumuladaJ:GetAccessor</code> · [fonte L106](../../src/physics/conexoes/ConexaoEletrica.ts#L106) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.energiaDissipadaAcumuladaJ:GetAccessor</code> · [fonte L107](../../src/physics/conexoes/ConexaoEletrica.ts#L107) |
 | Assinatura | <code>public (): number</code> |
 | Responsabilidade | Consulta perdas acumuladas desde criação em J. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8931,7 +8931,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.abrirInterruptor:MethodDeclaration</code> · [fonte L109](../../src/physics/conexoes/ConexaoEletrica.ts#L109) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.abrirInterruptor:MethodDeclaration</code> · [fonte L110](../../src/physics/conexoes/ConexaoEletrica.ts#L110) |
 | Assinatura | <code>public (): void</code> |
 | Responsabilidade | Abre contato principal e zera corrente observada; não remove o cabo físico. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8950,7 +8950,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.fecharInterruptor:MethodDeclaration</code> · [fonte L111](../../src/physics/conexoes/ConexaoEletrica.ts#L111) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.fecharInterruptor:MethodDeclaration</code> · [fonte L112](../../src/physics/conexoes/ConexaoEletrica.ts#L112) |
 | Assinatura | <code>public (): boolean</code> |
 | Responsabilidade | Fecha principal somente se podeConduzir; retorno informa se a série inteira ficou fechada. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8969,7 +8969,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.desconectar:MethodDeclaration</code> · [fonte L116](../../src/physics/conexoes/ConexaoEletrica.ts#L116) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.desconectar:MethodDeclaration</code> · [fonte L117](../../src/physics/conexoes/ConexaoEletrica.ts#L117) |
 | Assinatura | <code>public (): void</code> |
 | Responsabilidade | Marca ligação desacoplada e abre principal; não apaga a fonte/destino. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -8988,7 +8988,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.conectar:MethodDeclaration</code> · [fonte L122](../../src/physics/conexoes/ConexaoEletrica.ts#L122) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.conectar:MethodDeclaration</code> · [fonte L123](../../src/physics/conexoes/ConexaoEletrica.ts#L123) |
 | Assinatura | <code>public (): boolean</code> |
 | Responsabilidade | Reconexão não repara ruptura nem religa o interruptor. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -9007,7 +9007,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.romper:MethodDeclaration</code> · [fonte L127](../../src/physics/conexoes/ConexaoEletrica.ts#L127) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.romper:MethodDeclaration</code> · [fonte L128](../../src/physics/conexoes/ConexaoEletrica.ts#L128) |
 | Assinatura | <code>public (): void</code> |
 | Responsabilidade | Marca ruptura e abre circuito, zerando corrente; não repara automaticamente. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -9026,7 +9026,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.verificarIntegridade:MethodDeclaration</code> · [fonte L129](../../src/physics/conexoes/ConexaoEletrica.ts#L129) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.verificarIntegridade:MethodDeclaration</code> · [fonte L130](../../src/physics/conexoes/ConexaoEletrica.ts#L130) |
 | Assinatura | <code>public (): void</code> |
 | Responsabilidade | Rompe ligação ainda acoplada quando distância entre centros excede alcance; independe de carga solicitada. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -9045,7 +9045,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.configurarCorrenteMaxima:MethodDeclaration</code> · [fonte L133](../../src/physics/conexoes/ConexaoEletrica.ts#L133) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.configurarCorrenteMaxima:MethodDeclaration</code> · [fonte L134](../../src/physics/conexoes/ConexaoEletrica.ts#L134) |
 | Assinatura | <code>public (correnteA: number): void</code> |
 | Responsabilidade | Valida limite A finito/não negativo e invalida orçamento preparado/corrente, exigindo nova preparação. |
 | Entradas | <code>correnteA: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -9064,7 +9064,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.configurarResistenciaCabo:MethodDeclaration</code> · [fonte L138](../../src/physics/conexoes/ConexaoEletrica.ts#L138) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.configurarResistenciaCabo:MethodDeclaration</code> · [fonte L139](../../src/physics/conexoes/ConexaoEletrica.ts#L139) |
 | Assinatura | <code>public (resistenciaOhm: number): void</code> |
 | Responsabilidade | Valida resistência Ω finita/não negativa e total finito; invalida orçamento/corrente. |
 | Entradas | <code>resistenciaOhm: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -9083,7 +9083,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.prepararPasso:MethodDeclaration</code> · [fonte L144](../../src/physics/conexoes/ConexaoEletrica.ts#L144) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.prepararPasso:MethodDeclaration</code> · [fonte L145](../../src/physics/conexoes/ConexaoEletrica.ts#L145) |
 | Assinatura | <code>public (dtS: number): void</code> |
 | Responsabilidade | Exige dtS em s positivo/finito, reinicia os orçamentos compartilhados e verifica ruptura; o proprietário deve chamar uma vez por subpasso. |
 | Entradas | <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -9102,7 +9102,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.fornecerEnergia:MethodDeclaration</code> · [fonte L156](../../src/physics/conexoes/ConexaoEletrica.ts#L156) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.fornecerEnergia:MethodDeclaration</code> · [fonte L157](../../src/physics/conexoes/ConexaoEletrica.ts#L157) |
 | Assinatura | <code>public (energiaSolicitadaJ: number): number</code> |
 | Responsabilidade | Entrega energia à carga descontando também perdas I²R da bateria. |
 | Entradas | <code>energiaSolicitadaJ: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -9121,7 +9121,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.transferirEnergiaParaDestino:MethodDeclaration</code> · [fonte L184](../../src/physics/conexoes/ConexaoEletrica.ts#L184) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.transferirEnergiaParaDestino:MethodDeclaration</code> · [fonte L185](../../src/physics/conexoes/ConexaoEletrica.ts#L185) |
 | Assinatura | <code>public (energiaSolicitadaJ: number): number</code> |
 | Responsabilidade | Exige destino recarregável, fornece energia pela mesma ligação e delega armazenamento; retorno é J efetivamente aceitos pelo destino. |
 | Entradas | <code>energiaSolicitadaJ: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -9140,7 +9140,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.validarNaoNegativo:MethodDeclaration</code> · [fonte L190](../../src/physics/conexoes/ConexaoEletrica.ts#L190) |
+| Identificador | <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.validarNaoNegativo:MethodDeclaration</code> · [fonte L191](../../src/physics/conexoes/ConexaoEletrica.ts#L191) |
 | Assinatura | <code>private (valor: number, nome: string): void</code> |
 | Responsabilidade | Rejeita valor não finito ou negativo com diagnóstico contendo o nome/unidade recebidos; não altera configuração. |
 | Entradas | <code>valor: number</code>; <code>nome: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -9165,15 +9165,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/conexoes/FixadorEstrutural.ts::DefinicaoFixadorEstrutural.obterEsforcoSolicitadoN[tipo]:FunctionType</code> · [fonte L17](../../src/physics/conexoes/FixadorEstrutural.ts#L17) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta esforço externo solicitado em N para verificar resistência do vínculo; core acrescenta cargas físicas observadas. Não rompe vínculo por esta leitura. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta esforço externo solicitado em N para verificar resistência do vínculo; core acrescenta cargas físicas observadas. Não rompe vínculo por esta leitura. @contract f-cd671b03c8af2236 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -10793,15 +10793,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/atuadores/Cilindro.ts::Construtor[tipo]:ConstructorType</code> · [fonte L64](../../src/physics/objetos/atuadores/Cilindro.ts#L64) |
 | Assinatura | <code> (...args: any[]): object</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Tipo de construtor do mixin: instancia classe base com argumentos preservados; instalação do comportamento não autoriza alterar cinemática fora do core. |
 | Entradas | <code>...args: any[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>object</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Tipo de construtor do mixin: instancia classe base com argumentos preservados; instalação do comportamento não autoriza alterar cinemática fora do core. @contract f-2018a9bb816af2a1 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -11006,15 +11006,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/atuadores/CilindroEletrico.ts::DefinicaoCilindroEletrico.operacaoAutorizada[tipo]:FunctionType</code> · [fonte L22](../../src/physics/objetos/atuadores/CilindroEletrico.ts#L22) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta permissivo externo do atuador; false impede atuação, sem alterar pose ou substituir integridade/energia. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta permissivo externo do atuador; false impede atuação, sem alterar pose ou substituir integridade/energia. @contract f-57b1b7d21164f2d4 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -11159,7 +11159,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Identificador | <code>src/physics/objetos/atuadores/CilindroEletrico.ts::HasteDeCilindroEletrico.constructor:Constructor</code> · [fonte L113](../../src/physics/objetos/atuadores/CilindroEletrico.ts#L113) |
 | Assinatura | <code>public (definicao: DefinicaoObjeto, obterCilindro: () =&gt; Pick&lt;CilindroEletrico, "obterForcasNaHaste"&gt;): HasteDeCilindroEletrico</code> |
 | Responsabilidade | Inicializa haste como objeto físico com propriedades herdadas; forças do acionamento serão integradas pelo mundo. |
-| Entradas | <code>definicao: DefinicaoObjeto</code>; <code>private readonly obterCilindro: () =&gt; Pick&lt;CilindroEletrico, 'obterForcasNaHaste'&gt;</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>definicao: DefinicaoObjeto</code>; <code>private readonly obterCilindro: /** Resolve acionamento já associado à haste para consultar solicitações físicas de força; evita criação de dinâmica concorrente. @contract f-e25c8d2ac86de693 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () =&gt; Pick&lt;CilindroEletrico, 'obterForcasNaHaste'&gt;</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>HasteDeCilindroEletrico</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.obterCilindro</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>super</code> |
@@ -11177,15 +11177,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/atuadores/CilindroEletrico.ts::HasteDeCilindroEletrico.constructor.obterCilindro[tipo]:FunctionType</code> · [fonte L113](../../src/physics/objetos/atuadores/CilindroEletrico.ts#L113) |
 | Assinatura | <code> (): Pick&lt;CilindroEletrico, "obterForcasNaHaste"&gt;</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Resolve acionamento já associado à haste para consultar solicitações físicas de força; evita criação de dinâmica concorrente. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Pick&lt;CilindroEletrico, "obterForcasNaHaste"&gt;</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Resolve acionamento já associado à haste para consultar solicitações físicas de força; evita criação de dinâmica concorrente. @contract f-e25c8d2ac86de693 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -12618,15 +12618,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/componentes/AletaAerodinamica.ts::DefinicaoAletaAerodinamica.operacaoAutorizada[tipo]:FunctionType</code> · [fonte L18](../../src/physics/objetos/componentes/AletaAerodinamica.ts#L18) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta permissivo externo do atuador; false impede atuação, sem alterar pose ou substituir integridade/energia. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/physics/objetos/componentes/AletaAerodinamica.test.ts](../../src/physics/objetos/componentes/AletaAerodinamica.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta permissivo externo do atuador; false impede atuação, sem alterar pose ou substituir integridade/energia. @contract f-740741f36db4d1e3 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -13217,17 +13217,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/fontes-de-energia/FonteEletrica.ts::fornecerEnergia:MethodSignature</code> · [fonte L10](../../src/physics/objetos/fontes-de-energia/FonteEletrica.ts#L10) |
+| Identificador | <code>src/physics/objetos/fontes-de-energia/FonteEletrica.ts::fornecerEnergia:MethodSignature</code> · [fonte L11](../../src/physics/objetos/fontes-de-energia/FonteEletrica.ts#L11) |
 | Assinatura | <code> (energiaJ: number): number</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Recebe pedido não negativo em J e retorna energia efetivamente entregue dentro do orçamento/reserva; consome fonte e atualiza diagnósticos conforme implementação. |
 | Entradas | <code>energiaJ: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Recebe pedido não negativo em J e retorna energia efetivamente entregue dentro do orçamento/reserva; consome fonte e atualiza diagnósticos conforme implementação. @contract f-ab20e650db054ae0 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -13531,15 +13531,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/fontes-de-energia/PainelSolar.ts::DefinicaoPainelSolar.receberEnergia:MethodSignature</code> · [fonte L10](../../src/physics/objetos/fontes-de-energia/PainelSolar.ts#L10) |
 | Assinatura | <code> (energiaJ: number): number</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Porta do destino de carga: recebe energia J e retorna parcela realmente aceita; armazenamento não depende da visibilidade do painel. |
 | Entradas | <code>energiaJ: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/fontes-de-energia/PainelSolar.test.ts](../../src/physics/objetos/fontes-de-energia/PainelSolar.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Porta do destino de carga: recebe energia J e retorna parcela realmente aceita; armazenamento não depende da visibilidade do painel. @contract f-c5ec22d9c45e3d17 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -13550,15 +13550,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/fontes-de-energia/PainelSolar.ts::DefinicaoPainelSolar.obterFatorIluminacao[tipo]:FunctionType</code> · [fonte L11](../../src/physics/objetos/fontes-de-energia/PainelSolar.ts#L11) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta fração de iluminação usada na potência solar; a fonte valida/limita valor segundo seu modelo, sem depender de animação de sombra. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/fontes-de-energia/PainelSolar.test.ts](../../src/physics/objetos/fontes-de-energia/PainelSolar.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta fração de iluminação usada na potência solar; a fonte valida/limita valor segundo seu modelo, sem depender de animação de sombra. @contract f-3d9bbb4481ad2ca8 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -14212,15 +14212,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/Porta.ts::DefinicaoPorta.obterTravaRecuada[tipo]:FunctionType</code> · [fonte L29](../../src/physics/objetos/mecanismos/Porta.ts#L29) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta se trava foi recolhida antes de liberar movimento da folha; não comanda recuo por esta leitura. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta se trava foi recolhida antes de liberar movimento da folha; não comanda recuo por esta leitura. @contract f-b99653bcaa9220e0 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -14231,15 +14231,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/Porta.ts::DefinicaoPorta.obterForcasDaTrava[tipo]:FunctionType</code> · [fonte L30](../../src/physics/objetos/mecanismos/Porta.ts#L30) |
 | Assinatura | <code> (): readonly ForcaFisicaSolicitada[]</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta solicitações de força em N da trava sobre a porta para o core aplicar; não impõe posição de apoio. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly ForcaFisicaSolicitada[]</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta solicitações de força em N da trava sobre a porta para o core aplicar; não impõe posição de apoio. @contract f-de3d43a65b18b36c @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -14250,15 +14250,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/Porta.ts::DefinicaoPorta.apoioEstruturalDisponivel[tipo]:FunctionType</code> · [fonte L31](../../src/physics/objetos/mecanismos/Porta.ts#L31) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta integridade/topologia do suporte composto; indisponibilidade bloqueia atuação/sustentação prevista, sem ancoragem artificial. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta integridade/topologia do suporte composto; indisponibilidade bloqueia atuação/sustentação prevista, sem ancoragem artificial. @contract f-781af0b95d28abeb @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -14859,7 +14859,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Identificador | <code>src/physics/objetos/mecanismos/Porta.ts::BatenteDePorta.constructor:Constructor</code> · [fonte L212](../../src/physics/objetos/mecanismos/Porta.ts#L212) |
 | Assinatura | <code>public (definicao: DefinicaoObjeto, obterReacao: () =&gt; readonly ForcaFisicaSolicitada[]): BatenteDePorta</code> |
 | Responsabilidade | Inicializa corpo físico do batente com propriedades herdadas; ancoragens/uniões são componentes externos. |
-| Entradas | <code>definicao: DefinicaoObjeto</code>; <code>private readonly obterReacao: () =&gt; readonly ForcaFisicaSolicitada[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>definicao: DefinicaoObjeto</code>; <code>private readonly obterReacao: /** Consulta solicitações de reação em N para integrar no batente; garante transmissão de esforço pelo core, sem manipulação de pose. @contract f-ccb805a5b10b5e7c @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () =&gt; readonly ForcaFisicaSolicitada[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>BatenteDePorta</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.obterReacao</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>super</code> |
@@ -14877,15 +14877,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/Porta.ts::BatenteDePorta.constructor.obterReacao[tipo]:FunctionType</code> · [fonte L212](../../src/physics/objetos/mecanismos/Porta.ts#L212) |
 | Assinatura | <code> (): readonly ForcaFisicaSolicitada[]</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta solicitações de reação em N para integrar no batente; garante transmissão de esforço pelo core, sem manipulação de pose. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly ForcaFisicaSolicitada[]</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta solicitações de reação em N para integrar no batente; garante transmissão de esforço pelo core, sem manipulação de pose. @contract f-ccb805a5b10b5e7c @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -14919,15 +14919,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/TravaPorta.ts::DefinicaoTravaPorta.porta[tipo]:FunctionType</code> · [fonte L8](../../src/physics/objetos/mecanismos/TravaPorta.ts#L8) |
 | Assinatura | <code> (): Objeto</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Resolve folha física associada à trava por porta injetada, para ler massa/estado e calcular apoio; não duplica objeto. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Objeto</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Resolve folha física associada à trava por porta injetada, para ler massa/estado e calcular apoio; não duplica objeto. @contract f-b39a816efc5a1c38 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -14938,15 +14938,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/TravaPorta.ts::DefinicaoTravaPorta.sensorPortaAberta[tipo]:FunctionType</code> · [fonte L10](../../src/physics/objetos/mecanismos/TravaPorta.ts#L10) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta fim de curso real de abertura, usado para avanço da trava; não deduz evento por tempo de animação. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta fim de curso real de abertura, usado para avanço da trava; não deduz evento por tempo de animação. @contract f-a6e457c0d3207bf0 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -14957,15 +14957,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/TravaPorta.ts::DefinicaoTravaPorta.obterUltimoComandoOperacional[tipo]:FunctionType</code> · [fonte L11](../../src/physics/objetos/mecanismos/TravaPorta.ts#L11) |
 | Assinatura | <code> (): { readonly sequencia: number; readonly comando: "abrir" &#124; "fechar" &#124; "parar"; } &#124; undefined</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta comando e sequência para distinguir nova solicitação de movimento de comando mantido; pode retornar undefined antes do primeiro comando. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ readonly sequencia: number; readonly comando: "abrir" &#124; "fechar" &#124; "parar"; } &#124; undefined</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta comando e sequência para distinguir nova solicitação de movimento de comando mantido; pode retornar undefined antes do primeiro comando. @contract f-d56133f64d5ff640 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -14976,15 +14976,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/TravaPorta.ts::DefinicaoTravaPorta.apoioEstruturalDisponivel[tipo]:FunctionType</code> · [fonte L16](../../src/physics/objetos/mecanismos/TravaPorta.ts#L16) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta integridade/topologia do suporte composto; indisponibilidade bloqueia atuação/sustentação prevista, sem ancoragem artificial. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta integridade/topologia do suporte composto; indisponibilidade bloqueia atuação/sustentação prevista, sem ancoragem artificial. @contract f-f4979c809858ed66 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -16948,17 +16948,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts::IAtuadorVetorizacao.solicitar:MethodSignature</code> · [fonte L26](../../src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts#L26) |
+| Identificador | <code>src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts::IAtuadorVetorizacao.solicitar:MethodSignature</code> · [fonte L27](../../src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts#L27) |
 | Assinatura | <code> (comando: ComandoVetorizacao): boolean</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Valida e memoriza comando de alvo angular rad, retornando aceitação; posição atual não salta para alvo. |
 | Entradas | <code>comando: ComandoVetorizacao</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida e memoriza comando de alvo angular rad, retornando aceitação; posição atual não salta para alvo. @contract f-eca3958041fee892 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -16967,17 +16967,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts::IAtuadorVetorizacao.avancar:MethodSignature</code> · [fonte L27](../../src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts#L27) |
+| Identificador | <code>src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts::IAtuadorVetorizacao.avancar:MethodSignature</code> · [fonte L29](../../src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts#L29) |
 | Assinatura | <code> (dtS: number, habilitado: boolean): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Atualiza posição interna com dt positivo s e habilitação, limitada pelo curso/velocidade; não altera orientação do veículo. |
 | Entradas | <code>dtS: number</code>; <code>habilitado: boolean</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Atualiza posição interna com dt positivo s e habilitação, limitada pelo curso/velocidade; não altera orientação do veículo. @contract f-1ae1e2c05ffd3432 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -16986,17 +16986,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts::IAtuadorVetorizacao.obterEstado:MethodSignature</code> · [fonte L28](../../src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts#L28) |
+| Identificador | <code>src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts::IAtuadorVetorizacao.obterEstado:MethodSignature</code> · [fonte L31](../../src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts#L31) |
 | Assinatura | <code> (): EstadoVetorizacao</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta DTO de alvo/ângulo rad, limites rad/rad/s, habilitação e falha sem expor campos internos. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>EstadoVetorizacao</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta DTO de alvo/ângulo rad, limites rad/rad/s, habilitação e falha sem expor campos internos. @contract f-c919977cd11dc18b @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -17005,17 +17005,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts::ICapacidadeVetorizacao.solicitarVetorizacao:MethodSignature</code> · [fonte L33](../../src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts#L33) |
+| Identificador | <code>src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts::ICapacidadeVetorizacao.solicitarVetorizacao:MethodSignature</code> · [fonte L37](../../src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts#L37) |
 | Assinatura | <code> (anguloAlvoRad: number): boolean</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Solicita ângulo-alvo em rad ao componente de vetorização pelas condições operacionais; retorna aceitação. |
 | Entradas | <code>anguloAlvoRad: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Solicita ângulo-alvo em rad ao componente de vetorização pelas condições operacionais; retorna aceitação. @contract f-3fbd208aea760120 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -17024,17 +17024,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts::ICapacidadeVetorizacao.obterEstadoDaVetorizacao:MethodSignature</code> · [fonte L34](../../src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts#L34) |
+| Identificador | <code>src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts::ICapacidadeVetorizacao.obterEstadoDaVetorizacao:MethodSignature</code> · [fonte L39](../../src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts#L39) |
 | Assinatura | <code> (): EstadoVetorizacao</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta estado efetivamente atingido pelo atuador para direção real de empuxo e telemetria. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>EstadoVetorizacao</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta estado efetivamente atingido pelo atuador para direção real de empuxo e telemetria. @contract f-905ea8cd292cfbeb @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -17187,7 +17187,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Identificador | <code>src/physics/objetos/veiculos/Bss04.ts::criarPernasFixasBss04:FunctionDeclaration</code> · [fonte L8](../../src/physics/objetos/veiculos/Bss04.ts#L8) |
 | Assinatura | <code>export (centroCascoM: Vetor3, prefixoId?: string, transformarEstado?: (p: Vetor3) =&gt; Partial&lt;EstadoFisico&gt;): readonly Objeto[]</code> |
 | Responsabilidade | Cria duas pernas fixas e suas sapatas como corpos físicos do BSS-04. |
-| Entradas | <code>centroCascoM: Vetor3</code>; <code>prefixoId = 'bss04'</code>; <code>transformarEstado: (p: Vetor3) =&gt; Partial&lt;EstadoFisico&gt; = /** Devolve `({ posicaoM: p })`. Efeitos indiretos seguem as dependências chamadas. @contract f-cebcde71db18c7c5 */<br>                                                                                                                                           (p) =&gt; ({ posicaoM: p })</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>centroCascoM: Vetor3</code>; <code>prefixoId = 'bss04'</code>; <code>transformarEstado: /** Converte posição local de montagem em estado inicial parcial global das pernas; apenas construção inicial, sem atualizar corpos em voo. @contract f-9ab31d033596f6e2 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (p: Vetor3) =&gt; Partial&lt;EstadoFisico&gt; = /** Devolve `({ posicaoM: p })`. Efeitos indiretos seguem as dependências chamadas. @contract f-cebcde71db18c7c5 */<br>                                                                                                                                           (p) =&gt; ({ posicaoM: p })</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly Objeto[]</code>; expressões retornadas: <code>[-1, 1].flatMap((lado) =&gt; {<br>    const nomeLado = lado &lt; 0 ? 'esquerda' : 'direita';<br>    const xPernaM = centroCascoM.x + lado * 1.8;<br>    const xSapataM = centroCascoM.x + lado * 2.15;<br>    const alturaCascoM = centroCascoM.y;<br>    return [<br>  … [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>[-1, 1].flatMap</code> |
@@ -17205,15 +17205,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/Bss04.ts::criarPernasFixasBss04.transformarEstado[tipo]:FunctionType</code> · [fonte L8](../../src/physics/objetos/veiculos/Bss04.ts#L8) |
 | Assinatura | <code> (p: Vetor3): Partial&lt;EstadoFisico&gt;</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Converte posição local de montagem em estado inicial parcial global das pernas; apenas construção inicial, sem atualizar corpos em voo. |
 | Entradas | <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Partial&lt;EstadoFisico&gt;</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Converte posição local de montagem em estado inicial parcial global das pernas; apenas construção inicial, sem atualizar corpos em voo. @contract f-9ab31d033596f6e2 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -17245,17 +17245,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::FonteTelemetriaDoCasco.obterLeituras:MethodSignature</code> · [fonte L23](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L23) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::FonteTelemetriaDoCasco.obterLeituras:MethodSignature</code> · [fonte L24](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L24) |
 | Assinatura | <code> (): LeiturasVeiculoComposto</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta leituras dos sensores do casco, incluindo validade/idade, nas unidades/referencial compartilhados; não cria dinâmica própria. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>LeiturasVeiculoComposto</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta leituras dos sensores do casco, incluindo validade/idade, nas unidades/referencial compartilhados; não cria dinâmica própria. @contract f-812afc3623292bce @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -17264,17 +17264,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::IPropulsorControlavelPeloComputador.sistemaEstaOperacional:MethodSignature</code> · [fonte L31](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L31) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::IPropulsorControlavelPeloComputador.sistemaEstaOperacional:MethodSignature</code> · [fonte L33](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L33) |
 | Assinatura | <code> (id: IdSistemaControlado): boolean</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta permissivo atual do sistema indicado; não ativa automaticamente dependências. |
 | Entradas | <code>id: IdSistemaControlado</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta permissivo atual do sistema indicado; não ativa automaticamente dependências. @contract f-b530279f6e6f64cf @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -17283,17 +17283,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::IPropulsorControlavelPeloComputador.ligarSistema:MethodSignature</code> · [fonte L32](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L32) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::IPropulsorControlavelPeloComputador.ligarSistema:MethodSignature</code> · [fonte L35](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L35) |
 | Assinatura | <code> (id: IdSistemaControlado): boolean</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Tenta ligar sistema pela cadeia operacional e retorna aceitação; não garante ignição ou empuxo. |
 | Entradas | <code>id: IdSistemaControlado</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Tenta ligar sistema pela cadeia operacional e retorna aceitação; não garante ignição ou empuxo. @contract f-2711cb9492a6f91d @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -17302,17 +17302,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::IPropulsorControlavelPeloComputador.solicitarIgnicao:MethodSignature</code> · [fonte L33](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L33) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::IPropulsorControlavelPeloComputador.solicitarIgnicao:MethodSignature</code> · [fonte L37](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L37) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Solicita ignição explícita sujeita a permissivos e integridade; retorna aceitação sem impor velocidade. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Solicita ignição explícita sujeita a permissivos e integridade; retorna aceitação sem impor velocidade. @contract f-9e877e3c8055873f @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -17321,17 +17321,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::IPropulsorControlavelPeloComputador.definirThrottle:MethodSignature</code> · [fonte L34](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L34) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::IPropulsorControlavelPeloComputador.definirThrottle:MethodSignature</code> · [fonte L39](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L39) |
 | Assinatura | <code> (throttle: number): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Solicita throttle adimensional em [0,1] pela validação do motor; empuxo depende de energia/propelente/ignição. |
 | Entradas | <code>throttle: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Solicita throttle adimensional em [0,1] pela validação do motor; empuxo depende de energia/propelente/ignição. @contract f-045a1cbee550abbb @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -17340,17 +17340,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::IPropulsorControlavelPeloComputador.desligarSistema:MethodSignature</code> · [fonte L35](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L35) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::IPropulsorControlavelPeloComputador.desligarSistema:MethodSignature</code> · [fonte L41](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L41) |
 | Assinatura | <code> (id: IdSistemaControlado): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Desliga sistema indicado com seus intertravamentos; não remove motor do mundo. |
 | Entradas | <code>id: IdSistemaControlado</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Desliga sistema indicado com seus intertravamentos; não remove motor do mundo. @contract f-7436767c9b2f336f @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -17359,17 +17359,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::IPropulsorControlavelPeloComputador.solicitarVetorizacao:MethodSignature</code> · [fonte L36](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L36) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::IPropulsorControlavelPeloComputador.solicitarVetorizacao:MethodSignature</code> · [fonte L43](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L43) |
 | Assinatura | <code> (anguloAlvoRad: number): boolean</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Porta opcional que solicita alvo finito em rad dentro do curso e retorna aceitação; ângulo real evolui no atuador. |
 | Entradas | <code>anguloAlvoRad: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Porta opcional que solicita alvo finito em rad dentro do curso e retorna aceitação; ângulo real evolui no atuador. @contract f-0531e51187c19a7d @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -17378,17 +17378,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::IPropulsorControlavelPeloComputador.obterEstadoDaVetorizacao:MethodSignature</code> · [fonte L37](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L37) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::IPropulsorControlavelPeloComputador.obterEstadoDaVetorizacao:MethodSignature</code> · [fonte L45](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L45) |
 | Assinatura | <code> (): EstadoVetorizacao</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Porta opcional de consulta do alvo/posição, limites e permissivos reais do atuador. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>EstadoVetorizacao</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Porta opcional de consulta do alvo/posição, limites e permissivos reais do atuador. @contract f-ea39afb7bf2cf6c6 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -17397,7 +17397,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.constructor:Constructor</code> · [fonte L63](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L63) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.constructor:Constructor</code> · [fonte L71](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L71) |
 | Assinatura | <code>public (telemetriaDoCasco: FonteTelemetriaDoCasco): ComputadorDeVoo</code> |
 | Responsabilidade | Guarda porta de telemetria e registra controladores de inclinação, pouso, desaceleração, gimbal de descida e Fuzzy-PID no gerenciador; não recebe nem navega pelo veículo proprietário. |
 | Entradas | <code>private readonly telemetriaDoCasco: FonteTelemetriaDoCasco</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17416,7 +17416,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.obterLeiturasDoCasco:MethodDeclaration</code> · [fonte L72](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L72) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.obterLeiturasDoCasco:MethodDeclaration</code> · [fonte L80](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L80) |
 | Assinatura | <code>public (): LeiturasVeiculoComposto</code> |
 | Responsabilidade | Consulta pacote de leituras pela porta injetada; não mantém dinâmica própria nem estima outra altitude. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17435,7 +17435,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.instalarPropulsor:MethodDeclaration</code> · [fonte L77](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L77) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.instalarPropulsor:MethodDeclaration</code> · [fonte L85](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L85) |
 | Assinatura | <code>public (propulsor: IPropulsorControlavelPeloComputador): void</code> |
 | Responsabilidade | Rejeita id duplicado, registra porta operacional e inclui na seleção vetorizável somente se ambas as portas de comando/leitura do gimbal existirem. |
 | Entradas | <code>propulsor: IPropulsorControlavelPeloComputador</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17454,7 +17454,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.habilitar:MethodDeclaration</code> · [fonte L86](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L86) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.habilitar:MethodDeclaration</code> · [fonte L94](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L94) |
 | Assinatura | <code>public (): void</code> |
 | Responsabilidade | Ativa inclinação em todos os motores vetorizados, desativa pouso/gimbal de descida e remove correção lateral gradual; não representa ativação de todos os controladores. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17473,7 +17473,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.desabilitar:MethodDeclaration</code> · [fonte L94](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L94) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.desabilitar:MethodDeclaration</code> · [fonte L102](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L102) |
 | Assinatura | <code>public (): void</code> |
 | Responsabilidade | Desativa somente controlador de inclinação; demais controladores mantêm sua seleção operacional. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17492,7 +17492,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.habilitarControleDeInclinacao:MethodDeclaration</code> · [fonte L97](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L97) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.habilitarControleDeInclinacao:MethodDeclaration</code> · [fonte L105](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L105) |
 | Assinatura | <code>public (idsPropulsores?: readonly string[]): void</code> |
 | Responsabilidade | Desativa pouso/gimbal de descida, valida seleção não vazia de motores vetorizados e habilita PID de inclinação. |
 | Entradas | <code>idsPropulsores: readonly string[] = [...this.propulsoresVetorizados.keys()]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17511,7 +17511,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.habilitarControleDePouso:MethodDeclaration</code> · [fonte L105](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L105) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.habilitarControleDePouso:MethodDeclaration</code> · [fonte L113](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L113) |
 | Assinatura | <code>public (configuracao?: Partial&lt;ConfiguracaoControlePouso&gt;, idsPropulsores?: readonly string[]): void</code> |
 | Responsabilidade | Desativa inclinação, configura controlador de pouso com motores instalados selecionados e o habilita; não exige gimbal quando não necessário. |
 | Entradas | <code>configuracao: Partial&lt;ConfiguracaoControlePouso&gt; = {}</code>; <code>idsPropulsores: readonly string[] = [...this.propulsores.keys()]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17530,7 +17530,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.habilitarControleDePousoComposto:MethodDeclaration</code> · [fonte L117](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L117) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.habilitarControleDePousoComposto:MethodDeclaration</code> · [fonte L125](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L125) |
 | Assinatura | <code>public (configuracao?: Partial&lt;ConfiguracaoControlePouso&gt;, idsPropulsores?: readonly string[]): void</code> |
 | Responsabilidade | Ativa pouso sem desativar verticalização ou desaceleração já registradas. |
 | Entradas | <code>configuracao: Partial&lt;ConfiguracaoControlePouso&gt; = {}</code>; <code>idsPropulsores: readonly string[] = [...this.propulsores.keys()]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17549,7 +17549,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.habilitarControleDeVerticalizacao:MethodDeclaration</code> · [fonte L125](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L125) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.habilitarControleDeVerticalizacao:MethodDeclaration</code> · [fonte L133](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L133) |
 | Assinatura | <code>public (idsPropulsores: readonly string[]): void</code> |
 | Responsabilidade | Valida motores vetorizados e habilita inclinação, preservando outros controladores para composição/arbitragem. |
 | Entradas | <code>idsPropulsores: readonly string[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17568,7 +17568,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.habilitarControleDeGimbalDeDescida:MethodDeclaration</code> · [fonte L131](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L131) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.habilitarControleDeGimbalDeDescida:MethodDeclaration</code> · [fonte L139](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L139) |
 | Assinatura | <code>public (idsPropulsores: readonly string[], ganhoDerivaRadPorMps?: number): void</code> |
 | Responsabilidade | Desativa inclinação, valida seleção vetorizada, configura ganho de deriva rad/(m/s) e habilita controlador de descida. |
 | Entradas | <code>idsPropulsores: readonly string[]</code>; <code>ganhoDerivaRadPorMps?: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17587,7 +17587,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.habilitarControleDeDesaceleracao:MethodDeclaration</code> · [fonte L138](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L138) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.habilitarControleDeDesaceleracao:MethodDeclaration</code> · [fonte L146](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L146) |
 | Assinatura | <code>public (configuracao: Partial&lt;ConfiguracaoControleDesaceleracao&gt;, idsPropulsores: readonly string[]): void</code> |
 | Responsabilidade | Configura controlador de desaceleração para seleção validada e o habilita sem executar ignição. |
 | Entradas | <code>configuracao: Partial&lt;ConfiguracaoControleDesaceleracao&gt;</code>; <code>idsPropulsores: readonly string[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17606,7 +17606,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.desabilitarControleDePouso:MethodDeclaration</code> · [fonte L146](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L146) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.desabilitarControleDePouso:MethodDeclaration</code> · [fonte L154](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L154) |
 | Assinatura | <code>public (): void</code> |
 | Responsabilidade | Desativa controlador de pouso via gerenciador; o controlador limpa sua memória/último comando. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17625,7 +17625,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.desabilitarControleDeDesaceleracao:MethodDeclaration</code> · [fonte L150](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L150) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.desabilitarControleDeDesaceleracao:MethodDeclaration</code> · [fonte L158](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L158) |
 | Assinatura | <code>public (): void</code> |
 | Responsabilidade | Desativa controlador de desaceleração via gerenciador e reinicia sua memória. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17644,7 +17644,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.desabilitarControleDeGimbalDeDescida:MethodDeclaration</code> · [fonte L152](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L152) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.desabilitarControleDeGimbalDeDescida:MethodDeclaration</code> · [fonte L160](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L160) |
 | Assinatura | <code>public (): void</code> |
 | Responsabilidade | Desativa PID de gimbal de descida via gerenciador, sem impor orientação ao veículo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17663,7 +17663,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.controleDeGimbalDeDescidaEstaHabilitado:GetAccessor</code> · [fonte L154](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L154) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.controleDeGimbalDeDescidaEstaHabilitado:GetAccessor</code> · [fonte L162](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L162) |
 | Assinatura | <code>public (): boolean</code> |
 | Responsabilidade | Devolve `this.controladorGimbalDescida.estaHabilitado`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17682,7 +17682,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.habilitarControleDeDescidaFuzzyPid:MethodDeclaration</code> · [fonte L159](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L159) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.habilitarControleDeDescidaFuzzyPid:MethodDeclaration</code> · [fonte L167](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L167) |
 | Assinatura | <code>public (configuracao: ConfiguracaoDescidaFuzzyPid, idsPropulsores: readonly string[]): void</code> |
 | Responsabilidade | Controle BSS-004: PID de throttle independente do gimbal, que pode ficar ativo continuamente. |
 | Entradas | <code>configuracao: ConfiguracaoDescidaFuzzyPid</code>; <code>idsPropulsores: readonly string[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17701,7 +17701,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.desabilitarControleDeDescidaFuzzyPid:MethodDeclaration</code> · [fonte L170](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L170) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.desabilitarControleDeDescidaFuzzyPid:MethodDeclaration</code> · [fonte L178](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L178) |
 | Assinatura | <code>public (): void</code> |
 | Responsabilidade | Desativa Fuzzy-PID e remove correção horizontal do controlador de inclinação; não zera velocidade física. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17720,7 +17720,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.controleDeDescidaFuzzyPidEstaHabilitado:GetAccessor</code> · [fonte L176](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L176) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.controleDeDescidaFuzzyPidEstaHabilitado:GetAccessor</code> · [fonte L184](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L184) |
 | Assinatura | <code>public (): boolean</code> |
 | Responsabilidade | Consulta seleção operacional do Fuzzy-PID; habilitado não significa que permissivos dos atuadores estejam disponíveis. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17739,7 +17739,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.obterUltimoComandoDeDescidaFuzzyPid:MethodDeclaration</code> · [fonte L181](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L181) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.obterUltimoComandoDeDescidaFuzzyPid:MethodDeclaration</code> · [fonte L189](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L189) |
 | Assinatura | <code>public (): ComandoDescidaFuzzyPid</code> |
 | Responsabilidade | Consulta último resultado calculado pelo Fuzzy-PID, conforme contrato de cópia do controlador. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17758,7 +17758,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.controleDePousoEstaHabilitado:GetAccessor</code> · [fonte L186](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L186) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.controleDePousoEstaHabilitado:GetAccessor</code> · [fonte L194](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L194) |
 | Assinatura | <code>public (): boolean</code> |
 | Responsabilidade | Consulta habilitação do controlador de pouso, sem comprovar apoio, toque ou êxito de missão. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17777,7 +17777,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.obterUltimoComandoDePouso:MethodDeclaration</code> · [fonte L191](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L191) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.obterUltimoComandoDePouso:MethodDeclaration</code> · [fonte L199](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L199) |
 | Assinatura | <code>public (): ComandoControlePouso &#124; undefined</code> |
 | Responsabilidade | Devolve último comando somente se controle de pouso habilitado; caso contrário retorna undefined. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17796,7 +17796,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.registrarControlador:MethodDeclaration</code> · [fonte L198](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L198) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.registrarControlador:MethodDeclaration</code> · [fonte L206](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L206) |
 | Assinatura | <code>public (controlador: ControladorDeVoo): void</code> |
 | Responsabilidade | Extensão aberta para controles independentes (RCS, térmico, paraquedas etc.). |
 | Entradas | <code>controlador: ControladorDeVoo</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17815,7 +17815,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.habilitarControlador:MethodDeclaration</code> · [fonte L200](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L200) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.habilitarControlador:MethodDeclaration</code> · [fonte L208](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L208) |
 | Assinatura | <code>public (id: string): void</code> |
 | Responsabilidade | Encaminha id ao gerenciador para habilitar controlador registrado; não altera permissivos físicos dos motores. |
 | Entradas | <code>id: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17834,7 +17834,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.desabilitarControlador:MethodDeclaration</code> · [fonte L202](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L202) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.desabilitarControlador:MethodDeclaration</code> · [fonte L210](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L210) |
 | Assinatura | <code>public (id: string): void</code> |
 | Responsabilidade | Encaminha id ao gerenciador para desabilitação e limpeza prevista pelo controlador. |
 | Entradas | <code>id: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17853,7 +17853,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.idsControladoresAtivos:GetAccessor</code> · [fonte L204](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L204) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.idsControladoresAtivos:GetAccessor</code> · [fonte L212](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L212) |
 | Assinatura | <code>public (): readonly string[]</code> |
 | Responsabilidade | Devolve `this.gerenciador.idsAtivos()`. Dependências diretas: `this.gerenciador.idsAtivos`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17872,7 +17872,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.obterSolicitacoesAplicadas:MethodDeclaration</code> · [fonte L206](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L206) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.obterSolicitacoesAplicadas:MethodDeclaration</code> · [fonte L214](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L214) |
 | Assinatura | <code>public (): readonly SolicitacaoArbitrada[]</code> |
 | Responsabilidade | Cria cópia da lista e de cada solicitação efetivamente aplicada na última atualização, separada dos pedidos rejeitados. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17891,7 +17891,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.estaHabilitado:GetAccessor</code> · [fonte L210](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L210) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.estaHabilitado:GetAccessor</code> · [fonte L218](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L218) |
 | Assinatura | <code>public (): boolean</code> |
 | Responsabilidade | Devolve `this.controladorInclinacao.estaHabilitado`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17910,7 +17910,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.atualizarControleDeInclinacao:MethodDeclaration</code> · [fonte L215](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L215) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.atualizarControleDeInclinacao:MethodDeclaration</code> · [fonte L223](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L223) |
 | Assinatura | <code>public (dtS: number): void</code> |
 | Responsabilidade | Executa uma amostra do controle PID antes da preparação dos propulsores. |
 | Entradas | <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17929,7 +17929,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.atualizarControleDePouso:MethodDeclaration</code> · [fonte L222](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L222) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.atualizarControleDePouso:MethodDeclaration</code> · [fonte L230](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L230) |
 | Assinatura | <code>public (dtS: number): void</code> |
 | Responsabilidade | Aplica throttle e gimbal pelas mesmas portas operacionais do comando manual. |
 | Entradas | <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17948,7 +17948,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.atualizarControladores:MethodDeclaration</code> · [fonte L227](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L227) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.atualizarControladores:MethodDeclaration</code> · [fonte L235](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L235) |
 | Assinatura | <code>public (dtS: number): void</code> |
 | Responsabilidade | Executa ciclo central de leitura, cálculo, arbitragem e aplicação para dt em s. É a mesma operação usada pelos aliases de atualização; chamá-los adicionalmente duplicaria atualização de memória. |
 | Entradas | <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17967,7 +17967,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.definirThrottle:MethodDeclaration</code> · [fonte L232](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L232) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.definirThrottle:MethodDeclaration</code> · [fonte L240](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L240) |
 | Assinatura | <code>public (idPropulsor: string, throttle: number): void</code> |
 | Responsabilidade | Localiza motor instalado e envia throttle pela porta validada; não liga sistemas nem solicita ignição. |
 | Entradas | <code>idPropulsor: string</code>; <code>throttle: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -17986,7 +17986,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.definirThrottleDeTodos:MethodDeclaration</code> · [fonte L237](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L237) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.definirThrottleDeTodos:MethodDeclaration</code> · [fonte L245](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L245) |
 | Assinatura | <code>public (throttle: number): void</code> |
 | Responsabilidade | Solicita mesmo throttle a todos os motores registrados usando suas portas operacionais; não garante empuxo. |
 | Entradas | <code>throttle: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -18005,7 +18005,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.solicitarIgnicaoDeTodos:MethodDeclaration</code> · [fonte L246](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L246) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.solicitarIgnicaoDeTodos:MethodDeclaration</code> · [fonte L254](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L254) |
 | Assinatura | <code>public (): readonly ResultadoComandoPropulsor[]</code> |
 | Responsabilidade | A automação percorre exatamente a mesma cadeia usada na operação manual: elétrica → hidráulica → combustível → controle → ignição. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -18024,7 +18024,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.solicitarIgnicao:MethodDeclaration</code> · [fonte L251](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L251) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.solicitarIgnicao:MethodDeclaration</code> · [fonte L259](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L259) |
 | Assinatura | <code>public (idPropulsor: string): ResultadoComandoPropulsor</code> |
 | Responsabilidade | Tenta sistemas na ordem elétrico→hidráulico→combustível→controle com interrupção na primeira recusa; solicita ignição explícita só após todos aceitarem e retorna aceitação/diagnóstico. Sistemas já acionados não são revertidos automaticamente. |
 | Entradas | <code>idPropulsor: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -18043,7 +18043,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.desligarPropulsor:MethodDeclaration</code> · [fonte L260](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L260) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.desligarPropulsor:MethodDeclaration</code> · [fonte L268](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L268) |
 | Assinatura | <code>public (idPropulsor: string): void</code> |
 | Responsabilidade | Desliga sistema elétrico do motor selecionado, provocando sua cadeia normal de intertravamentos; não remove corpo do mundo. |
 | Entradas | <code>idPropulsor: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -18062,7 +18062,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.desligarTodos:MethodDeclaration</code> · [fonte L265](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L265) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.desligarTodos:MethodDeclaration</code> · [fonte L273](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L273) |
 | Assinatura | <code>public (): void</code> |
 | Responsabilidade | Desliga sistema elétrico de cada propulsor registrado pelas mesmas operações do operador. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -18081,7 +18081,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.obterDiagnostico:MethodDeclaration</code> · [fonte L270](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L270) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.obterDiagnostico:MethodDeclaration</code> · [fonte L278](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L278) |
 | Assinatura | <code>public (): readonly ResultadoComandoPropulsor[]</code> |
 | Responsabilidade | Compõe diagnóstico por motor; aceito significa ignição presente e lista de motivos vazia no instante da consulta, não qualificação do voo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -18100,7 +18100,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.obterPropulsor:MethodDeclaration</code> · [fonte L279](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L279) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.obterPropulsor:MethodDeclaration</code> · [fonte L287](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L287) |
 | Assinatura | <code>private (idPropulsor: string): IPropulsorControlavelPeloComputador</code> |
 | Responsabilidade | Consulta motor por id ou lança erro se não instalado; não cria componentes implicitamente. |
 | Entradas | <code>idPropulsor: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -18119,7 +18119,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.validarSelecao:MethodDeclaration</code> · [fonte L286](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L286) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.validarSelecao:MethodDeclaration</code> · [fonte L294](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L294) |
 | Assinatura | <code>private (idsPropulsores: readonly string[], exigirVetorizacao: boolean): Set&lt;string&gt;</code> |
 | Responsabilidade | Exige seleção não vazia sem ids repetidos, todos instalados e, quando requerido, com portas de vetorização; retorna Set validado sem alterar seleção anterior. |
 | Entradas | <code>idsPropulsores: readonly string[]</code>; <code>exigirVetorizacao: boolean</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -18138,7 +18138,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.solicitarGimbalLimitado:MethodDeclaration</code> · [fonte L300](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L300) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.solicitarGimbalLimitado:MethodDeclaration</code> · [fonte L308](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L308) |
 | Assinatura | <code>private (idPropulsor: string, comandoRad: number): number &#124; undefined</code> |
 | Responsabilidade | Consulta limite real do atuador, satura pedido em rad e o envia pela porta; retorna valor aceito ou undefined por ausência de capacidade/recusa. Não altera ângulo diretamente. |
 | Entradas | <code>idPropulsor: string</code>; <code>comandoRad: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -18157,7 +18157,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.aplicarSolicitacoesDeControladores:MethodDeclaration</code> · [fonte L309](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L309) |
+| Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.aplicarSolicitacoesDeControladores:MethodDeclaration</code> · [fonte L317](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L317) |
 | Assinatura | <code>private (dtS: number): void</code> |
 | Responsabilidade | Limpa diagnóstico aplicado e verifica alimentação elétrica/controle. Perda de energia reinicia memórias; leitura inválida/obsoleta reinicia controles, solicita throttle zero e mantém alvo do gimbal no ângulo atual. Caso válido arbitra pedidos, filtra motores operacionais, limita gimbal e registra apenas comandos aceitos. Não integra forças ou cinemática. |
 | Entradas | <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -19392,7 +19392,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Identificador | <code>src/physics/sensores/SensoresVeiculoComposto.ts::SensorNivelInterno.constructor:Constructor</code> · [fonte L52](../../src/physics/sensores/SensoresVeiculoComposto.ts#L52) |
 | Assinatura | <code>public (objeto: Objeto, obterReferencial?: (() =&gt; ReferencialFisico) &#124; undefined): SensorNivelInterno</code> |
 | Responsabilidade | Instala corpo e consulta opcional do referencial compartilhado, sem controlar atitude. |
-| Entradas | <code>private readonly objeto: Objeto</code>; <code>private readonly obterReferencial?: () =&gt; ReferencialFisico</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>private readonly objeto: Objeto</code>; <code>private readonly obterReferencial?: /** Consulta serviço compartilhado de referencial para derivar nível local; evita sensor calcular vertical própria. @contract f-2c8fbc8bb3200f1c @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () =&gt; ReferencialFisico</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>SensorNivelInterno</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.objeto</code>; <code>this.obterReferencial</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
@@ -19410,15 +19410,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sensores/SensoresVeiculoComposto.ts::SensorNivelInterno.constructor.obterReferencial[tipo]:FunctionType</code> · [fonte L52](../../src/physics/sensores/SensoresVeiculoComposto.ts#L52) |
 | Assinatura | <code> (): ReferencialFisico</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta serviço compartilhado de referencial para derivar nível local; evita sensor calcular vertical própria. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ReferencialFisico</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDescidaFuzzyPidDePropulsores.test.ts); [src/physics/sistemas de controle/ControladorPouso.test.ts](../../src/physics/sistemas%20de%20controle/ControladorPouso.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta serviço compartilhado de referencial para derivar nível local; evita sensor calcular vertical própria. @contract f-2c8fbc8bb3200f1c @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -19449,7 +19449,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Identificador | <code>src/physics/sensores/SensoresVeiculoComposto.ts::SensoresVeiculoComposto.constructor:Constructor</code> · [fonte L75](../../src/physics/sensores/SensoresVeiculoComposto.ts#L75) |
 | Assinatura | <code>public (objeto: Objeto, altitudeDeReferenciaM?: number, obterMassaInstantaneaKg?: () =&gt; number): SensoresVeiculoComposto</code> |
 | Responsabilidade | Compõe GPS/nível do corpo, referência de altitude m e consulta de massa instantânea kg; cria primeira amostra no tempo simulado zero. |
-| Entradas | <code>private readonly objeto: Objeto</code>; <code>private readonly altitudeDeReferenciaM = 0</code>; <code>private readonly obterMassaInstantaneaKg: () =&gt; number = /** Devolve `objeto.massaKg`. Efeitos indiretos seguem as dependências chamadas. @contract f-b22ec20aecc98033 */<br>                                                             () =&gt; objeto.massaKg</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>private readonly objeto: Objeto</code>; <code>private readonly altitudeDeReferenciaM = 0</code>; <code>private readonly obterMassaInstantaneaKg: /** Consulta massa conectada instantânea em kg para observação/controle, sem usar massa nominal fixa. @contract f-43c8bcd5aa0a0a9e @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () =&gt; number = /** Devolve `objeto.massaKg`. Efeitos indiretos seguem as dependências chamadas. @contract f-b22ec20aecc98033 */<br>                                                             () =&gt; objeto.massaKg</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>SensoresVeiculoComposto</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.objeto</code>; <code>this.altitudeDeReferenciaM</code>; <code>this.obterMassaInstantaneaKg</code>; <code>this.gps</code>; <code>this.nivel</code>; <code>this.leiturasAtuais</code>; <code>this.tempoSimuladoS</code>; <code>this.historicoAmostras</code>; <code>this.ambiente</code>; <code>this.inicioHistorico</code>; <code>this.amostraCongelada</code>; <code>this.falhaInjetada</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>AmbientePlano</code>; <code>Number.isFinite</code>; <code>Error</code>; <code>GpsIdealizado</code>; <code>SensorNivelInterno</code>; <code>this.criarAmostra</code>; <code>this.historicoAmostras.push</code> |
@@ -19467,15 +19467,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sensores/SensoresVeiculoComposto.ts::SensoresVeiculoComposto.constructor.obterMassaInstantaneaKg[tipo]:FunctionType</code> · [fonte L78](../../src/physics/sensores/SensoresVeiculoComposto.ts#L78) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta massa conectada instantânea em kg para observação/controle, sem usar massa nominal fixa. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDescidaFuzzyPidDePropulsores.test.ts); [src/physics/sistemas de controle/ControladorPouso.test.ts](../../src/physics/sistemas%20de%20controle/ControladorPouso.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta massa conectada instantânea em kg para observação/controle, sem usar massa nominal fixa. @contract f-43c8bcd5aa0a0a9e @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -19643,7 +19643,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Identificador | <code>src/physics/sensores/SistemaSensores.ts::SistemaSensores.constructor:Constructor</code> · [fonte L14](../../src/physics/sensores/SistemaSensores.ts#L14) |
 | Assinatura | <code>public (obterObjetos: () =&gt; Iterable&lt;Objeto&gt;, obterSuperficies: () =&gt; Iterable&lt;SuperficieFisica&gt;, obterConjuntoEstrutural: (objeto: Objeto) =&gt; ConjuntoEstruturalRigido &#124; undefined): SistemaSensores</code> |
 | Responsabilidade | Instala fornecedores de corpos, superfícies e ilhas; cria registros de sensores vazios. Não amostra nem modifica cinemática durante a construção. |
-| Entradas | <code>private readonly obterObjetos: () =&gt; Iterable&lt;Objeto&gt;</code>; <code>private readonly obterSuperficies: () =&gt; Iterable&lt;SuperficieFisica&gt;</code>; <code>private readonly obterConjuntoEstrutural: (objeto: Objeto) =&gt; ConjuntoEstruturalRigido &#124; undefined</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>private readonly obterObjetos: /** Entrega iterador dos corpos registrados do mundo ao sistema consumidor; somente consulta de registro, sem cópia de dinâmica. @contract f-9bde32ce693b3b79 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () =&gt; Iterable&lt;Objeto&gt;</code>; <code>private readonly obterSuperficies: /** Entrega iterador das superfícies rígidas registradas para observação/resolução; interface livre da água não pertence a este registro. @contract f-c634f923a1000ef6 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () =&gt; Iterable&lt;SuperficieFisica&gt;</code>; <code>private readonly obterConjuntoEstrutural: /** Consulta ilha atual do corpo ou undefined se independente; identidade compartilhada evita autocontato e preserva massa/inércia compostas. @contract f-a9cbf159d7e7b124 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (objeto: Objeto) =&gt; ConjuntoEstruturalRigido &#124; undefined</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>SistemaSensores</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.obterObjetos</code>; <code>this.obterSuperficies</code>; <code>this.obterConjuntoEstrutural</code>; <code>this.switchesFimDeCurso</code>; <code>this.sensoresVeiculo</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Map</code> |
@@ -19661,15 +19661,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sensores/SistemaSensores.ts::SistemaSensores.constructor.obterObjetos[tipo]:FunctionType</code> · [fonte L15](../../src/physics/sensores/SistemaSensores.ts#L15) |
 | Assinatura | <code> (): Iterable&lt;Objeto&gt;</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Entrega iterador dos corpos registrados do mundo ao sistema consumidor; somente consulta de registro, sem cópia de dinâmica. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Iterable&lt;Objeto&gt;</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Entrega iterador dos corpos registrados do mundo ao sistema consumidor; somente consulta de registro, sem cópia de dinâmica. @contract f-9bde32ce693b3b79 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -19680,15 +19680,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sensores/SistemaSensores.ts::SistemaSensores.constructor.obterSuperficies[tipo]:FunctionType</code> · [fonte L16](../../src/physics/sensores/SistemaSensores.ts#L16) |
 | Assinatura | <code> (): Iterable&lt;SuperficieFisica&gt;</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Entrega iterador das superfícies rígidas registradas para observação/resolução; interface livre da água não pertence a este registro. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Iterable&lt;SuperficieFisica&gt;</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Entrega iterador das superfícies rígidas registradas para observação/resolução; interface livre da água não pertence a este registro. @contract f-c634f923a1000ef6 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -19699,15 +19699,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sensores/SistemaSensores.ts::SistemaSensores.constructor.obterConjuntoEstrutural[tipo]:FunctionType</code> · [fonte L17](../../src/physics/sensores/SistemaSensores.ts#L17) |
 | Assinatura | <code> (objeto: Objeto): ConjuntoEstruturalRigido &#124; undefined</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta ilha atual do corpo ou undefined se independente; identidade compartilhada evita autocontato e preserva massa/inércia compostas. |
 | Entradas | <code>objeto: Objeto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ConjuntoEstruturalRigido &#124; undefined</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta ilha atual do corpo ou undefined se independente; identidade compartilhada evita autocontato e preserva massa/inércia compostas. @contract f-a9cbf159d7e7b124 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -20221,7 +20221,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Identificador | <code>src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.ts::AutotunadorPosicionamentoMotorEletrico.executar:MethodDeclaration</code> · [fonte L24](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.ts#L24) |
 | Assinatura | <code>public async (onProgress?: (progresso: ProgressoAutotunePosicionamentoMotorEletrico) =&gt; void): Promise&lt;ResultadoAutotunePosicionamentoMotorEletrico&gt;</code> |
 | Responsabilidade | Avalia 36 combinações no modelo auxiliar, informa progresso percentual e cede execução via setTimeout a cada oito candidatos. Aplica os ganhos de menor custo ao controlador real e retorna resultado; não avança MundoFisico. Escalonamento assíncrono não muda dt da avaliação. |
-| Entradas | <code>onProgress?: (progresso: ProgressoAutotunePosicionamentoMotorEletrico) =&gt; void</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>onProgress?: /** Notifica progresso do autotune com percentual e contagem de candidatos; efeito de apresentação externo, sem mudar avaliação física dos candidatos. @contract f-b26f0a7ce1bd6132 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (progresso: ProgressoAutotunePosicionamentoMotorEletrico) =&gt; void</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Promise&lt;ResultadoAutotunePosicionamentoMotorEletrico&gt;</code>; expressões retornadas: <code>melhor</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>indice</code>; <code>melhor</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.controlador.obterModeloParaAutotune</code>; <code>this.criarCandidatos</code>; <code>this.simular</code>; <code>onProgress</code>; <code>Promise</code>; <code>Error</code>; <code>this.controlador.aplicarGanhos</code> |
@@ -20239,15 +20239,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.ts::AutotunadorPosicionamentoMotorEletrico.executar.onProgress[tipo]:FunctionType</code> · [fonte L24](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.ts#L24) |
 | Assinatura | <code> (progresso: ProgressoAutotunePosicionamentoMotorEletrico): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Notifica progresso do autotune com percentual e contagem de candidatos; efeito de apresentação externo, sem mudar avaliação física dos candidatos. |
 | Entradas | <code>progresso: ProgressoAutotunePosicionamentoMotorEletrico</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.test.ts](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Notifica progresso do autotune com percentual e contagem de candidatos; efeito de apresentação externo, sem mudar avaliação física dos candidatos. @contract f-b26f0a7ce1bd6132 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -20301,7 +20301,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Identificador | <code>src/physics/sistemas de controle/ControladorAletasAerodinamicas.ts::ControladorAletasAerodinamicas.constructor:Constructor</code> · [fonte L6](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.ts#L6) |
 | Assinatura | <code>public (aletas: readonly AletaAerodinamica[], estaEnergizado?: () =&gt; boolean, ganhoAtitude?: number, ganhoVelocidadeAngular?: number, velocidadeMinimaDeAcionamentoMps?: number): ControladorAletasAerodinamicas</code> |
 | Responsabilidade | Exige ao menos uma aleta, ganhos e limiar de velocidade finitos não negativos; guarda portas dos atuadores e de energização. |
-| Entradas | <code>private readonly aletas: readonly AletaAerodinamica[]</code>; <code>private readonly estaEnergizado: () =&gt; boolean = /** Devolve `true`. Efeitos indiretos seguem as dependências chamadas. @contract f-4600f6df1f57af59 */<br>                                                     () =&gt; true</code>; <code>private readonly ganhoAtitude = 1.8</code>; <code>private readonly ganhoVelocidadeAngular = 0.65</code>; <code>private readonly velocidadeMinimaDeAcionamentoMps = 8</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>private readonly aletas: readonly AletaAerodinamica[]</code>; <code>private readonly estaEnergizado: /** Consulta permissivo elétrico/controle antes de calcular/aplicar solicitações do controlador; seleção operacional continua separada da alimentação. @contract f-b36a1b76ce28fe27 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () =&gt; boolean = /** Devolve `true`. Efeitos indiretos seguem as dependências chamadas. @contract f-4600f6df1f57af59 */<br>                                                     () =&gt; true</code>; <code>private readonly ganhoAtitude = 1.8</code>; <code>private readonly ganhoVelocidadeAngular = 0.65</code>; <code>private readonly velocidadeMinimaDeAcionamentoMps = 8</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ControladorAletasAerodinamicas</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.aletas</code>; <code>this.estaEnergizado</code>; <code>this.ganhoAtitude</code>; <code>this.ganhoVelocidadeAngular</code>; <code>this.velocidadeMinimaDeAcionamentoMps</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Error</code>; <code>[ganhoAtitude, ganhoVelocidadeAngular, velocidadeMinimaDeAcionamentoMps].every</code> |
@@ -20319,15 +20319,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorAletasAerodinamicas.ts::ControladorAletasAerodinamicas.constructor.estaEnergizado[tipo]:FunctionType</code> · [fonte L8](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.ts#L8) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta permissivo elétrico/controle antes de calcular/aplicar solicitações do controlador; seleção operacional continua separada da alimentação. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta permissivo elétrico/controle antes de calcular/aplicar solicitações do controlador; seleção operacional continua separada da alimentação. @contract f-b36a1b76ce28fe27 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -20616,15 +20616,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.ts::ConfiguracaoDescidaFuzzyPid.obterContatoComSolo[tipo]:FunctionType</code> · [fonte L19](../../src/physics/sistemas%20de%20controle/ControladorDescidaFuzzyPidDePropulsores.ts#L19) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta confirmação física de apoio fornecida pelo cenário; implementação BSS retém primeiro apoio bilateral, sem provar continuidade posterior. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDescidaFuzzyPidDePropulsores.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta confirmação física de apoio fornecida pelo cenário; implementação BSS retém primeiro apoio bilateral, sem provar continuidade posterior. @contract f-f48142ef0b2674dd @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -20945,17 +20945,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts::MotorDaGuiaPouso.obterEstadoDaVetorizacao:MethodSignature</code> · [fonte L30](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.ts#L30) |
+| Identificador | <code>src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts::MotorDaGuiaPouso.obterEstadoDaVetorizacao:MethodSignature</code> · [fonte L31](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.ts#L31) |
 | Assinatura | <code> (): EstadoVetorizacao</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta posição/limites reais do gimbal para arbitragem da guiagem; não amplia curso disponível. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>EstadoVetorizacao</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta posição/limites reais do gimbal para arbitragem da guiagem; não amplia curso disponível. @contract f-51e931aaa927f1e1 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -20964,10 +20964,10 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts::ControladorGuiaPousoBss06.constructor:Constructor</code> · [fonte L58](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.ts#L58) |
+| Identificador | <code>src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts::ControladorGuiaPousoBss06.constructor:Constructor</code> · [fonte L59](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.ts#L59) |
 | Assinatura | <code>public (aletas: readonly AletaAerodinamica[], propulsor: MotorDaGuiaPouso, estaEnergizado: () =&gt; boolean, obterContexto?: (() =&gt; LeiturasGuiaPousoBss06) &#124; undefined): ControladorGuiaPousoBss06</code> |
 | Responsabilidade | Instala portas de motor, energia/contexto e opcionalmente controlador de aletas; não recebe veículo proprietário nem mundo mutável. |
-| Entradas | <code>aletas: readonly AletaAerodinamica[]</code>; <code>private readonly propulsor: MotorDaGuiaPouso</code>; <code>private readonly estaEnergizado: () =&gt; boolean</code>; <code>private readonly obterContexto?: () =&gt; LeiturasGuiaPousoBss06</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>aletas: readonly AletaAerodinamica[]</code>; <code>private readonly propulsor: MotorDaGuiaPouso</code>; <code>private readonly estaEnergizado: /** Consulta permissivo elétrico/controle antes de calcular/aplicar solicitações do controlador; seleção operacional continua separada da alimentação. @contract f-00969ae47719ec4b @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () =&gt; boolean</code>; <code>private readonly obterContexto?: /** Consulta medidas de navegação e estado operacional da guiagem em SI/referencial local; sem acesso à instância proprietária. @contract f-5d05b87f7f7f573e @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () =&gt; LeiturasGuiaPousoBss06</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ControladorGuiaPousoBss06</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.propulsor</code>; <code>this.estaEnergizado</code>; <code>this.obterContexto</code>; <code>this.id</code>; <code>this.prioridade</code>; <code>this.habilitado</code>; <code>this.controladorAletas</code>; <code>this.diagnostico</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>ControladorAletasAerodinamicas</code> |
@@ -20983,17 +20983,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts::ControladorGuiaPousoBss06.constructor.estaEnergizado[tipo]:FunctionType</code> · [fonte L61](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.ts#L61) |
+| Identificador | <code>src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts::ControladorGuiaPousoBss06.constructor.estaEnergizado[tipo]:FunctionType</code> · [fonte L62](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.ts#L62) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta permissivo elétrico/controle antes de calcular/aplicar solicitações do controlador; seleção operacional continua separada da alimentação. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta permissivo elétrico/controle antes de calcular/aplicar solicitações do controlador; seleção operacional continua separada da alimentação. @contract f-00969ae47719ec4b @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -21002,17 +21002,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts::ControladorGuiaPousoBss06.constructor.obterContexto[tipo]:FunctionType</code> · [fonte L62](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.ts#L62) |
+| Identificador | <code>src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts::ControladorGuiaPousoBss06.constructor.obterContexto[tipo]:FunctionType</code> · [fonte L63](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.ts#L63) |
 | Assinatura | <code> (): LeiturasGuiaPousoBss06</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta medidas de navegação e estado operacional da guiagem em SI/referencial local; sem acesso à instância proprietária. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>LeiturasGuiaPousoBss06</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta medidas de navegação e estado operacional da guiagem em SI/referencial local; sem acesso à instância proprietária. @contract f-5d05b87f7f7f573e @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -21021,7 +21021,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts::ControladorGuiaPousoBss06.habilitar:MethodDeclaration</code> · [fonte L68](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.ts#L68) |
+| Identificador | <code>src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts::ControladorGuiaPousoBss06.habilitar:MethodDeclaration</code> · [fonte L69](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.ts#L69) |
 | Assinatura | <code>public (): void</code> |
 | Responsabilidade | Habilita solicitação operacional da guiagem. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -21040,7 +21040,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts::ControladorGuiaPousoBss06.desabilitar:MethodDeclaration</code> · [fonte L70](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.ts#L70) |
+| Identificador | <code>src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts::ControladorGuiaPousoBss06.desabilitar:MethodDeclaration</code> · [fonte L71](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.ts#L71) |
 | Assinatura | <code>public (): void</code> |
 | Responsabilidade | Desabilita e atualiza diagnóstico para inativo, sem zerar cinemática. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -21059,7 +21059,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts::ControladorGuiaPousoBss06.estaHabilitado:GetAccessor</code> · [fonte L72](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.ts#L72) |
+| Identificador | <code>src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts::ControladorGuiaPousoBss06.estaHabilitado:GetAccessor</code> · [fonte L73](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.ts#L73) |
 | Assinatura | <code>public (): boolean</code> |
 | Responsabilidade | Consulta seleção da guiagem. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -21078,7 +21078,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts::ControladorGuiaPousoBss06.obterDiagnostico:MethodDeclaration</code> · [fonte L74](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.ts#L74) |
+| Identificador | <code>src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts::ControladorGuiaPousoBss06.obterDiagnostico:MethodDeclaration</code> · [fonte L75](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.ts#L75) |
 | Assinatura | <code>public (): DiagnosticoGuiaPouso</code> |
 | Responsabilidade | Devolve cópia do diagnóstico, indicando sem-energia se habilitado e alimentação ausente. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -21097,7 +21097,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts::ControladorGuiaPousoBss06.calcularSolicitacoes:MethodDeclaration</code> · [fonte L79](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.ts#L79) |
+| Identificador | <code>src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts::ControladorGuiaPousoBss06.calcularSolicitacoes:MethodDeclaration</code> · [fonte L80](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.ts#L80) |
 | Assinatura | <code>public (leituras: LeiturasVeiculoComposto, dtS: number): readonly SolicitacaoDeAtuador[]</code> |
 | Responsabilidade | Valida dtS s positivo/finito e substitui no contexto velocidades/atitude/taxa/massa/gravidade pelas leituras de sensores; sem fornecedor de contexto retorna lista vazia. |
 | Entradas | <code>leituras: LeiturasVeiculoComposto</code>; <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -21116,7 +21116,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts::ControladorGuiaPousoBss06.atualizar:MethodDeclaration</code> · [fonte L98](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.ts#L98) |
+| Identificador | <code>src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts::ControladorGuiaPousoBss06.atualizar:MethodDeclaration</code> · [fonte L99](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.ts#L99) |
 | Assinatura | <code>public (leituras: LeiturasGuiaPousoBss06): readonly SolicitacaoDeAtuador[]</code> |
 | Responsabilidade | Produz solicitações; nunca escreve no motor fora da arbitragem. |
 | Entradas | <code>leituras: LeiturasGuiaPousoBss06</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -21135,7 +21135,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts::limitar:ArrowFunction</code> · [fonte L162](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.ts#L162) |
+| Identificador | <code>src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts::limitar:ArrowFunction</code> · [fonte L163](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.ts#L163) |
 | Assinatura | <code> (valor: number, minimo: number, maximo: number): number</code> |
 | Responsabilidade | Satura escalar em limites prescritos, preservando valor original quando já está no intervalo. |
 | Entradas | <code>valor: number</code>; <code>minimo: number</code>; <code>maximo: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -21457,15 +21457,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts::DefinicaoControladorPosicionamentoMotorEletrico.obterAnguloAtualRad[tipo]:FunctionType</code> · [fonte L4](../../src/physics/sistemas%20de%20controle/ControladorPosicionamentoMotorEletrico.ts#L4) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta ângulo físico atual em rad da planta controlada; não devolve alvo como se fosse posição real. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta ângulo físico atual em rad da planta controlada; não devolve alvo como se fosse posição real. @contract f-093ae6a77da90e61 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -21476,15 +21476,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts::DefinicaoControladorPosicionamentoMotorEletrico.obterVelocidadeAngularRadps[tipo]:FunctionType</code> · [fonte L5](../../src/physics/sistemas%20de%20controle/ControladorPosicionamentoMotorEletrico.ts#L5) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta taxa angular real em rad/s para realimentação do servo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta taxa angular real em rad/s para realimentação do servo. @contract f-471639ed10d5c1fd @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -21495,15 +21495,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts::DefinicaoControladorPosicionamentoMotorEletrico.obterTorqueGravitacionalNm[tipo]:FunctionType</code> · [fonte L13](../../src/physics/sistemas%20de%20controle/ControladorPosicionamentoMotorEletrico.ts#L13) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta torque de compensação gravitacional em N·m da montagem para feedforward; mecanismo de bancada usa hipótese de peso local declarada. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta torque de compensação gravitacional em N·m da montagem para feedforward; mecanismo de bancada usa hipótese de peso local declarada. @contract f-e0f53d21da0ebec7 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -21514,15 +21514,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts::DefinicaoControladorPosicionamentoMotorEletrico.obterMomentoInerciaControladoKgM2[tipo]:FunctionType</code> · [fonte L14](../../src/physics/sistemas%20de%20controle/ControladorPosicionamentoMotorEletrico.ts#L14) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta inércia composta em kg·m² da planta controlada em torno do pivô; deve ser positiva/finita, não apenas massa do motor. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta inércia composta em kg·m² da planta controlada em torno do pivô; deve ser positiva/finita, não apenas massa do motor. @contract f-bdbfd3326e6bad39 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -22018,17 +22018,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::ControladorDeVoo.habilitar:MethodSignature</code> · [fonte L22](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L22) |
+| Identificador | <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::ControladorDeVoo.habilitar:MethodSignature</code> · [fonte L23](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L23) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Seleciona controlador para cálculo e reinicialização definida pela implementação; não ignita atuadores. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sistemas de controle/GerenciadorDeControladores.test.ts](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Seleciona controlador para cálculo e reinicialização definida pela implementação; não ignita atuadores. @contract f-c239c04410fd7830 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -22037,17 +22037,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::ControladorDeVoo.desabilitar:MethodSignature</code> · [fonte L23](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L23) |
+| Identificador | <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::ControladorDeVoo.desabilitar:MethodSignature</code> · [fonte L25](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L25) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Retira seleção operacional e limpa memória conforme controlador, sem impor repouso físico. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sistemas de controle/GerenciadorDeControladores.test.ts](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Retira seleção operacional e limpa memória conforme controlador, sem impor repouso físico. @contract f-bb47ae1580754693 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -22056,17 +22056,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::ControladorDeVoo.reiniciarMemoria:MethodSignature</code> · [fonte L25](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L25) |
+| Identificador | <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::ControladorDeVoo.reiniciarMemoria:MethodSignature</code> · [fonte L27](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L27) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | Limpa transientes quando todas as solicitações perdem a arbitragem. |
+| Responsabilidade | Reinicia memória após perda de alimentação/leitura preservando seleção habilitada quando previsto. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sistemas de controle/GerenciadorDeControladores.test.ts](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Limpa transientes quando todas as solicitações perdem a arbitragem. */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Reinicia memória após perda de alimentação/leitura preservando seleção habilitada quando previsto. @contract f-56eaf7435c607a26 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -22075,17 +22075,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::ControladorDeVoo.calcularSolicitacoes:MethodSignature</code> · [fonte L26](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L26) |
+| Identificador | <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::ControladorDeVoo.calcularSolicitacoes:MethodSignature</code> · [fonte L29](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L29) |
 | Assinatura | <code> (leituras: LeiturasVeiculoComposto, dtS: number): readonly SolicitacaoDeAtuador[]</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Usa leituras SI locais e dt em s para produzir pedidos de atuadores; pode atualizar memória do controle, nunca estado cinemático. Gerenciador arbitra prioridades antes da aplicação. |
 | Entradas | <code>leituras: LeiturasVeiculoComposto</code>; <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly SolicitacaoDeAtuador[]</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sistemas de controle/GerenciadorDeControladores.test.ts](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Usa leituras SI locais e dt em s para produzir pedidos de atuadores; pode atualizar memória do controle, nunca estado cinemático. Gerenciador arbitra prioridades antes da aplicação. @contract f-41b09b3ce8972a5e @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -22094,7 +22094,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.obterUltimaArbitragem:MethodDeclaration</code> · [fonte L40](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L40) |
+| Identificador | <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.obterUltimaArbitragem:MethodDeclaration</code> · [fonte L43](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L43) |
 | Assinatura | <code>public (): readonly SolicitacaoArbitrada[]</code> |
 | Responsabilidade | Devolve cópias das solicitações vencedoras, sem expor a lista interna. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -22113,7 +22113,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.reiniciarControladores:MethodDeclaration</code> · [fonte L47](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L47) |
+| Identificador | <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.reiniciarControladores:MethodDeclaration</code> · [fonte L50](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L50) |
 | Assinatura | <code>public (): void</code> |
 | Responsabilidade | Perda de alimentação limpa memória dos controles, conservando a seleção do operador. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -22132,7 +22132,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.registrar:MethodDeclaration</code> · [fonte L57](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L57) |
+| Identificador | <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.registrar:MethodDeclaration</code> · [fonte L60](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L60) |
 | Assinatura | <code>public (controlador: ControladorDeVoo): void</code> |
 | Responsabilidade | Registra controlador composto por ID único; lança erro para duplicata, sem implementar nova lei de controle. |
 | Entradas | <code>controlador: ControladorDeVoo</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -22151,7 +22151,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.obter:MethodDeclaration</code> · [fonte L63](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L63) |
+| Identificador | <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.obter:MethodDeclaration</code> · [fonte L66](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L66) |
 | Assinatura | <code>public (id: string): ControladorDeVoo</code> |
 | Responsabilidade | Consulta controlador por ID e lança erro para ausente. |
 | Entradas | <code>id: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -22170,7 +22170,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.habilitar:MethodDeclaration</code> · [fonte L70](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L70) |
+| Identificador | <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.habilitar:MethodDeclaration</code> · [fonte L73](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L73) |
 | Assinatura | <code>public (id: string): void</code> |
 | Responsabilidade | Delega habilitação à porta do controlador registrado. |
 | Entradas | <code>id: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -22189,7 +22189,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.desabilitar:MethodDeclaration</code> · [fonte L72](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L72) |
+| Identificador | <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.desabilitar:MethodDeclaration</code> · [fonte L75](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L75) |
 | Assinatura | <code>public (id: string): void</code> |
 | Responsabilidade | Delega desabilitação à porta do controlador registrado. |
 | Entradas | <code>id: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -22208,7 +22208,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.idsAtivos:MethodDeclaration</code> · [fonte L74](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L74) |
+| Identificador | <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.idsAtivos:MethodDeclaration</code> · [fonte L77](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L77) |
 | Assinatura | <code>public (): readonly string[]</code> |
 | Responsabilidade | Lista IDs dos controladores efetivamente habilitados. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -22227,7 +22227,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.calcularSolicitacoes:MethodDeclaration</code> · [fonte L79](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L79) |
+| Identificador | <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.calcularSolicitacoes:MethodDeclaration</code> · [fonte L82](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L82) |
 | Assinatura | <code>public (leituras: LeiturasVeiculoComposto, dtS: number): readonly SolicitacaoDeAtuador[]</code> |
 | Responsabilidade | Calcula saídas de controles habilitados e arbitra cada par atuador/recurso por maior prioridade; empate usa ID lexical. Registra vencedores e limpa memória de habilitados sem nenhuma vitória; não comanda cinemática. |
 | Entradas | <code>leituras: LeiturasVeiculoComposto</code>; <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -22294,15 +22294,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorColisoes.ts::ContextoResolvedorColisoes.verticalEm[tipo]:FunctionType</code> · [fonte L10](../../src/physics/solucionadores/ResolvedorColisoes.ts#L10) |
 | Assinatura | <code> (p: Vetor3): Vetor3</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta direção radial/vertical unitária local do ambiente para classificar contato de apoio; não define outra gravidade. |
 | Entradas | <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta direção radial/vertical unitária local do ambiente para classificar contato de apoio; não define outra gravidade. @contract f-20b3443c43cccc2d @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -22313,15 +22313,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorColisoes.ts::ContextoResolvedorColisoes.obterObjetos[tipo]:FunctionType</code> · [fonte L11](../../src/physics/solucionadores/ResolvedorColisoes.ts#L11) |
 | Assinatura | <code> (): Iterable&lt;Objeto&gt;</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Entrega iterador dos corpos registrados do mundo ao sistema consumidor; somente consulta de registro, sem cópia de dinâmica. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Iterable&lt;Objeto&gt;</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Entrega iterador dos corpos registrados do mundo ao sistema consumidor; somente consulta de registro, sem cópia de dinâmica. @contract f-13d860ede9a19fa7 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -22332,15 +22332,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorColisoes.ts::ContextoResolvedorColisoes.obterConjuntoEstrutural[tipo]:FunctionType</code> · [fonte L12](../../src/physics/solucionadores/ResolvedorColisoes.ts#L12) |
 | Assinatura | <code> (objeto: Objeto): ConjuntoEstruturalRigido &#124; undefined</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta ilha atual do corpo ou undefined se independente; identidade compartilhada evita autocontato e preserva massa/inércia compostas. |
 | Entradas | <code>objeto: Objeto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ConjuntoEstruturalRigido &#124; undefined</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta ilha atual do corpo ou undefined se independente; identidade compartilhada evita autocontato e preserva massa/inércia compostas. @contract f-ab1fad49716fdb0e @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -22351,15 +22351,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorColisoes.ts::ContextoResolvedorColisoes.obterFixadores[tipo]:FunctionType</code> · [fonte L13](../../src/physics/solucionadores/ResolvedorColisoes.ts#L13) |
 | Assinatura | <code> (): Iterable&lt;FixadorEstrutural&gt;</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Entrega iterador dos vínculos registrados para cálculo/transmissão de esforços e ruptura determinística. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Iterable&lt;FixadorEstrutural&gt;</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Entrega iterador dos vínculos registrados para cálculo/transmissão de esforços e ruptura determinística. @contract f-b923977e4618b4da @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -22370,15 +22370,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorColisoes.ts::ContextoResolvedorColisoes.distribuirCalorDeAtrito[tipo]:FunctionType</code> · [fonte L15](../../src/physics/solucionadores/ResolvedorColisoes.ts#L15) |
 | Assinatura | <code> (objetoA: Objeto, objetoB: Objeto, energiaJ: number, dtS: number): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Transfere energia dissipada J aos participantes do contato com dt s, conforme adaptador térmico; sem novo impulso ou dissipação duplicada. |
 | Entradas | <code>objetoA: Objeto</code>; <code>objetoB: Objeto</code>; <code>energiaJ: number</code>; <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Transfere energia dissipada J aos participantes do contato com dt s, conforme adaptador térmico; sem novo impulso ou dissipação duplicada. @contract f-b6a752a6af674691 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -22389,15 +22389,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorColisoes.ts::ContextoResolvedorColisoes.deveIgnorarColisao[tipo]:FunctionType</code> · [fonte L17](../../src/physics/solucionadores/ResolvedorColisoes.ts#L17) |
 | Assinatura | <code> (objetoA: Objeto, objetoB: Objeto): boolean</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta exclusão física explícita do par por juntas; ausência de exclusão mantém verificação de colisão. |
 | Entradas | <code>objetoA: Objeto</code>; <code>objetoB: Objeto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta exclusão física explícita do par por juntas; ausência de exclusão mantém verificação de colisão. @contract f-165316a34d91d305 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -22602,15 +22602,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorContatoSuperficie.ts::ContextoResolvedorContatoSuperficie.obterObjetos[tipo]:FunctionType</code> · [fonte L10](../../src/physics/solucionadores/ResolvedorContatoSuperficie.ts#L10) |
 | Assinatura | <code> (): Iterable&lt;Objeto&gt;</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Entrega iterador dos corpos registrados do mundo ao sistema consumidor; somente consulta de registro, sem cópia de dinâmica. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Iterable&lt;Objeto&gt;</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Entrega iterador dos corpos registrados do mundo ao sistema consumidor; somente consulta de registro, sem cópia de dinâmica. @contract f-c962b279ad805fe0 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -22621,15 +22621,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorContatoSuperficie.ts::ContextoResolvedorContatoSuperficie.obterSuperficies[tipo]:FunctionType</code> · [fonte L11](../../src/physics/solucionadores/ResolvedorContatoSuperficie.ts#L11) |
 | Assinatura | <code> (): Iterable&lt;SuperficieFisica&gt;</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Entrega iterador das superfícies rígidas registradas para observação/resolução; interface livre da água não pertence a este registro. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Iterable&lt;SuperficieFisica&gt;</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Entrega iterador das superfícies rígidas registradas para observação/resolução; interface livre da água não pertence a este registro. @contract f-8294a8b9c3d088ce @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -22640,15 +22640,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorContatoSuperficie.ts::ContextoResolvedorContatoSuperficie.obterConjuntoEstrutural[tipo]:FunctionType</code> · [fonte L12](../../src/physics/solucionadores/ResolvedorContatoSuperficie.ts#L12) |
 | Assinatura | <code> (objeto: Objeto): ConjuntoEstruturalRigido &#124; undefined</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta ilha atual do corpo ou undefined se independente; identidade compartilhada evita autocontato e preserva massa/inércia compostas. |
 | Entradas | <code>objeto: Objeto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ConjuntoEstruturalRigido &#124; undefined</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta ilha atual do corpo ou undefined se independente; identidade compartilhada evita autocontato e preserva massa/inércia compostas. @contract f-c5bf538053d6c113 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -22659,15 +22659,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorContatoSuperficie.ts::ContextoResolvedorContatoSuperficie.obterMassaEfetivaNoContato[tipo]:FunctionType</code> · [fonte L13](../../src/physics/solucionadores/ResolvedorContatoSuperficie.ts#L13) |
 | Assinatura | <code> (objeto: Objeto, pontoContatoM: Vetor3, normal: Vetor3): number &#124; undefined</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta massa efetiva em kg no ponto m/direção, incluindo inércia da ilha quando existir; undefined permite cálculo de corpo isolado. |
 | Entradas | <code>objeto: Objeto</code>; <code>pontoContatoM: Vetor3</code>; <code>normal: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number &#124; undefined</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta massa efetiva em kg no ponto m/direção, incluindo inércia da ilha quando existir; undefined permite cálculo de corpo isolado. @contract f-f572b0d735f127ff @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -22678,15 +22678,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorContatoSuperficie.ts::ContextoResolvedorContatoSuperficie.obterFixadores[tipo]:FunctionType</code> · [fonte L14](../../src/physics/solucionadores/ResolvedorContatoSuperficie.ts#L14) |
 | Assinatura | <code> (): Iterable&lt;FixadorEstrutural&gt;</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Entrega iterador dos vínculos registrados para cálculo/transmissão de esforços e ruptura determinística. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Iterable&lt;FixadorEstrutural&gt;</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Entrega iterador dos vínculos registrados para cálculo/transmissão de esforços e ruptura determinística. @contract f-c0748e93f1c1ec2b @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -22697,15 +22697,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorContatoSuperficie.ts::ContextoResolvedorContatoSuperficie.distribuirCalorDeAtrito[tipo]:FunctionType</code> · [fonte L16](../../src/physics/solucionadores/ResolvedorContatoSuperficie.ts#L16) |
 | Assinatura | <code> (objeto: Objeto, superficie: SuperficieFisica, energiaJ: number, dtS: number): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Transfere energia dissipada J aos participantes do contato com dt s, conforme adaptador térmico; sem novo impulso ou dissipação duplicada. |
 | Entradas | <code>objeto: Objeto</code>; <code>superficie: SuperficieFisica</code>; <code>energiaJ: number</code>; <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Transfere energia dissipada J aos participantes do contato com dt s, conforme adaptador térmico; sem novo impulso ou dissipação duplicada. @contract f-0b29fabef34188fe @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -22716,15 +22716,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorContatoSuperficie.ts::ContextoResolvedorContatoSuperficie.obterGravidadeMps2[tipo]:FunctionType</code> · [fonte L17](../../src/physics/solucionadores/ResolvedorContatoSuperficie.ts#L17) |
 | Assinatura | <code> (p: Vetor3): Vetor3</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta aceleração local m/s² na posição global m para limite de atrito/reação normal. |
 | Entradas | <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta aceleração local m/s² na posição global m para limite de atrito/reação normal. @contract f-5e1e8629ab71c615 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -23124,7 +23124,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Identificador | <code>src/physics/solucionadores/SistemaAtmosferico.ts::SistemaAtmosferico.constructor:Constructor</code> · [fonte L16](../../src/physics/solucionadores/SistemaAtmosferico.ts#L16) |
 | Assinatura | <code>public (densidadeArNivelMarKgM3: number, velocidadeArMps: Vetor3, referencial?: ReferencialFisico, politicaAltitude?: "extrapolacao-legada" &#124; "vacuo-simplificado-25km", exposicaoAoAr?: (o: Objeto) =&gt; number): SistemaAtmosferico</code> |
 | Responsabilidade | Configura densidade de referência kg/m³ não negativa, vento m/s, referencial e política de altitude; densidade zero declara vácuo. |
-| Entradas | <code>public readonly densidadeArNivelMarKgM3: number</code>; <code>velocidadeArMps: Vetor3</code>; <code>private readonly referencial: ReferencialFisico = new ReferencialPlano()</code>; <code>public readonly politicaAltitude: 'extrapolacao-legada' &#124; 'vacuo-simplificado-25km' = 'extrapolacao-legada'</code>; <code>private readonly exposicaoAoAr: (o: Objeto) =&gt; number = /** Porta padrão de exposição: retorna fração 1 (totalmente no ar) quando mundo não fornece adaptação para imersão; não consulta nem aplica força. @contract f-e36b63fcec6139c0 @reviewed M12-DOC: implementação lida. */<br>                                                            () =&gt; 1</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>public readonly densidadeArNivelMarKgM3: number</code>; <code>velocidadeArMps: Vetor3</code>; <code>private readonly referencial: ReferencialFisico = new ReferencialPlano()</code>; <code>public readonly politicaAltitude: 'extrapolacao-legada' &#124; 'vacuo-simplificado-25km' = 'extrapolacao-legada'</code>; <code>private readonly exposicaoAoAr: /** Consulta fração exposta ao ar do objeto, em [0,1], para evitar cargas atmosféricas/térmicas integrais sobre área imersa; padrão seco vale 1. @contract f-833d68305cbc6047 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (o: Objeto) =&gt; number = /** Porta padrão de exposição: retorna fração 1 (totalmente no ar) quando mundo não fornece adaptação para imersão; não consulta nem aplica força. @contract f-e36b63fcec6139c0 @reviewed M12-DOC: implementação lida. */<br>                                                            () =&gt; 1</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>SistemaAtmosferico</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.densidadeArNivelMarKgM3</code>; <code>this.referencial</code>; <code>this.politicaAltitude</code>; <code>this.exposicaoAoAr</code>; <code>this.velocidadeArAtualMps</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code> |
@@ -23142,15 +23142,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/SistemaAtmosferico.ts::SistemaAtmosferico.constructor.exposicaoAoAr[tipo]:FunctionType</code> · [fonte L21](../../src/physics/solucionadores/SistemaAtmosferico.ts#L21) |
 | Assinatura | <code> (o: Objeto): number</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta fração exposta ao ar do objeto, em [0,1], para evitar cargas atmosféricas/térmicas integrais sobre área imersa; padrão seco vale 1. |
 | Entradas | <code>o: Objeto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta fração exposta ao ar do objeto, em [0,1], para evitar cargas atmosféricas/térmicas integrais sobre área imersa; padrão seco vale 1. @contract f-833d68305cbc6047 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -23299,7 +23299,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Identificador | <code>src/physics/solucionadores/SistemaTermico.ts::SistemaTermico.constructor:Constructor</code> · [fonte L7](../../src/physics/solucionadores/SistemaTermico.ts#L7) |
 | Assinatura | <code>public (atmosfera: SistemaAtmosferico, temperaturaAmbienteC: number, exposicaoAoAr?: (o: Objeto) =&gt; number): SistemaTermico</code> |
 | Responsabilidade | Configura consulta atmosférica, exposição ao ar e reservatório ambiente em °C finitos; não converte limites materiais para Kelvin. |
-| Entradas | <code>private readonly atmosfera: SistemaAtmosferico</code>; <code>private readonly temperaturaAmbienteC: number</code>; <code>private readonly exposicaoAoAr: (o: Objeto) =&gt; number = /** Porta padrão de exposição: retorna fração 1 (totalmente no ar) quando mundo não fornece adaptação para imersão; não consulta nem aplica força. @contract f-d8491cc35a8ea84c @reviewed M12-DOC: implementação lida. */<br>                                                            () =&gt; 1</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>private readonly atmosfera: SistemaAtmosferico</code>; <code>private readonly temperaturaAmbienteC: number</code>; <code>private readonly exposicaoAoAr: /** Consulta fração exposta ao ar do objeto, em [0,1], para evitar cargas atmosféricas/térmicas integrais sobre área imersa; padrão seco vale 1. @contract f-ebcc80cdec7bee56 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (o: Objeto) =&gt; number = /** Porta padrão de exposição: retorna fração 1 (totalmente no ar) quando mundo não fornece adaptação para imersão; não consulta nem aplica força. @contract f-d8491cc35a8ea84c @reviewed M12-DOC: implementação lida. */<br>                                                            () =&gt; 1</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>SistemaTermico</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.atmosfera</code>; <code>this.temperaturaAmbienteC</code>; <code>this.exposicaoAoAr</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code> |
@@ -23317,15 +23317,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/SistemaTermico.ts::SistemaTermico.constructor.exposicaoAoAr[tipo]:FunctionType</code> · [fonte L10](../../src/physics/solucionadores/SistemaTermico.ts#L10) |
 | Assinatura | <code> (o: Objeto): number</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta fração exposta ao ar do objeto, em [0,1], para evitar cargas atmosféricas/térmicas integrais sobre área imersa; padrão seco vale 1. |
 | Entradas | <code>o: Objeto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta fração exposta ao ar do objeto, em [0,1], para evitar cargas atmosféricas/térmicas integrais sobre área imersa; padrão seco vale 1. @contract f-ebcc80cdec7bee56 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -23397,15 +23397,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/simulacao/ExecutorPassoFixo.ts::LimiteExecucaoPassos.continuar[tipo]:FunctionType</code> · [fonte L4](../../src/simulacao/ExecutorPassoFixo.ts#L4) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta se orçamento cooperativo ainda permite outro passo; false mantém dívida temporal, sem descartar integração pendente. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta se orçamento cooperativo ainda permite outro passo; false mantém dívida temporal, sem descartar integração pendente. @contract f-b5c741e87d68944a @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -23436,7 +23436,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Identificador | <code>src/simulacao/ExecutorPassoFixo.ts::ExecutorPassoFixo.avancar:MethodDeclaration</code> · [fonte L28](../../src/simulacao/ExecutorPassoFixo.ts#L28) |
 | Assinatura | <code>public (deltaRealS: number, escalaTemporal: number, executarPasso: (passoS: number) =&gt; void, limite?: LimiteExecucaoPassos): number</code> |
 | Responsabilidade | Retorna quantos passos físicos foram executados neste quadro. |
-| Entradas | <code>deltaRealS: number</code>; <code>escalaTemporal: number</code>; <code>executarPasso: (passoS: number) =&gt; void</code>; <code>limite?: LimiteExecucaoPassos</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>deltaRealS: number</code>; <code>escalaTemporal: number</code>; <code>executarPasso: /** Executa callback síncrono de controle/física para um passo fixo em s; executor contabiliza somente passos executados, sem depender da frequência de desenho. @contract f-2331b1605705b104 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (passoS: number) =&gt; void</code>; <code>limite?: LimiteExecucaoPassos</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>executados</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.acumuladoS</code>; <code>executados</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code>; <code>Number.isSafeInteger</code>; <code>Math.min</code>; <code>Math.floor</code>; <code>limite.continuar</code>; <code>executarPasso</code>; <code>Math.max</code> |
@@ -23454,15 +23454,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/simulacao/ExecutorPassoFixo.ts::ExecutorPassoFixo.avancar.executarPasso[tipo]:FunctionType</code> · [fonte L28](../../src/simulacao/ExecutorPassoFixo.ts#L28) |
 | Assinatura | <code> (passoS: number): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Executa callback síncrono de controle/física para um passo fixo em s; executor contabiliza somente passos executados, sem depender da frequência de desenho. |
 | Entradas | <code>passoS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Executa callback síncrono de controle/física para um passo fixo em s; executor contabiliza somente passos executados, sem depender da frequência de desenho. @contract f-2331b1605705b104 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -23474,7 +23474,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Identificador | <code>src/simulacao/ExecutorPassoFixo.ts::ExecutorPassoFixo.avancarAte:MethodDeclaration</code> · [fonte L50](../../src/simulacao/ExecutorPassoFixo.ts#L50) |
 | Assinatura | <code>public (instanteRealMs: number, escalaTemporal: number, executarPasso: (passoS: number) =&gt; void, limite?: LimiteExecucaoPassos): number</code> |
 | Responsabilidade | Avança a partir de timestamps do requestAnimationFrame. O primeiro quadro apenas estabelece a referência, e arredondamentos regressivos são ignorados. |
-| Entradas | <code>instanteRealMs: number</code>; <code>escalaTemporal: number</code>; <code>executarPasso: (passoS: number) =&gt; void</code>; <code>limite?: LimiteExecucaoPassos</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>instanteRealMs: number</code>; <code>escalaTemporal: number</code>; <code>executarPasso: /** Executa callback síncrono de controle/física para um passo fixo em s; executor contabiliza somente passos executados, sem depender da frequência de desenho. @contract f-d12e9cd65db20741 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (passoS: number) =&gt; void</code>; <code>limite?: LimiteExecucaoPassos</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>0</code>; <code>this.avancar(deltaRealS, escalaTemporal, executarPasso, limite)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.ultimoInstanteRealMs</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code>; <code>this.avancar</code> |
@@ -23492,15 +23492,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/simulacao/ExecutorPassoFixo.ts::ExecutorPassoFixo.avancarAte.executarPasso[tipo]:FunctionType</code> · [fonte L50](../../src/simulacao/ExecutorPassoFixo.ts#L50) |
 | Assinatura | <code> (passoS: number): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Executa callback síncrono de controle/física para um passo fixo em s; executor contabiliza somente passos executados, sem depender da frequência de desenho. |
 | Entradas | <code>passoS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Executa callback síncrono de controle/física para um passo fixo em s; executor contabiliza somente passos executados, sem depender da frequência de desenho. @contract f-d12e9cd65db20741 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -23591,15 +23591,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::CenárioVisual.deveEncerrar[tipo]:FunctionType</code> · [fonte L194](../../src/testes.ts#L194) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Observa condição de término do cenário; pode acumular medidas. Critérios são específicos e alguns históricos não provam repouso de todos os corpos. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Observa condição de término do cenário; pode acumular medidas. Critérios são específicos e alguns históricos não provam repouso de todos os corpos. @contract f-6a520d5e5acbfb66 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -23610,15 +23610,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::CenárioVisual.validar[tipo]:FunctionType</code> · [fonte L195](../../src/testes.ts#L195) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Produz diagnóstico textual dos critérios locais; não aplica correção física nem equivale automaticamente a homologação. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Produz diagnóstico textual dos critérios locais; não aplica correção física nem equivale automaticamente a homologação. @contract f-bd32b88049e38af0 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -23629,15 +23629,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::CenárioVisual.atualizarControle[tipo]:FunctionType</code> · [fonte L196](../../src/testes.ts#L196) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Atualiza comandos de domínio antes do passo fixo; não escreve posição/velocidade/orientação. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Atualiza comandos de domínio antes do passo fixo; não escreve posição/velocidade/orientação. @contract f-377498b2b2db63eb @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -23648,15 +23648,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::CenárioVisual.telemetria[tipo]:FunctionType</code> · [fonte L198](../../src/testes.ts#L198) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta/forma resumo textual de medidas físicas para legenda, sem avançar mundo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta/forma resumo textual de medidas físicas para legenda, sem avançar mundo. @contract f-c8f1e81e4bb299c0 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -23667,15 +23667,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::CenárioVisual.comandarCilindro[tipo]:FunctionType</code> · [fonte L208](../../src/testes.ts#L208) |
 | Assinatura | <code> (comando: "avancar" &#124; "recuar"): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Solicita avanço/recuo ao mecanismo por API operacional, sujeito a energia e fins de curso. |
 | Entradas | <code>comando: 'avancar' &#124; 'recuar'</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Solicita avanço/recuo ao mecanismo por API operacional, sujeito a energia e fins de curso. @contract f-90f306bb6b88909b @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -23686,15 +23686,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::CenárioVisual.configurarVelocidadesDoCilindro[tipo]:FunctionType</code> · [fonte L209](../../src/testes.ts#L209) |
 | Assinatura | <code> (avancoMps: number, recuoMps: number): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Configura referências de avanço/recuo positivas em m/s; não impõe velocidade real da haste. |
 | Entradas | <code>avancoMps: number</code>; <code>recuoMps: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Configura referências de avanço/recuo positivas em m/s; não impõe velocidade real da haste. @contract f-e26f28ec4c69b761 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -23705,15 +23705,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::CenárioVisual.velocidadesDoCilindro[tipo]:FunctionType</code> · [fonte L210](../../src/testes.ts#L210) |
 | Assinatura | <code> (): { readonly avancoMps: number; readonly recuoMps: number; }</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta referências operacionais em m/s para apresentação/edição. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ readonly avancoMps: number; readonly recuoMps: number; }</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta referências operacionais em m/s para apresentação/edição. @contract f-2eea811d279c64fb @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -23724,15 +23724,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::CenárioVisual.iniciarSequencia[tipo]:FunctionType</code> · [fonte L211](../../src/testes.ts#L211) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Solicita início da sequência de mecanismos pelos mesmos comandos do operador. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Solicita início da sequência de mecanismos pelos mesmos comandos do operador. @contract f-6371fda620b1e467 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -23743,15 +23743,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::CenárioVisual.obterEntradasCilindro[tipo]:FunctionType</code> · [fonte L213](../../src/testes.ts#L213) |
 | Assinatura | <code> (): { readonly avancar: boolean; readonly recuar: boolean; }</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta entradas de comando para observar no trace; não altera sensores. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ readonly avancar: boolean; readonly recuar: boolean; }</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta entradas de comando para observar no trace; não altera sensores. @contract f-b7ffdf80bc662e4b @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -23762,15 +23762,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::CenárioVisual.linhaDeEmpuxo[tipo]:FunctionType</code> · [fonte L217](../../src/testes.ts#L217) |
 | Assinatura | <code> (): { readonly origemM: Vetor3; readonly direcao: Vetor3; }</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta origem global m e direção para representação visual da linha de ação; não aplica força. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ readonly origemM: Vetor3; readonly direcao: Vetor3; }</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta origem global m e direção para representação visual da linha de ação; não aplica força. @contract f-7b8cb444d4760ccf @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -23781,15 +23781,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::CenárioVisual.obterGrupoPropulsaoAtivo[tipo]:FunctionType</code> · [fonte L221](../../src/testes.ts#L221) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta id do grupo selecionado para comandos de motor na bancada. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta id do grupo selecionado para comandos de motor na bancada. @contract f-9f126020e77a7d9c @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -23800,15 +23800,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::CenárioVisual.selecionarGrupoPropulsao[tipo]:FunctionType</code> · [fonte L222](../../src/testes.ts#L222) |
 | Assinatura | <code> (id: string): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Muda seleção operacional do grupo válido, sem criar/separar motores. |
 | Entradas | <code>id: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Muda seleção operacional do grupo válido, sem criar/separar motores. @contract f-5821074ed21fa938 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -23819,15 +23819,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::CenárioVisual.ativarControleBss03[tipo]:FunctionType</code> · [fonte L223](../../src/testes.ts#L223) |
 | Assinatura | <code> (controle: "inclinacao" &#124; "pouso" &#124; "manual"): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Encaminha seleção inclinação/pouso/manual ao BSS-003 pela API de domínio. |
 | Entradas | <code>controle: 'inclinacao' &#124; 'pouso' &#124; 'manual'</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Encaminha seleção inclinação/pouso/manual ao BSS-003 pela API de domínio. @contract f-4fa943d2445e86be @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -23838,15 +23838,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::CenárioVisual.obterControleAtivoBss03[tipo]:FunctionType</code> · [fonte L224](../../src/testes.ts#L224) |
 | Assinatura | <code> (): "manual" &#124; "inclinacao" &#124; "pouso"</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta modo de controle selecionado, sem confundir habilitação com atuação efetiva. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>"pouso" &#124; "manual" &#124; "inclinacao"</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta modo de controle selecionado, sem confundir habilitação com atuação efetiva. @contract f-4986b1cb3ab898ca @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -23857,15 +23857,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::CenárioVisual.ativarModoBss04[tipo]:FunctionType</code> · [fonte L225](../../src/testes.ts#L225) |
 | Assinatura | <code> (modo: "decolagem" &#124; "pouso"): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Solicita decolagem/pouso ao conjunto compartilhado, preservando arbitragem e permissivos. |
 | Entradas | <code>modo: 'decolagem' &#124; 'pouso'</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Solicita decolagem/pouso ao conjunto compartilhado, preservando arbitragem e permissivos. @contract f-229ef2c8ba578842 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -23876,15 +23876,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::CenárioVisual.obterModoBss04[tipo]:FunctionType</code> · [fonte L226](../../src/testes.ts#L226) |
 | Assinatura | <code> (): "decolagem" &#124; "pouso"</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta modo operacional atual de decolagem/pouso, sem inferir sucesso de missão. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>"decolagem" &#124; "pouso"</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta modo operacional atual de decolagem/pouso, sem inferir sucesso de missão. @contract f-043db65d57217303 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -23895,15 +23895,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::CenárioVisual.obterStatusControleBss04[tipo]:FunctionType</code> · [fonte L227](../../src/testes.ts#L227) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Forma diagnóstico textual de fase/comando do controle para apresentação. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Forma diagnóstico textual de fase/comando do controle para apresentação. @contract f-8135ed95d711ea29 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -23914,15 +23914,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::CenárioVisual.obterPontoPousoX[tipo]:FunctionType</code> · [fonte L228](../../src/testes.ts#L228) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta alvo horizontal em m no referencial declarado pelo cenário. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta alvo horizontal em m no referencial declarado pelo cenário. @contract f-8d16006dc41868f4 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -23933,15 +23933,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::CenárioVisual.selecionarPontoPousoX[tipo]:FunctionType</code> · [fonte L229](../../src/testes.ts#L229) |
 | Assinatura | <code> (xM: number): boolean</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Tenta selecionar alvo horizontal m antes da decolagem e informa aceitação. |
 | Entradas | <code>xM: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Tenta selecionar alvo horizontal m antes da decolagem e informa aceitação. @contract f-0714e3803e6cf2ae @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -23952,15 +23952,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::CenárioVisual.pontoPousoSelecionavel[tipo]:FunctionType</code> · [fonte L230](../../src/testes.ts#L230) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta se interface pode aceitar novo alvo sem alterar condições de voo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta se interface pode aceitar novo alvo sem alterar condições de voo. @contract f-cd541e567595b281 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -23971,15 +23971,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::CenárioVisual.obterConfiguracaoEnsaio[tipo]:FunctionType</code> · [fonte L233](../../src/testes.ts#L233) |
 | Assinatura | <code> (): unknown</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Exporta parâmetros/revisão física necessários à identificação e reprodução do ensaio; não devolve dinâmica paralela. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>unknown</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Exporta parâmetros/revisão física necessários à identificação e reprodução do ensaio; não devolve dinâmica paralela. @contract f-816385dec9666d38 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -23990,15 +23990,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::CenárioVisual.cameraX[tipo]:FunctionType</code> · [fonte L242](../../src/testes.ts#L242) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta centro horizontal em m para câmera local; não escreve coordenada física. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta centro horizontal em m para câmera local; não escreve coordenada física. @contract f-544fb8a9061b113d @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -24009,15 +24009,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::CenárioVisual.cameraY[tipo]:FunctionType</code> · [fonte L243](../../src/testes.ts#L243) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta centro vertical em m para câmera local; não altera altitude do corpo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta centro vertical em m para câmera local; não altera altitude do corpo. @contract f-68846497e7b308b9 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -24028,15 +24028,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::CenárioVisual.dados[tipo]:FunctionType</code> · [fonte L244](../../src/testes.ts#L244) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Produz painel textual de engenharia a partir das consultas atuais; conversões de apresentação não mudam domínio. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Produz painel textual de engenharia a partir das consultas atuais; conversões de apresentação não mudam domínio. @contract f-aeaa01924ccd73f1 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -25738,15 +25738,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::criarPartidaAutomaticaBasica.[callback]:FunctionType#1</code> · [fonte L1137](../../src/testes.ts#L1137) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Tipo de atualização do sequenciador operacional de bancada; usa tempo simulado e operações normais de sistemas/ignição, sem alterar movimento. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Tipo de atualização do sequenciador operacional de bancada; usa tempo simulado e operações normais de sistemas/ignição, sem alterar movimento. @contract f-edbd19301ed1011d @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -29253,15 +29253,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::CanalTrace.obterSinal[tipo]:FunctionType</code> · [fonte L2467](../../src/testes.ts#L2467) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta sinal atual do canal para trace; retorno numérico finito ou booleano conforme tipo. Não integra física nem controla atuador por esta leitura. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta sinal atual do canal para trace; retorno numérico finito ou booleano conforme tipo. Não integra física nem controla atuador por esta leitura. @contract f-d78e0fc264780632 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -29805,7 +29805,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Identificador | <code>src/testes.ts::operarConexao:ArrowFunction</code> · [fonte L3639](../../src/testes.ts#L3639) |
 | Assinatura | <code> (acao: (conexao: ConexaoEletricaVisual) =&gt; void): void</code> |
 | Responsabilidade | Executa ação fornecida na conexão selecionada quando existente e atualiza controles/desenho; efeitos elétricos pertencem à ação de domínio. |
-| Entradas | <code>acao: (conexao: ConexaoEletricaVisual) =&gt; void</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>acao: /** Ação operacional fornecida pela UI sobre conexão selecionada; pode abrir/desconectar/romper cabo pelas portas do domínio, sem alterar cinemática. @contract f-156aee79a8b0ddee @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (conexao: ConexaoEletricaVisual) =&gt; void</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>conexaoSelecionada</code>; <code>acao</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> |
@@ -29823,15 +29823,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/testes.ts::operarConexao.acao[tipo]:FunctionType</code> · [fonte L3639](../../src/testes.ts#L3639) |
 | Assinatura | <code> (conexao: ConexaoEletricaVisual): void</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Ação operacional fornecida pela UI sobre conexão selecionada; pode abrir/desconectar/romper cabo pelas portas do domínio, sem alterar cinemática. |
 | Entradas | <code>conexao: ConexaoEletricaVisual</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Ação operacional fornecida pela UI sobre conexão selecionada; pode abrir/desconectar/romper cabo pelas portas do domínio, sem alterar cinemática. @contract f-156aee79a8b0ddee @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -30688,7 +30688,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Identificador | <code>src/visualizacao/ConexoesEletricas.ts::desenharConexoesEletricas:FunctionDeclaration</code> · [fonte L36](../../src/visualizacao/ConexoesEletricas.ts#L36) |
 | Assinatura | <code>export (contexto: CanvasRenderingContext2D, conexoes: readonly ConexaoEletricaVisual[], objetosVisiveis: readonly Objeto[], projetar: (pontoM: Vetor3) =&gt; { readonly x: number; readonly y: number; }): readonly AlvoSwitchEletrico[]</code> |
 | Responsabilidade | Projeta terminais físicos e desenha dois condutores, interruptor e diagnóstico corrente/tensão mesmo desligados; diferencia ruptura/desconexão. Retorna regiões clicáveis de fontes CC sem operar circuitos. |
-| Entradas | <code>contexto: CanvasRenderingContext2D</code>; <code>conexoes: readonly ConexaoEletricaVisual[]</code>; <code>objetosVisiveis: readonly Objeto[]</code>; <code>projetar: (pontoM: Vetor3) =&gt; { readonly x: number; readonly y: number }</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>contexto: CanvasRenderingContext2D</code>; <code>conexoes: readonly ConexaoEletricaVisual[]</code>; <code>objetosVisiveis: readonly Objeto[]</code>; <code>projetar: /** Converte ponto físico global m para coordenadas de desenho em pixels; somente apresentação, sem modificar vetor ou corpo. @contract f-ba5dd7e9baefe41f @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (pontoM: Vetor3) =&gt; { readonly x: number; readonly y: number }</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly AlvoSwitchEletrico[]</code>; expressões retornadas: <code>alvos</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>contexto.lineJoin</code>; <code>contexto.lineCap</code>; <code>contexto.lineWidth</code>; <code>contexto.strokeStyle</code>; <code>contexto.fillStyle</code>; <code>contexto.font</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>conexoesEletricasExpostas(conexoes, objetosVisiveis).entries</code>; <code>conexoesEletricasExpostas</code>; <code>projetar</code>; <code>terminalEletricoM</code>; <code>Math.min</code>; <code>Math.max</code>; <code>contexto.save</code>; <code>contexto.setLineDash</code>; <code>caminho</code>; <code>contexto.stroke</code>; <code>contexto.beginPath</code>; <code>contexto.arc</code>; <code>contexto.fill</code>; <code>alvos.push</code>; <code>contexto.fillRect</code>; <code>contexto.moveTo</code>; <code>contexto.lineTo</code>; <code>contexto.fillText</code>; <code>conexao.correnteAtualA.toFixed</code>; <code>conexao.tensaoSaidaV.toFixed</code>; <code>contexto.restore</code> |
@@ -30706,15 +30706,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/visualizacao/ConexoesEletricas.ts::desenharConexoesEletricas.projetar[tipo]:FunctionType</code> · [fonte L40](../../src/visualizacao/ConexoesEletricas.ts#L40) |
 | Assinatura | <code> (pontoM: Vetor3): { readonly x: number; readonly y: number; }</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Converte ponto físico global m para coordenadas de desenho em pixels; somente apresentação, sem modificar vetor ou corpo. |
 | Entradas | <code>pontoM: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ readonly x: number; readonly y: number; }</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/visualizacao/ConexoesEletricas.test.ts](../../src/visualizacao/ConexoesEletricas.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Converte ponto físico global m para coordenadas de desenho em pixels; somente apresentação, sem modificar vetor ou corpo. @contract f-ba5dd7e9baefe41f @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -30828,15 +30828,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/visualizacao/TracePLC.ts::CanalTracePLC.obterSinal[tipo]:FunctionType</code> · [fonte L12](../../src/visualizacao/TracePLC.ts#L12) |
 | Assinatura | <code> (): SinalTracePLC</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta sinal atual do canal para trace; retorno numérico finito ou booleano conforme tipo. Não integra física nem controla atuador por esta leitura. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>SinalTracePLC</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/TelemetriaMissaoBss.test.ts](../../src/cenarios/TelemetriaMissaoBss.test.ts); [src/visualizacao/TracePLC.test.ts](../../src/visualizacao/TracePLC.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta sinal atual do canal para trace; retorno numérico finito ou booleano conforme tipo. Não integra física nem controla atuador por esta leitura. @contract f-c59acbd9414e88e5 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -30905,7 +30905,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Identificador | <code>src/visualizacao/TracePLC.ts::TracePLC.adicionarSinal:MethodDeclaration</code> · [fonte L39](../../src/visualizacao/TracePLC.ts#L39) |
 | Assinatura | <code>public (nome: string, obterSinal: () =&gt; SinalTracePLC, cor: string, escala?: EscalaTracePLC): void</code> |
 | Responsabilidade | Valida nome/cor/porta de leitura, escala finita crescente e capacidade; adiciona canal sem avaliar sinal neste momento. |
-| Entradas | <code>nome: string</code>; <code>obterSinal: () =&gt; SinalTracePLC</code>; <code>cor: string</code>; <code>escala?: EscalaTracePLC</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>nome: string</code>; <code>obterSinal: /** Consulta sinal atual do canal para trace; retorno numérico finito ou booleano conforme tipo. Não integra física nem controla atuador por esta leitura. @contract f-1d0fbb8492ce8067 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () =&gt; SinalTracePLC</code>; <code>cor: string</code>; <code>escala?: EscalaTracePLC</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Error</code>; <code>Number.isFinite</code>; <code>this.canaisInternos.push</code> |
@@ -30923,15 +30923,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/visualizacao/TracePLC.ts::TracePLC.adicionarSinal.obterSinal[tipo]:FunctionType</code> · [fonte L39](../../src/visualizacao/TracePLC.ts#L39) |
 | Assinatura | <code> (): SinalTracePLC</code> |
-| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Consulta sinal atual do canal para trace; retorno numérico finito ou booleano conforme tipo. Não integra física nem controla atuador por esta leitura. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>SinalTracePLC</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/TelemetriaMissaoBss.test.ts](../../src/cenarios/TelemetriaMissaoBss.test.ts); [src/visualizacao/TracePLC.test.ts](../../src/visualizacao/TracePLC.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta sinal atual do canal para trace; retorno numérico finito ou booleano conforme tipo. Não integra física nem controla atuador por esta leitura. @contract f-1d0fbb8492ce8067 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ |
 
 </details>
 
@@ -31082,14 +31082,14 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor.[callback]:ArrowFunction#5</code> · [L42](../../src/apresentacao/missao/CenaMissao.ts#L42) | <code>(t: number): void</code> | <code>this.animar</code> / — |
 | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.animar.[callback]:ArrowFunction#1</code> · [L78](../../src/apresentacao/missao/CenaMissao.ts#L78) | <code>(): boolean</code> | <code>this.missao.avancarPasso</code> / — |
 | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.animar.[callback]:ArrowFunction#2</code> · [L117](../../src/apresentacao/missao/CenaMissao.ts#L117) | <code>(t: number): void</code> | <code>this.animar</code> / — |
-| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#1</code> · [L18](../../src/apresentacao/missao/EntradaMissao.ts#L18) | <code>(): void</code> | <code>acoes.sistema</code> / — |
-| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#2</code> · [L19](../../src/apresentacao/missao/EntradaMissao.ts#L19) | <code>(): void</code> | <code>acoes.comando</code> / — |
-| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#3</code> · [L22](../../src/apresentacao/missao/EntradaMissao.ts#L22) | <code>(): void</code> | <code>acoes.comando</code> / — |
-| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#4</code> · [L23](../../src/apresentacao/missao/EntradaMissao.ts#L23) | <code>(): void</code> | <code>acoes.comando</code> / — |
-| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#5</code> · [L24](../../src/apresentacao/missao/EntradaMissao.ts#L24) | <code>(): void</code> | <code>acoes.comando</code> / — |
-| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#6</code> · [L25](../../src/apresentacao/missao/EntradaMissao.ts#L25) | <code>(): void</code> | <code>acoes.comando</code> / — |
-| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#7</code> · [L26](../../src/apresentacao/missao/EntradaMissao.ts#L26) | <code>(): void</code> | <code>acoes.comando</code>; <code>Number</code>; <code>raiz.querySelector</code> / — |
-| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#8</code> · [L27](../../src/apresentacao/missao/EntradaMissao.ts#L27) | <code>(this: HTMLInputElement, e: Event): void</code> | <code>acoes.comando</code>; <code>Number</code> / — |
+| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#1</code> · [L24](../../src/apresentacao/missao/EntradaMissao.ts#L24) | <code>(): void</code> | <code>acoes.sistema</code> / — |
+| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#2</code> · [L25](../../src/apresentacao/missao/EntradaMissao.ts#L25) | <code>(): void</code> | <code>acoes.comando</code> / — |
+| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#3</code> · [L28](../../src/apresentacao/missao/EntradaMissao.ts#L28) | <code>(): void</code> | <code>acoes.comando</code> / — |
+| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#4</code> · [L29](../../src/apresentacao/missao/EntradaMissao.ts#L29) | <code>(): void</code> | <code>acoes.comando</code> / — |
+| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#5</code> · [L30](../../src/apresentacao/missao/EntradaMissao.ts#L30) | <code>(): void</code> | <code>acoes.comando</code> / — |
+| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#6</code> · [L31](../../src/apresentacao/missao/EntradaMissao.ts#L31) | <code>(): void</code> | <code>acoes.comando</code> / — |
+| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#7</code> · [L32](../../src/apresentacao/missao/EntradaMissao.ts#L32) | <code>(): void</code> | <code>acoes.comando</code>; <code>Number</code>; <code>raiz.querySelector</code> / — |
+| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#8</code> · [L33](../../src/apresentacao/missao/EntradaMissao.ts#L33) | <code>(this: HTMLInputElement, e: Event): void</code> | <code>acoes.comando</code>; <code>Number</code> / — |
 | <code>src/apresentacao/missao/HudMissao.ts::atualizarHudMissao.[callback]:ArrowFunction#1</code> · [L31](../../src/apresentacao/missao/HudMissao.ts#L31) | <code>(c: CorpoObservado): boolean</code> | — / — |
 | <code>src/apresentacao/missao/HudMissao.ts::atualizarHudMissao.[callback]:ArrowFunction#2</code> · [L31](../../src/apresentacao/missao/HudMissao.ts#L31) | <code>(c: CorpoObservado): string</code> | <code>graus</code> / — |
 | <code>src/apresentacao/missao/HudMissao.ts::atualizarHudMissao.[callback]:ArrowFunction#3</code> · [L43](../../src/apresentacao/missao/HudMissao.ts#L43) | <code>(obj: ObjetivoMissao): boolean</code> | — / — |
@@ -31257,9 +31257,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/physics/cenarios/EnsaioPortaVertical.ts::criarEnsaioPortaVertical.[callback]:ArrowFunction#5</code> · [L108](../../src/physics/cenarios/EnsaioPortaVertical.ts#L108) | <code>(chumbador: ChumbadorAoSolo): void</code> | <code>mundo.registrarChumbadorAoSolo</code> / — |
 | <code>src/physics/cenarios/EnsaioPortaVertical.ts::criarEnsaioPortaVertical.[callback]:ArrowFunction#6</code> · [L116](../../src/physics/cenarios/EnsaioPortaVertical.ts#L116) | <code>(chumbador: ChumbadorAoSolo): boolean</code> | <code>pecasDoBatente.includes</code> / — |
 | <code>src/physics/cenarios/EnsaioPortaVertical.ts::criarEnsaioPortaVertical.[callback]:ArrowFunction#7</code> · [L118](../../src/physics/cenarios/EnsaioPortaVertical.ts#L118) | <code>(sensor: SwitchFimDeCurso): void</code> | <code>mundo.registrarSwitchFimDeCurso</code> / — |
-| <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.resistenciaTotalOhm.[callback]:ArrowFunction#1</code> · [L71](../../src/physics/conexoes/ConexaoEletrica.ts#L71) | <code>(soma: number, resistor: Resistor): number</code> | — / — |
-| <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.interruptorFechado.[callback]:ArrowFunction#1</code> · [L79](../../src/physics/conexoes/ConexaoEletrica.ts#L79) | <code>(interruptor: Pick&lt;Interruptor, "estaFechado"&gt;): boolean</code> | — / — |
-| <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.configurarResistenciaCabo.[callback]:ArrowFunction#1</code> · [L140](../../src/physics/conexoes/ConexaoEletrica.ts#L140) | <code>(soma: number, r: Resistor): number</code> | — / — |
+| <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.resistenciaTotalOhm.[callback]:ArrowFunction#1</code> · [L72](../../src/physics/conexoes/ConexaoEletrica.ts#L72) | <code>(soma: number, resistor: Resistor): number</code> | — / — |
+| <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.interruptorFechado.[callback]:ArrowFunction#1</code> · [L80](../../src/physics/conexoes/ConexaoEletrica.ts#L80) | <code>(interruptor: Pick&lt;Interruptor, "estaFechado"&gt;): boolean</code> | — / — |
+| <code>src/physics/conexoes/ConexaoEletrica.ts::ConexaoEletrica.configurarResistenciaCabo.[callback]:ArrowFunction#1</code> · [L141](../../src/physics/conexoes/ConexaoEletrica.ts#L141) | <code>(soma: number, r: Resistor): number</code> | — / — |
 | <code>src/physics/conexoes/JuntaRotacionalDeBancada.ts::JuntaRotacionalDeBancada.obterForcasPara.[callback]:ArrowFunction#1</code> · [L56](../../src/physics/conexoes/JuntaRotacionalDeBancada.ts#L56) | <code>(soma: number, membro: Objeto): number</code> | — / — |
 | <code>src/physics/conexoes/eletrica/Contator.ts::Contator.constructor.[callback]:ArrowFunction#1</code> · [L6](../../src/physics/conexoes/eletrica/Contator.ts#L6) | <code>(v: number): boolean</code> | <code>Number.isFinite</code> / — |
 | <code>src/physics/estruturas/ConjuntoEstruturalRigido.ts::ConjuntoEstruturalRigido.sincronizar.[callback]:ArrowFunction#1</code> · [L39](../../src/physics/estruturas/ConjuntoEstruturalRigido.ts#L39) | <code>(soma: number, objeto: Objeto): number</code> | — / — |
@@ -31296,11 +31296,11 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/physics/objetos/veiculos/Bss03.ts::Bss03.acionarModoDePouso.[callback]:ArrowFunction#1</code> · [L61](../../src/physics/objetos/veiculos/Bss03.ts#L61) | <code>(id: string): ResultadoComandoPropulsor</code> | <code>this.solicitarIgnicaoDoPropulsor</code> / — |
 | <code>src/physics/objetos/veiculos/Bss03.ts::Bss03.acionarModoDePouso.[callback]:ArrowFunction#2</code> · [L62](../../src/physics/objetos/veiculos/Bss03.ts#L62) | <code>(resultado: ResultadoComandoPropulsor): boolean</code> | — / — |
 | <code>src/physics/objetos/veiculos/Bss04.ts::criarPernasFixasBss04.[callback]:ArrowFunction#1</code> · [L10](../../src/physics/objetos/veiculos/Bss04.ts#L10) | <code>(this: undefined, lado: number): Objeto[]</code> | <code>Objeto</code>; <code>Vetor3</code>; <code>transformarEstado</code> / — |
-| <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.obterSolicitacoesAplicadas.[callback]:ArrowFunction#1</code> · [L207](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L207) | <code>(solicitacao: SolicitacaoArbitrada): { idControlador: string; idAtuador: string; recurso: RecursoDeAtuador; valor: number; }</code> | — / — |
-| <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.solicitarIgnicaoDeTodos.[callback]:ArrowFunction#1</code> · [L247](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L247) | <code>(id: string): ResultadoComandoPropulsor</code> | <code>this.solicitarIgnicao</code> / — |
-| <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.solicitarIgnicao.[callback]:ArrowFunction#1</code> · [L254](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L254) | <code>(sistema: IdSistemaControlado): boolean</code> | <code>propulsor.ligarSistema</code> / — |
-| <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.obterDiagnostico.[callback]:ArrowFunction#1</code> · [L271](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L271) | <code>(propulsor: IPropulsorControlavelPeloComputador): { idPropulsor: string; aceito: boolean; diagnostico: readonly string[]; }</code> | — / — |
-| <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.aplicarSolicitacoesDeControladores.[callback]:ArrowFunction#1</code> · [L310](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L310) | <code>(propulsor: IPropulsorControlavelPeloComputador): boolean</code> | <code>propulsor.sistemaEstaOperacional</code> / — |
+| <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.obterSolicitacoesAplicadas.[callback]:ArrowFunction#1</code> · [L215](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L215) | <code>(solicitacao: SolicitacaoArbitrada): { idControlador: string; idAtuador: string; recurso: RecursoDeAtuador; valor: number; }</code> | — / — |
+| <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.solicitarIgnicaoDeTodos.[callback]:ArrowFunction#1</code> · [L255](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L255) | <code>(id: string): ResultadoComandoPropulsor</code> | <code>this.solicitarIgnicao</code> / — |
+| <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.solicitarIgnicao.[callback]:ArrowFunction#1</code> · [L262](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L262) | <code>(sistema: IdSistemaControlado): boolean</code> | <code>propulsor.ligarSistema</code> / — |
+| <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.obterDiagnostico.[callback]:ArrowFunction#1</code> · [L279](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L279) | <code>(propulsor: IPropulsorControlavelPeloComputador): { idPropulsor: string; aceito: boolean; diagnostico: readonly string[]; }</code> | — / — |
+| <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.aplicarSolicitacoesDeControladores.[callback]:ArrowFunction#1</code> · [L318](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L318) | <code>(propulsor: IPropulsorControlavelPeloComputador): boolean</code> | <code>propulsor.sistemaEstaOperacional</code> / — |
 | <code>src/physics/objetos/veiculos/VeiculoComposto.ts::VeiculoComposto.constructor.[callback]:ArrowFunction#1</code> · [L39](../../src/physics/objetos/veiculos/VeiculoComposto.ts#L39) | <code>(): number</code> | — / — |
 | <code>src/physics/objetos/veiculos/VeiculoComposto.ts::VeiculoComposto.massaInstantaneaDoConjuntoKg.[callback]:ArrowFunction#1</code> · [L226](../../src/physics/objetos/veiculos/VeiculoComposto.ts#L226) | <code>(massa: number, objeto: Objeto): number</code> | — / — |
 | <code>src/physics/objetos/veiculos/VeiculoComposto.ts::VeiculoComposto.centroDeMassaDoConjuntoM.[callback]:ArrowFunction#1</code> · [L232](../../src/physics/objetos/veiculos/VeiculoComposto.ts#L232) | <code>(soma: number, objeto: Objeto): number</code> | — / — |
@@ -31329,12 +31329,12 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/physics/sistemas de controle/ControladorInclinacaoDePropulsores.ts::ControladorInclinacaoDePropulsores.calcularSolicitacoes.[callback]:ArrowFunction#1</code> · [L52](../../src/physics/sistemas%20de%20controle/ControladorInclinacaoDePropulsores.ts#L52) | <code>(idAtuador: string): { idAtuador: string; recurso: "gimbal"; valor: number; }</code> | — / — |
 | <code>src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts::ControladorPosicionamentoMotorEletrico.constructor.[callback]:ArrowFunction#1</code> · [L49](../../src/physics/sistemas%20de%20controle/ControladorPosicionamentoMotorEletrico.ts#L49) | <code>(ganho: number): boolean</code> | — / — |
 | <code>src/physics/sistemas de controle/ControladorPousoDePropulsores.ts::ControladorPousoDePropulsores.calcularSolicitacoes.[callback]:ArrowFunction#1</code> · [L30](../../src/physics/sistemas%20de%20controle/ControladorPousoDePropulsores.ts#L30) | <code>(this: undefined, idAtuador: string): ({ idAtuador: string; recurso: "throttle"; valor: number; } &#124; { idAtuador: string; recurso: "gimbal"; valor: number; })[]</code> | — / — |
-| <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.obterUltimaArbitragem.[callback]:ArrowFunction#1</code> · [L41](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L41) | <code>(solicitacao: SolicitacaoArbitrada): { idControlador: string; idAtuador: string; recurso: RecursoDeAtuador; valor: number; }</code> | — / — |
-| <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.idsAtivos.[callback]:ArrowFunction#1</code> · [L75](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L75) | <code>(controlador: ControladorDeVoo): boolean</code> | — / — |
-| <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.idsAtivos.[callback]:ArrowFunction#2</code> · [L75](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L75) | <code>(controlador: ControladorDeVoo): string</code> | — / — |
-| <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.calcularSolicitacoes.[callback]:ArrowFunction#1</code> · [L92](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L92) | <code>({ controlador, solicitacao }: { controlador: ControladorDeVoo; solicitacao: SolicitacaoDeAtuador; }): { idControlador: string; idAtuador: string; recurso: RecursoDeAtuador; valor: number; }</code> | — / — |
-| <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.calcularSolicitacoes.[callback]:ArrowFunction#2</code> · [L94](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L94) | <code>(s: SolicitacaoArbitrada): string</code> | — / — |
-| <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.calcularSolicitacoes.[callback]:ArrowFunction#3</code> · [L98](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L98) | <code>({ solicitacao }: { controlador: ControladorDeVoo; solicitacao: SolicitacaoDeAtuador; }): SolicitacaoDeAtuador</code> | — / — |
+| <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.obterUltimaArbitragem.[callback]:ArrowFunction#1</code> · [L44](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L44) | <code>(solicitacao: SolicitacaoArbitrada): { idControlador: string; idAtuador: string; recurso: RecursoDeAtuador; valor: number; }</code> | — / — |
+| <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.idsAtivos.[callback]:ArrowFunction#1</code> · [L78](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L78) | <code>(controlador: ControladorDeVoo): boolean</code> | — / — |
+| <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.idsAtivos.[callback]:ArrowFunction#2</code> · [L78](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L78) | <code>(controlador: ControladorDeVoo): string</code> | — / — |
+| <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.calcularSolicitacoes.[callback]:ArrowFunction#1</code> · [L95](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L95) | <code>({ controlador, solicitacao }: { controlador: ControladorDeVoo; solicitacao: SolicitacaoDeAtuador; }): { idControlador: string; idAtuador: string; recurso: RecursoDeAtuador; valor: number; }</code> | — / — |
+| <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.calcularSolicitacoes.[callback]:ArrowFunction#2</code> · [L97](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L97) | <code>(s: SolicitacaoArbitrada): string</code> | — / — |
+| <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.calcularSolicitacoes.[callback]:ArrowFunction#3</code> · [L101](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L101) | <code>({ solicitacao }: { controlador: ControladorDeVoo; solicitacao: SolicitacaoDeAtuador; }): SolicitacaoDeAtuador</code> | — / — |
 | <code>src/physics/solucionadores/IntegradorFisico.ts::IntegradorFisico.integrarObjeto.[callback]:ArrowFunction#1</code> · [L30](../../src/physics/solucionadores/IntegradorFisico.ts#L30) | <code>(soma: Vetor3, atual: ForcaAplicada): Vetor3</code> | <code>soma.adicionar</code> / — |
 | <code>src/physics/solucionadores/IntegradorFisico.ts::IntegradorFisico.integrarObjeto.[callback]:ArrowFunction#2</code> · [L34](../../src/physics/solucionadores/IntegradorFisico.ts#L34) | <code>(soma: Vetor3, atual: ForcaAplicada): Vetor3</code> | <code>atual.pontoM.subtrair</code>; <code>soma.adicionar</code>; <code>bracoM.produtoVetorial</code> / — |
 | <code>src/physics/solucionadores/IntegradorFisico.ts::IntegradorFisico.integrarObjeto.[callback]:ArrowFunction#3</code> · [L37](../../src/physics/solucionadores/IntegradorFisico.ts#L37) | <code>(soma: Vetor3, atual: ForcaAplicada): Vetor3</code> | <code>soma.adicionar</code> / — |

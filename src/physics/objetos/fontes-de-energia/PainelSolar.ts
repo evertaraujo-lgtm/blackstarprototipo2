@@ -7,8 +7,8 @@ export interface DefinicaoPainelSolar extends DefinicaoObjeto {
   readonly areaAtivaM2: number;
   readonly irradianciaWPorM2: number;
   readonly eficiencia: number;
-  readonly destino: Objeto & { receberEnergia(energiaJ: number): number };
-  readonly obterFatorIluminacao?: () => number;
+  readonly destino: Objeto & { /** Porta do destino de carga: recebe energia J e retorna parcela realmente aceita; armazenamento não depende da visibilidade do painel. @contract f-c5ec22d9c45e3d17 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ receberEnergia(energiaJ: number): number };
+  readonly obterFatorIluminacao?: /** Consulta fração de iluminação usada na potência solar; a fonte valida/limita valor segundo seu modelo, sem depender de animação de sombra. @contract f-3d9bbb4481ad2ca8 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => number;
   readonly statusInicial?: StatusPainelSolar;
 }
 

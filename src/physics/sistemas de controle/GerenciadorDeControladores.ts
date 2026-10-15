@@ -19,10 +19,13 @@ export interface ControladorDeVoo {
   /** Em disputa sobre o mesmo atuador e recurso, o maior valor vence. */
   readonly prioridade: number;
   readonly estaHabilitado: boolean;
+  /** Seleciona controlador para cálculo e reinicialização definida pela implementação; não ignita atuadores. @contract f-c239c04410fd7830 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   habilitar(): void;
+  /** Retira seleção operacional e limpa memória conforme controlador, sem impor repouso físico. @contract f-bb47ae1580754693 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   desabilitar(): void;
-  /** Limpa transientes quando todas as solicitações perdem a arbitragem. */
+  /** Reinicia memória após perda de alimentação/leitura preservando seleção habilitada quando previsto. @contract f-56eaf7435c607a26 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   reiniciarMemoria?(): void;
+  /** Usa leituras SI locais e dt em s para produzir pedidos de atuadores; pode atualizar memória do controle, nunca estado cinemático. Gerenciador arbitra prioridades antes da aplicação. @contract f-41b09b3ce8972a5e @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   calcularSolicitacoes(leituras: LeiturasVeiculoComposto, dtS: number): readonly SolicitacaoDeAtuador[];
 }
 

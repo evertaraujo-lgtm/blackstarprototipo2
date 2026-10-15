@@ -9,7 +9,7 @@ export interface EscalaTracePLC {
 export interface CanalTracePLC {
   readonly nome: string;
   readonly cor: string;
-  readonly obterSinal: () => SinalTracePLC;
+  readonly obterSinal: /** Consulta sinal atual do canal para trace; retorno numérico finito ou booleano conforme tipo. Não integra física nem controla atuador por esta leitura. @contract f-c59acbd9414e88e5 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => SinalTracePLC;
   readonly escala?: EscalaTracePLC;
 }
 
@@ -36,7 +36,7 @@ export class TracePLC {
   public get amostras(): readonly AmostraTracePLC[] { return this.amostrasInternas; }
 
   /** Valida nome/cor/porta de leitura, escala finita crescente e capacidade; adiciona canal sem avaliar sinal neste momento. @contract f-f3ba099a9d5d7167 @reviewed M12-DOC: implementação lida. */
-  public adicionarSinal(nome: string, obterSinal: () => SinalTracePLC, cor: string, escala?: EscalaTracePLC): void {
+  public adicionarSinal(nome: string, obterSinal: /** Consulta sinal atual do canal para trace; retorno numérico finito ou booleano conforme tipo. Não integra física nem controla atuador por esta leitura. @contract f-1d0fbb8492ce8067 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => SinalTracePLC, cor: string, escala?: EscalaTracePLC): void {
     if (!nome || !cor || typeof obterSinal !== 'function') throw new Error('Canal do TracePLC inválido.');
     if (escala && (!Number.isFinite(escala.minimo) || !Number.isFinite(escala.maximo) || escala.maximo <= escala.minimo)) throw new Error('Escala do TracePLC inválida.');
     if (this.canaisInternos.length >= this.limiteCanais) throw new Error(`TracePLC limitado a ${this.limiteCanais} canais.`);

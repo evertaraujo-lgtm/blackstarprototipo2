@@ -26,8 +26,11 @@ export abstract class SuperficieFisica {
     this.temperaturaAtualC = temperaturaInicialC;
   }
 
+  /** Geometria especializada retorna distância assinada em m, negativa dentro do sólido; não é resposta de impacto nem interface líquida. @contract f-1131bf7a95c2e659 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   public abstract distanciaAssinadaM(pontoM: Vetor3): number;
+  /** Geometria especializada fornece normal unitária exterior no ponto global; usada por contato, atrito e sensores. @contract f-f2cda6b8c44dc238 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   public abstract normalEm(pontoM: Vetor3): Vetor3;
+  /** Geometria especializada projeta ponto global m na superfície; não move corpo nem aplica correção por si só. @contract f-aedd6eafbec7078d @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   public abstract projetar(pontoM: Vetor3): Vetor3;
   /** Contrato padrão sem bordas: aceita qualquer projeção. Superfícies finitas especializam esta consulta. @contract f-0b83791d53142aaf @reviewed M12-DOC: implementação lida. */
   public contemProjecao(_pontoM: Vetor3): boolean { return true; }

@@ -17,13 +17,13 @@ const { values } = parseArgs({ options: { segundos: { type: 'string', default: '
 const segundos = Number(values.segundos), frequencia = Number(values['observacao-passos']);
 if (!(segundos > 0 && Number.isFinite(segundos)) || !Number.isSafeInteger(frequencia) || frequencia < 1) throw new Error('Parâmetros inválidos.');
 const medidas: Record<string, { chamadas: number; totalMs: number; proprioMs: number }> = {};
-const pilha: { filhosMs: number }[] = [], restaurar: (() => void)[] = [];
+const pilha: { filhosMs: number }[] = [], restaurar: (/** Tipo de operação síncrona usado pela instrumentação Node; wrappers devem preservar argumentos, retorno, this e exceções. Restauração de métodos é efeito explícito do callback correspondente, sem relógio no domínio. @contract f-b9550c1caa980d1d @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => void)[] = [];
 let reconstrucoes = 0;
 let faseAtual = 'inicializacao';
 const chamadasPorFase: Record<string, Record<string, number>> = {};
 /** Instala wrappers opt-in de contagem/tempo em métodos de protótipo no processo Node e agenda restauração; conserva this, argumentos, retorno e exceções. Relógio de CPU fica fora do domínio. @contract f-a02c5abbe5cdcfea @reviewed M12-DOC: implementação lida. */
 function instrumentar(prototipo: object, nomes: string[], prefixo: string) {
-  const p = prototipo as Record<string, (...args: unknown[]) => unknown>;
+  const p = prototipo as Record<string, /** Tipo de operação síncrona usado pela instrumentação Node; wrappers devem preservar argumentos, retorno, this e exceções. Restauração de métodos é efeito explícito do callback correspondente, sem relógio no domínio. @contract f-156cf81e3abe130b @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (...args: unknown[]) => unknown>;
   for (const nome of nomes) {
     const chave = `${prefixo}.${nome}`, original = p[nome], medida = medidas[chave] = { chamadas: 0, totalMs: 0, proprioMs: 0 };
     p[nome] = /** Conta chamadas por fase e reconstruções geométricas; opcionalmente mede tempos inclusivo/próprio com pilha e finally, delegando ao método original sem mudar parâmetros físicos. @contract f-e5e1ebd39074c6bc @reviewed M12-DOC: implementação lida. */

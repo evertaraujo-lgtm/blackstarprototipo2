@@ -20,6 +20,7 @@ import type { EstadoVetorizacao } from '../propulsao/vetorizacao/InterfacesVetor
 type IdSistemaControlado = 'elétrico' | 'hidráulico' | 'combustível' | 'controle';
 
 export interface FonteTelemetriaDoCasco {
+  /** Consulta leituras dos sensores do casco, incluindo validade/idade, nas unidades/referencial compartilhados; não cria dinâmica própria. @contract f-812afc3623292bce @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   obterLeituras(): LeiturasVeiculoComposto;
 }
 
@@ -28,12 +29,19 @@ export interface IPropulsorControlavelPeloComputador {
   readonly id: string;
   readonly estaIgnitado: boolean;
   readonly diagnosticoOperacional: readonly string[];
+  /** Consulta permissivo atual do sistema indicado; não ativa automaticamente dependências. @contract f-b530279f6e6f64cf @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   sistemaEstaOperacional(id: IdSistemaControlado): boolean;
+  /** Tenta ligar sistema pela cadeia operacional e retorna aceitação; não garante ignição ou empuxo. @contract f-2711cb9492a6f91d @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   ligarSistema(id: IdSistemaControlado): boolean;
+  /** Solicita ignição explícita sujeita a permissivos e integridade; retorna aceitação sem impor velocidade. @contract f-9e877e3c8055873f @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   solicitarIgnicao(): boolean;
+  /** Solicita throttle adimensional em [0,1] pela validação do motor; empuxo depende de energia/propelente/ignição. @contract f-045a1cbee550abbb @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   definirThrottle(throttle: number): void;
+  /** Desliga sistema indicado com seus intertravamentos; não remove motor do mundo. @contract f-7436767c9b2f336f @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   desligarSistema(id: IdSistemaControlado): void;
+  /** Porta opcional que solicita alvo finito em rad dentro do curso e retorna aceitação; ângulo real evolui no atuador. @contract f-0531e51187c19a7d @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   solicitarVetorizacao?(anguloAlvoRad: number): boolean;
+  /** Porta opcional de consulta do alvo/posição, limites e permissivos reais do atuador. @contract f-ea39afb7bf2cf6c6 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   obterEstadoDaVetorizacao?(): EstadoVetorizacao;
 }
 

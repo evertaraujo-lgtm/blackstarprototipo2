@@ -1,0 +1,109 @@
+{
+  "marco": "M12-DOC",
+  "tipo": "smoke local sobre build de producao; sem campanha fisica prolongada",
+  "paginas": {
+    "paginas": [
+      {
+        "pagina": "/",
+        "titulo": "Black Star Space | Engenharia e simulação espacial",
+        "carregou": true
+      },
+      {
+        "pagina": "/tests.html",
+        "titulo": "Simulação de foguetes — Black Star Space",
+        "carregou": true
+      },
+      {
+        "pagina": "/orbitas.html",
+        "titulo": "Black Star — Ensaios orbitais 2D",
+        "carregou": true
+      },
+      {
+        "pagina": "/missao.html",
+        "titulo": "Black Star — Missão BSS-006",
+        "carregou": true
+      }
+    ],
+    "errosJS": 0,
+    "buildProducao": true
+  },
+  "missao": {
+    "marco": "M12-DOC",
+    "buildProducao": true,
+    "terra": {
+      "tempoS": 0.35,
+      "empuxoN": 77999.99999999999,
+      "metanoKg": 598.4092427077585,
+      "cameraAcompanhou": true
+    },
+    "agua": {
+      "tempoS": 0.22083333333333338,
+      "volumeSubmersoM3": 0.031200000000000002,
+      "contatosSolidos": 0,
+      "integridade": 1
+    },
+    "reinicioSemResiduo": true,
+    "errosJS": 0
+  },
+  "bancada": [
+    {
+      "cenario": "BSS-001 — primeiro lançamento de sucesso",
+      "tempo": "t = 0.750 s · 3,0×",
+      "evidencias": [
+        "Tanques: CH4 119.6 kg · O2 478.3 kg",
+        "Empuxo: 28000 N · ignição ativa · integridade 100%",
+        "Fluxo reagido: 2.80 kg/s"
+      ],
+      "observacao": "Empuxo e fluxo nao nulos; consumo observado."
+    },
+    {
+      "cenario": "BSS-002 — controle de inclinação PID",
+      "tempo": "t = 0.896 s · 3,0×",
+      "evidencias": [
+        "Tanques: CH4 119.5 kg · O2 478.0 kg",
+        "Empuxo: 28000 N · ignição ativa · integridade 100%",
+        "Fluxo reagido: 2.80 kg/s"
+      ],
+      "observacao": "Empuxo e fluxo nao nulos; consumo observado."
+    },
+    {
+      "cenario": "BSS-004 — controle de inclinação e pernas fixas",
+      "tempo": "t = 0.796 s · 3,0×",
+      "evidencias": [
+        "Tanques: CH4 119.6 kg · O2 478.2 kg",
+        "Empuxo: 28000 N · ignição ativa · integridade 100%",
+        "Fluxo reagido: 2.80 kg/s"
+      ],
+      "observacao": "Empuxo e fluxo nao nulos; consumo observado."
+    },
+    {
+      "cenario": "BSS-005 — tanques ampliados · meta 15 km",
+      "tempo": "t = 0.696 s · 3,0×",
+      "evidencias": [
+        "Tanques: CH4 596.6 kg · O2 2386.4 kg",
+        "Empuxo: 84000 N · ignição ativa · integridade 100%",
+        "Fluxo reagido: 24.47 kg/s"
+      ],
+      "observacao": "Empuxo e fluxo nao nulos; consumo observado."
+    },
+    {
+      "cenario": "BSS-006 — pouso guiado por alvo",
+      "tempo": "t = 0.750 s · 3,0×",
+      "evidencias": [
+        "Tanques: CH4 596.3 kg · O2 2385.3 kg",
+        "Empuxo: 84000 N · ignição ativa · integridade 100%",
+        "Fluxo reagido: 24.47 kg/s"
+      ],
+      "observacao": "Empuxo e fluxo nao nulos; consumo observado."
+    },
+    {
+      "cenario": "BSS-003 — decolagem e pouso sob comando manual",
+      "tempo": "t = 0.650 s · 3,0×",
+      "evidencias": [
+        "Tanque de decolagem: 249.5 kg"
+      ],
+      "observacao": "BSS-003: painel sem empuxo/vazao numericos; confirmadas ignicoes e consumo de reserva."
+    }
+  ],
+  "errosJSBancada": 0
+}

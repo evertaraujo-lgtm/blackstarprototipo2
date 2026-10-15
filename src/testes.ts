@@ -191,11 +191,11 @@ interface CenárioVisual {
   readonly modalidade?: ModalidadeTeste;
   readonly limiteVerticalM: number;
   readonly limiteHorizontalM?: number;
-  readonly deveEncerrar: () => boolean;
-  readonly validar: () => string;
-  readonly atualizarControle?: () => void;
+  readonly deveEncerrar: /** Observa condição de término do cenário; pode acumular medidas. Critérios são específicos e alguns históricos não provam repouso de todos os corpos. @contract f-6a520d5e5acbfb66 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => boolean;
+  readonly validar: /** Produz diagnóstico textual dos critérios locais; não aplica correção física nem equivale automaticamente a homologação. @contract f-bd32b88049e38af0 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => string;
+  readonly atualizarControle?: /** Atualiza comandos de domínio antes do passo fixo; não escreve posição/velocidade/orientação. @contract f-377498b2b2db63eb @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => void;
   readonly seguirObjeto?: Objeto;
-  readonly telemetria?: () => string;
+  readonly telemetria?: /** Consulta/forma resumo textual de medidas físicas para legenda, sem avançar mundo. @contract f-c8f1e81e4bb299c0 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => string;
   readonly mangueira?: { readonly tanque: TanquePropelente; readonly propulsor: Propulsor };
   /** Linhas que o operador pode romper sem remover os tanques da cena. */
   readonly linhasComFalhaControlavel?: { readonly combustivel: LinhaDePropelente; readonly oxidante: LinhaDePropelente };
@@ -205,32 +205,32 @@ interface CenárioVisual {
   readonly guiasLineares?: readonly GuiaLinear[];
   /** A guia continua física, mas pode ser omitida da apresentação. */
   readonly exibirGuiasLineares?: boolean;
-  readonly comandarCilindro?: (comando: 'avancar' | 'recuar') => void;
-  readonly configurarVelocidadesDoCilindro?: (avancoMps: number, recuoMps: number) => void;
-  readonly velocidadesDoCilindro?: () => { readonly avancoMps: number; readonly recuoMps: number };
-  readonly iniciarSequencia?: () => void;
+  readonly comandarCilindro?: /** Solicita avanço/recuo ao mecanismo por API operacional, sujeito a energia e fins de curso. @contract f-90f306bb6b88909b @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (comando: 'avancar' | 'recuar') => void;
+  readonly configurarVelocidadesDoCilindro?: /** Configura referências de avanço/recuo positivas em m/s; não impõe velocidade real da haste. @contract f-e26f28ec4c69b761 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (avancoMps: number, recuoMps: number) => void;
+  readonly velocidadesDoCilindro?: /** Consulta referências operacionais em m/s para apresentação/edição. @contract f-2eea811d279c64fb @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => { readonly avancoMps: number; readonly recuoMps: number };
+  readonly iniciarSequencia?: /** Solicita início da sequência de mecanismos pelos mesmos comandos do operador. @contract f-6371fda620b1e467 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => void;
   readonly portaControlavel?: Porta;
-  readonly obterEntradasCilindro?: () => { readonly avancar: boolean; readonly recuar: boolean };
+  readonly obterEntradasCilindro?: /** Consulta entradas de comando para observar no trace; não altera sensores. @contract f-b7ffdf80bc662e4b @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => { readonly avancar: boolean; readonly recuar: boolean };
   readonly geradorControlavel?: GeradorCA;
   readonly sensoresFimDeCurso?: readonly SwitchFimDeCurso[];
   /** Linha de ação de uma força, usada apenas para tornar o ensaio observável. */
-  readonly linhaDeEmpuxo?: () => { readonly origemM: Vetor3; readonly direcao: Vetor3 };
+  readonly linhaDeEmpuxo?: /** Consulta origem global m e direção para representação visual da linha de ação; não aplica força. @contract f-7b8cb444d4760ccf @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => { readonly origemM: Vetor3; readonly direcao: Vetor3 };
   readonly propulsorControlavel?: Propulsor;
   readonly propulsorVetorizadoControlavel?: PropulsorVetorizado;
   readonly gruposPropulsao?: readonly { readonly id: string; readonly nome: string; readonly propulsores: readonly PropulsorVetorizado[] }[];
-  readonly obterGrupoPropulsaoAtivo?: () => string;
-  readonly selecionarGrupoPropulsao?: (id: string) => void;
-  readonly ativarControleBss03?: (controle: 'inclinacao' | 'pouso' | 'manual') => void;
-  readonly obterControleAtivoBss03?: () => 'manual' | 'inclinacao' | 'pouso';
-  readonly ativarModoBss04?: (modo: 'decolagem' | 'pouso') => void;
-  readonly obterModoBss04?: () => 'decolagem' | 'pouso';
-  readonly obterStatusControleBss04?: () => string;
-  readonly obterPontoPousoX?: () => number;
-  readonly selecionarPontoPousoX?: (xM: number) => boolean;
-  readonly pontoPousoSelecionavel?: () => boolean;
+  readonly obterGrupoPropulsaoAtivo?: /** Consulta id do grupo selecionado para comandos de motor na bancada. @contract f-9f126020e77a7d9c @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => string;
+  readonly selecionarGrupoPropulsao?: /** Muda seleção operacional do grupo válido, sem criar/separar motores. @contract f-5821074ed21fa938 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (id: string) => void;
+  readonly ativarControleBss03?: /** Encaminha seleção inclinação/pouso/manual ao BSS-003 pela API de domínio. @contract f-4fa943d2445e86be @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (controle: 'inclinacao' | 'pouso' | 'manual') => void;
+  readonly obterControleAtivoBss03?: /** Consulta modo de controle selecionado, sem confundir habilitação com atuação efetiva. @contract f-4986b1cb3ab898ca @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => 'manual' | 'inclinacao' | 'pouso';
+  readonly ativarModoBss04?: /** Solicita decolagem/pouso ao conjunto compartilhado, preservando arbitragem e permissivos. @contract f-229ef2c8ba578842 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (modo: 'decolagem' | 'pouso') => void;
+  readonly obterModoBss04?: /** Consulta modo operacional atual de decolagem/pouso, sem inferir sucesso de missão. @contract f-043db65d57217303 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => 'decolagem' | 'pouso';
+  readonly obterStatusControleBss04?: /** Forma diagnóstico textual de fase/comando do controle para apresentação. @contract f-8135ed95d711ea29 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => string;
+  readonly obterPontoPousoX?: /** Consulta alvo horizontal em m no referencial declarado pelo cenário. @contract f-8d16006dc41868f4 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => number;
+  readonly selecionarPontoPousoX?: /** Tenta selecionar alvo horizontal m antes da decolagem e informa aceitação. @contract f-0714e3803e6cf2ae @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (xM: number) => boolean;
+  readonly pontoPousoSelecionavel?: /** Consulta se interface pode aceitar novo alvo sem alterar condições de voo. @contract f-cd541e567595b281 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => boolean;
   /** Sinais analógicos adicionais registrados no trace da bancada. */
   readonly canaisTrace?: readonly CanalTrace[];
-  readonly obterConfiguracaoEnsaio?: () => unknown;
+  readonly obterConfiguracaoEnsaio?: /** Exporta parâmetros/revisão física necessários à identificação e reprodução do ensaio; não devolve dinâmica paralela. @contract f-816385dec9666d38 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => unknown;
   readonly motorRotacionalControlavel?: MotorEletricoRotacional;
   readonly motorRotacionalSecundarioControlavel?: MotorEletricoRotacional;
   readonly painelSolarControlavel?: PainelSolar;
@@ -239,9 +239,9 @@ interface CenárioVisual {
   /** Expõe parâmetros do paraquedas exclusivamente no cenário de calibração. */
   readonly objetoComParaquedasConfiguravel?: Objeto;
   readonly permiteAjustarThrottle?: boolean;
-  readonly cameraX?: () => number;
-  readonly cameraY?: () => number;
-  readonly dados?: () => string;
+  readonly cameraX?: /** Consulta centro horizontal em m para câmera local; não escreve coordenada física. @contract f-544fb8a9061b113d @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => number;
+  readonly cameraY?: /** Consulta centro vertical em m para câmera local; não altera altitude do corpo. @contract f-68846497e7b308b9 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => number;
+  readonly dados?: /** Produz painel textual de engenharia a partir das consultas atuais; conversões de apresentação não mudam domínio. @contract f-aeaa01924ccd73f1 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => string;
   /** Mantém visível cenários integrados que substituem ensaios isolados antigos. */
   readonly exibirNaBancada?: boolean;
 }
@@ -1134,7 +1134,7 @@ const criarTesteVeiculoAlado = (): CenárioVisual => {
  * operacional que também seria visto em manutenção.
  * @contract f-5ed19c6e87c7b9ff
  */
-const criarPartidaAutomaticaBasica = (mundo: MundoFisico, propulsor: Propulsor): (() => void) => {
+const criarPartidaAutomaticaBasica = (mundo: MundoFisico, propulsor: Propulsor): (/** Tipo de atualização do sequenciador operacional de bancada; usa tempo simulado e operações normais de sistemas/ignição, sem alterar movimento. @contract f-edbd19301ed1011d @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => void) => {
   let eletricaComandada = false;
   let hidraulicaComandada = false;
   let combustivelComandado = false;
@@ -2464,7 +2464,7 @@ const obterEscalaTemporalAtual = (): number => escalasTemporaisPorCenario.get(in
 interface CanalTrace {
   readonly nome: string;
   readonly cor: string;
-  readonly obterSinal: () => number;
+  readonly obterSinal: /** Consulta sinal atual do canal para trace; retorno numérico finito ou booleano conforme tipo. Não integra física nem controla atuador por esta leitura. @contract f-d78e0fc264780632 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => number;
   readonly escala?: { readonly minimo: number; readonly maximo: number; readonly unidade?: string };
 }
 
@@ -3636,7 +3636,7 @@ const simularRupturaDaLinha = (tipo: 'combustivel' | 'oxidante'): void => {
 disconnectFuelTankButton.addEventListener('click', () => simularRupturaDaLinha('combustivel'));
 disconnectOxidizerTankButton.addEventListener('click', () => simularRupturaDaLinha('oxidante'));
 /** Executa ação fornecida na conexão selecionada quando existente e atualiza controles/desenho; efeitos elétricos pertencem à ação de domínio. @contract f-1c2159b335c86e5f @reviewed M12-DOC: implementação lida. */
-const operarConexao = (acao: (conexao: ConexaoEletricaVisual) => void): void => {
+const operarConexao = (acao: /** Ação operacional fornecida pela UI sobre conexão selecionada; pode abrir/desconectar/romper cabo pelas portas do domínio, sem alterar cinemática. @contract f-156aee79a8b0ddee @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (conexao: ConexaoEletricaVisual) => void): void => {
   const conexao = conexaoSelecionada();
   if (!conexao) return;
   acao(conexao);

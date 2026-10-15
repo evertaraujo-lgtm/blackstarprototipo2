@@ -265,3 +265,24 @@ loop temporal. Três cabeçalhos antigos duplicados junto a propriedades inline
 foram removidos após verificar igualdade da AST executável. A pendência de eixo
 temporal do trace e critérios de término arquivados foram registrada no mapa.
 A aprovação visual da abertura do paraquedas, por exemplo, não comprova pouso.
+
+#### Complemento do contrato de impacto — portas declarativas
+
+As 137 assinaturas sem corpo já inventariadas também receberão comentários de
+responsabilidade junto ao nó de tipo/método abstrato. A lista exata e as assinaturas
+estão na categoria `contrato` do inventário/catalogo: portas de missão, ambiente,
+superfície, sensores/atuadores, controladores, contextos de resolução, executor,
+cenário visual e callbacks de instrumentação. Nenhuma assinatura será alterada;
+os efeitos previstos serão descritos a partir dos consumidores/implementações
+inspecionados. Não serão criadas funções executáveis nem regras físicas novas.
+
+### C12 — Contratos declarativos de portas e callbacks tipados
+
+As 137 assinaturas declarativas receberam descrição do papel esperado da porta,
+unidades e limites relevantes, confrontados com consumidores/implementações
+existentes: consulta versus comando, energia entregue versus solicitada, força
+versus integração, leitura versus controlador. Tipos não criam implementações.
+O cabeçalho fica junto ao nó de tipo/método abstrato e é associado pelo compilador.
+A comparação por arquivo manteve a AST executável idêntica; nenhuma assinatura
+ou fluxo foi alterado. Catálogo inclui esses contratos separadamente das funções
+com corpo, dos callbacks anônimos de execução e dos testes.

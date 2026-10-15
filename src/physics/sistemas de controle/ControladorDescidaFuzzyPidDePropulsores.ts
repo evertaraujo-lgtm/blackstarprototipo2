@@ -16,7 +16,7 @@ export interface ConfiguracaoDescidaFuzzyPid {
   /** Inclinação-alvo por velocidade horizontal durante a descida, em rad/(m/s). */
   readonly ganhoAtitudePorVelocidadeHorizontalRadPorMps?: number;
   /** Sensor de contato físico opcional; quando presente, altitude sozinha não autoriza cortar o motor. */
-  readonly obterContatoComSolo?: () => boolean;
+  readonly obterContatoComSolo?: /** Consulta confirmação física de apoio fornecida pelo cenário; implementação BSS retém primeiro apoio bilateral, sem provar continuidade posterior. @contract f-f48142ef0b2674dd @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => boolean;
 }
 
 export type FaseDescidaFuzzyPid =

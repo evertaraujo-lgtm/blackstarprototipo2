@@ -61,7 +61,7 @@ export class Cilindro {
 }
 
 // O construtor variádico preserva os argumentos de qualquer classe base no mixin.
-type Construtor = new (...args: any[]) => object;
+type Construtor = /** Tipo de construtor do mixin: instancia classe base com argumentos preservados; instalação do comportamento não autoriza alterar cinemática fora do core. @contract f-2018a9bb816af2a1 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ new (...args: any[]) => object;
 
 /** Herança de comportamento sem exigir herança múltipla ou substituir a física.
  * @contract f-37ea8d6287dee55e

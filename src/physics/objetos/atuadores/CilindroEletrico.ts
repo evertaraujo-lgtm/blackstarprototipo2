@@ -19,7 +19,7 @@ export interface DefinicaoCilindroEletrico extends DefinicaoCilindro {
   /** Direção física do curso no mundo planar; padrão: X positivo. */
   readonly direcaoDeCursoM?: Vetor3;
   /** Permissivos externos de alimentação/controle, consultados a cada subpasso. */
-  readonly operacaoAutorizada?: () => boolean;
+  readonly operacaoAutorizada?: /** Consulta permissivo externo do atuador; false impede atuação, sem alterar pose ou substituir integridade/energia. @contract f-57b1b7d21164f2d4 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => boolean;
   /** Servo de retenção opcional: rigidez equivalente em N/m, limitada pela força máxima. */
   readonly rigidezRetencaoNPorM?: number;
   /** Consumo elétrico do controle e motor energizados, inclusive parado (W). */
@@ -110,7 +110,7 @@ export class CilindroEletrico extends Cilindro {
 
 export class HasteDeCilindroEletrico extends Objeto {
   /** Inicializa haste como objeto físico com propriedades herdadas; forças do acionamento serão integradas pelo mundo. @contract f-388b485ef7af8890 @reviewed M12-DOC: implementação lida. */
-  public constructor(definicao: DefinicaoObjeto, private readonly obterCilindro: () => Pick<CilindroEletrico, 'obterForcasNaHaste'>) { super(definicao); }
+  public constructor(definicao: DefinicaoObjeto, private readonly obterCilindro: /** Resolve acionamento já associado à haste para consultar solicitações físicas de força; evita criação de dinâmica concorrente. @contract f-e25c8d2ac86de693 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => Pick<CilindroEletrico, 'obterForcasNaHaste'>) { super(definicao); }
   /** Devolve `this.obterCilindro().obterForcasNaHaste()`. Dependências diretas: `this.obterCilindro().obterForcasNaHaste`, `this.obterCilindro`. Efeitos indiretos seguem as dependências chamadas. @contract f-b8753a62eb7004d8 */
   public override obterForcasOperacionais(): readonly ForcaFisicaSolicitada[] { return this.obterCilindro().obterForcasNaHaste(); }
 }

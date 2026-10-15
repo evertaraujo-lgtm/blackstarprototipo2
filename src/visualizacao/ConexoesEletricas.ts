@@ -37,7 +37,7 @@ export function desenharConexoesEletricas(
   contexto: CanvasRenderingContext2D,
   conexoes: readonly ConexaoEletricaVisual[],
   objetosVisiveis: readonly Objeto[],
-  projetar: (pontoM: Vetor3) => { readonly x: number; readonly y: number },
+  projetar: /** Converte ponto físico global m para coordenadas de desenho em pixels; somente apresentação, sem modificar vetor ou corpo. @contract f-ba5dd7e9baefe41f @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (pontoM: Vetor3) => { readonly x: number; readonly y: number },
 ): readonly AlvoSwitchEletrico[] {
   const alvos: AlvoSwitchEletrico[] = [];
   for (const [indice, conexao] of conexoesEletricasExpostas(conexoes, objetosVisiveis).entries()) {

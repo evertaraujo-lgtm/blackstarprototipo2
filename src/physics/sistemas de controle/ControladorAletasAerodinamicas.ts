@@ -5,7 +5,7 @@ export class ControladorAletasAerodinamicas {
   /** Exige ao menos uma aleta, ganhos e limiar de velocidade finitos não negativos; guarda portas dos atuadores e de energização. @contract f-63d060f8a840b02f @reviewed M12-DOC: implementação lida. */
   public constructor(
     private readonly aletas: readonly AletaAerodinamica[],
-    private readonly estaEnergizado: () => boolean = /** Devolve `true`. Efeitos indiretos seguem as dependências chamadas. @contract f-4600f6df1f57af59 */
+    private readonly estaEnergizado: /** Consulta permissivo elétrico/controle antes de calcular/aplicar solicitações do controlador; seleção operacional continua separada da alimentação. @contract f-b36a1b76ce28fe27 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => boolean = /** Devolve `true`. Efeitos indiretos seguem as dependências chamadas. @contract f-4600f6df1f57af59 */
                                                      () => true,
     private readonly ganhoAtitude = 1.8,
     private readonly ganhoVelocidadeAngular = 0.65,

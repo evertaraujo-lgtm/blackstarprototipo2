@@ -7,14 +7,14 @@ import { ResolvedorEsforcoEstrutural } from './ResolvedorEsforcoEstrutural';
 
 export interface ContextoResolvedorColisoes {
   readonly somentePlanoXY?: boolean;
-  readonly verticalEm?: (p: Vetor3) => Vetor3;
-  readonly obterObjetos: () => Iterable<Objeto>;
-  readonly obterConjuntoEstrutural: (objeto: Objeto) => ConjuntoEstruturalRigido | undefined;
-  readonly obterFixadores: () => Iterable<FixadorEstrutural>;
+  readonly verticalEm?: /** Consulta direção radial/vertical unitária local do ambiente para classificar contato de apoio; não define outra gravidade. @contract f-20b3443c43cccc2d @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (p: Vetor3) => Vetor3;
+  readonly obterObjetos: /** Entrega iterador dos corpos registrados do mundo ao sistema consumidor; somente consulta de registro, sem cópia de dinâmica. @contract f-13d860ede9a19fa7 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => Iterable<Objeto>;
+  readonly obterConjuntoEstrutural: /** Consulta ilha atual do corpo ou undefined se independente; identidade compartilhada evita autocontato e preserva massa/inércia compostas. @contract f-ab1fad49716fdb0e @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (objeto: Objeto) => ConjuntoEstruturalRigido | undefined;
+  readonly obterFixadores: /** Entrega iterador dos vínculos registrados para cálculo/transmissão de esforços e ruptura determinística. @contract f-b923977e4618b4da @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => Iterable<FixadorEstrutural>;
   readonly resolvedorEsforcoEstrutural: ResolvedorEsforcoEstrutural;
-  readonly distribuirCalorDeAtrito: (objetoA: Objeto, objetoB: Objeto, energiaJ: number, dtS: number) => void;
+  readonly distribuirCalorDeAtrito: /** Transfere energia dissipada J aos participantes do contato com dt s, conforme adaptador térmico; sem novo impulso ou dissipação duplicada. @contract f-b6a752a6af674691 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (objetoA: Objeto, objetoB: Objeto, energiaJ: number, dtS: number) => void;
   readonly velocidadeDeRepousoMps: number;
-  readonly deveIgnorarColisao?: (objetoA: Objeto, objetoB: Objeto) => boolean;
+  readonly deveIgnorarColisao?: /** Consulta exclusão física explícita do par por juntas; ausência de exclusão mantém verificação de colisão. @contract f-165316a34d91d305 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (objetoA: Objeto, objetoB: Objeto) => boolean;
 }
 
 /** Descobre contatos entre objetos e aplica sua resposta impulsiva. */

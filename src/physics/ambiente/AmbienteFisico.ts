@@ -6,6 +6,7 @@ import { Vetor3 } from '../Vetor3';
 export interface AmbienteFisico {
   readonly campo: CampoGravitacional;
   readonly referencial: ReferencialFisico;
+  /** Expõe revisão, geometria/referencial e constantes físicas ativas para registrar ensaios/replays sem serializar serviços do mundo. @contract f-f65d4a56ef06dbbd @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   obterConfiguracao(): object;
 }
 export class AmbientePlano implements AmbienteFisico {

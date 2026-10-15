@@ -14,7 +14,7 @@ export interface DefinicaoFixadorEstrutural {
   readonly capacidadeTermicaJPorC?: number;
   readonly condutanciaTermicaWPorC?: number;
   /** Esforço solicitado pela operação que o fixador precisa transmitir. */
-  readonly obterEsforcoSolicitadoN: () => number;
+  readonly obterEsforcoSolicitadoN: /** Consulta esforço externo solicitado em N para verificar resistência do vínculo; core acrescenta cargas físicas observadas. Não rompe vínculo por esta leitura. @contract f-cd671b03c8af2236 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => number;
 }
 
 /** Conexão rígida simples que falha por esforço e preserva o conjunto físico. */

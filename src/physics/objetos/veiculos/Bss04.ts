@@ -5,7 +5,7 @@ import { Objeto } from '../base/Objeto';
 /** Cria duas pernas fixas e suas sapatas como corpos físicos do BSS-04.
  * @contract f-618b5173fdbe54b8
  */
-export function criarPernasFixasBss04(centroCascoM: Vetor3, prefixoId = 'bss04', transformarEstado: (p: Vetor3) => Partial<EstadoFisico> = /** Devolve `({ posicaoM: p })`. Efeitos indiretos seguem as dependências chamadas. @contract f-cebcde71db18c7c5 */
+export function criarPernasFixasBss04(centroCascoM: Vetor3, prefixoId = 'bss04', transformarEstado: /** Converte posição local de montagem em estado inicial parcial global das pernas; apenas construção inicial, sem atualizar corpos em voo. @contract f-9ab31d033596f6e2 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (p: Vetor3) => Partial<EstadoFisico> = /** Devolve `({ posicaoM: p })`. Efeitos indiretos seguem as dependências chamadas. @contract f-cebcde71db18c7c5 */
                                                                                                                                            (p) => ({ posicaoM: p })): readonly Objeto[] {
   return [-1, 1].flatMap((lado) => {
     const nomeLado = lado < 0 ? 'esquerda' : 'direita';

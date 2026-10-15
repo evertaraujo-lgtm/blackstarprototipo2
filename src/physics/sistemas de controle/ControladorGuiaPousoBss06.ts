@@ -27,6 +27,7 @@ export interface LeiturasGuiaPousoBss06 {
 /** Somente leitura do motor; o comando passa pelo ComputadorDeVoo. */
 export interface MotorDaGuiaPouso {
   readonly id: string;
+  /** Consulta posição/limites reais do gimbal para arbitragem da guiagem; não amplia curso disponível. @contract f-51e931aaa927f1e1 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   obterEstadoDaVetorizacao(): EstadoVetorizacao;
 }
 
@@ -58,8 +59,8 @@ export class ControladorGuiaPousoBss06 implements ControladorDeVoo {
   public constructor(
     aletas: readonly AletaAerodinamica[],
     private readonly propulsor: MotorDaGuiaPouso,
-    private readonly estaEnergizado: () => boolean,
-    private readonly obterContexto?: () => LeiturasGuiaPousoBss06,
+    private readonly estaEnergizado: /** Consulta permissivo elétrico/controle antes de calcular/aplicar solicitações do controlador; seleção operacional continua separada da alimentação. @contract f-00969ae47719ec4b @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => boolean,
+    private readonly obterContexto?: /** Consulta medidas de navegação e estado operacional da guiagem em SI/referencial local; sem acesso à instância proprietária. @contract f-5d05b87f7f7f573e @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => LeiturasGuiaPousoBss06,
   ) {
     this.controladorAletas = aletas.length > 0 ? new ControladorAletasAerodinamicas(aletas, estaEnergizado) : undefined;
   }

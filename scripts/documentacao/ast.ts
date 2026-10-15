@@ -138,7 +138,7 @@ function fatosCorpo(no: Declaracao, fonte: ts.SourceFile, impressor: ts.Printer)
  * @contract f-252d75a79d2738ad
  * @reviewed M12-DOC: contrato confrontado com implementação.
  */
-export function analisarFontes(fontes: readonly ts.SourceFile[], checker?: ts.TypeChecker, normalizar: (arquivo: string) => string = /** Normalizador padrão de caminho: devolve o argumento intacto quando o adaptador não fornece relativização. @contract f-d90e311d87e6f37b @reviewed M12-DOC: implementação lida. */
+export function analisarFontes(fontes: readonly ts.SourceFile[], checker?: ts.TypeChecker, normalizar: /** Porta de normalização de caminhos da análise AST: devolve caminho textual para IDs portáveis, sem executar fonte analisada. @contract f-ec30189f53efb391 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (arquivo: string) => string = /** Normalizador padrão de caminho: devolve o argumento intacto quando o adaptador não fornece relativização. @contract f-d90e311d87e6f37b @reviewed M12-DOC: implementação lida. */
                                                                                                                                      a => a): Analise {
   const funcoes: Funcao[] = [], modulos: Modulo[] = [];
   const impressor = ts.createPrinter({ removeComments: true, newLine: ts.NewLineKind.LineFeed });

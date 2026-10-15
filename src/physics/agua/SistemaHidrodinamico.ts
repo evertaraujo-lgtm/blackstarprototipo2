@@ -19,7 +19,7 @@ export class SistemaHidrodinamico {
   private readonly entradas = new Map<string, { volumeAnteriorM3: number; energiaJ: number; picoMps: number; ativa: boolean;
     potenciaAnteriorW: number; dtAnteriorS: number; distanciaMinimaM: number; distanciaMaximaM: number }>();
   /** Compõe regiões prescritas e consulta de gravidade; rejeita IDs duplicados e intervalos aquáticos sobrepostos. Não cria superfície rígida líquida. @contract f-3ac2ce558ad57f3c @reviewed M12-DOC: implementação lida. */
-  public constructor(public readonly regioes: readonly RegiaoAquatica[], private readonly gravidade: (p: Vetor3) => Vetor3) {
+  public constructor(public readonly regioes: readonly RegiaoAquatica[], private readonly gravidade: /** Consulta campo gravitacional na posição global m e retorna vetor m/s²; empuxo usa direção oposta e intensidade local, sem campo duplicado. @contract f-aba0f086ddb09645 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (p: Vetor3) => Vetor3) {
     if (new Set(regioes.map(r => r.id)).size !== regioes.length) throw new Error('Região aquática duplicada.');
     for (let i = 0; i < regioes.length; i++) for (let j = i + 1; j < regioes.length; j++) {
       const a = regioes[i].costa, b = regioes[j].costa;

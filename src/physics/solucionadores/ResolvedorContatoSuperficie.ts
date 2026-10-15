@@ -7,14 +7,14 @@ import { ResolvedorEsforcoEstrutural } from './ResolvedorEsforcoEstrutural';
 
 export interface ContextoResolvedorContatoSuperficie {
   readonly somentePlanoXY?: boolean;
-  readonly obterObjetos: () => Iterable<Objeto>;
-  readonly obterSuperficies: () => Iterable<SuperficieFisica>;
-  readonly obterConjuntoEstrutural: (objeto: Objeto) => ConjuntoEstruturalRigido | undefined;
-  readonly obterMassaEfetivaNoContato: (objeto: Objeto, pontoContatoM: Vetor3, normal: Vetor3) => number | undefined;
-  readonly obterFixadores: () => Iterable<FixadorEstrutural>;
+  readonly obterObjetos: /** Entrega iterador dos corpos registrados do mundo ao sistema consumidor; somente consulta de registro, sem cópia de dinâmica. @contract f-c962b279ad805fe0 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => Iterable<Objeto>;
+  readonly obterSuperficies: /** Entrega iterador das superfícies rígidas registradas para observação/resolução; interface livre da água não pertence a este registro. @contract f-8294a8b9c3d088ce @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => Iterable<SuperficieFisica>;
+  readonly obterConjuntoEstrutural: /** Consulta ilha atual do corpo ou undefined se independente; identidade compartilhada evita autocontato e preserva massa/inércia compostas. @contract f-c5bf538053d6c113 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (objeto: Objeto) => ConjuntoEstruturalRigido | undefined;
+  readonly obterMassaEfetivaNoContato: /** Consulta massa efetiva em kg no ponto m/direção, incluindo inércia da ilha quando existir; undefined permite cálculo de corpo isolado. @contract f-f572b0d735f127ff @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (objeto: Objeto, pontoContatoM: Vetor3, normal: Vetor3) => number | undefined;
+  readonly obterFixadores: /** Entrega iterador dos vínculos registrados para cálculo/transmissão de esforços e ruptura determinística. @contract f-c0748e93f1c1ec2b @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => Iterable<FixadorEstrutural>;
   readonly resolvedorEsforcoEstrutural: ResolvedorEsforcoEstrutural;
-  readonly distribuirCalorDeAtrito: (objeto: Objeto, superficie: SuperficieFisica, energiaJ: number, dtS: number) => void;
-  readonly obterGravidadeMps2: (p: Vetor3) => Vetor3;
+  readonly distribuirCalorDeAtrito: /** Transfere energia dissipada J aos participantes do contato com dt s, conforme adaptador térmico; sem novo impulso ou dissipação duplicada. @contract f-0b29fabef34188fe @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (objeto: Objeto, superficie: SuperficieFisica, energiaJ: number, dtS: number) => void;
+  readonly obterGravidadeMps2: /** Consulta aceleração local m/s² na posição global m para limite de atrito/reação normal. @contract f-5e1e8629ab71c615 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (p: Vetor3) => Vetor3;
   readonly velocidadeDeRepousoMps: number;
 }
 

@@ -6,18 +6,31 @@ export const normalizarAngulo = (angulo: number): number => Math.atan2(Math.sin(
 
 /** Geometria operacional XY; posições e velocidades do core permanecem inerciais. */
 export interface ReferencialFisico {
+  /** Consulta altitude geométrica em m na posição global; Y legado ou distância radial menos raio no ambiente esférico. Não integra estado. @contract f-32c19dab5cf11df0 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   altitudeGeometricaM(p: Vetor3): number;
+  /** Fornece direção unitária da vertical exterior local; implementação esférica rejeita centro singular e posições fora de XY. @contract f-77a1cecf5f96f583 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   radial(p: Vetor3): Vetor3;
+  /** Fornece tangente unitária XY local orientada para deslocamento horizontal positivo; ortogonal à radial. @contract f-dbe66e3fa902201a @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   tangencial(p: Vetor3): Vetor3;
+  /** Consulta deslocamento horizontal em m; na Terra é arco principal assinado, não longitude geográfica nem arco desenrolado. @contract f-10ceef4bf7c815be @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   posicaoHorizontalM(p: Vetor3): number;
+  /** Retorna erro até alvo horizontal em m; no modelo esférico usa menor arco, preservando consistência da guiagem. @contract f-11f170cdadae3da6 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   erroHorizontalM(alvoM: number, p: Vetor3): number;
+  /** Converte arco horizontal m e altitude m em posição global; não reposiciona objeto existente. @contract f-32bc39105e57c12e @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   posicaoPorArcoM(sM: number, altitudeM: number): Vetor3;
+  /** Converte orientação inercial Z em rad para inclinação relativa à vertical da posição; normaliza ângulo principal. @contract f-bb374549079b2120 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   atitudeLocalRad(thetaInercialRad: number, p: Vetor3): number;
+  /** Converte atitude relativa à vertical local em orientação inercial Z rad sem modificar corpo. @contract f-76b9ff9a34fdf3ee @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   atitudeInercialRad(thetaLocalRad: number, p: Vetor3): number;
+  /** Converte ω inercial rad/s em taxa relativa à vertical móvel, usando posição/velocidade globais; legado conserva ω. @contract f-d6c40078cd7b6e6a @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   taxaAtitudeLocalRadps(omegaRadps: number, p: Vetor3, v: Vetor3): number;
+  /** Projeta vetor global na base tangencial/radial da posição, ordem local X/Y e Z preservado; unidade acompanha vetor de entrada. @contract f-c08531573a6c6b82 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   vetorParaLocal(v: Vetor3, p: Vetor3): Vetor3;
+  /** Reconstrói vetor global por componentes tangencial/radial locais da posição; não soma translação. @contract f-b338efcf6981cf9d @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   vetorParaGlobal(vLocal: Vetor3, p: Vetor3): Vetor3;
+  /** Converte posição local m pela base tangente da âncora e soma âncora; não é transformação geodésica global. @contract f-06d86c2607e07c1f @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   localParaGlobal(pLocal: Vetor3, ancoraM: Vetor3): Vetor3;
+  /** Converte posição global m em deslocamento na base tangente da âncora; consulta geométrica sem integração. @contract f-6c118ed37cf37521 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   globalParaLocal(p: Vetor3, ancoraM: Vetor3): Vetor3;
 }
 

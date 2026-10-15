@@ -21,7 +21,7 @@ export class AutotunadorPosicionamentoMotorEletrico {
   public constructor(private readonly controlador: ControladorPosicionamentoMotorEletrico) {}
 
   /** Avalia 36 combinações no modelo auxiliar, informa progresso percentual e cede execução via setTimeout a cada oito candidatos. Aplica os ganhos de menor custo ao controlador real e retorna resultado; não avança MundoFisico. Escalonamento assíncrono não muda dt da avaliação. @contract f-d56be7d8d567653e @reviewed M12-DOC: implementação lida. */
-  public async executar(onProgress?: (progresso: ProgressoAutotunePosicionamentoMotorEletrico) => void): Promise<ResultadoAutotunePosicionamentoMotorEletrico> {
+  public async executar(onProgress?: /** Notifica progresso do autotune com percentual e contagem de candidatos; efeito de apresentação externo, sem mudar avaliação física dos candidatos. @contract f-b26f0a7ce1bd6132 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (progresso: ProgressoAutotunePosicionamentoMotorEletrico) => void): Promise<ResultadoAutotunePosicionamentoMotorEletrico> {
     const modelo = this.controlador.obterModeloParaAutotune();
     const candidatos = this.criarCandidatos(modelo);
     let melhor: ResultadoAutotunePosicionamentoMotorEletrico | undefined;

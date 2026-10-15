@@ -5,7 +5,9 @@ export const TERRA = Object.freeze({ raioM: 6_371_000, muM3S2: 3.986004418e14, g
 
 export interface CampoGravitacional {
   readonly modelo: 'uniforme' | 'central';
+  /** Consulta aceleração gravitacional global em m/s² para posição m, independente de orientação/massa do corpo; singularidades devem ser rejeitadas pelo modelo. @contract f-d84e2f25e040d596 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   aceleracaoEm(posicaoM: Vetor3): Vetor3;
+  /** Expõe identificação/constantes do campo para reprodução e diagnóstico, sem integrar estado. @contract f-e3c512cd6c35448a @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */
   obterConfiguracao(): object;
 }
 

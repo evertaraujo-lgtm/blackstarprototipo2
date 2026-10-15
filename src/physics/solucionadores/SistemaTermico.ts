@@ -7,7 +7,7 @@ export class SistemaTermico {
   public constructor(
     private readonly atmosfera: SistemaAtmosferico,
     private readonly temperaturaAmbienteC: number,
-    private readonly exposicaoAoAr: (o: Objeto) => number = /** Porta padrão de exposição: retorna fração 1 (totalmente no ar) quando mundo não fornece adaptação para imersão; não consulta nem aplica força. @contract f-d8491cc35a8ea84c @reviewed M12-DOC: implementação lida. */
+    private readonly exposicaoAoAr: /** Consulta fração exposta ao ar do objeto, em [0,1], para evitar cargas atmosféricas/térmicas integrais sobre área imersa; padrão seco vale 1. @contract f-ebcc80cdec7bee56 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (o: Objeto) => number = /** Porta padrão de exposição: retorna fração 1 (totalmente no ar) quando mundo não fornece adaptação para imersão; não consulta nem aplica força. @contract f-d8491cc35a8ea84c @reviewed M12-DOC: implementação lida. */
                                                             () => 1,
   ) {
     if (!Number.isFinite(temperaturaAmbienteC)) throw new Error('Temperatura ambiente deve ser finita em °C.');

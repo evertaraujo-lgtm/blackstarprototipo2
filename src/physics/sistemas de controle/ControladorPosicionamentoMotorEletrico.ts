@@ -1,8 +1,8 @@
 import { Objeto, type DefinicaoObjeto } from '../objetos/base/Objeto';
 
 export interface DefinicaoControladorPosicionamentoMotorEletrico extends DefinicaoObjeto {
-  readonly obterAnguloAtualRad: () => number;
-  readonly obterVelocidadeAngularRadps: () => number;
+  readonly obterAnguloAtualRad: /** Consulta ângulo físico atual em rad da planta controlada; não devolve alvo como se fosse posição real. @contract f-093ae6a77da90e61 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => number;
+  readonly obterVelocidadeAngularRadps: /** Consulta taxa angular real em rad/s para realimentação do servo. @contract f-471639ed10d5c1fd @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => number;
   readonly torqueMaximoNm: number;
   readonly velocidadeAngularMaximaRadps: number;
   readonly aceleracaoMaximaRadps2: number;
@@ -10,8 +10,8 @@ export interface DefinicaoControladorPosicionamentoMotorEletrico extends Definic
   readonly ganhoIntegral?: number;
   readonly ganhoDerivativo?: number;
   readonly anguloInicialRad?: number;
-  readonly obterTorqueGravitacionalNm?: () => number;
-  readonly obterMomentoInerciaControladoKgM2?: () => number;
+  readonly obterTorqueGravitacionalNm?: /** Consulta torque de compensação gravitacional em N·m da montagem para feedforward; mecanismo de bancada usa hipótese de peso local declarada. @contract f-e0f53d21da0ebec7 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => number;
+  readonly obterMomentoInerciaControladoKgM2?: /** Consulta inércia composta em kg·m² da planta controlada em torno do pivô; deve ser positiva/finita, não apenas massa do motor. @contract f-bdbfd3326e6bad39 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => number;
 }
 
 export interface GanhosControladorPosicionamentoMotorEletrico {

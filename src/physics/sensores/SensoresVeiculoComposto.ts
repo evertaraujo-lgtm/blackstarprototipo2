@@ -49,7 +49,7 @@ export class GpsIdealizado {
 /** Sensor interno de nível: lê a orientação física real do casco. */
 export class SensorNivelInterno {
   /** Instala corpo e consulta opcional do referencial compartilhado, sem controlar atitude. @contract f-39802fbd795562d3 @reviewed M12-DOC: implementação lida. */
-  public constructor(private readonly objeto: Objeto, private readonly obterReferencial?: () => ReferencialFisico) {}
+  public constructor(private readonly objeto: Objeto, private readonly obterReferencial?: /** Consulta serviço compartilhado de referencial para derivar nível local; evita sensor calcular vertical própria. @contract f-2c8fbc8bb3200f1c @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => ReferencialFisico) {}
 
   /** Lê atitude física Z e converte para vertical local quando há referencial; fallback normaliza ângulo inercial em rad. @contract f-421bc954b8ea55a0 @reviewed M12-DOC: implementação lida. */
   public obterInclinacaoRad(): number {
@@ -75,7 +75,7 @@ export class SensoresVeiculoComposto {
   public constructor(
     private readonly objeto: Objeto,
     private readonly altitudeDeReferenciaM = 0,
-    private readonly obterMassaInstantaneaKg: () => number = /** Devolve `objeto.massaKg`. Efeitos indiretos seguem as dependências chamadas. @contract f-b22ec20aecc98033 */
+    private readonly obterMassaInstantaneaKg: /** Consulta massa conectada instantânea em kg para observação/controle, sem usar massa nominal fixa. @contract f-43c8bcd5aa0a0a9e @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => number = /** Devolve `objeto.massaKg`. Efeitos indiretos seguem as dependências chamadas. @contract f-b22ec20aecc98033 */
                                                              () => objeto.massaKg,
   ) {
     if (!Number.isFinite(altitudeDeReferenciaM)) throw new Error('Altitude de referência deve ser finita.');

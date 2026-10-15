@@ -1,7 +1,7 @@
 export interface LimiteExecucaoPassos {
   readonly maxPassos: number;
   /** Orçamento da apresentação; jamais muda o dt físico. */
-  readonly continuar?: () => boolean;
+  readonly continuar?: /** Consulta se orçamento cooperativo ainda permite outro passo; false mantém dívida temporal, sem descartar integração pendente. @contract f-b5c741e87d68944a @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => boolean;
 }
 
 /**
@@ -25,7 +25,7 @@ export class ExecutorPassoFixo {
   /** Retorna quantos passos físicos foram executados neste quadro.
    * @contract f-43accb474e314552
    */
-  public avancar(deltaRealS: number, escalaTemporal: number, executarPasso: (passoS: number) => void, limite?: LimiteExecucaoPassos): number {
+  public avancar(deltaRealS: number, escalaTemporal: number, executarPasso: /** Executa callback síncrono de controle/física para um passo fixo em s; executor contabiliza somente passos executados, sem depender da frequência de desenho. @contract f-2331b1605705b104 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (passoS: number) => void, limite?: LimiteExecucaoPassos): number {
     if (!Number.isFinite(deltaRealS) || deltaRealS < 0) throw new Error('Delta real deve ser finito e não negativo.');
     if (!Number.isFinite(escalaTemporal) || escalaTemporal <= 0) throw new Error('Escala temporal deve ser positiva e finita.');
     if (limite && (!Number.isSafeInteger(limite.maxPassos) || limite.maxPassos < 1)) throw new Error('Orçamento de passos inválido.');
@@ -47,7 +47,7 @@ export class ExecutorPassoFixo {
    * apenas estabelece a referência, e arredondamentos regressivos são ignorados.
    * @contract f-959c6d231a3a8516
    */
-  public avancarAte(instanteRealMs: number, escalaTemporal: number, executarPasso: (passoS: number) => void, limite?: LimiteExecucaoPassos): number {
+  public avancarAte(instanteRealMs: number, escalaTemporal: number, executarPasso: /** Executa callback síncrono de controle/física para um passo fixo em s; executor contabiliza somente passos executados, sem depender da frequência de desenho. @contract f-d12e9cd65db20741 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (passoS: number) => void, limite?: LimiteExecucaoPassos): number {
     if (!Number.isFinite(instanteRealMs) || instanteRealMs < 0) throw new Error('Instante real deve ser finito e não negativo.');
     if (this.ultimoInstanteRealMs === undefined) {
       this.ultimoInstanteRealMs = instanteRealMs;

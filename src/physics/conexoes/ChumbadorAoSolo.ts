@@ -7,7 +7,7 @@ export interface DefinicaoChumbadorAoSolo {
   /** Esforço de cisalhamento ou tração que rompe o chumbador, em N. */
   readonly resistenciaN: number;
   /** @deprecated A ruptura é calculada pela reação física da junta. */
-  readonly obterEsforcoSolicitadoN?: () => number;
+  readonly obterEsforcoSolicitadoN?: /** Consulta esforço externo solicitado em N para verificar resistência do vínculo; core acrescenta cargas físicas observadas. Não rompe vínculo por esta leitura. @contract f-3edd21e1d5a19ecc @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => number;
 }
 
 /**
