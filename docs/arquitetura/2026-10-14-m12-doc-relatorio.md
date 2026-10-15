@@ -197,3 +197,16 @@ As chamadas diretas a `atualizarEstadoPeloCore` presentes na aplicação estão 
 módulos físicos de integração, colisão/contato, vínculos e ilha. Não foi encontrada
 chamada direta na apresentação, missões ou controladores de voo. Isso é evidência
 estática; não substitui os limites de autoridade por contrato documentados.
+
+### E — Diretriz permanente
+
+`AGENTS.md` §69 exige CONTRATO DE IMPACTO FUNCIONAL antes do código, incluindo
+funções reutilizadas/modificadas/novas/removidas e seus contratos. Define JSDoc
+proporcional, distinção entre geração e revisão, atualização do mapa/catálogo e
+validações. O README indica a navegação e os comandos documentais.
+
+Estado após A–E estrutural: 1.461 implementações nomeadas com JSDoc/âncora
+(100%), 137 assinaturas declarativas, 577 callbacks e 1.098 funções em testes.
+440 contratos foram confrontados com as implementações; 495 descrições ainda
+exigem revisão semântica explícita. Esse inventário não será apresentado como
+revisão técnica integral enquanto essas pendências não forem tratadas.

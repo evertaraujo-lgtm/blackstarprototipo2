@@ -2304,3 +2304,64 @@ solicitados ou indispensáveis para evitar erro.
   execução, confirmar que o tempo da missão ultrapassou `0 s` e observar
   empuxo, vazão e consumo diferentes de zero. Todos os cenários ativos devem
   ser iniciados ao menos brevemente para detectar um loop temporal interrompido.
+
+---
+
+# 69. Contratos funcionais e rastreabilidade — obrigatório a partir da M12-DOC
+
+Antes de criar ou alterar código de produção, registre no relatório do marco o
+cabeçalho **CONTRATO DE IMPACTO FUNCIONAL**, antes da primeira alteração:
+
+- objetivo técnico e subsistemas afetados;
+- funções existentes reutilizadas, incluindo as que não sofrerão alteração;
+- funções existentes a modificar, funções novas e funções removidas;
+- identificador completo e assinatura de cada função (caminho, classe/escopo,
+  parâmetros/tipos/retorno), responsabilidade, dependências e efeitos colaterais;
+- invariantes arquiteturais/físicos, unidades SI e hipóteses relevantes;
+- testes necessários e critérios de aceitação.
+
+Se surgir função adicional durante a implementação, atualize o contrato antes
+da conclusão. Resuma o impacto funcional na resposta final ao responsável técnico.
+Não trate uma lista de arquivos como substituta da lista de funções afetadas.
+
+Toda função de produção criada/alterada deve ter JSDoc imediatamente acima da
+declaração, proporcional à complexidade: objetivo, entradas/unidades, retorno,
+pré-condições/invariantes, dependências, efeitos colaterais e testes relevantes.
+Para funções físicas, explicite modelo, referencial, domínio numérico e limites
+de dt quando aplicáveis. Getters e encaminhamentos simples podem ser curtos;
+rotinas complexas precisam explicar decisões e hipóteses. Não repita apenas o
+nome da função e não invente intenção a partir do nome.
+
+O catálogo complementa os cabeçalhos com assinatura inferida, evidências de
+chamadas/escritas/condições e associações de testes. A tag `@contract f-...` aponta
+para a âncora estável correspondente em
+[CATALOGO_DE_FUNCOES.md](docs/arquitetura/CATALOGO_DE_FUNCOES.md).
+`@reviewed` registra revisão técnica explícita; nunca acrescentá-la somente por
+ter gerado texto automaticamente. Quando não houver interpretação confirmada,
+registre **REVISÃO NECESSÁRIA**, sem declarar o contrato semanticamente aprovado.
+
+Atualize [MAPA_DO_SISTEMA.md](docs/arquitetura/MAPA_DO_SISTEMA.md) e o catálogo em
+cada marco. Não edite manualmente o inventário JSON ou as seções geradas para
+esconder divergências; corrija o código/documentação e regenere os artefatos:
+
+```bash
+npm run docs:gerar
+npm run docs:verificar
+npm run test:documentacao
+npm run typecheck
+```
+
+`docs:gerar` escreve somente catálogo, inventário e índice do mapa; não escreve
+JSDoc na fonte. A verificação AST detecta lacunas de presença/vínculo, adições,
+remoções e assinaturas/modificadores divergentes. Ela não comprova qualidade
+semântica, cobertura de execução ou correção física. Associações de testes por
+import direto não significam que cada ramificação foi validada.
+
+Callbacks anônimos e funções em testes são inventariados separadamente. Métodos
+herdados e funções de bibliotecas não são duplicados como implementações locais.
+O contrato de impacto também deve indicar os contratos existentes efetivamente
+reutilizados, inclusive por meio de interfaces/portas operacionais.
+
+Preserve contratos públicos, testes históricos e resultados anteriores. Em
+alterações exclusivamente documentais, comprove preservação do código emitido;
+não misture refatoração ou correção física sem escopo e contrato próprios.

@@ -314,3 +314,21 @@ núcleo físico. Flutuação livre e apoio no fundo são observações distintas
 uma janela de equilíbrio não interrompe a evolução física. Hipóteses, erros,
 capturas e evidências estão no
 [plano M11](docs/planos-codex/2026-10-13-m11-hidrodinamica-amerissagem.md).
+
+## Arquitetura e contratos funcionais — M12-DOC
+
+O [mapa do sistema](docs/arquitetura/MAPA_DO_SISTEMA.md) descreve camadas,
+responsabilidades, composição e fluxos. O
+[catálogo integral](docs/arquitetura/CATALOGO_DE_FUNCOES.md) permite consultar
+assinaturas, entradas/saídas, efeitos, dependências, invariantes e testes.
+Pendências semânticas estão marcadas **REVISÃO NECESSÁRIA**; presença de JSDoc
+não equivale a revisão técnica.
+
+```bash
+npm run docs:gerar
+npm run docs:verificar
+npm run test:documentacao
+```
+
+Esses comandos usam o compilador TypeScript já instalado e não executam física.
+O padrão obrigatório de **CONTRATO DE IMPACTO FUNCIONAL** está em `AGENTS.md`.
