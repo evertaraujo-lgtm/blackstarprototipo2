@@ -173,10 +173,25 @@ removido, ignorado, encurtado ou enfraquecido.
 
 ### Commit e CI remota
 
-Commit funcional a registrar com a mensagem solicitada:
-`fix(M12-DOC): estabiliza geracao do catalogo e auditoria CI`.
-A CI remota será acompanhada para esse SHA após o envio autorizado. A tarefa
-permanece sem aprovação final até todos os estágios remotos terminarem com sucesso.
+Commit funcional remoto: `ecd88ab23615a8bcea28f1447166b467c3ac3e8b`, com a
+mensagem solicitada `fix(M12-DOC): estabiliza geracao do catalogo e auditoria CI`.
+
+A [CI 38765685291](https://github.com/evertaraujo-lgtm/blackstarprototipo2/actions/runs/38765685291)
+do [PR #1](https://github.com/evertaraujo-lgtm/blackstarprototipo2/pull/1)
+terminou com **success** para esse SHA. Job `116528143528`: auditoria AST,
+547 testes em 83 arquivos, typecheck geral, typecheck de missões e build
+aprovados; nenhuma etapa ignorada. Ambiente remoto Node 20.20.2/npm 10.8.2,
+Ubuntu do workflow; testes em 455,51 s e build em 1,09 s. Esses tempos descrevem
+o runner e não constituem benchmark do computador do operador.
+
+Publicado na branch `codex/m12-doc-fix`, pelo PR #1, sem merge em `main`.
+O commit local equivalente `432e7108ac69272e3e6cf2ce3e8ce89329eabc19` foi
+preservado e possui a mesma árvore Git do commit remoto:
+`713c3a3a42e90828368441d5069f99b91c374915`. Não houve reescrita de histórico ou deploy.
+
+Esta atualização registra evidências posteriores à qualificação; não altera a
+ferramenta nem os artefatos auditados. A CI da revisão documental subsequente
+será conferida antes da entrega final, com seu resultado informado no PR.
 
 ### Limites
 
