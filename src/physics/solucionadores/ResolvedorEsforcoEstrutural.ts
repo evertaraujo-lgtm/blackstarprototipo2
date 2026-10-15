@@ -39,7 +39,7 @@ export class ResolvedorEsforcoEstrutural {
     });
     for (const { f, axialN } of esforcos) { f.registrarEsforcoFisicoN(Math.max(0, axialN)); f.registrarEsforcoDeCompressaoFisicoN(Math.max(0, -axialN)); }
   }
-  /** Dependências diretas: `Set`, `[...fixadoresRegistrados].filter`, `membros.reduce`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1569e971b21872f1 */
+  /** Converte impulso positivo em força média N pelo dt em s. Nos fixadores-ponte distribui tração/compressão por massa remota e direção entre centros de massa; calcula cargas antes de registrar rupturas. Malhas redundantes recebem esforço zero neste modelo, sem solução estrutural geral. @contract f-1569e971b21872f1 @reviewed M12-DOC: implementação lida. */
   public registrarImpulsoDeContato(
     objetoDeContato: Objeto,
     membros: readonly Objeto[],
@@ -87,7 +87,7 @@ export class ResolvedorEsforcoEstrutural {
     }
   }
 
-  /** Devolve `posicaoPonderada.multiplicar(1 / massaTotalKg)`. Dependências diretas: `membros.reduce`, `posicaoPonderada.multiplicar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8ee28e4caeba0787 */
+  /** Calcula posição ponderada por massas instantâneas; requer massa total positiva e não altera corpos. @contract f-8ee28e4caeba0787 @reviewed M12-DOC: implementação lida. */
   private obterCentroDeMassa(membros: readonly Objeto[]): Vetor3 {
     const massaTotalKg = membros.reduce((soma, membro) => soma + membro.massaKg, 0);
     const posicaoPonderada = membros.reduce((soma, membro) => {
@@ -97,7 +97,7 @@ export class ResolvedorEsforcoEstrutural {
     return posicaoPonderada.multiplicar(1 / massaTotalKg);
   }
 
-  /** Devolve `alcancaveis`. Dependências diretas: `Set`, `pendentes.pop`, `membrosDaIlha.has`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a116f5e9200f30cc */
+  /** Percorre grafo excluindo uma aresta para identificar lado conectado à origem; restringe travessia aos membros declarados sem romper vínculos. @contract f-a116f5e9200f30cc @reviewed M12-DOC: implementação lida. */
   private obterMembrosAlcancaveis(
     origem: Objeto,
     membrosDaIlha: ReadonlySet<Objeto>,

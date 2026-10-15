@@ -116,41 +116,41 @@ export class MundoFisico {
     );
     this.resolvedorColisoes = new ResolvedorColisoes({
       somentePlanoXY: this.ambiente.campo.modelo === 'central',
-      /** Devolve `this.ambiente.referencial.radial(p)`. Dependências diretas: `this.ambiente.referencial.radial`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6f1f287ebb4b06bb */
+      /** Fornece ao resolvedor a direção radial local do ambiente na posição global em metros; não calcula uma vertical alternativa. @contract f-6f1f287ebb4b06bb @reviewed M12-DOC: implementação lida. */
       verticalEm: (p) => this.ambiente.referencial.radial(p),
-      /** Devolve `this.objetos.values()`. Dependências diretas: `this.objetos.values`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-9bca04b4b6c063ed */
+      /** Entrega iterador dos corpos registrados aos resolvedores; os objetos continuam pertencendo ao core, sem cópia da dinâmica. @contract f-9bca04b4b6c063ed @reviewed M12-DOC: implementação lida. */
       obterObjetos: () => this.objetos.values(),
-      /** Devolve `this.obterConjuntoEstruturalDoObjeto(objeto)`. Dependências diretas: `this.obterConjuntoEstruturalDoObjeto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-23cc335f3cc5d880 */
+      /** Consulta a ilha estrutural atual do corpo para resolver contatos com massa e inércia compostas. @contract f-23cc335f3cc5d880 @reviewed M12-DOC: implementação lida. */
       obterConjuntoEstrutural: (objeto) => this.obterConjuntoEstruturalDoObjeto(objeto),
-      /** Devolve `this.fixadores.values()`. Dependências diretas: `this.fixadores.values`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7e34327905877d05 */
+      /** Entrega iterador dos fixadores registrados para transmissão e eventual ruptura de esforços físicos. @contract f-7e34327905877d05 @reviewed M12-DOC: implementação lida. */
       obterFixadores: () => this.fixadores.values(),
       resolvedorEsforcoEstrutural: this.resolvedorEsforcoEstrutural,
-      /** Devolve `this.sistemaTermico.distribuirCalorDeAtritoEntreObjetos(objetoA, objetoB, energiaJ, dtS)`. Dependências diretas: `this.sistemaTermico.distribuirCalorDeAtritoEntreObjetos`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0ef3d90e16c5ee99 */
+      /** Porta que encaminha energia dissipada em J aos participantes do contato; delega ao sistema térmico entre objetos ou divide igualmente entre objeto e superfície. O dt em s acompanha o aquecimento do objeto, sem alterar cinemática. @contract f-0ef3d90e16c5ee99 @reviewed M12-DOC: implementação lida. */
       distribuirCalorDeAtrito: (objetoA, objetoB, energiaJ, dtS) => this.sistemaTermico.distribuirCalorDeAtritoEntreObjetos(objetoA, objetoB, energiaJ, dtS),
       velocidadeDeRepousoMps: MundoFisico.velocidadeDeRepousoMps,
-      /** Devolve `[...this.juntasRotacionaisDeBancada.values()].some((junta) => junta.ignoraColisaoEntre(objetoA, objetoB))`. Dependências diretas: `[...this.juntasRotacionaisDeBancada.values()].some`, `this.juntasRotacionaisDeBancada.values`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6ed17c159f596add */
+      /** Exclui o par de colisões quando alguma junta rotacional registrada declara essa exceção física. @contract f-6ed17c159f596add @reviewed M12-DOC: implementação lida. */
       deveIgnorarColisao: (objetoA, objetoB) => [...this.juntasRotacionaisDeBancada.values()].some((junta) => junta.ignoraColisaoEntre(objetoA, objetoB)),
     });
     this.resolvedorContatoSuperficie = new ResolvedorContatoSuperficie({
       somentePlanoXY: this.ambiente.campo.modelo === 'central',
-      /** Devolve `this.objetos.values()`. Dependências diretas: `this.objetos.values`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f49ed769f70cbea8 */
+      /** Entrega iterador dos corpos registrados aos resolvedores; os objetos continuam pertencendo ao core, sem cópia da dinâmica. @contract f-f49ed769f70cbea8 @reviewed M12-DOC: implementação lida. */
       obterObjetos: () => this.objetos.values(),
-      /** Devolve `this.superficies.values()`. Dependências diretas: `this.superficies.values`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b4cc7c84323b2b76 */
+      /** Entrega iterador das superfícies rígidas ao resolvedor; regiões líquidas não são adicionadas como piso. @contract f-b4cc7c84323b2b76 @reviewed M12-DOC: implementação lida. */
       obterSuperficies: () => this.superficies.values(),
-      /** Devolve `this.obterConjuntoEstruturalDoObjeto(objeto)`. Dependências diretas: `this.obterConjuntoEstruturalDoObjeto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-79dae79b06413c98 */
+      /** Consulta a ilha estrutural atual do corpo para resolver contatos com massa e inércia compostas. @contract f-79dae79b06413c98 @reviewed M12-DOC: implementação lida. */
       obterConjuntoEstrutural: (objeto) => this.obterConjuntoEstruturalDoObjeto(objeto),
-      /** Devolve `this.obterMassaEfetivaNoContato(objeto, pontoM, normal)`. Dependências diretas: `this.obterMassaEfetivaNoContato`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-cc331bf5e24d2670 */
+      /** Encaminha ponto global em m e normal à consulta de massa efetiva, preservando contribuição da ilha estrutural. @contract f-cc331bf5e24d2670 @reviewed M12-DOC: implementação lida. */
       obterMassaEfetivaNoContato: (objeto, pontoM, normal) => this.obterMassaEfetivaNoContato(objeto, pontoM, normal),
-      /** Devolve `this.fixadores.values()`. Dependências diretas: `this.fixadores.values`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3f3a80a38e9070f6 */
+      /** Entrega iterador dos fixadores registrados para transmissão e eventual ruptura de esforços físicos. @contract f-3f3a80a38e9070f6 @reviewed M12-DOC: implementação lida. */
       obterFixadores: () => this.fixadores.values(),
       resolvedorEsforcoEstrutural: this.resolvedorEsforcoEstrutural,
-      /** Dependências diretas: `objeto.aplicarCalorDeAtritoPeloCore`, `superficie.aplicarCalorDeAtritoPeloCore`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-107e0418e080d86a */
+      /** Porta que encaminha energia dissipada em J aos participantes do contato; delega ao sistema térmico entre objetos ou divide igualmente entre objeto e superfície. O dt em s acompanha o aquecimento do objeto, sem alterar cinemática. @contract f-107e0418e080d86a @reviewed M12-DOC: implementação lida. */
       distribuirCalorDeAtrito: (objeto, superficie, energiaJ, dtS) => {
         if (energiaJ <= 0) return;
         objeto.aplicarCalorDeAtritoPeloCore(energiaJ / 2, dtS);
         superficie.aplicarCalorDeAtritoPeloCore(energiaJ / 2);
       },
-      /** Devolve `this.obterGravidadeMps2(p)`. Dependências diretas: `this.obterGravidadeMps2`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-35982ea5bb0323ff */
+      /** Consulta o campo ativo na posição global em m para determinar reação normal e limite de atrito. @contract f-35982ea5bb0323ff @reviewed M12-DOC: implementação lida. */
       obterGravidadeMps2: (p) => this.obterGravidadeMps2(p),
       velocidadeDeRepousoMps: MundoFisico.velocidadeDeRepousoMps,
     });

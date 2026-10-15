@@ -36,7 +36,7 @@ export class SistemaHidrodinamico {
       if ((p.fracaoDeslocamento ?? 1) === 0 || (forma.fracaoDeslocamento ?? 1) === 0) continue;
       const w = verticesPrismaM(outro.getEstadoFisico(), p), separadas = [v, w].some(poly => poly.some((a, i) => {
         const b = poly[(i + 1) % poly.length], n = new Vetor3(a.y - b.y, b.x - a.x, 0);
-        /** Devolve `q.map(x => x.subtrair(v[0]).produtoEscalar(n))`. Dependências diretas: `q.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7920d0634e522cef */
+        /** Projeta vértices sobre eixo de separação relativos ao primeiro vértice da geometria para verificar sobreposição de volumes declarados. @contract f-7920d0634e522cef @reviewed M12-DOC: implementação lida. */
         const proj = (q: readonly Vetor3[]) => q.map(x => x.subtrair(v[0]).produtoEscalar(n));
         const pv = proj(v), pw = proj(w);
         return Math.max(...pv) <= Math.min(...pw) + 1e-8 || Math.max(...pw) <= Math.min(...pv) + 1e-8;
@@ -159,7 +159,7 @@ export class SistemaHidrodinamico {
     // ≤1% de variação local da carga por passo: precisão de entrada, além de estabilidade.
     return Math.min(limite, taxa > 0 ? 0.01 / taxa : Infinity);
   }
-  /** Devolve `{ regioes: this.regioes.map(a => a.obterConfiguracao()), volumes: [...this.formas].map(([o, p]) => ({ objetoId: o.id, ...p })) }`. Dependências diretas: `this.regioes.map`, `[...this.formas].map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-dbc74ba19464ba73 */
+  /** Expõe configurações de regiões e volumes por id de objeto para reprodução do modelo; cria arrays/objetos externos, mantendo parâmetros aninhados sob contrato readonly. @contract f-dbc74ba19464ba73 @reviewed M12-DOC: implementação lida. */
   public obterConfiguracao() { return { regioes: this.regioes.map(a => a.obterConfiguracao()),
     volumes: [...this.formas].map(([o, p]) => ({ objetoId: o.id, ...p })) }; }
 }

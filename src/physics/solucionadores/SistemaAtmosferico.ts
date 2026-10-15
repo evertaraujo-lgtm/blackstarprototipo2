@@ -18,7 +18,7 @@ export class SistemaAtmosferico {
     velocidadeArMps: Vetor3,
     private readonly referencial: ReferencialFisico = new ReferencialPlano(),
     public readonly politicaAltitude: 'extrapolacao-legada' | 'vacuo-simplificado-25km' = 'extrapolacao-legada',
-    private readonly exposicaoAoAr: (o: Objeto) => number = /** Devolve `1`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e36b63fcec6139c0 */
+    private readonly exposicaoAoAr: (o: Objeto) => number = /** Porta padrão de exposição: retorna fração 1 (totalmente no ar) quando mundo não fornece adaptação para imersão; não consulta nem aplica força. @contract f-e36b63fcec6139c0 @reviewed M12-DOC: implementação lida. */
                                                             () => 1,
   ) {
     if (!Number.isFinite(densidadeArNivelMarKgM3) || densidadeArNivelMarKgM3 < 0) {

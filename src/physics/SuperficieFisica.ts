@@ -6,7 +6,7 @@ export abstract class SuperficieFisica {
   private temperaturaAtualC: number;
   private energiaTermicaDeAtritoJ = 0;
 
-  /** Escritas diretas: `this.id`, `this.tipoMaterial`, `this.resistenciaColisaoJ`, `this.dissipacaoImpacto`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-de0f9204a43fbad4 */
+  /** Registra identidade, material, resistência em J, dissipação, atrito e estado térmico; valida id, resistência positiva, dissipação em [0,1), atrito em [0,1] e capacidade térmica positiva. Finitude da resistência não é verificada separadamente nesta implementação. @contract f-de0f9204a43fbad4 @reviewed M12-DOC: implementação lida. */
   public constructor(
     public readonly id: string,
     public readonly tipoMaterial: 'areia' | 'agua' | 'terra' | 'concreto' | 'aco' | 'outro',
@@ -29,21 +29,21 @@ export abstract class SuperficieFisica {
   public abstract distanciaAssinadaM(pontoM: Vetor3): number;
   public abstract normalEm(pontoM: Vetor3): Vetor3;
   public abstract projetar(pontoM: Vetor3): Vetor3;
-  /** Devolve `true`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0b83791d53142aaf */
+  /** Contrato padrão sem bordas: aceita qualquer projeção. Superfícies finitas especializam esta consulta. @contract f-0b83791d53142aaf @reviewed M12-DOC: implementação lida. */
   public contemProjecao(_pontoM: Vetor3): boolean { return true; }
-  /** Devolve `Vetor3.zero`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-4c317235a33e5226 */
+  /** Retorna velocidade nula em m/s: a superfície base é estática no referencial do mundo. @contract f-4c317235a33e5226 @reviewed M12-DOC: implementação lida. */
   public velocidadeNoPonto(_pontoM: Vetor3): Vetor3 { return Vetor3.zero; }
-  /** Devolve `pontos`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-5d9e830dffef3966 */
+  /** Devolve os pontos fornecidos sem copiar ou acrescentar candidatos; especializações podem incluir contatos interiores às arestas. @contract f-5d9e830dffef3966 @reviewed M12-DOC: implementação lida. */
   public candidatosContato(pontos: readonly Vetor3[]): readonly Vetor3[] { return pontos; }
 
-  /** Devolve `this.integridade`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-41e1ec354f9dfa4b */
+  /** Consulta fração de integridade atual da superfície, sem modificar estado. @contract f-41e1ec354f9dfa4b @reviewed M12-DOC: implementação lida. */
   public get integridadeEstrutural(): number { return this.integridade; }
-  /** Devolve `this.temperaturaAtualC`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6431b37fd60040ec */
+  /** Consulta temperatura acumulada em graus Celsius, sem conversão para Kelvin. @contract f-6431b37fd60040ec @reviewed M12-DOC: implementação lida. */
   public get temperaturaC(): number { return this.temperaturaAtualC; }
-  /** Devolve `this.energiaTermicaDeAtritoJ`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2e6fb278c91dd910 */
+  /** Consulta em J a energia de atrito acumulada pela superfície. @contract f-2e6fb278c91dd910 @reviewed M12-DOC: implementação lida. */
   public get energiaTermicaDeAtritoAcumuladaJ(): number { return this.energiaTermicaDeAtritoJ; }
 
-  /** Escritas diretas: `this.integridade`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-27173dfe139bb15d */
+  /** Rejeita energia negativa/não finita; acima da resistência em J reduz integridade pelo excesso relativo, limitada inferiormente a zero. Energia abaixo do limite não causa dano. @contract f-27173dfe139bb15d @reviewed M12-DOC: implementação lida. */
   public aplicarDanoPorImpacto(energiaJ: number): void {
     if (!Number.isFinite(energiaJ) || energiaJ < 0) throw new Error('Energia de impacto inválida.');
     if (energiaJ <= this.resistenciaColisaoJ) return;

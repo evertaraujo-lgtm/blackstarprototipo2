@@ -53,7 +53,7 @@ export class ResolvedorContatoSuperficie {
     return this.contatosDoUltimoPasso.map((contato) => ({ ...contato }));
   }
 
-  /** Escritas diretas: `this.contatosDoUltimoPasso`. Dependências diretas: `this.contexto.obterSuperficies`, `Set`, `this.contexto.obterObjetos`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-fe4e8e129541edd2 */
+  /** Reconstrói registros do passo, examina cada ilha uma vez por superfície e filtra candidatos pela extensão física. Seleciona pontos mais profundos e apoios tangenciais; proximidade sem penetração registra observação sem impulso. Resolve reação/atrito e correção geométrica nos penetrados, preservando apoios bilaterais. dt deve ser positivo em s. @contract f-fe4e8e129541edd2 @reviewed M12-DOC: implementação lida. */
   public resolver(dtS: number): void {
     this.contatosDoUltimoPasso = [];
     for (const superficie of this.contexto.obterSuperficies()) {
@@ -78,11 +78,11 @@ export class ResolvedorContatoSuperficie {
         const centroMassa = conjunto?.obterCentroDeMassaAtual() ?? objeto.getEstadoFisico().posicaoM;
         const n = superficie.normalEm(mediaDosContatos);
         const tangente = new Vetor3(n.y, -n.x, 0);
-        /** Devolve `p.subtrair(mediaDosContatos).produtoEscalar(tangente)`. Dependências diretas: `p.subtrair(mediaDosContatos).produtoEscalar`, `p.subtrair`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6b19a10a852539bb */
+        /** Converte ponto global em coordenada tangencial em m relativa à média dos contatos selecionados. @contract f-6b19a10a852539bb @reviewed M12-DOC: implementação lida. */
         const coordenada = (p: Vetor3) => p.subtrair(mediaDosContatos).produtoEscalar(tangente);
         const menorX = Math.min(...cantosDeContato.map(coordenada));
         const maiorX = Math.max(...cantosDeContato.map(coordenada));
-        /** Devolve `mediaDosContatos.adicionar(tangente.multiplicar(s))`. Dependências diretas: `mediaDosContatos.adicionar`, `tangente.multiplicar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a63bda35b3cbf4f1 */
+        /** Reconstrói ponto global na linha tangencial de contato a partir da coordenada em m. @contract f-a63bda35b3cbf4f1 @reviewed M12-DOC: implementação lida. */
         const pontoPorCoordenada = (s: number) => mediaDosContatos.adicionar(tangente.multiplicar(s));
         const pontoContatoM = pontoPorCoordenada(Math.max(menorX, Math.min(maiorX, coordenada(centroMassa))));
         if (penetracaoM < 0) {
@@ -121,7 +121,7 @@ export class ResolvedorContatoSuperficie {
     }
   }
 
-  /** Dependências diretas: `objeto.getEstadoFisico`, `objeto.getPontosDeContatoLocaisM().map`, `objeto.getPontosDeContatoLocaisM`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-348886c4c4a44648 */
+  /** Transforma pontos locais pela rotação Z e translação atuais; modo XY fixa Z zero. Não usa base vertical após tombamento. @contract f-348886c4c4a44648 @reviewed M12-DOC: implementação lida. */
   private obterCantosOrientados(objeto: Objeto): Vetor3[] {
     const estado = objeto.getEstadoFisico();
     const cosseno = Math.cos(estado.orientacaoRad.z);
@@ -133,7 +133,7 @@ export class ResolvedorContatoSuperficie {
     ));
   }
 
-  /** Dependências diretas: `superficie.normalEm`, `conjunto.obterVelocidadeNoPonto(pontoContatoM).produtoEscalar`, `conjunto.obterVelocidadeNoPonto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d2d9e097bb037bf9 */
+  /** Aplica impulso no ponto da ilha com massa efetiva composta, dano e esforços nos fixadores. Atrito é limitado pela maior reação entre impacto e peso normal integrado no dt, transferindo calor. Corrige penetração quando autorizado e registra velocidades anterior/posterior. @contract f-d2d9e097bb037bf9 @reviewed M12-DOC: implementação lida. */
   private resolverContatoDaIlha(
     conjunto: ConjuntoEstruturalRigido,
     objetoDeContato: Objeto,
@@ -180,7 +180,7 @@ export class ResolvedorContatoSuperficie {
         ? Math.max(0, 0.5 * conjunto.obterMassaEfetivaNoContato(pontoContatoM, normal) * velocidadeNormal ** 2) : 0, impulsoNormalNs);
   }
 
-  /** Dependências diretas: `objeto.getEstadoFisico`, `superficie.normalEm`, `pontoContatoM.subtrair`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-c3ba85b0316afc1c */
+  /** Resolve reação normal e atrito com v+ω×r, massa/inércia atuais e eventual massa efetiva do contexto; aplica dano/calor e escreve pose corrigida/velocidades pelo core. Energia de dano e massa dinâmica de contato têm cálculos separados. @contract f-c3ba85b0316afc1c @reviewed M12-DOC: implementação lida. */
   private resolverContatoDoObjeto(objeto: Objeto, superficie: SuperficieFisica, penetracaoM: number, pontoContatoM: Vetor3, dtS: number): void {
     const estado = objeto.getEstadoFisico();
     const normal = superficie.normalEm(pontoContatoM);
@@ -240,7 +240,7 @@ export class ResolvedorContatoSuperficie {
       velocidadeNormal < 0 ? Math.max(0, 0.5 * (this.contexto.obterMassaEfetivaNoContato(objeto, pontoContatoM, normal) ?? objeto.massaKg) * velocidadeNormal ** 2) : 0, impulsoNormalNs);
   }
 
-  /** Dependências diretas: `superficie.normalEm`, `this.contatosDoUltimoPasso.push`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f7d22962a9a34b5c */
+  /** Acrescenta observação com normal, penetração, velocidades m/s, energia J e impulso N·s; distingue proximidade, contato, sustentação e apoio pela tolerância de repouso. Preserva impacto original após ruptura no mesmo passo. @contract f-f7d22962a9a34b5c @reviewed M12-DOC: implementação lida. */
   private registrarContato(
     objeto: Objeto,
     superficie: SuperficieFisica,
@@ -272,7 +272,7 @@ export class ResolvedorContatoSuperficie {
     this.contatosDoUltimoPasso.push(contato);
   }
 
-  /** Devolve `estado.velocidadeMps.adicionar(estado.velocidadeAngularRadps.produtoVetorial(braco)).produtoEscalar(superficie.normalEm(pontoM))`. Dependências diretas: `objeto.getEstadoFisico`, `pontoM.subtrair`, `estado.velocidadeMps.adicionar(estado.velocidadeAngularRadps.produtoVetorial(braco)).produtoEscalar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-4c73421953cd6595 */
+  /** Projeta v+ω×r na normal local da superfície em m/s; não desconta movimento do solo, estático nos modelos atuais. @contract f-4c73421953cd6595 @reviewed M12-DOC: implementação lida. */
   private obterVelocidadeNormalNoPonto(objeto: Objeto, pontoM: Vetor3, superficie: SuperficieFisica): number {
     const estado = objeto.getEstadoFisico();
     const braco = pontoM.subtrair(estado.posicaoM);
@@ -301,30 +301,30 @@ export class ResolvedorContatoSuperficie {
     }
   }
 
-  /** Devolve `(torqueUnitario.x ** 2 / inercia.x) + (torqueUnitario.y ** 2 / inercia.y) + (torqueUnitario.z ** 2 / inercia.z)`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-aad9e86d08c656ee */
+  /** Soma componentes quadráticas do torque unitário divididas pela inércia diagonal: contribuição rotacional à massa inversa efetiva. Exige inércias positivas em kg·m². @contract f-aad9e86d08c656ee @reviewed M12-DOC: implementação lida. */
   private obterTermoAngular(torqueUnitario: Vetor3, inercia: Vetor3): number {
     return (torqueUnitario.x ** 2 / inercia.x) + (torqueUnitario.y ** 2 / inercia.y) + (torqueUnitario.z ** 2 / inercia.z);
   }
 
-  /** Devolve `new Vetor3(torque.x / inercia.x, torque.y / inercia.y, torque.z / inercia.z)`. Dependências diretas: `braco.produtoVetorial`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-16c52f810e1e5dc1 */
+  /** Converte r×impulso em variação angular em rad/s pela inércia diagonal; braço em m e impulso em N·s. Não aplica resultado ao corpo. @contract f-16c52f810e1e5dc1 @reviewed M12-DOC: implementação lida. */
   private calcularVariacaoAngular(braco: Vetor3, impulso: Vetor3, inercia: Vetor3): Vetor3 {
     const torque = braco.produtoVetorial(impulso);
     return new Vetor3(torque.x / inercia.x, torque.y / inercia.y, torque.z / inercia.z);
   }
 
-  /** Devolve `Math.max(0, impulsoNs * (velocidadeTangencialMps + velocidadeFinalMps) / 2)`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-bbe15a971258893d */
+  /** Calcula trabalho do impulso tangencial pela média de velocidades antes/depois em J; limita velocidade final a zero para não inverter deslizamento. @contract f-bbe15a971258893d @reviewed M12-DOC: implementação lida. */
   private calcularEnergiaDissipadaPorAtrito(impulsoNs: number, velocidadeTangencialMps: number, massaInversaEfetiva: number): number {
     const velocidadeFinalMps = Math.max(0, velocidadeTangencialMps - impulsoNs * massaInversaEfetiva);
     return Math.max(0, impulsoNs * (velocidadeTangencialMps + velocidadeFinalMps) / 2);
   }
 
-  /** Dependências diretas: `this.calcularRestituicaoPorEnergia`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-043b0171c97611b1 */
+  /** Zera restituição abaixo da velocidade de repouso declarada; impactos maiores usam energia e materiais. É critério numérico de contato, sem estado especial de pouso. @contract f-043b0171c97611b1 @reviewed M12-DOC: implementação lida. */
   private calcularRestituicaoDeContato(energiaImpactoJ: number, resistenciaObjeto: number, resistenciaSuperficie: number, dissipacaoObjeto: number, dissipacaoSuperficie: number, velocidadeNormalMps: number): number {
     if (Math.abs(velocidadeNormalMps) < this.contexto.velocidadeDeRepousoMps) return 0;
     return this.calcularRestituicaoPorEnergia(energiaImpactoJ, resistenciaObjeto, resistenciaSuperficie, dissipacaoObjeto, dissipacaoSuperficie);
   }
 
-  /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-4326bf9c66f996ab */
+  /** Retorna fator de restituição pelo menor limite estrutural relativo à energia e dissipação combinada; energia nula retorna zero. Materiais válidos vêm da configuração. @contract f-4326bf9c66f996ab @reviewed M12-DOC: implementação lida. */
   private calcularRestituicaoPorEnergia(energiaImpactoJ: number, resistenciaA: number, resistenciaB: number, dissipacaoA: number, dissipacaoB: number): number {
     if (energiaImpactoJ === 0) return 0;
     const capacidadeDeRetorno = Math.min(1, Math.min(resistenciaA, resistenciaB) / energiaImpactoJ);

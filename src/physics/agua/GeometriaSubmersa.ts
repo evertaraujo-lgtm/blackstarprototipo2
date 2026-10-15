@@ -33,7 +33,7 @@ export function validarPrisma(p: PrismaDeslocador): void {
 function recortar(vertices: readonly Vetor3[], plano: PlanoRecorte, origem: Vetor3): Vetor3[] {
   // Mesma ordem das operações vetoriais originais, sem alocar vetores por vértice.
   const ox = origem.x - plano.ancoraM.x, oy = origem.y - plano.ancoraM.y, oz = origem.z - plano.ancoraM.z;
-  /** Devolve `(ox + v.x) * plano.normal.x + (oy + v.y) * plano.normal.y + (oz + v.z) * plano.normal.z`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b1232e7b5e5a15c5 */
+  /** Avalia produto escalar do vértice deslocado com normal do semiespaço para decidir lado do recorte. Só corresponde a distância em m se a normal for unitária. @contract f-b1232e7b5e5a15c5 @reviewed M12-DOC: implementação lida. */
   const d = (v: Vetor3) => (ox + v.x) * plano.normal.x + (oy + v.y) * plano.normal.y + (oz + v.z) * plano.normal.z;
   const resultado: Vetor3[] = [];
   for (let i = 0; i < vertices.length; i++) {
@@ -72,10 +72,10 @@ export function calcularGeometriaSubmersa(e: EstadoFisico, p: PrismaDeslocador, 
   // Componente interno sem exposição: não cria elementos de volume nulo (0/0 no arrasto).
   if (espessura === 0) return { volumeTotalM3: 0, volumeSubmersoM3: 0, elementos: [], fracaoGeometrica: 0 };
   const cos = Math.cos(e.orientacaoRad.z), sin = Math.sin(e.orientacaoRad.z), c = p.centroLocalM ?? Vetor3.zero;
-  /** Devolve `new Vetor3(x * cos - y * sin, x * sin + y * cos, 0)`. Dependências diretas: `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0bbb068bd7e55d65 */
+  /** Transforma coordenadas locais XY pela orientação física usando seno/cosseno pré-calculados; retorna Z zero sem mover corpo. @contract f-0bbb068bd7e55d65 @reviewed M12-DOC: implementação lida. */
   const girar = (x: number, y: number) => new Vetor3(x * cos - y * sin, x * sin + y * cos, 0);
   const contorno = verticesPrismaM(e, p).map(v => v.subtrair(e.posicaoM));
-  /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2311e018804a3702 */
+  /** Avalia lado do ponto relativo à âncora do plano, preservando diferenças locais antes do produto escalar para reduzir cancelamento numérico. @contract f-2311e018804a3702 @reviewed M12-DOC: implementação lida. */
   const distancia = (q: Vetor3, plano: PlanoRecorte) =>
     ((e.posicaoM.x - plano.ancoraM.x) + q.x) * plano.normal.x
     + ((e.posicaoM.y - plano.ancoraM.y) + q.y) * plano.normal.y

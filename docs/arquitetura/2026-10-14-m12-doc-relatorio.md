@@ -210,3 +210,13 @@ Estado após A–E estrutural: 1.461 implementações nomeadas com JSDoc/âncora
 440 contratos foram confrontados com as implementações; 495 descrições ainda
 exigem revisão semântica explícita. Esse inventário não será apresentado como
 revisão técnica integral enquanto essas pendências não forem tratadas.
+
+### C6 — Revisão semântica de superfícies, contatos e portas do mundo
+
+Mais 81 cabeçalhos foram confrontados com seus corpos: normais/projeções,
+contatos por arestas e bordas, SAT/recorte, impulsos, restituição, trabalho de
+atrito, dano e transmissão a fixadores. Ficaram explícitos o centro representativo
+por média de vértices (sem ponderação de área), a hipótese de solo estático,
+a distinção proximidade/impulso e a limitação de esforços em malhas redundantes.
+Nenhum desses limites foi corrigido nesta tarefa documental. A comparação de
+AST executável por arquivo continuou idêntica.

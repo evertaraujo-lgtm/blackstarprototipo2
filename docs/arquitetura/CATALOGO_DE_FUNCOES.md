@@ -4411,15 +4411,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.verticalEm:ArrowFunction</code> · [fonte L120](../../src/physics/MundoFisico.ts#L120) |
 | Assinatura | <code> (p: Vetor3): Vetor3</code> |
-| Responsabilidade | Devolve `this.ambiente.referencial.radial(p)`. Dependências diretas: `this.ambiente.referencial.radial`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Fornece ao resolvedor a direção radial local do ambiente na posição global em metros; não calcula uma vertical alternativa. |
 | Entradas | <code>p</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: <code>this.ambiente.referencial.radial(p)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.ambiente.referencial.radial</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.ambiente.referencial.radial(p)`. Dependências diretas: `this.ambiente.referencial.radial`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6f1f287ebb4b06bb */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Fornece ao resolvedor a direção radial local do ambiente na posição global em metros; não calcula uma vertical alternativa. @contract f-6f1f287ebb4b06bb @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -4430,15 +4430,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.obterObjetos:ArrowFunction</code> · [fonte L122](../../src/physics/MundoFisico.ts#L122) |
 | Assinatura | <code> (): MapIterator&lt;Objeto&gt;</code> |
-| Responsabilidade | Devolve `this.objetos.values()`. Dependências diretas: `this.objetos.values`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Entrega iterador dos corpos registrados aos resolvedores; os objetos continuam pertencendo ao core, sem cópia da dinâmica. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>MapIterator&lt;Objeto&gt;</code>; expressões retornadas: <code>this.objetos.values()</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.objetos.values</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.objetos.values()`. Dependências diretas: `this.objetos.values`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-9bca04b4b6c063ed */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Entrega iterador dos corpos registrados aos resolvedores; os objetos continuam pertencendo ao core, sem cópia da dinâmica. @contract f-9bca04b4b6c063ed @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -4449,15 +4449,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.obterConjuntoEstrutural:ArrowFunction</code> · [fonte L124](../../src/physics/MundoFisico.ts#L124) |
 | Assinatura | <code> (objeto: Objeto): ConjuntoEstruturalRigido &#124; undefined</code> |
-| Responsabilidade | Devolve `this.obterConjuntoEstruturalDoObjeto(objeto)`. Dependências diretas: `this.obterConjuntoEstruturalDoObjeto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Consulta a ilha estrutural atual do corpo para resolver contatos com massa e inércia compostas. |
 | Entradas | <code>objeto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ConjuntoEstruturalRigido &#124; undefined</code>; expressões retornadas: <code>this.obterConjuntoEstruturalDoObjeto(objeto)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.obterConjuntoEstruturalDoObjeto</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.obterConjuntoEstruturalDoObjeto(objeto)`. Dependências diretas: `this.obterConjuntoEstruturalDoObjeto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-23cc335f3cc5d880 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta a ilha estrutural atual do corpo para resolver contatos com massa e inércia compostas. @contract f-23cc335f3cc5d880 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -4468,15 +4468,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.obterFixadores:ArrowFunction</code> · [fonte L126](../../src/physics/MundoFisico.ts#L126) |
 | Assinatura | <code> (): MapIterator&lt;FixadorEstrutural&gt;</code> |
-| Responsabilidade | Devolve `this.fixadores.values()`. Dependências diretas: `this.fixadores.values`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Entrega iterador dos fixadores registrados para transmissão e eventual ruptura de esforços físicos. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>MapIterator&lt;FixadorEstrutural&gt;</code>; expressões retornadas: <code>this.fixadores.values()</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.fixadores.values</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.fixadores.values()`. Dependências diretas: `this.fixadores.values`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7e34327905877d05 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Entrega iterador dos fixadores registrados para transmissão e eventual ruptura de esforços físicos. @contract f-7e34327905877d05 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -4487,15 +4487,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.distribuirCalorDeAtrito:ArrowFunction</code> · [fonte L129](../../src/physics/MundoFisico.ts#L129) |
 | Assinatura | <code> (objetoA: Objeto, objetoB: Objeto, energiaJ: number, dtS: number): void</code> |
-| Responsabilidade | Devolve `this.sistemaTermico.distribuirCalorDeAtritoEntreObjetos(objetoA, objetoB, energiaJ, dtS)`. Dependências diretas: `this.sistemaTermico.distribuirCalorDeAtritoEntreObjetos`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Porta que encaminha energia dissipada em J aos participantes do contato; delega ao sistema térmico entre objetos ou divide igualmente entre objeto e superfície. O dt em s acompanha o aquecimento do objeto, sem alterar cinemática. |
 | Entradas | <code>objetoA</code>; <code>objetoB</code>; <code>energiaJ</code>; <code>dtS</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: <code>this.sistemaTermico.distribuirCalorDeAtritoEntreObjetos(objetoA, objetoB, energiaJ, dtS)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.sistemaTermico.distribuirCalorDeAtritoEntreObjetos</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.sistemaTermico.distribuirCalorDeAtritoEntreObjetos(objetoA, objetoB, energiaJ, dtS)`. Dependências diretas: `this.sistemaTermico.distribuirCalorDeAtritoEntreObjetos`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0ef3d90e16c5ee99 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Porta que encaminha energia dissipada em J aos participantes do contato; delega ao sistema térmico entre objetos ou divide igualmente entre objeto e superfície. O dt em s acompanha o aquecimento do objeto, sem alterar cinemática. @contract f-0ef3d90e16c5ee99 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -4506,15 +4506,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.deveIgnorarColisao:ArrowFunction</code> · [fonte L132](../../src/physics/MundoFisico.ts#L132) |
 | Assinatura | <code> (objetoA: Objeto, objetoB: Objeto): boolean</code> |
-| Responsabilidade | Devolve `[...this.juntasRotacionaisDeBancada.values()].some((junta) =&gt; junta.ignoraColisaoEntre(objetoA, objetoB))`. Dependências diretas: `[...this.juntasRotacionaisDeBancada.values()].some`, `this.juntasRotacionaisDeBancada.values`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Exclui o par de colisões quando alguma junta rotacional registrada declara essa exceção física. |
 | Entradas | <code>objetoA</code>; <code>objetoB</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>[...this.juntasRotacionaisDeBancada.values()].some((junta) =&gt; junta.ignoraColisaoEntre(objetoA, objetoB))</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>[...this.juntasRotacionaisDeBancada.values()].some</code>; <code>this.juntasRotacionaisDeBancada.values</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `[...this.juntasRotacionaisDeBancada.values()].some((junta) =&gt; junta.ignoraColisaoEntre(objetoA, objetoB))`. Dependências diretas: `[...this.juntasRotacionaisDeBancada.values()].some`, `this.juntasRotacionaisDeBancada.values`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6ed17c159f596add */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Exclui o par de colisões quando alguma junta rotacional registrada declara essa exceção física. @contract f-6ed17c159f596add @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -4525,15 +4525,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.obterObjetos:ArrowFunction#2</code> · [fonte L137](../../src/physics/MundoFisico.ts#L137) |
 | Assinatura | <code> (): MapIterator&lt;Objeto&gt;</code> |
-| Responsabilidade | Devolve `this.objetos.values()`. Dependências diretas: `this.objetos.values`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Entrega iterador dos corpos registrados aos resolvedores; os objetos continuam pertencendo ao core, sem cópia da dinâmica. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>MapIterator&lt;Objeto&gt;</code>; expressões retornadas: <code>this.objetos.values()</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.objetos.values</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.objetos.values()`. Dependências diretas: `this.objetos.values`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f49ed769f70cbea8 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Entrega iterador dos corpos registrados aos resolvedores; os objetos continuam pertencendo ao core, sem cópia da dinâmica. @contract f-f49ed769f70cbea8 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -4544,15 +4544,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.obterSuperficies:ArrowFunction</code> · [fonte L139](../../src/physics/MundoFisico.ts#L139) |
 | Assinatura | <code> (): MapIterator&lt;SuperficieFisica&gt;</code> |
-| Responsabilidade | Devolve `this.superficies.values()`. Dependências diretas: `this.superficies.values`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Entrega iterador das superfícies rígidas ao resolvedor; regiões líquidas não são adicionadas como piso. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>MapIterator&lt;SuperficieFisica&gt;</code>; expressões retornadas: <code>this.superficies.values()</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.superficies.values</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.superficies.values()`. Dependências diretas: `this.superficies.values`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b4cc7c84323b2b76 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Entrega iterador das superfícies rígidas ao resolvedor; regiões líquidas não são adicionadas como piso. @contract f-b4cc7c84323b2b76 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -4563,15 +4563,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.obterConjuntoEstrutural:ArrowFunction#2</code> · [fonte L141](../../src/physics/MundoFisico.ts#L141) |
 | Assinatura | <code> (objeto: Objeto): ConjuntoEstruturalRigido &#124; undefined</code> |
-| Responsabilidade | Devolve `this.obterConjuntoEstruturalDoObjeto(objeto)`. Dependências diretas: `this.obterConjuntoEstruturalDoObjeto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Consulta a ilha estrutural atual do corpo para resolver contatos com massa e inércia compostas. |
 | Entradas | <code>objeto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ConjuntoEstruturalRigido &#124; undefined</code>; expressões retornadas: <code>this.obterConjuntoEstruturalDoObjeto(objeto)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.obterConjuntoEstruturalDoObjeto</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.obterConjuntoEstruturalDoObjeto(objeto)`. Dependências diretas: `this.obterConjuntoEstruturalDoObjeto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-79dae79b06413c98 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta a ilha estrutural atual do corpo para resolver contatos com massa e inércia compostas. @contract f-79dae79b06413c98 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -4582,15 +4582,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.obterMassaEfetivaNoContato:ArrowFunction</code> · [fonte L143](../../src/physics/MundoFisico.ts#L143) |
 | Assinatura | <code> (objeto: Objeto, pontoM: Vetor3, normal: Vetor3): number &#124; undefined</code> |
-| Responsabilidade | Devolve `this.obterMassaEfetivaNoContato(objeto, pontoM, normal)`. Dependências diretas: `this.obterMassaEfetivaNoContato`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Encaminha ponto global em m e normal à consulta de massa efetiva, preservando contribuição da ilha estrutural. |
 | Entradas | <code>objeto</code>; <code>pontoM</code>; <code>normal</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number &#124; undefined</code>; expressões retornadas: <code>this.obterMassaEfetivaNoContato(objeto, pontoM, normal)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.obterMassaEfetivaNoContato</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.obterMassaEfetivaNoContato(objeto, pontoM, normal)`. Dependências diretas: `this.obterMassaEfetivaNoContato`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-cc331bf5e24d2670 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Encaminha ponto global em m e normal à consulta de massa efetiva, preservando contribuição da ilha estrutural. @contract f-cc331bf5e24d2670 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -4601,15 +4601,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.obterFixadores:ArrowFunction#2</code> · [fonte L145](../../src/physics/MundoFisico.ts#L145) |
 | Assinatura | <code> (): MapIterator&lt;FixadorEstrutural&gt;</code> |
-| Responsabilidade | Devolve `this.fixadores.values()`. Dependências diretas: `this.fixadores.values`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Entrega iterador dos fixadores registrados para transmissão e eventual ruptura de esforços físicos. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>MapIterator&lt;FixadorEstrutural&gt;</code>; expressões retornadas: <code>this.fixadores.values()</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.fixadores.values</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.fixadores.values()`. Dependências diretas: `this.fixadores.values`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3f3a80a38e9070f6 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Entrega iterador dos fixadores registrados para transmissão e eventual ruptura de esforços físicos. @contract f-3f3a80a38e9070f6 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -4620,15 +4620,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.distribuirCalorDeAtrito:ArrowFunction#2</code> · [fonte L148](../../src/physics/MundoFisico.ts#L148) |
 | Assinatura | <code> (objeto: Objeto, superficie: SuperficieFisica, energiaJ: number, dtS: number): void</code> |
-| Responsabilidade | Dependências diretas: `objeto.aplicarCalorDeAtritoPeloCore`, `superficie.aplicarCalorDeAtritoPeloCore`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Porta que encaminha energia dissipada em J aos participantes do contato; delega ao sistema térmico entre objetos ou divide igualmente entre objeto e superfície. O dt em s acompanha o aquecimento do objeto, sem alterar cinemática. |
 | Entradas | <code>objeto</code>; <code>superficie</code>; <code>energiaJ</code>; <code>dtS</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>objeto.aplicarCalorDeAtritoPeloCore</code>; <code>superficie.aplicarCalorDeAtritoPeloCore</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>energiaJ &lt;= 0</code>; exceções: — |
 | Testes | [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `objeto.aplicarCalorDeAtritoPeloCore`, `superficie.aplicarCalorDeAtritoPeloCore`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-107e0418e080d86a */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Porta que encaminha energia dissipada em J aos participantes do contato; delega ao sistema térmico entre objetos ou divide igualmente entre objeto e superfície. O dt em s acompanha o aquecimento do objeto, sem alterar cinemática. @contract f-107e0418e080d86a @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -4639,15 +4639,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.obterGravidadeMps2:ArrowFunction</code> · [fonte L154](../../src/physics/MundoFisico.ts#L154) |
 | Assinatura | <code> (p: Vetor3): Vetor3</code> |
-| Responsabilidade | Devolve `this.obterGravidadeMps2(p)`. Dependências diretas: `this.obterGravidadeMps2`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Consulta o campo ativo na posição global em m para determinar reação normal e limite de atrito. |
 | Entradas | <code>p</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: <code>this.obterGravidadeMps2(p)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.obterGravidadeMps2</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.obterGravidadeMps2(p)`. Dependências diretas: `this.obterGravidadeMps2`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-35982ea5bb0323ff */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta o campo ativo na posição global em m para determinar reação normal e limite de atrito. @contract f-35982ea5bb0323ff @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -5696,15 +5696,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/SuperficieEsferica.ts::SuperficieEsferica.constructor:Constructor</code> · [fonte L8](../../src/physics/SuperficieEsferica.ts#L8) |
 | Assinatura | <code>public (id: string, centroM: Vetor3, raioM?: number, resistenciaColisaoJ?: number, dissipacaoImpacto?: number, coeficienteAtritoDinamico?: number): SuperficieEsferica</code> |
-| Responsabilidade | Escritas diretas: `this.centroM`, `this.raioM`. Dependências diretas: `super`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Configura superfície rígida circular em XY, material concreto e propriedades de contato; exige raio positivo finito e centro com Z zero. Não representa oceano nem rotação terrestre. |
 | Entradas | <code>id: string</code>; <code>public readonly centroM: Vetor3</code>; <code>public readonly raioM: number = TERRA.raioM</code>; <code>resistenciaColisaoJ = 1_000_000</code>; <code>dissipacaoImpacto = 0.04</code>; <code>coeficienteAtritoDinamico = 0.9</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>SuperficieEsferica</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.centroM</code>; <code>this.raioM</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>super</code>; <code>Number.isFinite</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(raioM) &#124;&#124; raioM &lt;= 0 &#124;&#124; centroM.z !== 0</code>; exceções: <code>new Error('Superfície esférica XY inválida.')</code> |
 | Testes | [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.centroM`, `this.raioM`. Dependências diretas: `super`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-9eac1149d1a4ca7a */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Configura superfície rígida circular em XY, material concreto e propriedades de contato; exige raio positivo finito e centro com Z zero. Não representa oceano nem rotação terrestre. @contract f-9eac1149d1a4ca7a @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -5715,15 +5715,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/SuperficieEsferica.ts::SuperficieEsferica.distanciaAssinadaM:MethodDeclaration</code> · [fonte L14](../../src/physics/SuperficieEsferica.ts#L14) |
 | Assinatura | <code>public (p: Vetor3): number</code> |
-| Responsabilidade | Devolve `Math.hypot(p.x - this.centroM.x, p.y - this.centroM.y) - this.raioM`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Retorna distância radial em XY menos raio, em m; positivo fora, negativo dentro. Z não altera a geometria planar. |
 | Entradas | <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>Math.hypot(p.x - this.centroM.x, p.y - this.centroM.y) - this.raioM</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.hypot</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `Math.hypot(p.x - this.centroM.x, p.y - this.centroM.y) - this.raioM`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8e1821f8d4a7658a */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Retorna distância radial em XY menos raio, em m; positivo fora, negativo dentro. Z não altera a geometria planar. @contract f-8e1821f8d4a7658a @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -5734,15 +5734,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/SuperficieEsferica.ts::SuperficieEsferica.normalEm:MethodDeclaration</code> · [fonte L16](../../src/physics/SuperficieEsferica.ts#L16) |
 | Assinatura | <code>public (p: Vetor3): Vetor3</code> |
-| Responsabilidade | Devolve `r.multiplicar(1 / r.magnitude)`. Dependências diretas: `Vetor3`, `Error`, `r.multiplicar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Normaliza o raio em XY apontando para fora; lança erro no centro, onde não existe normal única. |
 | Entradas | <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: <code>r.multiplicar(1 / r.magnitude)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Vetor3</code>; <code>Error</code>; <code>r.multiplicar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>r.magnitude === 0</code>; exceções: <code>new Error('Normal da superfície indefinida no centro.')</code> |
 | Testes | [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `r.multiplicar(1 / r.magnitude)`. Dependências diretas: `Vetor3`, `Error`, `r.multiplicar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-9bf75e102dce8e85 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Normaliza o raio em XY apontando para fora; lança erro no centro, onde não existe normal única. @contract f-9bf75e102dce8e85 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -5753,15 +5753,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/SuperficieEsferica.ts::SuperficieEsferica.projetar:MethodDeclaration</code> · [fonte L22](../../src/physics/SuperficieEsferica.ts#L22) |
 | Assinatura | <code>public (p: Vetor3): Vetor3</code> |
-| Responsabilidade | Devolve `this.centroM.adicionar(this.normalEm(p).multiplicar(this.raioM)).adicionar(new Vetor3(0, 0, p.z))`. Dependências diretas: `this.centroM.adicionar(this.normalEm(p).multiplicar(this.raioM)).adicionar`, `this.centroM.adicionar`, `this.normalEm(p).multiplicar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Projeta radialmente sobre o círculo preservando Z do ponto; herda singularidade de normalEm no centro. |
 | Entradas | <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: <code>this.centroM.adicionar(this.normalEm(p).multiplicar(this.raioM)).adicionar(new Vetor3(0, 0, p.z))</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.centroM.adicionar(this.normalEm(p).multiplicar(this.raioM)).adicionar</code>; <code>this.centroM.adicionar</code>; <code>this.normalEm(p).multiplicar</code>; <code>this.normalEm</code>; <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.centroM.adicionar(this.normalEm(p).multiplicar(this.raioM)).adicionar(new Vetor3(0, 0, p.z))`. Dependências diretas: `this.centroM.adicionar(this.normalEm(p).multiplicar(this.raioM)).adicionar`, `this.centroM.adicionar`, `this.normalEm(p).multiplicar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-07d02372207ebdce */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Projeta radialmente sobre o círculo preservando Z do ponto; herda singularidade de normalEm no centro. @contract f-07d02372207ebdce @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -5772,15 +5772,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/SuperficieEsferica.ts::SuperficieEsferica.candidatosContato:MethodDeclaration</code> · [fonte L24](../../src/physics/SuperficieEsferica.ts#L24) |
 | Assinatura | <code>public override (pontos: readonly Vetor3[]): readonly Vetor3[]</code> |
-| Responsabilidade | Devolve `candidatos`. Dependências diretas: `pontos[j].subtrair`, `a.subtrair`, `candidatos.push`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Acrescenta aos vértices mínimos radiais interiores dos segmentos entre pontos da mesma geometria convexa; captura contato no meio de base tangente. Não une corpos diferentes. |
 | Entradas | <code>pontos: readonly Vetor3[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly Vetor3[]</code>; expressões retornadas: <code>candidatos</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>i</code>; <code>j</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>pontos[j].subtrair</code>; <code>a.subtrair</code>; <code>Math.max</code>; <code>Math.min</code>; <code>candidatos.push</code>; <code>a.adicionar</code>; <code>d.multiplicar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>comprimento2 === 0</code>; <code>t &gt; 0 &amp;&amp; t &lt; 1</code>; exceções: — |
 | Testes | [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `candidatos`. Dependências diretas: `pontos[j].subtrair`, `a.subtrair`, `candidatos.push`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-759c955510442332 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Acrescenta aos vértices mínimos radiais interiores dos segmentos entre pontos da mesma geometria convexa; captura contato no meio de base tangente. Não une corpos diferentes. @contract f-759c955510442332 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -5795,15 +5795,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.constructor:Constructor</code> · [fonte L10](../../src/physics/SuperficieFisica.ts#L10) |
 | Assinatura | <code>public (id: string, tipoMaterial: "areia" &#124; "agua" &#124; "terra" &#124; "concreto" &#124; "aco" &#124; "outro", resistenciaColisaoJ: number, dissipacaoImpacto?: number, coeficienteAtritoDinamico?: number, temperaturaInicialC?: number, capacidadeTermicaJPorC?: number): SuperficieFisica</code> |
-| Responsabilidade | Escritas diretas: `this.id`, `this.tipoMaterial`, `this.resistenciaColisaoJ`, `this.dissipacaoImpacto`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Registra identidade, material, resistência em J, dissipação, atrito e estado térmico; valida id, resistência positiva, dissipação em [0,1), atrito em [0,1] e capacidade térmica positiva. Finitude da resistência não é verificada separadamente nesta implementação. |
 | Entradas | <code>public readonly id: string</code>; <code>public readonly tipoMaterial: 'areia' &#124; 'agua' &#124; 'terra' &#124; 'concreto' &#124; 'aco' &#124; 'outro'</code>; <code>public readonly resistenciaColisaoJ: number</code>; <code>public readonly dissipacaoImpacto = 0.15</code>; <code>public readonly coeficienteAtritoDinamico = 0.65</code>; <code>temperaturaInicialC = 20</code>; <code>public readonly capacidadeTermicaJPorC = 1_000_000</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>SuperficieFisica</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.id</code>; <code>this.tipoMaterial</code>; <code>this.resistenciaColisaoJ</code>; <code>this.dissipacaoImpacto</code>; <code>this.coeficienteAtritoDinamico</code>; <code>this.capacidadeTermicaJPorC</code>; <code>this.integridade</code>; <code>this.temperaturaAtualC</code>; <code>this.energiaTermicaDeAtritoJ</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!id &#124;&#124; resistenciaColisaoJ &lt;= 0 &#124;&#124; !Number.isFinite(dissipacaoImpacto) &#124;&#124; dissipacaoImpacto &lt; 0 &#124;&#124; dissipacaoImpacto &gt;= 1 &#124;&#124; !Number.isFinite(coeficienteAtritoDinamico) &#124;&#124; coeficienteAtritoDinamico &lt; 0 &#124;&#124; coeficienteAtritoDinamico &gt; 1 &#124;&#124; !N… [continua na fonte]</code>; exceções: <code>new Error('Definição de superfície inválida.')</code> |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.id`, `this.tipoMaterial`, `this.resistenciaColisaoJ`, `this.dissipacaoImpacto`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-de0f9204a43fbad4 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Registra identidade, material, resistência em J, dissipação, atrito e estado térmico; valida id, resistência positiva, dissipação em [0,1), atrito em [0,1] e capacidade térmica positiva. Finitude da resistência não é verificada separadamente nesta implementação. @contract f-de0f9204a43fbad4 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -5871,15 +5871,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.contemProjecao:MethodDeclaration</code> · [fonte L33](../../src/physics/SuperficieFisica.ts#L33) |
 | Assinatura | <code>public (_pontoM: Vetor3): boolean</code> |
-| Responsabilidade | Devolve `true`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Contrato padrão sem bordas: aceita qualquer projeção. Superfícies finitas especializam esta consulta. |
 | Entradas | <code>_pontoM: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>true</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `true`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0b83791d53142aaf */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Contrato padrão sem bordas: aceita qualquer projeção. Superfícies finitas especializam esta consulta. @contract f-0b83791d53142aaf @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -5890,15 +5890,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.velocidadeNoPonto:MethodDeclaration</code> · [fonte L35](../../src/physics/SuperficieFisica.ts#L35) |
 | Assinatura | <code>public (_pontoM: Vetor3): Vetor3</code> |
-| Responsabilidade | Devolve `Vetor3.zero`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Retorna velocidade nula em m/s: a superfície base é estática no referencial do mundo. |
 | Entradas | <code>_pontoM: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: <code>Vetor3.zero</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `Vetor3.zero`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-4c317235a33e5226 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Retorna velocidade nula em m/s: a superfície base é estática no referencial do mundo. @contract f-4c317235a33e5226 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -5909,15 +5909,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.candidatosContato:MethodDeclaration</code> · [fonte L37](../../src/physics/SuperficieFisica.ts#L37) |
 | Assinatura | <code>public (pontos: readonly Vetor3[]): readonly Vetor3[]</code> |
-| Responsabilidade | Devolve `pontos`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Devolve os pontos fornecidos sem copiar ou acrescentar candidatos; especializações podem incluir contatos interiores às arestas. |
 | Entradas | <code>pontos: readonly Vetor3[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly Vetor3[]</code>; expressões retornadas: <code>pontos</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `pontos`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-5d9e830dffef3966 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Devolve os pontos fornecidos sem copiar ou acrescentar candidatos; especializações podem incluir contatos interiores às arestas. @contract f-5d9e830dffef3966 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -5928,15 +5928,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.integridadeEstrutural:GetAccessor</code> · [fonte L40](../../src/physics/SuperficieFisica.ts#L40) |
 | Assinatura | <code>public (): number</code> |
-| Responsabilidade | Devolve `this.integridade`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Consulta fração de integridade atual da superfície, sem modificar estado. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>this.integridade</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.integridade`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-41e1ec354f9dfa4b */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta fração de integridade atual da superfície, sem modificar estado. @contract f-41e1ec354f9dfa4b @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -5947,15 +5947,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.temperaturaC:GetAccessor</code> · [fonte L42](../../src/physics/SuperficieFisica.ts#L42) |
 | Assinatura | <code>public (): number</code> |
-| Responsabilidade | Devolve `this.temperaturaAtualC`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Consulta temperatura acumulada em graus Celsius, sem conversão para Kelvin. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>this.temperaturaAtualC</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.temperaturaAtualC`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6431b37fd60040ec */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta temperatura acumulada em graus Celsius, sem conversão para Kelvin. @contract f-6431b37fd60040ec @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -5966,15 +5966,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.energiaTermicaDeAtritoAcumuladaJ:GetAccessor</code> · [fonte L44](../../src/physics/SuperficieFisica.ts#L44) |
 | Assinatura | <code>public (): number</code> |
-| Responsabilidade | Devolve `this.energiaTermicaDeAtritoJ`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Consulta em J a energia de atrito acumulada pela superfície. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>this.energiaTermicaDeAtritoJ</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.energiaTermicaDeAtritoJ`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2e6fb278c91dd910 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta em J a energia de atrito acumulada pela superfície. @contract f-2e6fb278c91dd910 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -5985,15 +5985,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/SuperficieFisica.ts::SuperficieFisica.aplicarDanoPorImpacto:MethodDeclaration</code> · [fonte L47](../../src/physics/SuperficieFisica.ts#L47) |
 | Assinatura | <code>public (energiaJ: number): void</code> |
-| Responsabilidade | Escritas diretas: `this.integridade`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Rejeita energia negativa/não finita; acima da resistência em J reduz integridade pelo excesso relativo, limitada inferiormente a zero. Energia abaixo do limite não causa dano. |
 | Entradas | <code>energiaJ: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.integridade</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code>; <code>Math.max</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(energiaJ) &#124;&#124; energiaJ &lt; 0</code>; <code>energiaJ &lt;= this.resistenciaColisaoJ</code>; exceções: <code>new Error('Energia de impacto inválida.')</code> |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.integridade`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-27173dfe139bb15d */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Rejeita energia negativa/não finita; acima da resistência em J reduz integridade pelo excesso relativo, limitada inferiormente a zero. Energia abaixo do limite não causa dano. @contract f-27173dfe139bb15d @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -6027,15 +6027,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/SuperficiePlano.ts::SuperficiePlano.constructor:Constructor</code> · [fonte L7](../../src/physics/SuperficiePlano.ts#L7) |
 | Assinatura | <code>public (id: string, tipoMaterial: "areia" &#124; "agua" &#124; "terra" &#124; "concreto" &#124; "aco" &#124; "outro", alturaM: number, resistenciaColisaoJ: number, dissipacaoImpacto?: number, coeficienteAtritoDinamico?: number, temperaturaInicialC?: number, capacidadeTermicaJPorC?: number): SuperficiePlano</code> |
-| Responsabilidade | Escritas diretas: `this.alturaM`. Dependências diretas: `super`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Configura plano horizontal infinito com altura finita em m e propriedades materiais/térmicas herdadas; preserva ambiente cartesiano legado. |
 | Entradas | <code>id: string</code>; <code>tipoMaterial: 'areia' &#124; 'agua' &#124; 'terra' &#124; 'concreto' &#124; 'aco' &#124; 'outro'</code>; <code>public readonly alturaM: number</code>; <code>resistenciaColisaoJ: number</code>; <code>dissipacaoImpacto = 0.15</code>; <code>coeficienteAtritoDinamico = 0.65</code>; <code>temperaturaInicialC = 20</code>; <code>capacidadeTermicaJPorC = 1_000_000</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>SuperficiePlano</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.alturaM</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>super</code>; <code>Number.isFinite</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(alturaM)</code>; exceções: <code>new Error('Altura do plano deve ser finita.')</code> |
 | Testes | [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.alturaM`. Dependências diretas: `super`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e05668c4d2d10883 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Configura plano horizontal infinito com altura finita em m e propriedades materiais/térmicas herdadas; preserva ambiente cartesiano legado. @contract f-e05668c4d2d10883 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -6046,15 +6046,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/SuperficiePlano.ts::SuperficiePlano.distanciaAssinadaM:MethodDeclaration</code> · [fonte L17](../../src/physics/SuperficiePlano.ts#L17) |
 | Assinatura | <code>public (p: Vetor3): number</code> |
-| Responsabilidade | Devolve `p.y - this.alturaM`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Retorna Y menos altura do solo em m; negativo indica penetração no plano horizontal legado. |
 | Entradas | <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>p.y - this.alturaM</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `p.y - this.alturaM`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-5d5c720c09ba2d4e */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Retorna Y menos altura do solo em m; negativo indica penetração no plano horizontal legado. @contract f-5d5c720c09ba2d4e @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -6065,15 +6065,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/SuperficiePlano.ts::SuperficiePlano.normalEm:MethodDeclaration</code> · [fonte L19](../../src/physics/SuperficiePlano.ts#L19) |
 | Assinatura | <code>public (_p: Vetor3): Vetor3</code> |
-| Responsabilidade | Devolve `new Vetor3(0, 1, 0)`. Dependências diretas: `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Retorna +Y unitário independentemente da posição, por definição deste plano horizontal. |
 | Entradas | <code>_p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: <code>new Vetor3(0, 1, 0)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `new Vetor3(0, 1, 0)`. Dependências diretas: `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b5fb94d5a5041833 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Retorna +Y unitário independentemente da posição, por definição deste plano horizontal. @contract f-b5fb94d5a5041833 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -6084,15 +6084,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/SuperficiePlano.ts::SuperficiePlano.projetar:MethodDeclaration</code> · [fonte L21](../../src/physics/SuperficiePlano.ts#L21) |
 | Assinatura | <code>public (p: Vetor3): Vetor3</code> |
-| Responsabilidade | Devolve `new Vetor3(p.x, this.alturaM, p.z)`. Dependências diretas: `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Substitui Y pela altura fixa e preserva X/Z; não altera ponto original. |
 | Entradas | <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: <code>new Vetor3(p.x, this.alturaM, p.z)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `new Vetor3(p.x, this.alturaM, p.z)`. Dependências diretas: `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8aed11a31e582eb2 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Substitui Y pela altura fixa e preserva X/Z; não altera ponto original. @contract f-8aed11a31e582eb2 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -6107,15 +6107,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/SuperficiePlanoLocal.ts::SuperficiePlanoLocal.constructor:Constructor</code> · [fonte L9](../../src/physics/SuperficiePlanoLocal.ts#L9) |
 | Assinatura | <code>public (id: string, ancoraM: Vetor3, normal: Vetor3, semiLarguraM: number, resistenciaColisaoJ?: number, dissipacaoImpacto?: number, coeficienteAtritoDinamico?: number): SuperficiePlanoLocal</code> |
-| Responsabilidade | Escritas diretas: `this.ancoraM`, `this.semiLarguraM`, `this.normal`, `this.tangente`. Dependências diretas: `super`, `Error`, `normal.multiplicar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Configura plataforma rígida de concreto ancorada em m; exige normal não nula em XY e semilargura positiva finita. Normaliza normal e constrói tangente ortogonal fixa. |
 | Entradas | <code>id: string</code>; <code>public readonly ancoraM: Vetor3</code>; <code>normal: Vetor3</code>; <code>public readonly semiLarguraM: number</code>; <code>resistenciaColisaoJ = 1_000_000</code>; <code>dissipacaoImpacto = 0.04</code>; <code>coeficienteAtritoDinamico = 0.9</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>SuperficiePlanoLocal</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.ancoraM</code>; <code>this.semiLarguraM</code>; <code>this.normal</code>; <code>this.tangente</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>super</code>; <code>Number.isFinite</code>; <code>Error</code>; <code>normal.multiplicar</code>; <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>normal.z !== 0 &#124;&#124; normal.magnitude === 0 &#124;&#124; !Number.isFinite(semiLarguraM) &#124;&#124; semiLarguraM &lt;= 0</code>; exceções: <code>new Error('Plataforma XY inválida.')</code> |
 | Testes | [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.ancoraM`, `this.semiLarguraM`, `this.normal`, `this.tangente`. Dependências diretas: `super`, `Error`, `normal.multiplicar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0b7412a4b180e52d */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Configura plataforma rígida de concreto ancorada em m; exige normal não nula em XY e semilargura positiva finita. Normaliza normal e constrói tangente ortogonal fixa. @contract f-0b7412a4b180e52d @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -6126,15 +6126,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/SuperficiePlanoLocal.ts::SuperficiePlanoLocal.distanciaAssinadaM:MethodDeclaration</code> · [fonte L17](../../src/physics/SuperficiePlanoLocal.ts#L17) |
 | Assinatura | <code>public (p: Vetor3): number</code> |
-| Responsabilidade | Devolve `p.subtrair(this.ancoraM).produtoEscalar(this.normal)`. Dependências diretas: `p.subtrair(this.ancoraM).produtoEscalar`, `p.subtrair`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Projeta deslocamento desde a âncora sobre normal unitária; retorna distância assinada em m ao plano de suporte. |
 | Entradas | <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>p.subtrair(this.ancoraM).produtoEscalar(this.normal)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>p.subtrair(this.ancoraM).produtoEscalar</code>; <code>p.subtrair</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `p.subtrair(this.ancoraM).produtoEscalar(this.normal)`. Dependências diretas: `p.subtrair(this.ancoraM).produtoEscalar`, `p.subtrair`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e855b219c8075b64 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Projeta deslocamento desde a âncora sobre normal unitária; retorna distância assinada em m ao plano de suporte. @contract f-e855b219c8075b64 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -6145,15 +6145,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/SuperficiePlanoLocal.ts::SuperficiePlanoLocal.normalEm:MethodDeclaration</code> · [fonte L19](../../src/physics/SuperficiePlanoLocal.ts#L19) |
 | Assinatura | <code>public (_p: Vetor3): Vetor3</code> |
-| Responsabilidade | Devolve `this.normal`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Consulta normal unitária fixa definida na construção da plataforma. |
 | Entradas | <code>_p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: <code>this.normal</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.normal`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e4f571e17c0c5b2c */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta normal unitária fixa definida na construção da plataforma. @contract f-e4f571e17c0c5b2c @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -6164,15 +6164,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/SuperficiePlanoLocal.ts::SuperficiePlanoLocal.projetar:MethodDeclaration</code> · [fonte L21](../../src/physics/SuperficiePlanoLocal.ts#L21) |
 | Assinatura | <code>public (p: Vetor3): Vetor3</code> |
-| Responsabilidade | Devolve `p.subtrair(this.normal.multiplicar(this.distanciaAssinadaM(p)))`. Dependências diretas: `p.subtrair`, `this.normal.multiplicar`, `this.distanciaAssinadaM`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Remove componente normal para projetar ponto sobre plano; limitação lateral é verificada separadamente. |
 | Entradas | <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: <code>p.subtrair(this.normal.multiplicar(this.distanciaAssinadaM(p)))</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>p.subtrair</code>; <code>this.normal.multiplicar</code>; <code>this.distanciaAssinadaM</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `p.subtrair(this.normal.multiplicar(this.distanciaAssinadaM(p)))`. Dependências diretas: `p.subtrair`, `this.normal.multiplicar`, `this.distanciaAssinadaM`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ef5ef0e2329b1484 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Remove componente normal para projetar ponto sobre plano; limitação lateral é verificada separadamente. @contract f-ef5ef0e2329b1484 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -6183,15 +6183,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/SuperficiePlanoLocal.ts::SuperficiePlanoLocal.contemProjecao:MethodDeclaration</code> · [fonte L23](../../src/physics/SuperficiePlanoLocal.ts#L23) |
 | Assinatura | <code>public override (p: Vetor3): boolean</code> |
-| Responsabilidade | Devolve `Math.abs(p.subtrair(this.ancoraM).produtoEscalar(this.tangente)) &lt;= this.semiLarguraM`. Dependências diretas: `p.subtrair(this.ancoraM).produtoEscalar`, `p.subtrair`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Aceita coordenada tangencial em módulo até a semilargura, incluindo bordas. |
 | Entradas | <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>Math.abs(p.subtrair(this.ancoraM).produtoEscalar(this.tangente)) &lt;= this.semiLarguraM</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.abs</code>; <code>p.subtrair(this.ancoraM).produtoEscalar</code>; <code>p.subtrair</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `Math.abs(p.subtrair(this.ancoraM).produtoEscalar(this.tangente)) &lt;= this.semiLarguraM`. Dependências diretas: `p.subtrair(this.ancoraM).produtoEscalar`, `p.subtrair`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-bbc2a95922c77bcb */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Aceita coordenada tangencial em módulo até a semilargura, incluindo bordas. @contract f-bbc2a95922c77bcb @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -6202,15 +6202,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/SuperficiePlanoLocal.ts::SuperficiePlanoLocal.candidatosContato:MethodDeclaration</code> · [fonte L25](../../src/physics/SuperficiePlanoLocal.ts#L25) |
 | Assinatura | <code>public override (pontos: readonly Vetor3[]): readonly Vetor3[]</code> |
-| Responsabilidade | Devolve `candidatos`. Dependências diretas: `a.subtrair(this.ancoraM).produtoEscalar`, `a.subtrair`, `b.subtrair(this.ancoraM).produtoEscalar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Inclui interseções interiores dos segmentos com as duas bordas tangenciais; mantém vértices originais para filtrar projeções válidas. |
 | Entradas | <code>pontos: readonly Vetor3[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly Vetor3[]</code>; expressões retornadas: <code>candidatos</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>i</code>; <code>j</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>a.subtrair(this.ancoraM).produtoEscalar</code>; <code>a.subtrair</code>; <code>b.subtrair(this.ancoraM).produtoEscalar</code>; <code>b.subtrair</code>; <code>candidatos.push</code>; <code>a.adicionar</code>; <code>b.subtrair(a).multiplicar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>sa === sb</code>; <code>t &gt; 0 &amp;&amp; t &lt; 1</code>; exceções: — |
 | Testes | [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `candidatos`. Dependências diretas: `a.subtrair(this.ancoraM).produtoEscalar`, `a.subtrair`, `b.subtrair(this.ancoraM).produtoEscalar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b0bea2f678b1b9f0 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Inclui interseções interiores dos segmentos com as duas bordas tangenciais; mantém vértices originais para filtrar projeções válidas. @contract f-b0bea2f678b1b9f0 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -6400,15 +6400,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/agua/GeometriaSubmersa.ts::recortar.d:ArrowFunction</code> · [fonte L37](../../src/physics/agua/GeometriaSubmersa.ts#L37) |
 | Assinatura | <code> (v: Vetor3): number</code> |
-| Responsabilidade | Devolve `(ox + v.x) * plano.normal.x + (oy + v.y) * plano.normal.y + (oz + v.z) * plano.normal.z`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Avalia produto escalar do vértice deslocado com normal do semiespaço para decidir lado do recorte. Só corresponde a distância em m se a normal for unitária. |
 | Entradas | <code>v: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>(ox + v.x) * plano.normal.x + (oy + v.y) * plano.normal.y + (oz + v.z) * plano.normal.z</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `(ox + v.x) * plano.normal.x + (oy + v.y) * plano.normal.y + (oz + v.z) * plano.normal.z`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b1232e7b5e5a15c5 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Avalia produto escalar do vértice deslocado com normal do semiespaço para decidir lado do recorte. Só corresponde a distância em m se a normal for unitária. @contract f-b1232e7b5e5a15c5 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -6476,15 +6476,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/agua/GeometriaSubmersa.ts::calcularGeometriaSubmersa.girar:ArrowFunction</code> · [fonte L76](../../src/physics/agua/GeometriaSubmersa.ts#L76) |
 | Assinatura | <code> (x: number, y: number): Vetor3</code> |
-| Responsabilidade | Devolve `new Vetor3(x * cos - y * sin, x * sin + y * cos, 0)`. Dependências diretas: `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Transforma coordenadas locais XY pela orientação física usando seno/cosseno pré-calculados; retorna Z zero sem mover corpo. |
 | Entradas | <code>x: number</code>; <code>y: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: <code>new Vetor3(x * cos - y * sin, x * sin + y * cos, 0)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `new Vetor3(x * cos - y * sin, x * sin + y * cos, 0)`. Dependências diretas: `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0bbb068bd7e55d65 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Transforma coordenadas locais XY pela orientação física usando seno/cosseno pré-calculados; retorna Z zero sem mover corpo. @contract f-0bbb068bd7e55d65 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -6495,15 +6495,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/agua/GeometriaSubmersa.ts::calcularGeometriaSubmersa.distancia:ArrowFunction</code> · [fonte L79](../../src/physics/agua/GeometriaSubmersa.ts#L79) |
 | Assinatura | <code> (q: Vetor3, plano: PlanoRecorte): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Avalia lado do ponto relativo à âncora do plano, preservando diferenças locais antes do produto escalar para reduzir cancelamento numérico. |
 | Entradas | <code>q: Vetor3</code>; <code>plano: PlanoRecorte</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>((e.posicaoM.x - plano.ancoraM.x) + q.x) * plano.normal.x<br>    + ((e.posicaoM.y - plano.ancoraM.y) + q.y) * plano.normal.y<br>    + ((e.posicaoM.z - plano.ancoraM.z) + q.z) * plano.normal.z</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2311e018804a3702 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Avalia lado do ponto relativo à âncora do plano, preservando diferenças locais antes do produto escalar para reduzir cancelamento numérico. @contract f-2311e018804a3702 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -6655,15 +6655,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/agua/SistemaHidrodinamico.ts::SistemaHidrodinamico.registrar.[callback]#1.[callback]#1.proj:ArrowFunction</code> · [fonte L40](../../src/physics/agua/SistemaHidrodinamico.ts#L40) |
 | Assinatura | <code> (q: readonly Vetor3[]): number[]</code> |
-| Responsabilidade | Devolve `q.map(x =&gt; x.subtrair(v[0]).produtoEscalar(n))`. Dependências diretas: `q.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Projeta vértices sobre eixo de separação relativos ao primeiro vértice da geometria para verificar sobreposição de volumes declarados. |
 | Entradas | <code>q: readonly Vetor3[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number[]</code>; expressões retornadas: <code>q.map(x =&gt; x.subtrair(v[0]).produtoEscalar(n))</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>q.map</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `q.map(x =&gt; x.subtrair(v[0]).produtoEscalar(n))`. Dependências diretas: `q.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7920d0634e522cef */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Projeta vértices sobre eixo de separação relativos ao primeiro vértice da geometria para verificar sobreposição de volumes declarados. @contract f-7920d0634e522cef @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -6826,15 +6826,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/agua/SistemaHidrodinamico.ts::SistemaHidrodinamico.obterConfiguracao:MethodDeclaration</code> · [fonte L163](../../src/physics/agua/SistemaHidrodinamico.ts#L163) |
 | Assinatura | <code>public (): { regioes: { id: string; modelo: string; densidadeKgM3: number; correnteTangencialMps: number; costa: Readonly&lt;ConfiguracaoCosta&gt;; ondas: boolean; }[]; volumes: { dimensoesM: Vetor3; centroLocalM?: Vetor3; fracaoDeslocamento?: number; coeficienteArrasto: number; colunas?: number; linhas?: number; objetoId: string; }[]; }</code> |
-| Responsabilidade | Devolve `{ regioes: this.regioes.map(a =&gt; a.obterConfiguracao()), volumes: [...this.formas].map(([o, p]) =&gt; ({ objetoId: o.id, ...p })) }`. Dependências diretas: `this.regioes.map`, `[...this.formas].map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Expõe configurações de regiões e volumes por id de objeto para reprodução do modelo; cria arrays/objetos externos, mantendo parâmetros aninhados sob contrato readonly. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ regioes: { id: string; modelo: string; densidadeKgM3: number; correnteTangencialMps: number; costa: Readonly&lt;import("/media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/physics/ambiente/GeografiaCosteira").ConfiguracaoCosta&gt;; ondas: boolean; }[]; volumes: { dimensoesM: Vetor3; centroLocalM?: Vetor3; fracaoDeslocamento?: number; coeficienteArrasto: number; colunas?: number; linhas?: number; objetoId: string; }[]; }</code>; expressões retornadas: <code>{ regioes: this.regioes.map(a =&gt; a.obterConfiguracao()),<br>    volumes: [...this.formas].map(([o, p]) =&gt; ({ objetoId: o.id, ...p })) }</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.regioes.map</code>; <code>[...this.formas].map</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `{ regioes: this.regioes.map(a =&gt; a.obterConfiguracao()), volumes: [...this.formas].map(([o, p]) =&gt; ({ objetoId: o.id, ...p })) }`. Dependências diretas: `this.regioes.map`, `[...this.formas].map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-dbc74ba19464ba73 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Expõe configurações de regiões e volumes por id de objeto para reprodução do modelo; cria arrays/objetos externos, mantendo parâmetros aninhados sob contrato readonly. @contract f-dbc74ba19464ba73 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -6868,15 +6868,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/ambiente/AmbienteFisico.ts::AmbientePlano.obterConfiguracao:MethodDeclaration</code> · [fonte L15](../../src/physics/ambiente/AmbienteFisico.ts#L15) |
 | Assinatura | <code>public (): object</code> |
-| Responsabilidade | Devolve `{ revisao: 'plano-m8', plano: 'XY', rotacaoRadps: 0, campo: this.campo.obterConfiguracao() }`. Dependências diretas: `this.campo.obterConfiguracao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Identifica modelo legado plano-m8, plano XY, rotação nula e configuração do campo para distinguir revisões físicas em replay. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>object</code>; expressões retornadas: <code>{ revisao: 'plano-m8', plano: 'XY', rotacaoRadps: 0, campo: this.campo.obterConfiguracao() }</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.campo.obterConfiguracao</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/BancadaBssCentral.test.ts](../../src/cenarios/BancadaBssCentral.test.ts); [src/cenarios/ComparacaoBssM9.test.ts](../../src/cenarios/ComparacaoBssM9.test.ts); [src/missoes/ObservacaoFisicaM10.test.ts](../../src/missoes/ObservacaoFisicaM10.test.ts); [src/missoes/ReferenciaBancadaM10.test.ts](../../src/missoes/ReferenciaBancadaM10.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `{ revisao: 'plano-m8', plano: 'XY', rotacaoRadps: 0, campo: this.campo.obterConfiguracao() }`. Dependências diretas: `this.campo.obterConfiguracao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ebfc7a954a604a55 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Identifica modelo legado plano-m8, plano XY, rotação nula e configuração do campo para distinguir revisões físicas em replay. @contract f-ebfc7a954a604a55 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -6887,15 +6887,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/ambiente/AmbienteFisico.ts::AmbienteTerrestre.constructor:Constructor</code> · [fonte L21](../../src/physics/ambiente/AmbienteFisico.ts#L21) |
 | Assinatura | <code>public (centroM?: Vetor3): AmbienteTerrestre</code> |
-| Responsabilidade | Escritas diretas: `this.campo`, `this.referencial`. Dependências diretas: `Error`, `CampoCentral`, `ReferencialEsferico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Cria campo central e referencial esférico compartilhando centro terrestre; rejeita centro fora de XY e mantém planeta sem rotação. |
 | Entradas | <code>centroM = new Vetor3(0, -TERRA.raioM, 0)</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>AmbienteTerrestre</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.campo</code>; <code>this.referencial</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Error</code>; <code>CampoCentral</code>; <code>ReferencialEsferico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>centroM.z !== 0</code>; exceções: <code>new Error('Terra central restrita ao plano XY.')</code> |
 | Testes | [src/cenarios/BancadaBssCentral.test.ts](../../src/cenarios/BancadaBssCentral.test.ts); [src/cenarios/ComparacaoBssM9.test.ts](../../src/cenarios/ComparacaoBssM9.test.ts); [src/missoes/ObservacaoFisicaM10.test.ts](../../src/missoes/ObservacaoFisicaM10.test.ts); [src/missoes/ReferenciaBancadaM10.test.ts](../../src/missoes/ReferenciaBancadaM10.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.campo`, `this.referencial`. Dependências diretas: `Error`, `CampoCentral`, `ReferencialEsferico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f569648fe3d1f712 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Cria campo central e referencial esférico compartilhando centro terrestre; rejeita centro fora de XY e mantém planeta sem rotação. @contract f-f569648fe3d1f712 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -6906,15 +6906,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/ambiente/AmbienteFisico.ts::AmbienteTerrestre.obterConfiguracao:MethodDeclaration</code> · [fonte L27](../../src/physics/ambiente/AmbienteFisico.ts#L27) |
 | Assinatura | <code>public (): object</code> |
-| Responsabilidade | Dependências diretas: `this.campo.obterConfiguracao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Expõe revisão M9, raio, campo e g0 de referência de Isp; não confunde g0 com gravidade superficial calculada. Rotação permanece zero. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>object</code>; expressões retornadas: <code>{ revisao: 'terra-esferica-m9', plano: 'XY', rotacaoRadps: 0, raioM: this.referencial.raioM,<br>    g0ReferenciaIspMps2: TERRA.g0Mps2, campo: this.campo.obterConfiguracao() }</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.campo.obterConfiguracao</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/BancadaBssCentral.test.ts](../../src/cenarios/BancadaBssCentral.test.ts); [src/cenarios/ComparacaoBssM9.test.ts](../../src/cenarios/ComparacaoBssM9.test.ts); [src/missoes/ObservacaoFisicaM10.test.ts](../../src/missoes/ObservacaoFisicaM10.test.ts); [src/missoes/ReferenciaBancadaM10.test.ts](../../src/missoes/ReferenciaBancadaM10.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.campo.obterConfiguracao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-39460d33143e6426 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Expõe revisão M9, raio, campo e g0 de referência de Isp; não confunde g0 com gravidade superficial calculada. Rotação permanece zero. @contract f-39460d33143e6426 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -7085,15 +7085,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/ambiente/EstadoInicialLocal.ts::criarEstadoInicialLocal:FunctionDeclaration</code> · [fonte L16](../../src/physics/ambiente/EstadoInicialLocal.ts#L16) |
 | Assinatura | <code>export (ref: ReferencialFisico, c: CondicoesIniciaisLocais): EstadoFisico</code> |
-| Responsabilidade | Dependências diretas: `Object.values(c).every`, `Object.values`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida condições finitas SI e converte arco/altitude, velocidades tangencial/radial e atitude para estado global. Velocidade angular inercial desconta variação da vertical local, preservando taxa local solicitada; não integra nem modifica corpos. |
 | Entradas | <code>ref: ReferencialFisico</code>; <code>c: CondicoesIniciaisLocais</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>EstadoFisico</code>; expressões retornadas: <code>{<br>    posicaoM: p, velocidadeMps: v,<br>    orientacaoRad: new Vetor3(0, 0, ref.atitudeInercialRad(c.atitudeLocalRad, p)),<br>    velocidadeAngularRadps: new Vetor3(0, 0, c.taxaAtitudeLocalRadps - ref.taxaAtitudeLocalRadps(0, p, v)),<br>}</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Object.values(c).every</code>; <code>Object.values</code>; <code>Error</code>; <code>ref.posicaoPorArcoM</code>; <code>ref.vetorParaGlobal</code>; <code>Vetor3</code>; <code>ref.atitudeInercialRad</code>; <code>ref.taxaAtitudeLocalRadps</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Object.values(c).every(Number.isFinite)</code>; exceções: <code>new Error('Condições iniciais devem ser finitas e SI.')</code> |
 | Testes | [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `Object.values(c).every`, `Object.values`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-4ab5e3de34eaedc3 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida condições finitas SI e converte arco/altitude, velocidades tangencial/radial e atitude para estado global. Velocidade angular inercial desconta variação da vertical local, preservando taxa local solicitada; não integra nem modifica corpos. @contract f-4ab5e3de34eaedc3 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -10466,15 +10466,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/geometria/ContatoCaixasOrientadas.ts::obterContatoAabb:FunctionDeclaration</code> · [fonte L71](../../src/physics/geometria/ContatoCaixasOrientadas.ts#L71) |
 | Assinatura | <code> (caixaA: CaixaOrientada, caixaB: CaixaOrientada, toleranciaContatoM: number, somentePlanoXY: boolean): ContatoCaixasOrientadas &#124; undefined</code> |
-| Responsabilidade | Dependências diretas: `caixaB.posicaoM.subtrair`, `Vetor3`, `obterCentroDaIntersecao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Detecta sobreposição de caixas alinhadas com tolerância em m e escolhe menor penetração; em XY normal não usa Z. Ponto fica entre faces na normal e no centro da interseção tangencial; ausência retorna undefined. |
 | Entradas | <code>caixaA: CaixaOrientada</code>; <code>caixaB: CaixaOrientada</code>; <code>toleranciaContatoM: number</code>; <code>somentePlanoXY: boolean</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ContatoCaixasOrientadas &#124; undefined</code>; expressões retornadas: <code>undefined</code>; <code>{<br>    normal: new Vetor3(sinal, 0, 0), penetracaoM: Math.max(0, sobreposicaoX),<br>    pontoM: new Vetor3((caixaA.posicaoM.x + sinal * caixaA.dimensoesM.x / 2 + caixaB.posicaoM.x - sinal * caixaB.dimensoesM.x / 2) / 2, obterCentroDaIntersecao(… [continua na fonte]</code>; <code>{<br>    normal: new Vetor3(0, sinal, 0), penetracaoM: Math.max(0, sobreposicaoY),<br>    pontoM: new Vetor3(obterCentroDaIntersecao(caixaA.posicaoM.x, caixaA.dimensoesM.x, caixaB.posicaoM.x, caixaB.dimensoesM.x), (caixaA.posicaoM.y + sinal * cai… [continua na fonte]</code>; <code>{<br>    normal: new Vetor3(0, 0, sinal), penetracaoM: Math.max(0, sobreposicaoZ),<br>    pontoM: new Vetor3(obterCentroDaIntersecao(caixaA.posicaoM.x, caixaA.dimensoesM.x, caixaB.posicaoM.x, caixaB.dimensoesM.x), obterCentroDaIntersecao(caixaA.p… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>caixaB.posicaoM.subtrair</code>; <code>Math.abs</code>; <code>Vetor3</code>; <code>Math.max</code>; <code>obterCentroDaIntersecao</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>sobreposicaoX &lt; -toleranciaContatoM &#124;&#124; sobreposicaoY &lt; -toleranciaContatoM &#124;&#124; sobreposicaoZ &lt; -toleranciaContatoM</code>; <code>sobreposicaoX &lt;= sobreposicaoY &amp;&amp; (somentePlanoXY &#124;&#124; sobreposicaoX &lt;= sobreposicaoZ)</code>; <code>somentePlanoXY &#124;&#124; sobreposicaoY &lt;= sobreposicaoZ</code>; exceções: — |
 | Testes | [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `caixaB.posicaoM.subtrair`, `Vetor3`, `obterCentroDaIntersecao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-4c5601b333091275 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Detecta sobreposição de caixas alinhadas com tolerância em m e escolhe menor penetração; em XY normal não usa Z. Ponto fica entre faces na normal e no centro da interseção tangencial; ausência retorna undefined. @contract f-4c5601b333091275 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -10485,15 +10485,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/geometria/ContatoCaixasOrientadas.ts::obterVertices2D:FunctionDeclaration</code> · [fonte L111](../../src/physics/geometria/ContatoCaixasOrientadas.ts#L111) |
 | Assinatura | <code> (caixa: CaixaOrientada): Ponto2D[]</code> |
-| Responsabilidade | Dependências diretas: `caixa.verticesLocais2D.map`, `[new Vetor3(-metadeX, -metadeY, 0), new Vetor3(metadeX, -metadeY, 0), new Vetor3(metadeX, metadeY, 0), new Vetor3(-metadeX, metadeY, 0)] .map`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Transforma vértices locais específicos ou quatro cantos retangulares para XY global usando posição e orientação em rad; não altera geometria de origem. |
 | Entradas | <code>caixa: CaixaOrientada</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Ponto2D[]</code>; expressões retornadas: <code>caixa.verticesLocais2D.map((ponto) =&gt; ({<br>    x: caixa.posicaoM.x + (ponto.x * c) - (ponto.y * s),<br>    y: caixa.posicaoM.y + (ponto.x * s) + (ponto.y * c),<br>}))</code>; <code>[new Vetor3(-metadeX, -metadeY, 0), new Vetor3(metadeX, -metadeY, 0), new Vetor3(metadeX, metadeY, 0), new Vetor3(-metadeX, metadeY, 0)]<br>    .map((ponto) =&gt; ({ x: caixa.posicaoM.x + (ponto.x * c) - (ponto.y * s), y: caixa.posicaoM.y + (pont… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.cos</code>; <code>Math.sin</code>; <code>caixa.verticesLocais2D.map</code>; <code>[new Vetor3(-metadeX, -metadeY, 0), new Vetor3(metadeX, -metadeY, 0), new Vetor3(metadeX, metadeY, 0), new Vetor3(-metadeX, metadeY, 0)]<br>    .map</code>; <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>caixa.verticesLocais2D</code>; exceções: — |
 | Testes | [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `caixa.verticesLocais2D.map`, `[new Vetor3(-metadeX, -metadeY, 0), new Vetor3(metadeX, -metadeY, 0), new Vetor3(metadeX, metadeY, 0), new Vetor3(-metadeX, metadeY, 0)] .map`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7ebe1c93d0b716bc */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Transforma vértices locais específicos ou quatro cantos retangulares para XY global usando posição e orientação em rad; não altera geometria de origem. @contract f-7ebe1c93d0b716bc @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -10504,15 +10504,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/geometria/ContatoCaixasOrientadas.ts::obterEixos:FunctionDeclaration</code> · [fonte L129](../../src/physics/geometria/ContatoCaixasOrientadas.ts#L129) |
 | Assinatura | <code> (vertices: readonly Ponto2D[]): Ponto2D[]</code> |
-| Responsabilidade | Dependências diretas: `vertices.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Gera normais unitárias às arestas para SAT; exige vértices ordenados e arestas não nulas. Não elimina eixos redundantes. |
 | Entradas | <code>vertices: readonly Ponto2D[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Ponto2D[]</code>; expressões retornadas: <code>vertices.map((ponto, indice) =&gt; {<br>    const proximo = vertices[(indice + 1) % vertices.length];<br>    const dx = proximo.x - ponto.x;<br>    const dy = proximo.y - ponto.y;<br>    const modulo = Math.hypot(dx, dy);<br>    return { x: -dy / modulo, y: … [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>vertices.map</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `vertices.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-bf2dd22bc31bf19f */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Gera normais unitárias às arestas para SAT; exige vértices ordenados e arestas não nulas. Não elimina eixos redundantes. @contract f-bf2dd22bc31bf19f @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -10523,15 +10523,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/geometria/ContatoCaixasOrientadas.ts::projetar:FunctionDeclaration</code> · [fonte L139](../../src/physics/geometria/ContatoCaixasOrientadas.ts#L139) |
 | Assinatura | <code> (vertices: readonly Ponto2D[], eixo: Ponto2D): { minimo: number; maximo: number; }</code> |
-| Responsabilidade | Devolve `{ minimo: Math.min(...valores), maximo: Math.max(...valores) }`. Dependências diretas: `vertices.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Calcula extremos dos produtos escalares dos vértices com eixo; exige coleção não vazia e eixo unitário para intervalos em m. |
 | Entradas | <code>vertices: readonly Ponto2D[]</code>; <code>eixo: Ponto2D</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ minimo: number; maximo: number; }</code>; expressões retornadas: <code>{ minimo: Math.min(...valores), maximo: Math.max(...valores) }</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>vertices.map</code>; <code>Math.min</code>; <code>Math.max</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `{ minimo: Math.min(...valores), maximo: Math.max(...valores) }`. Dependências diretas: `vertices.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-4dabc47f8d93eed7 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Calcula extremos dos produtos escalares dos vértices com eixo; exige coleção não vazia e eixo unitário para intervalos em m. @contract f-4dabc47f8d93eed7 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -10542,15 +10542,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/geometria/ContatoCaixasOrientadas.ts::recortarPoligono:FunctionDeclaration</code> · [fonte L145](../../src/physics/geometria/ContatoCaixasOrientadas.ts#L145) |
 | Assinatura | <code> (sujeito: readonly Ponto2D[], recortador: readonly Ponto2D[]): Ponto2D[]</code> |
-| Responsabilidade | Devolve `resultado`. Dependências diretas: `dentroDaAresta`, `resultado.push`, `intersecao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Recorta sujeito sucessivamente pelos semiplanos de recortador convexo ordenado; cria lista incluindo interseções nas transições interior/exterior. |
 | Entradas | <code>sujeito: readonly Ponto2D[]</code>; <code>recortador: readonly Ponto2D[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Ponto2D[]</code>; expressões retornadas: <code>resultado</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>indice</code>; <code>resultado</code>; <code>atual</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>dentroDaAresta</code>; <code>resultado.push</code>; <code>intersecao</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>dentro !== anteriorDentro</code>; <code>dentro</code>; exceções: — |
 | Testes | [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `resultado`. Dependências diretas: `dentroDaAresta`, `resultado.push`, `intersecao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-cb8421e00922c0c0 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Recorta sujeito sucessivamente pelos semiplanos de recortador convexo ordenado; cria lista incluindo interseções nas transições interior/exterior. @contract f-cb8421e00922c0c0 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -10561,15 +10561,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/geometria/ContatoCaixasOrientadas.ts::dentroDaAresta:FunctionDeclaration</code> · [fonte L161](../../src/physics/geometria/ContatoCaixasOrientadas.ts#L161) |
 | Assinatura | <code> (ponto: Ponto2D, inicio: Ponto2D, fim: Ponto2D): boolean</code> |
-| Responsabilidade | Devolve `((fim.x - inicio.x) * (ponto.y - inicio.y)) - ((fim.y - inicio.y) * (ponto.x - inicio.x)) &gt;= -1e-9`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Testa semiplano à esquerda da aresta pelo produto vetorial 2D com tolerância 1e-9; depende da ordem anti-horária do recortador. |
 | Entradas | <code>ponto: Ponto2D</code>; <code>inicio: Ponto2D</code>; <code>fim: Ponto2D</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>((fim.x - inicio.x) * (ponto.y - inicio.y)) - ((fim.y - inicio.y) * (ponto.x - inicio.x)) &gt;= -1e-9</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `((fim.x - inicio.x) * (ponto.y - inicio.y)) - ((fim.y - inicio.y) * (ponto.x - inicio.x)) &gt;= -1e-9`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d85c45618f0ba412 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Testa semiplano à esquerda da aresta pelo produto vetorial 2D com tolerância 1e-9; depende da ordem anti-horária do recortador. @contract f-d85c45618f0ba412 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -10580,15 +10580,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/geometria/ContatoCaixasOrientadas.ts::intersecao:FunctionDeclaration</code> · [fonte L166](../../src/physics/geometria/ContatoCaixasOrientadas.ts#L166) |
 | Assinatura | <code> (a: Ponto2D, b: Ponto2D, inicio: Ponto2D, fim: Ponto2D): Ponto2D</code> |
-| Responsabilidade | Devolve `{ x: a.x + (t * dx), y: a.y + (t * dy) }`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Calcula interseção da reta AB com reta da aresta. Chamador deve garantir transição de lado e denominador não nulo; não trata paralelismo isoladamente. |
 | Entradas | <code>a: Ponto2D</code>; <code>b: Ponto2D</code>; <code>inicio: Ponto2D</code>; <code>fim: Ponto2D</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Ponto2D</code>; expressões retornadas: <code>{ x: a.x + (t * dx), y: a.y + (t * dy) }</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `{ x: a.x + (t * dx), y: a.y + (t * dy) }`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7c518bfe4b96b14d */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Calcula interseção da reta AB com reta da aresta. Chamador deve garantir transição de lado e denominador não nulo; não trata paralelismo isoladamente. @contract f-7c518bfe4b96b14d @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -10599,15 +10599,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/geometria/ContatoCaixasOrientadas.ts::centroide:FunctionDeclaration</code> · [fonte L173](../../src/physics/geometria/ContatoCaixasOrientadas.ts#L173) |
 | Assinatura | <code> (vertices: readonly Ponto2D[]): Ponto2D</code> |
-| Responsabilidade | Devolve `{ x: soma.x / vertices.length, y: soma.y / vertices.length }`. Dependências diretas: `vertices.reduce`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Calcula média aritmética dos vértices como ponto representativo de contato; não é centroide ponderado por área. Exige lista não vazia. |
 | Entradas | <code>vertices: readonly Ponto2D[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Ponto2D</code>; expressões retornadas: <code>{ x: soma.x / vertices.length, y: soma.y / vertices.length }</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>vertices.reduce</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `{ x: soma.x / vertices.length, y: soma.y / vertices.length }`. Dependências diretas: `vertices.reduce`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-86b3847ad64abfe2 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Calcula média aritmética dos vértices como ponto representativo de contato; não é centroide ponderado por área. Exige lista não vazia. @contract f-86b3847ad64abfe2 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -10618,15 +10618,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/geometria/ContatoCaixasOrientadas.ts::obterCentroDaIntersecao:FunctionDeclaration</code> · [fonte L179](../../src/physics/geometria/ContatoCaixasOrientadas.ts#L179) |
 | Assinatura | <code> (centroA: number, dimensaoA: number, centroB: number, dimensaoB: number): number</code> |
-| Responsabilidade | Devolve `(inicio + fim) / 2`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Retorna ponto médio entre maior limite inferior e menor superior de dois intervalos centrados; chamador já verifica sobreposição. |
 | Entradas | <code>centroA: number</code>; <code>dimensaoA: number</code>; <code>centroB: number</code>; <code>dimensaoB: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>(inicio + fim) / 2</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.max</code>; <code>Math.min</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `(inicio + fim) / 2`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-322e338ea8672aa5 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Retorna ponto médio entre maior limite inferior e menor superior de dois intervalos centrados; chamador já verifica sobreposição. @contract f-322e338ea8672aa5 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -22427,15 +22427,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorColisoes.ts::ResolvedorColisoes.resolver:MethodDeclaration</code> · [fonte L26](../../src/physics/solucionadores/ResolvedorColisoes.ts#L26) |
 | Assinatura | <code>public (dtS: number): void</code> |
-| Responsabilidade | Dependências diretas: `this.contexto.obterObjetos`, `this.contexto.deveIgnorarColisao`, `this.estaoNaMesmaIlhaEstrutural`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Examina cada par de corpos uma vez, exclui exceções de juntas e membros da mesma ilha; calcula contato e resolve só penetração positiva. dt em s serve aos esforços e transferência térmica. |
 | Entradas | <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>indiceA</code>; <code>indiceB</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.contexto.obterObjetos</code>; <code>this.contexto.deveIgnorarColisao</code>; <code>this.estaoNaMesmaIlhaEstrutural</code>; <code>objetoA.getEstadoFisico</code>; <code>objetoB.getEstadoFisico</code>; <code>obterContatoCaixasOrientadas</code>; <code>this.obterCaixa</code>; <code>this.resolverContato</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>this.contexto.deveIgnorarColisao?.(objetoA, objetoB)</code>; <code>this.estaoNaMesmaIlhaEstrutural(objetoA, objetoB)</code>; <code>contato &amp;&amp; contato.penetracaoM &gt; 0</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.contexto.obterObjetos`, `this.contexto.deveIgnorarColisao`, `this.estaoNaMesmaIlhaEstrutural`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-bf39777e706d6a4a */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Examina cada par de corpos uma vez, exclui exceções de juntas e membros da mesma ilha; calcula contato e resolve só penetração positiva. dt em s serve aos esforços e transferência térmica. @contract f-bf39777e706d6a4a @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -22446,15 +22446,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorColisoes.ts::ResolvedorColisoes.obterCaixa:MethodDeclaration</code> · [fonte L44](../../src/physics/solucionadores/ResolvedorColisoes.ts#L44) |
 | Assinatura | <code>private (objeto: Objeto, usarGeometriaEspecifica: boolean): CaixaOrientada</code> |
-| Responsabilidade | Dependências diretas: `objeto.getEstadoFisico`, `objeto.getVerticesColisaoLocais2D().map`, `objeto.getVerticesColisaoLocais2D`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Monta dados de colisão com pose/dimensões atuais e inclui vértices específicos quando solicitado; não cria outro estado físico. |
 | Entradas | <code>objeto: Objeto</code>; <code>usarGeometriaEspecifica: boolean</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CaixaOrientada</code>; expressões retornadas: <code>{<br>    posicaoM: estado.posicaoM,<br>    dimensoesM: objeto.dimensoesM,<br>    orientacaoZRad: estado.orientacaoRad.z,<br>    ...(usarGeometriaEspecifica ? { verticesLocais2D: objeto.getVerticesColisaoLocais2D().map((ponto) =&gt; ({ x: ponto.x, y: ponto… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>objeto.getEstadoFisico</code>; <code>objeto.getVerticesColisaoLocais2D().map</code>; <code>objeto.getVerticesColisaoLocais2D</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `objeto.getEstadoFisico`, `objeto.getVerticesColisaoLocais2D().map`, `objeto.getVerticesColisaoLocais2D`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3a63fc0d061ecefb */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Monta dados de colisão com pose/dimensões atuais e inclui vértices específicos quando solicitado; não cria outro estado físico. @contract f-3a63fc0d061ecefb @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -22465,15 +22465,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorColisoes.ts::ResolvedorColisoes.estaoNaMesmaIlhaEstrutural:MethodDeclaration</code> · [fonte L55](../../src/physics/solucionadores/ResolvedorColisoes.ts#L55) |
 | Assinatura | <code>private (objetoA: Objeto, objetoB: Objeto): boolean</code> |
-| Responsabilidade | Devolve `conjuntoA !== undefined &amp;&amp; conjuntoA === this.contexto.obterConjuntoEstrutural(objetoB)`. Dependências diretas: `this.contexto.obterConjuntoEstrutural`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Compara identidade da ilha dos corpos exigindo ilha definida; corpos independentes não são considerados unidos. |
 | Entradas | <code>objetoA: Objeto</code>; <code>objetoB: Objeto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>conjuntoA !== undefined &amp;&amp; conjuntoA === this.contexto.obterConjuntoEstrutural(objetoB)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.contexto.obterConjuntoEstrutural</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `conjuntoA !== undefined &amp;&amp; conjuntoA === this.contexto.obterConjuntoEstrutural(objetoB)`. Dependências diretas: `this.contexto.obterConjuntoEstrutural`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7649fdead7bbc85d */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Compara identidade da ilha dos corpos exigindo ilha definida; corpos independentes não são considerados unidos. @contract f-7649fdead7bbc85d @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -22484,15 +22484,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorColisoes.ts::ResolvedorColisoes.resolverContato:MethodDeclaration</code> · [fonte L61](../../src/physics/solucionadores/ResolvedorColisoes.ts#L61) |
 | Assinatura | <code>private (objetoA: Objeto, objetoB: Objeto, normal: Vetor3, penetracaoM: number, pontoContatoM: Vetor3, dtS: number): void</code> |
-| Responsabilidade | Dependências diretas: `objetoA.getEstadoFisico`, `objetoB.getEstadoFisico`, `pontoContatoM.subtrair`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Resolve impulso normal com v+ω×r, massa/inércia dos corpos, dano pela energia de massa reduzida e esforços nos vínculos. Atrito exige normal quase vertical e impulso normal positivo, dissipando calor. Corrige penetração por massas inversas; escreve estados pelo core. Não qualifica atrito geral em faces inclinadas. |
 | Entradas | <code>objetoA: Objeto</code>; <code>objetoB: Objeto</code>; <code>normal: Vetor3</code>; <code>penetracaoM: number</code>; <code>pontoContatoM: Vetor3</code>; <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>impulsoNormalNs</code>; <code>velocidadeA</code>; <code>velocidadeB</code>; <code>velocidadeAngularA</code>; <code>velocidadeAngularB</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>objetoA.getEstadoFisico</code>; <code>objetoB.getEstadoFisico</code>; <code>pontoContatoM.subtrair</code>; <code>estadoA.velocidadeMps.adicionar</code>; <code>estadoA.velocidadeAngularRadps.produtoVetorial</code>; <code>estadoB.velocidadeMps.adicionar</code>; <code>estadoB.velocidadeAngularRadps.produtoVetorial</code>; <code>velocidadeContatoB.subtrair</code>; <code>velocidadeRelativa.produtoEscalar</code>; <code>this.calcularRestituicao</code>; <code>objetoA.getMomentoInerciaKgM2</code>; <code>objetoB.getMomentoInerciaKgM2</code>; <code>bracoA.produtoVetorial</code>; <code>bracoB.produtoVetorial</code>; <code>this.obterTermoAngular</code>; <code>normal.multiplicar</code>; <code>velocidadeA.subtrair</code>; <code>impulso.multiplicar</code>; <code>velocidadeB.adicionar</code>; <code>velocidadeAngularA.subtrair</code>; <code>this.calcularVariacaoAngular</code>; <code>velocidadeAngularB.adicionar</code>; <code>objetoA.aplicarDanoPorImpacto</code>; <code>objetoB.aplicarDanoPorImpacto</code>; <code>this.contexto.obterConjuntoEstrutural</code>; <code>this.contexto.resolvedorEsforcoEstrutural.registrarImpulsoDeContato</code>; <code>this.contexto.obterFixadores</code>; <code>velocidadeA.adicionar</code>; <code>velocidadeAngularA.produtoVetorial</code>; <code>velocidadeAngularB.produtoVetorial</code>; <code>velocidadeContatoAtualB.subtrair</code>; <code>velocidadeRelativaAtual.subtrair</code>; <code>velocidadeRelativaAtual.produtoEscalar</code>; <code>Math.abs</code>; <code>normal.produtoEscalar</code>; <code>this.contexto.verticalEm</code>; <code>Vetor3</code>; <code>velocidadeTangencial.multiplicar</code>; <code>Math.min</code>; <code>direcaoAtrito.multiplicar</code>; <code>this.calcularEnergiaDissipadaPorAtrito</code>; <code>this.contexto.distribuirCalorDeAtrito</code>; <code>impulsoAtrito.multiplicar</code>; <code>velocidadeB.subtrair</code>; <code>velocidadeAngularA.adicionar</code>; <code>velocidadeAngularB.subtrair</code>; <code>objetoA.atualizarEstadoPeloCore</code>; <code>estadoA.posicaoM.subtrair</code>; <code>correcao.multiplicar</code>; <code>objetoB.atualizarEstadoPeloCore</code>; <code>estadoB.posicaoM.adicionar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>somaInversos === 0</code>; <code>velocidadeNormal &lt; 0</code>; <code>conjuntoA</code>; <code>conjuntoB</code>; <code>Math.abs(normal.produtoEscalar(this.contexto.verticalEm?.(pontoContatoM) ?? new Vetor3(0, 1, 0))) &gt;= 0.95 &amp;&amp; velocidadeTangencial.magnitude &gt; 1e-9 &amp;&amp; impulsoNormalNs &gt; 0</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `objetoA.getEstadoFisico`, `objetoB.getEstadoFisico`, `pontoContatoM.subtrair`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-14545f10ae487452 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Resolve impulso normal com v+ω×r, massa/inércia dos corpos, dano pela energia de massa reduzida e esforços nos vínculos. Atrito exige normal quase vertical e impulso normal positivo, dissipando calor. Corrige penetração por massas inversas; escreve estados pelo core. Não qualifica atrito geral em faces inclinadas. @contract f-14545f10ae487452 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -22503,15 +22503,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorColisoes.ts::ResolvedorColisoes.obterTermoAngular:MethodDeclaration</code> · [fonte L147](../../src/physics/solucionadores/ResolvedorColisoes.ts#L147) |
 | Assinatura | <code>private (torqueUnitario: Vetor3, inercia: Vetor3): number</code> |
-| Responsabilidade | Devolve `(torqueUnitario.x ** 2 / inercia.x) + (torqueUnitario.y ** 2 / inercia.y) + (torqueUnitario.z ** 2 / inercia.z)`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Soma componentes quadráticas do torque unitário divididas pela inércia diagonal: contribuição rotacional à massa inversa efetiva. Exige inércias positivas em kg·m². |
 | Entradas | <code>torqueUnitario: Vetor3</code>; <code>inercia: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>(torqueUnitario.x ** 2 / inercia.x) + (torqueUnitario.y ** 2 / inercia.y) + (torqueUnitario.z ** 2 / inercia.z)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `(torqueUnitario.x ** 2 / inercia.x) + (torqueUnitario.y ** 2 / inercia.y) + (torqueUnitario.z ** 2 / inercia.z)`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d376212e5c909eb9 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Soma componentes quadráticas do torque unitário divididas pela inércia diagonal: contribuição rotacional à massa inversa efetiva. Exige inércias positivas em kg·m². @contract f-d376212e5c909eb9 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -22522,15 +22522,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorColisoes.ts::ResolvedorColisoes.calcularVariacaoAngular:MethodDeclaration</code> · [fonte L152](../../src/physics/solucionadores/ResolvedorColisoes.ts#L152) |
 | Assinatura | <code>private (braco: Vetor3, impulso: Vetor3, inercia: Vetor3): Vetor3</code> |
-| Responsabilidade | Devolve `new Vetor3(torque.x / inercia.x, torque.y / inercia.y, torque.z / inercia.z)`. Dependências diretas: `braco.produtoVetorial`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Converte r×impulso em variação angular em rad/s pela inércia diagonal; braço em m e impulso em N·s. Não aplica resultado ao corpo. |
 | Entradas | <code>braco: Vetor3</code>; <code>impulso: Vetor3</code>; <code>inercia: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: <code>new Vetor3(torque.x / inercia.x, torque.y / inercia.y, torque.z / inercia.z)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>braco.produtoVetorial</code>; <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `new Vetor3(torque.x / inercia.x, torque.y / inercia.y, torque.z / inercia.z)`. Dependências diretas: `braco.produtoVetorial`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-896c4d5d694f3fa6 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Converte r×impulso em variação angular em rad/s pela inércia diagonal; braço em m e impulso em N·s. Não aplica resultado ao corpo. @contract f-896c4d5d694f3fa6 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -22541,15 +22541,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorColisoes.ts::ResolvedorColisoes.calcularEnergiaDissipadaPorAtrito:MethodDeclaration</code> · [fonte L158](../../src/physics/solucionadores/ResolvedorColisoes.ts#L158) |
 | Assinatura | <code>private (impulsoNs: number, velocidadeTangencialMps: number, massaInversaEfetiva: number): number</code> |
-| Responsabilidade | Devolve `Math.max(0, impulsoNs * (velocidadeTangencialMps + velocidadeFinalMps) / 2)`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Calcula trabalho do impulso tangencial pela média de velocidades antes/depois em J; limita velocidade final a zero para não inverter deslizamento. |
 | Entradas | <code>impulsoNs: number</code>; <code>velocidadeTangencialMps: number</code>; <code>massaInversaEfetiva: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>Math.max(0, impulsoNs * (velocidadeTangencialMps + velocidadeFinalMps) / 2)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.max</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `Math.max(0, impulsoNs * (velocidadeTangencialMps + velocidadeFinalMps) / 2)`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6af3e1b42d669f44 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Calcula trabalho do impulso tangencial pela média de velocidades antes/depois em J; limita velocidade final a zero para não inverter deslizamento. @contract f-6af3e1b42d669f44 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -22560,15 +22560,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorColisoes.ts::ResolvedorColisoes.calcularRestituicao:MethodDeclaration</code> · [fonte L164](../../src/physics/solucionadores/ResolvedorColisoes.ts#L164) |
 | Assinatura | <code>private (objetoA: Objeto, objetoB: Objeto, velocidadeNormalMps: number): number</code> |
-| Responsabilidade | Dependências diretas: `this.calcularRestituicaoPorEnergia`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Calcula energia relativa normal por massa reduzida e consulta retorno pelas resistências/dissipações; não aplica impulso nem dano nesta função. |
 | Entradas | <code>objetoA: Objeto</code>; <code>objetoB: Objeto</code>; <code>velocidadeNormalMps: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>this.calcularRestituicaoPorEnergia(energiaImpactoJ, objetoA.resistenciaColisaoJ, objetoB.resistenciaColisaoJ, objetoA.dissipacaoImpacto, objetoB.dissipacaoImpacto)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.calcularRestituicaoPorEnergia</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.calcularRestituicaoPorEnergia`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f80dc55fabf6e146 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Calcula energia relativa normal por massa reduzida e consulta retorno pelas resistências/dissipações; não aplica impulso nem dano nesta função. @contract f-f80dc55fabf6e146 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -22579,15 +22579,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorColisoes.ts::ResolvedorColisoes.calcularRestituicaoPorEnergia:MethodDeclaration</code> · [fonte L171](../../src/physics/solucionadores/ResolvedorColisoes.ts#L171) |
 | Assinatura | <code>private (energiaImpactoJ: number, resistenciaA: number, resistenciaB: number, dissipacaoA: number, dissipacaoB: number): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Retorna fator de restituição pelo menor limite estrutural relativo à energia e dissipação combinada; energia nula retorna zero. Materiais válidos vêm da configuração. |
 | Entradas | <code>energiaImpactoJ: number</code>; <code>resistenciaA: number</code>; <code>resistenciaB: number</code>; <code>dissipacaoA: number</code>; <code>dissipacaoB: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>0</code>; <code>capacidadeDeRetorno * (1 - dissipacaoCombinada)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.min</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>energiaImpactoJ === 0</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-83cc2dff397fae45 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Retorna fator de restituição pelo menor limite estrutural relativo à energia e dissipação combinada; energia nula retorna zero. Materiais válidos vêm da configuração. @contract f-83cc2dff397fae45 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -22773,15 +22773,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorContatoSuperficie.ts::ResolvedorContatoSuperficie.resolver:MethodDeclaration</code> · [fonte L57](../../src/physics/solucionadores/ResolvedorContatoSuperficie.ts#L57) |
 | Assinatura | <code>public (dtS: number): void</code> |
-| Responsabilidade | Escritas diretas: `this.contatosDoUltimoPasso`. Dependências diretas: `this.contexto.obterSuperficies`, `Set`, `this.contexto.obterObjetos`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Reconstrói registros do passo, examina cada ilha uma vez por superfície e filtra candidatos pela extensão física. Seleciona pontos mais profundos e apoios tangenciais; proximidade sem penetração registra observação sem impulso. Resolve reação/atrito e correção geométrica nos penetrados, preservando apoios bilaterais. dt deve ser positivo em s. |
 | Entradas | <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.contatosDoUltimoPasso</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.contexto.obterSuperficies</code>; <code>Set</code>; <code>this.contexto.obterObjetos</code>; <code>this.contexto.obterConjuntoEstrutural</code>; <code>conjuntosProcessados.has</code>; <code>conjuntosProcessados.add</code>; <code>membros.flatMap</code>; <code>Math.min</code>; <code>cantosPorObjeto.map</code>; <code>cantosPorObjeto.filter</code>; <code>contatos.map</code>; <code>cantosDeContato.reduce((soma, canto) =&gt; soma.adicionar(canto), Vetor3.zero).multiplicar</code>; <code>cantosDeContato.reduce</code>; <code>conjunto?.obterCentroDeMassaAtual</code>; <code>objeto.getEstadoFisico</code>; <code>superficie.normalEm</code>; <code>Vetor3</code>; <code>cantosDeContato.map</code>; <code>Math.max</code>; <code>pontoPorCoordenada</code>; <code>coordenada</code>; <code>[menorX, maiorX].filter((x, indice, valores) =&gt; indice === 0 &#124;&#124; Math.abs(x - valores[indice - 1]) &gt; toleranciaM)<br>    .map</code>; <code>[menorX, maiorX].filter</code>; <code>pontosDeApoio.forEach</code>; <code>[menorX, maiorX]<br>    .filter((x, indice, valores) =&gt; indice === 0 &#124;&#124; Math.abs(x - valores[indice - 1]) &gt; toleranciaM)<br>    .map</code>; <code>[menorX, maiorX]<br>    .filter</code>; <code>apoios.forEach</code>; <code>this.registrarApoiosProximosDaIlha</code>; <code>this.resolverContatoDoObjeto</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>conjunto &amp;&amp; conjuntosProcessados.has(conjunto)</code>; <code>conjunto</code>; <code>cantosPorObjeto.length === 0</code>; <code>penetracaoM &lt; -TOLERANCIA_CONTATO_SUPERFICIE_M</code>; <code>penetracaoM &lt; 0</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.contatosDoUltimoPasso`. Dependências diretas: `this.contexto.obterSuperficies`, `Set`, `this.contexto.obterObjetos`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-fe4e8e129541edd2 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Reconstrói registros do passo, examina cada ilha uma vez por superfície e filtra candidatos pela extensão física. Seleciona pontos mais profundos e apoios tangenciais; proximidade sem penetração registra observação sem impulso. Resolve reação/atrito e correção geométrica nos penetrados, preservando apoios bilaterais. dt deve ser positivo em s. @contract f-fe4e8e129541edd2 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -22792,15 +22792,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorContatoSuperficie.ts::ResolvedorContatoSuperficie.resolver.coordenada:ArrowFunction</code> · [fonte L82](../../src/physics/solucionadores/ResolvedorContatoSuperficie.ts#L82) |
 | Assinatura | <code> (p: Vetor3): number</code> |
-| Responsabilidade | Devolve `p.subtrair(mediaDosContatos).produtoEscalar(tangente)`. Dependências diretas: `p.subtrair(mediaDosContatos).produtoEscalar`, `p.subtrair`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Converte ponto global em coordenada tangencial em m relativa à média dos contatos selecionados. |
 | Entradas | <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>p.subtrair(mediaDosContatos).produtoEscalar(tangente)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>p.subtrair(mediaDosContatos).produtoEscalar</code>; <code>p.subtrair</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `p.subtrair(mediaDosContatos).produtoEscalar(tangente)`. Dependências diretas: `p.subtrair(mediaDosContatos).produtoEscalar`, `p.subtrair`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6b19a10a852539bb */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Converte ponto global em coordenada tangencial em m relativa à média dos contatos selecionados. @contract f-6b19a10a852539bb @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -22811,15 +22811,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorContatoSuperficie.ts::ResolvedorContatoSuperficie.resolver.pontoPorCoordenada:ArrowFunction</code> · [fonte L86](../../src/physics/solucionadores/ResolvedorContatoSuperficie.ts#L86) |
 | Assinatura | <code> (s: number): Vetor3</code> |
-| Responsabilidade | Devolve `mediaDosContatos.adicionar(tangente.multiplicar(s))`. Dependências diretas: `mediaDosContatos.adicionar`, `tangente.multiplicar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Reconstrói ponto global na linha tangencial de contato a partir da coordenada em m. |
 | Entradas | <code>s: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: <code>mediaDosContatos.adicionar(tangente.multiplicar(s))</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>mediaDosContatos.adicionar</code>; <code>tangente.multiplicar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `mediaDosContatos.adicionar(tangente.multiplicar(s))`. Dependências diretas: `mediaDosContatos.adicionar`, `tangente.multiplicar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a63bda35b3cbf4f1 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Reconstrói ponto global na linha tangencial de contato a partir da coordenada em m. @contract f-a63bda35b3cbf4f1 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -22830,15 +22830,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorContatoSuperficie.ts::ResolvedorContatoSuperficie.obterCantosOrientados:MethodDeclaration</code> · [fonte L125](../../src/physics/solucionadores/ResolvedorContatoSuperficie.ts#L125) |
 | Assinatura | <code>private (objeto: Objeto): Vetor3[]</code> |
-| Responsabilidade | Dependências diretas: `objeto.getEstadoFisico`, `objeto.getPontosDeContatoLocaisM().map`, `objeto.getPontosDeContatoLocaisM`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Transforma pontos locais pela rotação Z e translação atuais; modo XY fixa Z zero. Não usa base vertical após tombamento. |
 | Entradas | <code>objeto: Objeto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3[]</code>; expressões retornadas: <code>objeto.getPontosDeContatoLocaisM().map((ponto) =&gt; new Vetor3(estado.posicaoM.x + (ponto.x * cosseno) - (ponto.y * seno), estado.posicaoM.y + (ponto.x * seno) + (ponto.y * cosseno), this.contexto.somentePlanoXY ? 0 : estado.posicaoM.z + pont… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>objeto.getEstadoFisico</code>; <code>Math.cos</code>; <code>Math.sin</code>; <code>objeto.getPontosDeContatoLocaisM().map</code>; <code>objeto.getPontosDeContatoLocaisM</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `objeto.getEstadoFisico`, `objeto.getPontosDeContatoLocaisM().map`, `objeto.getPontosDeContatoLocaisM`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-348886c4c4a44648 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Transforma pontos locais pela rotação Z e translação atuais; modo XY fixa Z zero. Não usa base vertical após tombamento. @contract f-348886c4c4a44648 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -22849,15 +22849,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorContatoSuperficie.ts::ResolvedorContatoSuperficie.resolverContatoDaIlha:MethodDeclaration</code> · [fonte L137](../../src/physics/solucionadores/ResolvedorContatoSuperficie.ts#L137) |
 | Assinatura | <code>private (conjunto: ConjuntoEstruturalRigido, objetoDeContato: Objeto, superficie: SuperficieFisica, penetracaoM: number, pontoContatoM: Vetor3, dtS: number, corrigirPenetracao: boolean): void</code> |
-| Responsabilidade | Dependências diretas: `superficie.normalEm`, `conjunto.obterVelocidadeNoPonto(pontoContatoM).produtoEscalar`, `conjunto.obterVelocidadeNoPonto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Aplica impulso no ponto da ilha com massa efetiva composta, dano e esforços nos fixadores. Atrito é limitado pela maior reação entre impacto e peso normal integrado no dt, transferindo calor. Corrige penetração quando autorizado e registra velocidades anterior/posterior. |
 | Entradas | <code>conjunto: ConjuntoEstruturalRigido</code>; <code>objetoDeContato: Objeto</code>; <code>superficie: SuperficieFisica</code>; <code>penetracaoM: number</code>; <code>pontoContatoM: Vetor3</code>; <code>dtS: number</code>; <code>corrigirPenetracao: boolean</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>impulsoNormalNs</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>superficie.normalEm</code>; <code>conjunto.obterVelocidadeNoPonto(pontoContatoM).produtoEscalar</code>; <code>conjunto.obterVelocidadeNoPonto</code>; <code>conjunto.obterMassaEfetivaNoContato</code>; <code>this.calcularRestituicaoDeContato</code>; <code>conjunto.aplicarImpulsoNoPonto</code>; <code>normal.multiplicar</code>; <code>objetoDeContato.aplicarDanoPorImpacto</code>; <code>superficie.aplicarDanoPorImpacto</code>; <code>this.contexto.resolvedorEsforcoEstrutural.registrarImpulsoDeContato</code>; <code>this.contexto.obterFixadores</code>; <code>velocidadeNoContato.subtrair</code>; <code>velocidadeNoContato.produtoEscalar</code>; <code>velocidadeTangencial.multiplicar</code>; <code>Math.max</code>; <code>this.contexto.obterGravidadeMps2(pontoContatoM).produtoEscalar</code>; <code>this.contexto.obterGravidadeMps2</code>; <code>Math.min</code>; <code>objetoDeContato.getCoeficienteAtritoDeContato</code>; <code>this.calcularEnergiaDissipadaPorAtrito</code>; <code>this.contexto.distribuirCalorDeAtrito</code>; <code>direcaoAtrito.multiplicar</code>; <code>conjunto.corrigirPenetracao</code>; <code>this.registrarContato</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>velocidadeNormal &lt; 0</code>; <code>contatoApoiando</code>; <code>velocidadeTangencial.magnitude &gt; 1e-9</code>; <code>corrigirPenetracao</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `superficie.normalEm`, `conjunto.obterVelocidadeNoPonto(pontoContatoM).produtoEscalar`, `conjunto.obterVelocidadeNoPonto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d2d9e097bb037bf9 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Aplica impulso no ponto da ilha com massa efetiva composta, dano e esforços nos fixadores. Atrito é limitado pela maior reação entre impacto e peso normal integrado no dt, transferindo calor. Corrige penetração quando autorizado e registra velocidades anterior/posterior. @contract f-d2d9e097bb037bf9 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -22868,15 +22868,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorContatoSuperficie.ts::ResolvedorContatoSuperficie.resolverContatoDoObjeto:MethodDeclaration</code> · [fonte L184](../../src/physics/solucionadores/ResolvedorContatoSuperficie.ts#L184) |
 | Assinatura | <code>private (objeto: Objeto, superficie: SuperficieFisica, penetracaoM: number, pontoContatoM: Vetor3, dtS: number): void</code> |
-| Responsabilidade | Dependências diretas: `objeto.getEstadoFisico`, `superficie.normalEm`, `pontoContatoM.subtrair`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Resolve reação normal e atrito com v+ω×r, massa/inércia atuais e eventual massa efetiva do contexto; aplica dano/calor e escreve pose corrigida/velocidades pelo core. Energia de dano e massa dinâmica de contato têm cálculos separados. |
 | Entradas | <code>objeto: Objeto</code>; <code>superficie: SuperficieFisica</code>; <code>penetracaoM: number</code>; <code>pontoContatoM: Vetor3</code>; <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>impulsoNormalNs</code>; <code>velocidade</code>; <code>velocidadeAngular</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>objeto.getEstadoFisico</code>; <code>superficie.normalEm</code>; <code>pontoContatoM.subtrair</code>; <code>estado.velocidadeMps.adicionar</code>; <code>estado.velocidadeAngularRadps.produtoVetorial</code>; <code>velocidadeContato.produtoEscalar</code>; <code>objeto.getMomentoInerciaKgM2</code>; <code>this.obterTermoAngular</code>; <code>braco.produtoVetorial</code>; <code>this.contexto.obterMassaEfetivaNoContato</code>; <code>this.calcularRestituicaoDeContato</code>; <code>normal.multiplicar</code>; <code>velocidade.adicionar</code>; <code>impulso.multiplicar</code>; <code>velocidadeAngular.adicionar</code>; <code>this.calcularVariacaoAngular</code>; <code>objeto.aplicarDanoPorImpacto</code>; <code>superficie.aplicarDanoPorImpacto</code>; <code>velocidadeAngular.produtoVetorial</code>; <code>velocidadeNoContato.subtrair</code>; <code>velocidadeNoContato.produtoEscalar</code>; <code>velocidadeTangencial.multiplicar</code>; <code>Math.max</code>; <code>this.contexto.obterGravidadeMps2(pontoContatoM).produtoEscalar</code>; <code>this.contexto.obterGravidadeMps2</code>; <code>Math.min</code>; <code>objeto.getCoeficienteAtritoDeContato</code>; <code>direcaoAtrito.multiplicar</code>; <code>this.calcularEnergiaDissipadaPorAtrito</code>; <code>this.contexto.distribuirCalorDeAtrito</code>; <code>impulsoAtrito.multiplicar</code>; <code>objeto.atualizarEstadoPeloCore</code>; <code>estado.posicaoM.adicionar</code>; <code>objeto.getEstadoFisico().velocidadeMps<br>    .adicionar(objeto.getEstadoFisico().velocidadeAngularRadps.produtoVetorial(braco)).produtoEscalar</code>; <code>objeto.getEstadoFisico().velocidadeMps<br>    .adicionar</code>; <code>objeto.getEstadoFisico().velocidadeAngularRadps.produtoVetorial</code>; <code>this.registrarContato</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>velocidadeNormal &lt; 0</code>; <code>contatoApoiando</code>; <code>velocidadeTangencial.magnitude &gt; 0</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `objeto.getEstadoFisico`, `superficie.normalEm`, `pontoContatoM.subtrair`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-c3ba85b0316afc1c */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Resolve reação normal e atrito com v+ω×r, massa/inércia atuais e eventual massa efetiva do contexto; aplica dano/calor e escreve pose corrigida/velocidades pelo core. Energia de dano e massa dinâmica de contato têm cálculos separados. @contract f-c3ba85b0316afc1c @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -22887,15 +22887,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorContatoSuperficie.ts::ResolvedorContatoSuperficie.registrarContato:MethodDeclaration</code> · [fonte L244](../../src/physics/solucionadores/ResolvedorContatoSuperficie.ts#L244) |
 | Assinatura | <code>private (objeto: Objeto, superficie: SuperficieFisica, pontoContatoM: Vetor3, penetracaoM: number, velocidadeNormalAntesMps: number, velocidadeNormalDepoisMps: number, energiaImpactoJ: number, impulsoNormalNs?: number): void</code> |
-| Responsabilidade | Dependências diretas: `superficie.normalEm`, `this.contatosDoUltimoPasso.push`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Acrescenta observação com normal, penetração, velocidades m/s, energia J e impulso N·s; distingue proximidade, contato, sustentação e apoio pela tolerância de repouso. Preserva impacto original após ruptura no mesmo passo. |
 | Entradas | <code>objeto: Objeto</code>; <code>superficie: SuperficieFisica</code>; <code>pontoContatoM: Vetor3</code>; <code>penetracaoM: number</code>; <code>velocidadeNormalAntesMps: number</code>; <code>velocidadeNormalDepoisMps: number</code>; <code>energiaImpactoJ: number</code>; <code>impulsoNormalNs = 0</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>superficie.normalEm</code>; <code>Math.abs</code>; <code>this.contatosDoUltimoPasso.push</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `superficie.normalEm`, `this.contatosDoUltimoPasso.push`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f7d22962a9a34b5c */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Acrescenta observação com normal, penetração, velocidades m/s, energia J e impulso N·s; distingue proximidade, contato, sustentação e apoio pela tolerância de repouso. Preserva impacto original após ruptura no mesmo passo. @contract f-f7d22962a9a34b5c @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -22906,15 +22906,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorContatoSuperficie.ts::ResolvedorContatoSuperficie.obterVelocidadeNormalNoPonto:MethodDeclaration</code> · [fonte L276](../../src/physics/solucionadores/ResolvedorContatoSuperficie.ts#L276) |
 | Assinatura | <code>private (objeto: Objeto, pontoM: Vetor3, superficie: SuperficieFisica): number</code> |
-| Responsabilidade | Devolve `estado.velocidadeMps.adicionar(estado.velocidadeAngularRadps.produtoVetorial(braco)).produtoEscalar(superficie.normalEm(pontoM))`. Dependências diretas: `objeto.getEstadoFisico`, `pontoM.subtrair`, `estado.velocidadeMps.adicionar(estado.velocidadeAngularRadps.produtoVetorial(braco)).produtoEscalar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Projeta v+ω×r na normal local da superfície em m/s; não desconta movimento do solo, estático nos modelos atuais. |
 | Entradas | <code>objeto: Objeto</code>; <code>pontoM: Vetor3</code>; <code>superficie: SuperficieFisica</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>estado.velocidadeMps.adicionar(estado.velocidadeAngularRadps.produtoVetorial(braco)).produtoEscalar(superficie.normalEm(pontoM))</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>objeto.getEstadoFisico</code>; <code>pontoM.subtrair</code>; <code>estado.velocidadeMps.adicionar(estado.velocidadeAngularRadps.produtoVetorial(braco)).produtoEscalar</code>; <code>estado.velocidadeMps.adicionar</code>; <code>estado.velocidadeAngularRadps.produtoVetorial</code>; <code>superficie.normalEm</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `estado.velocidadeMps.adicionar(estado.velocidadeAngularRadps.produtoVetorial(braco)).produtoEscalar(superficie.normalEm(pontoM))`. Dependências diretas: `objeto.getEstadoFisico`, `pontoM.subtrair`, `estado.velocidadeMps.adicionar(estado.velocidadeAngularRadps.produtoVetorial(braco)).produtoEscalar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-4c73421953cd6595 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Projeta v+ω×r na normal local da superfície em m/s; não desconta movimento do solo, estático nos modelos atuais. @contract f-4c73421953cd6595 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -22944,15 +22944,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorContatoSuperficie.ts::ResolvedorContatoSuperficie.obterTermoAngular:MethodDeclaration</code> · [fonte L305](../../src/physics/solucionadores/ResolvedorContatoSuperficie.ts#L305) |
 | Assinatura | <code>private (torqueUnitario: Vetor3, inercia: Vetor3): number</code> |
-| Responsabilidade | Devolve `(torqueUnitario.x ** 2 / inercia.x) + (torqueUnitario.y ** 2 / inercia.y) + (torqueUnitario.z ** 2 / inercia.z)`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Soma componentes quadráticas do torque unitário divididas pela inércia diagonal: contribuição rotacional à massa inversa efetiva. Exige inércias positivas em kg·m². |
 | Entradas | <code>torqueUnitario: Vetor3</code>; <code>inercia: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>(torqueUnitario.x ** 2 / inercia.x) + (torqueUnitario.y ** 2 / inercia.y) + (torqueUnitario.z ** 2 / inercia.z)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `(torqueUnitario.x ** 2 / inercia.x) + (torqueUnitario.y ** 2 / inercia.y) + (torqueUnitario.z ** 2 / inercia.z)`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-aad9e86d08c656ee */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Soma componentes quadráticas do torque unitário divididas pela inércia diagonal: contribuição rotacional à massa inversa efetiva. Exige inércias positivas em kg·m². @contract f-aad9e86d08c656ee @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -22963,15 +22963,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorContatoSuperficie.ts::ResolvedorContatoSuperficie.calcularVariacaoAngular:MethodDeclaration</code> · [fonte L310](../../src/physics/solucionadores/ResolvedorContatoSuperficie.ts#L310) |
 | Assinatura | <code>private (braco: Vetor3, impulso: Vetor3, inercia: Vetor3): Vetor3</code> |
-| Responsabilidade | Devolve `new Vetor3(torque.x / inercia.x, torque.y / inercia.y, torque.z / inercia.z)`. Dependências diretas: `braco.produtoVetorial`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Converte r×impulso em variação angular em rad/s pela inércia diagonal; braço em m e impulso em N·s. Não aplica resultado ao corpo. |
 | Entradas | <code>braco: Vetor3</code>; <code>impulso: Vetor3</code>; <code>inercia: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: <code>new Vetor3(torque.x / inercia.x, torque.y / inercia.y, torque.z / inercia.z)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>braco.produtoVetorial</code>; <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `new Vetor3(torque.x / inercia.x, torque.y / inercia.y, torque.z / inercia.z)`. Dependências diretas: `braco.produtoVetorial`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-16c52f810e1e5dc1 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Converte r×impulso em variação angular em rad/s pela inércia diagonal; braço em m e impulso em N·s. Não aplica resultado ao corpo. @contract f-16c52f810e1e5dc1 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -22982,15 +22982,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorContatoSuperficie.ts::ResolvedorContatoSuperficie.calcularEnergiaDissipadaPorAtrito:MethodDeclaration</code> · [fonte L316](../../src/physics/solucionadores/ResolvedorContatoSuperficie.ts#L316) |
 | Assinatura | <code>private (impulsoNs: number, velocidadeTangencialMps: number, massaInversaEfetiva: number): number</code> |
-| Responsabilidade | Devolve `Math.max(0, impulsoNs * (velocidadeTangencialMps + velocidadeFinalMps) / 2)`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Calcula trabalho do impulso tangencial pela média de velocidades antes/depois em J; limita velocidade final a zero para não inverter deslizamento. |
 | Entradas | <code>impulsoNs: number</code>; <code>velocidadeTangencialMps: number</code>; <code>massaInversaEfetiva: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>Math.max(0, impulsoNs * (velocidadeTangencialMps + velocidadeFinalMps) / 2)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.max</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `Math.max(0, impulsoNs * (velocidadeTangencialMps + velocidadeFinalMps) / 2)`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-bbe15a971258893d */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Calcula trabalho do impulso tangencial pela média de velocidades antes/depois em J; limita velocidade final a zero para não inverter deslizamento. @contract f-bbe15a971258893d @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -23001,15 +23001,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorContatoSuperficie.ts::ResolvedorContatoSuperficie.calcularRestituicaoDeContato:MethodDeclaration</code> · [fonte L322](../../src/physics/solucionadores/ResolvedorContatoSuperficie.ts#L322) |
 | Assinatura | <code>private (energiaImpactoJ: number, resistenciaObjeto: number, resistenciaSuperficie: number, dissipacaoObjeto: number, dissipacaoSuperficie: number, velocidadeNormalMps: number): number</code> |
-| Responsabilidade | Dependências diretas: `this.calcularRestituicaoPorEnergia`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Zera restituição abaixo da velocidade de repouso declarada; impactos maiores usam energia e materiais. É critério numérico de contato, sem estado especial de pouso. |
 | Entradas | <code>energiaImpactoJ: number</code>; <code>resistenciaObjeto: number</code>; <code>resistenciaSuperficie: number</code>; <code>dissipacaoObjeto: number</code>; <code>dissipacaoSuperficie: number</code>; <code>velocidadeNormalMps: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>0</code>; <code>this.calcularRestituicaoPorEnergia(energiaImpactoJ, resistenciaObjeto, resistenciaSuperficie, dissipacaoObjeto, dissipacaoSuperficie)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.abs</code>; <code>this.calcularRestituicaoPorEnergia</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>Math.abs(velocidadeNormalMps) &lt; this.contexto.velocidadeDeRepousoMps</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.calcularRestituicaoPorEnergia`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-043b0171c97611b1 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Zera restituição abaixo da velocidade de repouso declarada; impactos maiores usam energia e materiais. É critério numérico de contato, sem estado especial de pouso. @contract f-043b0171c97611b1 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -23020,15 +23020,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorContatoSuperficie.ts::ResolvedorContatoSuperficie.calcularRestituicaoPorEnergia:MethodDeclaration</code> · [fonte L328](../../src/physics/solucionadores/ResolvedorContatoSuperficie.ts#L328) |
 | Assinatura | <code>private (energiaImpactoJ: number, resistenciaA: number, resistenciaB: number, dissipacaoA: number, dissipacaoB: number): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Retorna fator de restituição pelo menor limite estrutural relativo à energia e dissipação combinada; energia nula retorna zero. Materiais válidos vêm da configuração. |
 | Entradas | <code>energiaImpactoJ: number</code>; <code>resistenciaA: number</code>; <code>resistenciaB: number</code>; <code>dissipacaoA: number</code>; <code>dissipacaoB: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>0</code>; <code>capacidadeDeRetorno * (1 - dissipacaoCombinada)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.min</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>energiaImpactoJ === 0</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-4326bf9c66f996ab */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Retorna fator de restituição pelo menor limite estrutural relativo à energia e dissipação combinada; energia nula retorna zero. Materiais válidos vêm da configuração. @contract f-4326bf9c66f996ab @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -23062,15 +23062,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts::ResolvedorEsforcoEstrutural.registrarImpulsoDeContato:MethodDeclaration</code> · [fonte L43](../../src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts#L43) |
 | Assinatura | <code>public (objetoDeContato: Objeto, membros: readonly Objeto[], impulsoNs: number, direcaoDaForca: { readonly x: number; readonly y: number; readonly z: number; }, dtS: number, fixadoresRegistrados: Iterable&lt;FixadorEstrutural&gt;): void</code> |
-| Responsabilidade | Dependências diretas: `Set`, `[...fixadoresRegistrados].filter`, `membros.reduce`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Converte impulso positivo em força média N pelo dt em s. Nos fixadores-ponte distribui tração/compressão por massa remota e direção entre centros de massa; calcula cargas antes de registrar rupturas. Malhas redundantes recebem esforço zero neste modelo, sem solução estrutural geral. |
 | Entradas | <code>objetoDeContato: Objeto</code>; <code>membros: readonly Objeto[]</code>; <code>impulsoNs: number</code>; <code>direcaoDaForca: { readonly x: number; readonly y: number; readonly z: number }</code>; <code>dtS: number</code>; <code>fixadoresRegistrados: Iterable&lt;FixadorEstrutural&gt;</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Set</code>; <code>[...fixadoresRegistrados].filter</code>; <code>membros.reduce</code>; <code>fixadores.map</code>; <code>fixador.registrarEsforcoFisicoN</code>; <code>fixador.registrarEsforcoDeCompressaoFisicoN</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>impulsoNs &lt;= 0 &#124;&#124; !Number.isFinite(impulsoNs) &#124;&#124; !Number.isFinite(dtS) &#124;&#124; dtS &lt;= 0</code>; <code>massaTotalKg &lt;= 0</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `Set`, `[...fixadoresRegistrados].filter`, `membros.reduce`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1569e971b21872f1 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Converte impulso positivo em força média N pelo dt em s. Nos fixadores-ponte distribui tração/compressão por massa remota e direção entre centros de massa; calcula cargas antes de registrar rupturas. Malhas redundantes recebem esforço zero neste modelo, sem solução estrutural geral. @contract f-1569e971b21872f1 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -23081,15 +23081,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts::ResolvedorEsforcoEstrutural.obterCentroDeMassa:MethodDeclaration</code> · [fonte L91](../../src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts#L91) |
 | Assinatura | <code>private (membros: readonly Objeto[]): Vetor3</code> |
-| Responsabilidade | Devolve `posicaoPonderada.multiplicar(1 / massaTotalKg)`. Dependências diretas: `membros.reduce`, `posicaoPonderada.multiplicar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Calcula posição ponderada por massas instantâneas; requer massa total positiva e não altera corpos. |
 | Entradas | <code>membros: readonly Objeto[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: <code>posicaoPonderada.multiplicar(1 / massaTotalKg)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>membros.reduce</code>; <code>posicaoPonderada.multiplicar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `posicaoPonderada.multiplicar(1 / massaTotalKg)`. Dependências diretas: `membros.reduce`, `posicaoPonderada.multiplicar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8ee28e4caeba0787 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Calcula posição ponderada por massas instantâneas; requer massa total positiva e não altera corpos. @contract f-8ee28e4caeba0787 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -23100,15 +23100,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts::ResolvedorEsforcoEstrutural.obterMembrosAlcancaveis:MethodDeclaration</code> · [fonte L101](../../src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts#L101) |
 | Assinatura | <code>private (origem: Objeto, membrosDaIlha: ReadonlySet&lt;Objeto&gt;, fixadores: readonly FixadorEstrutural[], fixadorIgnorado: FixadorEstrutural): Set&lt;Objeto&gt;</code> |
-| Responsabilidade | Devolve `alcancaveis`. Dependências diretas: `Set`, `pendentes.pop`, `membrosDaIlha.has`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Percorre grafo excluindo uma aresta para identificar lado conectado à origem; restringe travessia aos membros declarados sem romper vínculos. |
 | Entradas | <code>origem: Objeto</code>; <code>membrosDaIlha: ReadonlySet&lt;Objeto&gt;</code>; <code>fixadores: readonly FixadorEstrutural[]</code>; <code>fixadorIgnorado: FixadorEstrutural</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Set&lt;Objeto&gt;</code>; expressões retornadas: <code>alcancaveis</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Set</code>; <code>pendentes.pop</code>; <code>membrosDaIlha.has</code>; <code>alcancaveis.has</code>; <code>alcancaveis.add</code>; <code>pendentes.push</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>fixador === fixadorIgnorado</code>; <code>vizinho &amp;&amp; membrosDaIlha.has(vizinho) &amp;&amp; !alcancaveis.has(vizinho)</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `alcancaveis`. Dependências diretas: `Set`, `pendentes.pop`, `membrosDaIlha.has`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a116f5e9200f30cc */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Percorre grafo excluindo uma aresta para identificar lado conectado à origem; restringe travessia aos membros declarados sem romper vínculos. @contract f-a116f5e9200f30cc @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -23124,7 +23124,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Identificador | <code>src/physics/solucionadores/SistemaAtmosferico.ts::SistemaAtmosferico.constructor:Constructor</code> · [fonte L16](../../src/physics/solucionadores/SistemaAtmosferico.ts#L16) |
 | Assinatura | <code>public (densidadeArNivelMarKgM3: number, velocidadeArMps: Vetor3, referencial?: ReferencialFisico, politicaAltitude?: "extrapolacao-legada" &#124; "vacuo-simplificado-25km", exposicaoAoAr?: (o: Objeto) =&gt; number): SistemaAtmosferico</code> |
 | Responsabilidade | Configura densidade de referência kg/m³ não negativa, vento m/s, referencial e política de altitude; densidade zero declara vácuo. |
-| Entradas | <code>public readonly densidadeArNivelMarKgM3: number</code>; <code>velocidadeArMps: Vetor3</code>; <code>private readonly referencial: ReferencialFisico = new ReferencialPlano()</code>; <code>public readonly politicaAltitude: 'extrapolacao-legada' &#124; 'vacuo-simplificado-25km' = 'extrapolacao-legada'</code>; <code>private readonly exposicaoAoAr: (o: Objeto) =&gt; number = /** Devolve `1`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e36b63fcec6139c0 */<br>                                                            () =&gt; 1</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>public readonly densidadeArNivelMarKgM3: number</code>; <code>velocidadeArMps: Vetor3</code>; <code>private readonly referencial: ReferencialFisico = new ReferencialPlano()</code>; <code>public readonly politicaAltitude: 'extrapolacao-legada' &#124; 'vacuo-simplificado-25km' = 'extrapolacao-legada'</code>; <code>private readonly exposicaoAoAr: (o: Objeto) =&gt; number = /** Porta padrão de exposição: retorna fração 1 (totalmente no ar) quando mundo não fornece adaptação para imersão; não consulta nem aplica força. @contract f-e36b63fcec6139c0 @reviewed M12-DOC: implementação lida. */<br>                                                            () =&gt; 1</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>SistemaAtmosferico</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.densidadeArNivelMarKgM3</code>; <code>this.referencial</code>; <code>this.politicaAltitude</code>; <code>this.exposicaoAoAr</code>; <code>this.velocidadeArAtualMps</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code> |
@@ -23161,15 +23161,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/SistemaAtmosferico.ts::SistemaAtmosferico.constructor.exposicaoAoAr:ArrowFunction</code> · [fonte L22](../../src/physics/solucionadores/SistemaAtmosferico.ts#L22) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Devolve `1`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Porta padrão de exposição: retorna fração 1 (totalmente no ar) quando mundo não fornece adaptação para imersão; não consulta nem aplica força. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>1</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `1`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e36b63fcec6139c0 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Porta padrão de exposição: retorna fração 1 (totalmente no ar) quando mundo não fornece adaptação para imersão; não consulta nem aplica força. @contract f-e36b63fcec6139c0 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -23299,7 +23299,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Identificador | <code>src/physics/solucionadores/SistemaTermico.ts::SistemaTermico.constructor:Constructor</code> · [fonte L7](../../src/physics/solucionadores/SistemaTermico.ts#L7) |
 | Assinatura | <code>public (atmosfera: SistemaAtmosferico, temperaturaAmbienteC: number, exposicaoAoAr?: (o: Objeto) =&gt; number): SistemaTermico</code> |
 | Responsabilidade | Configura consulta atmosférica, exposição ao ar e reservatório ambiente em °C finitos; não converte limites materiais para Kelvin. |
-| Entradas | <code>private readonly atmosfera: SistemaAtmosferico</code>; <code>private readonly temperaturaAmbienteC: number</code>; <code>private readonly exposicaoAoAr: (o: Objeto) =&gt; number = /** Devolve `1`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d8491cc35a8ea84c */<br>                                                            () =&gt; 1</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>private readonly atmosfera: SistemaAtmosferico</code>; <code>private readonly temperaturaAmbienteC: number</code>; <code>private readonly exposicaoAoAr: (o: Objeto) =&gt; number = /** Porta padrão de exposição: retorna fração 1 (totalmente no ar) quando mundo não fornece adaptação para imersão; não consulta nem aplica força. @contract f-d8491cc35a8ea84c @reviewed M12-DOC: implementação lida. */<br>                                                            () =&gt; 1</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>SistemaTermico</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.atmosfera</code>; <code>this.temperaturaAmbienteC</code>; <code>this.exposicaoAoAr</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code> |
@@ -23336,15 +23336,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/solucionadores/SistemaTermico.ts::SistemaTermico.constructor.exposicaoAoAr:ArrowFunction</code> · [fonte L11](../../src/physics/solucionadores/SistemaTermico.ts#L11) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Devolve `1`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Porta padrão de exposição: retorna fração 1 (totalmente no ar) quando mundo não fornece adaptação para imersão; não consulta nem aplica força. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>1</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `1`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d8491cc35a8ea84c */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Porta padrão de exposição: retorna fração 1 (totalmente no ar) quando mundo não fornece adaptação para imersão; não consulta nem aplica força. @contract f-d8491cc35a8ea84c @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 

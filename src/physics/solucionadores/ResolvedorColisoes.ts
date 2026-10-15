@@ -22,7 +22,7 @@ export class ResolvedorColisoes {
   /** Armazena contexto de consulta de corpos/ilhas e reação térmica/estrutural; não descobre nem resolve contatos durante a construção. @contract f-6514cb8ebf3df832 @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly contexto: ContextoResolvedorColisoes) {}
 
-  /** Dependências diretas: `this.contexto.obterObjetos`, `this.contexto.deveIgnorarColisao`, `this.estaoNaMesmaIlhaEstrutural`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-bf39777e706d6a4a */
+  /** Examina cada par de corpos uma vez, exclui exceções de juntas e membros da mesma ilha; calcula contato e resolve só penetração positiva. dt em s serve aos esforços e transferência térmica. @contract f-bf39777e706d6a4a @reviewed M12-DOC: implementação lida. */
   public resolver(dtS: number): void {
     const objetos = [...this.contexto.obterObjetos()];
     for (let indiceA = 0; indiceA < objetos.length; indiceA += 1) {
@@ -40,7 +40,7 @@ export class ResolvedorColisoes {
     }
   }
 
-  /** Dependências diretas: `objeto.getEstadoFisico`, `objeto.getVerticesColisaoLocais2D().map`, `objeto.getVerticesColisaoLocais2D`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3a63fc0d061ecefb */
+  /** Monta dados de colisão com pose/dimensões atuais e inclui vértices específicos quando solicitado; não cria outro estado físico. @contract f-3a63fc0d061ecefb @reviewed M12-DOC: implementação lida. */
   private obterCaixa(objeto: Objeto, usarGeometriaEspecifica: boolean): CaixaOrientada {
     const estado = objeto.getEstadoFisico();
     return {
@@ -51,13 +51,13 @@ export class ResolvedorColisoes {
     };
   }
 
-  /** Devolve `conjuntoA !== undefined && conjuntoA === this.contexto.obterConjuntoEstrutural(objetoB)`. Dependências diretas: `this.contexto.obterConjuntoEstrutural`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7649fdead7bbc85d */
+  /** Compara identidade da ilha dos corpos exigindo ilha definida; corpos independentes não são considerados unidos. @contract f-7649fdead7bbc85d @reviewed M12-DOC: implementação lida. */
   private estaoNaMesmaIlhaEstrutural(objetoA: Objeto, objetoB: Objeto): boolean {
     const conjuntoA = this.contexto.obterConjuntoEstrutural(objetoA);
     return conjuntoA !== undefined && conjuntoA === this.contexto.obterConjuntoEstrutural(objetoB);
   }
 
-  /** Dependências diretas: `objetoA.getEstadoFisico`, `objetoB.getEstadoFisico`, `pontoContatoM.subtrair`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-14545f10ae487452 */
+  /** Resolve impulso normal com v+ω×r, massa/inércia dos corpos, dano pela energia de massa reduzida e esforços nos vínculos. Atrito exige normal quase vertical e impulso normal positivo, dissipando calor. Corrige penetração por massas inversas; escreve estados pelo core. Não qualifica atrito geral em faces inclinadas. @contract f-14545f10ae487452 @reviewed M12-DOC: implementação lida. */
   private resolverContato(objetoA: Objeto, objetoB: Objeto, normal: Vetor3, penetracaoM: number, pontoContatoM: Vetor3, dtS: number): void {
     const estadoA = objetoA.getEstadoFisico();
     const estadoB = objetoB.getEstadoFisico();
@@ -143,31 +143,31 @@ export class ResolvedorColisoes {
     });
   }
 
-  /** Devolve `(torqueUnitario.x ** 2 / inercia.x) + (torqueUnitario.y ** 2 / inercia.y) + (torqueUnitario.z ** 2 / inercia.z)`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d376212e5c909eb9 */
+  /** Soma componentes quadráticas do torque unitário divididas pela inércia diagonal: contribuição rotacional à massa inversa efetiva. Exige inércias positivas em kg·m². @contract f-d376212e5c909eb9 @reviewed M12-DOC: implementação lida. */
   private obterTermoAngular(torqueUnitario: Vetor3, inercia: Vetor3): number {
     return (torqueUnitario.x ** 2 / inercia.x) + (torqueUnitario.y ** 2 / inercia.y) + (torqueUnitario.z ** 2 / inercia.z);
   }
 
-  /** Devolve `new Vetor3(torque.x / inercia.x, torque.y / inercia.y, torque.z / inercia.z)`. Dependências diretas: `braco.produtoVetorial`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-896c4d5d694f3fa6 */
+  /** Converte r×impulso em variação angular em rad/s pela inércia diagonal; braço em m e impulso em N·s. Não aplica resultado ao corpo. @contract f-896c4d5d694f3fa6 @reviewed M12-DOC: implementação lida. */
   private calcularVariacaoAngular(braco: Vetor3, impulso: Vetor3, inercia: Vetor3): Vetor3 {
     const torque = braco.produtoVetorial(impulso);
     return new Vetor3(torque.x / inercia.x, torque.y / inercia.y, torque.z / inercia.z);
   }
 
-  /** Devolve `Math.max(0, impulsoNs * (velocidadeTangencialMps + velocidadeFinalMps) / 2)`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6af3e1b42d669f44 */
+  /** Calcula trabalho do impulso tangencial pela média de velocidades antes/depois em J; limita velocidade final a zero para não inverter deslizamento. @contract f-6af3e1b42d669f44 @reviewed M12-DOC: implementação lida. */
   private calcularEnergiaDissipadaPorAtrito(impulsoNs: number, velocidadeTangencialMps: number, massaInversaEfetiva: number): number {
     const velocidadeFinalMps = Math.max(0, velocidadeTangencialMps - impulsoNs * massaInversaEfetiva);
     return Math.max(0, impulsoNs * (velocidadeTangencialMps + velocidadeFinalMps) / 2);
   }
 
-  /** Dependências diretas: `this.calcularRestituicaoPorEnergia`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f80dc55fabf6e146 */
+  /** Calcula energia relativa normal por massa reduzida e consulta retorno pelas resistências/dissipações; não aplica impulso nem dano nesta função. @contract f-f80dc55fabf6e146 @reviewed M12-DOC: implementação lida. */
   private calcularRestituicao(objetoA: Objeto, objetoB: Objeto, velocidadeNormalMps: number): number {
     const massaReduzida = (objetoA.massaKg * objetoB.massaKg) / (objetoA.massaKg + objetoB.massaKg);
     const energiaImpactoJ = 0.5 * massaReduzida * velocidadeNormalMps ** 2;
     return this.calcularRestituicaoPorEnergia(energiaImpactoJ, objetoA.resistenciaColisaoJ, objetoB.resistenciaColisaoJ, objetoA.dissipacaoImpacto, objetoB.dissipacaoImpacto);
   }
 
-  /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-83cc2dff397fae45 */
+  /** Retorna fator de restituição pelo menor limite estrutural relativo à energia e dissipação combinada; energia nula retorna zero. Materiais válidos vêm da configuração. @contract f-83cc2dff397fae45 @reviewed M12-DOC: implementação lida. */
   private calcularRestituicaoPorEnergia(energiaImpactoJ: number, resistenciaA: number, resistenciaB: number, dissipacaoA: number, dissipacaoB: number): number {
     if (energiaImpactoJ === 0) return 0;
     const capacidadeDeRetorno = Math.min(1, Math.min(resistenciaA, resistenciaB) / energiaImpactoJ);
