@@ -228,6 +228,60 @@
     "categoria": "teste"
   },
   {
+    "id": "scripts/documentacao/ast.test.ts::[callback]:ArrowFunction#2",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/ast.test.ts::[callback]#2.[callback]:ArrowFunction#1",
+    "assinatura": "(f: Funcao): boolean",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/ast.test.ts::[callback]:ArrowFunction#3",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/ast.test.ts::[callback]:ArrowFunction#4",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/ast.test.ts::[callback]:ArrowFunction#5",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/ast.test.ts::[callback]#5.[callback]:ArrowFunction#1",
+    "assinatura": "(f: Funcao): boolean",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/ast.test.ts::[callback]#5.[callback]:ArrowFunction#2",
+    "assinatura": "(f: Funcao): boolean",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/ast.test.ts::[callback]#5.[callback]:ArrowFunction#3",
+    "assinatura": "(f: Funcao): boolean",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/ast.test.ts::[callback]#5.[callback]:ArrowFunction#4",
+    "assinatura": "(f: Funcao): boolean",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
     "id": "scripts/documentacao/ast.ts::eFuncao:FunctionDeclaration",
     "assinatura": "(no: ts.Node): no is Declaracao",
     "modificadores": [],
@@ -238,6 +292,24 @@
     "assinatura": "(no: Declaracao, fonte: ts.SourceFile): string | undefined",
     "modificadores": [],
     "categoria": "producao"
+  },
+  {
+    "id": "scripts/documentacao/ast.ts::modificadoresDeclaracao:FunctionDeclaration",
+    "assinatura": "(no: ts.Node): readonly string[]",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "scripts/documentacao/ast.ts::modificadoresDeclaracao.[callback]:ArrowFunction#1",
+    "assinatura": "(m: ts.Modifier): string",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/documentacao/ast.ts::modificadoresDeclaracao.[callback]:ArrowFunction#2",
+    "assinatura": "(m: ts.Modifier): string",
+    "modificadores": [],
+    "categoria": "callback"
   },
   {
     "id": "scripts/documentacao/ast.ts::documentoDaDeclaracao:FunctionDeclaration",
@@ -279,7 +351,7 @@
   },
   {
     "id": "scripts/documentacao/ast.ts::fatosCorpo:FunctionDeclaration",
-    "assinatura": "(no: Declaracao, fonte: ts.SourceFile): Pick<Funcao, \"chamadas\" | \"escritas\" | \"retornos\" | \"condicoes\" | \"excecoes\">",
+    "assinatura": "(no: Declaracao, fonte: ts.SourceFile, impressor: ts.Printer): Pick<Funcao, \"chamadas\" | \"escritas\" | \"retornos\" | \"condicoes\" | \"excecoes\">",
     "modificadores": [],
     "categoria": "producao"
   },
@@ -302,6 +374,12 @@
     "categoria": "callback"
   },
   {
+    "id": "scripts/documentacao/ast.ts::fatosCorpo.[callback]:ArrowFunction#2",
+    "assinatura": "(m: ts.ModifierLike): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
     "id": "scripts/documentacao/ast.ts::analisarFontes:FunctionDeclaration",
     "assinatura": "(fontes: readonly ts.SourceFile[], checker?: ts.TypeChecker, normalizar?: (arquivo: string) => string): Analise",
     "modificadores": [
@@ -316,7 +394,7 @@
     "categoria": "contrato"
   },
   {
-    "id": "scripts/documentacao/ast.ts::analisarFontes.normalizar[tipo]:ArrowFunction",
+    "id": "scripts/documentacao/ast.ts::analisarFontes.normalizar:ArrowFunction",
     "assinatura": "(a: string): string",
     "modificadores": [],
     "categoria": "producao"
@@ -365,12 +443,6 @@
   },
   {
     "id": "scripts/documentacao/ast.ts::analisarFontes.visitar.[callback]:ArrowFunction#6",
-    "assinatura": "(m: ts.Modifier): string",
-    "modificadores": [],
-    "categoria": "callback"
-  },
-  {
-    "id": "scripts/documentacao/ast.ts::analisarFontes.visitar.[callback]:ArrowFunction#7",
     "assinatura": "(filho: ts.Node): void",
     "modificadores": [],
     "categoria": "callback"
@@ -392,6 +464,12 @@
   {
     "id": "scripts/documentacao/auditoria.ts::verificarDocumentacao.[callback]:ArrowFunction#2",
     "assinatura": "(f: Funcao): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/documentacao/auditoria.ts::verificarDocumentacao.[callback]#2.[callback]:ArrowFunction#1",
+    "assinatura": "(m: RegExpExecArray): boolean",
     "modificadores": [],
     "categoria": "callback"
   },
@@ -618,6 +696,96 @@
     "categoria": "callback"
   },
   {
+    "id": "scripts/documentacao/cli.test.ts::[callback]:ArrowFunction#1",
+    "assinatura": "(): { carregarProjeto: () => { analise: { funcoes: never[]; modulos: never[]; }; }; }",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/cli.test.ts::[callback]#1.carregarProjeto:ArrowFunction",
+    "assinatura": "(): { analise: { funcoes: never[]; modulos: never[]; }; }",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/cli.test.ts::fonte:ArrowFunction",
+    "assinatura": "(arquivo: string, texto: string): ts.SourceFile",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/cli.test.ts::[callback]:ArrowFunction#2",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/cli.test.ts::[callback]#2.[callback]:ArrowFunction#1",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/cli.test.ts::[callback]#2.[callback]:ArrowFunction#2",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/cli.test.ts::[callback]#2.[callback]:ArrowFunction#3",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/cli.test.ts::[callback]#2.[callback]:ArrowFunction#4",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/cli.test.ts::[callback]#2.[callback]:ArrowFunction#5",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/cli.test.ts::[callback]#2.[callback]#5.analisar:ArrowFunction",
+    "assinatura": "(texto: string): readonly EntradaEstrutural[]",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/cli.test.ts::[callback]#2.[callback]#5.analisar.host.getSourceFile:ArrowFunction",
+    "assinatura": "(nome: string): ts.SourceFile | undefined",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/cli.test.ts::[callback]:ArrowFunction#3",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/cli.test.ts::[callback]#3.[callback]:ArrowFunction#1",
+    "assinatura": "(): string",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/cli.test.ts::[callback]:ArrowFunction#4",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/cli.test.ts::[callback]#4.[callback]:ArrowFunction#1",
+    "assinatura": "(): { cobertura: Cobertura; divergencias: Divergencias; catalogoDesatualizado: boolean; mapaDesatualizado: boolean; }",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
     "id": "scripts/documentacao/cli.ts::ciclosImportacao:FunctionDeclaration",
     "assinatura": "(analise: Analise, incluirTipos: boolean): readonly (readonly string[])[]",
     "modificadores": [
@@ -711,6 +879,18 @@
     "modificadores": [
       "export"
     ],
+    "categoria": "producao"
+  },
+  {
+    "id": "scripts/documentacao/cli.ts::hashExecutavel.[callback]:ArrowFunction#1",
+    "assinatura": "(d: ts.Diagnostic): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/documentacao/cli.ts::hashExecutavel.codificar:ArrowFunction",
+    "assinatura": "(no: ts.Node): unknown",
+    "modificadores": [],
     "categoria": "producao"
   },
   {
@@ -1508,7 +1688,9 @@
   {
     "id": "src/cenarios/BancadaBss.ts::criarTesteDecolagemComPainelSolar:ArrowFunction",
     "assinatura": "(configuracao?: ConfiguracaoBancadaDecolagem): { telemetria: () => string; dados: () => string; validar: () => string; obterDiagnosticoGuiaPouso?: (() => DiagnosticoGuiaPouso) | undefined; exibirNaBancada: boolean; deveEncerrar: () => boolean; atualizarControle?: (() => void) | undefined; guiasLineares?: GuiaLinear[] | undefined; exibirGuiasLineares?: boolean | undefined; comandarCilindro?: ((comando: \"avancar\" | \"recuar\") => void) | undefined; configurarVelocidadesDoCilindro?: ((avancoMps: number, recuoMps: number) => void) | undefined; velocidadesDoCilindro?: (() => { avancoMps: number; recuoMps: number; }) | undefined; obterEntradasCilindro?: (() => { avancar: boolean; recuar: boolean; }) | undefined; obterPontoPousoX?: (() => number) | undefined; pontoPousoSelecionavel?: (() => boolean) | undefined; selecionarPontoPousoX?: ((xM: number) => boolean) | undefined; canaisTrace?: { nome: string; cor: string; obterSinal: () => number; escala: { minimo: number; maximo: number; unidade: string; }; }[] | undefined; ativarModoBss04?: ((modo: \"decolagem\" | \"pouso\") => void) | undefined; obterModoBss04?: (() => \"decolagem\" | \"pouso\") | undefined; obterStatusControleBss04?: (() => string) | undefined; nome: string; obterDadosMissao: () => { modeloFisico: object; altitudeGeometricaM: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; atitudeLocalRad: number; atitudeInercialRad: number; gravidadeLocalMps2: number; orbital: { readonly raioM: number; readonly altitudeM: number; readonly velocidadeInercialMps: number; readonly velocidadeCircularMps: number; readonly velocidadeEscapeMps: number; readonly energiaEspecificaJPorKg: number; readonly momentoAngularEspecificoM2S: number; readonly excentricidade: number; readonly perigeuM: number; readonly apogeuM: number | undefined; readonly periodoS: number | undefined; readonly interceptaSuperficie: boolean; readonly estado: \"orbital\" | \"suborbital\" | \"limite-de-escape\" | \"escape\"; } | undefined; massaKg: number; combustivelKg: number; reagivelKg: number; deltaVIdealMps: number | undefined; impulsoEspecificoEfetivoS: number | undefined; densidadeArKgM3: number; pressaoDinamicaPa: number; diagnosticoMotor: string[]; hipoteseDeltaV: string; }; obterConfiguracaoEnsaio: () => { dtS: number; densidadeAtmosfericaKgM3: number; velocidadeArMps: Vetor3; modeloFisico: object; nome: string; descricao: string; rajadasVento?: readonly RajadaVento[]; estadoInicialEnsaio?: { readonly centroCascoLocalM: Vetor3; readonly velocidadeLocalMps: Vetor3; readonly inclinacaoRad: number; readonly velocidadeAngularRadps: number; }; arcoBaseM?: number; id: string; controleDeInclinacaoPid: boolean; inclinacaoInicialRad: number; energiaInicialDaBateriaJ: number; deslocamentoLateralDoPainelM: number; painelMovel: boolean; incluirPainelSolar: boolean; incluirPernasFixas?: boolean; incluirAletasAerodinamicas?: boolean; incluirGuiaPousoPorAlvo?: boolean; fatorTanques?: number; fatorPropulsor?: number; capacidadeBateriaJ?: number; impulsoEspecificoNominalS?: number; }; descricao: string; mundo: MundoFisico; objetos: Objeto[]; superficies: (SuperficieEsferica | SuperficiePlano)[]; velocidadeTempo: number; limiteVerticalM: number; limiteHorizontalM: number; seguirObjeto: VeiculoComposto; cameraY: () => number; conexoesEletricas: ConexaoEletrica[]; mangueira: { tanque: TanquePropelente; propulsor: PropulsorVetorizado; }; linhasComFalhaControlavel: { combustivel: LinhaDePropelente; oxidante: LinhaDePropelente; }; fixadores: FixadorEstrutural[]; propulsorControlavel: PropulsorVetorizado; propulsorVetorizadoControlavel: PropulsorVetorizado; permiteAjustarThrottle: boolean; }",
-    "modificadores": [],
+    "modificadores": [
+      "export"
+    ],
     "categoria": "producao"
   },
   {
@@ -1706,37 +1888,49 @@
   {
     "id": "src/cenarios/BancadaBss.ts::criarTesteBss005:ArrowFunction",
     "assinatura": "(ambiente?: Pick<ConfiguracaoBancadaDecolagem, \"velocidadeArMps\" | \"rajadasVento\" | \"densidadeAtmosfericaKgM3\" | \"ambienteFisico\" | \"arcoBaseM\">): { telemetria: () => string; dados: () => string; validar: () => string; obterDiagnosticoGuiaPouso?: (() => DiagnosticoGuiaPouso) | undefined; exibirNaBancada: boolean; deveEncerrar: () => boolean; atualizarControle?: (() => void) | undefined; guiasLineares?: GuiaLinear[] | undefined; exibirGuiasLineares?: boolean | undefined; comandarCilindro?: ((comando: \"avancar\" | \"recuar\") => void) | undefined; configurarVelocidadesDoCilindro?: ((avancoMps: number, recuoMps: number) => void) | undefined; velocidadesDoCilindro?: (() => { avancoMps: number; recuoMps: number; }) | undefined; obterEntradasCilindro?: (() => { avancar: boolean; recuar: boolean; }) | undefined; obterPontoPousoX?: (() => number) | undefined; pontoPousoSelecionavel?: (() => boolean) | undefined; selecionarPontoPousoX?: ((xM: number) => boolean) | undefined; canaisTrace?: { nome: string; cor: string; obterSinal: () => number; escala: { minimo: number; maximo: number; unidade: string; }; }[] | undefined; ativarModoBss04?: ((modo: \"decolagem\" | \"pouso\") => void) | undefined; obterModoBss04?: (() => \"decolagem\" | \"pouso\") | undefined; obterStatusControleBss04?: (() => string) | undefined; nome: string; obterDadosMissao: () => { modeloFisico: object; altitudeGeometricaM: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; atitudeLocalRad: number; atitudeInercialRad: number; gravidadeLocalMps2: number; orbital: { readonly raioM: number; readonly altitudeM: number; readonly velocidadeInercialMps: number; readonly velocidadeCircularMps: number; readonly velocidadeEscapeMps: number; readonly energiaEspecificaJPorKg: number; readonly momentoAngularEspecificoM2S: number; readonly excentricidade: number; readonly perigeuM: number; readonly apogeuM: number | undefined; readonly periodoS: number | undefined; readonly interceptaSuperficie: boolean; readonly estado: \"orbital\" | \"suborbital\" | \"limite-de-escape\" | \"escape\"; } | undefined; massaKg: number; combustivelKg: number; reagivelKg: number; deltaVIdealMps: number | undefined; impulsoEspecificoEfetivoS: number | undefined; densidadeArKgM3: number; pressaoDinamicaPa: number; diagnosticoMotor: string[]; hipoteseDeltaV: string; }; obterConfiguracaoEnsaio: () => { dtS: number; densidadeAtmosfericaKgM3: number; velocidadeArMps: Vetor3; modeloFisico: object; nome: string; descricao: string; rajadasVento?: readonly RajadaVento[]; estadoInicialEnsaio?: { readonly centroCascoLocalM: Vetor3; readonly velocidadeLocalMps: Vetor3; readonly inclinacaoRad: number; readonly velocidadeAngularRadps: number; }; arcoBaseM?: number; id: string; controleDeInclinacaoPid: boolean; inclinacaoInicialRad: number; energiaInicialDaBateriaJ: number; deslocamentoLateralDoPainelM: number; painelMovel: boolean; incluirPainelSolar: boolean; incluirPernasFixas?: boolean; incluirAletasAerodinamicas?: boolean; incluirGuiaPousoPorAlvo?: boolean; fatorTanques?: number; fatorPropulsor?: number; capacidadeBateriaJ?: number; impulsoEspecificoNominalS?: number; }; descricao: string; mundo: MundoFisico; objetos: Objeto[]; superficies: (SuperficieEsferica | SuperficiePlano)[]; velocidadeTempo: number; limiteVerticalM: number; limiteHorizontalM: number; seguirObjeto: VeiculoComposto; cameraY: () => number; conexoesEletricas: ConexaoEletrica[]; mangueira: { tanque: TanquePropelente; propulsor: PropulsorVetorizado; }; linhasComFalhaControlavel: { combustivel: LinhaDePropelente; oxidante: LinhaDePropelente; }; fixadores: FixadorEstrutural[]; propulsorControlavel: PropulsorVetorizado; propulsorVetorizadoControlavel: PropulsorVetorizado; permiteAjustarThrottle: boolean; }",
-    "modificadores": [],
+    "modificadores": [
+      "export"
+    ],
     "categoria": "producao"
   },
   {
     "id": "src/cenarios/BancadaBss.ts::criarTesteBss006:ArrowFunction",
     "assinatura": "(ambiente?: Pick<ConfiguracaoBancadaDecolagem, \"velocidadeArMps\" | \"densidadeAtmosfericaKgM3\" | \"ambienteFisico\" | \"arcoBaseM\">): { telemetria: () => string; dados: () => string; validar: () => string; obterDiagnosticoGuiaPouso?: (() => DiagnosticoGuiaPouso) | undefined; exibirNaBancada: boolean; deveEncerrar: () => boolean; atualizarControle?: (() => void) | undefined; guiasLineares?: GuiaLinear[] | undefined; exibirGuiasLineares?: boolean | undefined; comandarCilindro?: ((comando: \"avancar\" | \"recuar\") => void) | undefined; configurarVelocidadesDoCilindro?: ((avancoMps: number, recuoMps: number) => void) | undefined; velocidadesDoCilindro?: (() => { avancoMps: number; recuoMps: number; }) | undefined; obterEntradasCilindro?: (() => { avancar: boolean; recuar: boolean; }) | undefined; obterPontoPousoX?: (() => number) | undefined; pontoPousoSelecionavel?: (() => boolean) | undefined; selecionarPontoPousoX?: ((xM: number) => boolean) | undefined; canaisTrace?: { nome: string; cor: string; obterSinal: () => number; escala: { minimo: number; maximo: number; unidade: string; }; }[] | undefined; ativarModoBss04?: ((modo: \"decolagem\" | \"pouso\") => void) | undefined; obterModoBss04?: (() => \"decolagem\" | \"pouso\") | undefined; obterStatusControleBss04?: (() => string) | undefined; nome: string; obterDadosMissao: () => { modeloFisico: object; altitudeGeometricaM: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; atitudeLocalRad: number; atitudeInercialRad: number; gravidadeLocalMps2: number; orbital: { readonly raioM: number; readonly altitudeM: number; readonly velocidadeInercialMps: number; readonly velocidadeCircularMps: number; readonly velocidadeEscapeMps: number; readonly energiaEspecificaJPorKg: number; readonly momentoAngularEspecificoM2S: number; readonly excentricidade: number; readonly perigeuM: number; readonly apogeuM: number | undefined; readonly periodoS: number | undefined; readonly interceptaSuperficie: boolean; readonly estado: \"orbital\" | \"suborbital\" | \"limite-de-escape\" | \"escape\"; } | undefined; massaKg: number; combustivelKg: number; reagivelKg: number; deltaVIdealMps: number | undefined; impulsoEspecificoEfetivoS: number | undefined; densidadeArKgM3: number; pressaoDinamicaPa: number; diagnosticoMotor: string[]; hipoteseDeltaV: string; }; obterConfiguracaoEnsaio: () => { dtS: number; densidadeAtmosfericaKgM3: number; velocidadeArMps: Vetor3; modeloFisico: object; nome: string; descricao: string; rajadasVento?: readonly RajadaVento[]; estadoInicialEnsaio?: { readonly centroCascoLocalM: Vetor3; readonly velocidadeLocalMps: Vetor3; readonly inclinacaoRad: number; readonly velocidadeAngularRadps: number; }; arcoBaseM?: number; id: string; controleDeInclinacaoPid: boolean; inclinacaoInicialRad: number; energiaInicialDaBateriaJ: number; deslocamentoLateralDoPainelM: number; painelMovel: boolean; incluirPainelSolar: boolean; incluirPernasFixas?: boolean; incluirAletasAerodinamicas?: boolean; incluirGuiaPousoPorAlvo?: boolean; fatorTanques?: number; fatorPropulsor?: number; capacidadeBateriaJ?: number; impulsoEspecificoNominalS?: number; }; descricao: string; mundo: MundoFisico; objetos: Objeto[]; superficies: (SuperficieEsferica | SuperficiePlano)[]; velocidadeTempo: number; limiteVerticalM: number; limiteHorizontalM: number; seguirObjeto: VeiculoComposto; cameraY: () => number; conexoesEletricas: ConexaoEletrica[]; mangueira: { tanque: TanquePropelente; propulsor: PropulsorVetorizado; }; linhasComFalhaControlavel: { combustivel: LinhaDePropelente; oxidante: LinhaDePropelente; }; fixadores: FixadorEstrutural[]; propulsorControlavel: PropulsorVetorizado; propulsorVetorizadoControlavel: PropulsorVetorizado; permiteAjustarThrottle: boolean; }",
-    "modificadores": [],
+    "modificadores": [
+      "export"
+    ],
     "categoria": "producao"
   },
   {
     "id": "src/cenarios/BancadaBss.ts::criarTesteBss001:ArrowFunction",
     "assinatura": "(ambiente?: AmbienteBancadaBss): { telemetria: () => string; dados: () => string; validar: () => string; obterDiagnosticoGuiaPouso?: (() => DiagnosticoGuiaPouso) | undefined; exibirNaBancada: boolean; deveEncerrar: () => boolean; atualizarControle?: (() => void) | undefined; guiasLineares?: GuiaLinear[] | undefined; exibirGuiasLineares?: boolean | undefined; comandarCilindro?: ((comando: \"avancar\" | \"recuar\") => void) | undefined; configurarVelocidadesDoCilindro?: ((avancoMps: number, recuoMps: number) => void) | undefined; velocidadesDoCilindro?: (() => { avancoMps: number; recuoMps: number; }) | undefined; obterEntradasCilindro?: (() => { avancar: boolean; recuar: boolean; }) | undefined; obterPontoPousoX?: (() => number) | undefined; pontoPousoSelecionavel?: (() => boolean) | undefined; selecionarPontoPousoX?: ((xM: number) => boolean) | undefined; canaisTrace?: { nome: string; cor: string; obterSinal: () => number; escala: { minimo: number; maximo: number; unidade: string; }; }[] | undefined; ativarModoBss04?: ((modo: \"decolagem\" | \"pouso\") => void) | undefined; obterModoBss04?: (() => \"decolagem\" | \"pouso\") | undefined; obterStatusControleBss04?: (() => string) | undefined; nome: string; obterDadosMissao: () => { modeloFisico: object; altitudeGeometricaM: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; atitudeLocalRad: number; atitudeInercialRad: number; gravidadeLocalMps2: number; orbital: { readonly raioM: number; readonly altitudeM: number; readonly velocidadeInercialMps: number; readonly velocidadeCircularMps: number; readonly velocidadeEscapeMps: number; readonly energiaEspecificaJPorKg: number; readonly momentoAngularEspecificoM2S: number; readonly excentricidade: number; readonly perigeuM: number; readonly apogeuM: number | undefined; readonly periodoS: number | undefined; readonly interceptaSuperficie: boolean; readonly estado: \"orbital\" | \"suborbital\" | \"limite-de-escape\" | \"escape\"; } | undefined; massaKg: number; combustivelKg: number; reagivelKg: number; deltaVIdealMps: number | undefined; impulsoEspecificoEfetivoS: number | undefined; densidadeArKgM3: number; pressaoDinamicaPa: number; diagnosticoMotor: string[]; hipoteseDeltaV: string; }; obterConfiguracaoEnsaio: () => { dtS: number; densidadeAtmosfericaKgM3: number; velocidadeArMps: Vetor3; modeloFisico: object; nome: string; descricao: string; rajadasVento?: readonly RajadaVento[]; estadoInicialEnsaio?: { readonly centroCascoLocalM: Vetor3; readonly velocidadeLocalMps: Vetor3; readonly inclinacaoRad: number; readonly velocidadeAngularRadps: number; }; arcoBaseM?: number; id: string; controleDeInclinacaoPid: boolean; inclinacaoInicialRad: number; energiaInicialDaBateriaJ: number; deslocamentoLateralDoPainelM: number; painelMovel: boolean; incluirPainelSolar: boolean; incluirPernasFixas?: boolean; incluirAletasAerodinamicas?: boolean; incluirGuiaPousoPorAlvo?: boolean; fatorTanques?: number; fatorPropulsor?: number; capacidadeBateriaJ?: number; impulsoEspecificoNominalS?: number; }; descricao: string; mundo: MundoFisico; objetos: Objeto[]; superficies: (SuperficieEsferica | SuperficiePlano)[]; velocidadeTempo: number; limiteVerticalM: number; limiteHorizontalM: number; seguirObjeto: VeiculoComposto; cameraY: () => number; conexoesEletricas: ConexaoEletrica[]; mangueira: { tanque: TanquePropelente; propulsor: PropulsorVetorizado; }; linhasComFalhaControlavel: { combustivel: LinhaDePropelente; oxidante: LinhaDePropelente; }; fixadores: FixadorEstrutural[]; propulsorControlavel: PropulsorVetorizado; propulsorVetorizadoControlavel: PropulsorVetorizado; permiteAjustarThrottle: boolean; }",
-    "modificadores": [],
+    "modificadores": [
+      "export"
+    ],
     "categoria": "producao"
   },
   {
     "id": "src/cenarios/BancadaBss.ts::criarTesteBss002:ArrowFunction",
     "assinatura": "(ambiente?: AmbienteBancadaBss): { telemetria: () => string; dados: () => string; validar: () => string; obterDiagnosticoGuiaPouso?: (() => DiagnosticoGuiaPouso) | undefined; exibirNaBancada: boolean; deveEncerrar: () => boolean; atualizarControle?: (() => void) | undefined; guiasLineares?: GuiaLinear[] | undefined; exibirGuiasLineares?: boolean | undefined; comandarCilindro?: ((comando: \"avancar\" | \"recuar\") => void) | undefined; configurarVelocidadesDoCilindro?: ((avancoMps: number, recuoMps: number) => void) | undefined; velocidadesDoCilindro?: (() => { avancoMps: number; recuoMps: number; }) | undefined; obterEntradasCilindro?: (() => { avancar: boolean; recuar: boolean; }) | undefined; obterPontoPousoX?: (() => number) | undefined; pontoPousoSelecionavel?: (() => boolean) | undefined; selecionarPontoPousoX?: ((xM: number) => boolean) | undefined; canaisTrace?: { nome: string; cor: string; obterSinal: () => number; escala: { minimo: number; maximo: number; unidade: string; }; }[] | undefined; ativarModoBss04?: ((modo: \"decolagem\" | \"pouso\") => void) | undefined; obterModoBss04?: (() => \"decolagem\" | \"pouso\") | undefined; obterStatusControleBss04?: (() => string) | undefined; nome: string; obterDadosMissao: () => { modeloFisico: object; altitudeGeometricaM: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; atitudeLocalRad: number; atitudeInercialRad: number; gravidadeLocalMps2: number; orbital: { readonly raioM: number; readonly altitudeM: number; readonly velocidadeInercialMps: number; readonly velocidadeCircularMps: number; readonly velocidadeEscapeMps: number; readonly energiaEspecificaJPorKg: number; readonly momentoAngularEspecificoM2S: number; readonly excentricidade: number; readonly perigeuM: number; readonly apogeuM: number | undefined; readonly periodoS: number | undefined; readonly interceptaSuperficie: boolean; readonly estado: \"orbital\" | \"suborbital\" | \"limite-de-escape\" | \"escape\"; } | undefined; massaKg: number; combustivelKg: number; reagivelKg: number; deltaVIdealMps: number | undefined; impulsoEspecificoEfetivoS: number | undefined; densidadeArKgM3: number; pressaoDinamicaPa: number; diagnosticoMotor: string[]; hipoteseDeltaV: string; }; obterConfiguracaoEnsaio: () => { dtS: number; densidadeAtmosfericaKgM3: number; velocidadeArMps: Vetor3; modeloFisico: object; nome: string; descricao: string; rajadasVento?: readonly RajadaVento[]; estadoInicialEnsaio?: { readonly centroCascoLocalM: Vetor3; readonly velocidadeLocalMps: Vetor3; readonly inclinacaoRad: number; readonly velocidadeAngularRadps: number; }; arcoBaseM?: number; id: string; controleDeInclinacaoPid: boolean; inclinacaoInicialRad: number; energiaInicialDaBateriaJ: number; deslocamentoLateralDoPainelM: number; painelMovel: boolean; incluirPainelSolar: boolean; incluirPernasFixas?: boolean; incluirAletasAerodinamicas?: boolean; incluirGuiaPousoPorAlvo?: boolean; fatorTanques?: number; fatorPropulsor?: number; capacidadeBateriaJ?: number; impulsoEspecificoNominalS?: number; }; descricao: string; mundo: MundoFisico; objetos: Objeto[]; superficies: (SuperficieEsferica | SuperficiePlano)[]; velocidadeTempo: number; limiteVerticalM: number; limiteHorizontalM: number; seguirObjeto: VeiculoComposto; cameraY: () => number; conexoesEletricas: ConexaoEletrica[]; mangueira: { tanque: TanquePropelente; propulsor: PropulsorVetorizado; }; linhasComFalhaControlavel: { combustivel: LinhaDePropelente; oxidante: LinhaDePropelente; }; fixadores: FixadorEstrutural[]; propulsorControlavel: PropulsorVetorizado; propulsorVetorizadoControlavel: PropulsorVetorizado; permiteAjustarThrottle: boolean; }",
-    "modificadores": [],
+    "modificadores": [
+      "export"
+    ],
     "categoria": "producao"
   },
   {
     "id": "src/cenarios/BancadaBss.ts::criarTesteBss004:ArrowFunction",
     "assinatura": "(ambiente?: AmbienteBancadaBss): { telemetria: () => string; dados: () => string; validar: () => string; obterDiagnosticoGuiaPouso?: (() => DiagnosticoGuiaPouso) | undefined; exibirNaBancada: boolean; deveEncerrar: () => boolean; atualizarControle?: (() => void) | undefined; guiasLineares?: GuiaLinear[] | undefined; exibirGuiasLineares?: boolean | undefined; comandarCilindro?: ((comando: \"avancar\" | \"recuar\") => void) | undefined; configurarVelocidadesDoCilindro?: ((avancoMps: number, recuoMps: number) => void) | undefined; velocidadesDoCilindro?: (() => { avancoMps: number; recuoMps: number; }) | undefined; obterEntradasCilindro?: (() => { avancar: boolean; recuar: boolean; }) | undefined; obterPontoPousoX?: (() => number) | undefined; pontoPousoSelecionavel?: (() => boolean) | undefined; selecionarPontoPousoX?: ((xM: number) => boolean) | undefined; canaisTrace?: { nome: string; cor: string; obterSinal: () => number; escala: { minimo: number; maximo: number; unidade: string; }; }[] | undefined; ativarModoBss04?: ((modo: \"decolagem\" | \"pouso\") => void) | undefined; obterModoBss04?: (() => \"decolagem\" | \"pouso\") | undefined; obterStatusControleBss04?: (() => string) | undefined; nome: string; obterDadosMissao: () => { modeloFisico: object; altitudeGeometricaM: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; atitudeLocalRad: number; atitudeInercialRad: number; gravidadeLocalMps2: number; orbital: { readonly raioM: number; readonly altitudeM: number; readonly velocidadeInercialMps: number; readonly velocidadeCircularMps: number; readonly velocidadeEscapeMps: number; readonly energiaEspecificaJPorKg: number; readonly momentoAngularEspecificoM2S: number; readonly excentricidade: number; readonly perigeuM: number; readonly apogeuM: number | undefined; readonly periodoS: number | undefined; readonly interceptaSuperficie: boolean; readonly estado: \"orbital\" | \"suborbital\" | \"limite-de-escape\" | \"escape\"; } | undefined; massaKg: number; combustivelKg: number; reagivelKg: number; deltaVIdealMps: number | undefined; impulsoEspecificoEfetivoS: number | undefined; densidadeArKgM3: number; pressaoDinamicaPa: number; diagnosticoMotor: string[]; hipoteseDeltaV: string; }; obterConfiguracaoEnsaio: () => { dtS: number; densidadeAtmosfericaKgM3: number; velocidadeArMps: Vetor3; modeloFisico: object; nome: string; descricao: string; rajadasVento?: readonly RajadaVento[]; estadoInicialEnsaio?: { readonly centroCascoLocalM: Vetor3; readonly velocidadeLocalMps: Vetor3; readonly inclinacaoRad: number; readonly velocidadeAngularRadps: number; }; arcoBaseM?: number; id: string; controleDeInclinacaoPid: boolean; inclinacaoInicialRad: number; energiaInicialDaBateriaJ: number; deslocamentoLateralDoPainelM: number; painelMovel: boolean; incluirPainelSolar: boolean; incluirPernasFixas?: boolean; incluirAletasAerodinamicas?: boolean; incluirGuiaPousoPorAlvo?: boolean; fatorTanques?: number; fatorPropulsor?: number; capacidadeBateriaJ?: number; impulsoEspecificoNominalS?: number; }; descricao: string; mundo: MundoFisico; objetos: Objeto[]; superficies: (SuperficieEsferica | SuperficiePlano)[]; velocidadeTempo: number; limiteVerticalM: number; limiteHorizontalM: number; seguirObjeto: VeiculoComposto; cameraY: () => number; conexoesEletricas: ConexaoEletrica[]; mangueira: { tanque: TanquePropelente; propulsor: PropulsorVetorizado; }; linhasComFalhaControlavel: { combustivel: LinhaDePropelente; oxidante: LinhaDePropelente; }; fixadores: FixadorEstrutural[]; propulsorControlavel: PropulsorVetorizado; propulsorVetorizadoControlavel: PropulsorVetorizado; permiteAjustarThrottle: boolean; }",
-    "modificadores": [],
+    "modificadores": [
+      "export"
+    ],
     "categoria": "producao"
   },
   {
     "id": "src/cenarios/BancadaBss003.ts::criarTesteBss003:ArrowFunction",
     "assinatura": "(configuracao?: AmbienteBancadaBss): { nome: string; obterConfiguracaoEnsaio: () => { id: string; arcoBaseM: number; modeloFisico: object; }; descricao: string; mundo: MundoFisico; objetos: Objeto[]; superficies: (SuperficieEsferica | SuperficiePlano)[]; velocidadeTempo: number; limiteVerticalM: number; limiteHorizontalM: number; seguirObjeto: Bss03; cameraY: () => number; conexoesEletricas: ConexaoEletrica[]; fixadores: FixadorEstrutural[]; exibirNaBancada: boolean; gruposPropulsao: readonly [{ readonly id: \"decolagem\"; readonly nome: \"Motores de decolagem · tanque dedicado\"; readonly propulsores: PropulsorVetorizado[]; }, { readonly id: \"pouso\"; readonly nome: \"Motores de pouso · tanque reservado\"; readonly propulsores: PropulsorVetorizado[]; }]; readonly propulsorControlavel: PropulsorVetorizado; readonly propulsorVetorizadoControlavel: PropulsorVetorizado; obterGrupoPropulsaoAtivo: () => \"decolagem\" | \"pouso\"; selecionarGrupoPropulsao: (id: string) => void; ativarControleBss03: (controle: \"inclinacao\" | \"pouso\" | \"manual\") => void; obterControleAtivoBss03: () => ControleAtivoBss03; permiteAjustarThrottle: boolean; deveEncerrar: () => boolean; validar: () => string; telemetria: () => string; dados: () => string; }",
-    "modificadores": [],
+    "modificadores": [
+      "export"
+    ],
     "categoria": "producao"
   },
   {
@@ -2484,7 +2678,9 @@
   {
     "id": "src/cenarios/EnsaioMissaoBss005.ts::menorAlturaDoObjetoM:ArrowFunction",
     "assinatura": "(objeto: Objeto): number",
-    "modificadores": [],
+    "modificadores": [
+      "export"
+    ],
     "categoria": "producao"
   },
   {
@@ -7033,7 +7229,9 @@
   {
     "id": "src/physics/ambiente/ReferencialFisico.ts::normalizarAngulo:ArrowFunction",
     "assinatura": "(angulo: number): number",
-    "modificadores": [],
+    "modificadores": [
+      "export"
+    ],
     "categoria": "producao"
   },
   {
@@ -10258,7 +10456,7 @@
     "categoria": "teste"
   },
   {
-    "id": "src/physics/objetos/componentes/AletaAerodinamica.test.ts::criarAleta.operacaoAutorizada[tipo]:ArrowFunction",
+    "id": "src/physics/objetos/componentes/AletaAerodinamica.test.ts::criarAleta.operacaoAutorizada:ArrowFunction",
     "assinatura": "(): true",
     "modificadores": [],
     "categoria": "teste"
@@ -13038,7 +13236,7 @@
     "categoria": "contrato"
   },
   {
-    "id": "src/physics/objetos/veiculos/Bss04.ts::criarPernasFixasBss04.transformarEstado[tipo]:ArrowFunction",
+    "id": "src/physics/objetos/veiculos/Bss04.ts::criarPernasFixasBss04.transformarEstado:ArrowFunction",
     "assinatura": "(p: Vetor3): { posicaoM: Vetor3; }",
     "modificadores": [],
     "categoria": "producao"
@@ -14747,7 +14945,7 @@
     "categoria": "contrato"
   },
   {
-    "id": "src/physics/sensores/SensoresVeiculoComposto.ts::SensoresVeiculoComposto.constructor.obterMassaInstantaneaKg[tipo]:ArrowFunction",
+    "id": "src/physics/sensores/SensoresVeiculoComposto.ts::SensoresVeiculoComposto.constructor.obterMassaInstantaneaKg:ArrowFunction",
     "assinatura": "(): number",
     "modificadores": [],
     "categoria": "producao"
@@ -15300,7 +15498,7 @@
     "categoria": "contrato"
   },
   {
-    "id": "src/physics/sistemas de controle/ControladorAletasAerodinamicas.ts::ControladorAletasAerodinamicas.constructor.estaEnergizado[tipo]:ArrowFunction",
+    "id": "src/physics/sistemas de controle/ControladorAletasAerodinamicas.ts::ControladorAletasAerodinamicas.constructor.estaEnergizado:ArrowFunction",
     "assinatura": "(): true",
     "modificadores": [],
     "categoria": "producao"
@@ -17343,7 +17541,7 @@
     "categoria": "contrato"
   },
   {
-    "id": "src/physics/solucionadores/SistemaAtmosferico.ts::SistemaAtmosferico.constructor.exposicaoAoAr[tipo]:ArrowFunction",
+    "id": "src/physics/solucionadores/SistemaAtmosferico.ts::SistemaAtmosferico.constructor.exposicaoAoAr:ArrowFunction",
     "assinatura": "(): number",
     "modificadores": [],
     "categoria": "producao"
@@ -17412,7 +17610,7 @@
     "categoria": "contrato"
   },
   {
-    "id": "src/physics/solucionadores/SistemaTermico.ts::SistemaTermico.constructor.exposicaoAoAr[tipo]:ArrowFunction",
+    "id": "src/physics/solucionadores/SistemaTermico.ts::SistemaTermico.constructor.exposicaoAoAr:ArrowFunction",
     "assinatura": "(): number",
     "modificadores": [],
     "categoria": "producao"
@@ -21006,7 +21204,9 @@
   {
     "id": "src/veiculos/TelemetriaBss.ts::obterTelemetriaMissaoBss:ArrowFunction",
     "assinatura": "(mundo: MundoFisico, veiculo: VeiculoComposto, motor: Propulsor, tanques: readonly TanquePropelente[]): { modeloFisico: object; altitudeGeometricaM: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; atitudeLocalRad: number; atitudeInercialRad: number; gravidadeLocalMps2: number; orbital: { readonly raioM: number; readonly altitudeM: number; readonly velocidadeInercialMps: number; readonly velocidadeCircularMps: number; readonly velocidadeEscapeMps: number; readonly energiaEspecificaJPorKg: number; readonly momentoAngularEspecificoM2S: number; readonly excentricidade: number; readonly perigeuM: number; readonly apogeuM: number | undefined; readonly periodoS: number | undefined; readonly interceptaSuperficie: boolean; readonly estado: \"orbital\" | \"suborbital\" | \"limite-de-escape\" | \"escape\"; } | undefined; massaKg: number; combustivelKg: number; reagivelKg: number; deltaVIdealMps: number | undefined; impulsoEspecificoEfetivoS: number | undefined; densidadeArKgM3: number; pressaoDinamicaPa: number; diagnosticoMotor: string[]; hipoteseDeltaV: string; }",
-    "modificadores": [],
+    "modificadores": [
+      "export"
+    ],
     "categoria": "producao"
   },
   {

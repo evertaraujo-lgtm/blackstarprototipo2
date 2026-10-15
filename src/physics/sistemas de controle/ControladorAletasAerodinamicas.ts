@@ -5,7 +5,7 @@ export class ControladorAletasAerodinamicas {
   /** Escritas diretas: `this.aletas`, `this.estaEnergizado`, `this.ganhoAtitude`, `this.ganhoVelocidadeAngular`. Dependências diretas: `Error`, `[ganhoAtitude, ganhoVelocidadeAngular, velocidadeMinimaDeAcionamentoMps].every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-63d060f8a840b02f */
   public constructor(
     private readonly aletas: readonly AletaAerodinamica[],
-    private readonly estaEnergizado: () => boolean = /** Devolve `true`. Efeitos indiretos seguem as dependências chamadas. @contract f-9698c0e7a61759a3 */
+    private readonly estaEnergizado: () => boolean = /** Devolve `true`. Efeitos indiretos seguem as dependências chamadas. @contract f-4600f6df1f57af59 */
                                                      () => true,
     private readonly ganhoAtitude = 1.8,
     private readonly ganhoVelocidadeAngular = 0.65,

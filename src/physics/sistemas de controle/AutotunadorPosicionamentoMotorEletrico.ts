@@ -17,7 +17,7 @@ export interface ResultadoAutotunePosicionamentoMotorEletrico {
 
 /** Busca ganhos por simulação determinística do conjunto rotacional, sem renderização. */
 export class AutotunadorPosicionamentoMotorEletrico {
-  /** Hook vazio nesta implementação; não produz operação. REVISÃO NECESSÁRIA do contrato de especialização. @contract f-e507ddc521012566 */
+  /** Instala a porta do controlador a calibrar; não inicia busca, simula movimento ou aplica ganhos durante a construção. @contract f-e507ddc521012566 @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly controlador: ControladorPosicionamentoMotorEletrico) {}
 
   /** Devolve `melhor`. Dependências diretas: `this.controlador.obterModeloParaAutotune`, `this.criarCandidatos`, `this.simular`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d56be7d8d567653e */

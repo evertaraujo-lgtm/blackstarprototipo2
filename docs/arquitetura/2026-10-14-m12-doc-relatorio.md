@@ -155,3 +155,45 @@ ferramenta documental serão registrados na etapa D junto aos seus testes e
 correções de extração. Fontes existentes da aplicação mantêm AST executável.
 Comentários de funções cuja interpretação de domínio não foi confirmada
 continuam sinalizados para revisão, em vez de simular certificação técnica.
+
+### D — Complemento do contrato de impacto antes das correções do extrator
+
+A auditoria exigiu distinguir inicializadores de campos de instância de
+inicializadores estáticos, e modificadores da função de modificadores da
+constante/propriedade hospedeira. Será acrescentada a função de ferramenta
+`modificadoresDeclaracao(no: ts.Node): readonly string[]`: consulta AST,
+sem efeitos fora de memória. `fatosCorpo` passará a incluir inicializações do
+construtor (sem executar closures nem campos estáticos); `nomeDeclaracao`
+distinguirá tipo funcional de valor padrão de parâmetro. A alteração afeta
+metadados/âncoras documentais, nunca assinatura ou execução do simulador.
+
+Testes adicionais: campos de instância versus estáticos/closures, arrow privada
+estática/exportada, valor padrão funcional, falso contrato com sufixo e texto de
+funções em comentários/strings. A emissão de JS inválido será rejeitada na
+prova de preservação. Novos auxiliares desta ferramenta também recebem JSDoc.
+
+O conjunto de validação da ferramenta agora possui **18 testes aprovados**
+(2 arquivos); typecheck geral também aprovado. A extração inclui campos de
+instância/parameter properties no construtor, exclui inicialização estática e
+não executa callbacks de campos. Evidências usam Printer para preservar espaços
+de literais; comentários/strings com código de exemplo não viram funções.
+O CI fará auditoria AST antes da suíte física, sem executar simulação para
+verificar documentação. A presença textual de contratos nunca será descrita
+como certificação semântica.
+
+A integração de gerar/verificar também foi exercitada em diretório temporário:
+rejeita mapa sem delimitadores únicos/ordenados e detecta catálogo alterado.
+**19 testes documentais aprovados**, typecheck geral aprovado. O comando
+`npm run docs:verificar -- --base-executavel` confirmou **zero arquivos com AST
+executável divergente** contra `555635b`, incluindo scripts e testes existentes.
+A consulta Git usa NUL para não perder caminhos Unicode.
+
+A [CI da base M11-P](https://github.com/evertaraujo-lgtm/blackstarprototipo2/actions/runs/38658867983)
+foi confirmada como `success` para `555635bc61a40d6a17326d342be7c370282a9981`.
+Os commits M12 não foram enviados por orientação do operador; sua CI remota
+permanece pendente do push, sem declaração de aprovação remota desta revisão.
+
+As chamadas diretas a `atualizarEstadoPeloCore` presentes na aplicação estão nos
+módulos físicos de integração, colisão/contato, vínculos e ilha. Não foi encontrada
+chamada direta na apresentação, missões ou controladores de voo. Isso é evidência
+estática; não substitui os limites de autoridade por contrato documentados.

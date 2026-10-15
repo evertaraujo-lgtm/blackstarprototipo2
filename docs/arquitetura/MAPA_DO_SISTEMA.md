@@ -173,6 +173,15 @@ e informa atraso. O desenho não define `dt`, nem garante 1× em qualquer máqui
 
 ## Riscos arquiteturais e sobreposições observadas
 
+- `AutotunadorPosicionamentoMotorEletrico.simular` usa um modelo rotacional
+  aproximado próprio para pontuar ganhos, sem evoluir o mundo real. Isso duplica
+  uma aproximação de dinâmica para calibração; equivalência ao core não deve
+  ser presumida. `executar` cede via `setTimeout(0)` dentro do módulo de controle:
+  o agendamento não muda seu dt fixo, mas acopla cedência ao ambiente externo.
+  Ambos são pontos para discussão futura, sem correção neste marco.
+- A finitude não é validada uniformemente em todos os construtores legados;
+  contratos exigem configurações físicas válidas, e não se deve presumir que
+  todo valor inválido seja rejeitado em toda fronteira existente.
 - `src/testes.ts` mistura montagem de ensaios locais e apresentação/entradas. É
   ferramenta provisória; permanece consumidor do mesmo core. Não refatorada.
 - `CameraFisica2D` e `CameraMissao` cobrem transformações de observação semelhantes,
@@ -217,7 +226,7 @@ Escopo: imports/exportações estáticos locais das fontes próprias; chamadas d
 | [scripts/auditar-documentacao.ts](../../scripts/auditar-documentacao.ts) | funções/entrada | ./documentacao/cli |
 | [scripts/benchmark-missao.ts](../../scripts/benchmark-missao.ts) | funções/entrada | node:util, node:fs, node:crypto, node:os, node:perf_hooks, ../src/missoes/ReplayMissaoBss006, ../src/physics/MundoFisico, ../src/physics/agua/SistemaHidrodinamico, ../src/physics/estruturas/ConjuntoEstruturalRigido, ../src/missoes/MissaoBss006, ../src/physics/Vetor3 |
 | [scripts/comparar-desempenho-missao.ts](../../scripts/comparar-desempenho-missao.ts) | Medicao | node:util, ../src/physics/ambiente/CampoGravitacional, node:fs, T: ../src/missoes/RegistroMissao, T: ../src/missoes/TiposMissaoBss006 |
-| [scripts/documentacao/ast.ts](../../scripts/documentacao/ast.ts) | Fonte, Funcao, Modulo, Analise | typescript |
+| [scripts/documentacao/ast.ts](../../scripts/documentacao/ast.ts) | Funcao, Modulo, Analise | typescript |
 | [scripts/documentacao/auditoria.ts](../../scripts/documentacao/auditoria.ts) | Cobertura | T: ./ast, ./catalogo |
 | [scripts/documentacao/catalogo.ts](../../scripts/documentacao/catalogo.ts) | EntradaEstrutural, Divergencias | node:crypto, T: ./ast |
 | [scripts/documentacao/cli.ts](../../scripts/documentacao/cli.ts) | funções/entrada | node:fs, node:path, node:crypto, node:child_process, typescript, ./projeto, T: ./ast, ./catalogo, T: ./catalogo, ./auditoria |
@@ -244,9 +253,9 @@ Escopo: imports/exportações estáticos locais das fontes próprias; chamadas d
 | [src/missoes/ContratoMissao.ts](../../src/missoes/ContratoMissao.ts) | ResultadoComandoMissao, EventoMissao, ObjetivoMissao, InstanciaMissao, DefinicaoMissao | — |
 | [src/missoes/EnsaioAmerissagem.ts](../../src/missoes/EnsaioAmerissagem.ts) | funções/entrada | ../physics/Vetor3, ../veiculos/DefinicaoBss006, ../veiculos/MontagemBss, ../veiculos/HidrodinamicaBss006, ./AmbienteAmerissagem |
 | [src/missoes/ExecutorMissao.ts](../../src/missoes/ExecutorMissao.ts) | ComandoAgendado | T: ./ContratoMissao |
-| [src/missoes/MissaoBss006.ts](../../src/missoes/MissaoBss006.ts) | MissaoBss006: InstanciaMissao<ComandoBss006, ObservacaoBss006> | ../physics/sistemas de controle/ControladorPerfilVooExperimental, ../veiculos/DefinicaoBss006, T: ../veiculos/MontagemBss, ./SnapshotMissao, ./CicloMissao, ./AmbienteLancamento, ./AmbienteAmerissagem, ../veiculos/HidrodinamicaBss006, ../physics/Vetor3, ./ObservacaoAmerissagem, T: ./ContratoMissao, T: ./TiposMissaoBss006 |
+| [src/missoes/MissaoBss006.ts](../../src/missoes/MissaoBss006.ts) | MissaoBss006: InstanciaMissao&lt;ComandoBss006, ObservacaoBss006&gt; | ../physics/sistemas de controle/ControladorPerfilVooExperimental, ../veiculos/DefinicaoBss006, T: ../veiculos/MontagemBss, ./SnapshotMissao, ./CicloMissao, ./AmbienteLancamento, ./AmbienteAmerissagem, ../veiculos/HidrodinamicaBss006, ../physics/Vetor3, ./ObservacaoAmerissagem, T: ./ContratoMissao, T: ./TiposMissaoBss006 |
 | [src/missoes/ObservacaoAmerissagem.ts](../../src/missoes/ObservacaoAmerissagem.ts) | ObservacaoAmerissagem, MedidasAmerissagem, AcompanhamentoAmerissagem | T: ../physics/agua/SistemaHidrodinamico, ../physics/Vetor3 |
-| [src/missoes/RegistroMissao.ts](../../src/missoes/RegistroMissao.ts) | DiarioMissao, RegistroMissao: InstanciaMissao<C, O> | T: ./ContratoMissao, ./SnapshotMissao |
+| [src/missoes/RegistroMissao.ts](../../src/missoes/RegistroMissao.ts) | DiarioMissao, RegistroMissao: InstanciaMissao&lt;C, O&gt; | T: ./ContratoMissao, ./SnapshotMissao |
 | [src/missoes/ReplayMissaoBss006.ts](../../src/missoes/ReplayMissaoBss006.ts) | funções/entrada | ../veiculos/DefinicaoBss006, ./MissaoBss006, ./RegistroMissao, T: ./TiposMissaoBss006 |
 | [src/missoes/SnapshotMissao.ts](../../src/missoes/SnapshotMissao.ts) | funções/entrada | ../physics/Vetor3 |
 | [src/missoes/TiposMissaoBss006.ts](../../src/missoes/TiposMissaoBss006.ts) | ConfiguracaoMissaoBss006, CorpoObservado, ObservacaoBss006 | T: ../physics/objetos/base/Objeto, T: ../physics/solucionadores/ResolvedorContatoSuperficie, T: ../veiculos/TelemetriaBss, T: ./ContratoMissao, T: ./ObservacaoAmerissagem, T: ../physics/ambiente/GeografiaCosteira |

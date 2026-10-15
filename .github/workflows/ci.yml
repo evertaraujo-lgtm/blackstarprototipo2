@@ -27,6 +27,9 @@ jobs:
       - name: Instalar dependências
         run: npm ci
 
+      - name: Auditoria AST de documentação
+        run: npm run docs:verificar
+
       - name: Testes determinísticos
         run: npm test -- --run --maxWorkers=1
 

@@ -19,7 +19,7 @@ export interface ContextoResolvedorColisoes {
 
 /** Descobre contatos entre objetos e aplica sua resposta impulsiva. */
 export class ResolvedorColisoes {
-  /** Hook vazio nesta implementação; não produz operação. REVISÃO NECESSÁRIA do contrato de especialização. @contract f-6514cb8ebf3df832 */
+  /** Armazena contexto de consulta de corpos/ilhas e reação térmica/estrutural; não descobre nem resolve contatos durante a construção. @contract f-6514cb8ebf3df832 @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly contexto: ContextoResolvedorColisoes) {}
 
   /** Dependências diretas: `this.contexto.obterObjetos`, `this.contexto.deveIgnorarColisao`, `this.estaoNaMesmaIlhaEstrutural`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-bf39777e706d6a4a */

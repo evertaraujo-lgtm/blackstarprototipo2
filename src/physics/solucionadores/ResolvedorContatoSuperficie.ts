@@ -43,7 +43,7 @@ export interface ContatoSuperficieFisico {
 export class ResolvedorContatoSuperficie {
   private contatosDoUltimoPasso: ContatoSuperficieFisico[] = [];
 
-  /** Hook vazio nesta implementação; não produz operação. REVISÃO NECESSÁRIA do contrato de especialização. @contract f-edb715cde7dc369d */
+  /** Armazena portas de consulta/reação do mundo e inicializa histórico de contatos vazio; a resolução física ocorre em resolver, não na construção. @contract f-edb715cde7dc369d @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly contexto: ContextoResolvedorContatoSuperficie) {}
 
   /** Snapshot dos pontos de contato efetivamente processados pelo core no último passo.

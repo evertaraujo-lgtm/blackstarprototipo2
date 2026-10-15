@@ -7,7 +7,7 @@ export class SistemaTermico {
   public constructor(
     private readonly atmosfera: SistemaAtmosferico,
     private readonly temperaturaAmbienteC: number,
-    private readonly exposicaoAoAr: (o: Objeto) => number = /** Devolve `1`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-771e59ca689aead4 */
+    private readonly exposicaoAoAr: (o: Objeto) => number = /** Devolve `1`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d8491cc35a8ea84c */
                                                             () => 1,
   ) {
     if (!Number.isFinite(temperaturaAmbienteC)) throw new Error('Temperatura ambiente deve ser finita em °C.');

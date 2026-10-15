@@ -63,3 +63,25 @@ describe('Inventário AST de funções', () => {
     expect(a.modulos[0].imports).toEqual([{ destino: './a', somenteTipo: true }, { destino: './b', somenteTipo: false }]);
   });
 });
+
+it('inclui inicializadores de instância do construtor sem executar estáticos/closures', () => {
+  const a = extrair(`class C { static global = prepararGlobal(); valor = criarLocal(); tarefa = () => operarDepois(); constructor() {} }`);
+  const f = a.funcoes.find(f => f.nome === 'C.constructor')!;
+  expect(f.escritas).toEqual(['this.valor', 'this.tarefa']);
+  expect(f.chamadas).toEqual(['criarLocal']);
+});
+it('preserva espaços de literais nas evidências e ignora funções em strings/comentários', () => {
+  const a = extrair(`// function falsa() {}\nconst texto = '() => 1'; function f() { return 'a  b'; }`);
+  expect(a.funcoes).toHaveLength(1); expect(a.funcoes[0].retornos).toEqual(["'a  b'"]);
+});
+it('registra modificadores da propriedade/constante que recebe arrow function', () => {
+  const a = extrair('class C { private static readonly f = async () => 1; } export const g = () => 2;');
+  expect(a.funcoes[0].modificadores).toEqual(['private', 'static', 'readonly', 'async']);
+  expect(a.funcoes[1].modificadores).toEqual(['export']);
+});
+it('distingue assinatura de parâmetro funcional e implementação padrão e captura JSDoc por wrappers', () => {
+  const a = extrair('/** Função condicional documentada. */ const f = true ? (() => 1) : (() => 2); function g(normalizar: (x: string) => string = x => x) {}');
+  expect(a.funcoes.filter(f => f.nome === 'f').every(f => f.documento.includes('Função condicional'))).toBe(true);
+  expect(a.funcoes.find(f => f.nome === 'g.normalizar')?.categoria).toBe('producao');
+  expect(a.funcoes.find(f => f.nome === 'g.normalizar[tipo]')?.categoria).toBe('contrato');
+});

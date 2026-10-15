@@ -18,7 +18,7 @@ export class SistemaAtmosferico {
     velocidadeArMps: Vetor3,
     private readonly referencial: ReferencialFisico = new ReferencialPlano(),
     public readonly politicaAltitude: 'extrapolacao-legada' | 'vacuo-simplificado-25km' = 'extrapolacao-legada',
-    private readonly exposicaoAoAr: (o: Objeto) => number = /** Devolve `1`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-64345a636aa6c905 */
+    private readonly exposicaoAoAr: (o: Objeto) => number = /** Devolve `1`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e36b63fcec6139c0 */
                                                             () => 1,
   ) {
     if (!Number.isFinite(densidadeArNivelMarKgM3) || densidadeArNivelMarKgM3 < 0) {

@@ -75,7 +75,7 @@ export class SensoresVeiculoComposto {
   public constructor(
     private readonly objeto: Objeto,
     private readonly altitudeDeReferenciaM = 0,
-    private readonly obterMassaInstantaneaKg: () => number = /** Devolve `objeto.massaKg`. Efeitos indiretos seguem as dependências chamadas. @contract f-287b6ae924dd35f7 */
+    private readonly obterMassaInstantaneaKg: () => number = /** Devolve `objeto.massaKg`. Efeitos indiretos seguem as dependências chamadas. @contract f-b22ec20aecc98033 */
                                                              () => objeto.massaKg,
   ) {
     if (!Number.isFinite(altitudeDeReferenciaM)) throw new Error('Altitude de referência deve ser finita.');

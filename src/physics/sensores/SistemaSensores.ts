@@ -10,7 +10,7 @@ export class SistemaSensores {
   private readonly switchesFimDeCurso = new Map<string, SwitchFimDeCurso>();
   private readonly sensoresVeiculo = new Map<SensoresVeiculoComposto, SensoresVeiculoComposto>();
 
-  /** Hook vazio nesta implementação; não produz operação. REVISÃO NECESSÁRIA do contrato de especialização. @contract f-11d76a7fff48a0bd */
+  /** Instala fornecedores de corpos, superfícies e ilhas; cria registros de sensores vazios. Não amostra nem modifica cinemática durante a construção. @contract f-11d76a7fff48a0bd @reviewed M12-DOC: implementação lida. */
   public constructor(
     private readonly obterObjetos: () => Iterable<Objeto>,
     private readonly obterSuperficies: () => Iterable<SuperficieFisica>,

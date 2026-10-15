@@ -1,6 +1,5 @@
 import ts from 'typescript';
 
-export interface Fonte { readonly caminho: string; readonly texto: string }
 export interface Funcao {
   readonly id: string; readonly arquivo: string; readonly linha: number; readonly inicio: number;
   readonly nome: string; readonly categoria: 'producao' | 'callback' | 'teste' | 'contrato';
@@ -18,7 +17,11 @@ export interface Analise { readonly funcoes: readonly Funcao[]; readonly modulos
 
 type Declaracao = ts.SignatureDeclaration & { body?: ts.ConciseBody; name?: ts.PropertyName };
 
-/** Reconhece implementações e assinaturas explícitas, incluindo acessores/overloads; não executa a AST. */
+/** Reconhece implementações e assinaturas explícitas, incluindo acessores/overloads; não executa a AST.
+ * @remarks Reconhece nós de implementação e assinaturas explícitas do compilador, incluindo acessores, overloads e tipos funcionais; não procura funções em strings/comentários.
+ * @contract f-cbeed1bbced45284
+ * @reviewed M12-DOC: contrato confrontado com implementação.
+ */
 function eFuncao(no: ts.Node): no is Declaracao {
   return ts.isFunctionDeclaration(no) || ts.isFunctionExpression(no) || ts.isArrowFunction(no)
     || ts.isMethodDeclaration(no) || ts.isConstructorDeclaration(no) || ts.isGetAccessor(no)
@@ -26,7 +29,11 @@ function eFuncao(no: ts.Node): no is Declaracao {
     || ts.isConstructSignatureDeclaration(no) || ts.isFunctionTypeNode(no) || ts.isConstructorTypeNode(no);
 }
 
-/** Usa nomes sintáticos de declaração/atribuição; callbacks sem nome recebem ordinal lexical. */
+/** Usa nomes sintáticos de declaração/atribuição; callbacks sem nome recebem ordinal lexical.
+ * @remarks Obtém nome sintático da declaração, propriedade ou atribuição, incluindo wrappers; ausência de nome fica para identificação ordinal de callback. Não deduz responsabilidade de domínio.
+ * @contract f-e6665d7f99e9b59d
+ * @reviewed M12-DOC: contrato confrontado com implementação.
+ */
 function nomeDeclaracao(no: Declaracao, fonte: ts.SourceFile): string | undefined {
   if (ts.isConstructorDeclaration(no)) return 'constructor';
   if (no.name) return no.name.getText(fonte);
@@ -34,19 +41,44 @@ function nomeDeclaracao(no: Declaracao, fonte: ts.SourceFile): string | undefine
   if (ts.isConstructSignatureDeclaration(no)) return '[construct]';
   let pai = no.parent;
   while (ts.isParenthesizedExpression(pai) || ts.isAsExpression(pai) || ts.isSatisfiesExpression(pai) || ts.isConditionalExpression(pai)) pai = pai.parent;
+  if (ts.isParameter(pai) && no.body) return pai.name.getText(fonte);
   if (ts.isTypeAliasDeclaration(pai) || ts.isPropertySignature(pai) || ts.isParameter(pai)) return `${pai.name.getText(fonte)}[tipo]`;
   if (ts.isVariableDeclaration(pai) || ts.isPropertyDeclaration(pai) || ts.isPropertyAssignment(pai)) return pai.name.getText(fonte);
   if (ts.isBinaryExpression(pai) && pai.operatorToken.kind === ts.SyntaxKind.EqualsToken) return pai.left.getText(fonte);
   return undefined;
 }
 
-/** Obtém JSDoc da declaração ou do statement que hospeda uma função atribuída a constante. */
+/** Registra modificadores explícitos da função e da constante/propriedade que a hospeda; não infere acesso por nome.
+ * @remarks Combina modificadores explícitos da função e da declaração hospedeira (export/private/static/readonly/async), distinguindo contexto de constante/propriedade sem inferir acesso por nome.
+ * @contract f-6ca8ede078057b93
+ * @reviewed M12-DOC: contrato confrontado com implementação.
+ */
+function modificadoresDeclaracao(no: ts.Node): readonly string[] {
+  const diretos = ts.canHaveModifiers(no) ? ts.getModifiers(no)?.map(m => m.getText()) ?? [] : [];
+  let alvo = no;
+  if (ts.isArrowFunction(no) || ts.isFunctionExpression(no)) {
+    let pai = no.parent;
+    while (ts.isParenthesizedExpression(pai) || ts.isAsExpression(pai) || ts.isSatisfiesExpression(pai) || ts.isConditionalExpression(pai)) pai = pai.parent;
+    if (ts.isVariableDeclaration(pai)) alvo = ts.isVariableDeclarationList(pai.parent) ? pai.parent.parent : pai;
+    else if (ts.isPropertyDeclaration(pai)) alvo = pai;
+  }
+  const hospedeiro = ts.canHaveModifiers(alvo) ? ts.getModifiers(alvo)?.map(m => m.getText()) ?? [] : [];
+  return [...new Set([...hospedeiro, ...diretos])];
+}
+
+/** Obtém JSDoc da declaração ou do statement que hospeda uma função atribuída a constante.
+ * @remarks Lê JSDoc do nó ou declaração hospedeira de constante/propriedade; considera comentários imediatos pelos ranges do compilador e evita herdar cabeçalho da classe.
+ * @contract f-11d6a0064dde5daa
+ * @reviewed M12-DOC: contrato confrontado com implementação.
+ */
 export function documentoDaDeclaracao(no: ts.Node, fonte: ts.SourceFile): string {
   let alvo = no;
-  if ((ts.isArrowFunction(no) || ts.isFunctionExpression(no)) && ts.isVariableDeclaration(no.parent)) {
-    alvo = ts.isVariableDeclarationList(no.parent.parent) ? no.parent.parent.parent : no.parent;
-  } else if ((ts.isArrowFunction(no) || ts.isFunctionExpression(no))
-    && (ts.isPropertyAssignment(no.parent) || ts.isPropertyDeclaration(no.parent))) alvo = no.parent;
+  if (ts.isArrowFunction(no) || ts.isFunctionExpression(no)) {
+    let pai = no.parent;
+    while (ts.isParenthesizedExpression(pai) || ts.isAsExpression(pai) || ts.isSatisfiesExpression(pai) || ts.isConditionalExpression(pai)) pai = pai.parent;
+    if (ts.isVariableDeclaration(pai)) alvo = ts.isVariableDeclarationList(pai.parent) ? pai.parent.parent : pai;
+    else if (ts.isPropertyAssignment(pai) || ts.isPropertyDeclaration(pai)) alvo = pai;
+  }
   const documentos = (alvo as ts.Node & { jsDoc?: readonly ts.JSDoc[] }).jsDoc ?? [];
   if (documentos.length) return documentos.map(doc => doc.getText(fonte)).join('\n');
   return [...(ts.getLeadingCommentRanges(fonte.text, alvo.getFullStart()) ?? []),
@@ -55,11 +87,17 @@ export function documentoDaDeclaracao(no: ts.Node, fonte: ts.SourceFile): string
     .filter(t => t.startsWith('/**')).join('\n');
 }
 
-/** Percorre apenas o corpo corrente: efeitos de closures pertencem às próprias entradas do inventário. */
-function fatosCorpo(no: Declaracao, fonte: ts.SourceFile): Pick<Funcao, 'chamadas' | 'escritas' | 'retornos' | 'condicoes' | 'excecoes'> {
+/** Extrai corpo e inicializações de instância do construtor, sem expandir efeitos de closures.
+ * @remarks Extrai chamadas, escritas, retornos, condições e throws do corpo corrente; separa closures filhas e registra campos/parameter properties de construtores, excluindo estáticos/declare/abstract. Não infere efeitos transitivos.
+ * @contract f-cb2d6c5f0a0853ad
+ * @reviewed M12-DOC: contrato confrontado com implementação.
+ */
+function fatosCorpo(no: Declaracao, fonte: ts.SourceFile, impressor: ts.Printer): Pick<Funcao, 'chamadas' | 'escritas' | 'retornos' | 'condicoes' | 'excecoes'> {
   const chamadas = new Set<string>(), escritas = new Set<string>(), retornos = new Set<string>();
   const condicoes = new Set<string>(), excecoes = new Set<string>();
-  const texto = (n: ts.Node) => n.getText(fonte).replace(/\s+/g, ' ');
+  /** Formata nó pelo Printer, preservando literais e removendo comentários da evidência; não escreve fontes. @contract f-bf548e51ccbb3b24 @reviewed M12-DOC: implementação lida. */
+  const texto = (n: ts.Node) => impressor.printNode(ts.EmitHint.Unspecified, n, fonte);
+  /** Percorre corpo corrente e acumula evidências em conjuntos locais, interrompendo em declarações funcionais filhas; não executa os nós. @contract f-85856e7d2c456faf @reviewed M12-DOC: implementação lida. */
   const visitar = (n: ts.Node): void => {
     if (eFuncao(n) && n !== no) return;
     if (ts.isCallExpression(n) || ts.isNewExpression(n)) chamadas.add(texto(n.expression));
@@ -72,6 +110,16 @@ function fatosCorpo(no: Declaracao, fonte: ts.SourceFile): Pick<Funcao, 'chamada
   };
   if (ts.isConstructorDeclaration(no)) for (const parametro of no.parameters) {
     if (parametro.modifiers?.some(m => [ts.SyntaxKind.PublicKeyword, ts.SyntaxKind.PrivateKeyword, ts.SyntaxKind.ProtectedKeyword, ts.SyntaxKind.ReadonlyKeyword].includes(m.kind))) escritas.add(`this.${parametro.name.getText(fonte)}`);
+  }
+  if (ts.isConstructorDeclaration(no) && (ts.isClassDeclaration(no.parent) || ts.isClassExpression(no.parent))) {
+    for (const membro of no.parent.members) {
+      if (!ts.isPropertyDeclaration(membro) || membro.modifiers?.some(m =>
+        [ts.SyntaxKind.StaticKeyword, ts.SyntaxKind.DeclareKeyword, ts.SyntaxKind.AbstractKeyword].includes(m.kind))) continue;
+      const nome = membro.name.getText(fonte);
+      escritas.add(ts.isComputedPropertyName(membro.name) ? `this${nome}`
+        : ts.isStringLiteral(membro.name) || ts.isNumericLiteral(membro.name) ? `this[${nome}]` : `this.${nome}`);
+      if (membro.initializer) visitar(membro.initializer);
+    }
   }
   if (no.body) {
     visitar(no.body);
@@ -86,13 +134,19 @@ function fatosCorpo(no: Declaracao, fonte: ts.SourceFile): Pick<Funcao, 'chamada
  * @param fontes Arquivos UTF-8, caminhos relativos à raiz do repositório.
  * @param checker Resolução de tipos do programa; fixtures podem omiti-la.
  * @returns Inventário sem executar as fontes. Efeitos transitivos não são inferidos.
+ * @remarks Percorre fontes próprias e emite inventário de funções/contratos, módulos, herança e imports. IDs usam escopo/espécie/ordinal; TypeChecker fornece assinaturas inferidas quando disponível. Não executa fontes nem aprova semântica.
+ * @contract f-252d75a79d2738ad
+ * @reviewed M12-DOC: contrato confrontado com implementação.
  */
-export function analisarFontes(fontes: readonly ts.SourceFile[], checker?: ts.TypeChecker, normalizar: (arquivo: string) => string = a => a): Analise {
+export function analisarFontes(fontes: readonly ts.SourceFile[], checker?: ts.TypeChecker, normalizar: (arquivo: string) => string = /** Normalizador padrão de caminho: devolve o argumento intacto quando o adaptador não fornece relativização. @contract f-d90e311d87e6f37b @reviewed M12-DOC: implementação lida. */
+                                                                                                                                     a => a): Analise {
   const funcoes: Funcao[] = [], modulos: Modulo[] = [];
+  const impressor = ts.createPrinter({ removeComments: true, newLine: ts.NewLineKind.LineFeed });
   for (const fonte of fontes) {
     const arquivo = normalizar(fonte.fileName).replaceAll('\\', '/');
     const contagens = new Map<string, number>();
     const imports: Modulo['imports'][number][] = [], tipos: Modulo['tipos'][number][] = [];
+    /** Mantém escopo lexical, classifica nós, identifica wrappers/propriedades/contratos/callbacks e acumula inventário do arquivo; callbacks de teste permanecem em categoria própria. @contract f-715853e05bf0994f @reviewed M12-DOC: implementação lida. */
     const visitar = (no: ts.Node, escopo: readonly string[]): void => {
       let proximo = escopo;
       if (ts.isVariableDeclaration(no) && no.initializer && ts.isObjectLiteralExpression(no.initializer)) proximo = [...escopo, no.name.getText(fonte)];
@@ -120,8 +174,8 @@ export function analisarFontes(fontes: readonly ts.SourceFile[], checker?: ts.Ty
         const categoria = /\.(test|spec)\.[cm]?[jt]sx?$/.test(arquivo) ? 'teste' : !no.body ? 'contrato' : nome ? 'producao' : 'callback';
         funcoes.push({ id, arquivo, inicio: no.getStart(fonte), linha: fonte.getLineAndCharacterOfPosition(no.getStart(fonte)).line + 1,
           nome: base, categoria, especie, assinatura, parametros: no.parameters.map(p => p.getText(fonte)), retorno,
-          modificadores: ts.canHaveModifiers(no) ? ts.getModifiers(no)?.map(m => m.getText(fonte)) ?? [] : [],
-          documento: documentoDaDeclaracao(no, fonte), corpo: no.body?.getText(fonte) ?? '', ...fatosCorpo(no, fonte) });
+          modificadores: modificadoresDeclaracao(no),
+          documento: documentoDaDeclaracao(no, fonte), corpo: no.body?.getText(fonte) ?? '', ...fatosCorpo(no, fonte, impressor) });
         proximo = [...escopo, `${nome ?? '[callback]'}${ordinal > 1 || !nome ? `#${ordinal}` : ''}`];
       }
       ts.forEachChild(no, filho => visitar(filho, proximo));
