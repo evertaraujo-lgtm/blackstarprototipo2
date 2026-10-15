@@ -61,3 +61,36 @@ e 1.051 funções em testes. Apenas 182 funções de produção tinham JSDoc.
 Nenhum ciclo de importação estática local encontrado, com/sem tipos.
 Sobreposições e autoridade por convenção foram registradas no mapa, sem refatorar.
 Os números finais serão recalculados após a própria ferramenta estar concluída.
+
+### B — Inventário integral pelo compilador
+
+Gerador TypeScript com AST e TypeChecker; inclui construtores, métodos,
+acessores, funções internas/constantes/atribuições, overloads, tipos de função,
+interfaces e callbacks separados. Testes possuem seção própria. IDs não usam
+número de linha; visibilidade/estático e assinatura inferida são comparados.
+
+Nesta revisão intermediária: 1.459 implementações nomeadas, 573 callbacks,
+137 assinaturas declarativas e 1.074 funções em testes (inclui a ferramenta).
+Os campos do catálogo registram fatos de implementação; ausência de propósito
+confirmado aparece como **REVISÃO NECESSÁRIA**. Imports diretos de testes são
+associações estáticas, não prova de cobertura específica.
+
+Validação: 8 testes AST aprovados e typecheck aprovado. A ausência de contratos
+JSDoc é o diagnóstico inicial, a tratar nos lotes C; o checker ainda não foi
+adicionado ao CI. Nenhuma dependência nova. Não foi encontrado extrator AST
+focado no Protótipo 1 para reutilizar.
+
+#### Atualização do contrato de impacto — auxiliares efetivamente necessários
+
+A lista completa e assinaturas destas funções ficam no catálogo em
+`scripts/documentacao/`: `eFuncao`, `nomeDeclaracao`, `documentoDaDeclaracao`,
+`fatosCorpo` e closures de visita (leitura AST); `listarFontes`/`percorrer`
+(leitura FS); `estrutura`, `ancoraFuncao`, `escapar`, `evidencias`,
+`descricaoDocumento`, `responsabilidadeExtraida` (projeção/renderização em memória);
+`ciclosImportacao`/`visitar`, `gerarIndiceModulos` (grafo e índice);
+`hashExecutavel`, `verificarBaseExecutavel` (emissão sem comentários e consultas
+Git contra a base fixa `555635b`). Nenhuma executa o código do simulador.
+O entrypoint `scripts/auditar-documentacao.ts` orquestra os modos explícitos.
+
+Catálogo e inventário são gerados; o texto arquitetural é curado manualmente,
+com somente o índice entre marcadores atualizado pela ferramenta.

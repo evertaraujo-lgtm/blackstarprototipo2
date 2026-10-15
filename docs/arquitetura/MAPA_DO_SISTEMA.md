@@ -199,13 +199,19 @@ recursão em execução. Imports externos e tipos são apresentados explicitamen
 <!-- INDICE_AST_INICIO -->
 ## Índice de módulos próprios (AST)
 
-Imports executáveis: **nenhum componente fortemente conexo**. Incluindo imports de tipos: **nenhum ciclo encontrado**. A busca cobre imports estáticos locais das fontes próprias; chamadas dinâmicas e pacotes externos não são inferidos.
+Ciclos de imports executáveis: **nenhum encontrado**. Incluindo tipos: **nenhum encontrado**.
 
-| Módulo | Classes/interfaces | Imports locais (T = somente tipo) |
+Escopo: imports/exportações estáticos locais das fontes próprias; chamadas dinâmicas e pacotes externos não são inferidos. A tabela inclui entradas sem funções.
+
+| Módulo | Classes/interfaces e bases | Imports (T = somente tipo) |
 |---|---|---|
+| [scripts/auditar-documentacao.ts](../../scripts/auditar-documentacao.ts) | funções/entrada | ./documentacao/cli |
 | [scripts/benchmark-missao.ts](../../scripts/benchmark-missao.ts) | funções/entrada | node:util, node:fs, node:crypto, node:os, node:perf_hooks, ../src/missoes/ReplayMissaoBss006, ../src/physics/MundoFisico, ../src/physics/agua/SistemaHidrodinamico, ../src/physics/estruturas/ConjuntoEstruturalRigido, ../src/missoes/MissaoBss006, ../src/physics/Vetor3 |
 | [scripts/comparar-desempenho-missao.ts](../../scripts/comparar-desempenho-missao.ts) | Medicao | node:util, ../src/physics/ambiente/CampoGravitacional, node:fs, T: ../src/missoes/RegistroMissao, T: ../src/missoes/TiposMissaoBss006 |
 | [scripts/documentacao/ast.ts](../../scripts/documentacao/ast.ts) | Fonte, Funcao, Modulo, Analise | typescript |
+| [scripts/documentacao/auditoria.ts](../../scripts/documentacao/auditoria.ts) | Cobertura | T: ./ast, ./catalogo |
+| [scripts/documentacao/catalogo.ts](../../scripts/documentacao/catalogo.ts) | EntradaEstrutural, Divergencias | node:crypto, T: ./ast |
+| [scripts/documentacao/cli.ts](../../scripts/documentacao/cli.ts) | funções/entrada | node:fs, node:path, node:crypto, node:child_process, typescript, ./projeto, T: ./ast, ./catalogo, T: ./catalogo, ./auditoria |
 | [scripts/documentacao/projeto.ts](../../scripts/documentacao/projeto.ts) | funções/entrada | node:fs, node:path, typescript, ./ast, T: ./ast |
 | [scripts/executar-missao.ts](../../scripts/executar-missao.ts) | funções/entrada | node:util, node:fs, ../src/missoes/ReplayMissaoBss006, ../src/missoes/ExecutorMissao |
 | [scripts/validar-hidrodinamica.ts](../../scripts/validar-hidrodinamica.ts) | funções/entrada | node:fs, node:util, ../src/physics/MundoFisico, ../src/physics/objetos/base/Objeto, ../src/physics/Vetor3, ../src/physics/ambiente/AmbienteFisico, ../src/physics/ambiente/GeografiaCosteira, ../src/physics/agua/RegiaoAquatica, ../src/physics/agua/SistemaHidrodinamico |
@@ -219,7 +225,7 @@ Imports executáveis: **nenhum componente fortemente conexo**. Incluindo imports
 | [src/cenarios/EnsaioMissaoBss005.ts](../../src/cenarios/EnsaioMissaoBss005.ts) | ConfiguracaoEnsaioBss005, LeituraMissaoBss005 | T: ../physics/ambiente/AmbienteFisico, ./BancadaBss, T: ../physics/objetos/base/Objeto, ../physics/objetos/fontes-de-energia/TanquePropelente, ../physics/MundoFisico, ../physics/solucionadores/ResolvedorContatoSuperficie, ../physics/Vetor3 |
 | [src/cenarios/EnsaioOrbitalInerte.ts](../../src/cenarios/EnsaioOrbitalInerte.ts) | funções/entrada | ../physics/ambiente/AmbienteFisico, ../physics/ambiente/CampoGravitacional, ../physics/ambiente/EstadoInicialLocal, ../physics/ambiente/TelemetriaOrbital, ../physics/MundoFisico, ../physics/objetos/base/Objeto, ../physics/Vetor3, ../physics/SuperficieEsferica |
 | [src/cenarios/ReproducaoDiarioBss005.ts](../../src/cenarios/ReproducaoDiarioBss005.ts) | EntradaDiarioBss005, DiarioBss005, EventoReplayBss005, OpcoesReplayBss005, ResultadoReplayBss005 | T: ../physics/ambiente/AmbienteFisico, ./BancadaBss, ./EnsaioMissaoBss005, ../physics/objetos/fontes-de-energia/PainelSolar |
-| [src/cenarios/TelemetriaMissaoBss.ts](../../src/cenarios/TelemetriaMissaoBss.ts) | funções/entrada | — |
+| [src/cenarios/TelemetriaMissaoBss.ts](../../src/cenarios/TelemetriaMissaoBss.ts) | funções/entrada | ../veiculos/TelemetriaBss |
 | [src/home-carousel.ts](../../src/home-carousel.ts) | funções/entrada | — |
 | [src/main.ts](../../src/main.ts) | funções/entrada | ./style.css, ./home-carousel |
 | [src/missao.ts](../../src/missao.ts) | funções/entrada | ./missao.css, ./apresentacao/missao/CenaMissao |
@@ -265,7 +271,7 @@ Imports executáveis: **nenhum componente fortemente conexo**. Incluindo imports
 | [src/physics/estruturas/ConjuntoEstruturalRigido.ts](../../src/physics/estruturas/ConjuntoEstruturalRigido.ts) | ConjuntoEstruturalRigido | T: ../objetos/base/Objeto, ../objetos/base/Objeto, T: ../tipos/ForcaAplicada, ../Vetor3 |
 | [src/physics/geometria/ContatoCaixasOrientadas.ts](../../src/physics/geometria/ContatoCaixasOrientadas.ts) | Ponto2D, CaixaOrientada, ContatoCaixasOrientadas | ../Vetor3 |
 | [src/physics/objetos/atuadores/Cilindro.ts](../../src/physics/objetos/atuadores/Cilindro.ts) | EntradasCilindro, DefinicaoCilindro, Cilindro, ComCilindro.[classe-anonima]: Base | — |
-| [src/physics/objetos/atuadores/CilindroEletrico.ts](../../src/physics/objetos/atuadores/CilindroEletrico.ts) | DefinicaoCilindroEletrico: DefinicaoCilindro, CilindroEletrico: Cilindro, HasteDeCilindroEletrico: Objeto, CorpoDeCilindroEletrico: ComCilindro(Objeto) | ../../Vetor3, ../../conexoes/ConexaoEletrica, T: ../fontes-de-energia/FonteEletrica, ../base/Objeto, ./Cilindro |
+| [src/physics/objetos/atuadores/CilindroEletrico.ts](../../src/physics/objetos/atuadores/CilindroEletrico.ts) | DefinicaoCilindroEletrico: DefinicaoCilindro, CilindroEletrico: Cilindro, HasteDeCilindroEletrico: Objeto, CorpoDeCilindroEletrico: ComCilindro(Objeto) | ../../Vetor3, ../../conexoes/ConexaoEletrica, T: ../fontes-de-energia/FonteEletrica, ../base/Objeto, ./Cilindro, T: ./Cilindro |
 | [src/physics/objetos/atuadores/MotorEletricoRotacional.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.ts) | DefinicaoMotorEletricoRotacional: DefinicaoControladorPosicionamentoMotorEletrico, MotorEletricoRotacional: ControladorPosicionamentoMotorEletrico | ../../conexoes/ConexaoEletrica, ../../Vetor3, ../../sistemas de controle/ControladorPosicionamentoMotorEletrico, T: ../fontes-de-energia/FonteEletrica |
 | [src/physics/objetos/base/Objeto.ts](../../src/physics/objetos/base/Objeto.ts) | EstadoFisico, DefinicaoObjeto, ForcaFisicaSolicitada, CondicoesAtmosfericas, JatoTermico, Objeto | ../../Vetor3, ../componentes/Paraquedas |
 | [src/physics/objetos/base/ObjetoTriangularRetangulo.ts](../../src/physics/objetos/base/ObjetoTriangularRetangulo.ts) | DefinicaoObjetoTriangularRetangulo: DefinicaoObjeto, ObjetoTriangularRetangulo: Objeto | ./Objeto, ../../Vetor3 |
