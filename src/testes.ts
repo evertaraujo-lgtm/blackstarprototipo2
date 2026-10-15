@@ -1588,7 +1588,7 @@ const criarTestePropulsorSobreVeiculoPassivo = (): CenárioVisual => {
   };
 };
 
-/** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Propulsor`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1330b462df95fc8e */
+/** Monta tanque/motor unidos por fixador de 80 kN em queda desde 1000 m, sem ignição. Dossel manual de 28 m² atua no tanque e transmite arrasto pelo vínculo. @contract f-1330b462df95fc8e @reviewed M12-DOC: implementação lida. */
 const criarTesteFogueteComParaquedasManual = (): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
   const solo = new SuperficiePlano('solo-foguete-paraquedas', 'concreto', 0, 1_000_000, 0.04, 0.9);
@@ -1619,16 +1619,16 @@ const criarTesteFogueteComParaquedasManual = (): CenárioVisual => {
     mangueira: { tanque, propulsor }, fixadores: [uniaoDoEstagio], objetoComParaquedasControlavel: tanque, objetoComParaquedasConfiguravel: tanque,
     /** Devolve ``velocidade vertical ${tanque.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s``. Dependências diretas: `tanque.getEstadoFisico().velocidadeMps.y.toFixed`, `tanque.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-0376faf72cf7874d */
     telemetria: () => `velocidade vertical ${tanque.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s`,
-    /** Dependências diretas: `tanque.getEstadoFisico().posicaoM.y.toFixed`, `tanque.getEstadoFisico`, `tanque.getEstadoFisico().velocidadeMps.y.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ead953f6810cb60f */
+    /** Exibe Y/Vy do tanque, abertura e estado/resistência da união; consulta estado físico sem comandar recuperação. @contract f-ead953f6810cb60f @reviewed M12-DOC: implementação lida. */
     dados: () => `Altitude do conjunto: ${tanque.getEstadoFisico().posicaoM.y.toFixed(1)} m\nVelocidade vertical: ${tanque.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s\nParaquedas: ${tanque.paraquedasEstaAberto ? 'ABERTO — arrasto ativo' : 'fechado — comando manual disponível'}\nUnião do estágio: ${uniaoDoEstagio.estaRompido ? 'ROMPIDA' : 'íntegra'} (${uniaoDoEstagio.resistenciaTracaoN.toFixed(0)} N)`,
     /** Devolve `objetosEmRepouso(mundo, [propulsor, tanque])`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. @contract f-0f586f3c58931979 */
     deveEncerrar: () => objetosEmRepouso(mundo, [propulsor, tanque]),
-    /** Dependências diretas: `tanque.getEstadoFisico().velocidadeMps.y.toFixed`, `tanque.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6d04b6efd0108116 */
+    /** Aprova somente abertura manual do dossel e relata Vy; não comprova desaceleração suficiente ou pouso seguro. @contract f-6d04b6efd0108116 @reviewed M12-DOC: implementação lida. */
     validar: () => `${tanque.paraquedasEstaAberto ? 'APROVADO' : 'PENDENTE'} · paraquedas ${tanque.paraquedasEstaAberto ? 'acionado manualmente' : 'não acionado'}; velocidade vertical ${tanque.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s`,
   };
 };
 
-/** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Propulsor`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-96181e7457efc9ad */
+/** Monta tanque/motor unidos a 60 m/s horizontais e 100 m de altura em atmosfera padrão; dossel manual de 8 m² desacelera pelo core, sem propulsão ativa. @contract f-96181e7457efc9ad @reviewed M12-DOC: implementação lida. */
 const criarTesteFogueteHorizontalComParaquedasManual = (): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
   const solo = new SuperficiePlano('solo-foguete-horizontal', 'concreto', 0, 1_000_000, 0.04, 0.9);
@@ -1660,16 +1660,16 @@ const criarTesteFogueteHorizontalComParaquedasManual = (): CenárioVisual => {
     seguirObjeto: tanque, mangueira: { tanque, propulsor }, fixadores: [uniaoDoEstagio], objetoComParaquedasControlavel: tanque, objetoComParaquedasConfiguravel: tanque,
     /** Devolve ``velocidade horizontal ${tanque.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s``. Dependências diretas: `tanque.getEstadoFisico().velocidadeMps.x.toFixed`, `tanque.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-74bd354a528eaa5a */
     telemetria: () => `velocidade horizontal ${tanque.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s`,
-    /** Dependências diretas: `tanque.getEstadoFisico().velocidadeMps.x.toFixed`, `tanque.getEstadoFisico`, `tanque.getEstadoFisico().posicaoM.y.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a5617e0714d4c8aa */
+    /** Relata Vx, Y, dossel, fluxo relativo ao ar e arrasto real calculado no tanque. @contract f-a5617e0714d4c8aa @reviewed M12-DOC: implementação lida. */
     dados: () => `Velocidade horizontal: ${tanque.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s\nAltitude: ${tanque.getEstadoFisico().posicaoM.y.toFixed(1)} m\nParaquedas: ${tanque.paraquedasEstaAberto ? 'ABERTO — arrasto ativo' : 'fechado — comando manual disponível'}\nÁrea do paraquedas: 8,0 m²\nFluxo relativo: ${(tanque.getEstadoFisico().velocidadeMps.subtrair(mundo.velocidadeDoArMps).magnitude).toFixed(2)} m/s\nArrasto atmosférico: ${mundo.obterForcaArrastoAtmosferico(tanque).magnitude.toFixed(0)} N`,
     /** Devolve `objetosEmRepouso(mundo, [propulsor, tanque])`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. @contract f-1bb8846d37e8e6f8 */
     deveEncerrar: () => objetosEmRepouso(mundo, [propulsor, tanque]),
-    /** Dependências diretas: `tanque.getEstadoFisico`, `tanque.getEstadoFisico().velocidadeMps.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-000b6bb2c368c76c */
+    /** Exige dossel aberto e Vx abaixo de 60 m/s; critério local não isola contribuição do paraquedas do arrasto do corpo. @contract f-000b6bb2c368c76c @reviewed M12-DOC: implementação lida. */
     validar: () => `${tanque.paraquedasEstaAberto && tanque.getEstadoFisico().velocidadeMps.x < 60 ? 'APROVADO' : 'PENDENTE'} · velocidade horizontal ${tanque.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s`,
   };
 };
 
-/** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Propulsor`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6b720a658410d09c */
+/** Monta estágio tanque/motor, fixador de 30 kN e dossel manual de 8 m²; solicita partida sequenciada a throttle 0,7 e mantém observação contínua. @contract f-6b720a658410d09c @reviewed M12-DOC: implementação lida. */
 const criarTestePropulsorVerticalComParaquedas = (): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
   const solo = new SuperficiePlano('solo-propulsor-vertical', 'concreto', 0, 1_000_000, 0.04, 0.9);
@@ -1706,16 +1706,16 @@ const criarTestePropulsorVerticalComParaquedas = (): CenárioVisual => {
     cameraY: () => tanque.getEstadoFisico().posicaoM.y,
     /** Devolve ``velocidade vertical ${tanque.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s``. Dependências diretas: `tanque.getEstadoFisico().velocidadeMps.y.toFixed`, `tanque.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-166eab7f4602eb88 */
     telemetria: () => `velocidade vertical ${tanque.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s`,
-    /** Dependências diretas: `tanque.getEstadoFisico().posicaoM.y.toFixed`, `tanque.getEstadoFisico`, `tanque.getEstadoFisico().velocidadeMps.y.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-52227a586f4bdfdd */
+    /** Formata altitude/Vy, throttle/empuxo, dossel, vínculo e arrasto atual do tanque. @contract f-52227a586f4bdfdd @reviewed M12-DOC: implementação lida. */
     dados: () => `Altitude: ${tanque.getEstadoFisico().posicaoM.y.toFixed(1)} m\nVelocidade vertical: ${tanque.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s\nThrottle: ${(propulsor.throttleAtual * 100).toFixed(0)}%\nEmpuxo: ${propulsor.empuxoAtualN.toFixed(0)} N\nParaquedas: ${tanque.paraquedasEstaAberto ? 'ABERTO — arrasto ativo' : 'fechado'}\nFixador tanque–propulsor: ${fixadorDoEstagio.estaRompido ? 'ROMPIDO' : 'íntegro'} (${fixadorDoEstagio.resistenciaTracaoN.toFixed(0)} N)\nArrasto no tanque: ${mundo.obterForcaArrastoAtmosferico(tanque).magnitude.toFixed(0)} N`,
     /** Devolve `false`. Efeitos indiretos seguem as dependências chamadas. @contract f-57730ac429138974 */
     deveEncerrar: () => false,
-    /** Dependências diretas: `tanque.getEstadoFisico().velocidadeMps.y.toFixed`, `tanque.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-eb84a72eb7238c09 */
+    /** Classifica operacional se fixador íntegro ou divergente se rompido; não exige nem garante pouso. @contract f-eb84a72eb7238c09 @reviewed M12-DOC: implementação lida. */
     validar: () => `${fixadorDoEstagio.estaRompido ? 'DIVERGENTE' : 'OPERACIONAL'} · conjunto ${fixadorDoEstagio.estaRompido ? 'separado' : 'íntegro'}; velocidade vertical ${tanque.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s`,
   };
 };
 
-/** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `PropulsorVetorizado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8e4a27d041ac9ef4 */
+/** Monta modelo paramétrico RP-1 de 845 kN, tanque e fixador, gimbal ±5° a 10°/s; partida sequenciada e comando manual reutilizam atuador físico. Modelo inspirado em motor real, sem qualificação de equipamento. @contract f-8e4a27d041ac9ef4 @reviewed M12-DOC: implementação lida. */
 const criarTesteMerlinVetorizado = (): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
   const solo = new SuperficiePlano('solo-merlin-vetorizado', 'concreto', 0, 1_000_000, 0.04, 0.9);
@@ -1753,17 +1753,17 @@ const criarTesteMerlinVetorizado = (): CenárioVisual => {
     mundo, objetos: [tanque, merlin], superficies: [solo], velocidadeTempo: 1, limiteVerticalM: 60, limiteHorizontalM: 25,
     seguirObjeto: tanque, /** Devolve `tanque.getEstadoFisico().posicaoM.y`. Dependências diretas: `tanque.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-1b61e2855a1086e0 */
                           cameraY: () => tanque.getEstadoFisico().posicaoM.y,
-    /** Dependências diretas: `merlin.getEstadoFisico`, `Vetor3`, `merlin.obterEstadoDaVetorizacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-676aeb42b5559c70 */
+    /** Retorna origem física do motor e direção pela orientação mais gimbal efetivamente alcançado para desenhar linha de ação, sem aplicar força. @contract f-676aeb42b5559c70 @reviewed M12-DOC: implementação lida. */
     linhaDeEmpuxo: () => ({ origemM: merlin.getEstadoFisico().posicaoM, direcao: new Vetor3(Math.cos(merlin.getEstadoFisico().orientacaoRad.z + merlin.obterEstadoDaVetorizacao().anguloAtualRad), Math.sin(merlin.getEstadoFisico().orientacaoRad.z + merlin.obterEstadoDaVetorizacao().anguloAtualRad), 0) }),
     mangueira: { tanque, propulsor: merlin }, fixadores: [fixador], propulsorControlavel: merlin, propulsorVetorizadoControlavel: merlin,
     permiteAjustarThrottle: true, atualizarControle: atualizarPartida,
     /** Devolve ``gimbal ${obterGimbalGraus().toFixed(2)}° · inclinação ${obterRotacaoGraus().toFixed(2)}°``. Dependências diretas: `obterGimbalGraus().toFixed`, `obterGimbalGraus`, `obterRotacaoGraus().toFixed`. Efeitos indiretos seguem as dependências chamadas. @contract f-363b974c20d375fd */
     telemetria: () => `gimbal ${obterGimbalGraus().toFixed(2)}° · inclinação ${obterRotacaoGraus().toFixed(2)}°`,
-    /** Dependências diretas: `merlin.empuxoAtualN.toFixed`, `(merlin.throttleAtual * 100).toFixed`, `(merlin.eficienciaPorIntegridade * 100).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-27dde2c5812e22d0 */
+    /** Expõe empuxo, eficiência/integridades, alvo/posição do gimbal, habilitação, rotação, reserva e fixador. @contract f-27dde2c5812e22d0 @reviewed M12-DOC: implementação lida. */
     dados: () => `Empuxo: ${merlin.empuxoAtualN.toFixed(0)} N\nThrottle: ${(merlin.throttleAtual * 100).toFixed(0)}%\nEficiência por integridade: ${(merlin.eficienciaPorIntegridade * 100).toFixed(1)}%\nGimbal alvo: ${(merlin.obterEstadoDaVetorizacao().anguloAlvoRad * 180 / Math.PI).toFixed(2)}°\nGimbal atual: ${obterGimbalGraus().toFixed(2)}°\nAtuador: ${merlin.obterEstadoDaVetorizacao().estaHabilitado ? 'habilitado' : 'bloqueado por sistemas'}\nInclinação do conjunto: ${obterRotacaoGraus().toFixed(2)}°\nIntegridade Merlin: ${(merlin.integridadeEstrutural * 100).toFixed(1)}%\nIntegridade tanque: ${(tanque.integridadeEstrutural * 100).toFixed(1)}%\nPropelente: ${tanque.massaPropelenteKg.toFixed(0)} kg\nFixador: ${fixador.estaRompido ? 'ROMPIDO' : 'íntegro'}`,
     /** Devolve `false`. Efeitos indiretos seguem as dependências chamadas. @contract f-ad3b79c6c9cb721d */
     deveEncerrar: () => false,
-    /** Dependências diretas: `obterGimbalGraus().toFixed`, `obterGimbalGraus`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-16dc12e6fd739028 */
+    /** Relata ignição operacional, gimbal e vínculo; não avalia precisão de controle nem certifica trajetória. @contract f-16dc12e6fd739028 @reviewed M12-DOC: implementação lida. */
     validar: () => `${merlin.estaIgnitado ? 'OPERACIONAL' : 'AGUARDANDO IGNIÇÃO'} · gimbal ${obterGimbalGraus().toFixed(2)}°; conjunto ${fixador.estaRompido ? 'separado' : 'íntegro'}`,
   };
 };
@@ -1771,7 +1771,7 @@ const criarTesteMerlinVetorizado = (): CenárioVisual => {
 /** Devolve `Math.atan2(Math.sin(anguloRad), Math.cos(anguloRad))`. Efeitos indiretos seguem as dependências chamadas. @contract f-e03537a6ec4b299e */
 const normalizarAnguloRad = (anguloRad: number): number => Math.atan2(Math.sin(anguloRad), Math.cos(anguloRad));
 
-/** Dependências diretas: `MundoFisico`, `PropulsorVetorizado`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a88463f2ac2abe91 */
+/** Monta tanque/motor com deslocamento lateral e gimbal limitado; controle solicita direção que atravessa G antes/apos partida, permitindo observar saturação e torque residual reais. @contract f-a88463f2ac2abe91 @reviewed M12-DOC: implementação lida. */
 const criarTesteMerlinDesalinhadoComCorrecao = (deslocamentoMotorXM: number, nome: string): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
   const merlin = new PropulsorVetorizado({
@@ -1797,20 +1797,20 @@ const criarTesteMerlinDesalinhadoComCorrecao = (deslocamentoMotorXM: number, nom
   mundo.registrarFixador(fixador);
   const partida = criarPartidaAutomaticaBasica(mundo, merlin);
   const orientacaoInicialTanqueRad = tanque.getEstadoFisico().orientacaoRad.z;
-  /** Dependências diretas: `tanque.getEstadoFisico().posicaoM.multiplicar(tanque.massaKg / massaTotal) .adicionar`, `tanque.getEstadoFisico().posicaoM.multiplicar`, `tanque.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-916059563081ea2e */
+  /** Calcula posição ponderada das massas instantâneas de tanque/motor; referência local deste ensaio com dois corpos. @contract f-916059563081ea2e @reviewed M12-DOC: implementação lida. */
   const obterCentroMassa = (): Vetor3 => {
     const massaTotal = tanque.massaKg + merlin.massaKg;
     return tanque.getEstadoFisico().posicaoM.multiplicar(tanque.massaKg / massaTotal)
       .adicionar(merlin.getEstadoFisico().posicaoM.multiplicar(merlin.massaKg / massaTotal));
   };
-  /** Devolve `normalizarAnguloRad(anguloAteCentroMassa - merlin.getEstadoFisico().orientacaoRad.z)`. Dependências diretas: `merlin.getEstadoFisico`, `obterCentroMassa`, `normalizarAnguloRad`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-59cdd97dae22c7ba */
+  /** Calcula direção do motor até G via atan2 e subtrai orientação do motor, normalizando erro em rad; não altera gimbal diretamente. @contract f-59cdd97dae22c7ba @reviewed M12-DOC: implementação lida. */
   const obterCorrecaoNecessariaRad = (): number => {
     const posicaoMotor = merlin.getEstadoFisico().posicaoM;
     const centroMassa = obterCentroMassa();
     const anguloAteCentroMassa = Math.atan2(centroMassa.y - posicaoMotor.y, centroMassa.x - posicaoMotor.x);
     return normalizarAnguloRad(anguloAteCentroMassa - merlin.getEstadoFisico().orientacaoRad.z);
   };
-  /** Dependências diretas: `partida`, `merlin.obterEstadoDaVetorizacao`, `obterCorrecaoNecessariaRad`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-87977c2acf0c6709 */
+  /** Atualiza sequência operacional e solicita correção limitada ao curso real do gimbal, sem integrar rotação. @contract f-87977c2acf0c6709 @reviewed M12-DOC: implementação lida. */
   const atualizarControle = () => {
     partida();
     const estado = merlin.obterEstadoDaVetorizacao();
@@ -1827,21 +1827,21 @@ const criarTesteMerlinDesalinhadoComCorrecao = (deslocamentoMotorXM: number, nom
     mundo, objetos: [tanque, merlin], superficies: [], velocidadeTempo: 1, limiteVerticalM: 30, limiteHorizontalM: 8,
     seguirObjeto: tanque, /** Devolve `tanque.getEstadoFisico().posicaoM.y`. Dependências diretas: `tanque.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-dd7ae4d92860b63f */
                           cameraY: () => tanque.getEstadoFisico().posicaoM.y,
-    /** Dependências diretas: `merlin.getEstadoFisico`, `Vetor3`, `merlin.obterEstadoDaVetorizacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-52e2ab7117b4c9de */
+    /** Consulta orientação e posição atuais do motor mais gimbal efetivo para linha visual da força. @contract f-52e2ab7117b4c9de @reviewed M12-DOC: implementação lida. */
     linhaDeEmpuxo: () => ({ origemM: merlin.getEstadoFisico().posicaoM, direcao: new Vetor3(Math.cos(merlin.getEstadoFisico().orientacaoRad.z + merlin.obterEstadoDaVetorizacao().anguloAtualRad), Math.sin(merlin.getEstadoFisico().orientacaoRad.z + merlin.obterEstadoDaVetorizacao().anguloAtualRad), 0) }),
     mangueira: { tanque, propulsor: merlin }, fixadores: [fixador], propulsorControlavel: merlin, atualizarControle,
     /** Devolve ``correção ${obterGraus(merlin.obterEstadoDaVetorizacao().anguloAtualRad)} · rotação ${rotacaoGraus().toFixed(2)}°``. Dependências diretas: `obterGraus`, `merlin.obterEstadoDaVetorizacao`, `rotacaoGraus().toFixed`. Efeitos indiretos seguem as dependências chamadas. @contract f-c4bb0cc3d3ca18dd */
     telemetria: () => `correção ${obterGraus(merlin.obterEstadoDaVetorizacao().anguloAtualRad)} · rotação ${rotacaoGraus().toFixed(2)}°`,
-    /** Dependências diretas: `obterGraus`, `obterCorrecaoNecessariaRad`, `merlin.obterEstadoDaVetorizacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d5064acbabfbfb1b */
+    /** Compara correção geométrica requerida, curso disponível, gimbal atingido e rotação observada; indicação de torque residual é geométrica. @contract f-d5064acbabfbfb1b @reviewed M12-DOC: implementação lida. */
     dados: () => `Correção necessária: ${obterGraus(obterCorrecaoNecessariaRad())}\nLimite do Merlin: ±${obterGraus(merlin.obterEstadoDaVetorizacao().limiteAngularRad)}\nGimbal efetivo: ${obterGraus(merlin.obterEstadoDaVetorizacao().anguloAtualRad)}\nTorque residual: ${Math.abs(obterCorrecaoNecessariaRad()) > merlin.obterEstadoDaVetorizacao().limiteAngularRad ? 'SIM — curso insuficiente' : 'não'}\nRotação do conjunto: ${rotacaoGraus().toFixed(3)}°\nEmpuxo: ${merlin.empuxoAtualN.toFixed(0)} N\nEstado: ${merlin.estaIgnitado ? 'ignitado' : 'aguardando ignição'}`,
     /** Devolve `false`. Efeitos indiretos seguem as dependências chamadas. @contract f-28e010687ff27ff0 */
     deveEncerrar: () => false,
-    /** Dependências diretas: `obterCorrecaoNecessariaRad`, `merlin.obterEstadoDaVetorizacao`, `obterGraus`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0869e34001982375 */
+    /** Classifica viabilidade geométrica da correção pelo curso angular; não verifica torque nulo medido nem estabilidade de toda trajetória. @contract f-0869e34001982375 @reviewed M12-DOC: implementação lida. */
     validar: () => `${Math.abs(obterCorrecaoNecessariaRad()) <= merlin.obterEstadoDaVetorizacao().limiteAngularRad ? 'CORREÇÃO VIÁVEL' : 'LIMITADO PELO GIMBAL'} · requerido ${obterGraus(obterCorrecaoNecessariaRad())}; limite ±${obterGraus(merlin.obterEstadoDaVetorizacao().limiteAngularRad)}`,
   };
 };
 
-/** Dependências diretas: `MundoFisico`, `Propulsor`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b305abd2d6f947ad */
+/** Monta motor de 20 kN deslocado 1 m do tanque, unido por fixador de 30 kN; partida a throttle 0,7 gera momento pela linha excêntrica sem rotação programada. @contract f-b305abd2d6f947ad @reviewed M12-DOC: implementação lida. */
 const criarTesteEmpuxoExcentricoEmConjunto = (): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
   const propulsor = new Propulsor({
@@ -1868,7 +1868,7 @@ const criarTesteEmpuxoExcentricoEmConjunto = (): CenárioVisual => {
   const orientacaoInicialTanqueRad = tanque.getEstadoFisico().orientacaoRad.z;
   /** Devolve `(tanque.getEstadoFisico().orientacaoRad.z - orientacaoInicialTanqueRad) * 180 / Math.PI`. Dependências diretas: `tanque.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-2ccbe71f82aa7ca0 */
   const obterRotacaoObservadaGraus = (): number => (tanque.getEstadoFisico().orientacaoRad.z - orientacaoInicialTanqueRad) * 180 / Math.PI;
-  /** Devolve `Math.abs(propulsor.getEstadoFisico().posicaoM.x - centroMassaX) * propulsor.empuxoAtualN`. Dependências diretas: `tanque.getEstadoFisico`, `propulsor.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-84d719a4bad8b3ae */
+  /** Calcula |Xmotor−XG| vezes empuxo em N·m como referência de força vertical global; aproximação do ensaio inicial, não r×F geral após grande rotação. @contract f-84d719a4bad8b3ae @reviewed M12-DOC: implementação lida. */
   const obterTorqueEsperadoNm = (): number => {
     const massaTotal = tanque.massaKg + propulsor.massaKg;
     const centroMassaX = (tanque.getEstadoFisico().posicaoM.x * tanque.massaKg + propulsor.getEstadoFisico().posicaoM.x * propulsor.massaKg) / massaTotal;
@@ -1885,11 +1885,11 @@ const criarTesteEmpuxoExcentricoEmConjunto = (): CenárioVisual => {
     mangueira: { tanque, propulsor }, fixadores: [fixador], propulsorControlavel: propulsor, permiteAjustarThrottle: true, atualizarControle: atualizarPartida,
     /** Devolve ``rotação desde o início ${obterRotacaoObservadaGraus().toFixed(2)}°``. Dependências diretas: `obterRotacaoObservadaGraus().toFixed`, `obterRotacaoObservadaGraus`. Efeitos indiretos seguem as dependências chamadas. @contract f-b81e300d510f8b8c */
     telemetria: () => `rotação desde o início ${obterRotacaoObservadaGraus().toFixed(2)}°`,
-    /** Dependências diretas: `propulsor.empuxoAtualN.toFixed`, `(tanque.massaKg + propulsor.massaKg).toFixed`, `obterTorqueEsperadoNm().toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-bf1283edad6f7e28 */
+    /** Exibe referência simplificada de torque, massa, empuxo, rotação desde início e fixador. @contract f-bf1283edad6f7e28 @reviewed M12-DOC: implementação lida. */
     dados: () => `Empuxo: ${propulsor.empuxoAtualN.toFixed(0)} N\nMassa do conjunto: ${(tanque.massaKg + propulsor.massaKg).toFixed(0)} kg\nTorque físico esperado: ${obterTorqueEsperadoNm().toFixed(0)} N·m\nRotação observada desde o início: ${obterRotacaoObservadaGraus().toFixed(3)}°\nFixador: ${fixador.estaRompido ? 'ROMPIDO' : 'íntegro'}\nDiagnóstico: momento angular transmitido ao conjunto`,
     /** Devolve `false`. Efeitos indiretos seguem as dependências chamadas. @contract f-840d60cea192e81d */
     deveEncerrar: () => false,
-    /** Dependências diretas: `obterTorqueEsperadoNm`, `obterRotacaoObservadaGraus`, `obterTorqueEsperadoNm().toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-eca946b046949ee0 */
+    /** Exige referência de torque positiva e rotação observada acima de 0,001°; diagnóstico de momento físico, sem impor orientação. @contract f-eca946b046949ee0 @reviewed M12-DOC: implementação lida. */
     validar: () => `${obterTorqueEsperadoNm() > 0 && Math.abs(obterRotacaoObservadaGraus()) > 0.001 ? 'APROVADO' : 'AGUARDANDO EMPUXO'} · torque esperado ${obterTorqueEsperadoNm().toFixed(0)} N·m; rotação observada ${obterRotacaoObservadaGraus().toFixed(3)}°`,
   };
 };
@@ -1915,7 +1915,7 @@ const criarTestePainelSolarComSombra = (): CenárioVisual => {
   // mecânica só deve existir quando um freio/servo for declarado no cenário.
   porta = new Porta({ ...base('porta-sombra-solar', 20, new Vetor3(2, 2, 0.2), new Vetor3(4, 4, 0)), batente: batenteSuperior, bateria: bateriaControle, conexaoEletrica: conexaoPorta, sensorAberto, sensorFechado, velocidadeAvancoMps: 1, velocidadeRecuoMps: 1, forcaMaximaN: 500, tensaoNominalV: 24, rigidezRetencaoNPorM: 0, potenciaEmRepousoW: 6 });
   let painel!: PainelSolar;
-  /** Devolve `bloqueia ? estado.posicaoM.x - porta.dimensoesM.x / 2 : undefined`. Dependências diretas: `porta.getEstadoFisico`, `painel.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-13029983cb9cecb0 */
+  /** Testa interseção horizontal do raio de luz com caixa não orientada da porta à esquerda do painel; retorna X de bloqueio ou undefined. Aproximação local de sombra, sem colisão adicional. @contract f-13029983cb9cecb0 @reviewed M12-DOC: implementação lida. */
   const obterBloqueioXM = (raioYM: number): number | undefined => {
     const estado = porta.getEstadoFisico();
     const painelEstado = painel.getEstadoFisico();
@@ -1924,7 +1924,8 @@ const criarTestePainelSolarComSombra = (): CenárioVisual => {
       && Math.abs(estado.posicaoM.y - raioYM) <= porta.dimensoesM.y / 2;
     return bloqueia ? estado.posicaoM.x - porta.dimensoesM.x / 2 : undefined;
   };
-  painel = new PainelSolar({ ...base('painel-solar', 10, new Vetor3(2, 2, 0.1), new Vetor3(6, 3, 0)), areaAtivaM2: 4, irradianciaWPorM2: 1_000, eficiencia: 0.2, destino: bateria, /** Devolve `raios.filter((raioYM) => obterBloqueioXM(raioYM) === undefined).length / raios.length`. Dependências diretas: `painel.getEstadoFisico`, `[-0.8, -0.4, 0, 0.4, 0.8].map`, `raios.filter`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-892060fcea06c81a */
+  painel = new PainelSolar({ ...base('painel-solar', 10, new Vetor3(2, 2, 0.1), new Vetor3(6, 3, 0)), areaAtivaM2: 4, irradianciaWPorM2: 1_000, eficiencia: 0.2, destino: bateria,
+                                                                                                                                                                                   /** Amostra cinco raios nas alturas do painel e retorna fração não bloqueada; resolução discreta declarada do modelo de iluminação. @contract f-892060fcea06c81a @reviewed M12-DOC: implementação lida. */
                                                                                                                                                                                    obterFatorIluminacao: () => {
     const painelEstado = painel.getEstadoFisico();
     const raios = [-0.8, -0.4, 0, 0.4, 0.8].map((deslocamentoM) => painelEstado.posicaoM.y + deslocamentoM);
@@ -1972,11 +1973,11 @@ const criarTestePainelSolarComSombra = (): CenárioVisual => {
     propulsorControlavel: propulsor, permiteAjustarThrottle: true,
     exibirNaBancada: true, /** Devolve `false`. Efeitos indiretos seguem as dependências chamadas. @contract f-c5ffcd76aa249367 */
                            deveEncerrar: () => false,
-    /** Dependências diretas: `(bateria.percentualDeCarga * 100).toFixed`, `painel.potenciaAtualW.toFixed`, `propulsor.empuxoAtualN.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-be8cba848404fa27 */
+    /** Resume carga, potência solar, empuxo e condição de sombra consultada. @contract f-be8cba848404fa27 @reviewed M12-DOC: implementação lida. */
     telemetria: () => `bateria ${(bateria.percentualDeCarga * 100).toFixed(1)}% · painel ${painel.potenciaAtualW.toFixed(0)} W · propulsor ${propulsor.empuxoAtualN.toFixed(0)} N · ${painel.fatorIluminacao === 0 ? 'sombra ATIVA' : 'sombra livre'}`,
-    /** Dependências diretas: `painel.potenciaAtualW.toFixed`, `painel.energiaGeradaJ.toFixed`, `bateria.energiaArmazenadaJ.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3bd5a90e93c8cc4c */
+    /** Formata cadeias de energia/propelentes, reserva, geração e porta; potência elétrica mostrada deriva da energia entregue por dt=1/240 s. @contract f-3bd5a90e93c8cc4c @reviewed M12-DOC: implementação lida. */
     dados: () => `Fonte: Sol simulado · irradiância 1.000 W/m²\nPainel: ${painel.potenciaAtualW.toFixed(1)} W · energia gerada ${painel.energiaGeradaJ.toFixed(1)} J\nBateria de carga: ${bateria.energiaArmazenadaJ.toFixed(1)} / ${bateria.capacidadeEnergiaJ.toFixed(1)} J\nConsumidor: propulsor ${propulsor.estaIgnitado ? 'IGNITADO' : 'desligado'} · empuxo ${propulsor.empuxoAtualN.toFixed(1)} N · potência elétrica ${propulsor.conexaoEletrica?.energiaEntregueNoPassoJ ? (propulsor.conexaoEletrica.energiaEntregueNoPassoJ / (1 / 240)).toFixed(1) : '0.0'} W\nTanques: metano ${tanqueCombustivel.massaPropelenteKg.toFixed(1)} kg · oxigênio ${tanqueOxidante.massaPropelenteKg.toFixed(1)} kg\nCadeia: linhas ${linhaCombustivel.estaIndisponivel || linhaOxidante.estaIndisponivel ? 'INDISPONÍVEL' : 'íntegras'} · vazão ${propulsor.vazaoAtualKgS.toFixed(3)} kg/s\nBocal: exaustão apontada para +X (direita), afastada dos componentes\nSwitch painel: ${painel.conexaoCarga.interruptorPrincipalFechado ? 'FECHADO' : 'ABERTO'}\nSombra: ${painel.fatorIluminacao === 0 ? 'porta bloqueando a luz' : 'sem bloqueio'}\nPorta y=${porta.getEstadoFisico().posicaoM.y.toFixed(2)} m · comando ${porta.comandoAtual}\nPorta: alimentação ${porta.alimentacaoLigada ? 'ligada' : 'desligada'} · controle ${porta.controleLigado ? 'ligado' : 'desligado'}\nBateria de controle ${(bateriaControle.percentualDeCarga * 100).toFixed(1)}%`,
-    /** Dependências diretas: `bateria.energiaArmazenadaJ.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3ae9eb387ce441ac */
+    /** Exige energia armazenada e geração acumulada positivas; verifica carregamento observado, sem certificar perfil completo de sombra. @contract f-3ae9eb387ce441ac @reviewed M12-DOC: implementação lida. */
     validar: () => `${bateria.energiaArmazenadaJ > 0 && painel.energiaGeradaJ > 0 ? 'APROVADO' : 'PENDENTE'} · carga ${bateria.energiaArmazenadaJ.toFixed(1)} J; sombra ${painel.fatorIluminacao === 0 ? 'ativa' : 'livre'}`,
   };
 };
@@ -1988,7 +1989,7 @@ interface ProjetoSandboxSalvo {
   readonly conexoes: readonly { readonly tipo: 'eletrica' | 'mangueira' | 'fixador'; readonly origemId: string; readonly destinoId: string }[];
 }
 
-/** Dependências diretas: `localStorage.getItem`, `JSON.parse`, `Array.isArray`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-06ef69965bb57c9c */
+/** Lê localStorage e aceita estrutura v1 com nome/arrays esperados; JSON inválido/armazenamento indisponível retorna undefined. Não valida integralmente cada item nem acessa serviço remoto. @contract f-06ef69965bb57c9c @reviewed M12-DOC: implementação lida. */
 const lerProjetoSandboxSalvo = (): ProjetoSandboxSalvo | undefined => {
   try {
     const texto = localStorage.getItem('starship-prototype-2:sandbox:projeto-atual');
@@ -2007,7 +2008,7 @@ const lerProjetoSandboxSalvo = (): ProjetoSandboxSalvo | undefined => {
 const criarTesteSandboxSalvo = (projeto: ProjetoSandboxSalvo): CenárioVisual => {
   const mundo = new MundoFisico(1 / 240, { densidadeAtmosfericaKgM3: 1.225 });
   const solo = new SuperficiePlano('solo-sandbox', 'concreto', 0, 1_000_000, 0.04, 0.9);
-  /** Dependências diretas: `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e8787f6b59c5d278 */
+  /** Converte posição de blueprint em pixels para m e ângulo graus para rad com origem/escala locais; piso inicial Y mínimo 1 m é configuração de montagem, não correção durante integração. @contract f-e8787f6b59c5d278 @reviewed M12-DOC: implementação lida. */
   const base = (id: string, massaBaseKg: number, dimensoesM: Vetor3, item: ProjetoSandboxSalvo['itens'][number]) => ({
     id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 500_000, limiteTermicoC: 1_000,
     estadoInicial: { posicaoM: new Vetor3((item.x - 400) / 50, Math.max(1, (560 - item.y) / 50), 0), orientacaoRad: new Vetor3(0, 0, item.anguloGraus * Math.PI / 180) },
@@ -2035,12 +2036,12 @@ const criarTesteSandboxSalvo = (projeto: ProjetoSandboxSalvo): CenárioVisual =>
     if (objeto instanceof Propulsor) propulsores.push(objeto);
   }
   for (const modulo of objetosPorId.values()) if (modulo !== casco) casco.adicionarModulo(modulo);
-  /** Devolve `origem && destino ? [origem, destino] : undefined`. Dependências diretas: `objetosPorId.get`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-30f58d2b5bbcd9bb */
+  /** Resolve ids de origem/destino no mapa de objetos e retorna par somente se ambos existem. @contract f-30f58d2b5bbcd9bb @reviewed M12-DOC: implementação lida. */
   const obterParDeConexao = (conexao: ProjetoSandboxSalvo['conexoes'][number]): [Objeto, Objeto] | undefined => {
     const origem = objetosPorId.get(conexao.origemId); const destino = objetosPorId.get(conexao.destinoId);
     return origem && destino ? [origem, destino] : undefined;
   };
-  /** Dependências diretas: `projeto.conexoes.some`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-27a5b7df265870a6 */
+  /** Busca conexão do tipo entre dois ids independentemente da ordem, sem instalar vínculo implicitamente. @contract f-27a5b7df265870a6 @reviewed M12-DOC: implementação lida. */
   const temConexao = (tipo: ProjetoSandboxSalvo['conexoes'][number]['tipo'], primeiroId: string, segundoId: string): boolean => projeto.conexoes.some((conexao) => conexao.tipo === tipo && ((conexao.origemId === primeiroId && conexao.destinoId === segundoId) || (conexao.origemId === segundoId && conexao.destinoId === primeiroId)));
   const fixadores = projeto.conexoes.filter((conexao) => conexao.tipo === 'fixador').map((conexao) => obterParDeConexao(conexao)).filter((par): par is [Objeto, Objeto] => par !== undefined).map(([origem, destino], indice) => new FixadorEstrutural({ id: `fixador-sandbox-${indice + 1}`, objetoA: origem, objetoB: destino, resistenciaTracaoN: 150_000, resistenciaCompressaoN: 150_000, /** Devolve `0`. Efeitos indiretos seguem as dependências chamadas. @contract f-d151b1a27db70fee */
                                                                                                                                                                                                                                                                                                                                                                                                obterEsforcoSolicitadoN: () => 0 }));
@@ -2057,11 +2058,11 @@ const criarTesteSandboxSalvo = (projeto: ProjetoSandboxSalvo): CenárioVisual =>
     conexoesEletricas, fixadores, propulsorControlavel: propulsores[0], propulsorVetorizadoControlavel: propulsores.find((propulsor) => propulsor instanceof PropulsorVetorizado) as PropulsorVetorizado | undefined,
     permiteAjustarThrottle: propulsores.length > 0, exibirNaBancada: true, /** Devolve `false`. Efeitos indiretos seguem as dependências chamadas. @contract f-f351b9fc559385bc */
                                                                            deveEncerrar: () => false,
-    /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-83975ff4c146a1bc */
+    /** Indica pronto para configuração quando existe ao menos motor e tanque; não valida operação completa ou conectividade de todos os componentes. @contract f-83975ff4c146a1bc @reviewed M12-DOC: implementação lida. */
     validar: () => `${propulsores.length > 0 && tanque ? 'PRONTO PARA CONFIGURAÇÃO' : 'INCOMPLETO'} · ${objetosPorId.size} objetos físicos · ${fixadores.length} fixadores`,
     /** Devolve ``altitude ${casco.getEstadoFisico().posicaoM.y.toFixed(2)} m · módulos ${casco.modulosFisicos.length}``. Dependências diretas: `casco.getEstadoFisico().posicaoM.y.toFixed`, `casco.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-8c9e21ca95dbd6ec */
     telemetria: () => `altitude ${casco.getEstadoFisico().posicaoM.y.toFixed(2)} m · módulos ${casco.modulosFisicos.length}`,
-    /** Dependências diretas: `bateria.energiaArmazenadaJ.toFixed`, `propulsores.flatMap((propulsor) => propulsor.diagnosticoOperacional).join`, `propulsores.flatMap`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ec26acdb2437f419 */
+    /** Relata blueprint, contagem de corpos/vínculos, tanque, reserva e diagnósticos dos motores; não persiste alterações. @contract f-ec26acdb2437f419 @reviewed M12-DOC: implementação lida. */
     dados: () => `Blueprint: ${projeto.nome}\nObjetos físicos: ${objetosPorId.size}\nFixadores: ${fixadores.length}\nPropulsores: ${propulsores.length}\nTanque: ${tanque ? 'conectado' : 'ausente'}\nBateria: ${bateria.energiaArmazenadaJ.toFixed(0)} J\nDiagnóstico: ${propulsores.flatMap((propulsor) => propulsor.diagnosticoOperacional).join(', ') || 'sem bloqueios'}`,
   };
 };
@@ -2096,7 +2097,7 @@ const criarTesteBracoArticuladoDeBancada = (paredeVertical = false): CenárioVis
     ganhoDerivativo: 5_000.133,
     potenciaNominalW: 3_000,
     anguloInicialRad: 0,
-    /** Dependências diretas: `motor.getEstadoFisico`, `[braco, painel].reduce`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-827e58477c1a5e06 */
+    /** Soma torque oposto ao peso fixo -Y de braço/painel em torno do pivô como feedforward de bancada, usando massa instantânea e 9,80665 m/s². @contract f-827e58477c1a5e06 @reviewed M12-DOC: implementação lida. */
     obterTorqueGravitacionalNm: (): number => {
       const pivot: Vetor3 = motor.getEstadoFisico().posicaoM;
       return [braco, painel].reduce<number>((torque, objeto) => {
@@ -2104,7 +2105,7 @@ const criarTesteBracoArticuladoDeBancada = (paredeVertical = false): CenárioVis
         return torque - objeto.getEstadoFisico().posicaoM.subtrair(pivot).produtoVetorial(peso).z;
       }, 0);
     },
-    /** Dependências diretas: `motor.getEstadoFisico`, `[braco, painel].reduce`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-87f9c8443bdf8b21 */
+    /** Soma inércias Z e termos de eixos paralelos m×r² de braço/painel em torno do pivô em kg·m². @contract f-87f9c8443bdf8b21 @reviewed M12-DOC: implementação lida. */
     obterMomentoInerciaControladoKgM2: () => {
       const pivot = motor.getEstadoFisico().posicaoM;
       return [braco, painel].reduce((inercia, objeto) => {
@@ -2129,8 +2130,10 @@ const criarTesteBracoArticuladoDeBancada = (paredeVertical = false): CenárioVis
     chumbadoresAoSolo: chumbadores, conexoesEletricas: [motor.conexaoEletrica, painel.conexaoCarga], fixadores: [fixadorMotor, fixadorPainel], motorRotacionalControlavel: motor, painelSolarControlavel: painel,
     /** Devolve `false`. Efeitos indiretos seguem as dependências chamadas. @contract f-c360a119371222e0 */
     deveEncerrar: () => false, /** Devolve `'OBSERVAÇÃO · ensaio manual disponível'`. Efeitos indiretos seguem as dependências chamadas. @contract f-6062ba01a3ff2626 */
-                               validar: () => 'OBSERVAÇÃO · ensaio manual disponível', /** Dependências diretas: `(braco.getEstadoFisico().orientacaoRad.z * 180 / Math.PI).toFixed`, `braco.getEstadoFisico`, `(motor.anguloAlvoRelativoRad * 180 / Math.PI).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-15bdc8908135aa39 */
-                                                                                       telemetria: () => `ângulo ${(braco.getEstadoFisico().orientacaoRad.z * 180 / Math.PI).toFixed(1)}° · alvo ${(motor.anguloAlvoRelativoRad * 180 / Math.PI).toFixed(1)}° · torque ${motor.torqueAtualNm.toFixed(1)} N.m`, /** Dependências diretas: `motor.torqueAtualNm.toFixed`, `motor.ganhos.ganhoProporcional.toFixed`, `motor.ganhos.ganhoIntegral.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-99b98f4083a50486 */
+                               validar: () => 'OBSERVAÇÃO · ensaio manual disponível',
+                                                                                       /** Relata ângulo físico do braço, alvo operacional e torque efetivo do motor em unidades de apresentação. @contract f-15bdc8908135aa39 @reviewed M12-DOC: implementação lida. */
+                                                                                       telemetria: () => `ângulo ${(braco.getEstadoFisico().orientacaoRad.z * 180 / Math.PI).toFixed(1)}° · alvo ${(motor.anguloAlvoRelativoRad * 180 / Math.PI).toFixed(1)}° · torque ${motor.torqueAtualNm.toFixed(1)} N.m`,
+                                                                                                                                                                                                                                                                                                               /** Expõe habilitação, ganhos, torque, trava, massas e fixador terminal; não substitui dinâmica do braço pelo alvo. @contract f-99b98f4083a50486 @reviewed M12-DOC: implementação lida. */
                                                                                                                                                                                                                                                                                                                dados: () => `Motor: ${motor.habilitado ? 'ligado' : 'desligado'} · torque ${motor.torqueAtualNm.toFixed(1)} N.m\nGanhos PID: Kp ${motor.ganhos.ganhoProporcional.toFixed(1)} · Ki ${motor.ganhos.ganhoIntegral.toFixed(1)} · Kd ${motor.ganhos.ganhoDerivativo.toFixed(1)}\nTrava mecânica: ${junta.estaTravada ? 'ativa' : 'liberada'}\nHaste: ${braco.massaKg.toFixed(1)} kg · painel: ${painel.massaKg.toFixed(1)} kg\nFixador terminal: ${fixadorPainel.estaRompido ? 'ROMPIDO' : 'íntegro'}`,
   };
 };
@@ -2156,12 +2159,12 @@ const criarTesteBracosArticuladosEmParede = (): CenárioVisual => {
     torqueMaximoNm: 2_500, velocidadeAngularMaximaRadps: Math.PI / 3, aceleracaoMaximaRadps2: 0.8,
     ganhoProporcional: 200.25, ganhoIntegral: 26.5375, ganhoDerivativo: 5_000.133, potenciaNominalW: 3_000,
     anguloInicialRad: Math.PI,
-    /** Dependências diretas: `motor.getEstadoFisico`, `[braco, painel].reduce`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-75037a576ed9d05c */
+    /** Calcula feedforward oposto ao peso padrão -Y de braço/painel em torno do motor; hipótese local plana explícita. @contract f-75037a576ed9d05c @reviewed M12-DOC: implementação lida. */
     obterTorqueGravitacionalNm: (): number => {
       const pivot: Vetor3 = motor.getEstadoFisico().posicaoM;
       return [braco, painel].reduce<number>((torque, objeto) => torque - objeto.getEstadoFisico().posicaoM.subtrair(pivot).produtoVetorial(new Vetor3(0, -9.80665 * objeto.massaKg, 0)).z, 0);
     },
-    /** Dependências diretas: `motor.getEstadoFisico`, `[braco, painel].reduce`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-cf5eb88517743103 */
+    /** Calcula inércia controlada composta em torno do pivô por eixos paralelos, sem modificar massas. @contract f-cf5eb88517743103 @reviewed M12-DOC: implementação lida. */
     obterMomentoInerciaControladoKgM2: () => {
       const pivot = motor.getEstadoFisico().posicaoM;
       return [braco, painel].reduce((inercia, objeto) => inercia + objeto.getMomentoInerciaKgM2().z + objeto.massaKg * objeto.getEstadoFisico().posicaoM.subtrair(pivot).magnitude ** 2, 0);
@@ -2210,7 +2213,7 @@ const criarTesteCilindroEletrico = (): CenárioVisual => {
   const guiaDaHaste = new GuiaLinear('guia-linear-haste-cilindro-eletrico', haste, 1_000_000);
   mundo.registrarGuiaLinear(guiaDaHaste);
   let comando: 'parado' | 'avancar' | 'recuar' = 'parado';
-  /** Dependências diretas: `cilindro.definirEntradas`, `sensorAvancado.estaAcionado`, `sensorRecuado.estaAcionado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3631e81e52c32ff6 */
+  /** Envia comando atual e estados dos dois sensores ao cilindro; velocidade/posição reais continuam calculadas pelo mundo. @contract f-3631e81e52c32ff6 @reviewed M12-DOC: implementação lida. */
   const atualizarControle = () => cilindro.definirEntradas({ avancar: comando === 'avancar', recuar: comando === 'recuar', avancado: sensorAvancado.estaAcionado(), recuado: sensorRecuado.estaAcionado() });
   atualizarControle();
   return {
@@ -2220,7 +2223,7 @@ const criarTesteCilindroEletrico = (): CenárioVisual => {
     mundo, objetos: [bateria, cilindro, haste, batenteAvanco, batenteRecuo], superficies: [], velocidadeTempo: 1, limiteVerticalM: 3, limiteHorizontalM: 4,
     seguirObjeto: haste, atualizarControle, chumbadoresAoSolo: chumbadores, guiasLineares: [guiaDaHaste], /** Devolve `false`. Efeitos indiretos seguem as dependências chamadas. @contract f-a272c583e2b0e4cc */
                                                                                                           deveEncerrar: () => false,
-    /** Dependências diretas: `atualizarControle`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-9921cd143c455c64 */
+    /** Registra pedido operacional e reavalia entradas/sensores imediatamente; não impõe deslocamento. @contract f-9921cd143c455c64 @reviewed M12-DOC: implementação lida. */
     comandarCilindro: (novoComando) => { comando = novoComando; atualizarControle(); },
     /** Devolve `cilindro.configurarVelocidades(avancoMps, recuoMps)`. Dependências diretas: `cilindro.configurarVelocidades`. Efeitos indiretos seguem as dependências chamadas. @contract f-a22b6059575dc1ce */
     configurarVelocidadesDoCilindro: (avancoMps, recuoMps) => cilindro.configurarVelocidades(avancoMps, recuoMps),
@@ -2228,9 +2231,9 @@ const criarTesteCilindroEletrico = (): CenárioVisual => {
     velocidadesDoCilindro: () => ({ avancoMps: cilindro.velocidadeAvancoMps, recuoMps: cilindro.velocidadeRecuoMps }),
     /** Devolve ``OBSERVAÇÃO · comando ${comando}; avançado=${sensorAvancado.sinal}; recuado=${sensorRecuado.sinal}; força=${cilindro.forcaNaHasteN.toFixed(1)} N``. Dependências diretas: `cilindro.forcaNaHasteN.toFixed`. Efeitos indiretos seguem as dependências chamadas. @contract f-09c8a14301c26960 */
     validar: () => `OBSERVAÇÃO · comando ${comando}; avançado=${sensorAvancado.sinal}; recuado=${sensorRecuado.sinal}; força=${cilindro.forcaNaHasteN.toFixed(1)} N`,
-    /** Dependências diretas: `cilindro.velocidadeAvancoMps.toFixed`, `cilindro.velocidadeRecuoMps.toFixed`, `cilindro.forcaNaHasteN.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-5eab6f1eb831d3ba */
+    /** Resume sentido pedido, referências de velocidade m/s e força efetiva na haste N. @contract f-5eab6f1eb831d3ba @reviewed M12-DOC: implementação lida. */
     telemetria: () => `comando ${comando} · referência +${cilindro.velocidadeAvancoMps.toFixed(2)}/−${cilindro.velocidadeRecuoMps.toFixed(2)} m/s · força ${cilindro.forcaNaHasteN.toFixed(1)} N`,
-    /** Dependências diretas: `bateria.energiaConsumidaJ.toFixed`, `haste.getEstadoFisico().velocidadeMps.x.toFixed`, `haste.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-70b6fb3c17d973f3 */
+    /** Expõe consumo J, velocidade real, limites, força/potência e sinais de fim de curso para auditar cadeia energia→força. @contract f-70b6fb3c17d973f3 @reviewed M12-DOC: implementação lida. */
     dados: () => `Cadeia: bateria → motor/fuso → força → haste\nBancada: bateria, carcaça e batentes chumbados; haste guiada em X\nEnergia elétrica consumida: ${bateria.energiaConsumidaJ.toFixed(1)} J\nVelocidade real da haste: ${haste.getEstadoFisico().velocidadeMps.x.toFixed(3)} m/s\nReferência: avanço ${cilindro.velocidadeAvancoMps.toFixed(2)} m/s; recuo ${cilindro.velocidadeRecuoMps.toFixed(2)} m/s\nForça na haste: ${cilindro.forcaNaHasteN.toFixed(1)} N\nPotência elétrica: ${cilindro.potenciaEletricaAtualW.toFixed(1)} W\nSensor avançado: ${sensorAvancado.sinal}; sensor recuado: ${sensorRecuado.sinal}`,
   };
 };
@@ -2270,7 +2273,7 @@ const criarTesteTorreElevadoraComEmpurrador = (): CenárioVisual => {
   const guiaEmpurrador = new GuiaLinear('guia-haste-empurrador', hasteEmpurrador, 1e7, 'x');
   mundo.registrarGuiaLinear(guiaElevador); mundo.registrarGuiaLinear(guiaEmpurrador);
   let fase: 'aguardando' | 'subindo' | 'empurrando' | 'descendo' | 'recuando' | 'concluido' = 'aguardando';
-  /** Dependências diretas: `sensorElevadorAvancado.estaAcionado`, `sensorEmpurradorAvancado.estaAcionado`, `sensorElevadorRecuado.estaAcionado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1eee8adfa0b24a7c */
+  /** Avança sequência subida→empurrão→descida→recuo pelos sensores e envia entradas aos dois cilindros. Transições consecutivas podem ocorrer na mesma avaliação se sensores correspondentes já estiverem ativos. @contract f-1eee8adfa0b24a7c @reviewed M12-DOC: implementação lida. */
   const atualizarControle = () => {
     if (fase === 'subindo' && sensorElevadorAvancado.estaAcionado()) fase = 'empurrando';
     if (fase === 'empurrando' && sensorEmpurradorAvancado.estaAcionado()) fase = 'descendo';
@@ -2284,20 +2287,20 @@ const criarTesteTorreElevadoraComEmpurrador = (): CenárioVisual => {
     conexoesEletricas: [elevador.conexaoEletrica, empurrador.conexaoEletrica],
     nome: 'Torre elevadora — cubo a 100 m e ejeção', descricao: 'Clique em “Subir plataforma”. O fim de curso superior aciona o empurrador; o fim de curso do empurrador inicia a descida; o fim de curso inferior manda o empurrador recuar. O cubo é ejetado e cai livremente.',
     mundo, objetos, superficies: [solo], velocidadeTempo: 4, limiteVerticalM: 110, limiteHorizontalM: 12, seguirObjeto: plataforma, chumbadoresAoSolo: chumbadores, guiasLineares: [guiaElevador, guiaEmpurrador], atualizarControle,
-    /** Dependências diretas: `atualizarControle`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7b45b1bb3700cfc3 */
+    /** Sai de aguardando para subindo e atualiza comandos; chamada em outra fase só reavalia sequência. @contract f-7b45b1bb3700cfc3 @reviewed M12-DOC: implementação lida. */
     iniciarSequencia: () => { if (fase === 'aguardando') fase = 'subindo'; atualizarControle(); },
-    /** Dependências diretas: `cubo.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7d2d031bec1c479a */
+    /** Exige sequência concluída, cubo até Y=0,51 m e velocidade dentro do repouso; critério não verifica repouso de todos os corpos. @contract f-7d2d031bec1c479a @reviewed M12-DOC: implementação lida. */
     deveEncerrar: () => fase === 'concluido' && cubo.getEstadoFisico().posicaoM.y <= 0.51 && cubo.getEstadoFisico().velocidadeMps.magnitude <= MundoFisico.velocidadeDeRepousoMps,
-    /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-06b4b52d48f00538 */
+    /** Relata fase e sensores, aprovando sequência concluída; não comprova integridade ou repouso bilateral de veículo espacial. @contract f-06b4b52d48f00538 @reviewed M12-DOC: implementação lida. */
     validar: () => `${fase === 'concluido' ? 'APROVADO' : 'EM EXECUÇÃO'} · fase ${fase}; elevador sup=${sensorElevadorAvancado.sinal}, inf=${sensorElevadorRecuado.sinal}; empurrador av=${sensorEmpurradorAvancado.sinal}, rec=${sensorEmpurradorRecuado.sinal}`,
     /** Devolve ``fase ${fase} · plataforma y=${plataforma.getEstadoFisico().posicaoM.y.toFixed(2)} m · cubo y=${cubo.getEstadoFisico().posicaoM.y.toFixed(2)} m``. Dependências diretas: `plataforma.getEstadoFisico().posicaoM.y.toFixed`, `plataforma.getEstadoFisico`, `cubo.getEstadoFisico().posicaoM.y.toFixed`. Efeitos indiretos seguem as dependências chamadas. @contract f-a6539556a3a00259 */
     telemetria: () => `fase ${fase} · plataforma y=${plataforma.getEstadoFisico().posicaoM.y.toFixed(2)} m · cubo y=${cubo.getEstadoFisico().posicaoM.y.toFixed(2)} m`,
-    /** Dependências diretas: `plataforma.getEstadoFisico().posicaoM.y.toFixed`, `plataforma.getEstadoFisico`, `cubo.getEstadoFisico().posicaoM.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-56068bdf6190b9be */
+    /** Descreve sequência operacional e posições/velocidade reais da plataforma e cubo. @contract f-56068bdf6190b9be @reviewed M12-DOC: implementação lida. */
     dados: () => `Sequência: botão subir → sensor elevador avançado → empurrador avança → sensor empurrador avançado → elevador desce → sensor elevador recuado → empurrador recua\nAltura da plataforma: ${plataforma.getEstadoFisico().posicaoM.y.toFixed(2)} m\nCubo: x=${cubo.getEstadoFisico().posicaoM.x.toFixed(2)} m; y=${cubo.getEstadoFisico().posicaoM.y.toFixed(2)} m; vy=${cubo.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s`,
   };
 };
 
-/** Dependências diretas: `criarEnsaioPortaVertical`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-c3b67d5621424175 */
+/** Adapta ensaio de domínio de porta ao consumidor visual com câmera, circuitos e sensores; mantém execução aberta para ciclos/falhas e não implementa outra física. @contract f-c3b67d5621424175 @reviewed M12-DOC: implementação lida. */
 const criarTestePortaVertical = (): CenárioVisual => {
   const e = criarEnsaioPortaVertical();
   const { porta } = e;
@@ -2321,14 +2324,14 @@ const criarTestePortaVertical = (): CenárioVisual => {
     validar: () => `OBSERVAÇÃO · aberto=${e.sensorAberto.sinal}; fechado=${e.sensorFechado.sinal}`,
     /** Devolve ``curso ${(porta.getEstadoFisico().posicaoM.y - 1.2).toFixed(3)} m · vy=${porta.getEstadoFisico().velocidadeMps.y.toFixed(3)} m/s``. Dependências diretas: `(porta.getEstadoFisico().posicaoM.y - 1.2).toFixed`, `porta.getEstadoFisico`, `porta.getEstadoFisico().velocidadeMps.y.toFixed`. Efeitos indiretos seguem as dependências chamadas. @contract f-dbecfa2e7f7718f7 */
     telemetria: () => `curso ${(porta.getEstadoFisico().posicaoM.y - 1.2).toFixed(3)} m · vy=${porta.getEstadoFisico().velocidadeMps.y.toFixed(3)} m/s`,
-    /** Dependências diretas: `e.conjunto.motivosDeApoioIndisponivel.join`, `e.trava?.forcaAtualDaTravaN.toFixed`, `e.gerador.temperaturaC.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d077aea6835e51ce */
+    /** Expõe cadeias CA/CC, contator, apoio/trava, reserva, potência, integridade e temperatura reais; limiares de dano exibidos pertencem à configuração histórica. @contract f-d077aea6835e51ce @reviewed M12-DOC: implementação lida. */
     dados: () => `Comando: bateria 24 V CC → controle + bobina K1 + recuo da trava\nPotência: gerador 220 V CA → K1 → motor/fuso → porta\nK1: ${porta.contatorFechado ? 'FECHADO' : 'ABERTO'}\nApoio composto: ${e.conjunto.apoioEstruturalDisponivel ? 'OPERACIONAL' : e.conjunto.motivosDeApoioIndisponivel.join(', ')}\nTrava: ${e.trava?.estaSustentandoPorta ? 'ENCAIXADA · PORTA SEGURA' : e.trava?.estaAvancada ? 'AVANÇADA · SEM ENCAIXE' : e.trava?.estaRecuada ? 'RECUADA · PORTA LIVRE' : 'EM MOVIMENTO'} · comando ${e.trava?.comandoAtual ?? '—'}\nForça da trava: ${e.trava?.forcaAtualDaTravaN.toFixed(1) ?? '0.0'} N\nGerador: ${e.gerador.estaLigado ? 'LIGADO' : 'DESLIGADO'} · ${e.gerador.temperaturaC.toFixed(1)} °C · integridade ${(e.gerador.integridadeEstrutural * 100).toFixed(1)}%\nReserva mecânica: ${e.gerador.energiaMecanicaRestanteJ.toFixed(1)} J\nEnergia CA gerada: ${e.gerador.energiaEletricaGeradaJ.toFixed(1)} J\nComando: ${porta.comandoAtual}\nPorta: 40 kg · 2 × 2 × 0,12 m\nForça: ${porta.forcaAtualN.toFixed(1)} / 4000 N\nPotência: ${porta.potenciaEletricaAtualW.toFixed(1)} W\nEnergia restante: ${e.bateria.energiaArmazenadaJ.toFixed(1)} J\nIntegridade da porta: ${(porta.integridadeEstrutural * 100).toFixed(1)}%\nIntegridade mínima do batente: ${(Math.min(...[e.superior, e.inferior, ...e.laterais].map((o) => o.integridadeEstrutural)) * 100).toFixed(1)}%\nTemperatura: ${porta.temperaturaC.toFixed(1)} °C\nDano > 150 °C · falha total 700 °C\nGuia: ${e.guia.estaRompida ? 'ROMPIDA' : 'íntegra'}\nChumbadores: ${e.chumbadores.filter((c) => !c.estaRompido).length}/${e.chumbadores.length} íntegros\nSubpasso ≤ 1/240 s · repouso |v| ≤ 0,05 m/s`,
   };
 };
 
-/** Dependências diretas: `new URLSearchParams(window.location.search).get`, `URLSearchParams`, `lerProjetoSandboxSalvo`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ee6a963476d911f9 */
+/** Cria cenários BSS ativos e blueprint opcional solicitado na URL; mantém fábrica de cenários arquivados referenciada sem chamá-la. Não executa todos os testes históricos no carregamento. @contract f-ee6a963476d911f9 @reviewed M12-DOC: implementação lida. */
 const construirCenarios = (): CenárioVisual[] => {
-  /** Dependências diretas: `criarCuboEmQueda`, `criarTesteQuedaLivreDeCinquentaQuadrados`, `criarTesteQuedaLivreDeGruposEstruturais`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-afd54d9c2e60bb31 */
+  /** Quando chamada, instancia lista histórica de quedas/colisões/mecanismos/propulsão; não é invocada pela seleção ativa atual. Construção registra mundos próprios, sem avançá-los. @contract f-afd54d9c2e60bb31 @reviewed M12-DOC: implementação lida. */
   const cenariosArquivados = (): CenárioVisual[] => [
   criarCuboEmQueda(10),
   criarCuboEmQueda(10, 10, {
@@ -2435,13 +2438,13 @@ interface PerfilPidPersistido {
 
 /** Devolve ``starship-prototype-2:pid:${motor.id}``. Efeitos indiretos seguem as dependências chamadas. @contract f-52ed0ad460260e6f */
 const chavePerfilPid = (motor: MotorEletricoRotacional): string => `starship-prototype-2:pid:${motor.id}`;
-/** Dependências diretas: `localStorage.setItem`, `chavePerfilPid`, `JSON.stringify`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-4c35561bd75bf7fa */
+/** Serializa ganhos e aceleração máxima do motor no localStorage; indisponibilidade de armazenamento é ignorada, sem impedir ensaio. @contract f-4c35561bd75bf7fa @reviewed M12-DOC: implementação lida. */
 const persistirPerfilPid = (motor: MotorEletricoRotacional): void => {
   try {
     localStorage.setItem(chavePerfilPid(motor), JSON.stringify({ ...motor.ganhos, aceleracaoMaximaRadps2: motor.aceleracaoMaximaRadps2 } satisfies PerfilPidPersistido));
   } catch { /* Persistência local pode estar indisponível no navegador. */ }
 };
-/** Dependências diretas: `localStorage.getItem`, `chavePerfilPid`, `JSON.parse`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e73454518bc0c607 */
+/** Lê/parseia perfil local, verifica tipos finitos e aplica ganhos/aceleração pelas portas validadas; falha/incompatibilidade é ignorada. Não restaura pose nem energia. @contract f-e73454518bc0c607 @reviewed M12-DOC: implementação lida. */
 const carregarPerfilPid = (motor: MotorEletricoRotacional): void => {
   try {
     const salvo = localStorage.getItem(chavePerfilPid(motor));
@@ -2501,7 +2504,7 @@ exportFlight.addEventListener('click', () => {
   URL.revokeObjectURL(url);
 });
 
-/** Devolve `canais`. Dependências diretas: `cenarioAtual`, `sensores.map`, `cenário.obterEntradasCilindro`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0a8e8943545fa435 */
+/** Compõe portas de leitura dos sensores, entradas do cilindro, alvo/ângulo real do motor em graus e canais adicionais; não amostra nem comanda controles nesta construção. @contract f-0a8e8943545fa435 @reviewed M12-DOC: implementação lida. */
 const obterCanaisTrace = (): readonly CanalTrace[] => {
   const cenário = cenarioAtual();
   const sensores = cenário.sensoresFimDeCurso ?? [];
@@ -2540,18 +2543,18 @@ const obterCanaisTrace = (): readonly CanalTrace[] => {
   return canais;
 };
 
-/** Devolve `tracePLC.obterIndiceMaisProximo(tempoS)`. Dependências diretas: `tracePLC.obterIndiceMaisProximo`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ac980fa4d84ffd54 */
+/** Encaminha seleção de tempo s ao TracePLC e retorna índice da amostra mais próxima. @contract f-ac980fa4d84ffd54 @reviewed M12-DOC: implementação lida. */
 const obterIndiceTraceMaisProximo = (tempoS: number): number => {
   return tracePLC.obterIndiceMaisProximo(tempoS);
 };
 
-/** Dependências diretas: `tracePLC.registrar`, `cenarioAtual`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ca93909bfd5270e8 */
+/** Se registro habilitado, amostra canais no tempo simulado do mundo com opção forçar; não avança física. @contract f-ca93909bfd5270e8 @reviewed M12-DOC: implementação lida. */
 const registrarTraceSensores = (forcar = false): void => {
   if (!traceEnabled.checked) return;
   tracePLC.registrar(cenarioAtual().mundo.tempoS, forcar);
 };
 
-/** Escritas diretas: `sensorTraceCanvas.height`. Dependências diretas: `obterCanaisTrace`, `TracePLC`, `tracePLC.adicionarSinal`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-753b84cdd5504c31 */
+/** Recria trace com capacidade proporcional aos canais, dimensiona Canvas e força amostra inicial; descarta histórico do cenário anterior. @contract f-753b84cdd5504c31 @reviewed M12-DOC: implementação lida. */
 const configurarTracePLCDoCenario = (): void => {
   const canais = obterCanaisTrace();
   // A capacidade e a altura acompanham a quantidade de sinais do cenário.
@@ -2561,7 +2564,7 @@ const configurarTracePLCDoCenario = (): void => {
   registrarTraceSensores(true);
 };
 
-/** Escritas diretas: `contextoTrace.fillStyle`, `contextoTrace.font`, `traceTime.value`, `traceTime.textContent`. Dependências diretas: `contextoTrace.clearRect`, `contextoTrace.fillRect`, `contextoTrace.fillText`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-158267b293040c7d */
+/** Desenha sinais digitais em degraus e analógicos por escala, cursor vivo/histórico e rótulos; atualiza controles de seleção. Posições X usam índice das amostras, enquanto régua interpola tempos extremos: mudanças com amostragem irregular não formam eixo temporal linear exato. @contract f-158267b293040c7d @reviewed M12-DOC: implementação lida. */
 const desenharTraceSensores = (): void => {
   const canais = tracePLC.canais;
   const largura = sensorTraceCanvas.width;
@@ -2592,7 +2595,7 @@ const desenharTraceSensores = (): void => {
   const faixaM = alturaGrafico / canais.length;
   /** Devolve `margem.esquerda + (amostras.length <= 1 ? 0 : indice * larguraGrafico / (amostras.length - 1))`. Efeitos indiretos seguem as dependências chamadas. @contract f-9246cd607441987c */
   const converterX = (indice: number): number => margem.esquerda + (amostras.length <= 1 ? 0 : indice * larguraGrafico / (amostras.length - 1));
-  /** Devolve `topo + faixaM - 18 - proporcao * Math.max(1, faixaM - 36)`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a9e123299b5e91c6 */
+  /** Converte sinal do canal para faixa vertical em pixels conforme escala e limita visualmente [0,1]; não satura leitura armazenada. @contract f-a9e123299b5e91c6 @reviewed M12-DOC: implementação lida. */
   const converterY = (linha: number, sinal: number): number => {
     const topo = margem.superior + linha * faixaM;
     const escala = canais[linha].escala ?? { minimo: 0, maximo: 1 };
@@ -2649,7 +2652,7 @@ const desenharTraceSensores = (): void => {
 /** Devolve ``${escala.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}×``. Dependências diretas: `escala.toLocaleString`. Efeitos indiretos seguem as dependências chamadas. @contract f-2cbdf49019e84aa2 */
 const formatarEscalaTemporal = (escala: number): string => `${escala.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}×`;
 
-/** Escritas diretas: `timeScaleInput.value`, `timeScaleValue.value`, `timeScaleValue.textContent`. Dependências diretas: `obterEscalaTemporalAtual`, `formatarEscalaTemporal`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e77bfdbde14c18ce */
+/** Sincroniza slider e rótulo com escala temporal selecionada; não modifica dt de integração. @contract f-e77bfdbde14c18ce @reviewed M12-DOC: implementação lida. */
 const atualizarControleTemporal = (): void => {
   const escala = obterEscalaTemporalAtual();
   timeScaleInput.value = String(escala);
@@ -2657,7 +2660,7 @@ const atualizarControleTemporal = (): void => {
   timeScaleValue.textContent = formatarEscalaTemporal(escala);
 };
 
-/** Dependências diretas: `cenario.nome.startsWith`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b1e056804e7b21c2 */
+/** Classifica opções da UI por exposição, modalidade e prefixos do nome; agrupamento visual não define leis físicas. @contract f-b1e056804e7b21c2 @reviewed M12-DOC: implementação lida. */
 const obterGrupoDoCenario = (cenario: CenárioVisual): string => {
   if (cenario.exibirNaBancada) return 'Sistemas integrados';
   if (cenario.modalidade === 'térmica') return 'Testes térmicos';
@@ -2681,7 +2684,7 @@ const primeiroIndiceExibivel = (): number => indicesExibiveis()[0] ?? 0;
 /** Devolve `indicesExibiveis().find((indiceVisivel) => indiceVisivel > indice)`. Dependências diretas: `indicesExibiveis().find`, `indicesExibiveis`. Efeitos indiretos seguem as dependências chamadas. @contract f-d0cb4e1242fcd095 */
 const proximoIndiceExibivel = (indice: number): number | undefined => indicesExibiveis().find((indiceVisivel) => indiceVisivel > indice);
 
-/** Escritas diretas: `scenarioSelector.value`. Dependências diretas: `scenarioSelector.replaceChildren`, `Map`, `cenarios.forEach`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b466744724d25c96 */
+/** Reconstrói optgroups/opções dos cenários exibíveis preservando índices reais e seleção atual; altera DOM sem recriar mundos. @contract f-b466744724d25c96 @reviewed M12-DOC: implementação lida. */
 const preencherSeletorDeCenarios = (): void => {
   scenarioSelector.replaceChildren();
   const grupos = new Map<string, Array<{ cenario: CenárioVisual; indice: number }>>();
@@ -2706,7 +2709,7 @@ const preencherSeletorDeCenarios = (): void => {
   scenarioSelector.value = String(indiceAtual);
 };
 
-/** Escritas diretas: `contexto.fillStyle`, `contexto.strokeStyle`, `contexto.lineWidth`, `contexto.font`. Dependências diretas: `cenarioAtual`, `registrarTraceSensores`, `cenário.objetos.filter`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-4dc63fa4bb69a01b */
+/** Consulta poses e estados para desenhar corpos, vínculos, atuadores, cabos e escalas; converte Y/rotação para Canvas. Também registra trace e atualiza textos/áreas clicáveis. Dimensões mínimas e oscilação do tecido são visuais; não animam pose física. Solo desta bancada é representado horizontalmente, sem renderer orbital geral. @contract f-4dc63fa4bb69a01b @reviewed M12-DOC: implementação lida. */
 const desenhar = (): void => {
   const cenário = cenarioAtual();
   registrarTraceSensores();
@@ -3348,7 +3351,7 @@ const desenhar = (): void => {
   desenharTraceSensores();
 };
 
-/** Escritas diretas: `scenarioDescription.textContent`, `testStatus.textContent`, `testStatus.className`, `testResult.textContent`. Dependências diretas: `executorPassoFixo.reiniciar`, `cenarioAtual`, `RegistroEnsaioBancada`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b72871f71fd2dfc2 */
+/** Reinicia relógio visual, cria diário quando mundo muda, restaura perfil PID e recria trace; atualiza descrição/controles/desenho. Não reinicializa cinemática do mundo já construído. @contract f-b72871f71fd2dfc2 @reviewed M12-DOC: implementação lida. */
 const carregarCenarioAtual = (): void => {
   executorPassoFixo.reiniciar();
   const cenário = cenarioAtual();
@@ -3374,7 +3377,7 @@ const carregarCenarioAtual = (): void => {
 /** Devolve `cenarioAtual().conexoesEletricas?.find((conexao) => conexao.id === connectionSelector.value) ?? cenarioAtual().conexoesEletricas?.[0]`. Dependências diretas: `cenarioAtual().conexoesEletricas?.find`, `cenarioAtual`. Efeitos indiretos seguem as dependências chamadas. @contract f-1ab5fdc274c64691 */
 const conexaoSelecionada = (): ConexaoEletricaVisual | undefined => cenarioAtual().conexoesEletricas?.find((conexao) => conexao.id === connectionSelector.value) ?? cenarioAtual().conexoesEletricas?.[0];
 
-/** Escritas diretas: `electricalControls.hidden`, `connectionSelector.dataset.conexoes`, `cableSwitchButton.textContent`, `cableSwitchButton.disabled`. Dependências diretas: `cenarioAtual`, `conexoes.map((conexao) => conexao.id).join`, `conexoes.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3d061897a2222478 */
+/** Atualiza visibilidade, seletor e habilitação dos botões conforme conexões reais; preserva campos sendo editados e exibe limites/perdas sem comandar circuito. @contract f-3d061897a2222478 @reviewed M12-DOC: implementação lida. */
 const atualizarControlesEletricos = (): void => {
   const conexoes = cenarioAtual().conexoesEletricas ?? [];
   electricalControls.hidden = conexoes.length === 0;
@@ -3396,7 +3399,7 @@ const atualizarControlesEletricos = (): void => {
   electricalReadout.textContent = `${conexao.correnteAtualA.toFixed(2)} / ${conexao.correnteMaximaA.toFixed(2)} A · saída ${conexao.tensaoSaidaV.toFixed(2)} V\nResistência total: ${conexao.resistenciaTotalOhm.toFixed(2)} Ω\nAlcance: ${conexao.comprimentoAtualM.toFixed(2)} / ${conexao.comprimentoMaximoM.toFixed(2)} m\nPerdas acumuladas: ${conexao.energiaDissipadaAcumuladaJ.toFixed(2)} J${conexao.correnteLimitada ? '\nFornecimento limitado' : ''}`;
 };
 
-/** Escritas diretas: `generatorButton.hidden`, `generatorButton.textContent`, `doorControls.hidden`, `doorPowerButton.textContent`. Dependências diretas: `atualizarControlesEletricos`, `cenarioAtual`, `openDoorButton.setAttribute`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6b0600d80325a0ef */
+/** Sincroniza DOM de porta, sistemas, motores, painel, cilindros, PID e paraquedas com capacidades/permissivos atuais. Converte unidades de apresentação e respeita edição ativa de ganhos; não calcula nem aplica forças. @contract f-6b0600d80325a0ef @reviewed M12-DOC: implementação lida. */
 const atualizarControlesDoPropulsor = (): void => {
   atualizarControlesEletricos();
   const cenário = cenarioAtual();
@@ -3576,7 +3579,7 @@ const atualizarControlesDoPropulsor = (): void => {
   }
 };
 
-/** Dependências diretas: `cenarioAtual`, `cenário.gruposPropulsao?.find`, `propulsores.every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6c845b2705d490f5 */
+/** Liga ou desliga sistema nos motores do grupo selecionado pelas portas operacionais e redesenha; se todos ligados desliga todos, senão solicita ligar todos. @contract f-6c845b2705d490f5 @reviewed M12-DOC: implementação lida. */
 const alternarSistema = (id: IdSistemaPropulsor): void => {
   const cenário = cenarioAtual();
   const grupo = cenário.gruposPropulsao?.find((item) => item.id === cenário.obterGrupoPropulsaoAtivo?.());
@@ -3600,7 +3603,7 @@ bss03PropulsionGroup.addEventListener('change', () => {
   atualizarControlesDoPropulsor();
   desenhar();
 });
-/** Dependências diretas: `cenarioAtual().ativarControleBss03`, `cenarioAtual`, `atualizarControlesDoPropulsor`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-33dc97081628d11a */
+/** Encaminha seleção do checkbox para controle de pouso/inclinação do BSS-003 e atualiza apresentação. @contract f-33dc97081628d11a @reviewed M12-DOC: implementação lida. */
 const alternarModoPousoBss03 = (): void => {
   cenarioAtual().ativarControleBss03?.(bss03LandingMode.checked ? 'pouso' : 'inclinacao');
   atualizarControlesDoPropulsor();
@@ -3620,7 +3623,7 @@ igniteButton.addEventListener('click', () => {
   atualizarControlesDoPropulsor();
   desenhar();
 });
-/** Dependências diretas: `cenarioAtual`, `linha.romper`, `cenário.propulsorControlavel?.interromperPorAlimentacaoDePropelenteIndisponivel`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6840a536c0ee9d1c */
+/** Injeta ruptura explícita de linha de combustível/oxidante ainda íntegra e solicita interrupção normal do motor; não remove massa/objeto nem altera cinemática. @contract f-6840a536c0ee9d1c @reviewed M12-DOC: implementação lida. */
 const simularRupturaDaLinha = (tipo: 'combustivel' | 'oxidante'): void => {
   const cenário = cenarioAtual();
   const linha = cenário.linhasComFalhaControlavel?.[tipo];
@@ -3632,7 +3635,7 @@ const simularRupturaDaLinha = (tipo: 'combustivel' | 'oxidante'): void => {
 };
 disconnectFuelTankButton.addEventListener('click', () => simularRupturaDaLinha('combustivel'));
 disconnectOxidizerTankButton.addEventListener('click', () => simularRupturaDaLinha('oxidante'));
-/** Dependências diretas: `conexaoSelecionada`, `acao`, `atualizarControlesDoPropulsor`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1c2159b335c86e5f */
+/** Executa ação fornecida na conexão selecionada quando existente e atualiza controles/desenho; efeitos elétricos pertencem à ação de domínio. @contract f-1c2159b335c86e5f @reviewed M12-DOC: implementação lida. */
 const operarConexao = (acao: (conexao: ConexaoEletricaVisual) => void): void => {
   const conexao = conexaoSelecionada();
   if (!conexao) return;
@@ -3641,7 +3644,7 @@ const operarConexao = (acao: (conexao: ConexaoEletricaVisual) => void): void => 
 };
 connectionSelector.addEventListener('change', () => { atualizarControlesEletricos(); desenhar(); });
 showConnectionsInput.addEventListener('change', () => desenhar());
-/** Dependências diretas: `cenarioAtual`, `porta.desligarAlimentacao`, `porta.ligarAlimentacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-c1d7276752679f92 */
+/** Para circuito da porta usa alimentação operacional da própria porta; demais cabos usam abrir/fechar do circuito. Preserva cadeia de intertravamentos. @contract f-c1d7276752679f92 @reviewed M12-DOC: implementação lida. */
 const alternarInterruptor = (conexao: ConexaoEletricaVisual): void => {
   const porta = cenarioAtual().portaControlavel;
   if (porta?.conexaoEletrica === conexao) {
@@ -3651,7 +3654,7 @@ const alternarInterruptor = (conexao: ConexaoEletricaVisual): void => {
 let sensorArrastado: SwitchFimDeCurso | undefined;
 let sensorFoiArrastado = false;
 let ultimoYDoSensorPx = 0;
-/** Devolve `{ escala, origemX, soloY }`. Dependências diretas: `cenarioAtual`, `Number`, `cenário.cameraX`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b4faf704927234db */
+/** Calcula escala pixels/m e origem visual por limites, zoom e seguimento; nenhuma transformação escreve posição física. @contract f-b4faf704927234db @reviewed M12-DOC: implementação lida. */
 const obterTransformacaoDaBancada = () => {
   const cenário = cenarioAtual();
   const escalaVertical = (canvas.height - 80) / cenário.limiteVerticalM;
@@ -3667,7 +3670,7 @@ const obterTransformacaoDaBancada = () => {
     : canvas.height * (cenário.portaControlavel ? 0.5 : 0.65) + cenário.cameraY() * escala;
   return { escala, origemX, soloY };
 };
-/** Devolve `{ x: (evento.clientX - retangulo.left) * canvas.width / retangulo.width, y: (evento.clientY - retangulo.top) * canvas.height / retangulo.height, }`. Dependências diretas: `canvas.getBoundingClientRect`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d82ec663bca83f43 */
+/** Converte coordenadas client do ponteiro para pixels internos do Canvas considerando tamanho CSS. @contract f-d82ec663bca83f43 @reviewed M12-DOC: implementação lida. */
 const obterPontoDoCanvas = (evento: MouseEvent) => {
   const retangulo = canvas.getBoundingClientRect();
   return {
@@ -3675,7 +3678,7 @@ const obterPontoDoCanvas = (evento: MouseEvent) => {
     y: (evento.clientY - retangulo.top) * canvas.height / retangulo.height,
   };
 };
-/** Dependências diretas: `obterPontoDoCanvas`, `obterTransformacaoDaBancada`, `cenarioAtual().sensoresFimDeCurso?.find`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b651b01c4be1a007 */
+/** Projeta volume sensível de cada sensor e seleciona primeiro dentro de quadrado visual ±18 px; tolerância é de interação, não de contato físico. @contract f-b651b01c4be1a007 @reviewed M12-DOC: implementação lida. */
 const obterSensorSobPonteiro = (evento: MouseEvent): SwitchFimDeCurso | undefined => {
   const ponto = obterPontoDoCanvas(evento);
   const { escala, origemX, soloY } = obterTransformacaoDaBancada();
@@ -3704,7 +3707,7 @@ canvas.addEventListener('mousemove', (evento) => {
   desenhar();
 });
 window.addEventListener('mouseup', () => { sensorArrastado = undefined; });
-/** Devolve `alvosSwitch.find(alvo => x >= alvo.x && x <= alvo.x + alvo.largura && y >= alvo.y && y <= alvo.y + alvo.altura)`. Dependências diretas: `canvas.getBoundingClientRect`, `alvosSwitch.find`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7aa5206f09c5a30a */
+/** Converte ponteiro para Canvas e procura região clicável de interruptor desenhada; não infere energização por proximidade. @contract f-7aa5206f09c5a30a @reviewed M12-DOC: implementação lida. */
 const switchSobPonteiro = (evento: MouseEvent): AlvoSwitchEletrico | undefined => {
   const retangulo = canvas.getBoundingClientRect();
   const x = (evento.clientX - retangulo.left) * canvas.width / retangulo.width;
@@ -3790,7 +3793,7 @@ doorControlButton.addEventListener('click', () => {
   if (porta.controleLigado) porta.desligarControle(); else porta.ligarControle();
   atualizarControlesDoPropulsor(); desenhar();
 });
-/** Dependências diretas: `cenarioAtual`, `porta[comando]`, `playButton.click`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3b795720ac6a8244 */
+/** Envia abrir/fechar à porta e só inicia loop se operação aceita; atualiza DOM/Canvas sem movimentar folha diretamente. @contract f-3b795720ac6a8244 @reviewed M12-DOC: implementação lida. */
 const comandarPorta = (comando: 'abrir' | 'fechar'): void => {
   const porta = cenarioAtual().portaControlavel;
   if (!porta || !porta[comando]()) return;
@@ -3820,7 +3823,7 @@ solarPanelToggle.addEventListener('click', () => {
   atualizarControlesDoPropulsor();
   desenhar();
 });
-/** Dependências diretas: `Number`, `cenarioAtual().configurarVelocidadesDoCilindro`, `cenarioAtual`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-81d5d5ea77a683c7 */
+/** Valida valores positivos finitos em m/s da UI e encaminha configuração ao cilindro do cenário; entrada inválida é ignorada. @contract f-81d5d5ea77a683c7 @reviewed M12-DOC: implementação lida. */
 const configurarVelocidadesDoCilindroDaBancada = (): void => {
   const avancoMps = Number(advanceSpeedInput.value); const recuoMps = Number(retractSpeedInput.value);
   if (!Number.isFinite(avancoMps) || !Number.isFinite(recuoMps) || avancoMps <= 0 || recuoMps <= 0) return;
@@ -3852,7 +3855,7 @@ timeScaleInput.addEventListener('input', () => {
   atualizarControleTemporal();
   desenhar();
 });
-/** Escritas diretas: `zoomValue.textContent`. Dependências diretas: `Number`, `desenhar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-fb282526279c0906 */
+/** Valida zoom finito, atualiza percentual e redesenha; não muda geometria ou estado físico. @contract f-fb282526279c0906 @reviewed M12-DOC: implementação lida. */
 const atualizarZoom = (): void => {
   const zoom = Number(zoomInput.value);
   if (!Number.isFinite(zoom)) return;
@@ -3895,7 +3898,7 @@ rotaryMotorSecondaryInput.addEventListener('input', () => {
   rotaryMotorSecondaryValue.textContent = `${anguloGraus.toFixed(1)}°`;
   desenhar();
 });
-/** Escritas diretas: `rotaryMotorAutotuneStatus.textContent`. Dependências diretas: `cenarioAtual`, `[pidKpInput, pidKiInput, pidKdInput, pidAccelerationInput].map`, `valores.every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-adc35bd65d152853 */
+/** Valida ganhos não negativos/aceleração positiva, aplica pelas portas do controlador e persiste perfil; exibe erro sem refatorar modelo físico. @contract f-adc35bd65d152853 @reviewed M12-DOC: implementação lida. */
 const aplicarGanhosPidEditados = (): void => {
   const motor = cenarioAtual().motorRotacionalControlavel;
   if (!motor) return;
@@ -3937,7 +3940,7 @@ rotaryMotorAutotuneButton.addEventListener('click', async () => {
     atualizarControlesDoPropulsor();
   }
 });
-/** Dependências diretas: `cenarioAtual`, `Number`, `objeto.configurarAreaDoParaquedas`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2debc081b28bf0dd */
+/** Valida área positiva finita m² e solicita recalibração do componente pelo portador; atualiza valores derivados e desenho. @contract f-2debc081b28bf0dd @reviewed M12-DOC: implementação lida. */
 const configurarParaquedasDaBancada = (entrada: HTMLInputElement): void => {
   const objeto = cenarioAtual().objetoComParaquedasConfiguravel;
   const valor = Number(entrada.value);
@@ -3948,7 +3951,7 @@ const configurarParaquedasDaBancada = (entrada: HTMLInputElement): void => {
 };
 parachuteAreaInput.addEventListener('input', () => configurarParaquedasDaBancada(parachuteAreaInput));
 
-/** Escritas diretas: `testStatus.textContent`, `testStatus.className`, `testResult.textContent`, `scenarioSelector.value`. Dependências diretas: `cenarioAtual`, `executorPassoFixo.avancarAte`, `obterEscalaTemporalAtual`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-79081dfe2de06584 */
+/** Para execução ativa, executor de passo fixo atualiza controle, mundo e diário nessa ordem; redesenha e verifica encerramento do cenário. Ao concluir pausa e seleciona próximo, sem avançá-lo automaticamente; requestAnimationFrame agenda observação/avanço temporal, não define dt físico. @contract f-79081dfe2de06584 @reviewed M12-DOC: implementação lida. */
 const executar = (agoraMs: number): void => {
   if (!emExecucao) return;
   const cenário = cenarioAtual();

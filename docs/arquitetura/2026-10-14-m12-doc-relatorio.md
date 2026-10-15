@@ -256,3 +256,12 @@ legados (como altura não orientada em alguns encerramentos) estão explícitos,
 sem modificar a execução. As funções `validar` descrevem exatamente os critérios
 que verificam; aprovação visual local não foi ampliada para homologação física.
 AST executável idêntica antes/depois do lote e catálogo regenerado.
+
+### C11 — Bancada: recuperação, mecanismos, controles e renderer
+
+84 contratos restantes foram confrontados com seus corpos, incluindo fábricas,
+callbacks nomeados, manipulação de DOM, armazenamento local, trace, câmera e
+loop temporal. Três cabeçalhos antigos duplicados junto a propriedades inline
+foram removidos após verificar igualdade da AST executável. A pendência de eixo
+temporal do trace e critérios de término arquivados foram registrada no mapa.
+A aprovação visual da abertura do paraquedas, por exemplo, não comprova pouso.

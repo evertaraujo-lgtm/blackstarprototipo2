@@ -367,3 +367,13 @@ existentes, não serviços gerais de vertical/gravitacional para uma missão em
 qualquer ponto da Terra curva. Os contratos junto às funções explicitam essa
 fronteira. Adaptá-los requer marco de implementação/regressão próprio; a M12
 não altera seus algoritmos, constantes ou resultados históricos.
+
+O gráfico PLC legado usa índice da amostra para posição horizontal e tempos
+extremos para a régua. Como a coleta inclui mudanças imediatas e omite repetições
+muito próximas, seus pontos podem ter intervalos temporais irregulares. Portanto,
+não se deve medir um intervalo preciso apenas pela distância horizontal nesse
+gráfico; consulte `tempoS` das amostras/diário. O renderer também pode registrar
+trace ao desenhar: esse efeito é observacional, sem força ou integração adicional.
+Alguns critérios de término arquivados ainda usam meia altura fixa ou apenas dano,
+sem provar repouso orientado de todos os corpos. Permanecem registrados como
+limites históricos, sem alteração executável nesta auditoria.
