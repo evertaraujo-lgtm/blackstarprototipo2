@@ -12,6 +12,7 @@ export class ConjuntoEstruturalRigido {
   private massaDasReferenciasKg: number;
   private centroCalculado?: { valor: Vetor3; posicoes: readonly Vetor3[]; massas: readonly number[] };
 
+  /** Captura geometria relativa e estados de montagem de membros conectados; exige lista não vazia com massas positivas, usa orientação Z do primeiro membro. @contract f-d3848f1d1b9d7918 @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly objetos: readonly Objeto[]) {
     const objetoDeReferencia = objetos[0];
     const anguloInicial = objetoDeReferencia.getEstadoFisico().orientacaoRad.z;
@@ -30,6 +31,7 @@ export class ConjuntoEstruturalRigido {
    * Conserva momento linear e angular de todos os membros simultaneamente.
    * Avançar o ângulo só ocorre uma vez por passo; após colisões, a projeção
    * reaplica a rigidez sem introduzir avanço angular duplicado.
+   * @contract f-dd4593ec27d92adb
    */
   public sincronizar(dtS: number, avancarOrientacao: boolean): void {
     this.atualizarReferenciasLocaisPelaMassaAtual();
@@ -66,17 +68,24 @@ export class ConjuntoEstruturalRigido {
     }
   }
 
+  /** Verifica pertencimento por identidade de instância no conjunto rígido atual. @contract f-db72109b5862bb2c @reviewed M12-DOC: implementação lida. */
   public contem(objeto: Objeto): boolean { return this.objetos.includes(objeto); }
 
+  /** Devolve a lista de membros tipada readonly; não cria cópias de corpos ou de estados físicos. @contract f-b144fcc6051f60bc @reviewed M12-DOC: implementação lida. */
   public get membros(): readonly Objeto[] { return this.objetos; }
+  /** Consulta inércia planar composta kg·m², somando inércias próprias e termo de eixos paralelos. @contract f-a8f9f77cf3111cdd @reviewed M12-DOC: implementação lida. */
   public get momentoInerciaZKgM2(): number { return this.obterInerciaCompostaZ(); }
 
-  /** Reação da fundação rígida: preserva a geometria montada da ilha inteira. */
+  /** Reação da fundação rígida: preserva a geometria montada da ilha inteira.
+   * @contract f-21ad1a8b15c07bb6
+   */
   public restringirAoSolo(): void {
     for (const objeto of this.objetos) objeto.atualizarEstadoPeloCore(this.estadosDeMontagem.get(objeto)!);
   }
 
-  /** Junta fixa que ancora um membro sem desfazer a geometria do conjunto. */
+  /** Junta fixa que ancora um membro sem desfazer a geometria do conjunto.
+   * @contract f-3f9e81d50af0af7f
+   */
   public restringirNoMembro(objetoAncorado: Objeto, estadoDeAncoragem: EstadoFisico): void {
     if (!this.contem(objetoAncorado)) throw new Error('Membro ancorado não pertence ao conjunto estrutural.');
     const orientacaoRelativaAncorada = this.orientacoesRelativasRad.get(objetoAncorado)!;
@@ -97,11 +106,14 @@ export class ConjuntoEstruturalRigido {
     }
   }
 
+  /** Soma massas instantâneas kg dos membros, incluindo consumíveis físicos atuais. @contract f-dc4b60a8630d67b8 @reviewed M12-DOC: implementação lida. */
   public get massaTotalKg(): number {
     return this.objetos.reduce((soma, objeto) => soma + objeto.massaKg, 0);
   }
 
-  /** Massa dinâmica vista em um ponto e direção de contato do conjunto inteiro. */
+  /** Massa dinâmica vista em um ponto e direção de contato do conjunto inteiro.
+   * @contract f-b22a4e9a52edd60f
+   */
   public obterMassaEfetivaNoContato(pontoContatoM: Vetor3, normal: Vetor3): number {
     const massaTotalKg = this.massaTotalKg;
     const braco = pontoContatoM.subtrair(this.obterCentroDeMassaAtual());
@@ -109,6 +121,7 @@ export class ConjuntoEstruturalRigido {
     return 1 / ((1 / massaTotalKg) + (torqueUnitarioZ ** 2 / this.obterInerciaCompostaZ()));
   }
 
+  /** Calcula G pela média ponderada das posições por massas instantâneas; reutiliza somente cache exatamente compatível. Retorna posição m. Cache exige mesmas referências de posição e mesmas massas individuais, não apenas massa total. Atualiza memoização; preserva ordem de soma e não altera corpos. @contract f-a380dcc40ef24c82 @reviewed M12-DOC: implementação lida. */
   public obterCentroDeMassaAtual(): Vetor3 {
     const cache = this.centroCalculado;
     if (cache && this.objetos.every((o, i) => cache.posicoes[i] === o.getEstadoFisico().posicaoM && cache.massas[i] === o.massaKg)) return cache.valor;
@@ -123,7 +136,9 @@ export class ConjuntoEstruturalRigido {
     return valor;
   }
 
-  /** Velocidade física do corpo rígido no ponto de contato informado. */
+  /** Velocidade física do corpo rígido no ponto de contato informado.
+   * @contract f-3b36d6e87005a46e
+   */
   public obterVelocidadeNoPonto(pontoM: Vetor3): Vetor3 {
     const centroMassa = this.obterCentroDeMassaAtual();
     const velocidadeCentro = this.obterVelocidadeDoCentroAtual();
@@ -131,7 +146,9 @@ export class ConjuntoEstruturalRigido {
     return velocidadeCentro.adicionar(velocidadeAngular.produtoVetorial(pontoM.subtrair(centroMassa)));
   }
 
-  /** Aplica impulso diretamente à ilha, preservando a rigidez de seus membros. */
+  /** Aplica impulso diretamente à ilha, preservando a rigidez de seus membros.
+   * @contract f-c6a983e8d4a7b876
+   */
   public aplicarImpulsoNoPonto(impulsoNs: Vetor3, pontoM: Vetor3): void {
     const centroMassa = this.obterCentroDeMassaAtual();
     const velocidadeCentro = this.obterVelocidadeDoCentroAtual();
@@ -157,6 +174,7 @@ export class ConjuntoEstruturalRigido {
    * Kicks sem mudança de pose/massa: reproduz cada projeção na ordem original.
    * Mantém as velocidades intermediárias em escalares locais e publica só ao fim.
    * Não soma impulsos nem altera arredondamento, colisões ou a integração temporal.
+   * @contract f-ef8ab0fbe286de89
    */
   public aplicarImpulsosSequenciais(impulsos: readonly { impulsoNs: Vetor3; pontoM: Vetor3 }[]): void {
     if (impulsos.length === 0) return;
@@ -185,7 +203,9 @@ export class ConjuntoEstruturalRigido {
       velocidadeMps: new Vetor3(b.vx, b.vy, b.vz), velocidadeAngularRadps: new Vetor3(0, 0, b.w) });
   }
 
-  /** Corrige penetração por translação da ilha inteira, nunca de um membro isolado. */
+  /** Corrige penetração por translação da ilha inteira, nunca de um membro isolado.
+   * @contract f-e851a177213a9963
+   */
   public corrigirPenetracao(normal: Vetor3, penetracaoM: number): void {
     const deslocamentoM = normal.multiplicar(penetracaoM);
     for (const objeto of this.objetos) {
@@ -194,7 +214,9 @@ export class ConjuntoEstruturalRigido {
     }
   }
 
-  /** Integra todas as forças externas como uma única resultante do corpo rígido. */
+  /** Integra todas as forças externas como uma única resultante do corpo rígido.
+   * @contract f-f4b59e6ece2fdff3
+   */
   public integrar(forcas: readonly ForcaAplicada[], dtS: number): void {
     this.atualizarReferenciasLocaisPelaMassaAtual();
     const centroMassa = this.obterCentroDeMassaAtual();
@@ -220,6 +242,7 @@ export class ConjuntoEstruturalRigido {
     }
   }
 
+  /** Calcula velocidade m/s de G pela média ponderada das velocidades dos membros; soma escalar preserva a ordem numérica. @contract f-d2c51cb872c6f449 @reviewed M12-DOC: implementação lida. */
   private obterVelocidadeDoCentroAtual(): Vetor3 {
     const massaTotalKg = this.massaTotalKg;
     let x = 0, y = 0, z = 0;
@@ -230,6 +253,7 @@ export class ConjuntoEstruturalRigido {
     return new Vetor3(x, y, z);
   }
 
+  /** Obtém ωZ=LZ/IZ da soma do momento orbital e das inércias próprias dos membros em relação a G; retorno rad/s. @contract f-20bfea7b2e381c3a @reviewed M12-DOC: implementação lida. */
   private obterVelocidadeAngularAtual(centroMassa: Vetor3): number {
     const momentoAngularZ = this.objetos.reduce((soma, objeto) => {
       const estado = objeto.getEstadoFisico();
@@ -240,6 +264,7 @@ export class ConjuntoEstruturalRigido {
     return momentoAngularZ / this.obterInerciaCompostaZ();
   }
 
+  /** Soma Ipróprio,Z+m|p−G|² para cada membro, em kg·m²; consulta massa/pose atuais. @contract f-628f59665bf573bc @reviewed M12-DOC: implementação lida. */
   private obterInerciaCompostaZ(): number {
     return this.objetos.reduce((soma, objeto) => {
       const referenciaLocal = this.referenciasLocaisM.get(objeto)!;
@@ -247,6 +272,7 @@ export class ConjuntoEstruturalRigido {
     }, 0);
   }
 
+  /** Aplica rotação XY pelo ângulo em rad, preservando Z; retorna novo vetor. @contract f-22d65dbe670ae3c2 @reviewed M12-DOC: implementação lida. */
   private rotacionarNoPlano(vetor: Vetor3, anguloRad: number): Vetor3 {
     const cos = Math.cos(anguloRad);
     const sen = Math.sin(anguloRad);
@@ -259,6 +285,9 @@ export class ConjuntoEstruturalRigido {
    * Combustivel consumido altera o centro de massa sem mover os pontos dos
    * membros. Manter referencias calculadas com a massa inicial faria a
    * projecao rigida deslocar artificialmente o conjunto a cada passo.
+   * @remarks Quando a massa total difere, recalcula referências locais em relação ao novo G e atualiza massa de referência; não desloca membros por si.
+   * @contract f-75836752bdbbb79a
+   * @reviewed M12-DOC: contrato confrontado com implementação.
    */
   private atualizarReferenciasLocaisPelaMassaAtual(): void {
     const massaAtualKg = this.massaTotalKg;

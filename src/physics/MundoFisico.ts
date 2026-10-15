@@ -86,6 +86,7 @@ export class MundoFisico {
   private readonly sistemaSensores: SistemaSensores;
   private readonly hidrodinamica?: SistemaHidrodinamico;
 
+  /** Compõe registros, ambiente, integração e solucionadores determinísticos; configura água somente quando regiões são declaradas. maxDtS em s positivo/finito; densidade kg/m³ não negativa (zero = vácuo), vento m/s, temperatura °C. Legado plano/Euler por padrão; central usa KDK e restringe XY. Instala callbacks de consulta/reação, sem depender de relógio real. @contract f-518ff75ab4b7f057 @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly maxDtS = 1 / 60, configuracao: ConfiguracaoMundoFisico = {}) {
     if (!Number.isFinite(maxDtS) || maxDtS <= 0) throw new Error('maxDt deve ser positivo.');
     this.ambiente = configuracao.ambiente ?? new AmbientePlano();
@@ -115,54 +116,74 @@ export class MundoFisico {
     );
     this.resolvedorColisoes = new ResolvedorColisoes({
       somentePlanoXY: this.ambiente.campo.modelo === 'central',
+      /** Devolve `this.ambiente.referencial.radial(p)`. Dependências diretas: `this.ambiente.referencial.radial`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6f1f287ebb4b06bb */
       verticalEm: (p) => this.ambiente.referencial.radial(p),
+      /** Devolve `this.objetos.values()`. Dependências diretas: `this.objetos.values`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-9bca04b4b6c063ed */
       obterObjetos: () => this.objetos.values(),
+      /** Devolve `this.obterConjuntoEstruturalDoObjeto(objeto)`. Dependências diretas: `this.obterConjuntoEstruturalDoObjeto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-23cc335f3cc5d880 */
       obterConjuntoEstrutural: (objeto) => this.obterConjuntoEstruturalDoObjeto(objeto),
+      /** Devolve `this.fixadores.values()`. Dependências diretas: `this.fixadores.values`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7e34327905877d05 */
       obterFixadores: () => this.fixadores.values(),
       resolvedorEsforcoEstrutural: this.resolvedorEsforcoEstrutural,
+      /** Devolve `this.sistemaTermico.distribuirCalorDeAtritoEntreObjetos(objetoA, objetoB, energiaJ, dtS)`. Dependências diretas: `this.sistemaTermico.distribuirCalorDeAtritoEntreObjetos`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0ef3d90e16c5ee99 */
       distribuirCalorDeAtrito: (objetoA, objetoB, energiaJ, dtS) => this.sistemaTermico.distribuirCalorDeAtritoEntreObjetos(objetoA, objetoB, energiaJ, dtS),
       velocidadeDeRepousoMps: MundoFisico.velocidadeDeRepousoMps,
+      /** Devolve `[...this.juntasRotacionaisDeBancada.values()].some((junta) => junta.ignoraColisaoEntre(objetoA, objetoB))`. Dependências diretas: `[...this.juntasRotacionaisDeBancada.values()].some`, `this.juntasRotacionaisDeBancada.values`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6ed17c159f596add */
       deveIgnorarColisao: (objetoA, objetoB) => [...this.juntasRotacionaisDeBancada.values()].some((junta) => junta.ignoraColisaoEntre(objetoA, objetoB)),
     });
     this.resolvedorContatoSuperficie = new ResolvedorContatoSuperficie({
       somentePlanoXY: this.ambiente.campo.modelo === 'central',
+      /** Devolve `this.objetos.values()`. Dependências diretas: `this.objetos.values`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f49ed769f70cbea8 */
       obterObjetos: () => this.objetos.values(),
+      /** Devolve `this.superficies.values()`. Dependências diretas: `this.superficies.values`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b4cc7c84323b2b76 */
       obterSuperficies: () => this.superficies.values(),
+      /** Devolve `this.obterConjuntoEstruturalDoObjeto(objeto)`. Dependências diretas: `this.obterConjuntoEstruturalDoObjeto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-79dae79b06413c98 */
       obterConjuntoEstrutural: (objeto) => this.obterConjuntoEstruturalDoObjeto(objeto),
+      /** Devolve `this.obterMassaEfetivaNoContato(objeto, pontoM, normal)`. Dependências diretas: `this.obterMassaEfetivaNoContato`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-cc331bf5e24d2670 */
       obterMassaEfetivaNoContato: (objeto, pontoM, normal) => this.obterMassaEfetivaNoContato(objeto, pontoM, normal),
+      /** Devolve `this.fixadores.values()`. Dependências diretas: `this.fixadores.values`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3f3a80a38e9070f6 */
       obterFixadores: () => this.fixadores.values(),
       resolvedorEsforcoEstrutural: this.resolvedorEsforcoEstrutural,
+      /** Dependências diretas: `objeto.aplicarCalorDeAtritoPeloCore`, `superficie.aplicarCalorDeAtritoPeloCore`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-107e0418e080d86a */
       distribuirCalorDeAtrito: (objeto, superficie, energiaJ, dtS) => {
         if (energiaJ <= 0) return;
         objeto.aplicarCalorDeAtritoPeloCore(energiaJ / 2, dtS);
         superficie.aplicarCalorDeAtritoPeloCore(energiaJ / 2);
       },
+      /** Devolve `this.obterGravidadeMps2(p)`. Dependências diretas: `this.obterGravidadeMps2`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-35982ea5bb0323ff */
       obterGravidadeMps2: (p) => this.obterGravidadeMps2(p),
       velocidadeDeRepousoMps: MundoFisico.velocidadeDeRepousoMps,
     });
   }
 
+  /** Consulta o tempo físico acumulado em s; não avança o mundo. @contract f-4b43112c6e426da9 @reviewed M12-DOC: implementação lida. */
   public get tempoS(): number { return this.tempoMissaoS; }
+  /** Consulta o vento inercial vigente no último subpasso em m/s. @contract f-eb0f4320448a1c0c @reviewed M12-DOC: implementação lida. */
   public get velocidadeDoArMps(): Vetor3 { return this.velocidadeArAtualMps; }
 
+  /** Vincula prisma deslocador a objeto já registrado; exige sistema aquático e delega validação de geometria exclusiva. @contract f-46c5aaa56d1d830d @reviewed M12-DOC: implementação lida. */
   public registrarGeometriaAquatica(objeto: Objeto, prisma: PrismaDeslocador): void {
     this.exigirRegistro(objeto);
     if (!this.hidrodinamica) throw new Error('Mundo sem região aquática declarada.');
     this.hidrodinamica.registrar(objeto, prisma);
   }
+  /** Calcula observações aquáticas do objeto registrado, tomando G da ilha como referência de torque; pode preencher cache geométrico, sem integrar. @contract f-7961c3fbd122116b @reviewed M12-DOC: implementação lida. */
   public obterImersao(objeto: Objeto): readonly EstadoImersao[] {
     this.exigirRegistro(objeto);
     const G = this.obterConjuntoEstruturalDoObjeto(objeto)?.obterCentroDeMassaAtual() ?? objeto.getEstadoFisico().posicaoM;
     return this.hidrodinamica?.calcular(objeto, G).estados ?? [];
   }
+  /** Consulta a fração geométrica fora da água, ou 1 em mundo seco; reutiliza o cache hidrodinâmico. @contract f-af1921608b77b4f3 @reviewed M12-DOC: implementação lida. */
   private fracaoExpostaAr(o: Objeto): number { return this.hidrodinamica?.fracaoExpostaAr(o) ?? 1; }
 
+  /** Insere corpo por identidade única após validar compatibilidade XY no ambiente central; não integra. @contract f-e3413f4fbc66159f @reviewed M12-DOC: implementação lida. */
   public registrarObjeto(objeto: Objeto): void {
     if (this.objetos.has(objeto.id)) throw new Error(`Objeto já registrado: ${objeto.id}.`);
     this.validarEstadoPlanar(objeto);
     this.objetos.set(objeto.id, objeto);
   }
 
+  /** Insere geometria sólida por ID único; rejeita plano infinito no ambiente central, preservando plataformas finitas. @contract f-6c1a2f8dcd939983 @reviewed M12-DOC: implementação lida. */
   public registrarSuperficie(superficie: SuperficieFisica): void {
     if (this.ambiente.campo.modelo === 'central' && superficie instanceof SuperficiePlano) {
       throw new Error('Plano infinito incompatível com Terra esférica: use superfície esférica ou plataforma local finita.');
@@ -171,36 +192,43 @@ export class MundoFisico {
     this.superficies.set(superficie.id, superficie);
   }
 
+  /** Registra vínculo por ID único entre dois corpos já presentes; topologia será sincronizada no passo físico. @contract f-aa7bf4ca502e4d35 @reviewed M12-DOC: implementação lida. */
   public registrarFixador(fixador: FixadorEstrutural): void {
     if (this.fixadores.has(fixador.id)) throw new Error(`Fixador já registrado: ${fixador.id}.`);
     this.exigirRegistro(fixador.objetoA); this.exigirRegistro(fixador.objetoB);
     this.fixadores.set(fixador.id, fixador);
   }
 
+  /** Registra fundação por ID único para corpo presente; a reação física é resolvida no avanço. @contract f-30c830729acfc968 @reviewed M12-DOC: implementação lida. */
   public registrarChumbadorAoSolo(chumbador: ChumbadorAoSolo): void {
     if (this.chumbadoresAoSolo.has(chumbador.id)) throw new Error(`Chumbador já registrado: ${chumbador.id}.`);
     this.exigirRegistro(chumbador.objeto);
     this.chumbadoresAoSolo.set(chumbador.id, chumbador);
   }
 
+  /** Registra sensor físico de contato após exigir registro do hospedeiro; delega ao SistemaSensores. @contract f-f7b5b7280dc3c8fa @reviewed M12-DOC: implementação lida. */
   public registrarSwitchFimDeCurso(switchFimDeCurso: SwitchFimDeCurso): void {
     this.exigirRegistro(switchFimDeCurso.objetoHospedeiro);
     this.sistemaSensores.registrarSwitchFimDeCurso(switchFimDeCurso);
   }
 
+  /** Configura o ambiente inicial das leituras e instala o pacote de sensores no sistema observacional. @contract f-41ac7bae56a51a91 @reviewed M12-DOC: implementação lida. */
   public registrarSensoresVeiculo(sensores: SensoresVeiculoComposto): void {
     sensores.configurarAmbienteInicial(this.ambiente);
     this.sistemaSensores.registrarSensoresVeiculo(sensores);
   }
 
+  /** Reavalia contatos binários imediatamente, sem integrar tempo; destinado também ao reposicionamento ADM de sensores. @contract f-3760886a2cb462bf @reviewed M12-DOC: implementação lida. */
   public reavaliarSwitchesFimDeCurso(): void { this.sistemaSensores.reavaliarSwitchesFimDeCurso(); }
 
+  /** Registra guia por ID único e corpo presente; não impõe movimento comandado na interface. @contract f-4b87578104c96a2f @reviewed M12-DOC: implementação lida. */
   public registrarGuiaLinear(guia: GuiaLinear): void {
     if (this.guiasLineares.has(guia.id)) throw new Error(`Guia linear já registrada: ${guia.id}.`);
     this.exigirRegistro(guia.objeto);
     this.guiasLineares.set(guia.id, guia);
   }
 
+  /** Registra junta por ID único e exige base/braço presentes; suas forças/restrições pertencem ao core. @contract f-4a3dde9baad222b7 @reviewed M12-DOC: implementação lida. */
   public registrarJuntaRotacionalDeBancada(junta: JuntaRotacionalDeBancada): void {
     if (this.juntasRotacionaisDeBancada.has(junta.id)) throw new Error(`Junta de bancada já registrada: ${junta.id}.`);
     this.exigirRegistro(junta.objetoBase); this.exigirRegistro(junta.braco);
@@ -210,6 +238,7 @@ export class MundoFisico {
   /**
    * Solicita uma força externa, em N, mantida durante todo o próximo avanço.
    * Para manter a força em avanços seguintes, o chamador deve solicitá-la novamente.
+   * @contract f-9a9f5f5e187cc458
    */
   public aplicarForca(objeto: Objeto, forcaN: Vetor3, pontoM?: Vetor3): void {
     this.exigirRegistro(objeto);
@@ -220,7 +249,9 @@ export class MundoFisico {
     this.forcasPendentes.set(objeto.id, forcas);
   }
 
-  /** Solicita um impulso instantâneo, em N.s, aplicado uma única vez no próximo avanço. */
+  /** Solicita um impulso instantâneo, em N.s, aplicado uma única vez no próximo avanço.
+   * @contract f-3d2aac7e14626905
+   */
   public aplicarImpulso(objeto: Objeto, impulsoNs: Vetor3, pontoM?: Vetor3): void {
     this.exigirRegistro(objeto);
     this.validarVetorPlanar(impulsoNs);
@@ -230,12 +261,15 @@ export class MundoFisico {
     this.impulsosPendentes.set(objeto.id, impulsos);
   }
 
+  /** Calcula o arrasto atmosférico atual em N para corpo registrado, consultando velocidade física e densidade do mesmo ambiente. @contract f-75ef8579777a79d5 @reviewed M12-DOC: implementação lida. */
   public obterForcaArrastoAtmosferico(objeto: Objeto): Vetor3 {
     this.exigirRegistro(objeto);
     return this.atmosfera.calcularArrasto(objeto, objeto.getEstadoFisico().velocidadeMps);
   }
 
-  /** Leitura do mesmo ambiente usado na integração; não modifica a física. */
+  /** Leitura do mesmo ambiente usado na integração; não modifica a física.
+   * @contract f-db5cbfb2c2eedd9a
+   */
   public obterCondicoesAtmosfericas(objeto: Objeto): CondicoesAtmosfericas {
     this.exigirRegistro(objeto);
     return {
@@ -244,6 +278,7 @@ export class MundoFisico {
     };
   }
 
+  /** Mede menor distância assinada em m dos pontos orientados/candidatos à superfície; retorna Infinity quando não há projeção válida. Exige objeto registrado. Caminho para plano conserva ordem numérica legada; demais geometrias consultam candidatos/projeção da superfície. Não corrige penetração nem resolve contato. @contract f-f9dcad885ff21798 @reviewed M12-DOC: implementação lida. */
   public obterMenorDistanciaSuperficieM(objeto: Objeto, superficie: SuperficieFisica): number {
     this.exigirRegistro(objeto);
     if (superficie instanceof SuperficiePlano) {
@@ -259,12 +294,16 @@ export class MundoFisico {
     return pontos.length ? Math.min(...pontos.map((p) => superficie.distanciaAssinadaM(p))) : Infinity;
   }
 
-  /** Contatos e apoios efetivamente resolvidos pelo core no último subpasso. */
+  /** Contatos e apoios efetivamente resolvidos pelo core no último subpasso.
+   * @contract f-9cea077721cb03c3
+   */
   public obterContatosComSuperficie(): readonly ContatoSuperficieFisico[] {
     return this.resolvedorContatoSuperficie.obterContatos();
   }
 
-  /** Contatos resolvidos deste objeto, opcionalmente limitados a uma superfície. */
+  /** Contatos resolvidos deste objeto, opcionalmente limitados a uma superfície.
+   * @contract f-5666d3fa4dec8f19
+   */
   public obterContatosDoObjeto(objeto: Objeto, superficie?: SuperficieFisica): readonly ContatoSuperficieFisico[] {
     this.exigirRegistro(objeto);
     return this.resolvedorContatoSuperficie.obterContatos().filter((contato) =>
@@ -272,7 +311,9 @@ export class MundoFisico {
     );
   }
 
-  /** Soma das mesmas forças aerodinâmicas usadas na integração, em torno da referência SI. */
+  /** Soma das mesmas forças aerodinâmicas usadas na integração, em torno da referência SI.
+   * @contract f-674fcddb7e0f22e1
+   */
   public obterCargasAerodinamicas(objetos: readonly Objeto[], referenciaM: Vetor3): { forcaN: Vetor3; torqueNm: Vetor3 } {
     let forcaN = Vetor3.zero;
     let torqueNm = Vetor3.zero;
@@ -289,6 +330,7 @@ export class MundoFisico {
     return { forcaN, torqueNm };
   }
 
+  /** Avança deltaS físico com subpassos limitados por maxDtS e estabilidade hidrodinâmica; não consulta relógio real. deltaS em s positivo/finito. Verifica geometrias aquáticas de todos os corpos. Impulsos pendentes entram uma vez; forças externas duram toda a chamada. Limpa ambas as filas em finally e propaga falhas. Altera cinemática, sistemas, contatos, integridade, sensores e tempo pela receita compartilhada. @contract f-6bd6caac8d77c92e @reviewed M12-DOC: implementação lida. */
   public avancar(deltaS: number): void {
     if (!Number.isFinite(deltaS) || deltaS <= 0) throw new Error('deltaS deve ser positivo e finito.');
     this.hidrodinamica?.verificarDeclaracoes(this.objetos.values());
@@ -315,7 +357,9 @@ export class MundoFisico {
     }
   }
 
-  /** Receita explícita do passo; fenômenos físicos vivem nos subsistemas. */
+  /** Receita explícita do passo; fenômenos físicos vivem nos subsistemas.
+   * @contract f-99ffa3537971f382
+   */
   private integrarPasso(dtS: number, aplicarImpulsos: boolean): void {
     this.atualizarVentoDoPasso();
     this.atualizarApoioDeTracao();
@@ -362,6 +406,7 @@ export class MundoFisico {
     this.tempoMissaoS += dtS;
   }
 
+  /** Soma rajadas ativas no intervalo [início,início+duração) ao vento base e atualiza atmosfera no tempo físico atual. @contract f-412f6c5528fa3d74 @reviewed M12-DOC: implementação lida. */
   private atualizarVentoDoPasso(): void {
     let velocidade = this.velocidadeArBaseMps;
     for (const rajada of this.rajadasVento) {
@@ -372,6 +417,7 @@ export class MundoFisico {
     this.atmosfera.definirVelocidadeArPeloMundo(velocidade);
   }
 
+  /** Consome a fila de impulsos em N·s uma única vez, aplicando na ilha ou corpo isolado; ponto ausente usa centro atual. @contract f-890059995735e624 @reviewed M12-DOC: implementação lida. */
   private aplicarImpulsosPendentes(): void {
     for (const [objetoId, impulsos] of this.impulsosPendentes) {
       const objeto = this.objetos.get(objetoId);
@@ -386,14 +432,18 @@ export class MundoFisico {
     this.impulsosPendentes.clear();
   }
 
+  /** Consulta aceleração m/s² do campo do ambiente na posição inercial em m; não integra nem depende da orientação. @contract f-b8b386144342054d @reviewed M12-DOC: implementação lida. */
   public obterGravidadeMps2(posicaoM: Vetor3): Vetor3 { return this.ambiente.campo.aceleracaoEm(posicaoM); }
 
+  /** Exporta identificação do ambiente, integração, dt máximo, atmosfera e água declarada para diários/replay; não altera parâmetros. @contract f-d3dca202d77d15ec @reviewed M12-DOC: implementação lida. */
   public obterConfiguracaoFisica(): object {
     return { ...this.ambiente.obterConfiguracao(), integracao: this.integracao, maxDtS: this.maxDtS, politicaAtmosferica: this.atmosfera.politicaAltitude, densidadeNivelMarKgM3: this.densidadeAtmosfericaNivelMarKgM3,
       ...(this.hidrodinamica ? { hidrodinamica: this.hidrodinamica.obterConfiguracao() } : {}) };
   }
 
-  /** Metade do impulso gravitacional em cada membro, preservando torque de gradiente. */
+  /** Metade do impulso gravitacional em cada membro, preservando torque de gradiente.
+   * @contract f-ba4f542a6685a8b0
+   */
   private aplicarKickGravitacional(dtS: number): void {
     const lotes = new Map<ConjuntoEstruturalRigido, { impulsoNs: Vetor3; pontoM: Vetor3 }[]>();
     for (const objeto of this.objetos.values()) {
@@ -407,6 +457,7 @@ export class MundoFisico {
     }
     for (const [conjunto, lote] of lotes) conjunto.aplicarImpulsosSequenciais(lote);
   }
+  /** Aplica impulso F_empuxo·dt em N·s nos centros de volume; usa lotes sequenciais por ilha e não reaplica o arrasto dissipativo. @contract f-1d8fd7f1e67ca925 @reviewed M12-DOC: implementação lida. */
   private aplicarKickHidrostatico(dtS: number): void {
     if (!this.hidrodinamica) return;
     const lotes = new Map<ConjuntoEstruturalRigido, { impulsoNs: Vetor3; pontoM: Vetor3 }[]>();
@@ -419,13 +470,16 @@ export class MundoFisico {
     for (const [conjunto, lote] of lotes) conjunto.aplicarImpulsosSequenciais(lote);
   }
 
+  /** Rejeita componente Z diferente de zero no ambiente central; o legado conserva o contrato anterior. @contract f-bed4015e9d6bffc1 @reviewed M12-DOC: implementação lida. */
   private validarVetorPlanar(v: Vetor3): void {
     if (this.ambiente.campo.modelo === 'central' && v.z !== 0) throw new Error('Dinâmica orbital M9 restrita a XY; componente Z não permitida.');
   }
+  /** Exige força/ponto em XY e torque externo somente em Z; rejeita solicitações incompatíveis com o modelo central. @contract f-8287e1f7d35ee0e5 @reviewed M12-DOC: implementação lida. */
   private validarForcaPlanar(f: ForcaAplicada): void {
     this.validarVetorPlanar(f.forcaN); this.validarVetorPlanar(f.pontoM);
     if (f.torqueNm && (f.torqueNm.x !== 0 || f.torqueNm.y !== 0)) throw new Error('Torque orbital somente em Z.');
   }
+  /** No ambiente central exige posição/velocidade XY e atitude/taxa somente em Z; não projeta estados inválidos silenciosamente. @contract f-5bccf57f8e1d2ebe @reviewed M12-DOC: implementação lida. */
   private validarEstadoPlanar(objeto: Objeto): void {
     if (this.ambiente.campo.modelo !== 'central') return;
     const e = objeto.getEstadoFisico();
@@ -435,6 +489,7 @@ export class MundoFisico {
     }
   }
 
+  /** Reúne forças operacionais, externas, aerodinâmicas, juntas e água; integra uma vez cada corpo isolado ou ilha e registra uso em horas. dtS em s escolhido pelo avanço. Gravidade/empuxo já aplicados por KDK são omitidos da força explícita. Pontos de aplicação são físicos e massas são instantâneas; atualiza estados somente pelos integradores/ilha. @contract f-3e1c3598586d381e @reviewed M12-DOC: implementação lida. */
   private integrarCorpos(dtS: number): void {
     for (const objeto of this.objetos.values()) {
       if (this.obterConjuntoEstruturalDoObjeto(objeto)) continue;
@@ -471,6 +526,7 @@ export class MundoFisico {
     }
   }
 
+  /** Reconstrói componentes conexos dos fixadores ativos, reutiliza ilhas por assinatura de membros e remove ilhas cuja topologia deixou de existir; sincroniza rigidez. @contract f-af4f0f7ead83e4dc @reviewed M12-DOC: implementação lida. */
   private sincronizarConjuntosEstruturais(dtS: number, avancarOrientacao: boolean): void {
     const adjacencias = new Map<Objeto, Set<Objeto>>();
     for (const fixador of this.fixadores.values()) {
@@ -508,6 +564,7 @@ export class MundoFisico {
     }
   }
 
+  /** Avalia pontos de aderência orientados contra superfícies sólidas com tolerância de 0,02 m; atualiza permissão de tração no core, sem ancorar corpos. @contract f-e0f6d2dcba6e82f4 @reviewed M12-DOC: implementação lida. */
   private atualizarApoioDeTracao(): void {
     const toleranciaApoioM = 0.02;
     for (const objeto of this.objetos.values()) {
@@ -517,6 +574,7 @@ export class MundoFisico {
     }
   }
 
+  /** Transforma pontos locais em m pela rotação Z e translação física atuais; devolve novos vetores globais. @contract f-9473634128208bd2 @reviewed M12-DOC: implementação lida. */
   private obterPontosOrientados(objeto: Objeto, pontosLocais: readonly Vetor3[]): Vetor3[] {
     const estado = objeto.getEstadoFisico();
     const cosseno = Math.cos(estado.orientacaoRad.z);
@@ -528,10 +586,12 @@ export class MundoFisico {
     ));
   }
 
+  /** Procura a ilha atualmente registrada que contém o mesmo objeto; ausência devolve undefined. @contract f-b219b09925e9fcb0 @reviewed M12-DOC: implementação lida. */
   private obterConjuntoEstruturalDoObjeto(objeto: Objeto): ConjuntoEstruturalRigido | undefined {
     return [...this.conjuntosEstruturais.values()].find((conjunto) => conjunto.contem(objeto));
   }
 
+  /** Consulta massa efetiva em kg no ponto/normal da ilha ou fixador; undefined indica ausência dessas restrições. @contract f-17e4d2400cfdabbe @reviewed M12-DOC: implementação lida. */
   private obterMassaEfetivaNoContato(objeto: Objeto, pontoContatoM: Vetor3, normal: Vetor3): number | undefined {
     const conjunto = this.obterConjuntoEstruturalDoObjeto(objeto);
     if (conjunto) return conjunto.obterMassaEfetivaNoContato(pontoContatoM, normal);
@@ -542,6 +602,7 @@ export class MundoFisico {
     return undefined;
   }
 
+  /** Impede operação do mundo sobre identidade de objeto não registrada; lança erro, sem inserir automaticamente. @contract f-f2830aafb5289482 @reviewed M12-DOC: implementação lida. */
   private exigirRegistro(objeto: Objeto): void {
     if (!this.objetos.has(objeto.id)) throw new Error(`Objeto não registrado: ${objeto.id}.`);
   }

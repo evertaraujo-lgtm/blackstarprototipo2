@@ -12,6 +12,7 @@ export interface CondicoesIniciaisLocais {
   readonly taxaAtitudeLocalRadps: number;
 }
 
+/** Dependências diretas: `Object.values(c).every`, `Object.values`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-4ab5e3de34eaedc3 */
 export function criarEstadoInicialLocal(ref: ReferencialFisico, c: CondicoesIniciaisLocais): EstadoFisico {
   if (!Object.values(c).every(Number.isFinite)) throw new Error('Condições iniciais devem ser finitas e SI.');
   const p = ref.posicaoPorArcoM(c.arcoM, c.altitudeM);

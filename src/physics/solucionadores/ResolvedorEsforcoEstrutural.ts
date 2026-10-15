@@ -14,7 +14,9 @@ import type { ConjuntoEstruturalRigido } from '../estruturas/ConjuntoEstruturalR
  * permanecem extensão futura, pois exigem distribuição de esforços estática.
  */
 export class ResolvedorEsforcoEstrutural {
-  /** Reação axial para cargas contínuas distribuídas: desconta aceleração comum e angular da ilha. */
+  /** Reação axial para cargas contínuas distribuídas: desconta aceleração comum e angular da ilha.
+   * @contract f-ca6b22a41219e7be
+   */
   public registrarCargasDistribuidas(conjunto: ConjuntoEstruturalRigido,
     cargas: readonly { readonly objeto: Objeto; readonly forcas: readonly ForcaAplicada[] }[], fixadoresRegistrados: Iterable<FixadorEstrutural>): void {
     const membros = new Set(conjunto.membros), G = conjunto.obterCentroDeMassaAtual();
@@ -37,6 +39,7 @@ export class ResolvedorEsforcoEstrutural {
     });
     for (const { f, axialN } of esforcos) { f.registrarEsforcoFisicoN(Math.max(0, axialN)); f.registrarEsforcoDeCompressaoFisicoN(Math.max(0, -axialN)); }
   }
+  /** Dependências diretas: `Set`, `[...fixadoresRegistrados].filter`, `membros.reduce`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1569e971b21872f1 */
   public registrarImpulsoDeContato(
     objetoDeContato: Objeto,
     membros: readonly Objeto[],
@@ -84,6 +87,7 @@ export class ResolvedorEsforcoEstrutural {
     }
   }
 
+  /** Devolve `posicaoPonderada.multiplicar(1 / massaTotalKg)`. Dependências diretas: `membros.reduce`, `posicaoPonderada.multiplicar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8ee28e4caeba0787 */
   private obterCentroDeMassa(membros: readonly Objeto[]): Vetor3 {
     const massaTotalKg = membros.reduce((soma, membro) => soma + membro.massaKg, 0);
     const posicaoPonderada = membros.reduce((soma, membro) => {
@@ -93,6 +97,7 @@ export class ResolvedorEsforcoEstrutural {
     return posicaoPonderada.multiplicar(1 / massaTotalKg);
   }
 
+  /** Devolve `alcancaveis`. Dependências diretas: `Set`, `pendentes.pop`, `membrosDaIlha.has`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a116f5e9200f30cc */
   private obterMembrosAlcancaveis(
     origem: Objeto,
     membrosDaIlha: ReadonlySet<Objeto>,

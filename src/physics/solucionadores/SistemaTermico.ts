@@ -3,15 +3,19 @@ import { SistemaAtmosferico } from './SistemaAtmosferico';
 
 /** Evolui energia térmica sem alterar estado cinemático. */
 export class SistemaTermico {
+  /** Configura consulta atmosférica, exposição ao ar e reservatório ambiente em °C finitos; não converte limites materiais para Kelvin. @contract f-4a293a694405dea2 @reviewed M12-DOC: implementação lida. */
   public constructor(
     private readonly atmosfera: SistemaAtmosferico,
     private readonly temperaturaAmbienteC: number,
-    private readonly exposicaoAoAr: (o: Objeto) => number = () => 1,
+    private readonly exposicaoAoAr: (o: Objeto) => number = /** Devolve `1`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-771e59ca689aead4 */
+                                                            () => 1,
   ) {
     if (!Number.isFinite(temperaturaAmbienteC)) throw new Error('Temperatura ambiente deve ser finita em °C.');
   }
 
-  /** Geração interna, convecção ambiente e jatos térmicos em ordem determinística. */
+  /** Geração interna, convecção ambiente e jatos térmicos em ordem determinística.
+   * @contract f-52ff1b5ad0ab53a2
+   */
   public atualizar(objetos: readonly Objeto[], dtS: number): void {
     for (const objeto of objetos) {
       const potenciaGeradaW = objeto.obterPotenciaTermicaGeradaW();
@@ -49,7 +53,9 @@ export class SistemaTermico {
     }
   }
 
-  /** Sem dados de efusividade, reparte a dissipação entre os materiais. */
+  /** Sem dados de efusividade, reparte a dissipação entre os materiais.
+   * @contract f-b469dac88a38cf3f
+   */
   public distribuirCalorDeAtritoEntreObjetos(objetoA: Objeto, objetoB: Objeto, energiaJ: number, dtS: number): void {
     if (energiaJ <= 0) return;
     objetoA.aplicarCalorDeAtritoPeloCore(energiaJ / 2, dtS);

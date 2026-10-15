@@ -43,13 +43,17 @@ export interface ContatoSuperficieFisico {
 export class ResolvedorContatoSuperficie {
   private contatosDoUltimoPasso: ContatoSuperficieFisico[] = [];
 
+  /** Hook vazio nesta implementação; não produz operação. REVISÃO NECESSÁRIA do contrato de especialização. @contract f-edb715cde7dc369d */
   public constructor(private readonly contexto: ContextoResolvedorContatoSuperficie) {}
 
-  /** Snapshot dos pontos de contato efetivamente processados pelo core no último passo. */
+  /** Snapshot dos pontos de contato efetivamente processados pelo core no último passo.
+   * @contract f-c729acb40f113723
+   */
   public obterContatos(): readonly ContatoSuperficieFisico[] {
     return this.contatosDoUltimoPasso.map((contato) => ({ ...contato }));
   }
 
+  /** Escritas diretas: `this.contatosDoUltimoPasso`. Dependências diretas: `this.contexto.obterSuperficies`, `Set`, `this.contexto.obterObjetos`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-fe4e8e129541edd2 */
   public resolver(dtS: number): void {
     this.contatosDoUltimoPasso = [];
     for (const superficie of this.contexto.obterSuperficies()) {
@@ -74,9 +78,11 @@ export class ResolvedorContatoSuperficie {
         const centroMassa = conjunto?.obterCentroDeMassaAtual() ?? objeto.getEstadoFisico().posicaoM;
         const n = superficie.normalEm(mediaDosContatos);
         const tangente = new Vetor3(n.y, -n.x, 0);
+        /** Devolve `p.subtrair(mediaDosContatos).produtoEscalar(tangente)`. Dependências diretas: `p.subtrair(mediaDosContatos).produtoEscalar`, `p.subtrair`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6b19a10a852539bb */
         const coordenada = (p: Vetor3) => p.subtrair(mediaDosContatos).produtoEscalar(tangente);
         const menorX = Math.min(...cantosDeContato.map(coordenada));
         const maiorX = Math.max(...cantosDeContato.map(coordenada));
+        /** Devolve `mediaDosContatos.adicionar(tangente.multiplicar(s))`. Dependências diretas: `mediaDosContatos.adicionar`, `tangente.multiplicar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a63bda35b3cbf4f1 */
         const pontoPorCoordenada = (s: number) => mediaDosContatos.adicionar(tangente.multiplicar(s));
         const pontoContatoM = pontoPorCoordenada(Math.max(menorX, Math.min(maiorX, coordenada(centroMassa))));
         if (penetracaoM < 0) {
@@ -115,6 +121,7 @@ export class ResolvedorContatoSuperficie {
     }
   }
 
+  /** Dependências diretas: `objeto.getEstadoFisico`, `objeto.getPontosDeContatoLocaisM().map`, `objeto.getPontosDeContatoLocaisM`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-348886c4c4a44648 */
   private obterCantosOrientados(objeto: Objeto): Vetor3[] {
     const estado = objeto.getEstadoFisico();
     const cosseno = Math.cos(estado.orientacaoRad.z);
@@ -126,6 +133,7 @@ export class ResolvedorContatoSuperficie {
     ));
   }
 
+  /** Dependências diretas: `superficie.normalEm`, `conjunto.obterVelocidadeNoPonto(pontoContatoM).produtoEscalar`, `conjunto.obterVelocidadeNoPonto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d2d9e097bb037bf9 */
   private resolverContatoDaIlha(
     conjunto: ConjuntoEstruturalRigido,
     objetoDeContato: Objeto,
@@ -172,6 +180,7 @@ export class ResolvedorContatoSuperficie {
         ? Math.max(0, 0.5 * conjunto.obterMassaEfetivaNoContato(pontoContatoM, normal) * velocidadeNormal ** 2) : 0, impulsoNormalNs);
   }
 
+  /** Dependências diretas: `objeto.getEstadoFisico`, `superficie.normalEm`, `pontoContatoM.subtrair`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-c3ba85b0316afc1c */
   private resolverContatoDoObjeto(objeto: Objeto, superficie: SuperficieFisica, penetracaoM: number, pontoContatoM: Vetor3, dtS: number): void {
     const estado = objeto.getEstadoFisico();
     const normal = superficie.normalEm(pontoContatoM);
@@ -231,6 +240,7 @@ export class ResolvedorContatoSuperficie {
       velocidadeNormal < 0 ? Math.max(0, 0.5 * (this.contexto.obterMassaEfetivaNoContato(objeto, pontoContatoM, normal) ?? objeto.massaKg) * velocidadeNormal ** 2) : 0, impulsoNormalNs);
   }
 
+  /** Dependências diretas: `superficie.normalEm`, `this.contatosDoUltimoPasso.push`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f7d22962a9a34b5c */
   private registrarContato(
     objeto: Objeto,
     superficie: SuperficieFisica,
@@ -262,13 +272,16 @@ export class ResolvedorContatoSuperficie {
     this.contatosDoUltimoPasso.push(contato);
   }
 
+  /** Devolve `estado.velocidadeMps.adicionar(estado.velocidadeAngularRadps.produtoVetorial(braco)).produtoEscalar(superficie.normalEm(pontoM))`. Dependências diretas: `objeto.getEstadoFisico`, `pontoM.subtrair`, `estado.velocidadeMps.adicionar(estado.velocidadeAngularRadps.produtoVetorial(braco)).produtoEscalar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-4c73421953cd6595 */
   private obterVelocidadeNormalNoPonto(objeto: Objeto, pontoM: Vetor3, superficie: SuperficieFisica): number {
     const estado = objeto.getEstadoFisico();
     const braco = pontoM.subtrair(estado.posicaoM);
     return estado.velocidadeMps.adicionar(estado.velocidadeAngularRadps.produtoVetorial(braco)).produtoEscalar(superficie.normalEm(pontoM));
   }
 
-  /** Registra sapatas da mesma ilha dentro da tolerância, sem aplicar força à distância. */
+  /** Registra sapatas da mesma ilha dentro da tolerância, sem aplicar força à distância.
+   * @contract f-925eb6da4f05d262
+   */
   private registrarApoiosProximosDaIlha(
     conjunto: ConjuntoEstruturalRigido,
     membros: readonly Objeto[],
@@ -288,25 +301,30 @@ export class ResolvedorContatoSuperficie {
     }
   }
 
+  /** Devolve `(torqueUnitario.x ** 2 / inercia.x) + (torqueUnitario.y ** 2 / inercia.y) + (torqueUnitario.z ** 2 / inercia.z)`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-aad9e86d08c656ee */
   private obterTermoAngular(torqueUnitario: Vetor3, inercia: Vetor3): number {
     return (torqueUnitario.x ** 2 / inercia.x) + (torqueUnitario.y ** 2 / inercia.y) + (torqueUnitario.z ** 2 / inercia.z);
   }
 
+  /** Devolve `new Vetor3(torque.x / inercia.x, torque.y / inercia.y, torque.z / inercia.z)`. Dependências diretas: `braco.produtoVetorial`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-16c52f810e1e5dc1 */
   private calcularVariacaoAngular(braco: Vetor3, impulso: Vetor3, inercia: Vetor3): Vetor3 {
     const torque = braco.produtoVetorial(impulso);
     return new Vetor3(torque.x / inercia.x, torque.y / inercia.y, torque.z / inercia.z);
   }
 
+  /** Devolve `Math.max(0, impulsoNs * (velocidadeTangencialMps + velocidadeFinalMps) / 2)`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-bbe15a971258893d */
   private calcularEnergiaDissipadaPorAtrito(impulsoNs: number, velocidadeTangencialMps: number, massaInversaEfetiva: number): number {
     const velocidadeFinalMps = Math.max(0, velocidadeTangencialMps - impulsoNs * massaInversaEfetiva);
     return Math.max(0, impulsoNs * (velocidadeTangencialMps + velocidadeFinalMps) / 2);
   }
 
+  /** Dependências diretas: `this.calcularRestituicaoPorEnergia`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-043b0171c97611b1 */
   private calcularRestituicaoDeContato(energiaImpactoJ: number, resistenciaObjeto: number, resistenciaSuperficie: number, dissipacaoObjeto: number, dissipacaoSuperficie: number, velocidadeNormalMps: number): number {
     if (Math.abs(velocidadeNormalMps) < this.contexto.velocidadeDeRepousoMps) return 0;
     return this.calcularRestituicaoPorEnergia(energiaImpactoJ, resistenciaObjeto, resistenciaSuperficie, dissipacaoObjeto, dissipacaoSuperficie);
   }
 
+  /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-4326bf9c66f996ab */
   private calcularRestituicaoPorEnergia(energiaImpactoJ: number, resistenciaA: number, resistenciaB: number, dissipacaoA: number, dissipacaoB: number): number {
     if (energiaImpactoJ === 0) return 0;
     const capacidadeDeRetorno = Math.min(1, Math.min(resistenciaA, resistenciaB) / energiaImpactoJ);

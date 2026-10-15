@@ -12,12 +12,14 @@ export class SistemaAtmosferico {
   private static readonly altitudeTropopausaM = 11_000;
   private static readonly temperaturaTropopausaK = 216.65;
   private velocidadeArAtualMps: Vetor3;
+  /** Configura densidade de referência kg/m³ não negativa, vento m/s, referencial e política de altitude; densidade zero declara vácuo. @contract f-6538ff18b9c53fb0 @reviewed M12-DOC: implementação lida. */
   public constructor(
     public readonly densidadeArNivelMarKgM3: number,
     velocidadeArMps: Vetor3,
     private readonly referencial: ReferencialFisico = new ReferencialPlano(),
     public readonly politicaAltitude: 'extrapolacao-legada' | 'vacuo-simplificado-25km' = 'extrapolacao-legada',
-    private readonly exposicaoAoAr: (o: Objeto) => number = () => 1,
+    private readonly exposicaoAoAr: (o: Objeto) => number = /** Devolve `1`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-64345a636aa6c905 */
+                                                            () => 1,
   ) {
     if (!Number.isFinite(densidadeArNivelMarKgM3) || densidadeArNivelMarKgM3 < 0) {
       throw new Error('Densidade atmosférica deve ser finita e não negativa.');
@@ -25,14 +27,19 @@ export class SistemaAtmosferico {
     this.velocidadeArAtualMps = velocidadeArMps;
   }
 
+  /** Consulta vetor de vento inercial atual m/s, sem acrescentar rotação terrestre. @contract f-23e6578a21b8215b @reviewed M12-DOC: implementação lida. */
   public get velocidadeArMps(): Vetor3 { return this.velocidadeArAtualMps; }
 
-  /** Atualiza o campo de vento calculado pelo MundoFisico no tempo de missão. */
+  /** Atualiza o campo de vento calculado pelo MundoFisico no tempo de missão.
+   * @contract f-2b119b7545bff7c0
+   */
   public definirVelocidadeArPeloMundo(velocidadeArMps: Vetor3): void {
     this.velocidadeArAtualMps = velocidadeArMps;
   }
 
-  /** Densidade atmosférica padrão terrestre pela altitude geométrica, escalada pela densidade configurada ao nível do mar. */
+  /** Densidade atmosférica padrão terrestre pela altitude geométrica, escalada pela densidade configurada ao nível do mar.
+   * @contract f-9f2bc0b195591180
+   */
   public obterDensidadeArKgM3(altitudeM: number): number {
     if (!Number.isFinite(altitudeM)) throw new Error('Altitude atmosférica deve ser finita.');
     if (this.densidadeArNivelMarKgM3 === 0) return 0;
@@ -45,11 +52,14 @@ export class SistemaAtmosferico {
     return fator * densidadePadrao * (this.densidadeArNivelMarKgM3 / SistemaAtmosferico.densidadeReferenciaKgM3);
   }
 
+  /** Converte posição global m em altitude geométrica pelo referencial antes de calcular densidade kg/m³. @contract f-71ad791fb42263b2 @reviewed M12-DOC: implementação lida. */
   public obterDensidadeNaPosicaoKgM3(p: Vetor3): number {
     return this.obterDensidadeArKgM3(this.referencial.altitudeGeometricaM(p));
   }
 
-  /** Arrasto em N, sempre oposto à velocidade relativa ao ar. */
+  /** Arrasto em N, sempre oposto à velocidade relativa ao ar.
+   * @contract f-f2ba5ae908f4b022
+   */
   public calcularArrasto(objeto: Objeto, velocidadeMps: Vetor3): Vetor3 {
     const densidadeArKgM3 = this.obterDensidadeNaPosicaoKgM3(objeto.getEstadoFisico().posicaoM);
     if (densidadeArKgM3 === 0) return Vetor3.zero;
@@ -63,6 +73,7 @@ export class SistemaAtmosferico {
     return velocidadeRelativa.multiplicar(-magnitudeArrastoN / moduloVelocidade);
   }
 
+  /** Calcula perfil hidrostático de troposfera até 11 km e camada isotérmica acima; usa constantes atmosféricas de referência, sem representar alta atmosfera fielmente. @contract f-8e4e8dfbeab6ea7d @reviewed M12-DOC: implementação lida. */
   private static calcularDensidadePadrao(altitudeM: number): number {
     const altitude = Math.max(0, altitudeM);
     const constante = SistemaAtmosferico.constanteArSecoJPorKgK;

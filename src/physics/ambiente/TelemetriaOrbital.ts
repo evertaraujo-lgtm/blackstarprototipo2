@@ -1,7 +1,9 @@
 import { Vetor3 } from '../Vetor3';
 import { CampoCentral, TERRA } from './CampoGravitacional';
 
-/** Elementos osculadores de dois corpos: ignora empuxo/arrasto/contacto futuros. */
+/** Elementos osculadores de dois corpos: ignora empuxo/arrasto/contacto futuros.
+ * @contract f-f08ef7862a1cdb97
+ */
 export function obterTelemetriaOrbital(p: Vetor3, v: Vetor3, campo: CampoCentral, raioSuperficieM: number = TERRA.raioM) {
   if (p.z !== 0 || v.z !== 0 || campo.centroM.z !== 0) throw new Error('Telemetria orbital M9 restrita ao plano XY.');
   const r = p.subtrair(campo.centroM);

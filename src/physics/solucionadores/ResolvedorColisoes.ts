@@ -19,8 +19,10 @@ export interface ContextoResolvedorColisoes {
 
 /** Descobre contatos entre objetos e aplica sua resposta impulsiva. */
 export class ResolvedorColisoes {
+  /** Hook vazio nesta implementação; não produz operação. REVISÃO NECESSÁRIA do contrato de especialização. @contract f-6514cb8ebf3df832 */
   public constructor(private readonly contexto: ContextoResolvedorColisoes) {}
 
+  /** Dependências diretas: `this.contexto.obterObjetos`, `this.contexto.deveIgnorarColisao`, `this.estaoNaMesmaIlhaEstrutural`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-bf39777e706d6a4a */
   public resolver(dtS: number): void {
     const objetos = [...this.contexto.obterObjetos()];
     for (let indiceA = 0; indiceA < objetos.length; indiceA += 1) {
@@ -38,6 +40,7 @@ export class ResolvedorColisoes {
     }
   }
 
+  /** Dependências diretas: `objeto.getEstadoFisico`, `objeto.getVerticesColisaoLocais2D().map`, `objeto.getVerticesColisaoLocais2D`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3a63fc0d061ecefb */
   private obterCaixa(objeto: Objeto, usarGeometriaEspecifica: boolean): CaixaOrientada {
     const estado = objeto.getEstadoFisico();
     return {
@@ -48,11 +51,13 @@ export class ResolvedorColisoes {
     };
   }
 
+  /** Devolve `conjuntoA !== undefined && conjuntoA === this.contexto.obterConjuntoEstrutural(objetoB)`. Dependências diretas: `this.contexto.obterConjuntoEstrutural`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7649fdead7bbc85d */
   private estaoNaMesmaIlhaEstrutural(objetoA: Objeto, objetoB: Objeto): boolean {
     const conjuntoA = this.contexto.obterConjuntoEstrutural(objetoA);
     return conjuntoA !== undefined && conjuntoA === this.contexto.obterConjuntoEstrutural(objetoB);
   }
 
+  /** Dependências diretas: `objetoA.getEstadoFisico`, `objetoB.getEstadoFisico`, `pontoContatoM.subtrair`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-14545f10ae487452 */
   private resolverContato(objetoA: Objeto, objetoB: Objeto, normal: Vetor3, penetracaoM: number, pontoContatoM: Vetor3, dtS: number): void {
     const estadoA = objetoA.getEstadoFisico();
     const estadoB = objetoB.getEstadoFisico();
@@ -138,26 +143,31 @@ export class ResolvedorColisoes {
     });
   }
 
+  /** Devolve `(torqueUnitario.x ** 2 / inercia.x) + (torqueUnitario.y ** 2 / inercia.y) + (torqueUnitario.z ** 2 / inercia.z)`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d376212e5c909eb9 */
   private obterTermoAngular(torqueUnitario: Vetor3, inercia: Vetor3): number {
     return (torqueUnitario.x ** 2 / inercia.x) + (torqueUnitario.y ** 2 / inercia.y) + (torqueUnitario.z ** 2 / inercia.z);
   }
 
+  /** Devolve `new Vetor3(torque.x / inercia.x, torque.y / inercia.y, torque.z / inercia.z)`. Dependências diretas: `braco.produtoVetorial`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-896c4d5d694f3fa6 */
   private calcularVariacaoAngular(braco: Vetor3, impulso: Vetor3, inercia: Vetor3): Vetor3 {
     const torque = braco.produtoVetorial(impulso);
     return new Vetor3(torque.x / inercia.x, torque.y / inercia.y, torque.z / inercia.z);
   }
 
+  /** Devolve `Math.max(0, impulsoNs * (velocidadeTangencialMps + velocidadeFinalMps) / 2)`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6af3e1b42d669f44 */
   private calcularEnergiaDissipadaPorAtrito(impulsoNs: number, velocidadeTangencialMps: number, massaInversaEfetiva: number): number {
     const velocidadeFinalMps = Math.max(0, velocidadeTangencialMps - impulsoNs * massaInversaEfetiva);
     return Math.max(0, impulsoNs * (velocidadeTangencialMps + velocidadeFinalMps) / 2);
   }
 
+  /** Dependências diretas: `this.calcularRestituicaoPorEnergia`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f80dc55fabf6e146 */
   private calcularRestituicao(objetoA: Objeto, objetoB: Objeto, velocidadeNormalMps: number): number {
     const massaReduzida = (objetoA.massaKg * objetoB.massaKg) / (objetoA.massaKg + objetoB.massaKg);
     const energiaImpactoJ = 0.5 * massaReduzida * velocidadeNormalMps ** 2;
     return this.calcularRestituicaoPorEnergia(energiaImpactoJ, objetoA.resistenciaColisaoJ, objetoB.resistenciaColisaoJ, objetoA.dissipacaoImpacto, objetoB.dissipacaoImpacto);
   }
 
+  /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-83cc2dff397fae45 */
   private calcularRestituicaoPorEnergia(energiaImpactoJ: number, resistenciaA: number, resistenciaB: number, dissipacaoA: number, dissipacaoB: number): number {
     if (energiaImpactoJ === 0) return 0;
     const capacidadeDeRetorno = Math.min(1, Math.min(resistenciaA, resistenciaB) / energiaImpactoJ);

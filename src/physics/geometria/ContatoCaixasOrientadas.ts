@@ -22,6 +22,7 @@ export interface ContatoCaixasOrientadas {
  * Consulta geométrica usada tanto pelo resolvedor físico quanto por sensores.
  * Contato por tangência é aceito com uma tolerância numérica curta, para que
  * um fim de curso não perca o sinal depois da correção de penetração do core.
+ * @contract f-738d840a42e74122
  */
 export function obterContatoCaixasOrientadas(
   caixaA: CaixaOrientada,
@@ -66,6 +67,7 @@ export function obterContatoCaixasOrientadas(
   return { normal: new Vetor3(normal.x, normal.y, 0), penetracaoM: Math.max(0, penetracaoM), pontoM: new Vetor3(ponto.x, ponto.y, z) };
 }
 
+/** Dependências diretas: `caixaB.posicaoM.subtrair`, `Vetor3`, `obterCentroDaIntersecao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-4c5601b333091275 */
 function obterContatoAabb(caixaA: CaixaOrientada, caixaB: CaixaOrientada, toleranciaContatoM: number, somentePlanoXY: boolean): ContatoCaixasOrientadas | undefined {
   const diferenca = caixaB.posicaoM.subtrair(caixaA.posicaoM);
   const sobreposicaoX = ((caixaA.dimensoesM.x + caixaB.dimensoesM.x) / 2) - Math.abs(diferenca.x);
@@ -105,6 +107,7 @@ function obterContatoAabb(caixaA: CaixaOrientada, caixaB: CaixaOrientada, tolera
   };
 }
 
+/** Dependências diretas: `caixa.verticesLocais2D.map`, `[new Vetor3(-metadeX, -metadeY, 0), new Vetor3(metadeX, -metadeY, 0), new Vetor3(metadeX, metadeY, 0), new Vetor3(-metadeX, metadeY, 0)] .map`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7ebe1c93d0b716bc */
 function obterVertices2D(caixa: CaixaOrientada): Ponto2D[] {
   if (caixa.verticesLocais2D) {
     const c = Math.cos(caixa.orientacaoZRad);
@@ -122,6 +125,7 @@ function obterVertices2D(caixa: CaixaOrientada): Ponto2D[] {
     .map((ponto) => ({ x: caixa.posicaoM.x + (ponto.x * c) - (ponto.y * s), y: caixa.posicaoM.y + (ponto.x * s) + (ponto.y * c) }));
 }
 
+/** Dependências diretas: `vertices.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-bf2dd22bc31bf19f */
 function obterEixos(vertices: readonly Ponto2D[]): Ponto2D[] {
   return vertices.map((ponto, indice) => {
     const proximo = vertices[(indice + 1) % vertices.length];
@@ -131,11 +135,13 @@ function obterEixos(vertices: readonly Ponto2D[]): Ponto2D[] {
   });
 }
 
+/** Devolve `{ minimo: Math.min(...valores), maximo: Math.max(...valores) }`. Dependências diretas: `vertices.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-4dabc47f8d93eed7 */
 function projetar(vertices: readonly Ponto2D[], eixo: Ponto2D): { minimo: number; maximo: number } {
   const valores = vertices.map((ponto) => (ponto.x * eixo.x) + (ponto.y * eixo.y));
   return { minimo: Math.min(...valores), maximo: Math.max(...valores) };
 }
 
+/** Devolve `resultado`. Dependências diretas: `dentroDaAresta`, `resultado.push`, `intersecao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-cb8421e00922c0c0 */
 function recortarPoligono(sujeito: readonly Ponto2D[], recortador: readonly Ponto2D[]): Ponto2D[] {
   let resultado = [...sujeito];
   for (let indice = 0; indice < recortador.length && resultado.length > 0; indice += 1) {
@@ -151,21 +157,25 @@ function recortarPoligono(sujeito: readonly Ponto2D[], recortador: readonly Pont
   return resultado;
 }
 
+/** Devolve `((fim.x - inicio.x) * (ponto.y - inicio.y)) - ((fim.y - inicio.y) * (ponto.x - inicio.x)) >= -1e-9`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d85c45618f0ba412 */
 function dentroDaAresta(ponto: Ponto2D, inicio: Ponto2D, fim: Ponto2D): boolean {
   return ((fim.x - inicio.x) * (ponto.y - inicio.y)) - ((fim.y - inicio.y) * (ponto.x - inicio.x)) >= -1e-9;
 }
 
+/** Devolve `{ x: a.x + (t * dx), y: a.y + (t * dy) }`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7c518bfe4b96b14d */
 function intersecao(a: Ponto2D, b: Ponto2D, inicio: Ponto2D, fim: Ponto2D): Ponto2D {
   const dx = b.x - a.x; const dy = b.y - a.y; const ex = fim.x - inicio.x; const ey = fim.y - inicio.y;
   const t = (((inicio.x - a.x) * ey) - ((inicio.y - a.y) * ex)) / ((dx * ey) - (dy * ex));
   return { x: a.x + (t * dx), y: a.y + (t * dy) };
 }
 
+/** Devolve `{ x: soma.x / vertices.length, y: soma.y / vertices.length }`. Dependências diretas: `vertices.reduce`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-86b3847ad64abfe2 */
 function centroide(vertices: readonly Ponto2D[]): Ponto2D {
   const soma = vertices.reduce((acumulado, ponto) => ({ x: acumulado.x + ponto.x, y: acumulado.y + ponto.y }), { x: 0, y: 0 });
   return { x: soma.x / vertices.length, y: soma.y / vertices.length };
 }
 
+/** Devolve `(inicio + fim) / 2`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-322e338ea8672aa5 */
 function obterCentroDaIntersecao(centroA: number, dimensaoA: number, centroB: number, dimensaoB: number): number {
   const inicio = Math.max(centroA - dimensaoA / 2, centroB - dimensaoB / 2);
   const fim = Math.min(centroA + dimensaoA / 2, centroB + dimensaoB / 2);

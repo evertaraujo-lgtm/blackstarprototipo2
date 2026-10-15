@@ -94,3 +94,15 @@ O entrypoint `scripts/auditar-documentacao.ts` orquestra os modos explícitos.
 
 Catálogo e inventário são gerados; o texto arquitetural é curado manualmente,
 com somente o índice entre marcadores atualizado pela ferramenta.
+
+### C1 — Núcleo, ambiente, geometria e solucionadores
+
+25 módulos receberam contratos junto às declarações (243 pontos de edição).
+Gravidade, referenciais, sequência do mundo, empuxo/arrasto, volume deslocado,
+cache da ilha e integração têm descrições confrontadas com implementações.
+Contratos complexos ainda não confirmados estão explicitamente marcados para
+revisão, com chamadas, escritas, retornos e condições no catálogo.
+
+JavaScript emitido com `removeComments` permaneceu idêntico em **cada arquivo**
+antes/depois do lote; assinaturas permanecem no mesmo inventário. Catálogo e
+linhas de navegação foram regenerados. Nenhuma constante/algoritmo foi alterado.
