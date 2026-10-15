@@ -21,7 +21,7 @@ export class Bss03 extends VeiculoComposto {
   private readonly configuracaoControleDesaceleracao: Partial<ConfiguracaoControleDesaceleracao>;
   private controleAtivo: ControleAtivoBss03 = 'manual';
 
-  /** Escritas diretas: `this.idsPropulsoresDecolagem`, `this.idsPropulsoresPouso`, `this.configuracaoControlePouso`, `this.configuracaoControleDesaceleracao`. Dependências diretas: `super`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-860287d56592b29a */
+  /** Inicializa veículo composto, exige grupos de decolagem/pouso não vazios e copia ids/configurações dos controles; não cria versão paralela de dinâmica. @contract f-860287d56592b29a @reviewed M12-DOC: implementação lida. */
   public constructor(definicao: DefinicaoBss03) {
     super(definicao);
     if (definicao.idsPropulsoresDecolagem.length === 0 || definicao.idsPropulsoresPouso.length === 0) {
@@ -33,7 +33,7 @@ export class Bss03 extends VeiculoComposto {
     this.configuracaoControleDesaceleracao = { ...definicao.controleDesaceleracao };
   }
 
-  /** Escritas diretas: `this.controleAtivo`. Dependências diretas: `this.desabilitarControleDeDesaceleracao`, `this.desabilitarControleDeGimbalDeDescida`, `this.habilitarControleDeInclinacaoNosPropulsores`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-925836e5b858f517 */
+  /** Desativa desaceleração/gimbal de descida, habilita inclinação nos motores de decolagem e registra modo inclinação. @contract f-925836e5b858f517 @reviewed M12-DOC: implementação lida. */
   public ativarControleDeInclinacao(): void {
     this.desabilitarControleDeDesaceleracao();
     this.desabilitarControleDeGimbalDeDescida();
@@ -41,7 +41,7 @@ export class Bss03 extends VeiculoComposto {
     this.controleAtivo = 'inclinacao';
   }
 
-  /** Escritas diretas: `this.controleAtivo`. Dependências diretas: `this.habilitarControleDeGimbalDeDescida`, `this.habilitarControleDeDesaceleracao`, `this.habilitarControleDePousoComposto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-bc37af32bf373cd0 */
+  /** Compõe gimbal de descida, desaceleração e pouso nos motores designados e registra modo pouso; não garante contato seguro. @contract f-bc37af32bf373cd0 @reviewed M12-DOC: implementação lida. */
   public ativarControleDePouso(): void {
     this.habilitarControleDeGimbalDeDescida(this.idsPropulsoresPouso, 0.002);
     this.habilitarControleDeDesaceleracao(this.configuracaoControleDesaceleracao, this.idsPropulsoresPouso);
@@ -74,7 +74,7 @@ export class Bss03 extends VeiculoComposto {
     this.ativarControleDeInclinacao();
   }
 
-  /** Escritas diretas: `this.controleAtivo`. Dependências diretas: `this.desabilitarControleDeInclinacao`, `this.desabilitarControleDePouso`, `this.desabilitarControleDeDesaceleracao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a517d11ce6820182 */
+  /** Desabilita quatro controladores automáticos e registra modo manual sem modificar pose/velocidade. @contract f-a517d11ce6820182 @reviewed M12-DOC: implementação lida. */
   public desativarControlesAutomaticos(): void {
     this.desabilitarControleDeInclinacao();
     this.desabilitarControleDePouso();

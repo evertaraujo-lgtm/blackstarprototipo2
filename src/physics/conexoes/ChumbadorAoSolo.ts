@@ -21,7 +21,7 @@ export class ChumbadorAoSolo {
   private esforcoFisicoAtualN = 0;
   private maiorEsforcoFisicoN = 0;
 
-  /** Escritas diretas: `this.definicao`, `this.estadoDeMontagem`. Dependências diretas: `Error`, `definicao.objeto.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-c5d6b79c56928483 */
+  /** Valida identidade e resistência positiva finita em N; captura estado de montagem do objeto como referência da ancoragem física. Não move corpo na construção. @contract f-c5d6b79c56928483 @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly definicao: DefinicaoChumbadorAoSolo) {
     if (!definicao.id || !Number.isFinite(definicao.resistenciaN) || definicao.resistenciaN <= 0) {
       throw new Error('Definição de chumbador ao solo inválida.');

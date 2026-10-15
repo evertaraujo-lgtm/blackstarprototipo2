@@ -21,7 +21,7 @@ export class PainelSolar extends Objeto {
   private potenciaAtualCalculadaW = 0;
   private statusAtual: StatusPainelSolar;
 
-  /** Escritas diretas: `this.config`, `this.statusAtual`, `this.conexaoCarga`. Dependências diretas: `super`, `[config.areaAtivaM2, config.irradianciaWPorM2, config.eficiencia].every`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d2af793969491d0e */
+  /** Inicializa objeto, valida área m²/irradiância W/m²/eficiência e estado de abertura; cria conexão de carga de 20 m com resistência 0,05 Ω e corrente dimensionada para 24 V. @contract f-d2af793969491d0e @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly config: DefinicaoPainelSolar) {
     super(config);
     if (![config.areaAtivaM2, config.irradianciaWPorM2, config.eficiencia].every(Number.isFinite) ||
@@ -53,7 +53,7 @@ export class PainelSolar extends Objeto {
   public get estaDesdobrado(): boolean { return this.statusAtual === 'desdobrado'; }
   /** Devolve `Math.max(0, Math.min(1, this.config.obterFatorIluminacao?.() ?? 1))`. Dependências diretas: `this.config.obterFatorIluminacao`. Efeitos indiretos seguem as dependências chamadas. @contract f-a4c6ad839600ed42 */
   public get fatorIluminacao(): number { return Math.max(0, Math.min(1, this.config.obterFatorIluminacao?.() ?? 1)); }
-  /** Escritas diretas: `this.statusAtual`, `this.potenciaAtualCalculadaW`, `this.energiaDisponivelNoPassoCalculadaJ`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-27389102f08cbd7e */
+  /** Muda abertura operacional; dobrar zera imediatamente potência/orçamento do passo. Não modifica massa nem integridade. @contract f-27389102f08cbd7e @reviewed M12-DOC: implementação lida. */
   public definirStatus(status: StatusPainelSolar): void {
     this.statusAtual = status;
     if (status === 'dobrado') {
@@ -61,7 +61,7 @@ export class PainelSolar extends Objeto {
       this.energiaDisponivelNoPassoCalculadaJ = 0;
     }
   }
-  /** Escritas diretas: `this.potenciaAtualCalculadaW`, `this.energiaDisponivelNoPassoCalculadaJ`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-457240864bf92686 */
+  /** Para dt positivo s calcula potência por irradiância×área×eficiência×iluminação se desdobrado, e energia disponível em J; sobrescreve orçamento do passo. @contract f-457240864bf92686 @reviewed M12-DOC: implementação lida. */
   public override prepararPassoEnergetico(dtS: number): void {
     if (!Number.isFinite(dtS) || dtS <= 0) throw new Error('dt do painel solar inválido.');
     this.potenciaAtualCalculadaW = this.estaDesdobrado
@@ -69,7 +69,7 @@ export class PainelSolar extends Objeto {
       : 0;
     this.energiaDisponivelNoPassoCalculadaJ = this.potenciaAtualCalculadaW * dtS;
   }
-  /** Devolve `entregue`. Escritas diretas: `this.energiaDisponivelNoPassoCalculadaJ`, `this.energiaGeradaCalculadaJ`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0fa9889c284193a4 */
+  /** Entrega no máximo pedido válido e orçamento solar atual; desconta disponibilidade e acumula energia efetivamente entregue, sem reserva oculta. @contract f-0fa9889c284193a4 @reviewed M12-DOC: implementação lida. */
   public fornecerEnergia(energiaSolicitadaJ: number): number {
     if (!Number.isFinite(energiaSolicitadaJ) || energiaSolicitadaJ < 0) throw new Error('Energia solicitada inválida.');
     const entregue = Math.min(energiaSolicitadaJ, this.energiaDisponivelNoPassoCalculadaJ);
@@ -77,7 +77,7 @@ export class PainelSolar extends Objeto {
     this.energiaGeradaCalculadaJ += entregue;
     return entregue;
   }
-  /** Dependências diretas: `this.conexaoCarga.prepararPasso`, `this.conexaoCarga.transferirEnergiaParaDestino`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-76648f7c5d24d674 */
+  /** Prepara conexão e transfere orçamento do passo ao destino pelo circuito, respeitando perdas/limites da conexão. @contract f-76648f7c5d24d674 @reviewed M12-DOC: implementação lida. */
   public override prepararPassoOperacional(dtS: number): void {
     this.conexaoCarga.prepararPasso(dtS);
     this.conexaoCarga.transferirEnergiaParaDestino(this.energiaDisponivelNoPassoCalculadaJ);

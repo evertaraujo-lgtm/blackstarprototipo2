@@ -229,3 +229,11 @@ A fase cinemática `toque` de um controlador não comprova contato/apoio seguro.
 O autotune usa modelo auxiliar próprio, com custo e limites documentados, sem
 ser apresentado como propagação equivalente do mundo. Sensores observam e
 atualizam leituras; não aplicam forças. AST executável preservada por arquivo.
+
+### C8 — Atuadores, mecanismos e cadeias de energia/propelentes
+
+109 contratos adicionais descrevem cilindros/servos, porta/trava, juntas,
+gerador/painel solar, alimentação química, bocal, paraquedas e veículos locais.
+Foram diferenciados comando, orçamento energético, entrega, reação e integração.
+Hipóteses cartesianas remanescentes em mecanismos locais ficaram registradas no
+mapa e no código, sem refatoração. A prova por arquivo preservou AST executável.

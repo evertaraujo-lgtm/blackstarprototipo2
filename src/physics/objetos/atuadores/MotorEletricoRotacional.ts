@@ -14,7 +14,7 @@ export class MotorEletricoRotacional extends ControladorPosicionamentoMotorEletr
   private torqueAtualInternoNm = 0;
   private habilitadoInterno = true;
 
-  /** Escritas diretas: `this.conexao`. Dependências diretas: `super`, `Error`, `ConexaoEletrica`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-338925f6e3377ab1 */
+  /** Inicializa objeto físico e conexão elétrica de 10 m ligada, com corrente nominal por potência/tensão da fonte; exige potência positiva. Mantém controle especializado nas subclasses. @contract f-338925f6e3377ab1 @reviewed M12-DOC: implementação lida. */
   public constructor(definicao: DefinicaoMotorEletricoRotacional) {
     super(definicao);
     if (definicao.potenciaNominalW <= 0) {
@@ -37,12 +37,12 @@ export class MotorEletricoRotacional extends ControladorPosicionamentoMotorEletr
   /** Devolve `this.habilitadoInterno`. Efeitos indiretos seguem as dependências chamadas. @contract f-bad4c32de9938f81 */
   public get habilitado(): boolean { return this.habilitadoInterno; }
 
-  /** Escritas diretas: `this.habilitadoInterno`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b5ae4fa41874fd7b */
+  /** Marca motor habilitado; fornecimento elétrico e integridade ainda condicionam torque efetivo. @contract f-b5ae4fa41874fd7b @reviewed M12-DOC: implementação lida. */
   public ligar(): void { this.habilitadoInterno = true; }
-  /** Escritas diretas: `this.habilitadoInterno`, `this.torqueAtualInternoNm`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6e59ef95d6e931ad */
+  /** Desabilita e zera torque interno disponível sem impor parada cinemática. @contract f-6e59ef95d6e931ad @reviewed M12-DOC: implementação lida. */
   public desligar(): void { this.habilitadoInterno = false; this.torqueAtualInternoNm = 0; }
 
-  /** Escritas diretas: `this.torqueAtualInternoNm`. Dependências diretas: `this.conexao.prepararPasso`, `this.zerarEstadoDoControlador`, `this.calcularTorqueDePosicao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-c5f258a2e6357c87 */
+  /** Prepara circuito; indisponibilidade/destruição zera torque e memória. Solicita energia pelo trabalho |τω| e parcela proporcional ao torque; escala torque pela energia realmente entregue. Não integra rotação nem garante torque quando sem alimentação. @contract f-c5f258a2e6357c87 @reviewed M12-DOC: implementação lida. */
   public prepararPassoOperacional(dtS: number): void {
     this.conexao.prepararPasso(dtS);
     if (!this.habilitadoInterno || this.conexao.estaIndisponivel || this.integridadeEstrutural === 0) {

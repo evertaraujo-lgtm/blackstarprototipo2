@@ -31,7 +31,7 @@ export class VeiculoTerrestre extends Objeto {
   private comandoFreio = 0;
   private rodasApoiadasPeloCore = false;
 
-  /** Escritas diretas: `this.definicaoVeiculo`. Dependências diretas: `super`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-11d563c8accc999f */
+  /** Valida rodas inteiras (mínimo duas), forças N positivas, aderência, rolamento e geometria m que acomode rodas/chassi; não presume contato apenas pela posição inicial. @contract f-11d563c8accc999f @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly definicaoVeiculo: DefinicaoVeiculoTerrestre) {
     super(definicaoVeiculo);
     if (!Number.isInteger(definicaoVeiculo.quantidadeRodas) || definicaoVeiculo.quantidadeRodas < 2) {
@@ -121,19 +121,19 @@ export class VeiculoTerrestre extends Objeto {
     return pontos;
   }
 
-  /** Devolve `[new Vetor3(-semiEntreEixosM, alturaTangenciaM, 0), new Vetor3(semiEntreEixosM, alturaTangenciaM, 0)]`. Dependências diretas: `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7234fbce4e5b06d9 */
+  /** Retorna dois pontos locais de tangência inferior das rodas, separados pela distância entre eixos; chassi não autoriza tração. @contract f-7234fbce4e5b06d9 @reviewed M12-DOC: implementação lida. */
   public override getPontosDeTracaoLocaisM(): readonly Vetor3[] {
     const semiEntreEixosM = (this.definicaoVeiculo.distanciaEntreEixosM ?? this.dimensoesM.x * 0.6) / 2;
     const alturaTangenciaM = -this.dimensoesM.y / 2;
     return [new Vetor3(-semiEntreEixosM, alturaTangenciaM, 0), new Vetor3(semiEntreEixosM, alturaTangenciaM, 0)];
   }
 
-  /** Escritas diretas: `this.rodasApoiadasPeloCore`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-09f4e212fdfebdb9 */
+  /** Atualiza permissão de tração observada pelo core; não desloca veículo nem aplica aderência à distância. @contract f-09f4e212fdfebdb9 @reviewed M12-DOC: implementação lida. */
   public override atualizarContatoDeTracaoPeloCore(apoiado: boolean): void {
     this.rodasApoiadasPeloCore = apoiado;
   }
 
-  /** Devolve `this.definicaoVeiculo.coeficienteResistenciaRolamento ?? 0.015`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-485b0db1c1818076 */
+  /** Fornece coeficiente de rolamento declarado ou 0,015 ao contato; é distinto da aderência que limita tração. @contract f-485b0db1c1818076 @reviewed M12-DOC: implementação lida. */
   public override getCoeficienteAtritoDeContato(): number {
     return this.definicaoVeiculo.coeficienteResistenciaRolamento ?? 0.015;
   }
@@ -153,7 +153,7 @@ export class VeiculoTerrestre extends Objeto {
     this.comandoFreio = comando;
   }
 
-  /** Dependências diretas: `this.getEstadoFisico`, `Vetor3`, `estado.velocidadeMps.produtoEscalar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d39d8e56237cf68d */
+  /** Sem apoio das rodas retorna vazio. Com apoio solicita tração/freio no eixo longitudinal, limitados pela aderência×massa×9,80665. Freio se opõe à velocidade longitudinal; sem alteração cinemática direta. O limite usa gravidade padrão fixa: modelo terrestre local, sem qualificação geral na Terra curva. @contract f-d39d8e56237cf68d @reviewed M12-DOC: implementação lida. */
   public override obterForcasOperacionais(): readonly ForcaFisicaSolicitada[] {
     if (!this.rodasApoiadasPeloCore) return [];
     const estado = this.getEstadoFisico();
@@ -177,7 +177,7 @@ export class VeiculoTerrestre extends Objeto {
     return solicitacoes;
   }
 
-  /** Devolve `comando`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-095355e9a80a99db */
+  /** Valida comando adimensional finito em [-1,1] e devolve valor ou lança erro identificado; intervalo de freio é tratado pelo chamador. @contract f-095355e9a80a99db @reviewed M12-DOC: implementação lida. */
   private validarComando(comando: number, nome: string): number {
     if (!Number.isFinite(comando) || comando < -1 || comando > 1) throw new Error(`${nome} deve estar entre -1 e 1.`);
     return comando;

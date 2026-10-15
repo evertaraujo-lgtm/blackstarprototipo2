@@ -20,7 +20,7 @@ export interface DefinicaoConjuntoPortaBatente {
  * módulo móvel; o batente é a cadeia estrutural que recebe a reação do motor.
  */
 export class ConjuntoPortaBatente {
-  /** Escritas diretas: `this.definicao`. Dependências diretas: `Error`, `Set`, `definicao.chumbadoresDoBatente.some`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-288f1848d7fa9e2a */
+  /** Exige peças e chumbadores do batente; trava deve ter guia, chumbadores devem ancorar peças declaradas e fixadores devem ligá-las. Não registra corpos/vínculos no mundo automaticamente. @contract f-288f1848d7fa9e2a @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly definicao: DefinicaoConjuntoPortaBatente) {
     if (definicao.pecasDoBatente.length === 0 || definicao.chumbadoresDoBatente.length === 0) {
       throw new Error('Conjunto porta/batente exige estrutura e apoio físico.');
@@ -47,12 +47,12 @@ export class ConjuntoPortaBatente {
   public get fixadoresDoBatente(): readonly FixadorEstrutural[] { return this.definicao.fixadoresDoBatente; }
   /** Devolve `this.definicao.chumbadoresDoBatente`. Efeitos indiretos seguem as dependências chamadas. @contract f-88c9aa90b5309d6a */
   public get chumbadoresDoBatente(): readonly ChumbadorAoSolo[] { return this.definicao.chumbadoresDoBatente; }
-  /** Devolve `[this.porta, ...this.pecasDoBatente, ...(this.trava ? [this.trava] : [])]`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-99ecb1dc2530e485 */
+  /** Retorna novo array com porta, peças do batente e trava opcional; não duplica os corpos físicos. @contract f-99ecb1dc2530e485 @reviewed M12-DOC: implementação lida. */
   public get objetosFisicos(): readonly Objeto[] {
     return [this.porta, ...this.pecasDoBatente, ...(this.trava ? [this.trava] : [])];
   }
 
-  /** Dependências diretas: `this.pecasDoBatente.every`, `this.fixadoresDoBatente.every`, `this.chumbadoresDoBatente.every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-296ec4147df261ec */
+  /** Exige peças íntegras, guias não rompidas, fixadores ativos e chumbadores íntegros; consulta topologia sem criar apoio artificial. @contract f-296ec4147df261ec @reviewed M12-DOC: implementação lida. */
   public get apoioEstruturalDisponivel(): boolean {
     return this.pecasDoBatente.every(peca => peca.integridadeEstrutural > 0)
       && !this.definicao.guiaDaPorta.estaRompida
@@ -61,7 +61,7 @@ export class ConjuntoPortaBatente {
       && this.chumbadoresDoBatente.every(chumbador => !chumbador.estaRompido);
   }
 
-  /** Devolve `motivos`. Dependências diretas: `this.pecasDoBatente.some`, `motivos.push`, `this.fixadoresDoBatente.some`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-25a540ad06590f40 */
+  /** Compõe diagnósticos de peça destruída, guia rompida, união rompida/liberada e fundação perdida; não altera estado. @contract f-25a540ad06590f40 @reviewed M12-DOC: implementação lida. */
   public get motivosDeApoioIndisponivel(): readonly string[] {
     const motivos: string[] = [];
     if (this.pecasDoBatente.some(peca => peca.integridadeEstrutural === 0)) motivos.push('peça do batente destruída');

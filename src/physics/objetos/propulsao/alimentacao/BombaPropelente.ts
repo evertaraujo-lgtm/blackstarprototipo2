@@ -7,11 +7,11 @@ export interface CircuitoDeBombeamento { readonly bomba: BombaPropelente; readon
 
 /** Bomba elétrica que converte energia da bateria em vazão limitada pela linha. */
 export class BombaPropelente {
-  /** Escritas diretas: `this.definicao`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-08499cf7b7b5281e */
+  /** Valida identidade, tensão V/vazão máxima kg/s positivas finitas e potência elétrica W não negativa. @contract f-08499cf7b7b5281e @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly definicao: DefinicaoBombaPropelente) {
     if (!definicao.id || !Number.isFinite(definicao.tensaoNominalV) || definicao.tensaoNominalV <= 0 || !Number.isFinite(definicao.vazaoMaximaKgS) || definicao.vazaoMaximaKgS <= 0 || !Number.isFinite(definicao.potenciaEletricaMaximaW) || definicao.potenciaEletricaMaximaW < 0) throw new Error('Definição de bomba inválida.');
   }
-  /** Dependências diretas: `Error`, `conexao.fornecerEnergia`, `linha.fornecerMassa`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-90c7b4887e2d3c64 */
+  /** Valida massa kg/dt positivo s; tensão incompatível ou conexão indisponível retorna zero. Limita vazão, solicita energia proporcional e pede à linha massa escalada pela energia entregue; altera reservas elétricas/propelente através das portas. @contract f-90c7b4887e2d3c64 @reviewed M12-DOC: implementação lida. */
   public bombear(linha: LinhaDePropelente, conexao: ConexaoEletrica, massaSolicitadaKg: number, dtS: number, posicaoM: Vetor3): number {
     if (!Number.isFinite(massaSolicitadaKg) || massaSolicitadaKg < 0 || !Number.isFinite(dtS) || dtS <= 0) throw new Error('Solicitação de bomba inválida.');
     if (conexao.tensaoNominalV !== this.definicao.tensaoNominalV || conexao.estaIndisponivel) return 0;

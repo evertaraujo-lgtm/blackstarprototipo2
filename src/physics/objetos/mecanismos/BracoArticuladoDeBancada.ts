@@ -4,10 +4,10 @@ import { Objeto, type DefinicaoObjeto } from '../base/Objeto';
 
 /** Haste fisica com fixador universal na extremidade. */
 export class BracoArticuladoDeBancada extends Objeto {
-  /** Dependências diretas: `super`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2429e53025cf49cb */
+  /** Inicializa corpo físico do braço com propriedades de Objeto; não instala junta automaticamente. @contract f-2429e53025cf49cb @reviewed M12-DOC: implementação lida. */
   public constructor(definicao: DefinicaoObjeto) { super(definicao); }
 
-  /** Dependências diretas: `FixadorEstrutural`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3f5ea8e45bcaaae5 */
+  /** Cria fixador entre braço e objeto com resistência N e solicitação externa zero; esforços físicos adicionais vêm do core. Não registra vínculo automaticamente nem reposiciona objeto na extremidade. @contract f-3f5ea8e45bcaaae5 @reviewed M12-DOC: implementação lida. */
   public criarFixadorNaExtremidade(objeto: Objeto, resistenciaTracaoN: number): FixadorEstrutural {
     return new FixadorEstrutural({
       id: `${this.id}-fixador-${objeto.id}`,
@@ -19,7 +19,7 @@ export class BracoArticuladoDeBancada extends Objeto {
     });
   }
 
-  /** Devolve `estado.posicaoM.adicionar(new Vetor3(this.dimensoesM.x * c / 2, this.dimensoesM.x * s / 2, 0))`. Dependências diretas: `this.getEstadoFisico`, `estado.posicaoM.adicionar`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-709fd001e86246a3 */
+  /** Transforma meia extensão positiva do braço em XY pela pose atual; consulta ponto global em m. @contract f-709fd001e86246a3 @reviewed M12-DOC: implementação lida. */
   public obterPontoDaExtremidadeM(): Vetor3 {
     const estado = this.getEstadoFisico();
     const c = Math.cos(estado.orientacaoRad.z); const s = Math.sin(estado.orientacaoRad.z);

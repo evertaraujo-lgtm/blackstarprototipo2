@@ -8,7 +8,7 @@ export interface DefinicaoObjetoTriangularRetangulo extends DefinicaoObjeto {
 
 /** Prisma triangular reto cuja hipotenusa forma uma rampa física. */
 export class ObjetoTriangularRetangulo extends Objeto {
-  /** Escritas diretas: `this.definicaoTriangulo`. Dependências diretas: `super`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-13053ef3d73ba42a */
+  /** Inicializa corpo e exige inclinação finita entre 0 e π/2 e altura=base×tan(inclinação), tolerância 1e-9 m; não substitui geometria por caixa cheia. @contract f-13053ef3d73ba42a @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly definicaoTriangulo: DefinicaoObjetoTriangularRetangulo) {
     super(definicaoTriangulo);
     if (!Number.isFinite(definicaoTriangulo.inclinacaoRad) || definicaoTriangulo.inclinacaoRad <= 0 || definicaoTriangulo.inclinacaoRad >= Math.PI / 2) {
@@ -36,7 +36,7 @@ export class ObjetoTriangularRetangulo extends Objeto {
     ];
   }
 
-  /** Devolve `this.getVerticesColisaoLocais2D().flatMap((vertice) => [ new Vetor3(vertice.x, vertice.y, -metadeZ), new Vetor3(vertice.x, vertice.y, metadeZ), ])`. Dependências diretas: `this.getVerticesColisaoLocais2D().flatMap`, `this.getVerticesColisaoLocais2D`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-863779999d13bf39 */
+  /** Extruda vértices triangulares XY às duas faces Z de meia espessura em m para contatos físicos. @contract f-863779999d13bf39 @reviewed M12-DOC: implementação lida. */
   public override getPontosDeContatoLocaisM(): readonly Vetor3[] {
     const metadeZ = this.dimensoesM.z / 2;
     return this.getVerticesColisaoLocais2D().flatMap((vertice) => [

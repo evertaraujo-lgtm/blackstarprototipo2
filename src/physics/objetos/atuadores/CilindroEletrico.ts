@@ -34,7 +34,7 @@ export class CilindroEletrico extends Cilindro {
   private posicaoRetidaM?: number;
   public readonly conexaoEletrica: ConexaoEletrica;
 
-  /** Escritas diretas: `this.definicaoEletrica`, `this.direcaoDeCursoM`, `this.conexaoEletrica`. Dependências diretas: `super`, `Error`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-10533c6e01afa02e */
+  /** Valida força N, velocidades m/s, eficiência e direção unitária; exige fonte e conexão coerentes com o corpo. Dimensiona circuito por força×velocidade/eficiência e valida retenção/potência de repouso. @contract f-10533c6e01afa02e @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly definicaoEletrica: DefinicaoCilindroEletrico) {
     super(definicaoEletrica);
     for (const valor of [definicaoEletrica.velocidadeAvancoMps, definicaoEletrica.velocidadeRecuoMps, definicaoEletrica.forcaMaximaN]) {
@@ -64,7 +64,7 @@ export class CilindroEletrico extends Cilindro {
   public get forcaNaHasteN(): number { return this.forcaAtualN; }
   /** Devolve `this.potenciaEletricaCalculadaW`. Efeitos indiretos seguem as dependências chamadas. @contract f-a97f8e5bc9d950c7 */
   public get potenciaEletricaAtualW(): number { return this.potenciaEletricaCalculadaW; }
-  /** Escritas diretas: `this.forcaAtualN`, `this.potenciaEletricaCalculadaW`, `this.posicaoRetidaM`. Dependências diretas: `Error`, `this.conexaoEletrica.prepararPasso`, `this.definicaoEletrica.operacaoAutorizada`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2c7f670e39b3a436 */
+  /** Para dt positivo s prepara circuito e permissivos. Calcula servo implícito de velocidade relativa/posição retida com reação das duas massas e limite por integridade; solicita energia incluindo aceleração inicial e escala força pela entrega. Falha zera força/potência/retenção; não fixa posição nem velocidade. @contract f-2c7f670e39b3a436 @reviewed M12-DOC: implementação lida. */
   public prepararPassoOperacional(dtS: number): void {
     if (!Number.isFinite(dtS) || dtS <= 0) throw new Error('dt deve ser positivo e finito, em segundos.');
     this.conexaoEletrica.prepararPasso(dtS);
@@ -109,7 +109,7 @@ export class CilindroEletrico extends Cilindro {
 }
 
 export class HasteDeCilindroEletrico extends Objeto {
-  /** Escritas diretas: `this.obterCilindro`. Dependências diretas: `super`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-388b485ef7af8890 */
+  /** Inicializa haste como objeto físico com propriedades herdadas; forças do acionamento serão integradas pelo mundo. @contract f-388b485ef7af8890 @reviewed M12-DOC: implementação lida. */
   public constructor(definicao: DefinicaoObjeto, private readonly obterCilindro: () => Pick<CilindroEletrico, 'obterForcasNaHaste'>) { super(definicao); }
   /** Devolve `this.obterCilindro().obterForcasNaHaste()`. Dependências diretas: `this.obterCilindro().obterForcasNaHaste`, `this.obterCilindro`. Efeitos indiretos seguem as dependências chamadas. @contract f-b8753a62eb7004d8 */
   public override obterForcasOperacionais(): readonly ForcaFisicaSolicitada[] { return this.obterCilindro().obterForcasNaHaste(); }
@@ -118,7 +118,7 @@ export class HasteDeCilindroEletrico extends Objeto {
 /** Corpo físico opcional da montagem existente; o comportamento não possui geometria. */
 export class CorpoDeCilindroEletrico extends ComCilindro(Objeto) {
   private readonly acionamento: CilindroEletrico;
-  /** Escritas diretas: `this.acionamento`. Dependências diretas: `super`, `CilindroEletrico`, `this.instalarCilindro`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-9e79c14c264823ea */
+  /** Inicializa corpo físico, cria acionamento que o referencia como corpo e instala comportamento único do cilindro. @contract f-9e79c14c264823ea @reviewed M12-DOC: implementação lida. */
   public constructor(definicao: DefinicaoObjeto & Omit<DefinicaoCilindroEletrico, 'corpo'>) {
     super(definicao);
     this.acionamento = new CilindroEletrico({ ...definicao, corpo: this });
@@ -130,7 +130,7 @@ export class CorpoDeCilindroEletrico extends ComCilindro(Objeto) {
   public get forcaNaHasteN(): number { return this.acionamento.forcaNaHasteN; }
   /** Devolve `this.acionamento.potenciaEletricaAtualW`. Efeitos indiretos seguem as dependências chamadas. @contract f-bf9ebc8a79202075 */
   public get potenciaEletricaAtualW(): number { return this.acionamento.potenciaEletricaAtualW; }
-  /** Dependências diretas: `this.acionamento.prepararPassoOperacional`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7292795abd661d3e */
+  /** Encaminha dt em s ao acionamento para calcular consumo e forças; movimento continua no core. @contract f-7292795abd661d3e @reviewed M12-DOC: implementação lida. */
   public override prepararPassoOperacional(dtS: number): void { this.acionamento.prepararPassoOperacional(dtS); }
   /** Devolve `this.acionamento.obterForcasOperacionais()`. Dependências diretas: `this.acionamento.obterForcasOperacionais`. Efeitos indiretos seguem as dependências chamadas. @contract f-355a0323f882c7b7 */
   public override obterForcasOperacionais(): readonly ForcaFisicaSolicitada[] { return this.acionamento.obterForcasOperacionais(); }

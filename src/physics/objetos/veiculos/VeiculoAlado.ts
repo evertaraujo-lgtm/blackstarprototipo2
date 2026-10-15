@@ -13,7 +13,7 @@ export interface DefinicaoVeiculoAlado extends DefinicaoVeiculoTerrestre {
 
 /** Veículo terrestre que pode converter velocidade relativa ao ar em sustentação. */
 export class VeiculoAlado extends VeiculoTerrestre {
-  /** Escritas diretas: `this.definicaoAlada`. Dependências diretas: `super`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a0a40213b7cd3903 */
+  /** Valida área de asa m², coeficientes positivos, incidência finita e ângulo de estol entre zero e π/2; inicializa corpo físico herdado. @contract f-a0a40213b7cd3903 @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly definicaoAlada: DefinicaoVeiculoAlado) {
     super(definicaoAlada);
     for (const valor of [definicaoAlada.areaAsaM2, definicaoAlada.coeficienteSustentacaoPorRad, definicaoAlada.coeficienteArrastoAsa, definicaoAlada.anguloEstolRad]) {
@@ -24,7 +24,7 @@ export class VeiculoAlado extends VeiculoTerrestre {
     }
   }
 
-  /** Dependências diretas: `this.getEstadoFisico`, `estado.velocidadeMps.subtrair`, `this.normalizarAngulo`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8455a7d6d0343074 */
+  /** Calcula fluxo relativo e ângulo de ataque pela atitude/incidência. Sustentação linear em ângulo até estol, depois zero; arrasto quadrático. Retorna força no ponto de asa transformado em global, sem integrar estado. Vácuo/fluxo abaixo de 1e-6 m/s retorna vazio. @contract f-8455a7d6d0343074 @reviewed M12-DOC: implementação lida. */
   public override obterForcasAerodinamicas(condicoes: CondicoesAtmosfericas): readonly ForcaFisicaSolicitada[] {
     if (condicoes.densidadeArKgM3 === 0) return [];
     const estado = this.getEstadoFisico();
@@ -48,7 +48,7 @@ export class VeiculoAlado extends VeiculoTerrestre {
     return [{ forcaN: direcaoSustentacao.multiplicar(sustentacaoN).adicionar(direcaoArrasto.multiplicar(arrastoN)), pontoM }];
   }
 
-  /** Devolve `Math.atan2(Math.sin(anguloRad), Math.cos(anguloRad))`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-52b7547f2e7b57f5 */
+  /** Normaliza ângulo rad pelo atan2(sen,cos) para intervalo principal, sem alterar objeto. @contract f-52b7547f2e7b57f5 @reviewed M12-DOC: implementação lida. */
   private normalizarAngulo(anguloRad: number): number {
     return Math.atan2(Math.sin(anguloRad), Math.cos(anguloRad));
   }

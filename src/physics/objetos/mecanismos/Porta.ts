@@ -41,7 +41,7 @@ export class Porta extends ComCilindro(Objeto) {
   private sequenciaComandoMovimento = 0;
   private ultimoComandoOperacional?: ComandoOperacionalDaPorta;
 
-  /** Escritas diretas: `this.configuracaoPorta`, `this.acionamento`. Dependências diretas: `super`, `Error`, `CilindroEletrico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d2cfa4d811ed7e35 */
+  /** Inicializa folha física e acionamento vertical +Y contra batente, selecionando circuito de potência separado quando fornecido; valida tensão, instala comportamento e abre interruptor inicialmente. @contract f-d2cfa4d811ed7e35 @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly configuracaoPorta: DefinicaoPorta) {
     super(configuracaoPorta);
     if (!Number.isFinite(configuracaoPorta.tensaoNominalV) || configuracaoPorta.tensaoNominalV <= 0) throw new Error('Tensão nominal deve ser positiva, em V.');
@@ -55,11 +55,11 @@ export class Porta extends ComCilindro(Objeto) {
     this.conexaoEletrica.abrirInterruptor();
   }
 
-  /** Devolve `this.configuracaoPorta.sensorAberto.estaAcionado()`. Dependências diretas: `this.configuracaoPorta.sensorAberto.estaAcionado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e7ca86a464409ee0 */
+  /** Consulta estado do sensor de abertura pela porta operacional, sem deduzir posição por animação. @contract f-e7ca86a464409ee0 @reviewed M12-DOC: implementação lida. */
   public get sensorAbertoAcionado(): boolean {
     return this.configuracaoPorta.sensorAberto.estaAcionado();
   }
-  /** Devolve `this.configuracaoPorta.sensorFechado.estaAcionado()`. Dependências diretas: `this.configuracaoPorta.sensorFechado.estaAcionado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-91c75a864106899d */
+  /** Consulta estado do sensor de fechamento, sem alterar geometria. @contract f-91c75a864106899d @reviewed M12-DOC: implementação lida. */
   public get sensorFechadoAcionado(): boolean {
     return this.configuracaoPorta.sensorFechado.estaAcionado();
   }
@@ -71,7 +71,7 @@ export class Porta extends ComCilindro(Objeto) {
   public get contatorFechado(): boolean { return this.configuracaoPorta.potenciaSeparada?.contator.estaFechado ?? this.controleLigado; }
   /** Devolve `!this.configuracaoPorta.potenciaSeparada || (this.conexaoPotencia.podeConduzir && this.conexaoPotencia.interruptorPrincipalFechado)`. Efeitos indiretos seguem as dependências chamadas. @contract f-2749d2f01556cd78 */
   public get potenciaDisponivel(): boolean { return !this.configuracaoPorta.potenciaSeparada || (this.conexaoPotencia.podeConduzir && this.conexaoPotencia.interruptorPrincipalFechado); }
-  /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-24b8af59a69d534b */
+  /** Exige continuidade, bateria carregada/íntegra e tensão dentro de ±5% da nominal; consulta disponibilidade antes de energização. @contract f-24b8af59a69d534b @reviewed M12-DOC: implementação lida. */
   public get fonteDisponivel(): boolean {
     const bateria = this.configuracaoPorta.bateria;
     return this.conexaoEletrica.podeConduzir && !bateria.estaDescarregada && bateria.integridadeEstrutural > 0 &&
@@ -81,7 +81,7 @@ export class Porta extends ComCilindro(Objeto) {
   public get alimentacaoLigada(): boolean { return this.alimentacao.operacional && this.fonteDisponivel && this.conexaoEletrica.estaEnergizada; }
   /** Devolve `this.controle.operacional && this.alimentacaoLigada`. Efeitos indiretos seguem as dependências chamadas. @contract f-40c94c7fa63d1a83 */
   public get controleLigado(): boolean { return this.controle.operacional && this.alimentacaoLigada; }
-  /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-4db1c8f3bbdb2c30 */
+  /** Combina controle ligado, potência disponível, suporte estrutural e integridade da folha/batente; não implica movimento. @contract f-4db1c8f3bbdb2c30 @reviewed M12-DOC: implementação lida. */
   public get operacional(): boolean {
     return this.controleLigado && this.potenciaDisponivel && this.apoioEstruturalDisponivel
       && this.integridadeEstrutural > 0 && this.configuracaoPorta.batente.integridadeEstrutural > 0;
@@ -101,26 +101,26 @@ export class Porta extends ComCilindro(Objeto) {
   /** Devolve `this.operacional ? this.acionamento.potenciaEletricaAtualW : 0`. Efeitos indiretos seguem as dependências chamadas. @contract f-447504a1d4c47931 */
   public get potenciaEletricaAtualW(): number { return this.operacional ? this.acionamento.potenciaEletricaAtualW : 0; }
 
-  /** Dependências diretas: `this.conexaoEletrica.fecharInterruptor`, `this.alimentacao.definirEstado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d80e9c6226e07edd */
+  /** Se fonte disponível e interruptor aceitar fechamento, marca alimentação operacional; recusa retorna false sem forçar circuito. @contract f-d80e9c6226e07edd @reviewed M12-DOC: implementação lida. */
   public ligarAlimentacao(): boolean {
     if (!this.fonteDisponivel) return false;
     if (!this.conexaoEletrica.fecharInterruptor()) return false;
     this.alimentacao.definirEstado(EstadoOperacional.Operacional);
     return true;
   }
-  /** Dependências diretas: `this.conexaoEletrica.abrirInterruptor`, `this.alimentacao.definirEstado`, `this.desligarControle`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-97254903ab10186e */
+  /** Abre interruptor, desliga alimentação e encadeia desligamento do controle. @contract f-97254903ab10186e @reviewed M12-DOC: implementação lida. */
   public desligarAlimentacao(): void {
     this.conexaoEletrica.abrirInterruptor();
     this.alimentacao.definirEstado(EstadoOperacional.Desligado);
     this.desligarControle();
   }
-  /** Dependências diretas: `this.controle.definirEstado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3822e888eb3248e9 */
+  /** Habilita somente com alimentação ligada e folha/batente não destruídos; retorna aceitação. @contract f-3822e888eb3248e9 @reviewed M12-DOC: implementação lida. */
   public ligarControle(): boolean {
     if (!this.alimentacaoLigada || this.integridadeEstrutural === 0 || this.configuracaoPorta.batente.integridadeEstrutural === 0) return false;
     this.controle.definirEstado(EstadoOperacional.Operacional);
     return true;
   }
-  /** Escritas diretas: `this.potenciaSolicitada`. Dependências diretas: `this.controle.definirEstado`, `this.registrarComandoOperacional`, `this.limparSelo`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-5908fa63346ac702 */
+  /** Desliga controle, retira solicitação de potência, registra parar, limpa selo, desarma contator e reavalia entradas; não zera velocidade. @contract f-5908fa63346ac702 @reviewed M12-DOC: implementação lida. */
   public desligarControle(): void {
     this.controle.definirEstado(EstadoOperacional.Desligado);
     this.potenciaSolicitada = false;
@@ -133,7 +133,7 @@ export class Porta extends ComCilindro(Objeto) {
   public abrir(): boolean { return this.solicitarMovimento('abrir'); }
   /** Devolve `this.solicitarMovimento('fechar')`. Dependências diretas: `this.solicitarMovimento`. Efeitos indiretos seguem as dependências chamadas. @contract f-085a903cd8963b67 */
   public fechar(): boolean { return this.solicitarMovimento('fechar'); }
-  /** Dependências diretas: `this.registrarComandoOperacional`, `this.limparSelo`, `this.atualizarEntradasDosSensores`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3e0a2f510657ffe1 */
+  /** Registra pedido parar, limpa selo e atualiza entradas; parada efetiva depende das forças do mecanismo. @contract f-3e0a2f510657ffe1 @reviewed M12-DOC: implementação lida. */
   public parar(): void { this.registrarComandoOperacional('parar'); this.limparSelo(); this.atualizarEntradasDosSensores(); }
 
   /** API herdada: as realimentações válidas vêm dos sensores físicos, não do chamador.
@@ -145,7 +145,7 @@ export class Porta extends ComCilindro(Objeto) {
     else if (entradas.recuar) this.fechar();
     else this.parar();
   }
-  /** Escritas diretas: `this.potenciaSolicitada`. Dependências diretas: `this.registrarComandoOperacional`, `this.atualizarEntradasDosSensores`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-cbb378311dda8b24 */
+  /** Recusa se não operacional; registra comando de movimento, solicita potência e atualiza entradas do cilindro. @contract f-cbb378311dda8b24 @reviewed M12-DOC: implementação lida. */
   private solicitarMovimento(comando: 'abrir' | 'fechar'): boolean {
     if (!this.operacional) return false;
     this.registrarComandoOperacional(comando);
@@ -153,14 +153,14 @@ export class Porta extends ComCilindro(Objeto) {
     this.atualizarEntradasDosSensores();
     return true;
   }
-  /** Escritas diretas: `this.comando`, `this.sequenciaComandoMovimento`, `this.ultimoComandoOperacional`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-fb6b3d1ebdb8d0f3 */
+  /** Só quando comando muda incrementa sequência e grava último comando; permite à trava distinguir novo pedido de comando mantido. @contract f-fb6b3d1ebdb8d0f3 @reviewed M12-DOC: implementação lida. */
   private registrarComandoOperacional(comando: 'abrir' | 'fechar' | 'parar'): void {
     if (this.comando === comando) return;
     this.comando = comando;
     this.sequenciaComandoMovimento += 1;
     this.ultimoComandoOperacional = { sequencia: this.sequenciaComandoMovimento, comando };
   }
-  /** Dependências diretas: `this.configuracaoPorta.obterTravaRecuada`, `super.definirEntradas`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-975b9fc2614745fe */
+  /** Converte abrir/fechar em avanço/recuo condicionado à operação e trava liberada; fins de curso vêm dos sensores, enviados ao comportamento herdado. @contract f-975b9fc2614745fe @reviewed M12-DOC: implementação lida. */
   private atualizarEntradasDosSensores(): void {
     const travaLiberada = this.configuracaoPorta.obterTravaRecuada?.() ?? true;
     super.definirEntradas({
@@ -169,7 +169,7 @@ export class Porta extends ComCilindro(Objeto) {
       avancado: this.sensorAbertoAcionado, recuado: this.sensorFechadoAcionado,
     });
   }
-  /** Escritas diretas: `this.potenciaSolicitada`. Dependências diretas: `this.conexaoEletrica.verificarIntegridade`, `potencia.conexao.verificarIntegridade`, `this.conexaoEletrica.prepararPasso`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-58044e53e4878da0 */
+  /** Verifica circuitos e, com potência separada, consome controle 6 W/bobina e desarma por falta de energia/tensão. Reavalia alimentação, integridade, comandos/sensores e prepara servo; não integra deslocamento. @contract f-58044e53e4878da0 @reviewed M12-DOC: implementação lida. */
   public override prepararPassoOperacional(dtS: number): void {
     this.conexaoEletrica.verificarIntegridade();
     const potencia = this.configuracaoPorta.potenciaSeparada;
@@ -193,14 +193,14 @@ export class Porta extends ComCilindro(Objeto) {
     this.atualizarEntradasDosSensores();
     this.acionamento.prepararPassoOperacional(dtS);
   }
-  /** Devolve `[ ...(this.operacional ? this.acionamento.obterForcasNaHaste() : []), ...(this.configuracaoPorta.obterForcasDaTrava?.() ?? []), ]`. Dependências diretas: `this.acionamento.obterForcasNaHaste`, `this.configuracaoPorta.obterForcasDaTrava`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a95597ce6d32f242 */
+  /** Combina força na folha pelo acionamento quando operacional com forças da trava fornecidas pela porta injetada; não duplica reação no batente. @contract f-a95597ce6d32f242 @reviewed M12-DOC: implementação lida. */
   public override obterForcasOperacionais(): readonly ForcaFisicaSolicitada[] {
     return [
       ...(this.operacional ? this.acionamento.obterForcasNaHaste() : []),
       ...(this.configuracaoPorta.obterForcasDaTrava?.() ?? []),
     ];
   }
-  /** Devolve `this.operacional ? this.acionamento.obterForcasOperacionais() : []`. Dependências diretas: `this.acionamento.obterForcasOperacionais`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a3740f2b3d603565 */
+  /** Retorna forças de reação do acionamento se porta operacional, senão vazio; aplicação ao batente cabe ao core. @contract f-a3740f2b3d603565 @reviewed M12-DOC: implementação lida. */
   public obterReacaoNoBatente(): readonly ForcaFisicaSolicitada[] {
     return this.operacional ? this.acionamento.obterForcasOperacionais() : [];
   }
@@ -208,7 +208,7 @@ export class Porta extends ComCilindro(Objeto) {
 
 /** Travessa física que recebe a reação do motor por interface de forças. */
 export class BatenteDePorta extends Objeto {
-  /** Escritas diretas: `this.obterReacao`. Dependências diretas: `super`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f5c6f081fdd28132 */
+  /** Inicializa corpo físico do batente com propriedades herdadas; ancoragens/uniões são componentes externos. @contract f-f5c6f081fdd28132 @reviewed M12-DOC: implementação lida. */
   public constructor(definicao: DefinicaoObjeto, private readonly obterReacao: () => readonly ForcaFisicaSolicitada[]) { super(definicao); }
   /** Devolve `this.obterReacao()`. Dependências diretas: `this.obterReacao`. Efeitos indiretos seguem as dependências chamadas. @contract f-54331652b68582ed */
   public override obterForcasOperacionais(): readonly ForcaFisicaSolicitada[] { return this.obterReacao(); }

@@ -11,7 +11,7 @@ export interface DefinicaoBocal {
 
 /** Converte o resultado da câmara em empuxo, limitado pela integridade do bocal. */
 export class Bocal {
-  /** Escritas diretas: `this.definicao`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a3901e8f9e6759b1 */
+  /** Valida empuxo máximo N positivo, eficiência em [0,1] e Isp opcional positivo em s; não usa gravidade local para definir Isp. @contract f-a3901e8f9e6759b1 @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly definicao: DefinicaoBocal) {
     if (!Number.isFinite(definicao.empuxoMaximoN) || definicao.empuxoMaximoN <= 0 || !Number.isFinite(definicao.eficienciaNominal) || definicao.eficienciaNominal < 0 || definicao.eficienciaNominal > 1) throw new Error('Definição de bocal inválida.');
     if (definicao.impulsoEspecificoNominalS !== undefined
@@ -24,7 +24,7 @@ export class Bocal {
   /** Devolve `this.definicao.empuxoMaximoN`. Efeitos indiretos seguem as dependências chamadas. @contract f-fc1b59c78f5bd776 */
   public get empuxoMaximoN(): number { return this.definicao.empuxoMaximoN; }
 
-  /** Devolve `empuxoIdealN * resultado.eficiencia * this.definicao.eficienciaNominal * integridade`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8e0bcbb38bc93765 */
+  /** Valida integridade, fração de vazão e combustão; calcula força N por empuxo nominal×fração ou, com Isp, por massa reagida/dt×Isp×g0 limitada ao máximo. Multiplica eficiências/integridade sem aplicar força ao corpo. Modo químico exige dt positivo s. @contract f-8e0bcbb38bc93765 @reviewed M12-DOC: implementação lida. */
   public calcularEmpuxo(resultado: ResultadoCombustao, integridade: number, fracaoDeVazao = 1, dtS?: number): number {
     if (!Number.isFinite(integridade) || integridade < 0 || integridade > 1 || !Number.isFinite(fracaoDeVazao) || fracaoDeVazao < 0 || fracaoDeVazao > 1) throw new Error('Entrada de bocal inválida.');
     if (!Number.isFinite(resultado.massaReagidaKg) || resultado.massaReagidaKg < 0

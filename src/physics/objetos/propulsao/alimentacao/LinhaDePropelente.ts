@@ -9,7 +9,7 @@ export class LinhaDePropelente {
   private rompida = false;
   private desconectadaManualmente = false;
   private vazaoAtualCalculadaKgS = 0;
-  /** Escritas diretas: `this.definicao`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e6203b52037d845b */
+  /** Valida id, compatibilidade do propelente com tanque, comprimento m e vazão kg/s positivos finitos; não transfere fluido na construção. @contract f-e6203b52037d845b @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly definicao: DefinicaoLinhaDePropelente) {
     if (!definicao.id || definicao.tanque.tipoPropelente !== definicao.tipoPropelente || !Number.isFinite(definicao.comprimentoMaximoM) || definicao.comprimentoMaximoM <= 0 || !Number.isFinite(definicao.vazaoMaximaKgS) || definicao.vazaoMaximaKgS <= 0) throw new Error('Definição de linha de propelente inválida.');
   }
@@ -25,7 +25,7 @@ export class LinhaDePropelente {
   public get vazaoAtualKgS(): number { return this.vazaoAtualCalculadaKgS; }
   /** Devolve `this.definicao.tanque.massaPropelenteKg`. Efeitos indiretos seguem as dependências chamadas. @contract f-422ba07ba3513e30 */
   public get massaDisponivelKg(): number { return this.definicao.tanque.massaPropelenteKg; }
-  /** Escritas diretas: `this.vazaoAtualCalculadaKgS`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-cf850328b8993300 */
+  /** Zera diagnóstico de vazão instantânea antes do próximo consumo; não repõe propelente. @contract f-cf850328b8993300 @reviewed M12-DOC: implementação lida. */
   public prepararPasso(): void { this.vazaoAtualCalculadaKgS = 0; }
   /** Consulta os limites reais antes de retirar material do tanque.
    * @contract f-fb258e04e0c329f6
@@ -62,7 +62,7 @@ export class LinhaDePropelente {
     const distanciaM = this.definicao.tanque.getEstadoFisico().posicaoM.subtrair(posicaoConsumidorM).magnitude;
     if (distanciaM > this.definicao.comprimentoMaximoM) this.romper();
   }
-  /** Escritas diretas: `this.vazaoAtualCalculadaKgS`. Dependências diretas: `Error`, `this.verificarIntegridade`, `this.definicao.valvula.obterVazaoMaximaKgS`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7a957cfc1c7f6f30 */
+  /** Zera vazão anterior, valida pedido kg/dt s e verifica integridade pela posição do consumidor. Limita entrega pela linha/válvula, consome tanque e registra vazão fornecida/dt; indisponibilidade retorna zero. @contract f-7a957cfc1c7f6f30 @reviewed M12-DOC: implementação lida. */
   public fornecerMassa(massaSolicitadaKg: number, dtS: number, posicaoConsumidorM: Vetor3): number {
     this.vazaoAtualCalculadaKgS = 0;
     if (!Number.isFinite(massaSolicitadaKg) || massaSolicitadaKg < 0 || !Number.isFinite(dtS) || dtS <= 0) throw new Error('Solicitação de linha inválida.');

@@ -29,7 +29,7 @@ export class TravaPorta extends ComCilindro(Objeto) {
   private ultimaSequenciaDeMovimento = 0;
   private comandoOperacionalAtual: 'abrir' | 'fechar' | 'parar' = 'parar';
 
-  /** Escritas diretas: `this.config`, `this.xAvancadoM`, `this.xRecuadoM`. Dependências diretas: `super`, `[config.cursoM, config.velocidadeMps, config.forcaMaximaN, config.potenciaRecuoW] .every`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-73153b491956dc49 */
+  /** Valida curso m, velocidade m/s, força N e potência W positivos finitos; deriva limites X da pose inicial, instala cilindro e sincroniza comando. @contract f-73153b491956dc49 @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly config: DefinicaoTravaPorta) {
     super(config);
     if (![config.cursoM, config.velocidadeMps, config.forcaMaximaN, config.potenciaRecuoW]
@@ -48,7 +48,7 @@ export class TravaPorta extends ComCilindro(Objeto) {
   public get forcaAtualDaTravaN(): number { return this.forcaAtualN; }
   /** Devolve `this.recuoSolicitado ? 'recuar' : 'avancar'`. Efeitos indiretos seguem as dependências chamadas. @contract f-f0e48507b8c057bb */
   public get comandoAtual(): 'avancar' | 'recuar' { return this.recuoSolicitado ? 'recuar' : 'avancar'; }
-  /** Dependências diretas: `this.config.apoioEstruturalDisponivel`, `this.config.porta`, `this.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ee530e6e751a3407 */
+  /** Exige trava avançada, altura retida, integridade/suporte e sobreposição horizontal; aceita distância vertical de -0,03 a 0,08 m. É envelope de apoio deste mecanismo local, não contato esférico genérico. @contract f-ee530e6e751a3407 @reviewed M12-DOC: implementação lida. */
   public get estaSustentandoPorta(): boolean {
     if (!this.estaAvancada || this.alturaRetidaM === undefined || this.integridadeEstrutural === 0
       || this.config.apoioEstruturalDisponivel?.() === false) return false;
@@ -62,7 +62,7 @@ export class TravaPorta extends ComCilindro(Objeto) {
     return sobreposicaoHorizontalM > 0 && distanciaVerticalM >= -0.03 && distanciaVerticalM <= 0.08;
   }
 
-  /** Escritas diretas: `this.ultimaSequenciaDeMovimento`, `this.comandoOperacionalAtual`, `this.recuoSolicitado`, `this.alturaRetidaM`. Dependências diretas: `this.config.obterUltimoComandoOperacional`, `this.config.sensorPortaAberta`, `this.definirEntradas`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ae5f6598a284f391 */
+  /** Detecta nova sequência operacional para iniciar recuo e liberar altura; sensor de porta aberta autoriza avanço, salvo fechamento. Atualiza selo/fins de curso sem mover trava. @contract f-ae5f6598a284f391 @reviewed M12-DOC: implementação lida. */
   private atualizarComando(): void {
     const comandoIniciado = this.config.obterUltimoComandoOperacional();
     if (comandoIniciado && comandoIniciado.sequencia !== this.ultimaSequenciaDeMovimento) {
@@ -79,7 +79,7 @@ export class TravaPorta extends ComCilindro(Objeto) {
       avancado: this.estaAvancada, recuado: this.estaRecuada });
   }
 
-  /** Escritas diretas: `this.forcaAtualN`, `this.alturaRetidaM`. Dependências diretas: `Error`, `this.atualizarComando`, `this.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-fb51fc04b8452318 */
+  /** Para dt positivo calcula servo implícito no eixo X limitado por força e integridade. Recuo consome energia elétrica; avanço usa mecanismo declarado. Registra altura a sustentar após avanço/porta aberta, sem corrigir pose. @contract f-fb51fc04b8452318 @reviewed M12-DOC: implementação lida. */
   public override prepararPassoOperacional(dtS: number): void {
     if (!Number.isFinite(dtS) || dtS <= 0) throw new Error('dt da trava deve ser positivo e finito.');
     this.atualizarComando();
@@ -104,7 +104,7 @@ export class TravaPorta extends ComCilindro(Objeto) {
     } else if (this.recuoSolicitado) this.alturaRetidaM = undefined;
   }
 
-  /** Dependências diretas: `this.config.porta`, `porta.getEstadoFisico`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ea33945378347a46 */
+  /** Se suporte válido, solicita força +Y por peso padrão, mola de 80 kN/m e amortecimento crítico, limitada à capacidade. Modelo de bancada usa Y e g0 fixos; não é ancoragem cinemática nem hidrodinâmica. @contract f-ea33945378347a46 @reviewed M12-DOC: implementação lida. */
   public obterForcasNaPorta(): readonly ForcaFisicaSolicitada[] {
     if (!this.estaSustentandoPorta) return [];
     const alturaRetidaM = this.alturaRetidaM;
@@ -118,11 +118,11 @@ export class TravaPorta extends ComCilindro(Objeto) {
     return [{ forcaN: new Vetor3(0, suporteN, 0) }];
   }
 
-  /** Devolve `[{ forcaN: new Vetor3(this.forcaAtualN, 0, 0) }]`. Dependências diretas: `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-608dfb1b6c2d6288 */
+  /** Retorna força horizontal atual do mecanismo em N para integração do corpo da trava. @contract f-608dfb1b6c2d6288 @reviewed M12-DOC: implementação lida. */
   public override obterForcasOperacionais(): readonly ForcaFisicaSolicitada[] {
     return [{ forcaN: new Vetor3(this.forcaAtualN, 0, 0) }];
   }
-  /** Devolve `[{ forcaN: new Vetor3(-this.forcaAtualN, -suporteN, 0) }]`. Dependências diretas: `this.obterForcasNaPorta`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-c36df25d45b03cb4 */
+  /** Retorna reação oposta à força horizontal e ao suporte vertical da porta; fecha par de esforços sem modificar batente diretamente. @contract f-c36df25d45b03cb4 @reviewed M12-DOC: implementação lida. */
   public obterReacaoNoBatente(): readonly ForcaFisicaSolicitada[] {
     const suporteN = this.obterForcasNaPorta()[0]?.forcaN.y ?? 0;
     return [{ forcaN: new Vetor3(-this.forcaAtualN, -suporteN, 0) }];

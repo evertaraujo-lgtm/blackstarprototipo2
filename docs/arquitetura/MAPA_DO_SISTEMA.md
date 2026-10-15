@@ -356,3 +356,14 @@ Escopo: imports/exportações estáticos locais das fontes próprias; chamadas d
 | [src/visualizacao/TracePLC.ts](../../src/visualizacao/TracePLC.ts) | EscalaTracePLC, CanalTracePLC, AmostraTracePLC, TracePLC | — |
 | [vite.config.ts](../../vite.config.ts) | funções/entrada | node:path, vite |
 <!-- INDICE_AST_FIM -->
+
+## Modelos locais que não devem ser generalizados silenciosamente
+
+A junta rotacional de bancada calcula reação de peso em +Y com 9,80665 m/s²;
+a trava de porta calcula suporte por Y/gravidade padrão e envelope vertical
+próprio. A aderência do veículo terrestre também limita tração com massa×g0,
+ainda que o eixo longitudinal acompanhe sua orientação. São mecanismos locais
+existentes, não serviços gerais de vertical/gravitacional para uma missão em
+qualquer ponto da Terra curva. Os contratos junto às funções explicitam essa
+fronteira. Adaptá-los requer marco de implementação/regressão próprio; a M12
+não altera seus algoritmos, constantes ou resultados históricos.

@@ -10,7 +10,7 @@ export class GuiaLinear {
   private esforcoAtualN = 0;
   private readonly estadoDeMontagemInicial: EstadoFisico;
 
-  /** Escritas diretas: `this.id`, `this.objeto`, `this.resistenciaN`, `this.eixoDeCurso`. Dependências diretas: `Error`, `objeto.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-912072f48d95626b */
+  /** Valida id e resistência positiva finita em N; registra objeto/direção e estado inicial de montagem para restrição posterior pelo core. @contract f-912072f48d95626b @reviewed M12-DOC: implementação lida. */
   public constructor(
     public readonly id: string,
     public readonly objeto: Objeto,

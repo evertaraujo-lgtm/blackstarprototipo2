@@ -21,7 +21,7 @@ export interface DefinicaoJuntaRotacionalDeBancada {
 export class JuntaRotacionalDeBancada {
   private travaMecanicaAtiva: boolean;
 
-  /** Escritas diretas: `this.definicao`, `this.travaMecanicaAtiva`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a132b0bde695eb85 */
+  /** Exige id e corpos base/braço distintos; inicializa trava mecânica conforme definição. Não instala vínculo no mundo automaticamente. @contract f-a132b0bde695eb85 @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly definicao: DefinicaoJuntaRotacionalDeBancada) {
     if (!definicao.id || definicao.objetoBase === definicao.braco) throw new Error('Junta de bancada invalida.');
     this.travaMecanicaAtiva = definicao.travaMecanicaInicial === true;
@@ -35,13 +35,13 @@ export class JuntaRotacionalDeBancada {
   public get braco(): Objeto { return this.definicao.braco; }
   /** Devolve `this.travaMecanicaAtiva`. Efeitos indiretos seguem as dependências chamadas. @contract f-cce622a9107c5de1 */
   public get estaTravada(): boolean { return this.travaMecanicaAtiva; }
-  /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-cf6423fa07310d81 */
+  /** Identifica o par base/braço da própria junta independentemente da ordem para exclusão explícita de colisão entre as peças. @contract f-cf6423fa07310d81 @reviewed M12-DOC: implementação lida. */
   public ignoraColisaoEntre(objetoA: Objeto, objetoB: Objeto): boolean {
     return (objetoA === this.definicao.objetoBase && objetoB === this.definicao.braco)
       || (objetoA === this.definicao.braco && objetoB === this.definicao.objetoBase);
   }
 
-  /** Escritas diretas: `this.travaMecanicaAtiva`. Dependências diretas: `this.obterPontoMundo`, `this.obterVelocidadeDoPonto`, `base.subtrair`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-29bef800a7b6283b */
+  /** Para base/braço calcula reação elástica/viscosa do pivô limitada a 20 kN, reação de peso e torque do motor/trava. Libera trava quando alvo muda. Usa +Y e 9,80665 m/s² fixos: mecanismo de bancada plano, sem qualificação esférica. Retorna forças em pontos e torque complementar, não integra pose. @contract f-29bef800a7b6283b @reviewed M12-DOC: implementação lida. */
   public obterForcasPara(objeto: Objeto): ForcaAplicada[] {
     if (objeto !== this.definicao.objetoBase && objeto !== this.definicao.braco) return [];
     const base = this.obterPontoMundo(this.definicao.objetoBase, this.definicao.pontoNoObjetoBaseM);
@@ -75,13 +75,13 @@ export class JuntaRotacionalDeBancada {
     }];
   }
 
-  /** Devolve `estado.posicaoM.adicionar(new Vetor3(pontoLocal.x * c - pontoLocal.y * s, pontoLocal.x * s + pontoLocal.y * c, pontoLocal.z))`. Dependências diretas: `objeto.getEstadoFisico`, `estado.posicaoM.adicionar`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f2ca99b62b09ac91 */
+  /** Transforma ponto local em m pela rotação Z e translação atuais do corpo. @contract f-f2ca99b62b09ac91 @reviewed M12-DOC: implementação lida. */
   private obterPontoMundo(objeto: Objeto, pontoLocal: Vetor3): Vetor3 {
     const estado = objeto.getEstadoFisico(); const c = Math.cos(estado.orientacaoRad.z); const s = Math.sin(estado.orientacaoRad.z);
     return estado.posicaoM.adicionar(new Vetor3(pontoLocal.x * c - pontoLocal.y * s, pontoLocal.x * s + pontoLocal.y * c, pontoLocal.z));
   }
 
-  /** Devolve `estado.velocidadeMps.adicionar(new Vetor3(-estado.velocidadeAngularRadps.z * rel.y, estado.velocidadeAngularRadps.z * rel.x, 0))`. Dependências diretas: `objeto.getEstadoFisico`, `this.obterPontoMundo`, `ponto.subtrair`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-9a9bbdad31b5ee20 */
+  /** Retorna velocidade translacional mais parcela planar ωZ×r do ponto de montagem em m/s. @contract f-9a9bbdad31b5ee20 @reviewed M12-DOC: implementação lida. */
   private obterVelocidadeDoPonto(objeto: Objeto, pontoLocal: Vetor3): Vetor3 {
     const estado = objeto.getEstadoFisico(); const ponto = this.obterPontoMundo(objeto, pontoLocal); const rel = ponto.subtrair(estado.posicaoM);
     return estado.velocidadeMps.adicionar(new Vetor3(-estado.velocidadeAngularRadps.z * rel.y, estado.velocidadeAngularRadps.z * rel.x, 0));

@@ -28,7 +28,7 @@ export class Paraquedas {
   private coeficienteArrastoInterno: number;
   private resistenciaTracaoInternaN: number;
 
-  /** Escritas diretas: `this.idInterno`, `this.massaInternaKg`, `this.areaFrontalInternaM2`, `this.coeficienteArrastoInterno`. Dependências diretas: `Error`, `this.configurarAreaFrontal`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a9ae40fb84d5293f */
+  /** Valida id e área frontal positiva finita m²; deriva massa, arrasto e resistência pelo modelo padrão através de configurarAreaFrontal. @contract f-a9ae40fb84d5293f @reviewed M12-DOC: implementação lida. */
   public constructor(definicao: DefinicaoParaquedas) {
     if (!definicao.id || !Number.isFinite(definicao.areaFrontalM2) || definicao.areaFrontalM2 <= 0) {
       throw new Error('Definição de paraquedas inválida.');
@@ -55,11 +55,11 @@ export class Paraquedas {
   public get resistenciaTracaoN(): number { return this.resistenciaTracaoInternaN; }
   /** Devolve `this.integridadeEstruturalAtual`. Efeitos indiretos seguem as dependências chamadas. @contract f-cff4610c4d747596 */
   public get integridadeEstrutural(): number { return this.integridadeEstruturalAtual; }
-  /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d73ffb724693278f */
+  /** Retorna novo DTO escalar com identidade, massa kg, área m², Cd, resistência N, integridade e abertura; não expõe campos internos mutáveis. @contract f-d73ffb724693278f @reviewed M12-DOC: implementação lida. */
   public obterEstado(): EstadoParaquedas {
     return { id: this.idInterno, massaKg: this.massaInternaKg, areaFrontalM2: this.areaFrontalInternaM2, coeficienteArrasto: this.coeficienteArrastoInterno, resistenciaTracaoN: this.resistenciaTracaoInternaN, integridadeEstrutural: this.integridadeEstruturalAtual, estaAberto: this.aberta };
   }
-  /** Escritas diretas: `this.massaInternaKg`, `this.areaFrontalInternaM2`, `this.coeficienteArrastoInterno`, `this.resistenciaTracaoInternaN`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f87501433647d95b */
+  /** Rejeita equipamento destruído/área inválida e recalcula massa kg, Cd e resistência N pelas constantes padrão; não abre dossel. @contract f-f87501433647d95b @reviewed M12-DOC: implementação lida. */
   public configurarAreaFrontal(areaFrontalM2: number): void {
     if (this.integridadeEstruturalAtual === 0) throw new Error('Paraquedas inoperante não pode ser reconfigurado.');
     if (!Number.isFinite(areaFrontalM2) || areaFrontalM2 <= 0) throw new Error('Área de paraquedas inválida.');
@@ -68,13 +68,13 @@ export class Paraquedas {
     this.coeficienteArrastoInterno = Paraquedas.coeficienteArrastoPadrao;
     this.resistenciaTracaoInternaN = areaFrontalM2 * Paraquedas.resistenciaPorAreaN;
   }
-  /** Escritas diretas: `this.aberta`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2cedf3c8f5f535df */
+  /** Abre somente se integridade não nula e informa aceitação; redução de velocidade depende do arrasto aplicado pelo mundo. @contract f-2cedf3c8f5f535df @reviewed M12-DOC: implementação lida. */
   public acionar(): boolean {
     if (this.integridadeEstruturalAtual === 0) return false;
     this.aberta = true;
     return true;
   }
-  /** Escritas diretas: `this.aberta`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-702e6837bab5fd97 */
+  /** Fecha dossel sem recuperar integridade ou alterar movimento do portador. @contract f-702e6837bab5fd97 @reviewed M12-DOC: implementação lida. */
   public recolher(): void { this.aberta = false; }
   /** Registra carga no engate; uma carga excessiva inutiliza o componente.
    * @contract f-62769c88c33d07e9

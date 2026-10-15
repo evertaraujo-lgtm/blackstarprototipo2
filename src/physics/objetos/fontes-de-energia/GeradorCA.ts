@@ -18,7 +18,7 @@ export class GeradorCA extends Objeto {
   private entregueJ = 0;
   private perdasPassoJ = 0;
   private dtS = 0;
-  /** Escritas diretas: `this.config`, `this.reservaJ`. Dependências diretas: `super`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-692af7e2d7d6cffa */
+  /** Inicializa corpo/fonte CA, valida tensão V, frequência Hz, potência W, eficiência (0,1] e reserva mecânica J não negativa; não fornece energia infinita. @contract f-692af7e2d7d6cffa @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly config: DefinicaoGeradorCA) {
     super(config);
     for (const v of [config.tensaoNominalV, config.frequenciaHz, config.potenciaNominalW, config.eficiencia]) {
@@ -45,18 +45,18 @@ export class GeradorCA extends Objeto {
   public get energiaDisponivelNoPassoJ(): number { return this.estaLigado ? Math.min(this.disponivelJ, this.energiaArmazenadaJ) : 0; }
   /** Devolve `this.entregueJ`. Efeitos indiretos seguem as dependências chamadas. @contract f-be9673577ed0679f */
   public get energiaEletricaGeradaJ(): number { return this.entregueJ; }
-  /** Devolve `this.estaLigado`. Escritas diretas: `this.ligado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d64655978e5d05fc */
+  /** Ativa somente com integridade e reserva positivas; retorna disponibilidade operacional atual. @contract f-d64655978e5d05fc @reviewed M12-DOC: implementação lida. */
   public ligar(): boolean { this.ligado = this.integridadeEstrutural > 0 && this.reservaJ > 0; return this.estaLigado; }
-  /** Escritas diretas: `this.ligado`, `this.disponivelJ`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-38cecfc76a3e86ea */
+  /** Desativa geração e zera orçamento disponível do passo, preservando reserva mecânica restante. @contract f-38cecfc76a3e86ea @reviewed M12-DOC: implementação lida. */
   public desligar(): void { this.ligado = false; this.disponivelJ = 0; }
-  /** Escritas diretas: `this.dtS`, `this.perdasPassoJ`, `this.disponivelJ`, `this.ligado`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-bc3f153dcb6bb796 */
+  /** Valida dt positivo s, zera perdas do passo e calcula orçamento elétrico por potência×integridade×dt se ligado; não consome reserva antes de haver entrega. @contract f-bc3f153dcb6bb796 @reviewed M12-DOC: implementação lida. */
   public override prepararPassoEnergetico(dtS: number): void {
     if (!Number.isFinite(dtS) || dtS <= 0) throw new Error('dt do gerador inválido.');
     this.dtS = dtS; this.perdasPassoJ = 0;
     this.disponivelJ = this.estaLigado ? this.potenciaNominalW * this.integridadeEstrutural * dtS : 0;
     if (!this.estaLigado) this.ligado = false;
   }
-  /** Devolve `entregue`. Escritas diretas: `this.reservaJ`, `this.disponivelJ`, `this.entregueJ`, `this.perdasPassoJ`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-209be506eb47acc7 */
+  /** Valida pedido em J, limita à disponibilidade do passo/reserva e consome energia mecânica entregue/eficiência; acumula entrega e perdas sem criar energia. @contract f-209be506eb47acc7 @reviewed M12-DOC: implementação lida. */
   public fornecerEnergia(energiaJ: number): number {
     if (!Number.isFinite(energiaJ) || energiaJ < 0) throw new Error('Energia inválida.');
     const entregue = Math.min(energiaJ, this.energiaDisponivelNoPassoJ);

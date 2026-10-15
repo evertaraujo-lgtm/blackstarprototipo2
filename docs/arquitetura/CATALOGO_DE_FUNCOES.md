@@ -8245,15 +8245,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/conexoes/ChumbadorAoSolo.ts::ChumbadorAoSolo.constructor:Constructor</code> · [fonte L25](../../src/physics/conexoes/ChumbadorAoSolo.ts#L25) |
 | Assinatura | <code>public (definicao: DefinicaoChumbadorAoSolo): ChumbadorAoSolo</code> |
-| Responsabilidade | Escritas diretas: `this.definicao`, `this.estadoDeMontagem`. Dependências diretas: `Error`, `definicao.objeto.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida identidade e resistência positiva finita em N; captura estado de montagem do objeto como referência da ancoragem física. Não move corpo na construção. |
 | Entradas | <code>private readonly definicao: DefinicaoChumbadorAoSolo</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ChumbadorAoSolo</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.definicao</code>; <code>this.rompido</code>; <code>this.estadoDeMontagem</code>; <code>this.esforcoFisicoAtualN</code>; <code>this.maiorEsforcoFisicoN</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code>; <code>definicao.objeto.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!definicao.id &#124;&#124; !Number.isFinite(definicao.resistenciaN) &#124;&#124; definicao.resistenciaN &lt;= 0</code>; exceções: <code>new Error('Definição de chumbador ao solo inválida.')</code> |
 | Testes | [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.definicao`, `this.estadoDeMontagem`. Dependências diretas: `Error`, `definicao.objeto.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-c5d6b79c56928483 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida identidade e resistência positiva finita em N; captura estado de montagem do objeto como referência da ancoragem física. Não move corpo na construção. @contract f-c5d6b79c56928483 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -9587,15 +9587,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/conexoes/GuiaLinear.ts::GuiaLinear.constructor:Constructor</code> · [fonte L14](../../src/physics/conexoes/GuiaLinear.ts#L14) |
 | Assinatura | <code>public (id: string, objeto: Objeto, resistenciaN: number, eixoDeCurso?: "x" &#124; "y"): GuiaLinear</code> |
-| Responsabilidade | Escritas diretas: `this.id`, `this.objeto`, `this.resistenciaN`, `this.eixoDeCurso`. Dependências diretas: `Error`, `objeto.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida id e resistência positiva finita em N; registra objeto/direção e estado inicial de montagem para restrição posterior pelo core. |
 | Entradas | <code>public readonly id: string</code>; <code>public readonly objeto: Objeto</code>; <code>public readonly resistenciaN: number</code>; <code>public readonly eixoDeCurso: 'x' &#124; 'y' = 'x'</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>GuiaLinear</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.id</code>; <code>this.objeto</code>; <code>this.resistenciaN</code>; <code>this.eixoDeCurso</code>; <code>this.rompida</code>; <code>this.esforcoAtualN</code>; <code>this.estadoDeMontagemInicial</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code>; <code>objeto.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!id &#124;&#124; !Number.isFinite(resistenciaN) &#124;&#124; resistenciaN &lt;= 0</code>; exceções: <code>new Error('Definição de guia linear inválida.')</code> |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.id`, `this.objeto`, `this.resistenciaN`, `this.eixoDeCurso`. Dependências diretas: `Error`, `objeto.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-912072f48d95626b */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida id e resistência positiva finita em N; registra objeto/direção e estado inicial de montagem para restrição posterior pelo core. @contract f-912072f48d95626b @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -9686,15 +9686,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/conexoes/JuntaRotacionalDeBancada.ts::JuntaRotacionalDeBancada.constructor:Constructor</code> · [fonte L25](../../src/physics/conexoes/JuntaRotacionalDeBancada.ts#L25) |
 | Assinatura | <code>public (definicao: DefinicaoJuntaRotacionalDeBancada): JuntaRotacionalDeBancada</code> |
-| Responsabilidade | Escritas diretas: `this.definicao`, `this.travaMecanicaAtiva`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Exige id e corpos base/braço distintos; inicializa trava mecânica conforme definição. Não instala vínculo no mundo automaticamente. |
 | Entradas | <code>private readonly definicao: DefinicaoJuntaRotacionalDeBancada</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>JuntaRotacionalDeBancada</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.definicao</code>; <code>this.travaMecanicaAtiva</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!definicao.id &#124;&#124; definicao.objetoBase === definicao.braco</code>; exceções: <code>new Error('Junta de bancada invalida.')</code> |
 | Testes | [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.definicao`, `this.travaMecanicaAtiva`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a132b0bde695eb85 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Exige id e corpos base/braço distintos; inicializa trava mecânica conforme definição. Não instala vínculo no mundo automaticamente. @contract f-a132b0bde695eb85 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -9781,15 +9781,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/conexoes/JuntaRotacionalDeBancada.ts::JuntaRotacionalDeBancada.ignoraColisaoEntre:MethodDeclaration</code> · [fonte L39](../../src/physics/conexoes/JuntaRotacionalDeBancada.ts#L39) |
 | Assinatura | <code>public (objetoA: Objeto, objetoB: Objeto): boolean</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Identifica o par base/braço da própria junta independentemente da ordem para exclusão explícita de colisão entre as peças. |
 | Entradas | <code>objetoA: Objeto</code>; <code>objetoB: Objeto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>(objetoA === this.definicao.objetoBase &amp;&amp; objetoB === this.definicao.braco)<br>    &#124;&#124; (objetoA === this.definicao.braco &amp;&amp; objetoB === this.definicao.objetoBase)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-cf6423fa07310d81 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Identifica o par base/braço da própria junta independentemente da ordem para exclusão explícita de colisão entre as peças. @contract f-cf6423fa07310d81 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -9800,15 +9800,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/conexoes/JuntaRotacionalDeBancada.ts::JuntaRotacionalDeBancada.obterForcasPara:MethodDeclaration</code> · [fonte L45](../../src/physics/conexoes/JuntaRotacionalDeBancada.ts#L45) |
 | Assinatura | <code>public (objeto: Objeto): ForcaAplicada[]</code> |
-| Responsabilidade | Escritas diretas: `this.travaMecanicaAtiva`. Dependências diretas: `this.obterPontoMundo`, `this.obterVelocidadeDoPonto`, `base.subtrair`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Para base/braço calcula reação elástica/viscosa do pivô limitada a 20 kN, reação de peso e torque do motor/trava. Libera trava quando alvo muda. Usa +Y e 9,80665 m/s² fixos: mecanismo de bancada plano, sem qualificação esférica. Retorna forças em pontos e torque complementar, não integra pose. |
 | Entradas | <code>objeto: Objeto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ForcaAplicada[]</code>; expressões retornadas: <code>[]</code>; <code>[{<br>        forcaN: forcaDaJunta,<br>        pontoM: pontoDoObjeto,<br>        torqueNm: new Vetor3(0, 0, this.definicao.motor.torqueAtualNm * sinal - torqueDaForcaDaJuntaNm + torqueDaTravaNoBracoNm * sinal),<br>    }]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.travaMecanicaAtiva</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.obterPontoMundo</code>; <code>this.obterVelocidadeDoPonto</code>; <code>base.subtrair</code>; <code>erro.multiplicar(rigidez).adicionar</code>; <code>erro.multiplicar</code>; <code>velocidadeBase.subtrair(velocidadeBraco).multiplicar</code>; <code>velocidadeBase.subtrair</code>; <code>forcaPivo.multiplicar</code>; <code>Math.min</code>; <code>Math.max</code>; <code>(this.definicao.objetosAcoplados ?? [this.definicao.braco]).reduce</code>; <code>Vetor3</code>; <code>limitada.adicionar(reacaoPeso).multiplicar</code>; <code>limitada.adicionar</code>; <code>objeto.getEstadoFisico</code>; <code>pontoDoObjeto.subtrair(centroDoObjeto).produtoVetorial</code>; <code>pontoDoObjeto.subtrair</code>; <code>Math.abs</code>; <code>this.definicao.braco.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>objeto !== this.definicao.objetoBase &amp;&amp; objeto !== this.definicao.braco</code>; <code>this.travaMecanicaAtiva &amp;&amp; Math.abs(this.definicao.motor.anguloAlvoRelativoRad - anguloDaTravaRad) &gt; 1e-6</code>; exceções: — |
 | Testes | [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.travaMecanicaAtiva`. Dependências diretas: `this.obterPontoMundo`, `this.obterVelocidadeDoPonto`, `base.subtrair`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-29bef800a7b6283b */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Para base/braço calcula reação elástica/viscosa do pivô limitada a 20 kN, reação de peso e torque do motor/trava. Libera trava quando alvo muda. Usa +Y e 9,80665 m/s² fixos: mecanismo de bancada plano, sem qualificação esférica. Retorna forças em pontos e torque complementar, não integra pose. @contract f-29bef800a7b6283b @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -9819,15 +9819,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/conexoes/JuntaRotacionalDeBancada.ts::JuntaRotacionalDeBancada.obterPontoMundo:MethodDeclaration</code> · [fonte L79](../../src/physics/conexoes/JuntaRotacionalDeBancada.ts#L79) |
 | Assinatura | <code>private (objeto: Objeto, pontoLocal: Vetor3): Vetor3</code> |
-| Responsabilidade | Devolve `estado.posicaoM.adicionar(new Vetor3(pontoLocal.x * c - pontoLocal.y * s, pontoLocal.x * s + pontoLocal.y * c, pontoLocal.z))`. Dependências diretas: `objeto.getEstadoFisico`, `estado.posicaoM.adicionar`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Transforma ponto local em m pela rotação Z e translação atuais do corpo. |
 | Entradas | <code>objeto: Objeto</code>; <code>pontoLocal: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: <code>estado.posicaoM.adicionar(new Vetor3(pontoLocal.x * c - pontoLocal.y * s, pontoLocal.x * s + pontoLocal.y * c, pontoLocal.z))</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>objeto.getEstadoFisico</code>; <code>Math.cos</code>; <code>Math.sin</code>; <code>estado.posicaoM.adicionar</code>; <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `estado.posicaoM.adicionar(new Vetor3(pontoLocal.x * c - pontoLocal.y * s, pontoLocal.x * s + pontoLocal.y * c, pontoLocal.z))`. Dependências diretas: `objeto.getEstadoFisico`, `estado.posicaoM.adicionar`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f2ca99b62b09ac91 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Transforma ponto local em m pela rotação Z e translação atuais do corpo. @contract f-f2ca99b62b09ac91 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -9838,15 +9838,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/conexoes/JuntaRotacionalDeBancada.ts::JuntaRotacionalDeBancada.obterVelocidadeDoPonto:MethodDeclaration</code> · [fonte L85](../../src/physics/conexoes/JuntaRotacionalDeBancada.ts#L85) |
 | Assinatura | <code>private (objeto: Objeto, pontoLocal: Vetor3): Vetor3</code> |
-| Responsabilidade | Devolve `estado.velocidadeMps.adicionar(new Vetor3(-estado.velocidadeAngularRadps.z * rel.y, estado.velocidadeAngularRadps.z * rel.x, 0))`. Dependências diretas: `objeto.getEstadoFisico`, `this.obterPontoMundo`, `ponto.subtrair`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Retorna velocidade translacional mais parcela planar ωZ×r do ponto de montagem em m/s. |
 | Entradas | <code>objeto: Objeto</code>; <code>pontoLocal: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: <code>estado.velocidadeMps.adicionar(new Vetor3(-estado.velocidadeAngularRadps.z * rel.y, estado.velocidadeAngularRadps.z * rel.x, 0))</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>objeto.getEstadoFisico</code>; <code>this.obterPontoMundo</code>; <code>ponto.subtrair</code>; <code>estado.velocidadeMps.adicionar</code>; <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `estado.velocidadeMps.adicionar(new Vetor3(-estado.velocidadeAngularRadps.z * rel.y, estado.velocidadeAngularRadps.z * rel.x, 0))`. Dependências diretas: `objeto.getEstadoFisico`, `this.obterPontoMundo`, `ponto.subtrair`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-9a9bbdad31b5ee20 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Retorna velocidade translacional mais parcela planar ωZ×r do ponto de montagem em m/s. @contract f-9a9bbdad31b5ee20 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -9861,15 +9861,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/conexoes/eletrica/Contator.ts::Contator.constructor:Constructor</code> · [fonte L5](../../src/physics/conexoes/eletrica/Contator.ts#L5) |
 | Assinatura | <code>public (tensaoBobinaV?: number, potenciaBobinaW?: number): Contator</code> |
-| Responsabilidade | Escritas diretas: `this.tensaoBobinaV`, `this.potenciaBobinaW`. Dependências diretas: `[tensaoBobinaV, potenciaBobinaW].every`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Armazena bobina com tensão V e potência W positivas finitas; não energiza contato automaticamente. |
 | Entradas | <code>public readonly tensaoBobinaV = 24</code>; <code>public readonly potenciaBobinaW = 6</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Contator</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.tensaoBobinaV</code>; <code>this.potenciaBobinaW</code>; <code>this.fechado</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>[tensaoBobinaV, potenciaBobinaW].every</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>![tensaoBobinaV, potenciaBobinaW].every(v =&gt; Number.isFinite(v) &amp;&amp; v &gt; 0)</code>; exceções: <code>new Error('Bobina exige tensão e potência positivas.')</code> |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.tensaoBobinaV`, `this.potenciaBobinaW`. Dependências diretas: `[tensaoBobinaV, potenciaBobinaW].every`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3376117ecdde8868 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Armazena bobina com tensão V e potência W positivas finitas; não energiza contato automaticamente. @contract f-3376117ecdde8868 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -9899,15 +9899,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/conexoes/eletrica/Contator.ts::Contator.atualizarBobina:MethodDeclaration</code> · [fonte L11](../../src/physics/conexoes/eletrica/Contator.ts#L11) |
 | Assinatura | <code>public (autorizada: boolean, tensaoV: number, energiaJ: number, dtS: number): void</code> |
-| Responsabilidade | Escritas diretas: `this.fechado`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Para dt positivo s, fecha contato somente com autorização, tensão dentro de ±5% e energia J suficiente para potência vezes dt (tolerância 1e-10 J); caso contrário abre. Não retira energia da fonte nesta função. |
 | Entradas | <code>autorizada: boolean</code>; <code>tensaoV: number</code>; <code>energiaJ: number</code>; <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.fechado</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code>; <code>Math.abs</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(dtS) &#124;&#124; dtS &lt;= 0 &#124;&#124; !Number.isFinite(tensaoV) &#124;&#124; !Number.isFinite(energiaJ) &#124;&#124; energiaJ &lt; 0</code>; exceções: <code>new Error('Passo da bobina inválido.')</code> |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.fechado`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-54d88e5cb4a3e40c */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Para dt positivo s, fecha contato somente com autorização, tensão dentro de ±5% e energia J suficiente para potência vezes dt (tolerância 1e-10 J); caso contrário abre. Não retira energia da fonte nesta função. @contract f-54d88e5cb4a3e40c @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -9918,15 +9918,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/conexoes/eletrica/Contator.ts::Contator.desarmar:MethodDeclaration</code> · [fonte L16](../../src/physics/conexoes/eletrica/Contator.ts#L16) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Escritas diretas: `this.fechado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Abre contato de potência imediatamente; não altera conexões físicas nem apaga energia armazenada da fonte. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.fechado</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.fechado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f1c066d01776d1ea */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Abre contato de potência imediatamente; não altera conexões físicas nem apaga energia armazenada da fonte. @contract f-f1c066d01776d1ea @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -9941,15 +9941,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/conexoes/eletrica/Interruptor.ts::Interruptor.constructor:Constructor</code> · [fonte L5](../../src/physics/conexoes/eletrica/Interruptor.ts#L5) |
 | Assinatura | <code>public (id: string, inicialmenteFechado?: boolean): Interruptor</code> |
-| Responsabilidade | Escritas diretas: `this.id`, `this.fechado`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida identidade e inicializa continuidade elétrica conforme comando inicial. |
 | Entradas | <code>public readonly id: string</code>; <code>inicialmenteFechado = false</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Interruptor</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.id</code>; <code>this.fechado</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!id</code>; exceções: <code>new Error('Interruptor exige identidade.')</code> |
 | Testes | [src/physics/conexoes/ConexaoEletrica.test.ts](../../src/physics/conexoes/ConexaoEletrica.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.id`, `this.fechado`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-33f15af7abb38cd9 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida identidade e inicializa continuidade elétrica conforme comando inicial. @contract f-33f15af7abb38cd9 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -9979,15 +9979,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/conexoes/eletrica/Interruptor.ts::Interruptor.abrir:MethodDeclaration</code> · [fonte L12](../../src/physics/conexoes/eletrica/Interruptor.ts#L12) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Escritas diretas: `this.fechado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Interrompe continuidade do interruptor; não rompe o cabo nem modifica energia da fonte. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.fechado</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/conexoes/ConexaoEletrica.test.ts](../../src/physics/conexoes/ConexaoEletrica.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.fechado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-5874f99f89936ada */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Interrompe continuidade do interruptor; não rompe o cabo nem modifica energia da fonte. @contract f-5874f99f89936ada @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -9998,15 +9998,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/conexoes/eletrica/Interruptor.ts::Interruptor.fechar:MethodDeclaration</code> · [fonte L14](../../src/physics/conexoes/eletrica/Interruptor.ts#L14) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Escritas diretas: `this.fechado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Solicita continuidade do interruptor; disponibilidade efetiva ainda depende do restante do circuito. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.fechado</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/conexoes/ConexaoEletrica.test.ts](../../src/physics/conexoes/ConexaoEletrica.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.fechado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-22bfe0ed2f54802d */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Solicita continuidade do interruptor; disponibilidade efetiva ainda depende do restante do circuito. @contract f-22bfe0ed2f54802d @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -10021,15 +10021,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/conexoes/eletrica/Resistor.ts::Resistor.constructor:Constructor</code> · [fonte L4](../../src/physics/conexoes/eletrica/Resistor.ts#L4) |
 | Assinatura | <code>public (id: string, valorOhm: number): Resistor</code> |
-| Responsabilidade | Escritas diretas: `this.id`, `this.valorOhm`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida identidade e resistência finita não negativa em ohms; permite zero explicitamente sem calcular corrente nesta construção. |
 | Entradas | <code>public readonly id: string</code>; <code>private readonly valorOhm: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Resistor</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.id</code>; <code>this.valorOhm</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!id &#124;&#124; !Number.isFinite(valorOhm) &#124;&#124; valorOhm &lt; 0</code>; exceções: <code>new Error('Resistor exige identidade e resistência finita não negativa, em ohms.')</code> |
 | Testes | [src/physics/conexoes/ConexaoEletrica.test.ts](../../src/physics/conexoes/ConexaoEletrica.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.id`, `this.valorOhm`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-464f0a613325638b */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida identidade e resistência finita não negativa em ohms; permite zero explicitamente sem calcular corrente nesta construção. @contract f-464f0a613325638b @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -10641,15 +10641,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/atuadores/Cilindro.ts::Cilindro.constructor:Constructor</code> · [fonte L22](../../src/physics/objetos/atuadores/Cilindro.ts#L22) |
 | Assinatura | <code>public (definicao: DefinicaoCilindro): Cilindro</code> |
-| Responsabilidade | Dependências diretas: `this.configurarVelocidades`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Inicializa comportamento de comando selado e valida velocidades de avanço/recuo em m/s; não representa corpo cinemático independente. |
 | Entradas | <code>definicao: DefinicaoCilindro</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Cilindro</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.entradas</code>; <code>this.comandoSelado</code>; <code>this.avancoMps</code>; <code>this.recuoMps</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.configurarVelocidades</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.configurarVelocidades`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0268843ba048392d */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Inicializa comportamento de comando selado e valida velocidades de avanço/recuo em m/s; não representa corpo cinemático independente. @contract f-0268843ba048392d @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -10717,15 +10717,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/atuadores/Cilindro.ts::Cilindro.velocidadeSolicitadaMps:GetAccessor</code> · [fonte L32](../../src/physics/objetos/atuadores/Cilindro.ts#L32) |
 | Assinatura | <code>public (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Retorna velocidade positiva no avanço não concluído, negativa no recuo não concluído ou zero; apenas solicita movimento, sem impor velocidade física. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>this.avancoMps</code>; <code>-this.recuoMps</code>; <code>0</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>this.entradas.avancar &amp;&amp; !this.entradas.avancado</code>; <code>this.entradas.recuar &amp;&amp; !this.entradas.recuado</code>; exceções: — |
 | Testes | [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d1d36ea303033cd4 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Retorna velocidade positiva no avanço não concluído, negativa no recuo não concluído ou zero; apenas solicita movimento, sem impor velocidade física. @contract f-d1d36ea303033cd4 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -10736,15 +10736,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/atuadores/Cilindro.ts::Cilindro.definirEntradas:MethodDeclaration</code> · [fonte L38](../../src/physics/objetos/atuadores/Cilindro.ts#L38) |
 | Assinatura | <code>public (entradas: EntradasCilindro): void</code> |
-| Responsabilidade | Escritas diretas: `this.comandoSelado`, `this.entradas`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Rejeita avanço/recuo simultâneos e sela último sentido pedido; copia fins de curso e preserva comando até limparSelo ou novo sentido. |
 | Entradas | <code>entradas: EntradasCilindro</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.comandoSelado</code>; <code>this.entradas</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>entradas.avancar &amp;&amp; entradas.recuar</code>; <code>entradas.avancar</code>; <code>entradas.recuar</code>; exceções: <code>new Error('Cilindro não pode avançar e recuar simultaneamente.')</code> |
 | Testes | [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.comandoSelado`, `this.entradas`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e44d86abf66b0b01 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Rejeita avanço/recuo simultâneos e sela último sentido pedido; copia fins de curso e preserva comando até limparSelo ou novo sentido. @contract f-e44d86abf66b0b01 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -10755,15 +10755,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/atuadores/Cilindro.ts::Cilindro.limparSelo:MethodDeclaration</code> · [fonte L49](../../src/physics/objetos/atuadores/Cilindro.ts#L49) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Escritas diretas: `this.comandoSelado`, `this.entradas`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Apaga comando retido e desativa entradas de movimento preservando leituras de fim de curso. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.comandoSelado</code>; <code>this.entradas</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.comandoSelado`, `this.entradas`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-36049b7cfcf65d94 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Apaga comando retido e desativa entradas de movimento preservando leituras de fim de curso. @contract f-36049b7cfcf65d94 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -10774,15 +10774,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/atuadores/Cilindro.ts::Cilindro.configurarVelocidades:MethodDeclaration</code> · [fonte L54](../../src/physics/objetos/atuadores/Cilindro.ts#L54) |
 | Assinatura | <code>public (avancoMps: number, recuoMps: number): void</code> |
-| Responsabilidade | Escritas diretas: `this.avancoMps`, `this.recuoMps`. Dependências diretas: `[avancoMps, recuoMps].every`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Exige avanço/recuo positivos finitos em m/s e armazena limites operacionais. |
 | Entradas | <code>avancoMps: number</code>; <code>recuoMps: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.avancoMps</code>; <code>this.recuoMps</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>[avancoMps, recuoMps].every</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>![avancoMps, recuoMps].every((valor) =&gt; Number.isFinite(valor) &amp;&amp; valor &gt; 0)</code>; exceções: <code>new Error('Velocidades do cilindro devem ser positivas e finitas, em m/s.')</code> |
 | Testes | [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.avancoMps`, `this.recuoMps`. Dependências diretas: `[avancoMps, recuoMps].every`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a7cf4543ed0b41f0 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Exige avanço/recuo positivos finitos em m/s e armazena limites operacionais. @contract f-a7cf4543ed0b41f0 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -10831,15 +10831,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/atuadores/Cilindro.ts::ComCilindro.[classe-anonima].instalarCilindro:MethodDeclaration</code> · [fonte L73](../../src/physics/objetos/atuadores/Cilindro.ts#L73) |
 | Assinatura | <code>public (cilindro: Cilindro): void</code> |
-| Responsabilidade | Escritas diretas: `this.comportamentoCilindro`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Instala comportamento uma única vez; rejeita substituição implícita de cilindro já associado. |
 | Entradas | <code>cilindro: Cilindro</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.comportamentoCilindro</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>this.comportamentoCilindro</code>; exceções: <code>new Error('Cilindro já instalado.')</code> |
 | Testes | [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.comportamentoCilindro`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-460d48af47bfa25b */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Instala comportamento uma única vez; rejeita substituição implícita de cilindro já associado. @contract f-460d48af47bfa25b @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -10850,15 +10850,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/atuadores/Cilindro.ts::ComCilindro.[classe-anonima].cilindro:GetAccessor</code> · [fonte L78](../../src/physics/objetos/atuadores/Cilindro.ts#L78) |
 | Assinatura | <code>private (): Cilindro</code> |
-| Responsabilidade | Devolve `this.comportamentoCilindro`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Consulta comportamento instalado ou lança erro antes de qualquer operação sem configuração. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Cilindro</code>; expressões retornadas: <code>this.comportamentoCilindro</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!this.comportamentoCilindro</code>; exceções: <code>new Error('Configure o cilindro antes de operá-lo.')</code> |
 | Testes | [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.comportamentoCilindro`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0e43557eded6c289 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta comportamento instalado ou lança erro antes de qualquer operação sem configuração. @contract f-0e43557eded6c289 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -10869,15 +10869,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/atuadores/Cilindro.ts::ComCilindro.[classe-anonima].definirEntradas:MethodDeclaration</code> · [fonte L83](../../src/physics/objetos/atuadores/Cilindro.ts#L83) |
 | Assinatura | <code>public (entradas: EntradasCilindro): void</code> |
-| Responsabilidade | Dependências diretas: `this.cilindro.definirEntradas`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Encaminha entradas ao comportamento instalado, preservando validação e selo. |
 | Entradas | <code>entradas: EntradasCilindro</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.cilindro.definirEntradas</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.cilindro.definirEntradas`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d290466219a1aff7 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Encaminha entradas ao comportamento instalado, preservando validação e selo. @contract f-d290466219a1aff7 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -10888,15 +10888,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/atuadores/Cilindro.ts::ComCilindro.[classe-anonima].configurarVelocidades:MethodDeclaration</code> · [fonte L85](../../src/physics/objetos/atuadores/Cilindro.ts#L85) |
 | Assinatura | <code>public (avancoMps: number, recuoMps: number): void</code> |
-| Responsabilidade | Dependências diretas: `this.cilindro.configurarVelocidades`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Encaminha limites m/s ao comportamento instalado; não escreve cinemática. |
 | Entradas | <code>avancoMps: number</code>; <code>recuoMps: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.cilindro.configurarVelocidades</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.cilindro.configurarVelocidades`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8d083881cc14ee4c */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Encaminha limites m/s ao comportamento instalado; não escreve cinemática. @contract f-8d083881cc14ee4c @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -10964,15 +10964,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/atuadores/Cilindro.ts::ComCilindro.[classe-anonima].limparSelo:MethodDeclaration</code> · [fonte L93](../../src/physics/objetos/atuadores/Cilindro.ts#L93) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Dependências diretas: `this.cilindro.limparSelo`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Encaminha limpeza da memória operacional de movimento ao comportamento instalado. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.cilindro.limparSelo</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.cilindro.limparSelo`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-5f008584d25099a4 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Encaminha limpeza da memória operacional de movimento ao comportamento instalado. @contract f-5f008584d25099a4 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -11025,15 +11025,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/atuadores/CilindroEletrico.ts::CilindroEletrico.constructor:Constructor</code> · [fonte L38](../../src/physics/objetos/atuadores/CilindroEletrico.ts#L38) |
 | Assinatura | <code>public (definicaoEletrica: DefinicaoCilindroEletrico): CilindroEletrico</code> |
-| Responsabilidade | Escritas diretas: `this.definicaoEletrica`, `this.direcaoDeCursoM`, `this.conexaoEletrica`. Dependências diretas: `super`, `Error`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida força N, velocidades m/s, eficiência e direção unitária; exige fonte e conexão coerentes com o corpo. Dimensiona circuito por força×velocidade/eficiência e valida retenção/potência de repouso. |
 | Entradas | <code>private readonly definicaoEletrica: DefinicaoCilindroEletrico</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CilindroEletrico</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.definicaoEletrica</code>; <code>this.forcaAtualN</code>; <code>this.potenciaEletricaCalculadaW</code>; <code>this.direcaoDeCursoM</code>; <code>this.posicaoRetidaM</code>; <code>this.conexaoEletrica</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>super</code>; <code>Number.isFinite</code>; <code>Error</code>; <code>Vetor3</code>; <code>Math.abs</code>; <code>Math.max</code>; <code>ConexaoEletrica</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(valor) &#124;&#124; valor &lt;= 0</code>; <code>!Number.isFinite(eficiencia) &#124;&#124; eficiencia &lt;= 0 &#124;&#124; eficiencia &gt; 1</code>; <code>Math.abs(direcao.magnitude - 1) &gt; 1e-9</code>; <code>!fonte</code>; <code>this.conexaoEletrica.fonte !== fonte &#124;&#124; this.conexaoEletrica.destino !== definicaoEletrica.corpo</code>; <code>!Number.isFinite(valor) &#124;&#124; valor &lt; 0</code>; exceções: <code>new Error('Velocidades e força máxima do cilindro elétrico devem ser positivas.')</code>; <code>new Error('Eficiência eletromecânica deve estar entre 0 e 1.')</code>; <code>new Error('Direção de curso do cilindro elétrico deve ser unitária.')</code>; <code>new Error('Cilindro elétrico exige uma fonte.')</code>; <code>new Error('Conexão elétrica não corresponde à montagem do cilindro.')</code>; <code>new Error('Rigidez e potência de repouso devem ser finitas e não negativas.')</code> |
 | Testes | [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.definicaoEletrica`, `this.direcaoDeCursoM`, `this.conexaoEletrica`. Dependências diretas: `super`, `Error`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-10533c6e01afa02e */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida força N, velocidades m/s, eficiência e direção unitária; exige fonte e conexão coerentes com o corpo. Dimensiona circuito por força×velocidade/eficiência e valida retenção/potência de repouso. @contract f-10533c6e01afa02e @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -11101,15 +11101,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/atuadores/CilindroEletrico.ts::CilindroEletrico.prepararPassoOperacional:MethodDeclaration</code> · [fonte L68](../../src/physics/objetos/atuadores/CilindroEletrico.ts#L68) |
 | Assinatura | <code>public (dtS: number): void</code> |
-| Responsabilidade | Escritas diretas: `this.forcaAtualN`, `this.potenciaEletricaCalculadaW`, `this.posicaoRetidaM`. Dependências diretas: `Error`, `this.conexaoEletrica.prepararPasso`, `this.definicaoEletrica.operacaoAutorizada`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Para dt positivo s prepara circuito e permissivos. Calcula servo implícito de velocidade relativa/posição retida com reação das duas massas e limite por integridade; solicita energia incluindo aceleração inicial e escala força pela entrega. Falha zera força/potência/retenção; não fixa posição nem velocidade. |
 | Entradas | <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.forcaAtualN</code>; <code>this.potenciaEletricaCalculadaW</code>; <code>this.posicaoRetidaM</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code>; <code>this.conexaoEletrica.prepararPasso</code>; <code>this.definicaoEletrica.operacaoAutorizada</code>; <code>this.haste.getEstadoFisico().velocidadeMps.subtrair(this.definicaoEletrica.corpo.getEstadoFisico().velocidadeMps).produtoEscalar</code>; <code>this.haste.getEstadoFisico().velocidadeMps.subtrair</code>; <code>this.haste.getEstadoFisico</code>; <code>this.definicaoEletrica.corpo.getEstadoFisico</code>; <code>Math.min</code>; <code>Math.max</code>; <code>this.haste.getEstadoFisico().posicaoM.subtrair(this.definicaoEletrica.corpo.getEstadoFisico().posicaoM).produtoEscalar</code>; <code>this.haste.getEstadoFisico().posicaoM.subtrair</code>; <code>Math.abs</code>; <code>this.conexaoEletrica.fornecerEnergia</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(dtS) &#124;&#124; dtS &lt;= 0</code>; <code>this.conexaoEletrica.estaIndisponivel &#124;&#124; this.conexaoEletrica.fonte.estaDescarregada &#124;&#124; this.conexaoEletrica.fonte.integridadeEstrutural === 0 &#124;&#124;<br>    this.haste.integridadeEstrutural === 0 &#124;&#124; this.definicaoEletrica.corpo.integridadeEstrutur… [continua na fonte]</code>; <code>velocidadeDesejadaMps !== 0</code>; exceções: <code>new Error('dt deve ser positivo e finito, em segundos.')</code> |
 | Testes | [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.forcaAtualN`, `this.potenciaEletricaCalculadaW`, `this.posicaoRetidaM`. Dependências diretas: `Error`, `this.conexaoEletrica.prepararPasso`, `this.definicaoEletrica.operacaoAutorizada`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2c7f670e39b3a436 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Para dt positivo s prepara circuito e permissivos. Calcula servo implícito de velocidade relativa/posição retida com reação das duas massas e limite por integridade; solicita energia incluindo aceleração inicial e escala força pela entrega. Falha zera força/potência/retenção; não fixa posição nem velocidade. @contract f-2c7f670e39b3a436 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -11158,15 +11158,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/atuadores/CilindroEletrico.ts::HasteDeCilindroEletrico.constructor:Constructor</code> · [fonte L113](../../src/physics/objetos/atuadores/CilindroEletrico.ts#L113) |
 | Assinatura | <code>public (definicao: DefinicaoObjeto, obterCilindro: () =&gt; Pick&lt;CilindroEletrico, "obterForcasNaHaste"&gt;): HasteDeCilindroEletrico</code> |
-| Responsabilidade | Escritas diretas: `this.obterCilindro`. Dependências diretas: `super`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Inicializa haste como objeto físico com propriedades herdadas; forças do acionamento serão integradas pelo mundo. |
 | Entradas | <code>definicao: DefinicaoObjeto</code>; <code>private readonly obterCilindro: () =&gt; Pick&lt;CilindroEletrico, 'obterForcasNaHaste'&gt;</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>HasteDeCilindroEletrico</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.obterCilindro</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>super</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.obterCilindro`. Dependências diretas: `super`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-388b485ef7af8890 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Inicializa haste como objeto físico com propriedades herdadas; forças do acionamento serão integradas pelo mundo. @contract f-388b485ef7af8890 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -11215,15 +11215,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/atuadores/CilindroEletrico.ts::CorpoDeCilindroEletrico.constructor:Constructor</code> · [fonte L122](../../src/physics/objetos/atuadores/CilindroEletrico.ts#L122) |
 | Assinatura | <code>public (definicao: DefinicaoObjeto &amp; Omit&lt;DefinicaoCilindroEletrico, "corpo"&gt;): CorpoDeCilindroEletrico</code> |
-| Responsabilidade | Escritas diretas: `this.acionamento`. Dependências diretas: `super`, `CilindroEletrico`, `this.instalarCilindro`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Inicializa corpo físico, cria acionamento que o referencia como corpo e instala comportamento único do cilindro. |
 | Entradas | <code>definicao: DefinicaoObjeto &amp; Omit&lt;DefinicaoCilindroEletrico, 'corpo'&gt;</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CorpoDeCilindroEletrico</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.acionamento</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>super</code>; <code>CilindroEletrico</code>; <code>this.instalarCilindro</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.acionamento`. Dependências diretas: `super`, `CilindroEletrico`, `this.instalarCilindro`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-9e79c14c264823ea */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Inicializa corpo físico, cria acionamento que o referencia como corpo e instala comportamento único do cilindro. @contract f-9e79c14c264823ea @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -11291,15 +11291,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/atuadores/CilindroEletrico.ts::CorpoDeCilindroEletrico.prepararPassoOperacional:MethodDeclaration</code> · [fonte L134](../../src/physics/objetos/atuadores/CilindroEletrico.ts#L134) |
 | Assinatura | <code>public override (dtS: number): void</code> |
-| Responsabilidade | Dependências diretas: `this.acionamento.prepararPassoOperacional`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Encaminha dt em s ao acionamento para calcular consumo e forças; movimento continua no core. |
 | Entradas | <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.acionamento.prepararPassoOperacional</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.acionamento.prepararPassoOperacional`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7292795abd661d3e */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Encaminha dt em s ao acionamento para calcular consumo e forças; movimento continua no core. @contract f-7292795abd661d3e @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -11352,15 +11352,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/atuadores/MotorEletricoRotacional.ts::MotorEletricoRotacional.constructor:Constructor</code> · [fonte L18](../../src/physics/objetos/atuadores/MotorEletricoRotacional.ts#L18) |
 | Assinatura | <code>public (definicao: DefinicaoMotorEletricoRotacional): MotorEletricoRotacional</code> |
-| Responsabilidade | Escritas diretas: `this.conexao`. Dependências diretas: `super`, `Error`, `ConexaoEletrica`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Inicializa objeto físico e conexão elétrica de 10 m ligada, com corrente nominal por potência/tensão da fonte; exige potência positiva. Mantém controle especializado nas subclasses. |
 | Entradas | <code>definicao: DefinicaoMotorEletricoRotacional</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>MotorEletricoRotacional</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.conexao</code>; <code>this.torqueAtualInternoNm</code>; <code>this.habilitadoInterno</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>super</code>; <code>Error</code>; <code>ConexaoEletrica</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>definicao.potenciaNominalW &lt;= 0</code>; exceções: <code>new Error('Parametros do motor rotacional devem ser positivos.')</code> |
 | Testes | [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.test.ts](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.conexao`. Dependências diretas: `super`, `Error`, `ConexaoEletrica`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-338925f6e3377ab1 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Inicializa objeto físico e conexão elétrica de 10 m ligada, com corrente nominal por potência/tensão da fonte; exige potência positiva. Mantém controle especializado nas subclasses. @contract f-338925f6e3377ab1 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -11428,15 +11428,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/atuadores/MotorEletricoRotacional.ts::MotorEletricoRotacional.ligar:MethodDeclaration</code> · [fonte L41](../../src/physics/objetos/atuadores/MotorEletricoRotacional.ts#L41) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Escritas diretas: `this.habilitadoInterno`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Marca motor habilitado; fornecimento elétrico e integridade ainda condicionam torque efetivo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.habilitadoInterno</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.test.ts](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.habilitadoInterno`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b5ae4fa41874fd7b */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Marca motor habilitado; fornecimento elétrico e integridade ainda condicionam torque efetivo. @contract f-b5ae4fa41874fd7b @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -11447,15 +11447,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/atuadores/MotorEletricoRotacional.ts::MotorEletricoRotacional.desligar:MethodDeclaration</code> · [fonte L43](../../src/physics/objetos/atuadores/MotorEletricoRotacional.ts#L43) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Escritas diretas: `this.habilitadoInterno`, `this.torqueAtualInternoNm`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Desabilita e zera torque interno disponível sem impor parada cinemática. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.habilitadoInterno</code>; <code>this.torqueAtualInternoNm</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.test.ts](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.habilitadoInterno`, `this.torqueAtualInternoNm`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6e59ef95d6e931ad */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Desabilita e zera torque interno disponível sem impor parada cinemática. @contract f-6e59ef95d6e931ad @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -11466,15 +11466,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/atuadores/MotorEletricoRotacional.ts::MotorEletricoRotacional.prepararPassoOperacional:MethodDeclaration</code> · [fonte L46](../../src/physics/objetos/atuadores/MotorEletricoRotacional.ts#L46) |
 | Assinatura | <code>public (dtS: number): void</code> |
-| Responsabilidade | Escritas diretas: `this.torqueAtualInternoNm`. Dependências diretas: `this.conexao.prepararPasso`, `this.zerarEstadoDoControlador`, `this.calcularTorqueDePosicao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Prepara circuito; indisponibilidade/destruição zera torque e memória. Solicita energia pelo trabalho &#124;τω&#124; e parcela proporcional ao torque; escala torque pela energia realmente entregue. Não integra rotação nem garante torque quando sem alimentação. |
 | Entradas | <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.torqueAtualInternoNm</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.conexao.prepararPasso</code>; <code>this.zerarEstadoDoControlador</code>; <code>this.calcularTorqueDePosicao</code>; <code>this.configuracaoControle.obterVelocidadeAngularRadps</code>; <code>Math.abs</code>; <code>this.conexao.fornecerEnergia</code>; <code>Math.min</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!this.habilitadoInterno &#124;&#124; this.conexao.estaIndisponivel &#124;&#124; this.integridadeEstrutural === 0</code>; exceções: — |
 | Testes | [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.test.ts](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.torqueAtualInternoNm`. Dependências diretas: `this.conexao.prepararPasso`, `this.zerarEstadoDoControlador`, `this.calcularTorqueDePosicao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-c5f258a2e6357c87 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Prepara circuito; indisponibilidade/destruição zera torque e memória. Solicita energia pelo trabalho &#124;τω&#124; e parcela proporcional ao torque; escala torque pela energia realmente entregue. Não integra rotação nem garante torque quando sem alimentação. @contract f-c5f258a2e6357c87 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -12538,15 +12538,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/base/ObjetoTriangularRetangulo.ts::ObjetoTriangularRetangulo.constructor:Constructor</code> · [fonte L12](../../src/physics/objetos/base/ObjetoTriangularRetangulo.ts#L12) |
 | Assinatura | <code>public (definicaoTriangulo: DefinicaoObjetoTriangularRetangulo): ObjetoTriangularRetangulo</code> |
-| Responsabilidade | Escritas diretas: `this.definicaoTriangulo`. Dependências diretas: `super`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Inicializa corpo e exige inclinação finita entre 0 e π/2 e altura=base×tan(inclinação), tolerância 1e-9 m; não substitui geometria por caixa cheia. |
 | Entradas | <code>private readonly definicaoTriangulo: DefinicaoObjetoTriangularRetangulo</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ObjetoTriangularRetangulo</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.definicaoTriangulo</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>super</code>; <code>Number.isFinite</code>; <code>Error</code>; <code>Math.tan</code>; <code>Math.abs</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(definicaoTriangulo.inclinacaoRad) &#124;&#124; definicaoTriangulo.inclinacaoRad &lt;= 0 &#124;&#124; definicaoTriangulo.inclinacaoRad &gt;= Math.PI / 2</code>; <code>Math.abs(definicaoTriangulo.dimensoesM.y - alturaEsperadaM) &gt; 1e-9</code>; exceções: <code>new Error('Inclinação triangular deve estar entre 0 e 90 graus.')</code>; <code>new Error('A altura do triângulo deve corresponder à base e à inclinação declarada.')</code> |
 | Testes | [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.definicaoTriangulo`. Dependências diretas: `super`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-13053ef3d73ba42a */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Inicializa corpo e exige inclinação finita entre 0 e π/2 e altura=base×tan(inclinação), tolerância 1e-9 m; não substitui geometria por caixa cheia. @contract f-13053ef3d73ba42a @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -12595,15 +12595,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/base/ObjetoTriangularRetangulo.ts::ObjetoTriangularRetangulo.getPontosDeContatoLocaisM:MethodDeclaration</code> · [fonte L40](../../src/physics/objetos/base/ObjetoTriangularRetangulo.ts#L40) |
 | Assinatura | <code>public override (): readonly Vetor3[]</code> |
-| Responsabilidade | Devolve `this.getVerticesColisaoLocais2D().flatMap((vertice) =&gt; [ new Vetor3(vertice.x, vertice.y, -metadeZ), new Vetor3(vertice.x, vertice.y, metadeZ), ])`. Dependências diretas: `this.getVerticesColisaoLocais2D().flatMap`, `this.getVerticesColisaoLocais2D`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Extruda vértices triangulares XY às duas faces Z de meia espessura em m para contatos físicos. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly Vetor3[]</code>; expressões retornadas: <code>this.getVerticesColisaoLocais2D().flatMap((vertice) =&gt; [<br>    new Vetor3(vertice.x, vertice.y, -metadeZ), new Vetor3(vertice.x, vertice.y, metadeZ),<br>])</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.getVerticesColisaoLocais2D().flatMap</code>; <code>this.getVerticesColisaoLocais2D</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.getVerticesColisaoLocais2D().flatMap((vertice) =&gt; [ new Vetor3(vertice.x, vertice.y, -metadeZ), new Vetor3(vertice.x, vertice.y, metadeZ), ])`. Dependências diretas: `this.getVerticesColisaoLocais2D().flatMap`, `this.getVerticesColisaoLocais2D`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-863779999d13bf39 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Extruda vértices triangulares XY às duas faces Z de meia espessura em m para contatos físicos. @contract f-863779999d13bf39 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -12774,15 +12774,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/componentes/Paraquedas.ts::Paraquedas.constructor:Constructor</code> · [fonte L32](../../src/physics/objetos/componentes/Paraquedas.ts#L32) |
 | Assinatura | <code>public (definicao: DefinicaoParaquedas): Paraquedas</code> |
-| Responsabilidade | Escritas diretas: `this.idInterno`, `this.massaInternaKg`, `this.areaFrontalInternaM2`, `this.coeficienteArrastoInterno`. Dependências diretas: `Error`, `this.configurarAreaFrontal`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida id e área frontal positiva finita m²; deriva massa, arrasto e resistência pelo modelo padrão através de configurarAreaFrontal. |
 | Entradas | <code>definicao: DefinicaoParaquedas</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Paraquedas</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.aberta</code>; <code>this.integridadeEstruturalAtual</code>; <code>this.idInterno</code>; <code>this.massaInternaKg</code>; <code>this.areaFrontalInternaM2</code>; <code>this.coeficienteArrastoInterno</code>; <code>this.resistenciaTracaoInternaN</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code>; <code>this.configurarAreaFrontal</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!definicao.id &#124;&#124; !Number.isFinite(definicao.areaFrontalM2) &#124;&#124; definicao.areaFrontalM2 &lt;= 0</code>; exceções: <code>new Error('Definição de paraquedas inválida.')</code> |
 | Testes | [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.idInterno`, `this.massaInternaKg`, `this.areaFrontalInternaM2`, `this.coeficienteArrastoInterno`. Dependências diretas: `Error`, `this.configurarAreaFrontal`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a9ae40fb84d5293f */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida id e área frontal positiva finita m²; deriva massa, arrasto e resistência pelo modelo padrão através de configurarAreaFrontal. @contract f-a9ae40fb84d5293f @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -12926,15 +12926,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/componentes/Paraquedas.ts::Paraquedas.obterEstado:MethodDeclaration</code> · [fonte L59](../../src/physics/objetos/componentes/Paraquedas.ts#L59) |
 | Assinatura | <code>public (): EstadoParaquedas</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Retorna novo DTO escalar com identidade, massa kg, área m², Cd, resistência N, integridade e abertura; não expõe campos internos mutáveis. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>EstadoParaquedas</code>; expressões retornadas: <code>{ id: this.idInterno, massaKg: this.massaInternaKg, areaFrontalM2: this.areaFrontalInternaM2, coeficienteArrasto: this.coeficienteArrastoInterno, resistenciaTracaoN: this.resistenciaTracaoInternaN, integridadeEstrutural: this.integridadeEst… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d73ffb724693278f */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Retorna novo DTO escalar com identidade, massa kg, área m², Cd, resistência N, integridade e abertura; não expõe campos internos mutáveis. @contract f-d73ffb724693278f @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -12945,15 +12945,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/componentes/Paraquedas.ts::Paraquedas.configurarAreaFrontal:MethodDeclaration</code> · [fonte L63](../../src/physics/objetos/componentes/Paraquedas.ts#L63) |
 | Assinatura | <code>public (areaFrontalM2: number): void</code> |
-| Responsabilidade | Escritas diretas: `this.massaInternaKg`, `this.areaFrontalInternaM2`, `this.coeficienteArrastoInterno`, `this.resistenciaTracaoInternaN`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Rejeita equipamento destruído/área inválida e recalcula massa kg, Cd e resistência N pelas constantes padrão; não abre dossel. |
 | Entradas | <code>areaFrontalM2: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.massaInternaKg</code>; <code>this.areaFrontalInternaM2</code>; <code>this.coeficienteArrastoInterno</code>; <code>this.resistenciaTracaoInternaN</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Error</code>; <code>Number.isFinite</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>this.integridadeEstruturalAtual === 0</code>; <code>!Number.isFinite(areaFrontalM2) &#124;&#124; areaFrontalM2 &lt;= 0</code>; exceções: <code>new Error('Paraquedas inoperante não pode ser reconfigurado.')</code>; <code>new Error('Área de paraquedas inválida.')</code> |
 | Testes | [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.massaInternaKg`, `this.areaFrontalInternaM2`, `this.coeficienteArrastoInterno`, `this.resistenciaTracaoInternaN`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f87501433647d95b */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Rejeita equipamento destruído/área inválida e recalcula massa kg, Cd e resistência N pelas constantes padrão; não abre dossel. @contract f-f87501433647d95b @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -12964,15 +12964,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/componentes/Paraquedas.ts::Paraquedas.acionar:MethodDeclaration</code> · [fonte L72](../../src/physics/objetos/componentes/Paraquedas.ts#L72) |
 | Assinatura | <code>public (): boolean</code> |
-| Responsabilidade | Escritas diretas: `this.aberta`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Abre somente se integridade não nula e informa aceitação; redução de velocidade depende do arrasto aplicado pelo mundo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>false</code>; <code>true</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.aberta</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>this.integridadeEstruturalAtual === 0</code>; exceções: — |
 | Testes | [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.aberta`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2cedf3c8f5f535df */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Abre somente se integridade não nula e informa aceitação; redução de velocidade depende do arrasto aplicado pelo mundo. @contract f-2cedf3c8f5f535df @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -12983,15 +12983,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/componentes/Paraquedas.ts::Paraquedas.recolher:MethodDeclaration</code> · [fonte L78](../../src/physics/objetos/componentes/Paraquedas.ts#L78) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Escritas diretas: `this.aberta`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Fecha dossel sem recuperar integridade ou alterar movimento do portador. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.aberta</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.aberta`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-702e6837bab5fd97 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Fecha dossel sem recuperar integridade ou alterar movimento do portador. @contract f-702e6837bab5fd97 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -13242,15 +13242,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/fontes-de-energia/GeradorCA.ts::GeradorCA.constructor:Constructor</code> · [fonte L22](../../src/physics/objetos/fontes-de-energia/GeradorCA.ts#L22) |
 | Assinatura | <code>public (config: DefinicaoGeradorCA): GeradorCA</code> |
-| Responsabilidade | Escritas diretas: `this.config`, `this.reservaJ`. Dependências diretas: `super`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Inicializa corpo/fonte CA, valida tensão V, frequência Hz, potência W, eficiência (0,1] e reserva mecânica J não negativa; não fornece energia infinita. |
 | Entradas | <code>private readonly config: DefinicaoGeradorCA</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>GeradorCA</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.config</code>; <code>this.tipoCorrente</code>; <code>this.ligado</code>; <code>this.reservaJ</code>; <code>this.disponivelJ</code>; <code>this.entregueJ</code>; <code>this.perdasPassoJ</code>; <code>this.dtS</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>super</code>; <code>Number.isFinite</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(v) &#124;&#124; v &lt;= 0</code>; <code>config.eficiencia &gt; 1 &#124;&#124; !Number.isFinite(config.energiaMecanicaInicialJ) &#124;&#124; config.energiaMecanicaInicialJ &lt; 0</code>; exceções: <code>new Error('Parâmetros do gerador devem ser positivos e finitos.')</code>; <code>new Error('Reserva ou eficiência inválida.')</code> |
 | Testes | [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.config`, `this.reservaJ`. Dependências diretas: `super`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-692af7e2d7d6cffa */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Inicializa corpo/fonte CA, valida tensão V, frequência Hz, potência W, eficiência (0,1] e reserva mecânica J não negativa; não fornece energia infinita. @contract f-692af7e2d7d6cffa @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -13432,15 +13432,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/fontes-de-energia/GeradorCA.ts::GeradorCA.ligar:MethodDeclaration</code> · [fonte L49](../../src/physics/objetos/fontes-de-energia/GeradorCA.ts#L49) |
 | Assinatura | <code>public (): boolean</code> |
-| Responsabilidade | Devolve `this.estaLigado`. Escritas diretas: `this.ligado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Ativa somente com integridade e reserva positivas; retorna disponibilidade operacional atual. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>this.estaLigado</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.ligado</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.estaLigado`. Escritas diretas: `this.ligado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d64655978e5d05fc */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Ativa somente com integridade e reserva positivas; retorna disponibilidade operacional atual. @contract f-d64655978e5d05fc @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -13451,15 +13451,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/fontes-de-energia/GeradorCA.ts::GeradorCA.desligar:MethodDeclaration</code> · [fonte L51](../../src/physics/objetos/fontes-de-energia/GeradorCA.ts#L51) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Escritas diretas: `this.ligado`, `this.disponivelJ`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Desativa geração e zera orçamento disponível do passo, preservando reserva mecânica restante. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.ligado</code>; <code>this.disponivelJ</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.ligado`, `this.disponivelJ`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-38cecfc76a3e86ea */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Desativa geração e zera orçamento disponível do passo, preservando reserva mecânica restante. @contract f-38cecfc76a3e86ea @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -13470,15 +13470,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/fontes-de-energia/GeradorCA.ts::GeradorCA.prepararPassoEnergetico:MethodDeclaration</code> · [fonte L53](../../src/physics/objetos/fontes-de-energia/GeradorCA.ts#L53) |
 | Assinatura | <code>public override (dtS: number): void</code> |
-| Responsabilidade | Escritas diretas: `this.dtS`, `this.perdasPassoJ`, `this.disponivelJ`, `this.ligado`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida dt positivo s, zera perdas do passo e calcula orçamento elétrico por potência×integridade×dt se ligado; não consome reserva antes de haver entrega. |
 | Entradas | <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.dtS</code>; <code>this.perdasPassoJ</code>; <code>this.disponivelJ</code>; <code>this.ligado</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(dtS) &#124;&#124; dtS &lt;= 0</code>; <code>!this.estaLigado</code>; exceções: <code>new Error('dt do gerador inválido.')</code> |
 | Testes | [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.dtS`, `this.perdasPassoJ`, `this.disponivelJ`, `this.ligado`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-bc3f153dcb6bb796 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida dt positivo s, zera perdas do passo e calcula orçamento elétrico por potência×integridade×dt se ligado; não consome reserva antes de haver entrega. @contract f-bc3f153dcb6bb796 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -13489,15 +13489,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/fontes-de-energia/GeradorCA.ts::GeradorCA.fornecerEnergia:MethodDeclaration</code> · [fonte L60](../../src/physics/objetos/fontes-de-energia/GeradorCA.ts#L60) |
 | Assinatura | <code>public (energiaJ: number): number</code> |
-| Responsabilidade | Devolve `entregue`. Escritas diretas: `this.reservaJ`, `this.disponivelJ`, `this.entregueJ`, `this.perdasPassoJ`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida pedido em J, limita à disponibilidade do passo/reserva e consome energia mecânica entregue/eficiência; acumula entrega e perdas sem criar energia. |
 | Entradas | <code>energiaJ: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>entregue</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.reservaJ</code>; <code>this.disponivelJ</code>; <code>this.entregueJ</code>; <code>this.perdasPassoJ</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code>; <code>Math.min</code>; <code>Math.max</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(energiaJ) &#124;&#124; energiaJ &lt; 0</code>; exceções: <code>new Error('Energia inválida.')</code> |
 | Testes | [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `entregue`. Escritas diretas: `this.reservaJ`, `this.disponivelJ`, `this.entregueJ`, `this.perdasPassoJ`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-209be506eb47acc7 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida pedido em J, limita à disponibilidade do passo/reserva e consome energia mecânica entregue/eficiência; acumula entrega e perdas sem criar energia. @contract f-209be506eb47acc7 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -13569,15 +13569,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/fontes-de-energia/PainelSolar.ts::PainelSolar.constructor:Constructor</code> · [fonte L25](../../src/physics/objetos/fontes-de-energia/PainelSolar.ts#L25) |
 | Assinatura | <code>public (config: DefinicaoPainelSolar): PainelSolar</code> |
-| Responsabilidade | Escritas diretas: `this.config`, `this.statusAtual`, `this.conexaoCarga`. Dependências diretas: `super`, `[config.areaAtivaM2, config.irradianciaWPorM2, config.eficiencia].every`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Inicializa objeto, valida área m²/irradiância W/m²/eficiência e estado de abertura; cria conexão de carga de 20 m com resistência 0,05 Ω e corrente dimensionada para 24 V. |
 | Entradas | <code>private readonly config: DefinicaoPainelSolar</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>PainelSolar</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.config</code>; <code>this.tipoCorrente</code>; <code>this.conexaoCarga</code>; <code>this.energiaDisponivelNoPassoCalculadaJ</code>; <code>this.energiaGeradaCalculadaJ</code>; <code>this.potenciaAtualCalculadaW</code>; <code>this.statusAtual</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>super</code>; <code>[config.areaAtivaM2, config.irradianciaWPorM2, config.eficiencia].every</code>; <code>Error</code>; <code>ConexaoEletrica</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>![config.areaAtivaM2, config.irradianciaWPorM2, config.eficiencia].every(Number.isFinite) &#124;&#124;<br>    config.areaAtivaM2 &lt;= 0 &#124;&#124; config.irradianciaWPorM2 &lt; 0 &#124;&#124; config.eficiencia &lt;= 0 &#124;&#124; config.eficiencia &gt; 1</code>; exceções: <code>new Error('Definição de painel solar inválida.')</code> |
 | Testes | [src/physics/objetos/fontes-de-energia/PainelSolar.test.ts](../../src/physics/objetos/fontes-de-energia/PainelSolar.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.config`, `this.statusAtual`, `this.conexaoCarga`. Dependências diretas: `super`, `[config.areaAtivaM2, config.irradianciaWPorM2, config.eficiencia].every`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d2af793969491d0e */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Inicializa objeto, valida área m²/irradiância W/m²/eficiência e estado de abertura; cria conexão de carga de 20 m com resistência 0,05 Ω e corrente dimensionada para 24 V. @contract f-d2af793969491d0e @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -13759,15 +13759,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/fontes-de-energia/PainelSolar.ts::PainelSolar.definirStatus:MethodDeclaration</code> · [fonte L57](../../src/physics/objetos/fontes-de-energia/PainelSolar.ts#L57) |
 | Assinatura | <code>public (status: StatusPainelSolar): void</code> |
-| Responsabilidade | Escritas diretas: `this.statusAtual`, `this.potenciaAtualCalculadaW`, `this.energiaDisponivelNoPassoCalculadaJ`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Muda abertura operacional; dobrar zera imediatamente potência/orçamento do passo. Não modifica massa nem integridade. |
 | Entradas | <code>status: StatusPainelSolar</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.statusAtual</code>; <code>this.potenciaAtualCalculadaW</code>; <code>this.energiaDisponivelNoPassoCalculadaJ</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>status === 'dobrado'</code>; exceções: — |
 | Testes | [src/physics/objetos/fontes-de-energia/PainelSolar.test.ts](../../src/physics/objetos/fontes-de-energia/PainelSolar.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.statusAtual`, `this.potenciaAtualCalculadaW`, `this.energiaDisponivelNoPassoCalculadaJ`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-27389102f08cbd7e */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Muda abertura operacional; dobrar zera imediatamente potência/orçamento do passo. Não modifica massa nem integridade. @contract f-27389102f08cbd7e @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -13778,15 +13778,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/fontes-de-energia/PainelSolar.ts::PainelSolar.prepararPassoEnergetico:MethodDeclaration</code> · [fonte L65](../../src/physics/objetos/fontes-de-energia/PainelSolar.ts#L65) |
 | Assinatura | <code>public override (dtS: number): void</code> |
-| Responsabilidade | Escritas diretas: `this.potenciaAtualCalculadaW`, `this.energiaDisponivelNoPassoCalculadaJ`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Para dt positivo s calcula potência por irradiância×área×eficiência×iluminação se desdobrado, e energia disponível em J; sobrescreve orçamento do passo. |
 | Entradas | <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.potenciaAtualCalculadaW</code>; <code>this.energiaDisponivelNoPassoCalculadaJ</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(dtS) &#124;&#124; dtS &lt;= 0</code>; exceções: <code>new Error('dt do painel solar inválido.')</code> |
 | Testes | [src/physics/objetos/fontes-de-energia/PainelSolar.test.ts](../../src/physics/objetos/fontes-de-energia/PainelSolar.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.potenciaAtualCalculadaW`, `this.energiaDisponivelNoPassoCalculadaJ`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-457240864bf92686 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Para dt positivo s calcula potência por irradiância×área×eficiência×iluminação se desdobrado, e energia disponível em J; sobrescreve orçamento do passo. @contract f-457240864bf92686 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -13797,15 +13797,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/fontes-de-energia/PainelSolar.ts::PainelSolar.fornecerEnergia:MethodDeclaration</code> · [fonte L73](../../src/physics/objetos/fontes-de-energia/PainelSolar.ts#L73) |
 | Assinatura | <code>public (energiaSolicitadaJ: number): number</code> |
-| Responsabilidade | Devolve `entregue`. Escritas diretas: `this.energiaDisponivelNoPassoCalculadaJ`, `this.energiaGeradaCalculadaJ`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Entrega no máximo pedido válido e orçamento solar atual; desconta disponibilidade e acumula energia efetivamente entregue, sem reserva oculta. |
 | Entradas | <code>energiaSolicitadaJ: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>entregue</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.energiaDisponivelNoPassoCalculadaJ</code>; <code>this.energiaGeradaCalculadaJ</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code>; <code>Math.min</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(energiaSolicitadaJ) &#124;&#124; energiaSolicitadaJ &lt; 0</code>; exceções: <code>new Error('Energia solicitada inválida.')</code> |
 | Testes | [src/physics/objetos/fontes-de-energia/PainelSolar.test.ts](../../src/physics/objetos/fontes-de-energia/PainelSolar.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `entregue`. Escritas diretas: `this.energiaDisponivelNoPassoCalculadaJ`, `this.energiaGeradaCalculadaJ`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0fa9889c284193a4 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Entrega no máximo pedido válido e orçamento solar atual; desconta disponibilidade e acumula energia efetivamente entregue, sem reserva oculta. @contract f-0fa9889c284193a4 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -13816,15 +13816,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/fontes-de-energia/PainelSolar.ts::PainelSolar.prepararPassoOperacional:MethodDeclaration</code> · [fonte L81](../../src/physics/objetos/fontes-de-energia/PainelSolar.ts#L81) |
 | Assinatura | <code>public override (dtS: number): void</code> |
-| Responsabilidade | Dependências diretas: `this.conexaoCarga.prepararPasso`, `this.conexaoCarga.transferirEnergiaParaDestino`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Prepara conexão e transfere orçamento do passo ao destino pelo circuito, respeitando perdas/limites da conexão. |
 | Entradas | <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.conexaoCarga.prepararPasso</code>; <code>this.conexaoCarga.transferirEnergiaParaDestino</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/fontes-de-energia/PainelSolar.test.ts](../../src/physics/objetos/fontes-de-energia/PainelSolar.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.conexaoCarga.prepararPasso`, `this.conexaoCarga.transferirEnergiaParaDestino`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-76648f7c5d24d674 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Prepara conexão e transfere orçamento do passo ao destino pelo circuito, respeitando perdas/limites da conexão. @contract f-76648f7c5d24d674 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -13957,15 +13957,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/BracoArticuladoDeBancada.ts::BracoArticuladoDeBancada.constructor:Constructor</code> · [fonte L8](../../src/physics/objetos/mecanismos/BracoArticuladoDeBancada.ts#L8) |
 | Assinatura | <code>public (definicao: DefinicaoObjeto): BracoArticuladoDeBancada</code> |
-| Responsabilidade | Dependências diretas: `super`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Inicializa corpo físico do braço com propriedades de Objeto; não instala junta automaticamente. |
 | Entradas | <code>definicao: DefinicaoObjeto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>BracoArticuladoDeBancada</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>super</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `super`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2429e53025cf49cb */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Inicializa corpo físico do braço com propriedades de Objeto; não instala junta automaticamente. @contract f-2429e53025cf49cb @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -13976,15 +13976,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/BracoArticuladoDeBancada.ts::BracoArticuladoDeBancada.criarFixadorNaExtremidade:MethodDeclaration</code> · [fonte L11](../../src/physics/objetos/mecanismos/BracoArticuladoDeBancada.ts#L11) |
 | Assinatura | <code>public (objeto: Objeto, resistenciaTracaoN: number): FixadorEstrutural</code> |
-| Responsabilidade | Dependências diretas: `FixadorEstrutural`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Cria fixador entre braço e objeto com resistência N e solicitação externa zero; esforços físicos adicionais vêm do core. Não registra vínculo automaticamente nem reposiciona objeto na extremidade. |
 | Entradas | <code>objeto: Objeto</code>; <code>resistenciaTracaoN: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>FixadorEstrutural</code>; expressões retornadas: <code>new FixadorEstrutural({<br>    id: `${this.id}-fixador-${objeto.id}`,<br>    objetoA: this,<br>    objetoB: objeto,<br>    resistenciaTracaoN,<br>    obterEsforcoSolicitadoN: () =&gt; 0,<br>})</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>FixadorEstrutural</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `FixadorEstrutural`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3f5ea8e45bcaaae5 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Cria fixador entre braço e objeto com resistência N e solicitação externa zero; esforços físicos adicionais vêm do core. Não registra vínculo automaticamente nem reposiciona objeto na extremidade. @contract f-3f5ea8e45bcaaae5 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -14014,15 +14014,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/BracoArticuladoDeBancada.ts::BracoArticuladoDeBancada.obterPontoDaExtremidadeM:MethodDeclaration</code> · [fonte L23](../../src/physics/objetos/mecanismos/BracoArticuladoDeBancada.ts#L23) |
 | Assinatura | <code>public (): Vetor3</code> |
-| Responsabilidade | Devolve `estado.posicaoM.adicionar(new Vetor3(this.dimensoesM.x * c / 2, this.dimensoesM.x * s / 2, 0))`. Dependências diretas: `this.getEstadoFisico`, `estado.posicaoM.adicionar`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Transforma meia extensão positiva do braço em XY pela pose atual; consulta ponto global em m. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: <code>estado.posicaoM.adicionar(new Vetor3(this.dimensoesM.x * c / 2, this.dimensoesM.x * s / 2, 0))</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.getEstadoFisico</code>; <code>Math.cos</code>; <code>Math.sin</code>; <code>estado.posicaoM.adicionar</code>; <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `estado.posicaoM.adicionar(new Vetor3(this.dimensoesM.x * c / 2, this.dimensoesM.x * s / 2, 0))`. Dependências diretas: `this.getEstadoFisico`, `estado.posicaoM.adicionar`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-709fd001e86246a3 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Transforma meia extensão positiva do braço em XY pela pose atual; consulta ponto global em m. @contract f-709fd001e86246a3 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -14037,15 +14037,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/ConjuntoPortaBatente.ts::ConjuntoPortaBatente.constructor:Constructor</code> · [fonte L24](../../src/physics/objetos/mecanismos/ConjuntoPortaBatente.ts#L24) |
 | Assinatura | <code>public (definicao: DefinicaoConjuntoPortaBatente): ConjuntoPortaBatente</code> |
-| Responsabilidade | Escritas diretas: `this.definicao`. Dependências diretas: `Error`, `Set`, `definicao.chumbadoresDoBatente.some`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Exige peças e chumbadores do batente; trava deve ter guia, chumbadores devem ancorar peças declaradas e fixadores devem ligá-las. Não registra corpos/vínculos no mundo automaticamente. |
 | Entradas | <code>private readonly definicao: DefinicaoConjuntoPortaBatente</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ConjuntoPortaBatente</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.definicao</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Error</code>; <code>Set</code>; <code>definicao.chumbadoresDoBatente.some</code>; <code>definicao.fixadoresDoBatente.some</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>definicao.pecasDoBatente.length === 0 &#124;&#124; definicao.chumbadoresDoBatente.length === 0</code>; <code>definicao.trava !== undefined &amp;&amp; definicao.guiaDaTrava === undefined</code>; <code>definicao.chumbadoresDoBatente.some(chumbador =&gt; !pecas.has(chumbador.objeto))</code>; <code>definicao.fixadoresDoBatente.some(fixador =&gt; !pecas.has(fixador.objetoA) &#124;&#124; !pecas.has(fixador.objetoB))</code>; exceções: <code>new Error('Conjunto porta/batente exige estrutura e apoio físico.')</code>; <code>new Error('Trava física exige guia no conjunto porta/batente.')</code>; <code>new Error('Chumbador do conjunto deve pertencer ao batente.')</code>; <code>new Error('Fixador do conjunto deve ligar peças do batente.')</code> |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.definicao`. Dependências diretas: `Error`, `Set`, `definicao.chumbadoresDoBatente.some`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-288f1848d7fa9e2a */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Exige peças e chumbadores do batente; trava deve ter guia, chumbadores devem ancorar peças declaradas e fixadores devem ligá-las. Não registra corpos/vínculos no mundo automaticamente. @contract f-288f1848d7fa9e2a @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -14151,15 +14151,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/ConjuntoPortaBatente.ts::ConjuntoPortaBatente.objetosFisicos:GetAccessor</code> · [fonte L51](../../src/physics/objetos/mecanismos/ConjuntoPortaBatente.ts#L51) |
 | Assinatura | <code>public (): readonly Objeto[]</code> |
-| Responsabilidade | Devolve `[this.porta, ...this.pecasDoBatente, ...(this.trava ? [this.trava] : [])]`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Retorna novo array com porta, peças do batente e trava opcional; não duplica os corpos físicos. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly Objeto[]</code>; expressões retornadas: <code>[this.porta, ...this.pecasDoBatente, ...(this.trava ? [this.trava] : [])]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `[this.porta, ...this.pecasDoBatente, ...(this.trava ? [this.trava] : [])]`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-99ecb1dc2530e485 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Retorna novo array com porta, peças do batente e trava opcional; não duplica os corpos físicos. @contract f-99ecb1dc2530e485 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -14170,15 +14170,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/ConjuntoPortaBatente.ts::ConjuntoPortaBatente.apoioEstruturalDisponivel:GetAccessor</code> · [fonte L56](../../src/physics/objetos/mecanismos/ConjuntoPortaBatente.ts#L56) |
 | Assinatura | <code>public (): boolean</code> |
-| Responsabilidade | Dependências diretas: `this.pecasDoBatente.every`, `this.fixadoresDoBatente.every`, `this.chumbadoresDoBatente.every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Exige peças íntegras, guias não rompidas, fixadores ativos e chumbadores íntegros; consulta topologia sem criar apoio artificial. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>this.pecasDoBatente.every(peca =&gt; peca.integridadeEstrutural &gt; 0)<br>    &amp;&amp; !this.definicao.guiaDaPorta.estaRompida<br>    &amp;&amp; (this.definicao.guiaDaTrava === undefined &#124;&#124; !this.definicao.guiaDaTrava.estaRompida)<br>    &amp;&amp; this.fixadoresDoBatente.eve… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.pecasDoBatente.every</code>; <code>this.fixadoresDoBatente.every</code>; <code>this.chumbadoresDoBatente.every</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.pecasDoBatente.every`, `this.fixadoresDoBatente.every`, `this.chumbadoresDoBatente.every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-296ec4147df261ec */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Exige peças íntegras, guias não rompidas, fixadores ativos e chumbadores íntegros; consulta topologia sem criar apoio artificial. @contract f-296ec4147df261ec @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -14189,15 +14189,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/ConjuntoPortaBatente.ts::ConjuntoPortaBatente.motivosDeApoioIndisponivel:GetAccessor</code> · [fonte L65](../../src/physics/objetos/mecanismos/ConjuntoPortaBatente.ts#L65) |
 | Assinatura | <code>public (): readonly string[]</code> |
-| Responsabilidade | Devolve `motivos`. Dependências diretas: `this.pecasDoBatente.some`, `motivos.push`, `this.fixadoresDoBatente.some`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Compõe diagnósticos de peça destruída, guia rompida, união rompida/liberada e fundação perdida; não altera estado. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly string[]</code>; expressões retornadas: <code>motivos</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.pecasDoBatente.some</code>; <code>motivos.push</code>; <code>this.fixadoresDoBatente.some</code>; <code>this.chumbadoresDoBatente.some</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>this.pecasDoBatente.some(peca =&gt; peca.integridadeEstrutural === 0)</code>; <code>this.definicao.guiaDaPorta.estaRompida</code>; <code>this.definicao.guiaDaTrava?.estaRompida</code>; <code>this.fixadoresDoBatente.some(fixador =&gt; !fixador.estaAtivo)</code>; <code>this.chumbadoresDoBatente.some(chumbador =&gt; chumbador.estaRompido)</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `motivos`. Dependências diretas: `this.pecasDoBatente.some`, `motivos.push`, `this.fixadoresDoBatente.some`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-25a540ad06590f40 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Compõe diagnósticos de peça destruída, guia rompida, união rompida/liberada e fundação perdida; não altera estado. @contract f-25a540ad06590f40 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -14269,15 +14269,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/Porta.ts::Porta.constructor:Constructor</code> · [fonte L45](../../src/physics/objetos/mecanismos/Porta.ts#L45) |
 | Assinatura | <code>public (configuracaoPorta: DefinicaoPorta): Porta</code> |
-| Responsabilidade | Escritas diretas: `this.configuracaoPorta`, `this.acionamento`. Dependências diretas: `super`, `Error`, `CilindroEletrico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Inicializa folha física e acionamento vertical +Y contra batente, selecionando circuito de potência separado quando fornecido; valida tensão, instala comportamento e abre interruptor inicialmente. |
 | Entradas | <code>private readonly configuracaoPorta: DefinicaoPorta</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Porta</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.configuracaoPorta</code>; <code>this.acionamento</code>; <code>this.alimentacao</code>; <code>this.controle</code>; <code>this.potenciaSolicitada</code>; <code>this.comando</code>; <code>this.sequenciaComandoMovimento</code>; <code>this.ultimoComandoOperacional</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>SistemaOperacional</code>; <code>super</code>; <code>Number.isFinite</code>; <code>Error</code>; <code>CilindroEletrico</code>; <code>Vetor3</code>; <code>this.instalarCilindro</code>; <code>this.conexaoEletrica.abrirInterruptor</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(configuracaoPorta.tensaoNominalV) &#124;&#124; configuracaoPorta.tensaoNominalV &lt;= 0</code>; exceções: <code>new Error('Tensão nominal deve ser positiva, em V.')</code> |
 | Testes | [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.configuracaoPorta`, `this.acionamento`. Dependências diretas: `super`, `Error`, `CilindroEletrico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d2cfa4d811ed7e35 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Inicializa folha física e acionamento vertical +Y contra batente, selecionando circuito de potência separado quando fornecido; valida tensão, instala comportamento e abre interruptor inicialmente. @contract f-d2cfa4d811ed7e35 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -14307,15 +14307,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/Porta.ts::Porta.sensorAbertoAcionado:GetAccessor</code> · [fonte L59](../../src/physics/objetos/mecanismos/Porta.ts#L59) |
 | Assinatura | <code>public (): boolean</code> |
-| Responsabilidade | Devolve `this.configuracaoPorta.sensorAberto.estaAcionado()`. Dependências diretas: `this.configuracaoPorta.sensorAberto.estaAcionado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Consulta estado do sensor de abertura pela porta operacional, sem deduzir posição por animação. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>this.configuracaoPorta.sensorAberto.estaAcionado()</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.configuracaoPorta.sensorAberto.estaAcionado</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.configuracaoPorta.sensorAberto.estaAcionado()`. Dependências diretas: `this.configuracaoPorta.sensorAberto.estaAcionado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e7ca86a464409ee0 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta estado do sensor de abertura pela porta operacional, sem deduzir posição por animação. @contract f-e7ca86a464409ee0 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -14326,15 +14326,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/Porta.ts::Porta.sensorFechadoAcionado:GetAccessor</code> · [fonte L63](../../src/physics/objetos/mecanismos/Porta.ts#L63) |
 | Assinatura | <code>public (): boolean</code> |
-| Responsabilidade | Devolve `this.configuracaoPorta.sensorFechado.estaAcionado()`. Dependências diretas: `this.configuracaoPorta.sensorFechado.estaAcionado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Consulta estado do sensor de fechamento, sem alterar geometria. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>this.configuracaoPorta.sensorFechado.estaAcionado()</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.configuracaoPorta.sensorFechado.estaAcionado</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.configuracaoPorta.sensorFechado.estaAcionado()`. Dependências diretas: `this.configuracaoPorta.sensorFechado.estaAcionado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-91c75a864106899d */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta estado do sensor de fechamento, sem alterar geometria. @contract f-91c75a864106899d @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -14421,15 +14421,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/Porta.ts::Porta.fonteDisponivel:GetAccessor</code> · [fonte L75](../../src/physics/objetos/mecanismos/Porta.ts#L75) |
 | Assinatura | <code>public (): boolean</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Exige continuidade, bateria carregada/íntegra e tensão dentro de ±5% da nominal; consulta disponibilidade antes de energização. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>this.conexaoEletrica.podeConduzir &amp;&amp; !bateria.estaDescarregada &amp;&amp; bateria.integridadeEstrutural &gt; 0 &amp;&amp;<br>    Math.abs(bateria.tensaoNominalV - this.configuracaoPorta.tensaoNominalV) &lt;= this.configuracaoPorta.tensaoNominalV * 0.05</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.abs</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-24b8af59a69d534b */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Exige continuidade, bateria carregada/íntegra e tensão dentro de ±5% da nominal; consulta disponibilidade antes de energização. @contract f-24b8af59a69d534b @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -14478,15 +14478,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/Porta.ts::Porta.operacional:GetAccessor</code> · [fonte L85](../../src/physics/objetos/mecanismos/Porta.ts#L85) |
 | Assinatura | <code>public (): boolean</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Combina controle ligado, potência disponível, suporte estrutural e integridade da folha/batente; não implica movimento. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>this.controleLigado &amp;&amp; this.potenciaDisponivel &amp;&amp; this.apoioEstruturalDisponivel<br>    &amp;&amp; this.integridadeEstrutural &gt; 0 &amp;&amp; this.configuracaoPorta.batente.integridadeEstrutural &gt; 0</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-4db1c8f3bbdb2c30 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Combina controle ligado, potência disponível, suporte estrutural e integridade da folha/batente; não implica movimento. @contract f-4db1c8f3bbdb2c30 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -14592,15 +14592,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/Porta.ts::Porta.ligarAlimentacao:MethodDeclaration</code> · [fonte L105](../../src/physics/objetos/mecanismos/Porta.ts#L105) |
 | Assinatura | <code>public (): boolean</code> |
-| Responsabilidade | Dependências diretas: `this.conexaoEletrica.fecharInterruptor`, `this.alimentacao.definirEstado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Se fonte disponível e interruptor aceitar fechamento, marca alimentação operacional; recusa retorna false sem forçar circuito. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>false</code>; <code>true</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.conexaoEletrica.fecharInterruptor</code>; <code>this.alimentacao.definirEstado</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!this.fonteDisponivel</code>; <code>!this.conexaoEletrica.fecharInterruptor()</code>; exceções: — |
 | Testes | [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.conexaoEletrica.fecharInterruptor`, `this.alimentacao.definirEstado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d80e9c6226e07edd */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Se fonte disponível e interruptor aceitar fechamento, marca alimentação operacional; recusa retorna false sem forçar circuito. @contract f-d80e9c6226e07edd @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -14611,15 +14611,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/Porta.ts::Porta.desligarAlimentacao:MethodDeclaration</code> · [fonte L112](../../src/physics/objetos/mecanismos/Porta.ts#L112) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Dependências diretas: `this.conexaoEletrica.abrirInterruptor`, `this.alimentacao.definirEstado`, `this.desligarControle`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Abre interruptor, desliga alimentação e encadeia desligamento do controle. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.conexaoEletrica.abrirInterruptor</code>; <code>this.alimentacao.definirEstado</code>; <code>this.desligarControle</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.conexaoEletrica.abrirInterruptor`, `this.alimentacao.definirEstado`, `this.desligarControle`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-97254903ab10186e */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Abre interruptor, desliga alimentação e encadeia desligamento do controle. @contract f-97254903ab10186e @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -14630,15 +14630,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/Porta.ts::Porta.ligarControle:MethodDeclaration</code> · [fonte L118](../../src/physics/objetos/mecanismos/Porta.ts#L118) |
 | Assinatura | <code>public (): boolean</code> |
-| Responsabilidade | Dependências diretas: `this.controle.definirEstado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Habilita somente com alimentação ligada e folha/batente não destruídos; retorna aceitação. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>false</code>; <code>true</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.controle.definirEstado</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!this.alimentacaoLigada &#124;&#124; this.integridadeEstrutural === 0 &#124;&#124; this.configuracaoPorta.batente.integridadeEstrutural === 0</code>; exceções: — |
 | Testes | [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.controle.definirEstado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3822e888eb3248e9 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Habilita somente com alimentação ligada e folha/batente não destruídos; retorna aceitação. @contract f-3822e888eb3248e9 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -14649,15 +14649,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/Porta.ts::Porta.desligarControle:MethodDeclaration</code> · [fonte L124](../../src/physics/objetos/mecanismos/Porta.ts#L124) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Escritas diretas: `this.potenciaSolicitada`. Dependências diretas: `this.controle.definirEstado`, `this.registrarComandoOperacional`, `this.limparSelo`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Desliga controle, retira solicitação de potência, registra parar, limpa selo, desarma contator e reavalia entradas; não zera velocidade. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.potenciaSolicitada</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.controle.definirEstado</code>; <code>this.registrarComandoOperacional</code>; <code>this.limparSelo</code>; <code>this.configuracaoPorta.potenciaSeparada?.contator.desarmar</code>; <code>this.atualizarEntradasDosSensores</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.potenciaSolicitada`. Dependências diretas: `this.controle.definirEstado`, `this.registrarComandoOperacional`, `this.limparSelo`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-5908fa63346ac702 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Desliga controle, retira solicitação de potência, registra parar, limpa selo, desarma contator e reavalia entradas; não zera velocidade. @contract f-5908fa63346ac702 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -14706,15 +14706,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/Porta.ts::Porta.parar:MethodDeclaration</code> · [fonte L137](../../src/physics/objetos/mecanismos/Porta.ts#L137) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Dependências diretas: `this.registrarComandoOperacional`, `this.limparSelo`, `this.atualizarEntradasDosSensores`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Registra pedido parar, limpa selo e atualiza entradas; parada efetiva depende das forças do mecanismo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.registrarComandoOperacional</code>; <code>this.limparSelo</code>; <code>this.atualizarEntradasDosSensores</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.registrarComandoOperacional`, `this.limparSelo`, `this.atualizarEntradasDosSensores`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3e0a2f510657ffe1 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Registra pedido parar, limpa selo e atualiza entradas; parada efetiva depende das forças do mecanismo. @contract f-3e0a2f510657ffe1 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -14744,15 +14744,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/Porta.ts::Porta.solicitarMovimento:MethodDeclaration</code> · [fonte L149](../../src/physics/objetos/mecanismos/Porta.ts#L149) |
 | Assinatura | <code>private (comando: "abrir" &#124; "fechar"): boolean</code> |
-| Responsabilidade | Escritas diretas: `this.potenciaSolicitada`. Dependências diretas: `this.registrarComandoOperacional`, `this.atualizarEntradasDosSensores`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Recusa se não operacional; registra comando de movimento, solicita potência e atualiza entradas do cilindro. |
 | Entradas | <code>comando: 'abrir' &#124; 'fechar'</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>false</code>; <code>true</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.potenciaSolicitada</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.registrarComandoOperacional</code>; <code>this.atualizarEntradasDosSensores</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!this.operacional</code>; exceções: — |
 | Testes | [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.potenciaSolicitada`. Dependências diretas: `this.registrarComandoOperacional`, `this.atualizarEntradasDosSensores`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-cbb378311dda8b24 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Recusa se não operacional; registra comando de movimento, solicita potência e atualiza entradas do cilindro. @contract f-cbb378311dda8b24 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -14763,15 +14763,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/Porta.ts::Porta.registrarComandoOperacional:MethodDeclaration</code> · [fonte L157](../../src/physics/objetos/mecanismos/Porta.ts#L157) |
 | Assinatura | <code>private (comando: "abrir" &#124; "fechar" &#124; "parar"): void</code> |
-| Responsabilidade | Escritas diretas: `this.comando`, `this.sequenciaComandoMovimento`, `this.ultimoComandoOperacional`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Só quando comando muda incrementa sequência e grava último comando; permite à trava distinguir novo pedido de comando mantido. |
 | Entradas | <code>comando: 'abrir' &#124; 'fechar' &#124; 'parar'</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.comando</code>; <code>this.sequenciaComandoMovimento</code>; <code>this.ultimoComandoOperacional</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>this.comando === comando</code>; exceções: — |
 | Testes | [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.comando`, `this.sequenciaComandoMovimento`, `this.ultimoComandoOperacional`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-fb6b3d1ebdb8d0f3 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Só quando comando muda incrementa sequência e grava último comando; permite à trava distinguir novo pedido de comando mantido. @contract f-fb6b3d1ebdb8d0f3 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -14782,15 +14782,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/Porta.ts::Porta.atualizarEntradasDosSensores:MethodDeclaration</code> · [fonte L164](../../src/physics/objetos/mecanismos/Porta.ts#L164) |
 | Assinatura | <code>private (): void</code> |
-| Responsabilidade | Dependências diretas: `this.configuracaoPorta.obterTravaRecuada`, `super.definirEntradas`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Converte abrir/fechar em avanço/recuo condicionado à operação e trava liberada; fins de curso vêm dos sensores, enviados ao comportamento herdado. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.configuracaoPorta.obterTravaRecuada</code>; <code>super.definirEntradas</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.configuracaoPorta.obterTravaRecuada`, `super.definirEntradas`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-975b9fc2614745fe */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Converte abrir/fechar em avanço/recuo condicionado à operação e trava liberada; fins de curso vêm dos sensores, enviados ao comportamento herdado. @contract f-975b9fc2614745fe @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -14801,15 +14801,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/Porta.ts::Porta.prepararPassoOperacional:MethodDeclaration</code> · [fonte L173](../../src/physics/objetos/mecanismos/Porta.ts#L173) |
 | Assinatura | <code>public override (dtS: number): void</code> |
-| Responsabilidade | Escritas diretas: `this.potenciaSolicitada`. Dependências diretas: `this.conexaoEletrica.verificarIntegridade`, `potencia.conexao.verificarIntegridade`, `this.conexaoEletrica.prepararPasso`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Verifica circuitos e, com potência separada, consome controle 6 W/bobina e desarma por falta de energia/tensão. Reavalia alimentação, integridade, comandos/sensores e prepara servo; não integra deslocamento. |
 | Entradas | <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.potenciaSolicitada</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.conexaoEletrica.verificarIntegridade</code>; <code>potencia.conexao.verificarIntegridade</code>; <code>this.conexaoEletrica.prepararPasso</code>; <code>this.conexaoEletrica.fornecerEnergia</code>; <code>Math.abs</code>; <code>this.desligarAlimentacao</code>; <code>this.parar</code>; <code>potencia.contator.atualizarBobina</code>; <code>this.desligarControle</code>; <code>this.atualizarEntradasDosSensores</code>; <code>this.acionamento.prepararPassoOperacional</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>potencia</code>; <code>this.alimentacaoLigada</code>; <code>energiaControle &lt; 6 * dtS - 1e-10 &#124;&#124; Math.abs(this.conexaoEletrica.tensaoSaidaV - 24) &gt; 1.2</code>; <code>!this.potenciaDisponivel</code>; <code>autorizar &amp;&amp; !potencia.contator.estaFechado</code>; <code>!this.fonteDisponivel &#124;&#124; !this.conexaoEletrica.estaEnergizada</code>; <code>!this.alimentacaoLigada &#124;&#124; this.integridadeEstrutural === 0 &#124;&#124; this.configuracaoPorta.batente.integridadeEstrutural === 0</code>; exceções: — |
 | Testes | [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.potenciaSolicitada`. Dependências diretas: `this.conexaoEletrica.verificarIntegridade`, `potencia.conexao.verificarIntegridade`, `this.conexaoEletrica.prepararPasso`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-58044e53e4878da0 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Verifica circuitos e, com potência separada, consome controle 6 W/bobina e desarma por falta de energia/tensão. Reavalia alimentação, integridade, comandos/sensores e prepara servo; não integra deslocamento. @contract f-58044e53e4878da0 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -14820,15 +14820,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/Porta.ts::Porta.obterForcasOperacionais:MethodDeclaration</code> · [fonte L197](../../src/physics/objetos/mecanismos/Porta.ts#L197) |
 | Assinatura | <code>public override (): readonly ForcaFisicaSolicitada[]</code> |
-| Responsabilidade | Devolve `[ ...(this.operacional ? this.acionamento.obterForcasNaHaste() : []), ...(this.configuracaoPorta.obterForcasDaTrava?.() ?? []), ]`. Dependências diretas: `this.acionamento.obterForcasNaHaste`, `this.configuracaoPorta.obterForcasDaTrava`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Combina força na folha pelo acionamento quando operacional com forças da trava fornecidas pela porta injetada; não duplica reação no batente. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly ForcaFisicaSolicitada[]</code>; expressões retornadas: <code>[<br>    ...(this.operacional ? this.acionamento.obterForcasNaHaste() : []),<br>    ...(this.configuracaoPorta.obterForcasDaTrava?.() ?? []),<br>]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.acionamento.obterForcasNaHaste</code>; <code>this.configuracaoPorta.obterForcasDaTrava</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `[ ...(this.operacional ? this.acionamento.obterForcasNaHaste() : []), ...(this.configuracaoPorta.obterForcasDaTrava?.() ?? []), ]`. Dependências diretas: `this.acionamento.obterForcasNaHaste`, `this.configuracaoPorta.obterForcasDaTrava`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a95597ce6d32f242 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Combina força na folha pelo acionamento quando operacional com forças da trava fornecidas pela porta injetada; não duplica reação no batente. @contract f-a95597ce6d32f242 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -14839,15 +14839,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/Porta.ts::Porta.obterReacaoNoBatente:MethodDeclaration</code> · [fonte L204](../../src/physics/objetos/mecanismos/Porta.ts#L204) |
 | Assinatura | <code>public (): readonly ForcaFisicaSolicitada[]</code> |
-| Responsabilidade | Devolve `this.operacional ? this.acionamento.obterForcasOperacionais() : []`. Dependências diretas: `this.acionamento.obterForcasOperacionais`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Retorna forças de reação do acionamento se porta operacional, senão vazio; aplicação ao batente cabe ao core. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly ForcaFisicaSolicitada[]</code>; expressões retornadas: <code>this.operacional ? this.acionamento.obterForcasOperacionais() : []</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.acionamento.obterForcasOperacionais</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.operacional ? this.acionamento.obterForcasOperacionais() : []`. Dependências diretas: `this.acionamento.obterForcasOperacionais`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a3740f2b3d603565 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Retorna forças de reação do acionamento se porta operacional, senão vazio; aplicação ao batente cabe ao core. @contract f-a3740f2b3d603565 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -14858,15 +14858,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/Porta.ts::BatenteDePorta.constructor:Constructor</code> · [fonte L212](../../src/physics/objetos/mecanismos/Porta.ts#L212) |
 | Assinatura | <code>public (definicao: DefinicaoObjeto, obterReacao: () =&gt; readonly ForcaFisicaSolicitada[]): BatenteDePorta</code> |
-| Responsabilidade | Escritas diretas: `this.obterReacao`. Dependências diretas: `super`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Inicializa corpo físico do batente com propriedades herdadas; ancoragens/uniões são componentes externos. |
 | Entradas | <code>definicao: DefinicaoObjeto</code>; <code>private readonly obterReacao: () =&gt; readonly ForcaFisicaSolicitada[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>BatenteDePorta</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.obterReacao</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>super</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.obterReacao`. Dependências diretas: `super`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f5c6f081fdd28132 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Inicializa corpo físico do batente com propriedades herdadas; ancoragens/uniões são componentes externos. @contract f-f5c6f081fdd28132 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -14995,15 +14995,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/TravaPorta.ts::TravaPorta.constructor:Constructor</code> · [fonte L33](../../src/physics/objetos/mecanismos/TravaPorta.ts#L33) |
 | Assinatura | <code>public (config: DefinicaoTravaPorta): TravaPorta</code> |
-| Responsabilidade | Escritas diretas: `this.config`, `this.xAvancadoM`, `this.xRecuadoM`. Dependências diretas: `super`, `[config.cursoM, config.velocidadeMps, config.forcaMaximaN, config.potenciaRecuoW] .every`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida curso m, velocidade m/s, força N e potência W positivos finitos; deriva limites X da pose inicial, instala cilindro e sincroniza comando. |
 | Entradas | <code>private readonly config: DefinicaoTravaPorta</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>TravaPorta</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.config</code>; <code>this.xAvancadoM</code>; <code>this.xRecuadoM</code>; <code>this.forcaAtualN</code>; <code>this.recuoSolicitado</code>; <code>this.alturaRetidaM</code>; <code>this.ultimaSequenciaDeMovimento</code>; <code>this.comandoOperacionalAtual</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>super</code>; <code>[config.cursoM, config.velocidadeMps, config.forcaMaximaN, config.potenciaRecuoW]<br>    .every</code>; <code>Error</code>; <code>this.getEstadoFisico</code>; <code>this.instalarCilindro</code>; <code>Cilindro</code>; <code>this.atualizarComando</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>![config.cursoM, config.velocidadeMps, config.forcaMaximaN, config.potenciaRecuoW]<br>    .every(valor =&gt; Number.isFinite(valor) &amp;&amp; valor &gt; 0)</code>; exceções: <code>new Error('Definição da trava inválida.')</code> |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.config`, `this.xAvancadoM`, `this.xRecuadoM`. Dependências diretas: `super`, `[config.cursoM, config.velocidadeMps, config.forcaMaximaN, config.potenciaRecuoW] .every`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-73153b491956dc49 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida curso m, velocidade m/s, força N e potência W positivos finitos; deriva limites X da pose inicial, instala cilindro e sincroniza comando. @contract f-73153b491956dc49 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -15090,15 +15090,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/TravaPorta.ts::TravaPorta.estaSustentandoPorta:GetAccessor</code> · [fonte L52](../../src/physics/objetos/mecanismos/TravaPorta.ts#L52) |
 | Assinatura | <code>public (): boolean</code> |
-| Responsabilidade | Dependências diretas: `this.config.apoioEstruturalDisponivel`, `this.config.porta`, `this.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Exige trava avançada, altura retida, integridade/suporte e sobreposição horizontal; aceita distância vertical de -0,03 a 0,08 m. É envelope de apoio deste mecanismo local, não contato esférico genérico. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>false</code>; <code>sobreposicaoHorizontalM &gt; 0 &amp;&amp; distanciaVerticalM &gt;= -0.03 &amp;&amp; distanciaVerticalM &lt;= 0.08</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.config.apoioEstruturalDisponivel</code>; <code>this.config.porta</code>; <code>this.getEstadoFisico</code>; <code>porta.getEstadoFisico</code>; <code>Math.abs</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!this.estaAvancada &#124;&#124; this.alturaRetidaM === undefined &#124;&#124; this.integridadeEstrutural === 0<br>    &#124;&#124; this.config.apoioEstruturalDisponivel?.() === false</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.config.apoioEstruturalDisponivel`, `this.config.porta`, `this.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ee530e6e751a3407 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Exige trava avançada, altura retida, integridade/suporte e sobreposição horizontal; aceita distância vertical de -0,03 a 0,08 m. É envelope de apoio deste mecanismo local, não contato esférico genérico. @contract f-ee530e6e751a3407 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -15109,15 +15109,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/TravaPorta.ts::TravaPorta.atualizarComando:MethodDeclaration</code> · [fonte L66](../../src/physics/objetos/mecanismos/TravaPorta.ts#L66) |
 | Assinatura | <code>private (): void</code> |
-| Responsabilidade | Escritas diretas: `this.ultimaSequenciaDeMovimento`, `this.comandoOperacionalAtual`, `this.recuoSolicitado`, `this.alturaRetidaM`. Dependências diretas: `this.config.obterUltimoComandoOperacional`, `this.config.sensorPortaAberta`, `this.definirEntradas`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Detecta nova sequência operacional para iniciar recuo e liberar altura; sensor de porta aberta autoriza avanço, salvo fechamento. Atualiza selo/fins de curso sem mover trava. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.ultimaSequenciaDeMovimento</code>; <code>this.comandoOperacionalAtual</code>; <code>this.recuoSolicitado</code>; <code>this.alturaRetidaM</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.config.obterUltimoComandoOperacional</code>; <code>this.config.sensorPortaAberta</code>; <code>this.definirEntradas</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>comandoIniciado &amp;&amp; comandoIniciado.sequencia !== this.ultimaSequenciaDeMovimento</code>; <code>this.comandoOperacionalAtual !== 'fechar' &amp;&amp; this.config.sensorPortaAberta()</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.ultimaSequenciaDeMovimento`, `this.comandoOperacionalAtual`, `this.recuoSolicitado`, `this.alturaRetidaM`. Dependências diretas: `this.config.obterUltimoComandoOperacional`, `this.config.sensorPortaAberta`, `this.definirEntradas`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ae5f6598a284f391 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Detecta nova sequência operacional para iniciar recuo e liberar altura; sensor de porta aberta autoriza avanço, salvo fechamento. Atualiza selo/fins de curso sem mover trava. @contract f-ae5f6598a284f391 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -15128,15 +15128,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/TravaPorta.ts::TravaPorta.prepararPassoOperacional:MethodDeclaration</code> · [fonte L83](../../src/physics/objetos/mecanismos/TravaPorta.ts#L83) |
 | Assinatura | <code>public override (dtS: number): void</code> |
-| Responsabilidade | Escritas diretas: `this.forcaAtualN`, `this.alturaRetidaM`. Dependências diretas: `Error`, `this.atualizarComando`, `this.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Para dt positivo calcula servo implícito no eixo X limitado por força e integridade. Recuo consome energia elétrica; avanço usa mecanismo declarado. Registra altura a sustentar após avanço/porta aberta, sem corrigir pose. |
 | Entradas | <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>forcaN</code>; <code>this.forcaAtualN</code>; <code>this.alturaRetidaM</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code>; <code>this.atualizarComando</code>; <code>this.getEstadoFisico</code>; <code>Math.sign</code>; <code>Math.min</code>; <code>Math.abs</code>; <code>Math.max</code>; <code>this.config.conexaoComando.fornecerEnergia</code>; <code>this.config.sensorPortaAberta</code>; <code>this.config.porta().getEstadoFisico</code>; <code>this.config.porta</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(dtS) &#124;&#124; dtS &lt;= 0</code>; <code>this.recuoSolicitado</code>; <code>this.estaAvancada &amp;&amp; this.config.sensorPortaAberta() &amp;&amp; !this.recuoSolicitado</code>; exceções: <code>new Error('dt da trava deve ser positivo e finito.')</code> |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.forcaAtualN`, `this.alturaRetidaM`. Dependências diretas: `Error`, `this.atualizarComando`, `this.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-fb51fc04b8452318 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Para dt positivo calcula servo implícito no eixo X limitado por força e integridade. Recuo consome energia elétrica; avanço usa mecanismo declarado. Registra altura a sustentar após avanço/porta aberta, sem corrigir pose. @contract f-fb51fc04b8452318 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -15147,15 +15147,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/TravaPorta.ts::TravaPorta.obterForcasNaPorta:MethodDeclaration</code> · [fonte L108](../../src/physics/objetos/mecanismos/TravaPorta.ts#L108) |
 | Assinatura | <code>public (): readonly ForcaFisicaSolicitada[]</code> |
-| Responsabilidade | Dependências diretas: `this.config.porta`, `porta.getEstadoFisico`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Se suporte válido, solicita força +Y por peso padrão, mola de 80 kN/m e amortecimento crítico, limitada à capacidade. Modelo de bancada usa Y e g0 fixos; não é ancoragem cinemática nem hidrodinâmica. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly ForcaFisicaSolicitada[]</code>; expressões retornadas: <code>[]</code>; <code>[{ forcaN: new Vetor3(0, suporteN, 0) }]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.config.porta</code>; <code>porta.getEstadoFisico</code>; <code>Math.sqrt</code>; <code>Math.max</code>; <code>Math.min</code>; <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!this.estaSustentandoPorta</code>; <code>alturaRetidaM === undefined</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.config.porta`, `porta.getEstadoFisico`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ea33945378347a46 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Se suporte válido, solicita força +Y por peso padrão, mola de 80 kN/m e amortecimento crítico, limitada à capacidade. Modelo de bancada usa Y e g0 fixos; não é ancoragem cinemática nem hidrodinâmica. @contract f-ea33945378347a46 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -15166,15 +15166,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/TravaPorta.ts::TravaPorta.obterForcasOperacionais:MethodDeclaration</code> · [fonte L122](../../src/physics/objetos/mecanismos/TravaPorta.ts#L122) |
 | Assinatura | <code>public override (): readonly ForcaFisicaSolicitada[]</code> |
-| Responsabilidade | Devolve `[{ forcaN: new Vetor3(this.forcaAtualN, 0, 0) }]`. Dependências diretas: `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Retorna força horizontal atual do mecanismo em N para integração do corpo da trava. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly ForcaFisicaSolicitada[]</code>; expressões retornadas: <code>[{ forcaN: new Vetor3(this.forcaAtualN, 0, 0) }]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `[{ forcaN: new Vetor3(this.forcaAtualN, 0, 0) }]`. Dependências diretas: `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-608dfb1b6c2d6288 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Retorna força horizontal atual do mecanismo em N para integração do corpo da trava. @contract f-608dfb1b6c2d6288 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -15185,15 +15185,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/mecanismos/TravaPorta.ts::TravaPorta.obterReacaoNoBatente:MethodDeclaration</code> · [fonte L126](../../src/physics/objetos/mecanismos/TravaPorta.ts#L126) |
 | Assinatura | <code>public (): readonly ForcaFisicaSolicitada[]</code> |
-| Responsabilidade | Devolve `[{ forcaN: new Vetor3(-this.forcaAtualN, -suporteN, 0) }]`. Dependências diretas: `this.obterForcasNaPorta`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Retorna reação oposta à força horizontal e ao suporte vertical da porta; fecha par de esforços sem modificar batente diretamente. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly ForcaFisicaSolicitada[]</code>; expressões retornadas: <code>[{ forcaN: new Vetor3(-this.forcaAtualN, -suporteN, 0) }]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.obterForcasNaPorta</code>; <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `[{ forcaN: new Vetor3(-this.forcaAtualN, -suporteN, 0) }]`. Dependências diretas: `this.obterForcasNaPorta`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-c36df25d45b03cb4 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Retorna reação oposta à força horizontal e ao suporte vertical da porta; fecha par de esforços sem modificar batente diretamente. @contract f-c36df25d45b03cb4 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -16280,15 +16280,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/propulsao/alimentacao/BombaPropelente.ts::BombaPropelente.constructor:Constructor</code> · [fonte L11](../../src/physics/objetos/propulsao/alimentacao/BombaPropelente.ts#L11) |
 | Assinatura | <code>public (definicao: DefinicaoBombaPropelente): BombaPropelente</code> |
-| Responsabilidade | Escritas diretas: `this.definicao`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida identidade, tensão V/vazão máxima kg/s positivas finitas e potência elétrica W não negativa. |
 | Entradas | <code>private readonly definicao: DefinicaoBombaPropelente</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>BombaPropelente</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.definicao</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!definicao.id &#124;&#124; !Number.isFinite(definicao.tensaoNominalV) &#124;&#124; definicao.tensaoNominalV &lt;= 0 &#124;&#124; !Number.isFinite(definicao.vazaoMaximaKgS) &#124;&#124; definicao.vazaoMaximaKgS &lt;= 0 &#124;&#124; !Number.isFinite(definicao.potenciaEletricaMaximaW) &#124;&#124; definicao.… [continua na fonte]</code>; exceções: <code>new Error('Definição de bomba inválida.')</code> |
 | Testes | [src/physics/objetos/propulsao/CadeiaPropulsao.test.ts](../../src/physics/objetos/propulsao/CadeiaPropulsao.test.ts); [src/physics/objetos/propulsao/PropulsaoQuimica.test.ts](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.definicao`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-08499cf7b7b5281e */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida identidade, tensão V/vazão máxima kg/s positivas finitas e potência elétrica W não negativa. @contract f-08499cf7b7b5281e @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -16299,15 +16299,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/propulsao/alimentacao/BombaPropelente.ts::BombaPropelente.bombear:MethodDeclaration</code> · [fonte L15](../../src/physics/objetos/propulsao/alimentacao/BombaPropelente.ts#L15) |
 | Assinatura | <code>public (linha: LinhaDePropelente, conexao: ConexaoEletrica, massaSolicitadaKg: number, dtS: number, posicaoM: Vetor3): number</code> |
-| Responsabilidade | Dependências diretas: `Error`, `conexao.fornecerEnergia`, `linha.fornecerMassa`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida massa kg/dt positivo s; tensão incompatível ou conexão indisponível retorna zero. Limita vazão, solicita energia proporcional e pede à linha massa escalada pela energia entregue; altera reservas elétricas/propelente através das portas. |
 | Entradas | <code>linha: LinhaDePropelente</code>; <code>conexao: ConexaoEletrica</code>; <code>massaSolicitadaKg: number</code>; <code>dtS: number</code>; <code>posicaoM: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>0</code>; <code>linha.fornecerMassa(massaLimitadaKg * disponibilidadeEletrica, dtS, posicaoM)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code>; <code>Math.min</code>; <code>conexao.fornecerEnergia</code>; <code>linha.fornecerMassa</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(massaSolicitadaKg) &#124;&#124; massaSolicitadaKg &lt; 0 &#124;&#124; !Number.isFinite(dtS) &#124;&#124; dtS &lt;= 0</code>; <code>conexao.tensaoNominalV !== this.definicao.tensaoNominalV &#124;&#124; conexao.estaIndisponivel</code>; exceções: <code>new Error('Solicitação de bomba inválida.')</code> |
 | Testes | [src/physics/objetos/propulsao/CadeiaPropulsao.test.ts](../../src/physics/objetos/propulsao/CadeiaPropulsao.test.ts); [src/physics/objetos/propulsao/PropulsaoQuimica.test.ts](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `Error`, `conexao.fornecerEnergia`, `linha.fornecerMassa`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-90c7b4887e2d3c64 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida massa kg/dt positivo s; tensão incompatível ou conexão indisponível retorna zero. Limita vazão, solicita energia proporcional e pede à linha massa escalada pela energia entregue; altera reservas elétricas/propelente através das portas. @contract f-90c7b4887e2d3c64 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -16379,15 +16379,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/propulsao/alimentacao/LinhaDePropelente.ts::LinhaDePropelente.constructor:Constructor</code> · [fonte L13](../../src/physics/objetos/propulsao/alimentacao/LinhaDePropelente.ts#L13) |
 | Assinatura | <code>public (definicao: DefinicaoLinhaDePropelente): LinhaDePropelente</code> |
-| Responsabilidade | Escritas diretas: `this.definicao`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida id, compatibilidade do propelente com tanque, comprimento m e vazão kg/s positivos finitos; não transfere fluido na construção. |
 | Entradas | <code>private readonly definicao: DefinicaoLinhaDePropelente</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>LinhaDePropelente</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.definicao</code>; <code>this.rompida</code>; <code>this.desconectadaManualmente</code>; <code>this.vazaoAtualCalculadaKgS</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!definicao.id &#124;&#124; definicao.tanque.tipoPropelente !== definicao.tipoPropelente &#124;&#124; !Number.isFinite(definicao.comprimentoMaximoM) &#124;&#124; definicao.comprimentoMaximoM &lt;= 0 &#124;&#124; !Number.isFinite(definicao.vazaoMaximaKgS) &#124;&#124; definicao.vazaoMaximaKgS &lt;… [continua na fonte]</code>; exceções: <code>new Error('Definição de linha de propelente inválida.')</code> |
 | Testes | [src/physics/objetos/propulsao/CadeiaPropulsao.test.ts](../../src/physics/objetos/propulsao/CadeiaPropulsao.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.definicao`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e6203b52037d845b */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida id, compatibilidade do propelente com tanque, comprimento m e vazão kg/s positivos finitos; não transfere fluido na construção. @contract f-e6203b52037d845b @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -16493,15 +16493,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/propulsao/alimentacao/LinhaDePropelente.ts::LinhaDePropelente.prepararPasso:MethodDeclaration</code> · [fonte L29](../../src/physics/objetos/propulsao/alimentacao/LinhaDePropelente.ts#L29) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Escritas diretas: `this.vazaoAtualCalculadaKgS`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Zera diagnóstico de vazão instantânea antes do próximo consumo; não repõe propelente. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.vazaoAtualCalculadaKgS</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/propulsao/CadeiaPropulsao.test.ts](../../src/physics/objetos/propulsao/CadeiaPropulsao.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.vazaoAtualCalculadaKgS`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-cf850328b8993300 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Zera diagnóstico de vazão instantânea antes do próximo consumo; não repõe propelente. @contract f-cf850328b8993300 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -16607,15 +16607,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/propulsao/alimentacao/LinhaDePropelente.ts::LinhaDePropelente.fornecerMassa:MethodDeclaration</code> · [fonte L66](../../src/physics/objetos/propulsao/alimentacao/LinhaDePropelente.ts#L66) |
 | Assinatura | <code>public (massaSolicitadaKg: number, dtS: number, posicaoConsumidorM: Vetor3): number</code> |
-| Responsabilidade | Escritas diretas: `this.vazaoAtualCalculadaKgS`. Dependências diretas: `Error`, `this.verificarIntegridade`, `this.definicao.valvula.obterVazaoMaximaKgS`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Zera vazão anterior, valida pedido kg/dt s e verifica integridade pela posição do consumidor. Limita entrega pela linha/válvula, consome tanque e registra vazão fornecida/dt; indisponibilidade retorna zero. |
 | Entradas | <code>massaSolicitadaKg: number</code>; <code>dtS: number</code>; <code>posicaoConsumidorM: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>0</code>; <code>fornecida</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.vazaoAtualCalculadaKgS</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code>; <code>this.verificarIntegridade</code>; <code>Math.min</code>; <code>this.definicao.valvula.obterVazaoMaximaKgS</code>; <code>this.definicao.tanque.fornecerPropelente</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(massaSolicitadaKg) &#124;&#124; massaSolicitadaKg &lt; 0 &#124;&#124; !Number.isFinite(dtS) &#124;&#124; dtS &lt;= 0</code>; <code>this.estaIndisponivel</code>; exceções: <code>new Error('Solicitação de linha inválida.')</code> |
 | Testes | [src/physics/objetos/propulsao/CadeiaPropulsao.test.ts](../../src/physics/objetos/propulsao/CadeiaPropulsao.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.vazaoAtualCalculadaKgS`. Dependências diretas: `Error`, `this.verificarIntegridade`, `this.definicao.valvula.obterVazaoMaximaKgS`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7a957cfc1c7f6f30 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Zera vazão anterior, valida pedido kg/dt s e verifica integridade pela posição do consumidor. Limita entrega pela linha/válvula, consome tanque e registra vazão fornecida/dt; indisponibilidade retorna zero. @contract f-7a957cfc1c7f6f30 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -16630,15 +16630,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/propulsao/alimentacao/ValvulaPropelente.ts::ValvulaPropelente.constructor:Constructor</code> · [fonte L7](../../src/physics/objetos/propulsao/alimentacao/ValvulaPropelente.ts#L7) |
 | Assinatura | <code>public (definicao: DefinicaoValvulaPropelente): ValvulaPropelente</code> |
-| Responsabilidade | Escritas diretas: `this.definicao`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida identidade e vazão máxima positiva finita em kg/s; não consome tanque nem produz pressão. |
 | Entradas | <code>private readonly definicao: DefinicaoValvulaPropelente</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ValvulaPropelente</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.definicao</code>; <code>this.aberturaAtual</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!definicao.id &#124;&#124; !Number.isFinite(definicao.vazaoMaximaKgS) &#124;&#124; definicao.vazaoMaximaKgS &lt;= 0</code>; exceções: <code>new Error('Definição de válvula inválida.')</code> |
 | Testes | [src/physics/objetos/propulsao/CadeiaPropulsao.test.ts](../../src/physics/objetos/propulsao/CadeiaPropulsao.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.definicao`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8ee9a0cb7c08bc7e */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida identidade e vazão máxima positiva finita em kg/s; não consome tanque nem produz pressão. @contract f-8ee9a0cb7c08bc7e @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -16668,15 +16668,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/propulsao/alimentacao/ValvulaPropelente.ts::ValvulaPropelente.definirAbertura:MethodDeclaration</code> · [fonte L13](../../src/physics/objetos/propulsao/alimentacao/ValvulaPropelente.ts#L13) |
 | Assinatura | <code>public (abertura: number): void</code> |
-| Responsabilidade | Escritas diretas: `this.aberturaAtual`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Armazena fração de abertura finita em [0,1]; vazão efetiva será limitada pela linha/bomba. |
 | Entradas | <code>abertura: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.aberturaAtual</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(abertura) &#124;&#124; abertura &lt; 0 &#124;&#124; abertura &gt; 1</code>; exceções: <code>new Error('Abertura da válvula deve estar entre 0 e 1.')</code> |
 | Testes | [src/physics/objetos/propulsao/CadeiaPropulsao.test.ts](../../src/physics/objetos/propulsao/CadeiaPropulsao.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.aberturaAtual`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d7d19be5363ce423 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Armazena fração de abertura finita em [0,1]; vazão efetiva será limitada pela linha/bomba. @contract f-d7d19be5363ce423 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -16710,15 +16710,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/propulsao/combustao/Bocal.ts::Bocal.constructor:Constructor</code> · [fonte L15](../../src/physics/objetos/propulsao/combustao/Bocal.ts#L15) |
 | Assinatura | <code>public (definicao: DefinicaoBocal): Bocal</code> |
-| Responsabilidade | Escritas diretas: `this.definicao`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida empuxo máximo N positivo, eficiência em [0,1] e Isp opcional positivo em s; não usa gravidade local para definir Isp. |
 | Entradas | <code>private readonly definicao: DefinicaoBocal</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Bocal</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.definicao</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(definicao.empuxoMaximoN) &#124;&#124; definicao.empuxoMaximoN &lt;= 0 &#124;&#124; !Number.isFinite(definicao.eficienciaNominal) &#124;&#124; definicao.eficienciaNominal &lt; 0 &#124;&#124; definicao.eficienciaNominal &gt; 1</code>; <code>definicao.impulsoEspecificoNominalS !== undefined<br>    &amp;&amp; (!Number.isFinite(definicao.impulsoEspecificoNominalS) &#124;&#124; definicao.impulsoEspecificoNominalS &lt;= 0)</code>; exceções: <code>new Error('Definição de bocal inválida.')</code>; <code>new Error('Impulso específico nominal deve ser positivo e finito, em segundos.')</code> |
 | Testes | [src/physics/objetos/propulsao/CadeiaPropulsao.test.ts](../../src/physics/objetos/propulsao/CadeiaPropulsao.test.ts); [src/physics/objetos/propulsao/PropulsaoQuimica.test.ts](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts); [src/physics/objetos/veiculos/Bss05Missao.test.ts](../../src/physics/objetos/veiculos/Bss05Missao.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.definicao`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a3901e8f9e6759b1 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida empuxo máximo N positivo, eficiência em [0,1] e Isp opcional positivo em s; não usa gravidade local para definir Isp. @contract f-a3901e8f9e6759b1 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -16767,15 +16767,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/propulsao/combustao/Bocal.ts::Bocal.calcularEmpuxo:MethodDeclaration</code> · [fonte L28](../../src/physics/objetos/propulsao/combustao/Bocal.ts#L28) |
 | Assinatura | <code>public (resultado: ResultadoCombustao, integridade: number, fracaoDeVazao?: number, dtS?: number): number</code> |
-| Responsabilidade | Devolve `empuxoIdealN * resultado.eficiencia * this.definicao.eficienciaNominal * integridade`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida integridade, fração de vazão e combustão; calcula força N por empuxo nominal×fração ou, com Isp, por massa reagida/dt×Isp×g0 limitada ao máximo. Multiplica eficiências/integridade sem aplicar força ao corpo. Modo químico exige dt positivo s. |
 | Entradas | <code>resultado: ResultadoCombustao</code>; <code>integridade: number</code>; <code>fracaoDeVazao = 1</code>; <code>dtS?: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>empuxoIdealN * resultado.eficiencia * this.definicao.eficienciaNominal * integridade</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>empuxoIdealN</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code>; <code>Math.min</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(integridade) &#124;&#124; integridade &lt; 0 &#124;&#124; integridade &gt; 1 &#124;&#124; !Number.isFinite(fracaoDeVazao) &#124;&#124; fracaoDeVazao &lt; 0 &#124;&#124; fracaoDeVazao &gt; 1</code>; <code>!Number.isFinite(resultado.massaReagidaKg) &#124;&#124; resultado.massaReagidaKg &lt; 0<br>    &#124;&#124; !Number.isFinite(resultado.eficiencia) &#124;&#124; resultado.eficiencia &lt; 0 &#124;&#124; resultado.eficiencia &gt; 1</code>; <code>this.impulsoEspecificoNominalS !== undefined</code>; <code>dtS === undefined &#124;&#124; !Number.isFinite(dtS) &#124;&#124; dtS &lt;= 0</code>; exceções: <code>new Error('Entrada de bocal inválida.')</code>; <code>new Error('Resultado de combustão inválido.')</code>; <code>new Error('Bocal químico exige dt positivo e finito.')</code> |
 | Testes | [src/physics/objetos/propulsao/CadeiaPropulsao.test.ts](../../src/physics/objetos/propulsao/CadeiaPropulsao.test.ts); [src/physics/objetos/propulsao/PropulsaoQuimica.test.ts](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts); [src/physics/objetos/veiculos/Bss05Missao.test.ts](../../src/physics/objetos/veiculos/Bss05Missao.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `empuxoIdealN * resultado.eficiencia * this.definicao.eficienciaNominal * integridade`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8e0bcbb38bc93765 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida integridade, fração de vazão e combustão; calcula força N por empuxo nominal×fração ou, com Isp, por massa reagida/dt×Isp×g0 limitada ao máximo. Multiplica eficiências/integridade sem aplicar força ao corpo. Modo químico exige dt positivo s. @contract f-8e0bcbb38bc93765 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -16790,15 +16790,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/propulsao/combustao/CamaraCombustao.ts::CamaraCombustao.constructor:Constructor</code> · [fonte L7](../../src/physics/objetos/propulsao/combustao/CamaraCombustao.ts#L7) |
 | Assinatura | <code>public (definicao: DefinicaoCamaraCombustao): CamaraCombustao</code> |
-| Responsabilidade | Escritas diretas: `this.definicao`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida razão oxidante/combustível positiva e tolerância relativa em [0,1]; guarda modelo de mistura sem integrar pressão de câmara. |
 | Entradas | <code>private readonly definicao: DefinicaoCamaraCombustao</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CamaraCombustao</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.definicao</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(definicao.razaoMisturaOxidanteCombustivel) &#124;&#124; definicao.razaoMisturaOxidanteCombustivel &lt;= 0 &#124;&#124; !Number.isFinite(definicao.toleranciaRazaoMistura) &#124;&#124; definicao.toleranciaRazaoMistura &lt; 0 &#124;&#124; definicao.toleranciaRazaoMistura … [continua na fonte]</code>; exceções: <code>new Error('Definição de câmara inválida.')</code> |
 | Testes | [src/physics/objetos/propulsao/CadeiaPropulsao.test.ts](../../src/physics/objetos/propulsao/CadeiaPropulsao.test.ts); [src/physics/objetos/propulsao/PropulsaoQuimica.test.ts](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.definicao`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b0538dd43b1921f1 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida razão oxidante/combustível positiva e tolerância relativa em [0,1]; guarda modelo de mistura sem integrar pressão de câmara. @contract f-b0538dd43b1921f1 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -16828,15 +16828,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/propulsao/combustao/CamaraCombustao.ts::CamaraCombustao.reagir:MethodDeclaration</code> · [fonte L13](../../src/physics/objetos/propulsao/combustao/CamaraCombustao.ts#L13) |
 | Assinatura | <code>public (massaCombustivelKg: number, massaOxidanteKg: number, integridade: number): ResultadoCombustao</code> |
-| Responsabilidade | Dependências diretas: `[massaCombustivelKg, massaOxidanteKg, integridade].every`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Para massas kg não negativas e integridade [0,1], calcula reagente limitante e eficiência pelo desvio de mistura; ausência de um reagente/integridade retorna zero. Não retira massa dos tanques nesta função. |
 | Entradas | <code>massaCombustivelKg: number</code>; <code>massaOxidanteKg: number</code>; <code>integridade: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ResultadoCombustao</code>; expressões retornadas: <code>{ massaReagidaKg: 0, eficiencia: 0 }</code>; <code>{ massaReagidaKg: combustivelLimitanteKg * (1 + this.definicao.razaoMisturaOxidanteCombustivel), eficiencia: eficienciaMistura * integridade }</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>[massaCombustivelKg, massaOxidanteKg, integridade].every</code>; <code>Error</code>; <code>Math.abs</code>; <code>Math.max</code>; <code>Math.min</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>![massaCombustivelKg, massaOxidanteKg, integridade].every(Number.isFinite) &#124;&#124; massaCombustivelKg &lt; 0 &#124;&#124; massaOxidanteKg &lt; 0 &#124;&#124; integridade &lt; 0 &#124;&#124; integridade &gt; 1</code>; <code>massaCombustivelKg === 0 &#124;&#124; massaOxidanteKg === 0 &#124;&#124; integridade === 0</code>; exceções: <code>new Error('Entrada de combustão inválida.')</code> |
 | Testes | [src/physics/objetos/propulsao/CadeiaPropulsao.test.ts](../../src/physics/objetos/propulsao/CadeiaPropulsao.test.ts); [src/physics/objetos/propulsao/PropulsaoQuimica.test.ts](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `[massaCombustivelKg, massaOxidanteKg, integridade].every`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-41666046ae75addb */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Para massas kg não negativas e integridade [0,1], calcula reagente limitante e eficiência pelo desvio de mistura; ausência de um reagente/integridade retorna zero. Não retira massa dos tanques nesta função. @contract f-41666046ae75addb @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -16851,15 +16851,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/propulsao/vetorizacao/AtuadorVetorizacao.ts::AtuadorVetorizacao.constructor:Constructor</code> · [fonte L11](../../src/physics/objetos/propulsao/vetorizacao/AtuadorVetorizacao.ts#L11) |
 | Assinatura | <code>public (definicao: DefinicaoSistemaVetorizacao): AtuadorVetorizacao</code> |
-| Responsabilidade | Escritas diretas: `this.definicao`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida curso angular rad e velocidade máxima rad/s positivos finitos; inicializa configuração sem mover corpo físico. |
 | Entradas | <code>private readonly definicao: DefinicaoSistemaVetorizacao</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>AtuadorVetorizacao</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.definicao</code>; <code>this.anguloAlvoRad</code>; <code>this.anguloAtualRad</code>; <code>this.habilitado</code>; <code>this.falho</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(definicao.limiteAngularRad) &#124;&#124; definicao.limiteAngularRad &lt;= 0 &#124;&#124;<br>    !Number.isFinite(definicao.velocidadeAngularMaximaRadps) &#124;&#124; definicao.velocidadeAngularMaximaRadps &lt;= 0</code>; exceções: <code>new Error('Definição de vetorização inválida.')</code> |
 | Testes | [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.definicao`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d5fed7dda85b3573 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida curso angular rad e velocidade máxima rad/s positivos finitos; inicializa configuração sem mover corpo físico. @contract f-d5fed7dda85b3573 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -16870,15 +16870,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/propulsao/vetorizacao/AtuadorVetorizacao.ts::AtuadorVetorizacao.solicitar:MethodDeclaration</code> · [fonte L19](../../src/physics/objetos/propulsao/vetorizacao/AtuadorVetorizacao.ts#L19) |
 | Assinatura | <code>public (comando: ComandoVetorizacao): boolean</code> |
-| Responsabilidade | Escritas diretas: `this.anguloAlvoRad`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Recusa falha, alvo não finito ou fora do curso; armazena alvo aceito em rad sem alcançar instantaneamente o ângulo. |
 | Entradas | <code>comando: ComandoVetorizacao</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>false</code>; <code>true</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.anguloAlvoRad</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Math.abs</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>this.falho</code>; <code>!Number.isFinite(comando.anguloAlvoRad) &#124;&#124; Math.abs(comando.anguloAlvoRad) &gt; this.definicao.limiteAngularRad</code>; exceções: — |
 | Testes | [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.anguloAlvoRad`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-df9bcc79746756cc */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Recusa falha, alvo não finito ou fora do curso; armazena alvo aceito em rad sem alcançar instantaneamente o ângulo. @contract f-df9bcc79746756cc @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -16889,15 +16889,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/propulsao/vetorizacao/AtuadorVetorizacao.ts::AtuadorVetorizacao.avancar:MethodDeclaration</code> · [fonte L27](../../src/physics/objetos/propulsao/vetorizacao/AtuadorVetorizacao.ts#L27) |
 | Assinatura | <code>public (dtS: number, habilitado: boolean): void</code> |
-| Responsabilidade | Escritas diretas: `this.habilitado`, `this.anguloAtualRad`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida dt positivo s e atualiza habilitação; somente habilitado/íntegro aproxima ângulo real do alvo pelo limite de velocidade angular×dt. É movimento interno do atuador; orientação do veículo pertence ao core. |
 | Entradas | <code>dtS: number</code>; <code>habilitado: boolean</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.habilitado</code>; <code>this.anguloAtualRad</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code>; <code>Math.max</code>; <code>Math.min</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(dtS) &#124;&#124; dtS &lt;= 0</code>; <code>!habilitado &#124;&#124; this.falho</code>; exceções: <code>new Error('Passo temporal da vetorização inválido.')</code> |
 | Testes | [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.habilitado`, `this.anguloAtualRad`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-bc32846623819067 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida dt positivo s e atualiza habilitação; somente habilitado/íntegro aproxima ângulo real do alvo pelo limite de velocidade angular×dt. É movimento interno do atuador; orientação do veículo pertence ao core. @contract f-bc32846623819067 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -16927,15 +16927,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/propulsao/vetorizacao/AtuadorVetorizacao.ts::AtuadorVetorizacao.obterEstado:MethodDeclaration</code> · [fonte L42](../../src/physics/objetos/propulsao/vetorizacao/AtuadorVetorizacao.ts#L42) |
 | Assinatura | <code>public (): EstadoVetorizacao</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Retorna novo DTO com alvo/posição angular rad, limites rad/rad/s, habilitação e falha; não expõe campos internos. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>EstadoVetorizacao</code>; expressões retornadas: <code>{<br>    anguloAlvoRad: this.anguloAlvoRad,<br>    anguloAtualRad: this.anguloAtualRad,<br>    limiteAngularRad: this.definicao.limiteAngularRad,<br>    velocidadeAngularMaximaRadps: this.definicao.velocidadeAngularMaximaRadps,<br>    estaHabilitado: this… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-5b23e1a40ed69514 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Retorna novo DTO com alvo/posição angular rad, limites rad/rad/s, habilitação e falha; não expõe campos internos. @contract f-5b23e1a40ed69514 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -17049,15 +17049,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/Bss03.ts::Bss03.constructor:Constructor</code> · [fonte L25](../../src/physics/objetos/veiculos/Bss03.ts#L25) |
 | Assinatura | <code>public (definicao: DefinicaoBss03): Bss03</code> |
-| Responsabilidade | Escritas diretas: `this.idsPropulsoresDecolagem`, `this.idsPropulsoresPouso`, `this.configuracaoControlePouso`, `this.configuracaoControleDesaceleracao`. Dependências diretas: `super`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Inicializa veículo composto, exige grupos de decolagem/pouso não vazios e copia ids/configurações dos controles; não cria versão paralela de dinâmica. |
 | Entradas | <code>definicao: DefinicaoBss03</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Bss03</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.idsPropulsoresDecolagem</code>; <code>this.idsPropulsoresPouso</code>; <code>this.configuracaoControlePouso</code>; <code>this.configuracaoControleDesaceleracao</code>; <code>this.controleAtivo</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>super</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>definicao.idsPropulsoresDecolagem.length === 0 &#124;&#124; definicao.idsPropulsoresPouso.length === 0</code>; exceções: <code>new Error('BSS-03 exige propulsores de decolagem e de pouso.')</code> |
 | Testes | [src/physics/objetos/veiculos/Bss03.test.ts](../../src/physics/objetos/veiculos/Bss03.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.idsPropulsoresDecolagem`, `this.idsPropulsoresPouso`, `this.configuracaoControlePouso`, `this.configuracaoControleDesaceleracao`. Dependências diretas: `super`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-860287d56592b29a */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Inicializa veículo composto, exige grupos de decolagem/pouso não vazios e copia ids/configurações dos controles; não cria versão paralela de dinâmica. @contract f-860287d56592b29a @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -17068,15 +17068,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/Bss03.ts::Bss03.ativarControleDeInclinacao:MethodDeclaration</code> · [fonte L37](../../src/physics/objetos/veiculos/Bss03.ts#L37) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Escritas diretas: `this.controleAtivo`. Dependências diretas: `this.desabilitarControleDeDesaceleracao`, `this.desabilitarControleDeGimbalDeDescida`, `this.habilitarControleDeInclinacaoNosPropulsores`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Desativa desaceleração/gimbal de descida, habilita inclinação nos motores de decolagem e registra modo inclinação. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.controleAtivo</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.desabilitarControleDeDesaceleracao</code>; <code>this.desabilitarControleDeGimbalDeDescida</code>; <code>this.habilitarControleDeInclinacaoNosPropulsores</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/Bss03.test.ts](../../src/physics/objetos/veiculos/Bss03.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.controleAtivo`. Dependências diretas: `this.desabilitarControleDeDesaceleracao`, `this.desabilitarControleDeGimbalDeDescida`, `this.habilitarControleDeInclinacaoNosPropulsores`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-925836e5b858f517 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Desativa desaceleração/gimbal de descida, habilita inclinação nos motores de decolagem e registra modo inclinação. @contract f-925836e5b858f517 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -17087,15 +17087,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/Bss03.ts::Bss03.ativarControleDePouso:MethodDeclaration</code> · [fonte L45](../../src/physics/objetos/veiculos/Bss03.ts#L45) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Escritas diretas: `this.controleAtivo`. Dependências diretas: `this.habilitarControleDeGimbalDeDescida`, `this.habilitarControleDeDesaceleracao`, `this.habilitarControleDePousoComposto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Compõe gimbal de descida, desaceleração e pouso nos motores designados e registra modo pouso; não garante contato seguro. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.controleAtivo</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.habilitarControleDeGimbalDeDescida</code>; <code>this.habilitarControleDeDesaceleracao</code>; <code>this.habilitarControleDePousoComposto</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/Bss03.test.ts](../../src/physics/objetos/veiculos/Bss03.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.controleAtivo`. Dependências diretas: `this.habilitarControleDeGimbalDeDescida`, `this.habilitarControleDeDesaceleracao`, `this.habilitarControleDePousoComposto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-bc37af32bf373cd0 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Compõe gimbal de descida, desaceleração e pouso nos motores designados e registra modo pouso; não garante contato seguro. @contract f-bc37af32bf373cd0 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -17144,15 +17144,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/Bss03.ts::Bss03.desativarControlesAutomaticos:MethodDeclaration</code> · [fonte L78](../../src/physics/objetos/veiculos/Bss03.ts#L78) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Escritas diretas: `this.controleAtivo`. Dependências diretas: `this.desabilitarControleDeInclinacao`, `this.desabilitarControleDePouso`, `this.desabilitarControleDeDesaceleracao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Desabilita quatro controladores automáticos e registra modo manual sem modificar pose/velocidade. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.controleAtivo</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.desabilitarControleDeInclinacao</code>; <code>this.desabilitarControleDePouso</code>; <code>this.desabilitarControleDeDesaceleracao</code>; <code>this.desabilitarControleDeGimbalDeDescida</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/Bss03.test.ts](../../src/physics/objetos/veiculos/Bss03.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.controleAtivo`. Dependências diretas: `this.desabilitarControleDeInclinacao`, `this.desabilitarControleDePouso`, `this.desabilitarControleDeDesaceleracao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a517d11ce6820182 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Desabilita quatro controladores automáticos e registra modo manual sem modificar pose/velocidade. @contract f-a517d11ce6820182 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -18182,15 +18182,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/VeiculoAlado.ts::VeiculoAlado.constructor:Constructor</code> · [fonte L17](../../src/physics/objetos/veiculos/VeiculoAlado.ts#L17) |
 | Assinatura | <code>public (definicaoAlada: DefinicaoVeiculoAlado): VeiculoAlado</code> |
-| Responsabilidade | Escritas diretas: `this.definicaoAlada`. Dependências diretas: `super`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida área de asa m², coeficientes positivos, incidência finita e ângulo de estol entre zero e π/2; inicializa corpo físico herdado. |
 | Entradas | <code>private readonly definicaoAlada: DefinicaoVeiculoAlado</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>VeiculoAlado</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.definicaoAlada</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>super</code>; <code>Number.isFinite</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(valor) &#124;&#124; valor &lt;= 0</code>; <code>!Number.isFinite(definicaoAlada.anguloIncidenciaRad) &#124;&#124; definicaoAlada.anguloEstolRad &gt;= Math.PI / 2</code>; exceções: <code>new Error('Parâmetros aerodinâmicos devem ser positivos.')</code>; <code>new Error('Ângulos aerodinâmicos inválidos.')</code> |
 | Testes | [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.definicaoAlada`. Dependências diretas: `super`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a0a40213b7cd3903 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida área de asa m², coeficientes positivos, incidência finita e ângulo de estol entre zero e π/2; inicializa corpo físico herdado. @contract f-a0a40213b7cd3903 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -18201,15 +18201,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/VeiculoAlado.ts::VeiculoAlado.obterForcasAerodinamicas:MethodDeclaration</code> · [fonte L28](../../src/physics/objetos/veiculos/VeiculoAlado.ts#L28) |
 | Assinatura | <code>public override (condicoes: CondicoesAtmosfericas): readonly ForcaFisicaSolicitada[]</code> |
-| Responsabilidade | Dependências diretas: `this.getEstadoFisico`, `estado.velocidadeMps.subtrair`, `this.normalizarAngulo`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Calcula fluxo relativo e ângulo de ataque pela atitude/incidência. Sustentação linear em ângulo até estol, depois zero; arrasto quadrático. Retorna força no ponto de asa transformado em global, sem integrar estado. Vácuo/fluxo abaixo de 1e-6 m/s retorna vazio. |
 | Entradas | <code>condicoes: CondicoesAtmosfericas</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly ForcaFisicaSolicitada[]</code>; expressões retornadas: <code>[]</code>; <code>[{ forcaN: direcaoSustentacao.multiplicar(sustentacaoN).adicionar(direcaoArrasto.multiplicar(arrastoN)), pontoM }]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.getEstadoFisico</code>; <code>estado.velocidadeMps.subtrair</code>; <code>Math.atan2</code>; <code>this.normalizarAngulo</code>; <code>Math.abs</code>; <code>velocidadeRelativa.multiplicar</code>; <code>Vetor3</code>; <code>Math.cos</code>; <code>Math.sin</code>; <code>direcaoSustentacao.multiplicar(sustentacaoN).adicionar</code>; <code>direcaoSustentacao.multiplicar</code>; <code>direcaoArrasto.multiplicar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>condicoes.densidadeArKgM3 === 0</code>; <code>velocidadeMps &lt; 1e-6</code>; exceções: — |
 | Testes | [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.getEstadoFisico`, `estado.velocidadeMps.subtrair`, `this.normalizarAngulo`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8455a7d6d0343074 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Calcula fluxo relativo e ângulo de ataque pela atitude/incidência. Sustentação linear em ângulo até estol, depois zero; arrasto quadrático. Retorna força no ponto de asa transformado em global, sem integrar estado. Vácuo/fluxo abaixo de 1e-6 m/s retorna vazio. @contract f-8455a7d6d0343074 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -18220,15 +18220,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/VeiculoAlado.ts::VeiculoAlado.normalizarAngulo:MethodDeclaration</code> · [fonte L52](../../src/physics/objetos/veiculos/VeiculoAlado.ts#L52) |
 | Assinatura | <code>private (anguloRad: number): number</code> |
-| Responsabilidade | Devolve `Math.atan2(Math.sin(anguloRad), Math.cos(anguloRad))`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Normaliza ângulo rad pelo atan2(sen,cos) para intervalo principal, sem alterar objeto. |
 | Entradas | <code>anguloRad: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>Math.atan2(Math.sin(anguloRad), Math.cos(anguloRad))</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.atan2</code>; <code>Math.sin</code>; <code>Math.cos</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `Math.atan2(Math.sin(anguloRad), Math.cos(anguloRad))`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-52b7547f2e7b57f5 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Normaliza ângulo rad pelo atan2(sen,cos) para intervalo principal, sem alterar objeto. @contract f-52b7547f2e7b57f5 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -19083,15 +19083,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/VeiculoTerrestre.ts::VeiculoTerrestre.constructor:Constructor</code> · [fonte L35](../../src/physics/objetos/veiculos/VeiculoTerrestre.ts#L35) |
 | Assinatura | <code>public (definicaoVeiculo: DefinicaoVeiculoTerrestre): VeiculoTerrestre</code> |
-| Responsabilidade | Escritas diretas: `this.definicaoVeiculo`. Dependências diretas: `super`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida rodas inteiras (mínimo duas), forças N positivas, aderência, rolamento e geometria m que acomode rodas/chassi; não presume contato apenas pela posição inicial. |
 | Entradas | <code>private readonly definicaoVeiculo: DefinicaoVeiculoTerrestre</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>VeiculoTerrestre</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.definicaoVeiculo</code>; <code>this.comandoTracao</code>; <code>this.comandoFreio</code>; <code>this.rodasApoiadasPeloCore</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>super</code>; <code>Number.isInteger</code>; <code>Error</code>; <code>Number.isFinite</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isInteger(definicaoVeiculo.quantidadeRodas) &#124;&#124; definicaoVeiculo.quantidadeRodas &lt; 2</code>; <code>!Number.isFinite(valor) &#124;&#124; valor &lt;= 0</code>; <code>!Number.isFinite(definicaoVeiculo.coeficienteAderenciaPneus) &#124;&#124; definicaoVeiculo.coeficienteAderenciaPneus &lt;= 0</code>; <code>!Number.isFinite(resistenciaRolamento) &#124;&#124; resistenciaRolamento &lt; 0 &#124;&#124; resistenciaRolamento &gt; 1</code>; <code>!Number.isFinite(raioRodaM) &#124;&#124; raioRodaM &lt;= 0 &#124;&#124; raioRodaM &gt; definicaoVeiculo.dimensoesM.y / 2</code>; <code>!Number.isFinite(distanciaEntreEixosM) &#124;&#124; distanciaEntreEixosM &lt;= 0 &#124;&#124; distanciaEntreEixosM &gt; definicaoVeiculo.dimensoesM.x</code>; <code>!Number.isFinite(alturaChassiM) &#124;&#124; alturaChassiM &lt;= 0 &#124;&#124; alturaChassiM &gt; definicaoVeiculo.dimensoesM.y - (2 * raioRodaM) + 1e-9</code>; exceções: <code>new Error('Veículo terrestre precisa de pelo menos duas rodas.')</code>; <code>new Error('Forças máximas devem ser finitas e positivas.')</code>; <code>new Error('Aderência dos pneus deve ser finita e positiva.')</code>; <code>new Error('Resistência ao rolamento deve estar entre 0 e 1.')</code>; <code>new Error('Raio da roda deve ser positivo e caber na geometria do veículo.')</code>; <code>new Error('Distância entre eixos deve ser positiva e caber no veículo.')</code>; <code>new Error('Chassi deve caber acima das rodas.')</code> |
 | Testes | [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.definicaoVeiculo`. Dependências diretas: `super`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-11d563c8accc999f */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida rodas inteiras (mínimo duas), forças N positivas, aderência, rolamento e geometria m que acomode rodas/chassi; não presume contato apenas pela posição inicial. @contract f-11d563c8accc999f @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -19216,15 +19216,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/VeiculoTerrestre.ts::VeiculoTerrestre.getPontosDeTracaoLocaisM:MethodDeclaration</code> · [fonte L125](../../src/physics/objetos/veiculos/VeiculoTerrestre.ts#L125) |
 | Assinatura | <code>public override (): readonly Vetor3[]</code> |
-| Responsabilidade | Devolve `[new Vetor3(-semiEntreEixosM, alturaTangenciaM, 0), new Vetor3(semiEntreEixosM, alturaTangenciaM, 0)]`. Dependências diretas: `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Retorna dois pontos locais de tangência inferior das rodas, separados pela distância entre eixos; chassi não autoriza tração. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly Vetor3[]</code>; expressões retornadas: <code>[new Vetor3(-semiEntreEixosM, alturaTangenciaM, 0), new Vetor3(semiEntreEixosM, alturaTangenciaM, 0)]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `[new Vetor3(-semiEntreEixosM, alturaTangenciaM, 0), new Vetor3(semiEntreEixosM, alturaTangenciaM, 0)]`. Dependências diretas: `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7234fbce4e5b06d9 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Retorna dois pontos locais de tangência inferior das rodas, separados pela distância entre eixos; chassi não autoriza tração. @contract f-7234fbce4e5b06d9 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -19235,15 +19235,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/VeiculoTerrestre.ts::VeiculoTerrestre.atualizarContatoDeTracaoPeloCore:MethodDeclaration</code> · [fonte L132](../../src/physics/objetos/veiculos/VeiculoTerrestre.ts#L132) |
 | Assinatura | <code>public override (apoiado: boolean): void</code> |
-| Responsabilidade | Escritas diretas: `this.rodasApoiadasPeloCore`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Atualiza permissão de tração observada pelo core; não desloca veículo nem aplica aderência à distância. |
 | Entradas | <code>apoiado: boolean</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.rodasApoiadasPeloCore</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.rodasApoiadasPeloCore`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-09f4e212fdfebdb9 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Atualiza permissão de tração observada pelo core; não desloca veículo nem aplica aderência à distância. @contract f-09f4e212fdfebdb9 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -19254,15 +19254,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/VeiculoTerrestre.ts::VeiculoTerrestre.getCoeficienteAtritoDeContato:MethodDeclaration</code> · [fonte L137](../../src/physics/objetos/veiculos/VeiculoTerrestre.ts#L137) |
 | Assinatura | <code>public override (): number</code> |
-| Responsabilidade | Devolve `this.definicaoVeiculo.coeficienteResistenciaRolamento ?? 0.015`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Fornece coeficiente de rolamento declarado ou 0,015 ao contato; é distinto da aderência que limita tração. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>this.definicaoVeiculo.coeficienteResistenciaRolamento ?? 0.015</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.definicaoVeiculo.coeficienteResistenciaRolamento ?? 0.015`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-485b0db1c1818076 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Fornece coeficiente de rolamento declarado ou 0,015 ao contato; é distinto da aderência que limita tração. @contract f-485b0db1c1818076 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -19311,15 +19311,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/VeiculoTerrestre.ts::VeiculoTerrestre.obterForcasOperacionais:MethodDeclaration</code> · [fonte L157](../../src/physics/objetos/veiculos/VeiculoTerrestre.ts#L157) |
 | Assinatura | <code>public override (): readonly ForcaFisicaSolicitada[]</code> |
-| Responsabilidade | Dependências diretas: `this.getEstadoFisico`, `Vetor3`, `estado.velocidadeMps.produtoEscalar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Sem apoio das rodas retorna vazio. Com apoio solicita tração/freio no eixo longitudinal, limitados pela aderência×massa×9,80665. Freio se opõe à velocidade longitudinal; sem alteração cinemática direta. O limite usa gravidade padrão fixa: modelo terrestre local, sem qualificação geral na Terra curva. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly ForcaFisicaSolicitada[]</code>; expressões retornadas: <code>[]</code>; <code>solicitacoes</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.getEstadoFisico</code>; <code>Vetor3</code>; <code>Math.cos</code>; <code>Math.sin</code>; <code>estado.velocidadeMps.produtoEscalar</code>; <code>Math.min</code>; <code>Math.abs</code>; <code>Math.sign</code>; <code>solicitacoes.push</code>; <code>direcaoLongitudinal.multiplicar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!this.rodasApoiadasPeloCore</code>; <code>forcaTracaoN !== 0</code>; <code>this.comandoFreio &gt; 0 &amp;&amp; Math.abs(velocidadeLongitudinal) &gt; 1e-6</code>; exceções: — |
 | Testes | [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.getEstadoFisico`, `Vetor3`, `estado.velocidadeMps.produtoEscalar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d39d8e56237cf68d */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Sem apoio das rodas retorna vazio. Com apoio solicita tração/freio no eixo longitudinal, limitados pela aderência×massa×9,80665. Freio se opõe à velocidade longitudinal; sem alteração cinemática direta. O limite usa gravidade padrão fixa: modelo terrestre local, sem qualificação geral na Terra curva. @contract f-d39d8e56237cf68d @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -19330,15 +19330,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/VeiculoTerrestre.ts::VeiculoTerrestre.validarComando:MethodDeclaration</code> · [fonte L181](../../src/physics/objetos/veiculos/VeiculoTerrestre.ts#L181) |
 | Assinatura | <code>private (comando: number, nome: string): number</code> |
-| Responsabilidade | Devolve `comando`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida comando adimensional finito em [-1,1] e devolve valor ou lança erro identificado; intervalo de freio é tratado pelo chamador. |
 | Entradas | <code>comando: number</code>; <code>nome: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>comando</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(comando) &#124;&#124; comando &lt; -1 &#124;&#124; comando &gt; 1</code>; exceções: <code>new Error(`${nome} deve estar entre -1 e 1.`)</code> |
 | Testes | [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `comando`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-095355e9a80a99db */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida comando adimensional finito em [-1,1] e devolve valor ou lança erro identificado; intervalo de freio é tratado pelo chamador. @contract f-095355e9a80a99db @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
