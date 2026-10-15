@@ -2,9 +2,11 @@ import { AletaAerodinamica } from '../objetos/componentes/AletaAerodinamica';
 
 /** Amortece atitude e rotação usando superfícies móveis durante a descida. */
 export class ControladorAletasAerodinamicas {
+  /** Escritas diretas: `this.aletas`, `this.estaEnergizado`, `this.ganhoAtitude`, `this.ganhoVelocidadeAngular`. Dependências diretas: `Error`, `[ganhoAtitude, ganhoVelocidadeAngular, velocidadeMinimaDeAcionamentoMps].every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-63d060f8a840b02f */
   public constructor(
     private readonly aletas: readonly AletaAerodinamica[],
-    private readonly estaEnergizado: () => boolean = () => true,
+    private readonly estaEnergizado: () => boolean = /** Devolve `true`. Efeitos indiretos seguem as dependências chamadas. @contract f-9698c0e7a61759a3 */
+                                                     () => true,
     private readonly ganhoAtitude = 1.8,
     private readonly ganhoVelocidadeAngular = 0.65,
     private readonly velocidadeMinimaDeAcionamentoMps = 8,
@@ -15,6 +17,7 @@ export class ControladorAletasAerodinamicas {
     }
   }
 
+  /** Dependências diretas: `[orientacaoRad, velocidadeAngularRadps, velocidadeVerticalMps].every`, `Error`, `this.estaEnergizado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e96f09b928457ac3 */
   public atualizar(orientacaoRad: number, velocidadeAngularRadps: number, velocidadeVerticalMps: number): void {
     if (![orientacaoRad, velocidadeAngularRadps, velocidadeVerticalMps].every(Number.isFinite)) {
       throw new Error('Leituras do controlador devem ser finitas.');

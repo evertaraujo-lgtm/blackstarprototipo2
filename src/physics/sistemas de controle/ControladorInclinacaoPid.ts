@@ -4,6 +4,7 @@ export class ControladorInclinacaoPid {
   private integralErro = 0;
   private habilitado = false;
 
+  /** Valida ganhos finitos/não negativos e limite de saída rad positivo; não instala atuador nem escreve atitude. @contract f-6fd33485b6c6ed80 @reviewed M12-DOC: implementação lida. */
   public constructor(
     private readonly ganhoProporcional = 1,
     private readonly ganhoIntegral = 0,
@@ -16,21 +17,28 @@ export class ControladorInclinacaoPid {
     }
   }
 
+  /** Habilita PID e limpa integral/erro anterior. @contract f-10fd6d01a5a9d79b @reviewed M12-DOC: implementação lida. */
   public habilitar(): void {
     this.habilitado = true;
     this.integralErro = 0;
     this.erroAnteriorRad = undefined;
   }
 
+  /** Desabilita PID e limpa memória transiente. @contract f-1f23e3c97c4df6ba @reviewed M12-DOC: implementação lida. */
   public desabilitar(): void {
     this.habilitado = false;
     this.integralErro = 0;
     this.erroAnteriorRad = undefined;
   }
 
+  /** Consulta estado operacional do PID. @contract f-74cafd77f60d117a @reviewed M12-DOC: implementação lida. */
   public get estaHabilitado(): boolean { return this.habilitado; }
 
-  /** Retorna o comando de gimbal necessário para reduzir o erro de inclinação. */
+  /** Retorna o comando de gimbal necessário para reduzir o erro de inclinação.
+   * @remarks Produz comando rad limitado para erro rad e dtS s positivo; derivada usa taxa medida rad/s quando fornecida, senão diferença temporal. Desabilitado retorna zero; desfaz incremento integral em saturação (anti-windup).
+   * @contract f-77b552ea54018bb9
+   * @reviewed M12-DOC: contrato confrontado com implementação.
+   */
   public calcularComando(erroRad: number, dtS: number, velocidadeAngularRadps?: number): number {
     if (!this.habilitado) return 0;
     if (!Number.isFinite(erroRad) || !Number.isFinite(dtS) || dtS <= 0) throw new Error('Entrada do controlador PID inválida.');

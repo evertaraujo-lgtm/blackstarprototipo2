@@ -37,8 +37,10 @@ interface AmostraFisica extends LeiturasVeiculoComposto {
 
 /** GPS idealizado: a posição vem diretamente do estado físico do core. */
 export class GpsIdealizado {
+  /** Instala referência ao corpo observado; não possui trajetória própria. @contract f-1a302daca133db57 @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly objeto: Objeto) {}
 
+  /** Devolve posição global m do estado físico real, sem integração ou correção pelo sensor. @contract f-9cf48d4edb4f35a7 @reviewed M12-DOC: implementação lida. */
   public obterPosicaoM(): Vetor3 {
     return this.objeto.getEstadoFisico().posicaoM;
   }
@@ -46,8 +48,10 @@ export class GpsIdealizado {
 
 /** Sensor interno de nível: lê a orientação física real do casco. */
 export class SensorNivelInterno {
+  /** Instala corpo e consulta opcional do referencial compartilhado, sem controlar atitude. @contract f-39802fbd795562d3 @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly objeto: Objeto, private readonly obterReferencial?: () => ReferencialFisico) {}
 
+  /** Lê atitude física Z e converte para vertical local quando há referencial; fallback normaliza ângulo inercial em rad. @contract f-421bc954b8ea55a0 @reviewed M12-DOC: implementação lida. */
   public obterInclinacaoRad(): number {
     const orientacaoRad = this.objeto.getEstadoFisico().orientacaoRad.z;
     return this.obterReferencial ? this.obterReferencial().atitudeLocalRad(orientacaoRad, this.objeto.getEstadoFisico().posicaoM)
@@ -67,10 +71,12 @@ export class SensoresVeiculoComposto {
   private amostraCongelada?: AmostraFisica;
   private falhaInjetada?: FalhaSensorVeiculo;
 
+  /** Compõe GPS/nível do corpo, referência de altitude m e consulta de massa instantânea kg; cria primeira amostra no tempo simulado zero. @contract f-b51f721319e5a507 @reviewed M12-DOC: implementação lida. */
   public constructor(
     private readonly objeto: Objeto,
     private readonly altitudeDeReferenciaM = 0,
-    private readonly obterMassaInstantaneaKg: () => number = () => objeto.massaKg,
+    private readonly obterMassaInstantaneaKg: () => number = /** Devolve `objeto.massaKg`. Efeitos indiretos seguem as dependências chamadas. @contract f-287b6ae924dd35f7 */
+                                                             () => objeto.massaKg,
   ) {
     if (!Number.isFinite(altitudeDeReferenciaM)) throw new Error('Altitude de referência deve ser finita.');
     this.gps = new GpsIdealizado(objeto);
@@ -79,7 +85,9 @@ export class SensoresVeiculoComposto {
     this.historicoAmostras.push({ ...this.leiturasAtuais, tempoAmostraS: 0 });
   }
 
-  /** O mundo injeta o referencial uma única vez antes de evoluir os sensores. */
+  /** O mundo injeta o referencial uma única vez antes de evoluir os sensores.
+   * @contract f-a1551850db14bcab
+   */
   public configurarAmbienteInicial(ambiente: AmbienteFisico): void {
     if (this.tempoSimuladoS !== 0) throw new Error('Não é permitido trocar o modelo de sensores durante a missão.');
     this.ambiente = ambiente;
@@ -89,6 +97,7 @@ export class SensoresVeiculoComposto {
     this.historicoAmostras.push({ ...this.leiturasAtuais, tempoAmostraS: 0 });
   }
 
+  /** Deriva posição m, altitude relativa m, componentes locais m/s, atitudes rad, taxas rad/s, gravidade m/s² e massa kg pelo ambiente compartilhado; usa somente estado observado. @contract f-39201031d7e41dd5 @reviewed M12-DOC: implementação lida. */
   private criarAmostra(): AmostraFisica {
     const e = this.objeto.getEstadoFisico();
     const ref = this.ambiente.referencial;
@@ -107,6 +116,7 @@ export class SensoresVeiculoComposto {
     };
   }
 
+  /** Avança relógio observacional por dtS s positivo/finito, amostra física pós-core e histórico de 60 s; aplica freeze/atraso/desvio determinísticos e calcula idade/validade ≤0,25 s. Não escreve cinemática. @contract f-a0db375ce541062b @reviewed M12-DOC: implementação lida. */
   public atualizar(dtS: number): void {
     if (!Number.isFinite(dtS) || dtS <= 0) throw new Error('Passo dos sensores deve ser positivo e finito.');
     this.tempoSimuladoS += dtS;
@@ -152,7 +162,9 @@ export class SensoresVeiculoComposto {
     };
   }
 
-  /** Injeta uma falha determinística usando somente tempo de missão. */
+  /** Injeta uma falha determinística usando somente tempo de missão.
+   * @contract f-8089a62084335f6b
+   */
   public injetarFalha(falha: FalhaSensorVeiculo): void {
     const valores = falha.tipo === 'atraso'
       ? [falha.iniciarEmS, falha.atrasoS]
@@ -167,8 +179,10 @@ export class SensoresVeiculoComposto {
     this.falhaInjetada = { ...falha };
   }
 
+  /** Remove configuração de falha e amostra congelada; futuras leituras voltam ao fluxo nominal no próximo update. @contract f-9093ba9d4648fa0e @reviewed M12-DOC: implementação lida. */
   public limparFalhaInjetada(): void { this.falhaInjetada = undefined; this.amostraCongelada = undefined; }
 
+  /** Procura retrospectivamente última amostra com tempo simulado ≤instante s; antes do histórico disponível devolve a primeira retida. @contract f-ad6ac5942727e3de @reviewed M12-DOC: implementação lida. */
   private obterUltimaAmostraAte(tempoS: number): AmostraFisica {
     for (let indice = this.historicoAmostras.length - 1; indice >= this.inicioHistorico; indice -= 1) {
       const amostra = this.historicoAmostras[indice]!;
@@ -177,6 +191,7 @@ export class SensoresVeiculoComposto {
     return this.historicoAmostras[this.inicioHistorico]!;
   }
 
+  /** Devolve cópia da leitura atual e vetor imutável de GPS; massa é consultada no instante de leitura, enquanto demais grandezas preservam timestamp/atraso da amostra. @contract f-2da2e08370185f92 @reviewed M12-DOC: implementação lida. */
   public obterLeituras(): LeiturasVeiculoComposto {
     return {
       ...this.leiturasAtuais,

@@ -10,33 +10,41 @@ export class SistemaSensores {
   private readonly switchesFimDeCurso = new Map<string, SwitchFimDeCurso>();
   private readonly sensoresVeiculo = new Map<SensoresVeiculoComposto, SensoresVeiculoComposto>();
 
+  /** Hook vazio nesta implementação; não produz operação. REVISÃO NECESSÁRIA do contrato de especialização. @contract f-11d76a7fff48a0bd */
   public constructor(
     private readonly obterObjetos: () => Iterable<Objeto>,
     private readonly obterSuperficies: () => Iterable<SuperficieFisica>,
     private readonly obterConjuntoEstrutural: (objeto: Objeto) => ConjuntoEstruturalRigido | undefined,
   ) {}
 
+  /** Dependências diretas: `this.switchesFimDeCurso.has`, `Error`, `this.switchesFimDeCurso.set`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-41e4ac6006256538 */
   public registrarSwitchFimDeCurso(switchFimDeCurso: SwitchFimDeCurso): void {
     if (this.switchesFimDeCurso.has(switchFimDeCurso.id)) throw new Error(`Switch de fim de curso já registrado: ${switchFimDeCurso.id}.`);
     this.switchesFimDeCurso.set(switchFimDeCurso.id, switchFimDeCurso);
     this.atualizarSwitchesFimDeCurso();
   }
 
+  /** Dependências diretas: `this.sensoresVeiculo.set`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3b889335e49e00ed */
   public registrarSensoresVeiculo(sensores: SensoresVeiculoComposto): void {
     this.sensoresVeiculo.set(sensores, sensores);
   }
 
-  /** Reavalia contatos sem avançar o relógio físico. */
+  /** Reavalia contatos sem avançar o relógio físico.
+   * @contract f-5ac483ba20adf88a
+   */
   public reavaliarSwitchesFimDeCurso(): void {
     this.atualizarSwitchesFimDeCurso();
   }
 
-  /** Atualiza as leituras após as respostas físicas do passo. */
+  /** Atualiza as leituras após as respostas físicas do passo.
+   * @contract f-e7730e8432cb95e1
+   */
   public atualizar(dtS: number): void {
     for (const sensores of this.sensoresVeiculo.values()) sensores.atualizar(dtS);
     this.atualizarSwitchesFimDeCurso();
   }
 
+  /** Dependências diretas: `this.switchesFimDeCurso.values`, `switchFimDeCurso.obterVolumeSensivel`, `[...this.obterObjetos()].find`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a572c18cb0594dd6 */
   private atualizarSwitchesFimDeCurso(): void {
     const toleranciaContatoM = 1e-6;
     for (const switchFimDeCurso of this.switchesFimDeCurso.values()) {
@@ -61,6 +69,7 @@ export class SistemaSensores {
     }
   }
 
+  /** Devolve `conjuntoA !== undefined && conjuntoA === this.obterConjuntoEstrutural(objetoB)`. Dependências diretas: `this.obterConjuntoEstrutural`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-aa56728d6b2e26c1 */
   private estaoNaMesmaIlhaEstrutural(objetoA: Objeto, objetoB: Objeto): boolean {
     const conjuntoA = this.obterConjuntoEstrutural(objetoA);
     return conjuntoA !== undefined && conjuntoA === this.obterConjuntoEstrutural(objetoB);

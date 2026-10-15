@@ -31,6 +31,7 @@ export class SwitchFimDeCurso {
   private alvoEmContato?: AlvoDoSwitchFimDeCurso;
   private deslocamentoLocalM = Vetor3.zero;
 
+  /** Escritas diretas: `this.definicao`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-958eb2b7694765e1 */
   public constructor(private readonly definicao: DefinicaoSwitchFimDeCurso) {
     if (!definicao.id) throw new Error('Switch de fim de curso precisa de identidade.');
     if (!Number.isFinite(definicao.histereseM ?? 0) || (definicao.histereseM ?? 0) < 0) throw new Error('Histerese do switch deve ser finita e não negativa.');
@@ -39,24 +40,39 @@ export class SwitchFimDeCurso {
     }
   }
 
+  /** Devolve `this.definicao.id`. Efeitos indiretos seguem as dependências chamadas. @contract f-4f57425a94bbe84c */
   public get id(): string { return this.definicao.id; }
+  /** Devolve `this.definicao.objetoHospedeiro`. Efeitos indiretos seguem as dependências chamadas. @contract f-5d131fdb8cab246f */
   public get objetoHospedeiro(): Objeto { return this.definicao.objetoHospedeiro; }
+  /** Devolve `this.definicao.face`. Efeitos indiretos seguem as dependências chamadas. @contract f-7986fb87185ed161 */
   public get face(): FaceDoObjeto { return this.definicao.face; }
+  /** Devolve `this.definicao.larguraM ?? 0.02`. Efeitos indiretos seguem as dependências chamadas. @contract f-7eea4876c2a02a28 */
   public get larguraM(): number { return this.definicao.larguraM ?? 0.02; }
+  /** Devolve `this.definicao.alturaM ?? 0.02`. Efeitos indiretos seguem as dependências chamadas. @contract f-bea4ca4309e3f44a */
   public get alturaM(): number { return this.definicao.alturaM ?? 0.02; }
+  /** Devolve `this.definicao.cursoM ?? 0.005`. Efeitos indiretos seguem as dependências chamadas. @contract f-7e523af8560edc30 */
   public get cursoM(): number { return this.definicao.cursoM ?? 0.005; }
+  /** Devolve `this.cursoM + (this.acionado ? this.definicao.histereseM ?? 0 : 0)`. Efeitos indiretos seguem as dependências chamadas. @contract f-b032f1415fe72f16 */
   private get cursoSensivelM(): number { return this.cursoM + (this.acionado ? this.definicao.histereseM ?? 0 : 0); }
+  /** Devolve `this.acionado ? 1 : 0`. Efeitos indiretos seguem as dependências chamadas. @contract f-d2c5daf1a289f2c2 */
   public get sinal(): 0 | 1 { return this.acionado ? 1 : 0; }
+  /** Devolve `this.acionado`. Efeitos indiretos seguem as dependências chamadas. @contract f-29e63e83f941a1a0 */
   public estaAcionado(): boolean { return this.acionado; }
+  /** Devolve `this.alvoEmContato`. Efeitos indiretos seguem as dependências chamadas. @contract f-7e60afc0030efd29 */
   public obterAlvoEmContato(): AlvoDoSwitchFimDeCurso | undefined { return this.alvoEmContato; }
+  /** Devolve `this.deslocamentoLocalM`. Efeitos indiretos seguem as dependências chamadas. @contract f-93f94a9256121014 */
   public get deslocamentoLocal(): Vetor3 { return this.deslocamentoLocalM; }
-  /** Ajuste de montagem do sensor; não altera o corpo hospedeiro. */
+  /** Ajuste de montagem do sensor; não altera o corpo hospedeiro.
+   * @contract f-9e6ce2ceb2e0dbad
+   */
   public definirDeslocamentoLocal(deslocamentoM: Vetor3): void {
     if (![deslocamentoM.x, deslocamentoM.y, deslocamentoM.z].every(Number.isFinite)) throw new Error('Deslocamento do sensor deve ser finito.');
     this.deslocamentoLocalM = deslocamentoM;
   }
 
-  /** Volume global do atuador, orientado junto com o hospedeiro. */
+  /** Volume global do atuador, orientado junto com o hospedeiro.
+   * @contract f-6cca72df3d5ce274
+   */
   public obterVolumeSensivel(): CaixaOrientada {
     const estado = this.objetoHospedeiro.getEstadoFisico();
     const metade = this.objetoHospedeiro.dimensoesM.multiplicar(0.5);
@@ -76,7 +92,9 @@ export class SwitchFimDeCurso {
     return { posicaoM: estado.posicaoM.adicionar(deslocamentoGlobal), dimensoesM, orientacaoZRad: estado.orientacaoRad.z };
   }
 
-  /** Pontos da face externa do atuador, úteis para superfícies planas. */
+  /** Pontos da face externa do atuador, úteis para superfícies planas.
+   * @contract f-95fd2558a267713a
+   */
   public obterPontosDaFaceSensivelM(): readonly Vetor3[] {
     const volume = this.obterVolumeSensivel();
     const direcao = this.obterDirecaoGlobal();
@@ -95,12 +113,15 @@ export class SwitchFimDeCurso {
     return [-1, 1].flatMap((sinalX) => [-1, 1].map((sinalY) => centroFace.adicionar(eixoX.multiplicar(sinalX * metade.x)).adicionar(eixoY.multiplicar(sinalY * metade.y))));
   }
 
-  /** API exclusiva do MundoFisico após consultar geometrias no passo atual. */
+  /** API exclusiva do MundoFisico após consultar geometrias no passo atual.
+   * @contract f-67552310bde6de7d
+   */
   public atualizarContatoPeloCore(alvo?: AlvoDoSwitchFimDeCurso): void {
     this.alvoEmContato = alvo;
     this.acionado = alvo !== undefined;
   }
 
+  /** Dependências diretas: `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1bdcafeb1e8b7ad7 */
   private obterDirecaoLocal(): Vetor3 {
     switch (this.face) {
       case 'xPositiva': return new Vetor3(1, 0, 0);
@@ -112,12 +133,14 @@ export class SwitchFimDeCurso {
     }
   }
 
+  /** Dependências diretas: `this.obterDirecaoLocal`, `this.objetoHospedeiro.getEstadoFisico`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1aedd06fc2fa4643 */
   private obterDirecaoGlobal(): Vetor3 {
     const direcao = this.obterDirecaoLocal();
     const angulo = this.objetoHospedeiro.getEstadoFisico().orientacaoRad.z;
     return new Vetor3((direcao.x * Math.cos(angulo)) - (direcao.y * Math.sin(angulo)), (direcao.x * Math.sin(angulo)) + (direcao.y * Math.cos(angulo)), direcao.z);
   }
 
+  /** Dependências diretas: `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-c591823d5b4ad4b7 */
   private obterDimensoesDoVolume(): Vetor3 {
     switch (this.face) {
       case 'xPositiva': case 'xNegativa': return new Vetor3(this.cursoSensivelM, this.larguraM, this.alturaM);

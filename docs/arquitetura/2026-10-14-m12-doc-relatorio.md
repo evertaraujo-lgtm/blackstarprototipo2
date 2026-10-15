@@ -125,3 +125,12 @@ Não houve alteração executável nos arquivos de produção deste lote.
 Para manter catálogo e commits intermediários coerentes, os artefatos por lote
 são gerados das fontes do índice Git, sem reverter comentários ainda em trabalho
 nos demais subsistemas. A ferramenta final usa a árvore de trabalho normalmente.
+
+### C3 — Sensores, controladores e instalação de mecanismos
+
+18 módulos, 139 declarações documentadas. Descrições revisadas incluem sensores
+com freeze/atraso/desvio/stale, PID de atitude, Fuzzy-PID de descida, guiagem
+horizontal e arbitragem. Memória dos controladores é distinta da cinemática;
+leituras locais vêm do referencial compartilhado. Demais hipóteses não
+confirmadas permanecem identificadas no catálogo. AST executável preservada
+por arquivo; sem mudanças de ganhos, dt, parâmetros ou lógica de atuação.

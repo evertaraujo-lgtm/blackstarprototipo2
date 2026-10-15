@@ -54,6 +54,7 @@ export class ControladorGuiaPousoBss06 implements ControladorDeVoo {
     compensacaoGimbalRad: 0, torqueNaoCompensavel: false,
   };
 
+  /** Instala portas de motor, energia/contexto e opcionalmente controlador de aletas; não recebe veículo proprietário nem mundo mutável. @contract f-cc3f9e6d3cd57988 @reviewed M12-DOC: implementação lida. */
   public constructor(
     aletas: readonly AletaAerodinamica[],
     private readonly propulsor: MotorDaGuiaPouso,
@@ -63,13 +64,18 @@ export class ControladorGuiaPousoBss06 implements ControladorDeVoo {
     this.controladorAletas = aletas.length > 0 ? new ControladorAletasAerodinamicas(aletas, estaEnergizado) : undefined;
   }
 
+  /** Habilita solicitação operacional da guiagem. @contract f-88fe6289aea954f3 @reviewed M12-DOC: implementação lida. */
   public habilitar(): void { this.habilitado = true; }
+  /** Desabilita e atualiza diagnóstico para inativo, sem zerar cinemática. @contract f-ceab21d5a6777c34 @reviewed M12-DOC: implementação lida. */
   public desabilitar(): void { this.habilitado = false; this.diagnostico = { ...this.diagnostico, fase: 'inativo' }; }
+  /** Consulta seleção da guiagem. @contract f-87de5d7357709989 @reviewed M12-DOC: implementação lida. */
   public get estaHabilitado(): boolean { return this.habilitado; }
+  /** Devolve cópia do diagnóstico, indicando sem-energia se habilitado e alimentação ausente. @contract f-df2de99f27f0f356 @reviewed M12-DOC: implementação lida. */
   public obterDiagnostico(): DiagnosticoGuiaPouso {
     return { ...this.diagnostico, ...(!this.estaEnergizado() && this.habilitado ? { fase: 'sem-energia' as const } : {}) };
   }
 
+  /** Valida dtS s positivo/finito e substitui no contexto velocidades/atitude/taxa/massa/gravidade pelas leituras de sensores; sem fornecedor de contexto retorna lista vazia. @contract f-6500dc6bdf403411 @reviewed M12-DOC: implementação lida. */
   public calcularSolicitacoes(leituras: LeiturasVeiculoComposto, dtS: number): readonly SolicitacaoDeAtuador[] {
     if (!Number.isFinite(dtS) || dtS <= 0) throw new Error('Passo de guiagem inválido.');
     if (!this.obterContexto) return [];
@@ -84,7 +90,11 @@ export class ControladorGuiaPousoBss06 implements ControladorDeVoo {
     });
   }
 
-  /** Produz solicitações; nunca escreve no motor fora da arbitragem. */
+  /** Produz solicitações; nunca escreve no motor fora da arbitragem.
+   * @remarks Valida medidas SI, exige energia/vínculo/modo-descida; solicita gimbal a partir de erro lateral e atitude, compensando torque aerodinâmico pelo braço real do motor. Escala aletas pela pressão dinâmica. Atualiza diagnóstico de saturação/autoridade; throttle e ignição ficam fora desta guia.
+   * @contract f-a20a72f46b4b979e
+   * @reviewed M12-DOC: contrato confrontado com implementação.
+   */
   public atualizar(leituras: LeiturasGuiaPousoBss06): readonly SolicitacaoDeAtuador[] {
     const valores = [leituras.erroHorizontalM, leituras.velocidadeHorizontalMps, leituras.velocidadeVerticalMps,
       leituras.orientacaoRad, leituras.velocidadeAngularRadps, leituras.massaKg, leituras.empuxoN, leituras.densidadeArKgM3,
@@ -148,4 +158,5 @@ export class ControladorGuiaPousoBss06 implements ControladorDeVoo {
   }
 }
 
+/** Satura escalar em limites prescritos, preservando valor original quando já está no intervalo. @contract f-e6fdc5f6bb0c4775 @reviewed M12-DOC: implementação lida. */
 const limitar = (valor: number, minimo: number, maximo: number): number => Math.max(minimo, Math.min(maximo, valor));

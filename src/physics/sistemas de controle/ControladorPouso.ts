@@ -60,6 +60,7 @@ const CONFIGURACAO_PADRAO: ConfiguracaoControlePouso = {
   controlarGimbal: true,
 };
 
+/** Devolve `Math.max(minimo, Math.min(maximo, valor))`. Efeitos indiretos seguem as dependências chamadas. @contract f-d697d010640b8674 */
 const limitar = (valor: number, minimo: number, maximo: number): number => Math.max(minimo, Math.min(maximo, valor));
 
 /**
@@ -78,11 +79,13 @@ export class ControladorPouso {
 
   public readonly configuracao: ConfiguracaoControlePouso;
 
+  /** Escritas diretas: `this.configuracao`. Dependências diretas: `this.validarConfiguracao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-68eeb6d9e74ff69b */
   public constructor(configuracao: Partial<ConfiguracaoControlePouso> = {}) {
     this.configuracao = { ...CONFIGURACAO_PADRAO, ...configuracao };
     this.validarConfiguracao();
   }
 
+  /** Escritas diretas: `this.habilitado`, `this.throttleAnterior`, `this.erroVelocidadeAnteriorMps`, `this.integralErroVelocidade`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-9c53c873b169d2c5 */
   public habilitar(): void {
     this.habilitado = true;
     this.throttleAnterior = 0;
@@ -90,6 +93,7 @@ export class ControladorPouso {
     this.integralErroVelocidade = 0;
   }
 
+  /** Escritas diretas: `this.habilitado`, `this.throttleAnterior`, `this.erroVelocidadeAnteriorMps`, `this.integralErroVelocidade`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-78d9c7c61e952672 */
   public desabilitar(): void {
     this.habilitado = false;
     this.throttleAnterior = 0;
@@ -101,9 +105,12 @@ export class ControladorPouso {
     };
   }
 
+  /** Devolve `this.habilitado`. Efeitos indiretos seguem as dependências chamadas. @contract f-090b6caebc08c0a0 */
   public get estaHabilitado(): boolean { return this.habilitado; }
+  /** Devolve `{ ...this.ultimoComando }`. Efeitos indiretos seguem as dependências chamadas. @contract f-91b4d54dea999f87 */
   public obterUltimoComando(): ComandoControlePouso { return { ...this.ultimoComando }; }
 
+  /** Devolve `this.obterUltimoComando()`. Escritas diretas: `this.throttleAnterior`, `this.ultimoComando`, `this.erroVelocidadeAnteriorMps`, `this.integralErroVelocidade`. Dependências diretas: `this.obterUltimoComando`, `Error`, `valoresDosSensores.every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a03d9c9ed49d2498 */
   public calcularComando(leituras: LeiturasVeiculoComposto, dtS: number): ComandoControlePouso {
     if (!this.habilitado) return this.obterUltimoComando();
     if (!Number.isFinite(dtS) || dtS <= 0) throw new Error('Passo do controle de pouso deve ser positivo e finito.');
@@ -202,6 +209,7 @@ export class ControladorPouso {
     return this.obterUltimoComando();
   }
 
+  /** Dependências diretas: `valoresNumericos.every`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2d5172a9602bf725 */
   private validarConfiguracao(): void {
     const c = this.configuracao;
     const valoresNumericos = [

@@ -36,6 +36,7 @@ export interface ComandoDescidaFuzzyPid {
 }
 
 const GRAVIDADE_MPS2 = 9.80665;
+/** Satura escalar no intervalo fechado [mínimo,máximo], sem modificar ganhos ou estados físicos. @contract f-4df50faf6e900cbd @reviewed M12-DOC: implementação lida. */
 const limitar = (valor: number, minimo: number, maximo: number): number => Math.max(minimo, Math.min(maximo, valor));
 
 /**
@@ -56,6 +57,7 @@ export class ControladorDescidaFuzzyPidDePropulsores implements ControladorDeVoo
     fase: 'inativo', throttle: 0, velocidadeVerticalAlvoMps: 0, altitudeRestanteM: 0, massaInstantaneaKg: 0,
   };
 
+  /** Valida ganhos/envelope SI e lista de motores não vazia/única; copia configuração e IDs e limpa memória PID. @contract f-d85233dae6573762 @reviewed M12-DOC: implementação lida. */
   public configurar(configuracao: ConfiguracaoDescidaFuzzyPid, idsPropulsores: readonly string[]): void {
     this.validarConfiguracao(configuracao);
     if (idsPropulsores.length === 0 || new Set(idsPropulsores).size !== idsPropulsores.length) {
@@ -66,27 +68,33 @@ export class ControladorDescidaFuzzyPidDePropulsores implements ControladorDeVoo
     this.reiniciar();
   }
 
+  /** Exige configuração prévia e habilita controle com memória reiniciada. @contract f-bd460279a707c15d @reviewed M12-DOC: implementação lida. */
   public habilitar(): void {
     if (!this.configuracao) throw new Error('Configure o controle de pouso antes de habilitá-lo.');
     this.habilitado = true;
     this.reiniciar();
   }
 
+  /** Desabilita, limpa memória e registra saída inativa/throttle zero; a aplicação da saída permanece no computador. @contract f-e4a9a77a1864fdaf @reviewed M12-DOC: implementação lida. */
   public desabilitar(): void {
     this.habilitado = false;
     this.reiniciar();
     this.comandoAtual = { ...this.comandoAtual, fase: 'inativo', throttle: 0 };
   }
 
+  /** Consulta seleção operacional do controle. @contract f-67272a24c9b64ffa @reviewed M12-DOC: implementação lida. */
   public get estaHabilitado(): boolean { return this.habilitado; }
+  /** Devolve cópia da última fase/referência/throttle calculados. @contract f-2867079eb944ae55 @reviewed M12-DOC: implementação lida. */
   public obterUltimoComando(): ComandoDescidaFuzzyPid { return { ...this.comandoAtual }; }
 
+  /** Quando habilitado/configurado, calcula uma saída e solicita o mesmo throttle normalizado aos motores selecionados; caso contrário lista vazia. @contract f-91ca295ae4c3ef6d @reviewed M12-DOC: implementação lida. */
   public calcularSolicitacoes(leituras: LeiturasVeiculoComposto, dtS: number): readonly SolicitacaoDeAtuador[] {
     if (!this.habilitado || !this.configuracao) return [];
     const comando = this.calcularComando(leituras, dtS);
     return this.idsPropulsores.map((idAtuador) => ({ idAtuador, recurso: 'throttle', valor: comando.throttle }));
   }
 
+  /** Agenda velocidade descendente por pertinência linear de altitude, aplica PID com peso local e massa instantânea, anti-windup e rampa de throttle. Valida dtS s/leituras, corta solicitação com stale, toque permitido ou subida; frenagem extrema solicita 1 imediatamente. Atualiza memória e diagnóstico, nunca estado físico. @contract f-56d60a5edf2cafc8 @reviewed M12-DOC: implementação lida. */
   public calcularComando(leituras: LeiturasVeiculoComposto, dtS: number): ComandoDescidaFuzzyPid {
     const c = this.configuracao;
     if (!this.habilitado || !c) return this.obterUltimoComando();
@@ -170,12 +178,14 @@ export class ControladorDescidaFuzzyPidDePropulsores implements ControladorDeVoo
     return this.obterUltimoComando();
   }
 
+  /** Zera integral, erro anterior e throttle anterior para eliminar transientes de uma fase anterior. @contract f-d302c2a442e86025 @reviewed M12-DOC: implementação lida. */
   private reiniciar(): void {
     this.throttleAnterior = 0;
     this.integralErro = 0;
     this.erroAnterior = 0;
   }
 
+  /** Exige finitude dos ganhos e envelope (m, m/s, N), velocidades de toque menores que descida, limiares/rampa positivos e callback de contato quando fornecido; lança erro sem ajustar valores. @contract f-50da500bd8494302 @reviewed M12-DOC: implementação lida. */
   private validarConfiguracao(c: ConfiguracaoDescidaFuzzyPid): void {
     const { obterContatoComSolo, ...parametros } = c;
     const valores = Object.values(parametros).filter((valor): valor is number => valor !== undefined);

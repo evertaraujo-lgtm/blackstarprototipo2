@@ -17,8 +17,10 @@ export interface ResultadoAutotunePosicionamentoMotorEletrico {
 
 /** Busca ganhos por simulação determinística do conjunto rotacional, sem renderização. */
 export class AutotunadorPosicionamentoMotorEletrico {
+  /** Hook vazio nesta implementação; não produz operação. REVISÃO NECESSÁRIA do contrato de especialização. @contract f-e507ddc521012566 */
   public constructor(private readonly controlador: ControladorPosicionamentoMotorEletrico) {}
 
+  /** Devolve `melhor`. Dependências diretas: `this.controlador.obterModeloParaAutotune`, `this.criarCandidatos`, `this.simular`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d56be7d8d567653e */
   public async executar(onProgress?: (progresso: ProgressoAutotunePosicionamentoMotorEletrico) => void): Promise<ResultadoAutotunePosicionamentoMotorEletrico> {
     const modelo = this.controlador.obterModeloParaAutotune();
     const candidatos = this.criarCandidatos(modelo);
@@ -35,6 +37,7 @@ export class AutotunadorPosicionamentoMotorEletrico {
     return melhor;
   }
 
+  /** Dependências diretas: `[0.6, 1, 1.4, 1.8].map`, `[0.25, 0.45, 0.65].map`, `proporcional.flatMap`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1371de11de38be73 */
   private criarCandidatos(modelo: ModeloAutotunePosicionamentoMotorEletrico): GanhosControladorPosicionamentoMotorEletrico[] {
     const frequenciaNatural = Math.sqrt(Math.max(0.05, modelo.torqueMaximoNm / modelo.momentoInerciaKgM2)) * 0.35;
     const proporcional = [0.6, 1, 1.4, 1.8].map((fator) => modelo.momentoInerciaKgM2 * frequenciaNatural ** 2 * fator);
@@ -47,6 +50,7 @@ export class AutotunadorPosicionamentoMotorEletrico {
     }))));
   }
 
+  /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ff4add0f29c47da4 */
   private simular(modelo: ModeloAutotunePosicionamentoMotorEletrico, ganhos: GanhosControladorPosicionamentoMotorEletrico): number {
     const dtS = 1 / 240;
     const duracaoS = 4;

@@ -33,10 +33,13 @@ export interface ConfiguracaoEnsaioPorta {
   readonly resistenciaChumbadoresN?: number;
 }
 
-/** Montagem compartilhada pela bancada e regressões, sem DOM ou relógio real. */
+/** Montagem compartilhada pela bancada e regressões, sem DOM ou relógio real.
+ * @contract f-26bd768dc18b239f
+ */
 export function criarEnsaioPortaVertical(configuracao: ConfiguracaoEnsaioPorta = {}) {
   // Atmosfera terrestre padrão, 1,225 kg/m³. Subpassos máximos de 1/240 s.
   const mundo = new MundoFisico(1 / 240);
+  /** Devolve `({ id, massaBaseKg, dimensoesM, ...materialPortaAluminio, resistenciaColisaoJ: 20_000, dissipacaoImpacto: 0.8, estadoInicial: { posicaoM }, })`. Efeitos indiretos seguem as dependências chamadas. @contract f-09b811185061a8f5 */
   const base = (id: string, massaBaseKg: number, dimensoesM: Vetor3, posicaoM: Vetor3) => ({
     id, massaBaseKg, dimensoesM, ...materialPortaAluminio,
     resistenciaColisaoJ: 20_000, dissipacaoImpacto: 0.8, estadoInicial: { posicaoM },
@@ -71,17 +74,24 @@ export function criarEnsaioPortaVertical(configuracao: ConfiguracaoEnsaioPorta =
     estadoInicial: { posicaoM: new Vetor3(0, configuracao.alturaInicialM ?? 1.2, 0), velocidadeMps: new Vetor3(0, configuracao.velocidadeInicialMps ?? 0, 0) },
     areaFrontalM2: 0.24, coeficienteArrasto: 1.1, batente: superior, bateria, conexaoEletrica, sensorAberto, sensorFechado,
     potenciaSeparada: separado ? { conexao: conexaoPotencia, contator } : undefined,
+    /** Devolve `trava?.estaRecuada ?? true`. Efeitos indiretos seguem as dependências chamadas. @contract f-d2808122fe6f858d */
     obterTravaRecuada: () => trava?.estaRecuada ?? true,
+    /** Devolve `trava?.obterForcasNaPorta() ?? []`. Dependências diretas: `trava?.obterForcasNaPorta`. Efeitos indiretos seguem as dependências chamadas. @contract f-fa86f35a7e506661 */
     obterForcasDaTrava: () => trava?.obterForcasNaPorta() ?? [],
+    /** Devolve `conjunto.apoioEstruturalDisponivel`. Efeitos indiretos seguem as dependências chamadas. @contract f-927c931a34a6f665 */
     apoioEstruturalDisponivel: () => conjunto.apoioEstruturalDisponivel,
     velocidadeAvancoMps: 0.6, velocidadeRecuoMps: 0.4, forcaMaximaN: 4_000, tensaoNominalV: 24,
     rigidezRetencaoNPorM: 100_000, potenciaEmRepousoW: 12 });
   if (configuracao.instalarTrava !== false) {
     trava = new TravaPorta({ ...base('trava-porta', 2, new Vetor3(0.2, 0.2, 0.2), new Vetor3(-0.9, 2.32, 0)),
       limiteTermicoC: 150, temperaturaFusaoC: undefined, temperaturaFalhaTotalC: 700,
-      batente: laterais[0], porta: () => porta, conexaoComando: conexaoEletrica,
+      batente: laterais[0], /** Devolve `porta`. Efeitos indiretos seguem as dependências chamadas. @contract f-67b945d2570a7f50 */
+                            porta: () => porta, conexaoComando: conexaoEletrica,
+      /** Devolve `conjunto.apoioEstruturalDisponivel`. Efeitos indiretos seguem as dependências chamadas. @contract f-985540f835552796 */
       apoioEstruturalDisponivel: () => conjunto.apoioEstruturalDisponivel,
-      sensorPortaAberta: () => porta.sensorAbertoAcionado, obterUltimoComandoOperacional: () => porta.obterUltimoComandoOperacional(),
+      /** Devolve `porta.sensorAbertoAcionado`. Efeitos indiretos seguem as dependências chamadas. @contract f-eeb1d9a5e01cbd27 */
+      sensorPortaAberta: () => porta.sensorAbertoAcionado, /** Devolve `porta.obterUltimoComandoOperacional()`. Dependências diretas: `porta.obterUltimoComandoOperacional`. Efeitos indiretos seguem as dependências chamadas. @contract f-653afb8e2950af86 */
+                                                           obterUltimoComandoOperacional: () => porta.obterUltimoComandoOperacional(),
       cursoM: 0.2, velocidadeMps: 0.5, forcaMaximaN: 1_000, potenciaRecuoW: 18 });
   }
   const objetos = [...(separado ? [gerador] : []), bateria, superior, inferior, ...laterais, porta, ...(trava ? [trava] : [])];

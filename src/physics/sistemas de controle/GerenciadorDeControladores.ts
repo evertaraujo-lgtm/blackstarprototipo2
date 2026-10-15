@@ -36,11 +36,14 @@ export class GerenciadorDeControladores {
   private readonly controladores = new Map<string, ControladorDeVoo>();
   private ultimaArbitragem: readonly SolicitacaoArbitrada[] = [];
 
+  /** Devolve cópias das solicitações vencedoras, sem expor a lista interna. @contract f-35d6a921e9ab5ffa @reviewed M12-DOC: implementação lida. */
   public obterUltimaArbitragem(): readonly SolicitacaoArbitrada[] {
     return this.ultimaArbitragem.map((solicitacao) => ({ ...solicitacao }));
   }
 
-  /** Perda de alimentação limpa memória dos controles, conservando a seleção do operador. */
+  /** Perda de alimentação limpa memória dos controles, conservando a seleção do operador.
+   * @contract f-895d1fe7d9e5a408
+   */
   public reiniciarControladores(): void {
     for (const controlador of this.controladores.values()) {
       if (!controlador.estaHabilitado) continue;
@@ -50,23 +53,29 @@ export class GerenciadorDeControladores {
     this.ultimaArbitragem = [];
   }
 
+  /** Registra controlador composto por ID único; lança erro para duplicata, sem implementar nova lei de controle. @contract f-f0fd492c3563472d @reviewed M12-DOC: implementação lida. */
   public registrar(controlador: ControladorDeVoo): void {
     if (this.controladores.has(controlador.id)) throw new Error(`Controlador já registrado: ${controlador.id}.`);
     this.controladores.set(controlador.id, controlador);
   }
 
+  /** Consulta controlador por ID e lança erro para ausente. @contract f-e56d139b2aad1cc9 @reviewed M12-DOC: implementação lida. */
   public obter(id: string): ControladorDeVoo {
     const controlador = this.controladores.get(id);
     if (!controlador) throw new Error(`Controlador não registrado: ${id}.`);
     return controlador;
   }
 
+  /** Delega habilitação à porta do controlador registrado. @contract f-6df8627a53a52ed3 @reviewed M12-DOC: implementação lida. */
   public habilitar(id: string): void { this.obter(id).habilitar(); }
+  /** Delega desabilitação à porta do controlador registrado. @contract f-516986ceb691ca9e @reviewed M12-DOC: implementação lida. */
   public desabilitar(id: string): void { this.obter(id).desabilitar(); }
+  /** Lista IDs dos controladores efetivamente habilitados. @contract f-5aa76e0a954284cb @reviewed M12-DOC: implementação lida. */
   public idsAtivos(): readonly string[] {
     return [...this.controladores.values()].filter((controlador) => controlador.estaHabilitado).map((controlador) => controlador.id);
   }
 
+  /** Calcula saídas de controles habilitados e arbitra cada par atuador/recurso por maior prioridade; empate usa ID lexical. Registra vencedores e limpa memória de habilitados sem nenhuma vitória; não comanda cinemática. @contract f-4be67e00ce7effb0 @reviewed M12-DOC: implementação lida. */
   public calcularSolicitacoes(leituras: LeiturasVeiculoComposto, dtS: number): readonly SolicitacaoDeAtuador[] {
     const vencedores = new Map<string, { controlador: ControladorDeVoo; solicitacao: SolicitacaoDeAtuador }>();
     for (const controlador of this.controladores.values()) {
