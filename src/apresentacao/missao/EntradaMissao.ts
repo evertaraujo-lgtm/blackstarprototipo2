@@ -8,8 +8,11 @@ export interface AcoesApresentacaoMissao {
   reiniciar(): void;
   exportar(): void;
 }
-/** Tradução de entrada para comandos sem conhecer composição física ou mundo. */
+/** Tradução de entrada para comandos sem conhecer composição física ou mundo.
+ * @contract f-cdc6f2cd67e61409
+ */
 export function conectarEntradaMissao(raiz: HTMLElement, acoes: AcoesApresentacaoMissao): void {
+  /** Associa botão identificado ao callback operacional recebido; instala listener DOM, sem conhecer mundo físico. @contract f-eb84b82e48a5991b @reviewed M12-DOC: implementação lida. */
   const clique = (id: string, agir: () => void) => raiz.querySelector<HTMLButtonElement>(`#${id}`)!.addEventListener('click', agir);
   clique('iniciar', acoes.iniciar); clique('pausar', acoes.pausar); clique('reiniciar', acoes.reiniciar); clique('exportar', acoes.exportar);
   for (const b of raiz.querySelectorAll<HTMLButtonElement>('[data-sistema]')) b.addEventListener('click', () => acoes.sistema(b.dataset.sistema as SistemaBss));

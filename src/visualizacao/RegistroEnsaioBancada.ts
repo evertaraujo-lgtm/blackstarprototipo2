@@ -10,23 +10,29 @@ export class RegistroEnsaioBancada {
   private readonly entradas: EntradaEnsaioBancada[] = [];
   private readonly configuracaoJson: string;
 
+  /** Escritas diretas: `this.dtS`, `this.configuracaoJson`. Dependências diretas: `Error`, `JSON.stringify`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b8117d1c26329bb7 */
   public constructor(private readonly dtS: number, configuracao: unknown) {
     if (!Number.isFinite(dtS) || dtS <= 0) throw new Error('dt do ensaio deve ser positivo em s.');
     this.configuracaoJson = JSON.stringify(configuracao);
   }
 
-  /** Chamado somente após um passo físico concluído. */
+  /** Chamado somente após um passo físico concluído.
+   * @contract f-97c5dd16de34317b
+   */
   public registrarPasso(dtS: number): void {
     if (dtS !== this.dtS) throw new Error('O ensaio requer passos físicos fixos.');
     this.passos += 1;
   }
 
-  /** A entrada é aplicada antes do próximo passo; ordem de chamadas preservada. */
+  /** A entrada é aplicada antes do próximo passo; ordem de chamadas preservada.
+   * @contract f-f253b295b1028151
+   */
   public registrarEntrada(acao: string, valor?: EntradaEnsaioBancada['valor']): void {
     if (!acao || (typeof valor === 'number' && !Number.isFinite(valor))) throw new Error('Entrada de ensaio inválida.');
     this.entradas.push({ passo: this.passos, acao, valor });
   }
 
+  /** Dependências diretas: `JSON.parse`, `this.entradas.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7ad5c8aac70ef81d */
   public exportar() {
     return {
       versao: 1,

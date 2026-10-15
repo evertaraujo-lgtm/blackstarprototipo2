@@ -1,12 +1,16 @@
 import type { EventoMissao } from '../../missoes/ContratoMissao';
 import type { ObservacaoBss006 } from '../../missoes/TiposMissaoBss006';
 
+/** Atualiza textos, permissivos visuais, controles, objetivos e eventos a partir do snapshot/eventos reais; só substitui textos/listas quando mudam. Converte SI para apresentação; não envia forças ou altera cinemática. @contract f-ebea6b265766d795 @reviewed M12-DOC: implementação lida. */
 export function atualizarHudMissao(raiz: HTMLElement, o: ObservacaoBss006, eventos: readonly EventoMissao[]): void {
+  /** Atualiza textContent do elemento identificado somente se valor mudou; efeito limitado ao DOM. @contract f-a2ab2d179d0347df @reviewed M12-DOC: implementação lida. */
   const texto = (id: string, valor: string) => { const e = raiz.querySelector<HTMLElement>(`#${id}`)!; if (e.textContent !== valor) e.textContent = valor; };
+  /** Converte radianos em string de graus com duas casas decimais, somente para apresentação. @contract f-778f2164cc37fff1 @reviewed M12-DOC: implementação lida. */
   const graus = (rad: number) => (rad * 180 / Math.PI).toFixed(2);
   raiz.querySelector<HTMLElement>('#configuracao-aquatica')!.hidden = !o.aquatico;
   raiz.querySelector<HTMLElement>('#painel-aquatico')!.hidden = !o.aquatico;
   if (o.aquatico) {
+    /** Devolve `p ? `(${p.x.toFixed(3)}, ${p.y.toFixed(3)}) m` : 'não definido (seco)'`. Dependências diretas: `p.x.toFixed`, `p.y.toFixed`. Efeitos indiretos seguem as dependências chamadas. @contract f-4658bb1bc12af96f */
     const a = o.aquatico, coord = (p?: { x: number; y: number }) => p ? `(${p.x.toFixed(3)}, ${p.y.toFixed(3)}) m` : 'não definido (seco)';
     texto('imersao-aquatica', `${a.estado.replaceAll('-', ' ')} · ${(a.fracaoSubmersa * 100).toFixed(2)}%`);
     texto('volume-aquatico', `${a.volumeSubmersoM3.toFixed(4)} / ${a.volumeDeslocavelM3.toFixed(3)} m³`);

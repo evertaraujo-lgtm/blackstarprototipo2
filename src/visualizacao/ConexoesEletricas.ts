@@ -5,15 +5,20 @@ import { Vetor3 } from '../physics/Vetor3';
 /** O renderer consulta a conexão de domínio usada pelo consumidor. */
 export type ConexaoEletricaVisual = ConexaoEletrica;
 
+/** Devolve `conexoes.filter((conexao) => objetosVisiveis.includes(conexao.fonte))`. Dependências diretas: `conexoes.filter`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-aff2a7f3384f78eb */
 export function conexoesEletricasExpostas(conexoes: readonly ConexaoEletricaVisual[], objetosVisiveis: readonly Objeto[]): readonly ConexaoEletricaVisual[] {
   return conexoes.filter((conexao) => objetosVisiveis.includes(conexao.fonte));
 }
 
-/** Terminal no meio da face esquerda local; acompanha translação e rotação reais. */
+/** Terminal no meio da face esquerda local; acompanha translação e rotação reais.
+ * @contract f-4db8b82fef51a621
+ */
 export function terminalEletricoM(objeto: Objeto): Vetor3 {
   return terminalEletricoDoEstadoM(objeto.getEstadoFisico(), objeto.dimensoesM);
 }
-/** A mesma geometria de terminal pode consumir snapshots de apresentação. */
+/** A mesma geometria de terminal pode consumir snapshots de apresentação.
+ * @contract f-5b11a8db059751a2
+ */
 export function terminalEletricoDoEstadoM(estado: EstadoFisico, dimensoesM: { readonly x: number }): Vetor3 {
   const xLocal = -dimensoesM.x / 2;
   return estado.posicaoM.adicionar(new Vetor3(xLocal * Math.cos(estado.orientacaoRad.z), xLocal * Math.sin(estado.orientacaoRad.z), 0));
@@ -27,6 +32,7 @@ export interface AlvoSwitchEletrico {
   readonly altura: number;
 }
 
+/** Devolve `alvos`. Escritas diretas: `contexto.lineJoin`, `contexto.lineCap`, `contexto.lineWidth`, `contexto.strokeStyle`. Dependências diretas: `conexoesEletricasExpostas(conexoes, objetosVisiveis).entries`, `conexoesEletricasExpostas`, `projetar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7100ba216535c7cc */
 export function desenharConexoesEletricas(
   contexto: CanvasRenderingContext2D,
   conexoes: readonly ConexaoEletricaVisual[],
@@ -50,6 +56,7 @@ export function desenharConexoesEletricas(
     contexto.lineCap = 'round';
     // Dois condutores, inclusive desligados. A separação em pixels é somente visual.
     for (const [deslocamento, cor] of [[-3, '#f87171'], [3, '#60a5fa']] as const) {
+      /** Dependências diretas: `contexto.beginPath`, `contexto.moveTo`, `contexto.lineTo`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e03c60a41fd7c22d */
       const caminho = () => {
         contexto.beginPath();
         contexto.moveTo(inicio.x, inicio.y + deslocamento);

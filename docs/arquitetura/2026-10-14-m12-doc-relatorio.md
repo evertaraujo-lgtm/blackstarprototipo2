@@ -142,3 +142,16 @@ comandos, observação copiada, amostragem e agenda de replay, separando ciclo
 operacional do tempo físico. A amerissagem classifica medidas e acumula janela
 de equilíbrio; esses eventos não aplicam torque nem encerram o mundo.
 AST executável preservada em cada arquivo. Não foram criadas missões/veículos.
+
+### C5 — Apresentação, bancada visual e adaptadores
+
+Cabeçalhos junto às funções de câmera, renderer, entrada, HUD, carrossel,
+bancada e scripts existentes. A cena consulta snapshots e mantém relógio,
+Canvas/DOM e exportação no adaptador; não existe nova autoridade física.
+A documentação não foi confundida com qualificação de gameplay.
+
+O lote de trabalho possui 20 arquivos/408 pontos, dos quais cinco módulos da
+ferramenta documental serão registrados na etapa D junto aos seus testes e
+correções de extração. Fontes existentes da aplicação mantêm AST executável.
+Comentários de funções cuja interpretação de domínio não foi confirmada
+continuam sinalizados para revisão, em vez de simular certificação técnica.

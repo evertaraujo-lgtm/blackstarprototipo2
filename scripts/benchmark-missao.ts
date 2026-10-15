@@ -21,11 +21,13 @@ const pilha: { filhosMs: number }[] = [], restaurar: (() => void)[] = [];
 let reconstrucoes = 0;
 let faseAtual = 'inicializacao';
 const chamadasPorFase: Record<string, Record<string, number>> = {};
+/** Instala wrappers opt-in de contagem/tempo em métodos de protótipo no processo Node e agenda restauração; conserva this, argumentos, retorno e exceções. Relógio de CPU fica fora do domínio. @contract f-a02c5abbe5cdcfea @reviewed M12-DOC: implementação lida. */
 function instrumentar(prototipo: object, nomes: string[], prefixo: string) {
   const p = prototipo as Record<string, (...args: unknown[]) => unknown>;
   for (const nome of nomes) {
     const chave = `${prefixo}.${nome}`, original = p[nome], medida = medidas[chave] = { chamadas: 0, totalMs: 0, proprioMs: 0 };
-    p[nome] = function (this: unknown, ...args: unknown[]) {
+    p[nome] = /** Conta chamadas por fase e reconstruções geométricas; opcionalmente mede tempos inclusivo/próprio com pilha e finally, delegando ao método original sem mudar parâmetros físicos. @contract f-e5e1ebd39074c6bc @reviewed M12-DOC: implementação lida. */
+              function (this: unknown, ...args: unknown[]) {
       const contagens = chamadasPorFase[faseAtual] ??= {};
       contagens[chave] = (contagens[chave] ?? 0) + 1;
       if (!values.instrumentar) {

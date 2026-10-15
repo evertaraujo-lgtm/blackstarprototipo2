@@ -162,17 +162,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>scripts/benchmark-missao.ts::instrumentar:FunctionDeclaration</code> · [fonte L24](../../scripts/benchmark-missao.ts#L24) |
+| Identificador | <code>scripts/benchmark-missao.ts::instrumentar:FunctionDeclaration</code> · [fonte L25](../../scripts/benchmark-missao.ts#L25) |
 | Assinatura | <code> (prototipo: object, nomes: string[], prefixo: string): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Instala wrappers opt-in de contagem/tempo em métodos de protótipo no processo Node e agenda restauração; conserva this, argumentos, retorno e exceções. Relógio de CPU fica fora do domínio. |
 | Entradas | <code>prototipo: object</code>; <code>nomes: string[]</code>; <code>prefixo: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>medidas[chave]</code>; <code>p[nome]</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>restaurar.push</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Instala wrappers opt-in de contagem/tempo em métodos de protótipo no processo Node e agenda restauração; conserva this, argumentos, retorno e exceções. Relógio de CPU fica fora do domínio. @contract f-a02c5abbe5cdcfea @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -181,7 +181,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>scripts/benchmark-missao.ts::instrumentar.[callback]:FunctionType#1</code> · [fonte L25](../../scripts/benchmark-missao.ts#L25) |
+| Identificador | <code>scripts/benchmark-missao.ts::instrumentar.[callback]:FunctionType#1</code> · [fonte L26](../../scripts/benchmark-missao.ts#L26) |
 | Assinatura | <code> (...args: unknown[]): unknown</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | <code>...args: unknown[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -200,17 +200,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>scripts/benchmark-missao.ts::instrumentar.p[nome]:FunctionExpression</code> · [fonte L28](../../scripts/benchmark-missao.ts#L28) |
+| Identificador | <code>scripts/benchmark-missao.ts::instrumentar.p[nome]:FunctionExpression</code> · [fonte L30](../../scripts/benchmark-missao.ts#L30) |
 | Assinatura | <code> (this: unknown, ...args: unknown[]): unknown</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Conta chamadas por fase e reconstruções geométricas; opcionalmente mede tempos inclusivo/próprio com pilha e finally, delegando ao método original sem mudar parâmetros físicos. |
 | Entradas | <code>this: unknown</code>; <code>...args: unknown[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>unknown</code>; expressões retornadas: <code>r</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>chamadasPorFase[faseAtual]</code>; <code>contagens[chave]</code>; <code>medida.chamadas</code>; <code>reconstrucoes</code>; <code>anterior</code>; <code>medida.totalMs</code>; <code>medida.proprioMs</code>; <code>pilha[pilha.length - 1].filhosMs</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>(this as { cache: Map&lt;unknown, { geometria: unknown }&gt; }).cache.get</code>; <code>original.apply</code>; <code>performance.now</code>; <code>pilha.push</code>; <code>pilha.pop</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!values.instrumentar</code>; <code>nome === 'geometrias' &amp;&amp; r !== anterior</code>; <code>nome === 'geometrias'</code>; <code>pilha.length</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Conta chamadas por fase e reconstruções geométricas; opcionalmente mede tempos inclusivo/próprio com pilha e finally, delegando ao método original sem mudar parâmetros físicos. @contract f-e5e1ebd39074c6bc @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -223,17 +223,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>scripts/comparar-desempenho-missao.ts::metricas:ArrowFunction</code> · [fonte L23](../../scripts/comparar-desempenho-missao.ts#L23) |
+| Identificador | <code>scripts/comparar-desempenho-missao.ts::metricas:ArrowFunction</code> · [fonte L24](../../scripts/comparar-desempenho-missao.ts#L24) |
 | Assinatura | <code> (o: ObservacaoBss006): { energiaJ: number; momentoAngularKgM2S: number; }</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Deriva energia cinética/gravidade relativa ao nível do mar e momento angular em torno de G a partir do diário; não inclui potencial hidrostático nem afirma conservação no fluido dissipativo. |
 | Entradas | <code>o: ObservacaoBss006</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ energiaJ: number; momentoAngularKgM2S: number; }</code>; expressões retornadas: <code>{ energiaJ, momentoAngularKgM2S }</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>energiaJ</code>; <code>momentoAngularKgM2S</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.hypot</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Deriva energia cinética/gravidade relativa ao nível do mar e momento angular em torno de G a partir do diário; não inclui potencial hidrostático nem afirma conservação no fluido dissipativo. @contract f-d6e5cb554b81284d @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -242,17 +242,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>scripts/comparar-desempenho-missao.ts::comparar:ArrowFunction</code> · [fonte L40](../../scripts/comparar-desempenho-missao.ts#L40) |
+| Identificador | <code>scripts/comparar-desempenho-missao.ts::comparar:ArrowFunction</code> · [fonte L42](../../scripts/comparar-desempenho-missao.ts#L42) |
 | Assinatura | <code> (x: unknown, y: unknown): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Percorre números, arrays e propriedades de dois snapshots para contar valores e maior erro absoluto; comparação exata dos diários já é exigida antes. |
 | Entradas | <code>x: unknown</code>; <code>y: unknown</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>numerosComparados</code>; <code>erroNumericoMaximo</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.max</code>; <code>Math.abs</code>; <code>Array.isArray</code>; <code>x.forEach</code>; <code>Object.keys</code>; <code>comparar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>typeof x === 'number' &amp;&amp; typeof y === 'number'</code>; <code>Array.isArray(x) &amp;&amp; Array.isArray(y)</code>; <code>x &amp;&amp; y &amp;&amp; typeof x === 'object' &amp;&amp; typeof y === 'object'</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Percorre números, arrays e propriedades de dois snapshots para contar valores e maior erro absoluto; comparação exata dos diários já é exigida antes. @contract f-d3c06d638dffbcbc @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -836,7 +836,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>scripts/validar-hidrodinamica.ts::criar:FunctionDeclaration</code> · [fonte L12](../../scripts/validar-hidrodinamica.ts#L12) |
+| Identificador | <code>scripts/validar-hidrodinamica.ts::criar:FunctionDeclaration</code> · [fonte L14](../../scripts/validar-hidrodinamica.ts#L14) |
 | Assinatura | <code> (massaKg: number, d: Vetor3, h: number, v?: Vetor3, theta?: number, omega?: number, dt?: number): { m: MundoFisico; o: Objeto; agua: RegiaoAquatica; ambiente: AmbienteTerrestre; }</code> |
 | Responsabilidade | Coletor de evidências: corpos inertes no mesmo mundo, sem motor ou navegador. |
 | Entradas | <code>massaKg: number</code>; <code>d: Vetor3</code>; <code>h: number</code>; <code>v = Vetor3.zero</code>; <code>theta = 0</code>; <code>omega = 0</code>; <code>dt = 1 / 240</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -846,7 +846,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Coletor de evidências: corpos inertes no mesmo mundo, sem motor ou navegador. */ |
+| JSDoc integral | /** Coletor de evidências: corpos inertes no mesmo mundo, sem motor ou navegador.<br> * @contract f-cce6c0793c2585ad<br> */ |
 
 </details>
 
@@ -855,9 +855,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>scripts/validar-hidrodinamica.ts::avancar:FunctionDeclaration</code> · [fonte L23](../../scripts/validar-hidrodinamica.ts#L23) |
+| Identificador | <code>scripts/validar-hidrodinamica.ts::avancar:FunctionDeclaration</code> · [fonte L26](../../scripts/validar-hidrodinamica.ts#L26) |
 | Assinatura | <code> (p: ReturnType&lt;typeof criar&gt;, segundos: number): { estado: EstadoFisico; imersao: EstadoImersao; integridade: number; massaKg: number; }</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `{ estado: p.o.getEstadoFisico(), imersao: p.m.obterImersao(p.o)[0], integridade: p.o.integridadeEstrutural, massaKg: p.o.massaKg }`. Dependências diretas: `p.m.avancar`, `p.o.getEstadoFisico`, `p.m.obterImersao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>p: ReturnType&lt;typeof criar&gt;</code>; <code>segundos: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ estado: import("/media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/physics/objetos/base/Objeto").EstadoFisico; imersao: import("/media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/physics/agua/SistemaHidrodinamico").EstadoImersao; integridade: number; massaKg: number; }</code>; expressões retornadas: <code>{ estado: p.o.getEstadoFisico(), imersao: p.m.obterImersao(p.o)[0], integridade: p.o.integridadeEstrutural, massaKg: p.o.massaKg }</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>n</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -865,7 +865,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Devolve `{ estado: p.o.getEstadoFisico(), imersao: p.m.obterImersao(p.o)[0], integridade: p.o.integridadeEstrutural, massaKg: p.o.massaKg }`. Dependências diretas: `p.m.avancar`, `p.o.getEstadoFisico`, `p.m.obterImersao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-930543e3bb9ffa60 */ |
 
 </details>
 
@@ -874,9 +874,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>scripts/validar-hidrodinamica.ts::energia:ArrowFunction</code> · [fonte L46](../../scripts/validar-hidrodinamica.ts#L46) |
+| Identificador | <code>scripts/validar-hidrodinamica.ts::energia:ArrowFunction</code> · [fonte L50](../../scripts/validar-hidrodinamica.ts#L50) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `0.5 * giro.o.massaKg * e.velocidadeMps.magnitude ** 2 + 0.5 * giro.o.getMomentoInerciaKgM2().z * e.velocidadeAngularRadps.z ** 2`. Dependências diretas: `giro.o.getEstadoFisico`, `giro.o.getMomentoInerciaKgM2`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>0.5 * giro.o.massaKg * e.velocidadeMps.magnitude ** 2 + 0.5 * giro.o.getMomentoInerciaKgM2().z * e.velocidadeAngularRadps.z ** 2</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -884,7 +884,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Devolve `0.5 * giro.o.massaKg * e.velocidadeMps.magnitude ** 2 + 0.5 * giro.o.getMomentoInerciaKgM2().z * e.velocidadeAngularRadps.z ** 2`. Dependências diretas: `giro.o.getEstadoFisico`, `giro.o.getMomentoInerciaKgM2`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f5c4e74607c32ba4 */ |
 
 </details>
 
@@ -897,17 +897,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/CameraMissao.ts::CameraMissao.constructor:Constructor</code> · [fonte L11](../../src/apresentacao/missao/CameraMissao.ts#L11) |
+| Identificador | <code>src/apresentacao/missao/CameraMissao.ts::CameraMissao.constructor:Constructor</code> · [fonte L12](../../src/apresentacao/missao/CameraMissao.ts#L12) |
 | Assinatura | <code>public (o: ObservacaoBss006, larguraPx: number, alturaPx: number, metrosPorPixel: number): CameraMissao</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Constrói base de observação radial/tangencial no corpo observado e centro visual 5 m acima do casco; configura escala m/pixel e viewport em pixels, sem modificar o referencial físico. |
 | Entradas | <code>o: ObservacaoBss006</code>; <code>public readonly larguraPx: number</code>; <code>public readonly alturaPx: number</code>; <code>public readonly metrosPorPixel: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CameraMissao</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>this.larguraPx</code>; <code>this.alturaPx</code>; <code>this.metrosPorPixel</code>; <code>this.radial</code>; <code>this.tangencial</code>; <code>this.centroM</code>; <code>this.projecao</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>o.casco.posicaoM.subtrair</code>; <code>Vetor3</code>; <code>r.multiplicar</code>; <code>o.casco.posicaoM.adicionar</code>; <code>this.radial.multiplicar</code>; <code>CameraFisica2D</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/apresentacao/missao/CameraMissao.test.ts](../../src/apresentacao/missao/CameraMissao.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Constrói base de observação radial/tangencial no corpo observado e centro visual 5 m acima do casco; configura escala m/pixel e viewport em pixels, sem modificar o referencial físico. @contract f-09a1763e24b38923 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -916,17 +916,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/CameraMissao.ts::CameraMissao.projetar:MethodDeclaration</code> · [fonte L21](../../src/apresentacao/missao/CameraMissao.ts#L21) |
+| Identificador | <code>src/apresentacao/missao/CameraMissao.ts::CameraMissao.projetar:MethodDeclaration</code> · [fonte L23](../../src/apresentacao/missao/CameraMissao.ts#L23) |
 | Assinatura | <code>public (p: { readonly x: number; readonly y: number; readonly z: number; }): { x: number; y: number; }</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Projeta posição global m na base local da câmera e converte para pixels com Y invertido para Canvas. |
 | Entradas | <code>p: { readonly x: number; readonly y: number; readonly z: number }</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ x: number; y: number; }</code>; expressões retornadas: <code>this.projecao.projetar(new Vetor3(delta.produtoEscalar(this.tangencial), delta.produtoEscalar(this.radial), 0))</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>new Vetor3(p.x, p.y, p.z).subtrair</code>; <code>Vetor3</code>; <code>this.projecao.projetar</code>; <code>delta.produtoEscalar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/apresentacao/missao/CameraMissao.test.ts](../../src/apresentacao/missao/CameraMissao.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Projeta posição global m na base local da câmera e converte para pixels com Y invertido para Canvas. @contract f-a1e2f780f72e3f4e @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -935,17 +935,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/CameraMissao.ts::CameraMissao.anguloCanvas:MethodDeclaration</code> · [fonte L25](../../src/apresentacao/missao/CameraMissao.ts#L25) |
+| Identificador | <code>src/apresentacao/missao/CameraMissao.ts::CameraMissao.anguloCanvas:MethodDeclaration</code> · [fonte L28](../../src/apresentacao/missao/CameraMissao.ts#L28) |
 | Assinatura | <code>public (theta: number): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Transforma eixo físico de ângulo rad para a base visual local e inverte sinal para Y descendente; não escreve atitude física. |
 | Entradas | <code>theta: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>-Math.atan2(eixo.produtoEscalar(this.radial), eixo.produtoEscalar(this.tangencial))</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Vetor3</code>; <code>Math.cos</code>; <code>Math.sin</code>; <code>Math.atan2</code>; <code>eixo.produtoEscalar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/apresentacao/missao/CameraMissao.test.ts](../../src/apresentacao/missao/CameraMissao.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Transforma eixo físico de ângulo rad para a base visual local e inverte sinal para Y descendente; não escreve atitude física. @contract f-4f2bd3e5976bba3a @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -954,17 +954,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/CameraMissao.ts::CameraMissao.pontoNaTela:MethodDeclaration</code> · [fonte L29](../../src/apresentacao/missao/CameraMissao.ts#L29) |
+| Identificador | <code>src/apresentacao/missao/CameraMissao.ts::CameraMissao.pontoNaTela:MethodDeclaration</code> · [fonte L33](../../src/apresentacao/missao/CameraMissao.ts#L33) |
 | Assinatura | <code>public (x: number, y: number): Vetor3</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Converte coordenadas de tela em pixels para ponto global m na carta tangente da câmera; consulta, sem reposicionar corpo. |
 | Entradas | <code>x: number</code>; <code>y: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: <code>this.centroM.adicionar(this.tangencial.multiplicar(q.x)).adicionar(this.radial.multiplicar(q.y))</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.projecao.desprojetar</code>; <code>this.centroM.adicionar(this.tangencial.multiplicar(q.x)).adicionar</code>; <code>this.centroM.adicionar</code>; <code>this.tangencial.multiplicar</code>; <code>this.radial.multiplicar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/apresentacao/missao/CameraMissao.test.ts](../../src/apresentacao/missao/CameraMissao.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Converte coordenadas de tela em pixels para ponto global m na carta tangente da câmera; consulta, sem reposicionar corpo. @contract f-d12f526207c205f7 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -977,17 +977,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor:Constructor</code> · [fonte L23](../../src/apresentacao/missao/CenaMissao.ts#L23) |
+| Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor:Constructor</code> · [fonte L24](../../src/apresentacao/missao/CenaMissao.ts#L24) |
 | Assinatura | <code>public (raiz: HTMLElement): CenaMissao</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Compõe missão registrada, executor fixo, entrada e renderer; instala listeners DOM/RAF, conservando física executável sem navegador. |
 | Entradas | <code>private readonly raiz: HTMLElement</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenaMissao</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>this.raiz</code>; <code>this.renderer</code>; <code>this.quadro</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>RenderizadorMissao</code>; <code>raiz.querySelector</code>; <code>conectarEntradaMissao</code>; <code>raiz.querySelector&lt;HTMLInputElement&gt;('#zoom')!.addEventListener</code>; <code>raiz.querySelector&lt;HTMLSelectElement&gt;('#variante-missao')!.addEventListener</code>; <code>window.addEventListener</code>; <code>requestAnimationFrame</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Compõe missão registrada, executor fixo, entrada e renderer; instala listeners DOM/RAF, conservando física executável sem navegador. @contract f-630f6c4cff870920 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -996,17 +996,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor.comando:ArrowFunction</code> · [fonte L26](../../src/apresentacao/missao/CenaMissao.ts#L26) |
+| Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor.comando:ArrowFunction</code> · [fonte L28](../../src/apresentacao/missao/CenaMissao.ts#L28) |
 | Assinatura | <code> (c: ComandoBss006): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `this.comandar(c)`. Dependências diretas: `this.comandar`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | <code>c</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: <code>this.comandar(c)</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.comandar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `this.comandar(c)`. Dependências diretas: `this.comandar`. Efeitos indiretos seguem as dependências chamadas. @contract f-bf3cbad72d905219 */ |
 
 </details>
 
@@ -1015,17 +1015,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor.sistema:ArrowFunction</code> · [fonte L26](../../src/apresentacao/missao/CenaMissao.ts#L26) |
+| Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor.sistema:ArrowFunction</code> · [fonte L29](../../src/apresentacao/missao/CenaMissao.ts#L29) |
 | Assinatura | <code> (sistema: SistemaBss): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `this.comandar({ tipo: 'sistema', sistema, ligar: !this.observacao.sistemas[sistema] })`. Dependências diretas: `this.comandar`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | <code>sistema</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: <code>this.comandar({ tipo: 'sistema', sistema, ligar: !this.observacao.sistemas[sistema] })</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.comandar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `this.comandar({ tipo: 'sistema', sistema, ligar: !this.observacao.sistemas[sistema] })`. Dependências diretas: `this.comandar`. Efeitos indiretos seguem as dependências chamadas. @contract f-9b0f3b326cfb1428 */ |
 
 </details>
 
@@ -1034,9 +1034,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor.iniciar:ArrowFunction</code> · [fonte L27](../../src/apresentacao/missao/CenaMissao.ts#L27) |
+| Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor.iniciar:ArrowFunction</code> · [fonte L31](../../src/apresentacao/missao/CenaMissao.ts#L31) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Escritas diretas: `this.ultimaMedicaoMs`. Dependências diretas: `this.missao.iniciar`, `this.executor.suspenderReferenciaRelogio`, `this.marcarAtualizacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>this.ultimaMedicaoMs</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -1044,7 +1044,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Escritas diretas: `this.ultimaMedicaoMs`. Dependências diretas: `this.missao.iniciar`, `this.executor.suspenderReferenciaRelogio`, `this.marcarAtualizacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0cb26e3d6ed78dae */ |
 
 </details>
 
@@ -1053,9 +1053,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor.pausar:ArrowFunction</code> · [fonte L28](../../src/apresentacao/missao/CenaMissao.ts#L28) |
+| Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor.pausar:ArrowFunction</code> · [fonte L33](../../src/apresentacao/missao/CenaMissao.ts#L33) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `this.missao.pausar`, `this.executor.suspenderReferenciaRelogio`, `this.marcarAtualizacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -1063,7 +1063,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `this.missao.pausar`, `this.executor.suspenderReferenciaRelogio`, `this.marcarAtualizacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-708b37502b6ec84d */ |
 
 </details>
 
@@ -1072,17 +1072,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor.reiniciar:ArrowFunction</code> · [fonte L29](../../src/apresentacao/missao/CenaMissao.ts#L29) |
+| Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor.reiniciar:ArrowFunction</code> · [fonte L35](../../src/apresentacao/missao/CenaMissao.ts#L35) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `this.reiniciar()`. Dependências diretas: `this.reiniciar`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: <code>this.reiniciar()</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.reiniciar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `this.reiniciar()`. Dependências diretas: `this.reiniciar`. Efeitos indiretos seguem as dependências chamadas. @contract f-1a39899b6cf3205c */ |
 
 </details>
 
@@ -1091,17 +1091,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor.exportar:ArrowFunction</code> · [fonte L29](../../src/apresentacao/missao/CenaMissao.ts#L29) |
+| Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor.exportar:ArrowFunction</code> · [fonte L36](../../src/apresentacao/missao/CenaMissao.ts#L36) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `this.exportar()`. Dependências diretas: `this.exportar`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: <code>this.exportar()</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.exportar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `this.exportar()`. Dependências diretas: `this.exportar`. Efeitos indiretos seguem as dependências chamadas. @contract f-2106287cca02f63f */ |
 
 </details>
 
@@ -1110,17 +1110,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.marcarAtualizacao:MethodDeclaration</code> · [fonte L37](../../src/apresentacao/missao/CenaMissao.ts#L37) |
+| Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.marcarAtualizacao:MethodDeclaration</code> · [fonte L45](../../src/apresentacao/missao/CenaMissao.ts#L45) |
 | Assinatura | <code>private (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Implementação local sem chamadas diretas. |
+| Responsabilidade | Marca desenho/HUD como sujos e atualização urgente, sem avançar simulação. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>this.sujo</code>; <code>this.hudSujo</code>; <code>this.urgente</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Marca desenho/HUD como sujos e atualização urgente, sem avançar simulação. @contract f-9c6ec7d588d5e2fc @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -1129,17 +1129,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.mensagem:MethodDeclaration</code> · [fonte L38](../../src/apresentacao/missao/CenaMissao.ts#L38) |
+| Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.mensagem:MethodDeclaration</code> · [fonte L47](../../src/apresentacao/missao/CenaMissao.ts#L47) |
 | Assinatura | <code>private (texto: string): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Escreve retorno operacional no elemento DOM próprio; não registra evento físico. |
 | Entradas | <code>texto: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>this.raiz.querySelector&lt;HTMLElement&gt;('#retorno-comando')!.textContent</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.raiz.querySelector</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Escreve retorno operacional no elemento DOM próprio; não registra evento físico. @contract f-54f7fcafad1eb931 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -1148,17 +1148,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.comandar:MethodDeclaration</code> · [fonte L39](../../src/apresentacao/missao/CenaMissao.ts#L39) |
+| Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.comandar:MethodDeclaration</code> · [fonte L49](../../src/apresentacao/missao/CenaMissao.ts#L49) |
 | Assinatura | <code>private (c: ComandoBss006): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Envia comando tipado à missão, apresenta aceitação/erro e atualiza snapshot/sujeira visual; nunca escreve posição/velocidade/atitude. |
 | Entradas | <code>c: ComandoBss006</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>this.observacao</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.missao.receberComando</code>; <code>this.mensagem</code>; <code>String</code>; <code>this.missao.observar</code>; <code>this.marcarAtualizacao</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Envia comando tipado à missão, apresenta aceitação/erro e atualiza snapshot/sujeira visual; nunca escreve posição/velocidade/atitude. @contract f-18f382686eb228e0 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -1167,17 +1167,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.reiniciar:MethodDeclaration</code> · [fonte L44](../../src/apresentacao/missao/CenaMissao.ts#L44) |
+| Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.reiniciar:MethodDeclaration</code> · [fonte L55](../../src/apresentacao/missao/CenaMissao.ts#L55) |
 | Assinatura | <code>private (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Valida nova missão a partir das entradas de ambiente/ensaio; somente após criação bem-sucedida substitui instância, snapshot e acumulador. Reinício cria mundo novo, sem reaproveitar estado residual. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>this.missao</code>; <code>this.observacao</code>; <code>this.ultimaMedicaoMs</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number</code>; <code>this.raiz.querySelector</code>; <code>criarMissaoBss006Registrada</code>; <code>nova.observar</code>; <code>this.executor.reiniciar</code>; <code>this.marcarAtualizacao</code>; <code>this.mensagem</code>; <code>String</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida nova missão a partir das entradas de ambiente/ensaio; somente após criação bem-sucedida substitui instância, snapshot e acumulador. Reinício cria mundo novo, sem reaproveitar estado residual. @contract f-cc063152380833eb @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -1186,17 +1186,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.exportar:MethodDeclaration</code> · [fonte L56](../../src/apresentacao/missao/CenaMissao.ts#L56) |
+| Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.exportar:MethodDeclaration</code> · [fonte L68](../../src/apresentacao/missao/CenaMissao.ts#L68) |
 | Assinatura | <code>private (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Serializa diário em Blob JSON, aciona download e revoga URL temporária; efeito do navegador, sem persistir por API de domínio. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>a.href</code>; <code>a.download</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>URL.createObjectURL</code>; <code>Blob</code>; <code>JSON.stringify</code>; <code>this.missao.exportar</code>; <code>document.createElement</code>; <code>a.click</code>; <code>URL.revokeObjectURL</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Serializa diário em Blob JSON, aciona download e revoga URL temporária; efeito do navegador, sem persistir por API de domínio. @contract f-cf0b7fb5e08d2ccf @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -1205,17 +1205,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.animar:MethodDeclaration</code> · [fonte L60](../../src/apresentacao/missao/CenaMissao.ts#L60) |
+| Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.animar:MethodDeclaration</code> · [fonte L73](../../src/apresentacao/missao/CenaMissao.ts#L73) |
 | Assinatura | <code>private (instanteMs: number): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Consome relógio RAF com orçamento cooperativo de 12 ms/240 passos por quadro; mantém dt físico e fila pendente. Desenha a 30 Hz e HUD a 10 Hz quando necessário, informa ritmo/atraso e pausa missão em erro; não descarta passos para fingir tempo real. |
 | Entradas | <code>instanteMs: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>this.sujo</code>; <code>this.hudSujo</code>; <code>this.ultimaMedicaoMs</code>; <code>this.passoMedicao</code>; <code>this.ritmo</code>; <code>this.observacao</code>; <code>canvas.dataset.altitude</code>; <code>canvas.dataset.passo</code>; <code>canvas.dataset.cameraX</code>; <code>canvas.dataset.cameraY</code>; <code>canvas.dataset.estadoAquatico</code>; <code>canvas.dataset.volumeSubmerso</code>; <code>canvas.dataset.integridade</code>; <code>this.ultimaPinturaMs</code>; <code>status.textContent</code>; <code>status.dataset.atrasoS</code>; <code>status.dataset.ritmo</code>; <code>this.ultimoHudMs</code>; <code>this.urgente</code>; <code>this.quadro</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number</code>; <code>this.raiz.querySelector</code>; <code>performance.now</code>; <code>this.executor.avancarAte</code>; <code>this.missao.observar</code>; <code>this.renderer.desenhar</code>; <code>String</code>; <code>Math.floor</code>; <code>atualizarHudMissao</code>; <code>this.missao.obterEventos</code>; <code>this.ritmo.toFixed</code>; <code>atraso.toFixed</code>; <code>this.missao.pausar</code>; <code>this.executor.suspenderReferenciaRelogio</code>; <code>this.marcarAtualizacao</code>; <code>this.mensagem</code>; <code>console.error</code>; <code>requestAnimationFrame</code> |
-| Invariantes | Contrato documentado abaixo; ramos observados: <code>this.missao.estadoExecucao === 'executando'</code>; <code>this.executor.avancarAte(instanteMs, escala, () =&gt; this.missao.avancarPasso(), { maxPassos: 240, continuar: () =&gt; performance.now() &lt; prazoMs }) &gt; 0</code>; <code>this.ultimaMedicaoMs === undefined</code>; <code>instanteMs - this.ultimaMedicaoMs &gt;= 1000</code>; <code>desenhar &#124;&#124; hud</code>; <code>desenhar</code>; <code>hud</code>; <code>status.textContent !== texto</code>; exceções: — |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>this.missao.estadoExecucao === 'executando'</code>; <code>this.executor.avancarAte(instanteMs, escala, () =&gt; this.missao.avancarPasso(), { maxPassos: 240, /** Devolve `performance.now() &lt; prazoMs`. Dependências diretas: `performance.now`. Efeitos indiretos seguem as dependências chamadas. @contrac… [continua na fonte]</code>; <code>this.ultimaMedicaoMs === undefined</code>; <code>instanteMs - this.ultimaMedicaoMs &gt;= 1000</code>; <code>desenhar &#124;&#124; hud</code>; <code>desenhar</code>; <code>hud</code>; <code>status.textContent !== texto</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consome relógio RAF com orçamento cooperativo de 12 ms/240 passos por quadro; mantém dt físico e fila pendente. Desenha a 30 Hz e HUD a 10 Hz quando necessário, informa ritmo/atraso e pausa missão em erro; não descarta passos para fingir tempo real. @contract f-5b7ae7bc0ea70206 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -1224,17 +1224,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.animar.continuar:ArrowFunction</code> · [fonte L66](../../src/apresentacao/missao/CenaMissao.ts#L66) |
+| Identificador | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.animar.continuar:ArrowFunction</code> · [fonte L80](../../src/apresentacao/missao/CenaMissao.ts#L80) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `performance.now() &lt; prazoMs`. Dependências diretas: `performance.now`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>performance.now() &lt; prazoMs</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>performance.now</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `performance.now() &lt; prazoMs`. Dependências diretas: `performance.now`. Efeitos indiretos seguem as dependências chamadas. @contract f-dc9635a920b0a93e */ |
 
 </details>
 
@@ -1361,7 +1361,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao:FunctionDeclaration</code> · [fonte L12](../../src/apresentacao/missao/EntradaMissao.ts#L12) |
+| Identificador | <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao:FunctionDeclaration</code> · [fonte L14](../../src/apresentacao/missao/EntradaMissao.ts#L14) |
 | Assinatura | <code>export (raiz: HTMLElement, acoes: AcoesApresentacaoMissao): void</code> |
 | Responsabilidade | Tradução de entrada para comandos sem conhecer composição física ou mundo. |
 | Entradas | <code>raiz: HTMLElement</code>; <code>acoes: AcoesApresentacaoMissao</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -1371,7 +1371,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Tradução de entrada para comandos sem conhecer composição física ou mundo. */ |
+| JSDoc integral | /** Tradução de entrada para comandos sem conhecer composição física ou mundo.<br> * @contract f-cdc6f2cd67e61409<br> */ |
 
 </details>
 
@@ -1380,17 +1380,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.clique:ArrowFunction</code> · [fonte L13](../../src/apresentacao/missao/EntradaMissao.ts#L13) |
+| Identificador | <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.clique:ArrowFunction</code> · [fonte L16](../../src/apresentacao/missao/EntradaMissao.ts#L16) |
 | Assinatura | <code> (id: string, agir: () =&gt; void): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Associa botão identificado ao callback operacional recebido; instala listener DOM, sem conhecer mundo físico. |
 | Entradas | <code>id: string</code>; <code>agir: () =&gt; void</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: <code>raiz.querySelector&lt;HTMLButtonElement&gt;(`#${id}`)!.addEventListener('click', agir)</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>raiz.querySelector&lt;HTMLButtonElement&gt;(`#${id}`)!.addEventListener</code>; <code>raiz.querySelector</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Associa botão identificado ao callback operacional recebido; instala listener DOM, sem conhecer mundo físico. @contract f-eb84b82e48a5991b @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -1399,7 +1399,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.clique.agir[tipo]:FunctionType</code> · [fonte L13](../../src/apresentacao/missao/EntradaMissao.ts#L13) |
+| Identificador | <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.clique.agir[tipo]:FunctionType</code> · [fonte L16](../../src/apresentacao/missao/EntradaMissao.ts#L16) |
 | Assinatura | <code> (): void</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -1422,17 +1422,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/HudMissao.ts::atualizarHudMissao:FunctionDeclaration</code> · [fonte L4](../../src/apresentacao/missao/HudMissao.ts#L4) |
+| Identificador | <code>src/apresentacao/missao/HudMissao.ts::atualizarHudMissao:FunctionDeclaration</code> · [fonte L5](../../src/apresentacao/missao/HudMissao.ts#L5) |
 | Assinatura | <code>export (raiz: HTMLElement, o: ObservacaoBss006, eventos: readonly EventoMissao[]): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Atualiza textos, permissivos visuais, controles, objetivos e eventos a partir do snapshot/eventos reais; só substitui textos/listas quando mudam. Converte SI para apresentação; não envia forças ou altera cinemática. |
 | Entradas | <code>raiz: HTMLElement</code>; <code>o: ObservacaoBss006</code>; <code>eventos: readonly EventoMissao[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>raiz.querySelector&lt;HTMLElement&gt;('#configuracao-aquatica')!.hidden</code>; <code>raiz.querySelector&lt;HTMLElement&gt;('#painel-aquatico')!.hidden</code>; <code>throttle.value</code>; <code>throttle.disabled</code>; <code>raiz.querySelector&lt;HTMLButtonElement&gt;('#pausar')!.disabled</code>; <code>iniciar.disabled</code>; <code>iniciar.textContent</code>; <code>raiz.querySelector&lt;HTMLButtonElement&gt;('#aplicar-alvo')!.disabled</code>; <code>raiz.querySelector&lt;HTMLInputElement&gt;('#alvo-pouso')!.disabled</code>; <code>objetivos.dataset.chave</code>; <code>lista.dataset.chave</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>raiz.querySelector</code>; <code>texto</code>; <code>a.estado.replaceAll</code>; <code>(a.fracaoSubmersa * 100).toFixed</code>; <code>a.volumeSubmersoM3.toFixed</code>; <code>a.volumeDeslocavelM3.toFixed</code>; <code>a.forcaEmpuxoN.magnitude.toFixed</code>; <code>a.forcaArrastoN.magnitude.toFixed</code>; <code>a.momentoHidrodinamicoNm.z.toFixed</code>; <code>graus</code>; <code>a.velocidadeEntradaMps.toFixed</code>; <code>(a.energiaEntradaJ / 1000).toFixed</code>; <code>a.equilibrioContinuoS.toFixed</code>; <code>coord</code>; <code>o.altitudeM.toFixed</code>; <code>o.velocidadeRadialMps.toFixed</code>; <code>o.velocidadeTangencialMps.toFixed</code>; <code>o.tempoS.toFixed</code>; <code>(o.empuxoN / 1000).toFixed</code>; <code>o.vazaoKgS.toFixed</code>; <code>o.metanoKg.toFixed</code>; <code>o.oxidanteKg.toFixed</code>; <code>o.engenharia.massaKg.toFixed</code>; <code>(o.energiaEletricaJ / 10000).toFixed</code>; <code>(o.integridadeMinima * 100).toFixed</code>; <code>o.corpos.filter(c =&gt; c.deflexaoRad !== undefined).map(c =&gt; `${graus(c.deflexaoRad!)}°`).join</code>; <code>o.corpos.filter(c =&gt; c.deflexaoRad !== undefined).map</code>; <code>o.corpos.filter</code>; <code>o.alvoPousoLocalM.toFixed</code>; <code>o.erroAlvoM.toFixed</code>; <code>(o.throttle * 100).toFixed</code>; <code>String</code>; <code>raiz.querySelectorAll</code>; <code>b.setAttribute</code>; <code>raiz.querySelector&lt;HTMLButtonElement&gt;(`#modo-${modo}`)!.setAttribute</code>; <code>o.objetivos.find</code>; <code>o.corpos.map(c =&gt; `${c.id}: ${(c.integridade * 100).toFixed(1)}% · ${c.massaKg.toFixed(1)} kg`).join</code>; <code>o.corpos.map</code>; <code>o.fixadores.filter</code>; <code>o.pouso.repousoGeometricoS.toFixed</code>; <code>o.pouso.apoioBilateralSustentadoS.toFixed</code>; <code>JSON.stringify</code>; <code>objetivos.replaceChildren</code>; <code>o.objetivos.map</code>; <code>eventos.slice</code>; <code>lista.replaceChildren</code>; <code>eventos.slice(-14).reverse().map</code>; <code>eventos.slice(-14).reverse</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>o.aquatico</code>; <code>objetivos.dataset.chave !== chaveObjetivos</code>; <code>lista.dataset.chave !== chaveEventos</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Atualiza textos, permissivos visuais, controles, objetivos e eventos a partir do snapshot/eventos reais; só substitui textos/listas quando mudam. Converte SI para apresentação; não envia forças ou altera cinemática. @contract f-ebea6b265766d795 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -1441,17 +1441,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/HudMissao.ts::atualizarHudMissao.texto:ArrowFunction</code> · [fonte L5](../../src/apresentacao/missao/HudMissao.ts#L5) |
+| Identificador | <code>src/apresentacao/missao/HudMissao.ts::atualizarHudMissao.texto:ArrowFunction</code> · [fonte L7](../../src/apresentacao/missao/HudMissao.ts#L7) |
 | Assinatura | <code> (id: string, valor: string): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Atualiza textContent do elemento identificado somente se valor mudou; efeito limitado ao DOM. |
 | Entradas | <code>id: string</code>; <code>valor: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>e.textContent</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>raiz.querySelector</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>e.textContent !== valor</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Atualiza textContent do elemento identificado somente se valor mudou; efeito limitado ao DOM. @contract f-a2ab2d179d0347df @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -1460,17 +1460,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/HudMissao.ts::atualizarHudMissao.graus:ArrowFunction</code> · [fonte L6](../../src/apresentacao/missao/HudMissao.ts#L6) |
+| Identificador | <code>src/apresentacao/missao/HudMissao.ts::atualizarHudMissao.graus:ArrowFunction</code> · [fonte L9](../../src/apresentacao/missao/HudMissao.ts#L9) |
 | Assinatura | <code> (rad: number): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Converte radianos em string de graus com duas casas decimais, somente para apresentação. |
 | Entradas | <code>rad: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>(rad * 180 / Math.PI).toFixed(2)</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>(rad * 180 / Math.PI).toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Converte radianos em string de graus com duas casas decimais, somente para apresentação. @contract f-778f2164cc37fff1 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -1479,17 +1479,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/HudMissao.ts::atualizarHudMissao.coord:ArrowFunction</code> · [fonte L10](../../src/apresentacao/missao/HudMissao.ts#L10) |
+| Identificador | <code>src/apresentacao/missao/HudMissao.ts::atualizarHudMissao.coord:ArrowFunction</code> · [fonte L14](../../src/apresentacao/missao/HudMissao.ts#L14) |
 | Assinatura | <code> (p?: { x: number; y: number; }): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `p ? `(${p.x.toFixed(3)}, ${p.y.toFixed(3)}) m` : 'não definido (seco)'`. Dependências diretas: `p.x.toFixed`, `p.y.toFixed`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | <code>p?: { x: number; y: number }</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>p ? `(${p.x.toFixed(3)}, ${p.y.toFixed(3)}) m` : 'não definido (seco)'</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>p.x.toFixed</code>; <code>p.y.toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `p ? `(${p.x.toFixed(3)}, ${p.y.toFixed(3)}) m` : 'não definido (seco)'`. Dependências diretas: `p.x.toFixed`, `p.y.toFixed`. Efeitos indiretos seguem as dependências chamadas. @contract f-4658bb1bc12af96f */ |
 
 </details>
 
@@ -1502,17 +1502,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/RenderizadorMissao.ts::COR:ArrowFunction</code> · [fonte L8](../../src/apresentacao/missao/RenderizadorMissao.ts#L8) |
+| Identificador | <code>src/apresentacao/missao/RenderizadorMissao.ts::COR:ArrowFunction</code> · [fonte L9](../../src/apresentacao/missao/RenderizadorMissao.ts#L9) |
 | Assinatura | <code> (c: CorpoObservado): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Seleciona cor visual por integridade e identificação do componente; não modifica material ou resistência física. |
 | Entradas | <code>c: CorpoObservado</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>c.integridade &lt;= 0 ? '#57464d' : c.id.includes('grid-fin') ? '#57cfbb' : c.id.includes('tanque') ? '#d8e5ec' : c.id.includes('bateria') ? '#ffd56b' : c.id.includes('painel') ? '#408dba' : c.id.includes('perna') &#124;&#124; c.id.includes('sapata') ? … [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>c.id.includes</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Seleciona cor visual por integridade e identificação do componente; não modifica material ou resistência física. @contract f-3676bd6b2dc965cc @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -1521,17 +1521,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.constructor:Constructor</code> · [fonte L14](../../src/apresentacao/missao/RenderizadorMissao.ts#L14) |
+| Identificador | <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.constructor:Constructor</code> · [fonte L16](../../src/apresentacao/missao/RenderizadorMissao.ts#L16) |
 | Assinatura | <code>public (canvas: HTMLCanvasElement): RenderizadorMissao</code> |
-| Responsabilidade | Hook sem operação nesta implementação; especializações podem fornecer efeitos. REVISÃO NECESSÁRIA. |
+| Responsabilidade | Armazena o Canvas recebido como dependência da apresentação; não cria mundo, veículo ou estado cinemático. |
 | Entradas | <code>private readonly canvas: HTMLCanvasElement</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>RenderizadorMissao</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>this.canvas</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Armazena o Canvas recebido como dependência da apresentação; não cria mundo, veículo ou estado cinemático. @contract f-a48165072826f3d5 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -1540,17 +1540,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.desenhar:MethodDeclaration</code> · [fonte L15](../../src/apresentacao/missao/RenderizadorMissao.ts#L15) |
+| Identificador | <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.desenhar:MethodDeclaration</code> · [fonte L18](../../src/apresentacao/missao/RenderizadorMissao.ts#L18) |
 | Assinatura | <code>public (o: ObservacaoBss006, metrosPorPixel: number): CameraMissao</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Ajusta viewport por DPR, cria câmera radial, desenha terreno/infraestrutura/corpos/cabos/água e réguas a partir do snapshot. Devolve câmera usada; alterações limitadas ao Canvas. |
 | Entradas | <code>o: ObservacaoBss006</code>; <code>metrosPorPixel: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CameraMissao</code>; expressões retornadas: <code>camera</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>this.canvas.width</code>; <code>this.canvas.height</code>; <code>ctx.fillStyle</code>; <code>ctx.lineWidth</code>; <code>ctx.strokeStyle</code>; <code>ctx.font</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.max</code>; <code>Math.round</code>; <code>this.canvas.getContext</code>; <code>ctx.setTransform</code>; <code>CameraMissao</code>; <code>ctx.createLinearGradient</code>; <code>ceu.addColorStop</code>; <code>ctx.fillRect</code>; <code>this.terreno</code>; <code>this.infraestrutura</code>; <code>o.corpos.find</code>; <code>o.fixadores.filter</code>; <code>camera.projetar</code>; <code>ctx.beginPath</code>; <code>ctx.moveTo</code>; <code>ctx.lineTo</code>; <code>ctx.stroke</code>; <code>this.corpo</code>; <code>o.conexoesEletricas.entries</code>; <code>terminalEletricoDoEstadoM</code>; <code>Math.min</code>; <code>ctx.setLineDash</code>; <code>this.agua</code>; <code>ctx.fillText</code>; <code>this.reguas</code>; <code>o.tempoS.toFixed</code>; <code>o.fase.toUpperCase</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>this.canvas.width !== Math.round(largura * dpr) &#124;&#124; this.canvas.height !== Math.round(altura * dpr)</code>; <code>!modulo</code>; <code>!fonte &#124;&#124; !destino</code>; <code>o.cenario.costa</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Ajusta viewport por DPR, cria câmera radial, desenha terreno/infraestrutura/corpos/cabos/água e réguas a partir do snapshot. Devolve câmera usada; alterações limitadas ao Canvas. @contract f-c42931f061c17c1d @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -1559,17 +1559,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.terreno:MethodDeclaration</code> · [fonte L55](../../src/apresentacao/missao/RenderizadorMissao.ts#L55) |
+| Identificador | <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.terreno:MethodDeclaration</code> · [fonte L59](../../src/apresentacao/missao/RenderizadorMissao.ts#L59) |
 | Assinatura | <code>private (ctx: CanvasRenderingContext2D, camera: CameraMissao, o: ObservacaoBss006): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Reconstrói perfil visual esférico/costeiro usando os parâmetros do domínio e preenche terreno/fundo. Na variante terrestre, costa distante é decorativa; não instala superfícies físicas. |
 | Entradas | <code>ctx: CanvasRenderingContext2D</code>; <code>camera: CameraMissao</code>; <code>o: ObservacaoBss006</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>px</code>; <code>ctx.fillStyle</code>; <code>ctx.strokeStyle</code>; <code>ctx.lineWidth</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Vetor3</code>; <code>ReferencialEsferico</code>; <code>GeografiaCosteira</code>; <code>ctx.beginPath</code>; <code>camera.pontoNaTela(px, camera.alturaPx / 2).subtrair</code>; <code>camera.pontoNaTela</code>; <code>eixo.produtoEscalar</code>; <code>Math.sqrt</code>; <code>Math.max</code>; <code>centro.adicionar(camera.tangencial.multiplicar(x)).adicionar</code>; <code>centro.adicionar</code>; <code>camera.tangencial.multiplicar</code>; <code>camera.radial.multiplicar</code>; <code>camera.projetar</code>; <code>ref.posicaoPorArcoM</code>; <code>ref.posicaoHorizontalM</code>; <code>costa.alturaSoloM</code>; <code>ctx.moveTo</code>; <code>ctx.lineTo</code>; <code>ctx.closePath</code>; <code>ctx.fill</code>; <code>ctx.stroke</code>; <code>this.agua</code>; <code>ctx.fillRect</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>px === -10</code>; <code>costa</code>; <code>base.y &lt; camera.alturaPx &amp;&amp; base.y &gt; -10</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Reconstrói perfil visual esférico/costeiro usando os parâmetros do domínio e preenche terreno/fundo. Na variante terrestre, costa distante é decorativa; não instala superfícies físicas. @contract f-2ffc8bf2c15f0a7b @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -1578,7 +1578,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.agua:MethodDeclaration</code> · [fonte L77](../../src/apresentacao/missao/RenderizadorMissao.ts#L77) |
+| Identificador | <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.agua:MethodDeclaration</code> · [fonte L86](../../src/apresentacao/missao/RenderizadorMissao.ts#L86) |
 | Assinatura | <code>private (ctx: CanvasRenderingContext2D, camera: CameraMissao, o: ObservacaoBss006, fundo?: boolean): void</code> |
 | Responsabilidade | Mesmo nível radial e perfil de fundo do domínio; máscara visual não participa da física. |
 | Entradas | <code>ctx: CanvasRenderingContext2D</code>; <code>camera: CameraMissao</code>; <code>o: ObservacaoBss006</code>; <code>fundo = false</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -1587,8 +1587,8 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Dependências | Chamadas/construções diretas: <code>Vetor3</code>; <code>ReferencialEsferico</code>; <code>GeografiaCosteira</code>; <code>camera.pontoNaTela(px, camera.alturaPx / 2).subtrair</code>; <code>camera.pontoNaTela</code>; <code>eixo.produtoEscalar</code>; <code>centro.adicionar(camera.tangencial.multiplicar(x)).adicionar</code>; <code>centro.adicionar</code>; <code>camera.tangencial.multiplicar</code>; <code>camera.radial.multiplicar</code>; <code>Math.sqrt</code>; <code>Math.max</code>; <code>ref.posicaoHorizontalM</code>; <code>costa.alturaSoloM</code>; <code>topo.push</code>; <code>camera.projetar</code>; <code>ref.posicaoPorArcoM</code>; <code>base.push</code>; <code>ctx.beginPath</code>; <code>topo.forEach</code>; <code>base.reverse</code>; <code>ctx.lineTo</code>; <code>ctx.closePath</code>; <code>ctx.fill</code>; <code>ctx.stroke</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Mesmo nível radial e perfil de fundo do domínio; máscara visual não participa da física. */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Mesmo nível radial e perfil de fundo do domínio; máscara visual não participa da física.<br>   * @contract f-6769fcccecc9f86a<br>   * @remarks Desenha máscara e linha livre pelo mesmo nível radial/perfil costeiro do domínio; opção fundo escolhe camada visual. Não aplica empuxo/contato nem move corpos.<br>   * @contract f-6769fcccecc9f86a<br>   * @reviewed M12-DOC: contrato confrontado com implementação.<br>   */ |
 
 </details>
 
@@ -1597,17 +1597,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.infraestrutura:MethodDeclaration</code> · [fonte L95](../../src/apresentacao/missao/RenderizadorMissao.ts#L95) |
+| Identificador | <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.infraestrutura:MethodDeclaration</code> · [fonte L105](../../src/apresentacao/missao/RenderizadorMissao.ts#L105) |
 | Assinatura | <code>private (ctx: CanvasRenderingContext2D, camera: CameraMissao, o: ObservacaoBss006): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Desenha demarcação da plataforma, torre visual e alvo na base radial/tangencial da âncora; não cria colisões, apoios ou restrições. |
 | Entradas | <code>ctx: CanvasRenderingContext2D</code>; <code>camera: CameraMissao</code>; <code>o: ObservacaoBss006</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>ctx.strokeStyle</code>; <code>ctx.lineWidth</code>; <code>y</code>; <code>ctx.font</code>; <code>ctx.fillStyle</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Vetor3</code>; <code>a.subtrair</code>; <code>r.multiplicar</code>; <code>ponto</code>; <code>ctx.beginPath</code>; <code>ctx.moveTo</code>; <code>ctx.lineTo</code>; <code>ctx.stroke</code>; <code>ctx.fillText</code>; <code>ctx.closePath</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Desenha demarcação da plataforma, torre visual e alvo na base radial/tangencial da âncora; não cria colisões, apoios ou restrições. @contract f-0c415726bed21e16 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -1616,17 +1616,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.infraestrutura.ponto:ArrowFunction</code> · [fonte L99](../../src/apresentacao/missao/RenderizadorMissao.ts#L99) |
+| Identificador | <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.infraestrutura.ponto:ArrowFunction</code> · [fonte L114](../../src/apresentacao/missao/RenderizadorMissao.ts#L114) |
 | Assinatura | <code> (x: number, y: number): { x: number; y: number; }</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `camera.projetar(a.adicionar(et.multiplicar(x)).adicionar(er.multiplicar(y)))`. Dependências diretas: `camera.projetar`, `a.adicionar(et.multiplicar(x)).adicionar`, `a.adicionar`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | <code>x: number</code>; <code>y: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ x: number; y: number; }</code>; expressões retornadas: <code>camera.projetar(a.adicionar(et.multiplicar(x)).adicionar(er.multiplicar(y)))</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>camera.projetar</code>; <code>a.adicionar(et.multiplicar(x)).adicionar</code>; <code>a.adicionar</code>; <code>et.multiplicar</code>; <code>er.multiplicar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Devolve `camera.projetar(a.adicionar(et.multiplicar(x)).adicionar(er.multiplicar(y)))`. Dependências diretas: `camera.projetar`, `a.adicionar(et.multiplicar(x)).adicionar`, `a.adicionar`. Efeitos indiretos seguem as dependências chamadas. @contract f-a4af2ac3cb601e6f<br>     * @remarks Transforma deslocamentos locais m da infraestrutura para posição global e pixels pela câmera, sem registrar corpos.<br>     * @contract f-a4af2ac3cb601e6f<br>     * @reviewed M12-DOC: contrato confrontado com implementação.<br>     */ |
 
 </details>
 
@@ -1635,17 +1635,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.corpo:MethodDeclaration</code> · [fonte L114](../../src/apresentacao/missao/RenderizadorMissao.ts#L114) |
+| Identificador | <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.corpo:MethodDeclaration</code> · [fonte L130](../../src/apresentacao/missao/RenderizadorMissao.ts#L130) |
 | Assinatura | <code>private (ctx: CanvasRenderingContext2D, camera: CameraMissao, c: CorpoObservado, o: ObservacaoBss006): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Desenha geometria na posição/atitude físicas e deflexão/gimbal reais; dano altera cor e empuxo controla chama visual. Não anima trajetória independente. |
 | Entradas | <code>ctx: CanvasRenderingContext2D</code>; <code>camera: CameraMissao</code>; <code>c: CorpoObservado</code>; <code>o: ObservacaoBss006</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>ctx.fillStyle</code>; <code>ctx.strokeStyle</code>; <code>ctx.lineWidth</code>; <code>x</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>camera.projetar</code>; <code>ctx.save</code>; <code>ctx.translate</code>; <code>ctx.rotate</code>; <code>camera.anguloCanvas</code>; <code>COR</code>; <code>ctx.fillRect</code>; <code>ctx.strokeRect</code>; <code>c.id.includes</code>; <code>Math.max</code>; <code>ctx.beginPath</code>; <code>ctx.moveTo</code>; <code>ctx.lineTo</code>; <code>ctx.stroke</code>; <code>ctx.closePath</code>; <code>ctx.fill</code>; <code>ctx.restore</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>c.id.includes('painel')</code>; <code>c.deflexaoRad !== undefined</code>; <code>c.id.includes('propulsor') &amp;&amp; o.empuxoN &gt; 0 &amp;&amp; c.integridade &gt; 0</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Desenha geometria na posição/atitude físicas e deflexão/gimbal reais; dano altera cor e empuxo controla chama visual. Não anima trajetória independente. @contract f-35dc56aad7027c0f @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -1654,17 +1654,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.reguas:MethodDeclaration</code> · [fonte L136](../../src/apresentacao/missao/RenderizadorMissao.ts#L136) |
+| Identificador | <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.reguas:MethodDeclaration</code> · [fonte L153](../../src/apresentacao/missao/RenderizadorMissao.ts#L153) |
 | Assinatura | <code>private (ctx: CanvasRenderingContext2D, camera: CameraMissao, o: ObservacaoBss006): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Calcula graduação 1/2/5 por escala m/pixel e desenha referências locais de altitude/deslocamento em metros; não altera o referencial do integrador. |
 | Entradas | <code>ctx: CanvasRenderingContext2D</code>; <code>camera: CameraMissao</code>; <code>o: ObservacaoBss006</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>ctx.font</code>; <code>ctx.strokeStyle</code>; <code>ctx.fillStyle</code>; <code>ctx.lineWidth</code>; <code>h</code>; <code>x</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.pow</code>; <code>Math.floor</code>; <code>Math.log10</code>; <code>Math.ceil</code>; <code>ctx.beginPath</code>; <code>ctx.moveTo</code>; <code>ctx.lineTo</code>; <code>ctx.stroke</code>; <code>ctx.fillText</code>; <code>h.toFixed</code>; <code>x.toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Calcula graduação 1/2/5 por escala m/pixel e desenha referências locais de altitude/deslocamento em metros; não altera o referencial do integrador. @contract f-d317c5488bbc4454 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -3179,17 +3179,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/home-carousel.ts::showSlide:ArrowFunction</code> · [fonte L13](../../src/home-carousel.ts#L13) |
+| Identificador | <code>src/home-carousel.ts::showSlide:ArrowFunction</code> · [fonte L14](../../src/home-carousel.ts#L14) |
 | Assinatura | <code> (index: number): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Seleciona índice circular e atualiza classes, aria-hidden, inert, indicadores e contador no DOM; não atua no simulador. |
 | Entradas | <code>index: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>activeIndex</code>; <code>current.textContent</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>slides.forEach</code>; <code>dots.forEach</code>; <code>String(activeIndex + 1).padStart</code>; <code>String</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>current</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Seleciona índice circular e atualiza classes, aria-hidden, inert, indicadores e contador no DOM; não atua no simulador. @contract f-d81bc825d033cc23 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -3198,17 +3198,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/home-carousel.ts::stopAutoplay:ArrowFunction</code> · [fonte L33](../../src/home-carousel.ts#L33) |
+| Identificador | <code>src/home-carousel.ts::stopAutoplay:ArrowFunction</code> · [fonte L35](../../src/home-carousel.ts#L35) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Cancela timer real do carrossel se existente e limpa referência; não controla tempo da missão. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>timer</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>window.clearInterval</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>timer !== undefined</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Cancela timer real do carrossel se existente e limpa referência; não controla tempo da missão. @contract f-288d155fbd30d4db @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -3217,17 +3217,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/home-carousel.ts::startAutoplay:ArrowFunction</code> · [fonte L38](../../src/home-carousel.ts#L38) |
+| Identificador | <code>src/home-carousel.ts::startAutoplay:ArrowFunction</code> · [fonte L41](../../src/home-carousel.ts#L41) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Instala intervalo visual de 6000 ms apenas com movimento permitido, documento visível e sem timer vigente; alterna slides, não física. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>timer</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>window.setInterval</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>reducedMotion &#124;&#124; document.hidden &#124;&#124; timer !== undefined</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Instala intervalo visual de 6000 ms apenas com movimento permitido, documento visível e sem timer vigente; alterna slides, não física. @contract f-66168cd64c3a9e72 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -4291,9 +4291,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/orbitas.ts::reiniciar:FunctionDeclaration</code> · [fonte L22](../../src/orbitas.ts#L22) |
+| Identificador | <code>src/orbitas.ts::reiniciar:FunctionDeclaration</code> · [fonte L23](../../src/orbitas.ts#L23) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Escritas diretas: `play.textContent`. Dependências diretas: `criarEnsaioOrbitalInerte`, `ensaio.corpo.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>ensaio</code>; <code>pontos</code>; <code>rodando</code>; <code>ultimoTimestamp</code>; <code>acumuladorS</code>; <code>play.textContent</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -4301,7 +4301,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Escritas diretas: `play.textContent`. Dependências diretas: `criarEnsaioOrbitalInerte`, `ensaio.corpo.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-16848ec4b453ff12 */ |
 
 </details>
 
@@ -4310,9 +4310,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/orbitas.ts::desenhar:FunctionDeclaration</code> · [fonte L39](../../src/orbitas.ts#L39) |
+| Identificador | <code>src/orbitas.ts::desenhar:FunctionDeclaration</code> · [fonte L41](../../src/orbitas.ts#L41) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Escritas diretas: `canvas.width`, `canvas.height`, `ctx.fillStyle`, `ctx.strokeStyle`. Dependências diretas: `ensaio.corpo.getEstadoFisico`, `ensaio.ler`, `CameraFisica2D`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>canvas.width</code>; <code>canvas.height</code>; <code>ctx.fillStyle</code>; <code>ctx.strokeStyle</code>; <code>ctx.lineWidth</code>; <code>ctx.font</code>; <code>dados.textContent</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -4320,7 +4320,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>canvas.width !== largura &#124;&#124; canvas.height !== altura</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Escritas diretas: `canvas.width`, `canvas.height`, `ctx.fillStyle`, `ctx.strokeStyle`. Dependências diretas: `ensaio.corpo.getEstadoFisico`, `ensaio.ler`, `CameraFisica2D`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-caa69db0599506b2 */ |
 
 </details>
 
@@ -4329,9 +4329,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/orbitas.ts::executar:FunctionDeclaration</code> · [fonte L74](../../src/orbitas.ts#L74) |
+| Identificador | <code>src/orbitas.ts::executar:FunctionDeclaration</code> · [fonte L77](../../src/orbitas.ts#L77) |
 | Assinatura | <code> (timestamp: number): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `Number`, `ensaio.mundo.avancar`, `pontos.push`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>timestamp: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>acumuladorS</code>; <code>passos</code>; <code>ultimoTimestamp</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -4339,7 +4339,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>rodando &amp;&amp; ultimoTimestamp !== undefined &amp;&amp; timestamp &gt; ultimoTimestamp</code>; <code>ensaio.mundo.tempoS % 5 === 0</code>; <code>pontos.length &gt; 10000</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `Number`, `ensaio.mundo.avancar`, `pontos.push`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a8bbee59e2fde294 */ |
 
 </details>
 
@@ -23532,9 +23532,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::definirDescricaoComando:ArrowFunction</code> · [fonte L171](../../src/testes.ts#L171) |
+| Identificador | <code>src/testes.ts::definirDescricaoComando:ArrowFunction</code> · [fonte L172](../../src/testes.ts#L172) |
 | Assinatura | <code> (botao: HTMLButtonElement, descricao: string): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Escritas diretas: `botao.title`. Dependências diretas: `botao.setAttribute`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>botao: HTMLButtonElement</code>; <code>descricao: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>botao.title</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -23542,7 +23542,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Escritas diretas: `botao.title`. Dependências diretas: `botao.setAttribute`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-5e1aa4998dc58a80 */ |
 
 </details>
 
@@ -23551,7 +23551,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::CenárioVisual.deveEncerrar[tipo]:FunctionType</code> · [fonte L193](../../src/testes.ts#L193) |
+| Identificador | <code>src/testes.ts::CenárioVisual.deveEncerrar[tipo]:FunctionType</code> · [fonte L194](../../src/testes.ts#L194) |
 | Assinatura | <code> (): boolean</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -23570,7 +23570,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::CenárioVisual.validar[tipo]:FunctionType</code> · [fonte L194](../../src/testes.ts#L194) |
+| Identificador | <code>src/testes.ts::CenárioVisual.validar[tipo]:FunctionType</code> · [fonte L195](../../src/testes.ts#L195) |
 | Assinatura | <code> (): string</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -23589,7 +23589,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::CenárioVisual.atualizarControle[tipo]:FunctionType</code> · [fonte L195](../../src/testes.ts#L195) |
+| Identificador | <code>src/testes.ts::CenárioVisual.atualizarControle[tipo]:FunctionType</code> · [fonte L196](../../src/testes.ts#L196) |
 | Assinatura | <code> (): void</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -23608,7 +23608,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::CenárioVisual.telemetria[tipo]:FunctionType</code> · [fonte L197](../../src/testes.ts#L197) |
+| Identificador | <code>src/testes.ts::CenárioVisual.telemetria[tipo]:FunctionType</code> · [fonte L198](../../src/testes.ts#L198) |
 | Assinatura | <code> (): string</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -23627,7 +23627,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::CenárioVisual.comandarCilindro[tipo]:FunctionType</code> · [fonte L207](../../src/testes.ts#L207) |
+| Identificador | <code>src/testes.ts::CenárioVisual.comandarCilindro[tipo]:FunctionType</code> · [fonte L208](../../src/testes.ts#L208) |
 | Assinatura | <code> (comando: "avancar" &#124; "recuar"): void</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | <code>comando: 'avancar' &#124; 'recuar'</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -23646,7 +23646,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::CenárioVisual.configurarVelocidadesDoCilindro[tipo]:FunctionType</code> · [fonte L208](../../src/testes.ts#L208) |
+| Identificador | <code>src/testes.ts::CenárioVisual.configurarVelocidadesDoCilindro[tipo]:FunctionType</code> · [fonte L209](../../src/testes.ts#L209) |
 | Assinatura | <code> (avancoMps: number, recuoMps: number): void</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | <code>avancoMps: number</code>; <code>recuoMps: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -23665,7 +23665,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::CenárioVisual.velocidadesDoCilindro[tipo]:FunctionType</code> · [fonte L209](../../src/testes.ts#L209) |
+| Identificador | <code>src/testes.ts::CenárioVisual.velocidadesDoCilindro[tipo]:FunctionType</code> · [fonte L210](../../src/testes.ts#L210) |
 | Assinatura | <code> (): { readonly avancoMps: number; readonly recuoMps: number; }</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -23684,7 +23684,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::CenárioVisual.iniciarSequencia[tipo]:FunctionType</code> · [fonte L210](../../src/testes.ts#L210) |
+| Identificador | <code>src/testes.ts::CenárioVisual.iniciarSequencia[tipo]:FunctionType</code> · [fonte L211](../../src/testes.ts#L211) |
 | Assinatura | <code> (): void</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -23703,7 +23703,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::CenárioVisual.obterEntradasCilindro[tipo]:FunctionType</code> · [fonte L212](../../src/testes.ts#L212) |
+| Identificador | <code>src/testes.ts::CenárioVisual.obterEntradasCilindro[tipo]:FunctionType</code> · [fonte L213](../../src/testes.ts#L213) |
 | Assinatura | <code> (): { readonly avancar: boolean; readonly recuar: boolean; }</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -23722,7 +23722,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::CenárioVisual.linhaDeEmpuxo[tipo]:FunctionType</code> · [fonte L216](../../src/testes.ts#L216) |
+| Identificador | <code>src/testes.ts::CenárioVisual.linhaDeEmpuxo[tipo]:FunctionType</code> · [fonte L217](../../src/testes.ts#L217) |
 | Assinatura | <code> (): { readonly origemM: Vetor3; readonly direcao: Vetor3; }</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -23741,7 +23741,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::CenárioVisual.obterGrupoPropulsaoAtivo[tipo]:FunctionType</code> · [fonte L220](../../src/testes.ts#L220) |
+| Identificador | <code>src/testes.ts::CenárioVisual.obterGrupoPropulsaoAtivo[tipo]:FunctionType</code> · [fonte L221](../../src/testes.ts#L221) |
 | Assinatura | <code> (): string</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -23760,7 +23760,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::CenárioVisual.selecionarGrupoPropulsao[tipo]:FunctionType</code> · [fonte L221](../../src/testes.ts#L221) |
+| Identificador | <code>src/testes.ts::CenárioVisual.selecionarGrupoPropulsao[tipo]:FunctionType</code> · [fonte L222](../../src/testes.ts#L222) |
 | Assinatura | <code> (id: string): void</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | <code>id: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -23779,7 +23779,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::CenárioVisual.ativarControleBss03[tipo]:FunctionType</code> · [fonte L222](../../src/testes.ts#L222) |
+| Identificador | <code>src/testes.ts::CenárioVisual.ativarControleBss03[tipo]:FunctionType</code> · [fonte L223](../../src/testes.ts#L223) |
 | Assinatura | <code> (controle: "inclinacao" &#124; "pouso" &#124; "manual"): void</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | <code>controle: 'inclinacao' &#124; 'pouso' &#124; 'manual'</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -23798,7 +23798,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::CenárioVisual.obterControleAtivoBss03[tipo]:FunctionType</code> · [fonte L223](../../src/testes.ts#L223) |
+| Identificador | <code>src/testes.ts::CenárioVisual.obterControleAtivoBss03[tipo]:FunctionType</code> · [fonte L224](../../src/testes.ts#L224) |
 | Assinatura | <code> (): "manual" &#124; "inclinacao" &#124; "pouso"</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -23817,7 +23817,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::CenárioVisual.ativarModoBss04[tipo]:FunctionType</code> · [fonte L224](../../src/testes.ts#L224) |
+| Identificador | <code>src/testes.ts::CenárioVisual.ativarModoBss04[tipo]:FunctionType</code> · [fonte L225](../../src/testes.ts#L225) |
 | Assinatura | <code> (modo: "decolagem" &#124; "pouso"): void</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | <code>modo: 'decolagem' &#124; 'pouso'</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -23836,7 +23836,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::CenárioVisual.obterModoBss04[tipo]:FunctionType</code> · [fonte L225](../../src/testes.ts#L225) |
+| Identificador | <code>src/testes.ts::CenárioVisual.obterModoBss04[tipo]:FunctionType</code> · [fonte L226](../../src/testes.ts#L226) |
 | Assinatura | <code> (): "decolagem" &#124; "pouso"</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -23855,7 +23855,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::CenárioVisual.obterStatusControleBss04[tipo]:FunctionType</code> · [fonte L226](../../src/testes.ts#L226) |
+| Identificador | <code>src/testes.ts::CenárioVisual.obterStatusControleBss04[tipo]:FunctionType</code> · [fonte L227](../../src/testes.ts#L227) |
 | Assinatura | <code> (): string</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -23874,7 +23874,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::CenárioVisual.obterPontoPousoX[tipo]:FunctionType</code> · [fonte L227](../../src/testes.ts#L227) |
+| Identificador | <code>src/testes.ts::CenárioVisual.obterPontoPousoX[tipo]:FunctionType</code> · [fonte L228](../../src/testes.ts#L228) |
 | Assinatura | <code> (): number</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -23893,7 +23893,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::CenárioVisual.selecionarPontoPousoX[tipo]:FunctionType</code> · [fonte L228](../../src/testes.ts#L228) |
+| Identificador | <code>src/testes.ts::CenárioVisual.selecionarPontoPousoX[tipo]:FunctionType</code> · [fonte L229](../../src/testes.ts#L229) |
 | Assinatura | <code> (xM: number): boolean</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | <code>xM: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -23912,7 +23912,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::CenárioVisual.pontoPousoSelecionavel[tipo]:FunctionType</code> · [fonte L229](../../src/testes.ts#L229) |
+| Identificador | <code>src/testes.ts::CenárioVisual.pontoPousoSelecionavel[tipo]:FunctionType</code> · [fonte L230](../../src/testes.ts#L230) |
 | Assinatura | <code> (): boolean</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -23931,7 +23931,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::CenárioVisual.obterConfiguracaoEnsaio[tipo]:FunctionType</code> · [fonte L232](../../src/testes.ts#L232) |
+| Identificador | <code>src/testes.ts::CenárioVisual.obterConfiguracaoEnsaio[tipo]:FunctionType</code> · [fonte L233](../../src/testes.ts#L233) |
 | Assinatura | <code> (): unknown</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -23950,7 +23950,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::CenárioVisual.cameraX[tipo]:FunctionType</code> · [fonte L241](../../src/testes.ts#L241) |
+| Identificador | <code>src/testes.ts::CenárioVisual.cameraX[tipo]:FunctionType</code> · [fonte L242](../../src/testes.ts#L242) |
 | Assinatura | <code> (): number</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -23969,7 +23969,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::CenárioVisual.cameraY[tipo]:FunctionType</code> · [fonte L242](../../src/testes.ts#L242) |
+| Identificador | <code>src/testes.ts::CenárioVisual.cameraY[tipo]:FunctionType</code> · [fonte L243](../../src/testes.ts#L243) |
 | Assinatura | <code> (): number</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -23988,7 +23988,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::CenárioVisual.dados[tipo]:FunctionType</code> · [fonte L243](../../src/testes.ts#L243) |
+| Identificador | <code>src/testes.ts::CenárioVisual.dados[tipo]:FunctionType</code> · [fonte L244](../../src/testes.ts#L244) |
 | Assinatura | <code> (): string</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -24007,7 +24007,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::objetosEmRepouso:ArrowFunction</code> · [fonte L257](../../src/testes.ts#L257) |
+| Identificador | <code>src/testes.ts::objetosEmRepouso:ArrowFunction</code> · [fonte L260](../../src/testes.ts#L260) |
 | Assinatura | <code> (mundo: MundoFisico, objetos: readonly Objeto[]): boolean</code> |
 | Responsabilidade | A bancada só conclui um cenário quando os corpos já não evoluem visivelmente. |
 | Entradas | <code>mundo: MundoFisico</code>; <code>objetos: readonly Objeto[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -24017,7 +24017,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** A bancada só conclui um cenário quando os corpos já não evoluem visivelmente. */ |
+| JSDoc integral | /** A bancada só conclui um cenário quando os corpos já não evoluem visivelmente.<br> * @contract f-f9e43f64629410f2<br> */ |
 
 </details>
 
@@ -24026,9 +24026,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarCuboEmQueda:ArrowFunction</code> · [fonte L262](../../src/testes.ts#L262) |
+| Identificador | <code>src/testes.ts::criarCuboEmQueda:ArrowFunction</code> · [fonte L266](../../src/testes.ts#L266) |
 | Assinatura | <code> (alturaM: number, massaKg?: number, opcoes?: OpcoesQueda): CenárioVisual</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `MundoFisico`, `Objeto`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>alturaM: number</code>; <code>massaKg = 10</code>; <code>opcoes: OpcoesQueda = {}</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{ nome: opcoes.nome ?? `Queda livre — ${massaKg} kg de ${alturaM.toLocaleString('pt-BR')} m`, descricao: opcoes.descricao ?? `Cubo de ${massaKg} kg e 1 × 1 × 1 m em vácuo, caindo sobre uma superfície de concreto. Compara a velocidade de que… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -24036,7 +24036,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `MundoFisico`, `Objeto`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-dbf330c6fa6ed9b9 */ |
 
 </details>
 
@@ -24045,9 +24045,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarCuboEmQueda.deveEncerrar:ArrowFunction</code> · [fonte L293](../../src/testes.ts#L293) |
+| Identificador | <code>src/testes.ts::criarCuboEmQueda.deveEncerrar:ArrowFunction</code> · [fonte L298](../../src/testes.ts#L298) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `instanteDoImpactoS !== undefined &amp;&amp; emRepousoSobreSolo`. Dependências diretas: `cubo.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>instanteDoImpactoS !== undefined &amp;&amp; emRepousoSobreSolo</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>instanteDoImpactoS</code>; <code>velocidadeDeRetornoMps</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -24055,7 +24055,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>instanteDoImpactoS === undefined &amp;&amp; velocidadeVerticalMps &gt; 0</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Devolve `instanteDoImpactoS !== undefined &amp;&amp; emRepousoSobreSolo`. Dependências diretas: `cubo.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-cbcc6d1962d50548 */ |
 
 </details>
 
@@ -24064,9 +24064,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarCuboEmQueda.validar:ArrowFunction</code> · [fonte L304](../../src/testes.ts#L304) |
+| Identificador | <code>src/testes.ts::criarCuboEmQueda.validar:ArrowFunction</code> · [fonte L310](../../src/testes.ts#L310) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `velocidade.toFixed`, `velocidadeEsperada.toFixed`, `quiqueEsperadoMps.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${aprovado ? 'APROVADO' : 'DIVERGENTE'} · velocidade de quique ${velocidade.toFixed(2)} m/s; chegada ${velocidadeEsperada.toFixed(2)} m/s; quique previsto ${quiqueEsperadoMps.toFixed(2)} m/s; energia ${energiaImpactoJ.toFixed(1)} J; ${resu… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -24074,7 +24074,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `velocidade.toFixed`, `velocidadeEsperada.toFixed`, `quiqueEsperadoMps.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a8aeab6fd86d21a1 */ |
 
 </details>
 
@@ -24083,7 +24083,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados:ArrowFunction</code> · [fonte L322](../../src/testes.ts#L322) |
+| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados:ArrowFunction</code> · [fonte L330](../../src/testes.ts#L330) |
 | Assinatura | <code> (orientacaoInicialRad?: number, exibirNaBancada?: boolean): CenárioVisual</code> |
 | Responsabilidade | Ensaio visual de equivalência gravitacional: nenhuma colisão ou superfície participa. |
 | Entradas | <code>orientacaoInicialRad = 0</code>; <code>exibirNaBancada = false</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -24093,7 +24093,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Ensaio visual de equivalência gravitacional: nenhuma colisão ou superfície participa. */ |
+| JSDoc integral | /** Ensaio visual de equivalência gravitacional: nenhuma colisão ou superfície participa.<br> * @contract f-e5e54eeb2b05ae0e<br> */ |
 
 </details>
 
@@ -24102,9 +24102,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.obterAmplitudeVerticalM:ArrowFunction</code> · [fonte L350](../../src/testes.ts#L350) |
+| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.obterAmplitudeVerticalM:ArrowFunction</code> · [fonte L359](../../src/testes.ts#L359) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `Math.max(...alturas) - Math.min(...alturas)`. Dependências diretas: `quadrados.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>Math.max(...alturas) - Math.min(...alturas)</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -24112,7 +24112,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Devolve `Math.max(...alturas) - Math.min(...alturas)`. Dependências diretas: `quadrados.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-85a9fb36c442772b */ |
 
 </details>
 
@@ -24121,9 +24121,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.obterAmplitudeVelocidadeMps:ArrowFunction</code> · [fonte L354](../../src/testes.ts#L354) |
+| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.obterAmplitudeVelocidadeMps:ArrowFunction</code> · [fonte L364](../../src/testes.ts#L364) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `Math.max(...velocidades) - Math.min(...velocidades)`. Dependências diretas: `quadrados.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>Math.max(...velocidades) - Math.min(...velocidades)</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -24131,7 +24131,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Devolve `Math.max(...velocidades) - Math.min(...velocidades)`. Dependências diretas: `quadrados.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-55545d24657cb055 */ |
 
 </details>
 
@@ -24140,17 +24140,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.cameraY:ArrowFunction</code> · [fonte L358](../../src/testes.ts#L358) |
+| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.cameraY:ArrowFunction</code> · [fonte L369](../../src/testes.ts#L369) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `quadrados.reduce((soma, quadrado) =&gt; soma + quadrado.getEstadoFisico().posicaoM.y, 0) / quadrados.length`. Dependências diretas: `quadrados.reduce`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>quadrados.reduce((soma, quadrado) =&gt; soma + quadrado.getEstadoFisico().posicaoM.y, 0) / quadrados.length</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>quadrados.reduce</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `quadrados.reduce((soma, quadrado) =&gt; soma + quadrado.getEstadoFisico().posicaoM.y, 0) / quadrados.length`. Dependências diretas: `quadrados.reduce`. Efeitos indiretos seguem as dependências chamadas. @contract f-ee49f57bb15f66de */ |
 
 </details>
 
@@ -24159,9 +24159,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.atualizarMedicoesAntesDoContato:ArrowFunction</code> · [fonte L362](../../src/testes.ts#L362) |
+| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.atualizarMedicoesAntesDoContato:ArrowFunction</code> · [fonte L374](../../src/testes.ts#L374) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `quadrados.some`, `obterAmplitudeVerticalM`, `obterAmplitudeVelocidadeMps`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>houveContatoComSolo</code>; <code>maiorDispersaoVerticalAntesDoContatoM</code>; <code>maiorDispersaoDeVelocidadeAntesDoContatoMps</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -24169,7 +24169,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>algumNoSolo</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `quadrados.some`, `obterAmplitudeVerticalM`, `obterAmplitudeVelocidadeMps`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-80dcccca0e8e1db1 */ |
 
 </details>
 
@@ -24178,17 +24178,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.cameraX:ArrowFunction</code> · [fonte L382](../../src/testes.ts#L382) |
+| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.cameraX:ArrowFunction</code> · [fonte L395](../../src/testes.ts#L395) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão 0. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `0`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>0</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `0`. Efeitos indiretos seguem as dependências chamadas. @contract f-ac69f765666c42f0 */ |
 
 </details>
 
@@ -24197,9 +24197,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.deveEncerrar:ArrowFunction</code> · [fonte L384](../../src/testes.ts#L384) |
+| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.deveEncerrar:ArrowFunction</code> · [fonte L398](../../src/testes.ts#L398) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `houveContatoComSolo &amp;&amp; objetosEmRepouso(mundo, quadrados)`. Dependências diretas: `atualizarMedicoesAntesDoContato`, `objetosEmRepouso`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>houveContatoComSolo &amp;&amp; objetosEmRepouso(mundo, quadrados)</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -24207,7 +24207,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Devolve `houveContatoComSolo &amp;&amp; objetosEmRepouso(mundo, quadrados)`. Dependências diretas: `atualizarMedicoesAntesDoContato`, `objetosEmRepouso`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6293586dd4d540f2 */ |
 
 </details>
 
@@ -24216,17 +24216,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.telemetria:ArrowFunction</code> · [fonte L388](../../src/testes.ts#L388) |
+| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.telemetria:ArrowFunction</code> · [fonte L403](../../src/testes.ts#L403) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve ``50 corpos · massas 1–50 kg · Δy=${obterAmplitudeVerticalM().toExponential(2)} m · Δvy=${obterAmplitudeVelocidadeMps().toExponential(2)} m/s``. Dependências diretas: `obterAmplitudeVerticalM().toExponential`, `obterAmplitudeVerticalM`, `obterAmplitudeVelocidadeMps().toExponential`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`50 corpos · massas 1–50 kg · Δy=${obterAmplitudeVerticalM().toExponential(2)} m · Δvy=${obterAmplitudeVelocidadeMps().toExponential(2)} m/s`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>obterAmplitudeVerticalM().toExponential</code>; <code>obterAmplitudeVerticalM</code>; <code>obterAmplitudeVelocidadeMps().toExponential</code>; <code>obterAmplitudeVelocidadeMps</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve ``50 corpos · massas 1–50 kg · Δy=${obterAmplitudeVerticalM().toExponential(2)} m · Δvy=${obterAmplitudeVelocidadeMps().toExponential(2)} m/s``. Dependências diretas: `obterAmplitudeVerticalM().toExponential`, `obterAmplitudeVerticalM`, `obterAmplitudeVelocidadeMps().toExponential`. Efeitos indiretos seguem as dependências chamadas. @contract f-6b0f16eaa0e3b87f */ |
 
 </details>
 
@@ -24235,9 +24235,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.dados:ArrowFunction</code> · [fonte L389](../../src/testes.ts#L389) |
+| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.dados:ArrowFunction</code> · [fonte L405](../../src/testes.ts#L405) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `quadrados[0].getEstadoFisico`, `(orientacaoInicialRad * 180 / Math.PI).toFixed`, `alturaDeApoioM.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Ambiente: vácuo (ρ = 0 kg/m³)\nSolo: concreto a 0 m\nCorpos: 50 quadrados de 1 × 1 × 1 m\nMassas: 1 a 50 kg\nRotação inicial: ${(orientacaoInicialRad * 180 / Math.PI).toFixed(0)}°\nAltura geométrica de apoio: ${alturaDeApoioM.toFixed(3)} m… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -24245,7 +24245,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `quadrados[0].getEstadoFisico`, `(orientacaoInicialRad * 180 / Math.PI).toFixed`, `alturaDeApoioM.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a7c10a3f0609af45 */ |
 
 </details>
 
@@ -24254,9 +24254,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.validar:ArrowFunction</code> · [fonte L394](../../src/testes.ts#L394) |
+| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.validar:ArrowFunction</code> · [fonte L411](../../src/testes.ts#L411) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `maiorDispersaoVerticalAntesDoContatoM.toExponential`, `maiorDispersaoDeVelocidadeAntesDoContatoMps.toExponential`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${aprovado ? 'APROVADO' : 'DIVERGENTE'} · 50 massas distintas chegaram ao solo; antes do impacto Δy=${maiorDispersaoVerticalAntesDoContatoM.toExponential(2)} m; Δvy=${maiorDispersaoDeVelocidadeAntesDoContatoMps.toExponential(2)} m/s`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -24264,7 +24264,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `maiorDispersaoVerticalAntesDoContatoM.toExponential`, `maiorDispersaoDeVelocidadeAntesDoContatoMps.toExponential`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-df2c959b97a8280d */ |
 
 </details>
 
@@ -24273,7 +24273,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais:ArrowFunction</code> · [fonte L404](../../src/testes.ts#L404) |
+| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais:ArrowFunction</code> · [fonte L423](../../src/testes.ts#L423) |
 | Assinatura | <code> (): CenárioVisual</code> |
 | Responsabilidade | Dez ilhas rígidas independentes, cada uma composta por três quadrados e dois fixadores. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -24283,7 +24283,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Dez ilhas rígidas independentes, cada uma composta por três quadrados e dois fixadores. */ |
+| JSDoc integral | /** Dez ilhas rígidas independentes, cada uma composta por três quadrados e dois fixadores.<br> * @contract f-980f47365875e7fd<br> */ |
 
 </details>
 
@@ -24292,9 +24292,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.proximaFracaoAleatoria:ArrowFunction</code> · [fonte L407](../../src/testes.ts#L407) |
+| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.proximaFracaoAleatoria:ArrowFunction</code> · [fonte L427](../../src/testes.ts#L427) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `estadoDaSemente / 2 ** 32`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>estadoDaSemente / 2 ** 32</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>estadoDaSemente</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -24302,7 +24302,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Devolve `estadoDaSemente / 2 ** 32`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3502332e23c3c357 */ |
 
 </details>
 
@@ -24311,17 +24311,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.[callback]#1.[callback]#3.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L438](../../src/testes.ts#L438) |
+| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.[callback]#1.[callback]#3.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L459](../../src/testes.ts#L459) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão 0. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `0`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>0</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `0`. Efeitos indiretos seguem as dependências chamadas. @contract f-0a2b8de330f2ce6a */ |
 
 </details>
 
@@ -24330,17 +24330,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.cameraY:ArrowFunction</code> · [fonte L455](../../src/testes.ts#L455) |
+| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.cameraY:ArrowFunction</code> · [fonte L477](../../src/testes.ts#L477) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `objetos.reduce((soma, objeto) =&gt; soma + objeto.getEstadoFisico().posicaoM.y, 0) / objetos.length`. Dependências diretas: `objetos.reduce`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>objetos.reduce((soma, objeto) =&gt; soma + objeto.getEstadoFisico().posicaoM.y, 0) / objetos.length</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>objetos.reduce</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `objetos.reduce((soma, objeto) =&gt; soma + objeto.getEstadoFisico().posicaoM.y, 0) / objetos.length`. Dependências diretas: `objetos.reduce`. Efeitos indiretos seguem as dependências chamadas. @contract f-b4b3eb2ff12c728c */ |
 
 </details>
 
@@ -24349,17 +24349,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.cameraX:ArrowFunction</code> · [fonte L466](../../src/testes.ts#L466) |
+| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.cameraX:ArrowFunction</code> · [fonte L489](../../src/testes.ts#L489) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão 0. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `0`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>0</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `0`. Efeitos indiretos seguem as dependências chamadas. @contract f-d97f9dd7f41830c2 */ |
 
 </details>
 
@@ -24368,17 +24368,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.deveEncerrar:ArrowFunction</code> · [fonte L469](../../src/testes.ts#L469) |
+| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.deveEncerrar:ArrowFunction</code> · [fonte L493](../../src/testes.ts#L493) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `objetosEmRepouso(mundo, objetos)`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>objetosEmRepouso(mundo, objetos)</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>objetosEmRepouso</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `objetosEmRepouso(mundo, objetos)`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. @contract f-7df743ce29515e98 */ |
 
 </details>
 
@@ -24387,9 +24387,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.telemetria:ArrowFunction</code> · [fonte L470](../../src/testes.ts#L470) |
+| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.telemetria:ArrowFunction</code> · [fonte L495](../../src/testes.ts#L495) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `fixadores.filter`, `cameraY().toFixed`, `cameraY`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${grupos.length} grupos · ${fixadores.filter((fixador) =&gt; !fixador.estaRompido).length}/${fixadores.length} fixadores íntegros · ${fixadores.filter((fixador) =&gt; fixador.estaRompido).length} rompidos · y médio=${cameraY().toFixed(2)} m`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -24397,7 +24397,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `fixadores.filter`, `cameraY().toFixed`, `cameraY`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e17ee494ded967ab */ |
 
 </details>
 
@@ -24406,9 +24406,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.dados:ArrowFunction</code> · [fonte L471](../../src/testes.ts#L471) |
+| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.dados:ArrowFunction</code> · [fonte L497](../../src/testes.ts#L497) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `grupos.map((grupo) =&gt; { const estados = grupo.perfisDosFixadores.map(({ fixador, deveRomper }) =&gt; { const esperado = deveRomper ? 'ruptura esperada' : 'controle íntegro'; return `${fixador.estaRompido ? 'ROMPIDO' : 'íntegro'} · ${esperado} (tração ${fixador.picoEsforcoFisicoN.toFixed(0)} / ${fixador.resistenciaTracaoN.toFixed(0)} N; compressão ${fixador.picoEsforcoCompressaoFisicoN.toFixed(0)} N)`; }).join(' · '); const orientacoes = grupo.orientacoesIniciaisGraus.map((angulo) =&gt; `${angulo.toFixed(1)}°`).join(' / '); return `Grupo ${grupo.indiceGrupo + 1}: 3 × ${grupo.massaPorQuadradoKg} kg; ângulos ${orientacoes}; fixadores ${estados}`; }).join`, `grupos.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>grupos.map((grupo) =&gt; { const estados = grupo.perfisDosFixadores.map(({ fixador, deveRomper }) =&gt; { const esperado = deveRomper ? 'ruptura esperada' : 'controle íntegro'; return `${fixador.estaRompido ? 'ROMPIDO' : 'íntegro'} · ${esperado} … [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -24416,7 +24416,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `grupos.map((grupo) =&gt; { const estados = grupo.perfisDosFixadores.map(({ fixador, deveRomper }) =&gt; { const esperado = deveRomper ? 'ruptura esperada' : 'controle íntegro'; return `${fixador.estaRompido ? 'ROMPIDO' : 'íntegro'} · ${esperado} (tração ${fixador.picoEsforcoFisicoN.toFixed(0)} / ${fixador.resistenciaTracaoN.toFixed(0)} N; compressão ${fixador.picoEsforcoCompressaoFisicoN.toFixed(0)} N)`; }).join(' · '); const orientacoes = grupo.orientacoesIniciaisGraus.map((angulo) =&gt; `${angulo.toFixed(1)}°`).join(' / '); return `Grupo ${grupo.indiceGrupo + 1}: 3 × ${grupo.massaPorQuadradoKg} kg; ângulos ${orientacoes}; fixadores ${estados}`; }).join`, `grupos.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-77548d7cadbeb5d0 */ |
 
 </details>
 
@@ -24425,9 +24425,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.validar:ArrowFunction</code> · [fonte L479](../../src/testes.ts#L479) |
+| Identificador | <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.validar:ArrowFunction</code> · [fonte L506](../../src/testes.ts#L506) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `fixadores.every`, `grupos.every`, `fixadores.filter`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${rupturasCorretas &amp;&amp; espacamentosValidos ? 'APROVADO' : 'DIVERGENTE'} · seed de orientação ${sementeOrientacoes}; ${fixadores.filter((fixador) =&gt; fixador.estaRompido).length}/${idsDeFixadoresQueDevemRomper.size} rupturas esperadas; espaça… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -24435,7 +24435,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `fixadores.every`, `grupos.every`, `fixadores.filter`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0bba3566ae072405 */ |
 
 </details>
 
@@ -24444,9 +24444,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarColisaoFrontal:ArrowFunction</code> · [fonte L492](../../src/testes.ts#L492) |
+| Identificador | <code>src/testes.ts::criarColisaoFrontal:ArrowFunction</code> · [fonte L520](../../src/testes.ts#L520) |
 | Assinatura | <code> (): CenárioVisual</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `MundoFisico`, `Objeto`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{ nome: 'Colisão frontal elástica', descricao: 'Dois cubos resistentes de mesma massa devolvem impulso. O quique é calculado pela energia do impacto e resistência estrutural.', mundo, objetos: [esquerdo, direito], superficies: [], velocidad… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -24454,7 +24454,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `MundoFisico`, `Objeto`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e19673e01b1a45ec */ |
 
 </details>
 
@@ -24463,17 +24463,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarColisaoFrontal.deveEncerrar:ArrowFunction</code> · [fonte L514](../../src/testes.ts#L514) |
+| Identificador | <code>src/testes.ts::criarColisaoFrontal.deveEncerrar:ArrowFunction</code> · [fonte L543](../../src/testes.ts#L543) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `objetosEmRepouso(mundo, [esquerdo, direito])`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>objetosEmRepouso(mundo, [esquerdo, direito])</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>objetosEmRepouso</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `objetosEmRepouso(mundo, [esquerdo, direito])`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. @contract f-05bfaae97cbbc727 */ |
 
 </details>
 
@@ -24482,9 +24482,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarColisaoFrontal.validar:ArrowFunction</code> · [fonte L515](../../src/testes.ts#L515) |
+| Identificador | <code>src/testes.ts::criarColisaoFrontal.validar:ArrowFunction</code> · [fonte L545](../../src/testes.ts#L545) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `esquerdo.getEstadoFisico`, `direito.getEstadoFisico`, `esquerdo.getEstadoFisico().velocidadeMps.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${esquerdo.getEstadoFisico().velocidadeMps.x &lt; 0 &amp;&amp; direito.getEstadoFisico().velocidadeMps.x &gt; 0 ? 'APROVADO' : 'DIVERGENTE'} · velocidades x: ${esquerdo.getEstadoFisico().velocidadeMps.x.toFixed(2)} / ${direito.getEstadoFisico().velocida… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -24492,7 +24492,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `esquerdo.getEstadoFisico`, `direito.getEstadoFisico`, `esquerdo.getEstadoFisico().velocidadeMps.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-456485f9a74eafaf */ |
 
 </details>
 
@@ -24501,9 +24501,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteQuadradosEmpilhados:ArrowFunction</code> · [fonte L519](../../src/testes.ts#L519) |
+| Identificador | <code>src/testes.ts::criarTesteQuadradosEmpilhados:ArrowFunction</code> · [fonte L550](../../src/testes.ts#L550) |
 | Assinatura | <code> (tipo: "queda-conjunta" &#124; "queda-conjunta-superior-leve" &#124; "queda-sobre-apoio" &#124; "leve-sobre-pesado-apoiado" &#124; "quase-igual-sobre-apoiado"): CenárioVisual</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Objeto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>tipo: 'queda-conjunta' &#124; 'queda-conjunta-superior-leve' &#124; 'queda-sobre-apoio' &#124; 'leve-sobre-pesado-apoiado' &#124; 'quase-igual-sobre-apoiado'</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{ nome: quaseIgual ? 'Quadrado de 0,99 kg sobre 1 kg apoiado — queda de 10 m' : leveSobrePesado ? 'Quadrado leve sobre pesado apoiado — queda de 10 m' : tipo === 'queda-sobre-apoio' ? 'Quadrado sobre quadrado apoiado — queda de 10 m' : supe… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -24511,7 +24511,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Objeto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-22ad3aa804f130e4 */ |
 
 </details>
 
@@ -24520,9 +24520,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteQuadradosEmpilhados.deveEncerrar:ArrowFunction</code> · [fonte L551](../../src/testes.ts#L551) |
+| Identificador | <code>src/testes.ts::criarTesteQuadradosEmpilhados.deveEncerrar:ArrowFunction</code> · [fonte L583](../../src/testes.ts#L583) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `objetosEmRepouso`, `inferior.getEstadoFisico`, `superior.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>objetosEmRepouso(mundo, [inferior, superior]) &amp;&amp; inferior.getEstadoFisico().posicaoM.y &gt;= 0.5 - 1e-8 &amp;&amp; superior.getEstadoFisico().posicaoM.y &gt;= 1.5 - 1e-8</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -24530,7 +24530,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `objetosEmRepouso`, `inferior.getEstadoFisico`, `superior.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d0e1518807309979 */ |
 
 </details>
 
@@ -24539,9 +24539,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteQuadradosEmpilhados.validar:ArrowFunction</code> · [fonte L554](../../src/testes.ts#L554) |
+| Identificador | <code>src/testes.ts::criarTesteQuadradosEmpilhados.validar:ArrowFunction</code> · [fonte L587](../../src/testes.ts#L587) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `superior.getEstadoFisico`, `inferior.getEstadoFisico`, `distanciaM.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${distanciaM &gt;= 1 - 1e-8 ? 'APROVADO' : 'DIVERGENTE'} · separação vertical ${distanciaM.toFixed(3)} m; integridade ${Math.round(inferior.integridadeEstrutural * 100)}% / ${Math.round(superior.integridadeEstrutural * 100)}%`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -24549,7 +24549,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `superior.getEstadoFisico`, `inferior.getEstadoFisico`, `distanciaM.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3be35d81e9204ad0 */ |
 
 </details>
 
@@ -24558,9 +24558,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePilhaDezQuadradosAtingida:ArrowFunction</code> · [fonte L561](../../src/testes.ts#L561) |
+| Identificador | <code>src/testes.ts::criarTestePilhaDezQuadradosAtingida:ArrowFunction</code> · [fonte L595](../../src/testes.ts#L595) |
 | Assinatura | <code> (exibirNaBancada?: boolean): CenárioVisual</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Array.from`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>exibirNaBancada = false</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{ nome: 'Pilha de 10 quadrados — impacto no segundo elemento', descricao: 'Dez quadrados independentes, cada um com 1 kg e 1 × 1 m, estão apenas encostados sobre concreto: não há fixadores entre eles. Um quadrado de 2 kg vem pela esquerda a… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -24568,7 +24568,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Array.from`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-469e567265e56109 */ |
 
 </details>
 
@@ -24577,17 +24577,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePilhaDezQuadradosAtingida.deveEncerrar:ArrowFunction</code> · [fonte L597](../../src/testes.ts#L597) |
+| Identificador | <code>src/testes.ts::criarTestePilhaDezQuadradosAtingida.deveEncerrar:ArrowFunction</code> · [fonte L632](../../src/testes.ts#L632) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `objetosEmRepouso(mundo, [...pilha, projetil])`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>objetosEmRepouso(mundo, [...pilha, projetil])</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>objetosEmRepouso</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `objetosEmRepouso(mundo, [...pilha, projetil])`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. @contract f-8b1d138b2594f5cc */ |
 
 </details>
 
@@ -24596,9 +24596,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePilhaDezQuadradosAtingida.telemetria:ArrowFunction</code> · [fonte L598](../../src/testes.ts#L598) |
+| Identificador | <code>src/testes.ts::criarTestePilhaDezQuadradosAtingida.telemetria:ArrowFunction</code> · [fonte L634](../../src/testes.ts#L634) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `projetil.getEstadoFisico().velocidadeMps.x.toFixed`, `projetil.getEstadoFisico`, `segundoQuadrado.getEstadoFisico().posicaoM.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`projetil ${projetil.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s · segundo quadrado x=${segundoQuadrado.getEstadoFisico().posicaoM.x.toFixed(2)} m`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -24606,7 +24606,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `projetil.getEstadoFisico().velocidadeMps.x.toFixed`, `projetil.getEstadoFisico`, `segundoQuadrado.getEstadoFisico().posicaoM.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f7fe4737bfc25077 */ |
 
 </details>
 
@@ -24615,9 +24615,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePilhaDezQuadradosAtingida.dados:ArrowFunction</code> · [fonte L599](../../src/testes.ts#L599) |
+| Identificador | <code>src/testes.ts::criarTestePilhaDezQuadradosAtingida.dados:ArrowFunction</code> · [fonte L636](../../src/testes.ts#L636) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `(segundoQuadrado.getEstadoFisico().posicaoM.x - xDaPilhaM).toFixed`, `segundoQuadrado.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Pilha: 10 corpos soltos de 1 kg\nProjétil: 2 kg, 1 × 1 m\nImpacto: segundo quadrado (altura 1,5 m)\nVelocidade inicial: 10,0 m/s\nFixadores: nenhum\nDeslocamento do segundo: ${(segundoQuadrado.getEstadoFisico().posicaoM.x - xDaPilhaM).toFi… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -24625,7 +24625,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `(segundoQuadrado.getEstadoFisico().posicaoM.x - xDaPilhaM).toFixed`, `segundoQuadrado.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-025ab06a42ab29d3 */ |
 
 </details>
 
@@ -24634,9 +24634,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePilhaDezQuadradosAtingida.validar:ArrowFunction</code> · [fonte L600](../../src/testes.ts#L600) |
+| Identificador | <code>src/testes.ts::criarTestePilhaDezQuadradosAtingida.validar:ArrowFunction</code> · [fonte L638](../../src/testes.ts#L638) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `segundoQuadrado.getEstadoFisico`, `deslocamentoSegundoM.toFixed`, `projetil.getEstadoFisico().velocidadeMps.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${houveTransferencia ? 'APROVADO' : 'AGUARDANDO IMPACTO'} · segundo quadrado deslocou ${deslocamentoSegundoM.toFixed(3)} m; projétil ${projetil.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s; sem vínculos estruturais`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -24644,7 +24644,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `segundoQuadrado.getEstadoFisico`, `deslocamentoSegundoM.toFixed`, `projetil.getEstadoFisico().velocidadeMps.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-05506179a6be9ef8 */ |
 
 </details>
 
@@ -24653,7 +24653,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePilhaEstruturalDezCubos:ArrowFunction</code> · [fonte L609](../../src/testes.ts#L609) |
+| Identificador | <code>src/testes.ts::criarTestePilhaEstruturalDezCubos:ArrowFunction</code> · [fonte L649](../../src/testes.ts#L649) |
 | Assinatura | <code> (): CenárioVisual</code> |
 | Responsabilidade | Pilha rígida: os fixadores tornam os dez cubos uma só ilha apoiada no solo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -24663,7 +24663,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Pilha rígida: os fixadores tornam os dez cubos uma só ilha apoiada no solo. */ |
+| JSDoc integral | /** Pilha rígida: os fixadores tornam os dez cubos uma só ilha apoiada no solo.<br> * @contract f-0b692e4c2ff6384e<br> */ |
 
 </details>
 
@@ -24672,17 +24672,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePilhaEstruturalDezCubos.[callback]#2.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L625](../../src/testes.ts#L625) |
+| Identificador | <code>src/testes.ts::criarTestePilhaEstruturalDezCubos.[callback]#2.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L666](../../src/testes.ts#L666) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão 0. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `0`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>0</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `0`. Efeitos indiretos seguem as dependências chamadas. @contract f-9c2265931d28bf43 */ |
 
 </details>
 
@@ -24691,17 +24691,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePilhaEstruturalDezCubos.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L628](../../src/testes.ts#L628) |
+| Identificador | <code>src/testes.ts::criarTestePilhaEstruturalDezCubos.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L670](../../src/testes.ts#L670) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão 0. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `0`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>0</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `0`. Efeitos indiretos seguem as dependências chamadas. @contract f-63092dab87f2e4ad */ |
 
 </details>
 
@@ -24710,17 +24710,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePilhaEstruturalDezCubos.deveEncerrar:ArrowFunction</code> · [fonte L646](../../src/testes.ts#L646) |
+| Identificador | <code>src/testes.ts::criarTestePilhaEstruturalDezCubos.deveEncerrar:ArrowFunction</code> · [fonte L689](../../src/testes.ts#L689) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `objetosEmRepouso(mundo, cubos)`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>objetosEmRepouso(mundo, cubos)</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>objetosEmRepouso</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `objetosEmRepouso(mundo, cubos)`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. @contract f-4ae2c3bdf4d56a92 */ |
 
 </details>
 
@@ -24729,9 +24729,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePilhaEstruturalDezCubos.telemetria:ArrowFunction</code> · [fonte L647](../../src/testes.ts#L647) |
+| Identificador | <code>src/testes.ts::criarTestePilhaEstruturalDezCubos.telemetria:ArrowFunction</code> · [fonte L691](../../src/testes.ts#L691) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `cuboSuperior.getEstadoFisico().posicaoM.y.toFixed`, `cuboSuperior.getEstadoFisico`, `fixadores.filter`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`topo y=${cuboSuperior.getEstadoFisico().posicaoM.y.toFixed(2)} m · fixadores íntegros ${fixadores.filter((fixador) =&gt; !fixador.estaRompido).length}/${fixadores.length}`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -24739,7 +24739,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `cuboSuperior.getEstadoFisico().posicaoM.y.toFixed`, `cuboSuperior.getEstadoFisico`, `fixadores.filter`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6fb9189ecfe71eb9 */ |
 
 </details>
 
@@ -24748,9 +24748,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePilhaEstruturalDezCubos.dados:ArrowFunction</code> · [fonte L648](../../src/testes.ts#L648) |
+| Identificador | <code>src/testes.ts::criarTestePilhaEstruturalDezCubos.dados:ArrowFunction</code> · [fonte L693](../../src/testes.ts#L693) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `cuboSuperior.getEstadoFisico().posicaoM.y.toFixed`, `cuboSuperior.getEstadoFisico`, `fixadores.every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Cubos: 10 × (1 × 1 × 1 m; 1 kg)\nFixadores: ${fixadores.length}, resistência de 100.000 N cada\nBase: cubo 1 preso ao concreto por chumbador de 100.000 N (${chumbadorDaBase.estaRompido ? 'ROMPIDO' : 'íntegro'})\nTopo: ${cuboSuperior.getEst… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -24758,7 +24758,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `cuboSuperior.getEstadoFisico().posicaoM.y.toFixed`, `cuboSuperior.getEstadoFisico`, `fixadores.every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ab8e04be20d92ae9 */ |
 
 </details>
 
@@ -24767,9 +24767,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePilhaEstruturalDezCubos.validar:ArrowFunction</code> · [fonte L649](../../src/testes.ts#L649) |
+| Identificador | <code>src/testes.ts::criarTestePilhaEstruturalDezCubos.validar:ArrowFunction</code> · [fonte L695](../../src/testes.ts#L695) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `fixadores.every`, `cuboSuperior.getEstadoFisico`, `cuboSuperior.getEstadoFisico().posicaoM.y.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${fixadores.every((fixador) =&gt; !fixador.estaRompido) &amp;&amp; Math.abs(cuboSuperior.getEstadoFisico().posicaoM.y - 9.5) &lt; 1e-12 ? 'APROVADO' : 'DIVERGENTE'} · topo ${cuboSuperior.getEstadoFisico().posicaoM.y.toFixed(3)} m; fixadores ${fixadores.… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -24777,7 +24777,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `fixadores.every`, `cuboSuperior.getEstadoFisico`, `cuboSuperior.getEstadoFisico().posicaoM.y.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-983e04aeb4f840d3 */ |
 
 </details>
 
@@ -24786,7 +24786,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos:ArrowFunction</code> · [fonte L654](../../src/testes.ts#L654) |
+| Identificador | <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos:ArrowFunction</code> · [fonte L702](../../src/testes.ts#L702) |
 | Assinatura | <code> (): CenárioVisual</code> |
 | Responsabilidade | Ensaio térmico da mesma pilha, com o jato alinhado ao sexto cubo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -24796,7 +24796,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Ensaio térmico da mesma pilha, com o jato alinhado ao sexto cubo. */ |
+| JSDoc integral | /** Ensaio térmico da mesma pilha, com o jato alinhado ao sexto cubo.<br> * @contract f-06adea461411d6dd<br> */ |
 
 </details>
 
@@ -24805,17 +24805,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.[callback]#2.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L675](../../src/testes.ts#L675) |
+| Identificador | <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.[callback]#2.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L724](../../src/testes.ts#L724) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão 0. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `0`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>0</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `0`. Efeitos indiretos seguem as dependências chamadas. @contract f-dd25ce1c90cbcbcd */ |
 
 </details>
 
@@ -24824,17 +24824,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L700](../../src/testes.ts#L700) |
+| Identificador | <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L750](../../src/testes.ts#L750) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão propulsor.empuxoAtualN. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>propulsor.empuxoAtualN</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. @contract f-df1443f3ed62b28d */ |
 
 </details>
 
@@ -24843,17 +24843,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.obterEsforcoSolicitadoN:ArrowFunction#2</code> · [fonte L701](../../src/testes.ts#L701) |
+| Identificador | <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.obterEsforcoSolicitadoN:ArrowFunction#2</code> · [fonte L752](../../src/testes.ts#L752) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão 0. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `0`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>0</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `0`. Efeitos indiretos seguem as dependências chamadas. @contract f-d58ce812a63b9089 */ |
 
 </details>
 
@@ -24862,17 +24862,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.obterEsforcoSolicitadoN:ArrowFunction#3</code> · [fonte L705](../../src/testes.ts#L705) |
+| Identificador | <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.obterEsforcoSolicitadoN:ArrowFunction#3</code> · [fonte L757](../../src/testes.ts#L757) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão 0. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `0`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>0</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `0`. Efeitos indiretos seguem as dependências chamadas. @contract f-6a1cb16139d80f63 */ |
 
 </details>
 
@@ -24881,17 +24881,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.obterEsforcoSolicitadoN:ArrowFunction#4</code> · [fonte L709](../../src/testes.ts#L709) |
+| Identificador | <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.obterEsforcoSolicitadoN:ArrowFunction#4</code> · [fonte L762](../../src/testes.ts#L762) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão propulsor.empuxoAtualN. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>propulsor.empuxoAtualN</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. @contract f-89a3f8a048e1961c */ |
 
 </details>
 
@@ -24900,17 +24900,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.cameraX:ArrowFunction</code> · [fonte L725](../../src/testes.ts#L725) |
+| Identificador | <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.cameraX:ArrowFunction</code> · [fonte L779](../../src/testes.ts#L779) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão -3. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `-3`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>-3</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `-3`. Efeitos indiretos seguem as dependências chamadas. @contract f-da79bf430ec16b0c */ |
 
 </details>
 
@@ -24919,17 +24919,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.telemetria:ArrowFunction</code> · [fonte L733](../../src/testes.ts#L733) |
+| Identificador | <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.telemetria:ArrowFunction</code> · [fonte L788](../../src/testes.ts#L788) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve ``cubo 6: ${cuboAlvo.temperaturaC.toFixed(1)} °C · integridade ${(cuboAlvo.integridadeEstrutural * 100).toFixed(0)}%``. Dependências diretas: `cuboAlvo.temperaturaC.toFixed`, `(cuboAlvo.integridadeEstrutural * 100).toFixed`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`cubo 6: ${cuboAlvo.temperaturaC.toFixed(1)} °C · integridade ${(cuboAlvo.integridadeEstrutural * 100).toFixed(0)}%`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>cuboAlvo.temperaturaC.toFixed</code>; <code>(cuboAlvo.integridadeEstrutural * 100).toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve ``cubo 6: ${cuboAlvo.temperaturaC.toFixed(1)} °C · integridade ${(cuboAlvo.integridadeEstrutural * 100).toFixed(0)}%``. Dependências diretas: `cuboAlvo.temperaturaC.toFixed`, `(cuboAlvo.integridadeEstrutural * 100).toFixed`. Efeitos indiretos seguem as dependências chamadas. @contract f-5b5e8b058c0459ea */ |
 
 </details>
 
@@ -24938,9 +24938,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.dados:ArrowFunction</code> · [fonte L734](../../src/testes.ts#L734) |
+| Identificador | <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.dados:ArrowFunction</code> · [fonte L790](../../src/testes.ts#L790) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `cuboAlvo.getEstadoFisico().posicaoM.subtrair(propulsor.getEstadoFisico().posicaoM).magnitude.toFixed`, `cuboAlvo.getEstadoFisico().posicaoM.subtrair`, `cuboAlvo.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`MODALIDADE: TÉRMICA\nAlvo: cubo 6, a ${cuboAlvo.getEstadoFisico().posicaoM.subtrair(propulsor.getEstadoFisico().posicaoM).magnitude.toFixed(1)} m do propulsor\nMontagem: motor e tanque presos a suporte chumbado ao concreto\nTemperatura cub… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -24948,7 +24948,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `cuboAlvo.getEstadoFisico().posicaoM.subtrair(propulsor.getEstadoFisico().posicaoM).magnitude.toFixed`, `cuboAlvo.getEstadoFisico().posicaoM.subtrair`, `cuboAlvo.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-608e7f34d5da17cb */ |
 
 </details>
 
@@ -24957,17 +24957,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.deveEncerrar:ArrowFunction</code> · [fonte L735](../../src/testes.ts#L735) |
+| Identificador | <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.deveEncerrar:ArrowFunction</code> · [fonte L792](../../src/testes.ts#L792) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Retorna a expressão cuboAlvo.integridadeEstrutural === 0. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `cuboAlvo.integridadeEstrutural === 0`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>cuboAlvo.integridadeEstrutural === 0</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `cuboAlvo.integridadeEstrutural === 0`. Efeitos indiretos seguem as dependências chamadas. @contract f-2514b5757a0470cf */ |
 
 </details>
 
@@ -24976,9 +24976,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.validar:ArrowFunction</code> · [fonte L736](../../src/testes.ts#L736) |
+| Identificador | <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.validar:ArrowFunction</code> · [fonte L794](../../src/testes.ts#L794) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `cuboAlvo.temperaturaC.toFixed`, `(cuboAlvo.integridadeEstrutural * 100).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${cuboAlvo.temperaturaC &gt; 20 &amp;&amp; cuboAlvo.integridadeEstrutural &lt; 1 ? 'APROVADO' : 'AQUECENDO'} · cubo 6: ${cuboAlvo.temperaturaC.toFixed(1)} °C; integridade ${(cuboAlvo.integridadeEstrutural * 100).toFixed(1)}%`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -24986,7 +24986,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `cuboAlvo.temperaturaC.toFixed`, `(cuboAlvo.integridadeEstrutural * 100).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-324bdcf1ea9e1dae */ |
 
 </details>
 
@@ -24995,9 +24995,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarColisaoPorResistencia:ArrowFunction</code> · [fonte L740](../../src/testes.ts#L740) |
+| Identificador | <code>src/testes.ts::criarColisaoPorResistencia:ArrowFunction</code> · [fonte L799](../../src/testes.ts#L799) |
 | Assinatura | <code> (resistenciaJ: number): CenárioVisual</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `MundoFisico`, `criarColisor`, `mundo.registrarObjeto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>resistenciaJ: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{ nome: `Resistência a colisão — ${resistenciaJ} J`, descricao: 'Colisão com energia aproximada de 200 J. Compare a integridade resultante com o limite estrutural de cada objeto.', mundo, objetos: [esquerdo, direito], superficies: [], veloc… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25005,7 +25005,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `MundoFisico`, `criarColisor`, `mundo.registrarObjeto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-9d873142be7398e9 */ |
 
 </details>
 
@@ -25014,9 +25014,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarColisaoPorResistencia.criarColisor:ArrowFunction</code> · [fonte L742](../../src/testes.ts#L742) |
+| Identificador | <code>src/testes.ts::criarColisaoPorResistencia.criarColisor:ArrowFunction</code> · [fonte L802](../../src/testes.ts#L802) |
 | Assinatura | <code> (id: string, x: number, velocidadeX: number): Objeto</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `Objeto`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>id: string</code>; <code>x: number</code>; <code>velocidadeX: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Objeto</code>; expressões retornadas: <code>new Objeto({ id, massaBaseKg: 2, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: resistenciaJ, limiteTermicoC: 1_000, estadoInicial: { posicaoM: new Vetor3(x, 1, 0), velocidadeMps: new Vetor3(velocidadeX, 0, 0) }, })</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25024,7 +25024,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `Objeto`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8ee50490a90c7a83 */ |
 
 </details>
 
@@ -25033,17 +25033,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarColisaoPorResistencia.deveEncerrar:ArrowFunction</code> · [fonte L759](../../src/testes.ts#L759) |
+| Identificador | <code>src/testes.ts::criarColisaoPorResistencia.deveEncerrar:ArrowFunction</code> · [fonte L820](../../src/testes.ts#L820) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `objetosEmRepouso(mundo, [esquerdo, direito])`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>objetosEmRepouso(mundo, [esquerdo, direito])</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>objetosEmRepouso</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `objetosEmRepouso(mundo, [esquerdo, direito])`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. @contract f-c2310173f84d79d8 */ |
 
 </details>
 
@@ -25052,17 +25052,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarColisaoPorResistencia.validar:ArrowFunction</code> · [fonte L760](../../src/testes.ts#L760) |
+| Identificador | <code>src/testes.ts::criarColisaoPorResistencia.validar:ArrowFunction</code> · [fonte L822](../../src/testes.ts#L822) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve ``INTEGRIDADE · ${Math.round(esquerdo.integridadeEstrutural * 100)}% / ${Math.round(direito.integridadeEstrutural * 100)}%``. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`INTEGRIDADE · ${Math.round(esquerdo.integridadeEstrutural * 100)}% / ${Math.round(direito.integridadeEstrutural * 100)}%`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.round</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve ``INTEGRIDADE · ${Math.round(esquerdo.integridadeEstrutural * 100)}% / ${Math.round(direito.integridadeEstrutural * 100)}%``. Efeitos indiretos seguem as dependências chamadas. @contract f-560ab1eb7fbeb386 */ |
 
 </details>
 
@@ -25071,9 +25071,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarColisaoComTorque:ArrowFunction</code> · [fonte L764](../../src/testes.ts#L764) |
+| Identificador | <code>src/testes.ts::criarColisaoComTorque:ArrowFunction</code> · [fonte L827](../../src/testes.ts#L827) |
 | Assinatura | <code> (): CenárioVisual</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `MundoFisico`, `Objeto`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{ nome: 'Colisão com torque — base tripla', descricao: 'Retângulos de 3 × 1 m colidem fora do centro de massa. O impulso cria velocidade angular.', mundo, objetos: [esquerdo, direito], superficies: [], velocidadeTempo: 1, limiteVerticalM: 5… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25081,7 +25081,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `MundoFisico`, `Objeto`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-69299328e68e3692 */ |
 
 </details>
 
@@ -25090,17 +25090,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarColisaoComTorque.deveEncerrar:ArrowFunction</code> · [fonte L786](../../src/testes.ts#L786) |
+| Identificador | <code>src/testes.ts::criarColisaoComTorque.deveEncerrar:ArrowFunction</code> · [fonte L850](../../src/testes.ts#L850) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `objetosEmRepouso(mundo, [esquerdo, direito])`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>objetosEmRepouso(mundo, [esquerdo, direito])</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>objetosEmRepouso</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `objetosEmRepouso(mundo, [esquerdo, direito])`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. @contract f-9886c596f6b40949 */ |
 
 </details>
 
@@ -25109,9 +25109,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarColisaoComTorque.validar:ArrowFunction</code> · [fonte L787](../../src/testes.ts#L787) |
+| Identificador | <code>src/testes.ts::criarColisaoComTorque.validar:ArrowFunction</code> · [fonte L852](../../src/testes.ts#L852) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve ``${giro &gt; 0.01 ? 'APROVADO' : 'DIVERGENTE'} · velocidade angular total ${giro.toFixed(3)} rad/s``. Dependências diretas: `esquerdo.getEstadoFisico`, `direito.getEstadoFisico`, `giro.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${giro &gt; 0.01 ? 'APROVADO' : 'DIVERGENTE'} · velocidade angular total ${giro.toFixed(3)} rad/s`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25119,7 +25119,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Devolve ``${giro &gt; 0.01 ? 'APROVADO' : 'DIVERGENTE'} · velocidade angular total ${giro.toFixed(3)} rad/s``. Dependências diretas: `esquerdo.getEstadoFisico`, `direito.getEstadoFisico`, `giro.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-36c7690734a52f73 */ |
 
 </details>
 
@@ -25128,9 +25128,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteImpactoNoRetangulo:ArrowFunction</code> · [fonte L794](../../src/testes.ts#L794) |
+| Identificador | <code>src/testes.ts::criarTesteImpactoNoRetangulo:ArrowFunction</code> · [fonte L860](../../src/testes.ts#L860) |
 | Assinatura | <code> (nomeDoImpacto: string, alturaDeImpactoM: number, indice: number): CenárioVisual</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Objeto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>nomeDoImpacto: string</code>; <code>alturaDeImpactoM: number</code>; <code>indice: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{ nome: `Retângulo — ${nomeDoImpacto}`, descricao: `Retângulo de 1 × 10 m e 10 kg sobre concreto. Um quadrado passivo de 1 × 1 m e 1 kg é disparado horizontalmente a ${alturaDeImpactoM.toFixed(2)} m; após o impulso inicial, atua apenas a fí… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25138,7 +25138,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Objeto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f00cc81d6d6940d8 */ |
 
 </details>
 
@@ -25147,9 +25147,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteImpactoNoRetangulo.deveEncerrar:ArrowFunction</code> · [fonte L821](../../src/testes.ts#L821) |
+| Identificador | <code>src/testes.ts::criarTesteImpactoNoRetangulo.deveEncerrar:ArrowFunction</code> · [fonte L888](../../src/testes.ts#L888) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `[retangulo, quadrado].every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>[retangulo, quadrado].every((objeto) =&gt; { const estado = objeto.getEstadoFisico(); const apoiado = estado.posicaoM.y &lt;= solo.alturaM + objeto.dimensoesM.y / 2 + 0.01; return apoiado &amp;&amp; estado.velocidadeMps.magnitude &lt;= 0.05 &amp;&amp; estado.veloci… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25157,7 +25157,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `[retangulo, quadrado].every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7b59fe12d19933f9 */ |
 
 </details>
 
@@ -25166,9 +25166,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteImpactoNoRetangulo.validar:ArrowFunction</code> · [fonte L826](../../src/testes.ts#L826) |
+| Identificador | <code>src/testes.ts::criarTesteImpactoNoRetangulo.validar:ArrowFunction</code> · [fonte L894](../../src/testes.ts#L894) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `retangulo.getEstadoFisico`, `quadrado.getEstadoFisico`, `giroRadps.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${aprovado ? 'APROVADO' : 'DIVERGENTE'} · rotação ${giroRadps.toFixed(3)} rad/s; velocidade final do quadrado ${velocidadeDoQuadradoMps.toFixed(2)} m/s; ${efeitoEsperado}`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25176,7 +25176,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `retangulo.getEstadoFisico`, `quadrado.getEstadoFisico`, `giroRadps.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f8366873efbab1c8 */ |
 
 </details>
 
@@ -25185,9 +25185,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteParaquedas:ArrowFunction</code> · [fonte L841](../../src/testes.ts#L841) |
+| Identificador | <code>src/testes.ts::criarTesteParaquedas:ArrowFunction</code> · [fonte L910](../../src/testes.ts#L910) |
 | Assinatura | <code> (): CenárioVisual</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Objeto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{ nome: 'Paraquedas — queda de 1.000 m, abertura a 200 m', descricao: 'Quadrado de 10 kg cai em atmosfera padrão. Ao atingir 200 m acima do solo, o paraquedas de 25 m² é acionado; ele aumenta o arrasto efetivo e reduz a velocidade vertical … [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25195,7 +25195,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Objeto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8932613c77dd0f17 */ |
 
 </details>
 
@@ -25204,9 +25204,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteParaquedas.atualizarControle:ArrowFunction</code> · [fonte L857](../../src/testes.ts#L857) |
+| Identificador | <code>src/testes.ts::criarTesteParaquedas.atualizarControle:ArrowFunction</code> · [fonte L927](../../src/testes.ts#L927) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `quadrado.getEstadoFisico`, `quadrado.acionarParaquedas`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>alturaDeAberturaM</code>; <code>velocidadeAntesDaAberturaMps</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25214,7 +25214,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!quadrado.paraquedasEstaAberto &amp;&amp; estado.posicaoM.y &lt;= 200</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `quadrado.getEstadoFisico`, `quadrado.acionarParaquedas`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a1c2b5b101617fbd */ |
 
 </details>
 
@@ -25223,17 +25223,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteParaquedas.telemetria:ArrowFunction</code> · [fonte L865](../../src/testes.ts#L865) |
+| Identificador | <code>src/testes.ts::criarTesteParaquedas.telemetria:ArrowFunction</code> · [fonte L936](../../src/testes.ts#L936) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve ``velocidade vertical ${quadrado.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s``. Dependências diretas: `quadrado.getEstadoFisico().velocidadeMps.y.toFixed`, `quadrado.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`velocidade vertical ${quadrado.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>quadrado.getEstadoFisico().velocidadeMps.y.toFixed</code>; <code>quadrado.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve ``velocidade vertical ${quadrado.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s``. Dependências diretas: `quadrado.getEstadoFisico().velocidadeMps.y.toFixed`, `quadrado.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-92aa7583aa49469c */ |
 
 </details>
 
@@ -25242,9 +25242,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteParaquedas.dados:ArrowFunction</code> · [fonte L866](../../src/testes.ts#L866) |
+| Identificador | <code>src/testes.ts::criarTesteParaquedas.dados:ArrowFunction</code> · [fonte L938](../../src/testes.ts#L938) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `quadrado.getEstadoFisico().posicaoM.y.toFixed`, `quadrado.getEstadoFisico`, `quadrado.getEstadoFisico().velocidadeMps.y.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Altura: ${quadrado.getEstadoFisico().posicaoM.y.toFixed(1)} m\nVelocidade vertical: ${quadrado.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s\nParaquedas: ${quadrado.paraquedasEstaAberto ? 'ABERTO' : 'fechado'}\nAbertura: ${alturaDeAber… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25252,7 +25252,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `quadrado.getEstadoFisico().posicaoM.y.toFixed`, `quadrado.getEstadoFisico`, `quadrado.getEstadoFisico().velocidadeMps.y.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b8975f70d228ec2c */ |
 
 </details>
 
@@ -25261,17 +25261,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteParaquedas.deveEncerrar:ArrowFunction</code> · [fonte L867](../../src/testes.ts#L867) |
+| Identificador | <code>src/testes.ts::criarTesteParaquedas.deveEncerrar:ArrowFunction</code> · [fonte L940](../../src/testes.ts#L940) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `objetosEmRepouso(mundo, [quadrado])`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>objetosEmRepouso(mundo, [quadrado])</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>objetosEmRepouso</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `objetosEmRepouso(mundo, [quadrado])`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. @contract f-151658279593cf8d */ |
 
 </details>
 
@@ -25280,9 +25280,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteParaquedas.validar:ArrowFunction</code> · [fonte L868](../../src/testes.ts#L868) |
+| Identificador | <code>src/testes.ts::criarTesteParaquedas.validar:ArrowFunction</code> · [fonte L942](../../src/testes.ts#L942) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `(alturaDeAberturaM ?? 0).toFixed`, `quadrado.getEstadoFisico().velocidadeMps.y.toFixed`, `quadrado.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${quadrado.paraquedasEstaAberto &amp;&amp; (velocidadeAntesDaAberturaMps ?? 0) &lt; -5 ? 'APROVADO' : 'DIVERGENTE'} · abertura a ${(alturaDeAberturaM ?? 0).toFixed(1)} m; velocidade vertical final ${quadrado.getEstadoFisico().velocidadeMps.y.toFixed(… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25290,7 +25290,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `(alturaDeAberturaM ?? 0).toFixed`, `quadrado.getEstadoFisico().velocidadeMps.y.toFixed`, `quadrado.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d39419a1cb33cb6a */ |
 
 </details>
 
@@ -25299,9 +25299,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteAreaDeContato:ArrowFunction</code> · [fonte L872](../../src/testes.ts#L872) |
+| Identificador | <code>src/testes.ts::criarTesteAreaDeContato:ArrowFunction</code> · [fonte L947](../../src/testes.ts#L947) |
 | Assinatura | <code> (): CenárioVisual</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `MundoFisico`, `criarObjetoComArea`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{ nome: 'Arrasto atmosférico — 100 m² × 1 m²', descricao: 'Dois objetos de 10 kg caem no ar a 1,225 kg/m³. O retângulo roxo tem 100 m² de área frontal; o azul, 1 m².', mundo, objetos: [areaGrande, areaPequena], superficies: [], velocidadeTe… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25309,7 +25309,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `MundoFisico`, `criarObjetoComArea`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-78560aec215c531c */ |
 
 </details>
 
@@ -25318,9 +25318,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteAreaDeContato.criarObjetoComArea:ArrowFunction</code> · [fonte L874](../../src/testes.ts#L874) |
+| Identificador | <code>src/testes.ts::criarTesteAreaDeContato.criarObjetoComArea:ArrowFunction</code> · [fonte L950](../../src/testes.ts#L950) |
 | Assinatura | <code> (id: string, x: number, areaFrontalM2: number, dimensoesM: Vetor3): Objeto</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `Objeto`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>id: string</code>; <code>x: number</code>; <code>areaFrontalM2: number</code>; <code>dimensoesM: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Objeto</code>; expressões retornadas: <code>new Objeto({ id, massaBaseKg: 10, dimensoesM, resistenciaColisaoJ: 10_000, limiteTermicoC: 1_000, areaFrontalM2, coeficienteArrasto: 1, estadoInicial: { posicaoM: new Vetor3(x, 100, 0) }, })</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25328,7 +25328,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `Objeto`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b348e63520dd9538 */ |
 
 </details>
 
@@ -25337,17 +25337,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteAreaDeContato.deveEncerrar:ArrowFunction</code> · [fonte L891](../../src/testes.ts#L891) |
+| Identificador | <code>src/testes.ts::criarTesteAreaDeContato.deveEncerrar:ArrowFunction</code> · [fonte L968](../../src/testes.ts#L968) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `objetosEmRepouso(mundo, [areaGrande, areaPequena])`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>objetosEmRepouso(mundo, [areaGrande, areaPequena])</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>objetosEmRepouso</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `objetosEmRepouso(mundo, [areaGrande, areaPequena])`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. @contract f-738e056e9ae9fd63 */ |
 
 </details>
 
@@ -25356,9 +25356,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteAreaDeContato.validar:ArrowFunction</code> · [fonte L892](../../src/testes.ts#L892) |
+| Identificador | <code>src/testes.ts::criarTesteAreaDeContato.validar:ArrowFunction</code> · [fonte L970](../../src/testes.ts#L970) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `areaGrande.getEstadoFisico`, `areaPequena.getEstadoFisico`, `velocidadeGrande.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${velocidadeGrande &lt; velocidadePequena ? 'APROVADO' : 'DIVERGENTE'} · 100 m²: ${velocidadeGrande.toFixed(2)} m/s · 1 m²: ${velocidadePequena.toFixed(2)} m/s`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25366,7 +25366,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `areaGrande.getEstadoFisico`, `areaPequena.getEstadoFisico`, `velocidadeGrande.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ee3cf207c6cbdabd */ |
 
 </details>
 
@@ -25375,9 +25375,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarVeiculoTerrestre:ArrowFunction</code> · [fonte L900](../../src/testes.ts#L900) |
+| Identificador | <code>src/testes.ts::criarVeiculoTerrestre:ArrowFunction</code> · [fonte L979](../../src/testes.ts#L979) |
 | Assinatura | <code> (id: string, x: number, velocidadeX?: number, coeficienteAtritoEntreObjetos?: number): VeiculoTerrestre</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `VeiculoTerrestre`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>id: string</code>; <code>x: number</code>; <code>velocidadeX = 0</code>; <code>coeficienteAtritoEntreObjetos = 0</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>VeiculoTerrestre</code>; expressões retornadas: <code>new VeiculoTerrestre({ id, massaBaseKg: 1_500, dimensoesM: new Vetor3(4, 1.5, 1.8), // Aproximação para um carro médio no modelo contínuo de dano do core. resistenciaColisaoJ: 50_000, limiteTermicoC: 1_000, quantidadeRodas: 4, forcaTracaoMa… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25385,7 +25385,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `VeiculoTerrestre`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d438adb1c19da010 */ |
 
 </details>
 
@@ -25394,9 +25394,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteVeiculoTerrestre:ArrowFunction</code> · [fonte L916](../../src/testes.ts#L916) |
+| Identificador | <code>src/testes.ts::criarTesteVeiculoTerrestre:ArrowFunction</code> · [fonte L996](../../src/testes.ts#L996) |
 | Assinatura | <code> (tipo: "aceleracao" &#124; "frenagem" &#124; "colisao"): CenárioVisual</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `MundoFisico`, `SuperficiePlano`, `criarVeiculoTerrestre`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>tipo: 'aceleracao' &#124; 'frenagem' &#124; 'colisao'</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{ nome: 'Veículo com rodas — aceleração', descricao: 'Veículo terrestre de 1.500 kg, quatro rodas e tração máxima de 4.500 N. A aderência dos pneus limita a força; o core integra o deslocamento sobre a pista.', mundo, objetos: [veiculo], su… [continua na fonte]</code>; <code>{ nome: 'Veículo com rodas — frenagem', descricao: 'O mesmo veículo de 1.500 kg inicia a 12 m/s. Os freios geram uma força oposta ao movimento, também limitada pela aderência dos pneus.', mundo, objetos: [veiculo], superficies: [pista], vel… [continua na fonte]</code>; <code>{ nome: 'Veículo com rodas — colisão contra parede de 4.000 kg', descricao: 'Veículo de 1.500 kg acelera pela própria tração em direção a uma parede retangular móvel de 4.000 kg. A colisão deve transferir impulso à parede; ela não é um obst… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25404,7 +25404,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>tipo === 'aceleracao'</code>; <code>tipo === 'frenagem'</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `criarVeiculoTerrestre`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a55798ad7c842b5b */ |
 
 </details>
 
@@ -25413,17 +25413,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteVeiculoTerrestre.deveEncerrar:ArrowFunction</code> · [fonte L929](../../src/testes.ts#L929) |
+| Identificador | <code>src/testes.ts::criarTesteVeiculoTerrestre.deveEncerrar:ArrowFunction</code> · [fonte L1010](../../src/testes.ts#L1010) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `objetosEmRepouso(mundo, [veiculo])`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>objetosEmRepouso(mundo, [veiculo])</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>objetosEmRepouso</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `objetosEmRepouso(mundo, [veiculo])`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. @contract f-b02bd59b61bb526a */ |
 
 </details>
 
@@ -25432,9 +25432,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteVeiculoTerrestre.validar:ArrowFunction</code> · [fonte L930](../../src/testes.ts#L930) |
+| Identificador | <code>src/testes.ts::criarTesteVeiculoTerrestre.validar:ArrowFunction</code> · [fonte L1012](../../src/testes.ts#L1012) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `veiculo.getEstadoFisico`, `estado.velocidadeMps.x.toFixed`, `estado.posicaoM.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${estado.velocidadeMps.x &gt; 5 ? 'APROVADO' : 'DIVERGENTE'} · velocidade ${estado.velocidadeMps.x.toFixed(2)} m/s; deslocamento ${estado.posicaoM.x.toFixed(2)} m; massa ${veiculo.massaKg.toLocaleString('pt-BR')} kg`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25442,7 +25442,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `veiculo.getEstadoFisico`, `estado.velocidadeMps.x.toFixed`, `estado.posicaoM.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a29fedf29d6843e6 */ |
 
 </details>
 
@@ -25451,17 +25451,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteVeiculoTerrestre.deveEncerrar:ArrowFunction#2</code> · [fonte L943](../../src/testes.ts#L943) |
+| Identificador | <code>src/testes.ts::criarTesteVeiculoTerrestre.deveEncerrar:ArrowFunction#2</code> · [fonte L1026](../../src/testes.ts#L1026) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `objetosEmRepouso(mundo, [veiculo])`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>objetosEmRepouso(mundo, [veiculo])</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>objetosEmRepouso</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `objetosEmRepouso(mundo, [veiculo])`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. @contract f-db1c7b39ee7ea99b */ |
 
 </details>
 
@@ -25470,9 +25470,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteVeiculoTerrestre.validar:ArrowFunction#2</code> · [fonte L944](../../src/testes.ts#L944) |
+| Identificador | <code>src/testes.ts::criarTesteVeiculoTerrestre.validar:ArrowFunction#2</code> · [fonte L1028](../../src/testes.ts#L1028) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve ``${velocidade &gt;= 0 &amp;&amp; velocidade &lt; 6 ? 'APROVADO' : 'DIVERGENTE'} · velocidade inicial 12,00 m/s; final ${velocidade.toFixed(2)} m/s``. Dependências diretas: `veiculo.getEstadoFisico`, `velocidade.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${velocidade &gt;= 0 &amp;&amp; velocidade &lt; 6 ? 'APROVADO' : 'DIVERGENTE'} · velocidade inicial 12,00 m/s; final ${velocidade.toFixed(2)} m/s`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25480,7 +25480,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Devolve ``${velocidade &gt;= 0 &amp;&amp; velocidade &lt; 6 ? 'APROVADO' : 'DIVERGENTE'} · velocidade inicial 12,00 m/s; final ${velocidade.toFixed(2)} m/s``. Dependências diretas: `veiculo.getEstadoFisico`, `velocidade.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7bf545a865c8b3f1 */ |
 
 </details>
 
@@ -25489,17 +25489,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteVeiculoTerrestre.deveEncerrar:ArrowFunction#3</code> · [fonte L962](../../src/testes.ts#L962) |
+| Identificador | <code>src/testes.ts::criarTesteVeiculoTerrestre.deveEncerrar:ArrowFunction#3</code> · [fonte L1047](../../src/testes.ts#L1047) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `objetosEmRepouso(mundo, [veiculo, parede])`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>objetosEmRepouso(mundo, [veiculo, parede])</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>objetosEmRepouso</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `objetosEmRepouso(mundo, [veiculo, parede])`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. @contract f-de58fc5d7769df1f */ |
 
 </details>
 
@@ -25508,9 +25508,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteVeiculoTerrestre.validar:ArrowFunction#3</code> · [fonte L963](../../src/testes.ts#L963) |
+| Identificador | <code>src/testes.ts::criarTesteVeiculoTerrestre.validar:ArrowFunction#3</code> · [fonte L1049](../../src/testes.ts#L1049) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `parede.getEstadoFisico`, `veiculo.getEstadoFisico`, `velocidadeParede.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${velocidadeParede &gt; 0.05 ? 'APROVADO' : 'DIVERGENTE'} · parede: ${velocidadeParede.toFixed(2)} m/s; veículo após impacto: ${velocidadeVeiculo.toFixed(2)} m/s; parede deslocada ${(parede.getEstadoFisico().posicaoM.x - 16).toFixed(3)} m`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25518,7 +25518,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `parede.getEstadoFisico`, `veiculo.getEstadoFisico`, `velocidadeParede.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-66e497ad71cbe410 */ |
 
 </details>
 
@@ -25527,9 +25527,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteVeiculoContraRampa30Graus:ArrowFunction</code> · [fonte L971](../../src/testes.ts#L971) |
+| Identificador | <code>src/testes.ts::criarTesteVeiculoContraRampa30Graus:ArrowFunction</code> · [fonte L1058](../../src/testes.ts#L1058) |
 | Assinatura | <code> (velocidadeInicialMps: number): CenárioVisual</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `MundoFisico`, `SuperficiePlano`, `criarVeiculoTerrestre`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>velocidadeInicialMps: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{ nome: `Veículo com rodas — rampa triangular a 30° (${velocidadeInicialMps} m/s)`, descricao: `Veículo de 1.500 kg parte de ${velocidadeInicialMps} m/s e continua acelerando pela pista até uma rampa triangular reta de 4.000 kg. A hipotenus… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25537,7 +25537,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `criarVeiculoTerrestre`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7a67283f8ce0fb41 */ |
 
 </details>
 
@@ -25546,17 +25546,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteVeiculoContraRampa30Graus.deveEncerrar:ArrowFunction</code> · [fonte L990](../../src/testes.ts#L990) |
+| Identificador | <code>src/testes.ts::criarTesteVeiculoContraRampa30Graus.deveEncerrar:ArrowFunction</code> · [fonte L1078](../../src/testes.ts#L1078) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `objetosEmRepouso(mundo, [veiculo, rampa])`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>objetosEmRepouso(mundo, [veiculo, rampa])</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>objetosEmRepouso</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `objetosEmRepouso(mundo, [veiculo, rampa])`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. @contract f-b99f6f1804675415 */ |
 
 </details>
 
@@ -25565,9 +25565,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteVeiculoContraRampa30Graus.validar:ArrowFunction</code> · [fonte L991](../../src/testes.ts#L991) |
+| Identificador | <code>src/testes.ts::criarTesteVeiculoContraRampa30Graus.validar:ArrowFunction</code> · [fonte L1080](../../src/testes.ts#L1080) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `rampa.getEstadoFisico`, `velocidadeRampa.toFixed`, `veiculo.getEstadoFisico().velocidadeMps.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${velocidadeRampa &gt; 0.05 ? 'APROVADO' : 'DIVERGENTE'} · inclinação 30°; rampa ${velocidadeRampa.toFixed(2)} m/s; veículo ${veiculo.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s; integridade ${Math.round(veiculo.integridadeEstrutural * … [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25575,7 +25575,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `rampa.getEstadoFisico`, `velocidadeRampa.toFixed`, `veiculo.getEstadoFisico().velocidadeMps.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-41d9e16f937eef16 */ |
 
 </details>
 
@@ -25584,9 +25584,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteVeiculoAlado:ArrowFunction</code> · [fonte L998](../../src/testes.ts#L998) |
+| Identificador | <code>src/testes.ts::criarTesteVeiculoAlado:ArrowFunction</code> · [fonte L1088](../../src/testes.ts#L1088) |
 | Assinatura | <code> (): CenárioVisual</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `MundoFisico`, `SuperficiePlano`, `VeiculoAlado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{ nome: 'Veículo alado — decolagem a 1 m e retorno', descricao: 'Veículo de 1.500 kg acelera progressivamente; a asa gera sustentação. Ao ultrapassar 1 m de altura, a tração é desligada. Ao retornar à pista, inicia frenagem pelas rodas.', m… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25594,7 +25594,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `VeiculoAlado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ba0a81a527cb57a2 */ |
 
 </details>
 
@@ -25603,9 +25603,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteVeiculoAlado.atualizarControle:ArrowFunction</code> · [fonte L1019](../../src/testes.ts#L1019) |
+| Identificador | <code>src/testes.ts::criarTesteVeiculoAlado.atualizarControle:ArrowFunction</code> · [fonte L1110](../../src/testes.ts#L1110) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `veiculo.getEstadoFisico`, `veiculo.definirComandoTracao`, `veiculo.definirComandoFreio`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>tracaoDesligada</code>; <code>pousou</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25613,7 +25613,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!tracaoDesligada &amp;&amp; estado.posicaoM.y &gt;= 1</code>; <code>tracaoDesligada &amp;&amp; estado.posicaoM.y &lt;= 0.77 &amp;&amp; estado.velocidadeMps.y &lt;= 0</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `veiculo.getEstadoFisico`, `veiculo.definirComandoTracao`, `veiculo.definirComandoFreio`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1b7673e97f9aae1b */ |
 
 </details>
 
@@ -25622,17 +25622,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteVeiculoAlado.deveEncerrar:ArrowFunction</code> · [fonte L1030](../../src/testes.ts#L1030) |
+| Identificador | <code>src/testes.ts::criarTesteVeiculoAlado.deveEncerrar:ArrowFunction</code> · [fonte L1122](../../src/testes.ts#L1122) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `pousou &amp;&amp; objetosEmRepouso(mundo, [veiculo])`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>pousou &amp;&amp; objetosEmRepouso(mundo, [veiculo])</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>objetosEmRepouso</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `pousou &amp;&amp; objetosEmRepouso(mundo, [veiculo])`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. @contract f-a4ba08e81f37f54e */ |
 
 </details>
 
@@ -25641,17 +25641,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteVeiculoAlado.telemetria:ArrowFunction</code> · [fonte L1031](../../src/testes.ts#L1031) |
+| Identificador | <code>src/testes.ts::criarTesteVeiculoAlado.telemetria:ArrowFunction</code> · [fonte L1124](../../src/testes.ts#L1124) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve ``${(veiculo.getEstadoFisico().velocidadeMps.magnitude * 3.6).toFixed(1)} km/h``. Dependências diretas: `(veiculo.getEstadoFisico().velocidadeMps.magnitude * 3.6).toFixed`, `veiculo.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${(veiculo.getEstadoFisico().velocidadeMps.magnitude * 3.6).toFixed(1)} km/h`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>(veiculo.getEstadoFisico().velocidadeMps.magnitude * 3.6).toFixed</code>; <code>veiculo.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve ``${(veiculo.getEstadoFisico().velocidadeMps.magnitude * 3.6).toFixed(1)} km/h``. Dependências diretas: `(veiculo.getEstadoFisico().velocidadeMps.magnitude * 3.6).toFixed`, `veiculo.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-610b74141145438c */ |
 
 </details>
 
@@ -25660,9 +25660,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteVeiculoAlado.validar:ArrowFunction</code> · [fonte L1032](../../src/testes.ts#L1032) |
+| Identificador | <code>src/testes.ts::criarTesteVeiculoAlado.validar:ArrowFunction</code> · [fonte L1126](../../src/testes.ts#L1126) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${tracaoDesligada &amp;&amp; pousou ? 'APROVADO' : 'DIVERGENTE'} · tração desligada a 1 m; frenagem no retorno; integridade ${Math.round(veiculo.integridadeEstrutural * 100)}%`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25670,7 +25670,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8ec3d2560431599d */ |
 
 </details>
 
@@ -25679,7 +25679,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarPartidaAutomaticaBasica:ArrowFunction</code> · [fonte L1042](../../src/testes.ts#L1042) |
+| Identificador | <code>src/testes.ts::criarPartidaAutomaticaBasica:ArrowFunction</code> · [fonte L1137](../../src/testes.ts#L1137) |
 | Assinatura | <code> (mundo: MundoFisico, propulsor: Propulsor): (() =&gt; void)</code> |
 | Responsabilidade | Orquestração de missão da partida básica. Cada etapa chama a mesma API que a bancada manual usa; não há alteração direta de estado nem atalho de ignição. Os comandos são emitidos uma única vez para preservar o histórico operacional que também seria visto em manutenção. |
 | Entradas | <code>mundo: MundoFisico</code>; <code>propulsor: Propulsor</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -25689,7 +25689,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /**<br> * Orquestração de missão da partida básica. Cada etapa chama a mesma API que<br> * a bancada manual usa; não há alteração direta de estado nem atalho de<br> * ignição. Os comandos são emitidos uma única vez para preservar o histórico<br> * operacional que também seria visto em manutenção.<br> */ |
+| JSDoc integral | /**<br> * Orquestração de missão da partida básica. Cada etapa chama a mesma API que<br> * a bancada manual usa; não há alteração direta de estado nem atalho de<br> * ignição. Os comandos são emitidos uma única vez para preservar o histórico<br> * operacional que também seria visto em manutenção.<br> * @contract f-5ed19c6e87c7b9ff<br> */ |
 
 </details>
 
@@ -25698,7 +25698,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarPartidaAutomaticaBasica.[callback]:FunctionType#1</code> · [fonte L1042](../../src/testes.ts#L1042) |
+| Identificador | <code>src/testes.ts::criarPartidaAutomaticaBasica.[callback]:FunctionType#1</code> · [fonte L1137](../../src/testes.ts#L1137) |
 | Assinatura | <code> (): void</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -25717,9 +25717,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteVeiculoComposto:ArrowFunction</code> · [fonte L1073](../../src/testes.ts#L1073) |
+| Identificador | <code>src/testes.ts::criarTesteVeiculoComposto:ArrowFunction</code> · [fonte L1169](../../src/testes.ts#L1169) |
 | Assinatura | <code> (): CenárioVisual</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `MundoFisico`, `VeiculoComposto`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{ nome: 'Veículo composto — tanque, dois propulsores e paraquedas', descricao: 'O corpo central, tanque e dois propulsores são Objetos físicos independentes unidos por três fixadores. O computador de voo solicita a partida dos dois propulso… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25727,7 +25727,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `MundoFisico`, `VeiculoComposto`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1db093dc3b0ff718 */ |
 
 </details>
 
@@ -25736,9 +25736,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteVeiculoComposto.criarPropulsor:ArrowFunction</code> · [fonte L1085](../../src/testes.ts#L1085) |
+| Identificador | <code>src/testes.ts::criarTesteVeiculoComposto.criarPropulsor:ArrowFunction</code> · [fonte L1182](../../src/testes.ts#L1182) |
 | Assinatura | <code> (id: string, x: number): Propulsor</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `Propulsor`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>id: string</code>; <code>x: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Propulsor</code>; expressões retornadas: <code>new Propulsor({ id, massaBaseKg: 50, dimensoesM: new Vetor3(1, 1, 1), resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, empuxoMaximoN: 8_000, vazaoMaximaKgS: 2, propelenteCompativel: 'metano', estadoInicial: { posicaoM: new Vetor3(x, 13,… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25746,7 +25746,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `Propulsor`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a2a61e885f9389e0 */ |
 
 </details>
 
@@ -25755,17 +25755,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteVeiculoComposto.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1099](../../src/testes.ts#L1099) |
+| Identificador | <code>src/testes.ts::criarTesteVeiculoComposto.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1197](../../src/testes.ts#L1197) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão propulsorA.empuxoAtualN + propulsorB.empuxoAtualN. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `propulsorA.empuxoAtualN + propulsorB.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>propulsorA.empuxoAtualN + propulsorB.empuxoAtualN</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `propulsorA.empuxoAtualN + propulsorB.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. @contract f-f2778fd0091215ed */ |
 
 </details>
 
@@ -25774,17 +25774,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteVeiculoComposto.obterEsforcoSolicitadoN:ArrowFunction#2</code> · [fonte L1100](../../src/testes.ts#L1100) |
+| Identificador | <code>src/testes.ts::criarTesteVeiculoComposto.obterEsforcoSolicitadoN:ArrowFunction#2</code> · [fonte L1199](../../src/testes.ts#L1199) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão propulsorA.empuxoAtualN. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `propulsorA.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>propulsorA.empuxoAtualN</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `propulsorA.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. @contract f-3101ca8a5ae9d9bb */ |
 
 </details>
 
@@ -25793,17 +25793,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteVeiculoComposto.obterEsforcoSolicitadoN:ArrowFunction#3</code> · [fonte L1101](../../src/testes.ts#L1101) |
+| Identificador | <code>src/testes.ts::criarTesteVeiculoComposto.obterEsforcoSolicitadoN:ArrowFunction#3</code> · [fonte L1201](../../src/testes.ts#L1201) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão propulsorB.empuxoAtualN. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `propulsorB.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>propulsorB.empuxoAtualN</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `propulsorB.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. @contract f-ed093d3406037c26 */ |
 
 </details>
 
@@ -25812,9 +25812,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteVeiculoComposto.atualizarControle:ArrowFunction</code> · [fonte L1113](../../src/testes.ts#L1113) |
+| Identificador | <code>src/testes.ts::criarTesteVeiculoComposto.atualizarControle:ArrowFunction</code> · [fonte L1214](../../src/testes.ts#L1214) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `veiculo.solicitarIgnicaoDosPropulsores`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>partidaComandada</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25822,7 +25822,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!partidaComandada &amp;&amp; mundo.tempoS &gt;= 1</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `veiculo.solicitarIgnicaoDosPropulsores`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e9dea5bdff66cb8f */ |
 
 </details>
 
@@ -25831,9 +25831,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteVeiculoComposto.telemetria:ArrowFunction</code> · [fonte L1119](../../src/testes.ts#L1119) |
+| Identificador | <code>src/testes.ts::criarTesteVeiculoComposto.telemetria:ArrowFunction</code> · [fonte L1221](../../src/testes.ts#L1221) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `veiculo.massaInstantaneaDoConjuntoKg.toFixed`, `veiculo.getEstadoFisico().velocidadeMps.y.toFixed`, `veiculo.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`massa conectada ${veiculo.massaInstantaneaDoConjuntoKg.toFixed(1)} kg · velocidade vertical ${veiculo.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25841,7 +25841,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `veiculo.massaInstantaneaDoConjuntoKg.toFixed`, `veiculo.getEstadoFisico().velocidadeMps.y.toFixed`, `veiculo.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-564e7ade316db02a */ |
 
 </details>
 
@@ -25850,9 +25850,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteVeiculoComposto.dados:ArrowFunction</code> · [fonte L1120](../../src/testes.ts#L1120) |
+| Identificador | <code>src/testes.ts::criarTesteVeiculoComposto.dados:ArrowFunction</code> · [fonte L1223](../../src/testes.ts#L1223) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `veiculo.massaInstantaneaDoConjuntoKg.toFixed`, `massaInicialKg.toFixed`, `veiculo.centroDeMassaDoConjuntoM.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Massa conectada: ${veiculo.massaInstantaneaDoConjuntoKg.toFixed(1)} / ${massaInicialKg.toFixed(1)} kg\nCentro de massa: (${veiculo.centroDeMassaDoConjuntoM.x.toFixed(2)}, ${veiculo.centroDeMassaDoConjuntoM.y.toFixed(2)}) m\nMódulos ligados… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25860,7 +25860,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `veiculo.massaInstantaneaDoConjuntoKg.toFixed`, `massaInicialKg.toFixed`, `veiculo.centroDeMassaDoConjuntoM.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-384d0dad27d50275 */ |
 
 </details>
 
@@ -25869,17 +25869,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteVeiculoComposto.deveEncerrar:ArrowFunction</code> · [fonte L1121](../../src/testes.ts#L1121) |
+| Identificador | <code>src/testes.ts::criarTesteVeiculoComposto.deveEncerrar:ArrowFunction</code> · [fonte L1225](../../src/testes.ts#L1225) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Retorna a expressão false. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `false`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>false</code>; expressões retornadas: <code>false</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `false`. Efeitos indiretos seguem as dependências chamadas. @contract f-6d1ec79251764836 */ |
 
 </details>
 
@@ -25888,9 +25888,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteVeiculoComposto.validar:ArrowFunction</code> · [fonte L1122](../../src/testes.ts#L1122) |
+| Identificador | <code>src/testes.ts::criarTesteVeiculoComposto.validar:ArrowFunction</code> · [fonte L1227](../../src/testes.ts#L1227) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `veiculo.massaInstantaneaDoConjuntoKg.toFixed`, `(propulsorA.empuxoAtualN + propulsorB.empuxoAtualN).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${partidaComandada &amp;&amp; propulsorA.empuxoAtualN &gt; 0 &amp;&amp; propulsorB.empuxoAtualN &gt; 0 ? 'APROVADO' : 'AGUARDANDO PARTIDA'} · massa conectada ${veiculo.massaInstantaneaDoConjuntoKg.toFixed(1)} kg; empuxo total ${(propulsorA.empuxoAtualN + propul… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -25898,7 +25898,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `veiculo.massaInstantaneaDoConjuntoKg.toFixed`, `(propulsorA.empuxoAtualN + propulsorB.empuxoAtualN).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-efa8684535f246fe */ |
 
 </details>
 
@@ -25907,7 +25907,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorComBateria:ArrowFunction</code> · [fonte L1127](../../src/testes.ts#L1127) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorComBateria:ArrowFunction</code> · [fonte L1234](../../src/testes.ts#L1234) |
 | Assinatura | <code> (): CenárioVisual</code> |
 | Responsabilidade | Demonstra alimentação elétrica física, descarga e corte de propulsão. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -25917,7 +25917,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Demonstra alimentação elétrica física, descarga e corte de propulsão. */ |
+| JSDoc integral | /** Demonstra alimentação elétrica física, descarga e corte de propulsão.<br> * @contract f-df674e424c773a6c<br> */ |
 
 </details>
 
@@ -25926,17 +25926,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorComBateria.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1163](../../src/testes.ts#L1163) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorComBateria.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1271](../../src/testes.ts#L1271) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão propulsor.empuxoAtualN. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>propulsor.empuxoAtualN</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. @contract f-8373d31bb26c4028 */ |
 
 </details>
 
@@ -25945,17 +25945,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorComBateria.obterEsforcoSolicitadoN:ArrowFunction#2</code> · [fonte L1167](../../src/testes.ts#L1167) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorComBateria.obterEsforcoSolicitadoN:ArrowFunction#2</code> · [fonte L1276](../../src/testes.ts#L1276) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão propulsor.empuxoAtualN. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>propulsor.empuxoAtualN</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. @contract f-54e496b277f68ab9 */ |
 
 </details>
 
@@ -25964,17 +25964,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorComBateria.obterEsforcoSolicitadoN:ArrowFunction#3</code> · [fonte L1169](../../src/testes.ts#L1169) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorComBateria.obterEsforcoSolicitadoN:ArrowFunction#3</code> · [fonte L1279](../../src/testes.ts#L1279) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão propulsor.empuxoAtualN. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>propulsor.empuxoAtualN</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. @contract f-cb714ed000399fc5 */ |
 
 </details>
 
@@ -25983,17 +25983,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorComBateria.obterEsforcoSolicitadoN:ArrowFunction#4</code> · [fonte L1170](../../src/testes.ts#L1170) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorComBateria.obterEsforcoSolicitadoN:ArrowFunction#4</code> · [fonte L1281](../../src/testes.ts#L1281) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão propulsor.empuxoAtualN. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>propulsor.empuxoAtualN</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. @contract f-ceeb5820019641e3 */ |
 
 </details>
 
@@ -26002,17 +26002,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorComBateria.obterEsforcoSolicitadoN:ArrowFunction#5</code> · [fonte L1171](../../src/testes.ts#L1171) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorComBateria.obterEsforcoSolicitadoN:ArrowFunction#5</code> · [fonte L1283](../../src/testes.ts#L1283) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão propulsor.empuxoAtualN. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>propulsor.empuxoAtualN</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. @contract f-6494df1a0600272e */ |
 
 </details>
 
@@ -26021,17 +26021,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorComBateria.cameraY:ArrowFunction</code> · [fonte L1190](../../src/testes.ts#L1190) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorComBateria.cameraY:ArrowFunction</code> · [fonte L1303](../../src/testes.ts#L1303) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `propulsor.getEstadoFisico().posicaoM.y`. Dependências diretas: `propulsor.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>propulsor.getEstadoFisico().posicaoM.y</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>propulsor.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `propulsor.getEstadoFisico().posicaoM.y`. Dependências diretas: `propulsor.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-87085d4847e02969 */ |
 
 </details>
 
@@ -26040,17 +26040,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorComBateria.telemetria:ArrowFunction</code> · [fonte L1192](../../src/testes.ts#L1192) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorComBateria.telemetria:ArrowFunction</code> · [fonte L1306](../../src/testes.ts#L1306) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve ``carga ${(bateria.percentualDeCarga * 100).toFixed(1)}% · empuxo ${propulsor.empuxoAtualN.toFixed(0)} N``. Dependências diretas: `(bateria.percentualDeCarga * 100).toFixed`, `propulsor.empuxoAtualN.toFixed`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`carga ${(bateria.percentualDeCarga * 100).toFixed(1)}% · empuxo ${propulsor.empuxoAtualN.toFixed(0)} N`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>(bateria.percentualDeCarga * 100).toFixed</code>; <code>propulsor.empuxoAtualN.toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve ``carga ${(bateria.percentualDeCarga * 100).toFixed(1)}% · empuxo ${propulsor.empuxoAtualN.toFixed(0)} N``. Dependências diretas: `(bateria.percentualDeCarga * 100).toFixed`, `propulsor.empuxoAtualN.toFixed`. Efeitos indiretos seguem as dependências chamadas. @contract f-2ba1b03a6d59e0dd */ |
 
 </details>
 
@@ -26059,9 +26059,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorComBateria.dados:ArrowFunction</code> · [fonte L1193](../../src/testes.ts#L1193) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorComBateria.dados:ArrowFunction</code> · [fonte L1308](../../src/testes.ts#L1308) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `bateria.energiaArmazenadaJ.toFixed`, `bateria.capacidadeEnergiaJ.toFixed`, `(bateria.percentualDeCarga * 100).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Bateria: ${bateria.energiaArmazenadaJ.toFixed(0)} / ${bateria.capacidadeEnergiaJ.toFixed(0)} J (${(bateria.percentualDeCarga * 100).toFixed(1)}%)\nLinhas: metano ${linhaCombustivel.vazaoAtualKgS.toFixed(2)} kg/s ${linhaCombustivel.estaDesc… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -26069,7 +26069,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `bateria.energiaArmazenadaJ.toFixed`, `bateria.capacidadeEnergiaJ.toFixed`, `(bateria.percentualDeCarga * 100).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0ee87f7c3701781d */ |
 
 </details>
 
@@ -26078,17 +26078,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorComBateria.deveEncerrar:ArrowFunction</code> · [fonte L1194](../../src/testes.ts#L1194) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorComBateria.deveEncerrar:ArrowFunction</code> · [fonte L1310](../../src/testes.ts#L1310) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Retorna a expressão false. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `false`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>false</code>; expressões retornadas: <code>false</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `false`. Efeitos indiretos seguem as dependências chamadas. @contract f-498ab4b09c6492d8 */ |
 
 </details>
 
@@ -26097,9 +26097,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorComBateria.validar:ArrowFunction</code> · [fonte L1195](../../src/testes.ts#L1195) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorComBateria.validar:ArrowFunction</code> · [fonte L1312](../../src/testes.ts#L1312) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `(bateria.percentualDeCarga * 100).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${bateria.estaDescarregada &amp;&amp; propulsor.empuxoAtualN === 0 ? 'APROVADO' : 'EXECUTANDO'} · carga ${(bateria.percentualDeCarga * 100).toFixed(1)}%; ignição ${propulsor.estaIgnitado ? 'ativa' : 'cortada'}`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -26107,7 +26107,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `(bateria.percentualDeCarga * 100).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-957017c8c5009de9 */ |
 
 </details>
 
@@ -26116,9 +26116,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorContraParede:ArrowFunction</code> · [fonte L1199](../../src/testes.ts#L1199) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorContraParede:ArrowFunction</code> · [fonte L1317](../../src/testes.ts#L1317) |
 | Assinatura | <code> (throttle: number): CenárioVisual</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `MundoFisico`, `SuperficiePlano`, `TanquePropelente`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>throttle: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{ nome: `Propulsor horizontal — parede de 10.000 kg (${Math.round(throttle * 100)}%)`, descricao: `Propulsor de 20.000 N recebe metano de tanque conectado a 9 m e empurra horizontalmente, por contato, uma parede livre de 10.000 kg. A mangue… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -26126,7 +26126,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `TanquePropelente`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-cd1e85610704eab1 */ |
 
 </details>
 
@@ -26135,17 +26135,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorContraParede.cameraX:ArrowFunction</code> · [fonte L1229](../../src/testes.ts#L1229) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorContraParede.cameraX:ArrowFunction</code> · [fonte L1348](../../src/testes.ts#L1348) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `(tanque.getEstadoFisico().posicaoM.x + parede.getEstadoFisico().posicaoM.x) / 2`. Dependências diretas: `tanque.getEstadoFisico`, `parede.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>(tanque.getEstadoFisico().posicaoM.x + parede.getEstadoFisico().posicaoM.x) / 2</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>tanque.getEstadoFisico</code>; <code>parede.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `(tanque.getEstadoFisico().posicaoM.x + parede.getEstadoFisico().posicaoM.x) / 2`. Dependências diretas: `tanque.getEstadoFisico`, `parede.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-2cb38c6520267143 */ |
 
 </details>
 
@@ -26154,9 +26154,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorContraParede.dados:ArrowFunction</code> · [fonte L1230](../../src/testes.ts#L1230) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorContraParede.dados:ArrowFunction</code> · [fonte L1350](../../src/testes.ts#L1350) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `propulsor.empuxoAtualN.toFixed`, `propulsor.vazaoAtualKgS.toFixed`, `tanque.massaPropelenteKg.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Empuxo: ${propulsor.empuxoAtualN.toFixed(0)} N\nVazão: ${propulsor.vazaoAtualKgS.toFixed(2)} kg/s\nMetano: ${tanque.massaPropelenteKg.toFixed(2)} / ${tanque.massaPropelenteInicialKg.toFixed(2)} kg\nConsumido: ${tanque.massaPropelenteConsum… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -26164,7 +26164,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `propulsor.empuxoAtualN.toFixed`, `propulsor.vazaoAtualKgS.toFixed`, `tanque.massaPropelenteKg.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f39cfd47cfb9cd7c */ |
 
 </details>
 
@@ -26173,9 +26173,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorContraParede.deveEncerrar:ArrowFunction</code> · [fonte L1231](../../src/testes.ts#L1231) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorContraParede.deveEncerrar:ArrowFunction</code> · [fonte L1352](../../src/testes.ts#L1352) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `false`. Dependências diretas: `parede.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>false</code>; expressões retornadas: <code>false</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>picoVelocidadeParedeMps</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -26183,7 +26183,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Devolve `false`. Dependências diretas: `parede.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6f6b6e9f3f9c07c6 */ |
 
 </details>
 
@@ -26192,9 +26192,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorContraParede.validar:ArrowFunction</code> · [fonte L1235](../../src/testes.ts#L1235) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorContraParede.validar:ArrowFunction</code> · [fonte L1357](../../src/testes.ts#L1357) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `propulsor.empuxoAtualN.toFixed`, `tanque.massaPropelenteKg.toFixed`, `picoVelocidadeParedeMps.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${picoVelocidadeParedeMps &gt; 0 ? 'APROVADO' : 'DIVERGENTE'} · empuxo ${propulsor.empuxoAtualN.toFixed(0)} N; propelente ${tanque.massaPropelenteKg.toFixed(2)} kg; pico da parede ${picoVelocidadeParedeMps.toFixed(2)} m/s`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -26202,7 +26202,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `propulsor.empuxoAtualN.toFixed`, `tanque.massaPropelenteKg.toFixed`, `picoVelocidadeParedeMps.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d12d62ac17892aa0 */ |
 
 </details>
 
@@ -26211,9 +26211,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor:ArrowFunction</code> · [fonte L1239](../../src/testes.ts#L1239) |
+| Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor:ArrowFunction</code> · [fonte L1362](../../src/testes.ts#L1362) |
 | Assinatura | <code> (comParedeOposta?: boolean): CenárioVisual</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Objeto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>comParedeOposta = false</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{ nome: comParedeOposta ? 'Propulsor térmico — duas paredes equidistantes' : 'Propulsor térmico — chama contra parede', descricao: comParedeOposta ? 'Propulsor em uma bancada física fica entre duas paredes térmicas idênticas, ambas chumbada… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -26221,7 +26221,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Objeto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1cc664985c1f7596 */ |
 
 </details>
 
@@ -26230,9 +26230,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor.criarParedeTermica:ArrowFunction</code> · [fonte L1251](../../src/testes.ts#L1251) |
+| Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor.criarParedeTermica:ArrowFunction</code> · [fonte L1375](../../src/testes.ts#L1375) |
 | Assinatura | <code> (id: string, x: number): Objeto</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `Objeto`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>id: string</code>; <code>x: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Objeto</code>; expressões retornadas: <code>new Objeto({ id, massaBaseKg: 5_000, dimensoesM: new Vetor3(1, 4, 1), resistenciaColisaoJ: 1_000_000, limiteTermicoC: 300, capacidadeTermicaJPorC: 15_000, areaTermicaM2: 4, coeficienteConveccaoWPorM2C: 20, taxaDanoTermicoPorSegundo: 0.08, e… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -26240,7 +26240,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `Objeto`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2e17f90f4f2db60b */ |
 
 </details>
 
@@ -26249,17 +26249,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1255](../../src/testes.ts#L1255) |
+| Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1380](../../src/testes.ts#L1380) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão propulsor.empuxoAtualN. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>propulsor.empuxoAtualN</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. @contract f-e0bbb51f1dd9d2a7 */ |
 
 </details>
 
@@ -26268,17 +26268,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor.obterEsforcoSolicitadoN:ArrowFunction#2</code> · [fonte L1256](../../src/testes.ts#L1256) |
+| Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor.obterEsforcoSolicitadoN:ArrowFunction#2</code> · [fonte L1382](../../src/testes.ts#L1382) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão 0. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `0`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>0</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `0`. Efeitos indiretos seguem as dependências chamadas. @contract f-8077c6a0d208b386 */ |
 
 </details>
 
@@ -26287,17 +26287,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor.obterEsforcoSolicitadoN:ArrowFunction#3</code> · [fonte L1257](../../src/testes.ts#L1257) |
+| Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor.obterEsforcoSolicitadoN:ArrowFunction#3</code> · [fonte L1384](../../src/testes.ts#L1384) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão propulsor.empuxoAtualN. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>propulsor.empuxoAtualN</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. @contract f-8efaeadd97edf3d0 */ |
 
 </details>
 
@@ -26306,17 +26306,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor.obterEsforcoSolicitadoN:ArrowFunction#4</code> · [fonte L1261](../../src/testes.ts#L1261) |
+| Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor.obterEsforcoSolicitadoN:ArrowFunction#4</code> · [fonte L1389](../../src/testes.ts#L1389) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão propulsor.empuxoAtualN. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>propulsor.empuxoAtualN</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. @contract f-211690613a5f9eb7 */ |
 
 </details>
 
@@ -26325,17 +26325,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor.[callback]#1.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1264](../../src/testes.ts#L1264) |
+| Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor.[callback]#1.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1393](../../src/testes.ts#L1393) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão 0. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `0`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>0</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `0`. Efeitos indiretos seguem as dependências chamadas. @contract f-9db4ea26c4bafda1 */ |
 
 </details>
 
@@ -26344,17 +26344,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor.cameraX:ArrowFunction</code> · [fonte L1274](../../src/testes.ts#L1274) |
+| Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor.cameraX:ArrowFunction</code> · [fonte L1404](../../src/testes.ts#L1404) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão 0. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `0`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>0</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `0`. Efeitos indiretos seguem as dependências chamadas. @contract f-61fec27e8e63226f */ |
 
 </details>
 
@@ -26363,9 +26363,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor.telemetria:ArrowFunction</code> · [fonte L1277](../../src/testes.ts#L1277) |
+| Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor.telemetria:ArrowFunction</code> · [fonte L1408](../../src/testes.ts#L1408) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `parede.temperaturaC.toFixed`, `paredeOposta.temperaturaC.toFixed`, `(parede.integridadeEstrutural * 100).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>paredeOposta ? `exaustão ${parede.temperaturaC.toFixed(1)} °C · oposta ${paredeOposta.temperaturaC.toFixed(1)} °C` : `parede ${parede.temperaturaC.toFixed(1)} °C · integridade ${(parede.integridadeEstrutural * 100).toFixed(0)}%`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -26373,7 +26373,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `parede.temperaturaC.toFixed`, `paredeOposta.temperaturaC.toFixed`, `(parede.integridadeEstrutural * 100).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-4a3867417658f0c0 */ |
 
 </details>
 
@@ -26382,9 +26382,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor.dados:ArrowFunction</code> · [fonte L1280](../../src/testes.ts#L1280) |
+| Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor.dados:ArrowFunction</code> · [fonte L1412](../../src/testes.ts#L1412) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `(propulsor.potenciaTermicaAtualW / 1_000_000).toFixed`, `propulsor.temperaturaC.toFixed`, `bancada.temperaturaC.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`MODALIDADE: TÉRMICA\nAmbiente: 20 °C\nPotência térmica: ${(propulsor.potenciaTermicaAtualW / 1_000_000).toFixed(2)} MW\nTemperatura motor / bancada / tanque / parede de exaustão: ${propulsor.temperaturaC.toFixed(1)} / ${bancada.temperatura… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -26392,7 +26392,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `(propulsor.potenciaTermicaAtualW / 1_000_000).toFixed`, `propulsor.temperaturaC.toFixed`, `bancada.temperaturaC.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d3d9266382c1802b */ |
 
 </details>
 
@@ -26401,17 +26401,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor.deveEncerrar:ArrowFunction</code> · [fonte L1281](../../src/testes.ts#L1281) |
+| Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor.deveEncerrar:ArrowFunction</code> · [fonte L1414](../../src/testes.ts#L1414) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Retorna a expressão parede.integridadeEstrutural === 0. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `parede.integridadeEstrutural === 0`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>parede.integridadeEstrutural === 0</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `parede.integridadeEstrutural === 0`. Efeitos indiretos seguem as dependências chamadas. @contract f-a723563a2fc2d9b9 */ |
 
 </details>
 
@@ -26420,9 +26420,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor.validar:ArrowFunction</code> · [fonte L1282](../../src/testes.ts#L1282) |
+| Identificador | <code>src/testes.ts::criarTesteTermicoDoPropulsor.validar:ArrowFunction</code> · [fonte L1416](../../src/testes.ts#L1416) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `parede.temperaturaC.toFixed`, `(parede.integridadeEstrutural * 100).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${parede.integridadeEstrutural &lt; 1 ? 'APROVADO' : 'AQUECENDO'} · parede ${parede.temperaturaC.toFixed(1)} °C; integridade ${(parede.integridadeEstrutural * 100).toFixed(1)}%`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -26430,7 +26430,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `parede.temperaturaC.toFixed`, `(parede.integridadeEstrutural * 100).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7f6b8a8d41977c61 */ |
 
 </details>
 
@@ -26439,9 +26439,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteImpactoDestrutivoDoPropulsor:ArrowFunction</code> · [fonte L1286](../../src/testes.ts#L1286) |
+| Identificador | <code>src/testes.ts::criarTesteImpactoDestrutivoDoPropulsor:ArrowFunction</code> · [fonte L1421](../../src/testes.ts#L1421) |
 | Assinatura | <code> (): CenárioVisual</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `MundoFisico`, `SuperficiePlano`, `TanquePropelente`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{ nome: 'Propulsor horizontal — impacto destrutivo', descricao: 'Conjunto tanque–propulsor preso por fixador acelera com 20.000 N contra uma barreira de 100.000.000 kg. O impacto é resolvido pelo core e excede a resistência de colisão decla… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -26449,7 +26449,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `TanquePropelente`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-945c7104981eb86d */ |
 
 </details>
 
@@ -26458,17 +26458,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteImpactoDestrutivoDoPropulsor.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1305](../../src/testes.ts#L1305) |
+| Identificador | <code>src/testes.ts::criarTesteImpactoDestrutivoDoPropulsor.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1441](../../src/testes.ts#L1441) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão propulsor.empuxoAtualN. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>propulsor.empuxoAtualN</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. @contract f-2c47db0de6111058 */ |
 
 </details>
 
@@ -26477,17 +26477,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteImpactoDestrutivoDoPropulsor.cameraX:ArrowFunction</code> · [fonte L1318](../../src/testes.ts#L1318) |
+| Identificador | <code>src/testes.ts::criarTesteImpactoDestrutivoDoPropulsor.cameraX:ArrowFunction</code> · [fonte L1455](../../src/testes.ts#L1455) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `(propulsor.getEstadoFisico().posicaoM.x + parede.getEstadoFisico().posicaoM.x) / 2`. Dependências diretas: `propulsor.getEstadoFisico`, `parede.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>(propulsor.getEstadoFisico().posicaoM.x + parede.getEstadoFisico().posicaoM.x) / 2</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>propulsor.getEstadoFisico</code>; <code>parede.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `(propulsor.getEstadoFisico().posicaoM.x + parede.getEstadoFisico().posicaoM.x) / 2`. Dependências diretas: `propulsor.getEstadoFisico`, `parede.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-ea7a9e7eb111c9e4 */ |
 
 </details>
 
@@ -26496,17 +26496,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteImpactoDestrutivoDoPropulsor.telemetria:ArrowFunction</code> · [fonte L1319](../../src/testes.ts#L1319) |
+| Identificador | <code>src/testes.ts::criarTesteImpactoDestrutivoDoPropulsor.telemetria:ArrowFunction</code> · [fonte L1457](../../src/testes.ts#L1457) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve ``integridade do propulsor ${(propulsor.integridadeEstrutural * 100).toFixed(0)}%``. Dependências diretas: `(propulsor.integridadeEstrutural * 100).toFixed`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`integridade do propulsor ${(propulsor.integridadeEstrutural * 100).toFixed(0)}%`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>(propulsor.integridadeEstrutural * 100).toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve ``integridade do propulsor ${(propulsor.integridadeEstrutural * 100).toFixed(0)}%``. Dependências diretas: `(propulsor.integridadeEstrutural * 100).toFixed`. Efeitos indiretos seguem as dependências chamadas. @contract f-431a51599b2c2420 */ |
 
 </details>
 
@@ -26515,9 +26515,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteImpactoDestrutivoDoPropulsor.dados:ArrowFunction</code> · [fonte L1320](../../src/testes.ts#L1320) |
+| Identificador | <code>src/testes.ts::criarTesteImpactoDestrutivoDoPropulsor.dados:ArrowFunction</code> · [fonte L1459](../../src/testes.ts#L1459) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `propulsor.empuxoAtualN.toFixed`, `propulsor.getEstadoFisico().velocidadeMps.x.toFixed`, `propulsor.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Empuxo: ${propulsor.empuxoAtualN.toFixed(0)} N\nVelocidade do propulsor: ${propulsor.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s\nIntegridade do propulsor: ${(propulsor.integridadeEstrutural * 100).toFixed(1)}%\nIntegridade da barrei… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -26525,7 +26525,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `propulsor.empuxoAtualN.toFixed`, `propulsor.getEstadoFisico().velocidadeMps.x.toFixed`, `propulsor.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a08277dae7e77843 */ |
 
 </details>
 
@@ -26534,17 +26534,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteImpactoDestrutivoDoPropulsor.deveEncerrar:ArrowFunction</code> · [fonte L1321](../../src/testes.ts#L1321) |
+| Identificador | <code>src/testes.ts::criarTesteImpactoDestrutivoDoPropulsor.deveEncerrar:ArrowFunction</code> · [fonte L1461](../../src/testes.ts#L1461) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Retorna a expressão propulsor.integridadeEstrutural &lt; 1. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `propulsor.integridadeEstrutural &lt; 1`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>propulsor.integridadeEstrutural &lt; 1</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `propulsor.integridadeEstrutural &lt; 1`. Efeitos indiretos seguem as dependências chamadas. @contract f-a7efd89d4ff8b0fb */ |
 
 </details>
 
@@ -26553,9 +26553,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteImpactoDestrutivoDoPropulsor.validar:ArrowFunction</code> · [fonte L1322](../../src/testes.ts#L1322) |
+| Identificador | <code>src/testes.ts::criarTesteImpactoDestrutivoDoPropulsor.validar:ArrowFunction</code> · [fonte L1463](../../src/testes.ts#L1463) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `(propulsor.integridadeEstrutural * 100).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${propulsor.integridadeEstrutural &lt; 1 ? 'APROVADO' : 'DIVERGENTE'} · integridade final do propulsor ${(propulsor.integridadeEstrutural * 100).toFixed(1)}%`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -26563,7 +26563,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `(propulsor.integridadeEstrutural * 100).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-74dcee686cfc81c9 */ |
 
 </details>
 
@@ -26572,7 +26572,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorEmBancadaLivre:ArrowFunction</code> · [fonte L1327](../../src/testes.ts#L1327) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorEmBancadaLivre:ArrowFunction</code> · [fonte L1470](../../src/testes.ts#L1470) |
 | Assinatura | <code> (): CenárioVisual</code> |
 | Responsabilidade | Ensaio de recuo: motor montado na bancada, mas sem qualquer fixação ao solo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -26582,7 +26582,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Ensaio de recuo: motor montado na bancada, mas sem qualquer fixação ao solo. */ |
+| JSDoc integral | /** Ensaio de recuo: motor montado na bancada, mas sem qualquer fixação ao solo.<br> * @contract f-7eaadff6a7cbc6b5<br> */ |
 
 </details>
 
@@ -26591,17 +26591,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorEmBancadaLivre.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1349](../../src/testes.ts#L1349) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorEmBancadaLivre.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1493](../../src/testes.ts#L1493) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão propulsor.empuxoAtualN. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>propulsor.empuxoAtualN</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. @contract f-b8cd777c95591ab2 */ |
 
 </details>
 
@@ -26610,17 +26610,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorEmBancadaLivre.obterEsforcoSolicitadoN:ArrowFunction#2</code> · [fonte L1353](../../src/testes.ts#L1353) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorEmBancadaLivre.obterEsforcoSolicitadoN:ArrowFunction#2</code> · [fonte L1498](../../src/testes.ts#L1498) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão 0. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `0`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>0</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `0`. Efeitos indiretos seguem as dependências chamadas. @contract f-23ac5b749a6d9704 */ |
 
 </details>
 
@@ -26629,17 +26629,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorEmBancadaLivre.massaApoiadaKg:ArrowFunction</code> · [fonte L1360](../../src/testes.ts#L1360) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorEmBancadaLivre.massaApoiadaKg:ArrowFunction</code> · [fonte L1506](../../src/testes.ts#L1506) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão bancada.massaKg + propulsor.massaKg + tanque.massaKg. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `bancada.massaKg + propulsor.massaKg + tanque.massaKg`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>bancada.massaKg + propulsor.massaKg + tanque.massaKg</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `bancada.massaKg + propulsor.massaKg + tanque.massaKg`. Efeitos indiretos seguem as dependências chamadas. @contract f-e906f3474758603a */ |
 
 </details>
 
@@ -26648,17 +26648,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorEmBancadaLivre.limiteAtritoN:ArrowFunction</code> · [fonte L1361](../../src/testes.ts#L1361) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorEmBancadaLivre.limiteAtritoN:ArrowFunction</code> · [fonte L1508](../../src/testes.ts#L1508) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `0.65 * massaApoiadaKg() * Math.abs(MundoFisico.gravidadeTerrestreMps2.y)`. Dependências diretas: `massaApoiadaKg`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>0.65 * massaApoiadaKg() * Math.abs(MundoFisico.gravidadeTerrestreMps2.y)</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>massaApoiadaKg</code>; <code>Math.abs</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `0.65 * massaApoiadaKg() * Math.abs(MundoFisico.gravidadeTerrestreMps2.y)`. Dependências diretas: `massaApoiadaKg`. Efeitos indiretos seguem as dependências chamadas. @contract f-ae96294699a0f6a7 */ |
 
 </details>
 
@@ -26667,17 +26667,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorEmBancadaLivre.telemetria:ArrowFunction</code> · [fonte L1368](../../src/testes.ts#L1368) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorEmBancadaLivre.telemetria:ArrowFunction</code> · [fonte L1516](../../src/testes.ts#L1516) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve ``bancada x=${bancada.getEstadoFisico().posicaoM.x.toFixed(2)} m · v=${bancada.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s``. Dependências diretas: `bancada.getEstadoFisico().posicaoM.x.toFixed`, `bancada.getEstadoFisico`, `bancada.getEstadoFisico().velocidadeMps.x.toFixed`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`bancada x=${bancada.getEstadoFisico().posicaoM.x.toFixed(2)} m · v=${bancada.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>bancada.getEstadoFisico().posicaoM.x.toFixed</code>; <code>bancada.getEstadoFisico</code>; <code>bancada.getEstadoFisico().velocidadeMps.x.toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve ``bancada x=${bancada.getEstadoFisico().posicaoM.x.toFixed(2)} m · v=${bancada.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s``. Dependências diretas: `bancada.getEstadoFisico().posicaoM.x.toFixed`, `bancada.getEstadoFisico`, `bancada.getEstadoFisico().velocidadeMps.x.toFixed`. Efeitos indiretos seguem as dependências chamadas. @contract f-95e28c6d2fd37af1 */ |
 
 </details>
 
@@ -26686,9 +26686,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorEmBancadaLivre.dados:ArrowFunction</code> · [fonte L1369](../../src/testes.ts#L1369) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorEmBancadaLivre.dados:ArrowFunction</code> · [fonte L1518](../../src/testes.ts#L1518) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `massaApoiadaKg().toFixed`, `massaApoiadaKg`, `(massaApoiadaKg() * Math.abs(MundoFisico.gravidadeTerrestreMps2.y) / 5).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Bancada: 500 kg; área de apoio 5,00 m²\nFixação ao solo: nenhuma\nAtrito bancada–concreto: μ = 0,65\nMassa apoiada instantânea: ${massaApoiadaKg().toFixed(1)} kg\nPressão média de apoio: ${(massaApoiadaKg() * Math.abs(MundoFisico.gravidade… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -26696,7 +26696,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `massaApoiadaKg().toFixed`, `massaApoiadaKg`, `(massaApoiadaKg() * Math.abs(MundoFisico.gravidadeTerrestreMps2.y) / 5).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-257f81d9ea32ffe7 */ |
 
 </details>
 
@@ -26705,17 +26705,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorEmBancadaLivre.deveEncerrar:ArrowFunction</code> · [fonte L1370](../../src/testes.ts#L1370) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorEmBancadaLivre.deveEncerrar:ArrowFunction</code> · [fonte L1520](../../src/testes.ts#L1520) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Retorna a expressão false. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `false`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>false</code>; expressões retornadas: <code>false</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `false`. Efeitos indiretos seguem as dependências chamadas. @contract f-f42c25107f089272 */ |
 
 </details>
 
@@ -26724,9 +26724,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorEmBancadaLivre.validar:ArrowFunction</code> · [fonte L1371](../../src/testes.ts#L1371) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorEmBancadaLivre.validar:ArrowFunction</code> · [fonte L1522](../../src/testes.ts#L1522) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `limiteAtritoN`, `bancada.getEstadoFisico`, `propulsor.empuxoAtualN.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${propulsor.empuxoAtualN &gt; limiteAtritoN() &amp;&amp; bancada.getEstadoFisico().posicaoM.x &gt; 0.01 ? 'APROVADO' : 'AGUARDANDO IGNIÇÃO'} · empuxo ${propulsor.empuxoAtualN.toFixed(0)} N; atrito máximo ${limiteAtritoN().toFixed(0)} N; bancada x=${banc… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -26734,7 +26734,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `limiteAtritoN`, `bancada.getEstadoFisico`, `propulsor.empuxoAtualN.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e042ed2e2e1d709b */ |
 
 </details>
 
@@ -26743,9 +26743,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorSobreVeiculoPassivo:ArrowFunction</code> · [fonte L1375](../../src/testes.ts#L1375) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorSobreVeiculoPassivo:ArrowFunction</code> · [fonte L1527](../../src/testes.ts#L1527) |
 | Assinatura | <code> (): CenárioVisual</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `MundoFisico`, `SuperficiePlano`, `criarVeiculoTerrestre`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{ nome: 'Propulsor sobre veículo — paraquedas e ruptura a 15.000 N', descricao: 'Veículo de 1.500 kg repousa sobre rodas, sem tração própria. O teste inicia a 70%: 14.000 N mantêm propulsor e tanque fixados ao chassi e aceleram o conjunto. … [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -26753,7 +26753,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `criarVeiculoTerrestre`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e21949a17311a407 */ |
 
 </details>
 
@@ -26762,17 +26762,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorSobreVeiculoPassivo.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1401](../../src/testes.ts#L1401) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorSobreVeiculoPassivo.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1554](../../src/testes.ts#L1554) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão propulsor.empuxoAtualN. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>propulsor.empuxoAtualN</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. @contract f-89057cdb930001ea */ |
 
 </details>
 
@@ -26781,17 +26781,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorSobreVeiculoPassivo.obterEsforcoSolicitadoN:ArrowFunction#2</code> · [fonte L1405](../../src/testes.ts#L1405) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorSobreVeiculoPassivo.obterEsforcoSolicitadoN:ArrowFunction#2</code> · [fonte L1559](../../src/testes.ts#L1559) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão propulsor.empuxoAtualN. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>propulsor.empuxoAtualN</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. @contract f-592070f4d139577a */ |
 
 </details>
 
@@ -26800,17 +26800,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorSobreVeiculoPassivo.telemetria:ArrowFunction</code> · [fonte L1423](../../src/testes.ts#L1423) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorSobreVeiculoPassivo.telemetria:ArrowFunction</code> · [fonte L1578](../../src/testes.ts#L1578) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve ``veículo ${(veiculo.getEstadoFisico().velocidadeMps.x * 3.6).toFixed(2)} km/h``. Dependências diretas: `(veiculo.getEstadoFisico().velocidadeMps.x * 3.6).toFixed`, `veiculo.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`veículo ${(veiculo.getEstadoFisico().velocidadeMps.x * 3.6).toFixed(2)} km/h`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>(veiculo.getEstadoFisico().velocidadeMps.x * 3.6).toFixed</code>; <code>veiculo.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve ``veículo ${(veiculo.getEstadoFisico().velocidadeMps.x * 3.6).toFixed(2)} km/h``. Dependências diretas: `(veiculo.getEstadoFisico().velocidadeMps.x * 3.6).toFixed`, `veiculo.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-ea86f31d80045d34 */ |
 
 </details>
 
@@ -26819,9 +26819,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorSobreVeiculoPassivo.dados:ArrowFunction</code> · [fonte L1424](../../src/testes.ts#L1424) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorSobreVeiculoPassivo.dados:ArrowFunction</code> · [fonte L1580](../../src/testes.ts#L1580) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `propulsor.empuxoAtualN.toFixed`, `mundo.obterForcaArrastoAtmosferico(veiculo).magnitude.toFixed`, `mundo.obterForcaArrastoAtmosferico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Tração própria: 0 N\nEmpuxo: ${propulsor.empuxoAtualN.toFixed(0)} N\nParaquedas do conjunto: ${veiculo.paraquedasEstaAberto ? 'ABERTO — arrasto ativo quando houver fluxo' : 'fechado'}\nArrasto no chassi: ${mundo.obterForcaArrastoAtmosferic… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -26829,7 +26829,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `propulsor.empuxoAtualN.toFixed`, `mundo.obterForcaArrastoAtmosferico(veiculo).magnitude.toFixed`, `mundo.obterForcaArrastoAtmosferico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f92d0b17e9b4c6aa */ |
 
 </details>
 
@@ -26838,9 +26838,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorSobreVeiculoPassivo.deveEncerrar:ArrowFunction</code> · [fonte L1425](../../src/testes.ts#L1425) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorSobreVeiculoPassivo.deveEncerrar:ArrowFunction</code> · [fonte L1582](../../src/testes.ts#L1582) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `false`. Dependências diretas: `veiculo.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>false</code>; expressões retornadas: <code>false</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>picoVelocidadeVeiculoMps</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -26848,7 +26848,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Devolve `false`. Dependências diretas: `veiculo.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-109076a06f4e9267 */ |
 
 </details>
 
@@ -26857,9 +26857,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorSobreVeiculoPassivo.validar:ArrowFunction</code> · [fonte L1429](../../src/testes.ts#L1429) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorSobreVeiculoPassivo.validar:ArrowFunction</code> · [fonte L1587](../../src/testes.ts#L1587) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Retorna a expressão `${fixador.estaRompido ? 'APROVADO' : 'OPERACIONAL'} · fixador de 15.000 N ${fixador.estaRompido ? 'rompeu acima do limite' : 'permanece íntegro a 14.000 N'}`. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${fixador.estaRompido ? 'APROVADO' : 'OPERACIONAL'} · fixador de 15.000 N ${fixador.estaRompido ? 'rompeu acima do limite' : 'permanece íntegro a 14.000 N'}`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -26867,7 +26867,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6fa7e5e75a64c85f */ |
 
 </details>
 
@@ -26876,9 +26876,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteFogueteComParaquedasManual:ArrowFunction</code> · [fonte L1433](../../src/testes.ts#L1433) |
+| Identificador | <code>src/testes.ts::criarTesteFogueteComParaquedasManual:ArrowFunction</code> · [fonte L1592](../../src/testes.ts#L1592) |
 | Assinatura | <code> (): CenárioVisual</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Propulsor`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{ nome: 'Foguete básico — paraquedas manual na descida', descricao: 'Conjunto de propulsor e tanque cai de 1.000 m com ambos unidos por fixador estrutural. O paraquedas fica acoplado ao tanque; ao ser acionado manualmente, seu arrasto é apl… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -26886,7 +26886,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Propulsor`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1330b462df95fc8e */ |
 
 </details>
 
@@ -26895,17 +26895,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteFogueteComParaquedasManual.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1449](../../src/testes.ts#L1449) |
+| Identificador | <code>src/testes.ts::criarTesteFogueteComParaquedasManual.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1609](../../src/testes.ts#L1609) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão 0. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `0`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>0</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `0`. Efeitos indiretos seguem as dependências chamadas. @contract f-9e4f20a2a39e4045 */ |
 
 </details>
 
@@ -26914,17 +26914,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteFogueteComParaquedasManual.telemetria:ArrowFunction</code> · [fonte L1460](../../src/testes.ts#L1460) |
+| Identificador | <code>src/testes.ts::criarTesteFogueteComParaquedasManual.telemetria:ArrowFunction</code> · [fonte L1621](../../src/testes.ts#L1621) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve ``velocidade vertical ${tanque.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s``. Dependências diretas: `tanque.getEstadoFisico().velocidadeMps.y.toFixed`, `tanque.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`velocidade vertical ${tanque.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>tanque.getEstadoFisico().velocidadeMps.y.toFixed</code>; <code>tanque.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve ``velocidade vertical ${tanque.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s``. Dependências diretas: `tanque.getEstadoFisico().velocidadeMps.y.toFixed`, `tanque.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-0376faf72cf7874d */ |
 
 </details>
 
@@ -26933,9 +26933,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteFogueteComParaquedasManual.dados:ArrowFunction</code> · [fonte L1461](../../src/testes.ts#L1461) |
+| Identificador | <code>src/testes.ts::criarTesteFogueteComParaquedasManual.dados:ArrowFunction</code> · [fonte L1623](../../src/testes.ts#L1623) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `tanque.getEstadoFisico().posicaoM.y.toFixed`, `tanque.getEstadoFisico`, `tanque.getEstadoFisico().velocidadeMps.y.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Altitude do conjunto: ${tanque.getEstadoFisico().posicaoM.y.toFixed(1)} m\nVelocidade vertical: ${tanque.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s\nParaquedas: ${tanque.paraquedasEstaAberto ? 'ABERTO — arrasto ativo' : 'fechado — c… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -26943,7 +26943,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `tanque.getEstadoFisico().posicaoM.y.toFixed`, `tanque.getEstadoFisico`, `tanque.getEstadoFisico().velocidadeMps.y.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ead953f6810cb60f */ |
 
 </details>
 
@@ -26952,17 +26952,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteFogueteComParaquedasManual.deveEncerrar:ArrowFunction</code> · [fonte L1462](../../src/testes.ts#L1462) |
+| Identificador | <code>src/testes.ts::criarTesteFogueteComParaquedasManual.deveEncerrar:ArrowFunction</code> · [fonte L1625](../../src/testes.ts#L1625) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `objetosEmRepouso(mundo, [propulsor, tanque])`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>objetosEmRepouso(mundo, [propulsor, tanque])</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>objetosEmRepouso</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `objetosEmRepouso(mundo, [propulsor, tanque])`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. @contract f-0f586f3c58931979 */ |
 
 </details>
 
@@ -26971,9 +26971,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteFogueteComParaquedasManual.validar:ArrowFunction</code> · [fonte L1463](../../src/testes.ts#L1463) |
+| Identificador | <code>src/testes.ts::criarTesteFogueteComParaquedasManual.validar:ArrowFunction</code> · [fonte L1627](../../src/testes.ts#L1627) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `tanque.getEstadoFisico().velocidadeMps.y.toFixed`, `tanque.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${tanque.paraquedasEstaAberto ? 'APROVADO' : 'PENDENTE'} · paraquedas ${tanque.paraquedasEstaAberto ? 'acionado manualmente' : 'não acionado'}; velocidade vertical ${tanque.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -26981,7 +26981,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `tanque.getEstadoFisico().velocidadeMps.y.toFixed`, `tanque.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6d04b6efd0108116 */ |
 
 </details>
 
@@ -26990,9 +26990,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteFogueteHorizontalComParaquedasManual:ArrowFunction</code> · [fonte L1467](../../src/testes.ts#L1467) |
+| Identificador | <code>src/testes.ts::criarTesteFogueteHorizontalComParaquedasManual:ArrowFunction</code> · [fonte L1632](../../src/testes.ts#L1632) |
 | Assinatura | <code> (): CenárioVisual</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Propulsor`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{ nome: 'Foguete horizontal — paraquedas manual', descricao: 'Foguete básico inicia voo horizontal a 60 m/s, em atmosfera padrão. O paraquedas de 8 m² pode ser acionado manualmente; seu dossel fica a sotavento e o arrasto calculado pelo cor… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -27000,7 +27000,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Propulsor`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-96181e7457efc9ad */ |
 
 </details>
 
@@ -27009,17 +27009,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteFogueteHorizontalComParaquedasManual.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1484](../../src/testes.ts#L1484) |
+| Identificador | <code>src/testes.ts::criarTesteFogueteHorizontalComParaquedasManual.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1650](../../src/testes.ts#L1650) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão 0. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `0`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>0</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `0`. Efeitos indiretos seguem as dependências chamadas. @contract f-f5572c38c2fe2e96 */ |
 
 </details>
 
@@ -27028,17 +27028,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteFogueteHorizontalComParaquedasManual.telemetria:ArrowFunction</code> · [fonte L1495](../../src/testes.ts#L1495) |
+| Identificador | <code>src/testes.ts::criarTesteFogueteHorizontalComParaquedasManual.telemetria:ArrowFunction</code> · [fonte L1662](../../src/testes.ts#L1662) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve ``velocidade horizontal ${tanque.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s``. Dependências diretas: `tanque.getEstadoFisico().velocidadeMps.x.toFixed`, `tanque.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`velocidade horizontal ${tanque.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>tanque.getEstadoFisico().velocidadeMps.x.toFixed</code>; <code>tanque.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve ``velocidade horizontal ${tanque.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s``. Dependências diretas: `tanque.getEstadoFisico().velocidadeMps.x.toFixed`, `tanque.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-74bd354a528eaa5a */ |
 
 </details>
 
@@ -27047,9 +27047,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteFogueteHorizontalComParaquedasManual.dados:ArrowFunction</code> · [fonte L1496](../../src/testes.ts#L1496) |
+| Identificador | <code>src/testes.ts::criarTesteFogueteHorizontalComParaquedasManual.dados:ArrowFunction</code> · [fonte L1664](../../src/testes.ts#L1664) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `tanque.getEstadoFisico().velocidadeMps.x.toFixed`, `tanque.getEstadoFisico`, `tanque.getEstadoFisico().posicaoM.y.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Velocidade horizontal: ${tanque.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s\nAltitude: ${tanque.getEstadoFisico().posicaoM.y.toFixed(1)} m\nParaquedas: ${tanque.paraquedasEstaAberto ? 'ABERTO — arrasto ativo' : 'fechado — comando man… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -27057,7 +27057,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `tanque.getEstadoFisico().velocidadeMps.x.toFixed`, `tanque.getEstadoFisico`, `tanque.getEstadoFisico().posicaoM.y.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a5617e0714d4c8aa */ |
 
 </details>
 
@@ -27066,17 +27066,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteFogueteHorizontalComParaquedasManual.deveEncerrar:ArrowFunction</code> · [fonte L1497](../../src/testes.ts#L1497) |
+| Identificador | <code>src/testes.ts::criarTesteFogueteHorizontalComParaquedasManual.deveEncerrar:ArrowFunction</code> · [fonte L1666](../../src/testes.ts#L1666) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `objetosEmRepouso(mundo, [propulsor, tanque])`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>objetosEmRepouso(mundo, [propulsor, tanque])</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>objetosEmRepouso</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `objetosEmRepouso(mundo, [propulsor, tanque])`. Dependências diretas: `objetosEmRepouso`. Efeitos indiretos seguem as dependências chamadas. @contract f-1bb8846d37e8e6f8 */ |
 
 </details>
 
@@ -27085,9 +27085,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteFogueteHorizontalComParaquedasManual.validar:ArrowFunction</code> · [fonte L1498](../../src/testes.ts#L1498) |
+| Identificador | <code>src/testes.ts::criarTesteFogueteHorizontalComParaquedasManual.validar:ArrowFunction</code> · [fonte L1668](../../src/testes.ts#L1668) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `tanque.getEstadoFisico`, `tanque.getEstadoFisico().velocidadeMps.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${tanque.paraquedasEstaAberto &amp;&amp; tanque.getEstadoFisico().velocidadeMps.x &lt; 60 ? 'APROVADO' : 'PENDENTE'} · velocidade horizontal ${tanque.getEstadoFisico().velocidadeMps.x.toFixed(2)} m/s`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -27095,7 +27095,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `tanque.getEstadoFisico`, `tanque.getEstadoFisico().velocidadeMps.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-000b6bb2c368c76c */ |
 
 </details>
 
@@ -27104,9 +27104,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorVerticalComParaquedas:ArrowFunction</code> · [fonte L1502](../../src/testes.ts#L1502) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorVerticalComParaquedas:ArrowFunction</code> · [fonte L1673](../../src/testes.ts#L1673) |
 | Assinatura | <code> (): CenárioVisual</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Propulsor`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{ nome: 'Propulsor vertical — tanque, fixador e paraquedas', descricao: 'Conjunto vertical na ordem paraquedas, tanque e propulsor. O propulsor decola a 70% e é preso diretamente ao tanque por fixador estrutural de 30.000 N; o paraquedas é … [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -27114,7 +27114,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `Propulsor`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6b720a658410d09c */ |
 
 </details>
 
@@ -27123,17 +27123,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorVerticalComParaquedas.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1520](../../src/testes.ts#L1520) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorVerticalComParaquedas.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1692](../../src/testes.ts#L1692) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão propulsor.empuxoAtualN. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>propulsor.empuxoAtualN</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. @contract f-8dd50e3e186b4eee */ |
 
 </details>
 
@@ -27142,17 +27142,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorVerticalComParaquedas.cameraY:ArrowFunction</code> · [fonte L1533](../../src/testes.ts#L1533) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorVerticalComParaquedas.cameraY:ArrowFunction</code> · [fonte L1706](../../src/testes.ts#L1706) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `tanque.getEstadoFisico().posicaoM.y`. Dependências diretas: `tanque.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>tanque.getEstadoFisico().posicaoM.y</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>tanque.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `tanque.getEstadoFisico().posicaoM.y`. Dependências diretas: `tanque.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-34e0d8f1325e4192 */ |
 
 </details>
 
@@ -27161,17 +27161,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorVerticalComParaquedas.telemetria:ArrowFunction</code> · [fonte L1534](../../src/testes.ts#L1534) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorVerticalComParaquedas.telemetria:ArrowFunction</code> · [fonte L1708](../../src/testes.ts#L1708) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve ``velocidade vertical ${tanque.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s``. Dependências diretas: `tanque.getEstadoFisico().velocidadeMps.y.toFixed`, `tanque.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`velocidade vertical ${tanque.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>tanque.getEstadoFisico().velocidadeMps.y.toFixed</code>; <code>tanque.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve ``velocidade vertical ${tanque.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s``. Dependências diretas: `tanque.getEstadoFisico().velocidadeMps.y.toFixed`, `tanque.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-166eab7f4602eb88 */ |
 
 </details>
 
@@ -27180,9 +27180,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorVerticalComParaquedas.dados:ArrowFunction</code> · [fonte L1535](../../src/testes.ts#L1535) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorVerticalComParaquedas.dados:ArrowFunction</code> · [fonte L1710](../../src/testes.ts#L1710) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `tanque.getEstadoFisico().posicaoM.y.toFixed`, `tanque.getEstadoFisico`, `tanque.getEstadoFisico().velocidadeMps.y.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Altitude: ${tanque.getEstadoFisico().posicaoM.y.toFixed(1)} m\nVelocidade vertical: ${tanque.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s\nThrottle: ${(propulsor.throttleAtual * 100).toFixed(0)}%\nEmpuxo: ${propulsor.empuxoAtualN.toFi… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -27190,7 +27190,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `tanque.getEstadoFisico().posicaoM.y.toFixed`, `tanque.getEstadoFisico`, `tanque.getEstadoFisico().velocidadeMps.y.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-52227a586f4bdfdd */ |
 
 </details>
 
@@ -27199,17 +27199,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorVerticalComParaquedas.deveEncerrar:ArrowFunction</code> · [fonte L1536](../../src/testes.ts#L1536) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorVerticalComParaquedas.deveEncerrar:ArrowFunction</code> · [fonte L1712](../../src/testes.ts#L1712) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Retorna a expressão false. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `false`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>false</code>; expressões retornadas: <code>false</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `false`. Efeitos indiretos seguem as dependências chamadas. @contract f-57730ac429138974 */ |
 
 </details>
 
@@ -27218,9 +27218,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePropulsorVerticalComParaquedas.validar:ArrowFunction</code> · [fonte L1537](../../src/testes.ts#L1537) |
+| Identificador | <code>src/testes.ts::criarTestePropulsorVerticalComParaquedas.validar:ArrowFunction</code> · [fonte L1714](../../src/testes.ts#L1714) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `tanque.getEstadoFisico().velocidadeMps.y.toFixed`, `tanque.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${fixadorDoEstagio.estaRompido ? 'DIVERGENTE' : 'OPERACIONAL'} · conjunto ${fixadorDoEstagio.estaRompido ? 'separado' : 'íntegro'}; velocidade vertical ${tanque.getEstadoFisico().velocidadeMps.y.toFixed(2)} m/s`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -27228,7 +27228,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `tanque.getEstadoFisico().velocidadeMps.y.toFixed`, `tanque.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-eb84a72eb7238c09 */ |
 
 </details>
 
@@ -27237,9 +27237,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteMerlinVetorizado:ArrowFunction</code> · [fonte L1541](../../src/testes.ts#L1541) |
+| Identificador | <code>src/testes.ts::criarTesteMerlinVetorizado:ArrowFunction</code> · [fonte L1719](../../src/testes.ts#L1719) |
 | Assinatura | <code> (): CenárioVisual</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `MundoFisico`, `SuperficiePlano`, `PropulsorVetorizado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{ nome: 'Merlin 1D — vetorização manual', descricao: 'Modelo de bancada inspirado no Merlin 1D: propulsor RP-1 com 845 kN máximos e gimbal planar limitado a ±5°. A ignição segue a mesma cadeia automática; após ela, mova o controle de gimbal… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -27247,7 +27247,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `MundoFisico`, `SuperficiePlano`, `PropulsorVetorizado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8e4a27d041ac9ef4 */ |
 
 </details>
 
@@ -27256,17 +27256,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteMerlinVetorizado.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1559](../../src/testes.ts#L1559) |
+| Identificador | <code>src/testes.ts::criarTesteMerlinVetorizado.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1738](../../src/testes.ts#L1738) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão merlin.empuxoAtualN. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `merlin.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>merlin.empuxoAtualN</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `merlin.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. @contract f-7d18adc07e8f5b0c */ |
 
 </details>
 
@@ -27275,17 +27275,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteMerlinVetorizado.obterGimbalGraus:ArrowFunction</code> · [fonte L1567](../../src/testes.ts#L1567) |
+| Identificador | <code>src/testes.ts::criarTesteMerlinVetorizado.obterGimbalGraus:ArrowFunction</code> · [fonte L1747](../../src/testes.ts#L1747) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `merlin.obterEstadoDaVetorizacao().anguloAtualRad * 180 / Math.PI`. Dependências diretas: `merlin.obterEstadoDaVetorizacao`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>merlin.obterEstadoDaVetorizacao().anguloAtualRad * 180 / Math.PI</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>merlin.obterEstadoDaVetorizacao</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `merlin.obterEstadoDaVetorizacao().anguloAtualRad * 180 / Math.PI`. Dependências diretas: `merlin.obterEstadoDaVetorizacao`. Efeitos indiretos seguem as dependências chamadas. @contract f-4f4cab585b9b5e25 */ |
 
 </details>
 
@@ -27294,17 +27294,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteMerlinVetorizado.obterRotacaoGraus:ArrowFunction</code> · [fonte L1568](../../src/testes.ts#L1568) |
+| Identificador | <code>src/testes.ts::criarTesteMerlinVetorizado.obterRotacaoGraus:ArrowFunction</code> · [fonte L1749](../../src/testes.ts#L1749) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `(tanque.getEstadoFisico().orientacaoRad.z - rotacaoInicialRad) * 180 / Math.PI`. Dependências diretas: `tanque.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>(tanque.getEstadoFisico().orientacaoRad.z - rotacaoInicialRad) * 180 / Math.PI</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>tanque.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `(tanque.getEstadoFisico().orientacaoRad.z - rotacaoInicialRad) * 180 / Math.PI`. Dependências diretas: `tanque.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-137455dfddf32094 */ |
 
 </details>
 
@@ -27313,17 +27313,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteMerlinVetorizado.cameraY:ArrowFunction</code> · [fonte L1573](../../src/testes.ts#L1573) |
+| Identificador | <code>src/testes.ts::criarTesteMerlinVetorizado.cameraY:ArrowFunction</code> · [fonte L1755](../../src/testes.ts#L1755) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `tanque.getEstadoFisico().posicaoM.y`. Dependências diretas: `tanque.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>tanque.getEstadoFisico().posicaoM.y</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>tanque.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `tanque.getEstadoFisico().posicaoM.y`. Dependências diretas: `tanque.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-1b61e2855a1086e0 */ |
 
 </details>
 
@@ -27332,9 +27332,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteMerlinVetorizado.linhaDeEmpuxo:ArrowFunction</code> · [fonte L1574](../../src/testes.ts#L1574) |
+| Identificador | <code>src/testes.ts::criarTesteMerlinVetorizado.linhaDeEmpuxo:ArrowFunction</code> · [fonte L1757](../../src/testes.ts#L1757) |
 | Assinatura | <code> (): { origemM: Vetor3; direcao: Vetor3; }</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `merlin.getEstadoFisico`, `Vetor3`, `merlin.obterEstadoDaVetorizacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ origemM: Vetor3; direcao: Vetor3; }</code>; expressões retornadas: <code>({ origemM: merlin.getEstadoFisico().posicaoM, direcao: new Vetor3(Math.cos(merlin.getEstadoFisico().orientacaoRad.z + merlin.obterEstadoDaVetorizacao().anguloAtualRad), Math.sin(merlin.getEstadoFisico().orientacaoRad.z + merlin.obterEstado… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -27342,7 +27342,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `merlin.getEstadoFisico`, `Vetor3`, `merlin.obterEstadoDaVetorizacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-676aeb42b5559c70 */ |
 
 </details>
 
@@ -27351,17 +27351,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteMerlinVetorizado.telemetria:ArrowFunction</code> · [fonte L1577](../../src/testes.ts#L1577) |
+| Identificador | <code>src/testes.ts::criarTesteMerlinVetorizado.telemetria:ArrowFunction</code> · [fonte L1761](../../src/testes.ts#L1761) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve ``gimbal ${obterGimbalGraus().toFixed(2)}° · inclinação ${obterRotacaoGraus().toFixed(2)}°``. Dependências diretas: `obterGimbalGraus().toFixed`, `obterGimbalGraus`, `obterRotacaoGraus().toFixed`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`gimbal ${obterGimbalGraus().toFixed(2)}° · inclinação ${obterRotacaoGraus().toFixed(2)}°`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>obterGimbalGraus().toFixed</code>; <code>obterGimbalGraus</code>; <code>obterRotacaoGraus().toFixed</code>; <code>obterRotacaoGraus</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve ``gimbal ${obterGimbalGraus().toFixed(2)}° · inclinação ${obterRotacaoGraus().toFixed(2)}°``. Dependências diretas: `obterGimbalGraus().toFixed`, `obterGimbalGraus`, `obterRotacaoGraus().toFixed`. Efeitos indiretos seguem as dependências chamadas. @contract f-363b974c20d375fd */ |
 
 </details>
 
@@ -27370,9 +27370,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteMerlinVetorizado.dados:ArrowFunction</code> · [fonte L1578](../../src/testes.ts#L1578) |
+| Identificador | <code>src/testes.ts::criarTesteMerlinVetorizado.dados:ArrowFunction</code> · [fonte L1763](../../src/testes.ts#L1763) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `merlin.empuxoAtualN.toFixed`, `(merlin.throttleAtual * 100).toFixed`, `(merlin.eficienciaPorIntegridade * 100).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Empuxo: ${merlin.empuxoAtualN.toFixed(0)} N\nThrottle: ${(merlin.throttleAtual * 100).toFixed(0)}%\nEficiência por integridade: ${(merlin.eficienciaPorIntegridade * 100).toFixed(1)}%\nGimbal alvo: ${(merlin.obterEstadoDaVetorizacao().angul… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -27380,7 +27380,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `merlin.empuxoAtualN.toFixed`, `(merlin.throttleAtual * 100).toFixed`, `(merlin.eficienciaPorIntegridade * 100).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-27dde2c5812e22d0 */ |
 
 </details>
 
@@ -27389,17 +27389,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteMerlinVetorizado.deveEncerrar:ArrowFunction</code> · [fonte L1579](../../src/testes.ts#L1579) |
+| Identificador | <code>src/testes.ts::criarTesteMerlinVetorizado.deveEncerrar:ArrowFunction</code> · [fonte L1765](../../src/testes.ts#L1765) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Retorna a expressão false. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `false`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>false</code>; expressões retornadas: <code>false</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `false`. Efeitos indiretos seguem as dependências chamadas. @contract f-ad3b79c6c9cb721d */ |
 
 </details>
 
@@ -27408,9 +27408,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteMerlinVetorizado.validar:ArrowFunction</code> · [fonte L1580](../../src/testes.ts#L1580) |
+| Identificador | <code>src/testes.ts::criarTesteMerlinVetorizado.validar:ArrowFunction</code> · [fonte L1767](../../src/testes.ts#L1767) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `obterGimbalGraus().toFixed`, `obterGimbalGraus`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${merlin.estaIgnitado ? 'OPERACIONAL' : 'AGUARDANDO IGNIÇÃO'} · gimbal ${obterGimbalGraus().toFixed(2)}°; conjunto ${fixador.estaRompido ? 'separado' : 'íntegro'}`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -27418,7 +27418,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `obterGimbalGraus().toFixed`, `obterGimbalGraus`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-16dc12e6fd739028 */ |
 
 </details>
 
@@ -27427,17 +27427,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::normalizarAnguloRad:ArrowFunction</code> · [fonte L1584](../../src/testes.ts#L1584) |
+| Identificador | <code>src/testes.ts::normalizarAnguloRad:ArrowFunction</code> · [fonte L1772](../../src/testes.ts#L1772) |
 | Assinatura | <code> (anguloRad: number): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `Math.atan2(Math.sin(anguloRad), Math.cos(anguloRad))`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | <code>anguloRad: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>Math.atan2(Math.sin(anguloRad), Math.cos(anguloRad))</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.atan2</code>; <code>Math.sin</code>; <code>Math.cos</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `Math.atan2(Math.sin(anguloRad), Math.cos(anguloRad))`. Efeitos indiretos seguem as dependências chamadas. @contract f-e03537a6ec4b299e */ |
 
 </details>
 
@@ -27446,9 +27446,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteMerlinDesalinhadoComCorrecao:ArrowFunction</code> · [fonte L1586](../../src/testes.ts#L1586) |
+| Identificador | <code>src/testes.ts::criarTesteMerlinDesalinhadoComCorrecao:ArrowFunction</code> · [fonte L1775](../../src/testes.ts#L1775) |
 | Assinatura | <code> (deslocamentoMotorXM: number, nome: string): CenárioVisual</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `MundoFisico`, `PropulsorVetorizado`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>deslocamentoMotorXM: number</code>; <code>nome: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{ nome, descricao: `Conjunto de ${(tanque.massaKg + merlin.massaKg).toFixed(0)} kg tanque–motor desalinhado: o Merlin está ${deslocamentoMotorXM.toFixed(3)} m ao lado do tanque. A 60% de throttle, o empuxo vertical permanece maior que o pes… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -27456,7 +27456,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `MundoFisico`, `PropulsorVetorizado`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a88463f2ac2abe91 */ |
 
 </details>
 
@@ -27465,17 +27465,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteMerlinDesalinhadoComCorrecao.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1603](../../src/testes.ts#L1603) |
+| Identificador | <code>src/testes.ts::criarTesteMerlinDesalinhadoComCorrecao.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1793](../../src/testes.ts#L1793) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão merlin.empuxoAtualN. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `merlin.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>merlin.empuxoAtualN</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `merlin.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. @contract f-834f6ee32035ab12 */ |
 
 </details>
 
@@ -27484,9 +27484,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteMerlinDesalinhadoComCorrecao.obterCentroMassa:ArrowFunction</code> · [fonte L1610](../../src/testes.ts#L1610) |
+| Identificador | <code>src/testes.ts::criarTesteMerlinDesalinhadoComCorrecao.obterCentroMassa:ArrowFunction</code> · [fonte L1801](../../src/testes.ts#L1801) |
 | Assinatura | <code> (): Vetor3</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `tanque.getEstadoFisico().posicaoM.multiplicar(tanque.massaKg / massaTotal) .adicionar`, `tanque.getEstadoFisico().posicaoM.multiplicar`, `tanque.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: <code>tanque.getEstadoFisico().posicaoM.multiplicar(tanque.massaKg / massaTotal) .adicionar(merlin.getEstadoFisico().posicaoM.multiplicar(merlin.massaKg / massaTotal))</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -27494,7 +27494,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `tanque.getEstadoFisico().posicaoM.multiplicar(tanque.massaKg / massaTotal) .adicionar`, `tanque.getEstadoFisico().posicaoM.multiplicar`, `tanque.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-916059563081ea2e */ |
 
 </details>
 
@@ -27503,9 +27503,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteMerlinDesalinhadoComCorrecao.obterCorrecaoNecessariaRad:ArrowFunction</code> · [fonte L1615](../../src/testes.ts#L1615) |
+| Identificador | <code>src/testes.ts::criarTesteMerlinDesalinhadoComCorrecao.obterCorrecaoNecessariaRad:ArrowFunction</code> · [fonte L1807](../../src/testes.ts#L1807) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `normalizarAnguloRad(anguloAteCentroMassa - merlin.getEstadoFisico().orientacaoRad.z)`. Dependências diretas: `merlin.getEstadoFisico`, `obterCentroMassa`, `normalizarAnguloRad`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>normalizarAnguloRad(anguloAteCentroMassa - merlin.getEstadoFisico().orientacaoRad.z)</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -27513,7 +27513,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Devolve `normalizarAnguloRad(anguloAteCentroMassa - merlin.getEstadoFisico().orientacaoRad.z)`. Dependências diretas: `merlin.getEstadoFisico`, `obterCentroMassa`, `normalizarAnguloRad`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-59cdd97dae22c7ba */ |
 
 </details>
 
@@ -27522,9 +27522,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteMerlinDesalinhadoComCorrecao.atualizarControle:ArrowFunction</code> · [fonte L1621](../../src/testes.ts#L1621) |
+| Identificador | <code>src/testes.ts::criarTesteMerlinDesalinhadoComCorrecao.atualizarControle:ArrowFunction</code> · [fonte L1814](../../src/testes.ts#L1814) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `partida`, `merlin.obterEstadoDaVetorizacao`, `obterCorrecaoNecessariaRad`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -27532,7 +27532,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `partida`, `merlin.obterEstadoDaVetorizacao`, `obterCorrecaoNecessariaRad`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-87977c2acf0c6709 */ |
 
 </details>
 
@@ -27541,17 +27541,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteMerlinDesalinhadoComCorrecao.obterGraus:ArrowFunction</code> · [fonte L1627](../../src/testes.ts#L1627) |
+| Identificador | <code>src/testes.ts::criarTesteMerlinDesalinhadoComCorrecao.obterGraus:ArrowFunction</code> · [fonte L1821](../../src/testes.ts#L1821) |
 | Assinatura | <code> (angulo: number): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve ``${(angulo * 180 / Math.PI).toFixed(2)}°``. Dependências diretas: `(angulo * 180 / Math.PI).toFixed`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | <code>angulo: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${(angulo * 180 / Math.PI).toFixed(2)}°`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>(angulo * 180 / Math.PI).toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve ``${(angulo * 180 / Math.PI).toFixed(2)}°``. Dependências diretas: `(angulo * 180 / Math.PI).toFixed`. Efeitos indiretos seguem as dependências chamadas. @contract f-9e9791bf429e27b5 */ |
 
 </details>
 
@@ -27560,17 +27560,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteMerlinDesalinhadoComCorrecao.rotacaoGraus:ArrowFunction</code> · [fonte L1628](../../src/testes.ts#L1628) |
+| Identificador | <code>src/testes.ts::criarTesteMerlinDesalinhadoComCorrecao.rotacaoGraus:ArrowFunction</code> · [fonte L1823](../../src/testes.ts#L1823) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `(tanque.getEstadoFisico().orientacaoRad.z - orientacaoInicialTanqueRad) * 180 / Math.PI`. Dependências diretas: `tanque.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>(tanque.getEstadoFisico().orientacaoRad.z - orientacaoInicialTanqueRad) * 180 / Math.PI</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>tanque.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `(tanque.getEstadoFisico().orientacaoRad.z - orientacaoInicialTanqueRad) * 180 / Math.PI`. Dependências diretas: `tanque.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-7ad00735fc0c0eef */ |
 
 </details>
 
@@ -27579,17 +27579,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteMerlinDesalinhadoComCorrecao.cameraY:ArrowFunction</code> · [fonte L1633](../../src/testes.ts#L1633) |
+| Identificador | <code>src/testes.ts::criarTesteMerlinDesalinhadoComCorrecao.cameraY:ArrowFunction</code> · [fonte L1829](../../src/testes.ts#L1829) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `tanque.getEstadoFisico().posicaoM.y`. Dependências diretas: `tanque.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>tanque.getEstadoFisico().posicaoM.y</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>tanque.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `tanque.getEstadoFisico().posicaoM.y`. Dependências diretas: `tanque.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-dd7ae4d92860b63f */ |
 
 </details>
 
@@ -27598,9 +27598,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteMerlinDesalinhadoComCorrecao.linhaDeEmpuxo:ArrowFunction</code> · [fonte L1634](../../src/testes.ts#L1634) |
+| Identificador | <code>src/testes.ts::criarTesteMerlinDesalinhadoComCorrecao.linhaDeEmpuxo:ArrowFunction</code> · [fonte L1831](../../src/testes.ts#L1831) |
 | Assinatura | <code> (): { origemM: Vetor3; direcao: Vetor3; }</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `merlin.getEstadoFisico`, `Vetor3`, `merlin.obterEstadoDaVetorizacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ origemM: Vetor3; direcao: Vetor3; }</code>; expressões retornadas: <code>({ origemM: merlin.getEstadoFisico().posicaoM, direcao: new Vetor3(Math.cos(merlin.getEstadoFisico().orientacaoRad.z + merlin.obterEstadoDaVetorizacao().anguloAtualRad), Math.sin(merlin.getEstadoFisico().orientacaoRad.z + merlin.obterEstado… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -27608,7 +27608,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `merlin.getEstadoFisico`, `Vetor3`, `merlin.obterEstadoDaVetorizacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-52e2ab7117b4c9de */ |
 
 </details>
 
@@ -27617,17 +27617,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteMerlinDesalinhadoComCorrecao.telemetria:ArrowFunction</code> · [fonte L1636](../../src/testes.ts#L1636) |
+| Identificador | <code>src/testes.ts::criarTesteMerlinDesalinhadoComCorrecao.telemetria:ArrowFunction</code> · [fonte L1834](../../src/testes.ts#L1834) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve ``correção ${obterGraus(merlin.obterEstadoDaVetorizacao().anguloAtualRad)} · rotação ${rotacaoGraus().toFixed(2)}°``. Dependências diretas: `obterGraus`, `merlin.obterEstadoDaVetorizacao`, `rotacaoGraus().toFixed`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`correção ${obterGraus(merlin.obterEstadoDaVetorizacao().anguloAtualRad)} · rotação ${rotacaoGraus().toFixed(2)}°`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>obterGraus</code>; <code>merlin.obterEstadoDaVetorizacao</code>; <code>rotacaoGraus().toFixed</code>; <code>rotacaoGraus</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve ``correção ${obterGraus(merlin.obterEstadoDaVetorizacao().anguloAtualRad)} · rotação ${rotacaoGraus().toFixed(2)}°``. Dependências diretas: `obterGraus`, `merlin.obterEstadoDaVetorizacao`, `rotacaoGraus().toFixed`. Efeitos indiretos seguem as dependências chamadas. @contract f-c4bb0cc3d3ca18dd */ |
 
 </details>
 
@@ -27636,9 +27636,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteMerlinDesalinhadoComCorrecao.dados:ArrowFunction</code> · [fonte L1637](../../src/testes.ts#L1637) |
+| Identificador | <code>src/testes.ts::criarTesteMerlinDesalinhadoComCorrecao.dados:ArrowFunction</code> · [fonte L1836](../../src/testes.ts#L1836) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `obterGraus`, `obterCorrecaoNecessariaRad`, `merlin.obterEstadoDaVetorizacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Correção necessária: ${obterGraus(obterCorrecaoNecessariaRad())}\nLimite do Merlin: ±${obterGraus(merlin.obterEstadoDaVetorizacao().limiteAngularRad)}\nGimbal efetivo: ${obterGraus(merlin.obterEstadoDaVetorizacao().anguloAtualRad)}\nTorque… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -27646,7 +27646,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `obterGraus`, `obterCorrecaoNecessariaRad`, `merlin.obterEstadoDaVetorizacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d5064acbabfbfb1b */ |
 
 </details>
 
@@ -27655,17 +27655,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteMerlinDesalinhadoComCorrecao.deveEncerrar:ArrowFunction</code> · [fonte L1638](../../src/testes.ts#L1638) |
+| Identificador | <code>src/testes.ts::criarTesteMerlinDesalinhadoComCorrecao.deveEncerrar:ArrowFunction</code> · [fonte L1838](../../src/testes.ts#L1838) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Retorna a expressão false. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `false`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>false</code>; expressões retornadas: <code>false</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `false`. Efeitos indiretos seguem as dependências chamadas. @contract f-28e010687ff27ff0 */ |
 
 </details>
 
@@ -27674,9 +27674,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteMerlinDesalinhadoComCorrecao.validar:ArrowFunction</code> · [fonte L1639](../../src/testes.ts#L1639) |
+| Identificador | <code>src/testes.ts::criarTesteMerlinDesalinhadoComCorrecao.validar:ArrowFunction</code> · [fonte L1840](../../src/testes.ts#L1840) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `obterCorrecaoNecessariaRad`, `merlin.obterEstadoDaVetorizacao`, `obterGraus`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${Math.abs(obterCorrecaoNecessariaRad()) &lt;= merlin.obterEstadoDaVetorizacao().limiteAngularRad ? 'CORREÇÃO VIÁVEL' : 'LIMITADO PELO GIMBAL'} · requerido ${obterGraus(obterCorrecaoNecessariaRad())}; limite ±${obterGraus(merlin.obterEstadoDa… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -27684,7 +27684,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `obterCorrecaoNecessariaRad`, `merlin.obterEstadoDaVetorizacao`, `obterGraus`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0869e34001982375 */ |
 
 </details>
 
@@ -27693,9 +27693,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteEmpuxoExcentricoEmConjunto:ArrowFunction</code> · [fonte L1643](../../src/testes.ts#L1643) |
+| Identificador | <code>src/testes.ts::criarTesteEmpuxoExcentricoEmConjunto:ArrowFunction</code> · [fonte L1845](../../src/testes.ts#L1845) |
 | Assinatura | <code> (): CenárioVisual</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `MundoFisico`, `Propulsor`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{ nome: 'Propulsor excêntrico — torque no conjunto', descricao: 'O propulsor está 1 m ao lado do tanque e aplica empuxo vertical. A linha amarela mostra a ação do empuxo; como ela não atravessa o centro de massa do conjunto, o fixador rígid… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -27703,7 +27703,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `MundoFisico`, `Propulsor`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b305abd2d6f947ad */ |
 
 </details>
 
@@ -27712,17 +27712,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteEmpuxoExcentricoEmConjunto.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1659](../../src/testes.ts#L1659) |
+| Identificador | <code>src/testes.ts::criarTesteEmpuxoExcentricoEmConjunto.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1862](../../src/testes.ts#L1862) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão propulsor.empuxoAtualN. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>propulsor.empuxoAtualN</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `propulsor.empuxoAtualN`. Efeitos indiretos seguem as dependências chamadas. @contract f-48c7e501d36023e1 */ |
 
 </details>
 
@@ -27731,17 +27731,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteEmpuxoExcentricoEmConjunto.obterRotacaoObservadaGraus:ArrowFunction</code> · [fonte L1666](../../src/testes.ts#L1666) |
+| Identificador | <code>src/testes.ts::criarTesteEmpuxoExcentricoEmConjunto.obterRotacaoObservadaGraus:ArrowFunction</code> · [fonte L1870](../../src/testes.ts#L1870) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `(tanque.getEstadoFisico().orientacaoRad.z - orientacaoInicialTanqueRad) * 180 / Math.PI`. Dependências diretas: `tanque.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>(tanque.getEstadoFisico().orientacaoRad.z - orientacaoInicialTanqueRad) * 180 / Math.PI</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>tanque.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `(tanque.getEstadoFisico().orientacaoRad.z - orientacaoInicialTanqueRad) * 180 / Math.PI`. Dependências diretas: `tanque.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-2ccbe71f82aa7ca0 */ |
 
 </details>
 
@@ -27750,9 +27750,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteEmpuxoExcentricoEmConjunto.obterTorqueEsperadoNm:ArrowFunction</code> · [fonte L1667](../../src/testes.ts#L1667) |
+| Identificador | <code>src/testes.ts::criarTesteEmpuxoExcentricoEmConjunto.obterTorqueEsperadoNm:ArrowFunction</code> · [fonte L1872](../../src/testes.ts#L1872) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `Math.abs(propulsor.getEstadoFisico().posicaoM.x - centroMassaX) * propulsor.empuxoAtualN`. Dependências diretas: `tanque.getEstadoFisico`, `propulsor.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>Math.abs(propulsor.getEstadoFisico().posicaoM.x - centroMassaX) * propulsor.empuxoAtualN</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -27760,7 +27760,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Devolve `Math.abs(propulsor.getEstadoFisico().posicaoM.x - centroMassaX) * propulsor.empuxoAtualN`. Dependências diretas: `tanque.getEstadoFisico`, `propulsor.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-84d719a4bad8b3ae */ |
 
 </details>
 
@@ -27769,17 +27769,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteEmpuxoExcentricoEmConjunto.cameraY:ArrowFunction</code> · [fonte L1676](../../src/testes.ts#L1676) |
+| Identificador | <code>src/testes.ts::criarTesteEmpuxoExcentricoEmConjunto.cameraY:ArrowFunction</code> · [fonte L1882](../../src/testes.ts#L1882) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `tanque.getEstadoFisico().posicaoM.y`. Dependências diretas: `tanque.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>tanque.getEstadoFisico().posicaoM.y</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>tanque.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `tanque.getEstadoFisico().posicaoM.y`. Dependências diretas: `tanque.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-db399c2d9c3ac287 */ |
 
 </details>
 
@@ -27788,17 +27788,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteEmpuxoExcentricoEmConjunto.linhaDeEmpuxo:ArrowFunction</code> · [fonte L1677](../../src/testes.ts#L1677) |
+| Identificador | <code>src/testes.ts::criarTesteEmpuxoExcentricoEmConjunto.linhaDeEmpuxo:ArrowFunction</code> · [fonte L1884](../../src/testes.ts#L1884) |
 | Assinatura | <code> (): { origemM: Vetor3; direcao: Vetor3; }</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `({ origemM: propulsor.getEstadoFisico().posicaoM, direcao: new Vetor3(0, 1, 0) })`. Dependências diretas: `propulsor.getEstadoFisico`, `Vetor3`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ origemM: Vetor3; direcao: Vetor3; }</code>; expressões retornadas: <code>({ origemM: propulsor.getEstadoFisico().posicaoM, direcao: new Vetor3(0, 1, 0) })</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>propulsor.getEstadoFisico</code>; <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `({ origemM: propulsor.getEstadoFisico().posicaoM, direcao: new Vetor3(0, 1, 0) })`. Dependências diretas: `propulsor.getEstadoFisico`, `Vetor3`. Efeitos indiretos seguem as dependências chamadas. @contract f-640bf458b69401a0 */ |
 
 </details>
 
@@ -27807,17 +27807,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteEmpuxoExcentricoEmConjunto.telemetria:ArrowFunction</code> · [fonte L1679](../../src/testes.ts#L1679) |
+| Identificador | <code>src/testes.ts::criarTesteEmpuxoExcentricoEmConjunto.telemetria:ArrowFunction</code> · [fonte L1887](../../src/testes.ts#L1887) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve ``rotação desde o início ${obterRotacaoObservadaGraus().toFixed(2)}°``. Dependências diretas: `obterRotacaoObservadaGraus().toFixed`, `obterRotacaoObservadaGraus`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`rotação desde o início ${obterRotacaoObservadaGraus().toFixed(2)}°`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>obterRotacaoObservadaGraus().toFixed</code>; <code>obterRotacaoObservadaGraus</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve ``rotação desde o início ${obterRotacaoObservadaGraus().toFixed(2)}°``. Dependências diretas: `obterRotacaoObservadaGraus().toFixed`, `obterRotacaoObservadaGraus`. Efeitos indiretos seguem as dependências chamadas. @contract f-b81e300d510f8b8c */ |
 
 </details>
 
@@ -27826,9 +27826,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteEmpuxoExcentricoEmConjunto.dados:ArrowFunction</code> · [fonte L1680](../../src/testes.ts#L1680) |
+| Identificador | <code>src/testes.ts::criarTesteEmpuxoExcentricoEmConjunto.dados:ArrowFunction</code> · [fonte L1889](../../src/testes.ts#L1889) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `propulsor.empuxoAtualN.toFixed`, `(tanque.massaKg + propulsor.massaKg).toFixed`, `obterTorqueEsperadoNm().toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Empuxo: ${propulsor.empuxoAtualN.toFixed(0)} N\nMassa do conjunto: ${(tanque.massaKg + propulsor.massaKg).toFixed(0)} kg\nTorque físico esperado: ${obterTorqueEsperadoNm().toFixed(0)} N·m\nRotação observada desde o início: ${obterRotacaoOb… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -27836,7 +27836,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `propulsor.empuxoAtualN.toFixed`, `(tanque.massaKg + propulsor.massaKg).toFixed`, `obterTorqueEsperadoNm().toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-bf1283edad6f7e28 */ |
 
 </details>
 
@@ -27845,17 +27845,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteEmpuxoExcentricoEmConjunto.deveEncerrar:ArrowFunction</code> · [fonte L1681](../../src/testes.ts#L1681) |
+| Identificador | <code>src/testes.ts::criarTesteEmpuxoExcentricoEmConjunto.deveEncerrar:ArrowFunction</code> · [fonte L1891](../../src/testes.ts#L1891) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Retorna a expressão false. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `false`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>false</code>; expressões retornadas: <code>false</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `false`. Efeitos indiretos seguem as dependências chamadas. @contract f-840d60cea192e81d */ |
 
 </details>
 
@@ -27864,9 +27864,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteEmpuxoExcentricoEmConjunto.validar:ArrowFunction</code> · [fonte L1682](../../src/testes.ts#L1682) |
+| Identificador | <code>src/testes.ts::criarTesteEmpuxoExcentricoEmConjunto.validar:ArrowFunction</code> · [fonte L1893](../../src/testes.ts#L1893) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `obterTorqueEsperadoNm`, `obterRotacaoObservadaGraus`, `obterTorqueEsperadoNm().toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${obterTorqueEsperadoNm() &gt; 0 &amp;&amp; Math.abs(obterRotacaoObservadaGraus()) &gt; 0.001 ? 'APROVADO' : 'AGUARDANDO EMPUXO'} · torque esperado ${obterTorqueEsperadoNm().toFixed(0)} N·m; rotação observada ${obterRotacaoObservadaGraus().toFixed(3)}°`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -27874,7 +27874,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `obterTorqueEsperadoNm`, `obterRotacaoObservadaGraus`, `obterTorqueEsperadoNm().toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-eca946b046949ee0 */ |
 
 </details>
 
@@ -27883,7 +27883,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePainelSolarComSombra:ArrowFunction</code> · [fonte L1687](../../src/testes.ts#L1687) |
+| Identificador | <code>src/testes.ts::criarTestePainelSolarComSombra:ArrowFunction</code> · [fonte L1900](../../src/testes.ts#L1900) |
 | Assinatura | <code> (): CenárioVisual</code> |
 | Responsabilidade | Painel solar lateral com bloqueador vertical incorporando um cilindro. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -27893,7 +27893,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Painel solar lateral com bloqueador vertical incorporando um cilindro. */ |
+| JSDoc integral | /** Painel solar lateral com bloqueador vertical incorporando um cilindro.<br> * @contract f-59ae47b12e09f6c2<br> */ |
 
 </details>
 
@@ -27902,17 +27902,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePainelSolarComSombra.base:ArrowFunction</code> · [fonte L1689](../../src/testes.ts#L1689) |
+| Identificador | <code>src/testes.ts::criarTestePainelSolarComSombra.base:ArrowFunction</code> · [fonte L1903](../../src/testes.ts#L1903) |
 | Assinatura | <code> (id: string, massaBaseKg: number, dimensoesM: Vetor3, posicaoM: Vetor3): { id: string; massaBaseKg: number; dimensoesM: Vetor3; resistenciaColisaoJ: number; limiteTermicoC: number; estadoInicial: { posicaoM: Vetor3; }; }</code> |
-| Responsabilidade | Retorna a expressão ({ id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM } }). Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `({ id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM } })`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | <code>id: string</code>; <code>massaBaseKg: number</code>; <code>dimensoesM: Vetor3</code>; <code>posicaoM: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ id: string; massaBaseKg: number; dimensoesM: Vetor3; resistenciaColisaoJ: number; limiteTermicoC: number; estadoInicial: { posicaoM: Vetor3; }; }</code>; expressões retornadas: <code>({ id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM } })</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `({ id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM } })`. Efeitos indiretos seguem as dependências chamadas. @contract f-f45a592d08b435e3 */ |
 
 </details>
 
@@ -27921,9 +27921,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePainelSolarComSombra.obterBloqueioXM:ArrowFunction</code> · [fonte L1704](../../src/testes.ts#L1704) |
+| Identificador | <code>src/testes.ts::criarTestePainelSolarComSombra.obterBloqueioXM:ArrowFunction</code> · [fonte L1919](../../src/testes.ts#L1919) |
 | Assinatura | <code> (raioYM: number): number &#124; undefined</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `bloqueia ? estado.posicaoM.x - porta.dimensoesM.x / 2 : undefined`. Dependências diretas: `porta.getEstadoFisico`, `painel.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>raioYM: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number &#124; undefined</code>; expressões retornadas: <code>bloqueia ? estado.posicaoM.x - porta.dimensoesM.x / 2 : undefined</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -27931,7 +27931,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Devolve `bloqueia ? estado.posicaoM.x - porta.dimensoesM.x / 2 : undefined`. Dependências diretas: `porta.getEstadoFisico`, `painel.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-13029983cb9cecb0 */ |
 
 </details>
 
@@ -27940,9 +27940,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePainelSolarComSombra.obterFatorIluminacao:ArrowFunction</code> · [fonte L1712](../../src/testes.ts#L1712) |
+| Identificador | <code>src/testes.ts::criarTestePainelSolarComSombra.obterFatorIluminacao:ArrowFunction</code> · [fonte L1928](../../src/testes.ts#L1928) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `raios.filter((raioYM) =&gt; obterBloqueioXM(raioYM) === undefined).length / raios.length`. Dependências diretas: `painel.getEstadoFisico`, `[-0.8, -0.4, 0, 0.4, 0.8].map`, `raios.filter`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>raios.filter((raioYM) =&gt; obterBloqueioXM(raioYM) === undefined).length / raios.length</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -27950,7 +27950,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Devolve `raios.filter((raioYM) =&gt; obterBloqueioXM(raioYM) === undefined).length / raios.length`. Dependências diretas: `painel.getEstadoFisico`, `[-0.8, -0.4, 0, 0.4, 0.8].map`, `raios.filter`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-892060fcea06c81a */ |
 
 </details>
 
@@ -27959,17 +27959,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePainelSolarComSombra.obterEntradasCilindro:ArrowFunction</code> · [fonte L1753](../../src/testes.ts#L1753) |
+| Identificador | <code>src/testes.ts::criarTestePainelSolarComSombra.obterEntradasCilindro:ArrowFunction</code> · [fonte L1970](../../src/testes.ts#L1970) |
 | Assinatura | <code> (): EntradasCilindro</code> |
-| Responsabilidade | Retorna a expressão porta.entradasAtuais. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `porta.entradasAtuais`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>import("/media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/physics/objetos/atuadores/Cilindro").EntradasCilindro</code>; expressões retornadas: <code>porta.entradasAtuais</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `porta.entradasAtuais`. Efeitos indiretos seguem as dependências chamadas. @contract f-c738bf9f1ff0816f */ |
 
 </details>
 
@@ -27978,17 +27978,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePainelSolarComSombra.deveEncerrar:ArrowFunction</code> · [fonte L1756](../../src/testes.ts#L1756) |
+| Identificador | <code>src/testes.ts::criarTestePainelSolarComSombra.deveEncerrar:ArrowFunction</code> · [fonte L1974](../../src/testes.ts#L1974) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Retorna a expressão false. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `false`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>false</code>; expressões retornadas: <code>false</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `false`. Efeitos indiretos seguem as dependências chamadas. @contract f-c5ffcd76aa249367 */ |
 
 </details>
 
@@ -27997,9 +27997,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePainelSolarComSombra.telemetria:ArrowFunction</code> · [fonte L1757](../../src/testes.ts#L1757) |
+| Identificador | <code>src/testes.ts::criarTestePainelSolarComSombra.telemetria:ArrowFunction</code> · [fonte L1976](../../src/testes.ts#L1976) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `(bateria.percentualDeCarga * 100).toFixed`, `painel.potenciaAtualW.toFixed`, `propulsor.empuxoAtualN.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`bateria ${(bateria.percentualDeCarga * 100).toFixed(1)}% · painel ${painel.potenciaAtualW.toFixed(0)} W · propulsor ${propulsor.empuxoAtualN.toFixed(0)} N · ${painel.fatorIluminacao === 0 ? 'sombra ATIVA' : 'sombra livre'}`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -28007,7 +28007,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `(bateria.percentualDeCarga * 100).toFixed`, `painel.potenciaAtualW.toFixed`, `propulsor.empuxoAtualN.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-be8cba848404fa27 */ |
 
 </details>
 
@@ -28016,9 +28016,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePainelSolarComSombra.dados:ArrowFunction</code> · [fonte L1758](../../src/testes.ts#L1758) |
+| Identificador | <code>src/testes.ts::criarTestePainelSolarComSombra.dados:ArrowFunction</code> · [fonte L1978](../../src/testes.ts#L1978) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `painel.potenciaAtualW.toFixed`, `painel.energiaGeradaJ.toFixed`, `bateria.energiaArmazenadaJ.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Fonte: Sol simulado · irradiância 1.000 W/m²\nPainel: ${painel.potenciaAtualW.toFixed(1)} W · energia gerada ${painel.energiaGeradaJ.toFixed(1)} J\nBateria de carga: ${bateria.energiaArmazenadaJ.toFixed(1)} / ${bateria.capacidadeEnergiaJ.t… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -28026,7 +28026,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `painel.potenciaAtualW.toFixed`, `painel.energiaGeradaJ.toFixed`, `bateria.energiaArmazenadaJ.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3bd5a90e93c8cc4c */ |
 
 </details>
 
@@ -28035,9 +28035,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePainelSolarComSombra.validar:ArrowFunction</code> · [fonte L1759](../../src/testes.ts#L1759) |
+| Identificador | <code>src/testes.ts::criarTestePainelSolarComSombra.validar:ArrowFunction</code> · [fonte L1980](../../src/testes.ts#L1980) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `bateria.energiaArmazenadaJ.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${bateria.energiaArmazenadaJ &gt; 0 &amp;&amp; painel.energiaGeradaJ &gt; 0 ? 'APROVADO' : 'PENDENTE'} · carga ${bateria.energiaArmazenadaJ.toFixed(1)} J; sombra ${painel.fatorIluminacao === 0 ? 'ativa' : 'livre'}`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -28045,7 +28045,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `bateria.energiaArmazenadaJ.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3ae9eb387ce441ac */ |
 
 </details>
 
@@ -28054,9 +28054,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::lerProjetoSandboxSalvo:ArrowFunction</code> · [fonte L1770](../../src/testes.ts#L1770) |
+| Identificador | <code>src/testes.ts::lerProjetoSandboxSalvo:ArrowFunction</code> · [fonte L1992](../../src/testes.ts#L1992) |
 | Assinatura | <code> (): ProjetoSandboxSalvo &#124; undefined</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `localStorage.getItem`, `JSON.parse`, `Array.isArray`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ProjetoSandboxSalvo &#124; undefined</code>; expressões retornadas: <code>undefined</code>; <code>projeto.versao === 1 &amp;&amp; typeof projeto.nome === 'string' &amp;&amp; Array.isArray(projeto.itens) &amp;&amp; Array.isArray(projeto.conexoes) ? projeto : undefined</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -28064,7 +28064,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!texto</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `localStorage.getItem`, `JSON.parse`, `Array.isArray`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-06ef69965bb57c9c */ |
 
 </details>
 
@@ -28073,7 +28073,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteSandboxSalvo:ArrowFunction</code> · [fonte L1783](../../src/testes.ts#L1783) |
+| Identificador | <code>src/testes.ts::criarTesteSandboxSalvo:ArrowFunction</code> · [fonte L2007](../../src/testes.ts#L2007) |
 | Assinatura | <code> (projeto: ProjetoSandboxSalvo): CenárioVisual</code> |
 | Responsabilidade | Reconstrói uma configuração salva com as classes físicas disponíveis. |
 | Entradas | <code>projeto: ProjetoSandboxSalvo</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -28083,7 +28083,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>objetosPorId.has(item.id) &#124;&#124; item.tipo === 'computador-de-voo' &#124;&#124; item.tipo === 'conexao-eletrica' &#124;&#124; item.tipo === 'mangueira'</code>; <code>item.tipo === 'tanque'</code>; <code>item.tipo === 'painel-solar'</code>; <code>item.tipo === 'propulsor-vetorizado'</code>; <code>item.tipo === 'propulsor'</code>; <code>item.tipo === 'braco-articulado'</code>; <code>objeto instanceof Propulsor</code>; <code>modulo !== casco</code>; <code>tanque</code>; <code>temConexao('mangueira', tanque.id, propulsor.id)</code>; <code>temConexao('eletrica', bateria.id, propulsor.id)</code>; <code>propulsor.conexaoEletrica</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Reconstrói uma configuração salva com as classes físicas disponíveis. */ |
+| JSDoc integral | /** Reconstrói uma configuração salva com as classes físicas disponíveis.<br> * @contract f-dd6caa3a1971854d<br> */ |
 
 </details>
 
@@ -28092,9 +28092,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteSandboxSalvo.base:ArrowFunction</code> · [fonte L1786](../../src/testes.ts#L1786) |
+| Identificador | <code>src/testes.ts::criarTesteSandboxSalvo.base:ArrowFunction</code> · [fonte L2011](../../src/testes.ts#L2011) |
 | Assinatura | <code> (id: string, massaBaseKg: number, dimensoesM: Vetor3, item: ProjetoSandboxSalvo["itens"][number]): { id: string; massaBaseKg: number; dimensoesM: Vetor3; resistenciaColisaoJ: number; limiteTermicoC: number; estadoInicial: { posicaoM: Vetor3; orientacaoRad: Vetor3; }; }</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>id: string</code>; <code>massaBaseKg: number</code>; <code>dimensoesM: Vetor3</code>; <code>item: ProjetoSandboxSalvo['itens'][number]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ id: string; massaBaseKg: number; dimensoesM: Vetor3; resistenciaColisaoJ: number; limiteTermicoC: number; estadoInicial: { posicaoM: Vetor3; orientacaoRad: Vetor3; }; }</code>; expressões retornadas: <code>({ id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 500_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM: new Vetor3((item.x - 400) / 50, Math.max(1, (560 - item.y) / 50), 0), orientacaoRad: new Vetor3(0, 0, item.anguloGraus * Math.PI… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -28102,7 +28102,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e8787f6b59c5d278 */ |
 
 </details>
 
@@ -28111,9 +28111,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteSandboxSalvo.obterParDeConexao:ArrowFunction</code> · [fonte L1813](../../src/testes.ts#L1813) |
+| Identificador | <code>src/testes.ts::criarTesteSandboxSalvo.obterParDeConexao:ArrowFunction</code> · [fonte L2039](../../src/testes.ts#L2039) |
 | Assinatura | <code> (conexao: ProjetoSandboxSalvo["conexoes"][number]): [Objeto, Objeto] &#124; undefined</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `origem &amp;&amp; destino ? [origem, destino] : undefined`. Dependências diretas: `objetosPorId.get`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>conexao: ProjetoSandboxSalvo['conexoes'][number]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>[Objeto, Objeto] &#124; undefined</code>; expressões retornadas: <code>origem &amp;&amp; destino ? [origem, destino] : undefined</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -28121,7 +28121,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Devolve `origem &amp;&amp; destino ? [origem, destino] : undefined`. Dependências diretas: `objetosPorId.get`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-30f58d2b5bbcd9bb */ |
 
 </details>
 
@@ -28130,9 +28130,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteSandboxSalvo.temConexao:ArrowFunction</code> · [fonte L1817](../../src/testes.ts#L1817) |
+| Identificador | <code>src/testes.ts::criarTesteSandboxSalvo.temConexao:ArrowFunction</code> · [fonte L2044](../../src/testes.ts#L2044) |
 | Assinatura | <code> (tipo: ProjetoSandboxSalvo["conexoes"][number]["tipo"], primeiroId: string, segundoId: string): boolean</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `projeto.conexoes.some`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>tipo: ProjetoSandboxSalvo['conexoes'][number]['tipo']</code>; <code>primeiroId: string</code>; <code>segundoId: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>projeto.conexoes.some((conexao) =&gt; conexao.tipo === tipo &amp;&amp; ((conexao.origemId === primeiroId &amp;&amp; conexao.destinoId === segundoId) &#124;&#124; (conexao.origemId === segundoId &amp;&amp; conexao.destinoId === primeiroId)))</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -28140,7 +28140,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `projeto.conexoes.some`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-27a5b7df265870a6 */ |
 
 </details>
 
@@ -28149,17 +28149,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteSandboxSalvo.[callback]#6.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1818](../../src/testes.ts#L1818) |
+| Identificador | <code>src/testes.ts::criarTesteSandboxSalvo.[callback]#6.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L2046](../../src/testes.ts#L2046) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão 0. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `0`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>0</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `0`. Efeitos indiretos seguem as dependências chamadas. @contract f-d151b1a27db70fee */ |
 
 </details>
 
@@ -28168,17 +28168,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteSandboxSalvo.deveEncerrar:ArrowFunction</code> · [fonte L1830](../../src/testes.ts#L1830) |
+| Identificador | <code>src/testes.ts::criarTesteSandboxSalvo.deveEncerrar:ArrowFunction</code> · [fonte L2059](../../src/testes.ts#L2059) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Retorna a expressão false. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `false`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>false</code>; expressões retornadas: <code>false</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `false`. Efeitos indiretos seguem as dependências chamadas. @contract f-f351b9fc559385bc */ |
 
 </details>
 
@@ -28187,9 +28187,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteSandboxSalvo.validar:ArrowFunction</code> · [fonte L1831](../../src/testes.ts#L1831) |
+| Identificador | <code>src/testes.ts::criarTesteSandboxSalvo.validar:ArrowFunction</code> · [fonte L2061](../../src/testes.ts#L2061) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Retorna a expressão `${propulsores.length &gt; 0 &amp;&amp; tanque ? 'PRONTO PARA CONFIGURAÇÃO' : 'INCOMPLETO'} · ${objetosPorId.size} objetos físicos · ${fixadores.length} fixadores`. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${propulsores.length &gt; 0 &amp;&amp; tanque ? 'PRONTO PARA CONFIGURAÇÃO' : 'INCOMPLETO'} · ${objetosPorId.size} objetos físicos · ${fixadores.length} fixadores`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -28197,7 +28197,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-83975ff4c146a1bc */ |
 
 </details>
 
@@ -28206,17 +28206,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteSandboxSalvo.telemetria:ArrowFunction</code> · [fonte L1832](../../src/testes.ts#L1832) |
+| Identificador | <code>src/testes.ts::criarTesteSandboxSalvo.telemetria:ArrowFunction</code> · [fonte L2063](../../src/testes.ts#L2063) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve ``altitude ${casco.getEstadoFisico().posicaoM.y.toFixed(2)} m · módulos ${casco.modulosFisicos.length}``. Dependências diretas: `casco.getEstadoFisico().posicaoM.y.toFixed`, `casco.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`altitude ${casco.getEstadoFisico().posicaoM.y.toFixed(2)} m · módulos ${casco.modulosFisicos.length}`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>casco.getEstadoFisico().posicaoM.y.toFixed</code>; <code>casco.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve ``altitude ${casco.getEstadoFisico().posicaoM.y.toFixed(2)} m · módulos ${casco.modulosFisicos.length}``. Dependências diretas: `casco.getEstadoFisico().posicaoM.y.toFixed`, `casco.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-8c9e21ca95dbd6ec */ |
 
 </details>
 
@@ -28225,9 +28225,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteSandboxSalvo.dados:ArrowFunction</code> · [fonte L1833](../../src/testes.ts#L1833) |
+| Identificador | <code>src/testes.ts::criarTesteSandboxSalvo.dados:ArrowFunction</code> · [fonte L2065](../../src/testes.ts#L2065) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `bateria.energiaArmazenadaJ.toFixed`, `propulsores.flatMap((propulsor) =&gt; propulsor.diagnosticoOperacional).join`, `propulsores.flatMap`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Blueprint: ${projeto.nome}\nObjetos físicos: ${objetosPorId.size}\nFixadores: ${fixadores.length}\nPropulsores: ${propulsores.length}\nTanque: ${tanque ? 'conectado' : 'ausente'}\nBateria: ${bateria.energiaArmazenadaJ.toFixed(0)} J\nDiagnó… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -28235,7 +28235,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `bateria.energiaArmazenadaJ.toFixed`, `propulsores.flatMap((propulsor) =&gt; propulsor.diagnosticoOperacional).join`, `propulsores.flatMap`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ec26acdb2437f419 */ |
 
 </details>
 
@@ -28244,7 +28244,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteBracoArticuladoDeBancada:ArrowFunction</code> · [fonte L1840](../../src/testes.ts#L1840) |
+| Identificador | <code>src/testes.ts::criarTesteBracoArticuladoDeBancada:ArrowFunction</code> · [fonte L2074](../../src/testes.ts#L2074) |
 | Assinatura | <code> (paredeVertical?: boolean): CenárioVisual</code> |
 | Responsabilidade | Decolagem vertical com controle de inclinação pelo computador de voo. */ /** Bancada manual de subida e pouso com reservas propulsivas independentes. */ /** Ensaio isolado de motor, haste articulada, fixador terminal e painel solar. |
 | Entradas | <code>paredeVertical = false</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -28254,7 +28254,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Decolagem vertical com controle de inclinação pelo computador de voo. */<br>/** Bancada manual de subida e pouso com reservas propulsivas independentes. */<br>/** Ensaio isolado de motor, haste articulada, fixador terminal e painel solar. */ |
+| JSDoc integral | /** Decolagem vertical com controle de inclinação pelo computador de voo. */<br>/** Bancada manual de subida e pouso com reservas propulsivas independentes. */<br>/** Ensaio isolado de motor, haste articulada, fixador terminal e painel solar.<br> * @contract f-d7a205f565db0611<br> */ |
 
 </details>
 
@@ -28263,17 +28263,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.base:ArrowFunction</code> · [fonte L1842](../../src/testes.ts#L1842) |
+| Identificador | <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.base:ArrowFunction</code> · [fonte L2077](../../src/testes.ts#L2077) |
 | Assinatura | <code> (id: string, massaBaseKg: number, dimensoesM: Vetor3, posicaoM: Vetor3): { id: string; massaBaseKg: number; dimensoesM: Vetor3; resistenciaColisaoJ: number; limiteTermicoC: number; estadoInicial: { posicaoM: Vetor3; }; }</code> |
-| Responsabilidade | Retorna a expressão ({ id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM } }). Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `({ id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM } })`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | <code>id: string</code>; <code>massaBaseKg: number</code>; <code>dimensoesM: Vetor3</code>; <code>posicaoM: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ id: string; massaBaseKg: number; dimensoesM: Vetor3; resistenciaColisaoJ: number; limiteTermicoC: number; estadoInicial: { posicaoM: Vetor3; }; }</code>; expressões retornadas: <code>({ id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM } })</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `({ id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM } })`. Efeitos indiretos seguem as dependências chamadas. @contract f-798e769b20526ef6 */ |
 
 </details>
 
@@ -28282,17 +28282,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.obterAnguloAtualRad:ArrowFunction</code> · [fonte L1852](../../src/testes.ts#L1852) |
+| Identificador | <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.obterAnguloAtualRad:ArrowFunction</code> · [fonte L2088](../../src/testes.ts#L2088) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `braco.getEstadoFisico().orientacaoRad.z`. Dependências diretas: `braco.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>braco.getEstadoFisico().orientacaoRad.z</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>braco.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `braco.getEstadoFisico().orientacaoRad.z`. Dependências diretas: `braco.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-75bd94740406c0d5 */ |
 
 </details>
 
@@ -28301,17 +28301,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.obterVelocidadeAngularRadps:ArrowFunction</code> · [fonte L1853](../../src/testes.ts#L1853) |
+| Identificador | <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.obterVelocidadeAngularRadps:ArrowFunction</code> · [fonte L2090](../../src/testes.ts#L2090) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `braco.getEstadoFisico().velocidadeAngularRadps.z`. Dependências diretas: `braco.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>braco.getEstadoFisico().velocidadeAngularRadps.z</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>braco.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `braco.getEstadoFisico().velocidadeAngularRadps.z`. Dependências diretas: `braco.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-2aa7122fba8dce99 */ |
 
 </details>
 
@@ -28320,9 +28320,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.obterTorqueGravitacionalNm:ArrowFunction</code> · [fonte L1862](../../src/testes.ts#L1862) |
+| Identificador | <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.obterTorqueGravitacionalNm:ArrowFunction</code> · [fonte L2100](../../src/testes.ts#L2100) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `motor.getEstadoFisico`, `[braco, painel].reduce`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>[braco, painel].reduce&lt;number&gt;((torque, objeto) =&gt; { const peso = new Vetor3(0, -9.80665 * objeto.massaKg, 0); return torque - objeto.getEstadoFisico().posicaoM.subtrair(pivot).produtoVetorial(peso).z; }, 0)</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -28330,7 +28330,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `motor.getEstadoFisico`, `[braco, painel].reduce`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-827e58477c1a5e06 */ |
 
 </details>
 
@@ -28339,9 +28339,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.obterMomentoInerciaControladoKgM2:ArrowFunction</code> · [fonte L1869](../../src/testes.ts#L1869) |
+| Identificador | <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.obterMomentoInerciaControladoKgM2:ArrowFunction</code> · [fonte L2108](../../src/testes.ts#L2108) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `motor.getEstadoFisico`, `[braco, painel].reduce`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>[braco, painel].reduce((inercia, objeto) =&gt; { const estado = objeto.getEstadoFisico(); return inercia + objeto.getMomentoInerciaKgM2().z + objeto.massaKg * estado.posicaoM.subtrair(pivot).magnitude ** 2; }, 0)</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -28349,7 +28349,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `motor.getEstadoFisico`, `[braco, painel].reduce`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-87f9c8443bdf8b21 */ |
 
 </details>
 
@@ -28358,17 +28358,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.obterFatorIluminacao:ArrowFunction</code> · [fonte L1878](../../src/testes.ts#L1878) |
+| Identificador | <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.obterFatorIluminacao:ArrowFunction</code> · [fonte L2118](../../src/testes.ts#L2118) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão 1. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `1`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>1</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `1`. Efeitos indiretos seguem as dependências chamadas. @contract f-84f3c904863a9bb1 */ |
 
 </details>
 
@@ -28377,17 +28377,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1880](../../src/testes.ts#L1880) |
+| Identificador | <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L2121](../../src/testes.ts#L2121) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão 0. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `0`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>0</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `0`. Efeitos indiretos seguem as dependências chamadas. @contract f-dc93c7349e5709c2 */ |
 
 </details>
 
@@ -28396,17 +28396,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.deveEncerrar:ArrowFunction</code> · [fonte L1889](../../src/testes.ts#L1889) |
+| Identificador | <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.deveEncerrar:ArrowFunction</code> · [fonte L2131](../../src/testes.ts#L2131) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Retorna a expressão false. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `false`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>false</code>; expressões retornadas: <code>false</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `false`. Efeitos indiretos seguem as dependências chamadas. @contract f-c360a119371222e0 */ |
 
 </details>
 
@@ -28415,17 +28415,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.validar:ArrowFunction</code> · [fonte L1889](../../src/testes.ts#L1889) |
+| Identificador | <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.validar:ArrowFunction</code> · [fonte L2132](../../src/testes.ts#L2132) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Retorna a expressão 'OBSERVAÇÃO · ensaio manual disponível'. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `'OBSERVAÇÃO · ensaio manual disponível'`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>'OBSERVAÇÃO · ensaio manual disponível'</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `'OBSERVAÇÃO · ensaio manual disponível'`. Efeitos indiretos seguem as dependências chamadas. @contract f-6062ba01a3ff2626 */ |
 
 </details>
 
@@ -28434,9 +28434,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.telemetria:ArrowFunction</code> · [fonte L1889](../../src/testes.ts#L1889) |
+| Identificador | <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.telemetria:ArrowFunction</code> · [fonte L2133](../../src/testes.ts#L2133) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `(braco.getEstadoFisico().orientacaoRad.z * 180 / Math.PI).toFixed`, `braco.getEstadoFisico`, `(motor.anguloAlvoRelativoRad * 180 / Math.PI).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`ângulo ${(braco.getEstadoFisico().orientacaoRad.z * 180 / Math.PI).toFixed(1)}° · alvo ${(motor.anguloAlvoRelativoRad * 180 / Math.PI).toFixed(1)}° · torque ${motor.torqueAtualNm.toFixed(1)} N.m`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -28444,7 +28444,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `(braco.getEstadoFisico().orientacaoRad.z * 180 / Math.PI).toFixed`, `braco.getEstadoFisico`, `(motor.anguloAlvoRelativoRad * 180 / Math.PI).toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-15bdc8908135aa39 */ |
 
 </details>
 
@@ -28453,9 +28453,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.dados:ArrowFunction</code> · [fonte L1889](../../src/testes.ts#L1889) |
+| Identificador | <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.dados:ArrowFunction</code> · [fonte L2134](../../src/testes.ts#L2134) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `motor.torqueAtualNm.toFixed`, `motor.ganhos.ganhoProporcional.toFixed`, `motor.ganhos.ganhoIntegral.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Motor: ${motor.habilitado ? 'ligado' : 'desligado'} · torque ${motor.torqueAtualNm.toFixed(1)} N.m\nGanhos PID: Kp ${motor.ganhos.ganhoProporcional.toFixed(1)} · Ki ${motor.ganhos.ganhoIntegral.toFixed(1)} · Kd ${motor.ganhos.ganhoDerivati… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -28463,7 +28463,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `motor.torqueAtualNm.toFixed`, `motor.ganhos.ganhoProporcional.toFixed`, `motor.ganhos.ganhoIntegral.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-99b98f4083a50486 */ |
 
 </details>
 
@@ -28472,7 +28472,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteBracosArticuladosEmParede:ArrowFunction</code> · [fonte L1894](../../src/testes.ts#L1894) |
+| Identificador | <code>src/testes.ts::criarTesteBracosArticuladosEmParede:ArrowFunction</code> · [fonte L2141](../../src/testes.ts#L2141) |
 | Assinatura | <code> (): CenárioVisual</code> |
 | Responsabilidade | Ensaio bilateral: dois braços independentes, um para cada lado da parede. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -28482,7 +28482,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Ensaio bilateral: dois braços independentes, um para cada lado da parede. */ |
+| JSDoc integral | /** Ensaio bilateral: dois braços independentes, um para cada lado da parede.<br> * @contract f-7b53fc3a26b51017<br> */ |
 
 </details>
 
@@ -28491,17 +28491,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteBracosArticuladosEmParede.base:ArrowFunction</code> · [fonte L1899](../../src/testes.ts#L1899) |
+| Identificador | <code>src/testes.ts::criarTesteBracosArticuladosEmParede.base:ArrowFunction</code> · [fonte L2147](../../src/testes.ts#L2147) |
 | Assinatura | <code> (id: string, massaBaseKg: number, dimensoesM: Vetor3, posicaoM: Vetor3): { id: string; massaBaseKg: number; dimensoesM: Vetor3; resistenciaColisaoJ: number; limiteTermicoC: number; estadoInicial: { posicaoM: Vetor3; }; }</code> |
-| Responsabilidade | Retorna a expressão ({ id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM } }). Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `({ id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM } })`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | <code>id: string</code>; <code>massaBaseKg: number</code>; <code>dimensoesM: Vetor3</code>; <code>posicaoM: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ id: string; massaBaseKg: number; dimensoesM: Vetor3; resistenciaColisaoJ: number; limiteTermicoC: number; estadoInicial: { posicaoM: Vetor3; }; }</code>; expressões retornadas: <code>({ id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM } })</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `({ id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM } })`. Efeitos indiretos seguem as dependências chamadas. @contract f-8a353d8a6456a50c */ |
 
 </details>
 
@@ -28510,17 +28510,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteBracosArticuladosEmParede.obterAnguloAtualRad:ArrowFunction</code> · [fonte L1904](../../src/testes.ts#L1904) |
+| Identificador | <code>src/testes.ts::criarTesteBracosArticuladosEmParede.obterAnguloAtualRad:ArrowFunction</code> · [fonte L2153](../../src/testes.ts#L2153) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `braco.getEstadoFisico().orientacaoRad.z`. Dependências diretas: `braco.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>braco.getEstadoFisico().orientacaoRad.z</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>braco.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `braco.getEstadoFisico().orientacaoRad.z`. Dependências diretas: `braco.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-d770149dd2e33e11 */ |
 
 </details>
 
@@ -28529,17 +28529,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteBracosArticuladosEmParede.obterVelocidadeAngularRadps:ArrowFunction</code> · [fonte L1905](../../src/testes.ts#L1905) |
+| Identificador | <code>src/testes.ts::criarTesteBracosArticuladosEmParede.obterVelocidadeAngularRadps:ArrowFunction</code> · [fonte L2155](../../src/testes.ts#L2155) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `braco.getEstadoFisico().velocidadeAngularRadps.z`. Dependências diretas: `braco.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>braco.getEstadoFisico().velocidadeAngularRadps.z</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>braco.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `braco.getEstadoFisico().velocidadeAngularRadps.z`. Dependências diretas: `braco.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-1377839bc689b5de */ |
 
 </details>
 
@@ -28548,9 +28548,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteBracosArticuladosEmParede.obterTorqueGravitacionalNm:ArrowFunction</code> · [fonte L1909](../../src/testes.ts#L1909) |
+| Identificador | <code>src/testes.ts::criarTesteBracosArticuladosEmParede.obterTorqueGravitacionalNm:ArrowFunction</code> · [fonte L2160](../../src/testes.ts#L2160) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `motor.getEstadoFisico`, `[braco, painel].reduce`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>[braco, painel].reduce&lt;number&gt;((torque, objeto) =&gt; torque - objeto.getEstadoFisico().posicaoM.subtrair(pivot).produtoVetorial(new Vetor3(0, -9.80665 * objeto.massaKg, 0)).z, 0)</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -28558,7 +28558,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `motor.getEstadoFisico`, `[braco, painel].reduce`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-75037a576ed9d05c */ |
 
 </details>
 
@@ -28567,9 +28567,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteBracosArticuladosEmParede.obterMomentoInerciaControladoKgM2:ArrowFunction</code> · [fonte L1913](../../src/testes.ts#L1913) |
+| Identificador | <code>src/testes.ts::criarTesteBracosArticuladosEmParede.obterMomentoInerciaControladoKgM2:ArrowFunction</code> · [fonte L2165](../../src/testes.ts#L2165) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `motor.getEstadoFisico`, `[braco, painel].reduce`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>[braco, painel].reduce((inercia, objeto) =&gt; inercia + objeto.getMomentoInerciaKgM2().z + objeto.massaKg * objeto.getEstadoFisico().posicaoM.subtrair(pivot).magnitude ** 2, 0)</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -28577,7 +28577,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `motor.getEstadoFisico`, `[braco, painel].reduce`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-cf5eb88517743103 */ |
 
 </details>
 
@@ -28586,17 +28586,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteBracosArticuladosEmParede.obterFatorIluminacao:ArrowFunction</code> · [fonte L1919](../../src/testes.ts#L1919) |
+| Identificador | <code>src/testes.ts::criarTesteBracosArticuladosEmParede.obterFatorIluminacao:ArrowFunction</code> · [fonte L2172](../../src/testes.ts#L2172) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão 1. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `1`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>1</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `1`. Efeitos indiretos seguem as dependências chamadas. @contract f-ae3afb203d0a696c */ |
 
 </details>
 
@@ -28605,17 +28605,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteBracosArticuladosEmParede.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L1921](../../src/testes.ts#L1921) |
+| Identificador | <code>src/testes.ts::criarTesteBracosArticuladosEmParede.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L2175](../../src/testes.ts#L2175) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão 0. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `0`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>0</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `0`. Efeitos indiretos seguem as dependências chamadas. @contract f-497f39f520ed7214 */ |
 
 </details>
 
@@ -28624,7 +28624,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteCilindroEletrico:ArrowFunction</code> · [fonte L1938](../../src/testes.ts#L1938) |
+| Identificador | <code>src/testes.ts::criarTesteCilindroEletrico:ArrowFunction</code> · [fonte L2194](../../src/testes.ts#L2194) |
 | Assinatura | <code> (): CenárioVisual</code> |
 | Responsabilidade | Bancada elétrica: bateria → motor/fuso → força na haste → fins de curso. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -28634,7 +28634,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Bancada elétrica: bateria → motor/fuso → força na haste → fins de curso. */ |
+| JSDoc integral | /** Bancada elétrica: bateria → motor/fuso → força na haste → fins de curso.<br> * @contract f-fa10e9b9d2a3c1e6<br> */ |
 
 </details>
 
@@ -28643,17 +28643,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteCilindroEletrico.base:ArrowFunction</code> · [fonte L1940](../../src/testes.ts#L1940) |
+| Identificador | <code>src/testes.ts::criarTesteCilindroEletrico.base:ArrowFunction</code> · [fonte L2197](../../src/testes.ts#L2197) |
 | Assinatura | <code> (id: string, massaBaseKg: number, dimensoesM: Vetor3, posicaoM: Vetor3): { id: string; massaBaseKg: number; dimensoesM: Vetor3; resistenciaColisaoJ: number; limiteTermicoC: number; estadoInicial: { posicaoM: Vetor3; }; }</code> |
-| Responsabilidade | Retorna a expressão ({ id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM } }). Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `({ id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM } })`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | <code>id: string</code>; <code>massaBaseKg: number</code>; <code>dimensoesM: Vetor3</code>; <code>posicaoM: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ id: string; massaBaseKg: number; dimensoesM: Vetor3; resistenciaColisaoJ: number; limiteTermicoC: number; estadoInicial: { posicaoM: Vetor3; }; }</code>; expressões retornadas: <code>({ id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM } })</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `({ id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, estadoInicial: { posicaoM } })`. Efeitos indiretos seguem as dependências chamadas. @contract f-c89a3d9d6d233b6a */ |
 
 </details>
 
@@ -28662,9 +28662,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteCilindroEletrico.atualizarControle:ArrowFunction</code> · [fonte L1956](../../src/testes.ts#L1956) |
+| Identificador | <code>src/testes.ts::criarTesteCilindroEletrico.atualizarControle:ArrowFunction</code> · [fonte L2214](../../src/testes.ts#L2214) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `cilindro.definirEntradas`, `sensorAvancado.estaAcionado`, `sensorRecuado.estaAcionado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: <code>cilindro.definirEntradas({ avancar: comando === 'avancar', recuar: comando === 'recuar', avancado: sensorAvancado.estaAcionado(), recuado: sensorRecuado.estaAcionado() })</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -28672,7 +28672,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `cilindro.definirEntradas`, `sensorAvancado.estaAcionado`, `sensorRecuado.estaAcionado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3631e81e52c32ff6 */ |
 
 </details>
 
@@ -28681,17 +28681,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteCilindroEletrico.deveEncerrar:ArrowFunction</code> · [fonte L1963](../../src/testes.ts#L1963) |
+| Identificador | <code>src/testes.ts::criarTesteCilindroEletrico.deveEncerrar:ArrowFunction</code> · [fonte L2222](../../src/testes.ts#L2222) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Retorna a expressão false. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `false`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>false</code>; expressões retornadas: <code>false</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `false`. Efeitos indiretos seguem as dependências chamadas. @contract f-a272c583e2b0e4cc */ |
 
 </details>
 
@@ -28700,9 +28700,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteCilindroEletrico.comandarCilindro:ArrowFunction</code> · [fonte L1964](../../src/testes.ts#L1964) |
+| Identificador | <code>src/testes.ts::criarTesteCilindroEletrico.comandarCilindro:ArrowFunction</code> · [fonte L2224](../../src/testes.ts#L2224) |
 | Assinatura | <code> (novoComando: "avancar" &#124; "recuar"): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `atualizarControle`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>novoComando</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>comando</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -28710,7 +28710,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `atualizarControle`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-9921cd143c455c64 */ |
 
 </details>
 
@@ -28719,17 +28719,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteCilindroEletrico.configurarVelocidadesDoCilindro:ArrowFunction</code> · [fonte L1965](../../src/testes.ts#L1965) |
+| Identificador | <code>src/testes.ts::criarTesteCilindroEletrico.configurarVelocidadesDoCilindro:ArrowFunction</code> · [fonte L2226](../../src/testes.ts#L2226) |
 | Assinatura | <code> (avancoMps: number, recuoMps: number): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `cilindro.configurarVelocidades(avancoMps, recuoMps)`. Dependências diretas: `cilindro.configurarVelocidades`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | <code>avancoMps</code>; <code>recuoMps</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: <code>cilindro.configurarVelocidades(avancoMps, recuoMps)</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>cilindro.configurarVelocidades</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `cilindro.configurarVelocidades(avancoMps, recuoMps)`. Dependências diretas: `cilindro.configurarVelocidades`. Efeitos indiretos seguem as dependências chamadas. @contract f-a22b6059575dc1ce */ |
 
 </details>
 
@@ -28738,17 +28738,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteCilindroEletrico.velocidadesDoCilindro:ArrowFunction</code> · [fonte L1966](../../src/testes.ts#L1966) |
+| Identificador | <code>src/testes.ts::criarTesteCilindroEletrico.velocidadesDoCilindro:ArrowFunction</code> · [fonte L2228](../../src/testes.ts#L2228) |
 | Assinatura | <code> (): { avancoMps: number; recuoMps: number; }</code> |
-| Responsabilidade | Retorna a expressão ({ avancoMps: cilindro.velocidadeAvancoMps, recuoMps: cilindro.velocidadeRecuoMps }). Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `({ avancoMps: cilindro.velocidadeAvancoMps, recuoMps: cilindro.velocidadeRecuoMps })`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ avancoMps: number; recuoMps: number; }</code>; expressões retornadas: <code>({ avancoMps: cilindro.velocidadeAvancoMps, recuoMps: cilindro.velocidadeRecuoMps })</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `({ avancoMps: cilindro.velocidadeAvancoMps, recuoMps: cilindro.velocidadeRecuoMps })`. Efeitos indiretos seguem as dependências chamadas. @contract f-8a4938eb226c75c1 */ |
 
 </details>
 
@@ -28757,17 +28757,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteCilindroEletrico.validar:ArrowFunction</code> · [fonte L1967](../../src/testes.ts#L1967) |
+| Identificador | <code>src/testes.ts::criarTesteCilindroEletrico.validar:ArrowFunction</code> · [fonte L2230](../../src/testes.ts#L2230) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve ``OBSERVAÇÃO · comando ${comando}; avançado=${sensorAvancado.sinal}; recuado=${sensorRecuado.sinal}; força=${cilindro.forcaNaHasteN.toFixed(1)} N``. Dependências diretas: `cilindro.forcaNaHasteN.toFixed`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`OBSERVAÇÃO · comando ${comando}; avançado=${sensorAvancado.sinal}; recuado=${sensorRecuado.sinal}; força=${cilindro.forcaNaHasteN.toFixed(1)} N`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>cilindro.forcaNaHasteN.toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve ``OBSERVAÇÃO · comando ${comando}; avançado=${sensorAvancado.sinal}; recuado=${sensorRecuado.sinal}; força=${cilindro.forcaNaHasteN.toFixed(1)} N``. Dependências diretas: `cilindro.forcaNaHasteN.toFixed`. Efeitos indiretos seguem as dependências chamadas. @contract f-09c8a14301c26960 */ |
 
 </details>
 
@@ -28776,9 +28776,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteCilindroEletrico.telemetria:ArrowFunction</code> · [fonte L1968](../../src/testes.ts#L1968) |
+| Identificador | <code>src/testes.ts::criarTesteCilindroEletrico.telemetria:ArrowFunction</code> · [fonte L2232](../../src/testes.ts#L2232) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `cilindro.velocidadeAvancoMps.toFixed`, `cilindro.velocidadeRecuoMps.toFixed`, `cilindro.forcaNaHasteN.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`comando ${comando} · referência +${cilindro.velocidadeAvancoMps.toFixed(2)}/−${cilindro.velocidadeRecuoMps.toFixed(2)} m/s · força ${cilindro.forcaNaHasteN.toFixed(1)} N`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -28786,7 +28786,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `cilindro.velocidadeAvancoMps.toFixed`, `cilindro.velocidadeRecuoMps.toFixed`, `cilindro.forcaNaHasteN.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-5eab6f1eb831d3ba */ |
 
 </details>
 
@@ -28795,9 +28795,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteCilindroEletrico.dados:ArrowFunction</code> · [fonte L1969](../../src/testes.ts#L1969) |
+| Identificador | <code>src/testes.ts::criarTesteCilindroEletrico.dados:ArrowFunction</code> · [fonte L2234](../../src/testes.ts#L2234) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `bateria.energiaConsumidaJ.toFixed`, `haste.getEstadoFisico().velocidadeMps.x.toFixed`, `haste.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Cadeia: bateria → motor/fuso → força → haste\nBancada: bateria, carcaça e batentes chumbados; haste guiada em X\nEnergia elétrica consumida: ${bateria.energiaConsumidaJ.toFixed(1)} J\nVelocidade real da haste: ${haste.getEstadoFisico().vel… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -28805,7 +28805,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `bateria.energiaConsumidaJ.toFixed`, `haste.getEstadoFisico().velocidadeMps.x.toFixed`, `haste.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-70b6fb3c17d973f3 */ |
 
 </details>
 
@@ -28814,7 +28814,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTorreElevadoraComEmpurrador:ArrowFunction</code> · [fonte L1974](../../src/testes.ts#L1974) |
+| Identificador | <code>src/testes.ts::criarTesteTorreElevadoraComEmpurrador:ArrowFunction</code> · [fonte L2241](../../src/testes.ts#L2241) |
 | Assinatura | <code> (): CenárioVisual</code> |
 | Responsabilidade | Eleva um cubo a 100 m e o ejeta por uma sequência inteiramente sensorizada. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -28824,7 +28824,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Eleva um cubo a 100 m e o ejeta por uma sequência inteiramente sensorizada. */ |
+| JSDoc integral | /** Eleva um cubo a 100 m e o ejeta por uma sequência inteiramente sensorizada.<br> * @contract f-72168369cf4c8e4a<br> */ |
 
 </details>
 
@@ -28833,17 +28833,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTorreElevadoraComEmpurrador.base:ArrowFunction</code> · [fonte L1976](../../src/testes.ts#L1976) |
+| Identificador | <code>src/testes.ts::criarTesteTorreElevadoraComEmpurrador.base:ArrowFunction</code> · [fonte L2244](../../src/testes.ts#L2244) |
 | Assinatura | <code> (id: string, massaBaseKg: number, dimensoesM: Vetor3, posicaoM: Vetor3): { id: string; massaBaseKg: number; dimensoesM: Vetor3; resistenciaColisaoJ: number; limiteTermicoC: number; dissipacaoImpacto: number; estadoInicial: { posicaoM: Vetor3; }; }</code> |
-| Responsabilidade | Retorna a expressão ({ id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, dissipacaoImpacto: 0.8, estadoInicial: { posicaoM } }). Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `({ id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, dissipacaoImpacto: 0.8, estadoInicial: { posicaoM } })`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | <code>id: string</code>; <code>massaBaseKg: number</code>; <code>dimensoesM: Vetor3</code>; <code>posicaoM: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ id: string; massaBaseKg: number; dimensoesM: Vetor3; resistenciaColisaoJ: number; limiteTermicoC: number; dissipacaoImpacto: number; estadoInicial: { posicaoM: Vetor3; }; }</code>; expressões retornadas: <code>({ id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, dissipacaoImpacto: 0.8, estadoInicial: { posicaoM } })</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `({ id, massaBaseKg, dimensoesM, resistenciaColisaoJ: 100_000, limiteTermicoC: 1_000, dissipacaoImpacto: 0.8, estadoInicial: { posicaoM } })`. Efeitos indiretos seguem as dependências chamadas. @contract f-fe7082e4bbf46c04 */ |
 
 </details>
 
@@ -28852,9 +28852,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTorreElevadoraComEmpurrador.atualizarControle:ArrowFunction</code> · [fonte L2005](../../src/testes.ts#L2005) |
+| Identificador | <code>src/testes.ts::criarTesteTorreElevadoraComEmpurrador.atualizarControle:ArrowFunction</code> · [fonte L2274](../../src/testes.ts#L2274) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `sensorElevadorAvancado.estaAcionado`, `sensorEmpurradorAvancado.estaAcionado`, `sensorElevadorRecuado.estaAcionado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>fase</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -28862,7 +28862,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>fase === 'subindo' &amp;&amp; sensorElevadorAvancado.estaAcionado()</code>; <code>fase === 'empurrando' &amp;&amp; sensorEmpurradorAvancado.estaAcionado()</code>; <code>fase === 'descendo' &amp;&amp; sensorElevadorRecuado.estaAcionado()</code>; <code>fase === 'recuando' &amp;&amp; sensorEmpurradorRecuado.estaAcionado()</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `sensorElevadorAvancado.estaAcionado`, `sensorEmpurradorAvancado.estaAcionado`, `sensorElevadorRecuado.estaAcionado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1eee8adfa0b24a7c */ |
 
 </details>
 
@@ -28871,9 +28871,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTorreElevadoraComEmpurrador.iniciarSequencia:ArrowFunction</code> · [fonte L2018](../../src/testes.ts#L2018) |
+| Identificador | <code>src/testes.ts::criarTesteTorreElevadoraComEmpurrador.iniciarSequencia:ArrowFunction</code> · [fonte L2288](../../src/testes.ts#L2288) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `atualizarControle`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>fase</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -28881,7 +28881,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>fase === 'aguardando'</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `atualizarControle`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7b45b1bb3700cfc3 */ |
 
 </details>
 
@@ -28890,9 +28890,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTorreElevadoraComEmpurrador.deveEncerrar:ArrowFunction</code> · [fonte L2019](../../src/testes.ts#L2019) |
+| Identificador | <code>src/testes.ts::criarTesteTorreElevadoraComEmpurrador.deveEncerrar:ArrowFunction</code> · [fonte L2290](../../src/testes.ts#L2290) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `cubo.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>fase === 'concluido' &amp;&amp; cubo.getEstadoFisico().posicaoM.y &lt;= 0.51 &amp;&amp; cubo.getEstadoFisico().velocidadeMps.magnitude &lt;= MundoFisico.velocidadeDeRepousoMps</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -28900,7 +28900,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `cubo.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7d2d031bec1c479a */ |
 
 </details>
 
@@ -28909,9 +28909,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTorreElevadoraComEmpurrador.validar:ArrowFunction</code> · [fonte L2020](../../src/testes.ts#L2020) |
+| Identificador | <code>src/testes.ts::criarTesteTorreElevadoraComEmpurrador.validar:ArrowFunction</code> · [fonte L2292](../../src/testes.ts#L2292) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Implementação local sem chamadas diretas. |
+| Responsabilidade | REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${fase === 'concluido' ? 'APROVADO' : 'EM EXECUÇÃO'} · fase ${fase}; elevador sup=${sensorElevadorAvancado.sinal}, inf=${sensorElevadorRecuado.sinal}; empurrador av=${sensorEmpurradorAvancado.sinal}, rec=${sensorEmpurradorRecuado.sinal}`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -28919,7 +28919,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-06b4b52d48f00538 */ |
 
 </details>
 
@@ -28928,17 +28928,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTorreElevadoraComEmpurrador.telemetria:ArrowFunction</code> · [fonte L2021](../../src/testes.ts#L2021) |
+| Identificador | <code>src/testes.ts::criarTesteTorreElevadoraComEmpurrador.telemetria:ArrowFunction</code> · [fonte L2294](../../src/testes.ts#L2294) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve ``fase ${fase} · plataforma y=${plataforma.getEstadoFisico().posicaoM.y.toFixed(2)} m · cubo y=${cubo.getEstadoFisico().posicaoM.y.toFixed(2)} m``. Dependências diretas: `plataforma.getEstadoFisico().posicaoM.y.toFixed`, `plataforma.getEstadoFisico`, `cubo.getEstadoFisico().posicaoM.y.toFixed`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`fase ${fase} · plataforma y=${plataforma.getEstadoFisico().posicaoM.y.toFixed(2)} m · cubo y=${cubo.getEstadoFisico().posicaoM.y.toFixed(2)} m`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>plataforma.getEstadoFisico().posicaoM.y.toFixed</code>; <code>plataforma.getEstadoFisico</code>; <code>cubo.getEstadoFisico().posicaoM.y.toFixed</code>; <code>cubo.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve ``fase ${fase} · plataforma y=${plataforma.getEstadoFisico().posicaoM.y.toFixed(2)} m · cubo y=${cubo.getEstadoFisico().posicaoM.y.toFixed(2)} m``. Dependências diretas: `plataforma.getEstadoFisico().posicaoM.y.toFixed`, `plataforma.getEstadoFisico`, `cubo.getEstadoFisico().posicaoM.y.toFixed`. Efeitos indiretos seguem as dependências chamadas. @contract f-a6539556a3a00259 */ |
 
 </details>
 
@@ -28947,9 +28947,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTesteTorreElevadoraComEmpurrador.dados:ArrowFunction</code> · [fonte L2022](../../src/testes.ts#L2022) |
+| Identificador | <code>src/testes.ts::criarTesteTorreElevadoraComEmpurrador.dados:ArrowFunction</code> · [fonte L2296](../../src/testes.ts#L2296) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `plataforma.getEstadoFisico().posicaoM.y.toFixed`, `plataforma.getEstadoFisico`, `cubo.getEstadoFisico().posicaoM.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Sequência: botão subir → sensor elevador avançado → empurrador avança → sensor empurrador avançado → elevador desce → sensor elevador recuado → empurrador recua\nAltura da plataforma: ${plataforma.getEstadoFisico().posicaoM.y.toFixed(2)} m… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -28957,7 +28957,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `plataforma.getEstadoFisico().posicaoM.y.toFixed`, `plataforma.getEstadoFisico`, `cubo.getEstadoFisico().posicaoM.x.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-56068bdf6190b9be */ |
 
 </details>
 
@@ -28966,9 +28966,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePortaVertical:ArrowFunction</code> · [fonte L2026](../../src/testes.ts#L2026) |
+| Identificador | <code>src/testes.ts::criarTestePortaVertical:ArrowFunction</code> · [fonte L2301](../../src/testes.ts#L2301) |
 | Assinatura | <code> (): CenárioVisual</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `criarEnsaioPortaVertical`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>{ nome: 'Porta vertical de alumínio — abrir e fechar', descricao: 'Ligue o gerador CA, a alimentação CC e o controle; depois comande Abrir ou Fechar. A bateria de 24 V alimenta controle, sensores, bobina de K1 e recuo da trava. O gerador de… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -28976,7 +28976,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `criarEnsaioPortaVertical`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-c3b67d5621424175 */ |
 
 </details>
 
@@ -28985,17 +28985,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePortaVertical.cameraY:ArrowFunction</code> · [fonte L2034](../../src/testes.ts#L2034) |
+| Identificador | <code>src/testes.ts::criarTestePortaVertical.cameraY:ArrowFunction</code> · [fonte L2310](../../src/testes.ts#L2310) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `porta.getEstadoFisico().posicaoM.y`. Dependências diretas: `porta.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>porta.getEstadoFisico().posicaoM.y</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>porta.getEstadoFisico</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `porta.getEstadoFisico().posicaoM.y`. Dependências diretas: `porta.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-75f0d313f7e15caa */ |
 
 </details>
 
@@ -29004,17 +29004,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePortaVertical.deveEncerrar:ArrowFunction</code> · [fonte L2042](../../src/testes.ts#L2042) |
+| Identificador | <code>src/testes.ts::criarTestePortaVertical.deveEncerrar:ArrowFunction</code> · [fonte L2319](../../src/testes.ts#L2319) |
 | Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Retorna a expressão false. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `false`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>false</code>; expressões retornadas: <code>false</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `false`. Efeitos indiretos seguem as dependências chamadas. @contract f-726772ce1e337a2f */ |
 
 </details>
 
@@ -29023,17 +29023,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePortaVertical.validar:ArrowFunction</code> · [fonte L2043](../../src/testes.ts#L2043) |
+| Identificador | <code>src/testes.ts::criarTestePortaVertical.validar:ArrowFunction</code> · [fonte L2321](../../src/testes.ts#L2321) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | Retorna a expressão `OBSERVAÇÃO · aberto=${e.sensorAberto.sinal}; fechado=${e.sensorFechado.sinal}`. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve ``OBSERVAÇÃO · aberto=${e.sensorAberto.sinal}; fechado=${e.sensorFechado.sinal}``. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`OBSERVAÇÃO · aberto=${e.sensorAberto.sinal}; fechado=${e.sensorFechado.sinal}`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve ``OBSERVAÇÃO · aberto=${e.sensorAberto.sinal}; fechado=${e.sensorFechado.sinal}``. Efeitos indiretos seguem as dependências chamadas. @contract f-adac9f6a01cd97cf */ |
 
 </details>
 
@@ -29042,17 +29042,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePortaVertical.telemetria:ArrowFunction</code> · [fonte L2044](../../src/testes.ts#L2044) |
+| Identificador | <code>src/testes.ts::criarTestePortaVertical.telemetria:ArrowFunction</code> · [fonte L2323](../../src/testes.ts#L2323) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve ``curso ${(porta.getEstadoFisico().posicaoM.y - 1.2).toFixed(3)} m · vy=${porta.getEstadoFisico().velocidadeMps.y.toFixed(3)} m/s``. Dependências diretas: `(porta.getEstadoFisico().posicaoM.y - 1.2).toFixed`, `porta.getEstadoFisico`, `porta.getEstadoFisico().velocidadeMps.y.toFixed`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`curso ${(porta.getEstadoFisico().posicaoM.y - 1.2).toFixed(3)} m · vy=${porta.getEstadoFisico().velocidadeMps.y.toFixed(3)} m/s`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>(porta.getEstadoFisico().posicaoM.y - 1.2).toFixed</code>; <code>porta.getEstadoFisico</code>; <code>porta.getEstadoFisico().velocidadeMps.y.toFixed</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve ``curso ${(porta.getEstadoFisico().posicaoM.y - 1.2).toFixed(3)} m · vy=${porta.getEstadoFisico().velocidadeMps.y.toFixed(3)} m/s``. Dependências diretas: `(porta.getEstadoFisico().posicaoM.y - 1.2).toFixed`, `porta.getEstadoFisico`, `porta.getEstadoFisico().velocidadeMps.y.toFixed`. Efeitos indiretos seguem as dependências chamadas. @contract f-dbecfa2e7f7718f7 */ |
 
 </details>
 
@@ -29061,9 +29061,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::criarTestePortaVertical.dados:ArrowFunction</code> · [fonte L2045](../../src/testes.ts#L2045) |
+| Identificador | <code>src/testes.ts::criarTestePortaVertical.dados:ArrowFunction</code> · [fonte L2325](../../src/testes.ts#L2325) |
 | Assinatura | <code> (): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `e.conjunto.motivosDeApoioIndisponivel.join`, `e.trava?.forcaAtualDaTravaN.toFixed`, `e.gerador.temperaturaC.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`Comando: bateria 24 V CC → controle + bobina K1 + recuo da trava\nPotência: gerador 220 V CA → K1 → motor/fuso → porta\nK1: ${porta.contatorFechado ? 'FECHADO' : 'ABERTO'}\nApoio composto: ${e.conjunto.apoioEstruturalDisponivel ? 'OPERACIO… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29071,7 +29071,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `e.conjunto.motivosDeApoioIndisponivel.join`, `e.trava?.forcaAtualDaTravaN.toFixed`, `e.gerador.temperaturaC.toFixed`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d077aea6835e51ce */ |
 
 </details>
 
@@ -29080,9 +29080,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::construirCenarios:ArrowFunction</code> · [fonte L2049](../../src/testes.ts#L2049) |
+| Identificador | <code>src/testes.ts::construirCenarios:ArrowFunction</code> · [fonte L2330](../../src/testes.ts#L2330) |
 | Assinatura | <code> (): CenárioVisual[]</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `new URLSearchParams(window.location.search).get`, `URLSearchParams`, `lerProjetoSandboxSalvo`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual[]</code>; expressões retornadas: <code>[ criarTesteDecolagemComPainelSolar(), criarTesteBss002(), criarTesteBss004(), criarTesteBss005(), criarTesteBss006(), criarTesteBss003(), ...(projetoSandbox ? [criarTesteSandboxSalvo(projetoSandbox)] : []), ]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29090,7 +29090,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `new URLSearchParams(window.location.search).get`, `URLSearchParams`, `lerProjetoSandboxSalvo`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ee6a963476d911f9 */ |
 
 </details>
 
@@ -29099,9 +29099,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::construirCenarios.cenariosArquivados:ArrowFunction</code> · [fonte L2050](../../src/testes.ts#L2050) |
+| Identificador | <code>src/testes.ts::construirCenarios.cenariosArquivados:ArrowFunction</code> · [fonte L2332](../../src/testes.ts#L2332) |
 | Assinatura | <code> (): CenárioVisual[]</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `criarCuboEmQueda`, `criarTesteQuedaLivreDeCinquentaQuadrados`, `criarTesteQuedaLivreDeGruposEstruturais`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual[]</code>; expressões retornadas: <code>[ criarCuboEmQueda(10), criarCuboEmQueda(10, 10, { nome: 'Queda livre — cubo rotacionado a 46°', descricao: 'Cubo de 10 kg e 1 × 1 × 1 m cai de 10 m com orientação inicial de 46°. O solo encontra a quina mais baixa da geometria rotacionada.… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29109,7 +29109,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `criarCuboEmQueda`, `criarTesteQuedaLivreDeCinquentaQuadrados`, `criarTesteQuedaLivreDeGruposEstruturais`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-afd54d9c2e60bb31 */ |
 
 </details>
 
@@ -29118,17 +29118,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::cenarioAtual:ArrowFunction</code> · [fonte L2144](../../src/testes.ts#L2144) |
+| Identificador | <code>src/testes.ts::cenarioAtual:ArrowFunction</code> · [fonte L2427](../../src/testes.ts#L2427) |
 | Assinatura | <code> (): CenárioVisual</code> |
-| Responsabilidade | Retorna a expressão cenarios[indiceAtual]. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `cenarios[indiceAtual]`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CenárioVisual</code>; expressões retornadas: <code>cenarios[indiceAtual]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `cenarios[indiceAtual]`. Efeitos indiretos seguem as dependências chamadas. @contract f-7a0c949fa46be62e */ |
 
 </details>
 
@@ -29137,17 +29137,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::chavePerfilPid:ArrowFunction</code> · [fonte L2153](../../src/testes.ts#L2153) |
+| Identificador | <code>src/testes.ts::chavePerfilPid:ArrowFunction</code> · [fonte L2437](../../src/testes.ts#L2437) |
 | Assinatura | <code> (motor: MotorEletricoRotacional): string</code> |
-| Responsabilidade | Retorna a expressão `starship-prototype-2:pid:${motor.id}`. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve ``starship-prototype-2:pid:${motor.id}``. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | <code>motor: MotorEletricoRotacional</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`starship-prototype-2:pid:${motor.id}`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve ``starship-prototype-2:pid:${motor.id}``. Efeitos indiretos seguem as dependências chamadas. @contract f-52ed0ad460260e6f */ |
 
 </details>
 
@@ -29156,9 +29156,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::persistirPerfilPid:ArrowFunction</code> · [fonte L2154](../../src/testes.ts#L2154) |
+| Identificador | <code>src/testes.ts::persistirPerfilPid:ArrowFunction</code> · [fonte L2439](../../src/testes.ts#L2439) |
 | Assinatura | <code> (motor: MotorEletricoRotacional): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `localStorage.setItem`, `chavePerfilPid`, `JSON.stringify`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>motor: MotorEletricoRotacional</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29166,7 +29166,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `localStorage.setItem`, `chavePerfilPid`, `JSON.stringify`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-4c35561bd75bf7fa */ |
 
 </details>
 
@@ -29175,9 +29175,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::carregarPerfilPid:ArrowFunction</code> · [fonte L2159](../../src/testes.ts#L2159) |
+| Identificador | <code>src/testes.ts::carregarPerfilPid:ArrowFunction</code> · [fonte L2445](../../src/testes.ts#L2445) |
 | Assinatura | <code> (motor: MotorEletricoRotacional): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `localStorage.getItem`, `chavePerfilPid`, `JSON.parse`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>motor: MotorEletricoRotacional</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29185,7 +29185,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!salvo</code>; <code>[perfil.ganhoProporcional, perfil.ganhoIntegral, perfil.ganhoDerivativo].every((valor) =&gt; typeof valor === 'number' &amp;&amp; Number.isFinite(valor)) &amp;&amp; typeof perfil.aceleracaoMaximaRadps2 === 'number' &amp;&amp; Number.isFinite(perfil.aceleracaoMaximaRa… [continua na fonte]</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `localStorage.getItem`, `chavePerfilPid`, `JSON.parse`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e73454518bc0c607 */ |
 
 </details>
 
@@ -29194,17 +29194,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::obterEscalaTemporalAtual:ArrowFunction</code> · [fonte L2172](../../src/testes.ts#L2172) |
+| Identificador | <code>src/testes.ts::obterEscalaTemporalAtual:ArrowFunction</code> · [fonte L2459](../../src/testes.ts#L2459) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `escalasTemporaisPorCenario.get(indiceAtual) ?? cenarioAtual().velocidadeTempo`. Dependências diretas: `escalasTemporaisPorCenario.get`, `cenarioAtual`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>escalasTemporaisPorCenario.get(indiceAtual) ?? cenarioAtual().velocidadeTempo</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>escalasTemporaisPorCenario.get</code>; <code>cenarioAtual</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `escalasTemporaisPorCenario.get(indiceAtual) ?? cenarioAtual().velocidadeTempo`. Dependências diretas: `escalasTemporaisPorCenario.get`, `cenarioAtual`. Efeitos indiretos seguem as dependências chamadas. @contract f-6a0ff607f8a10eea */ |
 
 </details>
 
@@ -29213,7 +29213,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::CanalTrace.obterSinal[tipo]:FunctionType</code> · [fonte L2177](../../src/testes.ts#L2177) |
+| Identificador | <code>src/testes.ts::CanalTrace.obterSinal[tipo]:FunctionType</code> · [fonte L2464](../../src/testes.ts#L2464) |
 | Assinatura | <code> (): number</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -29232,9 +29232,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::obterCanaisTrace:ArrowFunction</code> · [fonte L2217](../../src/testes.ts#L2217) |
+| Identificador | <code>src/testes.ts::obterCanaisTrace:ArrowFunction</code> · [fonte L2505](../../src/testes.ts#L2505) |
 | Assinatura | <code> (): readonly CanalTrace[]</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `canais`. Dependências diretas: `cenarioAtual`, `sensores.map`, `cenário.obterEntradasCilindro`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly CanalTrace[]</code>; expressões retornadas: <code>canais</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29242,7 +29242,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>entradas</code>; <code>motorRotacional</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Devolve `canais`. Dependências diretas: `cenarioAtual`, `sensores.map`, `cenário.obterEntradasCilindro`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0a8e8943545fa435 */ |
 
 </details>
 
@@ -29251,17 +29251,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::obterCanaisTrace.[callback]#1.obterSinal:ArrowFunction</code> · [fonte L2223](../../src/testes.ts#L2223) |
+| Identificador | <code>src/testes.ts::obterCanaisTrace.[callback]#1.obterSinal:ArrowFunction</code> · [fonte L2512](../../src/testes.ts#L2512) |
 | Assinatura | <code> (): 0 &#124; 1</code> |
-| Responsabilidade | Retorna a expressão sensor.sinal. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `sensor.sinal`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>0 &#124; 1</code>; expressões retornadas: <code>sensor.sinal</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `sensor.sinal`. Efeitos indiretos seguem as dependências chamadas. @contract f-84ec52ee1c33bf17 */ |
 
 </details>
 
@@ -29270,17 +29270,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::obterCanaisTrace.obterSinal:ArrowFunction</code> · [fonte L2227](../../src/testes.ts#L2227) |
+| Identificador | <code>src/testes.ts::obterCanaisTrace.obterSinal:ArrowFunction</code> · [fonte L2517](../../src/testes.ts#L2517) |
 | Assinatura | <code> (): 0 &#124; 1</code> |
-| Responsabilidade | Retorna a expressão entradas.avancar ? 1 : 0. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `entradas.avancar ? 1 : 0`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>0 &#124; 1</code>; expressões retornadas: <code>entradas.avancar ? 1 : 0</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `entradas.avancar ? 1 : 0`. Efeitos indiretos seguem as dependências chamadas. @contract f-3eb2b28252b150ed */ |
 
 </details>
 
@@ -29289,17 +29289,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::obterCanaisTrace.obterSinal:ArrowFunction#2</code> · [fonte L2228](../../src/testes.ts#L2228) |
+| Identificador | <code>src/testes.ts::obterCanaisTrace.obterSinal:ArrowFunction#2</code> · [fonte L2519](../../src/testes.ts#L2519) |
 | Assinatura | <code> (): 0 &#124; 1</code> |
-| Responsabilidade | Retorna a expressão entradas.recuar ? 1 : 0. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `entradas.recuar ? 1 : 0`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>0 &#124; 1</code>; expressões retornadas: <code>entradas.recuar ? 1 : 0</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `entradas.recuar ? 1 : 0`. Efeitos indiretos seguem as dependências chamadas. @contract f-2277e7164792dad3 */ |
 
 </details>
 
@@ -29308,17 +29308,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::obterCanaisTrace.obterSinal:ArrowFunction#3</code> · [fonte L2236](../../src/testes.ts#L2236) |
+| Identificador | <code>src/testes.ts::obterCanaisTrace.obterSinal:ArrowFunction#3</code> · [fonte L2528](../../src/testes.ts#L2528) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | Retorna a expressão motorRotacional.anguloAlvoRelativoRad * 180 / Math.PI. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `motorRotacional.anguloAlvoRelativoRad * 180 / Math.PI`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>motorRotacional.anguloAlvoRelativoRad * 180 / Math.PI</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `motorRotacional.anguloAlvoRelativoRad * 180 / Math.PI`. Efeitos indiretos seguem as dependências chamadas. @contract f-940b505ed1a6cec6 */ |
 
 </details>
 
@@ -29327,17 +29327,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::obterCanaisTrace.obterSinal:ArrowFunction#4</code> · [fonte L2242](../../src/testes.ts#L2242) |
+| Identificador | <code>src/testes.ts::obterCanaisTrace.obterSinal:ArrowFunction#4</code> · [fonte L2535](../../src/testes.ts#L2535) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `motorRotacional.obterAnguloAtualRad() * 180 / Math.PI`. Dependências diretas: `motorRotacional.obterAnguloAtualRad`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>motorRotacional.obterAnguloAtualRad() * 180 / Math.PI</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>motorRotacional.obterAnguloAtualRad</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `motorRotacional.obterAnguloAtualRad() * 180 / Math.PI`. Dependências diretas: `motorRotacional.obterAnguloAtualRad`. Efeitos indiretos seguem as dependências chamadas. @contract f-c75777ded3e8cd56 */ |
 
 </details>
 
@@ -29346,9 +29346,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::obterIndiceTraceMaisProximo:ArrowFunction</code> · [fonte L2250](../../src/testes.ts#L2250) |
+| Identificador | <code>src/testes.ts::obterIndiceTraceMaisProximo:ArrowFunction</code> · [fonte L2544](../../src/testes.ts#L2544) |
 | Assinatura | <code> (tempoS: number): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `tracePLC.obterIndiceMaisProximo(tempoS)`. Dependências diretas: `tracePLC.obterIndiceMaisProximo`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>tempoS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>tracePLC.obterIndiceMaisProximo(tempoS)</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29356,7 +29356,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Devolve `tracePLC.obterIndiceMaisProximo(tempoS)`. Dependências diretas: `tracePLC.obterIndiceMaisProximo`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ac980fa4d84ffd54 */ |
 
 </details>
 
@@ -29365,9 +29365,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::registrarTraceSensores:ArrowFunction</code> · [fonte L2254](../../src/testes.ts#L2254) |
+| Identificador | <code>src/testes.ts::registrarTraceSensores:ArrowFunction</code> · [fonte L2549](../../src/testes.ts#L2549) |
 | Assinatura | <code> (forcar?: boolean): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `tracePLC.registrar`, `cenarioAtual`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>forcar = false</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29375,7 +29375,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!traceEnabled.checked</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `tracePLC.registrar`, `cenarioAtual`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ca93909bfd5270e8 */ |
 
 </details>
 
@@ -29384,9 +29384,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::configurarTracePLCDoCenario:ArrowFunction</code> · [fonte L2259](../../src/testes.ts#L2259) |
+| Identificador | <code>src/testes.ts::configurarTracePLCDoCenario:ArrowFunction</code> · [fonte L2555](../../src/testes.ts#L2555) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Escritas diretas: `sensorTraceCanvas.height`. Dependências diretas: `obterCanaisTrace`, `TracePLC`, `tracePLC.adicionarSinal`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>tracePLC</code>; <code>sensorTraceCanvas.height</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29394,7 +29394,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Escritas diretas: `sensorTraceCanvas.height`. Dependências diretas: `obterCanaisTrace`, `TracePLC`, `tracePLC.adicionarSinal`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-753b84cdd5504c31 */ |
 
 </details>
 
@@ -29403,9 +29403,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::desenharTraceSensores:ArrowFunction</code> · [fonte L2268](../../src/testes.ts#L2268) |
+| Identificador | <code>src/testes.ts::desenharTraceSensores:ArrowFunction</code> · [fonte L2565](../../src/testes.ts#L2565) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Escritas diretas: `contextoTrace.fillStyle`, `contextoTrace.font`, `traceTime.value`, `traceTime.textContent`. Dependências diretas: `contextoTrace.clearRect`, `contextoTrace.fillRect`, `contextoTrace.fillText`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>contextoTrace.fillStyle</code>; <code>contextoTrace.font</code>; <code>traceTime.value</code>; <code>traceTime.textContent</code>; <code>traceCursorInput.max</code>; <code>traceCursorInput.value</code>; <code>traceLiveButton.disabled</code>; <code>contextoTrace.strokeStyle</code>; <code>contextoTrace.lineWidth</code>; <code>indice</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29413,7 +29413,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>canais.length === 0 &#124;&#124; tracePLC.amostras.length === 0</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Escritas diretas: `contextoTrace.fillStyle`, `contextoTrace.font`, `traceTime.value`, `traceTime.textContent`. Dependências diretas: `contextoTrace.clearRect`, `contextoTrace.fillRect`, `contextoTrace.fillText`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-158267b293040c7d */ |
 
 </details>
 
@@ -29422,17 +29422,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::desenharTraceSensores.converterX:ArrowFunction</code> · [fonte L2296](../../src/testes.ts#L2296) |
+| Identificador | <code>src/testes.ts::desenharTraceSensores.converterX:ArrowFunction</code> · [fonte L2594](../../src/testes.ts#L2594) |
 | Assinatura | <code> (indice: number): number</code> |
-| Responsabilidade | Retorna a expressão margem.esquerda + (amostras.length &lt;= 1 ? 0 : indice * larguraGrafico / (amostras.length - 1)). Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `margem.esquerda + (amostras.length &lt;= 1 ? 0 : indice * larguraGrafico / (amostras.length - 1))`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | <code>indice: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>margem.esquerda + (amostras.length &lt;= 1 ? 0 : indice * larguraGrafico / (amostras.length - 1))</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `margem.esquerda + (amostras.length &lt;= 1 ? 0 : indice * larguraGrafico / (amostras.length - 1))`. Efeitos indiretos seguem as dependências chamadas. @contract f-9246cd607441987c */ |
 
 </details>
 
@@ -29441,9 +29441,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::desenharTraceSensores.converterY:ArrowFunction</code> · [fonte L2297](../../src/testes.ts#L2297) |
+| Identificador | <code>src/testes.ts::desenharTraceSensores.converterY:ArrowFunction</code> · [fonte L2596](../../src/testes.ts#L2596) |
 | Assinatura | <code> (linha: number, sinal: number): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `topo + faixaM - 18 - proporcao * Math.max(1, faixaM - 36)`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>linha: number</code>; <code>sinal: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>topo + faixaM - 18 - proporcao * Math.max(1, faixaM - 36)</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29451,7 +29451,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Devolve `topo + faixaM - 18 - proporcao * Math.max(1, faixaM - 36)`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a9e123299b5e91c6 */ |
 
 </details>
 
@@ -29460,17 +29460,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::formatarEscalaTemporal:ArrowFunction</code> · [fonte L2350](../../src/testes.ts#L2350) |
+| Identificador | <code>src/testes.ts::formatarEscalaTemporal:ArrowFunction</code> · [fonte L2650](../../src/testes.ts#L2650) |
 | Assinatura | <code> (escala: number): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve ``${escala.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}×``. Dependências diretas: `escala.toLocaleString`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | <code>escala: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>`${escala.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}×`</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>escala.toLocaleString</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve ``${escala.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}×``. Dependências diretas: `escala.toLocaleString`. Efeitos indiretos seguem as dependências chamadas. @contract f-2cbdf49019e84aa2 */ |
 
 </details>
 
@@ -29479,9 +29479,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::atualizarControleTemporal:ArrowFunction</code> · [fonte L2352](../../src/testes.ts#L2352) |
+| Identificador | <code>src/testes.ts::atualizarControleTemporal:ArrowFunction</code> · [fonte L2653](../../src/testes.ts#L2653) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Escritas diretas: `timeScaleInput.value`, `timeScaleValue.value`, `timeScaleValue.textContent`. Dependências diretas: `obterEscalaTemporalAtual`, `formatarEscalaTemporal`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>timeScaleInput.value</code>; <code>timeScaleValue.value</code>; <code>timeScaleValue.textContent</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29489,7 +29489,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Escritas diretas: `timeScaleInput.value`, `timeScaleValue.value`, `timeScaleValue.textContent`. Dependências diretas: `obterEscalaTemporalAtual`, `formatarEscalaTemporal`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e77bfdbde14c18ce */ |
 
 </details>
 
@@ -29498,9 +29498,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::obterGrupoDoCenario:ArrowFunction</code> · [fonte L2359](../../src/testes.ts#L2359) |
+| Identificador | <code>src/testes.ts::obterGrupoDoCenario:ArrowFunction</code> · [fonte L2661](../../src/testes.ts#L2661) |
 | Assinatura | <code> (cenario: CenárioVisual): string</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `cenario.nome.startsWith`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>cenario: CenárioVisual</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>string</code>; expressões retornadas: <code>'Sistemas integrados'</code>; <code>'Testes térmicos'</code>; <code>'Propulsão e sistemas'</code>; <code>'Veículos e mobilidade'</code>; <code>'Gravidade, arrasto e apoio'</code>; <code>'Colisões, resistência e torque'</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29508,7 +29508,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>cenario.exibirNaBancada</code>; <code>cenario.modalidade === 'térmica'</code>; <code>cenario.nome.startsWith('Propulsor') &#124;&#124; cenario.nome.startsWith('Foguete') &#124;&#124; cenario.nome.startsWith('Merlin')</code>; <code>cenario.nome.startsWith('Veículo')</code>; <code>cenario.nome.startsWith('Queda livre') &#124;&#124; cenario.nome.startsWith('Arrasto') &#124;&#124; cenario.nome.startsWith('Contato')</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `cenario.nome.startsWith`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b1e056804e7b21c2 */ |
 
 </details>
 
@@ -29517,7 +29517,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::deveExibirNaBancada:ArrowFunction</code> · [fonte L2371](../../src/testes.ts#L2371) |
+| Identificador | <code>src/testes.ts::deveExibirNaBancada:ArrowFunction</code> · [fonte L2675](../../src/testes.ts#L2675) |
 | Assinatura | <code> (cenario: CenárioVisual): boolean</code> |
 | Responsabilidade | Cenários existentes ficam preservados no código, mas fora da bancada ativa. |
 | Entradas | <code>cenario: CenárioVisual</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -29527,7 +29527,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Cenários existentes ficam preservados no código, mas fora da bancada ativa. */ |
+| JSDoc integral | /** Cenários existentes ficam preservados no código, mas fora da bancada ativa.<br> * @contract f-b12e5c6ab928d5c5<br> */ |
 
 </details>
 
@@ -29536,17 +29536,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::indicesExibiveis:ArrowFunction</code> · [fonte L2373](../../src/testes.ts#L2373) |
+| Identificador | <code>src/testes.ts::indicesExibiveis:ArrowFunction</code> · [fonte L2678](../../src/testes.ts#L2678) |
 | Assinatura | <code> (): readonly number[]</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `cenarios.flatMap((cenario, indice) =&gt; deveExibirNaBancada(cenario) ? [indice] : [])`. Dependências diretas: `cenarios.flatMap`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly number[]</code>; expressões retornadas: <code>cenarios.flatMap((cenario, indice) =&gt; deveExibirNaBancada(cenario) ? [indice] : [])</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>cenarios.flatMap</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `cenarios.flatMap((cenario, indice) =&gt; deveExibirNaBancada(cenario) ? [indice] : [])`. Dependências diretas: `cenarios.flatMap`. Efeitos indiretos seguem as dependências chamadas. @contract f-e71d39d32af6b810 */ |
 
 </details>
 
@@ -29555,17 +29555,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::primeiroIndiceExibivel:ArrowFunction</code> · [fonte L2374](../../src/testes.ts#L2374) |
+| Identificador | <code>src/testes.ts::primeiroIndiceExibivel:ArrowFunction</code> · [fonte L2680](../../src/testes.ts#L2680) |
 | Assinatura | <code> (): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `indicesExibiveis()[0] ?? 0`. Dependências diretas: `indicesExibiveis`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>indicesExibiveis()[0] ?? 0</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>indicesExibiveis</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `indicesExibiveis()[0] ?? 0`. Dependências diretas: `indicesExibiveis`. Efeitos indiretos seguem as dependências chamadas. @contract f-0e45020af98dfed0 */ |
 
 </details>
 
@@ -29574,17 +29574,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::proximoIndiceExibivel:ArrowFunction</code> · [fonte L2375](../../src/testes.ts#L2375) |
+| Identificador | <code>src/testes.ts::proximoIndiceExibivel:ArrowFunction</code> · [fonte L2682](../../src/testes.ts#L2682) |
 | Assinatura | <code> (indice: number): number &#124; undefined</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `indicesExibiveis().find((indiceVisivel) =&gt; indiceVisivel &gt; indice)`. Dependências diretas: `indicesExibiveis().find`, `indicesExibiveis`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | <code>indice: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number &#124; undefined</code>; expressões retornadas: <code>indicesExibiveis().find((indiceVisivel) =&gt; indiceVisivel &gt; indice)</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>indicesExibiveis().find</code>; <code>indicesExibiveis</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `indicesExibiveis().find((indiceVisivel) =&gt; indiceVisivel &gt; indice)`. Dependências diretas: `indicesExibiveis().find`, `indicesExibiveis`. Efeitos indiretos seguem as dependências chamadas. @contract f-d0cb4e1242fcd095 */ |
 
 </details>
 
@@ -29593,9 +29593,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::preencherSeletorDeCenarios:ArrowFunction</code> · [fonte L2377](../../src/testes.ts#L2377) |
+| Identificador | <code>src/testes.ts::preencherSeletorDeCenarios:ArrowFunction</code> · [fonte L2685](../../src/testes.ts#L2685) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Escritas diretas: `scenarioSelector.value`. Dependências diretas: `scenarioSelector.replaceChildren`, `Map`, `cenarios.forEach`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>scenarioSelector.value</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29603,7 +29603,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Escritas diretas: `scenarioSelector.value`. Dependências diretas: `scenarioSelector.replaceChildren`, `Map`, `cenarios.forEach`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b466744724d25c96 */ |
 
 </details>
 
@@ -29612,9 +29612,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::desenhar:ArrowFunction</code> · [fonte L2401](../../src/testes.ts#L2401) |
+| Identificador | <code>src/testes.ts::desenhar:ArrowFunction</code> · [fonte L2710](../../src/testes.ts#L2710) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Escritas diretas: `contexto.fillStyle`, `contexto.strokeStyle`, `contexto.lineWidth`, `contexto.font`. Dependências diretas: `cenarioAtual`, `registrarTraceSensores`, `cenário.objetos.filter`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>contexto.fillStyle</code>; <code>contexto.strokeStyle</code>; <code>contexto.lineWidth</code>; <code>contexto.font</code>; <code>marcoM</code>; <code>xM</code>; <code>yM</code>; <code>contexto.textAlign</code>; <code>indice</code>; <code>coluna</code>; <code>painel</code>; <code>alvosSwitch</code>; <code>scenarioName.textContent</code>; <code>simulationTime.textContent</code>; <code>vehicleSpeed.textContent</code>; <code>scenarioData.textContent</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29622,7 +29622,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>cenário.superficies.length &gt; 0</code>; <code>cenário.obterPontoPousoX</code>; <code>cenário.seguirObjeto !== undefined</code>; <code>cenário.linhaDeEmpuxo</code>; <code>showConnectionsInput.checked &amp;&amp; cenário.mangueira</code>; <code>cenário.fixadores</code>; <code>!fixador.estaAtivo</code>; <code>cenário.chumbadoresAoSolo</code>; <code>chumbador.estaRompido</code>; <code>cenário.exibirGuiasLineares !== false &amp;&amp; cenário.guiasLineares</code>; <code>guia.estaRompida</code>; <code>guia.eixoDeCurso === 'x'</code>; <code>objeto instanceof AletaAerodinamica</code>; <code>objeto instanceof MotorEletricoRotacional</code>; <code>objeto instanceof BracoArticuladoDeBancada</code>; <code>objeto instanceof Propulsor</code>; <code>intensidadeChama &gt; 0</code>; <code>objeto instanceof PainelSolar</code>; <code>painelDobrado</code>; <code>objeto instanceof TanquePropelente</code>; <code>objeto instanceof ObjetoTriangularRetangulo</code>; <code>objeto.id.startsWith('fundacao-')</code>; <code>objeto.id.startsWith('parede-termica')</code>; <code>objeto instanceof VeiculoAlado</code>; <code>objeto instanceof GeradorCA &#124;&#124; objeto instanceof Bateria</code>; <code>objeto instanceof Porta</code>; <code>objeto instanceof TravaPorta</code>; <code>objeto.id === 'propulsor-consumidor-solar'</code>; <code>objeto instanceof VeiculoTerrestre</code>; <code>objeto.paraquedasEstaAberto</code>; <code>velocidadeRelativaAoAr.magnitude &gt; 0.05</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Escritas diretas: `contexto.fillStyle`, `contexto.strokeStyle`, `contexto.lineWidth`, `contexto.font`. Dependências diretas: `cenarioAtual`, `registrarTraceSensores`, `cenário.objetos.filter`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-4dc63fa4bb69a01b */ |
 
 </details>
 
@@ -29631,9 +29631,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::carregarCenarioAtual:ArrowFunction</code> · [fonte L3042](../../src/testes.ts#L3042) |
+| Identificador | <code>src/testes.ts::carregarCenarioAtual:ArrowFunction</code> · [fonte L3352](../../src/testes.ts#L3352) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Escritas diretas: `scenarioDescription.textContent`, `testStatus.textContent`, `testStatus.className`, `testResult.textContent`. Dependências diretas: `executorPassoFixo.reiniciar`, `cenarioAtual`, `RegistroEnsaioBancada`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>mundoDoRegistro</code>; <code>registroEnsaio</code>; <code>tempoTraceSelecionadoS</code>; <code>scenarioDescription.textContent</code>; <code>testStatus.textContent</code>; <code>testStatus.className</code>; <code>testResult.textContent</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29641,7 +29641,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>mundoDoRegistro !== cenário.mundo</code>; <code>cenário.motorRotacionalControlavel</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Escritas diretas: `scenarioDescription.textContent`, `testStatus.textContent`, `testStatus.className`, `testResult.textContent`. Dependências diretas: `executorPassoFixo.reiniciar`, `cenarioAtual`, `RegistroEnsaioBancada`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b72871f71fd2dfc2 */ |
 
 </details>
 
@@ -29650,17 +29650,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::conexaoSelecionada:ArrowFunction</code> · [fonte L3064](../../src/testes.ts#L3064) |
+| Identificador | <code>src/testes.ts::conexaoSelecionada:ArrowFunction</code> · [fonte L3375](../../src/testes.ts#L3375) |
 | Assinatura | <code> (): ConexaoEletricaVisual &#124; undefined</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `cenarioAtual().conexoesEletricas?.find((conexao) =&gt; conexao.id === connectionSelector.value) ?? cenarioAtual().conexoesEletricas?.[0]`. Dependências diretas: `cenarioAtual().conexoesEletricas?.find`, `cenarioAtual`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ConexaoEletrica &#124; undefined</code>; expressões retornadas: <code>cenarioAtual().conexoesEletricas?.find((conexao) =&gt; conexao.id === connectionSelector.value) ?? cenarioAtual().conexoesEletricas?.[0]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>cenarioAtual().conexoesEletricas?.find</code>; <code>cenarioAtual</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `cenarioAtual().conexoesEletricas?.find((conexao) =&gt; conexao.id === connectionSelector.value) ?? cenarioAtual().conexoesEletricas?.[0]`. Dependências diretas: `cenarioAtual().conexoesEletricas?.find`, `cenarioAtual`. Efeitos indiretos seguem as dependências chamadas. @contract f-1ab5fdc274c64691 */ |
 
 </details>
 
@@ -29669,9 +29669,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::atualizarControlesEletricos:ArrowFunction</code> · [fonte L3066](../../src/testes.ts#L3066) |
+| Identificador | <code>src/testes.ts::atualizarControlesEletricos:ArrowFunction</code> · [fonte L3378](../../src/testes.ts#L3378) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Escritas diretas: `electricalControls.hidden`, `connectionSelector.dataset.conexoes`, `cableSwitchButton.textContent`, `cableSwitchButton.disabled`. Dependências diretas: `cenarioAtual`, `conexoes.map((conexao) =&gt; conexao.id).join`, `conexoes.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>electricalControls.hidden</code>; <code>connectionSelector.dataset.conexoes</code>; <code>cableSwitchButton.textContent</code>; <code>cableSwitchButton.disabled</code>; <code>cableConnectButton.textContent</code>; <code>cableConnectButton.disabled</code>; <code>cableBreakButton.disabled</code>; <code>cableBreakButton.textContent</code>; <code>currentLimitInput.value</code>; <code>cableResistanceInput.value</code>; <code>electricalReadout.textContent</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29679,7 +29679,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>connectionSelector.dataset.conexoes !== assinatura</code>; <code>!conexao</code>; <code>document.activeElement !== currentLimitInput</code>; <code>document.activeElement !== cableResistanceInput</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Escritas diretas: `electricalControls.hidden`, `connectionSelector.dataset.conexoes`, `cableSwitchButton.textContent`, `cableSwitchButton.disabled`. Dependências diretas: `cenarioAtual`, `conexoes.map((conexao) =&gt; conexao.id).join`, `conexoes.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3d061897a2222478 */ |
 
 </details>
 
@@ -29688,9 +29688,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::atualizarControlesDoPropulsor:ArrowFunction</code> · [fonte L3087](../../src/testes.ts#L3087) |
+| Identificador | <code>src/testes.ts::atualizarControlesDoPropulsor:ArrowFunction</code> · [fonte L3400](../../src/testes.ts#L3400) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Escritas diretas: `generatorButton.hidden`, `generatorButton.textContent`, `doorControls.hidden`, `doorPowerButton.textContent`. Dependências diretas: `atualizarControlesEletricos`, `cenarioAtual`, `openDoorButton.setAttribute`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>generatorButton.hidden</code>; <code>generatorButton.textContent</code>; <code>doorControls.hidden</code>; <code>doorPowerButton.textContent</code>; <code>doorPowerButton.disabled</code>; <code>doorControlButton.textContent</code>; <code>doorControlButton.disabled</code>; <code>openDoorButton.disabled</code>; <code>closeDoorButton.disabled</code>; <code>led.textContent</code>; <code>doorChainStatus.textContent</code>; <code>bss03Controls.hidden</code>; <code>bss04Controls.hidden</code>; <code>bss04Mode.value</code>; <code>bss04ControlStatus.textContent</code>; <code>bss03PropulsionGroup.dataset.grupos</code>; <code>bss03PropulsionGroup.value</code>; <code>bss03LandingMode.checked</code>; <code>bss03ControlStatus.textContent</code>; <code>cylinderControls.hidden</code>; <code>advanceCylinderButton.disabled</code>; <code>retractCylinderButton.disabled</code>; <code>raisePlatformButton.hidden</code>; <code>raisePlatformButton.disabled</code>; <code>solarPanelControls.hidden</code>; <code>solarPanelToggle.textContent</code>; <code>solarPanelStatus.textContent</code>; <code>solarPanelToggle.disabled</code>; <code>advanceSpeedControl.hidden</code>; <code>retractSpeedControl.hidden</code>; <code>cylinderSpeedControls.hidden</code>; <code>advanceSpeedInput.disabled</code>; <code>retractSpeedInput.disabled</code>; <code>advanceSpeedInput.value</code>; <code>retractSpeedInput.value</code>; <code>propulsionControls.hidden</code>; <code>tankDisconnectControls.hidden</code>; <code>disconnectFuelTankButton.disabled</code>; <code>disconnectFuelTankButton.textContent</code>; <code>disconnectOxidizerTankButton.disabled</code>; <code>disconnectOxidizerTankButton.textContent</code>; <code>igniteButton.disabled</code>; <code>igniteButton.textContent</code>; <code>throttleControl.hidden</code>; <code>throttleInput.disabled</code>; <code>gimbalControl.hidden</code>; <code>gimbalInput.disabled</code>; <code>gimbalInput.min</code>; <code>gimbalInput.max</code>; <code>gimbalInput.value</code>; <code>gimbalValue.value</code>; <code>gimbalValue.textContent</code>; <code>rotaryMotorControl.hidden</code>; <code>rotaryMotorInput.disabled</code>; <code>rotaryMotorSecondaryControl.hidden</code>; <code>rotaryMotorSecondaryInput.disabled</code>; <code>rotaryMotorAutotune.hidden</code>; <code>rotaryMotorAutotuneButton.disabled</code>; <code>rotaryMotorInput.value</code>; <code>rotaryMotorValue.value</code>; <code>rotaryMotorValue.textContent</code>; <code>pidKpInput.value</code>; <code>pidKiInput.value</code>; <code>pidKdInput.value</code>; <code>pidAccelerationInput.value</code>; <code>rotaryMotorSecondaryInput.value</code>; <code>rotaryMotorSecondaryValue.value</code>; <code>rotaryMotorSecondaryValue.textContent</code>; <code>parachuteSettings.hidden</code>; <code>parachuteAreaInput.disabled</code>; <code>parachuteAreaInput.value</code>; <code>parachuteCalculatedValues.textContent</code>; <code>deployParachuteButton.hidden</code>; <code>deployParachuteButton.disabled</code>; <code>throttleInput.value</code>; <code>throttleValue.value</code>; <code>throttleValue.textContent</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29698,7 +29698,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>porta</code>; <code>cenário.ativarModoBss04 &amp;&amp; cenário.obterModoBss04</code>; <code>cenário.gruposPropulsao</code>; <code>bss03PropulsionGroup.dataset.grupos !== assinatura</code>; <code>painelSolar</code>; <code>velocidadesDoCilindro</code>; <code>propulsorVetorizado</code>; <code>motorRotacional</code>; <code>document.activeElement !== pidKpInput</code>; <code>document.activeElement !== pidKiInput</code>; <code>document.activeElement !== pidKdInput</code>; <code>document.activeElement !== pidAccelerationInput</code>; <code>motorRotacionalSecundario</code>; <code>estadoParaquedas</code>; <code>propulsor</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Escritas diretas: `generatorButton.hidden`, `generatorButton.textContent`, `doorControls.hidden`, `doorPowerButton.textContent`. Dependências diretas: `atualizarControlesEletricos`, `cenarioAtual`, `openDoorButton.setAttribute`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6b0600d80325a0ef */ |
 
 </details>
 
@@ -29707,9 +29707,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::alternarSistema:ArrowFunction</code> · [fonte L3266](../../src/testes.ts#L3266) |
+| Identificador | <code>src/testes.ts::alternarSistema:ArrowFunction</code> · [fonte L3580](../../src/testes.ts#L3580) |
 | Assinatura | <code> (id: IdSistemaPropulsor): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `cenarioAtual`, `cenário.gruposPropulsao?.find`, `propulsores.every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>id: IdSistemaPropulsor</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29717,7 +29717,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>propulsores.length === 0</code>; <code>todosOperacionais</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `cenarioAtual`, `cenário.gruposPropulsao?.find`, `propulsores.every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6c845b2705d490f5 */ |
 
 </details>
 
@@ -29726,9 +29726,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::alternarModoPousoBss03:ArrowFunction</code> · [fonte L3289](../../src/testes.ts#L3289) |
+| Identificador | <code>src/testes.ts::alternarModoPousoBss03:ArrowFunction</code> · [fonte L3604](../../src/testes.ts#L3604) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `cenarioAtual().ativarControleBss03`, `cenarioAtual`, `atualizarControlesDoPropulsor`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29736,7 +29736,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `cenarioAtual().ativarControleBss03`, `cenarioAtual`, `atualizarControlesDoPropulsor`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-33dc97081628d11a */ |
 
 </details>
 
@@ -29745,9 +29745,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::simularRupturaDaLinha:ArrowFunction</code> · [fonte L3308](../../src/testes.ts#L3308) |
+| Identificador | <code>src/testes.ts::simularRupturaDaLinha:ArrowFunction</code> · [fonte L3624](../../src/testes.ts#L3624) |
 | Assinatura | <code> (tipo: "combustivel" &#124; "oxidante"): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `cenarioAtual`, `linha.romper`, `cenário.propulsorControlavel?.interromperPorAlimentacaoDePropelenteIndisponivel`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>tipo: 'combustivel' &#124; 'oxidante'</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29755,7 +29755,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!linha &#124;&#124; linha.estaRompida</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `cenarioAtual`, `linha.romper`, `cenário.propulsorControlavel?.interromperPorAlimentacaoDePropelenteIndisponivel`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6840a536c0ee9d1c */ |
 
 </details>
 
@@ -29764,9 +29764,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::operarConexao:ArrowFunction</code> · [fonte L3319](../../src/testes.ts#L3319) |
+| Identificador | <code>src/testes.ts::operarConexao:ArrowFunction</code> · [fonte L3636](../../src/testes.ts#L3636) |
 | Assinatura | <code> (acao: (conexao: ConexaoEletricaVisual) =&gt; void): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `conexaoSelecionada`, `acao`, `atualizarControlesDoPropulsor`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>acao: (conexao: ConexaoEletricaVisual) =&gt; void</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29774,7 +29774,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!conexao</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `conexaoSelecionada`, `acao`, `atualizarControlesDoPropulsor`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1c2159b335c86e5f */ |
 
 </details>
 
@@ -29783,7 +29783,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::operarConexao.acao[tipo]:FunctionType</code> · [fonte L3319](../../src/testes.ts#L3319) |
+| Identificador | <code>src/testes.ts::operarConexao.acao[tipo]:FunctionType</code> · [fonte L3636](../../src/testes.ts#L3636) |
 | Assinatura | <code> (conexao: ConexaoEletricaVisual): void</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | <code>conexao: ConexaoEletricaVisual</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -29802,9 +29802,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::alternarInterruptor:ArrowFunction</code> · [fonte L3327](../../src/testes.ts#L3327) |
+| Identificador | <code>src/testes.ts::alternarInterruptor:ArrowFunction</code> · [fonte L3645](../../src/testes.ts#L3645) |
 | Assinatura | <code> (conexao: ConexaoEletricaVisual): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `cenarioAtual`, `porta.desligarAlimentacao`, `porta.ligarAlimentacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>conexao: ConexaoEletricaVisual</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29812,7 +29812,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>porta?.conexaoEletrica === conexao</code>; <code>conexao.interruptorPrincipalFechado</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `cenarioAtual`, `porta.desligarAlimentacao`, `porta.ligarAlimentacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-c1d7276752679f92 */ |
 
 </details>
 
@@ -29821,9 +29821,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::obterTransformacaoDaBancada:ArrowFunction</code> · [fonte L3336](../../src/testes.ts#L3336) |
+| Identificador | <code>src/testes.ts::obterTransformacaoDaBancada:ArrowFunction</code> · [fonte L3655](../../src/testes.ts#L3655) |
 | Assinatura | <code> (): { escala: number; origemX: number; soloY: number; }</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `{ escala, origemX, soloY }`. Dependências diretas: `cenarioAtual`, `Number`, `cenário.cameraX`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ escala: number; origemX: number; soloY: number; }</code>; expressões retornadas: <code>{ escala, origemX, soloY }</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29831,7 +29831,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Devolve `{ escala, origemX, soloY }`. Dependências diretas: `cenarioAtual`, `Number`, `cenário.cameraX`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b4faf704927234db */ |
 
 </details>
 
@@ -29840,9 +29840,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::obterPontoDoCanvas:ArrowFunction</code> · [fonte L3351](../../src/testes.ts#L3351) |
+| Identificador | <code>src/testes.ts::obterPontoDoCanvas:ArrowFunction</code> · [fonte L3671](../../src/testes.ts#L3671) |
 | Assinatura | <code> (evento: MouseEvent): { x: number; y: number; }</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `{ x: (evento.clientX - retangulo.left) * canvas.width / retangulo.width, y: (evento.clientY - retangulo.top) * canvas.height / retangulo.height, }`. Dependências diretas: `canvas.getBoundingClientRect`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>evento: MouseEvent</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ x: number; y: number; }</code>; expressões retornadas: <code>{ x: (evento.clientX - retangulo.left) * canvas.width / retangulo.width, y: (evento.clientY - retangulo.top) * canvas.height / retangulo.height, }</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29850,7 +29850,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Devolve `{ x: (evento.clientX - retangulo.left) * canvas.width / retangulo.width, y: (evento.clientY - retangulo.top) * canvas.height / retangulo.height, }`. Dependências diretas: `canvas.getBoundingClientRect`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d82ec663bca83f43 */ |
 
 </details>
 
@@ -29859,9 +29859,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::obterSensorSobPonteiro:ArrowFunction</code> · [fonte L3358](../../src/testes.ts#L3358) |
+| Identificador | <code>src/testes.ts::obterSensorSobPonteiro:ArrowFunction</code> · [fonte L3679](../../src/testes.ts#L3679) |
 | Assinatura | <code> (evento: MouseEvent): SwitchFimDeCurso &#124; undefined</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `obterPontoDoCanvas`, `obterTransformacaoDaBancada`, `cenarioAtual().sensoresFimDeCurso?.find`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>evento: MouseEvent</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>SwitchFimDeCurso &#124; undefined</code>; expressões retornadas: <code>cenarioAtual().sensoresFimDeCurso?.find((sensor) =&gt; { const volume = sensor.obterVolumeSensivel(); const x = origemX + volume.posicaoM.x * escala; const y = soloY - volume.posicaoM.y * escala; return Math.abs(ponto.x - x) &lt;= 18 &amp;&amp; Math.abs(… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29869,7 +29869,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `obterPontoDoCanvas`, `obterTransformacaoDaBancada`, `cenarioAtual().sensoresFimDeCurso?.find`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b651b01c4be1a007 */ |
 
 </details>
 
@@ -29878,9 +29878,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::switchSobPonteiro:ArrowFunction</code> · [fonte L3386](../../src/testes.ts#L3386) |
+| Identificador | <code>src/testes.ts::switchSobPonteiro:ArrowFunction</code> · [fonte L3708](../../src/testes.ts#L3708) |
 | Assinatura | <code> (evento: MouseEvent): AlvoSwitchEletrico &#124; undefined</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `alvosSwitch.find(alvo =&gt; x &gt;= alvo.x &amp;&amp; x &lt;= alvo.x + alvo.largura &amp;&amp; y &gt;= alvo.y &amp;&amp; y &lt;= alvo.y + alvo.altura)`. Dependências diretas: `canvas.getBoundingClientRect`, `alvosSwitch.find`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>evento: MouseEvent</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>AlvoSwitchEletrico &#124; undefined</code>; expressões retornadas: <code>alvosSwitch.find(alvo =&gt; x &gt;= alvo.x &amp;&amp; x &lt;= alvo.x + alvo.largura &amp;&amp; y &gt;= alvo.y &amp;&amp; y &lt;= alvo.y + alvo.altura)</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29888,7 +29888,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Devolve `alvosSwitch.find(alvo =&gt; x &gt;= alvo.x &amp;&amp; x &lt;= alvo.x + alvo.largura &amp;&amp; y &gt;= alvo.y &amp;&amp; y &lt;= alvo.y + alvo.altura)`. Dependências diretas: `canvas.getBoundingClientRect`, `alvosSwitch.find`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7aa5206f09c5a30a */ |
 
 </details>
 
@@ -29897,9 +29897,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::comandarPorta:ArrowFunction</code> · [fonte L3471](../../src/testes.ts#L3471) |
+| Identificador | <code>src/testes.ts::comandarPorta:ArrowFunction</code> · [fonte L3794](../../src/testes.ts#L3794) |
 | Assinatura | <code> (comando: "abrir" &#124; "fechar"): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `cenarioAtual`, `porta[comando]`, `playButton.click`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>comando: 'abrir' &#124; 'fechar'</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29907,7 +29907,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!porta &#124;&#124; !porta[comando]()</code>; <code>!emExecucao</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `cenarioAtual`, `porta[comando]`, `playButton.click`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3b795720ac6a8244 */ |
 
 </details>
 
@@ -29916,9 +29916,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::configurarVelocidadesDoCilindroDaBancada:ArrowFunction</code> · [fonte L3500](../../src/testes.ts#L3500) |
+| Identificador | <code>src/testes.ts::configurarVelocidadesDoCilindroDaBancada:ArrowFunction</code> · [fonte L3824](../../src/testes.ts#L3824) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `Number`, `cenarioAtual().configurarVelocidadesDoCilindro`, `cenarioAtual`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29926,7 +29926,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(avancoMps) &#124;&#124; !Number.isFinite(recuoMps) &#124;&#124; avancoMps &lt;= 0 &#124;&#124; recuoMps &lt;= 0</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `Number`, `cenarioAtual().configurarVelocidadesDoCilindro`, `cenarioAtual`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-81d5d5ea77a683c7 */ |
 
 </details>
 
@@ -29935,9 +29935,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::atualizarZoom:ArrowFunction</code> · [fonte L3531](../../src/testes.ts#L3531) |
+| Identificador | <code>src/testes.ts::atualizarZoom:ArrowFunction</code> · [fonte L3856](../../src/testes.ts#L3856) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Escritas diretas: `zoomValue.textContent`. Dependências diretas: `Number`, `desenhar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>zoomValue.textContent</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29945,7 +29945,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(zoom)</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Escritas diretas: `zoomValue.textContent`. Dependências diretas: `Number`, `desenhar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-fb282526279c0906 */ |
 
 </details>
 
@@ -29954,9 +29954,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::aplicarGanhosPidEditados:ArrowFunction</code> · [fonte L3573](../../src/testes.ts#L3573) |
+| Identificador | <code>src/testes.ts::aplicarGanhosPidEditados:ArrowFunction</code> · [fonte L3899](../../src/testes.ts#L3899) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Escritas diretas: `rotaryMotorAutotuneStatus.textContent`. Dependências diretas: `cenarioAtual`, `[pidKpInput, pidKiInput, pidKdInput, pidAccelerationInput].map`, `valores.every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>rotaryMotorAutotuneStatus.textContent</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29964,7 +29964,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!motor</code>; <code>!valores.every((valor) =&gt; Number.isFinite(valor) &amp;&amp; valor &gt;= 0) &#124;&#124; valores[3] &lt;= 0</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Escritas diretas: `rotaryMotorAutotuneStatus.textContent`. Dependências diretas: `cenarioAtual`, `[pidKpInput, pidKiInput, pidKdInput, pidAccelerationInput].map`, `valores.every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-adc35bd65d152853 */ |
 
 </details>
 
@@ -29973,9 +29973,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::configurarParaquedasDaBancada:ArrowFunction</code> · [fonte L3614](../../src/testes.ts#L3614) |
+| Identificador | <code>src/testes.ts::configurarParaquedasDaBancada:ArrowFunction</code> · [fonte L3941](../../src/testes.ts#L3941) |
 | Assinatura | <code> (entrada: HTMLInputElement): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `cenarioAtual`, `Number`, `objeto.configurarAreaDoParaquedas`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>entrada: HTMLInputElement</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -29983,7 +29983,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!objeto &#124;&#124; !Number.isFinite(valor) &#124;&#124; valor &lt;= 0</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `cenarioAtual`, `Number`, `objeto.configurarAreaDoParaquedas`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2debc081b28bf0dd */ |
 
 </details>
 
@@ -29992,9 +29992,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/testes.ts::executar:ArrowFunction</code> · [fonte L3624](../../src/testes.ts#L3624) |
+| Identificador | <code>src/testes.ts::executar:ArrowFunction</code> · [fonte L3952](../../src/testes.ts#L3952) |
 | Assinatura | <code> (agoraMs: number): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Escritas diretas: `testStatus.textContent`, `testStatus.className`, `testResult.textContent`, `scenarioSelector.value`. Dependências diretas: `cenarioAtual`, `executorPassoFixo.avancarAte`, `obterEscalaTemporalAtual`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>agoraMs: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>testStatus.textContent</code>; <code>testStatus.className</code>; <code>testResult.textContent</code>; <code>emExecucao</code>; <code>indiceAtual</code>; <code>scenarioSelector.value</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -30002,7 +30002,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!emExecucao</code>; <code>cenário.deveEncerrar()</code>; <code>proximoIndice === undefined</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Escritas diretas: `testStatus.textContent`, `testStatus.className`, `testResult.textContent`, `scenarioSelector.value`. Dependências diretas: `cenarioAtual`, `executorPassoFixo.avancarAte`, `obterEscalaTemporalAtual`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-79081dfe2de06584 */ |
 
 </details>
 
@@ -30529,17 +30529,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/visualizacao/CameraFisica2D.ts::CameraFisica2D.constructor:Constructor</code> · [fonte L5](../../src/visualizacao/CameraFisica2D.ts#L5) |
+| Identificador | <code>src/visualizacao/CameraFisica2D.ts::CameraFisica2D.constructor:Constructor</code> · [fonte L6](../../src/visualizacao/CameraFisica2D.ts#L6) |
 | Assinatura | <code>public (centroM: Vetor3, metrosPorPixel: number, larguraPx: number, alturaPx: number): CameraFisica2D</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Configura centro m, escala m/pixel e viewport em pixels positivos/finitos; não registra corpo ou força no mundo. |
 | Entradas | <code>public readonly centroM: Vetor3</code>; <code>public readonly metrosPorPixel: number</code>; <code>public readonly larguraPx: number</code>; <code>public readonly alturaPx: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CameraFisica2D</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>this.centroM</code>; <code>this.metrosPorPixel</code>; <code>this.larguraPx</code>; <code>this.alturaPx</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>[metrosPorPixel, larguraPx, alturaPx].every</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>![metrosPorPixel, larguraPx, alturaPx].every((v) =&gt; Number.isFinite(v) &amp;&amp; v &gt; 0)</code>; exceções: <code>new Error('Escala de câmera inválida.')</code> |
 | Testes | [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Configura centro m, escala m/pixel e viewport em pixels positivos/finitos; não registra corpo ou força no mundo. @contract f-07a1929a163d1610 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -30548,17 +30548,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/visualizacao/CameraFisica2D.ts::CameraFisica2D.projetar:MethodDeclaration</code> · [fonte L9](../../src/visualizacao/CameraFisica2D.ts#L9) |
+| Identificador | <code>src/visualizacao/CameraFisica2D.ts::CameraFisica2D.projetar:MethodDeclaration</code> · [fonte L11](../../src/visualizacao/CameraFisica2D.ts#L11) |
 | Assinatura | <code>public (p: Vetor3): { x: number; y: number; }</code> |
-| Responsabilidade | Retorna a expressão { x: this.larguraPx / 2 + (p.x - this.centroM.x) / this.metrosPorPixel, y: this.alturaPx / 2 - (p.y - this.centroM.y) / this.metrosPorPixel }. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Converte posição global m para pixels relativos ao centro, invertendo Y para Canvas; devolve coordenadas de apresentação. |
 | Entradas | <code>p: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ x: number; y: number; }</code>; expressões retornadas: <code>{ x: this.larguraPx / 2 + (p.x - this.centroM.x) / this.metrosPorPixel, y: this.alturaPx / 2 - (p.y - this.centroM.y) / this.metrosPorPixel }</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Converte posição global m para pixels relativos ao centro, invertendo Y para Canvas; devolve coordenadas de apresentação. @contract f-31d5b085ffb8952c @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -30567,17 +30567,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/visualizacao/CameraFisica2D.ts::CameraFisica2D.desprojetar:MethodDeclaration</code> · [fonte L13](../../src/visualizacao/CameraFisica2D.ts#L13) |
+| Identificador | <code>src/visualizacao/CameraFisica2D.ts::CameraFisica2D.desprojetar:MethodDeclaration</code> · [fonte L16](../../src/visualizacao/CameraFisica2D.ts#L16) |
 | Assinatura | <code>public (x: number, y: number): Vetor3</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Converte pixels de tela em posição global m no plano Z=0; é consulta geométrica, não comando cinemático. |
 | Entradas | <code>x: number</code>; <code>y: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: <code>new Vetor3(this.centroM.x + (x - this.larguraPx / 2) * this.metrosPorPixel, this.centroM.y - (y - this.alturaPx / 2) * this.metrosPorPixel, 0)</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Converte pixels de tela em posição global m no plano Z=0; é consulta geométrica, não comando cinemático. @contract f-257cc87e0a37306e @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -30590,9 +30590,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/visualizacao/ConexoesEletricas.ts::conexoesEletricasExpostas:FunctionDeclaration</code> · [fonte L8](../../src/visualizacao/ConexoesEletricas.ts#L8) |
+| Identificador | <code>src/visualizacao/ConexoesEletricas.ts::conexoesEletricasExpostas:FunctionDeclaration</code> · [fonte L9](../../src/visualizacao/ConexoesEletricas.ts#L9) |
 | Assinatura | <code>export (conexoes: readonly ConexaoEletricaVisual[], objetosVisiveis: readonly Objeto[]): readonly ConexaoEletricaVisual[]</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `conexoes.filter((conexao) =&gt; objetosVisiveis.includes(conexao.fonte))`. Dependências diretas: `conexoes.filter`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>conexoes: readonly ConexaoEletricaVisual[]</code>; <code>objetosVisiveis: readonly Objeto[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly ConexaoEletrica[]</code>; expressões retornadas: <code>conexoes.filter((conexao) =&gt; objetosVisiveis.includes(conexao.fonte))</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -30600,7 +30600,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/visualizacao/ConexoesEletricas.test.ts](../../src/visualizacao/ConexoesEletricas.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Devolve `conexoes.filter((conexao) =&gt; objetosVisiveis.includes(conexao.fonte))`. Dependências diretas: `conexoes.filter`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-aff2a7f3384f78eb */ |
 
 </details>
 
@@ -30609,7 +30609,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/visualizacao/ConexoesEletricas.ts::terminalEletricoM:FunctionDeclaration</code> · [fonte L13](../../src/visualizacao/ConexoesEletricas.ts#L13) |
+| Identificador | <code>src/visualizacao/ConexoesEletricas.ts::terminalEletricoM:FunctionDeclaration</code> · [fonte L16](../../src/visualizacao/ConexoesEletricas.ts#L16) |
 | Assinatura | <code>export (objeto: Objeto): Vetor3</code> |
 | Responsabilidade | Terminal no meio da face esquerda local; acompanha translação e rotação reais. |
 | Entradas | <code>objeto: Objeto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -30619,7 +30619,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/visualizacao/ConexoesEletricas.test.ts](../../src/visualizacao/ConexoesEletricas.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Terminal no meio da face esquerda local; acompanha translação e rotação reais. */ |
+| JSDoc integral | /** Terminal no meio da face esquerda local; acompanha translação e rotação reais.<br> * @contract f-4db8b82fef51a621<br> */ |
 
 </details>
 
@@ -30628,7 +30628,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/visualizacao/ConexoesEletricas.ts::terminalEletricoDoEstadoM:FunctionDeclaration</code> · [fonte L17](../../src/visualizacao/ConexoesEletricas.ts#L17) |
+| Identificador | <code>src/visualizacao/ConexoesEletricas.ts::terminalEletricoDoEstadoM:FunctionDeclaration</code> · [fonte L22](../../src/visualizacao/ConexoesEletricas.ts#L22) |
 | Assinatura | <code>export (estado: EstadoFisico, dimensoesM: { readonly x: number; }): Vetor3</code> |
 | Responsabilidade | A mesma geometria de terminal pode consumir snapshots de apresentação. |
 | Entradas | <code>estado: EstadoFisico</code>; <code>dimensoesM: { readonly x: number }</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -30638,7 +30638,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/visualizacao/ConexoesEletricas.test.ts](../../src/visualizacao/ConexoesEletricas.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** A mesma geometria de terminal pode consumir snapshots de apresentação. */ |
+| JSDoc integral | /** A mesma geometria de terminal pode consumir snapshots de apresentação.<br> * @contract f-5b11a8db059751a2<br> */ |
 
 </details>
 
@@ -30647,9 +30647,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/visualizacao/ConexoesEletricas.ts::desenharConexoesEletricas:FunctionDeclaration</code> · [fonte L30](../../src/visualizacao/ConexoesEletricas.ts#L30) |
+| Identificador | <code>src/visualizacao/ConexoesEletricas.ts::desenharConexoesEletricas:FunctionDeclaration</code> · [fonte L36](../../src/visualizacao/ConexoesEletricas.ts#L36) |
 | Assinatura | <code>export (contexto: CanvasRenderingContext2D, conexoes: readonly ConexaoEletricaVisual[], objetosVisiveis: readonly Objeto[], projetar: (pontoM: Vetor3) =&gt; { readonly x: number; readonly y: number; }): readonly AlvoSwitchEletrico[]</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Devolve `alvos`. Escritas diretas: `contexto.lineJoin`, `contexto.lineCap`, `contexto.lineWidth`, `contexto.strokeStyle`. Dependências diretas: `conexoesEletricasExpostas(conexoes, objetosVisiveis).entries`, `conexoesEletricasExpostas`, `projetar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>contexto: CanvasRenderingContext2D</code>; <code>conexoes: readonly ConexaoEletricaVisual[]</code>; <code>objetosVisiveis: readonly Objeto[]</code>; <code>projetar: (pontoM: Vetor3) =&gt; { readonly x: number; readonly y: number }</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly AlvoSwitchEletrico[]</code>; expressões retornadas: <code>alvos</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>contexto.lineJoin</code>; <code>contexto.lineCap</code>; <code>contexto.lineWidth</code>; <code>contexto.strokeStyle</code>; <code>contexto.fillStyle</code>; <code>contexto.font</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -30657,7 +30657,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>conexao.fonte.tipoCorrente === 'CC'</code>; exceções: — |
 | Testes | [src/visualizacao/ConexoesEletricas.test.ts](../../src/visualizacao/ConexoesEletricas.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Devolve `alvos`. Escritas diretas: `contexto.lineJoin`, `contexto.lineCap`, `contexto.lineWidth`, `contexto.strokeStyle`. Dependências diretas: `conexoesEletricasExpostas(conexoes, objetosVisiveis).entries`, `conexoesEletricasExpostas`, `projetar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7100ba216535c7cc */ |
 
 </details>
 
@@ -30666,7 +30666,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/visualizacao/ConexoesEletricas.ts::desenharConexoesEletricas.projetar[tipo]:FunctionType</code> · [fonte L34](../../src/visualizacao/ConexoesEletricas.ts#L34) |
+| Identificador | <code>src/visualizacao/ConexoesEletricas.ts::desenharConexoesEletricas.projetar[tipo]:FunctionType</code> · [fonte L40](../../src/visualizacao/ConexoesEletricas.ts#L40) |
 | Assinatura | <code> (pontoM: Vetor3): { readonly x: number; readonly y: number; }</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | <code>pontoM: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -30685,9 +30685,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/visualizacao/ConexoesEletricas.ts::desenharConexoesEletricas.caminho:ArrowFunction</code> · [fonte L53](../../src/visualizacao/ConexoesEletricas.ts#L53) |
+| Identificador | <code>src/visualizacao/ConexoesEletricas.ts::desenharConexoesEletricas.caminho:ArrowFunction</code> · [fonte L60](../../src/visualizacao/ConexoesEletricas.ts#L60) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `contexto.beginPath`, `contexto.moveTo`, `contexto.lineTo`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -30695,7 +30695,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/visualizacao/ConexoesEletricas.test.ts](../../src/visualizacao/ConexoesEletricas.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `contexto.beginPath`, `contexto.moveTo`, `contexto.lineTo`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e03c60a41fd7c22d */ |
 
 </details>
 
@@ -30708,9 +30708,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/visualizacao/RegistroEnsaioBancada.ts::RegistroEnsaioBancada.constructor:Constructor</code> · [fonte L13](../../src/visualizacao/RegistroEnsaioBancada.ts#L13) |
+| Identificador | <code>src/visualizacao/RegistroEnsaioBancada.ts::RegistroEnsaioBancada.constructor:Constructor</code> · [fonte L14](../../src/visualizacao/RegistroEnsaioBancada.ts#L14) |
 | Assinatura | <code>public (dtS: number, configuracao: unknown): RegistroEnsaioBancada</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Escritas diretas: `this.dtS`, `this.configuracaoJson`. Dependências diretas: `Error`, `JSON.stringify`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>private readonly dtS: number</code>; <code>configuracao: unknown</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>RegistroEnsaioBancada</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>this.dtS</code>; <code>this.configuracaoJson</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -30718,7 +30718,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(dtS) &#124;&#124; dtS &lt;= 0</code>; exceções: <code>new Error('dt do ensaio deve ser positivo em s.')</code> |
 | Testes | [src/cenarios/ReproducaoDiarioBss005.test.ts](../../src/cenarios/ReproducaoDiarioBss005.test.ts); [src/cenarios/TelemetriaMissaoBss.test.ts](../../src/cenarios/TelemetriaMissaoBss.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/visualizacao/RegistroEnsaioBancada.test.ts](../../src/visualizacao/RegistroEnsaioBancada.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Escritas diretas: `this.dtS`, `this.configuracaoJson`. Dependências diretas: `Error`, `JSON.stringify`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b8117d1c26329bb7 */ |
 
 </details>
 
@@ -30727,7 +30727,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/visualizacao/RegistroEnsaioBancada.ts::RegistroEnsaioBancada.registrarPasso:MethodDeclaration</code> · [fonte L19](../../src/visualizacao/RegistroEnsaioBancada.ts#L19) |
+| Identificador | <code>src/visualizacao/RegistroEnsaioBancada.ts::RegistroEnsaioBancada.registrarPasso:MethodDeclaration</code> · [fonte L22](../../src/visualizacao/RegistroEnsaioBancada.ts#L22) |
 | Assinatura | <code>public (dtS: number): void</code> |
 | Responsabilidade | Chamado somente após um passo físico concluído. |
 | Entradas | <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -30737,7 +30737,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>dtS !== this.dtS</code>; exceções: <code>new Error('O ensaio requer passos físicos fixos.')</code> |
 | Testes | [src/cenarios/ReproducaoDiarioBss005.test.ts](../../src/cenarios/ReproducaoDiarioBss005.test.ts); [src/cenarios/TelemetriaMissaoBss.test.ts](../../src/cenarios/TelemetriaMissaoBss.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/visualizacao/RegistroEnsaioBancada.test.ts](../../src/visualizacao/RegistroEnsaioBancada.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Chamado somente após um passo físico concluído. */ |
+| JSDoc integral | /** Chamado somente após um passo físico concluído.<br>   * @contract f-97c5dd16de34317b<br>   */ |
 
 </details>
 
@@ -30746,7 +30746,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/visualizacao/RegistroEnsaioBancada.ts::RegistroEnsaioBancada.registrarEntrada:MethodDeclaration</code> · [fonte L25](../../src/visualizacao/RegistroEnsaioBancada.ts#L25) |
+| Identificador | <code>src/visualizacao/RegistroEnsaioBancada.ts::RegistroEnsaioBancada.registrarEntrada:MethodDeclaration</code> · [fonte L30](../../src/visualizacao/RegistroEnsaioBancada.ts#L30) |
 | Assinatura | <code>public (acao: string, valor?: EntradaEnsaioBancada["valor"]): void</code> |
 | Responsabilidade | A entrada é aplicada antes do próximo passo; ordem de chamadas preservada. |
 | Entradas | <code>acao: string</code>; <code>valor?: EntradaEnsaioBancada['valor']</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -30756,7 +30756,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!acao &#124;&#124; (typeof valor === 'number' &amp;&amp; !Number.isFinite(valor))</code>; exceções: <code>new Error('Entrada de ensaio inválida.')</code> |
 | Testes | [src/cenarios/ReproducaoDiarioBss005.test.ts](../../src/cenarios/ReproducaoDiarioBss005.test.ts); [src/cenarios/TelemetriaMissaoBss.test.ts](../../src/cenarios/TelemetriaMissaoBss.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/visualizacao/RegistroEnsaioBancada.test.ts](../../src/visualizacao/RegistroEnsaioBancada.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** A entrada é aplicada antes do próximo passo; ordem de chamadas preservada. */ |
+| JSDoc integral | /** A entrada é aplicada antes do próximo passo; ordem de chamadas preservada.<br>   * @contract f-f253b295b1028151<br>   */ |
 
 </details>
 
@@ -30765,9 +30765,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/visualizacao/RegistroEnsaioBancada.ts::RegistroEnsaioBancada.exportar:MethodDeclaration</code> · [fonte L30](../../src/visualizacao/RegistroEnsaioBancada.ts#L30) |
+| Identificador | <code>src/visualizacao/RegistroEnsaioBancada.ts::RegistroEnsaioBancada.exportar:MethodDeclaration</code> · [fonte L36](../../src/visualizacao/RegistroEnsaioBancada.ts#L36) |
 | Assinatura | <code>public (): { versao: number; dtS: number; passosExecutados: number; configuracao: unknown; entradas: { passo: number; acao: string; valor?: string &#124; number &#124; boolean; }[]; reproducao: string; }</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `JSON.parse`, `this.entradas.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ versao: number; dtS: number; passosExecutados: number; configuracao: unknown; entradas: { passo: number; acao: string; valor?: string &#124; number &#124; boolean; }[]; reproducao: string; }</code>; expressões retornadas: <code>{ versao: 1, dtS: this.dtS, passosExecutados: this.passos, configuracao: JSON.parse(this.configuracaoJson) as unknown, entradas: this.entradas.map((entrada) =&gt; ({ ...entrada })), reproducao: 'Recriar a configuração inicial no modelo físico … [continua na fonte]</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -30775,7 +30775,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/ReproducaoDiarioBss005.test.ts](../../src/cenarios/ReproducaoDiarioBss005.test.ts); [src/cenarios/TelemetriaMissaoBss.test.ts](../../src/cenarios/TelemetriaMissaoBss.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/visualizacao/RegistroEnsaioBancada.test.ts](../../src/visualizacao/RegistroEnsaioBancada.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `JSON.parse`, `this.entradas.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7ad5c8aac70ef81d */ |
 
 </details>
 
@@ -30807,9 +30807,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/visualizacao/TracePLC.ts::TracePLC.constructor:Constructor</code> · [fonte L27](../../src/visualizacao/TracePLC.ts#L27) |
+| Identificador | <code>src/visualizacao/TracePLC.ts::TracePLC.constructor:Constructor</code> · [fonte L28](../../src/visualizacao/TracePLC.ts#L28) |
 | Assinatura | <code>public (limiteCanais?: number, limiteAmostras?: number): TracePLC</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Escritas diretas: `this.limiteCanais`, `this.limiteAmostras`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>private readonly limiteCanais = 10</code>; <code>private readonly limiteAmostras = 6_000</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>TracePLC</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>this.limiteCanais</code>; <code>this.limiteAmostras</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -30817,7 +30817,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isInteger(limiteCanais) &#124;&#124; limiteCanais &lt;= 0</code>; <code>!Number.isInteger(limiteAmostras) &#124;&#124; limiteAmostras &lt;= 0</code>; exceções: <code>new Error('O limite de canais do TracePLC deve ser um inteiro positivo.')</code>; <code>new Error('O limite de amostras deve ser positivo.')</code> |
 | Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/TelemetriaMissaoBss.test.ts](../../src/cenarios/TelemetriaMissaoBss.test.ts); [src/visualizacao/TracePLC.test.ts](../../src/visualizacao/TracePLC.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Escritas diretas: `this.limiteCanais`, `this.limiteAmostras`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-eeb5e031f4aaf6c2 */ |
 
 </details>
 
@@ -30826,17 +30826,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/visualizacao/TracePLC.ts::TracePLC.canais:GetAccessor</code> · [fonte L32](../../src/visualizacao/TracePLC.ts#L32) |
+| Identificador | <code>src/visualizacao/TracePLC.ts::TracePLC.canais:GetAccessor</code> · [fonte L34](../../src/visualizacao/TracePLC.ts#L34) |
 | Assinatura | <code>public (): readonly CanalTracePLC[]</code> |
-| Responsabilidade | Retorna a expressão this.canaisInternos. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `this.canaisInternos`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly CanalTracePLC[]</code>; expressões retornadas: <code>this.canaisInternos</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/TelemetriaMissaoBss.test.ts](../../src/cenarios/TelemetriaMissaoBss.test.ts); [src/visualizacao/TracePLC.test.ts](../../src/visualizacao/TracePLC.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `this.canaisInternos`. Efeitos indiretos seguem as dependências chamadas. @contract f-755af57d2473cda0 */ |
 
 </details>
 
@@ -30845,17 +30845,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/visualizacao/TracePLC.ts::TracePLC.amostras:GetAccessor</code> · [fonte L33](../../src/visualizacao/TracePLC.ts#L33) |
+| Identificador | <code>src/visualizacao/TracePLC.ts::TracePLC.amostras:GetAccessor</code> · [fonte L36](../../src/visualizacao/TracePLC.ts#L36) |
 | Assinatura | <code>public (): readonly AmostraTracePLC[]</code> |
-| Responsabilidade | Retorna a expressão this.amostrasInternas. Descrição extraída do corpo; significado de domínio requer revisão. |
+| Responsabilidade | Devolve `this.amostrasInternas`. Efeitos indiretos seguem as dependências chamadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly AmostraTracePLC[]</code>; expressões retornadas: <code>this.amostrasInternas</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/TelemetriaMissaoBss.test.ts](../../src/cenarios/TelemetriaMissaoBss.test.ts); [src/visualizacao/TracePLC.test.ts](../../src/visualizacao/TracePLC.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve `this.amostrasInternas`. Efeitos indiretos seguem as dependências chamadas. @contract f-07fdf780b26f99a6 */ |
 
 </details>
 
@@ -30864,9 +30864,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/visualizacao/TracePLC.ts::TracePLC.adicionarSinal:MethodDeclaration</code> · [fonte L35](../../src/visualizacao/TracePLC.ts#L35) |
+| Identificador | <code>src/visualizacao/TracePLC.ts::TracePLC.adicionarSinal:MethodDeclaration</code> · [fonte L39](../../src/visualizacao/TracePLC.ts#L39) |
 | Assinatura | <code>public (nome: string, obterSinal: () =&gt; SinalTracePLC, cor: string, escala?: EscalaTracePLC): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `Error`, `this.canaisInternos.push`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>nome: string</code>; <code>obterSinal: () =&gt; SinalTracePLC</code>; <code>cor: string</code>; <code>escala?: EscalaTracePLC</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -30874,7 +30874,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!nome &#124;&#124; !cor &#124;&#124; typeof obterSinal !== 'function'</code>; <code>escala &amp;&amp; (!Number.isFinite(escala.minimo) &#124;&#124; !Number.isFinite(escala.maximo) &#124;&#124; escala.maximo &lt;= escala.minimo)</code>; <code>this.canaisInternos.length &gt;= this.limiteCanais</code>; exceções: <code>new Error('Canal do TracePLC inválido.')</code>; <code>new Error('Escala do TracePLC inválida.')</code>; <code>new Error(`TracePLC limitado a ${this.limiteCanais} canais.`)</code> |
 | Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/TelemetriaMissaoBss.test.ts](../../src/cenarios/TelemetriaMissaoBss.test.ts); [src/visualizacao/TracePLC.test.ts](../../src/visualizacao/TracePLC.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `Error`, `this.canaisInternos.push`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f3ba099a9d5d7167 */ |
 
 </details>
 
@@ -30883,7 +30883,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/visualizacao/TracePLC.ts::TracePLC.adicionarSinal.obterSinal[tipo]:FunctionType</code> · [fonte L35](../../src/visualizacao/TracePLC.ts#L35) |
+| Identificador | <code>src/visualizacao/TracePLC.ts::TracePLC.adicionarSinal.obterSinal[tipo]:FunctionType</code> · [fonte L39](../../src/visualizacao/TracePLC.ts#L39) |
 | Assinatura | <code> (): SinalTracePLC</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -30902,9 +30902,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/visualizacao/TracePLC.ts::TracePLC.limpar:MethodDeclaration</code> · [fonte L42](../../src/visualizacao/TracePLC.ts#L42) |
+| Identificador | <code>src/visualizacao/TracePLC.ts::TracePLC.limpar:MethodDeclaration</code> · [fonte L47](../../src/visualizacao/TracePLC.ts#L47) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Implementação local sem chamadas diretas. |
+| Responsabilidade | Escritas diretas: `this.canaisInternos.length`, `this.amostrasInternas.length`, `this.ultimoTempoS`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>this.canaisInternos.length</code>; <code>this.amostrasInternas.length</code>; <code>this.ultimoTempoS</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -30912,7 +30912,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/TelemetriaMissaoBss.test.ts](../../src/cenarios/TelemetriaMissaoBss.test.ts); [src/visualizacao/TracePLC.test.ts](../../src/visualizacao/TracePLC.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Escritas diretas: `this.canaisInternos.length`, `this.amostrasInternas.length`, `this.ultimoTempoS`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-11ed476f97388fe3 */ |
 
 </details>
 
@@ -30921,9 +30921,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/visualizacao/TracePLC.ts::TracePLC.registrar:MethodDeclaration</code> · [fonte L48](../../src/visualizacao/TracePLC.ts#L48) |
+| Identificador | <code>src/visualizacao/TracePLC.ts::TracePLC.registrar:MethodDeclaration</code> · [fonte L54](../../src/visualizacao/TracePLC.ts#L54) |
 | Assinatura | <code>public (tempoS: number, forcar?: boolean): void</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Executa as escritas listadas abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Escritas diretas: `this.ultimoTempoS`. Dependências diretas: `Error`, `this.canaisInternos.map`, `this.amostrasInternas.at`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>tempoS: number</code>; <code>forcar = false</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas diretas (incluem locais): <code>this.ultimoTempoS</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -30931,7 +30931,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(tempoS) &#124;&#124; tempoS &lt; 0</code>; <code>this.canaisInternos.length === 0</code>; <code>!forcar &amp;&amp; ultima &amp;&amp; tempoS - this.ultimoTempoS &lt; 0.05 &amp;&amp; mesmoSinal</code>; <code>this.amostrasInternas.length &gt; this.limiteAmostras</code>; exceções: <code>new Error('Tempo do TracePLC deve ser finito e não negativo.')</code> |
 | Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/TelemetriaMissaoBss.test.ts](../../src/cenarios/TelemetriaMissaoBss.test.ts); [src/visualizacao/TracePLC.test.ts](../../src/visualizacao/TracePLC.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Escritas diretas: `this.ultimoTempoS`. Dependências diretas: `Error`, `this.canaisInternos.map`, `this.amostrasInternas.at`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1b711a9b0f762a4a */ |
 
 </details>
 
@@ -30940,9 +30940,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/visualizacao/TracePLC.ts::TracePLC.obterIndiceMaisProximo:MethodDeclaration</code> · [fonte L65](../../src/visualizacao/TracePLC.ts#L65) |
+| Identificador | <code>src/visualizacao/TracePLC.ts::TracePLC.obterIndiceMaisProximo:MethodDeclaration</code> · [fonte L72](../../src/visualizacao/TracePLC.ts#L72) |
 | Assinatura | <code>public (tempoS: number): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA. Produz os retornos listados abaixo. Invoca as dependências listadas abaixo. |
+| Responsabilidade | Dependências diretas: `this.amostrasInternas.forEach`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
 | Entradas | <code>tempoS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>0</code>; <code>melhorIndice</code> |
 | Efeitos colaterais | Escritas diretas (incluem locais): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -30950,7 +30950,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>this.amostrasInternas.length === 0</code>; exceções: — |
 | Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/TelemetriaMissaoBss.test.ts](../../src/cenarios/TelemetriaMissaoBss.test.ts); [src/visualizacao/TracePLC.test.ts](../../src/visualizacao/TracePLC.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+| JSDoc integral | /** Dependências diretas: `this.amostrasInternas.forEach`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-fc2ec4a5f9b91d62 */ |
 
 </details>
 
@@ -30959,16 +30959,16 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Identificador / fonte | Assinatura | Chamadas / efeitos diretos |
 |---|---|---|
 | <code>scripts/auditar-documentacao.ts::[callback]:ArrowFunction#1</code> · [L7](../../scripts/auditar-documentacao.ts#L7) | <code>(a: any): any</code> | — / — |
-| <code>scripts/benchmark-missao.ts::instrumentar.[callback]:ArrowFunction#1</code> · [L50](../../scripts/benchmark-missao.ts#L50) | <code>(): void</code> | — / <code>p[nome]</code> |
-| <code>scripts/benchmark-missao.ts::[callback]:ArrowFunction#1</code> · [L61](../../scripts/benchmark-missao.ts#L61) | <code>(lista: PerformanceObserverEntryList): void</code> | <code>lista.getEntries</code> / <code>gcMs</code>; <code>gcEventos</code> |
-| <code>scripts/benchmark-missao.ts::[callback]:ArrowFunction#2</code> · [L79](../../scripts/benchmark-missao.ts#L79) | <code>(r: (value: void &#124; PromiseLike&lt;void&gt;) =&gt; void): NodeJS.Immediate</code> | <code>setImmediate</code> / — |
-| <code>scripts/benchmark-missao.ts::[callback]:ArrowFunction#3</code> · [L84](../../scripts/benchmark-missao.ts#L84) | <code>(r: (value: void &#124; PromiseLike&lt;void&gt;) =&gt; void): NodeJS.Immediate</code> | <code>setImmediate</code> / — |
-| <code>scripts/comparar-desempenho-missao.ts::[callback]:ArrowFunction#1</code> · [L37](../../scripts/comparar-desempenho-missao.ts#L37) | <code>(x: { readonly passo: number; readonly observacao: ObservacaoBss006; }): ObservacaoBss006</code> | — / — |
-| <code>scripts/comparar-desempenho-missao.ts::[callback]:ArrowFunction#2</code> · [L38](../../scripts/comparar-desempenho-missao.ts#L38) | <code>(x: { readonly passo: number; readonly observacao: ObservacaoBss006; }): ObservacaoBss006</code> | — / — |
-| <code>scripts/comparar-desempenho-missao.ts::comparar.[callback]:ArrowFunction#1</code> · [L42](../../scripts/comparar-desempenho-missao.ts#L42) | <code>(v: any, i: number): void</code> | <code>comparar</code> / — |
-| <code>scripts/comparar-desempenho-missao.ts::[callback]:ArrowFunction#3</code> · [L52](../../scripts/comparar-desempenho-missao.ts#L52) | <code>(e: EventoMissao): boolean</code> | — / — |
-| <code>scripts/comparar-desempenho-missao.ts::[callback]:ArrowFunction#4</code> · [L53](../../scripts/comparar-desempenho-missao.ts#L53) | <code>(e: EventoMissao): boolean</code> | — / — |
-| <code>scripts/comparar-desempenho-missao.ts::[callback]:ArrowFunction#5</code> · [L54](../../scripts/comparar-desempenho-missao.ts#L54) | <code>(e: EventoMissao): boolean</code> | — / — |
+| <code>scripts/benchmark-missao.ts::instrumentar.[callback]:ArrowFunction#1</code> · [L52](../../scripts/benchmark-missao.ts#L52) | <code>(): void</code> | — / <code>p[nome]</code> |
+| <code>scripts/benchmark-missao.ts::[callback]:ArrowFunction#1</code> · [L63](../../scripts/benchmark-missao.ts#L63) | <code>(lista: PerformanceObserverEntryList): void</code> | <code>lista.getEntries</code> / <code>gcMs</code>; <code>gcEventos</code> |
+| <code>scripts/benchmark-missao.ts::[callback]:ArrowFunction#2</code> · [L81](../../scripts/benchmark-missao.ts#L81) | <code>(r: (value: void &#124; PromiseLike&lt;void&gt;) =&gt; void): NodeJS.Immediate</code> | <code>setImmediate</code> / — |
+| <code>scripts/benchmark-missao.ts::[callback]:ArrowFunction#3</code> · [L86](../../scripts/benchmark-missao.ts#L86) | <code>(r: (value: void &#124; PromiseLike&lt;void&gt;) =&gt; void): NodeJS.Immediate</code> | <code>setImmediate</code> / — |
+| <code>scripts/comparar-desempenho-missao.ts::[callback]:ArrowFunction#1</code> · [L38](../../scripts/comparar-desempenho-missao.ts#L38) | <code>(x: { readonly passo: number; readonly observacao: ObservacaoBss006; }): ObservacaoBss006</code> | — / — |
+| <code>scripts/comparar-desempenho-missao.ts::[callback]:ArrowFunction#2</code> · [L39](../../scripts/comparar-desempenho-missao.ts#L39) | <code>(x: { readonly passo: number; readonly observacao: ObservacaoBss006; }): ObservacaoBss006</code> | — / — |
+| <code>scripts/comparar-desempenho-missao.ts::comparar.[callback]:ArrowFunction#1</code> · [L44](../../scripts/comparar-desempenho-missao.ts#L44) | <code>(v: any, i: number): void</code> | <code>comparar</code> / — |
+| <code>scripts/comparar-desempenho-missao.ts::[callback]:ArrowFunction#3</code> · [L54](../../scripts/comparar-desempenho-missao.ts#L54) | <code>(e: EventoMissao): boolean</code> | — / — |
+| <code>scripts/comparar-desempenho-missao.ts::[callback]:ArrowFunction#4</code> · [L55](../../scripts/comparar-desempenho-missao.ts#L55) | <code>(e: EventoMissao): boolean</code> | — / — |
+| <code>scripts/comparar-desempenho-missao.ts::[callback]:ArrowFunction#5</code> · [L56](../../scripts/comparar-desempenho-missao.ts#L56) | <code>(e: EventoMissao): boolean</code> | — / — |
 | <code>scripts/documentacao/ast.ts::documentoDaDeclaracao.[callback]:ArrowFunction#1</code> · [L51](../../scripts/documentacao/ast.ts#L51) | <code>(doc: ts.JSDoc): string</code> | <code>doc.getText</code> / — |
 | <code>scripts/documentacao/ast.ts::documentoDaDeclaracao.[callback]:ArrowFunction#2</code> · [L54](../../scripts/documentacao/ast.ts#L54) | <code>(r: ts.CommentRange, i: number, todos: ts.CommentRange[]): boolean</code> | <code>todos.findIndex</code> / — |
 | <code>scripts/documentacao/ast.ts::documentoDaDeclaracao.[callback]#2.[callback]:ArrowFunction#1</code> · [L54](../../scripts/documentacao/ast.ts#L54) | <code>(t: ts.CommentRange): boolean</code> | — / — |
@@ -31027,41 +31027,41 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>scripts/documentacao/projeto.ts::carregarProjeto.[callback]:ArrowFunction#1</code> · [L28](../../scripts/documentacao/projeto.ts#L28) | <code>(p: string): string</code> | <code>readFileSync</code> / — |
 | <code>scripts/documentacao/projeto.ts::carregarProjeto.[callback]:ArrowFunction#2</code> · [L33](../../scripts/documentacao/projeto.ts#L33) | <code>(a: string): ts.SourceFile</code> | <code>programa.getSourceFile</code> / — |
 | <code>scripts/documentacao/projeto.ts::carregarProjeto.[callback]:ArrowFunction#3</code> · [L34](../../scripts/documentacao/projeto.ts#L34) | <code>(a: string): string</code> | <code>relative</code>; <code>resolve</code> / — |
-| <code>scripts/validar-hidrodinamica.ts::[callback]:ArrowFunction#1</code> · [L27](../../scripts/validar-hidrodinamica.ts#L27) | <code>(h: number, i: number): { h: number; volumeAnaliticoM3: number; volumeMedidoM3: number; forcaAnaliticaN: number; forcaMedidaN: number; }</code> | <code>criar</code>; <code>Vetor3</code>; <code>p.m.obterImersao</code>; <code>p.ambiente.campo.aceleracaoEm</code>; <code>p.o.getEstadoFisico</code> / — |
-| <code>scripts/validar-hidrodinamica.ts::[callback]:ArrowFunction#2</code> · [L35](../../scripts/validar-hidrodinamica.ts#L35) | <code>({ d, GM }: { d: Vetor3; GM: number; }): { dimensoesM: Vetor3; GM: number; torqueAnaliticoNm: number; torqueMedidoNm: number; erroRelativo: number; }</code> | <code>criar</code>; <code>p.m.obterImersao</code>; <code>p.ambiente.campo.aceleracaoEm</code>; <code>Math.abs</code> / — |
-| <code>scripts/validar-hidrodinamica.ts::[callback]:ArrowFunction#3</code> · [L40](../../scripts/validar-hidrodinamica.ts#L40) | <code>(dtS: number): { estado: EstadoFisico; imersao: EstadoImersao; integridade: number; massaKg: number; dtS: number; }</code> | <code>criar</code>; <code>Vetor3</code>; <code>avancar</code> / — |
-| <code>scripts/validar-hidrodinamica.ts::[callback]:ArrowFunction#4</code> · [L44](../../scripts/validar-hidrodinamica.ts#L44) | <code>(dtS: number): { estado: EstadoFisico; imersao: EstadoImersao; integridade: number; massaKg: number; dtS: number; }</code> | <code>avancar</code>; <code>criar</code>; <code>Vetor3</code> / — |
-| <code>scripts/validar-hidrodinamica.ts::[callback]:ArrowFunction#5</code> · [L51](../../scripts/validar-hidrodinamica.ts#L51) | <code>(v: number): { vMps: number; analiticoN: number; medidoN: number; }</code> | <code>criar</code>; <code>Vetor3</code>; <code>SistemaHidrodinamico</code>; <code>sistema.registrar</code>; <code>sistema.calcular</code> / — |
-| <code>scripts/validar-hidrodinamica.ts::[callback]#5.[callback]:ArrowFunction#1</code> · [L53](../../scripts/validar-hidrodinamica.ts#L53) | <code>(q: Vetor3): Vetor3</code> | <code>p.ambiente.campo.aceleracaoEm</code> / — |
-| <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor.[callback]:ArrowFunction#1</code> · [L31](../../src/apresentacao/missao/CenaMissao.ts#L31) | <code>(): void</code> | <code>this.marcarAtualizacao</code> / — |
-| <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor.[callback]:ArrowFunction#2</code> · [L32](../../src/apresentacao/missao/CenaMissao.ts#L32) | <code>(): void</code> | <code>this.reiniciar</code> / — |
-| <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor.[callback]:ArrowFunction#3</code> · [L33](../../src/apresentacao/missao/CenaMissao.ts#L33) | <code>(): void</code> | <code>this.marcarAtualizacao</code> / — |
-| <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor.[callback]:ArrowFunction#4</code> · [L34](../../src/apresentacao/missao/CenaMissao.ts#L34) | <code>(): void</code> | <code>cancelAnimationFrame</code> / — |
-| <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor.[callback]:ArrowFunction#5</code> · [L35](../../src/apresentacao/missao/CenaMissao.ts#L35) | <code>(t: number): void</code> | <code>this.animar</code> / — |
-| <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.animar.[callback]:ArrowFunction#1</code> · [L65](../../src/apresentacao/missao/CenaMissao.ts#L65) | <code>(): boolean</code> | <code>this.missao.avancarPasso</code> / — |
-| <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.animar.[callback]:ArrowFunction#2</code> · [L103](../../src/apresentacao/missao/CenaMissao.ts#L103) | <code>(t: number): void</code> | <code>this.animar</code> / — |
-| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#1</code> · [L15](../../src/apresentacao/missao/EntradaMissao.ts#L15) | <code>(): void</code> | <code>acoes.sistema</code> / — |
-| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#2</code> · [L16](../../src/apresentacao/missao/EntradaMissao.ts#L16) | <code>(): void</code> | <code>acoes.comando</code> / — |
-| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#3</code> · [L19](../../src/apresentacao/missao/EntradaMissao.ts#L19) | <code>(): void</code> | <code>acoes.comando</code> / — |
-| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#4</code> · [L20](../../src/apresentacao/missao/EntradaMissao.ts#L20) | <code>(): void</code> | <code>acoes.comando</code> / — |
-| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#5</code> · [L21](../../src/apresentacao/missao/EntradaMissao.ts#L21) | <code>(): void</code> | <code>acoes.comando</code> / — |
-| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#6</code> · [L22](../../src/apresentacao/missao/EntradaMissao.ts#L22) | <code>(): void</code> | <code>acoes.comando</code> / — |
-| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#7</code> · [L23](../../src/apresentacao/missao/EntradaMissao.ts#L23) | <code>(): void</code> | <code>acoes.comando</code>; <code>Number</code>; <code>raiz.querySelector</code> / — |
-| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#8</code> · [L24](../../src/apresentacao/missao/EntradaMissao.ts#L24) | <code>(this: HTMLInputElement, e: Event): void</code> | <code>acoes.comando</code>; <code>Number</code> / — |
-| <code>src/apresentacao/missao/HudMissao.ts::atualizarHudMissao.[callback]:ArrowFunction#1</code> · [L27](../../src/apresentacao/missao/HudMissao.ts#L27) | <code>(c: CorpoObservado): boolean</code> | — / — |
-| <code>src/apresentacao/missao/HudMissao.ts::atualizarHudMissao.[callback]:ArrowFunction#2</code> · [L27](../../src/apresentacao/missao/HudMissao.ts#L27) | <code>(c: CorpoObservado): string</code> | <code>graus</code> / — |
-| <code>src/apresentacao/missao/HudMissao.ts::atualizarHudMissao.[callback]:ArrowFunction#3</code> · [L39](../../src/apresentacao/missao/HudMissao.ts#L39) | <code>(obj: ObjetivoMissao): boolean</code> | — / — |
-| <code>src/apresentacao/missao/HudMissao.ts::atualizarHudMissao.[callback]:ArrowFunction#4</code> · [L42](../../src/apresentacao/missao/HudMissao.ts#L42) | <code>(c: CorpoObservado): string</code> | <code>(c.integridade * 100).toFixed</code>; <code>c.massaKg.toFixed</code> / — |
-| <code>src/apresentacao/missao/HudMissao.ts::atualizarHudMissao.[callback]:ArrowFunction#5</code> · [L43](../../src/apresentacao/missao/HudMissao.ts#L43) | <code>(f: { readonly id: string; readonly estado: "integro" &#124; "liberado" &#124; "rompido"; }): boolean</code> | — / — |
-| <code>src/apresentacao/missao/HudMissao.ts::atualizarHudMissao.[callback]:ArrowFunction#6</code> · [L51](../../src/apresentacao/missao/HudMissao.ts#L51) | <code>(obj: ObjetivoMissao): HTMLLIElement</code> | <code>document.createElement</code>; <code>obj.estado.replaceAll</code> / <code>li.textContent</code>; <code>li.dataset.estado</code> |
-| <code>src/apresentacao/missao/HudMissao.ts::atualizarHudMissao.[callback]:ArrowFunction#7</code> · [L60](../../src/apresentacao/missao/HudMissao.ts#L60) | <code>(e: EventoMissao): HTMLLIElement</code> | <code>document.createElement</code>; <code>e.tempoS.toFixed</code>; <code>li.append</code>; <code>document.createTextNode</code> / <code>time.textContent</code> |
-| <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.desenhar.[callback]:ArrowFunction#1</code> · [L28](../../src/apresentacao/missao/RenderizadorMissao.ts#L28) | <code>(c: CorpoObservado): boolean</code> | — / — |
-| <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.desenhar.[callback]:ArrowFunction#2</code> · [L29](../../src/apresentacao/missao/RenderizadorMissao.ts#L29) | <code>(f: { readonly id: string; readonly estado: "integro" &#124; "liberado" &#124; "rompido"; }): boolean</code> | — / — |
-| <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.desenhar.[callback]:ArrowFunction#3</code> · [L30](../../src/apresentacao/missao/RenderizadorMissao.ts#L30) | <code>(c: CorpoObservado): boolean</code> | — / — |
-| <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.desenhar.[callback]:ArrowFunction#4</code> · [L37](../../src/apresentacao/missao/RenderizadorMissao.ts#L37) | <code>(c: CorpoObservado): boolean</code> | — / — |
-| <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.desenhar.[callback]:ArrowFunction#5</code> · [L37](../../src/apresentacao/missao/RenderizadorMissao.ts#L37) | <code>(c: CorpoObservado): boolean</code> | — / — |
-| <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.agua.[callback]:ArrowFunction#1</code> · [L88](../../src/apresentacao/missao/RenderizadorMissao.ts#L88) | <code>(p: { x: number; y: number; molhado: boolean; }, i: number): void</code> | <code>ctx.moveTo</code>; <code>ctx.lineTo</code> / — |
-| <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.agua.[callback]:ArrowFunction#2</code> · [L92](../../src/apresentacao/missao/RenderizadorMissao.ts#L92) | <code>(p: { x: number; y: number; molhado: boolean; }): void</code> | <code>ctx.lineTo</code>; <code>ctx.moveTo</code> / <code>anteriorMolhado</code> |
+| <code>scripts/validar-hidrodinamica.ts::[callback]:ArrowFunction#1</code> · [L30](../../scripts/validar-hidrodinamica.ts#L30) | <code>(h: number, i: number): { h: number; volumeAnaliticoM3: number; volumeMedidoM3: number; forcaAnaliticaN: number; forcaMedidaN: number; }</code> | <code>criar</code>; <code>Vetor3</code>; <code>p.m.obterImersao</code>; <code>p.ambiente.campo.aceleracaoEm</code>; <code>p.o.getEstadoFisico</code> / — |
+| <code>scripts/validar-hidrodinamica.ts::[callback]:ArrowFunction#2</code> · [L38](../../scripts/validar-hidrodinamica.ts#L38) | <code>({ d, GM }: { d: Vetor3; GM: number; }): { dimensoesM: Vetor3; GM: number; torqueAnaliticoNm: number; torqueMedidoNm: number; erroRelativo: number; }</code> | <code>criar</code>; <code>p.m.obterImersao</code>; <code>p.ambiente.campo.aceleracaoEm</code>; <code>Math.abs</code> / — |
+| <code>scripts/validar-hidrodinamica.ts::[callback]:ArrowFunction#3</code> · [L43](../../scripts/validar-hidrodinamica.ts#L43) | <code>(dtS: number): { estado: EstadoFisico; imersao: EstadoImersao; integridade: number; massaKg: number; dtS: number; }</code> | <code>criar</code>; <code>Vetor3</code>; <code>avancar</code> / — |
+| <code>scripts/validar-hidrodinamica.ts::[callback]:ArrowFunction#4</code> · [L47](../../scripts/validar-hidrodinamica.ts#L47) | <code>(dtS: number): { estado: EstadoFisico; imersao: EstadoImersao; integridade: number; massaKg: number; dtS: number; }</code> | <code>avancar</code>; <code>criar</code>; <code>Vetor3</code> / — |
+| <code>scripts/validar-hidrodinamica.ts::[callback]:ArrowFunction#5</code> · [L55](../../scripts/validar-hidrodinamica.ts#L55) | <code>(v: number): { vMps: number; analiticoN: number; medidoN: number; }</code> | <code>criar</code>; <code>Vetor3</code>; <code>SistemaHidrodinamico</code>; <code>sistema.registrar</code>; <code>sistema.calcular</code> / — |
+| <code>scripts/validar-hidrodinamica.ts::[callback]#5.[callback]:ArrowFunction#1</code> · [L57](../../scripts/validar-hidrodinamica.ts#L57) | <code>(q: Vetor3): Vetor3</code> | <code>p.ambiente.campo.aceleracaoEm</code> / — |
+| <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor.[callback]:ArrowFunction#1</code> · [L38](../../src/apresentacao/missao/CenaMissao.ts#L38) | <code>(): void</code> | <code>this.marcarAtualizacao</code> / — |
+| <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor.[callback]:ArrowFunction#2</code> · [L39](../../src/apresentacao/missao/CenaMissao.ts#L39) | <code>(): void</code> | <code>this.reiniciar</code> / — |
+| <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor.[callback]:ArrowFunction#3</code> · [L40](../../src/apresentacao/missao/CenaMissao.ts#L40) | <code>(): void</code> | <code>this.marcarAtualizacao</code> / — |
+| <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor.[callback]:ArrowFunction#4</code> · [L41](../../src/apresentacao/missao/CenaMissao.ts#L41) | <code>(): void</code> | <code>cancelAnimationFrame</code> / — |
+| <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor.[callback]:ArrowFunction#5</code> · [L42](../../src/apresentacao/missao/CenaMissao.ts#L42) | <code>(t: number): void</code> | <code>this.animar</code> / — |
+| <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.animar.[callback]:ArrowFunction#1</code> · [L78](../../src/apresentacao/missao/CenaMissao.ts#L78) | <code>(): boolean</code> | <code>this.missao.avancarPasso</code> / — |
+| <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.animar.[callback]:ArrowFunction#2</code> · [L117](../../src/apresentacao/missao/CenaMissao.ts#L117) | <code>(t: number): void</code> | <code>this.animar</code> / — |
+| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#1</code> · [L18](../../src/apresentacao/missao/EntradaMissao.ts#L18) | <code>(): void</code> | <code>acoes.sistema</code> / — |
+| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#2</code> · [L19](../../src/apresentacao/missao/EntradaMissao.ts#L19) | <code>(): void</code> | <code>acoes.comando</code> / — |
+| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#3</code> · [L22](../../src/apresentacao/missao/EntradaMissao.ts#L22) | <code>(): void</code> | <code>acoes.comando</code> / — |
+| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#4</code> · [L23](../../src/apresentacao/missao/EntradaMissao.ts#L23) | <code>(): void</code> | <code>acoes.comando</code> / — |
+| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#5</code> · [L24](../../src/apresentacao/missao/EntradaMissao.ts#L24) | <code>(): void</code> | <code>acoes.comando</code> / — |
+| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#6</code> · [L25](../../src/apresentacao/missao/EntradaMissao.ts#L25) | <code>(): void</code> | <code>acoes.comando</code> / — |
+| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#7</code> · [L26](../../src/apresentacao/missao/EntradaMissao.ts#L26) | <code>(): void</code> | <code>acoes.comando</code>; <code>Number</code>; <code>raiz.querySelector</code> / — |
+| <code>src/apresentacao/missao/EntradaMissao.ts::conectarEntradaMissao.[callback]:ArrowFunction#8</code> · [L27](../../src/apresentacao/missao/EntradaMissao.ts#L27) | <code>(this: HTMLInputElement, e: Event): void</code> | <code>acoes.comando</code>; <code>Number</code> / — |
+| <code>src/apresentacao/missao/HudMissao.ts::atualizarHudMissao.[callback]:ArrowFunction#1</code> · [L31](../../src/apresentacao/missao/HudMissao.ts#L31) | <code>(c: CorpoObservado): boolean</code> | — / — |
+| <code>src/apresentacao/missao/HudMissao.ts::atualizarHudMissao.[callback]:ArrowFunction#2</code> · [L31](../../src/apresentacao/missao/HudMissao.ts#L31) | <code>(c: CorpoObservado): string</code> | <code>graus</code> / — |
+| <code>src/apresentacao/missao/HudMissao.ts::atualizarHudMissao.[callback]:ArrowFunction#3</code> · [L43](../../src/apresentacao/missao/HudMissao.ts#L43) | <code>(obj: ObjetivoMissao): boolean</code> | — / — |
+| <code>src/apresentacao/missao/HudMissao.ts::atualizarHudMissao.[callback]:ArrowFunction#4</code> · [L46](../../src/apresentacao/missao/HudMissao.ts#L46) | <code>(c: CorpoObservado): string</code> | <code>(c.integridade * 100).toFixed</code>; <code>c.massaKg.toFixed</code> / — |
+| <code>src/apresentacao/missao/HudMissao.ts::atualizarHudMissao.[callback]:ArrowFunction#5</code> · [L47](../../src/apresentacao/missao/HudMissao.ts#L47) | <code>(f: { readonly id: string; readonly estado: "integro" &#124; "liberado" &#124; "rompido"; }): boolean</code> | — / — |
+| <code>src/apresentacao/missao/HudMissao.ts::atualizarHudMissao.[callback]:ArrowFunction#6</code> · [L55](../../src/apresentacao/missao/HudMissao.ts#L55) | <code>(obj: ObjetivoMissao): HTMLLIElement</code> | <code>document.createElement</code>; <code>obj.estado.replaceAll</code> / <code>li.textContent</code>; <code>li.dataset.estado</code> |
+| <code>src/apresentacao/missao/HudMissao.ts::atualizarHudMissao.[callback]:ArrowFunction#7</code> · [L64](../../src/apresentacao/missao/HudMissao.ts#L64) | <code>(e: EventoMissao): HTMLLIElement</code> | <code>document.createElement</code>; <code>e.tempoS.toFixed</code>; <code>li.append</code>; <code>document.createTextNode</code> / <code>time.textContent</code> |
+| <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.desenhar.[callback]:ArrowFunction#1</code> · [L31](../../src/apresentacao/missao/RenderizadorMissao.ts#L31) | <code>(c: CorpoObservado): boolean</code> | — / — |
+| <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.desenhar.[callback]:ArrowFunction#2</code> · [L32](../../src/apresentacao/missao/RenderizadorMissao.ts#L32) | <code>(f: { readonly id: string; readonly estado: "integro" &#124; "liberado" &#124; "rompido"; }): boolean</code> | — / — |
+| <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.desenhar.[callback]:ArrowFunction#3</code> · [L33](../../src/apresentacao/missao/RenderizadorMissao.ts#L33) | <code>(c: CorpoObservado): boolean</code> | — / — |
+| <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.desenhar.[callback]:ArrowFunction#4</code> · [L40](../../src/apresentacao/missao/RenderizadorMissao.ts#L40) | <code>(c: CorpoObservado): boolean</code> | — / — |
+| <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.desenhar.[callback]:ArrowFunction#5</code> · [L40](../../src/apresentacao/missao/RenderizadorMissao.ts#L40) | <code>(c: CorpoObservado): boolean</code> | — / — |
+| <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.agua.[callback]:ArrowFunction#1</code> · [L97](../../src/apresentacao/missao/RenderizadorMissao.ts#L97) | <code>(p: { x: number; y: number; molhado: boolean; }, i: number): void</code> | <code>ctx.moveTo</code>; <code>ctx.lineTo</code> / — |
+| <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.agua.[callback]:ArrowFunction#2</code> · [L101](../../src/apresentacao/missao/RenderizadorMissao.ts#L101) | <code>(p: { x: number; y: number; molhado: boolean; }): void</code> | <code>ctx.lineTo</code>; <code>ctx.moveTo</code> / <code>anteriorMolhado</code> |
 | <code>src/cenarios/BancadaBss.ts::criarTesteDecolagemComPainelSolar.[callback]:ArrowFunction#1</code> · [L69](../../src/cenarios/BancadaBss.ts#L69) | <code>(aleta: AletaAerodinamica): ConexaoEletrica</code> | — / — |
 | <code>src/cenarios/BancadaBss.ts::criarTesteDecolagemComPainelSolar.dados.[callback]:ArrowFunction#1</code> · [L148](../../src/cenarios/BancadaBss.ts#L148) | <code>(s: SolicitacaoArbitrada): boolean</code> | — / — |
 | <code>src/cenarios/BancadaBss003.ts::criarTesteBss003.[callback]:ArrowFunction#1</code> · [L108](../../src/cenarios/BancadaBss003.ts#L108) | <code>(modulo: Objeto): FixadorEstrutural</code> | <code>FixadorEstrutural</code> / — |
@@ -31098,15 +31098,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/cenarios/ReproducaoDiarioBss005.ts::validarDiario.[callback]:ArrowFunction#1</code> · [L72](../../src/cenarios/ReproducaoDiarioBss005.ts#L72) | <code>([k]: [string, string &#124; number &#124; boolean &#124; object &#124; Vetor3 &#124; { readonly centroCascoLocalM: Vetor3; readonly velocidadeLocalMps: Vetor3; readonly inclinacaoRad: number; readonly velocidadeAngularRadps: number; } &#124; readonly RajadaVento[]]): boolean</code> | — / — |
 | <code>src/cenarios/ReproducaoDiarioBss005.ts::validarDiario.[callback]:ArrowFunction#2</code> · [L78](../../src/cenarios/ReproducaoDiarioBss005.ts#L78) | <code>(objeto: Objeto): { id: string; massaKg: number; temperaturaC: number; integridade: number; estado: EstadoFisico; }</code> | <code>objeto.getEstadoFisico</code> / — |
 | <code>src/cenarios/ReproducaoDiarioBss005.ts::avancarReplayDiarioBss005.aplicar.[callback]:ArrowFunction#1</code> · [L183](../../src/cenarios/ReproducaoDiarioBss005.ts#L183) | <code>(objeto: Objeto): objeto is PainelSolar</code> | — / — |
-| <code>src/home-carousel.ts::showSlide.[callback]:ArrowFunction#1</code> · [L16](../../src/home-carousel.ts#L16) | <code>(slide: HTMLElement, slideIndex: number): void</code> | <code>slide.classList.toggle</code>; <code>slide.setAttribute</code>; <code>String</code> / <code>slide.inert</code> |
-| <code>src/home-carousel.ts::showSlide.[callback]:ArrowFunction#2</code> · [L23](../../src/home-carousel.ts#L23) | <code>(dot: HTMLButtonElement, dotIndex: number): void</code> | <code>dot.classList.toggle</code>; <code>dot.setAttribute</code>; <code>dot.removeAttribute</code> / — |
-| <code>src/home-carousel.ts::startAutoplay.[callback]:ArrowFunction#1</code> · [L40](../../src/home-carousel.ts#L40) | <code>(): void</code> | <code>showSlide</code> / — |
-| <code>src/home-carousel.ts::[callback]:ArrowFunction#1</code> · [L43](../../src/home-carousel.ts#L43) | <code>(): void</code> | <code>showSlide</code> / — |
-| <code>src/home-carousel.ts::[callback]:ArrowFunction#2</code> · [L44](../../src/home-carousel.ts#L44) | <code>(): void</code> | <code>showSlide</code> / — |
-| <code>src/home-carousel.ts::[callback]:ArrowFunction#3</code> · [L45](../../src/home-carousel.ts#L45) | <code>(dot: HTMLButtonElement, index: number): void</code> | <code>dot.addEventListener</code> / — |
-| <code>src/home-carousel.ts::[callback]#3.[callback]:ArrowFunction#1</code> · [L45](../../src/home-carousel.ts#L45) | <code>(): void</code> | <code>showSlide</code> / — |
-| <code>src/home-carousel.ts::[callback]:ArrowFunction#4</code> · [L50](../../src/home-carousel.ts#L50) | <code>(this: HTMLElement, event: FocusEvent): void</code> | <code>carousel.contains</code>; <code>startAutoplay</code> / — |
-| <code>src/home-carousel.ts::[callback]:ArrowFunction#5</code> · [L53](../../src/home-carousel.ts#L53) | <code>(): void</code> | <code>stopAutoplay</code>; <code>startAutoplay</code> / — |
+| <code>src/home-carousel.ts::showSlide.[callback]:ArrowFunction#1</code> · [L17](../../src/home-carousel.ts#L17) | <code>(slide: HTMLElement, slideIndex: number): void</code> | <code>slide.classList.toggle</code>; <code>slide.setAttribute</code>; <code>String</code> / <code>slide.inert</code> |
+| <code>src/home-carousel.ts::showSlide.[callback]:ArrowFunction#2</code> · [L24](../../src/home-carousel.ts#L24) | <code>(dot: HTMLButtonElement, dotIndex: number): void</code> | <code>dot.classList.toggle</code>; <code>dot.setAttribute</code>; <code>dot.removeAttribute</code> / — |
+| <code>src/home-carousel.ts::startAutoplay.[callback]:ArrowFunction#1</code> · [L43](../../src/home-carousel.ts#L43) | <code>(): void</code> | <code>showSlide</code> / — |
+| <code>src/home-carousel.ts::[callback]:ArrowFunction#1</code> · [L46](../../src/home-carousel.ts#L46) | <code>(): void</code> | <code>showSlide</code> / — |
+| <code>src/home-carousel.ts::[callback]:ArrowFunction#2</code> · [L47](../../src/home-carousel.ts#L47) | <code>(): void</code> | <code>showSlide</code> / — |
+| <code>src/home-carousel.ts::[callback]:ArrowFunction#3</code> · [L48](../../src/home-carousel.ts#L48) | <code>(dot: HTMLButtonElement, index: number): void</code> | <code>dot.addEventListener</code> / — |
+| <code>src/home-carousel.ts::[callback]#3.[callback]:ArrowFunction#1</code> · [L48](../../src/home-carousel.ts#L48) | <code>(): void</code> | <code>showSlide</code> / — |
+| <code>src/home-carousel.ts::[callback]:ArrowFunction#4</code> · [L53](../../src/home-carousel.ts#L53) | <code>(this: HTMLElement, event: FocusEvent): void</code> | <code>carousel.contains</code>; <code>startAutoplay</code> / — |
+| <code>src/home-carousel.ts::[callback]:ArrowFunction#5</code> · [L56](../../src/home-carousel.ts#L56) | <code>(): void</code> | <code>stopAutoplay</code>; <code>startAutoplay</code> / — |
 | <code>src/missoes/MissaoBss006.ts::MissaoBss006.constructor.[callback]:ArrowFunction#1</code> · [L75](../../src/missoes/MissaoBss006.ts#L75) | <code>(o: Objeto): boolean</code> | <code>this.ambiente.mundo.obterMenorDistanciaSuperficieM</code> / — |
 | <code>src/missoes/MissaoBss006.ts::MissaoBss006.obterEventos.[callback]:ArrowFunction#1</code> · [L94](../../src/missoes/MissaoBss006.ts#L94) | <code>(e: EventoMissao): { sequencia: number; passo: number; tempoS: number; categoria: "fisico" &#124; "missao" &#124; "comando"; tipo: string; descricao: string; }</code> | — / — |
 | <code>src/missoes/MissaoBss006.ts::MissaoBss006.avancarPasso.[callback]:ArrowFunction#1</code> · [L160](../../src/missoes/MissaoBss006.ts#L160) | <code>(ct: ContatoSuperficieFisico): boolean</code> | <code>/sapata&#124;perna/.test</code> / — |
@@ -31148,9 +31148,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/missoes/ReplayMissaoBss006.ts::reproduzirDiarioBss006.[callback]:ArrowFunction#4</code> · [L56](../../src/missoes/ReplayMissaoBss006.ts#L56) | <code>(k: string): boolean</code> | <code>Number.isFinite</code> / — |
 | <code>src/missoes/SnapshotMissao.ts::copiarSnapshot.[callback]:ArrowFunction#1</code> · [L10](../../src/missoes/SnapshotMissao.ts#L10) | <code>(item: any): any</code> | <code>copiarSnapshot</code> / — |
 | <code>src/missoes/SnapshotMissao.ts::copiarSnapshot.[callback]:ArrowFunction#2</code> · [L12](../../src/missoes/SnapshotMissao.ts#L12) | <code>([chave, valor]: [string, any]): [string, any]</code> | <code>copiarSnapshot</code> / — |
-| <code>src/orbitas.ts::[callback]:ArrowFunction#1</code> · [L27](../../src/orbitas.ts#L27) | <code>(): void</code> | — / <code>rodando</code>; <code>ultimoTimestamp</code>; <code>play.textContent</code> |
-| <code>src/orbitas.ts::[callback]:ArrowFunction#2</code> · [L30](../../src/orbitas.ts#L30) | <code>(): void</code> | <code>Blob</code>; <code>JSON.stringify</code>; <code>ensaio.obterConfiguracao</code>; <code>ensaio.ler</code>; <code>URL.createObjectURL</code>; <code>document.createElement</code>; <code>a.click</code>; <code>URL.revokeObjectURL</code> / <code>a.href</code>; <code>a.download</code> |
-| <code>src/orbitas.ts::desenhar.[callback]:ArrowFunction#1</code> · [L59](../../src/orbitas.ts#L59) | <code>(ponto: Vetor3, i: number): void</code> | <code>camera.projetar</code>; <code>ctx.lineTo</code>; <code>ctx.moveTo</code> / — |
+| <code>src/orbitas.ts::[callback]:ArrowFunction#1</code> · [L28](../../src/orbitas.ts#L28) | <code>(): void</code> | — / <code>rodando</code>; <code>ultimoTimestamp</code>; <code>play.textContent</code> |
+| <code>src/orbitas.ts::[callback]:ArrowFunction#2</code> · [L31](../../src/orbitas.ts#L31) | <code>(): void</code> | <code>Blob</code>; <code>JSON.stringify</code>; <code>ensaio.obterConfiguracao</code>; <code>ensaio.ler</code>; <code>URL.createObjectURL</code>; <code>document.createElement</code>; <code>a.click</code>; <code>URL.revokeObjectURL</code> / <code>a.href</code>; <code>a.download</code> |
+| <code>src/orbitas.ts::desenhar.[callback]:ArrowFunction#1</code> · [L61](../../src/orbitas.ts#L61) | <code>(ponto: Vetor3, i: number): void</code> | <code>camera.projetar</code>; <code>ctx.lineTo</code>; <code>ctx.moveTo</code> / — |
 | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.[callback]:ArrowFunction#1</code> · [L98](../../src/physics/MundoFisico.ts#L98) | <code>(a: RajadaVento, b: RajadaVento): number</code> | — / — |
 | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.[callback]:ArrowFunction#2</code> · [L108](../../src/physics/MundoFisico.ts#L108) | <code>(o: Objeto): number</code> | <code>this.fracaoExpostaAr</code> / — |
 | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.[callback]:ArrowFunction#3</code> · [L110](../../src/physics/MundoFisico.ts#L110) | <code>(p: Vetor3): Vetor3</code> | <code>this.obterGravidadeMps2</code> / — |
@@ -31333,180 +31333,180 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts::ResolvedorEsforcoEstrutural.obterCentroDeMassa.[callback]:ArrowFunction#1</code> · [L92](../../src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts#L92) | <code>(soma: number, membro: Objeto): number</code> | — / — |
 | <code>src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts::ResolvedorEsforcoEstrutural.obterCentroDeMassa.[callback]:ArrowFunction#2</code> · [L93](../../src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts#L93) | <code>(soma: Vetor3, membro: Objeto): Vetor3</code> | <code>membro.getEstadoFisico</code>; <code>soma.adicionar</code>; <code>posicao.multiplicar</code> / — |
 | <code>src/testes.ts::[callback]:ArrowFunction#1</code> · [L159](../../src/testes.ts#L159) | <code>(): void</code> | <code>toggleControlLayoutButton.setAttribute</code>; <code>String</code>; <code>localStorage.setItem</code> / <code>testLayout.dataset.controlsLayout</code> |
-| <code>src/testes.ts::objetosEmRepouso.[callback]:ArrowFunction#1</code> · [L257](../../src/testes.ts#L257) | <code>(objeto: Objeto): boolean</code> | <code>objeto.getEstadoFisico</code> / — |
-| <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.[callback]:ArrowFunction#1</code> · [L335](../../src/testes.ts#L335) | <code>(_: unknown, indice: number): Objeto</code> | <code>Objeto</code>; <code>Vetor3</code> / — |
-| <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.obterAmplitudeVerticalM.[callback]:ArrowFunction#1</code> · [L351](../../src/testes.ts#L351) | <code>(quadrado: Objeto): number</code> | <code>quadrado.getEstadoFisico</code> / — |
-| <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.obterAmplitudeVelocidadeMps.[callback]:ArrowFunction#1</code> · [L355](../../src/testes.ts#L355) | <code>(quadrado: Objeto): number</code> | <code>quadrado.getEstadoFisico</code> / — |
-| <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.cameraY.[callback]:ArrowFunction#1</code> · [L358](../../src/testes.ts#L358) | <code>(soma: number, quadrado: Objeto): number</code> | <code>quadrado.getEstadoFisico</code> / — |
-| <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.atualizarMedicoesAntesDoContato.[callback]:ArrowFunction#1</code> · [L363](../../src/testes.ts#L363) | <code>(quadrado: Objeto): boolean</code> | <code>quadrado.getEstadoFisico</code> / — |
-| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.[callback]:ArrowFunction#1</code> · [L414](../../src/testes.ts#L414) | <code>(_: unknown, indiceGrupo: number): { indiceGrupo: number; massaPorQuadradoKg: number; orientacoesIniciaisGraus: number[]; quadrados: Objeto[]; fixadores: FixadorEstrutural[]; perfisDosFixadores: { fixador: FixadorEstrutural; deveRomper: boolean; }[]; }</code> | <code>Array.from</code>; <code>quadrados.slice(1).map</code>; <code>quadrados.slice</code>; <code>perfisDosFixadores.map</code> / — |
-| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.[callback]#1.[callback]:ArrowFunction#1</code> · [L417](../../src/testes.ts#L417) | <code>(): number</code> | <code>proximaFracaoAleatoria</code> / — |
-| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.[callback]#1.[callback]:ArrowFunction#2</code> · [L418](../../src/testes.ts#L418) | <code>(_: unknown, indiceQuadrado: number): Objeto</code> | <code>Objeto</code>; <code>Vetor3</code> / — |
-| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.[callback]#1.[callback]:ArrowFunction#3</code> · [L429](../../src/testes.ts#L429) | <code>(quadrado: Objeto, indiceFixador: number): { fixador: FixadorEstrutural; deveRomper: boolean; }</code> | <code>FixadorEstrutural</code> / — |
-| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.[callback]#1.[callback]:ArrowFunction#4</code> · [L444](../../src/testes.ts#L444) | <code>(perfil: { fixador: FixadorEstrutural; deveRomper: boolean; }): FixadorEstrutural</code> | — / — |
-| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.[callback]:ArrowFunction#2</code> · [L447](../../src/testes.ts#L447) | <code>(this: undefined, grupo: { indiceGrupo: number; massaPorQuadradoKg: number; orientacoesIniciaisGraus: number[]; quadrados: Objeto[]; fixadores: FixadorEstrutural[]; perfisDosFixadores: { fixador: FixadorEstrutural; deveRomper: boolean; }[]; }): Objeto[]</code> | — / — |
-| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.[callback]:ArrowFunction#3</code> · [L448](../../src/testes.ts#L448) | <code>(this: undefined, grupo: { indiceGrupo: number; massaPorQuadradoKg: number; orientacoesIniciaisGraus: number[]; quadrados: Objeto[]; fixadores: FixadorEstrutural[]; perfisDosFixadores: { fixador: FixadorEstrutural; deveRomper: boolean; }[]; }): FixadorEstrutural[]</code> | — / — |
-| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.[callback]:ArrowFunction#4</code> · [L450](../../src/testes.ts#L450) | <code>(this: undefined, grupo: { indiceGrupo: number; massaPorQuadradoKg: number; orientacoesIniciaisGraus: number[]; quadrados: Objeto[]; fixadores: FixadorEstrutural[]; perfisDosFixadores: { fixador: FixadorEstrutural; deveRomper: boolean; }[]; }): string[]</code> | <code>grupo.perfisDosFixadores.filter((perfil) =&gt; perfil.deveRomper).map</code>; <code>grupo.perfisDosFixadores.filter</code> / — |
-| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.[callback]#4.[callback]:ArrowFunction#1</code> · [L450](../../src/testes.ts#L450) | <code>(perfil: { fixador: FixadorEstrutural; deveRomper: boolean; }): boolean</code> | — / — |
-| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.[callback]#4.[callback]:ArrowFunction#2</code> · [L450](../../src/testes.ts#L450) | <code>(perfil: { fixador: FixadorEstrutural; deveRomper: boolean; }): string</code> | — / — |
-| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.cameraY.[callback]:ArrowFunction#1</code> · [L455](../../src/testes.ts#L455) | <code>(soma: number, objeto: Objeto): number</code> | <code>objeto.getEstadoFisico</code> / — |
-| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.telemetria.[callback]:ArrowFunction#1</code> · [L470](../../src/testes.ts#L470) | <code>(fixador: FixadorEstrutural): boolean</code> | — / — |
-| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.telemetria.[callback]:ArrowFunction#2</code> · [L470](../../src/testes.ts#L470) | <code>(fixador: FixadorEstrutural): boolean</code> | — / — |
-| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.dados.[callback]:ArrowFunction#1</code> · [L471](../../src/testes.ts#L471) | <code>(grupo: { indiceGrupo: number; massaPorQuadradoKg: number; orientacoesIniciaisGraus: number[]; quadrados: Objeto[]; fixadores: FixadorEstrutural[]; perfisDosFixadores: { fixador: FixadorEstrutural; deveRomper: boolean; }[]; }): string</code> | <code>grupo.perfisDosFixadores.map(({ fixador, deveRomper }) =&gt; { const esperado = deveRomper ? 'ruptura esperada' : 'controle íntegro'; return `${fixador.estaRompido ? 'ROMPIDO' : 'íntegro'} · ${esperado} (tração ${fixador.picoEsforcoFisicoN.toF… [continua na fonte]</code>; <code>grupo.perfisDosFixadores.map</code>; <code>grupo.orientacoesIniciaisGraus.map((angulo) =&gt; `${angulo.toFixed(1)}°`).join</code>; <code>grupo.orientacoesIniciaisGraus.map</code> / — |
-| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.dados.[callback]#1.[callback]:ArrowFunction#1</code> · [L472](../../src/testes.ts#L472) | <code>({ fixador, deveRomper }: { fixador: FixadorEstrutural; deveRomper: boolean; }): string</code> | <code>fixador.picoEsforcoFisicoN.toFixed</code>; <code>fixador.resistenciaTracaoN.toFixed</code>; <code>fixador.picoEsforcoCompressaoFisicoN.toFixed</code> / — |
-| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.dados.[callback]#1.[callback]:ArrowFunction#2</code> · [L476](../../src/testes.ts#L476) | <code>(angulo: number): string</code> | <code>angulo.toFixed</code> / — |
-| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.validar.[callback]:ArrowFunction#1</code> · [L480](../../src/testes.ts#L480) | <code>(fixador: FixadorEstrutural): boolean</code> | <code>idsDeFixadoresQueDevemRomper.has</code> / — |
-| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.validar.[callback]:ArrowFunction#2</code> · [L481](../../src/testes.ts#L481) | <code>(grupo: { indiceGrupo: number; massaPorQuadradoKg: number; orientacoesIniciaisGraus: number[]; quadrados: Objeto[]; fixadores: FixadorEstrutural[]; perfisDosFixadores: { fixador: FixadorEstrutural; deveRomper: boolean; }[]; }): boolean</code> | <code>grupo.perfisDosFixadores.some</code>; <code>grupo.quadrados.map</code>; <code>Math.abs</code>; <code>meio.subtrair</code>; <code>topo.subtrair</code> / — |
-| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.validar.[callback]#2.[callback]:ArrowFunction#1</code> · [L482](../../src/testes.ts#L482) | <code>(perfil: { fixador: FixadorEstrutural; deveRomper: boolean; }): boolean</code> | — / — |
-| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.validar.[callback]#2.[callback]:ArrowFunction#2</code> · [L483](../../src/testes.ts#L483) | <code>(quadrado: Objeto): Vetor3</code> | <code>quadrado.getEstadoFisico</code> / — |
-| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.validar.[callback]:ArrowFunction#3</code> · [L487](../../src/testes.ts#L487) | <code>(fixador: FixadorEstrutural): boolean</code> | — / — |
-| <code>src/testes.ts::criarTestePilhaDezQuadradosAtingida.[callback]:ArrowFunction#1</code> · [L565](../../src/testes.ts#L565) | <code>(_: unknown, indice: number): Objeto</code> | <code>Objeto</code>; <code>Vetor3</code> / — |
-| <code>src/testes.ts::criarTestePilhaEstruturalDezCubos.[callback]:ArrowFunction#1</code> · [L612](../../src/testes.ts#L612) | <code>(_: unknown, indice: number): Objeto</code> | <code>Objeto</code>; <code>Vetor3</code> / — |
-| <code>src/testes.ts::criarTestePilhaEstruturalDezCubos.[callback]:ArrowFunction#2</code> · [L620](../../src/testes.ts#L620) | <code>(cubo: Objeto, indice: number): FixadorEstrutural</code> | <code>FixadorEstrutural</code> / — |
-| <code>src/testes.ts::criarTestePilhaEstruturalDezCubos.telemetria.[callback]:ArrowFunction#1</code> · [L647](../../src/testes.ts#L647) | <code>(fixador: FixadorEstrutural): boolean</code> | — / — |
-| <code>src/testes.ts::criarTestePilhaEstruturalDezCubos.dados.[callback]:ArrowFunction#1</code> · [L648](../../src/testes.ts#L648) | <code>(fixador: FixadorEstrutural): boolean</code> | — / — |
-| <code>src/testes.ts::criarTestePilhaEstruturalDezCubos.validar.[callback]:ArrowFunction#1</code> · [L649](../../src/testes.ts#L649) | <code>(fixador: FixadorEstrutural): boolean</code> | — / — |
-| <code>src/testes.ts::criarTestePilhaEstruturalDezCubos.validar.[callback]:ArrowFunction#2</code> · [L649](../../src/testes.ts#L649) | <code>(fixador: FixadorEstrutural): boolean</code> | — / — |
-| <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.[callback]:ArrowFunction#1</code> · [L657](../../src/testes.ts#L657) | <code>(_: unknown, indice: number): Objeto</code> | <code>Objeto</code>; <code>Vetor3</code> / — |
-| <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.[callback]:ArrowFunction#2</code> · [L668](../../src/testes.ts#L668) | <code>(cubo: Objeto, indice: number): FixadorEstrutural</code> | <code>FixadorEstrutural</code> / — |
-| <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.dados.[callback]:ArrowFunction#1</code> · [L734](../../src/testes.ts#L734) | <code>(fixador: FixadorEstrutural): boolean</code> | — / — |
-| <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.dados.[callback]:ArrowFunction#2</code> · [L734](../../src/testes.ts#L734) | <code>(fixador: FixadorEstrutural): boolean</code> | — / — |
-| <code>src/testes.ts::criarTesteImpactoNoRetangulo.deveEncerrar.[callback]:ArrowFunction#1</code> · [L821](../../src/testes.ts#L821) | <code>(objeto: Objeto): boolean</code> | <code>objeto.getEstadoFisico</code> / — |
-| <code>src/testes.ts::criarPartidaAutomaticaBasica.[callback]:ArrowFunction#1</code> · [L1048](../../src/testes.ts#L1048) | <code>(): void</code> | <code>propulsor.ligarSistema</code>; <code>propulsor.solicitarIgnicao</code> / <code>eletricaComandada</code>; <code>hidraulicaComandada</code>; <code>combustivelComandado</code>; <code>controleComandado</code>; <code>ignicaoComandada</code> |
-| <code>src/testes.ts::criarTesteVeiculoComposto.dados.[callback]:ArrowFunction#1</code> · [L1120](../../src/testes.ts#L1120) | <code>(fixador: FixadorEstrutural): "ROMPIDO" &#124; "íntegro"</code> | — / — |
-| <code>src/testes.ts::criarTesteTermicoDoPropulsor.[callback]:ArrowFunction#1</code> · [L1263](../../src/testes.ts#L1263) | <code>(paredeTermica: Objeto): ChumbadorAoSolo</code> | <code>ChumbadorAoSolo</code> / — |
-| <code>src/testes.ts::criarTesteTermicoDoPropulsor.dados.[callback]:ArrowFunction#1</code> · [L1280](../../src/testes.ts#L1280) | <code>(chumbador: ChumbadorAoSolo): "ROMPIDO" &#124; "íntegro"</code> | — / — |
-| <code>src/testes.ts::criarTestePainelSolarComSombra.[callback]:ArrowFunction#1</code> · [L1695](../../src/testes.ts#L1695) | <code>(): readonly ForcaFisicaSolicitada[]</code> | <code>porta.obterReacaoNoBatente</code> / — |
-| <code>src/testes.ts::criarTestePainelSolarComSombra.obterFatorIluminacao.[callback]:ArrowFunction#1</code> · [L1714](../../src/testes.ts#L1714) | <code>(deslocamentoM: number): number</code> | — / — |
-| <code>src/testes.ts::criarTestePainelSolarComSombra.obterFatorIluminacao.[callback]:ArrowFunction#2</code> · [L1715](../../src/testes.ts#L1715) | <code>(raioYM: number): boolean</code> | <code>obterBloqueioXM</code> / — |
-| <code>src/testes.ts::criarTestePainelSolarComSombra.[callback]:ArrowFunction#2</code> · [L1743](../../src/testes.ts#L1743) | <code>(objeto: Objeto): void</code> | <code>mundo.registrarObjeto</code> / — |
-| <code>src/testes.ts::criarTestePainelSolarComSombra.[callback]:ArrowFunction#3</code> · [L1746](../../src/testes.ts#L1746) | <code>(objeto: Objeto): ChumbadorAoSolo</code> | <code>ChumbadorAoSolo</code> / — |
-| <code>src/testes.ts::criarTestePainelSolarComSombra.[callback]:ArrowFunction#4</code> · [L1747](../../src/testes.ts#L1747) | <code>(chumbador: ChumbadorAoSolo): void</code> | <code>mundo.registrarChumbadorAoSolo</code> / — |
-| <code>src/testes.ts::criarTesteSandboxSalvo.[callback]:ArrowFunction#1</code> · [L1790](../../src/testes.ts#L1790) | <code>(item: { readonly id: string; readonly tipo: string; readonly x: number; readonly y: number; readonly anguloGraus: number; }): boolean</code> | — / — |
-| <code>src/testes.ts::criarTesteSandboxSalvo.[callback]:ArrowFunction#2</code> · [L1791](../../src/testes.ts#L1791) | <code>(item: { readonly id: string; readonly tipo: string; readonly x: number; readonly y: number; readonly anguloGraus: number; }): boolean</code> | — / — |
-| <code>src/testes.ts::criarTesteSandboxSalvo.temConexao.[callback]:ArrowFunction#1</code> · [L1817](../../src/testes.ts#L1817) | <code>(conexao: { readonly tipo: "eletrica" &#124; "mangueira" &#124; "fixador"; readonly origemId: string; readonly destinoId: string; }): boolean</code> | — / — |
-| <code>src/testes.ts::criarTesteSandboxSalvo.[callback]:ArrowFunction#3</code> · [L1818](../../src/testes.ts#L1818) | <code>(conexao: { readonly tipo: "eletrica" &#124; "mangueira" &#124; "fixador"; readonly origemId: string; readonly destinoId: string; }): boolean</code> | — / — |
-| <code>src/testes.ts::criarTesteSandboxSalvo.[callback]:ArrowFunction#4</code> · [L1818](../../src/testes.ts#L1818) | <code>(conexao: { readonly tipo: "eletrica" &#124; "mangueira" &#124; "fixador"; readonly origemId: string; readonly destinoId: string; }): [Objeto, Objeto] &#124; undefined</code> | <code>obterParDeConexao</code> / — |
-| <code>src/testes.ts::criarTesteSandboxSalvo.[callback]:ArrowFunction#5</code> · [L1818](../../src/testes.ts#L1818) | <code>(par: [Objeto, Objeto] &#124; undefined): par is [Objeto, Objeto]</code> | — / — |
-| <code>src/testes.ts::criarTesteSandboxSalvo.[callback]:ArrowFunction#6</code> · [L1818](../../src/testes.ts#L1818) | <code>([origem, destino]: [Objeto, Objeto], indice: number): FixadorEstrutural</code> | <code>FixadorEstrutural</code> / — |
-| <code>src/testes.ts::criarTesteSandboxSalvo.[callback]:ArrowFunction#7</code> · [L1821](../../src/testes.ts#L1821) | <code>(objeto: Objeto): objeto is TanquePropelente</code> | — / — |
-| <code>src/testes.ts::criarTesteSandboxSalvo.[callback]:ArrowFunction#8</code> · [L1823](../../src/testes.ts#L1823) | <code>(painel: PainelSolar): boolean</code> | <code>temConexao</code> / — |
-| <code>src/testes.ts::criarTesteSandboxSalvo.[callback]:ArrowFunction#9</code> · [L1823](../../src/testes.ts#L1823) | <code>(painel: PainelSolar): ConexaoEletrica</code> | — / — |
-| <code>src/testes.ts::criarTesteSandboxSalvo.[callback]:ArrowFunction#10</code> · [L1829](../../src/testes.ts#L1829) | <code>(propulsor: Propulsor): propulsor is PropulsorVetorizado</code> | — / — |
-| <code>src/testes.ts::criarTesteSandboxSalvo.dados.[callback]:ArrowFunction#1</code> · [L1833](../../src/testes.ts#L1833) | <code>(this: undefined, propulsor: Propulsor): readonly string[]</code> | — / — |
-| <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.obterTorqueGravitacionalNm.[callback]:ArrowFunction#1</code> · [L1864](../../src/testes.ts#L1864) | <code>(torque: number, objeto: PainelSolar &#124; BracoArticuladoDeBancada): number</code> | <code>Vetor3</code>; <code>objeto.getEstadoFisico().posicaoM.subtrair(pivot).produtoVetorial</code>; <code>objeto.getEstadoFisico().posicaoM.subtrair</code>; <code>objeto.getEstadoFisico</code> / — |
-| <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.obterMomentoInerciaControladoKgM2.[callback]:ArrowFunction#1</code> · [L1871](../../src/testes.ts#L1871) | <code>(inercia: number, objeto: PainelSolar &#124; BracoArticuladoDeBancada): number</code> | <code>objeto.getEstadoFisico</code>; <code>objeto.getMomentoInerciaKgM2</code>; <code>estado.posicaoM.subtrair</code> / — |
-| <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.[callback]:ArrowFunction#1</code> · [L1882](../../src/testes.ts#L1882) | <code>(objeto: Objeto): ChumbadorAoSolo</code> | <code>ChumbadorAoSolo</code> / — |
-| <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.[callback]:ArrowFunction#2</code> · [L1883](../../src/testes.ts#L1883) | <code>(objeto: Objeto &#124; MotorEletricoRotacional): void</code> | <code>mundo.registrarObjeto</code> / — |
-| <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.[callback]:ArrowFunction#3</code> · [L1884](../../src/testes.ts#L1884) | <code>(chumbador: ChumbadorAoSolo): void</code> | <code>mundo.registrarChumbadorAoSolo</code> / — |
-| <code>src/testes.ts::criarTesteBracosArticuladosEmParede.obterTorqueGravitacionalNm.[callback]:ArrowFunction#1</code> · [L1911](../../src/testes.ts#L1911) | <code>(torque: number, objeto: PainelSolar &#124; BracoArticuladoDeBancada): number</code> | <code>objeto.getEstadoFisico().posicaoM.subtrair(pivot).produtoVetorial</code>; <code>objeto.getEstadoFisico().posicaoM.subtrair</code>; <code>objeto.getEstadoFisico</code>; <code>Vetor3</code> / — |
-| <code>src/testes.ts::criarTesteBracosArticuladosEmParede.obterMomentoInerciaControladoKgM2.[callback]:ArrowFunction#1</code> · [L1915](../../src/testes.ts#L1915) | <code>(inercia: number, objeto: PainelSolar &#124; BracoArticuladoDeBancada): number</code> | <code>objeto.getMomentoInerciaKgM2</code>; <code>objeto.getEstadoFisico().posicaoM.subtrair</code>; <code>objeto.getEstadoFisico</code> / — |
-| <code>src/testes.ts::criarTesteBracosArticuladosEmParede.[callback]:ArrowFunction#1</code> · [L1923](../../src/testes.ts#L1923) | <code>(objeto: PainelSolar &#124; BracoArticuladoDeBancada &#124; MotorEletricoRotacional): void</code> | <code>mundo.registrarObjeto</code> / — |
-| <code>src/testes.ts::criarTesteCilindroEletrico.[callback]:ArrowFunction#1</code> · [L1943](../../src/testes.ts#L1943) | <code>(): CorpoDeCilindroEletrico</code> | — / — |
-| <code>src/testes.ts::criarTesteCilindroEletrico.[callback]:ArrowFunction#2</code> · [L1949](../../src/testes.ts#L1949) | <code>(objeto: Objeto): void</code> | <code>mundo.registrarObjeto</code> / — |
-| <code>src/testes.ts::criarTesteCilindroEletrico.[callback]:ArrowFunction#3</code> · [L1951](../../src/testes.ts#L1951) | <code>(objeto: Objeto): ChumbadorAoSolo</code> | <code>ChumbadorAoSolo</code> / — |
-| <code>src/testes.ts::criarTesteCilindroEletrico.[callback]:ArrowFunction#4</code> · [L1952](../../src/testes.ts#L1952) | <code>(chumbador: ChumbadorAoSolo): void</code> | <code>mundo.registrarChumbadorAoSolo</code> / — |
-| <code>src/testes.ts::criarTesteTorreElevadoraComEmpurrador.[callback]:ArrowFunction#1</code> · [L1982](../../src/testes.ts#L1982) | <code>(): CorpoDeCilindroEletrico</code> | — / — |
-| <code>src/testes.ts::criarTesteTorreElevadoraComEmpurrador.[callback]:ArrowFunction#2</code> · [L1990](../../src/testes.ts#L1990) | <code>(): CorpoDeCilindroEletrico</code> | — / — |
-| <code>src/testes.ts::criarTesteTorreElevadoraComEmpurrador.[callback]:ArrowFunction#3</code> · [L1997](../../src/testes.ts#L1997) | <code>(objeto: Objeto): void</code> | <code>mundo.registrarObjeto</code> / — |
-| <code>src/testes.ts::criarTesteTorreElevadoraComEmpurrador.[callback]:ArrowFunction#4</code> · [L1998](../../src/testes.ts#L1998) | <code>(sensor: SwitchFimDeCurso): void</code> | <code>mundo.registrarSwitchFimDeCurso</code> / — |
-| <code>src/testes.ts::criarTesteTorreElevadoraComEmpurrador.[callback]:ArrowFunction#5</code> · [L1999](../../src/testes.ts#L1999) | <code>(objeto: Objeto): ChumbadorAoSolo</code> | <code>ChumbadorAoSolo</code> / — |
-| <code>src/testes.ts::criarTesteTorreElevadoraComEmpurrador.[callback]:ArrowFunction#6</code> · [L2000](../../src/testes.ts#L2000) | <code>(chumbador: ChumbadorAoSolo): void</code> | <code>mundo.registrarChumbadorAoSolo</code> / — |
-| <code>src/testes.ts::criarTestePortaVertical.dados.[callback]:ArrowFunction#1</code> · [L2045](../../src/testes.ts#L2045) | <code>(o: Objeto): number</code> | — / — |
-| <code>src/testes.ts::criarTestePortaVertical.dados.[callback]:ArrowFunction#2</code> · [L2045](../../src/testes.ts#L2045) | <code>(c: ChumbadorAoSolo): boolean</code> | — / — |
-| <code>src/testes.ts::carregarPerfilPid.[callback]:ArrowFunction#1</code> · [L2164](../../src/testes.ts#L2164) | <code>(valor: number &#124; undefined): boolean</code> | <code>Number.isFinite</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#2</code> · [L2192](../../src/testes.ts#L2192) | <code>(id: string): readonly [string, "click"]</code> | — / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#3</code> · [L2193](../../src/testes.ts#L2193) | <code>(id: string): readonly [string, "change"]</code> | — / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#4</code> · [L2194](../../src/testes.ts#L2194) | <code>(id: string): readonly [string, "input"]</code> | — / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#5</code> · [L2196](../../src/testes.ts#L2196) | <code>(evento: Event): void</code> | <code>eventosDeComando.get</code>; <code>['cable-switch', 'cable-connect', 'cable-break', 'current-limit', 'cable-resistance'].includes</code>; <code>registroEnsaio.registrarEntrada</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#6</code> · [L2206](../../src/testes.ts#L2206) | <code>(): void</code> | <code>registroEnsaio.exportar</code>; <code>tracePLC.canais.map</code>; <code>URL.createObjectURL</code>; <code>Blob</code>; <code>JSON.stringify</code>; <code>document.createElement</code>; <code>link.click</code>; <code>URL.revokeObjectURL</code> / <code>link.href</code>; <code>link.download</code> |
-| <code>src/testes.ts::[callback]#6.conteudo.[callback]:ArrowFunction#1</code> · [L2208](../../src/testes.ts#L2208) | <code>({ nome, escala }: CanalTracePLC): { nome: string; escala: EscalaTracePLC &#124; undefined; }</code> | — / — |
-| <code>src/testes.ts::obterCanaisTrace.[callback]:ArrowFunction#1</code> · [L2220](../../src/testes.ts#L2220) | <code>(sensor: SwitchFimDeCurso, indice: number): { nome: string; cor: string; obterSinal: () =&gt; 0 &#124; 1; }</code> | — / — |
-| <code>src/testes.ts::desenharTraceSensores.[callback]:ArrowFunction#1</code> · [L2313](../../src/testes.ts#L2313) | <code>(canal: CanalTracePLC, linha: number): void</code> | <code>contextoTrace.beginPath</code>; <code>contextoTrace.moveTo</code>; <code>contextoTrace.lineTo</code>; <code>contextoTrace.stroke</code>; <code>`${valorSelecionado.toFixed(1)} ${canal.escala.unidade ?? ''}`.trim</code>; <code>valorSelecionado.toFixed</code>; <code>String</code>; <code>contextoTrace.fillText</code>; <code>escala.maximo.toFixed</code>; <code>escala.minimo.toFixed</code>; <code>amostras.forEach</code> / <code>contextoTrace.strokeStyle</code>; <code>contextoTrace.fillStyle</code>; <code>contextoTrace.lineWidth</code> |
-| <code>src/testes.ts::desenharTraceSensores.[callback]#1.[callback]:ArrowFunction#1</code> · [L2325](../../src/testes.ts#L2325) | <code>(amostra: AmostraTracePLC, indice: number): void</code> | <code>converterX</code>; <code>converterY</code>; <code>contextoTrace.moveTo</code>; <code>contextoTrace.lineTo</code> / — |
-| <code>src/testes.ts::indicesExibiveis.[callback]:ArrowFunction#1</code> · [L2373](../../src/testes.ts#L2373) | <code>(this: undefined, cenario: CenárioVisual, indice: number): number[]</code> | <code>deveExibirNaBancada</code> / — |
-| <code>src/testes.ts::proximoIndiceExibivel.[callback]:ArrowFunction#1</code> · [L2375](../../src/testes.ts#L2375) | <code>(indiceVisivel: number): boolean</code> | — / — |
-| <code>src/testes.ts::preencherSeletorDeCenarios.[callback]:ArrowFunction#1</code> · [L2380](../../src/testes.ts#L2380) | <code>(cenario: CenárioVisual, indice: number): void</code> | <code>deveExibirNaBancada</code>; <code>obterGrupoDoCenario</code>; <code>grupos.get</code>; <code>itens.push</code>; <code>grupos.set</code> / — |
-| <code>src/testes.ts::preencherSeletorDeCenarios.[callback]:ArrowFunction#2</code> · [L2387](../../src/testes.ts#L2387) | <code>(itens: { cenario: CenárioVisual; indice: number; }[], nomeGrupo: string): void</code> | <code>document.createElement</code>; <code>itens.forEach</code>; <code>scenarioSelector.append</code> / <code>grupo.label</code> |
-| <code>src/testes.ts::preencherSeletorDeCenarios.[callback]#2.[callback]:ArrowFunction#1</code> · [L2390](../../src/testes.ts#L2390) | <code>({ cenario, indice }: { cenario: CenárioVisual; indice: number; }): void</code> | <code>document.createElement</code>; <code>String</code>; <code>grupo.append</code> / <code>opcao.value</code>; <code>opcao.textContent</code> |
-| <code>src/testes.ts::desenhar.[callback]:ArrowFunction#1</code> · [L2404](../../src/testes.ts#L2404) | <code>(objeto: Objeto): boolean</code> | <code>cenário.objetosEnclausurados?.includes</code> / — |
-| <code>src/testes.ts::desenhar.[callback]:ArrowFunction#2</code> · [L3020](../../src/testes.ts#L3020) | <code>(ponto: Vetor3): { x: number; y: number; }</code> | — / — |
-| <code>src/testes.ts::carregarCenarioAtual.[callback]:ArrowFunction#1</code> · [L3049](../../src/testes.ts#L3049) | <code>(objeto: Objeto): { id: string; massaKg: number; temperaturaC: number; integridade: number; estado: EstadoFisico; }</code> | <code>objeto.getEstadoFisico</code> / — |
-| <code>src/testes.ts::conexaoSelecionada.[callback]:ArrowFunction#1</code> · [L3064](../../src/testes.ts#L3064) | <code>(conexao: ConexaoEletrica): boolean</code> | — / — |
-| <code>src/testes.ts::atualizarControlesEletricos.[callback]:ArrowFunction#1</code> · [L3069](../../src/testes.ts#L3069) | <code>(conexao: ConexaoEletrica): string</code> | — / — |
-| <code>src/testes.ts::atualizarControlesEletricos.[callback]:ArrowFunction#2</code> · [L3071](../../src/testes.ts#L3071) | <code>(conexao: ConexaoEletrica): HTMLOptionElement</code> | <code>Option</code> / — |
-| <code>src/testes.ts::atualizarControlesDoPropulsor.[callback]:ArrowFunction#1</code> · [L3116](../../src/testes.ts#L3116) | <code>(grupo: { readonly id: string; readonly nome: string; readonly propulsores: readonly PropulsorVetorizado[]; }): boolean</code> | <code>cenário.obterGrupoPropulsaoAtivo</code> / — |
-| <code>src/testes.ts::atualizarControlesDoPropulsor.[callback]:ArrowFunction#2</code> · [L3125](../../src/testes.ts#L3125) | <code>(grupo: { readonly id: string; readonly nome: string; readonly propulsores: readonly PropulsorVetorizado[]; }): string</code> | — / — |
-| <code>src/testes.ts::atualizarControlesDoPropulsor.[callback]:ArrowFunction#3</code> · [L3127](../../src/testes.ts#L3127) | <code>(grupo: { readonly id: string; readonly nome: string; readonly propulsores: readonly PropulsorVetorizado[]; }): HTMLOptionElement</code> | <code>Option</code> / — |
-| <code>src/testes.ts::atualizarControlesDoPropulsor.[callback]:ArrowFunction#4</code> · [L3148](../../src/testes.ts#L3148) | <code>(objeto: Objeto): objeto is PainelSolar</code> | — / — |
-| <code>src/testes.ts::atualizarControlesDoPropulsor.[callback]:ArrowFunction#5</code> · [L3183](../../src/testes.ts#L3183) | <code>([botao, nome, id]: [HTMLButtonElement, string, IdSistemaPropulsor]): void</code> | <code>propulsoresDoGrupo.some</code>; <code>propulsoresDoGrupo.every</code>; <code>botao.setAttribute</code>; <code>String</code> / <code>botao.disabled</code>; <code>botao.dataset.state</code>; <code>botao.title</code> |
-| <code>src/testes.ts::atualizarControlesDoPropulsor.[callback]#5.[callback]:ArrowFunction#1</code> · [L3184](../../src/testes.ts#L3184) | <code>(motor: PropulsorVetorizado &#124; Propulsor): boolean</code> | — / — |
-| <code>src/testes.ts::atualizarControlesDoPropulsor.[callback]#5.[callback]:ArrowFunction#2</code> · [L3185](../../src/testes.ts#L3185) | <code>(motor: PropulsorVetorizado &#124; Propulsor): boolean</code> | — / — |
-| <code>src/testes.ts::atualizarControlesDoPropulsor.[callback]#5.[callback]:ArrowFunction#3</code> · [L3186](../../src/testes.ts#L3186) | <code>(motor: PropulsorVetorizado &#124; Propulsor): boolean</code> | <code>motor.sistemaEstaOperacional</code> / — |
-| <code>src/testes.ts::atualizarControlesDoPropulsor.[callback]:ArrowFunction#6</code> · [L3200](../../src/testes.ts#L3200) | <code>(motor: PropulsorVetorizado &#124; Propulsor): boolean</code> | — / — |
-| <code>src/testes.ts::alternarSistema.[callback]:ArrowFunction#1</code> · [L3268](../../src/testes.ts#L3268) | <code>(item: { readonly id: string; readonly nome: string; readonly propulsores: readonly PropulsorVetorizado[]; }): boolean</code> | <code>cenário.obterGrupoPropulsaoAtivo</code> / — |
-| <code>src/testes.ts::alternarSistema.[callback]:ArrowFunction#2</code> · [L3271](../../src/testes.ts#L3271) | <code>(motor: PropulsorVetorizado &#124; Propulsor): boolean</code> | <code>motor.sistemaEstaOperacional</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#7</code> · [L3280](../../src/testes.ts#L3280) | <code>(): void</code> | <code>alternarSistema</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#8</code> · [L3281](../../src/testes.ts#L3281) | <code>(): void</code> | <code>alternarSistema</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#9</code> · [L3282](../../src/testes.ts#L3282) | <code>(): void</code> | <code>alternarSistema</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#10</code> · [L3283](../../src/testes.ts#L3283) | <code>(): void</code> | <code>alternarSistema</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#11</code> · [L3284](../../src/testes.ts#L3284) | <code>(): void</code> | <code>cenarioAtual().selecionarGrupoPropulsao</code>; <code>cenarioAtual</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#12</code> · [L3295](../../src/testes.ts#L3295) | <code>(): void</code> | <code>cenarioAtual().ativarModoBss04</code>; <code>cenarioAtual</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#13</code> · [L3300](../../src/testes.ts#L3300) | <code>(): void</code> | <code>cenarioAtual</code>; <code>cenário.gruposPropulsao?.find</code>; <code>motor.solicitarIgnicao</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> / — |
-| <code>src/testes.ts::[callback]#13.[callback]:ArrowFunction#1</code> · [L3302](../../src/testes.ts#L3302) | <code>(item: { readonly id: string; readonly nome: string; readonly propulsores: readonly PropulsorVetorizado[]; }): boolean</code> | <code>cenário.obterGrupoPropulsaoAtivo</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#14</code> · [L3317](../../src/testes.ts#L3317) | <code>(): void</code> | <code>simularRupturaDaLinha</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#15</code> · [L3318](../../src/testes.ts#L3318) | <code>(): void</code> | <code>simularRupturaDaLinha</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#16</code> · [L3325](../../src/testes.ts#L3325) | <code>(): void</code> | <code>atualizarControlesEletricos</code>; <code>desenhar</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#17</code> · [L3326](../../src/testes.ts#L3326) | <code>(): void</code> | <code>desenhar</code> / — |
-| <code>src/testes.ts::obterSensorSobPonteiro.[callback]:ArrowFunction#1</code> · [L3361](../../src/testes.ts#L3361) | <code>(sensor: SwitchFimDeCurso): boolean</code> | <code>sensor.obterVolumeSensivel</code>; <code>Math.abs</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#18</code> · [L3368](../../src/testes.ts#L3368) | <code>(this: HTMLCanvasElement, evento: MouseEvent): void</code> | <code>obterSensorSobPonteiro</code>; <code>evento.preventDefault</code> / <code>sensorArrastado</code>; <code>sensorFoiArrastado</code>; <code>ultimoYDoSensorPx</code> |
-| <code>src/testes.ts::[callback]:ArrowFunction#19</code> · [L3374](../../src/testes.ts#L3374) | <code>(this: HTMLCanvasElement, evento: MouseEvent): void</code> | <code>obterTransformacaoDaBancada</code>; <code>sensorArrastado.definirDeslocamentoLocal</code>; <code>sensorArrastado.deslocamentoLocal.adicionar</code>; <code>Vetor3</code>; <code>cenarioAtual().mundo.reavaliarSwitchesFimDeCurso</code>; <code>cenarioAtual</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> / <code>ultimoYDoSensorPx</code>; <code>sensorFoiArrastado</code> |
-| <code>src/testes.ts::[callback]:ArrowFunction#20</code> · [L3385](../../src/testes.ts#L3385) | <code>(): void</code> | — / <code>sensorArrastado</code> |
-| <code>src/testes.ts::switchSobPonteiro.[callback]:ArrowFunction#1</code> · [L3390](../../src/testes.ts#L3390) | <code>(alvo: AlvoSwitchEletrico): boolean</code> | — / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#21</code> · [L3392](../../src/testes.ts#L3392) | <code>(this: HTMLCanvasElement, evento: MouseEvent): void</code> | <code>switchSobPonteiro</code>; <code>obterTransformacaoDaBancada</code>; <code>obterPontoDoCanvas</code>; <code>cenarioAtual().pontoPousoSelecionavel</code>; <code>cenarioAtual</code> / <code>canvas.style.cursor</code>; <code>canvas.title</code> |
-| <code>src/testes.ts::[callback]:ArrowFunction#22</code> · [L3401](../../src/testes.ts#L3401) | <code>(this: HTMLCanvasElement, evento: PointerEvent): void</code> | <code>switchSobPonteiro</code>; <code>registroEnsaio.registrarEntrada</code>; <code>alternarInterruptor</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code>; <code>cenarioAtual</code>; <code>cenário.pontoPousoSelecionavel</code>; <code>obterPontoDoCanvas</code>; <code>obterTransformacaoDaBancada</code>; <code>Math.round</code>; <code>cenário.selecionarPontoPousoX</code> / <code>sensorFoiArrastado</code>; <code>connectionSelector.value</code> |
-| <code>src/testes.ts::[callback]:ArrowFunction#23</code> · [L3423](../../src/testes.ts#L3423) | <code>(this: HTMLCanvasElement, evento: PointerEvent): void</code> | <code>sensorTraceCanvas.getBoundingClientRect</code>; <code>Math.max</code>; <code>Math.min</code>; <code>Math.round</code>; <code>desenharTraceSensores</code> / <code>tempoTraceSelecionadoS</code> |
-| <code>src/testes.ts::[callback]:ArrowFunction#24</code> · [L3431](../../src/testes.ts#L3431) | <code>(): void</code> | <code>Math.max</code>; <code>Math.min</code>; <code>Number</code>; <code>desenharTraceSensores</code> / <code>tempoTraceSelecionadoS</code> |
-| <code>src/testes.ts::[callback]:ArrowFunction#25</code> · [L3438](../../src/testes.ts#L3438) | <code>(): void</code> | <code>desenharTraceSensores</code> / <code>tempoTraceSelecionadoS</code> |
-| <code>src/testes.ts::[callback]:ArrowFunction#26</code> · [L3442](../../src/testes.ts#L3442) | <code>(): void</code> | <code>operarConexao</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#27</code> · [L3443](../../src/testes.ts#L3443) | <code>(): void</code> | <code>operarConexao</code> / — |
-| <code>src/testes.ts::[callback]#27.[callback]:ArrowFunction#1</code> · [L3443](../../src/testes.ts#L3443) | <code>(conexao: ConexaoEletrica): void</code> | <code>conexao.conectar</code>; <code>conexao.desconectar</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#28</code> · [L3444](../../src/testes.ts#L3444) | <code>(): void</code> | <code>operarConexao</code> / — |
-| <code>src/testes.ts::[callback]#28.[callback]:ArrowFunction#1</code> · [L3444](../../src/testes.ts#L3444) | <code>(conexao: ConexaoEletrica): void</code> | <code>conexao.romper</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#29</code> · [L3445](../../src/testes.ts#L3445) | <code>(): void</code> | <code>Number</code>; <code>currentLimitInput.value.trim</code>; <code>Number.isFinite</code>; <code>operarConexao</code> / — |
-| <code>src/testes.ts::[callback]#29.[callback]:ArrowFunction#1</code> · [L3447](../../src/testes.ts#L3447) | <code>(conexao: ConexaoEletrica): void</code> | <code>conexao.configurarCorrenteMaxima</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#30</code> · [L3449](../../src/testes.ts#L3449) | <code>(): void</code> | <code>Number</code>; <code>cableResistanceInput.value.trim</code>; <code>Number.isFinite</code>; <code>operarConexao</code> / — |
-| <code>src/testes.ts::[callback]#30.[callback]:ArrowFunction#1</code> · [L3451](../../src/testes.ts#L3451) | <code>(conexao: ConexaoEletrica): void</code> | <code>conexao.configurarResistenciaCabo</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#31</code> · [L3453](../../src/testes.ts#L3453) | <code>(): void</code> | <code>cenarioAtual</code>; <code>gerador.desligar</code>; <code>gerador?.ligar</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#32</code> · [L3459](../../src/testes.ts#L3459) | <code>(): void</code> | <code>cenarioAtual</code>; <code>porta.desligarAlimentacao</code>; <code>porta.ligarAlimentacao</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#33</code> · [L3465](../../src/testes.ts#L3465) | <code>(): void</code> | <code>cenarioAtual</code>; <code>porta.desligarControle</code>; <code>porta.ligarControle</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#34</code> · [L3477](../../src/testes.ts#L3477) | <code>(): void</code> | <code>comandarPorta</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#35</code> · [L3478](../../src/testes.ts#L3478) | <code>(): void</code> | <code>comandarPorta</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#36</code> · [L3479](../../src/testes.ts#L3479) | <code>(): void</code> | <code>cenarioAtual().comandarCilindro</code>; <code>cenarioAtual</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#37</code> · [L3483](../../src/testes.ts#L3483) | <code>(): void</code> | <code>cenarioAtual().iniciarSequencia</code>; <code>cenarioAtual</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#38</code> · [L3487](../../src/testes.ts#L3487) | <code>(): void</code> | <code>cenarioAtual().comandarCilindro</code>; <code>cenarioAtual</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#39</code> · [L3491](../../src/testes.ts#L3491) | <code>(): void</code> | <code>cenarioAtual</code>; <code>cenário.objetos.find</code>; <code>painel.definirStatus</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> / — |
-| <code>src/testes.ts::[callback]#39.[callback]:ArrowFunction#1</code> · [L3494](../../src/testes.ts#L3494) | <code>(objeto: Objeto): objeto is PainelSolar</code> | — / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#40</code> · [L3508](../../src/testes.ts#L3508) | <code>(): void</code> | <code>cenarioAtual</code>; <code>objeto.acionarParaquedas</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#41</code> · [L3515](../../src/testes.ts#L3515) | <code>(): void</code> | <code>cenarioAtual</code>; <code>cenário.gruposPropulsao?.find</code>; <code>motor.definirThrottle</code>; <code>Number</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> / — |
-| <code>src/testes.ts::[callback]#41.[callback]:ArrowFunction#1</code> · [L3518](../../src/testes.ts#L3518) | <code>(item: { readonly id: string; readonly nome: string; readonly propulsores: readonly PropulsorVetorizado[]; }): boolean</code> | <code>cenário.obterGrupoPropulsaoAtivo</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#42</code> · [L3524](../../src/testes.ts#L3524) | <code>(): void</code> | <code>Number</code>; <code>Number.isFinite</code>; <code>escalasTemporaisPorCenario.set</code>; <code>atualizarControleTemporal</code>; <code>desenhar</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#43</code> · [L3538](../../src/testes.ts#L3538) | <code>(this: HTMLCanvasElement, evento: WheelEvent): void</code> | <code>evento.preventDefault</code>; <code>Number</code>; <code>String</code>; <code>Math.max</code>; <code>Math.min</code>; <code>atualizarZoom</code> / <code>zoomInput.value</code> |
-| <code>src/testes.ts::[callback]:ArrowFunction#44</code> · [L3545](../../src/testes.ts#L3545) | <code>(): void</code> | <code>cenarioAtual</code>; <code>cenário.gruposPropulsao?.find</code>; <code>motor.solicitarVetorizacao</code>; <code>Number</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> / — |
-| <code>src/testes.ts::[callback]#44.[callback]:ArrowFunction#1</code> · [L3547](../../src/testes.ts#L3547) | <code>(item: { readonly id: string; readonly nome: string; readonly propulsores: readonly PropulsorVetorizado[]; }): boolean</code> | <code>cenário.obterGrupoPropulsaoAtivo</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#45</code> · [L3553](../../src/testes.ts#L3553) | <code>(): void</code> | <code>cenarioAtual</code>; <code>Number</code>; <code>Number.isFinite</code>; <code>motor.definirAnguloAlvoRad</code>; <code>anguloGraus.toFixed</code>; <code>desenhar</code> / <code>rotaryMotorValue.value</code>; <code>rotaryMotorValue.textContent</code> |
-| <code>src/testes.ts::[callback]:ArrowFunction#46</code> · [L3563](../../src/testes.ts#L3563) | <code>(): void</code> | <code>cenarioAtual</code>; <code>Number</code>; <code>Number.isFinite</code>; <code>motor.definirAnguloAlvoRad</code>; <code>anguloGraus.toFixed</code>; <code>desenhar</code> / <code>rotaryMotorSecondaryValue.value</code>; <code>rotaryMotorSecondaryValue.textContent</code> |
-| <code>src/testes.ts::aplicarGanhosPidEditados.[callback]:ArrowFunction#1</code> · [L3576](../../src/testes.ts#L3576) | <code>(entrada: HTMLInputElement): number</code> | <code>Number</code> / — |
-| <code>src/testes.ts::aplicarGanhosPidEditados.[callback]:ArrowFunction#2</code> · [L3577](../../src/testes.ts#L3577) | <code>(valor: number): boolean</code> | <code>Number.isFinite</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#47</code> · [L3591](../../src/testes.ts#L3591) | <code>(entrada: HTMLInputElement): void</code> | <code>entrada.addEventListener</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#48</code> · [L3592](../../src/testes.ts#L3592) | <code>(): Promise&lt;void&gt;</code> | <code>cenarioAtual</code>; <code>atualizarControlesDoPropulsor</code>; <code>new AutotunadorPosicionamentoMotorEletrico(motor).executar</code>; <code>AutotunadorPosicionamentoMotorEletrico</code>; <code>persistirPerfilPid</code>; <code>resultado.ganhos.ganhoProporcional.toFixed</code>; <code>resultado.ganhos.ganhoIntegral.toFixed</code>; <code>resultado.ganhos.ganhoDerivativo.toFixed</code>; <code>desenhar</code> / <code>autotuneEmExecucao</code>; <code>rotaryMotorAutotuneProgress.value</code>; <code>rotaryMotorAutotuneStatus.textContent</code> |
-| <code>src/testes.ts::[callback]#48.[callback]:ArrowFunction#1</code> · [L3600](../../src/testes.ts#L3600) | <code>({ percentual }: ProgressoAutotunePosicionamentoMotorEletrico): void</code> | <code>percentual.toFixed</code> / <code>rotaryMotorAutotuneProgress.value</code>; <code>rotaryMotorAutotuneStatus.textContent</code> |
-| <code>src/testes.ts::[callback]:ArrowFunction#49</code> · [L3622](../../src/testes.ts#L3622) | <code>(): void</code> | <code>configurarParaquedasDaBancada</code> / — |
-| <code>src/testes.ts::executar.[callback]:ArrowFunction#1</code> · [L3627](../../src/testes.ts#L3627) | <code>(passoS: number): void</code> | <code>cenário.atualizarControle</code>; <code>cenário.mundo.avancar</code>; <code>registroEnsaio.registrarPasso</code> / — |
-| <code>src/testes.ts::[callback]:ArrowFunction#50</code> · [L3656](../../src/testes.ts#L3656) | <code>(): void</code> | <code>construirCenarios</code>; <code>escalasTemporaisPorCenario.clear</code>; <code>primeiroIndiceExibivel</code>; <code>preencherSeletorDeCenarios</code>; <code>definirDescricaoComando</code>; <code>carregarCenarioAtual</code>; <code>window.requestAnimationFrame</code> / <code>cenarios</code>; <code>indiceAtual</code>; <code>emExecucao</code> |
-| <code>src/testes.ts::[callback]:ArrowFunction#51</code> · [L3670](../../src/testes.ts#L3670) | <code>(): void</code> | <code>Number</code>; <code>construirCenarios</code>; <code>Number.isInteger</code>; <code>indicesExibiveis().includes</code>; <code>indicesExibiveis</code>; <code>primeiroIndiceExibivel</code>; <code>definirDescricaoComando</code>; <code>preencherSeletorDeCenarios</code>; <code>carregarCenarioAtual</code> / <code>emExecucao</code>; <code>cenarios</code>; <code>indiceAtual</code> |
-| <code>src/testes.ts::[callback]:ArrowFunction#52</code> · [L3680](../../src/testes.ts#L3680) | <code>(): void</code> | <code>proximoIndiceExibivel</code>; <code>construirCenarios</code>; <code>primeiroIndiceExibivel</code>; <code>String</code>; <code>definirDescricaoComando</code>; <code>carregarCenarioAtual</code> / <code>emExecucao</code>; <code>cenarios</code>; <code>indiceAtual</code>; <code>scenarioSelector.value</code> |
-| <code>src/testes.ts::[callback]:ArrowFunction#53</code> · [L3695](../../src/testes.ts#L3695) | <code>(): void</code> | <code>Number</code>; <code>construirCenarios</code>; <code>indicesExibiveis().includes</code>; <code>indicesExibiveis</code>; <code>primeiroIndiceExibivel</code>; <code>preencherSeletorDeCenarios</code>; <code>definirDescricaoComando</code>; <code>carregarCenarioAtual</code> / <code>emExecucao</code>; <code>cenarios</code>; <code>indiceAtual</code> |
+| <code>src/testes.ts::objetosEmRepouso.[callback]:ArrowFunction#1</code> · [L260](../../src/testes.ts#L260) | <code>(objeto: Objeto): boolean</code> | <code>objeto.getEstadoFisico</code> / — |
+| <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.[callback]:ArrowFunction#1</code> · [L343](../../src/testes.ts#L343) | <code>(_: unknown, indice: number): Objeto</code> | <code>Objeto</code>; <code>Vetor3</code> / — |
+| <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.obterAmplitudeVerticalM.[callback]:ArrowFunction#1</code> · [L360](../../src/testes.ts#L360) | <code>(quadrado: Objeto): number</code> | <code>quadrado.getEstadoFisico</code> / — |
+| <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.obterAmplitudeVelocidadeMps.[callback]:ArrowFunction#1</code> · [L365](../../src/testes.ts#L365) | <code>(quadrado: Objeto): number</code> | <code>quadrado.getEstadoFisico</code> / — |
+| <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.cameraY.[callback]:ArrowFunction#1</code> · [L369](../../src/testes.ts#L369) | <code>(soma: number, quadrado: Objeto): number</code> | <code>quadrado.getEstadoFisico</code> / — |
+| <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.atualizarMedicoesAntesDoContato.[callback]:ArrowFunction#1</code> · [L375](../../src/testes.ts#L375) | <code>(quadrado: Objeto): boolean</code> | <code>quadrado.getEstadoFisico</code> / — |
+| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.[callback]:ArrowFunction#1</code> · [L434](../../src/testes.ts#L434) | <code>(_: unknown, indiceGrupo: number): { indiceGrupo: number; massaPorQuadradoKg: number; orientacoesIniciaisGraus: number[]; quadrados: Objeto[]; fixadores: FixadorEstrutural[]; perfisDosFixadores: { fixador: FixadorEstrutural; deveRomper: boolean; }[]; }</code> | <code>Array.from</code>; <code>quadrados.slice(1).map</code>; <code>quadrados.slice</code>; <code>perfisDosFixadores.map</code> / — |
+| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.[callback]#1.[callback]:ArrowFunction#1</code> · [L437](../../src/testes.ts#L437) | <code>(): number</code> | <code>proximaFracaoAleatoria</code> / — |
+| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.[callback]#1.[callback]:ArrowFunction#2</code> · [L438](../../src/testes.ts#L438) | <code>(_: unknown, indiceQuadrado: number): Objeto</code> | <code>Objeto</code>; <code>Vetor3</code> / — |
+| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.[callback]#1.[callback]:ArrowFunction#3</code> · [L449](../../src/testes.ts#L449) | <code>(quadrado: Objeto, indiceFixador: number): { fixador: FixadorEstrutural; deveRomper: boolean; }</code> | <code>FixadorEstrutural</code> / — |
+| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.[callback]#1.[callback]:ArrowFunction#4</code> · [L465](../../src/testes.ts#L465) | <code>(perfil: { fixador: FixadorEstrutural; deveRomper: boolean; }): FixadorEstrutural</code> | — / — |
+| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.[callback]:ArrowFunction#2</code> · [L468](../../src/testes.ts#L468) | <code>(this: undefined, grupo: { indiceGrupo: number; massaPorQuadradoKg: number; orientacoesIniciaisGraus: number[]; quadrados: Objeto[]; fixadores: FixadorEstrutural[]; perfisDosFixadores: { fixador: FixadorEstrutural; deveRomper: boolean; }[]; }): Objeto[]</code> | — / — |
+| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.[callback]:ArrowFunction#3</code> · [L469](../../src/testes.ts#L469) | <code>(this: undefined, grupo: { indiceGrupo: number; massaPorQuadradoKg: number; orientacoesIniciaisGraus: number[]; quadrados: Objeto[]; fixadores: FixadorEstrutural[]; perfisDosFixadores: { fixador: FixadorEstrutural; deveRomper: boolean; }[]; }): FixadorEstrutural[]</code> | — / — |
+| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.[callback]:ArrowFunction#4</code> · [L471](../../src/testes.ts#L471) | <code>(this: undefined, grupo: { indiceGrupo: number; massaPorQuadradoKg: number; orientacoesIniciaisGraus: number[]; quadrados: Objeto[]; fixadores: FixadorEstrutural[]; perfisDosFixadores: { fixador: FixadorEstrutural; deveRomper: boolean; }[]; }): string[]</code> | <code>grupo.perfisDosFixadores.filter((perfil) =&gt; perfil.deveRomper).map</code>; <code>grupo.perfisDosFixadores.filter</code> / — |
+| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.[callback]#4.[callback]:ArrowFunction#1</code> · [L471](../../src/testes.ts#L471) | <code>(perfil: { fixador: FixadorEstrutural; deveRomper: boolean; }): boolean</code> | — / — |
+| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.[callback]#4.[callback]:ArrowFunction#2</code> · [L471](../../src/testes.ts#L471) | <code>(perfil: { fixador: FixadorEstrutural; deveRomper: boolean; }): string</code> | — / — |
+| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.cameraY.[callback]:ArrowFunction#1</code> · [L477](../../src/testes.ts#L477) | <code>(soma: number, objeto: Objeto): number</code> | <code>objeto.getEstadoFisico</code> / — |
+| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.telemetria.[callback]:ArrowFunction#1</code> · [L495](../../src/testes.ts#L495) | <code>(fixador: FixadorEstrutural): boolean</code> | — / — |
+| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.telemetria.[callback]:ArrowFunction#2</code> · [L495](../../src/testes.ts#L495) | <code>(fixador: FixadorEstrutural): boolean</code> | — / — |
+| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.dados.[callback]:ArrowFunction#1</code> · [L497](../../src/testes.ts#L497) | <code>(grupo: { indiceGrupo: number; massaPorQuadradoKg: number; orientacoesIniciaisGraus: number[]; quadrados: Objeto[]; fixadores: FixadorEstrutural[]; perfisDosFixadores: { fixador: FixadorEstrutural; deveRomper: boolean; }[]; }): string</code> | <code>grupo.perfisDosFixadores.map(({ fixador, deveRomper }) =&gt; { const esperado = deveRomper ? 'ruptura esperada' : 'controle íntegro'; return `${fixador.estaRompido ? 'ROMPIDO' : 'íntegro'} · ${esperado} (tração ${fixador.picoEsforcoFisicoN.toF… [continua na fonte]</code>; <code>grupo.perfisDosFixadores.map</code>; <code>grupo.orientacoesIniciaisGraus.map((angulo) =&gt; `${angulo.toFixed(1)}°`).join</code>; <code>grupo.orientacoesIniciaisGraus.map</code> / — |
+| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.dados.[callback]#1.[callback]:ArrowFunction#1</code> · [L498](../../src/testes.ts#L498) | <code>({ fixador, deveRomper }: { fixador: FixadorEstrutural; deveRomper: boolean; }): string</code> | <code>fixador.picoEsforcoFisicoN.toFixed</code>; <code>fixador.resistenciaTracaoN.toFixed</code>; <code>fixador.picoEsforcoCompressaoFisicoN.toFixed</code> / — |
+| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.dados.[callback]#1.[callback]:ArrowFunction#2</code> · [L502](../../src/testes.ts#L502) | <code>(angulo: number): string</code> | <code>angulo.toFixed</code> / — |
+| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.validar.[callback]:ArrowFunction#1</code> · [L507](../../src/testes.ts#L507) | <code>(fixador: FixadorEstrutural): boolean</code> | <code>idsDeFixadoresQueDevemRomper.has</code> / — |
+| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.validar.[callback]:ArrowFunction#2</code> · [L508](../../src/testes.ts#L508) | <code>(grupo: { indiceGrupo: number; massaPorQuadradoKg: number; orientacoesIniciaisGraus: number[]; quadrados: Objeto[]; fixadores: FixadorEstrutural[]; perfisDosFixadores: { fixador: FixadorEstrutural; deveRomper: boolean; }[]; }): boolean</code> | <code>grupo.perfisDosFixadores.some</code>; <code>grupo.quadrados.map</code>; <code>Math.abs</code>; <code>meio.subtrair</code>; <code>topo.subtrair</code> / — |
+| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.validar.[callback]#2.[callback]:ArrowFunction#1</code> · [L509](../../src/testes.ts#L509) | <code>(perfil: { fixador: FixadorEstrutural; deveRomper: boolean; }): boolean</code> | — / — |
+| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.validar.[callback]#2.[callback]:ArrowFunction#2</code> · [L510](../../src/testes.ts#L510) | <code>(quadrado: Objeto): Vetor3</code> | <code>quadrado.getEstadoFisico</code> / — |
+| <code>src/testes.ts::criarTesteQuedaLivreDeGruposEstruturais.validar.[callback]:ArrowFunction#3</code> · [L514](../../src/testes.ts#L514) | <code>(fixador: FixadorEstrutural): boolean</code> | — / — |
+| <code>src/testes.ts::criarTestePilhaDezQuadradosAtingida.[callback]:ArrowFunction#1</code> · [L599](../../src/testes.ts#L599) | <code>(_: unknown, indice: number): Objeto</code> | <code>Objeto</code>; <code>Vetor3</code> / — |
+| <code>src/testes.ts::criarTestePilhaEstruturalDezCubos.[callback]:ArrowFunction#1</code> · [L652](../../src/testes.ts#L652) | <code>(_: unknown, indice: number): Objeto</code> | <code>Objeto</code>; <code>Vetor3</code> / — |
+| <code>src/testes.ts::criarTestePilhaEstruturalDezCubos.[callback]:ArrowFunction#2</code> · [L660](../../src/testes.ts#L660) | <code>(cubo: Objeto, indice: number): FixadorEstrutural</code> | <code>FixadorEstrutural</code> / — |
+| <code>src/testes.ts::criarTestePilhaEstruturalDezCubos.telemetria.[callback]:ArrowFunction#1</code> · [L691](../../src/testes.ts#L691) | <code>(fixador: FixadorEstrutural): boolean</code> | — / — |
+| <code>src/testes.ts::criarTestePilhaEstruturalDezCubos.dados.[callback]:ArrowFunction#1</code> · [L693](../../src/testes.ts#L693) | <code>(fixador: FixadorEstrutural): boolean</code> | — / — |
+| <code>src/testes.ts::criarTestePilhaEstruturalDezCubos.validar.[callback]:ArrowFunction#1</code> · [L695](../../src/testes.ts#L695) | <code>(fixador: FixadorEstrutural): boolean</code> | — / — |
+| <code>src/testes.ts::criarTestePilhaEstruturalDezCubos.validar.[callback]:ArrowFunction#2</code> · [L695](../../src/testes.ts#L695) | <code>(fixador: FixadorEstrutural): boolean</code> | — / — |
+| <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.[callback]:ArrowFunction#1</code> · [L705](../../src/testes.ts#L705) | <code>(_: unknown, indice: number): Objeto</code> | <code>Objeto</code>; <code>Vetor3</code> / — |
+| <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.[callback]:ArrowFunction#2</code> · [L716](../../src/testes.ts#L716) | <code>(cubo: Objeto, indice: number): FixadorEstrutural</code> | <code>FixadorEstrutural</code> / — |
+| <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.dados.[callback]:ArrowFunction#1</code> · [L790](../../src/testes.ts#L790) | <code>(fixador: FixadorEstrutural): boolean</code> | — / — |
+| <code>src/testes.ts::criarTesteTermicoPilhaEstruturalDezCubos.dados.[callback]:ArrowFunction#2</code> · [L790](../../src/testes.ts#L790) | <code>(fixador: FixadorEstrutural): boolean</code> | — / — |
+| <code>src/testes.ts::criarTesteImpactoNoRetangulo.deveEncerrar.[callback]:ArrowFunction#1</code> · [L888](../../src/testes.ts#L888) | <code>(objeto: Objeto): boolean</code> | <code>objeto.getEstadoFisico</code> / — |
+| <code>src/testes.ts::criarPartidaAutomaticaBasica.[callback]:ArrowFunction#1</code> · [L1143](../../src/testes.ts#L1143) | <code>(): void</code> | <code>propulsor.ligarSistema</code>; <code>propulsor.solicitarIgnicao</code> / <code>eletricaComandada</code>; <code>hidraulicaComandada</code>; <code>combustivelComandado</code>; <code>controleComandado</code>; <code>ignicaoComandada</code> |
+| <code>src/testes.ts::criarTesteVeiculoComposto.dados.[callback]:ArrowFunction#1</code> · [L1223](../../src/testes.ts#L1223) | <code>(fixador: FixadorEstrutural): "ROMPIDO" &#124; "íntegro"</code> | — / — |
+| <code>src/testes.ts::criarTesteTermicoDoPropulsor.[callback]:ArrowFunction#1</code> · [L1391](../../src/testes.ts#L1391) | <code>(paredeTermica: Objeto): ChumbadorAoSolo</code> | <code>ChumbadorAoSolo</code> / — |
+| <code>src/testes.ts::criarTesteTermicoDoPropulsor.dados.[callback]:ArrowFunction#1</code> · [L1412](../../src/testes.ts#L1412) | <code>(chumbador: ChumbadorAoSolo): "ROMPIDO" &#124; "íntegro"</code> | — / — |
+| <code>src/testes.ts::criarTestePainelSolarComSombra.[callback]:ArrowFunction#1</code> · [L1909](../../src/testes.ts#L1909) | <code>(): readonly ForcaFisicaSolicitada[]</code> | <code>porta.obterReacaoNoBatente</code> / — |
+| <code>src/testes.ts::criarTestePainelSolarComSombra.obterFatorIluminacao.[callback]:ArrowFunction#1</code> · [L1930](../../src/testes.ts#L1930) | <code>(deslocamentoM: number): number</code> | — / — |
+| <code>src/testes.ts::criarTestePainelSolarComSombra.obterFatorIluminacao.[callback]:ArrowFunction#2</code> · [L1931](../../src/testes.ts#L1931) | <code>(raioYM: number): boolean</code> | <code>obterBloqueioXM</code> / — |
+| <code>src/testes.ts::criarTestePainelSolarComSombra.[callback]:ArrowFunction#2</code> · [L1959](../../src/testes.ts#L1959) | <code>(objeto: Objeto): void</code> | <code>mundo.registrarObjeto</code> / — |
+| <code>src/testes.ts::criarTestePainelSolarComSombra.[callback]:ArrowFunction#3</code> · [L1962](../../src/testes.ts#L1962) | <code>(objeto: Objeto): ChumbadorAoSolo</code> | <code>ChumbadorAoSolo</code> / — |
+| <code>src/testes.ts::criarTestePainelSolarComSombra.[callback]:ArrowFunction#4</code> · [L1963](../../src/testes.ts#L1963) | <code>(chumbador: ChumbadorAoSolo): void</code> | <code>mundo.registrarChumbadorAoSolo</code> / — |
+| <code>src/testes.ts::criarTesteSandboxSalvo.[callback]:ArrowFunction#1</code> · [L2015](../../src/testes.ts#L2015) | <code>(item: { readonly id: string; readonly tipo: string; readonly x: number; readonly y: number; readonly anguloGraus: number; }): boolean</code> | — / — |
+| <code>src/testes.ts::criarTesteSandboxSalvo.[callback]:ArrowFunction#2</code> · [L2016](../../src/testes.ts#L2016) | <code>(item: { readonly id: string; readonly tipo: string; readonly x: number; readonly y: number; readonly anguloGraus: number; }): boolean</code> | — / — |
+| <code>src/testes.ts::criarTesteSandboxSalvo.temConexao.[callback]:ArrowFunction#1</code> · [L2044](../../src/testes.ts#L2044) | <code>(conexao: { readonly tipo: "eletrica" &#124; "mangueira" &#124; "fixador"; readonly origemId: string; readonly destinoId: string; }): boolean</code> | — / — |
+| <code>src/testes.ts::criarTesteSandboxSalvo.[callback]:ArrowFunction#3</code> · [L2045](../../src/testes.ts#L2045) | <code>(conexao: { readonly tipo: "eletrica" &#124; "mangueira" &#124; "fixador"; readonly origemId: string; readonly destinoId: string; }): boolean</code> | — / — |
+| <code>src/testes.ts::criarTesteSandboxSalvo.[callback]:ArrowFunction#4</code> · [L2045](../../src/testes.ts#L2045) | <code>(conexao: { readonly tipo: "eletrica" &#124; "mangueira" &#124; "fixador"; readonly origemId: string; readonly destinoId: string; }): [Objeto, Objeto] &#124; undefined</code> | <code>obterParDeConexao</code> / — |
+| <code>src/testes.ts::criarTesteSandboxSalvo.[callback]:ArrowFunction#5</code> · [L2045](../../src/testes.ts#L2045) | <code>(par: [Objeto, Objeto] &#124; undefined): par is [Objeto, Objeto]</code> | — / — |
+| <code>src/testes.ts::criarTesteSandboxSalvo.[callback]:ArrowFunction#6</code> · [L2045](../../src/testes.ts#L2045) | <code>([origem, destino]: [Objeto, Objeto], indice: number): FixadorEstrutural</code> | <code>FixadorEstrutural</code> / — |
+| <code>src/testes.ts::criarTesteSandboxSalvo.[callback]:ArrowFunction#7</code> · [L2049](../../src/testes.ts#L2049) | <code>(objeto: Objeto): objeto is TanquePropelente</code> | — / — |
+| <code>src/testes.ts::criarTesteSandboxSalvo.[callback]:ArrowFunction#8</code> · [L2051](../../src/testes.ts#L2051) | <code>(painel: PainelSolar): boolean</code> | <code>temConexao</code> / — |
+| <code>src/testes.ts::criarTesteSandboxSalvo.[callback]:ArrowFunction#9</code> · [L2051](../../src/testes.ts#L2051) | <code>(painel: PainelSolar): ConexaoEletrica</code> | — / — |
+| <code>src/testes.ts::criarTesteSandboxSalvo.[callback]:ArrowFunction#10</code> · [L2057](../../src/testes.ts#L2057) | <code>(propulsor: Propulsor): propulsor is PropulsorVetorizado</code> | — / — |
+| <code>src/testes.ts::criarTesteSandboxSalvo.dados.[callback]:ArrowFunction#1</code> · [L2065](../../src/testes.ts#L2065) | <code>(this: undefined, propulsor: Propulsor): readonly string[]</code> | — / — |
+| <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.obterTorqueGravitacionalNm.[callback]:ArrowFunction#1</code> · [L2102](../../src/testes.ts#L2102) | <code>(torque: number, objeto: PainelSolar &#124; BracoArticuladoDeBancada): number</code> | <code>Vetor3</code>; <code>objeto.getEstadoFisico().posicaoM.subtrair(pivot).produtoVetorial</code>; <code>objeto.getEstadoFisico().posicaoM.subtrair</code>; <code>objeto.getEstadoFisico</code> / — |
+| <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.obterMomentoInerciaControladoKgM2.[callback]:ArrowFunction#1</code> · [L2110](../../src/testes.ts#L2110) | <code>(inercia: number, objeto: PainelSolar &#124; BracoArticuladoDeBancada): number</code> | <code>objeto.getEstadoFisico</code>; <code>objeto.getMomentoInerciaKgM2</code>; <code>estado.posicaoM.subtrair</code> / — |
+| <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.[callback]:ArrowFunction#1</code> · [L2123](../../src/testes.ts#L2123) | <code>(objeto: Objeto): ChumbadorAoSolo</code> | <code>ChumbadorAoSolo</code> / — |
+| <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.[callback]:ArrowFunction#2</code> · [L2124](../../src/testes.ts#L2124) | <code>(objeto: Objeto &#124; MotorEletricoRotacional): void</code> | <code>mundo.registrarObjeto</code> / — |
+| <code>src/testes.ts::criarTesteBracoArticuladoDeBancada.[callback]:ArrowFunction#3</code> · [L2125](../../src/testes.ts#L2125) | <code>(chumbador: ChumbadorAoSolo): void</code> | <code>mundo.registrarChumbadorAoSolo</code> / — |
+| <code>src/testes.ts::criarTesteBracosArticuladosEmParede.obterTorqueGravitacionalNm.[callback]:ArrowFunction#1</code> · [L2162](../../src/testes.ts#L2162) | <code>(torque: number, objeto: PainelSolar &#124; BracoArticuladoDeBancada): number</code> | <code>objeto.getEstadoFisico().posicaoM.subtrair(pivot).produtoVetorial</code>; <code>objeto.getEstadoFisico().posicaoM.subtrair</code>; <code>objeto.getEstadoFisico</code>; <code>Vetor3</code> / — |
+| <code>src/testes.ts::criarTesteBracosArticuladosEmParede.obterMomentoInerciaControladoKgM2.[callback]:ArrowFunction#1</code> · [L2167](../../src/testes.ts#L2167) | <code>(inercia: number, objeto: PainelSolar &#124; BracoArticuladoDeBancada): number</code> | <code>objeto.getMomentoInerciaKgM2</code>; <code>objeto.getEstadoFisico().posicaoM.subtrair</code>; <code>objeto.getEstadoFisico</code> / — |
+| <code>src/testes.ts::criarTesteBracosArticuladosEmParede.[callback]:ArrowFunction#1</code> · [L2177](../../src/testes.ts#L2177) | <code>(objeto: PainelSolar &#124; BracoArticuladoDeBancada &#124; MotorEletricoRotacional): void</code> | <code>mundo.registrarObjeto</code> / — |
+| <code>src/testes.ts::criarTesteCilindroEletrico.[callback]:ArrowFunction#1</code> · [L2200](../../src/testes.ts#L2200) | <code>(): CorpoDeCilindroEletrico</code> | — / — |
+| <code>src/testes.ts::criarTesteCilindroEletrico.[callback]:ArrowFunction#2</code> · [L2206](../../src/testes.ts#L2206) | <code>(objeto: Objeto): void</code> | <code>mundo.registrarObjeto</code> / — |
+| <code>src/testes.ts::criarTesteCilindroEletrico.[callback]:ArrowFunction#3</code> · [L2208](../../src/testes.ts#L2208) | <code>(objeto: Objeto): ChumbadorAoSolo</code> | <code>ChumbadorAoSolo</code> / — |
+| <code>src/testes.ts::criarTesteCilindroEletrico.[callback]:ArrowFunction#4</code> · [L2209](../../src/testes.ts#L2209) | <code>(chumbador: ChumbadorAoSolo): void</code> | <code>mundo.registrarChumbadorAoSolo</code> / — |
+| <code>src/testes.ts::criarTesteTorreElevadoraComEmpurrador.[callback]:ArrowFunction#1</code> · [L2250](../../src/testes.ts#L2250) | <code>(): CorpoDeCilindroEletrico</code> | — / — |
+| <code>src/testes.ts::criarTesteTorreElevadoraComEmpurrador.[callback]:ArrowFunction#2</code> · [L2258](../../src/testes.ts#L2258) | <code>(): CorpoDeCilindroEletrico</code> | — / — |
+| <code>src/testes.ts::criarTesteTorreElevadoraComEmpurrador.[callback]:ArrowFunction#3</code> · [L2265](../../src/testes.ts#L2265) | <code>(objeto: Objeto): void</code> | <code>mundo.registrarObjeto</code> / — |
+| <code>src/testes.ts::criarTesteTorreElevadoraComEmpurrador.[callback]:ArrowFunction#4</code> · [L2266](../../src/testes.ts#L2266) | <code>(sensor: SwitchFimDeCurso): void</code> | <code>mundo.registrarSwitchFimDeCurso</code> / — |
+| <code>src/testes.ts::criarTesteTorreElevadoraComEmpurrador.[callback]:ArrowFunction#5</code> · [L2267](../../src/testes.ts#L2267) | <code>(objeto: Objeto): ChumbadorAoSolo</code> | <code>ChumbadorAoSolo</code> / — |
+| <code>src/testes.ts::criarTesteTorreElevadoraComEmpurrador.[callback]:ArrowFunction#6</code> · [L2268](../../src/testes.ts#L2268) | <code>(chumbador: ChumbadorAoSolo): void</code> | <code>mundo.registrarChumbadorAoSolo</code> / — |
+| <code>src/testes.ts::criarTestePortaVertical.dados.[callback]:ArrowFunction#1</code> · [L2325](../../src/testes.ts#L2325) | <code>(o: Objeto): number</code> | — / — |
+| <code>src/testes.ts::criarTestePortaVertical.dados.[callback]:ArrowFunction#2</code> · [L2325](../../src/testes.ts#L2325) | <code>(c: ChumbadorAoSolo): boolean</code> | — / — |
+| <code>src/testes.ts::carregarPerfilPid.[callback]:ArrowFunction#1</code> · [L2450](../../src/testes.ts#L2450) | <code>(valor: number &#124; undefined): boolean</code> | <code>Number.isFinite</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#2</code> · [L2479](../../src/testes.ts#L2479) | <code>(id: string): readonly [string, "click"]</code> | — / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#3</code> · [L2480](../../src/testes.ts#L2480) | <code>(id: string): readonly [string, "change"]</code> | — / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#4</code> · [L2481](../../src/testes.ts#L2481) | <code>(id: string): readonly [string, "input"]</code> | — / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#5</code> · [L2483](../../src/testes.ts#L2483) | <code>(evento: Event): void</code> | <code>eventosDeComando.get</code>; <code>['cable-switch', 'cable-connect', 'cable-break', 'current-limit', 'cable-resistance'].includes</code>; <code>registroEnsaio.registrarEntrada</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#6</code> · [L2493](../../src/testes.ts#L2493) | <code>(): void</code> | <code>registroEnsaio.exportar</code>; <code>tracePLC.canais.map</code>; <code>URL.createObjectURL</code>; <code>Blob</code>; <code>JSON.stringify</code>; <code>document.createElement</code>; <code>link.click</code>; <code>URL.revokeObjectURL</code> / <code>link.href</code>; <code>link.download</code> |
+| <code>src/testes.ts::[callback]#6.conteudo.[callback]:ArrowFunction#1</code> · [L2495](../../src/testes.ts#L2495) | <code>({ nome, escala }: CanalTracePLC): { nome: string; escala: EscalaTracePLC &#124; undefined; }</code> | — / — |
+| <code>src/testes.ts::obterCanaisTrace.[callback]:ArrowFunction#1</code> · [L2508](../../src/testes.ts#L2508) | <code>(sensor: SwitchFimDeCurso, indice: number): { nome: string; cor: string; obterSinal: () =&gt; 0 &#124; 1; }</code> | — / — |
+| <code>src/testes.ts::desenharTraceSensores.[callback]:ArrowFunction#1</code> · [L2612](../../src/testes.ts#L2612) | <code>(canal: CanalTracePLC, linha: number): void</code> | <code>contextoTrace.beginPath</code>; <code>contextoTrace.moveTo</code>; <code>contextoTrace.lineTo</code>; <code>contextoTrace.stroke</code>; <code>`${valorSelecionado.toFixed(1)} ${canal.escala.unidade ?? ''}`.trim</code>; <code>valorSelecionado.toFixed</code>; <code>String</code>; <code>contextoTrace.fillText</code>; <code>escala.maximo.toFixed</code>; <code>escala.minimo.toFixed</code>; <code>amostras.forEach</code> / <code>contextoTrace.strokeStyle</code>; <code>contextoTrace.fillStyle</code>; <code>contextoTrace.lineWidth</code> |
+| <code>src/testes.ts::desenharTraceSensores.[callback]#1.[callback]:ArrowFunction#1</code> · [L2624](../../src/testes.ts#L2624) | <code>(amostra: AmostraTracePLC, indice: number): void</code> | <code>converterX</code>; <code>converterY</code>; <code>contextoTrace.moveTo</code>; <code>contextoTrace.lineTo</code> / — |
+| <code>src/testes.ts::indicesExibiveis.[callback]:ArrowFunction#1</code> · [L2678](../../src/testes.ts#L2678) | <code>(this: undefined, cenario: CenárioVisual, indice: number): number[]</code> | <code>deveExibirNaBancada</code> / — |
+| <code>src/testes.ts::proximoIndiceExibivel.[callback]:ArrowFunction#1</code> · [L2682](../../src/testes.ts#L2682) | <code>(indiceVisivel: number): boolean</code> | — / — |
+| <code>src/testes.ts::preencherSeletorDeCenarios.[callback]:ArrowFunction#1</code> · [L2688](../../src/testes.ts#L2688) | <code>(cenario: CenárioVisual, indice: number): void</code> | <code>deveExibirNaBancada</code>; <code>obterGrupoDoCenario</code>; <code>grupos.get</code>; <code>itens.push</code>; <code>grupos.set</code> / — |
+| <code>src/testes.ts::preencherSeletorDeCenarios.[callback]:ArrowFunction#2</code> · [L2695](../../src/testes.ts#L2695) | <code>(itens: { cenario: CenárioVisual; indice: number; }[], nomeGrupo: string): void</code> | <code>document.createElement</code>; <code>itens.forEach</code>; <code>scenarioSelector.append</code> / <code>grupo.label</code> |
+| <code>src/testes.ts::preencherSeletorDeCenarios.[callback]#2.[callback]:ArrowFunction#1</code> · [L2698](../../src/testes.ts#L2698) | <code>({ cenario, indice }: { cenario: CenárioVisual; indice: number; }): void</code> | <code>document.createElement</code>; <code>String</code>; <code>grupo.append</code> / <code>opcao.value</code>; <code>opcao.textContent</code> |
+| <code>src/testes.ts::desenhar.[callback]:ArrowFunction#1</code> · [L2713](../../src/testes.ts#L2713) | <code>(objeto: Objeto): boolean</code> | <code>cenário.objetosEnclausurados?.includes</code> / — |
+| <code>src/testes.ts::desenhar.[callback]:ArrowFunction#2</code> · [L3329](../../src/testes.ts#L3329) | <code>(ponto: Vetor3): { x: number; y: number; }</code> | — / — |
+| <code>src/testes.ts::carregarCenarioAtual.[callback]:ArrowFunction#1</code> · [L3359](../../src/testes.ts#L3359) | <code>(objeto: Objeto): { id: string; massaKg: number; temperaturaC: number; integridade: number; estado: EstadoFisico; }</code> | <code>objeto.getEstadoFisico</code> / — |
+| <code>src/testes.ts::conexaoSelecionada.[callback]:ArrowFunction#1</code> · [L3375](../../src/testes.ts#L3375) | <code>(conexao: ConexaoEletrica): boolean</code> | — / — |
+| <code>src/testes.ts::atualizarControlesEletricos.[callback]:ArrowFunction#1</code> · [L3381](../../src/testes.ts#L3381) | <code>(conexao: ConexaoEletrica): string</code> | — / — |
+| <code>src/testes.ts::atualizarControlesEletricos.[callback]:ArrowFunction#2</code> · [L3383](../../src/testes.ts#L3383) | <code>(conexao: ConexaoEletrica): HTMLOptionElement</code> | <code>Option</code> / — |
+| <code>src/testes.ts::atualizarControlesDoPropulsor.[callback]:ArrowFunction#1</code> · [L3429](../../src/testes.ts#L3429) | <code>(grupo: { readonly id: string; readonly nome: string; readonly propulsores: readonly PropulsorVetorizado[]; }): boolean</code> | <code>cenário.obterGrupoPropulsaoAtivo</code> / — |
+| <code>src/testes.ts::atualizarControlesDoPropulsor.[callback]:ArrowFunction#2</code> · [L3438](../../src/testes.ts#L3438) | <code>(grupo: { readonly id: string; readonly nome: string; readonly propulsores: readonly PropulsorVetorizado[]; }): string</code> | — / — |
+| <code>src/testes.ts::atualizarControlesDoPropulsor.[callback]:ArrowFunction#3</code> · [L3440](../../src/testes.ts#L3440) | <code>(grupo: { readonly id: string; readonly nome: string; readonly propulsores: readonly PropulsorVetorizado[]; }): HTMLOptionElement</code> | <code>Option</code> / — |
+| <code>src/testes.ts::atualizarControlesDoPropulsor.[callback]:ArrowFunction#4</code> · [L3461](../../src/testes.ts#L3461) | <code>(objeto: Objeto): objeto is PainelSolar</code> | — / — |
+| <code>src/testes.ts::atualizarControlesDoPropulsor.[callback]:ArrowFunction#5</code> · [L3496](../../src/testes.ts#L3496) | <code>([botao, nome, id]: [HTMLButtonElement, string, IdSistemaPropulsor]): void</code> | <code>propulsoresDoGrupo.some</code>; <code>propulsoresDoGrupo.every</code>; <code>botao.setAttribute</code>; <code>String</code> / <code>botao.disabled</code>; <code>botao.dataset.state</code>; <code>botao.title</code> |
+| <code>src/testes.ts::atualizarControlesDoPropulsor.[callback]#5.[callback]:ArrowFunction#1</code> · [L3497](../../src/testes.ts#L3497) | <code>(motor: PropulsorVetorizado &#124; Propulsor): boolean</code> | — / — |
+| <code>src/testes.ts::atualizarControlesDoPropulsor.[callback]#5.[callback]:ArrowFunction#2</code> · [L3498](../../src/testes.ts#L3498) | <code>(motor: PropulsorVetorizado &#124; Propulsor): boolean</code> | — / — |
+| <code>src/testes.ts::atualizarControlesDoPropulsor.[callback]#5.[callback]:ArrowFunction#3</code> · [L3499](../../src/testes.ts#L3499) | <code>(motor: PropulsorVetorizado &#124; Propulsor): boolean</code> | <code>motor.sistemaEstaOperacional</code> / — |
+| <code>src/testes.ts::atualizarControlesDoPropulsor.[callback]:ArrowFunction#6</code> · [L3513](../../src/testes.ts#L3513) | <code>(motor: PropulsorVetorizado &#124; Propulsor): boolean</code> | — / — |
+| <code>src/testes.ts::alternarSistema.[callback]:ArrowFunction#1</code> · [L3582](../../src/testes.ts#L3582) | <code>(item: { readonly id: string; readonly nome: string; readonly propulsores: readonly PropulsorVetorizado[]; }): boolean</code> | <code>cenário.obterGrupoPropulsaoAtivo</code> / — |
+| <code>src/testes.ts::alternarSistema.[callback]:ArrowFunction#2</code> · [L3585](../../src/testes.ts#L3585) | <code>(motor: PropulsorVetorizado &#124; Propulsor): boolean</code> | <code>motor.sistemaEstaOperacional</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#7</code> · [L3594](../../src/testes.ts#L3594) | <code>(): void</code> | <code>alternarSistema</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#8</code> · [L3595](../../src/testes.ts#L3595) | <code>(): void</code> | <code>alternarSistema</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#9</code> · [L3596](../../src/testes.ts#L3596) | <code>(): void</code> | <code>alternarSistema</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#10</code> · [L3597](../../src/testes.ts#L3597) | <code>(): void</code> | <code>alternarSistema</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#11</code> · [L3598](../../src/testes.ts#L3598) | <code>(): void</code> | <code>cenarioAtual().selecionarGrupoPropulsao</code>; <code>cenarioAtual</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#12</code> · [L3610](../../src/testes.ts#L3610) | <code>(): void</code> | <code>cenarioAtual().ativarModoBss04</code>; <code>cenarioAtual</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#13</code> · [L3615](../../src/testes.ts#L3615) | <code>(): void</code> | <code>cenarioAtual</code>; <code>cenário.gruposPropulsao?.find</code>; <code>motor.solicitarIgnicao</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> / — |
+| <code>src/testes.ts::[callback]#13.[callback]:ArrowFunction#1</code> · [L3617](../../src/testes.ts#L3617) | <code>(item: { readonly id: string; readonly nome: string; readonly propulsores: readonly PropulsorVetorizado[]; }): boolean</code> | <code>cenário.obterGrupoPropulsaoAtivo</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#14</code> · [L3633](../../src/testes.ts#L3633) | <code>(): void</code> | <code>simularRupturaDaLinha</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#15</code> · [L3634](../../src/testes.ts#L3634) | <code>(): void</code> | <code>simularRupturaDaLinha</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#16</code> · [L3642](../../src/testes.ts#L3642) | <code>(): void</code> | <code>atualizarControlesEletricos</code>; <code>desenhar</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#17</code> · [L3643](../../src/testes.ts#L3643) | <code>(): void</code> | <code>desenhar</code> / — |
+| <code>src/testes.ts::obterSensorSobPonteiro.[callback]:ArrowFunction#1</code> · [L3682](../../src/testes.ts#L3682) | <code>(sensor: SwitchFimDeCurso): boolean</code> | <code>sensor.obterVolumeSensivel</code>; <code>Math.abs</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#18</code> · [L3689](../../src/testes.ts#L3689) | <code>(this: HTMLCanvasElement, evento: MouseEvent): void</code> | <code>obterSensorSobPonteiro</code>; <code>evento.preventDefault</code> / <code>sensorArrastado</code>; <code>sensorFoiArrastado</code>; <code>ultimoYDoSensorPx</code> |
+| <code>src/testes.ts::[callback]:ArrowFunction#19</code> · [L3695](../../src/testes.ts#L3695) | <code>(this: HTMLCanvasElement, evento: MouseEvent): void</code> | <code>obterTransformacaoDaBancada</code>; <code>sensorArrastado.definirDeslocamentoLocal</code>; <code>sensorArrastado.deslocamentoLocal.adicionar</code>; <code>Vetor3</code>; <code>cenarioAtual().mundo.reavaliarSwitchesFimDeCurso</code>; <code>cenarioAtual</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> / <code>ultimoYDoSensorPx</code>; <code>sensorFoiArrastado</code> |
+| <code>src/testes.ts::[callback]:ArrowFunction#20</code> · [L3706](../../src/testes.ts#L3706) | <code>(): void</code> | — / <code>sensorArrastado</code> |
+| <code>src/testes.ts::switchSobPonteiro.[callback]:ArrowFunction#1</code> · [L3712](../../src/testes.ts#L3712) | <code>(alvo: AlvoSwitchEletrico): boolean</code> | — / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#21</code> · [L3714](../../src/testes.ts#L3714) | <code>(this: HTMLCanvasElement, evento: MouseEvent): void</code> | <code>switchSobPonteiro</code>; <code>obterTransformacaoDaBancada</code>; <code>obterPontoDoCanvas</code>; <code>cenarioAtual().pontoPousoSelecionavel</code>; <code>cenarioAtual</code> / <code>canvas.style.cursor</code>; <code>canvas.title</code> |
+| <code>src/testes.ts::[callback]:ArrowFunction#22</code> · [L3723](../../src/testes.ts#L3723) | <code>(this: HTMLCanvasElement, evento: PointerEvent): void</code> | <code>switchSobPonteiro</code>; <code>registroEnsaio.registrarEntrada</code>; <code>alternarInterruptor</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code>; <code>cenarioAtual</code>; <code>cenário.pontoPousoSelecionavel</code>; <code>obterPontoDoCanvas</code>; <code>obterTransformacaoDaBancada</code>; <code>Math.round</code>; <code>cenário.selecionarPontoPousoX</code> / <code>sensorFoiArrastado</code>; <code>connectionSelector.value</code> |
+| <code>src/testes.ts::[callback]:ArrowFunction#23</code> · [L3745](../../src/testes.ts#L3745) | <code>(this: HTMLCanvasElement, evento: PointerEvent): void</code> | <code>sensorTraceCanvas.getBoundingClientRect</code>; <code>Math.max</code>; <code>Math.min</code>; <code>Math.round</code>; <code>desenharTraceSensores</code> / <code>tempoTraceSelecionadoS</code> |
+| <code>src/testes.ts::[callback]:ArrowFunction#24</code> · [L3753](../../src/testes.ts#L3753) | <code>(): void</code> | <code>Math.max</code>; <code>Math.min</code>; <code>Number</code>; <code>desenharTraceSensores</code> / <code>tempoTraceSelecionadoS</code> |
+| <code>src/testes.ts::[callback]:ArrowFunction#25</code> · [L3760](../../src/testes.ts#L3760) | <code>(): void</code> | <code>desenharTraceSensores</code> / <code>tempoTraceSelecionadoS</code> |
+| <code>src/testes.ts::[callback]:ArrowFunction#26</code> · [L3764](../../src/testes.ts#L3764) | <code>(): void</code> | <code>operarConexao</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#27</code> · [L3765](../../src/testes.ts#L3765) | <code>(): void</code> | <code>operarConexao</code> / — |
+| <code>src/testes.ts::[callback]#27.[callback]:ArrowFunction#1</code> · [L3765](../../src/testes.ts#L3765) | <code>(conexao: ConexaoEletrica): void</code> | <code>conexao.conectar</code>; <code>conexao.desconectar</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#28</code> · [L3766](../../src/testes.ts#L3766) | <code>(): void</code> | <code>operarConexao</code> / — |
+| <code>src/testes.ts::[callback]#28.[callback]:ArrowFunction#1</code> · [L3766](../../src/testes.ts#L3766) | <code>(conexao: ConexaoEletrica): void</code> | <code>conexao.romper</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#29</code> · [L3767](../../src/testes.ts#L3767) | <code>(): void</code> | <code>Number</code>; <code>currentLimitInput.value.trim</code>; <code>Number.isFinite</code>; <code>operarConexao</code> / — |
+| <code>src/testes.ts::[callback]#29.[callback]:ArrowFunction#1</code> · [L3769](../../src/testes.ts#L3769) | <code>(conexao: ConexaoEletrica): void</code> | <code>conexao.configurarCorrenteMaxima</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#30</code> · [L3771](../../src/testes.ts#L3771) | <code>(): void</code> | <code>Number</code>; <code>cableResistanceInput.value.trim</code>; <code>Number.isFinite</code>; <code>operarConexao</code> / — |
+| <code>src/testes.ts::[callback]#30.[callback]:ArrowFunction#1</code> · [L3773](../../src/testes.ts#L3773) | <code>(conexao: ConexaoEletrica): void</code> | <code>conexao.configurarResistenciaCabo</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#31</code> · [L3775](../../src/testes.ts#L3775) | <code>(): void</code> | <code>cenarioAtual</code>; <code>gerador.desligar</code>; <code>gerador?.ligar</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#32</code> · [L3781](../../src/testes.ts#L3781) | <code>(): void</code> | <code>cenarioAtual</code>; <code>porta.desligarAlimentacao</code>; <code>porta.ligarAlimentacao</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#33</code> · [L3787](../../src/testes.ts#L3787) | <code>(): void</code> | <code>cenarioAtual</code>; <code>porta.desligarControle</code>; <code>porta.ligarControle</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#34</code> · [L3800](../../src/testes.ts#L3800) | <code>(): void</code> | <code>comandarPorta</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#35</code> · [L3801](../../src/testes.ts#L3801) | <code>(): void</code> | <code>comandarPorta</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#36</code> · [L3802](../../src/testes.ts#L3802) | <code>(): void</code> | <code>cenarioAtual().comandarCilindro</code>; <code>cenarioAtual</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#37</code> · [L3806](../../src/testes.ts#L3806) | <code>(): void</code> | <code>cenarioAtual().iniciarSequencia</code>; <code>cenarioAtual</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#38</code> · [L3810](../../src/testes.ts#L3810) | <code>(): void</code> | <code>cenarioAtual().comandarCilindro</code>; <code>cenarioAtual</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#39</code> · [L3814](../../src/testes.ts#L3814) | <code>(): void</code> | <code>cenarioAtual</code>; <code>cenário.objetos.find</code>; <code>painel.definirStatus</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> / — |
+| <code>src/testes.ts::[callback]#39.[callback]:ArrowFunction#1</code> · [L3817](../../src/testes.ts#L3817) | <code>(objeto: Objeto): objeto is PainelSolar</code> | — / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#40</code> · [L3832](../../src/testes.ts#L3832) | <code>(): void</code> | <code>cenarioAtual</code>; <code>objeto.acionarParaquedas</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#41</code> · [L3839](../../src/testes.ts#L3839) | <code>(): void</code> | <code>cenarioAtual</code>; <code>cenário.gruposPropulsao?.find</code>; <code>motor.definirThrottle</code>; <code>Number</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> / — |
+| <code>src/testes.ts::[callback]#41.[callback]:ArrowFunction#1</code> · [L3842](../../src/testes.ts#L3842) | <code>(item: { readonly id: string; readonly nome: string; readonly propulsores: readonly PropulsorVetorizado[]; }): boolean</code> | <code>cenário.obterGrupoPropulsaoAtivo</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#42</code> · [L3848](../../src/testes.ts#L3848) | <code>(): void</code> | <code>Number</code>; <code>Number.isFinite</code>; <code>escalasTemporaisPorCenario.set</code>; <code>atualizarControleTemporal</code>; <code>desenhar</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#43</code> · [L3863](../../src/testes.ts#L3863) | <code>(this: HTMLCanvasElement, evento: WheelEvent): void</code> | <code>evento.preventDefault</code>; <code>Number</code>; <code>String</code>; <code>Math.max</code>; <code>Math.min</code>; <code>atualizarZoom</code> / <code>zoomInput.value</code> |
+| <code>src/testes.ts::[callback]:ArrowFunction#44</code> · [L3870](../../src/testes.ts#L3870) | <code>(): void</code> | <code>cenarioAtual</code>; <code>cenário.gruposPropulsao?.find</code>; <code>motor.solicitarVetorizacao</code>; <code>Number</code>; <code>atualizarControlesDoPropulsor</code>; <code>desenhar</code> / — |
+| <code>src/testes.ts::[callback]#44.[callback]:ArrowFunction#1</code> · [L3872](../../src/testes.ts#L3872) | <code>(item: { readonly id: string; readonly nome: string; readonly propulsores: readonly PropulsorVetorizado[]; }): boolean</code> | <code>cenário.obterGrupoPropulsaoAtivo</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#45</code> · [L3878](../../src/testes.ts#L3878) | <code>(): void</code> | <code>cenarioAtual</code>; <code>Number</code>; <code>Number.isFinite</code>; <code>motor.definirAnguloAlvoRad</code>; <code>anguloGraus.toFixed</code>; <code>desenhar</code> / <code>rotaryMotorValue.value</code>; <code>rotaryMotorValue.textContent</code> |
+| <code>src/testes.ts::[callback]:ArrowFunction#46</code> · [L3888](../../src/testes.ts#L3888) | <code>(): void</code> | <code>cenarioAtual</code>; <code>Number</code>; <code>Number.isFinite</code>; <code>motor.definirAnguloAlvoRad</code>; <code>anguloGraus.toFixed</code>; <code>desenhar</code> / <code>rotaryMotorSecondaryValue.value</code>; <code>rotaryMotorSecondaryValue.textContent</code> |
+| <code>src/testes.ts::aplicarGanhosPidEditados.[callback]:ArrowFunction#1</code> · [L3902](../../src/testes.ts#L3902) | <code>(entrada: HTMLInputElement): number</code> | <code>Number</code> / — |
+| <code>src/testes.ts::aplicarGanhosPidEditados.[callback]:ArrowFunction#2</code> · [L3903](../../src/testes.ts#L3903) | <code>(valor: number): boolean</code> | <code>Number.isFinite</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#47</code> · [L3917](../../src/testes.ts#L3917) | <code>(entrada: HTMLInputElement): void</code> | <code>entrada.addEventListener</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#48</code> · [L3918](../../src/testes.ts#L3918) | <code>(): Promise&lt;void&gt;</code> | <code>cenarioAtual</code>; <code>atualizarControlesDoPropulsor</code>; <code>new AutotunadorPosicionamentoMotorEletrico(motor).executar</code>; <code>AutotunadorPosicionamentoMotorEletrico</code>; <code>persistirPerfilPid</code>; <code>resultado.ganhos.ganhoProporcional.toFixed</code>; <code>resultado.ganhos.ganhoIntegral.toFixed</code>; <code>resultado.ganhos.ganhoDerivativo.toFixed</code>; <code>desenhar</code> / <code>autotuneEmExecucao</code>; <code>rotaryMotorAutotuneProgress.value</code>; <code>rotaryMotorAutotuneStatus.textContent</code> |
+| <code>src/testes.ts::[callback]#48.[callback]:ArrowFunction#1</code> · [L3926](../../src/testes.ts#L3926) | <code>({ percentual }: ProgressoAutotunePosicionamentoMotorEletrico): void</code> | <code>percentual.toFixed</code> / <code>rotaryMotorAutotuneProgress.value</code>; <code>rotaryMotorAutotuneStatus.textContent</code> |
+| <code>src/testes.ts::[callback]:ArrowFunction#49</code> · [L3949](../../src/testes.ts#L3949) | <code>(): void</code> | <code>configurarParaquedasDaBancada</code> / — |
+| <code>src/testes.ts::executar.[callback]:ArrowFunction#1</code> · [L3955](../../src/testes.ts#L3955) | <code>(passoS: number): void</code> | <code>cenário.atualizarControle</code>; <code>cenário.mundo.avancar</code>; <code>registroEnsaio.registrarPasso</code> / — |
+| <code>src/testes.ts::[callback]:ArrowFunction#50</code> · [L3984](../../src/testes.ts#L3984) | <code>(): void</code> | <code>construirCenarios</code>; <code>escalasTemporaisPorCenario.clear</code>; <code>primeiroIndiceExibivel</code>; <code>preencherSeletorDeCenarios</code>; <code>definirDescricaoComando</code>; <code>carregarCenarioAtual</code>; <code>window.requestAnimationFrame</code> / <code>cenarios</code>; <code>indiceAtual</code>; <code>emExecucao</code> |
+| <code>src/testes.ts::[callback]:ArrowFunction#51</code> · [L3998](../../src/testes.ts#L3998) | <code>(): void</code> | <code>Number</code>; <code>construirCenarios</code>; <code>Number.isInteger</code>; <code>indicesExibiveis().includes</code>; <code>indicesExibiveis</code>; <code>primeiroIndiceExibivel</code>; <code>definirDescricaoComando</code>; <code>preencherSeletorDeCenarios</code>; <code>carregarCenarioAtual</code> / <code>emExecucao</code>; <code>cenarios</code>; <code>indiceAtual</code> |
+| <code>src/testes.ts::[callback]:ArrowFunction#52</code> · [L4008](../../src/testes.ts#L4008) | <code>(): void</code> | <code>proximoIndiceExibivel</code>; <code>construirCenarios</code>; <code>primeiroIndiceExibivel</code>; <code>String</code>; <code>definirDescricaoComando</code>; <code>carregarCenarioAtual</code> / <code>emExecucao</code>; <code>cenarios</code>; <code>indiceAtual</code>; <code>scenarioSelector.value</code> |
+| <code>src/testes.ts::[callback]:ArrowFunction#53</code> · [L4023](../../src/testes.ts#L4023) | <code>(): void</code> | <code>Number</code>; <code>construirCenarios</code>; <code>indicesExibiveis().includes</code>; <code>indicesExibiveis</code>; <code>primeiroIndiceExibivel</code>; <code>preencherSeletorDeCenarios</code>; <code>definirDescricaoComando</code>; <code>carregarCenarioAtual</code> / <code>emExecucao</code>; <code>cenarios</code>; <code>indiceAtual</code> |
 | <code>src/validacao/ReferenciaBancadaM10.ts::fisicaBancada.[callback]:ArrowFunction#1</code> · [L11](../../src/validacao/ReferenciaBancadaM10.ts#L11) | <code>(c: Objeto): { id: string; estado: EstadoFisico; massaKg: number; integridade: number; temperaturaC: number; deflexaoRad: unknown; }</code> | <code>c.getEstadoFisico</code> / — |
 | <code>src/validacao/ReferenciaBancadaM10.ts::fisicaBancada.[callback]:ArrowFunction#2</code> · [L17](../../src/validacao/ReferenciaBancadaM10.ts#L17) | <code>(f: FixadorEstrutural): { id: string; estado: "integro" &#124; "liberado" &#124; "rompido"; }</code> | — / — |
 | <code>src/validacao/ReferenciaBancadaM10.ts::fisicaBancada.[callback]:ArrowFunction#3</code> · [L18](../../src/validacao/ReferenciaBancadaM10.ts#L18) | <code>(s: string): [string, boolean]</code> | <code>m.sistemaEstaOperacional</code> / — |
@@ -31525,12 +31525,12 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/veiculos/TelemetriaBss.ts::obterTelemetriaMissaoBss.[callback]:ArrowFunction#2</code> · [L18](../../src/veiculos/TelemetriaBss.ts#L18) | <code>(s: number, t: TanquePropelente): number</code> | — / — |
 | <code>src/veiculos/TelemetriaBss.ts::obterTelemetriaMissaoBss.[callback]:ArrowFunction#3</code> · [L20](../../src/veiculos/TelemetriaBss.ts#L20) | <code>(t: TanquePropelente): boolean</code> | — / — |
 | <code>src/veiculos/TelemetriaBss.ts::obterTelemetriaMissaoBss.[callback]:ArrowFunction#4</code> · [L21](../../src/veiculos/TelemetriaBss.ts#L21) | <code>(t: TanquePropelente): boolean</code> | — / — |
-| <code>src/visualizacao/CameraFisica2D.ts::CameraFisica2D.constructor.[callback]:ArrowFunction#1</code> · [L7](../../src/visualizacao/CameraFisica2D.ts#L7) | <code>(v: number): boolean</code> | <code>Number.isFinite</code> / — |
-| <code>src/visualizacao/ConexoesEletricas.ts::conexoesEletricasExpostas.[callback]:ArrowFunction#1</code> · [L9](../../src/visualizacao/ConexoesEletricas.ts#L9) | <code>(conexao: ConexaoEletrica): boolean</code> | <code>objetosVisiveis.includes</code> / — |
-| <code>src/visualizacao/RegistroEnsaioBancada.ts::RegistroEnsaioBancada.exportar.[callback]:ArrowFunction#1</code> · [L36](../../src/visualizacao/RegistroEnsaioBancada.ts#L36) | <code>(entrada: EntradaEnsaioBancada): { passo: number; acao: string; valor?: string &#124; number &#124; boolean; }</code> | — / — |
-| <code>src/visualizacao/TracePLC.ts::TracePLC.registrar.[callback]:ArrowFunction#1</code> · [L51](../../src/visualizacao/TracePLC.ts#L51) | <code>(canal: CanalTracePLC): number</code> | <code>canal.obterSinal</code>; <code>Number.isFinite</code>; <code>Error</code> / — |
-| <code>src/visualizacao/TracePLC.ts::TracePLC.registrar.[callback]:ArrowFunction#2</code> · [L58](../../src/visualizacao/TracePLC.ts#L58) | <code>(sinal: number, indice: number): boolean</code> | — / — |
-| <code>src/visualizacao/TracePLC.ts::TracePLC.obterIndiceMaisProximo.[callback]:ArrowFunction#1</code> · [L69](../../src/visualizacao/TracePLC.ts#L69) | <code>(amostra: AmostraTracePLC, indice: number): void</code> | <code>Math.abs</code> / <code>menorDistancia</code>; <code>melhorIndice</code> |
+| <code>src/visualizacao/CameraFisica2D.ts::CameraFisica2D.constructor.[callback]:ArrowFunction#1</code> · [L8](../../src/visualizacao/CameraFisica2D.ts#L8) | <code>(v: number): boolean</code> | <code>Number.isFinite</code> / — |
+| <code>src/visualizacao/ConexoesEletricas.ts::conexoesEletricasExpostas.[callback]:ArrowFunction#1</code> · [L10](../../src/visualizacao/ConexoesEletricas.ts#L10) | <code>(conexao: ConexaoEletrica): boolean</code> | <code>objetosVisiveis.includes</code> / — |
+| <code>src/visualizacao/RegistroEnsaioBancada.ts::RegistroEnsaioBancada.exportar.[callback]:ArrowFunction#1</code> · [L42](../../src/visualizacao/RegistroEnsaioBancada.ts#L42) | <code>(entrada: EntradaEnsaioBancada): { passo: number; acao: string; valor?: string &#124; number &#124; boolean; }</code> | — / — |
+| <code>src/visualizacao/TracePLC.ts::TracePLC.registrar.[callback]:ArrowFunction#1</code> · [L57](../../src/visualizacao/TracePLC.ts#L57) | <code>(canal: CanalTracePLC): number</code> | <code>canal.obterSinal</code>; <code>Number.isFinite</code>; <code>Error</code> / — |
+| <code>src/visualizacao/TracePLC.ts::TracePLC.registrar.[callback]:ArrowFunction#2</code> · [L64](../../src/visualizacao/TracePLC.ts#L64) | <code>(sinal: number, indice: number): boolean</code> | — / — |
+| <code>src/visualizacao/TracePLC.ts::TracePLC.obterIndiceMaisProximo.[callback]:ArrowFunction#1</code> · [L76](../../src/visualizacao/TracePLC.ts#L76) | <code>(amostra: AmostraTracePLC, indice: number): void</code> | <code>Math.abs</code> / <code>menorDistancia</code>; <code>melhorIndice</code> |
 
 ## Funções em testes (inclui callbacks de describe/it)
 

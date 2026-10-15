@@ -20,13 +20,20 @@ export class CenaMissao {
   private ultimaMedicaoMs?: number;
   private passoMedicao = 0;
   private ritmo = 0;
+  /** Compõe missão registrada, executor fixo, entrada e renderer; instala listeners DOM/RAF, conservando física executável sem navegador. @contract f-630f6c4cff870920 @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly raiz: HTMLElement) {
     this.renderer = new RenderizadorMissao(raiz.querySelector<HTMLCanvasElement>('#cena-missao')!);
     conectarEntradaMissao(raiz, {
-      comando: c => this.comandar(c), sistema: sistema => this.comandar({ tipo: 'sistema', sistema, ligar: !this.observacao.sistemas[sistema] }),
+      /** Devolve `this.comandar(c)`. Dependências diretas: `this.comandar`. Efeitos indiretos seguem as dependências chamadas. @contract f-bf3cbad72d905219 */
+      comando: c => this.comandar(c), /** Devolve `this.comandar({ tipo: 'sistema', sistema, ligar: !this.observacao.sistemas[sistema] })`. Dependências diretas: `this.comandar`. Efeitos indiretos seguem as dependências chamadas. @contract f-9b0f3b326cfb1428 */
+                                      sistema: sistema => this.comandar({ tipo: 'sistema', sistema, ligar: !this.observacao.sistemas[sistema] }),
+      /** Escritas diretas: `this.ultimaMedicaoMs`. Dependências diretas: `this.missao.iniciar`, `this.executor.suspenderReferenciaRelogio`, `this.marcarAtualizacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0cb26e3d6ed78dae */
       iniciar: () => { this.missao.iniciar(); this.executor.suspenderReferenciaRelogio(); this.ultimaMedicaoMs = undefined; this.marcarAtualizacao(); },
+      /** Dependências diretas: `this.missao.pausar`, `this.executor.suspenderReferenciaRelogio`, `this.marcarAtualizacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-708b37502b6ec84d */
       pausar: () => { this.missao.pausar(); this.executor.suspenderReferenciaRelogio(); this.marcarAtualizacao(); },
-      reiniciar: () => this.reiniciar(), exportar: () => this.exportar(),
+      /** Devolve `this.reiniciar()`. Dependências diretas: `this.reiniciar`. Efeitos indiretos seguem as dependências chamadas. @contract f-1a39899b6cf3205c */
+      reiniciar: () => this.reiniciar(), /** Devolve `this.exportar()`. Dependências diretas: `this.exportar`. Efeitos indiretos seguem as dependências chamadas. @contract f-2106287cca02f63f */
+                                         exportar: () => this.exportar(),
     });
     raiz.querySelector<HTMLInputElement>('#zoom')!.addEventListener('input', () => this.marcarAtualizacao());
     raiz.querySelector<HTMLSelectElement>('#variante-missao')!.addEventListener('change', () => this.reiniciar());
@@ -34,13 +41,17 @@ export class CenaMissao {
     window.addEventListener('pagehide', () => cancelAnimationFrame(this.quadro), { once: true });
     this.quadro = requestAnimationFrame(t => this.animar(t));
   }
+  /** Marca desenho/HUD como sujos e atualização urgente, sem avançar simulação. @contract f-9c6ec7d588d5e2fc @reviewed M12-DOC: implementação lida. */
   private marcarAtualizacao() { this.sujo = true; this.hudSujo = true; this.urgente = true; }
+  /** Escreve retorno operacional no elemento DOM próprio; não registra evento físico. @contract f-54f7fcafad1eb931 @reviewed M12-DOC: implementação lida. */
   private mensagem(texto: string) { this.raiz.querySelector<HTMLElement>('#retorno-comando')!.textContent = texto; }
+  /** Envia comando tipado à missão, apresenta aceitação/erro e atualiza snapshot/sujeira visual; nunca escreve posição/velocidade/atitude. @contract f-18f382686eb228e0 @reviewed M12-DOC: implementação lida. */
   private comandar(c: ComandoBss006) {
     try { const r = this.missao.receberComando(c); this.mensagem(r.aceito ? 'Comando aceito.' : r.motivo); }
     catch (error) { this.mensagem(error instanceof Error ? error.message : String(error)); }
     this.observacao = this.missao.observar(); this.marcarAtualizacao();
   }
+  /** Valida nova missão a partir das entradas de ambiente/ensaio; somente após criação bem-sucedida substitui instância, snapshot e acumulador. Reinício cria mundo novo, sem reaproveitar estado residual. @contract f-cc063152380833eb @reviewed M12-DOC: implementação lida. */
   private reiniciar() {
     try {
       const vento = Number(this.raiz.querySelector<HTMLInputElement>('#vento-inicial')!.value);
@@ -53,17 +64,20 @@ export class CenaMissao {
       this.mensagem(agua ? 'Ensaio físico sobre oceano preparado. Inicie para observar entrada e estabilidade passiva.' : 'Nova missão preparada. Sistemas e ignição desligados.');
     } catch (error) { this.mensagem(error instanceof Error ? error.message : String(error)); }
   }
+  /** Serializa diário em Blob JSON, aciona download e revoga URL temporária; efeito do navegador, sem persistir por API de domínio. @contract f-cf0b7fb5e08d2ccf @reviewed M12-DOC: implementação lida. */
   private exportar() {
     const url = URL.createObjectURL(new Blob([JSON.stringify(this.missao.exportar(), null, 2)], { type: 'application/json' }));
     const a = document.createElement('a'); a.href = url; a.download = `${this.missao.id}.json`; a.click(); URL.revokeObjectURL(url);
   }
+  /** Consome relógio RAF com orçamento cooperativo de 12 ms/240 passos por quadro; mantém dt físico e fila pendente. Desenha a 30 Hz e HUD a 10 Hz quando necessário, informa ritmo/atraso e pausa missão em erro; não descarta passos para fingir tempo real. @contract f-5b7ae7bc0ea70206 @reviewed M12-DOC: implementação lida. */
   private animar(instanteMs: number) {
     try {
       if (this.missao.estadoExecucao === 'executando') {
         const escala = Number(this.raiz.querySelector<HTMLSelectElement>('#escala-tempo')!.value);
         const prazoMs = performance.now() + 12;
         if (this.executor.avancarAte(instanteMs, escala, () => this.missao.avancarPasso(),
-          { maxPassos: 240, continuar: () => performance.now() < prazoMs }) > 0) { this.sujo = true; this.hudSujo = true; }
+          { maxPassos: 240, /** Devolve `performance.now() < prazoMs`. Dependências diretas: `performance.now`. Efeitos indiretos seguem as dependências chamadas. @contract f-dc9635a920b0a93e */
+                            continuar: () => performance.now() < prazoMs }) > 0) { this.sujo = true; this.hudSujo = true; }
       }
       if (this.ultimaMedicaoMs === undefined) { this.ultimaMedicaoMs = instanteMs; this.passoMedicao = this.missao.passosExecutados; }
       else if (instanteMs - this.ultimaMedicaoMs >= 1000) {

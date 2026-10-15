@@ -5,13 +5,16 @@ import { CameraMissao } from './CameraMissao';
 import { ReferencialEsferico } from '../../physics/ambiente/ReferencialFisico';
 import { GeografiaCosteira } from '../../physics/ambiente/GeografiaCosteira';
 
+/** Seleciona cor visual por integridade e identificação do componente; não modifica material ou resistência física. @contract f-3676bd6b2dc965cc @reviewed M12-DOC: implementação lida. */
 const COR = (c: CorpoObservado): string => c.integridade <= 0 ? '#57464d' :
   c.id.includes('grid-fin') ? '#57cfbb' : c.id.includes('tanque') ? '#d8e5ec' :
   c.id.includes('bateria') ? '#ffd56b' : c.id.includes('painel') ? '#408dba' :
   c.id.includes('perna') || c.id.includes('sapata') ? '#a0b7c4' : c.id.includes('propulsor') ? '#899eaf' : '#e7f2f4';
 /** Somente snapshots: a apresentação não recebe mundo nem objetos mutáveis. */
 export class RenderizadorMissao {
+  /** Armazena o Canvas recebido como dependência da apresentação; não cria mundo, veículo ou estado cinemático. @contract f-a48165072826f3d5 @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly canvas: HTMLCanvasElement) {}
+  /** Ajusta viewport por DPR, cria câmera radial, desenha terreno/infraestrutura/corpos/cabos/água e réguas a partir do snapshot. Devolve câmera usada; alterações limitadas ao Canvas. @contract f-c42931f061c17c1d @reviewed M12-DOC: implementação lida. */
   public desenhar(o: ObservacaoBss006, metrosPorPixel: number): CameraMissao {
     const largura = Math.max(1, this.canvas.clientWidth), altura = Math.max(1, this.canvas.clientHeight);
     const dpr = window.devicePixelRatio || 1;
@@ -52,6 +55,7 @@ export class RenderizadorMissao {
     ctx.fillStyle = '#b9d7dd'; ctx.fillText(`t ${o.tempoS.toFixed(2)} s · ${o.fase.toUpperCase()}`, 24, 51);
     return camera;
   }
+  /** Reconstrói perfil visual esférico/costeiro usando os parâmetros do domínio e preenche terreno/fundo. Na variante terrestre, costa distante é decorativa; não instala superfícies físicas. @contract f-2ffc8bf2c15f0a7b @reviewed M12-DOC: implementação lida. */
   private terreno(ctx: CanvasRenderingContext2D, camera: CameraMissao, o: ObservacaoBss006) {
     const c = o.cenario.centroTerraM, centro = new Vetor3(c.x, c.y, c.z), R = o.cenario.raioTerraM;
     const ref = new ReferencialEsferico(centro, R), costa = o.cenario.costa ? new GeografiaCosteira(ref, o.cenario.costa) : undefined;
@@ -73,7 +77,12 @@ export class RenderizadorMissao {
       ctx.strokeStyle = '#73a8ae'; ctx.beginPath(); ctx.moveTo(base.x + 160, base.y + 7); ctx.lineTo(camera.larguraPx, base.y + 7); ctx.stroke();
     }
   }
-  /** Mesmo nível radial e perfil de fundo do domínio; máscara visual não participa da física. */
+  /** Mesmo nível radial e perfil de fundo do domínio; máscara visual não participa da física.
+   * @contract f-6769fcccecc9f86a
+   * @remarks Desenha máscara e linha livre pelo mesmo nível radial/perfil costeiro do domínio; opção fundo escolhe camada visual. Não aplica empuxo/contato nem move corpos.
+   * @contract f-6769fcccecc9f86a
+   * @reviewed M12-DOC: contrato confrontado com implementação.
+   */
   private agua(ctx: CanvasRenderingContext2D, camera: CameraMissao, o: ObservacaoBss006, fundo = false) {
     const c = o.cenario.centroTerraM, centro = new Vetor3(c.x, c.y, c.z), R = o.cenario.raioTerraM;
     const ref = new ReferencialEsferico(centro, R), costa = new GeografiaCosteira(ref, o.cenario.costa!);
@@ -92,10 +101,16 @@ export class RenderizadorMissao {
     topo.forEach(p => { if (p.molhado) { if (anteriorMolhado) ctx.lineTo(p.x, p.y); else ctx.moveTo(p.x, p.y); } anteriorMolhado = p.molhado; });
     ctx.strokeStyle = '#8cd5de'; ctx.lineWidth = 2; ctx.stroke();
   }
+  /** Desenha demarcação da plataforma, torre visual e alvo na base radial/tangencial da âncora; não cria colisões, apoios ou restrições. @contract f-0c415726bed21e16 @reviewed M12-DOC: implementação lida. */
   private infraestrutura(ctx: CanvasRenderingContext2D, camera: CameraMissao, o: ObservacaoBss006) {
     const ancora = o.cenario.ancoraM, centro = o.cenario.centroTerraM;
     const a = new Vetor3(ancora.x, ancora.y, ancora.z), r = a.subtrair(new Vetor3(centro.x, centro.y, centro.z));
     const er = r.multiplicar(1 / r.magnitude), et = new Vetor3(er.y, -er.x, 0);
+    /** Devolve `camera.projetar(a.adicionar(et.multiplicar(x)).adicionar(er.multiplicar(y)))`. Dependências diretas: `camera.projetar`, `a.adicionar(et.multiplicar(x)).adicionar`, `a.adicionar`. Efeitos indiretos seguem as dependências chamadas. @contract f-a4af2ac3cb601e6f
+     * @remarks Transforma deslocamentos locais m da infraestrutura para posição global e pixels pela câmera, sem registrar corpos.
+     * @contract f-a4af2ac3cb601e6f
+     * @reviewed M12-DOC: contrato confrontado com implementação.
+     */
     const ponto = (x: number, y: number) => camera.projetar(a.adicionar(et.multiplicar(x)).adicionar(er.multiplicar(y)));
     // Demarcação da própria superfície existente: não há uma laje elevada fictícia.
     const esq = ponto(-7, 0), dir = ponto(7, 0);
@@ -111,6 +126,7 @@ export class RenderizadorMissao {
     const target = ponto(o.alvoPousoLocalM, 0); ctx.strokeStyle = '#4ff4c0'; ctx.lineWidth = 2;
     ctx.beginPath(); ctx.moveTo(target.x, target.y - 9); ctx.lineTo(target.x - 5, target.y - 16); ctx.lineTo(target.x + 5, target.y - 16); ctx.closePath(); ctx.stroke();
   }
+  /** Desenha geometria na posição/atitude físicas e deflexão/gimbal reais; dano altera cor e empuxo controla chama visual. Não anima trajetória independente. @contract f-35dc56aad7027c0f @reviewed M12-DOC: implementação lida. */
   private corpo(ctx: CanvasRenderingContext2D, camera: CameraMissao, c: CorpoObservado, o: ObservacaoBss006) {
     const p = camera.projetar(c.estado.posicaoM), w = c.dimensoesM.x / camera.metrosPorPixel, h = c.dimensoesM.y / camera.metrosPorPixel;
     ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(camera.anguloCanvas(c.estado.orientacaoRad.z));
@@ -133,6 +149,7 @@ export class RenderizadorMissao {
     }
     ctx.restore();
   }
+  /** Calcula graduação 1/2/5 por escala m/pixel e desenha referências locais de altitude/deslocamento em metros; não altera o referencial do integrador. @contract f-d317c5488bbc4454 @reviewed M12-DOC: implementação lida. */
   private reguas(ctx: CanvasRenderingContext2D, camera: CameraMissao, o: ObservacaoBss006) {
     const intervalo = Math.pow(10, Math.floor(Math.log10(camera.metrosPorPixel * 85)));
     const passo = intervalo * (camera.metrosPorPixel * 85 / intervalo > 5 ? 5 : camera.metrosPorPixel * 85 / intervalo > 2 ? 2 : 1);

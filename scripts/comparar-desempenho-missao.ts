@@ -20,6 +20,7 @@ if (values['diario-antes'] || values['diario-depois']) {
   const d1 = JSON.parse(readFileSync(values['diario-antes'], 'utf8')) as Diario;
   const d2 = JSON.parse(readFileSync(values['diario-depois'], 'utf8')) as Diario;
   if (JSON.stringify(d1) !== JSON.stringify(d2)) throw new Error('Campos do diário divergem.');
+  /** Deriva energia cinética/gravidade relativa ao nível do mar e momento angular em torno de G a partir do diário; não inclui potencial hidrostático nem afirma conservação no fluido dissipativo. @contract f-d6e5cb554b81284d @reviewed M12-DOC: implementação lida. */
   const metricas = (o: ObservacaoBss006) => {
     const G = o.aquatico!.centroMassaM, C = o.cenario.centroTerraM, R = o.cenario.raioTerraM;
     let energiaJ = 0, momentoAngularKgM2S = 0;
@@ -37,6 +38,7 @@ if (values['diario-antes'] || values['diario-depois']) {
   const o1 = [d1.inicial, ...d1.amostras.map(x => x.observacao), d1.final];
   const o2 = [d2.inicial, ...d2.amostras.map(x => x.observacao), d2.final];
   let erroEnergiaJ = 0, erroMomentoAngularKgM2S = 0, numerosComparados = 0, erroNumericoMaximo = 0;
+  /** Percorre números, arrays e propriedades de dois snapshots para contar valores e maior erro absoluto; comparação exata dos diários já é exigida antes. @contract f-d3c06d638dffbcbc @reviewed M12-DOC: implementação lida. */
   const comparar = (x: unknown, y: unknown): void => {
     if (typeof x === 'number' && typeof y === 'number') { numerosComparados++; erroNumericoMaximo = Math.max(erroNumericoMaximo, Math.abs(x - y)); }
     else if (Array.isArray(x) && Array.isArray(y)) x.forEach((v, i) => comparar(v, y[i]));

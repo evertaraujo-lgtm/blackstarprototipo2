@@ -8,7 +8,9 @@ import { GeografiaCosteira } from '../src/physics/ambiente/GeografiaCosteira';
 import { RegiaoAquatica } from '../src/physics/agua/RegiaoAquatica';
 import { SistemaHidrodinamico } from '../src/physics/agua/SistemaHidrodinamico';
 
-/** Coletor de evidências: corpos inertes no mesmo mundo, sem motor ou navegador. */
+/** Coletor de evidências: corpos inertes no mesmo mundo, sem motor ou navegador.
+ * @contract f-cce6c0793c2585ad
+ */
 function criar(massaKg: number, d: Vetor3, h: number, v = Vetor3.zero, theta = 0, omega = 0, dt = 1 / 240) {
   const ambiente = new AmbienteTerrestre(), ref = ambiente.referencial;
   const costa = new GeografiaCosteira(ref, { inicioArcoM: -100, profundidadeM: 50, larguraRampaM: 50, larguraFundoM: 1000, nivelMarM: 0 });
@@ -20,6 +22,7 @@ function criar(massaKg: number, d: Vetor3, h: number, v = Vetor3.zero, theta = 0
   m.registrarObjeto(o); m.registrarGeometriaAquatica(o, { dimensoesM: d, coeficienteArrasto: 1 });
   return { m, o, agua, ambiente };
 }
+/** Devolve `{ estado: p.o.getEstadoFisico(), imersao: p.m.obterImersao(p.o)[0], integridade: p.o.integridadeEstrutural, massaKg: p.o.massaKg }`. Dependências diretas: `p.m.avancar`, `p.o.getEstadoFisico`, `p.m.obterImersao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-930543e3bb9ffa60 */
 function avancar(p: ReturnType<typeof criar>, segundos: number) {
   for (let n = 0; n < Math.round(segundos * 240); n++) p.m.avancar(1 / 240);
   return { estado: p.o.getEstadoFisico(), imersao: p.m.obterImersao(p.o)[0], integridade: p.o.integridadeEstrutural, massaKg: p.o.massaKg };
@@ -43,6 +46,7 @@ const refinamento = [1 / 240, 1 / 480, 1 / 960].map(dtS => {
 });
 const impactos = [1 / 240, 1 / 480].map(dtS => ({ dtS, ...avancar(criar(2000, new Vetor3(1, 1, 1), 0.8, new Vetor3(0, -60, 0), 0, 0, dtS), 0.5) }));
 const giro = criar(4000, new Vetor3(2, 2, 1), -5, Vetor3.zero, 0, 1);
+/** Devolve `0.5 * giro.o.massaKg * e.velocidadeMps.magnitude ** 2 + 0.5 * giro.o.getMomentoInerciaKgM2().z * e.velocidadeAngularRadps.z ** 2`. Dependências diretas: `giro.o.getEstadoFisico`, `giro.o.getMomentoInerciaKgM2`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f5c4e74607c32ba4 */
 const energia = () => { const e = giro.o.getEstadoFisico(); return 0.5 * giro.o.massaKg * e.velocidadeMps.magnitude ** 2 + 0.5 * giro.o.getMomentoInerciaKgM2().z * e.velocidadeAngularRadps.z ** 2; };
 const energiaInicialJ = energia(), historiaGiro = [{ tempoS: 0, energiaJ: energiaInicialJ }];
 const neutro = avancar(criar(4000, new Vetor3(2, 2, 1), -5), 10);

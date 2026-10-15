@@ -10,6 +10,7 @@ if (carousel) {
   let activeIndex = 0;
   let timer: number | undefined;
 
+  /** Seleciona índice circular e atualiza classes, aria-hidden, inert, indicadores e contador no DOM; não atua no simulador. @contract f-d81bc825d033cc23 @reviewed M12-DOC: implementação lida. */
   const showSlide = (index: number): void => {
     activeIndex = (index + slides.length) % slides.length;
 
@@ -30,11 +31,13 @@ if (carousel) {
     if (current) current.textContent = String(activeIndex + 1).padStart(2, '0');
   };
 
+  /** Cancela timer real do carrossel se existente e limpa referência; não controla tempo da missão. @contract f-288d155fbd30d4db @reviewed M12-DOC: implementação lida. */
   const stopAutoplay = (): void => {
     if (timer !== undefined) window.clearInterval(timer);
     timer = undefined;
   };
 
+  /** Instala intervalo visual de 6000 ms apenas com movimento permitido, documento visível e sem timer vigente; alterna slides, não física. @contract f-66168cd64c3a9e72 @reviewed M12-DOC: implementação lida. */
   const startAutoplay = (): void => {
     if (reducedMotion || document.hidden || timer !== undefined) return;
     timer = window.setInterval(() => showSlide(activeIndex + 1), 6000);
