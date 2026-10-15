@@ -2,8 +2,11 @@ import type { EstadoFisico } from '../base/Objeto';
 import { Vetor3 } from '../../Vetor3';
 import { Objeto } from '../base/Objeto';
 
-/** Cria duas pernas fixas e suas sapatas como corpos físicos do BSS-04. */
-export function criarPernasFixasBss04(centroCascoM: Vetor3, prefixoId = 'bss04', transformarEstado: (p: Vetor3) => Partial<EstadoFisico> = (p) => ({ posicaoM: p })): readonly Objeto[] {
+/** Cria duas pernas fixas e suas sapatas como corpos físicos do BSS-04.
+ * @contract f-618b5173fdbe54b8
+ */
+export function criarPernasFixasBss04(centroCascoM: Vetor3, prefixoId = 'bss04', transformarEstado: (p: Vetor3) => Partial<EstadoFisico> = /** Devolve `({ posicaoM: p })`. Efeitos indiretos seguem as dependências chamadas. @contract f-842583a5f863d2d7 */
+                                                                                                                                           (p) => ({ posicaoM: p })): readonly Objeto[] {
   return [-1, 1].flatMap((lado) => {
     const nomeLado = lado < 0 ? 'esquerda' : 'direita';
     const xPernaM = centroCascoM.x + lado * 1.8;

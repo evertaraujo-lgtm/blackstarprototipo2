@@ -21,6 +21,7 @@ export class ChumbadorAoSolo {
   private esforcoFisicoAtualN = 0;
   private maiorEsforcoFisicoN = 0;
 
+  /** Escritas diretas: `this.definicao`, `this.estadoDeMontagem`. Dependências diretas: `Error`, `definicao.objeto.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-c5d6b79c56928483 */
   public constructor(private readonly definicao: DefinicaoChumbadorAoSolo) {
     if (!definicao.id || !Number.isFinite(definicao.resistenciaN) || definicao.resistenciaN <= 0) {
       throw new Error('Definição de chumbador ao solo inválida.');
@@ -28,15 +29,24 @@ export class ChumbadorAoSolo {
     this.estadoDeMontagem = definicao.objeto.getEstadoFisico();
   }
 
+  /** Devolve `this.definicao.id`. Efeitos indiretos seguem as dependências chamadas. @contract f-1abc492e7dd63510 */
   public get id(): string { return this.definicao.id; }
+  /** Devolve `this.definicao.objeto`. Efeitos indiretos seguem as dependências chamadas. @contract f-c5c098a2fe7155f0 */
   public get objeto(): Objeto { return this.definicao.objeto; }
+  /** Devolve `this.definicao.resistenciaN`. Efeitos indiretos seguem as dependências chamadas. @contract f-ed1cc41f5802713b */
   public get resistenciaN(): number { return this.definicao.resistenciaN; }
+  /** Devolve `this.rompido`. Efeitos indiretos seguem as dependências chamadas. @contract f-93bf169bb3bc66bc */
   public get estaRompido(): boolean { return this.rompido; }
-  /** Reação mecânica calculada no passo atual, em N. */
+  /** Reação mecânica calculada no passo atual, em N.
+   * @contract f-7c2f235fca32f9ba
+   */
   public get esforcoFisicoSolicitadoN(): number { return this.esforcoFisicoAtualN; }
+  /** Devolve `this.maiorEsforcoFisicoN`. Efeitos indiretos seguem as dependências chamadas. @contract f-adb021a40b85d3e6 */
   public get picoEsforcoFisicoN(): number { return this.maiorEsforcoFisicoN; }
 
-  /** Avaliado antes da integração; uma ruptura libera o corpo no mesmo passo. */
+  /** Avaliado antes da integração; uma ruptura libera o corpo no mesmo passo.
+   * @contract f-f4e7609f9d5e43c2
+   */
   public prepararPasso(): void {
     if (this.rompido) return;
     this.esforcoFisicoAtualN = 0;
@@ -47,6 +57,7 @@ export class ChumbadorAoSolo {
    * e angular produzido no passo e só então projeta a pequena deriva numérica
    * para o ponto de montagem. Se a reação exceder a resistência, o corpo é
    * liberado no próprio passo, sem reposição de estado.
+   * @contract f-1bd65e6a6ec441ba
    */
   public resolverRestricao(dtS: number): void {
     if (this.rompido) return;
@@ -72,5 +83,6 @@ export class ChumbadorAoSolo {
     });
   }
 
+  /** Devolve `this.estadoDeMontagem`. Efeitos indiretos seguem as dependências chamadas. @contract f-0f1e539bd5599cde */
   public get estadoDeAncoragem(): EstadoFisico { return this.estadoDeMontagem; }
 }

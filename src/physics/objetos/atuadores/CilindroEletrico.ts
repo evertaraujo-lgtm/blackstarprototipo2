@@ -34,6 +34,7 @@ export class CilindroEletrico extends Cilindro {
   private posicaoRetidaM?: number;
   public readonly conexaoEletrica: ConexaoEletrica;
 
+  /** Escritas diretas: `this.definicaoEletrica`, `this.direcaoDeCursoM`, `this.conexaoEletrica`. Dependências diretas: `super`, `Error`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-10533c6e01afa02e */
   public constructor(private readonly definicaoEletrica: DefinicaoCilindroEletrico) {
     super(definicaoEletrica);
     for (const valor of [definicaoEletrica.velocidadeAvancoMps, definicaoEletrica.velocidadeRecuoMps, definicaoEletrica.forcaMaximaN]) {
@@ -57,9 +58,13 @@ export class CilindroEletrico extends Cilindro {
     }
   }
 
+  /** Devolve `this.definicaoEletrica.haste`. Efeitos indiretos seguem as dependências chamadas. @contract f-fab291dbb8f0c529 */
   public get haste(): Objeto { return this.definicaoEletrica.haste; }
+  /** Devolve `this.forcaAtualN`. Efeitos indiretos seguem as dependências chamadas. @contract f-989c50b3daaa77a1 */
   public get forcaNaHasteN(): number { return this.forcaAtualN; }
+  /** Devolve `this.potenciaEletricaCalculadaW`. Efeitos indiretos seguem as dependências chamadas. @contract f-a97f8e5bc9d950c7 */
   public get potenciaEletricaAtualW(): number { return this.potenciaEletricaCalculadaW; }
+  /** Escritas diretas: `this.forcaAtualN`, `this.potenciaEletricaCalculadaW`, `this.posicaoRetidaM`. Dependências diretas: `Error`, `this.conexaoEletrica.prepararPasso`, `this.definicaoEletrica.operacaoAutorizada`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2c7f670e39b3a436 */
   public prepararPassoOperacional(dtS: number): void {
     if (!Number.isFinite(dtS) || dtS <= 0) throw new Error('dt deve ser positivo e finito, em segundos.');
     this.conexaoEletrica.prepararPasso(dtS);
@@ -97,27 +102,38 @@ export class CilindroEletrico extends Cilindro {
     this.potenciaEletricaCalculadaW = potenciaEletricaW * disponibilidade;
   }
 
+  /** Devolve `[{ forcaN: this.direcaoDeCursoM.multiplicar(-this.forcaAtualN) }]`. Dependências diretas: `this.direcaoDeCursoM.multiplicar`. Efeitos indiretos seguem as dependências chamadas. @contract f-975af64a1e2c8faa */
   public obterForcasOperacionais(): readonly ForcaFisicaSolicitada[] { return [{ forcaN: this.direcaoDeCursoM.multiplicar(-this.forcaAtualN) }]; }
+  /** Devolve `[{ forcaN: this.direcaoDeCursoM.multiplicar(this.forcaAtualN) }]`. Dependências diretas: `this.direcaoDeCursoM.multiplicar`. Efeitos indiretos seguem as dependências chamadas. @contract f-16a9c47426b92786 */
   public obterForcasNaHaste(): readonly ForcaFisicaSolicitada[] { return [{ forcaN: this.direcaoDeCursoM.multiplicar(this.forcaAtualN) }]; }
 }
 
 export class HasteDeCilindroEletrico extends Objeto {
+  /** Escritas diretas: `this.obterCilindro`. Dependências diretas: `super`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-388b485ef7af8890 */
   public constructor(definicao: DefinicaoObjeto, private readonly obterCilindro: () => Pick<CilindroEletrico, 'obterForcasNaHaste'>) { super(definicao); }
+  /** Devolve `this.obterCilindro().obterForcasNaHaste()`. Dependências diretas: `this.obterCilindro().obterForcasNaHaste`, `this.obterCilindro`. Efeitos indiretos seguem as dependências chamadas. @contract f-b8753a62eb7004d8 */
   public override obterForcasOperacionais(): readonly ForcaFisicaSolicitada[] { return this.obterCilindro().obterForcasNaHaste(); }
 }
 
 /** Corpo físico opcional da montagem existente; o comportamento não possui geometria. */
 export class CorpoDeCilindroEletrico extends ComCilindro(Objeto) {
   private readonly acionamento: CilindroEletrico;
+  /** Escritas diretas: `this.acionamento`. Dependências diretas: `super`, `CilindroEletrico`, `this.instalarCilindro`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-9e79c14c264823ea */
   public constructor(definicao: DefinicaoObjeto & Omit<DefinicaoCilindroEletrico, 'corpo'>) {
     super(definicao);
     this.acionamento = new CilindroEletrico({ ...definicao, corpo: this });
     this.instalarCilindro(this.acionamento);
   }
+  /** Devolve `this.acionamento.conexaoEletrica`. Efeitos indiretos seguem as dependências chamadas. @contract f-43ae106d1e223ba2 */
   public get conexaoEletrica(): ConexaoEletrica { return this.acionamento.conexaoEletrica; }
+  /** Devolve `this.acionamento.forcaNaHasteN`. Efeitos indiretos seguem as dependências chamadas. @contract f-fc7b357de6957594 */
   public get forcaNaHasteN(): number { return this.acionamento.forcaNaHasteN; }
+  /** Devolve `this.acionamento.potenciaEletricaAtualW`. Efeitos indiretos seguem as dependências chamadas. @contract f-bf9ebc8a79202075 */
   public get potenciaEletricaAtualW(): number { return this.acionamento.potenciaEletricaAtualW; }
+  /** Dependências diretas: `this.acionamento.prepararPassoOperacional`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7292795abd661d3e */
   public override prepararPassoOperacional(dtS: number): void { this.acionamento.prepararPassoOperacional(dtS); }
+  /** Devolve `this.acionamento.obterForcasOperacionais()`. Dependências diretas: `this.acionamento.obterForcasOperacionais`. Efeitos indiretos seguem as dependências chamadas. @contract f-355a0323f882c7b7 */
   public override obterForcasOperacionais(): readonly ForcaFisicaSolicitada[] { return this.acionamento.obterForcasOperacionais(); }
+  /** Devolve `this.acionamento.obterForcasNaHaste()`. Dependências diretas: `this.acionamento.obterForcasNaHaste`. Efeitos indiretos seguem as dependências chamadas. @contract f-d12e66fa2a5f7c50 */
   public obterForcasNaHaste(): readonly ForcaFisicaSolicitada[] { return this.acionamento.obterForcasNaHaste(); }
 }

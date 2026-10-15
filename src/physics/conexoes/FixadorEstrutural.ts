@@ -32,6 +32,7 @@ export class FixadorEstrutural {
   private esforcoCompressaoAtualN = 0;
   private maiorEsforcoCompressaoRegistradoN = 0;
 
+  /** Captura deslocamento/atitude relativos de dois corpos distintos; valida resistência de tração N e compressão opcional N positivas/finitas; inicializa temperatura °C. @contract f-0f5869bdaef2f59f @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly definicao: DefinicaoFixadorEstrutural) {
     if (!definicao.id || !Number.isFinite(definicao.resistenciaTracaoN) || definicao.resistenciaTracaoN <= 0) {
       throw new Error('Definição de fixador estrutural inválida.');
@@ -47,36 +48,57 @@ export class FixadorEstrutural {
     this.temperaturaAtualC = definicao.temperaturaInicialC ?? 20;
   }
 
+  /** Consulta identidade declarada do vínculo. @contract f-055ce00a96446730 @reviewed M12-DOC: implementação lida. */
   public get id(): string { return this.definicao.id; }
+  /** Consulta ruptura física do vínculo. @contract f-c9224d78e0658832 @reviewed M12-DOC: implementação lida. */
   public get estaRompido(): boolean { return this.rompido; }
+  /** Exige vínculo sem ruptura e sem liberação operacional. @contract f-ea793a469f4e1520 @reviewed M12-DOC: implementação lida. */
   public get estaAtivo(): boolean { return !this.rompido && !this.liberado; }
+  /** Distingue rompido, liberado e íntegro, priorizando ruptura na consulta. @contract f-52fa73b48adba727 @reviewed M12-DOC: implementação lida. */
   public get estado(): 'integro' | 'rompido' | 'liberado' { return this.rompido ? 'rompido' : this.liberado ? 'liberado' : 'integro'; }
-  /** Comando de separação. O mundo reconstrói a topologia sem fabricar impulso. */
+  /** Comando de separação. O mundo reconstrói a topologia sem fabricar impulso.
+   * @remarks Libera vínculo ativo uma vez e retorna confirmação; a reconstrução do mundo separa corpos sem impulso artificial.
+   * @contract f-db2b2b03b157c491
+   * @reviewed M12-DOC: contrato confrontado com implementação.
+   */
   public liberar(): boolean {
     if (!this.estaAtivo) return false;
     this.liberado = true;
     return true;
   }
+  /** Consulta resistência nominal declarada em N. @contract f-4103566e9591bff2 @reviewed M12-DOC: implementação lida. */
   public get resistenciaTracaoN(): number { return this.definicao.resistenciaTracaoN; }
+  /** Consulta temperatura atual do fixador em °C. @contract f-e6634126f28d273d @reviewed M12-DOC: implementação lida. */
   public get temperaturaC(): number { return this.temperaturaAtualC; }
+  /** Consulta limite térmico declarado ou referência histórica de 500 °C; não cria material novo. @contract f-031d3fa6bd416fc1 @reviewed M12-DOC: implementação lida. */
   public get limiteTermicoC(): number { return this.definicao.limiteTermicoC ?? 500; }
+  /** Reduz resistência nominal linearmente acima do limite térmico, chegando a zero após excesso de 200 °C; retorno N. @contract f-548f76af02c856bd @reviewed M12-DOC: implementação lida. */
   public get resistenciaTracaoEfetivaN(): number {
     if (this.temperaturaAtualC <= this.limiteTermicoC) return this.resistenciaTracaoN;
     return Math.max(0, this.resistenciaTracaoN * (1 - (this.temperaturaAtualC - this.limiteTermicoC) / 200));
   }
-  /** Maior esforço físico transmitido pelo core no passo atual, em N. */
+  /** Maior esforço físico transmitido pelo core no passo atual, em N.
+   * @contract f-d070c5bceb8ecb50
+   */
   public get esforcoFisicoSolicitadoN(): number { return this.esforcoFisicoAtualN; }
-  /** Pico de esforço físico desde a criação do fixador, em N. */
+  /** Pico de esforço físico desde a criação do fixador, em N.
+   * @contract f-b6b54cc2bff852a6
+   */
   public get picoEsforcoFisicoN(): number { return this.maiorEsforcoFisicoRegistradoN; }
-  /** Maior compressão física transmitida pelo core desde a criação, em N. */
+  /** Maior compressão física transmitida pelo core desde a criação, em N.
+   * @contract f-bf69d7a54da177a1
+   */
   public get picoEsforcoCompressaoFisicoN(): number { return this.maiorEsforcoCompressaoRegistradoN; }
+  /** Devolve primeiro corpo físico conectado, por referência. @contract f-8ad1a2e72e49b9f8 @reviewed M12-DOC: implementação lida. */
   public get objetoA(): Objeto { return this.definicao.objetoA; }
+  /** Devolve segundo corpo físico conectado, por referência. @contract f-d799977675a682c6 @reviewed M12-DOC: implementação lida. */
   public get objetoB(): Objeto { return this.definicao.objetoB; }
 
   /**
    * Massa efetiva do conjunto rígido no ponto de contato plano. Ela inclui
    * translação de ambas as massas e a inércia composta em torno do centro de
    * massa; é usada pelo core para medir energia de impacto sem subestimá-la.
+   * @contract f-91c49432497b575a
    */
   public obterMassaEfetivaNoContato(objeto: Objeto, pontoContatoM: Vetor3, normal: Vetor3): number | undefined {
     if (!this.estaAtivo || (objeto !== this.objetoA && objeto !== this.objetoB)) return undefined;
@@ -94,7 +116,9 @@ export class FixadorEstrutural {
     return 1 / ((1 / massaTotal) + (torqueUnitarioZ ** 2 / inerciaCompostaZ));
   }
 
-  /** Avaliado pelo core após a preparação operacional e antes da integração. */
+  /** Avaliado pelo core após a preparação operacional e antes da integração.
+   * @contract f-7423b87c58676970
+   */
   public prepararPasso(dtS = 0): void {
     if (!this.estaAtivo) return;
     this.esforcoFisicoAtualN = 0;
@@ -108,7 +132,9 @@ export class FixadorEstrutural {
     if (Math.abs(this.definicao.obterEsforcoSolicitadoN()) > this.resistenciaTracaoEfetivaN) this.rompido = true;
   }
 
-  /** Recebe o esforço calculado pelo core a partir de um impulso de contato. */
+  /** Recebe o esforço calculado pelo core a partir de um impulso de contato.
+   * @contract f-7bd68d1e2b32c98b
+   */
   public registrarEsforcoFisicoN(esforcoN: number): void {
     if (!Number.isFinite(esforcoN) || esforcoN < 0) throw new Error('Esforço físico do fixador inválido.');
     if (!this.estaAtivo) return;
@@ -117,7 +143,9 @@ export class FixadorEstrutural {
     if (this.esforcoFisicoAtualN > this.resistenciaTracaoEfetivaN) this.rompido = true;
   }
 
-  /** Recebe a compressão axial calculada pelo core quando essa capacidade foi declarada. */
+  /** Recebe a compressão axial calculada pelo core quando essa capacidade foi declarada.
+   * @contract f-18711e23ebfb91f8
+   */
   public registrarEsforcoDeCompressaoFisicoN(esforcoN: number): void {
     if (!Number.isFinite(esforcoN) || esforcoN < 0) throw new Error('Esforço físico do fixador inválido.');
     if (!this.estaAtivo || this.definicao.resistenciaCompressaoN === undefined) return;
@@ -132,6 +160,7 @@ export class FixadorEstrutural {
    * A representação atual do core usa a rotação Z para os vínculos físicos
    * visualizados em 2D; uma futura extensão 3D poderá substituir esta parte
    * por tensor de inércia e orientação espacial.
+   * @contract f-64e4382f5c4846fc
    */
   public aplicarRestricao(dtS: number): void {
     if (!this.estaAtivo) return;
@@ -179,6 +208,7 @@ export class FixadorEstrutural {
     });
   }
 
+  /** Rotaciona vetor em XY pelo ângulo rad e preserva Z, devolvendo novo vetor. @contract f-d31246df8d25d2db @reviewed M12-DOC: implementação lida. */
   private rotacionarNoPlano(vetor: Vetor3, anguloRad: number): Vetor3 {
     const cos = Math.cos(anguloRad);
     const sen = Math.sin(anguloRad);

@@ -9,17 +9,27 @@ export class LinhaDePropelente {
   private rompida = false;
   private desconectadaManualmente = false;
   private vazaoAtualCalculadaKgS = 0;
+  /** Escritas diretas: `this.definicao`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e6203b52037d845b */
   public constructor(private readonly definicao: DefinicaoLinhaDePropelente) {
     if (!definicao.id || definicao.tanque.tipoPropelente !== definicao.tipoPropelente || !Number.isFinite(definicao.comprimentoMaximoM) || definicao.comprimentoMaximoM <= 0 || !Number.isFinite(definicao.vazaoMaximaKgS) || definicao.vazaoMaximaKgS <= 0) throw new Error('Definição de linha de propelente inválida.');
   }
+  /** Devolve `this.rompida`. Efeitos indiretos seguem as dependências chamadas. @contract f-a48dac5eb53936b1 */
   public get estaRompida(): boolean { return this.rompida; }
-  /** A desconexão comandada preserva o tanque, mas remove sua alimentação. */
+  /** A desconexão comandada preserva o tanque, mas remove sua alimentação.
+   * @contract f-ad3cf00ed2b4b652
+   */
   public get estaDesconectada(): boolean { return this.desconectadaManualmente; }
+  /** Devolve `this.rompida || this.desconectadaManualmente`. Efeitos indiretos seguem as dependências chamadas. @contract f-0aef75929ce4fe71 */
   public get estaIndisponivel(): boolean { return this.rompida || this.desconectadaManualmente; }
+  /** Devolve `this.vazaoAtualCalculadaKgS`. Efeitos indiretos seguem as dependências chamadas. @contract f-91cff4f699720426 */
   public get vazaoAtualKgS(): number { return this.vazaoAtualCalculadaKgS; }
+  /** Devolve `this.definicao.tanque.massaPropelenteKg`. Efeitos indiretos seguem as dependências chamadas. @contract f-422ba07ba3513e30 */
   public get massaDisponivelKg(): number { return this.definicao.tanque.massaPropelenteKg; }
+  /** Escritas diretas: `this.vazaoAtualCalculadaKgS`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-cf850328b8993300 */
   public prepararPasso(): void { this.vazaoAtualCalculadaKgS = 0; }
-  /** Consulta os limites reais antes de retirar material do tanque. */
+  /** Consulta os limites reais antes de retirar material do tanque.
+   * @contract f-fb258e04e0c329f6
+   */
   public obterMassaFornecivelKg(dtS: number, posicaoConsumidorM: Vetor3): number {
     if (!Number.isFinite(dtS) || dtS <= 0) throw new Error('Passo da linha deve ser positivo e finito.');
     this.verificarIntegridade(posicaoConsumidorM);
@@ -27,23 +37,32 @@ export class LinhaDePropelente {
     return Math.min(this.massaDisponivelKg,
       this.definicao.vazaoMaximaKgS * dtS, this.definicao.valvula.obterVazaoMaximaKgS() * dtS);
   }
-  /** Comando de throttle aplicado à válvula desta linha. */
+  /** Comando de throttle aplicado à válvula desta linha.
+   * @contract f-fd9fae67e703ae40
+   */
   public definirAberturaDaValvula(abertura: number): void { this.definicao.valvula.definirAbertura(abertura); }
-  /** Desacoplamento físico irreversível da linha neste cenário. */
+  /** Desacoplamento físico irreversível da linha neste cenário.
+   * @contract f-ea75fd8bfdb5505c
+   */
   public desconectar(): void {
     this.desconectadaManualmente = true;
     this.vazaoAtualCalculadaKgS = 0;
   }
-  /** Falha física irreversível da mangueira, por ruptura ou soltura do encaixe. */
+  /** Falha física irreversível da mangueira, por ruptura ou soltura do encaixe.
+   * @contract f-17f175959e1b3faa
+   */
   public romper(): void {
     this.rompida = true;
     this.vazaoAtualCalculadaKgS = 0;
   }
-  /** Atualiza a ruptura geométrica antes de qualquer bomba consumir energia. */
+  /** Atualiza a ruptura geométrica antes de qualquer bomba consumir energia.
+   * @contract f-2871fdf3ca2583c4
+   */
   public verificarIntegridade(posicaoConsumidorM: Vetor3): void {
     const distanciaM = this.definicao.tanque.getEstadoFisico().posicaoM.subtrair(posicaoConsumidorM).magnitude;
     if (distanciaM > this.definicao.comprimentoMaximoM) this.romper();
   }
+  /** Escritas diretas: `this.vazaoAtualCalculadaKgS`. Dependências diretas: `Error`, `this.verificarIntegridade`, `this.definicao.valvula.obterVazaoMaximaKgS`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7a957cfc1c7f6f30 */
   public fornecerMassa(massaSolicitadaKg: number, dtS: number, posicaoConsumidorM: Vetor3): number {
     this.vazaoAtualCalculadaKgS = 0;
     if (!Number.isFinite(massaSolicitadaKg) || massaSolicitadaKg < 0 || !Number.isFinite(dtS) || dtS <= 0) throw new Error('Solicitação de linha inválida.');

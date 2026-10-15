@@ -31,6 +31,7 @@ export class VeiculoTerrestre extends Objeto {
   private comandoFreio = 0;
   private rodasApoiadasPeloCore = false;
 
+  /** Escritas diretas: `this.definicaoVeiculo`. Dependências diretas: `super`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-11d563c8accc999f */
   public constructor(private readonly definicaoVeiculo: DefinicaoVeiculoTerrestre) {
     super(definicaoVeiculo);
     if (!Number.isInteger(definicaoVeiculo.quantidadeRodas) || definicaoVeiculo.quantidadeRodas < 2) {
@@ -60,8 +61,11 @@ export class VeiculoTerrestre extends Objeto {
     }
   }
 
+  /** Devolve `this.definicaoVeiculo.quantidadeRodas`. Efeitos indiretos seguem as dependências chamadas. @contract f-95146e7c87db15a2 */
   public get quantidadeRodas(): number { return this.definicaoVeiculo.quantidadeRodas; }
+  /** Devolve `this.definicaoVeiculo.raioRodaM ?? 0.35`. Efeitos indiretos seguem as dependências chamadas. @contract f-6741354cff73a64e */
   public get raioRodaM(): number { return this.definicaoVeiculo.raioRodaM ?? 0.35; }
+  /** Devolve `this.definicaoVeiculo.alturaChassiM ?? this.dimensoesM.y - (2 * this.raioRodaM)`. Efeitos indiretos seguem as dependências chamadas. @contract f-0f2898a6e6fe4a5f */
   public get alturaChassiM(): number { return this.definicaoVeiculo.alturaChassiM ?? this.dimensoesM.y - (2 * this.raioRodaM); }
 
   /**
@@ -69,6 +73,7 @@ export class VeiculoTerrestre extends Objeto {
    * representa seu envelope total, o ponto inferior da roda fica em y = -h/2:
    * quando o veículo está apoiado, a roda toca o solo por tangência, não pelo
    * centro de massa.
+   * @contract f-ffc02659a72b358b
    */
   public getPosicoesRodasLocaisM(): readonly Vetor3[] {
     const semiEntreEixosM = (this.definicaoVeiculo.distanciaEntreEixosM ?? this.dimensoesM.x * 0.6) / 2;
@@ -79,7 +84,9 @@ export class VeiculoTerrestre extends Objeto {
     ];
   }
 
-  /** Centro local do chassi; sua face inferior deixa vão livre sob o assoalho. */
+  /** Centro local do chassi; sua face inferior deixa vão livre sob o assoalho.
+   * @contract f-530a3992c03da813
+   */
   public getCentroChassiLocalM(): Vetor3 {
     return new Vetor3(0, (this.dimensoesM.y / 2) - (this.alturaChassiM / 2), 0);
   }
@@ -88,6 +95,7 @@ export class VeiculoTerrestre extends Objeto {
    * Pontos físicos que podem tocar uma superfície: perímetro das rodas e
    * cantos do chassi. Assim o veículo apoia nas rodas quando está em pé, mas
    * o chassi também bloqueia o solo se ele tombar ou ficar invertido.
+   * @contract f-71a37c4b12903924
    */
   public override getPontosDeContatoLocaisM(): readonly Vetor3[] {
     const pontos: Vetor3[] = [];
@@ -113,31 +121,39 @@ export class VeiculoTerrestre extends Objeto {
     return pontos;
   }
 
+  /** Devolve `[new Vetor3(-semiEntreEixosM, alturaTangenciaM, 0), new Vetor3(semiEntreEixosM, alturaTangenciaM, 0)]`. Dependências diretas: `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7234fbce4e5b06d9 */
   public override getPontosDeTracaoLocaisM(): readonly Vetor3[] {
     const semiEntreEixosM = (this.definicaoVeiculo.distanciaEntreEixosM ?? this.dimensoesM.x * 0.6) / 2;
     const alturaTangenciaM = -this.dimensoesM.y / 2;
     return [new Vetor3(-semiEntreEixosM, alturaTangenciaM, 0), new Vetor3(semiEntreEixosM, alturaTangenciaM, 0)];
   }
 
+  /** Escritas diretas: `this.rodasApoiadasPeloCore`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-09f4e212fdfebdb9 */
   public override atualizarContatoDeTracaoPeloCore(apoiado: boolean): void {
     this.rodasApoiadasPeloCore = apoiado;
   }
 
+  /** Devolve `this.definicaoVeiculo.coeficienteResistenciaRolamento ?? 0.015`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-485b0db1c1818076 */
   public override getCoeficienteAtritoDeContato(): number {
     return this.definicaoVeiculo.coeficienteResistenciaRolamento ?? 0.015;
   }
 
-  /** Comando normalizado: -1 ré, 0 neutro, +1 tração para a frente. */
+  /** Comando normalizado: -1 ré, 0 neutro, +1 tração para a frente.
+   * @contract f-440350de247405bb
+   */
   public definirComandoTracao(comando: number): void {
     this.comandoTracao = this.validarComando(comando, 'Tração');
   }
 
-  /** Comando normalizado: 0 livre, +1 força máxima de frenagem. */
+  /** Comando normalizado: 0 livre, +1 força máxima de frenagem.
+   * @contract f-c420e223a0adcf0d
+   */
   public definirComandoFreio(comando: number): void {
     if (!Number.isFinite(comando) || comando < 0 || comando > 1) throw new Error('Freio deve estar entre 0 e 1.');
     this.comandoFreio = comando;
   }
 
+  /** Dependências diretas: `this.getEstadoFisico`, `Vetor3`, `estado.velocidadeMps.produtoEscalar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d39d8e56237cf68d */
   public override obterForcasOperacionais(): readonly ForcaFisicaSolicitada[] {
     if (!this.rodasApoiadasPeloCore) return [];
     const estado = this.getEstadoFisico();
@@ -161,6 +177,7 @@ export class VeiculoTerrestre extends Objeto {
     return solicitacoes;
   }
 
+  /** Devolve `comando`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-095355e9a80a99db */
   private validarComando(comando: number, nome: string): number {
     if (!Number.isFinite(comando) || comando < -1 || comando > 1) throw new Error(`${nome} deve estar entre -1 e 1.`);
     return comando;

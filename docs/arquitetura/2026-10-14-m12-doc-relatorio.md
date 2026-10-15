@@ -106,3 +106,22 @@ revisão, com chamadas, escritas, retornos e condições no catálogo.
 JavaScript emitido com `removeComments` permaneceu idêntico em **cada arquivo**
 antes/depois do lote; assinaturas permanecem no mesmo inventário. Catálogo e
 linhas de navegação foram regenerados. Nenhuma constante/algoritmo foi alterado.
+
+### C2 — Corpos, vínculos e componentes operacionais
+
+37 módulos de objetos/conexões receberam cabeçalhos proporcionais à função.
+As descrições de energia, propulsão, veículo composto e observação de integridade
+foram confrontadas com os corpos das implementações. Getters simples e
+encaminhamentos registram o valor/dependência efetivos; descrições complexas
+não confirmadas conservam marcação de revisão.
+
+O controle recusou inicialmente um arquivo cujo JavaScript emitido tinha apenas
+uma quebra de linha nova dentro de um objeto. A inspeção do diff confirmou
+igualdade de tokens/operações. A validação foi ampliada para AST do JavaScript
+emitido: ignora apresentação, mas preserva tokens/literais/estrutura. Testes
+adicionais rejeitam alteração de operador, constante e ASI após `return`.
+Não houve alteração executável nos arquivos de produção deste lote.
+
+Para manter catálogo e commits intermediários coerentes, os artefatos por lote
+são gerados das fontes do índice Git, sem reverter comentários ainda em trabalho
+nos demais subsistemas. A ferramenta final usa a árvore de trabalho normalmente.

@@ -18,6 +18,7 @@ export class GeradorCA extends Objeto {
   private entregueJ = 0;
   private perdasPassoJ = 0;
   private dtS = 0;
+  /** Escritas diretas: `this.config`, `this.reservaJ`. Dependências diretas: `super`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-692af7e2d7d6cffa */
   public constructor(private readonly config: DefinicaoGeradorCA) {
     super(config);
     for (const v of [config.tensaoNominalV, config.frequenciaHz, config.potenciaNominalW, config.eficiencia]) {
@@ -26,23 +27,36 @@ export class GeradorCA extends Objeto {
     if (config.eficiencia > 1 || !Number.isFinite(config.energiaMecanicaInicialJ) || config.energiaMecanicaInicialJ < 0) throw new Error('Reserva ou eficiência inválida.');
     this.reservaJ = config.energiaMecanicaInicialJ;
   }
+  /** Devolve `this.config.tensaoNominalV`. Efeitos indiretos seguem as dependências chamadas. @contract f-7918a305ac5ecd80 */
   public get tensaoNominalV(): number { return this.config.tensaoNominalV; }
+  /** Devolve `this.config.frequenciaHz`. Efeitos indiretos seguem as dependências chamadas. @contract f-6c7462cec3947e93 */
   public get frequenciaHz(): number { return this.config.frequenciaHz; }
+  /** Devolve `this.config.potenciaNominalW`. Efeitos indiretos seguem as dependências chamadas. @contract f-a1bf1e61bfd0f248 */
   public get potenciaNominalW(): number { return this.config.potenciaNominalW; }
+  /** Devolve `this.ligado && this.integridadeEstrutural > 0 && this.reservaJ > 0`. Efeitos indiretos seguem as dependências chamadas. @contract f-825b08a8153bc5b8 */
   public get estaLigado(): boolean { return this.ligado && this.integridadeEstrutural > 0 && this.reservaJ > 0; }
+  /** Devolve `!this.estaLigado`. Efeitos indiretos seguem as dependências chamadas. @contract f-0fb44aaccdeee90e */
   public get estaDescarregada(): boolean { return !this.estaLigado; }
+  /** Devolve `this.reservaJ`. Efeitos indiretos seguem as dependências chamadas. @contract f-0e01593bc29e084c */
   public get energiaMecanicaRestanteJ(): number { return this.reservaJ; }
+  /** Devolve `this.reservaJ * this.config.eficiencia`. Efeitos indiretos seguem as dependências chamadas. @contract f-3286ebef665d5a12 */
   public get energiaArmazenadaJ(): number { return this.reservaJ * this.config.eficiencia; }
+  /** Devolve `this.estaLigado ? Math.min(this.disponivelJ, this.energiaArmazenadaJ) : 0`. Efeitos indiretos seguem as dependências chamadas. @contract f-4fec02850e72227c */
   public get energiaDisponivelNoPassoJ(): number { return this.estaLigado ? Math.min(this.disponivelJ, this.energiaArmazenadaJ) : 0; }
+  /** Devolve `this.entregueJ`. Efeitos indiretos seguem as dependências chamadas. @contract f-be9673577ed0679f */
   public get energiaEletricaGeradaJ(): number { return this.entregueJ; }
+  /** Devolve `this.estaLigado`. Escritas diretas: `this.ligado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d64655978e5d05fc */
   public ligar(): boolean { this.ligado = this.integridadeEstrutural > 0 && this.reservaJ > 0; return this.estaLigado; }
+  /** Escritas diretas: `this.ligado`, `this.disponivelJ`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-38cecfc76a3e86ea */
   public desligar(): void { this.ligado = false; this.disponivelJ = 0; }
+  /** Escritas diretas: `this.dtS`, `this.perdasPassoJ`, `this.disponivelJ`, `this.ligado`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-bc3f153dcb6bb796 */
   public override prepararPassoEnergetico(dtS: number): void {
     if (!Number.isFinite(dtS) || dtS <= 0) throw new Error('dt do gerador inválido.');
     this.dtS = dtS; this.perdasPassoJ = 0;
     this.disponivelJ = this.estaLigado ? this.potenciaNominalW * this.integridadeEstrutural * dtS : 0;
     if (!this.estaLigado) this.ligado = false;
   }
+  /** Devolve `entregue`. Escritas diretas: `this.reservaJ`, `this.disponivelJ`, `this.entregueJ`, `this.perdasPassoJ`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-209be506eb47acc7 */
   public fornecerEnergia(energiaJ: number): number {
     if (!Number.isFinite(energiaJ) || energiaJ < 0) throw new Error('Energia inválida.');
     const entregue = Math.min(energiaJ, this.energiaDisponivelNoPassoJ);
@@ -52,5 +66,6 @@ export class GeradorCA extends Objeto {
     this.entregueJ += entregue; this.perdasPassoJ += mecanica - entregue;
     return entregue;
   }
+  /** Devolve `this.dtS > 0 ? this.perdasPassoJ / this.dtS : 0`. Efeitos indiretos seguem as dependências chamadas. @contract f-29a79b7c8723509b */
   public override obterPotenciaTermicaGeradaW(): number { return this.dtS > 0 ? this.perdasPassoJ / this.dtS : 0; }
 }

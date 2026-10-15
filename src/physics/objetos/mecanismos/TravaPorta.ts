@@ -29,6 +29,7 @@ export class TravaPorta extends ComCilindro(Objeto) {
   private ultimaSequenciaDeMovimento = 0;
   private comandoOperacionalAtual: 'abrir' | 'fechar' | 'parar' = 'parar';
 
+  /** Escritas diretas: `this.config`, `this.xAvancadoM`, `this.xRecuadoM`. Dependências diretas: `super`, `[config.cursoM, config.velocidadeMps, config.forcaMaximaN, config.potenciaRecuoW] .every`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-73153b491956dc49 */
   public constructor(private readonly config: DefinicaoTravaPorta) {
     super(config);
     if (![config.cursoM, config.velocidadeMps, config.forcaMaximaN, config.potenciaRecuoW]
@@ -39,10 +40,15 @@ export class TravaPorta extends ComCilindro(Objeto) {
     this.atualizarComando();
   }
 
+  /** Devolve `Math.abs(this.getEstadoFisico().posicaoM.x - this.xAvancadoM) <= 0.01`. Dependências diretas: `this.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-92b56f02c10c9ad0 */
   public get estaAvancada(): boolean { return Math.abs(this.getEstadoFisico().posicaoM.x - this.xAvancadoM) <= 0.01; }
+  /** Devolve `Math.abs(this.getEstadoFisico().posicaoM.x - this.xRecuadoM) <= 0.01`. Dependências diretas: `this.getEstadoFisico`. Efeitos indiretos seguem as dependências chamadas. @contract f-80cb2b6dd4ddfaa9 */
   public get estaRecuada(): boolean { return Math.abs(this.getEstadoFisico().posicaoM.x - this.xRecuadoM) <= 0.01; }
+  /** Devolve `this.forcaAtualN`. Efeitos indiretos seguem as dependências chamadas. @contract f-af2750c97a2d9eaa */
   public get forcaAtualDaTravaN(): number { return this.forcaAtualN; }
+  /** Devolve `this.recuoSolicitado ? 'recuar' : 'avancar'`. Efeitos indiretos seguem as dependências chamadas. @contract f-f0e48507b8c057bb */
   public get comandoAtual(): 'avancar' | 'recuar' { return this.recuoSolicitado ? 'recuar' : 'avancar'; }
+  /** Dependências diretas: `this.config.apoioEstruturalDisponivel`, `this.config.porta`, `this.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ee530e6e751a3407 */
   public get estaSustentandoPorta(): boolean {
     if (!this.estaAvancada || this.alturaRetidaM === undefined || this.integridadeEstrutural === 0
       || this.config.apoioEstruturalDisponivel?.() === false) return false;
@@ -56,6 +62,7 @@ export class TravaPorta extends ComCilindro(Objeto) {
     return sobreposicaoHorizontalM > 0 && distanciaVerticalM >= -0.03 && distanciaVerticalM <= 0.08;
   }
 
+  /** Escritas diretas: `this.ultimaSequenciaDeMovimento`, `this.comandoOperacionalAtual`, `this.recuoSolicitado`, `this.alturaRetidaM`. Dependências diretas: `this.config.obterUltimoComandoOperacional`, `this.config.sensorPortaAberta`, `this.definirEntradas`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ae5f6598a284f391 */
   private atualizarComando(): void {
     const comandoIniciado = this.config.obterUltimoComandoOperacional();
     if (comandoIniciado && comandoIniciado.sequencia !== this.ultimaSequenciaDeMovimento) {
@@ -72,6 +79,7 @@ export class TravaPorta extends ComCilindro(Objeto) {
       avancado: this.estaAvancada, recuado: this.estaRecuada });
   }
 
+  /** Escritas diretas: `this.forcaAtualN`, `this.alturaRetidaM`. Dependências diretas: `Error`, `this.atualizarComando`, `this.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-fb51fc04b8452318 */
   public override prepararPassoOperacional(dtS: number): void {
     if (!Number.isFinite(dtS) || dtS <= 0) throw new Error('dt da trava deve ser positivo e finito.');
     this.atualizarComando();
@@ -96,6 +104,7 @@ export class TravaPorta extends ComCilindro(Objeto) {
     } else if (this.recuoSolicitado) this.alturaRetidaM = undefined;
   }
 
+  /** Dependências diretas: `this.config.porta`, `porta.getEstadoFisico`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ea33945378347a46 */
   public obterForcasNaPorta(): readonly ForcaFisicaSolicitada[] {
     if (!this.estaSustentandoPorta) return [];
     const alturaRetidaM = this.alturaRetidaM;
@@ -109,9 +118,11 @@ export class TravaPorta extends ComCilindro(Objeto) {
     return [{ forcaN: new Vetor3(0, suporteN, 0) }];
   }
 
+  /** Devolve `[{ forcaN: new Vetor3(this.forcaAtualN, 0, 0) }]`. Dependências diretas: `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-608dfb1b6c2d6288 */
   public override obterForcasOperacionais(): readonly ForcaFisicaSolicitada[] {
     return [{ forcaN: new Vetor3(this.forcaAtualN, 0, 0) }];
   }
+  /** Devolve `[{ forcaN: new Vetor3(-this.forcaAtualN, -suporteN, 0) }]`. Dependências diretas: `this.obterForcasNaPorta`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-c36df25d45b03cb4 */
   public obterReacaoNoBatente(): readonly ForcaFisicaSolicitada[] {
     const suporteN = this.obterForcasNaPorta()[0]?.forcaN.y ?? 0;
     return [{ forcaN: new Vetor3(-this.forcaAtualN, -suporteN, 0) }];

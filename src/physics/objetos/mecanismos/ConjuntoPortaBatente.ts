@@ -20,6 +20,7 @@ export interface DefinicaoConjuntoPortaBatente {
  * módulo móvel; o batente é a cadeia estrutural que recebe a reação do motor.
  */
 export class ConjuntoPortaBatente {
+  /** Escritas diretas: `this.definicao`. Dependências diretas: `Error`, `Set`, `definicao.chumbadoresDoBatente.some`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-288f1848d7fa9e2a */
   public constructor(private readonly definicao: DefinicaoConjuntoPortaBatente) {
     if (definicao.pecasDoBatente.length === 0 || definicao.chumbadoresDoBatente.length === 0) {
       throw new Error('Conjunto porta/batente exige estrutura e apoio físico.');
@@ -36,15 +37,22 @@ export class ConjuntoPortaBatente {
     }
   }
 
+  /** Devolve `this.definicao.porta`. Efeitos indiretos seguem as dependências chamadas. @contract f-8850190e77e7bf57 */
   public get porta(): Porta { return this.definicao.porta; }
+  /** Devolve `this.definicao.trava`. Efeitos indiretos seguem as dependências chamadas. @contract f-315c8fbb7f091b74 */
   public get trava(): TravaPorta | undefined { return this.definicao.trava; }
+  /** Devolve `this.definicao.pecasDoBatente`. Efeitos indiretos seguem as dependências chamadas. @contract f-dd331b18bbd5baf4 */
   public get pecasDoBatente(): readonly Objeto[] { return this.definicao.pecasDoBatente; }
+  /** Devolve `this.definicao.fixadoresDoBatente`. Efeitos indiretos seguem as dependências chamadas. @contract f-3b3148e66162d0cb */
   public get fixadoresDoBatente(): readonly FixadorEstrutural[] { return this.definicao.fixadoresDoBatente; }
+  /** Devolve `this.definicao.chumbadoresDoBatente`. Efeitos indiretos seguem as dependências chamadas. @contract f-88c9aa90b5309d6a */
   public get chumbadoresDoBatente(): readonly ChumbadorAoSolo[] { return this.definicao.chumbadoresDoBatente; }
+  /** Devolve `[this.porta, ...this.pecasDoBatente, ...(this.trava ? [this.trava] : [])]`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-99ecb1dc2530e485 */
   public get objetosFisicos(): readonly Objeto[] {
     return [this.porta, ...this.pecasDoBatente, ...(this.trava ? [this.trava] : [])];
   }
 
+  /** Dependências diretas: `this.pecasDoBatente.every`, `this.fixadoresDoBatente.every`, `this.chumbadoresDoBatente.every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-296ec4147df261ec */
   public get apoioEstruturalDisponivel(): boolean {
     return this.pecasDoBatente.every(peca => peca.integridadeEstrutural > 0)
       && !this.definicao.guiaDaPorta.estaRompida
@@ -53,6 +61,7 @@ export class ConjuntoPortaBatente {
       && this.chumbadoresDoBatente.every(chumbador => !chumbador.estaRompido);
   }
 
+  /** Devolve `motivos`. Dependências diretas: `this.pecasDoBatente.some`, `motivos.push`, `this.fixadoresDoBatente.some`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-25a540ad06590f40 */
   public get motivosDeApoioIndisponivel(): readonly string[] {
     const motivos: string[] = [];
     if (this.pecasDoBatente.some(peca => peca.integridadeEstrutural === 0)) motivos.push('peça do batente destruída');

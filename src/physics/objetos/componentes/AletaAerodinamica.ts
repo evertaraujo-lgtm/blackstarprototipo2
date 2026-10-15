@@ -27,6 +27,7 @@ export class AletaAerodinamica extends Objeto {
   private anguloDeflexaoAtualRad = 0;
   public readonly conexaoEletrica: ConexaoEletrica;
 
+  /** Cria aleta física com parâmetros SI positivos, deflexão menor que π/2 e circuito real de alimentação; mantém identidade/massa própria no mundo. @contract f-54ffb990a0b9fd30 @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly definicaoAleta: DefinicaoAletaAerodinamica) {
     super({
       id: definicaoAleta.id,
@@ -63,15 +64,19 @@ export class AletaAerodinamica extends Objeto {
     });
   }
 
+  /** Consulta posição efetivamente atingida pelo atuador em rad, distinta do comando. @contract f-d1ba873c60de7b77 @reviewed M12-DOC: implementação lida. */
   public get deflexaoAtualRad(): number { return this.anguloDeflexaoAtualRad; }
+  /** Consulta alvo de deflexão em rad. @contract f-6facf1f5c35c42f1 @reviewed M12-DOC: implementação lida. */
   public get comandoAtualRad(): number { return this.comandoDeflexaoRad; }
 
+  /** Valida ângulo finito em rad e satura comando no curso declarado; não move instantaneamente a aleta. @contract f-8e46742911ecfd63 @reviewed M12-DOC: implementação lida. */
   public solicitarDeflexaoRad(valorRad: number): void {
     if (!Number.isFinite(valorRad)) throw new Error('Comando de deflexão deve ser finito.');
     const limite = this.deflexaoMaximaRad;
     this.comandoDeflexaoRad = Math.max(-limite, Math.min(limite, valorRad));
   }
 
+  /** Prepara circuito no subpasso, exige energia/controle/integridade, limita variação por rad/s e fração de energia efetiva; atualiza somente a deflexão interna do atuador. @contract f-4e987276a8db4cad @reviewed M12-DOC: implementação lida. */
   public override prepararPassoOperacional(dtS: number): void {
     if (!Number.isFinite(dtS) || dtS < 0) throw new Error('Passo do atuador deve ser finito e não negativo.');
     this.conexaoEletrica.prepararPasso(Math.max(dtS, Number.EPSILON));
@@ -90,6 +95,7 @@ export class AletaAerodinamica extends Objeto {
     this.anguloDeflexaoAtualRad += variacaoSolicitada * disponibilidade;
   }
 
+  /** Calcula sustentação proporcional a q·A·Clα·deflexão·integridade na direção perpendicular ao fluxo relativo; retorna forças/ponto reais. Sem fluxo, densidade ou integridade não há força; arrasto permanece único na classe-base/core. @contract f-89136d5b05b3ebd7 @reviewed M12-DOC: implementação lida. */
   public override obterForcasAerodinamicas(condicoes: CondicoesAtmosfericas): readonly ForcaFisicaSolicitada[] {
     if (this.integridadeEstrutural <= 0 || condicoes.densidadeArKgM3 <= 0) return [];
     const estado = this.getEstadoFisico();
@@ -111,5 +117,6 @@ export class AletaAerodinamica extends Objeto {
     return [{ forcaN: forca, pontoM: estado.posicaoM }];
   }
 
+  /** Consulta limite mecânico configurado em rad. @contract f-ada0794e720d3f92 @reviewed M12-DOC: implementação lida. */
   private get deflexaoMaximaRad(): number { return this.definicaoAleta.deflexaoMaximaRad; }
 }

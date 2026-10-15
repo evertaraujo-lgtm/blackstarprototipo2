@@ -21,20 +21,27 @@ export interface DefinicaoJuntaRotacionalDeBancada {
 export class JuntaRotacionalDeBancada {
   private travaMecanicaAtiva: boolean;
 
+  /** Escritas diretas: `this.definicao`, `this.travaMecanicaAtiva`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a132b0bde695eb85 */
   public constructor(private readonly definicao: DefinicaoJuntaRotacionalDeBancada) {
     if (!definicao.id || definicao.objetoBase === definicao.braco) throw new Error('Junta de bancada invalida.');
     this.travaMecanicaAtiva = definicao.travaMecanicaInicial === true;
   }
 
+  /** Devolve `this.definicao.id`. Efeitos indiretos seguem as dependências chamadas. @contract f-de27543d8b03cfef */
   public get id(): string { return this.definicao.id; }
+  /** Devolve `this.definicao.objetoBase`. Efeitos indiretos seguem as dependências chamadas. @contract f-a3366640fa50fed3 */
   public get objetoBase(): Objeto { return this.definicao.objetoBase; }
+  /** Devolve `this.definicao.braco`. Efeitos indiretos seguem as dependências chamadas. @contract f-83fcd1f7465390aa */
   public get braco(): Objeto { return this.definicao.braco; }
+  /** Devolve `this.travaMecanicaAtiva`. Efeitos indiretos seguem as dependências chamadas. @contract f-cce622a9107c5de1 */
   public get estaTravada(): boolean { return this.travaMecanicaAtiva; }
+  /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-cf6423fa07310d81 */
   public ignoraColisaoEntre(objetoA: Objeto, objetoB: Objeto): boolean {
     return (objetoA === this.definicao.objetoBase && objetoB === this.definicao.braco)
       || (objetoA === this.definicao.braco && objetoB === this.definicao.objetoBase);
   }
 
+  /** Escritas diretas: `this.travaMecanicaAtiva`. Dependências diretas: `this.obterPontoMundo`, `this.obterVelocidadeDoPonto`, `base.subtrair`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-29bef800a7b6283b */
   public obterForcasPara(objeto: Objeto): ForcaAplicada[] {
     if (objeto !== this.definicao.objetoBase && objeto !== this.definicao.braco) return [];
     const base = this.obterPontoMundo(this.definicao.objetoBase, this.definicao.pontoNoObjetoBaseM);
@@ -68,11 +75,13 @@ export class JuntaRotacionalDeBancada {
     }];
   }
 
+  /** Devolve `estado.posicaoM.adicionar(new Vetor3(pontoLocal.x * c - pontoLocal.y * s, pontoLocal.x * s + pontoLocal.y * c, pontoLocal.z))`. Dependências diretas: `objeto.getEstadoFisico`, `estado.posicaoM.adicionar`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-f2ca99b62b09ac91 */
   private obterPontoMundo(objeto: Objeto, pontoLocal: Vetor3): Vetor3 {
     const estado = objeto.getEstadoFisico(); const c = Math.cos(estado.orientacaoRad.z); const s = Math.sin(estado.orientacaoRad.z);
     return estado.posicaoM.adicionar(new Vetor3(pontoLocal.x * c - pontoLocal.y * s, pontoLocal.x * s + pontoLocal.y * c, pontoLocal.z));
   }
 
+  /** Devolve `estado.velocidadeMps.adicionar(new Vetor3(-estado.velocidadeAngularRadps.z * rel.y, estado.velocidadeAngularRadps.z * rel.x, 0))`. Dependências diretas: `objeto.getEstadoFisico`, `this.obterPontoMundo`, `ponto.subtrair`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-9a9bbdad31b5ee20 */
   private obterVelocidadeDoPonto(objeto: Objeto, pontoLocal: Vetor3): Vetor3 {
     const estado = objeto.getEstadoFisico(); const ponto = this.obterPontoMundo(objeto, pontoLocal); const rel = ponto.subtrair(estado.posicaoM);
     return estado.velocidadeMps.adicionar(new Vetor3(-estado.velocidadeAngularRadps.z * rel.y, estado.velocidadeAngularRadps.z * rel.x, 0));

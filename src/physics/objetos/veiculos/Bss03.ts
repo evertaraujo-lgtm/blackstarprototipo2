@@ -21,6 +21,7 @@ export class Bss03 extends VeiculoComposto {
   private readonly configuracaoControleDesaceleracao: Partial<ConfiguracaoControleDesaceleracao>;
   private controleAtivo: ControleAtivoBss03 = 'manual';
 
+  /** Escritas diretas: `this.idsPropulsoresDecolagem`, `this.idsPropulsoresPouso`, `this.configuracaoControlePouso`, `this.configuracaoControleDesaceleracao`. Dependências diretas: `super`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-860287d56592b29a */
   public constructor(definicao: DefinicaoBss03) {
     super(definicao);
     if (definicao.idsPropulsoresDecolagem.length === 0 || definicao.idsPropulsoresPouso.length === 0) {
@@ -32,6 +33,7 @@ export class Bss03 extends VeiculoComposto {
     this.configuracaoControleDesaceleracao = { ...definicao.controleDesaceleracao };
   }
 
+  /** Escritas diretas: `this.controleAtivo`. Dependências diretas: `this.desabilitarControleDeDesaceleracao`, `this.desabilitarControleDeGimbalDeDescida`, `this.habilitarControleDeInclinacaoNosPropulsores`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-925836e5b858f517 */
   public ativarControleDeInclinacao(): void {
     this.desabilitarControleDeDesaceleracao();
     this.desabilitarControleDeGimbalDeDescida();
@@ -39,6 +41,7 @@ export class Bss03 extends VeiculoComposto {
     this.controleAtivo = 'inclinacao';
   }
 
+  /** Escritas diretas: `this.controleAtivo`. Dependências diretas: `this.habilitarControleDeGimbalDeDescida`, `this.habilitarControleDeDesaceleracao`, `this.habilitarControleDePousoComposto`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-bc37af32bf373cd0 */
   public ativarControleDePouso(): void {
     this.habilitarControleDeGimbalDeDescida(this.idsPropulsoresPouso, 0.002);
     this.habilitarControleDeDesaceleracao(this.configuracaoControleDesaceleracao, this.idsPropulsoresPouso);
@@ -51,6 +54,7 @@ export class Bss03 extends VeiculoComposto {
    * sequência automática: não depende de altitude, tempo ou fase de voo.
    * A transferência só corta a decolagem depois que cada motor de pouso passa
    * pelos permissivos e confirma a própria ignição.
+   * @contract f-4397fd1c3b08116e
    */
   public acionarModoDePouso(): readonly ResultadoComandoPropulsor[] {
     for (const id of this.idsPropulsoresPouso) this.definirThrottleDoPropulsor(id, 0);
@@ -62,12 +66,15 @@ export class Bss03 extends VeiculoComposto {
     return resultados;
   }
 
-  /** Comando explícito para abandonar o pouso; corta o grupo de pouso antes do PID. */
+  /** Comando explícito para abandonar o pouso; corta o grupo de pouso antes do PID.
+   * @contract f-27409d470d21b142
+   */
   public retornarAoControleDeInclinacao(): void {
     for (const id of this.idsPropulsoresPouso) this.definirThrottleDoPropulsor(id, 0);
     this.ativarControleDeInclinacao();
   }
 
+  /** Escritas diretas: `this.controleAtivo`. Dependências diretas: `this.desabilitarControleDeInclinacao`, `this.desabilitarControleDePouso`, `this.desabilitarControleDeDesaceleracao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a517d11ce6820182 */
   public desativarControlesAutomaticos(): void {
     this.desabilitarControleDeInclinacao();
     this.desabilitarControleDePouso();
@@ -76,5 +83,6 @@ export class Bss03 extends VeiculoComposto {
     this.controleAtivo = 'manual';
   }
 
+  /** Devolve `this.controleAtivo`. Efeitos indiretos seguem as dependências chamadas. @contract f-724031d58d4521b0 */
   public get controleAtivoBss03(): ControleAtivoBss03 { return this.controleAtivo; }
 }

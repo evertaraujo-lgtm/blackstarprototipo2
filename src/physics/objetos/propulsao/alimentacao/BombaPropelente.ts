@@ -7,9 +7,11 @@ export interface CircuitoDeBombeamento { readonly bomba: BombaPropelente; readon
 
 /** Bomba elétrica que converte energia da bateria em vazão limitada pela linha. */
 export class BombaPropelente {
+  /** Escritas diretas: `this.definicao`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-08499cf7b7b5281e */
   public constructor(private readonly definicao: DefinicaoBombaPropelente) {
     if (!definicao.id || !Number.isFinite(definicao.tensaoNominalV) || definicao.tensaoNominalV <= 0 || !Number.isFinite(definicao.vazaoMaximaKgS) || definicao.vazaoMaximaKgS <= 0 || !Number.isFinite(definicao.potenciaEletricaMaximaW) || definicao.potenciaEletricaMaximaW < 0) throw new Error('Definição de bomba inválida.');
   }
+  /** Dependências diretas: `Error`, `conexao.fornecerEnergia`, `linha.fornecerMassa`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-90c7b4887e2d3c64 */
   public bombear(linha: LinhaDePropelente, conexao: ConexaoEletrica, massaSolicitadaKg: number, dtS: number, posicaoM: Vetor3): number {
     if (!Number.isFinite(massaSolicitadaKg) || massaSolicitadaKg < 0 || !Number.isFinite(dtS) || dtS <= 0) throw new Error('Solicitação de bomba inválida.');
     if (conexao.tensaoNominalV !== this.definicao.tensaoNominalV || conexao.estaIndisponivel) return 0;
@@ -24,6 +26,7 @@ export class BombaPropelente {
    * Alimentação coordenada: reserva material na proporção de mistura e partilha
    * uma única entrega elétrica. Uma bomba não esgota a bateria antes da outra.
    * Os limites das duas linhas e dos dois tanques são consultados antes da retirada.
+   * @contract f-bdeb6af09d1c8e9e
    */
   public static bombearMistura(
     combustivel: CircuitoDeBombeamento, oxidante: CircuitoDeBombeamento,
@@ -37,10 +40,12 @@ export class BombaPropelente {
     const indisponivel = conexao.estaIndisponivel
       || [combustivel, oxidante].some(({ bomba }) => bomba.definicao.tensaoNominalV !== conexao.tensaoNominalV);
     if (indisponivel) return { massaCombustivelKg: 0, massaOxidanteKg: 0 };
+    /** Devolve `Math.min( bomba.definicao.vazaoMaximaKgS * dtS, linha.obterMassaFornecivelKg(dtS, posicaoM))`. Dependências diretas: `linha.obterMassaFornecivelKg`. Efeitos indiretos seguem as dependências chamadas. @contract f-7bce10b01ea7502f */
     const limite = ({ bomba, linha }: CircuitoDeBombeamento): number => Math.min(
       bomba.definicao.vazaoMaximaKgS * dtS, linha.obterMassaFornecivelKg(dtS, posicaoM));
     const massaCombustivelKg = Math.min(massaCombustivelSolicitadaKg, limite(combustivel), limite(oxidante) / razaoMistura);
     const massaOxidanteKg = massaCombustivelKg * razaoMistura;
+    /** Devolve `bomba.definicao.potenciaEletricaMaximaW * massaKg / bomba.definicao.vazaoMaximaKgS`. Efeitos indiretos seguem as dependências chamadas. @contract f-164fe968cbc958d7 */
     const energia = ({ bomba }: CircuitoDeBombeamento, massaKg: number): number =>
       bomba.definicao.potenciaEletricaMaximaW * massaKg / bomba.definicao.vazaoMaximaKgS;
     const energiaNecessariaJ = energia(combustivel, massaCombustivelKg) + energia(oxidante, massaOxidanteKg);

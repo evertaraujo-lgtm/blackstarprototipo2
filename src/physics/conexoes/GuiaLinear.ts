@@ -10,6 +10,7 @@ export class GuiaLinear {
   private esforcoAtualN = 0;
   private readonly estadoDeMontagemInicial: EstadoFisico;
 
+  /** Escritas diretas: `this.id`, `this.objeto`, `this.resistenciaN`, `this.eixoDeCurso`. Dependências diretas: `Error`, `objeto.getEstadoFisico`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-912072f48d95626b */
   public constructor(
     public readonly id: string,
     public readonly objeto: Objeto,
@@ -20,11 +21,16 @@ export class GuiaLinear {
     this.estadoDeMontagemInicial = objeto.getEstadoFisico();
   }
 
+  /** Devolve `this.rompida`. Efeitos indiretos seguem as dependências chamadas. @contract f-ac7a60e2914870bd */
   public get estaRompida(): boolean { return this.rompida; }
+  /** Devolve `this.esforcoAtualN`. Efeitos indiretos seguem as dependências chamadas. @contract f-75050b97a9ee61ad */
   public get esforcoFisicoSolicitadoN(): number { return this.esforcoAtualN; }
+  /** Devolve `this.estadoDeMontagemInicial`. Efeitos indiretos seguem as dependências chamadas. @contract f-87187443ea644b7a */
   public get estadoDeMontagem(): EstadoFisico { return this.estadoDeMontagemInicial; }
 
-  /** Reação ideal da guia, após integração e contatos: somente o eixo declarado permanece livre. */
+  /** Reação ideal da guia, após integração e contatos: somente o eixo declarado permanece livre.
+   * @contract f-a8ac89f9989906b0
+   */
   public resolverRestricao(dtS: number): void {
     if (this.rompida) return;
     const estado = this.objeto.getEstadoFisico();

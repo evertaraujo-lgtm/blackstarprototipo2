@@ -76,6 +76,7 @@ export class Objeto {
   private energiaTermicaDeAtritoJ = 0;
   private energiaTermicaAerodinamicaJ = 0;
 
+  /** Valida definição física e limites declarados; cria estado inicial congelado e temperatura °C. Massas/dimensões positivas são responsabilidade da configuração. @contract f-0a5a2a6326f96011 @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly definicao: DefinicaoObjeto) {
     if (!definicao.id) throw new Error('Objeto precisa de identidade.');
     if (definicao.massaBaseKg <= 0) throw new Error('Massa base deve ser positiva.');
@@ -122,30 +123,54 @@ export class Objeto {
     this.temperaturaAtualC = definicao.temperaturaInicialC ?? 20;
   }
 
+  /** Devolve `this.definicao.id`. Efeitos indiretos seguem as dependências chamadas. @contract f-23fabd3a58761361 */
   public get id(): string { return this.definicao.id; }
+  /** Devolve `this.definicao.massaBaseKg`. Efeitos indiretos seguem as dependências chamadas. @contract f-b964968d0fb19009 */
   public get massaBaseKg(): number { return this.definicao.massaBaseKg; }
+  /** Devolve `this.definicao.massaBaseKg + this.massaVariavelKg + (this.paraquedasAcoplado?.massaKg ?? 0)`. Efeitos indiretos seguem as dependências chamadas. @contract f-eff125a966da1f02 */
   public get massaKg(): number { return this.definicao.massaBaseKg + this.massaVariavelKg + (this.paraquedasAcoplado?.massaKg ?? 0); }
+  /** Devolve `this.definicao.dimensoesM`. Efeitos indiretos seguem as dependências chamadas. @contract f-f13282f5a28640a9 */
   public get dimensoesM(): Vetor3 { return this.definicao.dimensoesM; }
+  /** Devolve `this.definicao.resistenciaColisaoJ`. Efeitos indiretos seguem as dependências chamadas. @contract f-4f9ca4814fdaace8 */
   public get resistenciaColisaoJ(): number { return this.definicao.resistenciaColisaoJ; }
+  /** Devolve `this.definicao.dissipacaoImpacto ?? 0.15`. Efeitos indiretos seguem as dependências chamadas. @contract f-4e4d0b39192935bf */
   public get dissipacaoImpacto(): number { return this.definicao.dissipacaoImpacto ?? 0.15; }
+  /** Devolve `this.definicao.coeficienteAtrito ?? 0.65`. Efeitos indiretos seguem as dependências chamadas. @contract f-04613d7dbacb323b */
   public get coeficienteAtrito(): number { return this.definicao.coeficienteAtrito ?? 0.65; }
+  /** Devolve `this.definicao.coeficienteAtritoEntreObjetos ?? 0`. Efeitos indiretos seguem as dependências chamadas. @contract f-a56d92711ddba117 */
   public get coeficienteAtritoEntreObjetos(): number { return this.definicao.coeficienteAtritoEntreObjetos ?? 0; }
+  /** Devolve `this.definicao.limiteTermicoC`. Efeitos indiretos seguem as dependências chamadas. @contract f-ef895eec91db525d */
   public get limiteTermicoC(): number { return this.definicao.limiteTermicoC; }
+  /** Devolve `this.definicao.temperaturaFusaoC`. Efeitos indiretos seguem as dependências chamadas. @contract f-8a88686ab77df881 */
   public get temperaturaFusaoC(): number | undefined { return this.definicao.temperaturaFusaoC; }
+  /** Devolve `this.definicao.temperaturaFalhaTotalC`. Efeitos indiretos seguem as dependências chamadas. @contract f-e691146ec640ca1b */
   public get temperaturaFalhaTotalC(): number | undefined { return this.definicao.temperaturaFalhaTotalC; }
+  /** Devolve `this.temperaturaAtualC`. Efeitos indiretos seguem as dependências chamadas. @contract f-f51e927410ea5fc0 */
   public get temperaturaC(): number { return this.temperaturaAtualC; }
+  /** Devolve `this.definicao.capacidadeTermicaJPorC ?? this.massaKg * 500`. Efeitos indiretos seguem as dependências chamadas. @contract f-50b0fd0df35bc5d7 */
   public get capacidadeTermicaJPorC(): number { return this.definicao.capacidadeTermicaJPorC ?? this.massaKg * 500; }
+  /** Devolve `this.definicao.areaTermicaM2 ?? Math.max(0.1, this.dimensoesM.x * this.dimensoesM.y)`. Efeitos indiretos seguem as dependências chamadas. @contract f-cf1ecdb8534b1ed7 */
   public get areaTermicaM2(): number { return this.definicao.areaTermicaM2 ?? Math.max(0.1, this.dimensoesM.x * this.dimensoesM.y); }
+  /** Devolve `this.definicao.coeficienteConveccaoWPorM2C ?? 10`. Efeitos indiretos seguem as dependências chamadas. @contract f-af88ebcdb549f68a */
   public get coeficienteConveccaoWPorM2C(): number { return this.definicao.coeficienteConveccaoWPorM2C ?? 10; }
+  /** Devolve `this.definicao.areaFrontalM2 ?? 0`. Efeitos indiretos seguem as dependências chamadas. @contract f-32aa5b53d57963b0 */
   public get areaFrontalM2(): number { return this.definicao.areaFrontalM2 ?? 0; }
+  /** Devolve `this.definicao.coeficienteArrasto ?? 1`. Efeitos indiretos seguem as dependências chamadas. @contract f-0c3a9624f2ce2cbf */
   public get coeficienteArrasto(): number { return this.definicao.coeficienteArrasto ?? 1; }
+  /** Devolve `this.definicao.fracaoAquecimentoAerodinamico ?? 0.1`. Efeitos indiretos seguem as dependências chamadas. @contract f-584efc7e11184cb2 */
   public get fracaoAquecimentoAerodinamico(): number { return this.definicao.fracaoAquecimentoAerodinamico ?? 0.1; }
+  /** Devolve `this.energiaTermicaDeAtritoJ`. Efeitos indiretos seguem as dependências chamadas. @contract f-51f1927917f5a0d0 */
   public get energiaTermicaDeAtritoAcumuladaJ(): number { return this.energiaTermicaDeAtritoJ; }
+  /** Devolve `this.energiaTermicaAerodinamicaJ`. Efeitos indiretos seguem as dependências chamadas. @contract f-2848da0fe68bc5e8 */
   public get energiaTermicaAerodinamicaAcumuladaJ(): number { return this.energiaTermicaAerodinamicaJ; }
+  /** Devolve `this.paraquedasAcoplado?.estaAberto ?? false`. Efeitos indiretos seguem as dependências chamadas. @contract f-1107671263be49a8 */
   public get paraquedasEstaAberto(): boolean { return this.paraquedasAcoplado?.estaAberto ?? false; }
+  /** Devolve `this.integridade`. Efeitos indiretos seguem as dependências chamadas. @contract f-16714b3ef5311e65 */
   public get integridadeEstrutural(): number { return this.integridade; }
+  /** Devolve `this.horasVidaUtilConsumidas`. Efeitos indiretos seguem as dependências chamadas. @contract f-6b9361e290ef0d54 */
   public get horasConsumidas(): number { return this.horasVidaUtilConsumidas; }
 
+  /** Devolve referência ao estado físico congelado atual, contendo vetores imutáveis; escrita legítima do core substitui o registro inteiro. @contract f-7d456f55b10d8f57 @reviewed M12-DOC: implementação lida. */
   public getEstadoFisico(): EstadoFisico {
     // Estado somente para leitura; cada escrita do core substitui o snapshot inteiro.
     return this.estado;
@@ -155,47 +180,63 @@ export class Objeto {
    * Componentes podem solicitar forças ao núcleo neste ponto do passo físico.
    * A implementação base não produz força; ela existe para que o core não
    * precise conhecer subclasses ou controladores de domínio.
+   * @contract f-65a0ceec1434076f
    */
   public obterForcasOperacionais(): readonly ForcaFisicaSolicitada[] {
     return [];
   }
+  /** Hook base sem geração interna: retorna 0 W; especializações podem fornecer potência física. @contract f-16defccad83f402d @reviewed M12-DOC: implementação lida. */
   public obterPotenciaTermicaGeradaW(): number { return 0; }
+  /** Hook base sem jato térmico: retorna undefined; especializações declaram geometria e potência. @contract f-c5780a53173bbe5c @reviewed M12-DOC: implementação lida. */
   public obterJatoTermico(): JatoTermico | undefined { return undefined; }
 
   /** Preparação determinística de recursos antes da integração do passo. */
-  /** Reserva orçamentos energéticos antes de preparar qualquer consumidor. */
+  /** Reserva orçamentos energéticos antes de preparar qualquer consumidor.
+   * @contract f-c3ef45c3f688a134
+   */
   public prepararPassoEnergetico(_dtS: number): void {}
+  /** Hook base sem operação; especializações atualizam sistemas/solicitações antes da integração, sem escrever cinemática. @contract f-22d0031bf76cca21 @reviewed M12-DOC: implementação lida. */
   public prepararPassoOperacional(_dtS: number): void {}
 
-  /** Forças aerodinâmicas produzidas por componentes do objeto. */
+  /** Forças aerodinâmicas produzidas por componentes do objeto.
+   * @contract f-5a683317d550638e
+   */
   public obterForcasAerodinamicas(_condicoes: CondicoesAtmosfericas): readonly ForcaFisicaSolicitada[] {
     return [];
   }
 
-  /** Acopla um único paraquedas físico ao objeto nesta etapa do modelo. */
+  /** Acopla um único paraquedas físico ao objeto nesta etapa do modelo.
+   * @contract f-25d8c1802ba46a63
+   */
   public acoplarParaquedas(paraquedas: Paraquedas): void {
     if (this.paraquedasAcoplado) throw new Error('Objeto já possui paraquedas acoplado.');
     this.paraquedasAcoplado = paraquedas;
   }
+  /** Exige paraquedas acoplado e solicita abertura pública; não altera velocidades nem cria pouso seguro. @contract f-cdf77bbe9a51340c @reviewed M12-DOC: implementação lida. */
   public acionarParaquedas(): void {
     if (!this.paraquedasAcoplado) throw new Error('Objeto não possui paraquedas acoplado.');
     this.paraquedasAcoplado.acionar();
   }
+  /** Exige paraquedas acoplado e solicita recolhimento; efeito aerodinâmico será consultado pelo core. @contract f-caaad9a3f8a27be6 @reviewed M12-DOC: implementação lida. */
   public recolherParaquedas(): void {
     if (!this.paraquedasAcoplado) throw new Error('Objeto não possui paraquedas acoplado.');
     this.paraquedasAcoplado.recolher();
   }
+  /** Consulta estado do componente acoplado ou undefined quando ausente; não abre/recolhe nem integra. @contract f-fc2e1c6d21493f40 @reviewed M12-DOC: implementação lida. */
   public obterEstadoDoParaquedas(): EstadoParaquedas | undefined {
     return this.paraquedasAcoplado?.obterEstado();
   }
+  /** Exige componente acoplado e delega validação/configuração da área em m². @contract f-ed5813132a308e2b @reviewed M12-DOC: implementação lida. */
   public configurarAreaDoParaquedas(areaFrontalM2: number): void {
     if (!this.paraquedasAcoplado) throw new Error('Objeto não possui paraquedas acoplado.');
     this.paraquedasAcoplado.configurarAreaFrontal(areaFrontalM2);
   }
+  /** Soma área projetada do corpo e área do paraquedas efetivamente aberto em m²; não aplica arrasto. @contract f-9772c89d7b8fb24d @reviewed M12-DOC: implementação lida. */
   public getAreaArrastoEfetivaM2(velocidadeRelativaMps = Vetor3.zero): number {
     return this.obterAreaBaseProjetadaM2(velocidadeRelativaMps)
       + (this.paraquedasEstaAberto ? this.paraquedasAcoplado!.areaFrontalM2 : 0);
   }
+  /** Calcula Cd médio ponderado pelas áreas do corpo e paraquedas aberto; retorna zero se área total zero. @contract f-00d7e5f4edb84da9 @reviewed M12-DOC: implementação lida. */
   public getCoeficienteArrastoEfetivo(velocidadeRelativaMps = Vetor3.zero): number {
     const areaBase = this.obterAreaBaseProjetadaM2(velocidadeRelativaMps);
     const areaParaquedas = this.paraquedasEstaAberto ? this.paraquedasAcoplado!.areaFrontalM2 : 0;
@@ -203,7 +244,9 @@ export class Objeto {
     return ((areaBase * this.coeficienteArrasto) + (areaParaquedas * (this.paraquedasAcoplado?.coeficienteArrasto ?? 0))) / (areaBase + areaParaquedas);
   }
 
-  /** Ponto de aplicação do arrasto do corpo, transformado pela orientação atual. */
+  /** Ponto de aplicação do arrasto do corpo, transformado pela orientação atual.
+   * @contract f-d00a5622f840c0a5
+   */
   public obterCentroPressaoM(): Vetor3 {
     const local = this.definicao.centroPressaoLocalM ?? Vetor3.zero;
     const orientacao = this.estado.orientacaoRad.z;
@@ -216,6 +259,7 @@ export class Objeto {
     ));
   }
 
+  /** Projeta largura XY perpendicular ao fluxo relativo e escala a área de referência X×Z; retorna área nominal quando projeção desabilitada ou fluxo desprezível. @contract f-f3c40939a6d363c1 @reviewed M12-DOC: implementação lida. */
   private obterAreaBaseProjetadaM2(velocidadeRelativaMps: Vetor3): number {
     if (!this.definicao.areaArrastoProjetadaPorOrientacao || this.areaFrontalM2 === 0
       || velocidadeRelativaMps.magnitude < 1e-9) return this.areaFrontalM2;
@@ -231,7 +275,9 @@ export class Objeto {
     return this.areaFrontalM2 * larguraProjetadaM / this.dimensoesM.x;
   }
 
-  /** Vértices locais elegíveis para contato com uma superfície física. */
+  /** Vértices locais elegíveis para contato com uma superfície física.
+   * @contract f-b1f2e8ab94d95be1
+   */
   public getPontosDeContatoLocaisM(): readonly Vetor3[] {
     const metadeX = this.dimensoesM.x / 2;
     const metadeY = this.dimensoesM.y / 2;
@@ -245,7 +291,9 @@ export class Objeto {
     return pontos;
   }
 
-  /** Polígono local da seção XY usado em colisões entre objetos. */
+  /** Polígono local da seção XY usado em colisões entre objetos.
+   * @contract f-3c9f23c18e868b72
+   */
   public getVerticesColisaoLocais2D(): readonly Vetor3[] {
     const metadeX = this.dimensoesM.x / 2;
     const metadeY = this.dimensoesM.y / 2;
@@ -255,30 +303,39 @@ export class Objeto {
     ];
   }
 
-  /** Pontos que podem fornecer aderência para tração; objetos passivos não têm nenhum. */
+  /** Pontos que podem fornecer aderência para tração; objetos passivos não têm nenhum.
+   * @contract f-2018d05f39cc61f1
+   */
   public getPontosDeTracaoLocaisM(): readonly Vetor3[] { return []; }
 
-  /** Atualização exclusiva do core sobre a existência de apoio de tração. */
+  /** Atualização exclusiva do core sobre a existência de apoio de tração.
+   * @contract f-3931fc8b6aa6c14e
+   */
   public atualizarContatoDeTracaoPeloCore(_apoiado: boolean): void {
     // Objetos sem sistema de tração não precisam reagir.
   }
 
-  /** Atrito tangencial usado pelo resolvedor de contato com superfícies. */
+  /** Atrito tangencial usado pelo resolvedor de contato com superfícies.
+   * @contract f-d100c406dfb5788d
+   */
   public getCoeficienteAtritoDeContato(): number {
     return this.coeficienteAtrito;
   }
 
 
+  /** Valida massa variável kg finita/não negativa e substitui a parcela mutável; massa total e inércia consultam esse valor. @contract f-6396eb35b4f3037e @reviewed M12-DOC: implementação lida. */
   public definirMassaVariavelKg(massaKg: number): void {
     if (!Number.isFinite(massaKg) || massaKg < 0) throw new Error('Massa variável deve ser finita e não negativa.');
     this.massaVariavelKg = massaKg;
   }
 
+  /** Acumula horas de uso não negativas/finitas; não aceita intervalo negativo. @contract f-ccbe7012d41fc881 @reviewed M12-DOC: implementação lida. */
   public registrarUso(deltaHoras: number): void {
     if (!Number.isFinite(deltaHoras) || deltaHoras < 0) throw new Error('Uso deve ser finito e não negativo.');
     this.horasVidaUtilConsumidas += deltaHoras;
   }
 
+  /** Acima da resistência J, reduz integridade pelo excesso relativo de energia; limita em zero e não restaura dano. @contract f-2dedc3bfbf9467db @reviewed M12-DOC: implementação lida. */
   public aplicarDanoPorImpacto(energiaJ: number): void {
     if (!Number.isFinite(energiaJ) || energiaJ < 0) throw new Error('Energia de impacto inválida.');
     if (energiaJ <= this.resistenciaColisaoJ) return;
@@ -286,7 +343,9 @@ export class Objeto {
     this.integridade = Math.max(0, this.integridade - danoRelativo);
   }
 
-  /** Energia mecânica acumulada de um único carregamento, sem reaplicar o dano dos subpassos anteriores. */
+  /** Energia mecânica acumulada de um único carregamento, sem reaplicar o dano dos subpassos anteriores.
+   * @contract f-a5fa3ef50d09119d
+   */
   public aplicarDanoPorCarregamentoPeloCore(energiaAnteriorJ: number, energiaTotalJ: number): void {
     if (![energiaAnteriorJ, energiaTotalJ].every(Number.isFinite) || energiaAnteriorJ < 0 || energiaTotalJ < energiaAnteriorJ)
       throw new Error('Energia de carregamento inválida.');
@@ -295,7 +354,9 @@ export class Objeto {
     this.integridade = Math.max(0, this.integridade - (danoDepois - danoAntes));
   }
 
-  /** API do core térmico: energia positiva aquece, negativa resfria. */
+  /** API do core térmico: energia positiva aquece, negativa resfria.
+   * @contract f-c9f39a12ef5d34b7
+   */
   public aplicarEnergiaTermicaPeloCore(energiaJ: number, dtS: number): void {
     if (!Number.isFinite(energiaJ) || !Number.isFinite(dtS) || dtS <= 0) throw new Error('Atualização térmica inválida.');
     this.temperaturaAtualC += energiaJ / this.capacidadeTermicaJPorC;
@@ -311,26 +372,36 @@ export class Objeto {
     }
   }
 
-  /** Energia mecânica dissipada em contato, registrada separadamente para telemetria. */
+  /** Energia mecânica dissipada em contato, registrada separadamente para telemetria.
+   * @contract f-debce85196872e9e
+   */
   public aplicarCalorDeAtritoPeloCore(energiaJ: number, dtS: number): void {
     if (!Number.isFinite(energiaJ) || energiaJ < 0) throw new Error('Energia de atrito inválida.');
     this.energiaTermicaDeAtritoJ += energiaJ;
     this.aplicarEnergiaTermicaPeloCore(energiaJ, dtS);
   }
 
-  /** Parcela da dissipação aerodinâmica que efetivamente entra no corpo. */
+  /** Parcela da dissipação aerodinâmica que efetivamente entra no corpo.
+   * @contract f-2df99f0558a645cd
+   */
   public aplicarAquecimentoAerodinamicoPeloCore(energiaJ: number, dtS: number): void {
     if (!Number.isFinite(energiaJ) || energiaJ < 0) throw new Error('Energia aerodinâmica inválida.');
     this.energiaTermicaAerodinamicaJ += energiaJ;
     this.aplicarEnergiaTermicaPeloCore(energiaJ, dtS);
   }
 
-  /** API reservada ao MundoFisico; não deve ser chamada por controladores ou UI. */
+  /** API reservada ao MundoFisico; não deve ser chamada por controladores ou UI.
+   * @contract f-2c7176aa0d28ef32
+   */
   public atualizarEstadoPeloCore(estado: EstadoFisico): void {
     this.estado = Object.freeze(estado);
   }
 
-  /** Aproximação de paralelepípedo homogêneo nos eixos locais. */
+  /** Aproximação de paralelepípedo homogêneo nos eixos locais.
+   * @remarks Calcula inércia de caixa homogênea pelos eixos locais usando massa instantânea e dimensões atuais. Retorno kg·m²; cache exige mesma massa e dimensões XYZ. Momento próprio é separado do termo de eixos paralelos da ilha; não modela tensor espacial completo.
+   * @contract f-3b34554ea0acd89f
+   * @reviewed M12-DOC: contrato confrontado com implementação.
+   */
   public getMomentoInerciaKgM2(): Vetor3 {
     const { x, y, z } = this.dimensoesM;
     const massa = this.massaKg;

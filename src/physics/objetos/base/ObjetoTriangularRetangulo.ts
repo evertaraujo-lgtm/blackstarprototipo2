@@ -8,6 +8,7 @@ export interface DefinicaoObjetoTriangularRetangulo extends DefinicaoObjeto {
 
 /** Prisma triangular reto cuja hipotenusa forma uma rampa física. */
 export class ObjetoTriangularRetangulo extends Objeto {
+  /** Escritas diretas: `this.definicaoTriangulo`. Dependências diretas: `super`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-13053ef3d73ba42a */
   public constructor(private readonly definicaoTriangulo: DefinicaoObjetoTriangularRetangulo) {
     super(definicaoTriangulo);
     if (!Number.isFinite(definicaoTriangulo.inclinacaoRad) || definicaoTriangulo.inclinacaoRad <= 0 || definicaoTriangulo.inclinacaoRad >= Math.PI / 2) {
@@ -19,9 +20,12 @@ export class ObjetoTriangularRetangulo extends Objeto {
     }
   }
 
+  /** Devolve `this.definicaoTriangulo.inclinacaoRad`. Efeitos indiretos seguem as dependências chamadas. @contract f-adac845d39b1605c */
   public get inclinacaoRad(): number { return this.definicaoTriangulo.inclinacaoRad; }
 
-  /** Vértices relativos ao centroide físico da seção triangular. */
+  /** Vértices relativos ao centroide físico da seção triangular.
+   * @contract f-341bcf633fa406bc
+   */
   public override getVerticesColisaoLocais2D(): readonly Vetor3[] {
     const baseM = this.dimensoesM.x;
     const alturaM = this.dimensoesM.y;
@@ -32,6 +36,7 @@ export class ObjetoTriangularRetangulo extends Objeto {
     ];
   }
 
+  /** Devolve `this.getVerticesColisaoLocais2D().flatMap((vertice) => [ new Vetor3(vertice.x, vertice.y, -metadeZ), new Vetor3(vertice.x, vertice.y, metadeZ), ])`. Dependências diretas: `this.getVerticesColisaoLocais2D().flatMap`, `this.getVerticesColisaoLocais2D`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-863779999d13bf39 */
   public override getPontosDeContatoLocaisM(): readonly Vetor3[] {
     const metadeZ = this.dimensoesM.z / 2;
     return this.getVerticesColisaoLocais2D().flatMap((vertice) => [
