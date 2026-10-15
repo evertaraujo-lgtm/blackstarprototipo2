@@ -11,9 +11,9 @@ export class ControladorInclinacaoDePropulsores implements ControladorDeVoo {
   private ganhoAtitudePorVelocidadeHorizontalRadPorMps = 0;
   private ganhoAtitudeHorizontalAtual = 0;
 
-  /** Escritas diretas: `this.idsPropulsores`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-072ca5129fc83639 */
+  /** Copia seleção de ids sem atuar; validação de instalação/capacidade pertence ao computador de voo. @contract f-072ca5129fc83639 @reviewed M12-DOC: implementação lida. */
   public configurarAlvos(idsPropulsores: readonly string[]): void { this.idsPropulsores = [...idsPropulsores]; }
-  /** Escritas diretas: `this.ganhoAtitudePorVelocidadeHorizontalRadPorMps`, `this.ganhoAtitudeHorizontalAtual`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-11f93b7258dcb4d2 */
+  /** Valida ganho rad/(m/s) não negativo finito e reinicia sua entrada gradual em zero; desaceleração lateral ocorre via atitude/gimbal, sem amortecimento físico imposto. @contract f-11f93b7258dcb4d2 @reviewed M12-DOC: implementação lida. */
   public configurarAmortecimentoHorizontal(ganhoAtitudeRadPorMps: number): void {
     if (!Number.isFinite(ganhoAtitudeRadPorMps) || ganhoAtitudeRadPorMps < 0) {
       throw new Error('Parâmetros inválidos para amortecer velocidade horizontal pelo gimbal.');
@@ -21,21 +21,21 @@ export class ControladorInclinacaoDePropulsores implements ControladorDeVoo {
     this.ganhoAtitudePorVelocidadeHorizontalRadPorMps = ganhoAtitudeRadPorMps;
     this.ganhoAtitudeHorizontalAtual = 0;
   }
-  /** Escritas diretas: `this.ganhoAtitudePorVelocidadeHorizontalRadPorMps`, `this.ganhoAtitudeHorizontalAtual`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b9a4b283f07fe632 */
+  /** Zera ganho pedido e atual de correção lateral; não modifica velocidade. @contract f-b9a4b283f07fe632 @reviewed M12-DOC: implementação lida. */
   public desabilitarAmortecimentoHorizontal(): void {
     this.ganhoAtitudePorVelocidadeHorizontalRadPorMps = 0;
     this.ganhoAtitudeHorizontalAtual = 0;
   }
-  /** Dependências diretas: `this.pid.habilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-abfba32141fc1536 */
+  /** Habilita PID de inclinação com sua reinicialização interna. @contract f-abfba32141fc1536 @reviewed M12-DOC: implementação lida. */
   public habilitar(): void { this.pid.habilitar(); }
-  /** Dependências diretas: `this.pid.desabilitar`, `this.desabilitarAmortecimentoHorizontal`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-589f4957014d754d */
+  /** Desabilita PID e remove correção de velocidade horizontal. @contract f-589f4957014d754d @reviewed M12-DOC: implementação lida. */
   public desabilitar(): void { this.pid.desabilitar(); this.desabilitarAmortecimentoHorizontal(); }
   /** Devolve `this.pid.estaHabilitado`. Efeitos indiretos seguem as dependências chamadas. @contract f-fa83f1a20c6c8201 */
   public get estaHabilitado(): boolean { return this.pid.estaHabilitado; }
-  /** Dependências diretas: `this.pid.habilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-4435f8deac06cd35 */
+  /** Reinicia PID quando habilitado sem desmarcar controle. @contract f-4435f8deac06cd35 @reviewed M12-DOC: implementação lida. */
   public reiniciarMemoria(): void { if (this.estaHabilitado) this.pid.habilitar(); }
 
-  /** Escritas diretas: `this.ganhoAtitudeHorizontalAtual`. Dependências diretas: `this.pid.calcularComando`, `this.idsPropulsores.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-fea52c1c911aa39c */
+  /** Ajusta ganho lateral gradualmente à taxa 0,02 por s, usando-o somente na descida; normaliza erro angular e calcula pedidos de gimbal. Atualiza memória do ganho/PID, sem aplicar forças nem sobrescrever orientação. @contract f-fea52c1c911aa39c @reviewed M12-DOC: implementação lida. */
   public calcularSolicitacoes(leituras: LeiturasVeiculoComposto, dtS: number): readonly SolicitacaoDeAtuador[] {
     if (!this.estaHabilitado) return [];
     const descendo = leituras.velocidadeVerticalMps < 0;

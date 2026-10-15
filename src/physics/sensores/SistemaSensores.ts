@@ -17,14 +17,14 @@ export class SistemaSensores {
     private readonly obterConjuntoEstrutural: (objeto: Objeto) => ConjuntoEstruturalRigido | undefined,
   ) {}
 
-  /** Dependências diretas: `this.switchesFimDeCurso.has`, `Error`, `this.switchesFimDeCurso.set`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-41e4ac6006256538 */
+  /** Rejeita id duplicado, registra sensor e reavalia imediatamente contatos; não cria força nem altera pose. @contract f-41e4ac6006256538 @reviewed M12-DOC: implementação lida. */
   public registrarSwitchFimDeCurso(switchFimDeCurso: SwitchFimDeCurso): void {
     if (this.switchesFimDeCurso.has(switchFimDeCurso.id)) throw new Error(`Switch de fim de curso já registrado: ${switchFimDeCurso.id}.`);
     this.switchesFimDeCurso.set(switchFimDeCurso.id, switchFimDeCurso);
     this.atualizarSwitchesFimDeCurso();
   }
 
-  /** Dependências diretas: `this.sensoresVeiculo.set`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3b889335e49e00ed */
+  /** Registra pacote de sensores por identidade da instância para atualização pelo mundo; nova chamada com mesma instância substitui a mesma entrada. @contract f-3b889335e49e00ed @reviewed M12-DOC: implementação lida. */
   public registrarSensoresVeiculo(sensores: SensoresVeiculoComposto): void {
     this.sensoresVeiculo.set(sensores, sensores);
   }
@@ -44,7 +44,7 @@ export class SistemaSensores {
     this.atualizarSwitchesFimDeCurso();
   }
 
-  /** Dependências diretas: `this.switchesFimDeCurso.values`, `switchFimDeCurso.obterVolumeSensivel`, `[...this.obterObjetos()].find`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a572c18cb0594dd6 */
+  /** Observa volume sensível contra caixas dos outros corpos e pontos da face contra superfícies, com tolerância 1e-6 m. Exclui hospedeiro e mesma ilha, prioriza primeiro corpo encontrado; atualiza alvo/estado do switch pelo core sem resolver contato físico. @contract f-a572c18cb0594dd6 @reviewed M12-DOC: implementação lida. */
   private atualizarSwitchesFimDeCurso(): void {
     const toleranciaContatoM = 1e-6;
     for (const switchFimDeCurso of this.switchesFimDeCurso.values()) {
@@ -69,7 +69,7 @@ export class SistemaSensores {
     }
   }
 
-  /** Devolve `conjuntoA !== undefined && conjuntoA === this.obterConjuntoEstrutural(objetoB)`. Dependências diretas: `this.obterConjuntoEstrutural`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-aa56728d6b2e26c1 */
+  /** Compara identidade da ilha atual, exigindo ilha definida; evita acionamento por peças rigidamente pertencentes ao mesmo conjunto. @contract f-aa56728d6b2e26c1 @reviewed M12-DOC: implementação lida. */
   private estaoNaMesmaIlhaEstrutural(objetoA: Objeto, objetoB: Objeto): boolean {
     const conjuntoA = this.obterConjuntoEstrutural(objetoA);
     return conjuntoA !== undefined && conjuntoA === this.obterConjuntoEstrutural(objetoB);

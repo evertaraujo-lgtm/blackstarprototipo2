@@ -33,7 +33,7 @@ export class ControladorDesaceleracao {
   private erroAnterior = 0;
   private integral = 0;
 
-  /** Escritas diretas: `this.configuracao`. Dependências diretas: `Object.values(this.configuracao).every`, `Object.values`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7e75241e4d879eae */
+  /** Mescla configuração com padrão e valida grandezas SI finitas, velocidade-alvo descendente, ganhos não negativos, throttle em [0,1] e taxa positiva. @contract f-7e75241e4d879eae @reviewed M12-DOC: implementação lida. */
   public constructor(configuracao: Partial<ConfiguracaoControleDesaceleracao> = {}) {
     this.configuracao = { ...PADRAO, ...configuracao };
     if (!Object.values(this.configuracao).every(Number.isFinite)
@@ -44,14 +44,14 @@ export class ControladorDesaceleracao {
       || this.configuracao.taxaMaximaThrottlePorS <= 0) throw new Error('Configuração de desaceleração inválida.');
   }
 
-  /** Escritas diretas: `this.habilitado`. Dependências diretas: `this.reiniciarPid`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0374cf69bea7156f */
+  /** Habilita cálculo e reinicia throttle anterior, erro e integral; não liga motor. @contract f-0374cf69bea7156f @reviewed M12-DOC: implementação lida. */
   public habilitar(): void { this.habilitado = true; this.reiniciarPid(); }
-  /** Escritas diretas: `this.habilitado`. Dependências diretas: `this.reiniciarPid`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e41f13303b40de48 */
+  /** Desabilita cálculo e zera memória PID; não altera cinemática nem desliga motor por si só. @contract f-e41f13303b40de48 @reviewed M12-DOC: implementação lida. */
   public desabilitar(): void { this.habilitado = false; this.reiniciarPid(); }
   /** Devolve `this.habilitado`. Efeitos indiretos seguem as dependências chamadas. @contract f-718ecd848d205af8 */
   public get estaHabilitado(): boolean { return this.habilitado; }
 
-  /** Escritas diretas: `this.integral`, `this.throttleAnterior`, `this.erroAnterior`. Dependências diretas: `this.reiniciarPid`, `limitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e66370bab0970886 */
+  /** Retorna inativo para controlador desligado/dt inválido; leituras inválidas ou fora do envelope reiniciam memória. Na descida rápida acima do piso calcula throttle PID com sustentação, anti-windup e limite de taxa por dt em s. Atualiza memória e retorna pedido, sem acionar propulsor. @contract f-e66370bab0970886 @reviewed M12-DOC: implementação lida. */
   public calcularComando(leituras: LeiturasVeiculoComposto, dtS: number): ComandoDesaceleracao {
     if (!this.habilitado || !Number.isFinite(dtS) || dtS <= 0) return { ativo: false, throttle: 0, velocidadeAlvoMps: 0 };
     const { altitudeM, velocidadeVerticalMps } = leituras;
@@ -77,6 +77,6 @@ export class ControladorDesaceleracao {
     return { ativo: true, throttle: this.throttleAnterior, velocidadeAlvoMps: c.velocidadeVerticalAlvoMps };
   }
 
-  /** Escritas diretas: `this.throttleAnterior`, `this.erroAnterior`, `this.integral`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6a3c02ab7cd11a61 */
+  /** Zera throttle anterior, erro e integral para eliminar memória entre ativações ou perda do envelope. @contract f-6a3c02ab7cd11a61 @reviewed M12-DOC: implementação lida. */
   private reiniciarPid(): void { this.throttleAnterior = 0; this.erroAnterior = 0; this.integral = 0; }
 }

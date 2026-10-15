@@ -37,7 +37,7 @@ export class ControladorPosicionamentoMotorEletrico extends Objeto {
   private aceleracaoMaximaAtualRadps2: number;
   private ganhosAtuais: GanhosControladorPosicionamentoMotorEletrico;
 
-  /** Escritas diretas: `this.configuracaoControle`, `this.anguloAlvoInternoRad`, `this.aceleracaoMaximaAtualRadps2`, `this.ganhosAtuais`. Dependências diretas: `super`, `Error`, `ganhos.every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d683e74f10cb066b */
+  /** Inicializa motor base, valida limites positivos finitos SI e ganhos PID não negativos; guarda portas de leitura, alvo angular e memória de velocidade/integral. @contract f-d683e74f10cb066b @reviewed M12-DOC: implementação lida. */
   public constructor(definicao: DefinicaoControladorPosicionamentoMotorEletrico) {
     super(definicao);
     if (!Number.isFinite(definicao.torqueMaximoNm) || definicao.torqueMaximoNm <= 0 ||
@@ -62,14 +62,14 @@ export class ControladorPosicionamentoMotorEletrico extends Objeto {
   /** Devolve `this.aceleracaoMaximaAtualRadps2`. Efeitos indiretos seguem as dependências chamadas. @contract f-eed9746b8b2d69d9 */
   public get aceleracaoMaximaRadps2(): number { return this.aceleracaoMaximaAtualRadps2; }
 
-  /** Escritas diretas: `this.aceleracaoMaximaAtualRadps2`. Dependências diretas: `Error`, `this.zerarEstadoDoControlador`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d488df7b4a1b85c9 */
+  /** Valida limite positivo finito rad/s², substitui configuração operacional e zera memória do controlador. @contract f-d488df7b4a1b85c9 @reviewed M12-DOC: implementação lida. */
   public definirAceleracaoMaximaRadps2(aceleracaoRadps2: number): void {
     if (!Number.isFinite(aceleracaoRadps2) || aceleracaoRadps2 <= 0) throw new Error('Aceleração máxima deve ser positiva e finita.');
     this.aceleracaoMaximaAtualRadps2 = aceleracaoRadps2;
     this.zerarEstadoDoControlador();
   }
 
-  /** Dependências diretas: `this.configuracaoControle.obterMomentoInerciaControladoKgM2`, `this.getMomentoInerciaKgM2`, `this.configuracaoControle.obterTorqueGravitacionalNm`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2da9b7e6cac3c1da */
+  /** Lê inércia controlada ou inércia Z própria, limites e torque gravitacional da porta; rejeita inércia não positiva/não finita. Retorna modelo auxiliar sem executar dinâmica; finitude do torque não é verificada aqui. @contract f-2da9b7e6cac3c1da @reviewed M12-DOC: implementação lida. */
   public obterModeloParaAutotune(): ModeloAutotunePosicionamentoMotorEletrico {
     const inercia = this.configuracaoControle.obterMomentoInerciaControladoKgM2?.() ?? this.getMomentoInerciaKgM2().z;
     const torqueGravitacionalNm = this.configuracaoControle.obterTorqueGravitacionalNm?.() ?? 0;
@@ -83,7 +83,7 @@ export class ControladorPosicionamentoMotorEletrico extends Objeto {
     };
   }
 
-  /** Escritas diretas: `this.ganhosAtuais`. Dependências diretas: `[ganhos.ganhoProporcional, ganhos.ganhoIntegral, ganhos.ganhoDerivativo].every`, `Error`, `this.zerarEstadoDoControlador`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ac364057ee333075 */
+  /** Valida ganhos PID não negativos finitos, copia valores e reinicia memória; não comanda pose. @contract f-ac364057ee333075 @reviewed M12-DOC: implementação lida. */
   public aplicarGanhos(ganhos: GanhosControladorPosicionamentoMotorEletrico): void {
     if (![ganhos.ganhoProporcional, ganhos.ganhoIntegral, ganhos.ganhoDerivativo].every(Number.isFinite) ||
       ganhos.ganhoProporcional < 0 || ganhos.ganhoIntegral < 0 || ganhos.ganhoDerivativo < 0) {
@@ -93,13 +93,13 @@ export class ControladorPosicionamentoMotorEletrico extends Objeto {
     this.zerarEstadoDoControlador();
   }
 
-  /** Escritas diretas: `this.anguloAlvoInternoRad`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0d510d2ae0c47850 */
+  /** Armazena alvo finito em rad sem normalização periódica; não altera ângulo real. @contract f-0d510d2ae0c47850 @reviewed M12-DOC: implementação lida. */
   public definirAnguloAlvoRad(anguloRad: number): void {
     if (!Number.isFinite(anguloRad)) throw new Error('Angulo alvo do controlador deve ser finito.');
     this.anguloAlvoInternoRad = anguloRad;
   }
 
-  /** Devolve `torqueLimitadoNm`. Escritas diretas: `this.velocidadeAlvoAtualRadps`, `this.integralErroRadS`. Dependências diretas: `Error`, `this.configuracaoControle.obterAnguloAtualRad`, `this.configuracaoControle.obterVelocidadeAngularRadps`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6c76c654aa9d1fb8 */
+  /** Para dt positivo finito, calcula erro angular e velocidade-alvo limitada em módulo e aceleração; combina P/I e erro de velocidade com feedforward gravitacional. Limita torque N·m e reverte integral quando saturado. Retorna solicitação ao motor, sem integrar cinemática. @contract f-6c76c654aa9d1fb8 @reviewed M12-DOC: implementação lida. */
   protected calcularTorqueDePosicao(dtS: number): number {
     if (!Number.isFinite(dtS) || dtS <= 0) throw new Error('Passo do controlador deve ser positivo e finito.');
     const erroRad = this.anguloAlvoInternoRad - this.configuracaoControle.obterAnguloAtualRad();
@@ -118,7 +118,7 @@ export class ControladorPosicionamentoMotorEletrico extends Objeto {
     return torqueLimitadoNm;
   }
 
-  /** Escritas diretas: `this.velocidadeAlvoAtualRadps`, `this.integralErroRadS`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8f384250ec04088c */
+  /** Zera velocidade-alvo filtrada e integral de erro angular, preservando alvo e ganhos. @contract f-8f384250ec04088c @reviewed M12-DOC: implementação lida. */
   protected zerarEstadoDoControlador(): void {
     this.velocidadeAlvoAtualRadps = 0;
     this.integralErroRadS = 0;

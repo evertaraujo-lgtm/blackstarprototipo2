@@ -17399,15 +17399,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.constructor:Constructor</code> · [fonte L63](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L63) |
 | Assinatura | <code>public (telemetriaDoCasco: FonteTelemetriaDoCasco): ComputadorDeVoo</code> |
-| Responsabilidade | Escritas diretas: `this.telemetriaDoCasco`. Dependências diretas: `this.gerenciador.registrar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Guarda porta de telemetria e registra controladores de inclinação, pouso, desaceleração, gimbal de descida e Fuzzy-PID no gerenciador; não recebe nem navega pelo veículo proprietário. |
 | Entradas | <code>private readonly telemetriaDoCasco: FonteTelemetriaDoCasco</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ComputadorDeVoo</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.telemetriaDoCasco</code>; <code>this.propulsores</code>; <code>this.propulsoresVetorizados</code>; <code>this.gerenciador</code>; <code>this.estavaAlimentado</code>; <code>this.solicitacoesAplicadas</code>; <code>this.controladorInclinacao</code>; <code>this.controladorPouso</code>; <code>this.controladorDesaceleracao</code>; <code>this.controladorGimbalDescida</code>; <code>this.controladorDescidaFuzzyPid</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Map</code>; <code>GerenciadorDeControladores</code>; <code>ControladorInclinacaoDePropulsores</code>; <code>ControladorPousoDePropulsores</code>; <code>ControladorDesaceleracaoDePropulsores</code>; <code>ControladorGimbalDescidaDePropulsores</code>; <code>ControladorDescidaFuzzyPidDePropulsores</code>; <code>this.gerenciador.registrar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.telemetriaDoCasco`. Dependências diretas: `this.gerenciador.registrar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3115018a632ba8cf */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Guarda porta de telemetria e registra controladores de inclinação, pouso, desaceleração, gimbal de descida e Fuzzy-PID no gerenciador; não recebe nem navega pelo veículo proprietário. @contract f-3115018a632ba8cf @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -17418,15 +17418,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.obterLeiturasDoCasco:MethodDeclaration</code> · [fonte L72](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L72) |
 | Assinatura | <code>public (): LeiturasVeiculoComposto</code> |
-| Responsabilidade | Devolve `this.telemetriaDoCasco.obterLeituras()`. Dependências diretas: `this.telemetriaDoCasco.obterLeituras`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Consulta pacote de leituras pela porta injetada; não mantém dinâmica própria nem estima outra altitude. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>LeiturasVeiculoComposto</code>; expressões retornadas: <code>this.telemetriaDoCasco.obterLeituras()</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.telemetriaDoCasco.obterLeituras</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.telemetriaDoCasco.obterLeituras()`. Dependências diretas: `this.telemetriaDoCasco.obterLeituras`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b0e1189b763914a1 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta pacote de leituras pela porta injetada; não mantém dinâmica própria nem estima outra altitude. @contract f-b0e1189b763914a1 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -17437,15 +17437,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.instalarPropulsor:MethodDeclaration</code> · [fonte L77](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L77) |
 | Assinatura | <code>public (propulsor: IPropulsorControlavelPeloComputador): void</code> |
-| Responsabilidade | Dependências diretas: `this.propulsores.has`, `Error`, `this.propulsores.set`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Rejeita id duplicado, registra porta operacional e inclui na seleção vetorizável somente se ambas as portas de comando/leitura do gimbal existirem. |
 | Entradas | <code>propulsor: IPropulsorControlavelPeloComputador</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.propulsores.has</code>; <code>Error</code>; <code>this.propulsores.set</code>; <code>this.propulsoresVetorizados.set</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>this.propulsores.has(propulsor.id)</code>; <code>propulsor.solicitarVetorizacao &amp;&amp; propulsor.obterEstadoDaVetorizacao</code>; exceções: <code>new Error(`Propulsor já instalado no computador: ${propulsor.id}.`)</code> |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.propulsores.has`, `Error`, `this.propulsores.set`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-223bc2a4a41bc800 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Rejeita id duplicado, registra porta operacional e inclui na seleção vetorizável somente se ambas as portas de comando/leitura do gimbal existirem. @contract f-223bc2a4a41bc800 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -17456,15 +17456,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.habilitar:MethodDeclaration</code> · [fonte L86](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L86) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Dependências diretas: `this.desabilitarControleDePouso`, `this.desabilitarControleDeGimbalDeDescida`, `this.controladorInclinacao.desabilitarAmortecimentoHorizontal`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Ativa inclinação em todos os motores vetorizados, desativa pouso/gimbal de descida e remove correção lateral gradual; não representa ativação de todos os controladores. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.desabilitarControleDePouso</code>; <code>this.desabilitarControleDeGimbalDeDescida</code>; <code>this.controladorInclinacao.desabilitarAmortecimentoHorizontal</code>; <code>this.controladorInclinacao.configurarAlvos</code>; <code>this.propulsoresVetorizados.keys</code>; <code>this.gerenciador.habilitar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.desabilitarControleDePouso`, `this.desabilitarControleDeGimbalDeDescida`, `this.controladorInclinacao.desabilitarAmortecimentoHorizontal`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-4b4f2d241b070c31 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Ativa inclinação em todos os motores vetorizados, desativa pouso/gimbal de descida e remove correção lateral gradual; não representa ativação de todos os controladores. @contract f-4b4f2d241b070c31 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -17475,15 +17475,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.desabilitar:MethodDeclaration</code> · [fonte L94](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L94) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Dependências diretas: `this.gerenciador.desabilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Desativa somente controlador de inclinação; demais controladores mantêm sua seleção operacional. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.gerenciador.desabilitar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.gerenciador.desabilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-217dc61dda130d03 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Desativa somente controlador de inclinação; demais controladores mantêm sua seleção operacional. @contract f-217dc61dda130d03 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -17494,15 +17494,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.habilitarControleDeInclinacao:MethodDeclaration</code> · [fonte L97](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L97) |
 | Assinatura | <code>public (idsPropulsores?: readonly string[]): void</code> |
-| Responsabilidade | Dependências diretas: `this.desabilitarControleDePouso`, `this.desabilitarControleDeGimbalDeDescida`, `this.controladorInclinacao.configurarAlvos`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Desativa pouso/gimbal de descida, valida seleção não vazia de motores vetorizados e habilita PID de inclinação. |
 | Entradas | <code>idsPropulsores: readonly string[] = [...this.propulsoresVetorizados.keys()]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.desabilitarControleDePouso</code>; <code>this.desabilitarControleDeGimbalDeDescida</code>; <code>this.controladorInclinacao.configurarAlvos</code>; <code>this.validarSelecao</code>; <code>this.gerenciador.habilitar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.desabilitarControleDePouso`, `this.desabilitarControleDeGimbalDeDescida`, `this.controladorInclinacao.configurarAlvos`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d658c2943e76a9f5 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Desativa pouso/gimbal de descida, valida seleção não vazia de motores vetorizados e habilita PID de inclinação. @contract f-d658c2943e76a9f5 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -17513,15 +17513,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.habilitarControleDePouso:MethodDeclaration</code> · [fonte L105](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L105) |
 | Assinatura | <code>public (configuracao?: Partial&lt;ConfiguracaoControlePouso&gt;, idsPropulsores?: readonly string[]): void</code> |
-| Responsabilidade | Dependências diretas: `this.gerenciador.desabilitar`, `this.controladorPouso.configurar`, `this.validarSelecao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Desativa inclinação, configura controlador de pouso com motores instalados selecionados e o habilita; não exige gimbal quando não necessário. |
 | Entradas | <code>configuracao: Partial&lt;ConfiguracaoControlePouso&gt; = {}</code>; <code>idsPropulsores: readonly string[] = [...this.propulsores.keys()]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.gerenciador.desabilitar</code>; <code>this.controladorPouso.configurar</code>; <code>this.validarSelecao</code>; <code>this.gerenciador.habilitar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.gerenciador.desabilitar`, `this.controladorPouso.configurar`, `this.validarSelecao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-c6ba6ae7eb07b5d0 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Desativa inclinação, configura controlador de pouso com motores instalados selecionados e o habilita; não exige gimbal quando não necessário. @contract f-c6ba6ae7eb07b5d0 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -17551,15 +17551,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.habilitarControleDeVerticalizacao:MethodDeclaration</code> · [fonte L125](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L125) |
 | Assinatura | <code>public (idsPropulsores: readonly string[]): void</code> |
-| Responsabilidade | Dependências diretas: `this.controladorInclinacao.configurarAlvos`, `this.validarSelecao`, `this.gerenciador.habilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida motores vetorizados e habilita inclinação, preservando outros controladores para composição/arbitragem. |
 | Entradas | <code>idsPropulsores: readonly string[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.controladorInclinacao.configurarAlvos</code>; <code>this.validarSelecao</code>; <code>this.gerenciador.habilitar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.controladorInclinacao.configurarAlvos`, `this.validarSelecao`, `this.gerenciador.habilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-46a56b00aaef2d33 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida motores vetorizados e habilita inclinação, preservando outros controladores para composição/arbitragem. @contract f-46a56b00aaef2d33 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -17570,15 +17570,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.habilitarControleDeGimbalDeDescida:MethodDeclaration</code> · [fonte L131](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L131) |
 | Assinatura | <code>public (idsPropulsores: readonly string[], ganhoDerivaRadPorMps?: number): void</code> |
-| Responsabilidade | Dependências diretas: `this.gerenciador.desabilitar`, `this.controladorGimbalDescida.configurarAlvos`, `this.validarSelecao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Desativa inclinação, valida seleção vetorizada, configura ganho de deriva rad/(m/s) e habilita controlador de descida. |
 | Entradas | <code>idsPropulsores: readonly string[]</code>; <code>ganhoDerivaRadPorMps?: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.gerenciador.desabilitar</code>; <code>this.controladorGimbalDescida.configurarAlvos</code>; <code>this.validarSelecao</code>; <code>this.gerenciador.habilitar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.gerenciador.desabilitar`, `this.controladorGimbalDescida.configurarAlvos`, `this.validarSelecao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8bf1e565cc8a35fb */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Desativa inclinação, valida seleção vetorizada, configura ganho de deriva rad/(m/s) e habilita controlador de descida. @contract f-8bf1e565cc8a35fb @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -17589,15 +17589,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.habilitarControleDeDesaceleracao:MethodDeclaration</code> · [fonte L138](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L138) |
 | Assinatura | <code>public (configuracao: Partial&lt;ConfiguracaoControleDesaceleracao&gt;, idsPropulsores: readonly string[]): void</code> |
-| Responsabilidade | Dependências diretas: `this.controladorDesaceleracao.configurar`, `this.validarSelecao`, `this.gerenciador.habilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Configura controlador de desaceleração para seleção validada e o habilita sem executar ignição. |
 | Entradas | <code>configuracao: Partial&lt;ConfiguracaoControleDesaceleracao&gt;</code>; <code>idsPropulsores: readonly string[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.controladorDesaceleracao.configurar</code>; <code>this.validarSelecao</code>; <code>this.gerenciador.habilitar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.controladorDesaceleracao.configurar`, `this.validarSelecao`, `this.gerenciador.habilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0738990da2805bb6 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Configura controlador de desaceleração para seleção validada e o habilita sem executar ignição. @contract f-0738990da2805bb6 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -17608,15 +17608,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.desabilitarControleDePouso:MethodDeclaration</code> · [fonte L146](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L146) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Dependências diretas: `this.gerenciador.desabilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Desativa controlador de pouso via gerenciador; o controlador limpa sua memória/último comando. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.gerenciador.desabilitar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.gerenciador.desabilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-5b096cfad2219e4d */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Desativa controlador de pouso via gerenciador; o controlador limpa sua memória/último comando. @contract f-5b096cfad2219e4d @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -17627,15 +17627,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.desabilitarControleDeDesaceleracao:MethodDeclaration</code> · [fonte L150](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L150) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Dependências diretas: `this.gerenciador.desabilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Desativa controlador de desaceleração via gerenciador e reinicia sua memória. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.gerenciador.desabilitar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.gerenciador.desabilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-77934db4dcf72f7f */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Desativa controlador de desaceleração via gerenciador e reinicia sua memória. @contract f-77934db4dcf72f7f @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -17646,15 +17646,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.desabilitarControleDeGimbalDeDescida:MethodDeclaration</code> · [fonte L152](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L152) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Dependências diretas: `this.gerenciador.desabilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Desativa PID de gimbal de descida via gerenciador, sem impor orientação ao veículo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.gerenciador.desabilitar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.gerenciador.desabilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-db9721d0aca9aa2f */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Desativa PID de gimbal de descida via gerenciador, sem impor orientação ao veículo. @contract f-db9721d0aca9aa2f @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -17703,15 +17703,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.desabilitarControleDeDescidaFuzzyPid:MethodDeclaration</code> · [fonte L170](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L170) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Dependências diretas: `this.gerenciador.desabilitar`, `this.controladorInclinacao.desabilitarAmortecimentoHorizontal`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Desativa Fuzzy-PID e remove correção horizontal do controlador de inclinação; não zera velocidade física. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.gerenciador.desabilitar</code>; <code>this.controladorInclinacao.desabilitarAmortecimentoHorizontal</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.gerenciador.desabilitar`, `this.controladorInclinacao.desabilitarAmortecimentoHorizontal`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-526bb8b13da9261b */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Desativa Fuzzy-PID e remove correção horizontal do controlador de inclinação; não zera velocidade física. @contract f-526bb8b13da9261b @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -17722,15 +17722,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.controleDeDescidaFuzzyPidEstaHabilitado:GetAccessor</code> · [fonte L176](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L176) |
 | Assinatura | <code>public (): boolean</code> |
-| Responsabilidade | Devolve `this.controladorDescidaFuzzyPid.estaHabilitado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Consulta seleção operacional do Fuzzy-PID; habilitado não significa que permissivos dos atuadores estejam disponíveis. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>this.controladorDescidaFuzzyPid.estaHabilitado</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.controladorDescidaFuzzyPid.estaHabilitado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-56dba2053976afb4 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta seleção operacional do Fuzzy-PID; habilitado não significa que permissivos dos atuadores estejam disponíveis. @contract f-56dba2053976afb4 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -17741,15 +17741,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.obterUltimoComandoDeDescidaFuzzyPid:MethodDeclaration</code> · [fonte L181](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L181) |
 | Assinatura | <code>public (): ComandoDescidaFuzzyPid</code> |
-| Responsabilidade | Devolve `this.controladorDescidaFuzzyPid.obterUltimoComando()`. Dependências diretas: `this.controladorDescidaFuzzyPid.obterUltimoComando`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Consulta último resultado calculado pelo Fuzzy-PID, conforme contrato de cópia do controlador. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ComandoDescidaFuzzyPid</code>; expressões retornadas: <code>this.controladorDescidaFuzzyPid.obterUltimoComando()</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.controladorDescidaFuzzyPid.obterUltimoComando</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.controladorDescidaFuzzyPid.obterUltimoComando()`. Dependências diretas: `this.controladorDescidaFuzzyPid.obterUltimoComando`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-5b3119a019f5ee87 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta último resultado calculado pelo Fuzzy-PID, conforme contrato de cópia do controlador. @contract f-5b3119a019f5ee87 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -17760,15 +17760,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.controleDePousoEstaHabilitado:GetAccessor</code> · [fonte L186](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L186) |
 | Assinatura | <code>public (): boolean</code> |
-| Responsabilidade | Devolve `this.controladorPouso.estaHabilitado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Consulta habilitação do controlador de pouso, sem comprovar apoio, toque ou êxito de missão. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>this.controladorPouso.estaHabilitado</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.controladorPouso.estaHabilitado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0e490f8258936b3e */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta habilitação do controlador de pouso, sem comprovar apoio, toque ou êxito de missão. @contract f-0e490f8258936b3e @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -17779,15 +17779,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.obterUltimoComandoDePouso:MethodDeclaration</code> · [fonte L191](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L191) |
 | Assinatura | <code>public (): ComandoControlePouso &#124; undefined</code> |
-| Responsabilidade | Devolve `this.controladorPouso.estaHabilitado ? this.controladorPouso.obterUltimoComando() : undefined`. Dependências diretas: `this.controladorPouso.obterUltimoComando`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Devolve último comando somente se controle de pouso habilitado; caso contrário retorna undefined. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ComandoControlePouso &#124; undefined</code>; expressões retornadas: <code>this.controladorPouso.estaHabilitado ? this.controladorPouso.obterUltimoComando() : undefined</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.controladorPouso.obterUltimoComando</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.controladorPouso.estaHabilitado ? this.controladorPouso.obterUltimoComando() : undefined`. Dependências diretas: `this.controladorPouso.obterUltimoComando`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b5347ffb94d4bd16 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Devolve último comando somente se controle de pouso habilitado; caso contrário retorna undefined. @contract f-b5347ffb94d4bd16 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -17817,15 +17817,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.habilitarControlador:MethodDeclaration</code> · [fonte L200](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L200) |
 | Assinatura | <code>public (id: string): void</code> |
-| Responsabilidade | Dependências diretas: `this.gerenciador.habilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Encaminha id ao gerenciador para habilitar controlador registrado; não altera permissivos físicos dos motores. |
 | Entradas | <code>id: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.gerenciador.habilitar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.gerenciador.habilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1185d322e448e002 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Encaminha id ao gerenciador para habilitar controlador registrado; não altera permissivos físicos dos motores. @contract f-1185d322e448e002 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -17836,15 +17836,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.desabilitarControlador:MethodDeclaration</code> · [fonte L202](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L202) |
 | Assinatura | <code>public (id: string): void</code> |
-| Responsabilidade | Dependências diretas: `this.gerenciador.desabilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Encaminha id ao gerenciador para desabilitação e limpeza prevista pelo controlador. |
 | Entradas | <code>id: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.gerenciador.desabilitar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.gerenciador.desabilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a2f5101cb8b0ce76 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Encaminha id ao gerenciador para desabilitação e limpeza prevista pelo controlador. @contract f-a2f5101cb8b0ce76 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -17874,15 +17874,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.obterSolicitacoesAplicadas:MethodDeclaration</code> · [fonte L206](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L206) |
 | Assinatura | <code>public (): readonly SolicitacaoArbitrada[]</code> |
-| Responsabilidade | Devolve `this.solicitacoesAplicadas.map((solicitacao) =&gt; ({ ...solicitacao }))`. Dependências diretas: `this.solicitacoesAplicadas.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Cria cópia da lista e de cada solicitação efetivamente aplicada na última atualização, separada dos pedidos rejeitados. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly SolicitacaoArbitrada[]</code>; expressões retornadas: <code>this.solicitacoesAplicadas.map((solicitacao) =&gt; ({ ...solicitacao }))</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.solicitacoesAplicadas.map</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.solicitacoesAplicadas.map((solicitacao) =&gt; ({ ...solicitacao }))`. Dependências diretas: `this.solicitacoesAplicadas.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-337d3ca5f1ee1f65 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Cria cópia da lista e de cada solicitação efetivamente aplicada na última atualização, separada dos pedidos rejeitados. @contract f-337d3ca5f1ee1f65 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -17950,15 +17950,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.atualizarControladores:MethodDeclaration</code> · [fonte L227](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L227) |
 | Assinatura | <code>public (dtS: number): void</code> |
-| Responsabilidade | Dependências diretas: `this.aplicarSolicitacoesDeControladores`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Executa ciclo central de leitura, cálculo, arbitragem e aplicação para dt em s. É a mesma operação usada pelos aliases de atualização; chamá-los adicionalmente duplicaria atualização de memória. |
 | Entradas | <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.aplicarSolicitacoesDeControladores</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.aplicarSolicitacoesDeControladores`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1e66d026bf2d5e2f */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Executa ciclo central de leitura, cálculo, arbitragem e aplicação para dt em s. É a mesma operação usada pelos aliases de atualização; chamá-los adicionalmente duplicaria atualização de memória. @contract f-1e66d026bf2d5e2f @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -17969,15 +17969,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.definirThrottle:MethodDeclaration</code> · [fonte L232](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L232) |
 | Assinatura | <code>public (idPropulsor: string, throttle: number): void</code> |
-| Responsabilidade | Dependências diretas: `this.obterPropulsor(idPropulsor).definirThrottle`, `this.obterPropulsor`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Localiza motor instalado e envia throttle pela porta validada; não liga sistemas nem solicita ignição. |
 | Entradas | <code>idPropulsor: string</code>; <code>throttle: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.obterPropulsor(idPropulsor).definirThrottle</code>; <code>this.obterPropulsor</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.obterPropulsor(idPropulsor).definirThrottle`, `this.obterPropulsor`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e294ab50adf8ee32 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Localiza motor instalado e envia throttle pela porta validada; não liga sistemas nem solicita ignição. @contract f-e294ab50adf8ee32 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -17988,15 +17988,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.definirThrottleDeTodos:MethodDeclaration</code> · [fonte L237](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L237) |
 | Assinatura | <code>public (throttle: number): void</code> |
-| Responsabilidade | Dependências diretas: `this.propulsores.values`, `propulsor.definirThrottle`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Solicita mesmo throttle a todos os motores registrados usando suas portas operacionais; não garante empuxo. |
 | Entradas | <code>throttle: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.propulsores.values</code>; <code>propulsor.definirThrottle</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.propulsores.values`, `propulsor.definirThrottle`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7b7c57486c5ae695 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Solicita mesmo throttle a todos os motores registrados usando suas portas operacionais; não garante empuxo. @contract f-7b7c57486c5ae695 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -18026,15 +18026,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.solicitarIgnicao:MethodDeclaration</code> · [fonte L251](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L251) |
 | Assinatura | <code>public (idPropulsor: string): ResultadoComandoPropulsor</code> |
-| Responsabilidade | Devolve `{ idPropulsor: propulsor.id, aceito, diagnostico: propulsor.diagnosticoOperacional }`. Dependências diretas: `this.obterPropulsor`, `sequencia.every`, `propulsor.solicitarIgnicao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Tenta sistemas na ordem elétrico→hidráulico→combustível→controle com interrupção na primeira recusa; solicita ignição explícita só após todos aceitarem e retorna aceitação/diagnóstico. Sistemas já acionados não são revertidos automaticamente. |
 | Entradas | <code>idPropulsor: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ResultadoComandoPropulsor</code>; expressões retornadas: <code>{ idPropulsor: propulsor.id, aceito, diagnostico: propulsor.diagnosticoOperacional }</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.obterPropulsor</code>; <code>sequencia.every</code>; <code>propulsor.solicitarIgnicao</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `{ idPropulsor: propulsor.id, aceito, diagnostico: propulsor.diagnosticoOperacional }`. Dependências diretas: `this.obterPropulsor`, `sequencia.every`, `propulsor.solicitarIgnicao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6425699b43700f58 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Tenta sistemas na ordem elétrico→hidráulico→combustível→controle com interrupção na primeira recusa; solicita ignição explícita só após todos aceitarem e retorna aceitação/diagnóstico. Sistemas já acionados não são revertidos automaticamente. @contract f-6425699b43700f58 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -18045,15 +18045,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.desligarPropulsor:MethodDeclaration</code> · [fonte L260](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L260) |
 | Assinatura | <code>public (idPropulsor: string): void</code> |
-| Responsabilidade | Dependências diretas: `this.obterPropulsor(idPropulsor).desligarSistema`, `this.obterPropulsor`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Desliga sistema elétrico do motor selecionado, provocando sua cadeia normal de intertravamentos; não remove corpo do mundo. |
 | Entradas | <code>idPropulsor: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.obterPropulsor(idPropulsor).desligarSistema</code>; <code>this.obterPropulsor</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.obterPropulsor(idPropulsor).desligarSistema`, `this.obterPropulsor`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2fb721895466636b */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Desliga sistema elétrico do motor selecionado, provocando sua cadeia normal de intertravamentos; não remove corpo do mundo. @contract f-2fb721895466636b @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -18064,15 +18064,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.desligarTodos:MethodDeclaration</code> · [fonte L265](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L265) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Dependências diretas: `this.propulsores.values`, `propulsor.desligarSistema`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Desliga sistema elétrico de cada propulsor registrado pelas mesmas operações do operador. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.propulsores.values</code>; <code>propulsor.desligarSistema</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.propulsores.values`, `propulsor.desligarSistema`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8e9156b0afc0693a */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Desliga sistema elétrico de cada propulsor registrado pelas mesmas operações do operador. @contract f-8e9156b0afc0693a @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -18083,15 +18083,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.obterDiagnostico:MethodDeclaration</code> · [fonte L270](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L270) |
 | Assinatura | <code>public (): readonly ResultadoComandoPropulsor[]</code> |
-| Responsabilidade | Dependências diretas: `[...this.propulsores.values()].map`, `this.propulsores.values`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Compõe diagnóstico por motor; aceito significa ignição presente e lista de motivos vazia no instante da consulta, não qualificação do voo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly ResultadoComandoPropulsor[]</code>; expressões retornadas: <code>[...this.propulsores.values()].map((propulsor) =&gt; ({<br>    idPropulsor: propulsor.id,<br>    aceito: propulsor.estaIgnitado &amp;&amp; propulsor.diagnosticoOperacional.length === 0,<br>    diagnostico: propulsor.diagnosticoOperacional,<br>}))</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>[...this.propulsores.values()].map</code>; <code>this.propulsores.values</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `[...this.propulsores.values()].map`, `this.propulsores.values`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b42e349f6775b05f */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Compõe diagnóstico por motor; aceito significa ignição presente e lista de motivos vazia no instante da consulta, não qualificação do voo. @contract f-b42e349f6775b05f @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -18102,15 +18102,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.obterPropulsor:MethodDeclaration</code> · [fonte L279](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L279) |
 | Assinatura | <code>private (idPropulsor: string): IPropulsorControlavelPeloComputador</code> |
-| Responsabilidade | Devolve `propulsor`. Dependências diretas: `this.propulsores.get`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Consulta motor por id ou lança erro se não instalado; não cria componentes implicitamente. |
 | Entradas | <code>idPropulsor: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>IPropulsorControlavelPeloComputador</code>; expressões retornadas: <code>propulsor</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.propulsores.get</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!propulsor</code>; exceções: <code>new Error(`Propulsor não instalado: ${idPropulsor}.`)</code> |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `propulsor`. Dependências diretas: `this.propulsores.get`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6996921a46b0f79a */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta motor por id ou lança erro se não instalado; não cria componentes implicitamente. @contract f-6996921a46b0f79a @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -18121,15 +18121,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.validarSelecao:MethodDeclaration</code> · [fonte L286](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L286) |
 | Assinatura | <code>private (idsPropulsores: readonly string[], exigirVetorizacao: boolean): Set&lt;string&gt;</code> |
-| Responsabilidade | Devolve `ids`. Dependências diretas: `Error`, `Set`, `this.obterPropulsor`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Exige seleção não vazia sem ids repetidos, todos instalados e, quando requerido, com portas de vetorização; retorna Set validado sem alterar seleção anterior. |
 | Entradas | <code>idsPropulsores: readonly string[]</code>; <code>exigirVetorizacao: boolean</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Set&lt;string&gt;</code>; expressões retornadas: <code>ids</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Error</code>; <code>Set</code>; <code>this.obterPropulsor</code>; <code>this.propulsoresVetorizados.has</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>idsPropulsores.length === 0</code>; <code>ids.size !== idsPropulsores.length</code>; <code>exigirVetorizacao &amp;&amp; !this.propulsoresVetorizados.has(id)</code>; exceções: <code>new Error('O controlador precisa de ao menos um propulsor selecionado.')</code>; <code>new Error('Seleção de propulsores contém identificadores duplicados.')</code>; <code>new Error(`Propulsor sem vetorização não pode controlar inclinação: ${id}.`)</code> |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `ids`. Dependências diretas: `Error`, `Set`, `this.obterPropulsor`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2665b2da0cf0481c */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Exige seleção não vazia sem ids repetidos, todos instalados e, quando requerido, com portas de vetorização; retorna Set validado sem alterar seleção anterior. @contract f-2665b2da0cf0481c @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -18140,15 +18140,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.solicitarGimbalLimitado:MethodDeclaration</code> · [fonte L300](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L300) |
 | Assinatura | <code>private (idPropulsor: string, comandoRad: number): number &#124; undefined</code> |
-| Responsabilidade | Devolve `propulsor.solicitarVetorizacao(valorRad) ? valorRad : undefined`. Dependências diretas: `this.propulsoresVetorizados.get`, `propulsor?.obterEstadoDaVetorizacao`, `propulsor.solicitarVetorizacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Consulta limite real do atuador, satura pedido em rad e o envia pela porta; retorna valor aceito ou undefined por ausência de capacidade/recusa. Não altera ângulo diretamente. |
 | Entradas | <code>idPropulsor: string</code>; <code>comandoRad: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number &#124; undefined</code>; expressões retornadas: <code>propulsor.solicitarVetorizacao(valorRad) ? valorRad : undefined</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.propulsoresVetorizados.get</code>; <code>propulsor?.obterEstadoDaVetorizacao</code>; <code>Math.max</code>; <code>Math.min</code>; <code>propulsor.solicitarVetorizacao</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!propulsor?.solicitarVetorizacao &#124;&#124; limiteRad === undefined</code>; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `propulsor.solicitarVetorizacao(valorRad) ? valorRad : undefined`. Dependências diretas: `this.propulsoresVetorizados.get`, `propulsor?.obterEstadoDaVetorizacao`, `propulsor.solicitarVetorizacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-c1075ebae0ca7291 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Consulta limite real do atuador, satura pedido em rad e o envia pela porta; retorna valor aceito ou undefined por ausência de capacidade/recusa. Não altera ângulo diretamente. @contract f-c1075ebae0ca7291 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -18159,15 +18159,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/ComputadorDeVoo.ts::ComputadorDeVoo.aplicarSolicitacoesDeControladores:MethodDeclaration</code> · [fonte L309](../../src/physics/objetos/veiculos/ComputadorDeVoo.ts#L309) |
 | Assinatura | <code>private (dtS: number): void</code> |
-| Responsabilidade | Escritas diretas: `this.solicitacoesAplicadas`, `this.estavaAlimentado`. Dependências diretas: `[...this.propulsores.values()].some`, `this.propulsores.values`, `this.gerenciador.reiniciarControladores`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Limpa diagnóstico aplicado e verifica alimentação elétrica/controle. Perda de energia reinicia memórias; leitura inválida/obsoleta reinicia controles, solicita throttle zero e mantém alvo do gimbal no ângulo atual. Caso válido arbitra pedidos, filtra motores operacionais, limita gimbal e registra apenas comandos aceitos. Não integra forças ou cinemática. |
 | Entradas | <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.solicitacoesAplicadas</code>; <code>this.estavaAlimentado</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>[...this.propulsores.values()].some</code>; <code>this.propulsores.values</code>; <code>this.gerenciador.reiniciarControladores</code>; <code>this.telemetriaDoCasco.obterLeituras</code>; <code>this.gerenciador.calcularSolicitacoes</code>; <code>propulsor.definirThrottle</code>; <code>propulsor.obterEstadoDaVetorizacao</code>; <code>propulsor.solicitarVetorizacao</code>; <code>this.gerenciador.obterUltimaArbitragem</code>; <code>this.propulsores.get</code>; <code>propulsor?.sistemaEstaOperacional</code>; <code>propulsor.sistemaEstaOperacional</code>; <code>this.obterPropulsor(solicitacao.idAtuador).definirThrottle</code>; <code>this.obterPropulsor</code>; <code>aplicadas.push</code>; <code>this.solicitarGimbalLimitado</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>this.estavaAlimentado &amp;&amp; !controladoresAlimentados</code>; <code>!controladoresAlimentados</code>; <code>sensoresInvalidos</code>; <code>estadoGimbal &amp;&amp; propulsor.solicitarVetorizacao</code>; <code>!propulsor?.sistemaEstaOperacional('elétrico') &#124;&#124; !propulsor.sistemaEstaOperacional('controle')</code>; <code>solicitacao.recurso === 'throttle'</code>; <code>valor !== undefined</code>; exceções: — |
 | Testes | [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.solicitacoesAplicadas`, `this.estavaAlimentado`. Dependências diretas: `[...this.propulsores.values()].some`, `this.propulsores.values`, `this.gerenciador.reiniciarControladores`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2a19b873c05a47a3 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Limpa diagnóstico aplicado e verifica alimentação elétrica/controle. Perda de energia reinicia memórias; leitura inválida/obsoleta reinicia controles, solicita throttle zero e mantém alvo do gimbal no ângulo atual. Caso válido arbitra pedidos, filtra motores operacionais, limita gimbal e registra apenas comandos aceitos. Não integra forças ou cinemática. @contract f-2a19b873c05a47a3 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -19718,15 +19718,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sensores/SistemaSensores.ts::SistemaSensores.registrarSwitchFimDeCurso:MethodDeclaration</code> · [fonte L21](../../src/physics/sensores/SistemaSensores.ts#L21) |
 | Assinatura | <code>public (switchFimDeCurso: SwitchFimDeCurso): void</code> |
-| Responsabilidade | Dependências diretas: `this.switchesFimDeCurso.has`, `Error`, `this.switchesFimDeCurso.set`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Rejeita id duplicado, registra sensor e reavalia imediatamente contatos; não cria força nem altera pose. |
 | Entradas | <code>switchFimDeCurso: SwitchFimDeCurso</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.switchesFimDeCurso.has</code>; <code>Error</code>; <code>this.switchesFimDeCurso.set</code>; <code>this.atualizarSwitchesFimDeCurso</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>this.switchesFimDeCurso.has(switchFimDeCurso.id)</code>; exceções: <code>new Error(`Switch de fim de curso já registrado: ${switchFimDeCurso.id}.`)</code> |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.switchesFimDeCurso.has`, `Error`, `this.switchesFimDeCurso.set`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-41e4ac6006256538 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Rejeita id duplicado, registra sensor e reavalia imediatamente contatos; não cria força nem altera pose. @contract f-41e4ac6006256538 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -19737,15 +19737,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sensores/SistemaSensores.ts::SistemaSensores.registrarSensoresVeiculo:MethodDeclaration</code> · [fonte L28](../../src/physics/sensores/SistemaSensores.ts#L28) |
 | Assinatura | <code>public (sensores: SensoresVeiculoComposto): void</code> |
-| Responsabilidade | Dependências diretas: `this.sensoresVeiculo.set`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Registra pacote de sensores por identidade da instância para atualização pelo mundo; nova chamada com mesma instância substitui a mesma entrada. |
 | Entradas | <code>sensores: SensoresVeiculoComposto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.sensoresVeiculo.set</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.sensoresVeiculo.set`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3b889335e49e00ed */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Registra pacote de sensores por identidade da instância para atualização pelo mundo; nova chamada com mesma instância substitui a mesma entrada. @contract f-3b889335e49e00ed @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -19794,15 +19794,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sensores/SistemaSensores.ts::SistemaSensores.atualizarSwitchesFimDeCurso:MethodDeclaration</code> · [fonte L48](../../src/physics/sensores/SistemaSensores.ts#L48) |
 | Assinatura | <code>private (): void</code> |
-| Responsabilidade | Dependências diretas: `this.switchesFimDeCurso.values`, `switchFimDeCurso.obterVolumeSensivel`, `[...this.obterObjetos()].find`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Observa volume sensível contra caixas dos outros corpos e pontos da face contra superfícies, com tolerância 1e-6 m. Exclui hospedeiro e mesma ilha, prioriza primeiro corpo encontrado; atualiza alvo/estado do switch pelo core sem resolver contato físico. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.switchesFimDeCurso.values</code>; <code>switchFimDeCurso.obterVolumeSensivel</code>; <code>[...this.obterObjetos()].find</code>; <code>this.obterObjetos</code>; <code>switchFimDeCurso.atualizarContatoPeloCore</code>; <code>[...this.obterSuperficies()].find</code>; <code>this.obterSuperficies</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>alvoObjeto</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.switchesFimDeCurso.values`, `switchFimDeCurso.obterVolumeSensivel`, `[...this.obterObjetos()].find`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a572c18cb0594dd6 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Observa volume sensível contra caixas dos outros corpos e pontos da face contra superfícies, com tolerância 1e-6 m. Exclui hospedeiro e mesma ilha, prioriza primeiro corpo encontrado; atualiza alvo/estado do switch pelo core sem resolver contato físico. @contract f-a572c18cb0594dd6 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -19813,15 +19813,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sensores/SistemaSensores.ts::SistemaSensores.estaoNaMesmaIlhaEstrutural:MethodDeclaration</code> · [fonte L73](../../src/physics/sensores/SistemaSensores.ts#L73) |
 | Assinatura | <code>private (objetoA: Objeto, objetoB: Objeto): boolean</code> |
-| Responsabilidade | Devolve `conjuntoA !== undefined &amp;&amp; conjuntoA === this.obterConjuntoEstrutural(objetoB)`. Dependências diretas: `this.obterConjuntoEstrutural`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Compara identidade da ilha atual, exigindo ilha definida; evita acionamento por peças rigidamente pertencentes ao mesmo conjunto. |
 | Entradas | <code>objetoA: Objeto</code>; <code>objetoB: Objeto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>conjuntoA !== undefined &amp;&amp; conjuntoA === this.obterConjuntoEstrutural(objetoB)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.obterConjuntoEstrutural</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `conjuntoA !== undefined &amp;&amp; conjuntoA === this.obterConjuntoEstrutural(objetoB)`. Dependências diretas: `this.obterConjuntoEstrutural`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-aa56728d6b2e26c1 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Compara identidade da ilha atual, exigindo ilha definida; evita acionamento por peças rigidamente pertencentes ao mesmo conjunto. @contract f-aa56728d6b2e26c1 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -19836,15 +19836,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sensores/SwitchFimDeCurso.ts::SwitchFimDeCurso.constructor:Constructor</code> · [fonte L35](../../src/physics/sensores/SwitchFimDeCurso.ts#L35) |
 | Assinatura | <code>public (definicao: DefinicaoSwitchFimDeCurso): SwitchFimDeCurso</code> |
-| Responsabilidade | Escritas diretas: `this.definicao`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Armazena definição/hospedeiro e valida identidade, histerese não negativa e dimensões/curso positivos finitos em m; não integra movimento nem aplica força. |
 | Entradas | <code>private readonly definicao: DefinicaoSwitchFimDeCurso</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>SwitchFimDeCurso</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.definicao</code>; <code>this.acionado</code>; <code>this.alvoEmContato</code>; <code>this.deslocamentoLocalM</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Error</code>; <code>Number.isFinite</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!definicao.id</code>; <code>!Number.isFinite(definicao.histereseM ?? 0) &#124;&#124; (definicao.histereseM ?? 0) &lt; 0</code>; <code>!Number.isFinite(valor) &#124;&#124; valor &lt;= 0</code>; exceções: <code>new Error('Switch de fim de curso precisa de identidade.')</code>; <code>new Error('Histerese do switch deve ser finita e não negativa.')</code>; <code>new Error('Dimensões do switch devem ser finitas e positivas.')</code> |
 | Testes | [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.definicao`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-958eb2b7694765e1 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Armazena definição/hospedeiro e valida identidade, histerese não negativa e dimensões/curso positivos finitos em m; não integra movimento nem aplica força. @contract f-958eb2b7694765e1 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -20140,15 +20140,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sensores/SwitchFimDeCurso.ts::SwitchFimDeCurso.obterDirecaoLocal:MethodDeclaration</code> · [fonte L125](../../src/physics/sensores/SwitchFimDeCurso.ts#L125) |
 | Assinatura | <code>private (): Vetor3</code> |
-| Responsabilidade | Dependências diretas: `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Traduz a face declarada para um dos seis eixos cartesianos unitários locais; exige face válida pelo tipo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: <code>new Vetor3(1, 0, 0)</code>; <code>new Vetor3(-1, 0, 0)</code>; <code>new Vetor3(0, 1, 0)</code>; <code>new Vetor3(0, -1, 0)</code>; <code>new Vetor3(0, 0, 1)</code>; <code>new Vetor3(0, 0, -1)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1bdcafeb1e8b7ad7 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Traduz a face declarada para um dos seis eixos cartesianos unitários locais; exige face válida pelo tipo. @contract f-1bdcafeb1e8b7ad7 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -20159,15 +20159,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sensores/SwitchFimDeCurso.ts::SwitchFimDeCurso.obterDirecaoGlobal:MethodDeclaration</code> · [fonte L137](../../src/physics/sensores/SwitchFimDeCurso.ts#L137) |
 | Assinatura | <code>private (): Vetor3</code> |
-| Responsabilidade | Dependências diretas: `this.obterDirecaoLocal`, `this.objetoHospedeiro.getEstadoFisico`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Gira direção sensível local pela orientação Z atual do hospedeiro e preserva componente Z; consulta o core sem mover sensor. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: <code>new Vetor3((direcao.x * Math.cos(angulo)) - (direcao.y * Math.sin(angulo)), (direcao.x * Math.sin(angulo)) + (direcao.y * Math.cos(angulo)), direcao.z)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.obterDirecaoLocal</code>; <code>this.objetoHospedeiro.getEstadoFisico</code>; <code>Vetor3</code>; <code>Math.cos</code>; <code>Math.sin</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.obterDirecaoLocal`, `this.objetoHospedeiro.getEstadoFisico`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1aedd06fc2fa4643 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Gira direção sensível local pela orientação Z atual do hospedeiro e preserva componente Z; consulta o core sem mover sensor. @contract f-1aedd06fc2fa4643 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -20178,15 +20178,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sensores/SwitchFimDeCurso.ts::SwitchFimDeCurso.obterDimensoesDoVolume:MethodDeclaration</code> · [fonte L144](../../src/physics/sensores/SwitchFimDeCurso.ts#L144) |
 | Assinatura | <code>private (): Vetor3</code> |
-| Responsabilidade | Dependências diretas: `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Distribui curso sensível, largura e altura em m conforme eixo da face para construir volume de detecção; não é geometria de colisão rígida. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Vetor3</code>; expressões retornadas: <code>new Vetor3(this.cursoSensivelM, this.larguraM, this.alturaM)</code>; <code>new Vetor3(this.larguraM, this.cursoSensivelM, this.alturaM)</code>; <code>new Vetor3(this.larguraM, this.alturaM, this.cursoSensivelM)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-c591823d5b4ad4b7 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Distribui curso sensível, largura e altura em m conforme eixo da face para construir volume de detecção; não é geometria de colisão rígida. @contract f-c591823d5b4ad4b7 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -20220,15 +20220,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.ts::AutotunadorPosicionamentoMotorEletrico.executar:MethodDeclaration</code> · [fonte L24](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.ts#L24) |
 | Assinatura | <code>public async (onProgress?: (progresso: ProgressoAutotunePosicionamentoMotorEletrico) =&gt; void): Promise&lt;ResultadoAutotunePosicionamentoMotorEletrico&gt;</code> |
-| Responsabilidade | Devolve `melhor`. Dependências diretas: `this.controlador.obterModeloParaAutotune`, `this.criarCandidatos`, `this.simular`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Avalia 36 combinações no modelo auxiliar, informa progresso percentual e cede execução via setTimeout a cada oito candidatos. Aplica os ganhos de menor custo ao controlador real e retorna resultado; não avança MundoFisico. Escalonamento assíncrono não muda dt da avaliação. |
 | Entradas | <code>onProgress?: (progresso: ProgressoAutotunePosicionamentoMotorEletrico) =&gt; void</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Promise&lt;ResultadoAutotunePosicionamentoMotorEletrico&gt;</code>; expressões retornadas: <code>melhor</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>indice</code>; <code>melhor</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.controlador.obterModeloParaAutotune</code>; <code>this.criarCandidatos</code>; <code>this.simular</code>; <code>onProgress</code>; <code>Promise</code>; <code>Error</code>; <code>this.controlador.aplicarGanhos</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!melhor &#124;&#124; custo &lt; melhor.custo</code>; <code>indice % 8 === 0</code>; <code>!melhor</code>; exceções: <code>new Error('Autotune não gerou candidatos.')</code> |
 | Testes | [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.test.ts](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `melhor`. Dependências diretas: `this.controlador.obterModeloParaAutotune`, `this.criarCandidatos`, `this.simular`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d56be7d8d567653e */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Avalia 36 combinações no modelo auxiliar, informa progresso percentual e cede execução via setTimeout a cada oito candidatos. Aplica os ganhos de menor custo ao controlador real e retorna resultado; não avança MundoFisico. Escalonamento assíncrono não muda dt da avaliação. @contract f-d56be7d8d567653e @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -20258,15 +20258,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.ts::AutotunadorPosicionamentoMotorEletrico.criarCandidatos:MethodDeclaration</code> · [fonte L41](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.ts#L41) |
 | Assinatura | <code>private (modelo: ModeloAutotunePosicionamentoMotorEletrico): GanhosControladorPosicionamentoMotorEletrico[]</code> |
-| Responsabilidade | Dependências diretas: `[0.6, 1, 1.4, 1.8].map`, `[0.25, 0.45, 0.65].map`, `proporcional.flatMap`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Constrói grade determinística 4×3×3 de ganhos a partir de torque/inércia e frequência natural estimada; exige modelo válido e não altera controlador. |
 | Entradas | <code>modelo: ModeloAutotunePosicionamentoMotorEletrico</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>GanhosControladorPosicionamentoMotorEletrico[]</code>; expressões retornadas: <code>proporcional.flatMap((ganhoProporcional) =&gt; derivativo.flatMap((ganhoDerivativo) =&gt; integral.map((fatorIntegral) =&gt; ({<br>    ganhoProporcional,<br>    ganhoIntegral: ganhoProporcional * fatorIntegral,<br>    ganhoDerivativo,<br>}))))</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.sqrt</code>; <code>Math.max</code>; <code>[0.6, 1, 1.4, 1.8].map</code>; <code>[0.25, 0.45, 0.65].map</code>; <code>proporcional.flatMap</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.test.ts](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `[0.6, 1, 1.4, 1.8].map`, `[0.25, 0.45, 0.65].map`, `proporcional.flatMap`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1371de11de38be73 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Constrói grade determinística 4×3×3 de ganhos a partir de torque/inércia e frequência natural estimada; exige modelo válido e não altera controlador. @contract f-1371de11de38be73 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -20277,15 +20277,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.ts::AutotunadorPosicionamentoMotorEletrico.simular:MethodDeclaration</code> · [fonte L54](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.ts#L54) |
 | Assinatura | <code>private (modelo: ModeloAutotunePosicionamentoMotorEletrico, ganhos: GanhosControladorPosicionamentoMotorEletrico): number</code> |
-| Responsabilidade | REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Pontua ganhos em modelo rotacional auxiliar de 4 s, dt=1/240 s e alvo π/4, com limites de torque/velocidade-alvo e integral. Integra variáveis locais e soma custo de erro/esforço; divergência retorna Infinity. Não usa MundoFisico nem comprova equivalência com a planta completa; torque gravitacional entra como feedforward no torque solicitado. |
 | Entradas | <code>modelo: ModeloAutotunePosicionamentoMotorEletrico</code>; <code>ganhos: GanhosControladorPosicionamentoMotorEletrico</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>Number.POSITIVE_INFINITY</code>; <code>custo + picoErro * 0.1 + Math.abs(alvoRad - anguloRad) * 10</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>tempoS</code>; <code>velocidadeAlvoRadps</code>; <code>integralErroRadS</code>; <code>velocidadeRadps</code>; <code>anguloRad</code>; <code>picoErro</code>; <code>custo</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.max</code>; <code>Math.min</code>; <code>Math.abs</code>; <code>Number.isFinite</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(anguloRad) &#124;&#124; Math.abs(anguloRad) &gt; Math.PI * 8</code>; exceções: — |
 | Testes | [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.test.ts](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ff4add0f29c47da4 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Pontua ganhos em modelo rotacional auxiliar de 4 s, dt=1/240 s e alvo π/4, com limites de torque/velocidade-alvo e integral. Integra variáveis locais e soma custo de erro/esforço; divergência retorna Infinity. Não usa MundoFisico nem comprova equivalência com a planta completa; torque gravitacional entra como feedforward no torque solicitado. @contract f-ff4add0f29c47da4 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -20300,15 +20300,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorAletasAerodinamicas.ts::ControladorAletasAerodinamicas.constructor:Constructor</code> · [fonte L6](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.ts#L6) |
 | Assinatura | <code>public (aletas: readonly AletaAerodinamica[], estaEnergizado?: () =&gt; boolean, ganhoAtitude?: number, ganhoVelocidadeAngular?: number, velocidadeMinimaDeAcionamentoMps?: number): ControladorAletasAerodinamicas</code> |
-| Responsabilidade | Escritas diretas: `this.aletas`, `this.estaEnergizado`, `this.ganhoAtitude`, `this.ganhoVelocidadeAngular`. Dependências diretas: `Error`, `[ganhoAtitude, ganhoVelocidadeAngular, velocidadeMinimaDeAcionamentoMps].every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Exige ao menos uma aleta, ganhos e limiar de velocidade finitos não negativos; guarda portas dos atuadores e de energização. |
 | Entradas | <code>private readonly aletas: readonly AletaAerodinamica[]</code>; <code>private readonly estaEnergizado: () =&gt; boolean = /** Devolve `true`. Efeitos indiretos seguem as dependências chamadas. @contract f-4600f6df1f57af59 */<br>                                                     () =&gt; true</code>; <code>private readonly ganhoAtitude = 1.8</code>; <code>private readonly ganhoVelocidadeAngular = 0.65</code>; <code>private readonly velocidadeMinimaDeAcionamentoMps = 8</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ControladorAletasAerodinamicas</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.aletas</code>; <code>this.estaEnergizado</code>; <code>this.ganhoAtitude</code>; <code>this.ganhoVelocidadeAngular</code>; <code>this.velocidadeMinimaDeAcionamentoMps</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Error</code>; <code>[ganhoAtitude, ganhoVelocidadeAngular, velocidadeMinimaDeAcionamentoMps].every</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>aletas.length === 0</code>; <code>![ganhoAtitude, ganhoVelocidadeAngular, velocidadeMinimaDeAcionamentoMps].every((v) =&gt; Number.isFinite(v) &amp;&amp; v &gt;= 0)</code>; exceções: <code>new Error('Controlador requer ao menos uma aleta.')</code>; <code>new Error('Ganhos e limiar de acionamento devem ser finitos e não negativos.')</code> |
 | Testes | [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.aletas`, `this.estaEnergizado`, `this.ganhoAtitude`, `this.ganhoVelocidadeAngular`. Dependências diretas: `Error`, `[ganhoAtitude, ganhoVelocidadeAngular, velocidadeMinimaDeAcionamentoMps].every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-63d060f8a840b02f */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Exige ao menos uma aleta, ganhos e limiar de velocidade finitos não negativos; guarda portas dos atuadores e de energização. @contract f-63d060f8a840b02f @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -20357,15 +20357,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorAletasAerodinamicas.ts::ControladorAletasAerodinamicas.atualizar:MethodDeclaration</code> · [fonte L21](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.ts#L21) |
 | Assinatura | <code>public (orientacaoRad: number, velocidadeAngularRadps: number, velocidadeVerticalMps: number): void</code> |
-| Responsabilidade | Dependências diretas: `[orientacaoRad, velocidadeAngularRadps, velocidadeVerticalMps].every`, `Error`, `this.estaEnergizado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida atitude rad, taxa rad/s e velocidade vertical m/s; se energizado, solicita deflexão proporcional à atitude/taxa somente na descida acima do limiar de fluxo, senão solicita zero. Sem energia retorna sem novo comando; não produz torque diretamente. |
 | Entradas | <code>orientacaoRad: number</code>; <code>velocidadeAngularRadps: number</code>; <code>velocidadeVerticalMps: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>[orientacaoRad, velocidadeAngularRadps, velocidadeVerticalMps].every</code>; <code>Error</code>; <code>this.estaEnergizado</code>; <code>aleta.solicitarDeflexaoRad</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>![orientacaoRad, velocidadeAngularRadps, velocidadeVerticalMps].every(Number.isFinite)</code>; <code>!this.estaEnergizado()</code>; exceções: <code>new Error('Leituras do controlador devem ser finitas.')</code> |
 | Testes | [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `[orientacaoRad, velocidadeAngularRadps, velocidadeVerticalMps].every`, `Error`, `this.estaEnergizado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e96f09b928457ac3 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida atitude rad, taxa rad/s e velocidade vertical m/s; se energizado, solicita deflexão proporcional à atitude/taxa somente na descida acima do limiar de fluxo, senão solicita zero. Sem energia retorna sem novo comando; não produz torque diretamente. @contract f-e96f09b928457ac3 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -20399,15 +20399,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorDesaceleracao.ts::ControladorDesaceleracao.constructor:Constructor</code> · [fonte L37](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracao.ts#L37) |
 | Assinatura | <code>public (configuracao?: Partial&lt;ConfiguracaoControleDesaceleracao&gt;): ControladorDesaceleracao</code> |
-| Responsabilidade | Escritas diretas: `this.configuracao`. Dependências diretas: `Object.values(this.configuracao).every`, `Object.values`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Mescla configuração com padrão e valida grandezas SI finitas, velocidade-alvo descendente, ganhos não negativos, throttle em [0,1] e taxa positiva. |
 | Entradas | <code>configuracao: Partial&lt;ConfiguracaoControleDesaceleracao&gt; = {}</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ControladorDesaceleracao</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.configuracao</code>; <code>this.habilitado</code>; <code>this.throttleAnterior</code>; <code>this.erroAnterior</code>; <code>this.integral</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Object.values(this.configuracao).every</code>; <code>Object.values</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Object.values(this.configuracao).every(Number.isFinite)<br>    &#124;&#124; this.configuracao.velocidadeInicioMps &lt;= 0 &#124;&#124; this.configuracao.velocidadeVerticalAlvoMps &gt;= 0<br>    &#124;&#124; this.configuracao.altitudeMinimaM &lt; 0 &#124;&#124; this.configuracao.throttleSustent… [continua na fonte]</code>; exceções: <code>new Error('Configuração de desaceleração inválida.')</code> |
 | Testes | [src/physics/sistemas de controle/ControladorDesaceleracao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracao.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.configuracao`. Dependências diretas: `Object.values(this.configuracao).every`, `Object.values`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7e75241e4d879eae */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Mescla configuração com padrão e valida grandezas SI finitas, velocidade-alvo descendente, ganhos não negativos, throttle em [0,1] e taxa positiva. @contract f-7e75241e4d879eae @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -20418,15 +20418,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorDesaceleracao.ts::ControladorDesaceleracao.habilitar:MethodDeclaration</code> · [fonte L48](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracao.ts#L48) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Escritas diretas: `this.habilitado`. Dependências diretas: `this.reiniciarPid`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Habilita cálculo e reinicia throttle anterior, erro e integral; não liga motor. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.habilitado</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.reiniciarPid</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sistemas de controle/ControladorDesaceleracao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracao.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.habilitado`. Dependências diretas: `this.reiniciarPid`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0374cf69bea7156f */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Habilita cálculo e reinicia throttle anterior, erro e integral; não liga motor. @contract f-0374cf69bea7156f @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -20437,15 +20437,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorDesaceleracao.ts::ControladorDesaceleracao.desabilitar:MethodDeclaration</code> · [fonte L50](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracao.ts#L50) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Escritas diretas: `this.habilitado`. Dependências diretas: `this.reiniciarPid`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Desabilita cálculo e zera memória PID; não altera cinemática nem desliga motor por si só. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.habilitado</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.reiniciarPid</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sistemas de controle/ControladorDesaceleracao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracao.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.habilitado`. Dependências diretas: `this.reiniciarPid`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e41f13303b40de48 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Desabilita cálculo e zera memória PID; não altera cinemática nem desliga motor por si só. @contract f-e41f13303b40de48 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -20475,15 +20475,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorDesaceleracao.ts::ControladorDesaceleracao.calcularComando:MethodDeclaration</code> · [fonte L55](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracao.ts#L55) |
 | Assinatura | <code>public (leituras: LeiturasVeiculoComposto, dtS: number): ComandoDesaceleracao</code> |
-| Responsabilidade | Escritas diretas: `this.integral`, `this.throttleAnterior`, `this.erroAnterior`. Dependências diretas: `this.reiniciarPid`, `limitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Retorna inativo para controlador desligado/dt inválido; leituras inválidas ou fora do envelope reiniciam memória. Na descida rápida acima do piso calcula throttle PID com sustentação, anti-windup e limite de taxa por dt em s. Atualiza memória e retorna pedido, sem acionar propulsor. |
 | Entradas | <code>leituras: LeiturasVeiculoComposto</code>; <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ComandoDesaceleracao</code>; expressões retornadas: <code>{ ativo: false, throttle: 0, velocidadeAlvoMps: 0 }</code>; <code>{ ativo: false, throttle: 0, velocidadeAlvoMps: c.velocidadeVerticalAlvoMps }</code>; <code>{ ativo: true, throttle: this.throttleAnterior, velocidadeAlvoMps: c.velocidadeVerticalAlvoMps }</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.integral</code>; <code>this.throttleAnterior</code>; <code>this.erroAnterior</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>this.reiniciarPid</code>; <code>limitar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!this.habilitado &#124;&#124; !Number.isFinite(dtS) &#124;&#124; dtS &lt;= 0</code>; <code>!Number.isFinite(altitudeM) &#124;&#124; !Number.isFinite(velocidadeVerticalMps)</code>; <code>altitudeM &lt;= c.altitudeMinimaM &#124;&#124; velocidadeVerticalMps &gt; -c.velocidadeInicioMps</code>; <code>alvo !== saidaSemLimite</code>; exceções: — |
 | Testes | [src/physics/sistemas de controle/ControladorDesaceleracao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracao.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.integral`, `this.throttleAnterior`, `this.erroAnterior`. Dependências diretas: `this.reiniciarPid`, `limitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e66370bab0970886 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Retorna inativo para controlador desligado/dt inválido; leituras inválidas ou fora do envelope reiniciam memória. Na descida rápida acima do piso calcula throttle PID com sustentação, anti-windup e limite de taxa por dt em s. Atualiza memória e retorna pedido, sem acionar propulsor. @contract f-e66370bab0970886 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -20494,15 +20494,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorDesaceleracao.ts::ControladorDesaceleracao.reiniciarPid:MethodDeclaration</code> · [fonte L81](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracao.ts#L81) |
 | Assinatura | <code>private (): void</code> |
-| Responsabilidade | Escritas diretas: `this.throttleAnterior`, `this.erroAnterior`, `this.integral`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Zera throttle anterior, erro e integral para eliminar memória entre ativações ou perda do envelope. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.throttleAnterior</code>; <code>this.erroAnterior</code>; <code>this.integral</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sistemas de controle/ControladorDesaceleracao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracao.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.throttleAnterior`, `this.erroAnterior`, `this.integral`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6a3c02ab7cd11a61 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Zera throttle anterior, erro e integral para eliminar memória entre ativações ou perda do envelope. @contract f-6a3c02ab7cd11a61 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -20517,15 +20517,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorDesaceleracaoDePropulsores.ts::ControladorDesaceleracaoDePropulsores.configurar:MethodDeclaration</code> · [fonte L11](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracaoDePropulsores.ts#L11) |
 | Assinatura | <code>public (configuracao: Partial&lt;ConfiguracaoControleDesaceleracao&gt;, ids: readonly string[]): void</code> |
-| Responsabilidade | Escritas diretas: `this.controlador`, `this.idsPropulsores`. Dependências diretas: `ControladorDesaceleracao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Substitui controlador de desaceleração pela nova configuração e copia ids dos motores; memória anterior não é preservada. |
 | Entradas | <code>configuracao: Partial&lt;ConfiguracaoControleDesaceleracao&gt;</code>; <code>ids: readonly string[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.controlador</code>; <code>this.idsPropulsores</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>ControladorDesaceleracao</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sistemas de controle/ControladoresDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladoresDePropulsores.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.controlador`, `this.idsPropulsores`. Dependências diretas: `ControladorDesaceleracao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-c21cd42fd0b7de7c */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Substitui controlador de desaceleração pela nova configuração e copia ids dos motores; memória anterior não é preservada. @contract f-c21cd42fd0b7de7c @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -20536,15 +20536,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorDesaceleracaoDePropulsores.ts::ControladorDesaceleracaoDePropulsores.habilitar:MethodDeclaration</code> · [fonte L15](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracaoDePropulsores.ts#L15) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Dependências diretas: `this.controlador.habilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Habilita o controlador interno reiniciando sua memória; não comanda ignição. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.controlador.habilitar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sistemas de controle/ControladoresDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladoresDePropulsores.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.controlador.habilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-c4755790234ed284 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Habilita o controlador interno reiniciando sua memória; não comanda ignição. @contract f-c4755790234ed284 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -20555,15 +20555,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorDesaceleracaoDePropulsores.ts::ControladorDesaceleracaoDePropulsores.desabilitar:MethodDeclaration</code> · [fonte L17](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracaoDePropulsores.ts#L17) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Dependências diretas: `this.controlador.desabilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Desabilita o controlador interno e reinicia sua memória. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.controlador.desabilitar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sistemas de controle/ControladoresDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladoresDePropulsores.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.controlador.desabilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-9dbf2fa8a94bb9c4 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Desabilita o controlador interno e reinicia sua memória. @contract f-9dbf2fa8a94bb9c4 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -20593,15 +20593,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorDesaceleracaoDePropulsores.ts::ControladorDesaceleracaoDePropulsores.calcularSolicitacoes:MethodDeclaration</code> · [fonte L21](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracaoDePropulsores.ts#L21) |
 | Assinatura | <code>public (leituras: LeiturasVeiculoComposto, dtS: number): readonly SolicitacaoDeAtuador[]</code> |
-| Responsabilidade | Devolve `this.idsPropulsores.map((idAtuador) =&gt; ({ idAtuador, recurso: 'throttle' as const, valor: comando.ativo ? comando.throttle : 0, }))`. Dependências diretas: `this.controlador.calcularComando`, `this.idsPropulsores.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Traduz resultado do PID em solicitações de throttle para os ids configurados; comando inativo produz pedido explícito zero. Arbitragem e aplicação ficam no computador de voo. |
 | Entradas | <code>leituras: LeiturasVeiculoComposto</code>; <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly SolicitacaoDeAtuador[]</code>; expressões retornadas: <code>this.idsPropulsores.map((idAtuador) =&gt; ({<br>    idAtuador,<br>    recurso: 'throttle' as const,<br>    valor: comando.ativo ? comando.throttle : 0,<br>}))</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.controlador.calcularComando</code>; <code>this.idsPropulsores.map</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sistemas de controle/ControladoresDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladoresDePropulsores.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.idsPropulsores.map((idAtuador) =&gt; ({ idAtuador, recurso: 'throttle' as const, valor: comando.ativo ? comando.throttle : 0, }))`. Dependências diretas: `this.controlador.calcularComando`, `this.idsPropulsores.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7993336ec0721f53 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Traduz resultado do PID em solicitações de throttle para os ids configurados; comando inativo produz pedido explícito zero. Arbitragem e aplicação ficam no computador de voo. @contract f-7993336ec0721f53 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -20829,15 +20829,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorGimbalDescidaDePropulsores.ts::ControladorGimbalDescidaDePropulsores.configurarAlvos:MethodDeclaration</code> · [fonte L17](../../src/physics/sistemas%20de%20controle/ControladorGimbalDescidaDePropulsores.ts#L17) |
 | Assinatura | <code>public (idsPropulsores: readonly string[], ganhoDerivaRadPorMps?: number): void</code> |
-| Responsabilidade | Escritas diretas: `this.idsPropulsores`, `this.ganhoDerivaRadPorMps`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Copia ids e valida ganho de deriva finito não negativo em rad/(m/s); não aplica gimbal. |
 | Entradas | <code>idsPropulsores: readonly string[]</code>; <code>ganhoDerivaRadPorMps = 0.04</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.idsPropulsores</code>; <code>this.ganhoDerivaRadPorMps</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(ganhoDerivaRadPorMps) &#124;&#124; ganhoDerivaRadPorMps &lt; 0</code>; exceções: <code>new Error('Ganho de deriva inválido.')</code> |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.idsPropulsores`, `this.ganhoDerivaRadPorMps`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-cce221037c45b500 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Copia ids e valida ganho de deriva finito não negativo em rad/(m/s); não aplica gimbal. @contract f-cce221037c45b500 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -20848,15 +20848,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorGimbalDescidaDePropulsores.ts::ControladorGimbalDescidaDePropulsores.habilitar:MethodDeclaration</code> · [fonte L23](../../src/physics/sistemas%20de%20controle/ControladorGimbalDescidaDePropulsores.ts#L23) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Dependências diretas: `this.pid.habilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Habilita PID de atitude e reinicia sua memória pelo contrato do PID. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.pid.habilitar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.pid.habilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-c279657ea977122b */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Habilita PID de atitude e reinicia sua memória pelo contrato do PID. @contract f-c279657ea977122b @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -20867,15 +20867,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorGimbalDescidaDePropulsores.ts::ControladorGimbalDescidaDePropulsores.desabilitar:MethodDeclaration</code> · [fonte L25](../../src/physics/sistemas%20de%20controle/ControladorGimbalDescidaDePropulsores.ts#L25) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Dependências diretas: `this.pid.desabilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Desabilita PID sem alterar diretamente atuadores. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.pid.desabilitar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.pid.desabilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-35c76f5f84f7bd4f */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Desabilita PID sem alterar diretamente atuadores. @contract f-35c76f5f84f7bd4f @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -20905,15 +20905,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorGimbalDescidaDePropulsores.ts::ControladorGimbalDescidaDePropulsores.reiniciarMemoria:MethodDeclaration</code> · [fonte L29](../../src/physics/sistemas%20de%20controle/ControladorGimbalDescidaDePropulsores.ts#L29) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Dependências diretas: `this.pid.habilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Reinicia PID somente se já habilitado, preservando seleção operacional. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.pid.habilitar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>this.estaHabilitado</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.pid.habilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-9f236997fdeb8504 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Reinicia PID somente se já habilitado, preservando seleção operacional. @contract f-9f236997fdeb8504 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -20924,15 +20924,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorGimbalDescidaDePropulsores.ts::ControladorGimbalDescidaDePropulsores.calcularSolicitacoes:MethodDeclaration</code> · [fonte L32](../../src/physics/sistemas%20de%20controle/ControladorGimbalDescidaDePropulsores.ts#L32) |
 | Assinatura | <code>public (leituras: LeiturasVeiculoComposto, dtS: number): readonly SolicitacaoDeAtuador[]</code> |
-| Responsabilidade | Dependências diretas: `this.pid.calcularComando`, `this.idsPropulsores.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Se habilitado, normaliza erro de inclinação menos ganho vezes velocidade horizontal para [-π,π] e calcula gimbal PID usando taxa angular. Retorna solicitações para arbitragem; leituras SI/referência local devem ser fornecidas pelo serviço compartilhado. |
 | Entradas | <code>leituras: LeiturasVeiculoComposto</code>; <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly SolicitacaoDeAtuador[]</code>; expressões retornadas: <code>[]</code>; <code>this.idsPropulsores.map((idAtuador) =&gt; ({ idAtuador, recurso: 'gimbal' as const, valor: gimbalRad }))</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.atan2</code>; <code>Math.sin</code>; <code>Math.cos</code>; <code>this.pid.calcularComando</code>; <code>this.idsPropulsores.map</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!this.estaHabilitado</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.pid.calcularComando`, `this.idsPropulsores.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-9c0d1c5d19bd31c5 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Se habilitado, normaliza erro de inclinação menos ganho vezes velocidade horizontal para [-π,π] e calcula gimbal PID usando taxa angular. Retorna solicitações para arbitragem; leituras SI/referência local devem ser fornecidas pelo serviço compartilhado. @contract f-9c0d1c5d19bd31c5 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -21160,15 +21160,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorInclinacaoDePropulsores.ts::ControladorInclinacaoDePropulsores.configurarAlvos:MethodDeclaration</code> · [fonte L15](../../src/physics/sistemas%20de%20controle/ControladorInclinacaoDePropulsores.ts#L15) |
 | Assinatura | <code>public (idsPropulsores: readonly string[]): void</code> |
-| Responsabilidade | Escritas diretas: `this.idsPropulsores`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Copia seleção de ids sem atuar; validação de instalação/capacidade pertence ao computador de voo. |
 | Entradas | <code>idsPropulsores: readonly string[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.idsPropulsores</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.idsPropulsores`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-072ca5129fc83639 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Copia seleção de ids sem atuar; validação de instalação/capacidade pertence ao computador de voo. @contract f-072ca5129fc83639 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -21179,15 +21179,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorInclinacaoDePropulsores.ts::ControladorInclinacaoDePropulsores.configurarAmortecimentoHorizontal:MethodDeclaration</code> · [fonte L17](../../src/physics/sistemas%20de%20controle/ControladorInclinacaoDePropulsores.ts#L17) |
 | Assinatura | <code>public (ganhoAtitudeRadPorMps: number): void</code> |
-| Responsabilidade | Escritas diretas: `this.ganhoAtitudePorVelocidadeHorizontalRadPorMps`, `this.ganhoAtitudeHorizontalAtual`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida ganho rad/(m/s) não negativo finito e reinicia sua entrada gradual em zero; desaceleração lateral ocorre via atitude/gimbal, sem amortecimento físico imposto. |
 | Entradas | <code>ganhoAtitudeRadPorMps: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.ganhoAtitudePorVelocidadeHorizontalRadPorMps</code>; <code>this.ganhoAtitudeHorizontalAtual</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(ganhoAtitudeRadPorMps) &#124;&#124; ganhoAtitudeRadPorMps &lt; 0</code>; exceções: <code>new Error('Parâmetros inválidos para amortecer velocidade horizontal pelo gimbal.')</code> |
 | Testes | [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.ganhoAtitudePorVelocidadeHorizontalRadPorMps`, `this.ganhoAtitudeHorizontalAtual`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-11f93b7258dcb4d2 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida ganho rad/(m/s) não negativo finito e reinicia sua entrada gradual em zero; desaceleração lateral ocorre via atitude/gimbal, sem amortecimento físico imposto. @contract f-11f93b7258dcb4d2 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -21198,15 +21198,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorInclinacaoDePropulsores.ts::ControladorInclinacaoDePropulsores.desabilitarAmortecimentoHorizontal:MethodDeclaration</code> · [fonte L25](../../src/physics/sistemas%20de%20controle/ControladorInclinacaoDePropulsores.ts#L25) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Escritas diretas: `this.ganhoAtitudePorVelocidadeHorizontalRadPorMps`, `this.ganhoAtitudeHorizontalAtual`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Zera ganho pedido e atual de correção lateral; não modifica velocidade. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.ganhoAtitudePorVelocidadeHorizontalRadPorMps</code>; <code>this.ganhoAtitudeHorizontalAtual</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.ganhoAtitudePorVelocidadeHorizontalRadPorMps`, `this.ganhoAtitudeHorizontalAtual`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b9a4b283f07fe632 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Zera ganho pedido e atual de correção lateral; não modifica velocidade. @contract f-b9a4b283f07fe632 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -21217,15 +21217,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorInclinacaoDePropulsores.ts::ControladorInclinacaoDePropulsores.habilitar:MethodDeclaration</code> · [fonte L30](../../src/physics/sistemas%20de%20controle/ControladorInclinacaoDePropulsores.ts#L30) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Dependências diretas: `this.pid.habilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Habilita PID de inclinação com sua reinicialização interna. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.pid.habilitar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.pid.habilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-abfba32141fc1536 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Habilita PID de inclinação com sua reinicialização interna. @contract f-abfba32141fc1536 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -21236,15 +21236,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorInclinacaoDePropulsores.ts::ControladorInclinacaoDePropulsores.desabilitar:MethodDeclaration</code> · [fonte L32](../../src/physics/sistemas%20de%20controle/ControladorInclinacaoDePropulsores.ts#L32) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Dependências diretas: `this.pid.desabilitar`, `this.desabilitarAmortecimentoHorizontal`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Desabilita PID e remove correção de velocidade horizontal. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.pid.desabilitar</code>; <code>this.desabilitarAmortecimentoHorizontal</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.pid.desabilitar`, `this.desabilitarAmortecimentoHorizontal`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-589f4957014d754d */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Desabilita PID e remove correção de velocidade horizontal. @contract f-589f4957014d754d @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -21274,15 +21274,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorInclinacaoDePropulsores.ts::ControladorInclinacaoDePropulsores.reiniciarMemoria:MethodDeclaration</code> · [fonte L36](../../src/physics/sistemas%20de%20controle/ControladorInclinacaoDePropulsores.ts#L36) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Dependências diretas: `this.pid.habilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Reinicia PID quando habilitado sem desmarcar controle. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.pid.habilitar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>this.estaHabilitado</code>; exceções: — |
 | Testes | [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.pid.habilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-4435f8deac06cd35 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Reinicia PID quando habilitado sem desmarcar controle. @contract f-4435f8deac06cd35 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -21293,15 +21293,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorInclinacaoDePropulsores.ts::ControladorInclinacaoDePropulsores.calcularSolicitacoes:MethodDeclaration</code> · [fonte L39](../../src/physics/sistemas%20de%20controle/ControladorInclinacaoDePropulsores.ts#L39) |
 | Assinatura | <code>public (leituras: LeiturasVeiculoComposto, dtS: number): readonly SolicitacaoDeAtuador[]</code> |
-| Responsabilidade | Escritas diretas: `this.ganhoAtitudeHorizontalAtual`. Dependências diretas: `this.pid.calcularComando`, `this.idsPropulsores.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Ajusta ganho lateral gradualmente à taxa 0,02 por s, usando-o somente na descida; normaliza erro angular e calcula pedidos de gimbal. Atualiza memória do ganho/PID, sem aplicar forças nem sobrescrever orientação. |
 | Entradas | <code>leituras: LeiturasVeiculoComposto</code>; <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly SolicitacaoDeAtuador[]</code>; expressões retornadas: <code>[]</code>; <code>this.idsPropulsores.map((idAtuador) =&gt; ({ idAtuador, recurso: 'gimbal' as const, valor: gimbalRad }))</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.ganhoAtitudeHorizontalAtual</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.max</code>; <code>Math.min</code>; <code>Math.atan2</code>; <code>Math.sin</code>; <code>Math.cos</code>; <code>this.pid.calcularComando</code>; <code>this.idsPropulsores.map</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!this.estaHabilitado</code>; exceções: — |
 | Testes | [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.ganhoAtitudeHorizontalAtual`. Dependências diretas: `this.pid.calcularComando`, `this.idsPropulsores.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-fea52c1c911aa39c */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Ajusta ganho lateral gradualmente à taxa 0,02 por s, usando-o somente na descida; normaliza erro angular e calcula pedidos de gimbal. Atualiza memória do ganho/PID, sem aplicar forças nem sobrescrever orientação. @contract f-fea52c1c911aa39c @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -21415,15 +21415,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorPerfilVooExperimental.ts::ControladorPerfilVooExperimental.constructor:Constructor</code> · [fonte L5](../../src/physics/sistemas%20de%20controle/ControladorPerfilVooExperimental.ts#L5) |
 | Assinatura | <code>public (altitudeTransicaoM: number, automatico: boolean): ControladorPerfilVooExperimental</code> |
-| Responsabilidade | Escritas diretas: `this.altitudeTransicaoM`, `this.automatico`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Armazena altitude de transição positiva finita em m; não configura lançador nem piloto orbital. |
 | Entradas | <code>private readonly altitudeTransicaoM: number</code>; <code>private readonly automatico: boolean</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ControladorPerfilVooExperimental</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.altitudeTransicaoM</code>; <code>this.automatico</code>; <code>this.transicaoSolicitada</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(altitudeTransicaoM) &#124;&#124; altitudeTransicaoM &lt;= 0</code>; exceções: <code>new Error('Altitude de transição inválida.')</code> |
 | Testes | [src/physics/sistemas de controle/ControladorPerfilVooExperimental.test.ts](../../src/physics/sistemas%20de%20controle/ControladorPerfilVooExperimental.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.altitudeTransicaoM`, `this.automatico`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0c9abac72f8565f4 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Armazena altitude de transição positiva finita em m; não configura lançador nem piloto orbital. @contract f-0c9abac72f8565f4 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -21434,15 +21434,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorPerfilVooExperimental.ts::ControladorPerfilVooExperimental.atualizar:MethodDeclaration</code> · [fonte L9](../../src/physics/sistemas%20de%20controle/ControladorPerfilVooExperimental.ts#L9) |
 | Assinatura | <code>public (altitudeGeometricaM: number): "pouso" &#124; undefined</code> |
-| Responsabilidade | Devolve `'pouso'`. Escritas diretas: `this.transicaoSolicitada`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida altitude geométrica e em modo automático emite pouso uma única vez ao alcançar limiar. Marca transição solicitada; evento operacional não altera estado físico. |
 | Entradas | <code>altitudeGeometricaM: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>"pouso" &#124; undefined</code>; expressões retornadas: <code>'pouso'</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.transicaoSolicitada</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(altitudeGeometricaM)</code>; <code>!this.automatico &#124;&#124; this.transicaoSolicitada &#124;&#124; altitudeGeometricaM &lt; this.altitudeTransicaoM</code>; exceções: <code>new Error('Altitude observada inválida.')</code> |
 | Testes | [src/physics/sistemas de controle/ControladorPerfilVooExperimental.test.ts](../../src/physics/sistemas%20de%20controle/ControladorPerfilVooExperimental.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `'pouso'`. Escritas diretas: `this.transicaoSolicitada`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6d857d6fdafe867a */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida altitude geométrica e em modo automático emite pouso uma única vez ao alcançar limiar. Marca transição solicitada; evento operacional não altera estado físico. @contract f-6d857d6fdafe867a @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -21533,15 +21533,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts::ControladorPosicionamentoMotorEletrico.constructor:Constructor</code> · [fonte L41](../../src/physics/sistemas%20de%20controle/ControladorPosicionamentoMotorEletrico.ts#L41) |
 | Assinatura | <code>public (definicao: DefinicaoControladorPosicionamentoMotorEletrico): ControladorPosicionamentoMotorEletrico</code> |
-| Responsabilidade | Escritas diretas: `this.configuracaoControle`, `this.anguloAlvoInternoRad`, `this.aceleracaoMaximaAtualRadps2`, `this.ganhosAtuais`. Dependências diretas: `super`, `Error`, `ganhos.every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Inicializa motor base, valida limites positivos finitos SI e ganhos PID não negativos; guarda portas de leitura, alvo angular e memória de velocidade/integral. |
 | Entradas | <code>definicao: DefinicaoControladorPosicionamentoMotorEletrico</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ControladorPosicionamentoMotorEletrico</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.configuracaoControle</code>; <code>this.anguloAlvoInternoRad</code>; <code>this.velocidadeAlvoAtualRadps</code>; <code>this.integralErroRadS</code>; <code>this.aceleracaoMaximaAtualRadps2</code>; <code>this.ganhosAtuais</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>super</code>; <code>Number.isFinite</code>; <code>Error</code>; <code>ganhos.every</code>; <code>ganhos.some</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(definicao.torqueMaximoNm) &#124;&#124; definicao.torqueMaximoNm &lt;= 0 &#124;&#124;<br>    !Number.isFinite(definicao.velocidadeAngularMaximaRadps) &#124;&#124; definicao.velocidadeAngularMaximaRadps &lt;= 0 &#124;&#124;<br>    !Number.isFinite(definicao.aceleracaoMaximaRad… [continua na fonte]</code>; <code>!ganhos.every(Number.isFinite) &#124;&#124; ganhos.some((ganho) =&gt; ganho &lt; 0)</code>; exceções: <code>new Error('Limites do controlador de posição devem ser positivos e finitos.')</code>; <code>new Error('Ganhos PID devem ser finitos e não negativos.')</code> |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.configuracaoControle`, `this.anguloAlvoInternoRad`, `this.aceleracaoMaximaAtualRadps2`, `this.ganhosAtuais`. Dependências diretas: `super`, `Error`, `ganhos.every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d683e74f10cb066b */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Inicializa motor base, valida limites positivos finitos SI e ganhos PID não negativos; guarda portas de leitura, alvo angular e memória de velocidade/integral. @contract f-d683e74f10cb066b @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -21628,15 +21628,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts::ControladorPosicionamentoMotorEletrico.definirAceleracaoMaximaRadps2:MethodDeclaration</code> · [fonte L66](../../src/physics/sistemas%20de%20controle/ControladorPosicionamentoMotorEletrico.ts#L66) |
 | Assinatura | <code>public (aceleracaoRadps2: number): void</code> |
-| Responsabilidade | Escritas diretas: `this.aceleracaoMaximaAtualRadps2`. Dependências diretas: `Error`, `this.zerarEstadoDoControlador`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida limite positivo finito rad/s², substitui configuração operacional e zera memória do controlador. |
 | Entradas | <code>aceleracaoRadps2: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.aceleracaoMaximaAtualRadps2</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code>; <code>this.zerarEstadoDoControlador</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(aceleracaoRadps2) &#124;&#124; aceleracaoRadps2 &lt;= 0</code>; exceções: <code>new Error('Aceleração máxima deve ser positiva e finita.')</code> |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.aceleracaoMaximaAtualRadps2`. Dependências diretas: `Error`, `this.zerarEstadoDoControlador`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d488df7b4a1b85c9 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida limite positivo finito rad/s², substitui configuração operacional e zera memória do controlador. @contract f-d488df7b4a1b85c9 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -21647,15 +21647,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts::ControladorPosicionamentoMotorEletrico.obterModeloParaAutotune:MethodDeclaration</code> · [fonte L73](../../src/physics/sistemas%20de%20controle/ControladorPosicionamentoMotorEletrico.ts#L73) |
 | Assinatura | <code>public (): ModeloAutotunePosicionamentoMotorEletrico</code> |
-| Responsabilidade | Dependências diretas: `this.configuracaoControle.obterMomentoInerciaControladoKgM2`, `this.getMomentoInerciaKgM2`, `this.configuracaoControle.obterTorqueGravitacionalNm`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Lê inércia controlada ou inércia Z própria, limites e torque gravitacional da porta; rejeita inércia não positiva/não finita. Retorna modelo auxiliar sem executar dinâmica; finitude do torque não é verificada aqui. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ModeloAutotunePosicionamentoMotorEletrico</code>; expressões retornadas: <code>{<br>    momentoInerciaKgM2: inercia,<br>    torqueMaximoNm: this.configuracaoControle.torqueMaximoNm,<br>    velocidadeAngularMaximaRadps: this.configuracaoControle.velocidadeAngularMaximaRadps,<br>    aceleracaoMaximaRadps2: this.aceleracaoMaximaAtua… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.configuracaoControle.obterMomentoInerciaControladoKgM2</code>; <code>this.getMomentoInerciaKgM2</code>; <code>this.configuracaoControle.obterTorqueGravitacionalNm</code>; <code>Number.isFinite</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(inercia) &#124;&#124; inercia &lt;= 0</code>; exceções: <code>new Error('Momento de inércia inválido para autotune.')</code> |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.configuracaoControle.obterMomentoInerciaControladoKgM2`, `this.getMomentoInerciaKgM2`, `this.configuracaoControle.obterTorqueGravitacionalNm`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2da9b7e6cac3c1da */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Lê inércia controlada ou inércia Z própria, limites e torque gravitacional da porta; rejeita inércia não positiva/não finita. Retorna modelo auxiliar sem executar dinâmica; finitude do torque não é verificada aqui. @contract f-2da9b7e6cac3c1da @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -21666,15 +21666,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts::ControladorPosicionamentoMotorEletrico.aplicarGanhos:MethodDeclaration</code> · [fonte L87](../../src/physics/sistemas%20de%20controle/ControladorPosicionamentoMotorEletrico.ts#L87) |
 | Assinatura | <code>public (ganhos: GanhosControladorPosicionamentoMotorEletrico): void</code> |
-| Responsabilidade | Escritas diretas: `this.ganhosAtuais`. Dependências diretas: `[ganhos.ganhoProporcional, ganhos.ganhoIntegral, ganhos.ganhoDerivativo].every`, `Error`, `this.zerarEstadoDoControlador`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Valida ganhos PID não negativos finitos, copia valores e reinicia memória; não comanda pose. |
 | Entradas | <code>ganhos: GanhosControladorPosicionamentoMotorEletrico</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.ganhosAtuais</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>[ganhos.ganhoProporcional, ganhos.ganhoIntegral, ganhos.ganhoDerivativo].every</code>; <code>Error</code>; <code>this.zerarEstadoDoControlador</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>![ganhos.ganhoProporcional, ganhos.ganhoIntegral, ganhos.ganhoDerivativo].every(Number.isFinite) &#124;&#124;<br>    ganhos.ganhoProporcional &lt; 0 &#124;&#124; ganhos.ganhoIntegral &lt; 0 &#124;&#124; ganhos.ganhoDerivativo &lt; 0</code>; exceções: <code>new Error('Ganhos do controlador devem ser finitos e não negativos.')</code> |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.ganhosAtuais`. Dependências diretas: `[ganhos.ganhoProporcional, ganhos.ganhoIntegral, ganhos.ganhoDerivativo].every`, `Error`, `this.zerarEstadoDoControlador`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-ac364057ee333075 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Valida ganhos PID não negativos finitos, copia valores e reinicia memória; não comanda pose. @contract f-ac364057ee333075 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -21685,15 +21685,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts::ControladorPosicionamentoMotorEletrico.definirAnguloAlvoRad:MethodDeclaration</code> · [fonte L97](../../src/physics/sistemas%20de%20controle/ControladorPosicionamentoMotorEletrico.ts#L97) |
 | Assinatura | <code>public (anguloRad: number): void</code> |
-| Responsabilidade | Escritas diretas: `this.anguloAlvoInternoRad`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Armazena alvo finito em rad sem normalização periódica; não altera ângulo real. |
 | Entradas | <code>anguloRad: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.anguloAlvoInternoRad</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(anguloRad)</code>; exceções: <code>new Error('Angulo alvo do controlador deve ser finito.')</code> |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.anguloAlvoInternoRad`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0d510d2ae0c47850 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Armazena alvo finito em rad sem normalização periódica; não altera ângulo real. @contract f-0d510d2ae0c47850 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -21704,15 +21704,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts::ControladorPosicionamentoMotorEletrico.calcularTorqueDePosicao:MethodDeclaration</code> · [fonte L103](../../src/physics/sistemas%20de%20controle/ControladorPosicionamentoMotorEletrico.ts#L103) |
 | Assinatura | <code>protected (dtS: number): number</code> |
-| Responsabilidade | Devolve `torqueLimitadoNm`. Escritas diretas: `this.velocidadeAlvoAtualRadps`, `this.integralErroRadS`. Dependências diretas: `Error`, `this.configuracaoControle.obterAnguloAtualRad`, `this.configuracaoControle.obterVelocidadeAngularRadps`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Para dt positivo finito, calcula erro angular e velocidade-alvo limitada em módulo e aceleração; combina P/I e erro de velocidade com feedforward gravitacional. Limita torque N·m e reverte integral quando saturado. Retorna solicitação ao motor, sem integrar cinemática. |
 | Entradas | <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>number</code>; expressões retornadas: <code>torqueLimitadoNm</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.velocidadeAlvoAtualRadps</code>; <code>this.integralErroRadS</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code>; <code>this.configuracaoControle.obterAnguloAtualRad</code>; <code>Math.max</code>; <code>Math.min</code>; <code>this.configuracaoControle.obterVelocidadeAngularRadps</code>; <code>this.configuracaoControle.obterTorqueGravitacionalNm</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(dtS) &#124;&#124; dtS &lt;= 0</code>; <code>!Number.isFinite(torqueFeedforwardNm)</code>; <code>torqueLimitadoNm !== solicitadoNm</code>; exceções: <code>new Error('Passo do controlador deve ser positivo e finito.')</code>; <code>new Error('Torque gravitacional do controlador deve ser finito.')</code> |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `torqueLimitadoNm`. Escritas diretas: `this.velocidadeAlvoAtualRadps`, `this.integralErroRadS`. Dependências diretas: `Error`, `this.configuracaoControle.obterAnguloAtualRad`, `this.configuracaoControle.obterVelocidadeAngularRadps`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6c76c654aa9d1fb8 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Para dt positivo finito, calcula erro angular e velocidade-alvo limitada em módulo e aceleração; combina P/I e erro de velocidade com feedforward gravitacional. Limita torque N·m e reverte integral quando saturado. Retorna solicitação ao motor, sem integrar cinemática. @contract f-6c76c654aa9d1fb8 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -21723,15 +21723,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts::ControladorPosicionamentoMotorEletrico.zerarEstadoDoControlador:MethodDeclaration</code> · [fonte L122](../../src/physics/sistemas%20de%20controle/ControladorPosicionamentoMotorEletrico.ts#L122) |
 | Assinatura | <code>protected (): void</code> |
-| Responsabilidade | Escritas diretas: `this.velocidadeAlvoAtualRadps`, `this.integralErroRadS`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Zera velocidade-alvo filtrada e integral de erro angular, preservando alvo e ganhos. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.velocidadeAlvoAtualRadps</code>; <code>this.integralErroRadS</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.velocidadeAlvoAtualRadps`, `this.integralErroRadS`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8f384250ec04088c */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Zera velocidade-alvo filtrada e integral de erro angular, preservando alvo e ganhos. @contract f-8f384250ec04088c @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -21765,15 +21765,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorPouso.ts::ControladorPouso.constructor:Constructor</code> · [fonte L83](../../src/physics/sistemas%20de%20controle/ControladorPouso.ts#L83) |
 | Assinatura | <code>public (configuracao?: Partial&lt;ConfiguracaoControlePouso&gt;): ControladorPouso</code> |
-| Responsabilidade | Escritas diretas: `this.configuracao`. Dependências diretas: `this.validarConfiguracao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Mescla parâmetros de pouso com padrão e valida configuração antes de disponibilizar controlador; grandezas operacionais usam SI. |
 | Entradas | <code>configuracao: Partial&lt;ConfiguracaoControlePouso&gt; = {}</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ControladorPouso</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.habilitado</code>; <code>this.throttleAnterior</code>; <code>this.erroVelocidadeAnteriorMps</code>; <code>this.integralErroVelocidade</code>; <code>this.ultimoComando</code>; <code>this.configuracao</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.validarConfiguracao</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sistemas de controle/ControladorPouso.test.ts](../../src/physics/sistemas%20de%20controle/ControladorPouso.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.configuracao`. Dependências diretas: `this.validarConfiguracao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-68eeb6d9e74ff69b */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Mescla parâmetros de pouso com padrão e valida configuração antes de disponibilizar controlador; grandezas operacionais usam SI. @contract f-68eeb6d9e74ff69b @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -21784,15 +21784,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorPouso.ts::ControladorPouso.habilitar:MethodDeclaration</code> · [fonte L89](../../src/physics/sistemas%20de%20controle/ControladorPouso.ts#L89) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Escritas diretas: `this.habilitado`, `this.throttleAnterior`, `this.erroVelocidadeAnteriorMps`, `this.integralErroVelocidade`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Habilita cálculo e zera memória PID/throttle; não garante contato nem liga propulsão. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.habilitado</code>; <code>this.throttleAnterior</code>; <code>this.erroVelocidadeAnteriorMps</code>; <code>this.integralErroVelocidade</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sistemas de controle/ControladorPouso.test.ts](../../src/physics/sistemas%20de%20controle/ControladorPouso.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.habilitado`, `this.throttleAnterior`, `this.erroVelocidadeAnteriorMps`, `this.integralErroVelocidade`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-9c53c873b169d2c5 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Habilita cálculo e zera memória PID/throttle; não garante contato nem liga propulsão. @contract f-9c53c873b169d2c5 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -21803,15 +21803,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorPouso.ts::ControladorPouso.desabilitar:MethodDeclaration</code> · [fonte L97](../../src/physics/sistemas%20de%20controle/ControladorPouso.ts#L97) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Escritas diretas: `this.habilitado`, `this.throttleAnterior`, `this.erroVelocidadeAnteriorMps`, `this.integralErroVelocidade`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Desabilita, limpa memória e substitui último comando por inativo/zero; não muda movimento do veículo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.habilitado</code>; <code>this.throttleAnterior</code>; <code>this.erroVelocidadeAnteriorMps</code>; <code>this.integralErroVelocidade</code>; <code>this.ultimoComando</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sistemas de controle/ControladorPouso.test.ts](../../src/physics/sistemas%20de%20controle/ControladorPouso.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.habilitado`, `this.throttleAnterior`, `this.erroVelocidadeAnteriorMps`, `this.integralErroVelocidade`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-78d9c7c61e952672 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Desabilita, limpa memória e substitui último comando por inativo/zero; não muda movimento do veículo. @contract f-78d9c7c61e952672 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -21860,15 +21860,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorPouso.ts::ControladorPouso.calcularComando:MethodDeclaration</code> · [fonte L114](../../src/physics/sistemas%20de%20controle/ControladorPouso.ts#L114) |
 | Assinatura | <code>public (leituras: LeiturasVeiculoComposto, dtS: number): ComandoControlePouso</code> |
-| Responsabilidade | Devolve `this.obterUltimoComando()`. Escritas diretas: `this.throttleAnterior`, `this.ultimoComando`, `this.erroVelocidadeAnteriorMps`, `this.integralErroVelocidade`. Dependências diretas: `this.obterUltimoComando`, `Error`, `valoresDosSensores.every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Com dt positivo, rejeita amostra inválida/obsoleta com comando seguro; gera perfil descendente pela distância de frenagem e PID de throttle com anti-windup/taxa limitada. Corta empuxo na nova subida acima do alvo e em condição cinemática de toque. Pode solicitar gimbal pela inclinação/deriva; fase toque não comprova apoio físico nem integridade. Atualiza memória e último comando, sem integrar corpo. |
 | Entradas | <code>leituras: LeiturasVeiculoComposto</code>; <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ComandoControlePouso</code>; expressões retornadas: <code>this.obterUltimoComando()</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.throttleAnterior</code>; <code>this.ultimoComando</code>; <code>this.erroVelocidadeAnteriorMps</code>; <code>this.integralErroVelocidade</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.obterUltimoComando</code>; <code>Number.isFinite</code>; <code>Error</code>; <code>valoresDosSensores.every</code>; <code>Math.max</code>; <code>Math.min</code>; <code>Math.sqrt</code>; <code>Math.abs</code>; <code>limitar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!this.habilitado</code>; <code>!Number.isFinite(dtS) &#124;&#124; dtS &lt;= 0</code>; <code>!amostraAtual &#124;&#124; !valoresDosSensores.every(Number.isFinite)</code>; <code>c.usarGatilhoAltitude &amp;&amp; alturaRestanteM &gt; c.altitudeInicioFrenagemM</code>; <code>contatoSeguro</code>; <code>leituras.velocidadeVerticalMps &gt;= 0 &amp;&amp; alturaRestanteM &gt; c.toleranciaAltitudeToqueM</code>; <code>throttleAlvo !== throttleAlvoSemLimite</code>; exceções: <code>new Error('Passo do controle de pouso deve ser positivo e finito.')</code> |
 | Testes | [src/physics/sistemas de controle/ControladorPouso.test.ts](../../src/physics/sistemas%20de%20controle/ControladorPouso.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Devolve `this.obterUltimoComando()`. Escritas diretas: `this.throttleAnterior`, `this.ultimoComando`, `this.erroVelocidadeAnteriorMps`, `this.integralErroVelocidade`. Dependências diretas: `this.obterUltimoComando`, `Error`, `valoresDosSensores.every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a03d9c9ed49d2498 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Com dt positivo, rejeita amostra inválida/obsoleta com comando seguro; gera perfil descendente pela distância de frenagem e PID de throttle com anti-windup/taxa limitada. Corta empuxo na nova subida acima do alvo e em condição cinemática de toque. Pode solicitar gimbal pela inclinação/deriva; fase toque não comprova apoio físico nem integridade. Atualiza memória e último comando, sem integrar corpo. @contract f-a03d9c9ed49d2498 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -21879,15 +21879,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorPouso.ts::ControladorPouso.validarConfiguracao:MethodDeclaration</code> · [fonte L213](../../src/physics/sistemas%20de%20controle/ControladorPouso.ts#L213) |
 | Assinatura | <code>private (): void</code> |
-| Responsabilidade | Dependências diretas: `valoresNumericos.every`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Verifica finitude, ordenação de altitudes, velocidades e desaceleração positivas, ganhos/tolerâncias não negativos e throttle em [0,1]; lança erro antes da operação para configuração inválida. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>valoresNumericos.every</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!valoresNumericos.every(Number.isFinite)<br>    &#124;&#124; c.altitudeInicioFrenagemM &lt;= c.altitudeAlvoM<br>    &#124;&#124; c.velocidadeAproximacaoMps &lt;= 0<br>    &#124;&#124; c.velocidadeMaximaToqueMps &lt;= 0<br>    &#124;&#124; c.velocidadeMaximaToqueMps &gt; c.velocidadeAproximacaoMps<br>    &#124;&#124;… [continua na fonte]</code>; exceções: <code>new Error('Configuração do controle de pouso inválida.')</code> |
 | Testes | [src/physics/sistemas de controle/ControladorPouso.test.ts](../../src/physics/sistemas%20de%20controle/ControladorPouso.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `valoresNumericos.every`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2d5172a9602bf725 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Verifica finitude, ordenação de altitudes, velocidades e desaceleração positivas, ganhos/tolerâncias não negativos e throttle em [0,1]; lança erro antes da operação para configuração inválida. @contract f-2d5172a9602bf725 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -21902,15 +21902,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorPousoDePropulsores.ts::ControladorPousoDePropulsores.configurar:MethodDeclaration</code> · [fonte L13](../../src/physics/sistemas%20de%20controle/ControladorPousoDePropulsores.ts#L13) |
 | Assinatura | <code>public (configuracao: Partial&lt;ConfiguracaoControlePouso&gt;, idsPropulsores: readonly string[]): void</code> |
-| Responsabilidade | Escritas diretas: `this.controlador`, `this.idsPropulsores`. Dependências diretas: `ControladorPouso`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Cria novo controlador de pouso e copia ids; descarta memória anterior. |
 | Entradas | <code>configuracao: Partial&lt;ConfiguracaoControlePouso&gt;</code>; <code>idsPropulsores: readonly string[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.controlador</code>; <code>this.idsPropulsores</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>ControladorPouso</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sistemas de controle/ControladoresDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladoresDePropulsores.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Escritas diretas: `this.controlador`, `this.idsPropulsores`. Dependências diretas: `ControladorPouso`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-23b3b270943a05e3 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Cria novo controlador de pouso e copia ids; descarta memória anterior. @contract f-23b3b270943a05e3 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -21921,15 +21921,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorPousoDePropulsores.ts::ControladorPousoDePropulsores.habilitar:MethodDeclaration</code> · [fonte L18](../../src/physics/sistemas%20de%20controle/ControladorPousoDePropulsores.ts#L18) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Dependências diretas: `this.controlador.habilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Habilita e reinicia controlador de pouso sem comandar ignição. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.controlador.habilitar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sistemas de controle/ControladoresDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladoresDePropulsores.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.controlador.habilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-4d8e72630fd9eba7 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Habilita e reinicia controlador de pouso sem comandar ignição. @contract f-4d8e72630fd9eba7 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -21940,15 +21940,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorPousoDePropulsores.ts::ControladorPousoDePropulsores.desabilitar:MethodDeclaration</code> · [fonte L20](../../src/physics/sistemas%20de%20controle/ControladorPousoDePropulsores.ts#L20) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Dependências diretas: `this.controlador.desabilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Desabilita controlador e redefine seu último comando/memória. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.controlador.desabilitar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/physics/sistemas de controle/ControladoresDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladoresDePropulsores.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.controlador.desabilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-4f5bebc938d844e4 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Desabilita controlador e redefine seu último comando/memória. @contract f-4f5bebc938d844e4 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
@@ -21997,15 +21997,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 |---|---|
 | Identificador | <code>src/physics/sistemas de controle/ControladorPousoDePropulsores.ts::ControladorPousoDePropulsores.calcularSolicitacoes:MethodDeclaration</code> · [fonte L27](../../src/physics/sistemas%20de%20controle/ControladorPousoDePropulsores.ts#L27) |
 | Assinatura | <code>public (leituras: LeiturasVeiculoComposto, dtS: number): readonly SolicitacaoDeAtuador[]</code> |
-| Responsabilidade | Dependências diretas: `this.controlador.calcularComando`, `this.idsPropulsores.flatMap`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. |
+| Responsabilidade | Converte comando válido em throttle e gimbal opcional para cada id; fases inativo/falha-de-sensores não emitem pedidos. A arbitragem do computador de voo decide aplicação e permissivos. |
 | Entradas | <code>leituras: LeiturasVeiculoComposto</code>; <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly SolicitacaoDeAtuador[]</code>; expressões retornadas: <code>[]</code>; <code>this.idsPropulsores.flatMap((idAtuador) =&gt; [<br>    { idAtuador, recurso: 'throttle' as const, valor: comando.throttle },<br>    ...(this.controlador.configuracao.controlarGimbal<br>        ? [{ idAtuador, recurso: 'gimbal' as const, valor: comando.… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.controlador.calcularComando</code>; <code>this.idsPropulsores.flatMap</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>comando.fase === 'inativo' &#124;&#124; comando.fase === 'falha-de-sensores'</code>; exceções: — |
 | Testes | [src/physics/sistemas de controle/ControladoresDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladoresDePropulsores.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
-| JSDoc integral | /** Dependências diretas: `this.controlador.calcularComando`, `this.idsPropulsores.flatMap`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8c8042bab45e6519 */ |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Converte comando válido em throttle e gimbal opcional para cada id; fases inativo/falha-de-sensores não emitem pedidos. A arbitragem do computador de voo decide aplicação e permissivos. @contract f-8c8042bab45e6519 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 

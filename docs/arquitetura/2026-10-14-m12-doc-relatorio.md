@@ -220,3 +220,12 @@ por média de vértices (sem ponderação de área), a hipótese de solo estáti
 a distinção proximidade/impulso e a limitação de esforços em malhas redundantes.
 Nenhum desses limites foi corrigido nesta tarefa documental. A comparação de
 AST executável por arquivo continuou idêntica.
+
+### C7 — Controle, sensores e computador de voo
+
+84 contratos adicionais descrevem validação de leituras, seleção de motores,
+prioridades de atuação, memória dos PIDs, anti-windup e conversão de comandos.
+A fase cinemática `toque` de um controlador não comprova contato/apoio seguro.
+O autotune usa modelo auxiliar próprio, com custo e limites documentados, sem
+ser apresentado como propagação equivalente do mundo. Sensores observam e
+atualizam leituras; não aplicam forças. AST executável preservada por arquivo.

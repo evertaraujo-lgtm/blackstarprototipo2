@@ -59,7 +59,7 @@ export class ComputadorDeVoo {
   private readonly controladorGimbalDescida = new ControladorGimbalDescidaDePropulsores();
   private readonly controladorDescidaFuzzyPid = new ControladorDescidaFuzzyPidDePropulsores();
 
-  /** Escritas diretas: `this.telemetriaDoCasco`. Dependências diretas: `this.gerenciador.registrar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-3115018a632ba8cf */
+  /** Guarda porta de telemetria e registra controladores de inclinação, pouso, desaceleração, gimbal de descida e Fuzzy-PID no gerenciador; não recebe nem navega pelo veículo proprietário. @contract f-3115018a632ba8cf @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly telemetriaDoCasco: FonteTelemetriaDoCasco) {
     this.gerenciador.registrar(this.controladorInclinacao);
     this.gerenciador.registrar(this.controladorPouso);
@@ -68,12 +68,12 @@ export class ComputadorDeVoo {
     this.gerenciador.registrar(this.controladorDescidaFuzzyPid);
   }
 
-  /** Devolve `this.telemetriaDoCasco.obterLeituras()`. Dependências diretas: `this.telemetriaDoCasco.obterLeituras`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b0e1189b763914a1 */
+  /** Consulta pacote de leituras pela porta injetada; não mantém dinâmica própria nem estima outra altitude. @contract f-b0e1189b763914a1 @reviewed M12-DOC: implementação lida. */
   public obterLeiturasDoCasco(): LeiturasVeiculoComposto {
     return this.telemetriaDoCasco.obterLeituras();
   }
 
-  /** Dependências diretas: `this.propulsores.has`, `Error`, `this.propulsores.set`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-223bc2a4a41bc800 */
+  /** Rejeita id duplicado, registra porta operacional e inclui na seleção vetorizável somente se ambas as portas de comando/leitura do gimbal existirem. @contract f-223bc2a4a41bc800 @reviewed M12-DOC: implementação lida. */
   public instalarPropulsor(propulsor: IPropulsorControlavelPeloComputador): void {
     if (this.propulsores.has(propulsor.id)) throw new Error(`Propulsor já instalado no computador: ${propulsor.id}.`);
     this.propulsores.set(propulsor.id, propulsor);
@@ -82,7 +82,7 @@ export class ComputadorDeVoo {
     }
   }
 
-  /** Dependências diretas: `this.desabilitarControleDePouso`, `this.desabilitarControleDeGimbalDeDescida`, `this.controladorInclinacao.desabilitarAmortecimentoHorizontal`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-4b4f2d241b070c31 */
+  /** Ativa inclinação em todos os motores vetorizados, desativa pouso/gimbal de descida e remove correção lateral gradual; não representa ativação de todos os controladores. @contract f-4b4f2d241b070c31 @reviewed M12-DOC: implementação lida. */
   public habilitar(): void {
     this.desabilitarControleDePouso();
     this.desabilitarControleDeGimbalDeDescida();
@@ -90,10 +90,10 @@ export class ComputadorDeVoo {
     this.controladorInclinacao.configurarAlvos([...this.propulsoresVetorizados.keys()]);
     this.gerenciador.habilitar(this.controladorInclinacao.id);
   }
-  /** Dependências diretas: `this.gerenciador.desabilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-217dc61dda130d03 */
+  /** Desativa somente controlador de inclinação; demais controladores mantêm sua seleção operacional. @contract f-217dc61dda130d03 @reviewed M12-DOC: implementação lida. */
   public desabilitar(): void { this.gerenciador.desabilitar(this.controladorInclinacao.id); }
 
-  /** Dependências diretas: `this.desabilitarControleDePouso`, `this.desabilitarControleDeGimbalDeDescida`, `this.controladorInclinacao.configurarAlvos`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-d658c2943e76a9f5 */
+  /** Desativa pouso/gimbal de descida, valida seleção não vazia de motores vetorizados e habilita PID de inclinação. @contract f-d658c2943e76a9f5 @reviewed M12-DOC: implementação lida. */
   public habilitarControleDeInclinacao(idsPropulsores: readonly string[] = [...this.propulsoresVetorizados.keys()]): void {
     this.desabilitarControleDePouso();
     this.desabilitarControleDeGimbalDeDescida();
@@ -101,7 +101,7 @@ export class ComputadorDeVoo {
     this.gerenciador.habilitar(this.controladorInclinacao.id);
   }
 
-  /** Dependências diretas: `this.gerenciador.desabilitar`, `this.controladorPouso.configurar`, `this.validarSelecao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-c6ba6ae7eb07b5d0 */
+  /** Desativa inclinação, configura controlador de pouso com motores instalados selecionados e o habilita; não exige gimbal quando não necessário. @contract f-c6ba6ae7eb07b5d0 @reviewed M12-DOC: implementação lida. */
   public habilitarControleDePouso(
     configuracao: Partial<ConfiguracaoControlePouso> = {},
     idsPropulsores: readonly string[] = [...this.propulsores.keys()],
@@ -121,20 +121,20 @@ export class ComputadorDeVoo {
     this.gerenciador.habilitar(this.controladorPouso.id);
   }
 
-  /** Dependências diretas: `this.controladorInclinacao.configurarAlvos`, `this.validarSelecao`, `this.gerenciador.habilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-46a56b00aaef2d33 */
+  /** Valida motores vetorizados e habilita inclinação, preservando outros controladores para composição/arbitragem. @contract f-46a56b00aaef2d33 @reviewed M12-DOC: implementação lida. */
   public habilitarControleDeVerticalizacao(idsPropulsores: readonly string[]): void {
     this.controladorInclinacao.configurarAlvos([...this.validarSelecao(idsPropulsores, true)]);
     this.gerenciador.habilitar(this.controladorInclinacao.id);
   }
 
-  /** Dependências diretas: `this.gerenciador.desabilitar`, `this.controladorGimbalDescida.configurarAlvos`, `this.validarSelecao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8bf1e565cc8a35fb */
+  /** Desativa inclinação, valida seleção vetorizada, configura ganho de deriva rad/(m/s) e habilita controlador de descida. @contract f-8bf1e565cc8a35fb @reviewed M12-DOC: implementação lida. */
   public habilitarControleDeGimbalDeDescida(idsPropulsores: readonly string[], ganhoDerivaRadPorMps?: number): void {
     this.gerenciador.desabilitar(this.controladorInclinacao.id);
     this.controladorGimbalDescida.configurarAlvos([...this.validarSelecao(idsPropulsores, true)], ganhoDerivaRadPorMps);
     this.gerenciador.habilitar(this.controladorGimbalDescida.id);
   }
 
-  /** Dependências diretas: `this.controladorDesaceleracao.configurar`, `this.validarSelecao`, `this.gerenciador.habilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0738990da2805bb6 */
+  /** Configura controlador de desaceleração para seleção validada e o habilita sem executar ignição. @contract f-0738990da2805bb6 @reviewed M12-DOC: implementação lida. */
   public habilitarControleDeDesaceleracao(
     configuracao: Partial<ConfiguracaoControleDesaceleracao>, idsPropulsores: readonly string[],
   ): void {
@@ -142,13 +142,13 @@ export class ComputadorDeVoo {
     this.gerenciador.habilitar(this.controladorDesaceleracao.id);
   }
 
-  /** Dependências diretas: `this.gerenciador.desabilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-5b096cfad2219e4d */
+  /** Desativa controlador de pouso via gerenciador; o controlador limpa sua memória/último comando. @contract f-5b096cfad2219e4d @reviewed M12-DOC: implementação lida. */
   public desabilitarControleDePouso(): void {
     this.gerenciador.desabilitar(this.controladorPouso.id);
   }
-  /** Dependências diretas: `this.gerenciador.desabilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-77934db4dcf72f7f */
+  /** Desativa controlador de desaceleração via gerenciador e reinicia sua memória. @contract f-77934db4dcf72f7f @reviewed M12-DOC: implementação lida. */
   public desabilitarControleDeDesaceleracao(): void { this.gerenciador.desabilitar(this.controladorDesaceleracao.id); }
-  /** Dependências diretas: `this.gerenciador.desabilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-db9721d0aca9aa2f */
+  /** Desativa PID de gimbal de descida via gerenciador, sem impor orientação ao veículo. @contract f-db9721d0aca9aa2f @reviewed M12-DOC: implementação lida. */
   public desabilitarControleDeGimbalDeDescida(): void { this.gerenciador.desabilitar(this.controladorGimbalDescida.id); }
   /** Devolve `this.controladorGimbalDescida.estaHabilitado`. Efeitos indiretos seguem as dependências chamadas. @contract f-28ed00f5e4b2e789 */
   public get controleDeGimbalDeDescidaEstaHabilitado(): boolean { return this.controladorGimbalDescida.estaHabilitado; }
@@ -166,28 +166,28 @@ export class ComputadorDeVoo {
     this.gerenciador.habilitar(this.controladorDescidaFuzzyPid.id);
   }
 
-  /** Dependências diretas: `this.gerenciador.desabilitar`, `this.controladorInclinacao.desabilitarAmortecimentoHorizontal`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-526bb8b13da9261b */
+  /** Desativa Fuzzy-PID e remove correção horizontal do controlador de inclinação; não zera velocidade física. @contract f-526bb8b13da9261b @reviewed M12-DOC: implementação lida. */
   public desabilitarControleDeDescidaFuzzyPid(): void {
     this.gerenciador.desabilitar(this.controladorDescidaFuzzyPid.id);
     this.controladorInclinacao.desabilitarAmortecimentoHorizontal();
   }
 
-  /** Devolve `this.controladorDescidaFuzzyPid.estaHabilitado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-56dba2053976afb4 */
+  /** Consulta seleção operacional do Fuzzy-PID; habilitado não significa que permissivos dos atuadores estejam disponíveis. @contract f-56dba2053976afb4 @reviewed M12-DOC: implementação lida. */
   public get controleDeDescidaFuzzyPidEstaHabilitado(): boolean {
     return this.controladorDescidaFuzzyPid.estaHabilitado;
   }
 
-  /** Devolve `this.controladorDescidaFuzzyPid.obterUltimoComando()`. Dependências diretas: `this.controladorDescidaFuzzyPid.obterUltimoComando`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-5b3119a019f5ee87 */
+  /** Consulta último resultado calculado pelo Fuzzy-PID, conforme contrato de cópia do controlador. @contract f-5b3119a019f5ee87 @reviewed M12-DOC: implementação lida. */
   public obterUltimoComandoDeDescidaFuzzyPid(): ComandoDescidaFuzzyPid {
     return this.controladorDescidaFuzzyPid.obterUltimoComando();
   }
 
-  /** Devolve `this.controladorPouso.estaHabilitado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-0e490f8258936b3e */
+  /** Consulta habilitação do controlador de pouso, sem comprovar apoio, toque ou êxito de missão. @contract f-0e490f8258936b3e @reviewed M12-DOC: implementação lida. */
   public get controleDePousoEstaHabilitado(): boolean {
     return this.controladorPouso.estaHabilitado;
   }
 
-  /** Devolve `this.controladorPouso.estaHabilitado ? this.controladorPouso.obterUltimoComando() : undefined`. Dependências diretas: `this.controladorPouso.obterUltimoComando`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b5347ffb94d4bd16 */
+  /** Devolve último comando somente se controle de pouso habilitado; caso contrário retorna undefined. @contract f-b5347ffb94d4bd16 @reviewed M12-DOC: implementação lida. */
   public obterUltimoComandoDePouso(): ComandoControlePouso | undefined {
     return this.controladorPouso.estaHabilitado ? this.controladorPouso.obterUltimoComando() : undefined;
   }
@@ -196,13 +196,13 @@ export class ComputadorDeVoo {
    * @contract f-b64a5088af010807
    */
   public registrarControlador(controlador: ControladorDeVoo): void { this.gerenciador.registrar(controlador); }
-  /** Dependências diretas: `this.gerenciador.habilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1185d322e448e002 */
+  /** Encaminha id ao gerenciador para habilitar controlador registrado; não altera permissivos físicos dos motores. @contract f-1185d322e448e002 @reviewed M12-DOC: implementação lida. */
   public habilitarControlador(id: string): void { this.gerenciador.habilitar(id); }
-  /** Dependências diretas: `this.gerenciador.desabilitar`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a2f5101cb8b0ce76 */
+  /** Encaminha id ao gerenciador para desabilitação e limpeza prevista pelo controlador. @contract f-a2f5101cb8b0ce76 @reviewed M12-DOC: implementação lida. */
   public desabilitarControlador(id: string): void { this.gerenciador.desabilitar(id); }
   /** Devolve `this.gerenciador.idsAtivos()`. Dependências diretas: `this.gerenciador.idsAtivos`. Efeitos indiretos seguem as dependências chamadas. @contract f-bd3361a23495da26 */
   public get idsControladoresAtivos(): readonly string[] { return this.gerenciador.idsAtivos(); }
-  /** Devolve `this.solicitacoesAplicadas.map((solicitacao) => ({ ...solicitacao }))`. Dependências diretas: `this.solicitacoesAplicadas.map`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-337d3ca5f1ee1f65 */
+  /** Cria cópia da lista e de cada solicitação efetivamente aplicada na última atualização, separada dos pedidos rejeitados. @contract f-337d3ca5f1ee1f65 @reviewed M12-DOC: implementação lida. */
   public obterSolicitacoesAplicadas(): readonly SolicitacaoArbitrada[] {
     return this.solicitacoesAplicadas.map((solicitacao) => ({ ...solicitacao }));
   }
@@ -223,17 +223,17 @@ export class ComputadorDeVoo {
     this.aplicarSolicitacoesDeControladores(dtS);
   }
 
-  /** Dependências diretas: `this.aplicarSolicitacoesDeControladores`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1e66d026bf2d5e2f */
+  /** Executa ciclo central de leitura, cálculo, arbitragem e aplicação para dt em s. É a mesma operação usada pelos aliases de atualização; chamá-los adicionalmente duplicaria atualização de memória. @contract f-1e66d026bf2d5e2f @reviewed M12-DOC: implementação lida. */
   public atualizarControladores(dtS: number): void {
     this.aplicarSolicitacoesDeControladores(dtS);
   }
 
-  /** Dependências diretas: `this.obterPropulsor(idPropulsor).definirThrottle`, `this.obterPropulsor`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e294ab50adf8ee32 */
+  /** Localiza motor instalado e envia throttle pela porta validada; não liga sistemas nem solicita ignição. @contract f-e294ab50adf8ee32 @reviewed M12-DOC: implementação lida. */
   public definirThrottle(idPropulsor: string, throttle: number): void {
     this.obterPropulsor(idPropulsor).definirThrottle(throttle);
   }
 
-  /** Dependências diretas: `this.propulsores.values`, `propulsor.definirThrottle`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-7b7c57486c5ae695 */
+  /** Solicita mesmo throttle a todos os motores registrados usando suas portas operacionais; não garante empuxo. @contract f-7b7c57486c5ae695 @reviewed M12-DOC: implementação lida. */
   public definirThrottleDeTodos(throttle: number): void {
     for (const propulsor of this.propulsores.values()) propulsor.definirThrottle(throttle);
   }
@@ -247,7 +247,7 @@ export class ComputadorDeVoo {
     return [...this.propulsores.keys()].map((id) => this.solicitarIgnicao(id));
   }
 
-  /** Devolve `{ idPropulsor: propulsor.id, aceito, diagnostico: propulsor.diagnosticoOperacional }`. Dependências diretas: `this.obterPropulsor`, `sequencia.every`, `propulsor.solicitarIgnicao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6425699b43700f58 */
+  /** Tenta sistemas na ordem elétrico→hidráulico→combustível→controle com interrupção na primeira recusa; solicita ignição explícita só após todos aceitarem e retorna aceitação/diagnóstico. Sistemas já acionados não são revertidos automaticamente. @contract f-6425699b43700f58 @reviewed M12-DOC: implementação lida. */
   public solicitarIgnicao(idPropulsor: string): ResultadoComandoPropulsor {
     const propulsor = this.obterPropulsor(idPropulsor);
     const sequencia: readonly IdSistemaControlado[] = ['elétrico', 'hidráulico', 'combustível', 'controle'];
@@ -256,17 +256,17 @@ export class ComputadorDeVoo {
     return { idPropulsor: propulsor.id, aceito, diagnostico: propulsor.diagnosticoOperacional };
   }
 
-  /** Dependências diretas: `this.obterPropulsor(idPropulsor).desligarSistema`, `this.obterPropulsor`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2fb721895466636b */
+  /** Desliga sistema elétrico do motor selecionado, provocando sua cadeia normal de intertravamentos; não remove corpo do mundo. @contract f-2fb721895466636b @reviewed M12-DOC: implementação lida. */
   public desligarPropulsor(idPropulsor: string): void {
     this.obterPropulsor(idPropulsor).desligarSistema('elétrico');
   }
 
-  /** Dependências diretas: `this.propulsores.values`, `propulsor.desligarSistema`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-8e9156b0afc0693a */
+  /** Desliga sistema elétrico de cada propulsor registrado pelas mesmas operações do operador. @contract f-8e9156b0afc0693a @reviewed M12-DOC: implementação lida. */
   public desligarTodos(): void {
     for (const propulsor of this.propulsores.values()) propulsor.desligarSistema('elétrico');
   }
 
-  /** Dependências diretas: `[...this.propulsores.values()].map`, `this.propulsores.values`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-b42e349f6775b05f */
+  /** Compõe diagnóstico por motor; aceito significa ignição presente e lista de motivos vazia no instante da consulta, não qualificação do voo. @contract f-b42e349f6775b05f @reviewed M12-DOC: implementação lida. */
   public obterDiagnostico(): readonly ResultadoComandoPropulsor[] {
     return [...this.propulsores.values()].map((propulsor) => ({
       idPropulsor: propulsor.id,
@@ -275,14 +275,14 @@ export class ComputadorDeVoo {
     }));
   }
 
-  /** Devolve `propulsor`. Dependências diretas: `this.propulsores.get`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-6996921a46b0f79a */
+  /** Consulta motor por id ou lança erro se não instalado; não cria componentes implicitamente. @contract f-6996921a46b0f79a @reviewed M12-DOC: implementação lida. */
   private obterPropulsor(idPropulsor: string): IPropulsorControlavelPeloComputador {
     const propulsor = this.propulsores.get(idPropulsor);
     if (!propulsor) throw new Error(`Propulsor não instalado: ${idPropulsor}.`);
     return propulsor;
   }
 
-  /** Devolve `ids`. Dependências diretas: `Error`, `Set`, `this.obterPropulsor`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2665b2da0cf0481c */
+  /** Exige seleção não vazia sem ids repetidos, todos instalados e, quando requerido, com portas de vetorização; retorna Set validado sem alterar seleção anterior. @contract f-2665b2da0cf0481c @reviewed M12-DOC: implementação lida. */
   private validarSelecao(idsPropulsores: readonly string[], exigirVetorizacao: boolean): Set<string> {
     if (idsPropulsores.length === 0) throw new Error('O controlador precisa de ao menos um propulsor selecionado.');
     const ids = new Set(idsPropulsores);
@@ -296,7 +296,7 @@ export class ComputadorDeVoo {
     return ids;
   }
 
-  /** Devolve `propulsor.solicitarVetorizacao(valorRad) ? valorRad : undefined`. Dependências diretas: `this.propulsoresVetorizados.get`, `propulsor?.obterEstadoDaVetorizacao`, `propulsor.solicitarVetorizacao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-c1075ebae0ca7291 */
+  /** Consulta limite real do atuador, satura pedido em rad e o envia pela porta; retorna valor aceito ou undefined por ausência de capacidade/recusa. Não altera ângulo diretamente. @contract f-c1075ebae0ca7291 @reviewed M12-DOC: implementação lida. */
   private solicitarGimbalLimitado(idPropulsor: string, comandoRad: number): number | undefined {
     const propulsor = this.propulsoresVetorizados.get(idPropulsor);
     const limiteRad = propulsor?.obterEstadoDaVetorizacao?.().limiteAngularRad;
@@ -305,7 +305,7 @@ export class ComputadorDeVoo {
     return propulsor.solicitarVetorizacao(valorRad) ? valorRad : undefined;
   }
 
-  /** Escritas diretas: `this.solicitacoesAplicadas`, `this.estavaAlimentado`. Dependências diretas: `[...this.propulsores.values()].some`, `this.propulsores.values`, `this.gerenciador.reiniciarControladores`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2a19b873c05a47a3 */
+  /** Limpa diagnóstico aplicado e verifica alimentação elétrica/controle. Perda de energia reinicia memórias; leitura inválida/obsoleta reinicia controles, solicita throttle zero e mantém alvo do gimbal no ângulo atual. Caso válido arbitra pedidos, filtra motores operacionais, limita gimbal e registra apenas comandos aceitos. Não integra forças ou cinemática. @contract f-2a19b873c05a47a3 @reviewed M12-DOC: implementação lida. */
   private aplicarSolicitacoesDeControladores(dtS: number): void {
     const controladoresAlimentados = [...this.propulsores.values()].some((propulsor) =>
       propulsor.sistemaEstaOperacional('elétrico') && propulsor.sistemaEstaOperacional('controle'));

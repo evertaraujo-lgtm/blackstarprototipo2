@@ -79,13 +79,13 @@ export class ControladorPouso {
 
   public readonly configuracao: ConfiguracaoControlePouso;
 
-  /** Escritas diretas: `this.configuracao`. Dependências diretas: `this.validarConfiguracao`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-68eeb6d9e74ff69b */
+  /** Mescla parâmetros de pouso com padrão e valida configuração antes de disponibilizar controlador; grandezas operacionais usam SI. @contract f-68eeb6d9e74ff69b @reviewed M12-DOC: implementação lida. */
   public constructor(configuracao: Partial<ConfiguracaoControlePouso> = {}) {
     this.configuracao = { ...CONFIGURACAO_PADRAO, ...configuracao };
     this.validarConfiguracao();
   }
 
-  /** Escritas diretas: `this.habilitado`, `this.throttleAnterior`, `this.erroVelocidadeAnteriorMps`, `this.integralErroVelocidade`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-9c53c873b169d2c5 */
+  /** Habilita cálculo e zera memória PID/throttle; não garante contato nem liga propulsão. @contract f-9c53c873b169d2c5 @reviewed M12-DOC: implementação lida. */
   public habilitar(): void {
     this.habilitado = true;
     this.throttleAnterior = 0;
@@ -93,7 +93,7 @@ export class ControladorPouso {
     this.integralErroVelocidade = 0;
   }
 
-  /** Escritas diretas: `this.habilitado`, `this.throttleAnterior`, `this.erroVelocidadeAnteriorMps`, `this.integralErroVelocidade`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-78d9c7c61e952672 */
+  /** Desabilita, limpa memória e substitui último comando por inativo/zero; não muda movimento do veículo. @contract f-78d9c7c61e952672 @reviewed M12-DOC: implementação lida. */
   public desabilitar(): void {
     this.habilitado = false;
     this.throttleAnterior = 0;
@@ -110,7 +110,7 @@ export class ControladorPouso {
   /** Devolve `{ ...this.ultimoComando }`. Efeitos indiretos seguem as dependências chamadas. @contract f-91b4d54dea999f87 */
   public obterUltimoComando(): ComandoControlePouso { return { ...this.ultimoComando }; }
 
-  /** Devolve `this.obterUltimoComando()`. Escritas diretas: `this.throttleAnterior`, `this.ultimoComando`, `this.erroVelocidadeAnteriorMps`, `this.integralErroVelocidade`. Dependências diretas: `this.obterUltimoComando`, `Error`, `valoresDosSensores.every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-a03d9c9ed49d2498 */
+  /** Com dt positivo, rejeita amostra inválida/obsoleta com comando seguro; gera perfil descendente pela distância de frenagem e PID de throttle com anti-windup/taxa limitada. Corta empuxo na nova subida acima do alvo e em condição cinemática de toque. Pode solicitar gimbal pela inclinação/deriva; fase toque não comprova apoio físico nem integridade. Atualiza memória e último comando, sem integrar corpo. @contract f-a03d9c9ed49d2498 @reviewed M12-DOC: implementação lida. */
   public calcularComando(leituras: LeiturasVeiculoComposto, dtS: number): ComandoControlePouso {
     if (!this.habilitado) return this.obterUltimoComando();
     if (!Number.isFinite(dtS) || dtS <= 0) throw new Error('Passo do controle de pouso deve ser positivo e finito.');
@@ -209,7 +209,7 @@ export class ControladorPouso {
     return this.obterUltimoComando();
   }
 
-  /** Dependências diretas: `valoresNumericos.every`, `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-2d5172a9602bf725 */
+  /** Verifica finitude, ordenação de altitudes, velocidades e desaceleração positivas, ganhos/tolerâncias não negativos e throttle em [0,1]; lança erro antes da operação para configuração inválida. @contract f-2d5172a9602bf725 @reviewed M12-DOC: implementação lida. */
   private validarConfiguracao(): void {
     const c = this.configuracao;
     const valoresNumericos = [

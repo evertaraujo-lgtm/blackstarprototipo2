@@ -2,7 +2,7 @@ import { AletaAerodinamica } from '../objetos/componentes/AletaAerodinamica';
 
 /** Amortece atitude e rotação usando superfícies móveis durante a descida. */
 export class ControladorAletasAerodinamicas {
-  /** Escritas diretas: `this.aletas`, `this.estaEnergizado`, `this.ganhoAtitude`, `this.ganhoVelocidadeAngular`. Dependências diretas: `Error`, `[ganhoAtitude, ganhoVelocidadeAngular, velocidadeMinimaDeAcionamentoMps].every`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-63d060f8a840b02f */
+  /** Exige ao menos uma aleta, ganhos e limiar de velocidade finitos não negativos; guarda portas dos atuadores e de energização. @contract f-63d060f8a840b02f @reviewed M12-DOC: implementação lida. */
   public constructor(
     private readonly aletas: readonly AletaAerodinamica[],
     private readonly estaEnergizado: () => boolean = /** Devolve `true`. Efeitos indiretos seguem as dependências chamadas. @contract f-4600f6df1f57af59 */
@@ -17,7 +17,7 @@ export class ControladorAletasAerodinamicas {
     }
   }
 
-  /** Dependências diretas: `[orientacaoRad, velocidadeAngularRadps, velocidadeVerticalMps].every`, `Error`, `this.estaEnergizado`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-e96f09b928457ac3 */
+  /** Valida atitude rad, taxa rad/s e velocidade vertical m/s; se energizado, solicita deflexão proporcional à atitude/taxa somente na descida acima do limiar de fluxo, senão solicita zero. Sem energia retorna sem novo comando; não produz torque diretamente. @contract f-e96f09b928457ac3 @reviewed M12-DOC: implementação lida. */
   public atualizar(orientacaoRad: number, velocidadeAngularRadps: number, velocidadeVerticalMps: number): void {
     if (![orientacaoRad, velocidadeAngularRadps, velocidadeVerticalMps].every(Number.isFinite)) {
       throw new Error('Leituras do controlador devem ser finitas.');

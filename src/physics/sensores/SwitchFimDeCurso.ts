@@ -31,7 +31,7 @@ export class SwitchFimDeCurso {
   private alvoEmContato?: AlvoDoSwitchFimDeCurso;
   private deslocamentoLocalM = Vetor3.zero;
 
-  /** Escritas diretas: `this.definicao`. Dependências diretas: `Error`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-958eb2b7694765e1 */
+  /** Armazena definição/hospedeiro e valida identidade, histerese não negativa e dimensões/curso positivos finitos em m; não integra movimento nem aplica força. @contract f-958eb2b7694765e1 @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly definicao: DefinicaoSwitchFimDeCurso) {
     if (!definicao.id) throw new Error('Switch de fim de curso precisa de identidade.');
     if (!Number.isFinite(definicao.histereseM ?? 0) || (definicao.histereseM ?? 0) < 0) throw new Error('Histerese do switch deve ser finita e não negativa.');
@@ -121,7 +121,7 @@ export class SwitchFimDeCurso {
     this.acionado = alvo !== undefined;
   }
 
-  /** Dependências diretas: `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1bdcafeb1e8b7ad7 */
+  /** Traduz a face declarada para um dos seis eixos cartesianos unitários locais; exige face válida pelo tipo. @contract f-1bdcafeb1e8b7ad7 @reviewed M12-DOC: implementação lida. */
   private obterDirecaoLocal(): Vetor3 {
     switch (this.face) {
       case 'xPositiva': return new Vetor3(1, 0, 0);
@@ -133,14 +133,14 @@ export class SwitchFimDeCurso {
     }
   }
 
-  /** Dependências diretas: `this.obterDirecaoLocal`, `this.objetoHospedeiro.getEstadoFisico`, `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-1aedd06fc2fa4643 */
+  /** Gira direção sensível local pela orientação Z atual do hospedeiro e preserva componente Z; consulta o core sem mover sensor. @contract f-1aedd06fc2fa4643 @reviewed M12-DOC: implementação lida. */
   private obterDirecaoGlobal(): Vetor3 {
     const direcao = this.obterDirecaoLocal();
     const angulo = this.objetoHospedeiro.getEstadoFisico().orientacaoRad.z;
     return new Vetor3((direcao.x * Math.cos(angulo)) - (direcao.y * Math.sin(angulo)), (direcao.x * Math.sin(angulo)) + (direcao.y * Math.cos(angulo)), direcao.z);
   }
 
-  /** Dependências diretas: `Vetor3`. REVISÃO NECESSÁRIA: contrato de domínio ainda não confirmado; fatos completos no catálogo. @contract f-c591823d5b4ad4b7 */
+  /** Distribui curso sensível, largura e altura em m conforme eixo da face para construir volume de detecção; não é geometria de colisão rígida. @contract f-c591823d5b4ad4b7 @reviewed M12-DOC: implementação lida. */
   private obterDimensoesDoVolume(): Vetor3 {
     switch (this.face) {
       case 'xPositiva': case 'xNegativa': return new Vetor3(this.cursoSensivelM, this.larguraM, this.alturaM);
