@@ -2365,3 +2365,26 @@ reutilizados, inclusive por meio de interfaces/portas operacionais.
 Preserve contratos públicos, testes históricos e resultados anteriores. Em
 alterações exclusivamente documentais, comprove preservação do código emitido;
 não misture refatoração ou correção física sem escopo e contrato próprios.
+
+---
+
+# 70. Repositório único e publicação institucional
+
+`blackstarprototipo2` contém site institucional e simuladores nativos. O projeto
+Firebase continua `blackstarspace`, mas o repositório antigo de mesmo nome não
+participa do desenvolvimento, build, testes ou deploy. Referências históricas ao
+Protótipo 1 não são pré-requisito; ele não é compilado nem publicado neste fluxo.
+
+- Fontes institucionais ficam em `site/`, sem importar física ou interfaces de
+  laboratório. Comunicação com a simulação ocorre somente por links públicos.
+- Não criar vendor de bundles P2, cópias de build, submódulos ou sincronização
+  entre repositórios. Os HTMLs nativos compilam as fontes reais do mesmo checkout.
+- `docs/estudos` guarda o artigo canônico; o build emite sua cópia pública idêntica.
+- `npm run build` produz todo o dist. `npm run deploy` usa o hook do Hosting para
+  verificar tipos/documentação, reconstruir e verificar recursos antes de enviar.
+- Não adicionar rewrite global que transforme asset ausente em homepage. O site
+  deve responder 404 a recursos inexistentes e rotas abandonadas.
+- Nenhum deploy é autorizado automaticamente por uma solicitação de implementação.
+  Não alterar/arquivar o repositório antigo como parte de uma migração local.
+
+Procedimentos: [site-institucional.md](docs/arquitetura/site-institucional.md).

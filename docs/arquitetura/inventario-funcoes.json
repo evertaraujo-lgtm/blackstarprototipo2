@@ -922,6 +922,24 @@
     "categoria": "producao"
   },
   {
+    "id": "scripts/documentacao/projeto-site.test.ts::[callback]:ArrowFunction#1",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/projeto-site.test.ts::[callback]#1.[callback]:ArrowFunction#1",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "scripts/documentacao/projeto-site.test.ts::[callback]#1.[callback]:ArrowFunction#2",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
     "id": "scripts/documentacao/projeto.ts::listarFontes:FunctionDeclaration",
     "assinatura": "(raiz: string): readonly string[]",
     "modificadores": [
@@ -1088,6 +1106,317 @@
     "categoria": "teste"
   },
   {
+    "id": "scripts/site/smoke.ts::abrirPagina:FunctionDeclaration",
+    "assinatura": "(browser: Browser, largura: number, altura: number, erros: string[], falhas: string[]): Promise<Page>",
+    "modificadores": [
+      "async"
+    ],
+    "categoria": "producao"
+  },
+  {
+    "id": "scripts/site/smoke.ts::abrirPagina.[callback]:ArrowFunction#1",
+    "assinatura": "(e: Error): number",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::abrirPagina.[callback]:ArrowFunction#2",
+    "assinatura": "(m: ConsoleMessage): void",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::abrirPagina.[callback]:ArrowFunction#3",
+    "assinatura": "(r: Response): void",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::conferirImagens:FunctionDeclaration",
+    "assinatura": "(page: Page): Promise<void>",
+    "modificadores": [
+      "async"
+    ],
+    "categoria": "producao"
+  },
+  {
+    "id": "scripts/site/smoke.ts::conferirImagens.[callback]:ArrowFunction#1",
+    "assinatura": "(): Promise<void>",
+    "modificadores": [
+      "async"
+    ],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::conferirImagens.[callback]#1.[callback]:ArrowFunction#1",
+    "assinatura": "(r: (value: unknown) => void): NodeJS.Timeout",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::conferirImagens.[callback]#1.[callback]:ArrowFunction#2",
+    "assinatura": "(i: HTMLImageElement): Promise<void>",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::conferirImagens.[callback]#1.[callback]:ArrowFunction#3",
+    "assinatura": "(r: (value: unknown) => void): number",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::conferirImagens.[callback]#1.[callback]#3.[callback]:ArrowFunction#1",
+    "assinatura": "(): number",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::conferirImagens.[callback]:ArrowFunction#2",
+    "assinatura": "(): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::conferirImagens.[callback]:ArrowFunction#3",
+    "assinatura": "(): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::conferirImagens.[callback]#3.[callback]:ArrowFunction#1",
+    "assinatura": "(i: HTMLImageElement): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite:FunctionDeclaration",
+    "assinatura": "(raiz: string): Promise<{ resultado: string; verificacoes: unknown[]; erros: string[]; falhas: string[]; capturas: string; }>",
+    "modificadores": [
+      "export",
+      "async"
+    ],
+    "categoria": "producao"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#1",
+    "assinatura": "(e: HTMLElement | SVGElement): string",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#2",
+    "assinatura": "(): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#3",
+    "assinatura": "(): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#4",
+    "assinatura": "(e: HTMLElement | SVGElement): string",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#5",
+    "assinatura": "(e: HTMLElement | SVGElement): string | null",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#6",
+    "assinatura": "(e: HTMLElement | SVGElement): string",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#7",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#8",
+    "assinatura": "(): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#9",
+    "assinatura": "(): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#10",
+    "assinatura": "(es: HTMLHeadingElement[]): number",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#11",
+    "assinatura": "(e: HTMLElement | SVGElement): string | null",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#12",
+    "assinatura": "(e: HTMLElement | SVGElement): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#13",
+    "assinatura": "(): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#14",
+    "assinatura": "(e: HTMLElement | SVGElement): string | null",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#15",
+    "assinatura": "(): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#16",
+    "assinatura": "(): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#17",
+    "assinatura": "(e: HTMLElement | SVGElement): string",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#18",
+    "assinatura": "(e: HTMLElement | SVGElement): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#19",
+    "assinatura": "(e: HTMLElement | SVGElement): string",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#20",
+    "assinatura": "(e: HTMLElement | SVGElement): string",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#21",
+    "assinatura": "(es: (HTMLElement | SVGElement)[]): number",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#22",
+    "assinatura": "(e: HTMLElement | SVGElement): string",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#23",
+    "assinatura": "(): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#24",
+    "assinatura": "(e: HTMLElement | SVGElement): string",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#25",
+    "assinatura": "(e: HTMLElement | SVGElement): string",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#26",
+    "assinatura": "(es: (HTMLElement | SVGElement)[]): number",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#27",
+    "assinatura": "(e: HTMLElement | SVGElement): string",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#28",
+    "assinatura": "(concluir: (value: void | PromiseLike<void>) => void, falhar: (reason?: any) => void): Server<typeof IncomingMessage, typeof ServerResponse> | Http2SecureServer<typeof IncomingMessage, typeof ServerResponse, typeof Http2ServerRequest, typeof Http2ServerResponse>",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]#28.[callback]:ArrowFunction#1",
+    "assinatura": "(erro: Error | undefined): void",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/verificar.ts::listarArquivos:FunctionDeclaration",
+    "assinatura": "(pasta: string): string[]",
+    "modificadores": [
+      "export"
+    ],
+    "categoria": "producao"
+  },
+  {
+    "id": "scripts/site/verificar.ts::listarArquivos.[callback]:ArrowFunction#1",
+    "assinatura": "(this: undefined, entrada: Dirent<string>): string[]",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/site/verificar.ts::hashArquivo:FunctionDeclaration",
+    "assinatura": "(caminho: string): string",
+    "modificadores": [
+      "export"
+    ],
+    "categoria": "producao"
+  },
+  {
+    "id": "scripts/site/verificar.ts::resolverRecurso:FunctionDeclaration",
+    "assinatura": "(dist: string, caminho: string): string",
+    "modificadores": [
+      "export"
+    ],
+    "categoria": "producao"
+  },
+  {
+    "id": "scripts/site/verificar.ts::verificarDistribuicao:FunctionDeclaration",
+    "assinatura": "(raiz: string): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }",
+    "modificadores": [
+      "export"
+    ],
+    "categoria": "producao"
+  },
+  {
+    "id": "scripts/site/verificar.ts::verificarDistribuicao.[callback]:ArrowFunction#1",
+    "assinatura": "(r: { source: string; }): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
     "id": "scripts/validar-hidrodinamica.ts::criar:FunctionDeclaration",
     "assinatura": "(massaKg: number, d: Vetor3, h: number, v?: Vetor3, theta?: number, omega?: number, dt?: number): { m: MundoFisico; o: Objeto; agua: RegiaoAquatica; ambiente: AmbienteTerrestre; }",
     "modificadores": [],
@@ -1140,6 +1469,276 @@
     "assinatura": "(q: Vetor3): Vetor3",
     "modificadores": [],
     "categoria": "callback"
+  },
+  {
+    "id": "site/build/pluginInstitucional.test.ts::[callback]:ArrowFunction#1",
+    "assinatura": "(p: \"index.html\" | \"pesquisa.html\" | \"simulador.html\"): string",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/pluginInstitucional.test.ts::[callback]:ArrowFunction#2",
+    "assinatura": "(): Promise<void>",
+    "modificadores": [
+      "async"
+    ],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/pluginInstitucional.test.ts::[callback]#2.[callback]:ArrowFunction#1",
+    "assinatura": "(p: string): string",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/pluginInstitucional.test.ts::[callback]#2.[callback]:ArrowFunction#2",
+    "assinatura": "(pronto: (value: void | PromiseLike<void>) => void): Server<typeof IncomingMessage, typeof ServerResponse>",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/pluginInstitucional.test.ts::[callback]:ArrowFunction#3",
+    "assinatura": "(): Promise<void>",
+    "modificadores": [
+      "async"
+    ],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/pluginInstitucional.test.ts::[callback]#3.[callback]:ArrowFunction#1",
+    "assinatura": "(pronto: (value: void | PromiseLike<void>) => void): Server<typeof IncomingMessage, typeof ServerResponse>",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/pluginInstitucional.test.ts::[callback]#3.[callback]#1.[callback]:ArrowFunction#1",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/pluginInstitucional.test.ts::[callback]:ArrowFunction#4",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]:ArrowFunction#1",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]:ArrowFunction#2",
+    "assinatura": "(): Promise<void>",
+    "modificadores": [
+      "async"
+    ],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]:ArrowFunction#3",
+    "assinatura": "(): Promise<void>",
+    "modificadores": [
+      "async"
+    ],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]:ArrowFunction#4",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#4.[callback]:ArrowFunction#1",
+    "assinatura": "(): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#4.[callback]:ArrowFunction#2",
+    "assinatura": "(): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#4.[callback]:ArrowFunction#3",
+    "assinatura": "(): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/pluginInstitucional.ts::pluginInstitucional:FunctionDeclaration",
+    "assinatura": "(raiz: string): Plugin",
+    "modificadores": [
+      "export"
+    ],
+    "categoria": "producao"
+  },
+  {
+    "id": "site/build/pluginInstitucional.ts::pluginInstitucional.atenderInstitucional:FunctionDeclaration",
+    "assinatura": "(req: IncomingMessage, res: ServerResponse, next: (erro?: unknown) => void): void",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "site/build/pluginInstitucional.ts::pluginInstitucional.atenderInstitucional.next[tipo]:FunctionType",
+    "assinatura": "(erro?: unknown): void",
+    "modificadores": [],
+    "categoria": "contrato"
+  },
+  {
+    "id": "site/build/pluginInstitucional.ts::pluginInstitucional.atenderInstitucional.[callback]:ArrowFunction#1",
+    "assinatura": "(p: \"index.html\" | \"pesquisa.html\" | \"simulador.html\"): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "site/build/pluginInstitucional.ts::pluginInstitucional.configureServer:MethodDeclaration",
+    "assinatura": "(server: ViteDevServer): void",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "site/build/pluginInstitucional.ts::pluginInstitucional.configurePreviewServer:MethodDeclaration",
+    "assinatura": "(server: PreviewServer): void",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "site/build/pluginInstitucional.ts::pluginInstitucional.generateBundle:MethodDeclaration",
+    "assinatura": "(_opcoes: NormalizedOutputOptions, bundle: OutputBundle): void",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "site/scripts/carrossel.ts::iniciarCarrossel:FunctionDeclaration",
+    "assinatura": "(raiz: HTMLElement): void",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "site/scripts/carrossel.ts::iniciarCarrossel.suspenderTroca:FunctionDeclaration",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "site/scripts/carrossel.ts::iniciarCarrossel.atualizarReproducao:FunctionDeclaration",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "site/scripts/carrossel.ts::iniciarCarrossel.mostrarSlide:FunctionDeclaration",
+    "assinatura": "(novoIndice: number, anunciar?: boolean): Promise<void>",
+    "modificadores": [
+      "async"
+    ],
+    "categoria": "producao"
+  },
+  {
+    "id": "site/scripts/carrossel.ts::iniciarCarrossel.mostrarSlide.[callback]:ArrowFunction#1",
+    "assinatura": "(slide: HTMLImageElement, i: number): void",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "site/scripts/carrossel.ts::iniciarCarrossel.avancarAutomaticamente:FunctionDeclaration",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "site/scripts/carrossel.ts::iniciarCarrossel.anterior:FunctionDeclaration",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "site/scripts/carrossel.ts::iniciarCarrossel.proximo:FunctionDeclaration",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "site/scripts/carrossel.ts::iniciarCarrossel.alternarReproducao:FunctionDeclaration",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "site/scripts/carrossel.ts::iniciarCarrossel.[callback]:ArrowFunction#1",
+    "assinatura": "(this: HTMLElement, evento: PointerEvent): void",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "site/scripts/carrossel.ts::iniciarCarrossel.[callback]:ArrowFunction#2",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "site/scripts/carrossel.ts::iniciarCarrossel.[callback]:ArrowFunction#3",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "site/scripts/carrossel.ts::iniciarCarrossel.[callback]:ArrowFunction#4",
+    "assinatura": "(this: HTMLElement, evento: FocusEvent): void",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "site/scripts/carrossel.ts::iniciarCarrossel.[callback]:ArrowFunction#5",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "site/scripts/carrossel.ts::iniciarCarrossel.[callback]:ArrowFunction#6",
+    "assinatura": "(entradas: IntersectionObserverEntry[]): void",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "site/scripts/navegacao.ts::definirMenu:FunctionDeclaration",
+    "assinatura": "(aberto: boolean): void",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "site/scripts/navegacao.ts::atualizarCabecalho:FunctionDeclaration",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "site/scripts/navegacao.ts::alternarMenu:FunctionDeclaration",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "site/scripts/navegacao.ts::fecharComEscape:FunctionDeclaration",
+    "assinatura": "(evento: KeyboardEvent): void",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "site/scripts/navegacao.ts::fecharPorLink:FunctionDeclaration",
+    "assinatura": "(evento: MouseEvent): void",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "site/scripts/navegacao.ts::adequarMenu:FunctionDeclaration",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "producao"
   },
   {
     "id": "src/apresentacao/missao/CameraMissao.test.ts::[callback]:ArrowFunction#1",
@@ -3304,78 +3903,6 @@
     "assinatura": "(o: Objeto): { id: string; estado: EstadoFisico; kg: number; temperaturaC: number; integridade: number; }",
     "modificadores": [],
     "categoria": "teste"
-  },
-  {
-    "id": "src/home-carousel.ts::showSlide:ArrowFunction",
-    "assinatura": "(index: number): void",
-    "modificadores": [],
-    "categoria": "producao"
-  },
-  {
-    "id": "src/home-carousel.ts::showSlide.[callback]:ArrowFunction#1",
-    "assinatura": "(slide: HTMLElement, slideIndex: number): void",
-    "modificadores": [],
-    "categoria": "callback"
-  },
-  {
-    "id": "src/home-carousel.ts::showSlide.[callback]:ArrowFunction#2",
-    "assinatura": "(dot: HTMLButtonElement, dotIndex: number): void",
-    "modificadores": [],
-    "categoria": "callback"
-  },
-  {
-    "id": "src/home-carousel.ts::stopAutoplay:ArrowFunction",
-    "assinatura": "(): void",
-    "modificadores": [],
-    "categoria": "producao"
-  },
-  {
-    "id": "src/home-carousel.ts::startAutoplay:ArrowFunction",
-    "assinatura": "(): void",
-    "modificadores": [],
-    "categoria": "producao"
-  },
-  {
-    "id": "src/home-carousel.ts::startAutoplay.[callback]:ArrowFunction#1",
-    "assinatura": "(): void",
-    "modificadores": [],
-    "categoria": "callback"
-  },
-  {
-    "id": "src/home-carousel.ts::[callback]:ArrowFunction#1",
-    "assinatura": "(): void",
-    "modificadores": [],
-    "categoria": "callback"
-  },
-  {
-    "id": "src/home-carousel.ts::[callback]:ArrowFunction#2",
-    "assinatura": "(): void",
-    "modificadores": [],
-    "categoria": "callback"
-  },
-  {
-    "id": "src/home-carousel.ts::[callback]:ArrowFunction#3",
-    "assinatura": "(dot: HTMLButtonElement, index: number): void",
-    "modificadores": [],
-    "categoria": "callback"
-  },
-  {
-    "id": "src/home-carousel.ts::[callback]#3.[callback]:ArrowFunction#1",
-    "assinatura": "(): void",
-    "modificadores": [],
-    "categoria": "callback"
-  },
-  {
-    "id": "src/home-carousel.ts::[callback]:ArrowFunction#4",
-    "assinatura": "(this: HTMLElement, event: FocusEvent): void",
-    "modificadores": [],
-    "categoria": "callback"
-  },
-  {
-    "id": "src/home-carousel.ts::[callback]:ArrowFunction#5",
-    "assinatura": "(): void",
-    "modificadores": [],
-    "categoria": "callback"
   },
   {
     "id": "src/missoes/AmbienteAmerissagem.ts::criarAmbienteAmerissagem:FunctionDeclaration",

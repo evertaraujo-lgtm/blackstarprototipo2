@@ -14,6 +14,11 @@ real; `docs:verificar` permanece somente leitura e rejeita artefatos divergentes
 
 ```text
 Protótipo 2
+├── site/pages/                      HTML institucional, pesquisa e portal do laboratório
+├── site/scripts/                    menu e carrossel; apenas apresentação DOM
+├── site/styles/                     identidade visual institucional isolada
+├── site/public/                     WebP, favicon e metadados estáticos publicáveis
+├── site/build/                      integração Vite de rotas/HTML e PDF canônico
 ├── src/physics/                      núcleo físico e componentes de domínio
 │   ├── MundoFisico                   registros, tempo, receita determinística
 │   ├── Vetor3                        álgebra imutável e validação finita
@@ -73,6 +78,11 @@ flowchart TD
   OBJ --> MATH
   UI --> CLOCK[ExecutorPassoFixo]
   AUD[Auditoria AST] --> TS[Compilador TypeScript e fontes em disco]
+  INST[Site institucional isolado] --> DOM[DOM, CSS e ativos ilustrativos]
+  INST -. links públicos .-> HTML
+  VITE[Build Vite único] --> INST
+  VITE --> HTML
+  VITE --> PDF[PDF canônico em docs/estudos]
 ```
 
 Não há Firebase/Firestore no domínio implementado. `firebase.json` configura
@@ -163,7 +173,7 @@ pontos orientados, não categoria artificial de pouso.
 
 | Entrada | Caminho de execução |
 |---|---|
-| `index.html` | `src/main.ts` → CSS e `home-carousel.ts`; apresentação institucional |
+| `/`, `/pesquisa`, `/simulador` | Fontes em `site/pages`; CSS em `site/styles` e menu/carrossel em `site/scripts`. Plugin Vite emite HTML na raiz sem depender de outro repositório. |
 | `tests.html` | `src/testes.ts` → `BancadaBss`, seis BSS e ferramentas históricas; comandos, trace, câmera e executor fixo |
 | `orbitas.html` | `src/orbitas.ts` → `EnsaioOrbitalInerte`; corpos inertes em vácuo explícito, sem foguete |
 | `missao.html` | `src/missao.ts` → `CenaMissao` → missão registrada; terrestre M10 ou ADM aquática M11 |
@@ -238,7 +248,13 @@ Escopo: imports/exportações estáticos locais das fontes próprias; chamadas d
 | [scripts/documentacao/cli.ts](../../scripts/documentacao/cli.ts) | funções/entrada | node:fs, node:path, node:crypto, node:child_process, typescript, ./projeto, T: ./ast, ./catalogo, T: ./catalogo, ./auditoria |
 | [scripts/documentacao/projeto.ts](../../scripts/documentacao/projeto.ts) | funções/entrada | node:fs, node:path, typescript, ./ast, T: ./ast |
 | [scripts/executar-missao.ts](../../scripts/executar-missao.ts) | funções/entrada | node:util, node:fs, ../src/missoes/ReplayMissaoBss006, ../src/missoes/ExecutorMissao |
+| [scripts/site/smoke.ts](../../scripts/site/smoke.ts) | funções/entrada | node:assert/strict, node:fs, node:os, node:path, T: node:net, node:timers/promises, playwright-core, T: playwright-core, vite |
+| [scripts/site/verificar.ts](../../scripts/site/verificar.ts) | funções/entrada | node:crypto, node:fs, node:path, ../../site/build/pluginInstitucional |
 | [scripts/validar-hidrodinamica.ts](../../scripts/validar-hidrodinamica.ts) | funções/entrada | node:fs, node:util, ../src/physics/MundoFisico, ../src/physics/objetos/base/Objeto, ../src/physics/Vetor3, ../src/physics/ambiente/AmbienteFisico, ../src/physics/ambiente/GeografiaCosteira, ../src/physics/agua/RegiaoAquatica, ../src/physics/agua/SistemaHidrodinamico |
+| [scripts/verificar-site.ts](../../scripts/verificar-site.ts) | funções/entrada | ./site/verificar |
+| [site/build/pluginInstitucional.ts](../../site/build/pluginInstitucional.ts) | funções/entrada | node:fs, node:path, T: node:http, T: vite |
+| [site/scripts/carrossel.ts](../../site/scripts/carrossel.ts) | funções/entrada | — |
+| [site/scripts/navegacao.ts](../../site/scripts/navegacao.ts) | funções/entrada | — |
 | [src/apresentacao/missao/CameraMissao.ts](../../src/apresentacao/missao/CameraMissao.ts) | CameraMissao | ../../physics/Vetor3, ../../visualizacao/CameraFisica2D, T: ../../missoes/TiposMissaoBss006 |
 | [src/apresentacao/missao/CenaMissao.ts](../../src/apresentacao/missao/CenaMissao.ts) | CenaMissao | ../../missoes/ReplayMissaoBss006, T: ../../missoes/TiposMissaoBss006, ../../simulacao/ExecutorPassoFixo, ./EntradaMissao, ./HudMissao, ./RenderizadorMissao |
 | [src/apresentacao/missao/EntradaMissao.ts](../../src/apresentacao/missao/EntradaMissao.ts) | AcoesApresentacaoMissao | T: ../../missoes/TiposMissaoBss006 |
@@ -250,8 +266,6 @@ Escopo: imports/exportações estáticos locais das fontes próprias; chamadas d
 | [src/cenarios/EnsaioOrbitalInerte.ts](../../src/cenarios/EnsaioOrbitalInerte.ts) | funções/entrada | ../physics/ambiente/AmbienteFisico, ../physics/ambiente/CampoGravitacional, ../physics/ambiente/EstadoInicialLocal, ../physics/ambiente/TelemetriaOrbital, ../physics/MundoFisico, ../physics/objetos/base/Objeto, ../physics/Vetor3, ../physics/SuperficieEsferica |
 | [src/cenarios/ReproducaoDiarioBss005.ts](../../src/cenarios/ReproducaoDiarioBss005.ts) | EntradaDiarioBss005, DiarioBss005, EventoReplayBss005, OpcoesReplayBss005, ResultadoReplayBss005 | T: ../physics/ambiente/AmbienteFisico, ./BancadaBss, ./EnsaioMissaoBss005, ../physics/objetos/fontes-de-energia/PainelSolar |
 | [src/cenarios/TelemetriaMissaoBss.ts](../../src/cenarios/TelemetriaMissaoBss.ts) | funções/entrada | ../veiculos/TelemetriaBss |
-| [src/home-carousel.ts](../../src/home-carousel.ts) | funções/entrada | — |
-| [src/main.ts](../../src/main.ts) | funções/entrada | ./style.css, ./home-carousel |
 | [src/missao.ts](../../src/missao.ts) | funções/entrada | ./missao.css, ./apresentacao/missao/CenaMissao |
 | [src/missoes/AmbienteAmerissagem.ts](../../src/missoes/AmbienteAmerissagem.ts) | funções/entrada | ../physics/ambiente/AmbienteFisico, ../physics/ambiente/GeografiaCosteira, ../physics/agua/RegiaoAquatica, ../physics/MundoFisico, ../physics/SuperficieCosteira, ../physics/Vetor3, ./AmbienteLancamento |
 | [src/missoes/AmbienteLancamento.ts](../../src/missoes/AmbienteLancamento.ts) | funções/entrada | ../physics/ambiente/AmbienteFisico, ../physics/MundoFisico, ../physics/SuperficieEsferica, ../physics/Vetor3 |
@@ -360,7 +374,7 @@ Escopo: imports/exportações estáticos locais das fontes próprias; chamadas d
 | [src/visualizacao/ConexoesEletricas.ts](../../src/visualizacao/ConexoesEletricas.ts) | AlvoSwitchEletrico | T: ../physics/objetos/base/Objeto, T: ../physics/conexoes/ConexaoEletrica, ../physics/Vetor3 |
 | [src/visualizacao/RegistroEnsaioBancada.ts](../../src/visualizacao/RegistroEnsaioBancada.ts) | EntradaEnsaioBancada, RegistroEnsaioBancada | — |
 | [src/visualizacao/TracePLC.ts](../../src/visualizacao/TracePLC.ts) | EscalaTracePLC, CanalTracePLC, AmostraTracePLC, TracePLC | — |
-| [vite.config.ts](../../vite.config.ts) | funções/entrada | node:path, vite |
+| [vite.config.ts](../../vite.config.ts) | funções/entrada | node:path, vite, ./site/build/pluginInstitucional |
 <!-- INDICE_AST_FIM -->
 
 ## Modelos locais que não devem ser generalizados silenciosamente

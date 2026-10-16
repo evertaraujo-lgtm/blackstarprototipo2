@@ -1,0 +1,2 @@
+# PDFs preservam bytes e offsets internos em qualquer plataforma.
+*.pdf binary

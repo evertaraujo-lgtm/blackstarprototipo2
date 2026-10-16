@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://blackstarspace.web.app/sitemap.xml

@@ -41,3 +41,9 @@ jobs:
 
       - name: Build de produção
         run: npm run build
+
+      - name: Recursos e rotas do site unificado
+        run: npm run site:verificar
+
+      - name: Smoke de navegador do site e dos simuladores
+        run: npm run site:smoke

@@ -9,16 +9,20 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "preview": "vite preview",
-    "deploy": "npx firebase-tools deploy --only hosting",
+    "deploy": "npx firebase-tools deploy --only hosting --project blackstarspace",
     "typecheck:missoes": "tsc --noEmit -p tsconfig.missoes.json",
     "missao:executar": "vite-node scripts/executar-missao.ts",
     "agua:validar": "vite-node scripts/validar-hidrodinamica.ts",
     "missao:benchmark": "vite-node scripts/benchmark-missao.ts",
     "docs:gerar": "vite-node scripts/auditar-documentacao.ts --gerar",
     "docs:verificar": "vite-node scripts/auditar-documentacao.ts",
-    "test:documentacao": "vitest run scripts/documentacao"
+    "test:documentacao": "vitest run scripts/documentacao",
+    "preparar:deploy": "npm run typecheck && npm run docs:verificar && npm run build && npm run site:verificar",
+    "site:verificar": "vite-node scripts/verificar-site.ts",
+    "site:smoke": "vite-node scripts/site/smoke.ts"
   },
   "devDependencies": {
+    "playwright-core": "1.64.1",
     "typescript": "^5.8.3",
     "vite": "^7.0.0",
     "vitest": "^3.2.4"
