@@ -17,123 +17,127 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 - [scripts/documentacao/catalogo.ts](#modulo-5)
 - [scripts/documentacao/cli.ts](#modulo-6)
 - [scripts/documentacao/projeto.ts](#modulo-7)
-- [scripts/validar-hidrodinamica.ts](#modulo-8)
-- [src/apresentacao/missao/CameraMissao.ts](#modulo-9)
-- [src/apresentacao/missao/CenaMissao.ts](#modulo-10)
-- [src/apresentacao/missao/EntradaMissao.ts](#modulo-11)
-- [src/apresentacao/missao/HudMissao.ts](#modulo-12)
-- [src/apresentacao/missao/RenderizadorMissao.ts](#modulo-13)
-- [src/cenarios/BancadaBss.ts](#modulo-14)
-- [src/cenarios/BancadaBss003.ts](#modulo-15)
-- [src/cenarios/EnsaioMissaoBss005.ts](#modulo-16)
-- [src/cenarios/EnsaioOrbitalInerte.ts](#modulo-17)
-- [src/cenarios/ReproducaoDiarioBss005.ts](#modulo-18)
-- [src/home-carousel.ts](#modulo-19)
-- [src/missoes/AmbienteAmerissagem.ts](#modulo-20)
-- [src/missoes/AmbienteLancamento.ts](#modulo-21)
-- [src/missoes/CicloMissao.ts](#modulo-22)
-- [src/missoes/ContratoMissao.ts](#modulo-23)
-- [src/missoes/EnsaioAmerissagem.ts](#modulo-24)
-- [src/missoes/ExecutorMissao.ts](#modulo-25)
-- [src/missoes/MissaoBss006.ts](#modulo-26)
-- [src/missoes/ObservacaoAmerissagem.ts](#modulo-27)
-- [src/missoes/RegistroMissao.ts](#modulo-28)
-- [src/missoes/ReplayMissaoBss006.ts](#modulo-29)
-- [src/missoes/SnapshotMissao.ts](#modulo-30)
-- [src/orbitas.ts](#modulo-31)
-- [src/physics/MundoFisico.ts](#modulo-32)
-- [src/physics/SistemaOperacional.ts](#modulo-33)
-- [src/physics/SuperficieCosteira.ts](#modulo-34)
-- [src/physics/SuperficieEsferica.ts](#modulo-35)
-- [src/physics/SuperficieFisica.ts](#modulo-36)
-- [src/physics/SuperficiePlano.ts](#modulo-37)
-- [src/physics/SuperficiePlanoLocal.ts](#modulo-38)
-- [src/physics/Vetor3.ts](#modulo-39)
-- [src/physics/agua/GeometriaSubmersa.ts](#modulo-40)
-- [src/physics/agua/RegiaoAquatica.ts](#modulo-41)
-- [src/physics/agua/SistemaHidrodinamico.ts](#modulo-42)
-- [src/physics/ambiente/AmbienteFisico.ts](#modulo-43)
-- [src/physics/ambiente/CampoGravitacional.ts](#modulo-44)
-- [src/physics/ambiente/EstadoInicialLocal.ts](#modulo-45)
-- [src/physics/ambiente/GeografiaCosteira.ts](#modulo-46)
-- [src/physics/ambiente/ReferencialFisico.ts](#modulo-47)
-- [src/physics/ambiente/TelemetriaOrbital.ts](#modulo-48)
-- [src/physics/cenarios/EnsaioPortaVertical.ts](#modulo-49)
-- [src/physics/conexoes/ChumbadorAoSolo.ts](#modulo-50)
-- [src/physics/conexoes/ConexaoEletrica.ts](#modulo-51)
-- [src/physics/conexoes/FixadorEstrutural.ts](#modulo-52)
-- [src/physics/conexoes/GuiaLinear.ts](#modulo-53)
-- [src/physics/conexoes/JuntaRotacionalDeBancada.ts](#modulo-54)
-- [src/physics/conexoes/eletrica/Contator.ts](#modulo-55)
-- [src/physics/conexoes/eletrica/Interruptor.ts](#modulo-56)
-- [src/physics/conexoes/eletrica/Resistor.ts](#modulo-57)
-- [src/physics/estruturas/ConjuntoEstruturalRigido.ts](#modulo-58)
-- [src/physics/geometria/ContatoCaixasOrientadas.ts](#modulo-59)
-- [src/physics/objetos/atuadores/Cilindro.ts](#modulo-60)
-- [src/physics/objetos/atuadores/CilindroEletrico.ts](#modulo-61)
-- [src/physics/objetos/atuadores/MotorEletricoRotacional.ts](#modulo-62)
-- [src/physics/objetos/base/Objeto.ts](#modulo-63)
-- [src/physics/objetos/base/ObjetoTriangularRetangulo.ts](#modulo-64)
-- [src/physics/objetos/componentes/AletaAerodinamica.ts](#modulo-65)
-- [src/physics/objetos/componentes/Paraquedas.ts](#modulo-66)
-- [src/physics/objetos/fontes-de-energia/Bateria.ts](#modulo-67)
-- [src/physics/objetos/fontes-de-energia/FonteEletrica.ts](#modulo-68)
-- [src/physics/objetos/fontes-de-energia/GeradorCA.ts](#modulo-69)
-- [src/physics/objetos/fontes-de-energia/PainelSolar.ts](#modulo-70)
-- [src/physics/objetos/fontes-de-energia/TanquePropelente.ts](#modulo-71)
-- [src/physics/objetos/mecanismos/BracoArticuladoDeBancada.ts](#modulo-72)
-- [src/physics/objetos/mecanismos/ConjuntoPortaBatente.ts](#modulo-73)
-- [src/physics/objetos/mecanismos/Porta.ts](#modulo-74)
-- [src/physics/objetos/mecanismos/TravaPorta.ts](#modulo-75)
-- [src/physics/objetos/propulsao/Propulsor.ts](#modulo-76)
-- [src/physics/objetos/propulsao/PropulsorVetorizado.ts](#modulo-77)
-- [src/physics/objetos/propulsao/alimentacao/BombaPropelente.ts](#modulo-78)
-- [src/physics/objetos/propulsao/alimentacao/LinhaDePropelente.ts](#modulo-79)
-- [src/physics/objetos/propulsao/alimentacao/ValvulaPropelente.ts](#modulo-80)
-- [src/physics/objetos/propulsao/combustao/Bocal.ts](#modulo-81)
-- [src/physics/objetos/propulsao/combustao/CamaraCombustao.ts](#modulo-82)
-- [src/physics/objetos/propulsao/vetorizacao/AtuadorVetorizacao.ts](#modulo-83)
-- [src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts](#modulo-84)
-- [src/physics/objetos/veiculos/Bss03.ts](#modulo-85)
-- [src/physics/objetos/veiculos/Bss04.ts](#modulo-86)
-- [src/physics/objetos/veiculos/ComputadorDeVoo.ts](#modulo-87)
-- [src/physics/objetos/veiculos/VeiculoAlado.ts](#modulo-88)
-- [src/physics/objetos/veiculos/VeiculoComposto.ts](#modulo-89)
-- [src/physics/objetos/veiculos/VeiculoTerrestre.ts](#modulo-90)
-- [src/physics/sensores/SensoresVeiculoComposto.ts](#modulo-91)
-- [src/physics/sensores/SistemaSensores.ts](#modulo-92)
-- [src/physics/sensores/SwitchFimDeCurso.ts](#modulo-93)
-- [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.ts](#modulo-94)
-- [src/physics/sistemas de controle/ControladorAletasAerodinamicas.ts](#modulo-95)
-- [src/physics/sistemas de controle/ControladorDesaceleracao.ts](#modulo-96)
-- [src/physics/sistemas de controle/ControladorDesaceleracaoDePropulsores.ts](#modulo-97)
-- [src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.ts](#modulo-98)
-- [src/physics/sistemas de controle/ControladorGimbalDescidaDePropulsores.ts](#modulo-99)
-- [src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts](#modulo-100)
-- [src/physics/sistemas de controle/ControladorInclinacaoDePropulsores.ts](#modulo-101)
-- [src/physics/sistemas de controle/ControladorInclinacaoPid.ts](#modulo-102)
-- [src/physics/sistemas de controle/ControladorPerfilVooExperimental.ts](#modulo-103)
-- [src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts](#modulo-104)
-- [src/physics/sistemas de controle/ControladorPouso.ts](#modulo-105)
-- [src/physics/sistemas de controle/ControladorPousoDePropulsores.ts](#modulo-106)
-- [src/physics/sistemas de controle/GerenciadorDeControladores.ts](#modulo-107)
-- [src/physics/solucionadores/IntegradorFisico.ts](#modulo-108)
-- [src/physics/solucionadores/ResolvedorColisoes.ts](#modulo-109)
-- [src/physics/solucionadores/ResolvedorContatoSuperficie.ts](#modulo-110)
-- [src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts](#modulo-111)
-- [src/physics/solucionadores/SistemaAtmosferico.ts](#modulo-112)
-- [src/physics/solucionadores/SistemaTermico.ts](#modulo-113)
-- [src/simulacao/ExecutorPassoFixo.ts](#modulo-114)
-- [src/testes.ts](#modulo-115)
-- [src/validacao/ReferenciaBancadaM10.ts](#modulo-116)
-- [src/veiculos/DefinicaoBss006.ts](#modulo-117)
-- [src/veiculos/HidrodinamicaBss006.ts](#modulo-118)
-- [src/veiculos/MontagemBss.ts](#modulo-119)
-- [src/veiculos/TelemetriaBss.ts](#modulo-120)
-- [src/visualizacao/CameraFisica2D.ts](#modulo-121)
-- [src/visualizacao/ConexoesEletricas.ts](#modulo-122)
-- [src/visualizacao/RegistroEnsaioBancada.ts](#modulo-123)
-- [src/visualizacao/TracePLC.ts](#modulo-124)
+- [scripts/site/smoke.ts](#modulo-8)
+- [scripts/site/verificar.ts](#modulo-9)
+- [scripts/validar-hidrodinamica.ts](#modulo-10)
+- [site/build/pluginInstitucional.ts](#modulo-11)
+- [site/scripts/carrossel.ts](#modulo-12)
+- [site/scripts/navegacao.ts](#modulo-13)
+- [src/apresentacao/missao/CameraMissao.ts](#modulo-14)
+- [src/apresentacao/missao/CenaMissao.ts](#modulo-15)
+- [src/apresentacao/missao/EntradaMissao.ts](#modulo-16)
+- [src/apresentacao/missao/HudMissao.ts](#modulo-17)
+- [src/apresentacao/missao/RenderizadorMissao.ts](#modulo-18)
+- [src/cenarios/BancadaBss.ts](#modulo-19)
+- [src/cenarios/BancadaBss003.ts](#modulo-20)
+- [src/cenarios/EnsaioMissaoBss005.ts](#modulo-21)
+- [src/cenarios/EnsaioOrbitalInerte.ts](#modulo-22)
+- [src/cenarios/ReproducaoDiarioBss005.ts](#modulo-23)
+- [src/missoes/AmbienteAmerissagem.ts](#modulo-24)
+- [src/missoes/AmbienteLancamento.ts](#modulo-25)
+- [src/missoes/CicloMissao.ts](#modulo-26)
+- [src/missoes/ContratoMissao.ts](#modulo-27)
+- [src/missoes/EnsaioAmerissagem.ts](#modulo-28)
+- [src/missoes/ExecutorMissao.ts](#modulo-29)
+- [src/missoes/MissaoBss006.ts](#modulo-30)
+- [src/missoes/ObservacaoAmerissagem.ts](#modulo-31)
+- [src/missoes/RegistroMissao.ts](#modulo-32)
+- [src/missoes/ReplayMissaoBss006.ts](#modulo-33)
+- [src/missoes/SnapshotMissao.ts](#modulo-34)
+- [src/orbitas.ts](#modulo-35)
+- [src/physics/MundoFisico.ts](#modulo-36)
+- [src/physics/SistemaOperacional.ts](#modulo-37)
+- [src/physics/SuperficieCosteira.ts](#modulo-38)
+- [src/physics/SuperficieEsferica.ts](#modulo-39)
+- [src/physics/SuperficieFisica.ts](#modulo-40)
+- [src/physics/SuperficiePlano.ts](#modulo-41)
+- [src/physics/SuperficiePlanoLocal.ts](#modulo-42)
+- [src/physics/Vetor3.ts](#modulo-43)
+- [src/physics/agua/GeometriaSubmersa.ts](#modulo-44)
+- [src/physics/agua/RegiaoAquatica.ts](#modulo-45)
+- [src/physics/agua/SistemaHidrodinamico.ts](#modulo-46)
+- [src/physics/ambiente/AmbienteFisico.ts](#modulo-47)
+- [src/physics/ambiente/CampoGravitacional.ts](#modulo-48)
+- [src/physics/ambiente/EstadoInicialLocal.ts](#modulo-49)
+- [src/physics/ambiente/GeografiaCosteira.ts](#modulo-50)
+- [src/physics/ambiente/ReferencialFisico.ts](#modulo-51)
+- [src/physics/ambiente/TelemetriaOrbital.ts](#modulo-52)
+- [src/physics/cenarios/EnsaioPortaVertical.ts](#modulo-53)
+- [src/physics/conexoes/ChumbadorAoSolo.ts](#modulo-54)
+- [src/physics/conexoes/ConexaoEletrica.ts](#modulo-55)
+- [src/physics/conexoes/FixadorEstrutural.ts](#modulo-56)
+- [src/physics/conexoes/GuiaLinear.ts](#modulo-57)
+- [src/physics/conexoes/JuntaRotacionalDeBancada.ts](#modulo-58)
+- [src/physics/conexoes/eletrica/Contator.ts](#modulo-59)
+- [src/physics/conexoes/eletrica/Interruptor.ts](#modulo-60)
+- [src/physics/conexoes/eletrica/Resistor.ts](#modulo-61)
+- [src/physics/estruturas/ConjuntoEstruturalRigido.ts](#modulo-62)
+- [src/physics/geometria/ContatoCaixasOrientadas.ts](#modulo-63)
+- [src/physics/objetos/atuadores/Cilindro.ts](#modulo-64)
+- [src/physics/objetos/atuadores/CilindroEletrico.ts](#modulo-65)
+- [src/physics/objetos/atuadores/MotorEletricoRotacional.ts](#modulo-66)
+- [src/physics/objetos/base/Objeto.ts](#modulo-67)
+- [src/physics/objetos/base/ObjetoTriangularRetangulo.ts](#modulo-68)
+- [src/physics/objetos/componentes/AletaAerodinamica.ts](#modulo-69)
+- [src/physics/objetos/componentes/Paraquedas.ts](#modulo-70)
+- [src/physics/objetos/fontes-de-energia/Bateria.ts](#modulo-71)
+- [src/physics/objetos/fontes-de-energia/FonteEletrica.ts](#modulo-72)
+- [src/physics/objetos/fontes-de-energia/GeradorCA.ts](#modulo-73)
+- [src/physics/objetos/fontes-de-energia/PainelSolar.ts](#modulo-74)
+- [src/physics/objetos/fontes-de-energia/TanquePropelente.ts](#modulo-75)
+- [src/physics/objetos/mecanismos/BracoArticuladoDeBancada.ts](#modulo-76)
+- [src/physics/objetos/mecanismos/ConjuntoPortaBatente.ts](#modulo-77)
+- [src/physics/objetos/mecanismos/Porta.ts](#modulo-78)
+- [src/physics/objetos/mecanismos/TravaPorta.ts](#modulo-79)
+- [src/physics/objetos/propulsao/Propulsor.ts](#modulo-80)
+- [src/physics/objetos/propulsao/PropulsorVetorizado.ts](#modulo-81)
+- [src/physics/objetos/propulsao/alimentacao/BombaPropelente.ts](#modulo-82)
+- [src/physics/objetos/propulsao/alimentacao/LinhaDePropelente.ts](#modulo-83)
+- [src/physics/objetos/propulsao/alimentacao/ValvulaPropelente.ts](#modulo-84)
+- [src/physics/objetos/propulsao/combustao/Bocal.ts](#modulo-85)
+- [src/physics/objetos/propulsao/combustao/CamaraCombustao.ts](#modulo-86)
+- [src/physics/objetos/propulsao/vetorizacao/AtuadorVetorizacao.ts](#modulo-87)
+- [src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts](#modulo-88)
+- [src/physics/objetos/veiculos/Bss03.ts](#modulo-89)
+- [src/physics/objetos/veiculos/Bss04.ts](#modulo-90)
+- [src/physics/objetos/veiculos/ComputadorDeVoo.ts](#modulo-91)
+- [src/physics/objetos/veiculos/VeiculoAlado.ts](#modulo-92)
+- [src/physics/objetos/veiculos/VeiculoComposto.ts](#modulo-93)
+- [src/physics/objetos/veiculos/VeiculoTerrestre.ts](#modulo-94)
+- [src/physics/sensores/SensoresVeiculoComposto.ts](#modulo-95)
+- [src/physics/sensores/SistemaSensores.ts](#modulo-96)
+- [src/physics/sensores/SwitchFimDeCurso.ts](#modulo-97)
+- [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.ts](#modulo-98)
+- [src/physics/sistemas de controle/ControladorAletasAerodinamicas.ts](#modulo-99)
+- [src/physics/sistemas de controle/ControladorDesaceleracao.ts](#modulo-100)
+- [src/physics/sistemas de controle/ControladorDesaceleracaoDePropulsores.ts](#modulo-101)
+- [src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.ts](#modulo-102)
+- [src/physics/sistemas de controle/ControladorGimbalDescidaDePropulsores.ts](#modulo-103)
+- [src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts](#modulo-104)
+- [src/physics/sistemas de controle/ControladorInclinacaoDePropulsores.ts](#modulo-105)
+- [src/physics/sistemas de controle/ControladorInclinacaoPid.ts](#modulo-106)
+- [src/physics/sistemas de controle/ControladorPerfilVooExperimental.ts](#modulo-107)
+- [src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts](#modulo-108)
+- [src/physics/sistemas de controle/ControladorPouso.ts](#modulo-109)
+- [src/physics/sistemas de controle/ControladorPousoDePropulsores.ts](#modulo-110)
+- [src/physics/sistemas de controle/GerenciadorDeControladores.ts](#modulo-111)
+- [src/physics/solucionadores/IntegradorFisico.ts](#modulo-112)
+- [src/physics/solucionadores/ResolvedorColisoes.ts](#modulo-113)
+- [src/physics/solucionadores/ResolvedorContatoSuperficie.ts](#modulo-114)
+- [src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts](#modulo-115)
+- [src/physics/solucionadores/SistemaAtmosferico.ts](#modulo-116)
+- [src/physics/solucionadores/SistemaTermico.ts](#modulo-117)
+- [src/simulacao/ExecutorPassoFixo.ts](#modulo-118)
+- [src/testes.ts](#modulo-119)
+- [src/validacao/ReferenciaBancadaM10.ts](#modulo-120)
+- [src/veiculos/DefinicaoBss006.ts](#modulo-121)
+- [src/veiculos/HidrodinamicaBss006.ts](#modulo-122)
+- [src/veiculos/MontagemBss.ts](#modulo-123)
+- [src/veiculos/TelemetriaBss.ts](#modulo-124)
+- [src/visualizacao/CameraFisica2D.ts](#modulo-125)
+- [src/visualizacao/ConexoesEletricas.ts](#modulo-126)
+- [src/visualizacao/RegistroEnsaioBancada.ts](#modulo-127)
+- [src/visualizacao/TracePLC.ts](#modulo-128)
 
 <a id="modulo-1"></a>
 ## scripts/benchmark-missao.ts
@@ -819,11 +823,11 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Entradas | <code>raiz: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly string[]</code>; expressões retornadas: <code>arquivos.sort()</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>percorrer</code>; <code>resolve</code>; <code>readdirSync</code>; <code>/\.[cm]?tsx?$/.test</code>; <code>arquivos.push</code>; <code>arquivos.sort</code> |
-| Invariantes | Contrato documentado abaixo; ramos observados: <code>/\.[cm]?tsx?$/.test(entrada)</code>; exceções: — |
-| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Dependências | Chamadas/construções diretas: <code>percorrer</code>; <code>resolve</code>; <code>existsSync</code>; <code>readdirSync</code>; <code>/\.[cm]?tsx?$/.test</code>; <code>arquivos.push</code>; <code>arquivos.sort</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>existsSync(resolve(raiz, 'site'))</code>; <code>/\.[cm]?tsx?$/.test(entrada)</code>; exceções: — |
+| Testes | [scripts/documentacao/projeto-site.test.ts](../../scripts/documentacao/projeto-site.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Verificada (revisão explicitamente registrada) |
-| JSDoc integral | /** Enumera fontes próprias; dependências, build e arquivos históricos não entram no inventário.<br> * @remarks Enumera TypeScript próprio em src, scripts e raiz, ordenando caminhos relativos; ignora dependências e build por delimitação de escopo.<br> * @contract f-c9f0da8192b66f4e<br> * @reviewed M12-DOC: contrato confrontado com implementação.<br> */ |
+| JSDoc integral | /** Enumera fontes próprias; dependências, build e arquivos históricos não entram no inventário.<br> * @remarks Enumera TypeScript próprio em src, scripts, site (quando presente) e raiz, ordenando caminhos relativos; ignora dependências e build por delimitação de escopo.<br> * @contract f-c9f0da8192b66f4e<br> * @reviewed M12-DOC: contrato confrontado com implementação.<br> */ |
 
 </details>
 
@@ -840,7 +844,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>readdirSync</code>; <code>resolve</code>; <code>entrada.isDirectory</code>; <code>percorrer</code>; <code>/\.[cm]?tsx?$/.test</code>; <code>arquivos.push</code>; <code>relative(raiz, caminho).replaceAll</code>; <code>relative</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>entrada.isDirectory()</code>; <code>/\.[cm]?tsx?$/.test(entrada.name)</code>; exceções: — |
-| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Testes | [scripts/documentacao/projeto-site.test.ts](../../scripts/documentacao/projeto-site.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Verificada (revisão explicitamente registrada) |
 | JSDoc integral | /** Percorre diretório de fontes próprias e coleta arquivos TypeScript; só consulta o sistema de arquivos. @contract f-c7e5a38e4d6a0c66 @reviewed M12-DOC: implementação lida. */ |
 
@@ -851,7 +855,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>scripts/documentacao/projeto.ts::carregarProjeto:FunctionDeclaration</code> · [fonte L35](../../scripts/documentacao/projeto.ts#L35) |
+| Identificador | <code>scripts/documentacao/projeto.ts::carregarProjeto:FunctionDeclaration</code> · [fonte L36](../../scripts/documentacao/projeto.ts#L36) |
 | Assinatura | <code>export (raiz: string): { programa: ts.Program; analise: Analise; }</code> |
 | Responsabilidade | Carrega tsconfig e tipos reais do projeto sem emitir JavaScript ou executar módulos. |
 | Entradas | <code>raiz: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -859,7 +863,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>ts.readConfigFile</code>; <code>resolve</code>; <code>Error</code>; <code>ts.flattenDiagnosticMessageText</code>; <code>ts.parseJsonConfigFileContent</code>; <code>listarFontes</code>; <code>ts.createProgram</code>; <code>arquivos.map</code>; <code>analisarFontes</code>; <code>programa.getTypeChecker</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>config.error</code>; exceções: <code>new Error(ts.flattenDiagnosticMessageText(config.error.messageText, '\n'))</code> |
-| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Testes | [scripts/documentacao/projeto-site.test.ts](../../scripts/documentacao/projeto-site.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Verificada (revisão explicitamente registrada) |
 | JSDoc integral | /**<br> * Carrega tsconfig e tipos reais do projeto sem emitir JavaScript ou executar módulos.<br> * @param raiz Diretório absoluto; deve ser o cwd para manter IDs relativos portáveis.<br> * @returns Programa e inventário AST. Lê FS; falhas de configuração lançam Error.<br> * @remarks Lê tsconfig e fontes, cria programa/TypeChecker sem emissão e entrega análise com caminhos relativos portáveis; configuração inválida lança Error.<br> * @contract f-2e439b007813b382<br> * @reviewed M12-DOC: contrato confrontado com implementação.<br> */ |
 
@@ -867,6 +871,147 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 
 <a id="modulo-8"></a>
+## scripts/site/smoke.ts
+
+<a id="f-3be43bfd8ef4e2b3"></a>
+<details><summary>abrirPagina · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>scripts/site/smoke.ts::abrirPagina:FunctionDeclaration</code> · [fonte L12](../../scripts/site/smoke.ts#L12) |
+| Assinatura | <code>async (browser: Browser, largura: number, altura: number, erros: string[], falhas: string[]): Promise&lt;Page&gt;</code> |
+| Responsabilidade | Cria aba observada; eventos registram erros sem mascarar respostas HTTP de falha. |
+| Entradas | <code>browser: Browser</code>; <code>largura: number</code>; <code>altura: number</code>; <code>erros: string[]</code>; <code>falhas: string[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>Promise&lt;Page&gt;</code>; expressões retornadas: <code>page</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>browser.newPage</code>; <code>(await page.context().newCDPSession(page)).send</code>; <code>page.context().newCDPSession</code>; <code>page.context</code>; <code>page.on</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Cria aba observada; eventos registram erros sem mascarar respostas HTTP de falha.  @contract f-3be43bfd8ef4e2b3 */ |
+
+</details>
+
+<a id="f-f647b4b757fc111c"></a>
+<details><summary>conferirImagens · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>scripts/site/smoke.ts::conferirImagens:FunctionDeclaration</code> · [fonte L22](../../scripts/site/smoke.ts#L22) |
+| Assinatura | <code>async (page: Page): Promise&lt;void&gt;</code> |
+| Responsabilidade | Exercita lazy loading/decode e verifica overflow; somente apresentação e leitura DOM. |
+| Entradas | <code>page: Page</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>Promise&lt;void&gt;</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>page.evaluate</code>; <code>assert</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Exercita lazy loading/decode e verifica overflow; somente apresentação e leitura DOM.  @contract f-f647b4b757fc111c */ |
+
+</details>
+
+<a id="f-533365172ff4d81e"></a>
+<details><summary>executarSmokeSite · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>scripts/site/smoke.ts::executarSmokeSite:FunctionDeclaration</code> · [fonte L44](../../scripts/site/smoke.ts#L44) |
+| Assinatura | <code>export async (raiz: string): Promise&lt;{ resultado: string; verificacoes: unknown[]; erros: string[]; falhas: string[]; capturas: string; }&gt;</code> |
+| Responsabilidade | Valida site e interfaces nativas em Chrome, sem dependência de outro checkout. |
+| Entradas | <code>raiz: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>Promise&lt;{ resultado: string; verificacoes: unknown[]; erros: string[]; falhas: string[]; capturas: string; }&gt;</code>; expressões retornadas: <code>{ resultado: 'aprovado', verificacoes, erros, falhas, capturas }</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>browser</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>existsSync</code>; <code>Error</code>; <code>preview</code>; <code>servidor!.httpServer.address</code>; <code>mkdtempSync</code>; <code>join</code>; <code>tmpdir</code>; <code>mkdirSync</code>; <code>chromium.launch</code>; <code>abrirPagina</code>; <code>carousel.goto</code>; <code>carousel.mouse.move</code>; <code>carousel.$eval</code>; <code>carousel.waitForFunction</code>; <code>carousel.focus</code>; <code>carousel.keyboard.press</code>; <code>assert.equal</code>; <code>esperar</code>; <code>carousel.click</code>; <code>carousel.evaluate</code>; <code>carousel.emulateMedia</code>; <code>carousel.close</code>; <code>verificacoes.push</code>; <code>page.emulateMedia</code>; <code>(await page.goto(base + rota, { waitUntil: 'networkidle' }))!.status</code>; <code>page.goto</code>; <code>conferirImagens</code>; <code>page.$$eval</code>; <code>(await page.reload({ waitUntil: 'networkidle' }))!.status</code>; <code>page.reload</code>; <code>[1440, 390].includes</code>; <code>page.screenshot</code>; <code>page.focus</code>; <code>page.keyboard.press</code>; <code>page.$eval</code>; <code>assert</code>; <code>page.click</code>; <code>page.waitForFunction</code>; <code>page.close</code>; <code>fetch</code>; <code>pdf.headers.get('content-type')!.includes</code>; <code>pdf.headers.get</code>; <code>Buffer.from</code>; <code>pdf.arrayBuffer</code>; <code>bytes.subarray(0, 5).toString</code>; <code>bytes.subarray</code>; <code>page.waitForEvent</code>; <code>leitor.waitForFunction</code>; <code>leitor.close</code>; <code>download.suggestedFilename</code>; <code>download.saveAs</code>; <code>readFileSync(arquivo).equals</code>; <code>readFileSync</code>; <code>Promise.all</code>; <code>page.waitForNavigation</code>; <code>URL</code>; <code>page.url</code>; <code>/^0[,. ]/.test</code>; <code>(await page.$eval('#empuxo', e =&gt; e.textContent))!.trim</code>; <code>page.selectOption</code>; <code>assert.notEqual</code>; <code>movel.goto</code>; <code>movel.click</code>; <code>movel.waitForFunction</code>; <code>movel.$eval</code>; <code>movel.$$eval</code>; <code>movel.close</code>; <code>assert.deepEqual</code>; <code>browser?.close</code>; <code>Promise</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>!existsSync(executavel)</code>; <code>rota === '/' &amp;&amp; [1440, 390].includes(largura)</code>; <code>largura &lt; 960</code>; <code>servidor</code>; exceções: <code>new Error('Chrome não encontrado; configure CHROME_BIN.')</code> |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /**<br> * Valida site e interfaces nativas em Chrome, sem dependência de outro checkout.<br> * @param raiz Raiz única P2 com dist compilado. SITE_URL opcional usa servidor já<br> * ativo; sem ele abre preview local em porta livre. CHROME_BIN aponta navegador.<br> * @returns Evidências compactas. Escreve somente capturas/download em /tmp ou<br> * SCREENSHOT_DIR; comanda simuladores exclusivamente por seus controles públicos.<br> * @remarks Fecha browser/preview em finally. Nunca chama Firebase ou altera fontes.<br>  @contract f-533365172ff4d81e */ |
+
+</details>
+
+
+<a id="modulo-9"></a>
+## scripts/site/verificar.ts
+
+<a id="f-37e394dbdd56c265"></a>
+<details><summary>listarArquivos · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>scripts/site/verificar.ts::listarArquivos:FunctionDeclaration</code> · [fonte L7](../../scripts/site/verificar.ts#L7) |
+| Assinatura | <code>export (pasta: string): string[]</code> |
+| Responsabilidade | Enumera arquivos de uma saída conhecida em ordem estável; somente leitura FS. |
+| Entradas | <code>pasta: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>string[]</code>; expressões retornadas: <code>readdirSync(pasta, { withFileTypes: true }).flatMap(entrada =&gt; {<br>    const caminho = join(pasta, entrada.name);<br>    return entrada.isDirectory() ? listarArquivos(caminho) : [caminho];<br>}).sort()</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>readdirSync(pasta, { withFileTypes: true }).flatMap(entrada =&gt; {<br>    const caminho = join(pasta, entrada.name);<br>    return entrada.isDirectory() ? listarArquivos(caminho) : [caminho];<br>}).sort</code>; <code>readdirSync(pasta, { withFileTypes: true }).flatMap</code>; <code>readdirSync</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | [site/build/pluginInstitucional.test.ts](../../site/build/pluginInstitucional.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Enumera arquivos de uma saída conhecida em ordem estável; somente leitura FS.  @contract f-37e394dbdd56c265 */ |
+
+</details>
+
+<a id="f-e434e38838c174a9"></a>
+<details><summary>hashArquivo · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>scripts/site/verificar.ts::hashArquivo:FunctionDeclaration</code> · [fonte L15](../../scripts/site/verificar.ts#L15) |
+| Assinatura | <code>export (caminho: string): string</code> |
+| Responsabilidade | Lê bytes de um arquivo e retorna SHA-256; não normaliza PDF, imagens ou texto. |
+| Entradas | <code>caminho: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>string</code>; expressões retornadas: <code>createHash('sha256').update(readFileSync(caminho)).digest('hex')</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>createHash('sha256').update(readFileSync(caminho)).digest</code>; <code>createHash('sha256').update</code>; <code>createHash</code>; <code>readFileSync</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | [site/build/pluginInstitucional.test.ts](../../site/build/pluginInstitucional.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Lê bytes de um arquivo e retorna SHA-256; não normaliza PDF, imagens ou texto.  @contract f-e434e38838c174a9 */ |
+
+</details>
+
+<a id="f-4430a7c8ba885481"></a>
+<details><summary>resolverRecurso · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>scripts/site/verificar.ts::resolverRecurso:FunctionDeclaration</code> · [fonte L24](../../scripts/site/verificar.ts#L24) |
+| Assinatura | <code>export (dist: string, caminho: string): string</code> |
+| Responsabilidade | Resolve URL local dentro de dist, incluindo as duas rotas sem extensão. |
+| Entradas | <code>dist: string</code>; <code>caminho: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>string</code>; expressões retornadas: <code>alvo</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>decodeURIComponent</code>; <code>resolve</code>; <code>nome.startsWith</code>; <code>arquivo.startsWith</code>; <code>Error</code>; <code>join</code>; <code>['/pesquisa', '/simulador'].includes</code>; <code>existsSync</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>!nome.startsWith('/') &#124;&#124; (arquivo !== dist &amp;&amp; !arquivo.startsWith(dist + '/'))</code>; <code>!existsSync(alvo)</code>; exceções: <code>new Error(`Caminho fora de dist: ${caminho}`)</code>; <code>new Error(`Recurso ausente: ${caminho}`)</code> |
+| Testes | [site/build/pluginInstitucional.test.ts](../../site/build/pluginInstitucional.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /**<br> * Resolve URL local dentro de dist, incluindo as duas rotas sem extensão.<br> * @throws Em travessia de diretório, escape de dist ou recurso ausente.<br> * @returns Caminho absoluto existente, sem usar fallback para a homepage.<br>  @contract f-4430a7c8ba885481 */ |
+
+</details>
+
+<a id="f-85ec71145d9ea817"></a>
+<details><summary>verificarDistribuicao · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>scripts/site/verificar.ts::verificarDistribuicao:FunctionDeclaration</code> · [fonte L40](../../scripts/site/verificar.ts#L40) |
+| Assinatura | <code>export (raiz: string): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }</code> |
+| Responsabilidade | Qualifica arquivos e referências da distribuição única, sem executar simulação. |
+| Entradas | <code>raiz: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>{ paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }</code>; expressões retornadas: <code>{ paginas: entradas.length, imagens: imagens.size, referencias, pdfIdentico: true }</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>referencias</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>resolve</code>; <code>Set</code>; <code>readFileSync</code>; <code>join</code>; <code>/&lt;html[\s&gt;]/i.test</code>; <code>Error</code>; <code>/starship_v1&#124;vendor\/prototipo2&#124;src\/js\//.test</code>; <code>html.matchAll</code>; <code>imagens.add</code>; <code>/^(?:https?:&#124;data:&#124;mailto:)/.test</code>; <code>URL</code>; <code>resolverRecurso</code>; <code>arquivo.endsWith</code>; <code>readFileSync(arquivo, 'utf8').includes</code>; <code>decodeURIComponent</code>; <code>ref.hash.slice</code>; <code>srcset.split</code>; <code>imagem.trim().split</code>; <code>imagem.trim</code>; <code>listarArquivos</code>; <code>relative(dist, arquivo).replaceAll</code>; <code>relative</code>; <code>/^(?:docs&#124;src&#124;scripts&#124;vendor&#124;node_modules&#124;site)\/&#124;starship_v1&#124;\.(?:ts&#124;map)$/.test</code>; <code>hashArquivo</code>; <code>readFileSync(pdf).subarray(0, 5).equals</code>; <code>readFileSync(pdf).subarray</code>; <code>Buffer.from</code>; <code>JSON.parse</code>; <code>hosting.rewrites?.some</code>; <code>hosting.predeploy?.includes</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>!/&lt;html[\s&gt;]/i.test(html)</code>; <code>/starship_v1&#124;vendor\/prototipo2&#124;src\/js\//.test(html)</code>; <code>/^(?:https?:&#124;data:&#124;mailto:)/.test(url)</code>; <code>ref.hash &amp;&amp; arquivo.endsWith('.html') &amp;&amp; !readFileSync(arquivo, 'utf8').includes(`id="${decodeURIComponent(ref.hash.slice(1))}"`)</code>; <code>/^(?:docs&#124;src&#124;scripts&#124;vendor&#124;node_modules&#124;site)\/&#124;starship_v1&#124;\.(?:ts&#124;map)$/.test(nome)</code>; <code>hashArquivo(pdf) !== hashArquivo(resolve(raiz, fonteArtigo))</code>; <code>!readFileSync(pdf).subarray(0, 5).equals(Buffer.from('%PDF-'))</code>; <code>hosting.public !== 'dist' &#124;&#124; hosting.rewrites?.some((r: {<br>    source: string;<br>}) =&gt; r.source === '**')</code>; <code>!hosting.predeploy?.includes('npm --prefix "$PROJECT_DIR" run preparar:deploy')</code>; exceções: <code>new Error(`Página inválida: ${pagina}`)</code>; <code>new Error(`Dependência legada em ${pagina}`)</code>; <code>new Error(`Âncora ausente: ${url}`)</code>; <code>new Error(`Arquivo interno/legado publicado: ${nome}`)</code>; <code>new Error('PDF público diverge da fonte canônica.')</code>; <code>new Error('Fonte documental inválida.')</code>; <code>new Error('Hosting deve publicar somente dist, sem rewrite global.')</code>; <code>new Error('Hosting deve preparar e validar build antes de publicar.')</code> |
+| Testes | [site/build/pluginInstitucional.test.ts](../../site/build/pluginInstitucional.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /**<br> * Qualifica arquivos e referências da distribuição única, sem executar simulação.<br> * @param raiz Checkout P2 com build concluído; lê dist, fonte do artigo e Hosting.<br> * @returns Contagens auditáveis. Não grava arquivos nem chama Firebase/deploy.<br> * @throws Em página/recurso ausente, PDF divergente, publicação de internos/legado<br> * ou configuração que possa mascarar ausência de assets com HTML.<br>  @contract f-85ec71145d9ea817 */ |
+
+</details>
+
+
+<a id="modulo-10"></a>
 ## scripts/validar-hidrodinamica.ts
 
 <a id="f-cce6c0793c2585ad"></a>
@@ -927,7 +1072,399 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-9"></a>
+<a id="modulo-11"></a>
+## site/build/pluginInstitucional.ts
+
+<a id="f-1a321c694e8857ca"></a>
+<details><summary>pluginInstitucional · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>site/build/pluginInstitucional.ts::pluginInstitucional:FunctionDeclaration</code> · [fonte L16](../../site/build/pluginInstitucional.ts#L16) |
+| Assinatura | <code>export (raiz: string): Plugin</code> |
+| Responsabilidade | Integra HTMLs agrupados em site/ às rotas públicas, sem gerar conteúdo em JS. |
+| Entradas | <code>raiz: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>Plugin&lt;any&gt;</code>; expressões retornadas: <code>{<br>    name: 'site-institucional-unificado',<br>    enforce: 'post',<br>    configureServer(server) {<br>        desenvolvimento = true;<br>        server.middlewares.use(atenderInstitucional);<br>    },<br>    configurePreviewServer(server) {<br>        server.… [continua na fonte]</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: — |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | [site/build/pluginInstitucional.test.ts](../../site/build/pluginInstitucional.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /**<br> * Integra HTMLs agrupados em site/ às rotas públicas, sem gerar conteúdo em JS.<br> * @param raiz Checkout único do P2; resolve fontes e PDF dentro desse diretório.<br> * @returns Plugin Vite: lê fontes no dev e emite HTML/PDF somente no build.<br> * @remarks Não importa domínio físico, não sincroniza repositórios nem faz deploy.<br>  @contract f-1a321c694e8857ca */ |
+
+</details>
+
+<a id="f-8acac9034ca2a25b"></a>
+<details><summary>pluginInstitucional.atenderInstitucional · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>site/build/pluginInstitucional.ts::pluginInstitucional.atenderInstitucional:FunctionDeclaration</code> · [fonte L24](../../site/build/pluginInstitucional.ts#L24) |
+| Assinatura | <code> (req: IncomingMessage, res: ServerResponse, next: (erro?: unknown) =&gt; void): void</code> |
+| Responsabilidade | Mapeia somente rotas institucionais; dev serve a fonte canônica do PDF. |
+| Entradas | <code>req: IncomingMessage</code>; <code>res: ServerResponse</code>; <code>next: (erro?: unknown) =&gt; void</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>req.url</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>URL</code>; <code>paginasInstitucionais.find</code>; <code>next</code>; <code>readFileSync</code>; <code>resolve</code>; <code>res.setHeader</code>; <code>res.end</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>pagina</code>; <code>desenvolvimento &amp;&amp; url.pathname === caminhoArtigo</code>; exceções: — |
+| Testes | [site/build/pluginInstitucional.test.ts](../../site/build/pluginInstitucional.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /**<br>   * Mapeia somente rotas institucionais; dev serve a fonte canônica do PDF.<br>   * @returns void. Altera URL interna do servidor ou responde bytes/MIME; demais<br>   * recursos seguem ao Vite MPA, cujo fallback não transforma ausência em homepage.<br>    @contract f-8acac9034ca2a25b */ |
+
+</details>
+
+<a id="f-b467ce8ada76d63b"></a>
+<details><summary>pluginInstitucional.atenderInstitucional.next[tipo] · FunctionType</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>site/build/pluginInstitucional.ts::pluginInstitucional.atenderInstitucional.next[tipo]:FunctionType</code> · [fonte L24](../../site/build/pluginInstitucional.ts#L24) |
+| Assinatura | <code> (erro?: unknown): void</code> |
+| Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
+| Entradas | <code>erro?: unknown</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: — |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | [site/build/pluginInstitucional.test.ts](../../site/build/pluginInstitucional.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Extraída — REVISÃO NECESSÁRIA |
+| JSDoc integral | Ausente; sem contrato semântico confirmado. |
+
+</details>
+
+<a id="f-27a49be181fc5126"></a>
+<details><summary>pluginInstitucional.configureServer · MethodDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>site/build/pluginInstitucional.ts::pluginInstitucional.configureServer:MethodDeclaration</code> · [fonte L46](../../site/build/pluginInstitucional.ts#L46) |
+| Assinatura | <code> (server: ViteDevServer): void</code> |
+| Responsabilidade | Registra rotas das fontes no dev; não grava HTML de preparação na raiz. |
+| Entradas | <code>server</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>desenvolvimento</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>server.middlewares.use</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | [site/build/pluginInstitucional.test.ts](../../site/build/pluginInstitucional.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Registra rotas das fontes no dev; não grava HTML de preparação na raiz.  @contract f-27a49be181fc5126 */ |
+
+</details>
+
+<a id="f-3e76145b889c0ddc"></a>
+<details><summary>pluginInstitucional.configurePreviewServer · MethodDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>site/build/pluginInstitucional.ts::pluginInstitucional.configurePreviewServer:MethodDeclaration</code> · [fonte L51](../../site/build/pluginInstitucional.ts#L51) |
+| Assinatura | <code> (server: PreviewServer): void</code> |
+| Responsabilidade | Registra as mesmas URLs no preview do dist já compilado, sem fallback global. |
+| Entradas | <code>server</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>server.middlewares.use</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | [site/build/pluginInstitucional.test.ts](../../site/build/pluginInstitucional.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Registra as mesmas URLs no preview do dist já compilado, sem fallback global.  @contract f-3e76145b889c0ddc */ |
+
+</details>
+
+<a id="f-423d67f295d31202"></a>
+<details><summary>pluginInstitucional.generateBundle · MethodDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>site/build/pluginInstitucional.ts::pluginInstitucional.generateBundle:MethodDeclaration</code> · [fonte L59](../../site/build/pluginInstitucional.ts#L59) |
+| Assinatura | <code> (_opcoes: NormalizedOutputOptions, bundle: OutputBundle): void</code> |
+| Responsabilidade | Move as três saídas HTML para a raiz e emite PDF idêntico ao original. |
+| Entradas | <code>_opcoes</code>; <code>bundle</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>html.fileName</code>; <code>bundle[pagina]</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>this.error</code>; <code>this.emitFile</code>; <code>caminhoArtigo.slice</code>; <code>readFileSync</code>; <code>resolve</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>!html &#124;&#124; html.type !== 'asset'</code>; <code>bundle[pagina]</code>; exceções: — |
+| Testes | [site/build/pluginInstitucional.test.ts](../../site/build/pluginInstitucional.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /**<br>     * Move as três saídas HTML para a raiz e emite PDF idêntico ao original.<br>     * @remarks Executa após processamento HTML do Vite; recusa ausência/colisão.<br>     * Não copia bundle de simulador, diretório vizinho ou documento interno.<br>      @contract f-423d67f295d31202 */ |
+
+</details>
+
+
+<a id="modulo-12"></a>
+## site/scripts/carrossel.ts
+
+<a id="f-9538cdc37f1c3dd9"></a>
+<details><summary>iniciarCarrossel · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>site/scripts/carrossel.ts::iniciarCarrossel:FunctionDeclaration</code> · [fonte L9](../../site/scripts/carrossel.ts#L9) |
+| Assinatura | <code> (raiz: HTMLElement): void</code> |
+| Responsabilidade | Conecta imagens e controles declarados no hero, sem bibliotecas ou persistência. |
+| Entradas | <code>raiz: HTMLElement</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>controles.hidden</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>raiz.querySelectorAll</code>; <code>raiz.querySelector</code>; <code>window.matchMedia</code>; <code>raiz.querySelector&lt;HTMLButtonElement&gt;('[data-anterior]')!.addEventListener</code>; <code>raiz.querySelector&lt;HTMLButtonElement&gt;('[data-proximo]')!.addEventListener</code>; <code>botao.addEventListener</code>; <code>raiz.addEventListener</code>; <code>document.addEventListener</code>; <code>movimento.addEventListener</code>; <code>IntersectionObserver</code>; <code>observador.observe</code>; <code>atualizarReproducao</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>slides.length &lt; 2</code>; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /**<br> * Conecta imagens e controles declarados no hero, sem bibliotecas ou persistência.<br> * @param {HTMLElement} raiz Seção institucional; deve conter ao menos dois slides.<br> * @returns {void} Registra eventos/timer de apresentação. Validação: docs/arquitetura/site-institucional.md.<br>  @contract f-9538cdc37f1c3dd9 */ |
+
+</details>
+
+<a id="f-963ac9cd371bd2ec"></a>
+<details><summary>iniciarCarrossel.suspenderTroca · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>site/scripts/carrossel.ts::iniciarCarrossel.suspenderTroca:FunctionDeclaration</code> · [fonte L23](../../site/scripts/carrossel.ts#L23) |
+| Assinatura | <code> (): void</code> |
+| Responsabilidade | Cancela a única troca agendada; não altera o slide nem a intenção do operador. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>timer</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>clearTimeout</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Cancela a única troca agendada; não altera o slide nem a intenção do operador.  @contract f-963ac9cd371bd2ec */ |
+
+</details>
+
+<a id="f-fdbb963ecb3ebefc"></a>
+<details><summary>iniciarCarrossel.atualizarReproducao · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>site/scripts/carrossel.ts::iniciarCarrossel.atualizarReproducao:FunctionDeclaration</code> · [fonte L29](../../site/scripts/carrossel.ts#L29) |
+| Assinatura | <code> (): void</code> |
+| Responsabilidade | Atualiza controle acessível e agenda 7 s somente nas condições de reprodução. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>botao.disabled</code>; <code>botao.title</code>; <code>botao.textContent</code>; <code>raiz.dataset.estadoReproducao</code>; <code>timer</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>suspenderTroca</code>; <code>botao.setAttribute</code>; <code>String</code>; <code>botao.getAttribute</code>; <code>setTimeout</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>executar</code>; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Atualiza controle acessível e agenda 7 s somente nas condições de reprodução.  @contract f-fdbb963ecb3ebefc */ |
+
+</details>
+
+<a id="f-cc5467ffe01aa9a3"></a>
+<details><summary>iniciarCarrossel.mostrarSlide · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>site/scripts/carrossel.ts::iniciarCarrossel.mostrarSlide:FunctionDeclaration</code> · [fonte L48](../../site/scripts/carrossel.ts#L48) |
+| Assinatura | <code>async (novoIndice: number, anunciar?: boolean): Promise&lt;void&gt;</code> |
+| Responsabilidade | Exibe imagem decodificada; falha mantém a anterior e pedidos antigos não vencem. |
+| Entradas | <code>novoIndice: number</code>; <code>anunciar = false</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>Promise&lt;void&gt;</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>pedido</code>; <code>indice</code>; <code>contador.textContent</code>; <code>legenda.textContent</code>; <code>anuncio.textContent</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>slides[destino].decode</code>; <code>atualizarReproducao</code>; <code>slides.forEach</code>; <code>String(indice + 1).padStart</code>; <code>String</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>requisicao === pedido</code>; <code>requisicao !== pedido</code>; <code>anunciar</code>; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /**<br>   * Exibe imagem decodificada; falha mantém a anterior e pedidos antigos não vencem.<br>   * @param {number} novoIndice Índice circular solicitado, sem alterar layout ou foco.<br>   * @param {boolean} anunciar Anuncia posição/descrição somente por comando manual.<br>   * @returns {Promise&lt;void&gt;} Muda classes, aria-hidden, contador e legenda do hero.<br>    @contract f-cc5467ffe01aa9a3 */ |
+
+</details>
+
+<a id="f-8fe4019b6cef3434"></a>
+<details><summary>iniciarCarrossel.avancarAutomaticamente · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>site/scripts/carrossel.ts::iniciarCarrossel.avancarAutomaticamente:FunctionDeclaration</code> · [fonte L66](../../site/scripts/carrossel.ts#L66) |
+| Assinatura | <code> (): void</code> |
+| Responsabilidade | Avança pela apresentação, sem anúncio automático ou alteração de foco. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>mostrarSlide</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Avança pela apresentação, sem anúncio automático ou alteração de foco.  @contract f-8fe4019b6cef3434 */ |
+
+</details>
+
+<a id="f-defb9d267873e822"></a>
+<details><summary>iniciarCarrossel.anterior · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>site/scripts/carrossel.ts::iniciarCarrossel.anterior:FunctionDeclaration</code> · [fonte L69](../../site/scripts/carrossel.ts#L69) |
+| Assinatura | <code> (): void</code> |
+| Responsabilidade | Retrocede circularmente por comando e mantém autoplay pausado até retomada. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>pausado</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>suspenderTroca</code>; <code>mostrarSlide</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Retrocede circularmente por comando e mantém autoplay pausado até retomada.  @contract f-defb9d267873e822 */ |
+
+</details>
+
+<a id="f-5d9d664d2aeb859e"></a>
+<details><summary>iniciarCarrossel.proximo · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>site/scripts/carrossel.ts::iniciarCarrossel.proximo:FunctionDeclaration</code> · [fonte L72](../../site/scripts/carrossel.ts#L72) |
+| Assinatura | <code> (): void</code> |
+| Responsabilidade | Avança circularmente por comando e mantém autoplay pausado até retomada. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>pausado</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>suspenderTroca</code>; <code>mostrarSlide</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Avança circularmente por comando e mantém autoplay pausado até retomada.  @contract f-5d9d664d2aeb859e */ |
+
+</details>
+
+<a id="f-c929266d84219d37"></a>
+<details><summary>iniciarCarrossel.alternarReproducao · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>site/scripts/carrossel.ts::iniciarCarrossel.alternarReproducao:FunctionDeclaration</code> · [fonte L75](../../site/scripts/carrossel.ts#L75) |
+| Assinatura | <code> (): void</code> |
+| Responsabilidade | Alterna intenção de reprodução; movimento reduzido continua tendo prioridade. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>pausado</code>; <code>emFoco</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>atualizarReproducao</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Alterna intenção de reprodução; movimento reduzido continua tendo prioridade.  @contract f-c929266d84219d37 */ |
+
+</details>
+
+
+<a id="modulo-13"></a>
+## site/scripts/navegacao.ts
+
+<a id="f-6b6f4dc45ad56a89"></a>
+<details><summary>definirMenu · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>site/scripts/navegacao.ts::definirMenu:FunctionDeclaration</code> · [fonte L11](../../site/scripts/navegacao.ts#L11) |
+| Assinatura | <code> (aberto: boolean): void</code> |
+| Responsabilidade | Define a expansão móvel e seu estado acessível, sem alterar o foco ou o domínio. |
+| Entradas | <code>aberto: boolean</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>botao.setAttribute</code>; <code>String</code>; <code>menu.classList.toggle</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Define a expansão móvel e seu estado acessível, sem alterar o foco ou o domínio.  @contract f-6b6f4dc45ad56a89 */ |
+
+</details>
+
+<a id="f-8d92001118a9a067"></a>
+<details><summary>atualizarCabecalho · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>site/scripts/navegacao.ts::atualizarCabecalho:FunctionDeclaration</code> · [fonte L18](../../site/scripts/navegacao.ts#L18) |
+| Assinatura | <code> (): void</code> |
+| Responsabilidade | Alterna a apresentação do cabeçalho após 24 px de rolagem; não desloca a página. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>cabecalho.classList.toggle</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Alterna a apresentação do cabeçalho após 24 px de rolagem; não desloca a página.  @contract f-8d92001118a9a067 */ |
+
+</details>
+
+<a id="f-51386e4d1ec3385a"></a>
+<details><summary>alternarMenu · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>site/scripts/navegacao.ts::alternarMenu:FunctionDeclaration</code> · [fonte L23](../../site/scripts/navegacao.ts#L23) |
+| Assinatura | <code> (): void</code> |
+| Responsabilidade | Inverte a expansão solicitada pelo botão de navegação. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>definirMenu</code>; <code>botao.getAttribute</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Inverte a expansão solicitada pelo botão de navegação.  @contract f-51386e4d1ec3385a */ |
+
+</details>
+
+<a id="f-13c622d80e9db4ae"></a>
+<details><summary>fecharComEscape · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>site/scripts/navegacao.ts::fecharComEscape:FunctionDeclaration</code> · [fonte L28](../../site/scripts/navegacao.ts#L28) |
+| Assinatura | <code> (evento: KeyboardEvent): void</code> |
+| Responsabilidade | Fecha com Escape e devolve foco ao botão somente quando o menu estava aberto. |
+| Entradas | <code>evento: KeyboardEvent</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>botao.getAttribute</code>; <code>definirMenu</code>; <code>botao.focus</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>evento.key === 'Escape' &amp;&amp; botao.getAttribute('aria-expanded') === 'true'</code>; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Fecha com Escape e devolve foco ao botão somente quando o menu estava aberto.  @contract f-13c622d80e9db4ae */ |
+
+</details>
+
+<a id="f-4911937e4430a06a"></a>
+<details><summary>fecharPorLink · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>site/scripts/navegacao.ts::fecharPorLink:FunctionDeclaration</code> · [fonte L36](../../site/scripts/navegacao.ts#L36) |
+| Assinatura | <code> (evento: MouseEvent): void</code> |
+| Responsabilidade | Seguir um link recolhe o menu, preservando a navegação padrão e suas âncoras. |
+| Entradas | <code>evento: MouseEvent</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>evento.target.closest</code>; <code>definirMenu</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>evento.target instanceof Element &amp;&amp; evento.target.closest('a')</code>; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Seguir um link recolhe o menu, preservando a navegação padrão e suas âncoras.  @contract f-4911937e4430a06a */ |
+
+</details>
+
+<a id="f-ce59224d57a81597"></a>
+<details><summary>adequarMenu · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>site/scripts/navegacao.ts::adequarMenu:FunctionDeclaration</code> · [fonte L41](../../site/scripts/navegacao.ts#L41) |
+| Assinatura | <code> (): void</code> |
+| Responsabilidade | Evita manter uma expansão móvel residual quando a janela passa a desktop. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>definirMenu</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>desktop.matches</code>; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Evita manter uma expansão móvel residual quando a janela passa a desktop.  @contract f-ce59224d57a81597 */ |
+
+</details>
+
+
+<a id="modulo-14"></a>
 ## src/apresentacao/missao/CameraMissao.ts
 
 <a id="f-09a1763e24b38923"></a>
@@ -1007,7 +1544,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-10"></a>
+<a id="modulo-15"></a>
 ## src/apresentacao/missao/CenaMissao.ts
 
 <a id="f-630f6c4cff870920"></a>
@@ -1277,7 +1814,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-11"></a>
+<a id="modulo-16"></a>
 ## src/apresentacao/missao/EntradaMissao.ts
 
 <a id="f-aa10bea9c0ca5993"></a>
@@ -1452,7 +1989,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-12"></a>
+<a id="modulo-17"></a>
 ## src/apresentacao/missao/HudMissao.ts
 
 <a id="f-ebea6b265766d795"></a>
@@ -1532,7 +2069,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-13"></a>
+<a id="modulo-18"></a>
 ## src/apresentacao/missao/RenderizadorMissao.ts
 
 <a id="f-3676bd6b2dc965cc"></a>
@@ -1707,7 +2244,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-14"></a>
+<a id="modulo-19"></a>
 ## src/cenarios/BancadaBss.ts
 
 <a id="f-3f9895645d11ab94"></a>
@@ -2395,7 +2932,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-15"></a>
+<a id="modulo-20"></a>
 ## src/cenarios/BancadaBss003.ts
 
 <a id="f-222b829569202826"></a>
@@ -2760,7 +3297,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-16"></a>
+<a id="modulo-21"></a>
 ## src/cenarios/EnsaioMissaoBss005.ts
 
 <a id="f-de6aadae2b4cd7e6"></a>
@@ -2992,7 +3529,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-17"></a>
+<a id="modulo-22"></a>
 ## src/cenarios/EnsaioOrbitalInerte.ts
 
 <a id="f-b2090ed5afdb1862"></a>
@@ -3053,7 +3590,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-18"></a>
+<a id="modulo-23"></a>
 ## src/cenarios/ReproducaoDiarioBss005.ts
 
 <a id="f-8eaee0207c980ead"></a>
@@ -3209,68 +3746,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-19"></a>
-## src/home-carousel.ts
-
-<a id="f-d81bc825d033cc23"></a>
-<details><summary>showSlide · ArrowFunction</summary>
-
-| Campo | Contrato / evidência |
-|---|---|
-| Identificador | <code>src/home-carousel.ts::showSlide:ArrowFunction</code> · [fonte L14](../../src/home-carousel.ts#L14) |
-| Assinatura | <code> (index: number): void</code> |
-| Responsabilidade | Seleciona índice circular e atualiza classes, aria-hidden, inert, indicadores e contador no DOM; não atua no simulador. |
-| Entradas | <code>index: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
-| Saídas | Tipo <code>void</code>; expressões retornadas: — |
-| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>activeIndex</code>; <code>current.textContent</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>slides.forEach</code>; <code>dots.forEach</code>; <code>String(activeIndex + 1).padStart</code>; <code>String</code> |
-| Invariantes | Contrato documentado abaixo; ramos observados: <code>current</code>; exceções: — |
-| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Verificada (revisão explicitamente registrada) |
-| JSDoc integral | /** Seleciona índice circular e atualiza classes, aria-hidden, inert, indicadores e contador no DOM; não atua no simulador. @contract f-d81bc825d033cc23 @reviewed M12-DOC: implementação lida. */ |
-
-</details>
-
-<a id="f-288d155fbd30d4db"></a>
-<details><summary>stopAutoplay · ArrowFunction</summary>
-
-| Campo | Contrato / evidência |
-|---|---|
-| Identificador | <code>src/home-carousel.ts::stopAutoplay:ArrowFunction</code> · [fonte L35](../../src/home-carousel.ts#L35) |
-| Assinatura | <code> (): void</code> |
-| Responsabilidade | Cancela timer real do carrossel se existente e limpa referência; não controla tempo da missão. |
-| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
-| Saídas | Tipo <code>void</code>; expressões retornadas: — |
-| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>timer</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>window.clearInterval</code> |
-| Invariantes | Contrato documentado abaixo; ramos observados: <code>timer !== undefined</code>; exceções: — |
-| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Verificada (revisão explicitamente registrada) |
-| JSDoc integral | /** Cancela timer real do carrossel se existente e limpa referência; não controla tempo da missão. @contract f-288d155fbd30d4db @reviewed M12-DOC: implementação lida. */ |
-
-</details>
-
-<a id="f-66168cd64c3a9e72"></a>
-<details><summary>startAutoplay · ArrowFunction</summary>
-
-| Campo | Contrato / evidência |
-|---|---|
-| Identificador | <code>src/home-carousel.ts::startAutoplay:ArrowFunction</code> · [fonte L41](../../src/home-carousel.ts#L41) |
-| Assinatura | <code> (): void</code> |
-| Responsabilidade | Instala intervalo visual de 6000 ms apenas com movimento permitido, documento visível e sem timer vigente; alterna slides, não física. |
-| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
-| Saídas | Tipo <code>void</code>; expressões retornadas: — |
-| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>timer</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>window.setInterval</code> |
-| Invariantes | Contrato documentado abaixo; ramos observados: <code>reducedMotion &#124;&#124; document.hidden &#124;&#124; timer !== undefined</code>; exceções: — |
-| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Verificada (revisão explicitamente registrada) |
-| JSDoc integral | /** Instala intervalo visual de 6000 ms apenas com movimento permitido, documento visível e sem timer vigente; alterna slides, não física. @contract f-66168cd64c3a9e72 @reviewed M12-DOC: implementação lida. */ |
-
-</details>
-
-
-<a id="modulo-20"></a>
+<a id="modulo-24"></a>
 ## src/missoes/AmbienteAmerissagem.ts
 
 <a id="f-f44552b345a6763f"></a>
@@ -3293,7 +3769,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-21"></a>
+<a id="modulo-25"></a>
 ## src/missoes/AmbienteLancamento.ts
 
 <a id="f-8091c7d8f7b297f8"></a>
@@ -3316,7 +3792,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-22"></a>
+<a id="modulo-26"></a>
 ## src/missoes/CicloMissao.ts
 
 <a id="f-b04eae8408c853c9"></a>
@@ -3415,7 +3891,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-23"></a>
+<a id="modulo-27"></a>
 ## src/missoes/ContratoMissao.ts
 
 <a id="f-2f9e0038be674f24"></a>
@@ -3552,7 +4028,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-24"></a>
+<a id="modulo-28"></a>
 ## src/missoes/EnsaioAmerissagem.ts
 
 <a id="f-12deb531d4750ffb"></a>
@@ -3575,7 +4051,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-25"></a>
+<a id="modulo-29"></a>
 ## src/missoes/ExecutorMissao.ts
 
 <a id="f-4fb79278b0d3fc06"></a>
@@ -3598,7 +4074,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-26"></a>
+<a id="modulo-30"></a>
 ## src/missoes/MissaoBss006.ts
 
 <a id="f-3193da7b000083f4"></a>
@@ -3868,7 +4344,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-27"></a>
+<a id="modulo-31"></a>
 ## src/missoes/ObservacaoAmerissagem.ts
 
 <a id="f-1b2d123e0fbf8914"></a>
@@ -3910,7 +4386,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-28"></a>
+<a id="modulo-32"></a>
 ## src/missoes/RegistroMissao.ts
 
 <a id="f-4554d825e0078446"></a>
@@ -4161,7 +4637,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-29"></a>
+<a id="modulo-33"></a>
 ## src/missoes/ReplayMissaoBss006.ts
 
 <a id="f-8da6d56d70ab70fd"></a>
@@ -4298,7 +4774,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-30"></a>
+<a id="modulo-34"></a>
 ## src/missoes/SnapshotMissao.ts
 
 <a id="f-738b80ed4008a5b6"></a>
@@ -4321,7 +4797,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-31"></a>
+<a id="modulo-35"></a>
 ## src/orbitas.ts
 
 <a id="f-16848ec4b453ff12"></a>
@@ -4382,7 +4858,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-32"></a>
+<a id="modulo-36"></a>
 ## src/physics/MundoFisico.ts
 
 <a id="f-518ff75ab4b7f057"></a>
@@ -5412,7 +5888,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-33"></a>
+<a id="modulo-37"></a>
 ## src/physics/SistemaOperacional.ts
 
 <a id="f-d90f25d253e2ab58"></a>
@@ -5549,7 +6025,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-34"></a>
+<a id="modulo-38"></a>
 ## src/physics/SuperficieCosteira.ts
 
 <a id="f-6f0395858ebb9ab5"></a>
@@ -5686,7 +6162,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-35"></a>
+<a id="modulo-39"></a>
 ## src/physics/SuperficieEsferica.ts
 
 <a id="f-9eac1149d1a4ca7a"></a>
@@ -5785,7 +6261,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-36"></a>
+<a id="modulo-40"></a>
 ## src/physics/SuperficieFisica.ts
 
 <a id="f-de0f9204a43fbad4"></a>
@@ -6017,7 +6493,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-37"></a>
+<a id="modulo-41"></a>
 ## src/physics/SuperficiePlano.ts
 
 <a id="f-e05668c4d2d10883"></a>
@@ -6097,7 +6573,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-38"></a>
+<a id="modulo-42"></a>
 ## src/physics/SuperficiePlanoLocal.ts
 
 <a id="f-0b7412a4b180e52d"></a>
@@ -6215,7 +6691,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-39"></a>
+<a id="modulo-43"></a>
 ## src/physics/Vetor3.ts
 
 <a id="f-74cb96218f91335f"></a>
@@ -6352,7 +6828,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-40"></a>
+<a id="modulo-44"></a>
 ## src/physics/agua/GeometriaSubmersa.ts
 
 <a id="f-00378e285877f165"></a>
@@ -6508,7 +6984,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-41"></a>
+<a id="modulo-45"></a>
 ## src/physics/agua/RegiaoAquatica.ts
 
 <a id="f-42624cfaf3e01aed"></a>
@@ -6588,7 +7064,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-42"></a>
+<a id="modulo-46"></a>
 ## src/physics/agua/SistemaHidrodinamico.ts
 
 <a id="f-3ac2ce558ad57f3c"></a>
@@ -6839,7 +7315,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-43"></a>
+<a id="modulo-47"></a>
 ## src/physics/ambiente/AmbienteFisico.ts
 
 <a id="f-f65d4a56ef06dbbd"></a>
@@ -6919,7 +7395,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-44"></a>
+<a id="modulo-48"></a>
 ## src/physics/ambiente/CampoGravitacional.ts
 
 <a id="f-d84e2f25e040d596"></a>
@@ -7075,7 +7551,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-45"></a>
+<a id="modulo-49"></a>
 ## src/physics/ambiente/EstadoInicialLocal.ts
 
 <a id="f-4ab5e3de34eaedc3"></a>
@@ -7098,7 +7574,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-46"></a>
+<a id="modulo-50"></a>
 ## src/physics/ambiente/GeografiaCosteira.ts
 
 <a id="f-75cb7b00f89bfaba"></a>
@@ -7216,7 +7692,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-47"></a>
+<a id="modulo-51"></a>
 ## src/physics/ambiente/ReferencialFisico.ts
 
 <a id="f-a83a925cd4624e54"></a>
@@ -8018,7 +8494,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-48"></a>
+<a id="modulo-52"></a>
 ## src/physics/ambiente/TelemetriaOrbital.ts
 
 <a id="f-f08ef7862a1cdb97"></a>
@@ -8041,7 +8517,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-49"></a>
+<a id="modulo-53"></a>
 ## src/physics/cenarios/EnsaioPortaVertical.ts
 
 <a id="f-26bd768dc18b239f"></a>
@@ -8216,7 +8692,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-50"></a>
+<a id="modulo-54"></a>
 ## src/physics/conexoes/ChumbadorAoSolo.ts
 
 <a id="f-3edd21e1d5a19ecc"></a>
@@ -8429,7 +8905,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-51"></a>
+<a id="modulo-55"></a>
 ## src/physics/conexoes/ConexaoEletrica.ts
 
 <a id="f-379a6000119fc4ae"></a>
@@ -9155,7 +9631,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-52"></a>
+<a id="modulo-56"></a>
 ## src/physics/conexoes/FixadorEstrutural.ts
 
 <a id="f-cd671b03c8af2236"></a>
@@ -9577,7 +10053,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-53"></a>
+<a id="modulo-57"></a>
 ## src/physics/conexoes/GuiaLinear.ts
 
 <a id="f-912072f48d95626b"></a>
@@ -9676,7 +10152,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-54"></a>
+<a id="modulo-58"></a>
 ## src/physics/conexoes/JuntaRotacionalDeBancada.ts
 
 <a id="f-a132b0bde695eb85"></a>
@@ -9851,7 +10327,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-55"></a>
+<a id="modulo-59"></a>
 ## src/physics/conexoes/eletrica/Contator.ts
 
 <a id="f-3376117ecdde8868"></a>
@@ -9931,7 +10407,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-56"></a>
+<a id="modulo-60"></a>
 ## src/physics/conexoes/eletrica/Interruptor.ts
 
 <a id="f-33f15af7abb38cd9"></a>
@@ -10011,7 +10487,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-57"></a>
+<a id="modulo-61"></a>
 ## src/physics/conexoes/eletrica/Resistor.ts
 
 <a id="f-464f0a613325638b"></a>
@@ -10053,7 +10529,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-58"></a>
+<a id="modulo-62"></a>
 ## src/physics/estruturas/ConjuntoEstruturalRigido.ts
 
 <a id="f-d3848f1d1b9d7918"></a>
@@ -10437,7 +10913,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-59"></a>
+<a id="modulo-63"></a>
 ## src/physics/geometria/ContatoCaixasOrientadas.ts
 
 <a id="f-738d840a42e74122"></a>
@@ -10631,7 +11107,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-60"></a>
+<a id="modulo-64"></a>
 ## src/physics/objetos/atuadores/Cilindro.ts
 
 <a id="f-0268843ba048392d"></a>
@@ -10996,7 +11472,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-61"></a>
+<a id="modulo-65"></a>
 ## src/physics/objetos/atuadores/CilindroEletrico.ts
 
 <a id="f-57b1b7d21164f2d4"></a>
@@ -11342,7 +11818,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-62"></a>
+<a id="modulo-66"></a>
 ## src/physics/objetos/atuadores/MotorEletricoRotacional.ts
 
 <a id="f-338925f6e3377ab1"></a>
@@ -11498,7 +11974,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-63"></a>
+<a id="modulo-67"></a>
 ## src/physics/objetos/base/Objeto.ts
 
 <a id="f-0a5a2a6326f96011"></a>
@@ -12528,7 +13004,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-64"></a>
+<a id="modulo-68"></a>
 ## src/physics/objetos/base/ObjetoTriangularRetangulo.ts
 
 <a id="f-13053ef3d73ba42a"></a>
@@ -12608,7 +13084,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-65"></a>
+<a id="modulo-69"></a>
 ## src/physics/objetos/componentes/AletaAerodinamica.ts
 
 <a id="f-740741f36db4d1e3"></a>
@@ -12764,7 +13240,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-66"></a>
+<a id="modulo-70"></a>
 ## src/physics/objetos/componentes/Paraquedas.ts
 
 <a id="f-a9ae40fb84d5293f"></a>
@@ -13015,7 +13491,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-67"></a>
+<a id="modulo-71"></a>
 ## src/physics/objetos/fontes-de-energia/Bateria.ts
 
 <a id="f-b8dcea8c991456f9"></a>
@@ -13209,7 +13685,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-68"></a>
+<a id="modulo-72"></a>
 ## src/physics/objetos/fontes-de-energia/FonteEletrica.ts
 
 <a id="f-ab20e650db054ae0"></a>
@@ -13232,7 +13708,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-69"></a>
+<a id="modulo-73"></a>
 ## src/physics/objetos/fontes-de-energia/GeradorCA.ts
 
 <a id="f-692af7e2d7d6cffa"></a>
@@ -13521,7 +13997,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-70"></a>
+<a id="modulo-74"></a>
 ## src/physics/objetos/fontes-de-energia/PainelSolar.ts
 
 <a id="f-c5ec22d9c45e3d17"></a>
@@ -13829,7 +14305,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-71"></a>
+<a id="modulo-75"></a>
 ## src/physics/objetos/fontes-de-energia/TanquePropelente.ts
 
 <a id="f-5e48dc8f6370a867"></a>
@@ -13947,7 +14423,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-72"></a>
+<a id="modulo-76"></a>
 ## src/physics/objetos/mecanismos/BracoArticuladoDeBancada.ts
 
 <a id="f-2429e53025cf49cb"></a>
@@ -14027,7 +14503,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-73"></a>
+<a id="modulo-77"></a>
 ## src/physics/objetos/mecanismos/ConjuntoPortaBatente.ts
 
 <a id="f-288f1848d7fa9e2a"></a>
@@ -14202,7 +14678,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-74"></a>
+<a id="modulo-78"></a>
 ## src/physics/objetos/mecanismos/Porta.ts
 
 <a id="f-b99653bcaa9220e0"></a>
@@ -14909,7 +15385,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-75"></a>
+<a id="modulo-79"></a>
 ## src/physics/objetos/mecanismos/TravaPorta.ts
 
 <a id="f-b39a816efc5a1c38"></a>
@@ -15198,7 +15674,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-76"></a>
+<a id="modulo-80"></a>
 ## src/physics/objetos/propulsao/Propulsor.ts
 
 <a id="f-20905674966ffa86"></a>
@@ -16152,7 +16628,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-77"></a>
+<a id="modulo-81"></a>
 ## src/physics/objetos/propulsao/PropulsorVetorizado.ts
 
 <a id="f-77abc1442947b6a6"></a>
@@ -16270,7 +16746,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-78"></a>
+<a id="modulo-82"></a>
 ## src/physics/objetos/propulsao/alimentacao/BombaPropelente.ts
 
 <a id="f-08499cf7b7b5281e"></a>
@@ -16369,7 +16845,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-79"></a>
+<a id="modulo-83"></a>
 ## src/physics/objetos/propulsao/alimentacao/LinhaDePropelente.ts
 
 <a id="f-e6203b52037d845b"></a>
@@ -16620,7 +17096,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-80"></a>
+<a id="modulo-84"></a>
 ## src/physics/objetos/propulsao/alimentacao/ValvulaPropelente.ts
 
 <a id="f-8ee9a0cb7c08bc7e"></a>
@@ -16700,7 +17176,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-81"></a>
+<a id="modulo-85"></a>
 ## src/physics/objetos/propulsao/combustao/Bocal.ts
 
 <a id="f-a3901e8f9e6759b1"></a>
@@ -16780,7 +17256,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-82"></a>
+<a id="modulo-86"></a>
 ## src/physics/objetos/propulsao/combustao/CamaraCombustao.ts
 
 <a id="f-b0538dd43b1921f1"></a>
@@ -16841,7 +17317,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-83"></a>
+<a id="modulo-87"></a>
 ## src/physics/objetos/propulsao/vetorizacao/AtuadorVetorizacao.ts
 
 <a id="f-d5fed7dda85b3573"></a>
@@ -16940,7 +17416,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-84"></a>
+<a id="modulo-88"></a>
 ## src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts
 
 <a id="f-eca3958041fee892"></a>
@@ -17039,7 +17515,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-85"></a>
+<a id="modulo-89"></a>
 ## src/physics/objetos/veiculos/Bss03.ts
 
 <a id="f-860287d56592b29a"></a>
@@ -17176,7 +17652,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-86"></a>
+<a id="modulo-90"></a>
 ## src/physics/objetos/veiculos/Bss04.ts
 
 <a id="f-618b5173fdbe54b8"></a>
@@ -17237,7 +17713,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-87"></a>
+<a id="modulo-91"></a>
 ## src/physics/objetos/veiculos/ComputadorDeVoo.ts
 
 <a id="f-812afc3623292bce"></a>
@@ -18172,7 +18648,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-88"></a>
+<a id="modulo-92"></a>
 ## src/physics/objetos/veiculos/VeiculoAlado.ts
 
 <a id="f-a0a40213b7cd3903"></a>
@@ -18233,7 +18709,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-89"></a>
+<a id="modulo-93"></a>
 ## src/physics/objetos/veiculos/VeiculoComposto.ts
 
 <a id="f-64296b093cc455c5"></a>
@@ -19073,7 +19549,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-90"></a>
+<a id="modulo-94"></a>
 ## src/physics/objetos/veiculos/VeiculoTerrestre.ts
 
 <a id="f-11d563c8accc999f"></a>
@@ -19343,7 +19819,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-91"></a>
+<a id="modulo-95"></a>
 ## src/physics/sensores/SensoresVeiculoComposto.ts
 
 <a id="f-1a302daca133db57"></a>
@@ -19632,7 +20108,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-92"></a>
+<a id="modulo-96"></a>
 ## src/physics/sensores/SistemaSensores.ts
 
 <a id="f-11d76a7fff48a0bd"></a>
@@ -19826,7 +20302,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-93"></a>
+<a id="modulo-97"></a>
 ## src/physics/sensores/SwitchFimDeCurso.ts
 
 <a id="f-958eb2b7694765e1"></a>
@@ -20191,7 +20667,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-94"></a>
+<a id="modulo-98"></a>
 ## src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.ts
 
 <a id="f-e507ddc521012566"></a>
@@ -20290,7 +20766,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-95"></a>
+<a id="modulo-99"></a>
 ## src/physics/sistemas de controle/ControladorAletasAerodinamicas.ts
 
 <a id="f-63d060f8a840b02f"></a>
@@ -20370,7 +20846,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-96"></a>
+<a id="modulo-100"></a>
 ## src/physics/sistemas de controle/ControladorDesaceleracao.ts
 
 <a id="f-2df8a6ec72d97e33"></a>
@@ -20507,7 +20983,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-97"></a>
+<a id="modulo-101"></a>
 ## src/physics/sistemas de controle/ControladorDesaceleracaoDePropulsores.ts
 
 <a id="f-c21cd42fd0b7de7c"></a>
@@ -20606,7 +21082,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-98"></a>
+<a id="modulo-102"></a>
 ## src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.ts
 
 <a id="f-f48142ef0b2674dd"></a>
@@ -20819,7 +21295,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-99"></a>
+<a id="modulo-103"></a>
 ## src/physics/sistemas de controle/ControladorGimbalDescidaDePropulsores.ts
 
 <a id="f-cce221037c45b500"></a>
@@ -20937,7 +21413,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-100"></a>
+<a id="modulo-104"></a>
 ## src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts
 
 <a id="f-51e931aaa927f1e1"></a>
@@ -21150,7 +21626,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-101"></a>
+<a id="modulo-105"></a>
 ## src/physics/sistemas de controle/ControladorInclinacaoDePropulsores.ts
 
 <a id="f-072ca5129fc83639"></a>
@@ -21306,7 +21782,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-102"></a>
+<a id="modulo-106"></a>
 ## src/physics/sistemas de controle/ControladorInclinacaoPid.ts
 
 <a id="f-6fd33485b6c6ed80"></a>
@@ -21405,7 +21881,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-103"></a>
+<a id="modulo-107"></a>
 ## src/physics/sistemas de controle/ControladorPerfilVooExperimental.ts
 
 <a id="f-0c9abac72f8565f4"></a>
@@ -21447,7 +21923,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-104"></a>
+<a id="modulo-108"></a>
 ## src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts
 
 <a id="f-093ae6a77da90e61"></a>
@@ -21736,7 +22212,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-105"></a>
+<a id="modulo-109"></a>
 ## src/physics/sistemas de controle/ControladorPouso.ts
 
 <a id="f-d697d010640b8674"></a>
@@ -21892,7 +22368,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-106"></a>
+<a id="modulo-110"></a>
 ## src/physics/sistemas de controle/ControladorPousoDePropulsores.ts
 
 <a id="f-23b3b270943a05e3"></a>
@@ -22010,7 +22486,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-107"></a>
+<a id="modulo-111"></a>
 ## src/physics/sistemas de controle/GerenciadorDeControladores.ts
 
 <a id="f-c239c04410fd7830"></a>
@@ -22242,7 +22718,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-108"></a>
+<a id="modulo-112"></a>
 ## src/physics/solucionadores/IntegradorFisico.ts
 
 <a id="f-37bd83a7107d9325"></a>
@@ -22284,7 +22760,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-109"></a>
+<a id="modulo-113"></a>
 ## src/physics/solucionadores/ResolvedorColisoes.ts
 
 <a id="f-20b3443c43cccc2d"></a>
@@ -22592,7 +23068,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-110"></a>
+<a id="modulo-114"></a>
 ## src/physics/solucionadores/ResolvedorContatoSuperficie.ts
 
 <a id="f-c962b279ad805fe0"></a>
@@ -23033,7 +23509,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-111"></a>
+<a id="modulo-115"></a>
 ## src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts
 
 <a id="f-ca6b22a41219e7be"></a>
@@ -23113,7 +23589,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-112"></a>
+<a id="modulo-116"></a>
 ## src/physics/solucionadores/SistemaAtmosferico.ts
 
 <a id="f-6538ff18b9c53fb0"></a>
@@ -23288,7 +23764,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-113"></a>
+<a id="modulo-117"></a>
 ## src/physics/solucionadores/SistemaTermico.ts
 
 <a id="f-4a293a694405dea2"></a>
@@ -23387,7 +23863,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-114"></a>
+<a id="modulo-118"></a>
 ## src/simulacao/ExecutorPassoFixo.ts
 
 <a id="f-b5c741e87d68944a"></a>
@@ -23562,7 +24038,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-115"></a>
+<a id="modulo-119"></a>
 ## src/testes.ts
 
 <a id="f-5e1aa4998dc58a80"></a>
@@ -30045,7 +30521,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-116"></a>
+<a id="modulo-120"></a>
 ## src/validacao/ReferenciaBancadaM10.ts
 
 <a id="f-3b5aba79d123ca41"></a>
@@ -30106,7 +30582,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-117"></a>
+<a id="modulo-121"></a>
 ## src/veiculos/DefinicaoBss006.ts
 
 <a id="f-2f5724b4057c7208"></a>
@@ -30129,7 +30605,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-118"></a>
+<a id="modulo-122"></a>
 ## src/veiculos/HidrodinamicaBss006.ts
 
 <a id="f-af9fca02b4f4ccdc"></a>
@@ -30152,7 +30628,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-119"></a>
+<a id="modulo-123"></a>
 ## src/veiculos/MontagemBss.ts
 
 <a id="f-fd616459b962f64d"></a>
@@ -30536,7 +31012,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-120"></a>
+<a id="modulo-124"></a>
 ## src/veiculos/TelemetriaBss.ts
 
 <a id="f-4b8411290e34c3a4"></a>
@@ -30559,7 +31035,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-121"></a>
+<a id="modulo-125"></a>
 ## src/visualizacao/CameraFisica2D.ts
 
 <a id="f-07a1929a163d1610"></a>
@@ -30620,7 +31096,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-122"></a>
+<a id="modulo-126"></a>
 ## src/visualizacao/ConexoesEletricas.ts
 
 <a id="f-aff2a7f3384f78eb"></a>
@@ -30738,7 +31214,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-123"></a>
+<a id="modulo-127"></a>
 ## src/visualizacao/RegistroEnsaioBancada.ts
 
 <a id="f-b8117d1c26329bb7"></a>
@@ -30818,7 +31294,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-124"></a>
+<a id="modulo-128"></a>
 ## src/visualizacao/TracePLC.ts
 
 <a id="f-c59acbd9414e88e5"></a>
@@ -31066,15 +31542,65 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>scripts/documentacao/cli.ts::hashExecutavel.[callback]:ArrowFunction#1</code> · [L67](../../scripts/documentacao/cli.ts#L67) | <code>(d: ts.Diagnostic): boolean</code> | — / — |
 | <code>scripts/documentacao/cli.ts::verificarBaseExecutavel.[callback]:ArrowFunction#1</code> · [L88](../../scripts/documentacao/cli.ts#L88) | <code>(a: string): boolean</code> | <code>/\.[cm]?tsx?$/.test</code> / — |
 | <code>scripts/documentacao/cli.ts::verificarBaseExecutavel.[callback]:ArrowFunction#2</code> · [L89](../../scripts/documentacao/cli.ts#L89) | <code>(a: string): boolean</code> | <code>execFileSync</code>; <code>readFileSync</code>; <code>resolve</code>; <code>hashExecutavel</code> / <code>atual</code> |
-| <code>scripts/documentacao/projeto.ts::carregarProjeto.[callback]:ArrowFunction#1</code> · [L36](../../scripts/documentacao/projeto.ts#L36) | <code>(p: string): string</code> | <code>readFileSync</code> / — |
-| <code>scripts/documentacao/projeto.ts::carregarProjeto.[callback]:ArrowFunction#2</code> · [L41](../../scripts/documentacao/projeto.ts#L41) | <code>(a: string): ts.SourceFile</code> | <code>programa.getSourceFile</code> / — |
-| <code>scripts/documentacao/projeto.ts::carregarProjeto.[callback]:ArrowFunction#3</code> · [L42](../../scripts/documentacao/projeto.ts#L42) | <code>(a: string): string</code> | <code>relative</code>; <code>resolve</code> / — |
+| <code>scripts/documentacao/projeto.ts::carregarProjeto.[callback]:ArrowFunction#1</code> · [L37](../../scripts/documentacao/projeto.ts#L37) | <code>(p: string): string</code> | <code>readFileSync</code> / — |
+| <code>scripts/documentacao/projeto.ts::carregarProjeto.[callback]:ArrowFunction#2</code> · [L42](../../scripts/documentacao/projeto.ts#L42) | <code>(a: string): ts.SourceFile</code> | <code>programa.getSourceFile</code> / — |
+| <code>scripts/documentacao/projeto.ts::carregarProjeto.[callback]:ArrowFunction#3</code> · [L43](../../scripts/documentacao/projeto.ts#L43) | <code>(a: string): string</code> | <code>relative</code>; <code>resolve</code> / — |
+| <code>scripts/site/smoke.ts::abrirPagina.[callback]:ArrowFunction#1</code> · [L15](../../scripts/site/smoke.ts#L15) | <code>(e: Error): number</code> | <code>erros.push</code>; <code>String</code> / — |
+| <code>scripts/site/smoke.ts::abrirPagina.[callback]:ArrowFunction#2</code> · [L16](../../scripts/site/smoke.ts#L16) | <code>(m: ConsoleMessage): void</code> | <code>m.type</code>; <code>erros.push</code>; <code>m.text</code> / — |
+| <code>scripts/site/smoke.ts::abrirPagina.[callback]:ArrowFunction#3</code> · [L17](../../scripts/site/smoke.ts#L17) | <code>(r: Response): void</code> | <code>r.status</code>; <code>falhas.push</code>; <code>r.url</code> / — |
+| <code>scripts/site/smoke.ts::conferirImagens.[callback]:ArrowFunction#1</code> · [L23](../../scripts/site/smoke.ts#L23) | <code>(): Promise&lt;void&gt;</code> | <code>window.scrollTo</code>; <code>Promise</code>; <code>Promise.all</code>; <code>[...document.images].map</code> / <code>y</code> |
+| <code>scripts/site/smoke.ts::conferirImagens.[callback]#1.[callback]:ArrowFunction#1</code> · [L26](../../scripts/site/smoke.ts#L26) | <code>(r: (value: unknown) =&gt; void): NodeJS.Timeout</code> | <code>setTimeout</code> / — |
+| <code>scripts/site/smoke.ts::conferirImagens.[callback]#1.[callback]:ArrowFunction#2</code> · [L28](../../scripts/site/smoke.ts#L28) | <code>(i: HTMLImageElement): Promise&lt;void&gt;</code> | <code>i.decode</code> / — |
+| <code>scripts/site/smoke.ts::conferirImagens.[callback]#1.[callback]:ArrowFunction#3</code> · [L30](../../scripts/site/smoke.ts#L30) | <code>(r: (value: unknown) =&gt; void): number</code> | <code>requestAnimationFrame</code> / — |
+| <code>scripts/site/smoke.ts::conferirImagens.[callback]#1.[callback]#3.[callback]:ArrowFunction#1</code> · [L30](../../scripts/site/smoke.ts#L30) | <code>(): number</code> | <code>requestAnimationFrame</code> / — |
+| <code>scripts/site/smoke.ts::conferirImagens.[callback]:ArrowFunction#2</code> · [L32](../../scripts/site/smoke.ts#L32) | <code>(): boolean</code> | — / — |
+| <code>scripts/site/smoke.ts::conferirImagens.[callback]:ArrowFunction#3</code> · [L33](../../scripts/site/smoke.ts#L33) | <code>(): boolean</code> | <code>[...document.images].every</code> / — |
+| <code>scripts/site/smoke.ts::conferirImagens.[callback]#3.[callback]:ArrowFunction#1</code> · [L33](../../scripts/site/smoke.ts#L33) | <code>(i: HTMLImageElement): boolean</code> | — / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#1</code> · [L59](../../scripts/site/smoke.ts#L59) | <code>(e: HTMLElement &#124; SVGElement): string</code> | — / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#2</code> · [L60](../../scripts/site/smoke.ts#L60) | <code>(): boolean</code> | <code>document.querySelector</code> / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#3</code> · [L62](../../scripts/site/smoke.ts#L62) | <code>(): boolean</code> | <code>document.querySelector</code> / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#4</code> · [L63](../../scripts/site/smoke.ts#L63) | <code>(e: HTMLElement &#124; SVGElement): string</code> | — / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#5</code> · [L64](../../scripts/site/smoke.ts#L64) | <code>(e: HTMLElement &#124; SVGElement): string &#124; null</code> | <code>e.getAttribute</code> / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#6</code> · [L66](../../scripts/site/smoke.ts#L66) | <code>(e: HTMLElement &#124; SVGElement): string</code> | — / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#7</code> · [L68](../../scripts/site/smoke.ts#L68) | <code>(): void</code> | <code>(document.activeElement as HTMLElement).blur</code> / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#8</code> · [L69](../../scripts/site/smoke.ts#L69) | <code>(): boolean</code> | <code>document.querySelector</code> / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#9</code> · [L71](../../scripts/site/smoke.ts#L71) | <code>(): boolean</code> | <code>document.querySelector</code> / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#10</code> · [L81](../../scripts/site/smoke.ts#L81) | <code>(es: HTMLHeadingElement[]): number</code> | — / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#11</code> · [L88](../../scripts/site/smoke.ts#L88) | <code>(e: HTMLElement &#124; SVGElement): string &#124; null</code> | <code>e.getAttribute</code> / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#12</code> · [L90](../../scripts/site/smoke.ts#L90) | <code>(e: HTMLElement &#124; SVGElement): boolean</code> | — / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#13</code> · [L92](../../scripts/site/smoke.ts#L92) | <code>(): boolean</code> | — / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#14</code> · [L93](../../scripts/site/smoke.ts#L93) | <code>(e: HTMLElement &#124; SVGElement): string &#124; null</code> | <code>e.getAttribute</code> / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#15</code> · [L105](../../scripts/site/smoke.ts#L105) | <code>(): boolean</code> | <code>location.href.includes</code> / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#16</code> · [L118](../../scripts/site/smoke.ts#L118) | <code>(): boolean</code> | <code>Number</code>; <code>document.querySelector('#tempo-missao')!.textContent!.replace(/[^\d.,]/g, '').replace</code>; <code>document.querySelector('#tempo-missao')!.textContent!.replace</code>; <code>document.querySelector</code> / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#17</code> · [L120](../../scripts/site/smoke.ts#L120) | <code>(e: HTMLElement &#124; SVGElement): string</code> | — / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#18</code> · [L123](../../scripts/site/smoke.ts#L123) | <code>(e: HTMLElement &#124; SVGElement): boolean</code> | — / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#19</code> · [L127](../../scripts/site/smoke.ts#L127) | <code>(e: HTMLElement &#124; SVGElement): string</code> | — / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#20</code> · [L129](../../scripts/site/smoke.ts#L129) | <code>(e: HTMLElement &#124; SVGElement): string</code> | — / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#21</code> · [L131](../../scripts/site/smoke.ts#L131) | <code>(es: (HTMLElement &#124; SVGElement)[]): number</code> | — / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#22</code> · [L133](../../scripts/site/smoke.ts#L133) | <code>(e: HTMLElement &#124; SVGElement): string</code> | — / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#23</code> · [L140](../../scripts/site/smoke.ts#L140) | <code>(): boolean</code> | <code>Number</code>; <code>document.querySelector('#tempo-missao')!.textContent!.replace(/[^\d.,]/g, '').replace</code>; <code>document.querySelector('#tempo-missao')!.textContent!.replace</code>; <code>document.querySelector</code> / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#24</code> · [L143](../../scripts/site/smoke.ts#L143) | <code>(e: HTMLElement &#124; SVGElement): string</code> | — / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#25</code> · [L145](../../scripts/site/smoke.ts#L145) | <code>(e: HTMLElement &#124; SVGElement): string</code> | — / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#26</code> · [L147](../../scripts/site/smoke.ts#L147) | <code>(es: (HTMLElement &#124; SVGElement)[]): number</code> | — / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#27</code> · [L149](../../scripts/site/smoke.ts#L149) | <code>(e: HTMLElement &#124; SVGElement): string</code> | — / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#28</code> · [L160](../../scripts/site/smoke.ts#L160) | <code>(concluir: (value: void &#124; PromiseLike&lt;void&gt;) =&gt; void, falhar: (reason?: any) =&gt; void): Server&lt;typeof IncomingMessage, typeof ServerResponse&gt; &#124; Http2SecureServer&lt;typeof IncomingMessage, typeof ServerResponse, typeof Http2ServerRequest, typeof Http2ServerResponse&gt;</code> | <code>servidor.httpServer.close</code> / — |
+| <code>scripts/site/smoke.ts::executarSmokeSite.[callback]#28.[callback]:ArrowFunction#1</code> · [L160](../../scripts/site/smoke.ts#L160) | <code>(erro: Error &#124; undefined): void</code> | <code>falhar</code>; <code>concluir</code> / — |
+| <code>scripts/site/verificar.ts::listarArquivos.[callback]:ArrowFunction#1</code> · [L8](../../scripts/site/verificar.ts#L8) | <code>(this: undefined, entrada: Dirent&lt;string&gt;): string[]</code> | <code>join</code>; <code>entrada.isDirectory</code>; <code>listarArquivos</code> / — |
+| <code>scripts/site/verificar.ts::verificarDistribuicao.[callback]:ArrowFunction#1</code> · [L69](../../scripts/site/verificar.ts#L69) | <code>(r: { source: string; }): boolean</code> | — / — |
 | <code>scripts/validar-hidrodinamica.ts::[callback]:ArrowFunction#1</code> · [L30](../../scripts/validar-hidrodinamica.ts#L30) | <code>(h: number, i: number): { h: number; volumeAnaliticoM3: number; volumeMedidoM3: number; forcaAnaliticaN: number; forcaMedidaN: number; }</code> | <code>criar</code>; <code>Vetor3</code>; <code>p.m.obterImersao</code>; <code>p.ambiente.campo.aceleracaoEm</code>; <code>p.o.getEstadoFisico</code> / — |
 | <code>scripts/validar-hidrodinamica.ts::[callback]:ArrowFunction#2</code> · [L38](../../scripts/validar-hidrodinamica.ts#L38) | <code>({ d, GM }: { d: Vetor3; GM: number; }): { dimensoesM: Vetor3; GM: number; torqueAnaliticoNm: number; torqueMedidoNm: number; erroRelativo: number; }</code> | <code>criar</code>; <code>p.m.obterImersao</code>; <code>p.ambiente.campo.aceleracaoEm</code>; <code>Math.abs</code> / — |
 | <code>scripts/validar-hidrodinamica.ts::[callback]:ArrowFunction#3</code> · [L43](../../scripts/validar-hidrodinamica.ts#L43) | <code>(dtS: number): { estado: EstadoFisico; imersao: EstadoImersao; integridade: number; massaKg: number; dtS: number; }</code> | <code>criar</code>; <code>Vetor3</code>; <code>avancar</code> / — |
 | <code>scripts/validar-hidrodinamica.ts::[callback]:ArrowFunction#4</code> · [L47](../../scripts/validar-hidrodinamica.ts#L47) | <code>(dtS: number): { estado: EstadoFisico; imersao: EstadoImersao; integridade: number; massaKg: number; dtS: number; }</code> | <code>avancar</code>; <code>criar</code>; <code>Vetor3</code> / — |
 | <code>scripts/validar-hidrodinamica.ts::[callback]:ArrowFunction#5</code> · [L55](../../scripts/validar-hidrodinamica.ts#L55) | <code>(v: number): { vMps: number; analiticoN: number; medidoN: number; }</code> | <code>criar</code>; <code>Vetor3</code>; <code>SistemaHidrodinamico</code>; <code>sistema.registrar</code>; <code>sistema.calcular</code> / — |
 | <code>scripts/validar-hidrodinamica.ts::[callback]#5.[callback]:ArrowFunction#1</code> · [L57](../../scripts/validar-hidrodinamica.ts#L57) | <code>(q: Vetor3): Vetor3</code> | <code>p.ambiente.campo.aceleracaoEm</code> / — |
+| <code>site/build/pluginInstitucional.ts::pluginInstitucional.atenderInstitucional.[callback]:ArrowFunction#1</code> · [L26](../../site/build/pluginInstitucional.ts#L26) | <code>(p: "index.html" &#124; "pesquisa.html" &#124; "simulador.html"): boolean</code> | <code>p.slice</code> / — |
+| <code>site/scripts/carrossel.ts::iniciarCarrossel.mostrarSlide.[callback]:ArrowFunction#1</code> · [L55](../../site/scripts/carrossel.ts#L55) | <code>(slide: HTMLImageElement, i: number): void</code> | <code>slide.classList.toggle</code>; <code>slide.setAttribute</code>; <code>String</code> / — |
+| <code>site/scripts/carrossel.ts::iniciarCarrossel.[callback]:ArrowFunction#1</code> · [L81](../../site/scripts/carrossel.ts#L81) | <code>(this: HTMLElement, evento: PointerEvent): void</code> | <code>atualizarReproducao</code> / <code>sobreposto</code> |
+| <code>site/scripts/carrossel.ts::iniciarCarrossel.[callback]:ArrowFunction#2</code> · [L82](../../site/scripts/carrossel.ts#L82) | <code>(): void</code> | <code>atualizarReproducao</code> / <code>sobreposto</code> |
+| <code>site/scripts/carrossel.ts::iniciarCarrossel.[callback]:ArrowFunction#3</code> · [L83](../../site/scripts/carrossel.ts#L83) | <code>(): void</code> | <code>atualizarReproducao</code> / <code>emFoco</code> |
+| <code>site/scripts/carrossel.ts::iniciarCarrossel.[callback]:ArrowFunction#4</code> · [L84](../../site/scripts/carrossel.ts#L84) | <code>(this: HTMLElement, evento: FocusEvent): void</code> | <code>raiz.contains</code>; <code>atualizarReproducao</code> / <code>emFoco</code> |
+| <code>site/scripts/carrossel.ts::iniciarCarrossel.[callback]:ArrowFunction#5</code> · [L86](../../site/scripts/carrossel.ts#L86) | <code>(): void</code> | <code>atualizarReproducao</code> / <code>pausado</code> |
+| <code>site/scripts/carrossel.ts::iniciarCarrossel.[callback]:ArrowFunction#6</code> · [L87](../../site/scripts/carrossel.ts#L87) | <code>(entradas: IntersectionObserverEntry[]): void</code> | <code>atualizarReproducao</code> / <code>visivel</code> |
 | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor.[callback]:ArrowFunction#1</code> · [L38](../../src/apresentacao/missao/CenaMissao.ts#L38) | <code>(): void</code> | <code>this.marcarAtualizacao</code> / — |
 | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor.[callback]:ArrowFunction#2</code> · [L39](../../src/apresentacao/missao/CenaMissao.ts#L39) | <code>(): void</code> | <code>this.reiniciar</code> / — |
 | <code>src/apresentacao/missao/CenaMissao.ts::CenaMissao.constructor.[callback]:ArrowFunction#3</code> · [L40](../../src/apresentacao/missao/CenaMissao.ts#L40) | <code>(): void</code> | <code>this.marcarAtualizacao</code> / — |
@@ -31140,15 +31666,6 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/cenarios/ReproducaoDiarioBss005.ts::validarDiario.[callback]:ArrowFunction#1</code> · [L72](../../src/cenarios/ReproducaoDiarioBss005.ts#L72) | <code>([k]: [string, string &#124; number &#124; boolean &#124; object &#124; Vetor3 &#124; { readonly centroCascoLocalM: Vetor3; readonly velocidadeLocalMps: Vetor3; readonly inclinacaoRad: number; readonly velocidadeAngularRadps: number; } &#124; readonly RajadaVento[]]): boolean</code> | — / — |
 | <code>src/cenarios/ReproducaoDiarioBss005.ts::validarDiario.[callback]:ArrowFunction#2</code> · [L78](../../src/cenarios/ReproducaoDiarioBss005.ts#L78) | <code>(objeto: Objeto): { id: string; massaKg: number; temperaturaC: number; integridade: number; estado: EstadoFisico; }</code> | <code>objeto.getEstadoFisico</code> / — |
 | <code>src/cenarios/ReproducaoDiarioBss005.ts::avancarReplayDiarioBss005.aplicar.[callback]:ArrowFunction#1</code> · [L183](../../src/cenarios/ReproducaoDiarioBss005.ts#L183) | <code>(objeto: Objeto): objeto is PainelSolar</code> | — / — |
-| <code>src/home-carousel.ts::showSlide.[callback]:ArrowFunction#1</code> · [L17](../../src/home-carousel.ts#L17) | <code>(slide: HTMLElement, slideIndex: number): void</code> | <code>slide.classList.toggle</code>; <code>slide.setAttribute</code>; <code>String</code> / <code>slide.inert</code> |
-| <code>src/home-carousel.ts::showSlide.[callback]:ArrowFunction#2</code> · [L24](../../src/home-carousel.ts#L24) | <code>(dot: HTMLButtonElement, dotIndex: number): void</code> | <code>dot.classList.toggle</code>; <code>dot.setAttribute</code>; <code>dot.removeAttribute</code> / — |
-| <code>src/home-carousel.ts::startAutoplay.[callback]:ArrowFunction#1</code> · [L43](../../src/home-carousel.ts#L43) | <code>(): void</code> | <code>showSlide</code> / — |
-| <code>src/home-carousel.ts::[callback]:ArrowFunction#1</code> · [L46](../../src/home-carousel.ts#L46) | <code>(): void</code> | <code>showSlide</code> / — |
-| <code>src/home-carousel.ts::[callback]:ArrowFunction#2</code> · [L47](../../src/home-carousel.ts#L47) | <code>(): void</code> | <code>showSlide</code> / — |
-| <code>src/home-carousel.ts::[callback]:ArrowFunction#3</code> · [L48](../../src/home-carousel.ts#L48) | <code>(dot: HTMLButtonElement, index: number): void</code> | <code>dot.addEventListener</code> / — |
-| <code>src/home-carousel.ts::[callback]#3.[callback]:ArrowFunction#1</code> · [L48](../../src/home-carousel.ts#L48) | <code>(): void</code> | <code>showSlide</code> / — |
-| <code>src/home-carousel.ts::[callback]:ArrowFunction#4</code> · [L53](../../src/home-carousel.ts#L53) | <code>(this: HTMLElement, event: FocusEvent): void</code> | <code>carousel.contains</code>; <code>startAutoplay</code> / — |
-| <code>src/home-carousel.ts::[callback]:ArrowFunction#5</code> · [L56](../../src/home-carousel.ts#L56) | <code>(): void</code> | <code>stopAutoplay</code>; <code>startAutoplay</code> / — |
 | <code>src/missoes/MissaoBss006.ts::MissaoBss006.constructor.[callback]:ArrowFunction#1</code> · [L75](../../src/missoes/MissaoBss006.ts#L75) | <code>(o: Objeto): boolean</code> | <code>this.ambiente.mundo.obterMenorDistanciaSuperficieM</code> / — |
 | <code>src/missoes/MissaoBss006.ts::MissaoBss006.obterEventos.[callback]:ArrowFunction#1</code> · [L94](../../src/missoes/MissaoBss006.ts#L94) | <code>(e: EventoMissao): { sequencia: number; passo: number; tempoS: number; categoria: "fisico" &#124; "missao" &#124; "comando"; tipo: string; descricao: string; }</code> | — / — |
 | <code>src/missoes/MissaoBss006.ts::MissaoBss006.avancarPasso.[callback]:ArrowFunction#1</code> · [L160](../../src/missoes/MissaoBss006.ts#L160) | <code>(ct: ContatoSuperficieFisico): boolean</code> | <code>/sapata&#124;perna/.test</code> / — |
@@ -31623,6 +32140,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>scripts/documentacao/cli.test.ts::[callback]#3.[callback]:ArrowFunction#1</code> · [L56](../../scripts/documentacao/cli.test.ts#L56) | <code>(): string</code> | <code>hashExecutavel</code> / — |
 | <code>scripts/documentacao/cli.test.ts::[callback]:ArrowFunction#4</code> · [L60](../../scripts/documentacao/cli.test.ts#L60) | <code>(): void</code> | <code>mkdtempSync</code>; <code>join</code>; <code>tmpdir</code>; <code>mkdirSync</code>; <code>writeFileSync</code>; <code>expect(() =&gt; executarAuditoria(raiz, 'gerar')).toThrow</code>; <code>expect</code>; <code>expect(executarAuditoria(raiz, 'gerar').catalogoDesatualizado).toBe</code>; <code>executarAuditoria</code>; <code>expect(executarAuditoria(raiz, 'verificar').mapaDesatualizado).toBe</code>; <code>appendFileSync</code>; <code>expect(executarAuditoria(raiz, 'verificar').catalogoDesatualizado).toBe</code>; <code>rmSync</code> / — |
 | <code>scripts/documentacao/cli.test.ts::[callback]#4.[callback]:ArrowFunction#1</code> · [L66](../../scripts/documentacao/cli.test.ts#L66) | <code>(): { cobertura: Cobertura; divergencias: Divergencias; catalogoDesatualizado: boolean; mapaDesatualizado: boolean; }</code> | <code>executarAuditoria</code> / — |
+| <code>scripts/documentacao/projeto-site.test.ts::[callback]:ArrowFunction#1</code> · [L7](../../scripts/documentacao/projeto-site.test.ts#L7) | <code>(): void</code> | <code>it</code> / — |
+| <code>scripts/documentacao/projeto-site.test.ts::[callback]#1.[callback]:ArrowFunction#1</code> · [L8](../../scripts/documentacao/projeto-site.test.ts#L8) | <code>(): void</code> | <code>mkdtempSync</code>; <code>join</code>; <code>tmpdir</code>; <code>mkdirSync</code>; <code>writeFileSync</code>; <code>expect(listarFontes(raiz)).toEqual</code>; <code>expect</code>; <code>listarFontes</code>; <code>rmSync</code> / — |
+| <code>scripts/documentacao/projeto-site.test.ts::[callback]#1.[callback]:ArrowFunction#2</code> · [L17](../../scripts/documentacao/projeto-site.test.ts#L17) | <code>(): void</code> | <code>mkdtempSync</code>; <code>join</code>; <code>tmpdir</code>; <code>mkdirSync</code>; <code>expect(listarFontes(raiz)).toEqual</code>; <code>expect</code>; <code>listarFontes</code>; <code>rmSync</code> / — |
 | <code>scripts/documentacao/reprodutibilidade.test.ts::novaRaiz:ArrowFunction</code> · [L17](../../scripts/documentacao/reprodutibilidade.test.ts#L17) | <code>(nome: string): string</code> | <code>mkdtempSync</code>; <code>join</code>; <code>tmpdir</code>; <code>temporarios.push</code>; <code>mkdirSync</code> / — |
 | <code>scripts/documentacao/reprodutibilidade.test.ts::observar:ArrowFunction</code> · [L23](../../scripts/documentacao/reprodutibilidade.test.ts#L23) | <code>(parametro?: string): string</code> | — / — |
 | <code>scripts/documentacao/reprodutibilidade.test.ts::escreverFontes:ArrowFunction</code> · [L26](../../scripts/documentacao/reprodutibilidade.test.ts#L26) | <code>(raiz: string): void</code> | <code>mkdirSync</code>; <code>join</code>; <code>observar</code>; <code>ts.createSourceFile</code>; <code>analisarFontes([fonte]).funcoes.find</code>; <code>analisarFontes</code>; <code>writeFileSync</code>; <code>texto.replace</code>; <code>ancoraFuncao</code>; <code>JSON.stringify</code> / — |
@@ -31644,6 +32164,21 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>scripts/documentacao/reprodutibilidade.test.ts::[callback]#2.[callback]#1.[callback]:ArrowFunction#1</code> · [L77](../../scripts/documentacao/reprodutibilidade.test.ts#L77) | <code>(f: Funcao): string</code> | — / — |
 | <code>scripts/documentacao/reprodutibilidade.test.ts::[callback]#2.[callback]#1.[callback]:ArrowFunction#2</code> · [L77](../../scripts/documentacao/reprodutibilidade.test.ts#L77) | <code>(f: Funcao): string</code> | — / — |
 | <code>scripts/documentacao/reprodutibilidade.test.ts::[callback]#2.[callback]:ArrowFunction#2</code> · [L89](../../scripts/documentacao/reprodutibilidade.test.ts#L89) | <code>(): void</code> | <code>novaRaiz</code>; <code>escreverFontes</code>; <code>executar</code>; <code>lerArtefatos</code>; <code>estadoArquivos</code>; <code>expect(JSON.parse(executar(a, 'verificar')).catalogoDesatualizado).toBe</code>; <code>expect</code>; <code>JSON.parse</code>; <code>expect(estadoArquivos(a)).toEqual</code>; <code>expect(lerArtefatos(a)).toEqual</code>; <code>expect(lerArtefatos(b)).toEqual</code>; <code>appendFileSync</code>; <code>join</code>; <code>spawnSync</code>; <code>expect(r.status).toBe</code>; <code>expect(JSON.parse(r.stdout).catalogoDesatualizado).toBe</code>; <code>writeFileSync</code>; <code>readFileSync(caminho, 'utf8').replace</code>; <code>readFileSync</code>; <code>expect(s.status).toBe</code>; <code>expect(divergencias.adicionadas).toEqual</code>; <code>expect(divergencias.removidas).toEqual</code>; <code>expect(divergencias.alteradas).toEqual</code> / — |
+| <code>site/build/pluginInstitucional.test.ts::[callback]:ArrowFunction#1</code> · [L17](../../site/build/pluginInstitucional.test.ts#L17) | <code>(p: "index.html" &#124; "pesquisa.html" &#124; "simulador.html"): string</code> | — / — |
+| <code>site/build/pluginInstitucional.test.ts::[callback]:ArrowFunction#2</code> · [L19](../../site/build/pluginInstitucional.test.ts#L19) | <code>(): Promise&lt;void&gt;</code> | <code>mkdirSync</code>; <code>join</code>; <code>writeFileSync</code>; <code>dirname</code>; <code>JSON.stringify</code>; <code>build</code>; <code>pluginInstitucional</code>; <code>fontes.map</code>; <code>createServer</code>; <code>http.on</code>; <code>Promise</code>; <code>http.address</code> / <code>servidor</code>; <code>base</code> |
+| <code>site/build/pluginInstitucional.test.ts::[callback]#2.[callback]:ArrowFunction#1</code> · [L29](../../site/build/pluginInstitucional.test.ts#L29) | <code>(p: string): string</code> | <code>join</code> / — |
+| <code>site/build/pluginInstitucional.test.ts::[callback]#2.[callback]:ArrowFunction#2</code> · [L32](../../site/build/pluginInstitucional.test.ts#L32) | <code>(pronto: (value: void &#124; PromiseLike&lt;void&gt;) =&gt; void): Server&lt;typeof IncomingMessage, typeof ServerResponse&gt;</code> | <code>http.listen</code> / — |
+| <code>site/build/pluginInstitucional.test.ts::[callback]:ArrowFunction#3</code> · [L36](../../site/build/pluginInstitucional.test.ts#L36) | <code>(): Promise&lt;void&gt;</code> | <code>servidor?.close</code>; <code>Promise</code>; <code>rmSync</code> / — |
+| <code>site/build/pluginInstitucional.test.ts::[callback]#3.[callback]:ArrowFunction#1</code> · [L36](../../site/build/pluginInstitucional.test.ts#L36) | <code>(pronto: (value: void &#124; PromiseLike&lt;void&gt;) =&gt; void): Server&lt;typeof IncomingMessage, typeof ServerResponse&gt;</code> | <code>http.close</code> / — |
+| <code>site/build/pluginInstitucional.test.ts::[callback]#3.[callback]#1.[callback]:ArrowFunction#1</code> · [L36](../../site/build/pluginInstitucional.test.ts#L36) | <code>(): void</code> | <code>pronto</code> / — |
+| <code>site/build/pluginInstitucional.test.ts::[callback]:ArrowFunction#4</code> · [L38](../../site/build/pluginInstitucional.test.ts#L38) | <code>(): void</code> | <code>it</code> / — |
+| <code>site/build/pluginInstitucional.test.ts::[callback]#4.[callback]:ArrowFunction#1</code> · [L39](../../site/build/pluginInstitucional.test.ts#L39) | <code>(): void</code> | <code>expect(existsSync(join(raiz, 'dist', pagina))).toBe</code>; <code>expect</code>; <code>existsSync</code>; <code>join</code>; <code>expect(existsSync(join(raiz, 'dist/site/pages/index.html'))).toBe</code>; <code>expect(readFileSync(join(raiz, 'dist', caminhoArtigo))).toEqual</code>; <code>readFileSync</code>; <code>expect(verificarDistribuicao(raiz)).toMatchObject</code>; <code>verificarDistribuicao</code> / — |
+| <code>site/build/pluginInstitucional.test.ts::[callback]#4.[callback]:ArrowFunction#2</code> · [L46](../../site/build/pluginInstitucional.test.ts#L46) | <code>(): Promise&lt;void&gt;</code> | <code>fetch</code>; <code>expect(a.status).toBe</code>; <code>expect</code>; <code>expect(b.status).toBe</code>; <code>expect(await a.text()).toContain</code>; <code>a.text</code>; <code>expect(pdf.headers.get('content-type')).toBe</code>; <code>pdf.headers.get</code>; <code>expect(Buffer.from(await pdf.arrayBuffer())).toEqual</code>; <code>Buffer.from</code>; <code>pdf.arrayBuffer</code> / — |
+| <code>site/build/pluginInstitucional.test.ts::[callback]#4.[callback]:ArrowFunction#3</code> · [L57](../../site/build/pluginInstitucional.test.ts#L57) | <code>(): Promise&lt;void&gt;</code> | <code>expect((await fetch(base + rota)).status, rota).toBe</code>; <code>expect</code>; <code>fetch</code> / — |
+| <code>site/build/pluginInstitucional.test.ts::[callback]#4.[callback]:ArrowFunction#4</code> · [L61](../../site/build/pluginInstitucional.test.ts#L61) | <code>(): void</code> | <code>join</code>; <code>readFileSync</code>; <code>writeFileSync</code>; <code>Buffer.concat</code>; <code>Buffer.from</code>; <code>expect(() =&gt; verificarDistribuicao(raiz)).toThrow</code>; <code>expect</code>; <code>rmSync</code> / — |
+| <code>site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#4.[callback]:ArrowFunction#1</code> · [L65](../../site/build/pluginInstitucional.test.ts#L65) | <code>(): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }</code> | <code>verificarDistribuicao</code> / — |
+| <code>site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#4.[callback]:ArrowFunction#2</code> · [L68](../../site/build/pluginInstitucional.test.ts#L68) | <code>(): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }</code> | <code>verificarDistribuicao</code> / — |
+| <code>site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#4.[callback]:ArrowFunction#3</code> · [L71](../../site/build/pluginInstitucional.test.ts#L71) | <code>(): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }</code> | <code>verificarDistribuicao</code> / — |
 | <code>src/apresentacao/missao/CameraMissao.test.ts::[callback]:ArrowFunction#1</code> · [L5](../../src/apresentacao/missao/CameraMissao.test.ts#L5) | <code>(): void</code> | <code>it</code> / — |
 | <code>src/apresentacao/missao/CameraMissao.test.ts::[callback]#1.[callback]:ArrowFunction#1</code> · [L6](../../src/apresentacao/missao/CameraMissao.test.ts#L6) | <code>(): void</code> | <code>BSS006_VOO_EXPERIMENTAL.criar</code>; <code>m.observar</code>; <code>CameraMissao</code>; <code>c.projetar</code>; <code>expect(p.x).toBeCloseTo</code>; <code>expect</code>; <code>expect(p.y).toBeCloseTo</code>; <code>expect(c.pontoNaTela(p.x, p.y).subtrair(o.casco.posicaoM).magnitude).toBeLessThan</code>; <code>c.pontoNaTela(p.x, p.y).subtrair</code>; <code>c.pontoNaTela</code>; <code>expect(c.anguloCanvas(o.casco.orientacaoRad.z)).toBeCloseTo</code>; <code>c.anguloCanvas</code>; <code>expect(c.anguloCanvas(o.casco.orientacaoRad.z + 0.1)).toBeCloseTo</code> / — |
 | <code>src/apresentacao/missao/CameraMissao.test.ts::[callback]#1.[callback]:ArrowFunction#2</code> · [L14](../../src/apresentacao/missao/CameraMissao.test.ts#L14) | <code>(): void</code> | <code>BSS006_VOO_EXPERIMENTAL.criar</code>; <code>m.observar</code>; <code>m.obterEventos</code>; <code>new CameraMissao(antes, 390, 440, escala).projetar</code>; <code>CameraMissao</code>; <code>expect(m.observar()).toEqual</code>; <code>expect</code>; <code>expect(m.obterEventos()).toEqual</code>; <code>expect(() =&gt; new CameraMissao(antes, 390, 440, 0)).toThrow</code> / — |

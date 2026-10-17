@@ -1,11 +1,11 @@
-import { readdirSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { resolve, relative } from 'node:path';
 import ts from 'typescript';
 import { analisarFontes } from './ast';
 import type { Analise } from './ast';
 
 /** Enumera fontes próprias; dependências, build e arquivos históricos não entram no inventário.
- * @remarks Enumera TypeScript próprio em src, scripts e raiz, ordenando caminhos relativos; ignora dependências e build por delimitação de escopo.
+ * @remarks Enumera TypeScript próprio em src, scripts, site (quando presente) e raiz, ordenando caminhos relativos; ignora dependências e build por delimitação de escopo.
  * @contract f-c9f0da8192b66f4e
  * @reviewed M12-DOC: contrato confrontado com implementação.
  */
@@ -20,6 +20,7 @@ export function listarFontes(raiz: string): readonly string[] {
     }
   };
   percorrer(resolve(raiz, 'src')); percorrer(resolve(raiz, 'scripts'));
+  if (existsSync(resolve(raiz, 'site'))) percorrer(resolve(raiz, 'site'));
   for (const entrada of readdirSync(raiz)) if (/\.[cm]?tsx?$/.test(entrada)) arquivos.push(entrada);
   return arquivos.sort();
 }

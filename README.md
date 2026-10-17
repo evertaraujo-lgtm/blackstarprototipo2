@@ -1,4 +1,23 @@
-# Black Star Space — Protótipo 2
+# Black Star Space — repositório único
+
+Site institucional e simuladores são desenvolvidos, compilados e publicados
+exclusivamente neste repositório (`blackstarprototipo2`). As fontes do site ficam
+em `site/`; bancada, missões e órbitas usam diretamente o núcleo P2 existente.
+O antigo repositório `blackstarspace` não é necessário e não deve mais ser usado
+para deploy no mesmo projeto Firebase.
+
+```bash
+npm ci
+npm run dev
+# Produção completa, sem diretório vizinho ou cópias de bundles:
+npm run build
+npm run site:verificar
+```
+
+Rotas: `/`, `/pesquisa`, `/simulador`, `/tests.html`, `/missao.html`,
+`/orbitas.html` e `/publicacoes/pouso-propulsivo-bss-2026.pdf`.
+Protótipo 1 e sua rota legada foram deliberadamente abandonados.
+Veja [arquitetura, testes e publicação](docs/arquitetura/site-institucional.md).
 
 O foco atual é a simulação dos foguetes BSS-001 a BSS-006:
 decolagem manual, controle de inclinação e operação de subida e pouso.
@@ -240,14 +259,21 @@ domínio, core físico e interface.
 
 ## Publicação no Firebase Hosting
 
+Destino existente: projeto `blackstarspace`, domínio `blackstarspace.web.app`.
+Somente a saída `dist` deste repositório é publicada.
+
 ```bash
-npx firebase login
-npx firebase use --add
+npm ci
+npm run build
+# Somente após autorização explícita de publicação:
 npm run deploy
 ```
 
-O vínculo com o projeto Firebase é feito por `firebase use --add` para não
-registrar no repositório um identificador de projeto inexistente.
+O hook predeploy do Hosting executa `npm run preparar:deploy`: typecheck,
+auditoria documental, build novo e verificação de recursos. Se qualquer etapa
+falhar, a publicação é interrompida; uma pasta dist antiga não substitui o build.
+Nenhum comando de implementação executa deploy automaticamente. O repositório
+institucional anterior não deve mais publicar neste mesmo destino.
 
 ## Primeira missão do jogo — M10
 
