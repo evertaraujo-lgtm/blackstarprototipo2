@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": { "lib": ["ES2022"], "types": [] },
-  "include": ["src/missoes/**/*.ts", "src/veiculos/**/*.ts"],
+  "include": ["src/missoes/**/*.ts", "src/veiculos/**/*.ts", "src/cenarios/EnsaioReentrada.ts"],
   "exclude": ["src/**/*.test.ts"]
 }

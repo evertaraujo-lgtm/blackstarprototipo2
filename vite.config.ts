@@ -16,6 +16,7 @@ export default defineConfig({
         testes: resolve(import.meta.dirname, 'tests.html'),
         orbitas: resolve(import.meta.dirname, 'orbitas.html'),
         missao: resolve(import.meta.dirname, 'missao.html'),
+        reentrada: resolve(import.meta.dirname, 'reentrada.html'),
       },
     },
   },

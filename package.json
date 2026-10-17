@@ -19,7 +19,9 @@
     "test:documentacao": "vitest run scripts/documentacao",
     "preparar:deploy": "npm run typecheck && npm run docs:verificar && npm run build && npm run site:verificar",
     "site:verificar": "vite-node scripts/verificar-site.ts",
-    "site:smoke": "vite-node scripts/site/smoke.ts"
+    "site:smoke": "vite-node scripts/site/smoke.ts",
+    "reentrada:smoke": "vite-node scripts/smoke-reentrada.ts",
+    "reentrada:validar": "vite-node scripts/validar-reentrada.ts"
   },
   "devDependencies": {
     "playwright-core": "1.64.1",

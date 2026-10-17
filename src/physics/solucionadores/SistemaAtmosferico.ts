@@ -1,6 +1,7 @@
 import { ReferencialPlano, type ReferencialFisico } from '../ambiente/ReferencialFisico';
 import { Objeto } from '../objetos/base/Objeto';
 import { Vetor3 } from '../Vetor3';
+import type { PerfilAtmosferico } from '../ambiente/PerfilAtmosfericoReentrada';
 
 /** Modelo atmosférico determinístico para o passo físico atual. */
 export class SistemaAtmosferico {
@@ -12,7 +13,7 @@ export class SistemaAtmosferico {
   private static readonly altitudeTropopausaM = 11_000;
   private static readonly temperaturaTropopausaK = 216.65;
   private velocidadeArAtualMps: Vetor3;
-  /** Configura densidade de referência kg/m³ não negativa, vento m/s, referencial e política de altitude; densidade zero declara vácuo. @contract f-6538ff18b9c53fb0 @reviewed M12-DOC: implementação lida. */
+  /** Configura densidade de referência kg/m³ não negativa, vento m/s, referencial e política de altitude; densidade zero declara vácuo. Perfil injetado é opcional e substitui a equação de densidade somente nesse mundo; sua revisão deve ser exportada pelo consumidor. @contract f-6538ff18b9c53fb0 */
   public constructor(
     public readonly densidadeArNivelMarKgM3: number,
     velocidadeArMps: Vetor3,
@@ -20,6 +21,7 @@ export class SistemaAtmosferico {
     public readonly politicaAltitude: 'extrapolacao-legada' | 'vacuo-simplificado-25km' = 'extrapolacao-legada',
     private readonly exposicaoAoAr: /** Consulta fração exposta ao ar do objeto, em [0,1], para evitar cargas atmosféricas/térmicas integrais sobre área imersa; padrão seco vale 1. @contract f-833d68305cbc6047 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (o: Objeto) => number = /** Porta padrão de exposição: retorna fração 1 (totalmente no ar) quando mundo não fornece adaptação para imersão; não consulta nem aplica força. @contract f-e36b63fcec6139c0 @reviewed M12-DOC: implementação lida. */
                                                             () => 1,
+    private readonly perfil?: PerfilAtmosferico,
   ) {
     if (!Number.isFinite(densidadeArNivelMarKgM3) || densidadeArNivelMarKgM3 < 0) {
       throw new Error('Densidade atmosférica deve ser finita e não negativa.');
@@ -37,12 +39,15 @@ export class SistemaAtmosferico {
     this.velocidadeArAtualMps = velocidadeArMps;
   }
 
-  /** Densidade atmosférica padrão terrestre pela altitude geométrica, escalada pela densidade configurada ao nível do mar.
+  /** Densidade kg/m³ pela altitude geométrica m, escalada pela referência ao nível
+   * do mar. Perfil opt-in substitui somente este cálculo; ausência preserva as
+   * equações/política históricas. Vácuo explícito tem precedência sobre o perfil.
    * @contract f-9f2bc0b195591180
    */
   public obterDensidadeArKgM3(altitudeM: number): number {
     if (!Number.isFinite(altitudeM)) throw new Error('Altitude atmosférica deve ser finita.');
     if (this.densidadeArNivelMarKgM3 === 0) return 0;
+    if (this.perfil) return this.perfil.obterDensidadeKgM3(altitudeM) * this.densidadeArNivelMarKgM3 / 1.225;
     const altitude = Math.max(0, altitudeM);
     const densidadePadrao = SistemaAtmosferico.calcularDensidadePadrao(altitude);
     // Faixa M4 preservada até 20 km. Transição C1 explicitamente simplificada,

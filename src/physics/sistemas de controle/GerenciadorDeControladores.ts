@@ -1,7 +1,7 @@
 import type { LeiturasVeiculoComposto } from '../sensores/SensoresVeiculoComposto';
 
 /** Saída normalizada: controladores solicitam; o computador aplica ao atuador. */
-export type RecursoDeAtuador = 'throttle' | 'gimbal';
+export type RecursoDeAtuador = 'throttle' | 'gimbal' | 'flap' | 'rolagem-virtual';
 
 export interface SolicitacaoDeAtuador {
   readonly idAtuador: string;

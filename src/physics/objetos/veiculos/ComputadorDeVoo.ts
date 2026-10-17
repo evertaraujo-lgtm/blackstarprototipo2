@@ -313,7 +313,7 @@ export class ComputadorDeVoo {
     return propulsor.solicitarVetorizacao(valorRad) ? valorRad : undefined;
   }
 
-  /** Limpa diagnóstico aplicado e verifica alimentação elétrica/controle. Perda de energia reinicia memórias; leitura inválida/obsoleta reinicia controles, solicita throttle zero e mantém alvo do gimbal no ângulo atual. Caso válido arbitra pedidos, filtra motores operacionais, limita gimbal e registra apenas comandos aceitos. Não integra forças ou cinemática. @contract f-2a19b873c05a47a3 @reviewed M12-DOC: implementação lida. */
+  /** Limpa diagnóstico aplicado e verifica alimentação elétrica/controle. Perda de energia reinicia memórias; leitura inválida/obsoleta reinicia controles, solicita throttle zero e mantém alvo do gimbal no ângulo atual. Caso válido arbitra pedidos, filtra motores operacionais, limita gimbal e registra apenas comandos aceitos. Consome explicitamente throttle/gimbal; demais recursos pertencem a outros consumidores. Não integra forças ou cinemática. @contract f-2a19b873c05a47a3 */
   private aplicarSolicitacoesDeControladores(dtS: number): void {
     const controladoresAlimentados = [...this.propulsores.values()].some((propulsor) =>
       propulsor.sistemaEstaOperacional('elétrico') && propulsor.sistemaEstaOperacional('controle'));
@@ -343,7 +343,7 @@ export class ComputadorDeVoo {
       if (solicitacao.recurso === 'throttle') {
         this.obterPropulsor(solicitacao.idAtuador).definirThrottle(solicitacao.valor);
         aplicadas.push(solicitacao);
-      } else {
+      } else if (solicitacao.recurso === 'gimbal') {
         const valor = this.solicitarGimbalLimitado(solicitacao.idAtuador, solicitacao.valor);
         if (valor !== undefined) aplicadas.push({ ...solicitacao, valor });
       }

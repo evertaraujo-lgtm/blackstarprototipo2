@@ -208,6 +208,32 @@ legadas, sem promessa de equivalência exata à revisão histórica.
 
 ## Desenvolvimento e validação
 
+### Laboratório de reentrada RE-001
+
+`/reentrada.html` estuda o orbitador em dinâmica XY com Terra esférica, perfil
+atmosférico específico, flaps elétricos, rolagem virtual limitada, controle,
+supervisor de pouso, gráficos e diário reproduzível. O padrão é 120 km,
+7.700 m/s, α=40°, trajetória −1°, automático e propulsão desligada/ausente.
+O portal `/simulador` e as outras bancadas oferecem o acesso.
+
+Limiares provisórios editáveis: corpo 1.100 °C, flaps 900 °C e bateria interna
+60 °C. A bateria é isolada termicamente neste marco; seu limite não é previsão
+de fuga térmica. Temperaturas são de componentes concentrados, sem qualificação
+de materiais ou estrutura interna. Coeficientes, alta atmosfera e aquecimento
+são preliminares. RCS e propulsão de pouso ausentes bloqueiam a transferência.
+Não há 3D nem dinâmica lateral de bank; `L_XY=L cos(phi)`.
+
+```bash
+npm run reentrada:validar   # coleta headless de 600 s; não qualifica voo
+npm run reentrada:smoke     # dist compilado, Chrome local e servidor de preview
+```
+
+Fábrica e replay: `src/cenarios/EnsaioReentrada.ts`. O replay estrito exige a
+mesma revisão/runtime. Hipóteses, contratos e evidências estão no
+[relatório RE-001](docs/planos-codex/2026-10-17-reentrada.md).
+
+### Verificações do projeto
+
 ```bash
 npm test
 npm run typecheck

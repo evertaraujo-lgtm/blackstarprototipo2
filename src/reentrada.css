@@ -1,0 +1,41 @@
+.re-page { padding: clamp(.7rem, 2vw, 2rem); }
+.re-nav { display: flex; flex-wrap: wrap; gap: 1rem; padding-top: .8rem; }
+.re-nav a { color: #67e8f9; font-size: .85rem; }
+.re-notice { margin: 0 0 1.3rem; padding: .9rem 1rem; border: 1px solid #705c2e; border-radius: .6rem; background: #49340c33; color: #fde6b4; line-height: 1.6; font-size: .85rem; }
+.re-layout { display: grid; grid-template-columns: minmax(16rem, 20rem) minmax(0, 1fr); gap: 1.1rem; align-items: start; }
+.re-panel, .re-main { min-width: 0; border: 1px solid #1e3a5f; background: #0b1224; border-radius: .8rem; }
+.re-panel { padding: 1.1rem; }
+.re-page h2 { color: #cbd5e1; font-size: .9rem; letter-spacing: .04em; margin: 1.2rem 0 .8rem; }
+.re-panel h2:first-child { margin-top: 0; }
+.re-panel label, .re-toolbar label { display: grid; gap: .4rem; margin: .7rem 0; color: #b7c8dc; font-size: .78rem; min-width: 0; }
+.re-page input, .re-page select { min-width: 0; width: 100%; border: 1px solid #29496e; border-radius: .35rem; background: #071126; color: #f1f5f9; padding: .6rem; font: inherit; }
+.re-page input[type="range"] { padding: .3rem 0; accent-color: #67e8f9; }
+.re-page button { margin: .4rem 0; font-size: .8rem; padding: .65rem .75rem; }
+.re-page button:disabled, .re-page fieldset:disabled { opacity: .55; }
+.re-page button:focus-visible, .re-page a:focus-visible, .re-page input:focus-visible, .re-page select:focus-visible, .re-page summary:focus-visible { outline: 2px solid #facc15; outline-offset: 3px; }
+.re-page fieldset { margin: 0; min-width: 0; padding: 0; border: 0; }
+.re-page legend { font-size: .7rem; color: #8fa4bf; }
+.re-pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: .6rem; }
+.re-actions { display: flex; flex-wrap: wrap; gap: .5rem; }
+.re-help { font-size: .74rem; color: #a3b4cd; line-height: 1.6; }
+.re-page details { margin: .9rem 0; font-size: .8rem; line-height: 1.65; }
+.re-page summary { cursor: pointer; color: #67e8f9; }
+.re-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem 1rem; padding: .7rem 1rem; border-bottom: 1px solid #1e3a5f; }
+.re-toolbar label { display: flex; align-items: center; gap: .5rem; }
+.re-toolbar select { width: 5rem; }
+.re-toolbar input { width: 6rem; }
+#re-canvas { display: block; width: 100%; height: clamp(340px, 46vw, 620px); background: #050e20; }
+.re-caption { padding: .7rem 1rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; font: .7rem ui-monospace, monospace; color: #aabed6; }
+#re-mensagem { display: block; margin: .3rem 1rem 1rem; padding: .7rem; font-size: .8rem; color: #fde68a; border-left: 2px solid #b19147; overflow-wrap: anywhere; }
+.re-telemetria { padding: 0 1rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; }
+.re-metrica { border: 1px solid #1c3354; padding: .7rem; border-radius: .35rem; background: #071126; overflow-wrap: anywhere; }
+.re-metrica span { display: block; color: #8fa7c6; font-size: .66rem; line-height: 1.5; }
+.re-metrica strong { display: block; margin-top: .3rem; color: #e5edf7; font: .85rem ui-monospace, monospace; line-height: 1.5; }
+.re-chart-panel { padding: .2rem 1rem; }
+#re-graficos { display: block; width: 100%; height: 560px; }
+.re-diagnostico { margin: 1rem !important; padding: .8rem; border: 1px solid #1e3a5f; border-radius: .4rem; overflow-wrap: anywhere; }
+.re-requisito { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .4rem; border-bottom: 1px solid #172c4a; padding: .6rem 0; }
+.re-ok { color: #86efac; }.re-bloqueado { color: #fca5a5; }
+#re-eventos { max-height: 240px; overflow: auto; margin: .7rem 0 0; padding-left: 1.2rem; font: .75rem/1.7 ui-monospace, monospace; color: #bbc9dd; }
+@media (max-width: 1000px) { .re-layout { grid-template-columns: minmax(14rem, 17rem) minmax(0, 1fr); }.re-telemetria { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 720px) { .re-layout { grid-template-columns: minmax(0, 1fr); }.re-page .test-header { flex-direction: column; gap: .5rem; margin-bottom: 1rem; }.re-page h1 { font-size: clamp(2rem, 8vw, 3rem); }.re-toolbar { gap: .2rem .7rem; }.re-telemetria { padding: 0 .6rem; gap: .35rem; }.re-metrica { padding: .5rem; }.re-metrica strong { font-size: .74rem; } }

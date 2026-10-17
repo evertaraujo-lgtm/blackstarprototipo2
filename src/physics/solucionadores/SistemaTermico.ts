@@ -13,7 +13,10 @@ export class SistemaTermico {
     if (!Number.isFinite(temperaturaAmbienteC)) throw new Error('Temperatura ambiente deve ser finita em °C.');
   }
 
-  /** Geração interna, convecção ambiente e jatos térmicos em ordem determinística.
+  /** Geração interna, convecção ambiente, aquecimento aero e jatos em ordem
+   * determinística, dt em s do core. O hook aero devolve uma única parcela W
+   * limitada à dissipação D·V; o padrão preserva a fração histórica. Especializações
+   * não aplicam calor por conta própria. Energia entra em Objeto uma vez por troca.
    * @contract f-52ff1b5ad0ab53a2
    */
   public atualizar(objetos: readonly Objeto[], dtS: number): void {
@@ -33,7 +36,13 @@ export class SistemaTermico {
       const velocidadeRelativa = objeto.getEstadoFisico().velocidadeMps.subtrair(this.atmosfera.velocidadeArMps);
       const forcaArrastoN = this.atmosfera.calcularArrasto(objeto, objeto.getEstadoFisico().velocidadeMps);
       const potenciaDissipadaNoArW = Math.max(0, -forcaArrastoN.produtoEscalar(velocidadeRelativa));
-      const energiaNoObjetoJ = potenciaDissipadaNoArW * objeto.fracaoAquecimentoAerodinamico * dtS;
+      const potenciaNoObjetoW = objeto.obterPotenciaAquecimentoAerodinamicoW({
+        densidadeArKgM3: densidadeLocal, velocidadeArMps: this.atmosfera.velocidadeArMps,
+      }, potenciaDissipadaNoArW);
+      if (!Number.isFinite(potenciaNoObjetoW) || potenciaNoObjetoW < 0 || potenciaNoObjetoW > potenciaDissipadaNoArW) {
+        throw new Error('Aquecimento aerodinâmico deve estar entre zero e a potência dissipada no ar.');
+      }
+      const energiaNoObjetoJ = potenciaNoObjetoW * dtS;
       if (energiaNoObjetoJ > 0) objeto.aplicarAquecimentoAerodinamicoPeloCore(energiaNoObjetoJ, dtS);
     }
     for (const fonte of objetos) {

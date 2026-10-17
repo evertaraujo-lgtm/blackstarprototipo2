@@ -187,6 +187,14 @@ export class Objeto {
   }
   /** Hook base sem geração interna: retorna 0 W; especializações podem fornecer potência física. @contract f-16defccad83f402d @reviewed M12-DOC: implementação lida. */
   public obterPotenciaTermicaGeradaW(): number { return 0; }
+  /** Potência W transferida ao corpo a partir da dissipação no ar W. O padrão
+   * preserva a fração histórica; especializações retornam uma única parcela,
+   * limitada à dissipação pelo SistemaTermico. Consulta pura; aplicação só pelo core.
+   * @contract f-8a36fd8decc22230
+   */
+  public obterPotenciaAquecimentoAerodinamicoW(_condicoes: CondicoesAtmosfericas, potenciaDissipadaW: number): number {
+    return potenciaDissipadaW * this.fracaoAquecimentoAerodinamico;
+  }
   /** Hook base sem jato térmico: retorna undefined; especializações declaram geometria e potência. @contract f-c5780a53173bbe5c @reviewed M12-DOC: implementação lida. */
   public obterJatoTermico(): JatoTermico | undefined { return undefined; }
 

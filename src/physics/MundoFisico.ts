@@ -22,8 +22,11 @@ import { JuntaRotacionalDeBancada } from './conexoes/JuntaRotacionalDeBancada';
 import { SistemaHidrodinamico, type EstadoImersao } from './agua/SistemaHidrodinamico';
 import type { RegiaoAquatica } from './agua/RegiaoAquatica';
 import type { PrismaDeslocador } from './agua/GeometriaSubmersa';
+import type { PerfilAtmosferico } from './ambiente/PerfilAtmosfericoReentrada';
 
 export interface ConfiguracaoMundoFisico {
+  /** Perfil especializado opt-in. Ausente preserva atmosfera histórica. */
+  readonly perfilAtmosferico?: PerfilAtmosferico;
   readonly regioesAquaticas?: readonly RegiaoAquatica[];
   readonly ambiente?: AmbienteFisico;
   /** KDK para gravidade e empuxo hidrostático declarado; dissipação/operação usam passo explícito. */
@@ -85,11 +88,13 @@ export class MundoFisico {
   private readonly resolvedorContatoSuperficie: ResolvedorContatoSuperficie;
   private readonly sistemaSensores: SistemaSensores;
   private readonly hidrodinamica?: SistemaHidrodinamico;
+  private readonly perfilAtmosferico?: PerfilAtmosferico;
 
-  /** Compõe registros, ambiente, integração e solucionadores determinísticos; configura água somente quando regiões são declaradas. maxDtS em s positivo/finito; densidade kg/m³ não negativa (zero = vácuo), vento m/s, temperatura °C. Legado plano/Euler por padrão; central usa KDK e restringe XY. Instala callbacks de consulta/reação, sem depender de relógio real. @contract f-518ff75ab4b7f057 @reviewed M12-DOC: implementação lida. */
+  /** Compõe registros, ambiente, integração e solucionadores determinísticos; configura água somente quando regiões são declaradas. maxDtS em s positivo/finito; densidade kg/m³ não negativa (zero = vácuo), vento m/s, temperatura °C. Legado plano/Euler por padrão; central usa KDK e restringe XY. Perfil atmosférico opcional é injetado no solucionador compartilhado, sem alterar padrões anteriores. Instala callbacks de consulta/reação, sem depender de relógio real. @contract f-518ff75ab4b7f057 */
   public constructor(private readonly maxDtS = 1 / 60, configuracao: ConfiguracaoMundoFisico = {}) {
     if (!Number.isFinite(maxDtS) || maxDtS <= 0) throw new Error('maxDt deve ser positivo.');
     this.ambiente = configuracao.ambiente ?? new AmbientePlano();
+    this.perfilAtmosferico = configuracao.perfilAtmosferico;
     this.integracao = configuracao.integracao ?? (this.ambiente.campo.modelo === 'central' ? 'verlet-gravitacional' : 'euler-semi-implicito');
     this.densidadeAtmosfericaNivelMarKgM3 = configuracao.densidadeAtmosfericaKgM3 ?? MundoFisico.densidadeAtmosferaPadraoKgM3;
     this.velocidadeArBaseMps = configuracao.velocidadeArMps ?? Vetor3.zero;
@@ -105,7 +110,7 @@ export class MundoFisico {
     }
     if (!Number.isFinite(this.densidadeAtmosfericaNivelMarKgM3) || this.densidadeAtmosfericaNivelMarKgM3 < 0) throw new Error('Densidade atmosférica deve ser finita e não negativa.');
     this.atmosfera = new SistemaAtmosferico(this.densidadeAtmosfericaNivelMarKgM3, this.velocidadeArAtualMps, this.ambiente.referencial,
-      this.ambiente.campo.modelo === 'central' ? 'vacuo-simplificado-25km' : 'extrapolacao-legada', o => this.fracaoExpostaAr(o));
+      this.ambiente.campo.modelo === 'central' ? 'vacuo-simplificado-25km' : 'extrapolacao-legada', o => this.fracaoExpostaAr(o), this.perfilAtmosferico);
     if (configuracao.regioesAquaticas?.length) this.hidrodinamica = new SistemaHidrodinamico(
       [...configuracao.regioesAquaticas], p => this.obterGravidadeMps2(p));
     this.sistemaTermico = new SistemaTermico(this.atmosfera, configuracao.temperaturaAmbienteC ?? 20, o => this.fracaoExpostaAr(o));
@@ -435,9 +440,10 @@ export class MundoFisico {
   /** Consulta aceleração m/s² do campo do ambiente na posição inercial em m; não integra nem depende da orientação. @contract f-b8b386144342054d @reviewed M12-DOC: implementação lida. */
   public obterGravidadeMps2(posicaoM: Vetor3): Vetor3 { return this.ambiente.campo.aceleracaoEm(posicaoM); }
 
-  /** Exporta identificação do ambiente, integração, dt máximo, atmosfera e água declarada para diários/replay; não altera parâmetros. @contract f-d3dca202d77d15ec @reviewed M12-DOC: implementação lida. */
+  /** Exporta identificação do ambiente, integração, dt máximo, atmosfera e água declarada para diários/replay; inclui a revisão completa do perfil atmosférico somente quando injetado. Não altera parâmetros. @contract f-d3dca202d77d15ec */
   public obterConfiguracaoFisica(): object {
     return { ...this.ambiente.obterConfiguracao(), integracao: this.integracao, maxDtS: this.maxDtS, politicaAtmosferica: this.atmosfera.politicaAltitude, densidadeNivelMarKgM3: this.densidadeAtmosfericaNivelMarKgM3,
+      ...(this.perfilAtmosferico ? { politicaAtmosferica: 'perfil-injetado', perfilAtmosferico: this.perfilAtmosferico.obterConfiguracao() } : {}),
       ...(this.hidrodinamica ? { hidrodinamica: this.hidrodinamica.obterConfiguracao() } : {}) };
   }
 
