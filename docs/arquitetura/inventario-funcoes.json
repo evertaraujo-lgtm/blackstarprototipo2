@@ -2676,6 +2676,86 @@
     "categoria": "producao"
   },
   {
+    "id": "src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts::[callback]:ArrowFunction#1",
+    "assinatura": "(): Promise<void>",
+    "modificadores": [
+      "async"
+    ],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts::[callback]:ArrowFunction#2",
+    "assinatura": "(): Promise<void>",
+    "modificadores": [
+      "async"
+    ],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts::[callback]#2.[callback]:ArrowFunction#1",
+    "assinatura": "(resolve: (value: void | PromiseLike<void>) => void, reject: (reason?: any) => void): Server<typeof IncomingMessage, typeof ServerResponse> | Http2SecureServer<typeof IncomingMessage, typeof ServerResponse, typeof Http2ServerRequest, typeof Http2ServerResponse>",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts::[callback]#2.[callback]#1.[callback]:ArrowFunction#1",
+    "assinatura": "(e: Error | undefined): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts::[callback]:ArrowFunction#3",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts::[callback]#3.[callback]:ArrowFunction#1",
+    "assinatura": "(largura: number): Promise<void>",
+    "modificadores": [
+      "async"
+    ],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts::[callback]#3.[callback]#1.[callback]:ArrowFunction#1",
+    "assinatura": "(e: Error): number",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts::[callback]#3.[callback]#1.[callback]:ArrowFunction#2",
+    "assinatura": "(route: Route): Promise<void>",
+    "modificadores": [
+      "async"
+    ],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts::[callback]#3.[callback]#1.[callback]:ArrowFunction#3",
+    "assinatura": "(): boolean",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts::[callback]#3.[callback]#1.[callback]:ArrowFunction#4",
+    "assinatura": "(e: HTMLElement | SVGElement): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts::[callback]#3.[callback]#1.[callback]:ArrowFunction#5",
+    "assinatura": "(e: HTMLElement | SVGElement): boolean",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts::[callback]#3.[callback]#1.[callback]#5.[callback]:ArrowFunction#1",
+    "assinatura": "(v: number): boolean",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
     "id": "src/apresentacao/reentrada/RenderizadorReentrada.ts::RenderizadorReentrada.constructor:Constructor",
     "assinatura": "(canvas: HTMLCanvasElement, graficos: HTMLCanvasElement): RenderizadorReentrada",
     "modificadores": [
@@ -17783,6 +17863,42 @@
     "categoria": "producao"
   },
   {
+    "id": "src/physics/reentrada/ModeloAerodinamicoReentrada.configuracao.test.ts::[callback]:ArrowFunction#1",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/physics/reentrada/ModeloAerodinamicoReentrada.configuracao.test.ts::[callback]#1.[callback]:ArrowFunction#1",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/physics/reentrada/ModeloAerodinamicoReentrada.configuracao.test.ts::[callback]#1.[callback]:ArrowFunction#2",
+    "assinatura": "(chave: \"areaReferenciaM2\" | \"comprimentoM\" | \"alturaM\" | \"raioNarizM\" | \"areaAquecidaM2\" | \"massaCorpoKg\" | \"massaFlapKg\" | \"massaBateriaKg\" | \"resistenciaCorpoJ\" | \"resistenciaFlapJ\" | \"resistenciaFixadorN\" | \"areaFlapM2\" | \"clFlapPorRad\" | \"cdFlapBase\" | \"cdFlapDeflexao\" | \"cursoFlapRad\" | \"taxaFlapRadps\" | \"bracoFlapM\" | \"potenciaFlapW\" | \"potenciaRepousoFlapW\" | \"tensaoBateriaV\" | \"energiaBateriaJ\" | \"ganhoAlpha\" | \"ganhoTaxa\" | \"torqueMinimoAutoridadeNm\" | \"taxaRolagemRadps\" | \"coeficienteSuttonGravesSI\" | \"larguraM\" | \"clCorpo\" | \"fatorMachBase\" | \"fatorMachVariacao\" | \"cdCorpoBase\" | \"cdCorpoAlpha\" | \"cdMachGauss\" | \"cpBaseM\" | \"cpVariacaoM\" | \"deslocamentoVerticalFlapM\" | \"raioNarizFlapM\" | \"areaAquecidaFlapM2\" | \"calorEspecificoCorpoJPorKgC\" | \"calorEspecificoFlapJPorKgC\" | \"comprimentoCaracteristicoCorpoM\" | \"comprimentoCaracteristicoFlapM\" | \"cursoRolagemRad\" | \"conveccaoCorpoWPorM2C\" | \"condutanciaFlapWPorC\" | \"fracaoCargaInicialBateria\", valor: number, detalhe: string): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/physics/reentrada/ModeloAerodinamicoReentrada.configuracao.test.ts::[callback]#1.[callback]#2.[callback]:ArrowFunction#1",
+    "assinatura": "(): ParametrosReentrada",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/physics/reentrada/ModeloAerodinamicoReentrada.configuracao.test.ts::[callback]#1.[callback]#2.[callback]:ArrowFunction#2",
+    "assinatura": "(): ParametrosReentrada",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/physics/reentrada/ModeloAerodinamicoReentrada.configuracao.test.ts::[callback]#1.[callback]#2.[callback]:ArrowFunction#3",
+    "assinatura": "(): ParametrosReentrada",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
     "id": "src/physics/reentrada/ModeloAerodinamicoReentrada.ts::configurarParametrosReentrada:FunctionDeclaration",
     "assinatura": "(entrada?: Partial<ParametrosReentrada>): ParametrosReentrada",
     "modificadores": [
@@ -20969,6 +21085,12 @@
   },
   {
     "id": "src/reentrada.ts::iniciarBancada.reinicializar:FunctionDeclaration",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "src/reentrada.ts::iniciarBancada.restaurarConfiguracaoPadrao:FunctionDeclaration",
     "assinatura": "(): void",
     "modificadores": [],
     "categoria": "producao"

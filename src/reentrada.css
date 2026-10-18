@@ -25,6 +25,9 @@
 .re-toolbar select { width: 5rem; }
 .re-toolbar input { width: 6rem; }
 #re-canvas { display: block; width: 100%; height: clamp(340px, 46vw, 620px); background: #050e20; }
+.re-cena { position: relative; }
+#re-cena-indisponivel { position: absolute; inset: 20% 8% auto; padding: 1rem; border: 1px solid #b19147; border-radius: .4rem; background: #0b1224; color: #fde68a; line-height: 1.6; }
+#re-cena-indisponivel[hidden] { display: none; }
 .re-caption { padding: .7rem 1rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; font: .7rem ui-monospace, monospace; color: #aabed6; }
 #re-mensagem { display: block; margin: .3rem 1rem 1rem; padding: .7rem; font-size: .8rem; color: #fde68a; border-left: 2px solid #b19147; overflow-wrap: anywhere; }
 .re-telemetria { padding: 0 1rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; }

@@ -21658,17 +21658,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/reentrada/ModeloAerodinamicoReentrada.ts::configurarParametrosReentrada:FunctionDeclaration</code> · [fonte L31](../../src/physics/reentrada/ModeloAerodinamicoReentrada.ts#L31) |
+| Identificador | <code>src/physics/reentrada/ModeloAerodinamicoReentrada.ts::configurarParametrosReentrada:FunctionDeclaration</code> · [fonte L33](../../src/physics/reentrada/ModeloAerodinamicoReentrada.ts#L33) |
 | Assinatura | <code>export (entrada?: Partial&lt;ParametrosReentrada&gt;): ParametrosReentrada</code> |
-| Responsabilidade | Copia parâmetros SI conhecidos e valida finitude, sinal e domínio mecânico. São calibrações de ensaio, não especificações certificadas. Nenhuma alteração afeta o objeto padrão global nem modifica corpos já em voo. |
+| Responsabilidade | Copia parâmetros SI conhecidos e valida finitude, sinal e domínio mecânico. São calibrações de ensaio, não especificações certificadas. Nenhuma alteração afeta o objeto padrão global nem modifica corpos já em voo. Rejeições mecânicas identificam chave, valor e limite; não arredondam nem toleram entradas fora do domínio. Cursos em rad, taxas em rad/s, carga [0,1]. |
 | Entradas | <code>entrada: Partial&lt;ParametrosReentrada&gt; = {}</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ParametrosReentrada</code>; expressões retornadas: <code>Object.freeze(p)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Array.isArray</code>; <code>Object.keys(entrada).some</code>; <code>Object.keys</code>; <code>Error</code>; <code>Object.entries</code>; <code>Number.isFinite</code>; <code>Math.abs</code>; <code>assinados.includes</code>; <code>podemZerar.includes</code>; <code>Object.freeze</code> |
-| Invariantes | Contrato documentado abaixo; ramos observados: <code>!entrada &#124;&#124; typeof entrada !== 'object' &#124;&#124; Array.isArray(entrada)<br>    &#124;&#124; Object.keys(entrada).some(k =&gt; !Object.hasOwn(padroes, k))</code>; <code>!Number.isFinite(v) &#124;&#124; Math.abs(v) &gt; 1e12<br>    &#124;&#124; (!assinados.includes(k) &amp;&amp; (podemZerar.includes(k) ? v &lt; 0 : v &lt;= 0))</code>; <code>p.cursoFlapRad &gt;= Math.PI / 2 &#124;&#124; p.cursoRolagemRad &gt; Math.PI / 2 &#124;&#124; p.fracaoCargaInicialBateria &gt; 1<br>    &#124;&#124; p.taxaFlapRadps &gt; 10 &#124;&#124; p.taxaRolagemRadps &gt; 10</code>; exceções: <code>new Error('Parâmetro RE desconhecido.')</code>; <code>new Error(`Parâmetro RE inválido: ${k}`)</code>; <code>new Error('Curso/taxa/carga fora do domínio experimental.')</code> |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts) (imports diretos do módulo) |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>!entrada &#124;&#124; typeof entrada !== 'object' &#124;&#124; Array.isArray(entrada)<br>    &#124;&#124; Object.keys(entrada).some(k =&gt; !Object.hasOwn(padroes, k))</code>; <code>!Number.isFinite(v) &#124;&#124; Math.abs(v) &gt; 1e12<br>    &#124;&#124; (!assinados.includes(k) &amp;&amp; (podemZerar.includes(k) ? v &lt; 0 : v &lt;= 0))</code>; <code>p.cursoFlapRad &gt;= Math.PI / 2</code>; <code>p.cursoRolagemRad &gt; Math.PI / 2</code>; <code>p.fracaoCargaInicialBateria &gt; 1</code>; <code>p.taxaFlapRadps &gt; 10</code>; <code>p.taxaRolagemRadps &gt; 10</code>; exceções: <code>new Error('Parâmetro RE desconhecido.')</code>; <code>new Error(`Parâmetro RE inválido: ${k}`)</code>; <code>new Error(`cursoFlapRad: ${p.cursoFlapRad} rad; deve ser menor que ${Math.PI / 2} rad.`)</code>; <code>new Error(`cursoRolagemRad: ${p.cursoRolagemRad} rad; deve ser menor ou igual a ${Math.PI / 2} rad.`)</code>; <code>new Error(`fracaoCargaInicialBateria: ${p.fracaoCargaInicialBateria}; deve ser menor ou igual a 1 (100%).`)</code>; <code>new Error(`taxaFlapRadps: ${p.taxaFlapRadps} rad/s; deve ser menor ou igual a 10 rad/s.`)</code>; <code>new Error(`taxaRolagemRadps: ${p.taxaRolagemRadps} rad/s; deve ser menor ou igual a 10 rad/s.`)</code> |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/reentrada/ModeloAerodinamicoReentrada.configuracao.test.ts](../../src/physics/reentrada/ModeloAerodinamicoReentrada.configuracao.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Copia parâmetros SI conhecidos e valida finitude, sinal e domínio mecânico.<br> * São calibrações de ensaio, não especificações certificadas. Nenhuma alteração<br> * afeta o objeto padrão global nem modifica corpos já em voo.<br> * @contract f-e334f1718df02bee<br>   */ |
+| JSDoc integral | /** Copia parâmetros SI conhecidos e valida finitude, sinal e domínio mecânico.<br> * São calibrações de ensaio, não especificações certificadas. Nenhuma alteração<br> * afeta o objeto padrão global nem modifica corpos já em voo.<br> * Rejeições mecânicas identificam chave, valor e limite; não arredondam nem<br> * toleram entradas fora do domínio. Cursos em rad, taxas em rad/s, carga [0,1].<br> * @contract f-e334f1718df02bee<br>   */ |
 
 </details>
 
@@ -21677,7 +21677,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/reentrada/ModeloAerodinamicoReentrada.ts::projetarSustentacao:FunctionDeclaration</code> · [fonte L72](../../src/physics/reentrada/ModeloAerodinamicoReentrada.ts#L72) |
+| Identificador | <code>src/physics/reentrada/ModeloAerodinamicoReentrada.ts::projetarSustentacao:FunctionDeclaration</code> · [fonte L77](../../src/physics/reentrada/ModeloAerodinamicoReentrada.ts#L77) |
 | Assinatura | <code>export (sustentacaoN: number, phiRad: number): number</code> |
 | Responsabilidade | Projeção puramente algébrica L*cos(phi), inclusive em rolagem negativa; lateral L*sin(phi) não é integrada. Não produz arrasto ou integração. |
 | Entradas | <code>sustentacaoN: number</code>; <code>phiRad: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -21685,7 +21685,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>[sustentacaoN, phiRad].every</code>; <code>Error</code>; <code>Math.cos</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>![sustentacaoN, phiRad].every(Number.isFinite)</code>; exceções: <code>new Error('Projeção não finita.')</code> |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/reentrada/ModeloAerodinamicoReentrada.configuracao.test.ts](../../src/physics/reentrada/ModeloAerodinamicoReentrada.configuracao.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Projeção puramente algébrica L*cos(phi), inclusive em rolagem negativa;<br> * lateral L*sin(phi) não é integrada. Não produz arrasto ou integração.<br> * @contract f-b963603558db9e7b<br>   */ |
 
@@ -21696,7 +21696,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/reentrada/ModeloAerodinamicoReentrada.ts::calcularFluxoTermicoIndicador:FunctionDeclaration</code> · [fonte L82](../../src/physics/reentrada/ModeloAerodinamicoReentrada.ts#L82) |
+| Identificador | <code>src/physics/reentrada/ModeloAerodinamicoReentrada.ts::calcularFluxoTermicoIndicador:FunctionDeclaration</code> · [fonte L87](../../src/physics/reentrada/ModeloAerodinamicoReentrada.ts#L87) |
 | Assinatura | <code>export (rho: number, velocidadeMps: number, raioM: number, coeficienteSI?: number): number</code> |
 | Responsabilidade | Indicador Sutton–Graves SI, limitado pelo fluxo cinético molecular incidente. rho kg/m³, V m/s e raio m; retorna W/m². Não é previsão qualificada de TPS, especialmente no rarefeito, fora do hipersônico ou com química/composição variáveis. |
 | Entradas | <code>rho: number</code>; <code>velocidadeMps: number</code>; <code>raioM: number</code>; <code>coeficienteSI: number = MODELO_REENTRADA.coeficienteSuttonGravesSI</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -21704,7 +21704,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>[rho, velocidadeMps, raioM, coeficienteSI].every</code>; <code>Error</code>; <code>Math.min</code>; <code>Math.sqrt</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>![rho, velocidadeMps, raioM, coeficienteSI].every(Number.isFinite) &#124;&#124; rho &lt; 0 &#124;&#124; velocidadeMps &lt; 0 &#124;&#124; raioM &lt;= 0 &#124;&#124; coeficienteSI &lt;= 0</code>; exceções: <code>new Error('Parâmetros térmicos inválidos.')</code> |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/reentrada/ModeloAerodinamicoReentrada.configuracao.test.ts](../../src/physics/reentrada/ModeloAerodinamicoReentrada.configuracao.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Indicador Sutton–Graves SI, limitado pelo fluxo cinético molecular incidente.<br> * rho kg/m³, V m/s e raio m; retorna W/m². Não é previsão qualificada de TPS,<br> * especialmente no rarefeito, fora do hipersônico ou com química/composição variáveis.<br> * @contract f-5b99eb90d683a84a<br>   */ |
 
@@ -21715,7 +21715,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/reentrada/ModeloAerodinamicoReentrada.ts::avaliarAerodinamica:FunctionDeclaration</code> · [fonte L96](../../src/physics/reentrada/ModeloAerodinamicoReentrada.ts#L96) |
+| Identificador | <code>src/physics/reentrada/ModeloAerodinamicoReentrada.ts::avaliarAerodinamica:FunctionDeclaration</code> · [fonte L101](../../src/physics/reentrada/ModeloAerodinamicoReentrada.ts#L101) |
 | Assinatura | <code>export (estado: EstadoFisico, condicoes: CondicoesAtmosfericas, atmosfera: AmostraAtmosferaReentrada, integridade: number, phiRad: number, p?: ParametrosReentrada): CargasReentrada</code> |
 | Responsabilidade | Modelo analítico preliminar XY, eixo longitudinal local +X. Cl=0,9*sin(2α) com correção Mach suave; Cd=0,12+1,6*sin²α+termo Mach. Não usa tabela validada. CP levemente a ré produz momento real; lift normal ao fluxo é projetado por phi. Condições SI finitas fornecidas pelo mundo; função pura, dt não se aplica. |
 | Entradas | <code>estado: EstadoFisico</code>; <code>condicoes: CondicoesAtmosfericas</code>; <code>atmosfera: AmostraAtmosferaReentrada</code>; <code>integridade: number</code>; <code>phiRad: number</code>; <code>p: ParametrosReentrada = MODELO_REENTRADA</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -21723,7 +21723,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>estado.velocidadeMps.subtrair</code>; <code>normalizarAngulo</code>; <code>Math.atan2</code>; <code>Math.sin</code>; <code>Math.exp</code>; <code>projetarSustentacao</code>; <code>Vetor3</code>; <code>n.multiplicar</code>; <code>v.multiplicar</code>; <code>calcularFluxoTermicoIndicador</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/reentrada/ModeloAerodinamicoReentrada.configuracao.test.ts](../../src/physics/reentrada/ModeloAerodinamicoReentrada.configuracao.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Modelo analítico preliminar XY, eixo longitudinal local +X. Cl=0,9*sin(2α)<br> * com correção Mach suave; Cd=0,12+1,6*sin²α+termo Mach. Não usa tabela validada.<br> * CP levemente a ré produz momento real; lift normal ao fluxo é projetado por phi.<br> * Condições SI finitas fornecidas pelo mundo; função pura, dt não se aplica.<br> * @contract f-1ed66fedcef47f81<br>   */ |
 
@@ -26281,17 +26281,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada:FunctionDeclaration</code> · [fonte L13](../../src/reentrada.ts#L13) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada:FunctionDeclaration</code> · [fonte L15](../../src/reentrada.ts#L15) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | Fronteira de apresentação: lê controles, comanda portas de missão e desenha snapshots; tempo real serve apenas ao executor fixo, nunca à lei física. |
+| Responsabilidade | Fronteira de apresentação: lê controles, comanda portas de missão e desenha snapshots; tempo real serve apenas ao executor fixo, nunca à lei física. Define padrões restauráveis no formulário; recuperação exige ação explícita e nova preparação validada, sem criar cenário alternativo em erro. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
-| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>label.textContent</code>; <code>input.type</code>; <code>input.step</code>; <code>input.required</code>; <code>input.id</code>; <code>input.value</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>elemento</code>; <code>Map</code>; <code>Object.entries</code>; <code>configurarParametrosReentrada</code>; <code>document.createElement</code>; <code>String</code>; <code>label.append</code>; <code>elemento('re-parametros').append</code>; <code>camposParametros.set</code>; <code>RenderizadorReentrada</code>; <code>iniciais.addEventListener</code>; <code>form.addEventListener</code>; <code>elemento('re-reset').addEventListener</code>; <code>elemento('re-continuar-aplicada').addEventListener</code>; <code>elemento('re-iniciar-nova').addEventListener</code>; <code>elemento('re-cancelar-escolha').addEventListener</code>; <code>modo.addEventListener</code>; <code>elemento('re-alvos').addEventListener</code>; <code>elemento(id).addEventListener</code>; <code>elemento('re-chaveamento').addEventListener</code>; <code>elemento('re-pouso').addEventListener</code>; <code>energia.addEventListener</code>; <code>elemento('re-falha-rolagem').addEventListener</code>; <code>elemento('re-separar').addEventListener</code>; <code>elemento('re-passo').addEventListener</code>; <code>elemento('re-exportar').addEventListener</code>; <code>preparar</code>; <code>requestAnimationFrame</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>label.textContent</code>; <code>input.type</code>; <code>input.step</code>; <code>input.required</code>; <code>input.id</code>; <code>input.defaultValue</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>elemento</code>; <code>Map</code>; <code>Object.entries</code>; <code>configurarParametrosReentrada</code>; <code>document.createElement</code>; <code>String</code>; <code>label.append</code>; <code>elemento('re-parametros').append</code>; <code>camposParametros.set</code>; <code>RenderizadorReentrada</code>; <code>iniciais.addEventListener</code>; <code>form.addEventListener</code>; <code>elemento('re-reset').addEventListener</code>; <code>elemento('re-restaurar-padroes').addEventListener</code>; <code>elemento('re-continuar-aplicada').addEventListener</code>; <code>elemento('re-iniciar-nova').addEventListener</code>; <code>elemento('re-cancelar-escolha').addEventListener</code>; <code>modo.addEventListener</code>; <code>elemento('re-alvos').addEventListener</code>; <code>elemento(id).addEventListener</code>; <code>elemento('re-chaveamento').addEventListener</code>; <code>elemento('re-pouso').addEventListener</code>; <code>energia.addEventListener</code>; <code>elemento('re-falha-rolagem').addEventListener</code>; <code>elemento('re-separar').addEventListener</code>; <code>elemento('re-passo').addEventListener</code>; <code>elemento('re-exportar').addEventListener</code>; <code>preparar</code>; <code>requestAnimationFrame</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Fronteira de apresentação: lê controles, comanda portas de missão e desenha<br> * snapshots; tempo real serve apenas ao executor fixo, nunca à lei física.<br> * @contract f-bdf1e31dbe2aa399<br>   */ |
+| JSDoc integral | /** Fronteira de apresentação: lê controles, comanda portas de missão e desenha<br> * snapshots; tempo real serve apenas ao executor fixo, nunca à lei física.<br> * Define padrões restauráveis no formulário; recuperação exige ação explícita<br> * e nova preparação validada, sem criar cenário alternativo em erro.<br> * @contract f-bdf1e31dbe2aa399<br>   */ |
 
 </details>
 
@@ -26300,7 +26300,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.elemento:FunctionDeclaration</code> · [fonte L15](../../src/reentrada.ts#L15) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.elemento:FunctionDeclaration</code> · [fonte L17](../../src/reentrada.ts#L17) |
 | Assinatura | <code> &lt;T extends HTMLElement&gt;(id: string): T</code> |
 | Responsabilidade | Resolve elemento obrigatório da página, falhando explicitamente se ausente. |
 | Entradas | <code>id: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -26319,7 +26319,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.numero:FunctionDeclaration</code> · [fonte L21](../../src/reentrada.ts#L21) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.numero:FunctionDeclaration</code> · [fonte L23](../../src/reentrada.ts#L23) |
 | Assinatura | <code> (id: string): number</code> |
 | Responsabilidade | Lê número explícito, rejeitando vazio, não finito e restrições HTML com diagnóstico do campo. Unidades físicas são validadas também no domínio. |
 | Entradas | <code>id: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -26338,7 +26338,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.opcao:FunctionDeclaration</code> · [fonte L29](../../src/reentrada.ts#L29) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.opcao:FunctionDeclaration</code> · [fonte L31](../../src/reentrada.ts#L31) |
 | Assinatura | <code> (id: string, permitidas: readonly string[]): string</code> |
 | Responsabilidade | Valida seleção conhecida antes de convertê-la em estado inicial booleano. |
 | Entradas | <code>id: string</code>; <code>permitidas: readonly string[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -26357,7 +26357,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.rad:FunctionDeclaration</code> · [fonte L35](../../src/reentrada.ts#L35) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.rad:FunctionDeclaration</code> · [fonte L37](../../src/reentrada.ts#L37) |
 | Assinatura | <code> (id: string): number</code> |
 | Responsabilidade | Converte graus da interface para radianos explicitamente. |
 | Entradas | <code>id: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -26376,7 +26376,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.lerConfiguracao:FunctionDeclaration</code> · [fonte L61](../../src/reentrada.ts#L61) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.lerConfiguracao:FunctionDeclaration</code> · [fonte L63](../../src/reentrada.ts#L63) |
 | Assinatura | <code> (): ConfiguracaoReentrada</code> |
 | Responsabilidade | Lê configuração pré-ensaio; todas as conversões são explícitas e registradas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -26395,7 +26395,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.capturarCamposConfiguracao:FunctionDeclaration</code> · [fonte L81](../../src/reentrada.ts#L81) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.capturarCamposConfiguracao:FunctionDeclaration</code> · [fonte L83](../../src/reentrada.ts#L83) |
 | Assinatura | <code> (): Readonly&lt;Record&lt;string, string&gt;&gt;</code> |
 | Responsabilidade | Captura somente valores de configuração, inclusive restaurados sem eventos. As strings detectam edição; não substituem a configuração física validada. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -26414,7 +26414,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.atualizarEstadoConfiguracao:FunctionDeclaration</code> · [fonte L90](../../src/reentrada.ts#L90) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.atualizarEstadoConfiguracao:FunctionDeclaration</code> · [fonte L92](../../src/reentrada.ts#L92) |
 | Assinatura | <code> (): void</code> |
 | Responsabilidade | Mostra pendência comparando o formulário com a última preparação. Consulta apenas strings e snapshot aplicado; nunca exporta todo o diário por frame. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -26433,7 +26433,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.rejeitarConfiguracao:FunctionDeclaration</code> · [fonte L101](../../src/reentrada.ts#L101) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.rejeitarConfiguracao:FunctionDeclaration</code> · [fonte L103](../../src/reentrada.ts#L103) |
 | Assinatura | <code> (erro: unknown): void</code> |
 | Responsabilidade | Rejeição pertence à apresentação e não altera o diário do ensaio anterior. |
 | Entradas | <code>erro: unknown</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -26452,17 +26452,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.preparar:FunctionDeclaration</code> · [fonte L111](../../src/reentrada.ts#L111) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.preparar:FunctionDeclaration</code> · [fonte L114](../../src/reentrada.ts#L114) |
 | Assinatura | <code> (configuracao?: ConfiguracaoReentrada): boolean</code> |
-| Responsabilidade | Recria pela fábrica após leitura/validação única; só substitui instância após construção bem sucedida. Confirma valores do diário retornado pelo domínio, sem reescrever inputs ou materiais do ensaio anterior. Testes RE-003 A–G. |
+| Responsabilidade | Recria pela fábrica após leitura/validação única; só substitui instância após construção bem sucedida. Confirma valores do diário retornado pelo domínio, sem reescrever inputs ou materiais do ensaio anterior. Testes RE-003 A–G. Oculta o aviso de cena indisponível somente após preparação válida. |
 | Entradas | <code>configuracao?: ConfiguracaoReentrada</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>true</code>; <code>false</code> |
-| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>iniciais.disabled</code>; <code>ensaio</code>; <code>aplicada</code>; <code>executor</code>; <code>historico</code>; <code>camposAplicados</code>; <code>numeroPreparo</code>; <code>intervaloVisualPassos</code>; <code>limiteVisualAmostras</code>; <code>e.min</code>; <code>e.max</code>; <code>e.value</code>; <code>eventosMostrados</code>; <code>ultimaAtualizacaoMs</code>; <code>modo.value</code>; <code>elemento&lt;HTMLInputElement&gt;('re-alpha-alvo').value</code>; <code>elemento&lt;HTMLInputElement&gt;('re-phi-alvo').value</code>; <code>elemento('re-config-aplicada').textContent</code>; <code>mensagem.textContent</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>iniciais.disabled</code>; <code>ensaio</code>; <code>aplicada</code>; <code>executor</code>; <code>historico</code>; <code>camposAplicados</code>; <code>numeroPreparo</code>; <code>intervaloVisualPassos</code>; <code>limiteVisualAmostras</code>; <code>e.min</code>; <code>e.max</code>; <code>e.value</code>; <code>eventosMostrados</code>; <code>ultimaAtualizacaoMs</code>; <code>modo.value</code>; <code>elemento&lt;HTMLInputElement&gt;('re-alpha-alvo').value</code>; <code>elemento&lt;HTMLInputElement&gt;('re-phi-alvo').value</code>; <code>elemento('re-config-aplicada').textContent</code>; <code>mensagem.textContent</code>; <code>elemento('re-cena-indisponivel').hidden</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>ensaio.pausar</code>; <code>executor?.suspenderReferenciaRelogio</code>; <code>criarEnsaioReentrada</code>; <code>lerConfiguracao</code>; <code>novo.exportar</code>; <code>ExecutorPassoFixo</code>; <code>novo.observar</code>; <code>capturarCamposConfiguracao</code>; <code>Math.round</code>; <code>elemento</code>; <code>String</code>; <code>cancelarEscolhaConfiguracao</code>; <code>atualizarEstadoConfiguracao</code>; <code>atualizarPainel</code>; <code>rejeitarConfiguracao</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>ensaio?.estadoExecucao === 'executando'</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Recria pela fábrica após leitura/validação única; só substitui instância após<br>   * construção bem sucedida. Confirma valores do diário retornado pelo domínio,<br>   * sem reescrever inputs ou materiais do ensaio anterior. Testes RE-003 A–G.<br>   * @contract f-c51586eefc46d9d2 */ |
+| JSDoc integral | /** Recria pela fábrica após leitura/validação única; só substitui instância após<br>   * construção bem sucedida. Confirma valores do diário retornado pelo domínio,<br>   * sem reescrever inputs ou materiais do ensaio anterior. Testes RE-003 A–G.<br>   * Oculta o aviso de cena indisponível somente após preparação válida.<br>   * @contract f-c51586eefc46d9d2 */ |
 
 </details>
 
@@ -26471,7 +26471,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.garantirConfiguracaoParaInicio:FunctionDeclaration</code> · [fonte L143](../../src/reentrada.ts#L143) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.garantirConfiguracaoParaInicio:FunctionDeclaration</code> · [fonte L147](../../src/reentrada.ts#L147) |
 | Assinatura | <code> (acao: "executar" &#124; "passo"): boolean</code> |
 | Responsabilidade | Nenhum novo início/passo depende de evento de edição. Revalida o formulário; ensaio pausado com edição exige escolha, inclusive se a edição for inválida. |
 | Entradas | <code>acao: 'executar' &#124; 'passo'</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -26490,7 +26490,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.executarAcaoPreparada:FunctionDeclaration</code> · [fonte L162](../../src/reentrada.ts#L162) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.executarAcaoPreparada:FunctionDeclaration</code> · [fonte L166](../../src/reentrada.ts#L166) |
 | Assinatura | <code> (acao: "executar" &#124; "passo"): void</code> |
 | Responsabilidade | Executa somente sobre instância já escolhida/validada; tempo real fica na apresentação. Passo manual avança exatamente 1 s usando dt configurado. |
 | Entradas | <code>acao: 'executar' &#124; 'passo'</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -26509,7 +26509,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.tratarExecucao:FunctionDeclaration</code> · [fonte L174](../../src/reentrada.ts#L174) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.tratarExecucao:FunctionDeclaration</code> · [fonte L178](../../src/reentrada.ts#L178) |
 | Assinatura | <code> (evento: SubmitEvent): void</code> |
 | Responsabilidade | Handler de início/pausa: pausar não valida nem aplica edições. |
 | Entradas | <code>evento: SubmitEvent</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -26528,7 +26528,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.reinicializar:FunctionDeclaration</code> · [fonte L183](../../src/reentrada.ts#L183) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.reinicializar:FunctionDeclaration</code> · [fonte L187](../../src/reentrada.ts#L187) |
 | Assinatura | <code> (): void</code> |
 | Responsabilidade | Reinicialização explícita aplica a edição e conserva novo ensaio no passo 0. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -26542,12 +26542,31 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 </details>
 
+<a id="f-23de89613c49fbe8"></a>
+<details><summary>iniciarBancada.restaurarConfiguracaoPadrao · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/reentrada.ts::iniciarBancada.restaurarConfiguracaoPadrao:FunctionDeclaration</code> · [fonte L195](../../src/reentrada.ts#L195) |
+| Assinatura | <code> (): void</code> |
+| Responsabilidade | Restaura explicitamente todos os campos de configuração aos padrões HTML e SI do modelo, inclusive limiares térmicos aprovados, e prepara no tempo zero pela mesma validação. Não inicia execução nem conserva o ensaio antigo. Depende do DOM/form.reset e reinicializar; smoke cobre erro e recuperação. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>form.reset</code>; <code>reinicializar</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Restaura explicitamente todos os campos de configuração aos padrões HTML<br>   * e SI do modelo, inclusive limiares térmicos aprovados, e prepara no tempo<br>   * zero pela mesma validação. Não inicia execução nem conserva o ensaio antigo.<br>   * Depende do DOM/form.reset e reinicializar; smoke cobre erro e recuperação.<br>   * @contract f-23de89613c49fbe8<br>   */ |
+
+</details>
+
 <a id="f-2c6793de2a48e002"></a>
 <details><summary>iniciarBancada.avancarUmSegundo · FunctionDeclaration</summary>
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.avancarUmSegundo:FunctionDeclaration</code> · [fonte L186](../../src/reentrada.ts#L186) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.avancarUmSegundo:FunctionDeclaration</code> · [fonte L200](../../src/reentrada.ts#L200) |
 | Assinatura | <code> (): void</code> |
 | Responsabilidade | Avanço manual usa a mesma validação e a mesma escolha da execução contínua. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -26566,7 +26585,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.cancelarEscolhaConfiguracao:FunctionDeclaration</code> · [fonte L191](../../src/reentrada.ts#L191) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.cancelarEscolhaConfiguracao:FunctionDeclaration</code> · [fonte L205](../../src/reentrada.ts#L205) |
 | Assinatura | <code> (): void</code> |
 | Responsabilidade | Fecha escolha sem tocar em corpos, diário ou valores digitados. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -26585,7 +26604,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.continuarConfiguracaoAplicada:FunctionDeclaration</code> · [fonte L199](../../src/reentrada.ts#L199) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.continuarConfiguracaoAplicada:FunctionDeclaration</code> · [fonte L213](../../src/reentrada.ts#L213) |
 | Assinatura | <code> (): void</code> |
 | Responsabilidade | Retoma explicitamente a configuração anterior mesmo com edição inválida; preserva edição e agenda física anterior. Não reinterpreta inputs como comandos. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -26604,7 +26623,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.iniciarNovaConfiguracao:FunctionDeclaration</code> · [fonte L206](../../src/reentrada.ts#L206) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.iniciarNovaConfiguracao:FunctionDeclaration</code> · [fonte L220](../../src/reentrada.ts#L220) |
 | Assinatura | <code> (): void</code> |
 | Responsabilidade | Troca de ensaio só após validação bem sucedida da edição atual. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -26623,7 +26642,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.exportarDiario:FunctionDeclaration</code> · [fonte L215](../../src/reentrada.ts#L215) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.exportarDiario:FunctionDeclaration</code> · [fonte L229](../../src/reentrada.ts#L229) |
 | Assinatura | <code> (): void</code> |
 | Responsabilidade | Exporta somente o ensaio aplicado, identificando edição pendente. Antes de existir um ensaio válido não fabrica um diário com defaults. Download local. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -26642,7 +26661,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.comandar:FunctionDeclaration</code> · [fonte L227](../../src/reentrada.ts#L227) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.comandar:FunctionDeclaration</code> · [fonte L241](../../src/reentrada.ts#L241) |
 | Assinatura | <code> (c: ComandoReentrada): void</code> |
 | Responsabilidade | Encaminha intenção e apresenta diagnóstico real, sem duplicar estados. |
 | Entradas | <code>c: ComandoReentrada</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -26661,7 +26680,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.avancar:FunctionDeclaration</code> · [fonte L237](../../src/reentrada.ts#L237) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.avancar:FunctionDeclaration</code> · [fonte L251](../../src/reentrada.ts#L251) |
 | Assinatura | <code> (): void</code> |
 | Responsabilidade | Executa um passo fixo e registra amostra visual a cada segundo simulado. O diário compartilha coleta configurada e informa retenção/descartes; extremos são medidos em todo passo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -26680,7 +26699,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.metrica:FunctionDeclaration</code> · [fonte L245](../../src/reentrada.ts#L245) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.metrica:FunctionDeclaration</code> · [fonte L259](../../src/reentrada.ts#L259) |
 | Assinatura | <code> (id: string, nome: string, valor: string): void</code> |
 | Responsabilidade | Atualiza valor de telemetria em nó persistente, evitando reconstrução por frame. |
 | Entradas | <code>id: string</code>; <code>nome: string</code>; <code>valor: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -26699,7 +26718,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.graus:FunctionDeclaration</code> · [fonte L257](../../src/reentrada.ts#L257) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.graus:FunctionDeclaration</code> · [fonte L271](../../src/reentrada.ts#L271) |
 | Assinatura | <code> (rad: number): string</code> |
 | Responsabilidade | Converte radianos observados para graus de apresentação. |
 | Entradas | <code>rad: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -26718,7 +26737,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.atualizarPainel:FunctionDeclaration</code> · [fonte L260](../../src/reentrada.ts#L260) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.atualizarPainel:FunctionDeclaration</code> · [fonte L274](../../src/reentrada.ts#L274) |
 | Assinatura | <code> (o: ObservacaoReentrada): void</code> |
 | Responsabilidade | Renderiza comandos, estado físico e variáveis virtuais explicitamente distintos. |
 | Entradas | <code>o: ObservacaoReentrada</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -26737,7 +26756,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.quadro:FunctionDeclaration</code> · [fonte L355](../../src/reentrada.ts#L355) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.quadro:FunctionDeclaration</code> · [fonte L370](../../src/reentrada.ts#L370) |
 | Assinatura | <code> (timestamp: number): void</code> |
 | Responsabilidade | Cooperação da apresentação: orçamento 8 ms/quadro, mantém dívida temporal. Pausa em erro explícito e conserva diagnóstico; não declara sucesso/repouso. |
 | Entradas | <code>timestamp: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -26756,7 +26775,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.quadro.continuar:ArrowFunction</code> · [fonte L362](../../src/reentrada.ts#L362) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.quadro.continuar:ArrowFunction</code> · [fonte L377](../../src/reentrada.ts#L377) |
 | Assinatura | <code> (): boolean</code> |
 | Responsabilidade | Orçamento visual em ms; interrompe lote, preservando dívida e dt físico. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -34844,7 +34863,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/physics/objetos/veiculos/VeiculoComposto.ts::VeiculoComposto.massaInstantaneaDoConjuntoKg.[callback]:ArrowFunction#1</code> · [L226](../../src/physics/objetos/veiculos/VeiculoComposto.ts#L226) | <code>(massa: number, objeto: Objeto): number</code> | — / — |
 | <code>src/physics/objetos/veiculos/VeiculoComposto.ts::VeiculoComposto.centroDeMassaDoConjuntoM.[callback]:ArrowFunction#1</code> · [L232](../../src/physics/objetos/veiculos/VeiculoComposto.ts#L232) | <code>(soma: number, objeto: Objeto): number</code> | — / — |
 | <code>src/physics/objetos/veiculos/VeiculoComposto.ts::VeiculoComposto.centroDeMassaDoConjuntoM.[callback]:ArrowFunction#2</code> · [L234](../../src/physics/objetos/veiculos/VeiculoComposto.ts#L234) | <code>(soma: Vetor3, objeto: Objeto): Vetor3</code> | <code>soma.adicionar</code>; <code>objeto.getEstadoFisico().posicaoM.multiplicar</code>; <code>objeto.getEstadoFisico</code> / — |
-| <code>src/physics/reentrada/ModeloAerodinamicoReentrada.ts::configurarParametrosReentrada.[callback]:ArrowFunction#1</code> · [L34](../../src/physics/reentrada/ModeloAerodinamicoReentrada.ts#L34) | <code>(k: string): boolean</code> | <code>Object.hasOwn</code> / — |
+| <code>src/physics/reentrada/ModeloAerodinamicoReentrada.ts::configurarParametrosReentrada.[callback]:ArrowFunction#1</code> · [L36](../../src/physics/reentrada/ModeloAerodinamicoReentrada.ts#L36) | <code>(k: string): boolean</code> | <code>Object.hasOwn</code> / — |
 | <code>src/physics/sensores/SensoresVeiculoComposto.ts::SensoresVeiculoComposto.constructor.[callback]:ArrowFunction#1</code> · [L83](../../src/physics/sensores/SensoresVeiculoComposto.ts#L83) | <code>(): ReferencialFisico</code> | — / — |
 | <code>src/physics/sensores/SistemaSensores.ts::SistemaSensores.atualizarSwitchesFimDeCurso.[callback]:ArrowFunction#1</code> · [L52](../../src/physics/sensores/SistemaSensores.ts#L52) | <code>(objeto: Objeto): boolean</code> | <code>this.estaoNaMesmaIlhaEstrutural</code>; <code>objeto.getEstadoFisico</code>; <code>obterContatoCaixasOrientadas</code> / — |
 | <code>src/physics/sensores/SistemaSensores.ts::SistemaSensores.atualizarSwitchesFimDeCurso.[callback]:ArrowFunction#2</code> · [L65](../../src/physics/sensores/SistemaSensores.ts#L65) | <code>(superficie: SuperficieFisica): boolean</code> | <code>switchFimDeCurso.obterPontosDaFaceSensivelM().some</code>; <code>switchFimDeCurso.obterPontosDaFaceSensivelM</code> / — |
@@ -34928,19 +34947,19 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts::ResolvedorEsforcoEstrutural.registrarImpulsoDeContato.[callback]#3.[callback]:ArrowFunction#4</code> · [L67](../../src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts#L67) | <code>(membro: Objeto): boolean</code> | <code>alcancaveis.has</code> / — |
 | <code>src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts::ResolvedorEsforcoEstrutural.obterCentroDeMassa.[callback]:ArrowFunction#1</code> · [L92](../../src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts#L92) | <code>(soma: number, membro: Objeto): number</code> | — / — |
 | <code>src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts::ResolvedorEsforcoEstrutural.obterCentroDeMassa.[callback]:ArrowFunction#2</code> · [L93](../../src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts#L93) | <code>(soma: Vetor3, membro: Objeto): Vetor3</code> | <code>membro.getEstadoFisico</code>; <code>soma.adicionar</code>; <code>posicao.multiplicar</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.lerConfiguracao.[callback]:ArrowFunction#1</code> · [L62](../../src/reentrada.ts#L62) | <code>([k, input]: ["areaReferenciaM2" &#124; "comprimentoM" &#124; "alturaM" &#124; "raioNarizM" &#124; "areaAquecidaM2" &#124; "massaCorpoKg" &#124; "massaFlapKg" &#124; "massaBateriaKg" &#124; "resistenciaCorpoJ" &#124; "resistenciaFlapJ" &#124; "resistenciaFixadorN" &#124; "areaFlapM2" &#124; "clFlapPorRad" &#124; "cdFlapBase" &#124; "cdFlapDeflexao" &#124; "cursoFlapRad" &#124; "taxaFlapRadps" &#124; "bracoFlapM" &#124; "potenciaFlapW" &#124; "potenciaRepousoFlapW" &#124; "tensaoBateriaV" &#124; "energiaBateriaJ" &#124; "ganhoAlpha" &#124; "ganhoTaxa" &#124; "torqueMinimoAutoridadeNm" &#124; "taxaRolagemRadps" &#124; "coeficienteSuttonGravesSI" &#124; "larguraM" &#124; "clCorpo" &#124; "fatorMachBase" &#124; "fatorMachVariacao" &#124; "cdCorpoBase" &#124; "cdCorpoAlpha" &#124; "cdMachGauss" &#124; "cpBaseM" &#124; "cpVariacaoM" &#124; "deslocamentoVerticalFlapM" &#124; "raioNarizFlapM" &#124; "areaAquecidaFlapM2" &#124; "calorEspecificoCorpoJPorKgC" &#124; "calorEspecificoFlapJPorKgC" &#124; "comprimentoCaracteristicoCorpoM" &#124; "comprimentoCaracteristicoFlapM" &#124; "cursoRolagemRad" &#124; "conveccaoCorpoWPorM2C" &#124; "condutanciaFlapWPorC" &#124; "fracaoCargaInicialBateria", HTMLInputElement]): ["areaReferenciaM2" &#124; "comprimentoM" &#124; "alturaM" &#124; "raioNarizM" &#124; "areaAquecidaM2" &#124; "massaCorpoKg" &#124; "massaFlapKg" &#124; "massaBateriaKg" &#124; "resistenciaCorpoJ" &#124; "resistenciaFlapJ" &#124; "resistenciaFixadorN" &#124; "areaFlapM2" &#124; "clFlapPorRad" &#124; "cdFlapBase" &#124; "cdFlapDeflexao" &#124; "cursoFlapRad" &#124; "taxaFlapRadps" &#124; "bracoFlapM" &#124; "potenciaFlapW" &#124; "potenciaRepousoFlapW" &#124; "tensaoBateriaV" &#124; "energiaBateriaJ" &#124; "ganhoAlpha" &#124; "ganhoTaxa" &#124; "torqueMinimoAutoridadeNm" &#124; "taxaRolagemRadps" &#124; "coeficienteSuttonGravesSI"… [continua na fonte]</code> | <code>numero</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.capturarCamposConfiguracao.[callback]:ArrowFunction#1</code> · [L83](../../src/reentrada.ts#L83) | <code>(input: HTMLInputElement &#124; HTMLSelectElement): [string, string]</code> | — / — |
-| <code>src/reentrada.ts::iniciarBancada.atualizarPainel.[callback]:ArrowFunction#1</code> · [L293](../../src/reentrada.ts#L293) | <code>(h: Readonly&lt;{ aceleracaoLiquidaMps2: number; distanciaFrenagemM: number; quedaFrenagemRadialM: number; tempoFrenagemS: number; velocidadeLimiteNecessariaMps: number &#124; null; desvioVelocidadeMps: number &#124; null; limitesNecessariosAtendidos: boolean; }&gt;): string</code> | <code>h.velocidadeLimiteNecessariaMps?.toFixed</code>; <code>h.desvioVelocidadeMps?.toFixed</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.atualizarPainel.[callback]:ArrowFunction#2</code> · [L309](../../src/reentrada.ts#L309) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): boolean</code> | — / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#1</code> · [L335](../../src/reentrada.ts#L335) | <code>(): void</code> | <code>comandar</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#2</code> · [L336](../../src/reentrada.ts#L336) | <code>(): void</code> | <code>comandar</code>; <code>rad</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#3</code> · [L340](../../src/reentrada.ts#L340) | <code>(): void</code> | <code>comandar</code>; <code>rad</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#4</code> · [L343](../../src/reentrada.ts#L343) | <code>(): void</code> | <code>comandar</code>; <code>elemento</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#5</code> · [L344](../../src/reentrada.ts#L344) | <code>(): void</code> | <code>comandar</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#6</code> · [L345](../../src/reentrada.ts#L345) | <code>(): void</code> | <code>comandar</code>; <code>ensaio?.observar().flaps.every</code>; <code>ensaio?.observar</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]#6.[callback]:ArrowFunction#1</code> · [L345](../../src/reentrada.ts#L345) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): boolean</code> | — / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#7</code> · [L346](../../src/reentrada.ts#L346) | <code>(): void</code> | <code>comandar</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#8</code> · [L347](../../src/reentrada.ts#L347) | <code>(): void</code> | <code>comandar</code> / — |
+| <code>src/reentrada.ts::iniciarBancada.lerConfiguracao.[callback]:ArrowFunction#1</code> · [L64](../../src/reentrada.ts#L64) | <code>([k, input]: ["areaReferenciaM2" &#124; "comprimentoM" &#124; "alturaM" &#124; "raioNarizM" &#124; "areaAquecidaM2" &#124; "massaCorpoKg" &#124; "massaFlapKg" &#124; "massaBateriaKg" &#124; "resistenciaCorpoJ" &#124; "resistenciaFlapJ" &#124; "resistenciaFixadorN" &#124; "areaFlapM2" &#124; "clFlapPorRad" &#124; "cdFlapBase" &#124; "cdFlapDeflexao" &#124; "cursoFlapRad" &#124; "taxaFlapRadps" &#124; "bracoFlapM" &#124; "potenciaFlapW" &#124; "potenciaRepousoFlapW" &#124; "tensaoBateriaV" &#124; "energiaBateriaJ" &#124; "ganhoAlpha" &#124; "ganhoTaxa" &#124; "torqueMinimoAutoridadeNm" &#124; "taxaRolagemRadps" &#124; "coeficienteSuttonGravesSI" &#124; "larguraM" &#124; "clCorpo" &#124; "fatorMachBase" &#124; "fatorMachVariacao" &#124; "cdCorpoBase" &#124; "cdCorpoAlpha" &#124; "cdMachGauss" &#124; "cpBaseM" &#124; "cpVariacaoM" &#124; "deslocamentoVerticalFlapM" &#124; "raioNarizFlapM" &#124; "areaAquecidaFlapM2" &#124; "calorEspecificoCorpoJPorKgC" &#124; "calorEspecificoFlapJPorKgC" &#124; "comprimentoCaracteristicoCorpoM" &#124; "comprimentoCaracteristicoFlapM" &#124; "cursoRolagemRad" &#124; "conveccaoCorpoWPorM2C" &#124; "condutanciaFlapWPorC" &#124; "fracaoCargaInicialBateria", HTMLInputElement]): ["areaReferenciaM2" &#124; "comprimentoM" &#124; "alturaM" &#124; "raioNarizM" &#124; "areaAquecidaM2" &#124; "massaCorpoKg" &#124; "massaFlapKg" &#124; "massaBateriaKg" &#124; "resistenciaCorpoJ" &#124; "resistenciaFlapJ" &#124; "resistenciaFixadorN" &#124; "areaFlapM2" &#124; "clFlapPorRad" &#124; "cdFlapBase" &#124; "cdFlapDeflexao" &#124; "cursoFlapRad" &#124; "taxaFlapRadps" &#124; "bracoFlapM" &#124; "potenciaFlapW" &#124; "potenciaRepousoFlapW" &#124; "tensaoBateriaV" &#124; "energiaBateriaJ" &#124; "ganhoAlpha" &#124; "ganhoTaxa" &#124; "torqueMinimoAutoridadeNm" &#124; "taxaRolagemRadps" &#124; "coeficienteSuttonGravesSI"… [continua na fonte]</code> | <code>numero</code> / — |
+| <code>src/reentrada.ts::iniciarBancada.capturarCamposConfiguracao.[callback]:ArrowFunction#1</code> · [L85](../../src/reentrada.ts#L85) | <code>(input: HTMLInputElement &#124; HTMLSelectElement): [string, string]</code> | — / — |
+| <code>src/reentrada.ts::iniciarBancada.atualizarPainel.[callback]:ArrowFunction#1</code> · [L307](../../src/reentrada.ts#L307) | <code>(h: Readonly&lt;{ aceleracaoLiquidaMps2: number; distanciaFrenagemM: number; quedaFrenagemRadialM: number; tempoFrenagemS: number; velocidadeLimiteNecessariaMps: number &#124; null; desvioVelocidadeMps: number &#124; null; limitesNecessariosAtendidos: boolean; }&gt;): string</code> | <code>h.velocidadeLimiteNecessariaMps?.toFixed</code>; <code>h.desvioVelocidadeMps?.toFixed</code> / — |
+| <code>src/reentrada.ts::iniciarBancada.atualizarPainel.[callback]:ArrowFunction#2</code> · [L323](../../src/reentrada.ts#L323) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): boolean</code> | — / — |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#1</code> · [L350](../../src/reentrada.ts#L350) | <code>(): void</code> | <code>comandar</code> / — |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#2</code> · [L351](../../src/reentrada.ts#L351) | <code>(): void</code> | <code>comandar</code>; <code>rad</code> / — |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#3</code> · [L355](../../src/reentrada.ts#L355) | <code>(): void</code> | <code>comandar</code>; <code>rad</code> / — |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#4</code> · [L358](../../src/reentrada.ts#L358) | <code>(): void</code> | <code>comandar</code>; <code>elemento</code> / — |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#5</code> · [L359](../../src/reentrada.ts#L359) | <code>(): void</code> | <code>comandar</code> / — |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#6</code> · [L360](../../src/reentrada.ts#L360) | <code>(): void</code> | <code>comandar</code>; <code>ensaio?.observar().flaps.every</code>; <code>ensaio?.observar</code> / — |
+| <code>src/reentrada.ts::iniciarBancada.[callback]#6.[callback]:ArrowFunction#1</code> · [L360](../../src/reentrada.ts#L360) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): boolean</code> | — / — |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#7</code> · [L361](../../src/reentrada.ts#L361) | <code>(): void</code> | <code>comandar</code> / — |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#8</code> · [L362](../../src/reentrada.ts#L362) | <code>(): void</code> | <code>comandar</code> / — |
 | <code>src/testes.ts::[callback]:ArrowFunction#1</code> · [L159](../../src/testes.ts#L159) | <code>(): void</code> | <code>toggleControlLayoutButton.setAttribute</code>; <code>String</code>; <code>localStorage.setItem</code> / <code>testLayout.dataset.controlsLayout</code> |
 | <code>src/testes.ts::objetosEmRepouso.[callback]:ArrowFunction#1</code> · [L260](../../src/testes.ts#L260) | <code>(objeto: Objeto): boolean</code> | <code>objeto.getEstadoFisico</code> / — |
 | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.[callback]:ArrowFunction#1</code> · [L343](../../src/testes.ts#L343) | <code>(_: unknown, indice: number): Objeto</code> | <code>Objeto</code>; <code>Vetor3</code> / — |
@@ -35235,6 +35254,18 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/apresentacao/missao/CameraMissao.test.ts::[callback]#1.[callback]:ArrowFunction#1</code> · [L6](../../src/apresentacao/missao/CameraMissao.test.ts#L6) | <code>(): void</code> | <code>BSS006_VOO_EXPERIMENTAL.criar</code>; <code>m.observar</code>; <code>CameraMissao</code>; <code>c.projetar</code>; <code>expect(p.x).toBeCloseTo</code>; <code>expect</code>; <code>expect(p.y).toBeCloseTo</code>; <code>expect(c.pontoNaTela(p.x, p.y).subtrair(o.casco.posicaoM).magnitude).toBeLessThan</code>; <code>c.pontoNaTela(p.x, p.y).subtrair</code>; <code>c.pontoNaTela</code>; <code>expect(c.anguloCanvas(o.casco.orientacaoRad.z)).toBeCloseTo</code>; <code>c.anguloCanvas</code>; <code>expect(c.anguloCanvas(o.casco.orientacaoRad.z + 0.1)).toBeCloseTo</code> / — |
 | <code>src/apresentacao/missao/CameraMissao.test.ts::[callback]#1.[callback]:ArrowFunction#2</code> · [L14](../../src/apresentacao/missao/CameraMissao.test.ts#L14) | <code>(): void</code> | <code>BSS006_VOO_EXPERIMENTAL.criar</code>; <code>m.observar</code>; <code>m.obterEventos</code>; <code>new CameraMissao(antes, 390, 440, escala).projetar</code>; <code>CameraMissao</code>; <code>expect(m.observar()).toEqual</code>; <code>expect</code>; <code>expect(m.obterEventos()).toEqual</code>; <code>expect(() =&gt; new CameraMissao(antes, 390, 440, 0)).toThrow</code> / — |
 | <code>src/apresentacao/missao/CameraMissao.test.ts::[callback]#1.[callback]#2.[callback]:ArrowFunction#1</code> · [L18](../../src/apresentacao/missao/CameraMissao.test.ts#L18) | <code>(): CameraMissao</code> | <code>CameraMissao</code> / — |
+| <code>src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts::[callback]:ArrowFunction#1</code> · [L8](../../src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts#L8) | <code>(): Promise&lt;void&gt;</code> | <code>preview</code>; <code>servidor.httpServer.address</code>; <code>chromium.launch</code> / <code>servidor</code>; <code>base</code>; <code>browser</code> |
+| <code>src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts::[callback]:ArrowFunction#2</code> · [L13](../../src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts#L13) | <code>(): Promise&lt;void&gt;</code> | <code>browser?.close</code>; <code>Promise</code> / — |
+| <code>src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts::[callback]#2.[callback]:ArrowFunction#1</code> · [L15](../../src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts#L15) | <code>(resolve: (value: void &#124; PromiseLike&lt;void&gt;) =&gt; void, reject: (reason?: any) =&gt; void): Server&lt;typeof IncomingMessage, typeof ServerResponse&gt; &#124; Http2SecureServer&lt;typeof IncomingMessage, typeof ServerResponse, typeof Http2ServerRequest, typeof Http2ServerResponse&gt;</code> | <code>servidor!.httpServer.close</code> / — |
+| <code>src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts::[callback]#2.[callback]#1.[callback]:ArrowFunction#1</code> · [L15](../../src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts#L15) | <code>(e: Error &#124; undefined): void</code> | <code>reject</code>; <code>resolve</code> / — |
+| <code>src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts::[callback]:ArrowFunction#3</code> · [L18](../../src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts#L18) | <code>(): void</code> | <code>it.each([1440, 390])</code>; <code>it.each</code> / — |
+| <code>src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts::[callback]#3.[callback]:ArrowFunction#1</code> · [L19](../../src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts#L19) | <code>(largura: number): Promise&lt;void&gt;</code> | <code>browser!.newPage</code>; <code>page.on</code>; <code>page.route</code>; <code>page.goto</code>; <code>page.waitForFunction</code>; <code>assert</code>; <code>page.locator('#re-cena-indisponivel').isVisible</code>; <code>page.locator</code>; <code>assert.equal</code>; <code>page.locator('[data-metrica="altitude"]').count</code>; <code>page.locator('#re-limite-corpo').inputValue</code>; <code>page.locator('#re-limite-corpo').evaluate</code>; <code>page.click</code>; <code>page.waitForSelector</code>; <code>page.locator('#re-cena-indisponivel').isHidden</code>; <code>assert.match</code>; <code>page.locator('#re-tempo-real').textContent</code>; <code>page.locator('summary').filter({ hasText: 'Configuração avançada' }).click</code>; <code>page.locator('summary').filter</code>; <code>page.locator('summary').filter({ hasText: 'Parâmetros de engenharia (SI)' }).click</code>; <code>page.fill</code>; <code>page.locator('#re-mensagem').textContent</code>; <code>page.locator('#re-param-cursoRolagemRad').inputValue</code>; <code>String</code>; <code>page.locator('#re-limite-flaps').inputValue</code>; <code>page.locator('#re-limite-bateria').inputValue</code>; <code>page.locator('#re-canvas').evaluate</code>; <code>assert.deepEqual</code>; <code>page.close</code> / — |
+| <code>src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts::[callback]#3.[callback]#1.[callback]:ArrowFunction#1</code> · [L22](../../src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts#L22) | <code>(e: Error): number</code> | <code>erros.push</code> / — |
+| <code>src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts::[callback]#3.[callback]#1.[callback]:ArrowFunction#2</code> · [L24](../../src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts#L24) | <code>(route: Route): Promise&lt;void&gt;</code> | <code>route.fetch</code>; <code>route.fulfill</code>; <code>(await resposta.text()).replace</code>; <code>resposta.text</code> / — |
+| <code>src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts::[callback]#3.[callback]#1.[callback]:ArrowFunction#3</code> · [L30](../../src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts#L30) | <code>(): boolean</code> | <code>document.querySelector('#re-mensagem')!.textContent!.includes</code>; <code>document.querySelector</code> / — |
+| <code>src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts::[callback]#3.[callback]#1.[callback]:ArrowFunction#4</code> · [L35](../../src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts#L35) | <code>(e: HTMLElement &#124; SVGElement): void</code> | — / <code>(e as HTMLInputElement).defaultValue</code> |
+| <code>src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts::[callback]#3.[callback]#1.[callback]:ArrowFunction#5</code> · [L53](../../src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts#L53) | <code>(e: HTMLElement &#124; SVGElement): boolean</code> | <code>c.getContext('2d')!.getImageData</code>; <code>c.getContext</code>; <code>pixels.some</code> / — |
+| <code>src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts::[callback]#3.[callback]#1.[callback]#5.[callback]:ArrowFunction#1</code> · [L55](../../src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts#L55) | <code>(v: number): boolean</code> | — / — |
 | <code>src/cenarios/BancadaBss.test.ts::[callback]:ArrowFunction#1</code> · [L16](../../src/cenarios/BancadaBss.test.ts#L16) | <code>(): void</code> | <code>criarTesteBss006</code>; <code>cenario.objetos.filter</code>; <code>canais.find</code>; <code>expect(aletas).toHaveLength</code>; <code>expect</code>; <code>expect(canal).toBeDefined</code>; <code>canais.indexOf</code>; <code>TracePLC</code>; <code>trace.adicionarSinal</code>; <code>expect(cenario.selecionarPontoPousoX!(34.7)).toBe</code>; <code>cenario.selecionarPontoPousoX!</code>; <code>motor.ligarSistema</code>; <code>motor.definirThrottle</code>; <code>expect(motor.solicitarIgnicao()).toBe</code>; <code>motor.solicitarIgnicao</code>; <code>cenario.seguirObjeto.getEstadoFisico</code>; <code>cenario.ativarModoBss04!</code>; <code>cenario.atualizarControle</code>; <code>cenario.mundo.avancar</code>; <code>trace.registrar</code>; <code>trace.amostras.at</code>; <code>Math.abs</code>; <code>expect(modoPousoAtivado).toBe</code>; <code>expect(Math.abs(anguloObservado)).toBeGreaterThan</code>; <code>expect(anguloObservado).toBeCloseTo</code> / <code>passo</code>; <code>modoPousoAtivado</code>; <code>anguloObservado</code> |
 | <code>src/cenarios/BancadaBss.test.ts::[callback]#1.[callback]:ArrowFunction#1</code> · [L18](../../src/cenarios/BancadaBss.test.ts#L18) | <code>(objeto: Objeto): objeto is AletaAerodinamica</code> | — / — |
 | <code>src/cenarios/BancadaBss.test.ts::[callback]#1.[callback]:ArrowFunction#2</code> · [L20](../../src/cenarios/BancadaBss.test.ts#L20) | <code>(item: { nome: string; cor: string; obterSinal: () =&gt; number; escala: { minimo: number; maximo: number; unidade: string; }; }): boolean</code> | — / — |
@@ -36231,6 +36262,12 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/physics/objetos/veiculos/VeiculoTerrestre.test.ts::[callback]#1.[callback]:ArrowFunction#5</code> · [L96](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts#L96) | <code>(): void</code> | <code>criarVeiculo</code>; <code>prepararMundo</code>; <code>veiculo.definirComandoFreio</code>; <code>mundo.avancar</code>; <code>veiculo.getEstadoFisico</code>; <code>expect(velocidadeFinal).toBeGreaterThanOrEqual</code>; <code>expect</code>; <code>expect(velocidadeFinal).toBeLessThan</code> / — |
 | <code>src/physics/objetos/veiculos/VeiculoTerrestre.test.ts::[callback]#1.[callback]:ArrowFunction#6</code> · [L107](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts#L107) | <code>(): void</code> | <code>criarVeiculo</code>; <code>Objeto</code>; <code>Vetor3</code>; <code>prepararMundo</code>; <code>mundo.registrarObjeto</code>; <code>veiculo.definirComandoTracao</code>; <code>mundo.avancar</code>; <code>expect(veiculo.getEstadoFisico().velocidadeMps.x).toBeLessThan</code>; <code>expect</code>; <code>veiculo.getEstadoFisico</code>; <code>expect(parede.getEstadoFisico().velocidadeMps.x).toBeGreaterThan</code>; <code>parede.getEstadoFisico</code>; <code>expect(parede.getEstadoFisico().posicaoM.x).toBeGreaterThan</code>; <code>expect(veiculo.integridadeEstrutural).toBe</code> / — |
 | <code>src/physics/objetos/veiculos/VeiculoTerrestre.test.ts::[callback]#1.[callback]:ArrowFunction#7</code> · [L125](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts#L125) | <code>(velocidadeInicialMps: number): void</code> | <code>criarVeiculo</code>; <code>Math.tan</code>; <code>ObjetoTriangularRetangulo</code>; <code>Vetor3</code>; <code>prepararMundo</code>; <code>mundo.registrarObjeto</code>; <code>veiculo.definirComandoTracao</code>; <code>mundo.avancar</code>; <code>Math.max</code>; <code>Math.abs</code>; <code>rampa.getEstadoFisico</code>; <code>expect(rampa.inclinacaoRad).toBeCloseTo</code>; <code>expect</code>; <code>expect(maiorVelocidadeDaRampaMps).toBeGreaterThan</code>; <code>expect(Number.isFinite(veiculo.getEstadoFisico().velocidadeMps.x)).toBe</code>; <code>Number.isFinite</code>; <code>veiculo.getEstadoFisico</code>; <code>expect(veiculo.integridadeEstrutural).toBe</code>; <code>expect(veiculo.integridadeEstrutural).toBeLessThan</code> / <code>passo</code>; <code>maiorVelocidadeDaRampaMps</code> |
+| <code>src/physics/reentrada/ModeloAerodinamicoReentrada.configuracao.test.ts::[callback]:ArrowFunction#1</code> · [L4](../../src/physics/reentrada/ModeloAerodinamicoReentrada.configuracao.test.ts#L4) | <code>(): void</code> | <code>it</code>; <code>it.each&lt;[<br>    keyof ParametrosReentrada,<br>    number,<br>    string<br>]&gt;([<br>    ['cursoFlapRad', Math.PI / 2, 'menor que'],<br>    ['cursoRolagemRad', 1.5707963267949, 'menor ou igual'],<br>    ['fracaoCargaInicialBateria', 1.01, '100%'],<br>    ['taxaFlap… [continua na fonte]</code>; <code>it.each</code> / — |
+| <code>src/physics/reentrada/ModeloAerodinamicoReentrada.configuracao.test.ts::[callback]#1.[callback]:ArrowFunction#1</code> · [L5](../../src/physics/reentrada/ModeloAerodinamicoReentrada.configuracao.test.ts#L5) | <code>(): void</code> | <code>configurarParametrosReentrada</code>; <code>expect(p.cursoRolagemRad).toBe</code>; <code>expect</code>; <code>expect(p.cursoFlapRad).toBe</code>; <code>expect(Object.isFrozen(p)).toBe</code>; <code>Object.isFrozen</code>; <code>expect(configurarParametrosReentrada({ taxaFlapRadps: 10, taxaRolagemRadps: 10, fracaoCargaInicialBateria: 1 })).toBeDefined</code> / — |
+| <code>src/physics/reentrada/ModeloAerodinamicoReentrada.configuracao.test.ts::[callback]#1.[callback]:ArrowFunction#2</code> · [L19](../../src/physics/reentrada/ModeloAerodinamicoReentrada.configuracao.test.ts#L19) | <code>(chave: "areaReferenciaM2" &#124; "comprimentoM" &#124; "alturaM" &#124; "raioNarizM" &#124; "areaAquecidaM2" &#124; "massaCorpoKg" &#124; "massaFlapKg" &#124; "massaBateriaKg" &#124; "resistenciaCorpoJ" &#124; "resistenciaFlapJ" &#124; "resistenciaFixadorN" &#124; "areaFlapM2" &#124; "clFlapPorRad" &#124; "cdFlapBase" &#124; "cdFlapDeflexao" &#124; "cursoFlapRad" &#124; "taxaFlapRadps" &#124; "bracoFlapM" &#124; "potenciaFlapW" &#124; "potenciaRepousoFlapW" &#124; "tensaoBateriaV" &#124; "energiaBateriaJ" &#124; "ganhoAlpha" &#124; "ganhoTaxa" &#124; "torqueMinimoAutoridadeNm" &#124; "taxaRolagemRadps" &#124; "coeficienteSuttonGravesSI" &#124; "larguraM" &#124; "clCorpo" &#124; "fatorMachBase" &#124; "fatorMachVariacao" &#124; "cdCorpoBase" &#124; "cdCorpoAlpha" &#124; "cdMachGauss" &#124; "cpBaseM" &#124; "cpVariacaoM" &#124; "deslocamentoVerticalFlapM" &#124; "raioNarizFlapM" &#124; "areaAquecidaFlapM2" &#124; "calorEspecificoCorpoJPorKgC" &#124; "calorEspecificoFlapJPorKgC" &#124; "comprimentoCaracteristicoCorpoM" &#124; "comprimentoCaracteristicoFlapM" &#124; "cursoRolagemRad" &#124; "conveccaoCorpoWPorM2C" &#124; "condutanciaFlapWPorC" &#124; "fracaoCargaInicialBateria", valor: number, detalhe: string): void</code> | <code>expect(() =&gt; configurarParametrosReentrada({ [chave]: valor })).toThrow</code>; <code>expect</code>; <code>String</code> / — |
+| <code>src/physics/reentrada/ModeloAerodinamicoReentrada.configuracao.test.ts::[callback]#1.[callback]#2.[callback]:ArrowFunction#1</code> · [L20](../../src/physics/reentrada/ModeloAerodinamicoReentrada.configuracao.test.ts#L20) | <code>(): ParametrosReentrada</code> | <code>configurarParametrosReentrada</code> / — |
+| <code>src/physics/reentrada/ModeloAerodinamicoReentrada.configuracao.test.ts::[callback]#1.[callback]#2.[callback]:ArrowFunction#2</code> · [L21](../../src/physics/reentrada/ModeloAerodinamicoReentrada.configuracao.test.ts#L21) | <code>(): ParametrosReentrada</code> | <code>configurarParametrosReentrada</code> / — |
+| <code>src/physics/reentrada/ModeloAerodinamicoReentrada.configuracao.test.ts::[callback]#1.[callback]#2.[callback]:ArrowFunction#3</code> · [L22](../../src/physics/reentrada/ModeloAerodinamicoReentrada.configuracao.test.ts#L22) | <code>(): ParametrosReentrada</code> | <code>configurarParametrosReentrada</code> / — |
 | <code>src/physics/sensores/SensoresVeiculoComposto.test.ts::[callback]:ArrowFunction#1</code> · [L7](../../src/physics/sensores/SensoresVeiculoComposto.test.ts#L7) | <code>(): void</code> | <code>it</code> / — |
 | <code>src/physics/sensores/SensoresVeiculoComposto.test.ts::[callback]#1.[callback]:ArrowFunction#1</code> · [L8](../../src/physics/sensores/SensoresVeiculoComposto.test.ts#L8) | <code>(): void</code> | <code>Objeto</code>; <code>Vetor3</code>; <code>SensorNivelInterno</code>; <code>expect(sensor.obterInclinacaoRad()).toBeCloseTo</code>; <code>expect</code>; <code>sensor.obterInclinacaoRad</code> / — |
 | <code>src/physics/sensores/SensoresVeiculoComposto.test.ts::[callback]:ArrowFunction#2</code> · [L20](../../src/physics/sensores/SensoresVeiculoComposto.test.ts#L20) | <code>(): void</code> | <code>it</code> / — |

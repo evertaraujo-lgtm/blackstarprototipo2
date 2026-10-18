@@ -506,3 +506,12 @@ O seletor de tempo da reentrada oferece 1×, 10×, 60× e 120×. Todas as opçõ
 reutilizam o executor de passo fixo; a escala solicitada conserva o dt físico
 e fica sujeita ao orçamento de processamento existente. Contrato:
 [Reentrada 120×](../planos-codex/2026-10-18-reentrada-120x.md).
+
+## Recuperação de configuração rejeitada na reentrada
+
+A configuração mecânica rejeitada identifica chave, valor e limite. Uma cena
+sem ensaio válido apresenta aviso visível. **Restaurar configuração padrão**
+redefine explicitamente todos os campos, inclusive os parâmetros de engenharia
+e limiares térmicos, e prepara novo ensaio no tempo zero sem executar.
+Nenhuma tolerância física ou configuração alternativa automática foi criada.
+Contrato e diagnóstico: [recuperação da reentrada](../planos-codex/2026-10-18-reentrada-recuperacao.md).

@@ -26,6 +26,8 @@ export type ParametrosReentrada = { readonly [K in Exclude<keyof typeof MODELO_R
 /** Copia parâmetros SI conhecidos e valida finitude, sinal e domínio mecânico.
  * São calibrações de ensaio, não especificações certificadas. Nenhuma alteração
  * afeta o objeto padrão global nem modifica corpos já em voo.
+ * Rejeições mecânicas identificam chave, valor e limite; não arredondam nem
+ * toleram entradas fora do domínio. Cursos em rad, taxas em rad/s, carga [0,1].
  * @contract f-e334f1718df02bee
    */
 export function configurarParametrosReentrada(entrada: Partial<ParametrosReentrada> = {}): ParametrosReentrada {
@@ -38,8 +40,11 @@ export function configurarParametrosReentrada(entrada: Partial<ParametrosReentra
     'ganhoAlpha', 'ganhoTaxa', 'potenciaRepousoFlapW', 'cdFlapDeflexao', 'conveccaoCorpoWPorM2C', 'condutanciaFlapWPorC', 'fracaoCargaInicialBateria'];
   for (const [k, v] of Object.entries(p)) if (!Number.isFinite(v) || Math.abs(v) > 1e12
     || (!assinados.includes(k) && (podemZerar.includes(k) ? v < 0 : v <= 0))) throw new Error(`Parâmetro RE inválido: ${k}`);
-  if (p.cursoFlapRad >= Math.PI / 2 || p.cursoRolagemRad > Math.PI / 2 || p.fracaoCargaInicialBateria > 1
-    || p.taxaFlapRadps > 10 || p.taxaRolagemRadps > 10) throw new Error('Curso/taxa/carga fora do domínio experimental.');
+  if (p.cursoFlapRad >= Math.PI / 2) throw new Error(`cursoFlapRad: ${p.cursoFlapRad} rad; deve ser menor que ${Math.PI / 2} rad.`);
+  if (p.cursoRolagemRad > Math.PI / 2) throw new Error(`cursoRolagemRad: ${p.cursoRolagemRad} rad; deve ser menor ou igual a ${Math.PI / 2} rad.`);
+  if (p.fracaoCargaInicialBateria > 1) throw new Error(`fracaoCargaInicialBateria: ${p.fracaoCargaInicialBateria}; deve ser menor ou igual a 1 (100%).`);
+  if (p.taxaFlapRadps > 10) throw new Error(`taxaFlapRadps: ${p.taxaFlapRadps} rad/s; deve ser menor ou igual a 10 rad/s.`);
+  if (p.taxaRolagemRadps > 10) throw new Error(`taxaRolagemRadps: ${p.taxaRolagemRadps} rad/s; deve ser menor ou igual a 10 rad/s.`);
   return Object.freeze(p);
 }
 

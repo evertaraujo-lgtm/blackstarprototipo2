@@ -45,6 +45,8 @@
           </details>
         </fieldset>
         <div class="re-actions"><button id="re-play" type="submit">Iniciar ensaio</button><button id="re-reset" type="button" class="secondary-button">Reinicializar</button></div>
+        <button id="re-restaurar-padroes" type="button" class="secondary-button">Restaurar configuração padrão</button>
+        <p class="re-help">Restaurar descarta as edições e prepara um novo ensaio no tempo zero, com os parâmetros e limites térmicos padrão.</p>
         <output id="re-config-estado" role="status" class="re-config-resumo">Configuração editada ainda não aplicada.</output>
         <details class="re-config-resumo"><summary>Configuração aplicada ao ensaio atual</summary><p id="re-config-aplicada">Nenhuma configuração aplicada.</p><p id="re-config-rastreio"></p></details>
         <section id="re-config-escolha" class="re-config-escolha" aria-label="Escolha de configuração" hidden>
@@ -68,7 +70,9 @@
     </aside>
     <section class="re-main" aria-label="Observação da reentrada">
       <div class="re-toolbar"><button id="re-passo" type="button" class="secondary-button">Avançar 1 s</button><label>Tempo<select id="re-tempo"><option value="1">1×</option><option value="10">10×</option><option value="60">60×</option><option value="120">120×</option></select></label><label>Zoom<input id="re-zoom" type="range" min="-1" max="4" value="3" step="0.1"></label><button id="re-exportar" type="button" class="secondary-button">Exportar ensaio JSON</button></div>
-      <canvas id="re-canvas" width="1100" height="620" aria-label="Vista lateral XY do orbitador, curvatura terrestre e escalas em metros"></canvas>
+      <div class="re-cena"><canvas id="re-canvas" width="1100" height="620" aria-label="Vista lateral XY do orbitador, curvatura terrestre e escalas em metros"></canvas>
+        <p id="re-cena-indisponivel" role="status">Aguardando configuração válida para desenhar o cenário. Confira a mensagem abaixo. Corrija os campos ou use “Restaurar configuração padrão”.</p>
+      </div>
       <div class="re-caption"><output id="re-tempo-real">t = 0 s</output><span>Câmera centrada no orbitador · símbolo ampliado quando necessário</span></div>
       <output id="re-mensagem" role="status">Pronto para iniciar. Propulsão desligada e não instalada.</output>
       <div id="re-telemetria" class="re-telemetria" aria-label="Telemetria física e comandos"></div>

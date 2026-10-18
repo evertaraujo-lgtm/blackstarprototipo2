@@ -8,6 +8,8 @@ import { RenderizadorReentrada } from './apresentacao/reentrada/RenderizadorReen
 
 /** Fronteira de apresentação: lê controles, comanda portas de missão e desenha
  * snapshots; tempo real serve apenas ao executor fixo, nunca à lei física.
+ * Define padrões restauráveis no formulário; recuperação exige ação explícita
+ * e nova preparação validada, sem criar cenário alternativo em erro.
  * @contract f-bdf1e31dbe2aa399
    */
 function iniciarBancada(): void {
@@ -42,7 +44,7 @@ function iniciarBancada(): void {
     const chave = nome as keyof ParametrosReentrada;
     const label = document.createElement('label'); label.textContent = rotulosParametros[chave];
     const input = document.createElement('input'); input.type = 'number'; input.step = 'any'; input.required = true;
-    input.id = `re-param-${chave}`; input.value = String(valor); label.append(input);
+    input.id = `re-param-${chave}`; input.defaultValue = String(valor); label.append(input);
     elemento('re-parametros').append(label); camposParametros.set(chave, input);
   }
   const renderer = new RenderizadorReentrada(elemento('re-canvas'), elemento('re-graficos'));
@@ -107,6 +109,7 @@ function iniciarBancada(): void {
   /** Recria pela fábrica após leitura/validação única; só substitui instância após
    * construção bem sucedida. Confirma valores do diário retornado pelo domínio,
    * sem reescrever inputs ou materiais do ensaio anterior. Testes RE-003 A–G.
+   * Oculta o aviso de cena indisponível somente após preparação válida.
    * @contract f-c51586eefc46d9d2 */
   function preparar(configuracao?: ConfiguracaoReentrada): boolean {
     if (ensaio?.estadoExecucao === 'executando') ensaio.pausar();
@@ -132,6 +135,7 @@ function iniciarBancada(): void {
       elemento('re-config-aplicada').textContent = confirmacao;
       mensagem.textContent = confirmacao;
       cancelarEscolhaConfiguracao(); atualizarEstadoConfiguracao(); atualizarPainel(novo.observar());
+      elemento('re-cena-indisponivel').hidden = true;
       return true;
     } catch (e) { rejeitarConfiguracao(e); return false; }
   }
@@ -181,6 +185,16 @@ function iniciarBancada(): void {
 
   /** Reinicialização explícita aplica a edição e conserva novo ensaio no passo 0.  @contract f-cb43a54875d00a72 */
   function reinicializar(): void { cancelarEscolhaConfiguracao(); preparar(); }
+
+  /** Restaura explicitamente todos os campos de configuração aos padrões HTML
+   * e SI do modelo, inclusive limiares térmicos aprovados, e prepara no tempo
+   * zero pela mesma validação. Não inicia execução nem conserva o ensaio antigo.
+   * Depende do DOM/form.reset e reinicializar; smoke cobre erro e recuperação.
+   * @contract f-23de89613c49fbe8
+   */
+  function restaurarConfiguracaoPadrao(): void {
+    form.reset(); reinicializar();
+  }
 
   /** Avanço manual usa a mesma validação e a mesma escolha da execução contínua.  @contract f-2c6793de2a48e002 */
   function avancarUmSegundo(): void {
@@ -329,6 +343,7 @@ function iniciarBancada(): void {
   iniciais.addEventListener('change', atualizarEstadoConfiguracao);
   form.addEventListener('submit', tratarExecucao);
   elemento('re-reset').addEventListener('click', reinicializar);
+  elemento('re-restaurar-padroes').addEventListener('click', restaurarConfiguracaoPadrao);
   elemento('re-continuar-aplicada').addEventListener('click', continuarConfiguracaoAplicada);
   elemento('re-iniciar-nova').addEventListener('click', iniciarNovaConfiguracao);
   elemento('re-cancelar-escolha').addEventListener('click', cancelarEscolhaConfiguracao);
