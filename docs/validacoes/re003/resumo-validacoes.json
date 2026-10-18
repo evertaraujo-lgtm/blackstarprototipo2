@@ -1,0 +1,397 @@
+{
+  "commitCorrecao": "8cd7ea5",
+  "baseContrato": "1cafa59",
+  "fisicaCompartilhadaSemAlteracao": true,
+  "suiteIntegral": {
+    "numTotalTests": 677,
+    "numPassedTests": 650,
+    "numFailedTests": 22,
+    "numPendingTests": 5,
+    "numTotalTestSuites": 187,
+    "numFailedTestSuites": 11,
+    "success": false
+  },
+  "falhasHistoricas": [
+    {
+      "arquivo": "ReferenciaBancadaM10.test.ts",
+      "teste": "M10-E — referência independente do voo na bancada 'alvo-zero': coleta física completa em instância separada",
+      "mensagens": [
+        "AssertionError: expected { Object (id, passos, ...) } to deeply equal { Object (id, passos, ...) }\n    at /media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/ReferenciaBancadaM10.test.ts:43:29\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20"
+      ]
+    },
+    {
+      "arquivo": "ReferenciaBancadaM10.test.ts",
+      "teste": "M10-E — referência independente do voo na bancada 'alvo-direita': coleta física completa em instância separada",
+      "mensagens": [
+        "AssertionError: expected { id: 'alvo-direita', …(5) } to deeply equal { id: 'alvo-direita', …(5) }\n    at /media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/ReferenciaBancadaM10.test.ts:43:29\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20"
+      ]
+    },
+    {
+      "arquivo": "ReferenciaBancadaM10.test.ts",
+      "teste": "M10-E — referência independente do voo na bancada 'alvo-esquerda': coleta física completa em instância separada",
+      "mensagens": [
+        "AssertionError: expected { id: 'alvo-esquerda', …(5) } to deeply equal { id: 'alvo-esquerda', …(5) }\n    at /media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/ReferenciaBancadaM10.test.ts:43:29\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20"
+      ]
+    },
+    {
+      "arquivo": "ReferenciaBancadaM10.test.ts",
+      "teste": "M10-E — referência independente do voo na bancada 'vento-direita': coleta física completa em instância separada",
+      "mensagens": [
+        "AssertionError: expected { id: 'vento-direita', …(5) } to deeply equal { id: 'vento-direita', …(5) }\n    at /media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/ReferenciaBancadaM10.test.ts:43:29\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20"
+      ]
+    },
+    {
+      "arquivo": "ReferenciaBancadaM10.test.ts",
+      "teste": "M10-E — referência independente do voo na bancada 'vento-esquerda': coleta física completa em instância separada",
+      "mensagens": [
+        "AssertionError: expected { id: 'vento-esquerda', …(5) } to deeply equal { id: 'vento-esquerda', …(5) }\n    at /media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/ReferenciaBancadaM10.test.ts:43:29\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20"
+      ]
+    },
+    {
+      "arquivo": "ReferenciaBancadaM10.test.ts",
+      "teste": "M10-E — referência independente do voo na bancada 'sem-ignicao': coleta física completa em instância separada",
+      "mensagens": [
+        "AssertionError: expected { Object (id, passos, ...) } to deeply equal { Object (id, passos, ...) }\n    at /media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/ReferenciaBancadaM10.test.ts:43:29\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20"
+      ]
+    },
+    {
+      "arquivo": "ReferenciaBancadaM10.test.ts",
+      "teste": "M10-E — referência independente do voo na bancada 'falha-eletrica': coleta física completa em instância separada",
+      "mensagens": [
+        "AssertionError: expected { id: 'falha-eletrica', …(6) } to deeply equal { id: 'falha-eletrica', …(6) }\n    at /media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/ReferenciaBancadaM10.test.ts:43:29\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20"
+      ]
+    },
+    {
+      "arquivo": "ReferenciaBancadaM10.test.ts",
+      "teste": "M10-E — referência independente do voo na bancada 'falha-metano': coleta física completa em instância separada",
+      "mensagens": [
+        "AssertionError: expected { id: 'falha-metano', …(6) } to deeply equal { id: 'falha-metano', …(6) }\n    at /media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/ReferenciaBancadaM10.test.ts:43:29\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20"
+      ]
+    },
+    {
+      "arquivo": "ReferenciaBancadaM10.test.ts",
+      "teste": "M10-E — referência independente do voo na bancada 'falha-oxidante': coleta física completa em instância separada",
+      "mensagens": [
+        "AssertionError: expected { id: 'falha-oxidante', …(6) } to deeply equal { id: 'falha-oxidante', …(6) }\n    at /media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/ReferenciaBancadaM10.test.ts:43:29\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20"
+      ]
+    },
+    {
+      "arquivo": "RegressaoDesempenho.test.ts",
+      "teste": "preserva exatamente a trajetória de entrada e tombamento anterior à M11-P",
+      "mensagens": [
+        "AssertionError: expected '4f1bb0a69978c1dda984d8162afda9d663a55…' to be 'bdbb0f5adc9974df4f0c0936d3d772440236e…' // Object.is equality\n    at /media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/RegressaoDesempenho.test.ts:16:31\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/node_modules/@vitest/runner/dist/chunk-hooks.js:752:20"
+      ]
+    },
+    {
+      "arquivo": "ReplayMissaoBss006.test.ts",
+      "teste": "reexecuta diário Node de voo completo, incluindo transição e repouso geométrico",
+      "mensagens": [
+        "Error: Command failed: /home/everton/.nvm/versions/node/v20.20.0/bin/node /media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/node_modules/vite-node/vite-node.mjs scripts/executar-missao.ts --replay docs/validacoes/2026-10-13-m10-diario-node.json --saida /tmp/blackstar-m10-replay-kKURMN/diario.json\n\n    at genericNodeError (node:internal/errors:984:15)\n    at wrappedFn (node:internal/errors:538:14)\n    at ChildProcess.exithandler (node:child_process:422:12)\n    at ChildProcess.emit (node:events:524:28)\n    at maybeClose (node:internal/child_process:1104:16)\n    at Socket.<anonymous>"
+      ]
+    },
+    {
+      "arquivo": "ValidacaoMissaoBss006.test.ts",
+      "teste": "M10-E — equivalência exata e determinismo em instâncias independentes 'alvo-zero': mesmos estados, controles, massa, contatos e consumo da bancada",
+      "mensagens": [
+        "AssertionError: Divergência no passo 0: expected '67e4dec72bd2181dfa36499366bac151a65bd…' to be '17ff7468640085b24c540e4631d27d0146248…' // Object.is equality\n    at conferir (/media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/ValidacaoMissaoBss006.test.ts:18:100)\n    at /media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/ValidacaoMissaoBss006.test.ts:20:5\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starsh"
+      ]
+    },
+    {
+      "arquivo": "ValidacaoMissaoBss006.test.ts",
+      "teste": "M10-E — equivalência exata e determinismo em instâncias independentes 'alvo-direita': mesmos estados, controles, massa, contatos e consumo da bancada",
+      "mensagens": [
+        "AssertionError: Divergência no passo 0: expected '67e4dec72bd2181dfa36499366bac151a65bd…' to be '17ff7468640085b24c540e4631d27d0146248…' // Object.is equality\n    at conferir (/media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/ValidacaoMissaoBss006.test.ts:18:100)\n    at /media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/ValidacaoMissaoBss006.test.ts:20:5\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starsh"
+      ]
+    },
+    {
+      "arquivo": "ValidacaoMissaoBss006.test.ts",
+      "teste": "M10-E — equivalência exata e determinismo em instâncias independentes 'alvo-esquerda': mesmos estados, controles, massa, contatos e consumo da bancada",
+      "mensagens": [
+        "AssertionError: Divergência no passo 0: expected '67e4dec72bd2181dfa36499366bac151a65bd…' to be '17ff7468640085b24c540e4631d27d0146248…' // Object.is equality\n    at conferir (/media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/ValidacaoMissaoBss006.test.ts:18:100)\n    at /media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/ValidacaoMissaoBss006.test.ts:20:5\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starsh"
+      ]
+    },
+    {
+      "arquivo": "ValidacaoMissaoBss006.test.ts",
+      "teste": "M10-E — equivalência exata e determinismo em instâncias independentes 'vento-direita': mesmos estados, controles, massa, contatos e consumo da bancada",
+      "mensagens": [
+        "AssertionError: Divergência no passo 0: expected 'eb2f5f048595d4a11530c772209bba8ac154d…' to be '357349c49809eadc90ac147874a664c1e3df7…' // Object.is equality\n    at conferir (/media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/ValidacaoMissaoBss006.test.ts:18:100)\n    at /media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/ValidacaoMissaoBss006.test.ts:20:5\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starsh"
+      ]
+    },
+    {
+      "arquivo": "ValidacaoMissaoBss006.test.ts",
+      "teste": "M10-E — equivalência exata e determinismo em instâncias independentes 'vento-esquerda': mesmos estados, controles, massa, contatos e consumo da bancada",
+      "mensagens": [
+        "AssertionError: Divergência no passo 0: expected 'eb2f5f048595d4a11530c772209bba8ac154d…' to be '357349c49809eadc90ac147874a664c1e3df7…' // Object.is equality\n    at conferir (/media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/ValidacaoMissaoBss006.test.ts:18:100)\n    at /media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/ValidacaoMissaoBss006.test.ts:20:5\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starsh"
+      ]
+    },
+    {
+      "arquivo": "ValidacaoMissaoBss006.test.ts",
+      "teste": "M10-E — equivalência exata e determinismo em instâncias independentes 'sem-ignicao': mesmos estados, controles, massa, contatos e consumo da bancada",
+      "mensagens": [
+        "AssertionError: Divergência no passo 0: expected '604b77d799ff9c9ee81e8877f7f23f11c06ce…' to be 'fc0aca4570969af357d7345457de27c15ea4d…' // Object.is equality\n    at conferir (/media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/ValidacaoMissaoBss006.test.ts:18:100)\n    at /media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/ValidacaoMissaoBss006.test.ts:20:5\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starsh"
+      ]
+    },
+    {
+      "arquivo": "ValidacaoMissaoBss006.test.ts",
+      "teste": "M10-E — equivalência exata e determinismo em instâncias independentes 'falha-eletrica': mesmos estados, controles, massa, contatos e consumo da bancada",
+      "mensagens": [
+        "AssertionError: Divergência no passo 0: expected '67e4dec72bd2181dfa36499366bac151a65bd…' to be '17ff7468640085b24c540e4631d27d0146248…' // Object.is equality\n    at conferir (/media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/ValidacaoMissaoBss006.test.ts:18:100)\n    at /media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/ValidacaoMissaoBss006.test.ts:20:5\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starsh"
+      ]
+    },
+    {
+      "arquivo": "ValidacaoMissaoBss006.test.ts",
+      "teste": "M10-E — equivalência exata e determinismo em instâncias independentes 'falha-metano': mesmos estados, controles, massa, contatos e consumo da bancada",
+      "mensagens": [
+        "AssertionError: Divergência no passo 0: expected '67e4dec72bd2181dfa36499366bac151a65bd…' to be '17ff7468640085b24c540e4631d27d0146248…' // Object.is equality\n    at conferir (/media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/ValidacaoMissaoBss006.test.ts:18:100)\n    at /media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/ValidacaoMissaoBss006.test.ts:20:5\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starsh"
+      ]
+    },
+    {
+      "arquivo": "ValidacaoMissaoBss006.test.ts",
+      "teste": "M10-E — equivalência exata e determinismo em instâncias independentes 'falha-oxidante': mesmos estados, controles, massa, contatos e consumo da bancada",
+      "mensagens": [
+        "AssertionError: Divergência no passo 0: expected '67e4dec72bd2181dfa36499366bac151a65bd…' to be '17ff7468640085b24c540e4631d27d0146248…' // Object.is equality\n    at conferir (/media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/ValidacaoMissaoBss006.test.ts:18:100)\n    at /media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/missoes/ValidacaoMissaoBss006.test.ts:20:5\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/node_modules/@vitest/runner/dist/chunk-hooks.js:863:59\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starsh"
+      ]
+    },
+    {
+      "arquivo": "MontagemBss.test.ts",
+      "teste": "M10-B — referência física pré-extração (M9-G) mantém identidade, geometria, massa, energia, consumo, contatos e arbitragem",
+      "mensagens": [
+        "AssertionError: expected { revisaoBase: '00db5fe', …(3) } to deeply equal { revisaoBase: '00db5fe', …(3) }\n    at /media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/src/veiculos/MontagemBss.test.ts:26:23\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/node_modules/@vitest/runner/dist/chunk-hooks.js:155:11\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/node_modules/@vitest/runner/dist/chunk-hooks.js:752:26\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/node_modules/@vitest/runner/dist/chunk-hook"
+      ]
+    }
+  ],
+  "falhasAmbiente": [
+    {
+      "arquivo": "reprodutibilidade.test.ts",
+      "teste": "Reprodutibilidade documental em checkouts independentes gera igual em duas raízes, não escreve ao verificar e rejeita catálogo e assinatura alterados",
+      "mensagens": [
+        "Error: spawnSync /home/everton/.nvm/versions/node/v20.20.0/bin/node EPERM\n    at Object.spawnSync (node:internal/child_process:1123:20)\n    at spawnSync (node:child_process:877:24)\n    at execFileSync (node:child_process:920:15)\n    at executar (/media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/scripts/documentacao/reprodutibilidade.test.ts:53:65)\n    at /media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/scripts/documentacao/reprodutibilidade.test.ts:92:5\n    at file:///media/everton/01D79E989DBBB0E0/_Projetos/Starship-prototype-2/node_modules/@vitest/runner/dist/chunk"
+      ]
+    }
+  ],
+  "outrasFalhas": [],
+  "naoExecutados": [
+    {
+      "arquivo": "pluginInstitucional.test.ts",
+      "motivoDoArquivo": "Hook timed out in 30000ms.\nIf this is a long-running hook, pass a timeout value as the last argument or configure it globally with \"hookTimeout\".",
+      "testes": [
+        "Build único e rotas nativas sem outro repositório emite seis HTMLs na raiz, publica PDF idêntico e mantém a fonte única",
+        "Build único e rotas nativas sem outro repositório serve diretamente e após recarga as rotas institucionais e mantém interfaces existentes",
+        "Build único e rotas nativas sem outro repositório retorna 404 em JS, CSS, imagem e PDF ausentes e no legado abandonado",
+        "Build único e rotas nativas sem outro repositório preserva ambos os PDFs em dev/build, HEAD, query string e ausência de fallback",
+        "Build único e rotas nativas sem outro repositório rejeita recurso quebrado, PDF divergente e reintrodução de runtime legado"
+      ]
+    }
+  ],
+  "validacoesEspecificas": {
+    "testes-configuracao.json": {
+      "numTotalTests": 38,
+      "numPassedTests": 38,
+      "numFailedTests": 0,
+      "success": true
+    },
+    "testes-reentrada.json": {
+      "numTotalTests": 111,
+      "numPassedTests": 111,
+      "numFailedTests": 0,
+      "success": true
+    },
+    "testes-documentacao.json": {
+      "numTotalTests": 23,
+      "numPassedTests": 23,
+      "numFailedTests": 0,
+      "success": true
+    },
+    "testes-site.json": {
+      "numTotalTests": 5,
+      "numPassedTests": 5,
+      "numFailedTests": 0,
+      "success": true
+    },
+    "interface/resultado.json": {
+      "resultado": "OK",
+      "casos": [
+        {
+          "largura": 1440,
+          "eventos": true,
+          "primeiraExecucao": true,
+          "preparoPassoZero": true,
+          "pausaEscolha": true,
+          "cancelar": true,
+          "continuarAnterior": true,
+          "iniciarNovo": true,
+          "exportacaoImutavel": true,
+          "reinicializar": true,
+          "invalidosRejeitados": true
+        },
+        {
+          "largura": 1440,
+          "eventos": false,
+          "primeiraExecucao": true,
+          "preparoPassoZero": true,
+          "pausaEscolha": true,
+          "cancelar": true,
+          "continuarAnterior": true,
+          "iniciarNovo": true,
+          "exportacaoImutavel": true,
+          "reinicializar": true,
+          "invalidosRejeitados": true
+        },
+        {
+          "largura": 390,
+          "eventos": true,
+          "primeiraExecucao": true,
+          "preparoPassoZero": true,
+          "pausaEscolha": true,
+          "cancelar": true,
+          "continuarAnterior": true,
+          "iniciarNovo": true,
+          "exportacaoImutavel": true,
+          "reinicializar": true,
+          "invalidosRejeitados": true
+        },
+        {
+          "largura": 390,
+          "eventos": false,
+          "primeiraExecucao": true,
+          "preparoPassoZero": true,
+          "pausaEscolha": true,
+          "cancelar": true,
+          "continuarAnterior": true,
+          "iniciarNovo": true,
+          "exportacaoImutavel": true,
+          "reinicializar": true,
+          "invalidosRejeitados": true
+        },
+        {
+          "resistenciaIndividual": "resistenciaCorpoJ",
+          "semEventos": true,
+          "aplicado": 5000
+        },
+        {
+          "resistenciaIndividual": "resistenciaFlapJ",
+          "semEventos": true,
+          "aplicado": 5000
+        },
+        {
+          "resistenciaIndividual": "resistenciaFixadorN",
+          "semEventos": true,
+          "aplicado": 5000
+        },
+        {
+          "inicialInvalidoSemDefaults": true,
+          "recuperacao": true,
+          "pausaEdicaoInvalida": true
+        }
+      ],
+      "downloads": 53,
+      "erros": []
+    },
+    "smoke-geral/smoke.json": {
+      "resultado": "OK",
+      "verificacoes": [
+        {
+          "largura": 1440,
+          "rota": "/reentrada.html",
+          "tempoAvancou": true,
+          "pausa": true,
+          "rolagemLimitada": true,
+          "modoManual": true,
+          "aproximacaoBloqueada": true,
+          "parametrosExportados": true,
+          "modoManualInicial": true,
+          "passo480": true,
+          "alimentacaoDesligada": true,
+          "exportacao": true,
+          "danoTermico": true,
+          "overflow": false
+        },
+        {
+          "largura": 390,
+          "rota": "/reentrada.html",
+          "tempoAvancou": true,
+          "pausa": true,
+          "rolagemLimitada": true,
+          "modoManual": true,
+          "aproximacaoBloqueada": true,
+          "parametrosExportados": true,
+          "modoManualInicial": true,
+          "passo480": true,
+          "alimentacaoDesligada": true,
+          "exportacao": true,
+          "danoTermico": true,
+          "overflow": false
+        }
+      ],
+      "erros": []
+    }
+  },
+  "evidenciasSHA256": {
+    "comparacao-termica.json": "c26275f5b8114016c04b87f7acc0e6b052a37f062f63f71ec6ff29294ccb4575",
+    "interface/1-A-1440-true.json": "1b26f810942b10572b1f77dc2f4f95b9c40ae179bf0a248f6e5fc0df52b8ee71",
+    "interface/10-G-1440-true--201.json": "2da1ecd7df6c321f7659b605fc8cef707e5c7fba927497951bff7ef2b949b64e",
+    "interface/11-G-1440-true-nao-numerico.json": "2da1ecd7df6c321f7659b605fc8cef707e5c7fba927497951bff7ef2b949b64e",
+    "interface/12-G-maximo-1440-true.json": "ebc2ab75e54233c1f6261395b8cd1a538b092a7213173873296d0d8873509f6c",
+    "interface/13-A-1440-false.json": "fd893eee286b6b623647b8feb49003adaaf4152688e0374790f0f846277ad28e",
+    "interface/14-B-1440-false.json": "671a5338b504f01b1190513971aa0699e950a04d4b7fc2961363b793810ef875",
+    "interface/15-F-antes-1440-false.json": "2d207decdb1d94045f2932901a17dd4d59d85692343b000c00d2ba71b6f6f870",
+    "interface/16-D-pendente-1440-false.json": "2d207decdb1d94045f2932901a17dd4d59d85692343b000c00d2ba71b6f6f870",
+    "interface/17-F-depois-1440-false.json": "b6cba46efd34a07213a3b58f5ea6c12d80752b92966d034c50edaa85dc9a9dca",
+    "interface/18-D-novo-1440-false.json": "01c55b435626d1e7f0233d9fd7a233d30aa2427fc690b2e244d94fef0b7fdfbc",
+    "interface/19-E-1440-false.json": "2da1ecd7df6c321f7659b605fc8cef707e5c7fba927497951bff7ef2b949b64e",
+    "interface/2-B-1440-true.json": "671a5338b504f01b1190513971aa0699e950a04d4b7fc2961363b793810ef875",
+    "interface/20-G-1440-false-vazio.json": "2da1ecd7df6c321f7659b605fc8cef707e5c7fba927497951bff7ef2b949b64e",
+    "interface/21-G-1440-false-5001.json": "2da1ecd7df6c321f7659b605fc8cef707e5c7fba927497951bff7ef2b949b64e",
+    "interface/22-G-1440-false--201.json": "2da1ecd7df6c321f7659b605fc8cef707e5c7fba927497951bff7ef2b949b64e",
+    "interface/23-G-1440-false-nao-numerico.json": "2da1ecd7df6c321f7659b605fc8cef707e5c7fba927497951bff7ef2b949b64e",
+    "interface/24-G-maximo-1440-false.json": "ebc2ab75e54233c1f6261395b8cd1a538b092a7213173873296d0d8873509f6c",
+    "interface/25-A-390-true.json": "e7161a5ee1f43846e4730b9161205a42765674089178817560e5566e39388aae",
+    "interface/26-B-390-true.json": "671a5338b504f01b1190513971aa0699e950a04d4b7fc2961363b793810ef875",
+    "interface/27-F-antes-390-true.json": "2d207decdb1d94045f2932901a17dd4d59d85692343b000c00d2ba71b6f6f870",
+    "interface/28-D-pendente-390-true.json": "2d207decdb1d94045f2932901a17dd4d59d85692343b000c00d2ba71b6f6f870",
+    "interface/29-F-depois-390-true.json": "b6cba46efd34a07213a3b58f5ea6c12d80752b92966d034c50edaa85dc9a9dca",
+    "interface/3-F-antes-1440-true.json": "2d207decdb1d94045f2932901a17dd4d59d85692343b000c00d2ba71b6f6f870",
+    "interface/30-D-novo-390-true.json": "01c55b435626d1e7f0233d9fd7a233d30aa2427fc690b2e244d94fef0b7fdfbc",
+    "interface/31-E-390-true.json": "2da1ecd7df6c321f7659b605fc8cef707e5c7fba927497951bff7ef2b949b64e",
+    "interface/32-G-390-true-vazio.json": "2da1ecd7df6c321f7659b605fc8cef707e5c7fba927497951bff7ef2b949b64e",
+    "interface/33-G-390-true-5001.json": "2da1ecd7df6c321f7659b605fc8cef707e5c7fba927497951bff7ef2b949b64e",
+    "interface/34-G-390-true--201.json": "2da1ecd7df6c321f7659b605fc8cef707e5c7fba927497951bff7ef2b949b64e",
+    "interface/35-G-390-true-nao-numerico.json": "2da1ecd7df6c321f7659b605fc8cef707e5c7fba927497951bff7ef2b949b64e",
+    "interface/36-G-maximo-390-true.json": "ebc2ab75e54233c1f6261395b8cd1a538b092a7213173873296d0d8873509f6c",
+    "interface/37-A-390-false.json": "b3564204b642a5fd24a421e51a8425fcaef8e2a317c6a47b37eb5d0de637bd16",
+    "interface/38-B-390-false.json": "671a5338b504f01b1190513971aa0699e950a04d4b7fc2961363b793810ef875",
+    "interface/39-F-antes-390-false.json": "2d207decdb1d94045f2932901a17dd4d59d85692343b000c00d2ba71b6f6f870",
+    "interface/4-D-pendente-1440-true.json": "2d207decdb1d94045f2932901a17dd4d59d85692343b000c00d2ba71b6f6f870",
+    "interface/40-D-pendente-390-false.json": "2d207decdb1d94045f2932901a17dd4d59d85692343b000c00d2ba71b6f6f870",
+    "interface/41-F-depois-390-false.json": "b6cba46efd34a07213a3b58f5ea6c12d80752b92966d034c50edaa85dc9a9dca",
+    "interface/42-D-novo-390-false.json": "01c55b435626d1e7f0233d9fd7a233d30aa2427fc690b2e244d94fef0b7fdfbc",
+    "interface/43-E-390-false.json": "2da1ecd7df6c321f7659b605fc8cef707e5c7fba927497951bff7ef2b949b64e",
+    "interface/44-G-390-false-vazio.json": "2da1ecd7df6c321f7659b605fc8cef707e5c7fba927497951bff7ef2b949b64e",
+    "interface/45-G-390-false-5001.json": "2da1ecd7df6c321f7659b605fc8cef707e5c7fba927497951bff7ef2b949b64e",
+    "interface/46-G-390-false--201.json": "2da1ecd7df6c321f7659b605fc8cef707e5c7fba927497951bff7ef2b949b64e",
+    "interface/47-G-390-false-nao-numerico.json": "2da1ecd7df6c321f7659b605fc8cef707e5c7fba927497951bff7ef2b949b64e",
+    "interface/48-G-maximo-390-false.json": "ebc2ab75e54233c1f6261395b8cd1a538b092a7213173873296d0d8873509f6c",
+    "interface/49-C-resistenciaCorpoJ.json": "6d5ec4d62681895a443757abfb696de5b9f2d0080e028e72cc45347aab47c89b",
+    "interface/5-F-depois-1440-true.json": "b6cba46efd34a07213a3b58f5ea6c12d80752b92966d034c50edaa85dc9a9dca",
+    "interface/50-C-resistenciaFlapJ.json": "7071bc550c4eac99d71101c8ed46b1e64b7d7e03c469bf244c93286e2536c548",
+    "interface/51-C-resistenciaFixadorN.json": "d9549be1bb19b357ba7d6366c31dcedd4634c79f232c6d63dcbddc03ef9ee645",
+    "interface/52-G-inicial-recuperado.json": "6ce274fea1805674940c1d6a6945fade4ca9e3b2ea2060b673e49faa98c9fc7b",
+    "interface/53-D-invalido-anterior.json": "fe0b03b1125a3a2860bad13c4e87440a53716ea40b3115518ce97f110b455215",
+    "interface/6-D-novo-1440-true.json": "01c55b435626d1e7f0233d9fd7a233d30aa2427fc690b2e244d94fef0b7fdfbc",
+    "interface/7-E-1440-true.json": "2da1ecd7df6c321f7659b605fc8cef707e5c7fba927497951bff7ef2b949b64e",
+    "interface/8-G-1440-true-vazio.json": "2da1ecd7df6c321f7659b605fc8cef707e5c7fba927497951bff7ef2b949b64e",
+    "interface/9-G-1440-true-5001.json": "2da1ecd7df6c321f7659b605fc8cef707e5c7fba927497951bff7ef2b949b64e",
+    "interface/resultado.json": "59f714958cc01190be7f0e1fb7808d16a047d3c51bef71693fd4ed93ec922843",
+    "reproducao-antes.json": "e1510edc8fb5c08d068dca8474487a8317cc907275b3c67d884d50e9b3443264",
+    "smoke-geral/diario-avancado-1440.json": "11a76eb8da723f1e9c8ba686e6c98403443edc2873034816e6e839ef0bf39a81",
+    "smoke-geral/diario-avancado-390.json": "11a76eb8da723f1e9c8ba686e6c98403443edc2873034816e6e839ef0bf39a81",
+    "smoke-geral/diario-smoke-1440.json": "b6b5f3a5cda6f39e841d2c4ae03413748235b84db6c227d5387a6f4af7b668ca",
+    "smoke-geral/diario-smoke-390.json": "3c067b712610b49c77effdfce0c44d9898f689a126eb310e40397f2aa65b200c",
+    "smoke-geral/smoke.json": "617daea102d4f5230955a3bdff0c709d196513867ce9e12c82cf777f951c2a81",
+    "testes-completos.json": "a01f753c8935911b0be09f75b137c4826670ddf5621b65d692a4e0082c26efd4",
+    "testes-configuracao.json": "b2f3d64d24de09305ef7ab01ead7f8001a37de22211acff065bbe501d948cd53",
+    "testes-documentacao.json": "3657c61f1bfee401959f30e53e50f2a748fc1c2c9dbcbd2242c3b3aa8edcbfcd",
+    "testes-reentrada.json": "1fdaf81ea004b7a2ce4313e0a5cbe1e39dd09363caea7401c558920b6849d5a8",
+    "testes-site.json": "a620855bbdb3ac821d6146043df5bca0b8cd69808e8d8a08e398b9e61491c015"
+  }
+}

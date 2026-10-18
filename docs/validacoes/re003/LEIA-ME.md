@@ -26,8 +26,13 @@ interface; núcleo, leis físicas, materiais e referências históricas preserva
 - `smoke-geral/`: regressão do smoke existente, em diretório novo, preservando
   resultados RE-001/RE-002. Comandos, modo manual, bank, energia, dano,
   aproximação bloqueada, passo 1/480 e exportações.
-- `testes-completos.json`: resultado integral da execução no sandbox, quando
-  disponível; limitações ambientais são distinguidas no relatório do marco.
+- `testes-completos.json`: execução integral de 677 testes no sandbox:
+  650 aprovados, 22 falhas e cinco pulados após timeout de hook do site. Dentre
+  as falhas, 21 são históricas e uma é EPERM de subprocesso documental.
+- `resumo-validacoes.json`: classificação por nome, repetições e hashes SHA-256
+  das evidências JSON. Não soma repetições como testes novos nem declara suíte
+  integral verde. Documentação 23/23 e recursos institucionais 5/5 passaram nas
+  execuções separadas com permissões locais adequadas.
 - `testes-reentrada.json`: 111 verificações específicas do laboratório.
 - `testes-site.json`: testes institucionais repetidos com servidor local autorizado.
 - `testes-documentacao.json`: validação documental com subprocessos Node locais.
