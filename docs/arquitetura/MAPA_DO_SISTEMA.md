@@ -501,3 +501,8 @@ e informa a pendência; não reescreve a receita por valores ainda não aplicado
 O chaveamento inicial possui campo separado do comando operacional. Nenhuma
 lei física, integração ou revisão de material foi alterada. Contrato e evidências:
 [RE-003](../planos-codex/2026-10-18-re003.md).
+
+O seletor de tempo da reentrada oferece 1×, 10×, 60× e 120×. Todas as opções
+reutilizam o executor de passo fixo; a escala solicitada conserva o dt físico
+e fica sujeita ao orçamento de processamento existente. Contrato:
+[Reentrada 120×](../planos-codex/2026-10-18-reentrada-120x.md).
