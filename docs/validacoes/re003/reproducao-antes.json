@@ -1,0 +1,101 @@
+{
+  "base": "d1b9625",
+  "resultados": [
+    {
+      "caso": "eventos-normais",
+      "exibidos": {
+        "re-limite-corpo": "5000",
+        "re-limite-flaps": "5000",
+        "re-limite-bateria": "5000"
+      },
+      "aplicados": {
+        "limiteOrbitadorC": 5000,
+        "limiteFlapsC": 5000,
+        "limiteBateriaC": 5000
+      },
+      "passos": 46,
+      "configuracaoDesabilitada": true,
+      "revisao": "RE-002-r4"
+    },
+    {
+      "caso": "sem-eventos",
+      "exibidos": {
+        "re-limite-corpo": "5000",
+        "re-limite-flaps": "5000",
+        "re-limite-bateria": "5000"
+      },
+      "aplicados": {
+        "limiteOrbitadorC": 1100,
+        "limiteFlapsC": 900,
+        "limiteBateriaC": 60
+      },
+      "passos": 32,
+      "configuracaoDesabilitada": true,
+      "revisao": "RE-002-r4"
+    },
+    {
+      "caso": "exportacao-antes-de-iniciar",
+      "exibidos": {
+        "re-limite-corpo": "5000",
+        "re-limite-flaps": "5000",
+        "re-limite-bateria": "5000"
+      },
+      "aplicados": {
+        "limiteOrbitadorC": 1100,
+        "limiteFlapsC": 900,
+        "limiteBateriaC": 60
+      },
+      "passos": 0,
+      "configuracaoDesabilitada": false,
+      "revisao": "RE-002-r4"
+    },
+    {
+      "caso": "mecanica-sem-eventos",
+      "exibidos": {
+        "re-param-resistenciaCorpoJ": "5000",
+        "re-param-resistenciaFlapJ": "5000",
+        "re-param-resistenciaFixadorN": "5000"
+      },
+      "aplicados": {
+        "resistenciaCorpoJ": 100000000,
+        "resistenciaFlapJ": 1000000,
+        "resistenciaFixadorN": 100000000
+      },
+      "passos": 61,
+      "configuracaoDesabilitada": true,
+      "revisao": "RE-002-r4"
+    },
+    {
+      "caso": "mecanica-eventos-normais",
+      "exibidos": {
+        "re-param-resistenciaCorpoJ": "5000",
+        "re-param-resistenciaFlapJ": "5000",
+        "re-param-resistenciaFixadorN": "5000"
+      },
+      "aplicados": {
+        "resistenciaCorpoJ": 5000,
+        "resistenciaFlapJ": 5000,
+        "resistenciaFixadorN": 5000
+      },
+      "passos": 49,
+      "configuracaoDesabilitada": true,
+      "revisao": "RE-002-r4"
+    },
+    {
+      "caso": "exportacao-com-edicao-normal",
+      "exibidos": {
+        "re-limite-corpo": "5000",
+        "re-limite-flaps": "5000",
+        "re-limite-bateria": "5000"
+      },
+      "aplicados": {
+        "limiteOrbitadorC": 1100,
+        "limiteFlapsC": 900,
+        "limiteBateriaC": 60
+      },
+      "passos": 0,
+      "configuracaoDesabilitada": false,
+      "revisao": "RE-002-r4"
+    }
+  ]
+}
