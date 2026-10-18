@@ -18,7 +18,7 @@ Protótipo 2
 ├── site/scripts/                    menu e carrossel; apenas apresentação DOM
 ├── site/styles/                     identidade visual institucional isolada
 ├── site/public/                     WebP, favicon e metadados estáticos publicáveis
-├── site/build/                      integração Vite de rotas/HTML e PDF canônico
+├── site/build/                      integração Vite de rotas/HTML, PDFs e Markdown canônicos
 ├── src/physics/                      núcleo físico e componentes de domínio
 │   ├── MundoFisico                   registros, tempo, receita determinística
 │   ├── Vetor3                        álgebra imutável e validação finita
@@ -83,12 +83,21 @@ flowchart TD
   INST -. links públicos .-> HTML
   VITE[Build Vite único] --> INST
   VITE --> HTML
-  VITE --> PDF[PDF canônico em docs/estudos]
+  VITE --> PDF[PDFs e Markdown canônicos em docs/estudos]
 ```
 
 Não há Firebase/Firestore no domínio implementado. `firebase.json` configura
 hosting de arquivos estáticos. Não há inventário persistente, carreira,
 BSS-007, orbitador, docking, rotação terrestre ou CFD completos implementados.
+
+O catálogo institucional inclui quatro páginas: início, pesquisa, simulador e
+estudo térmico RE-004. A rota `/pesquisa/termica-re004` aponta para
+`termica-re004.html`. Os dois PDFs e os três cadernos Markdown do RE-004 têm
+fontes canônicas em `docs/estudos`; o plugin serve esses documentos no dev e
+emite seus bytes sem alteração no build. `verificarDistribuicao` confere
+referências e identidade SHA-256 das cópias. O catálogo AST registra também o
+callback de seleção de Markdown e os callbacks dos testes recebidos em
+`f709b6a`; isso não representa execução ou aprovação desses testes.
 
 ## Classes, portas e composição
 

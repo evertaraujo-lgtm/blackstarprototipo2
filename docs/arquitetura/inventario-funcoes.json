@@ -1955,7 +1955,7 @@
   },
   {
     "id": "site/build/pluginInstitucional.test.ts::[callback]:ArrowFunction#1",
-    "assinatura": "(p: \"index.html\" | \"pesquisa.html\" | \"simulador.html\"): string",
+    "assinatura": "(p: \"index.html\" | \"pesquisa.html\" | \"simulador.html\" | \"termica-re004.html\"): string",
     "modificadores": [],
     "categoria": "teste"
   },
@@ -2036,15 +2036,11 @@
     "categoria": "teste"
   },
   {
-    "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#4.[callback]:ArrowFunction#1",
-    "assinatura": "(): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }",
-    "modificadores": [],
-    "categoria": "teste"
-  },
-  {
     "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]:ArrowFunction#5",
-    "assinatura": "(): void",
-    "modificadores": [],
+    "assinatura": "(): Promise<void>",
+    "modificadores": [
+      "async"
+    ],
     "categoria": "teste"
   },
   {
@@ -2054,13 +2050,25 @@
     "categoria": "teste"
   },
   {
-    "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#5.[callback]:ArrowFunction#2",
+    "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]:ArrowFunction#6",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#6.[callback]:ArrowFunction#1",
     "assinatura": "(): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }",
     "modificadores": [],
     "categoria": "teste"
   },
   {
-    "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#5.[callback]:ArrowFunction#3",
+    "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#6.[callback]:ArrowFunction#2",
+    "assinatura": "(): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#6.[callback]:ArrowFunction#3",
     "assinatura": "(): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }",
     "modificadores": [],
     "categoria": "teste"
@@ -2093,7 +2101,13 @@
   },
   {
     "id": "site/build/pluginInstitucional.ts::pluginInstitucional.atenderInstitucional.[callback]:ArrowFunction#2",
-    "assinatura": "(p: \"index.html\" | \"pesquisa.html\" | \"simulador.html\"): boolean",
+    "assinatura": "(e: { readonly caminho: \"/estudos/re004/01-auditoria-termica-comparativa.md\"; readonly fonte: \"docs/estudos/re004/01-auditoria-termica-comparativa.md\"; } | { readonly caminho: \"/estudos/re004/02-arquitetura-e-modelo-termico.md\"; readonly fonte: \"docs/estudos/re004/02-arquitetura-e-modelo-termico.md\"; } | { readonly caminho: \"/estudos/re004/03-protocolo-proximos-ensaios.md\"; readonly fonte: \"docs/estudos/re004/03-protocolo-proximos-ensaios.md\"; }): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "site/build/pluginInstitucional.ts::pluginInstitucional.atenderInstitucional.[callback]:ArrowFunction#3",
+    "assinatura": "(p: \"index.html\" | \"pesquisa.html\" | \"simulador.html\" | \"termica-re004.html\"): boolean",
     "modificadores": [],
     "categoria": "callback"
   },

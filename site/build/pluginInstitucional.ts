@@ -20,17 +20,20 @@ export const estudosMarkdown = Object.freeze([
 
 /**
  * Integra HTMLs agrupados em site/ às rotas públicas, sem gerar conteúdo em JS.
- * @param raiz Checkout único do P2; resolve fontes e PDF dentro desse diretório.
- * @returns Plugin Vite: lê fontes no dev e emite HTML/PDF somente no build.
+ * @param raiz Checkout único do P2; resolve fontes HTML, PDF e Markdown cadastradas.
+ * @returns Plugin Vite: atende fontes canônicas no dev e emite HTML/documentos no build.
  * @remarks Não importa domínio físico, não sincroniza repositórios nem faz deploy.
   @contract f-1a321c694e8857ca */
 export function pluginInstitucional(raiz: string): Plugin {
   let desenvolvimento = false;
 
   /**
-   * Mapeia somente rotas institucionais; dev serve fontes canônicas do catálogo PDF.
+   * Mapeia páginas cadastradas, incluindo /pesquisa/termica-re004; no dev atende
+   * os PDFs e cadernos Markdown canônicos com MIME próprio e sem corpo em HEAD.
    * @returns void. Altera URL interna do servidor ou responde bytes/MIME; demais
    * recursos seguem ao Vite MPA, cujo fallback não transforma ausência em homepage.
+   * @remarks Lê somente fontes cadastradas; erros de leitura seguem para next.
+   * No preview, documentos são atendidos pela saída estática já compilada.
     @contract f-8acac9034ca2a25b */
   function atenderInstitucional(req: IncomingMessage, res: ServerResponse, next: (erro?: unknown) => void): void {
     const url = new URL(req.url ?? '/', 'http://localhost');
@@ -73,9 +76,11 @@ export function pluginInstitucional(raiz: string): Plugin {
       server.middlewares.use(atenderInstitucional);
     },
     /**
-     * Move as três saídas HTML para a raiz e emite cada PDF idêntico ao original.
+     * Move os HTMLs institucionais cadastrados para a raiz e emite cada PDF e
+     * caderno Markdown com os mesmos bytes de sua fonte canônica.
      * @remarks Executa após processamento HTML do Vite; recusa ausência/colisão.
-     * Não copia bundle de simulador, diretório vizinho ou documento interno.
+     * Não copia bundle de simulador nem diretório vizinho; documentos emitidos
+     * são exclusivamente os cadastrados em publicacoes e estudosMarkdown.
       @contract f-423d67f295d31202 */
     generateBundle(_opcoes, bundle) {
       for (const pagina of paginasInstitucionais) {

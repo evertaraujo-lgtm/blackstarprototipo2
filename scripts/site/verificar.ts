@@ -17,7 +17,8 @@ export function hashArquivo(caminho: string): string {
 }
 
 /**
- * Resolve URL local dentro de dist, incluindo as duas rotas sem extensão.
+ * Resolve URL local dentro de dist, incluindo /pesquisa, /simulador e
+ * /pesquisa/termica-re004; a raiz resolve index.html.
  * @throws Em travessia de diretório, escape de dist ou recurso ausente.
  * @returns Caminho absoluto existente, sem usar fallback para a homepage.
   @contract f-4430a7c8ba885481 */
@@ -32,9 +33,9 @@ export function resolverRecurso(dist: string, caminho: string): string {
 
 /**
  * Qualifica arquivos e referências da distribuição única, sem executar simulação.
- * @param raiz Checkout P2 com build concluído; lê dist, todas as fontes PDF e Hosting.
+ * @param raiz Checkout P2 com build concluído; lê dist, fontes PDF/Markdown e Hosting.
  * @returns Contagens auditáveis. Não grava arquivos nem chama Firebase/deploy.
- * @throws Em página/recurso ausente, PDF divergente, publicação de internos/legado
+ * @throws Em página/recurso ausente, PDF/Markdown divergente, publicação de internos/legado
  * ou configuração que possa mascarar ausência de assets com HTML.
   @contract f-85ec71145d9ea817 */
 export function verificarDistribuicao(raiz: string): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean } {
