@@ -29,142 +29,143 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 - [scripts/validar-reentrada.ts](#modulo-17)
 - [scripts/validar-termica-re003.ts](#modulo-18)
 - [scripts/validar-termica-re004.ts](#modulo-19)
-- [site/build/pluginInstitucional.ts](#modulo-20)
-- [site/scripts/carrossel.ts](#modulo-21)
-- [site/scripts/navegacao.ts](#modulo-22)
-- [src/apresentacao/missao/CameraMissao.ts](#modulo-23)
-- [src/apresentacao/missao/CenaMissao.ts](#modulo-24)
-- [src/apresentacao/missao/EntradaMissao.ts](#modulo-25)
-- [src/apresentacao/missao/HudMissao.ts](#modulo-26)
-- [src/apresentacao/missao/RenderizadorMissao.ts](#modulo-27)
-- [src/apresentacao/reentrada/RenderizadorReentrada.ts](#modulo-28)
-- [src/cenarios/BancadaBss.ts](#modulo-29)
-- [src/cenarios/BancadaBss003.ts](#modulo-30)
-- [src/cenarios/EnsaioMissaoBss005.ts](#modulo-31)
-- [src/cenarios/EnsaioOrbitalInerte.ts](#modulo-32)
-- [src/cenarios/EnsaioReentrada.ts](#modulo-33)
-- [src/cenarios/ReproducaoDiarioBss005.ts](#modulo-34)
-- [src/missoes/AmbienteAmerissagem.ts](#modulo-35)
-- [src/missoes/AmbienteLancamento.ts](#modulo-36)
-- [src/missoes/CicloMissao.ts](#modulo-37)
-- [src/missoes/ContratoMissao.ts](#modulo-38)
-- [src/missoes/EnsaioAmerissagem.ts](#modulo-39)
-- [src/missoes/ExecutorMissao.ts](#modulo-40)
-- [src/missoes/MissaoBss006.ts](#modulo-41)
-- [src/missoes/ObservacaoAmerissagem.ts](#modulo-42)
-- [src/missoes/RegistroExtremos.ts](#modulo-43)
-- [src/missoes/RegistroMissao.ts](#modulo-44)
-- [src/missoes/ReplayMissaoBss006.ts](#modulo-45)
-- [src/missoes/SnapshotMissao.ts](#modulo-46)
-- [src/orbitas.ts](#modulo-47)
-- [src/physics/MundoFisico.ts](#modulo-48)
-- [src/physics/SistemaOperacional.ts](#modulo-49)
-- [src/physics/SuperficieCosteira.ts](#modulo-50)
-- [src/physics/SuperficieEsferica.ts](#modulo-51)
-- [src/physics/SuperficieFisica.ts](#modulo-52)
-- [src/physics/SuperficiePlano.ts](#modulo-53)
-- [src/physics/SuperficiePlanoLocal.ts](#modulo-54)
-- [src/physics/Vetor3.ts](#modulo-55)
-- [src/physics/agua/GeometriaSubmersa.ts](#modulo-56)
-- [src/physics/agua/RegiaoAquatica.ts](#modulo-57)
-- [src/physics/agua/SistemaHidrodinamico.ts](#modulo-58)
-- [src/physics/ambiente/AmbienteFisico.ts](#modulo-59)
-- [src/physics/ambiente/CampoGravitacional.ts](#modulo-60)
-- [src/physics/ambiente/EstadoInicialLocal.ts](#modulo-61)
-- [src/physics/ambiente/GeografiaCosteira.ts](#modulo-62)
-- [src/physics/ambiente/PerfilAtmosfericoReentrada.ts](#modulo-63)
-- [src/physics/ambiente/ReferencialFisico.ts](#modulo-64)
-- [src/physics/ambiente/TelemetriaOrbital.ts](#modulo-65)
-- [src/physics/cenarios/EnsaioPortaVertical.ts](#modulo-66)
-- [src/physics/conexoes/ChumbadorAoSolo.ts](#modulo-67)
-- [src/physics/conexoes/ConexaoEletrica.ts](#modulo-68)
-- [src/physics/conexoes/FixadorEstrutural.ts](#modulo-69)
-- [src/physics/conexoes/GuiaLinear.ts](#modulo-70)
-- [src/physics/conexoes/JuntaRotacionalDeBancada.ts](#modulo-71)
-- [src/physics/conexoes/eletrica/Contator.ts](#modulo-72)
-- [src/physics/conexoes/eletrica/Interruptor.ts](#modulo-73)
-- [src/physics/conexoes/eletrica/Resistor.ts](#modulo-74)
-- [src/physics/estruturas/ConjuntoEstruturalRigido.ts](#modulo-75)
-- [src/physics/estruturas/DiagnosticoAngular.ts](#modulo-76)
-- [src/physics/geometria/ContatoCaixasOrientadas.ts](#modulo-77)
-- [src/physics/objetos/atuadores/Cilindro.ts](#modulo-78)
-- [src/physics/objetos/atuadores/CilindroEletrico.ts](#modulo-79)
-- [src/physics/objetos/atuadores/MotorEletricoRotacional.ts](#modulo-80)
-- [src/physics/objetos/base/Objeto.ts](#modulo-81)
-- [src/physics/objetos/base/ObjetoTriangularRetangulo.ts](#modulo-82)
-- [src/physics/objetos/componentes/AletaAerodinamica.ts](#modulo-83)
-- [src/physics/objetos/componentes/FlapReentrada.ts](#modulo-84)
-- [src/physics/objetos/componentes/Paraquedas.ts](#modulo-85)
-- [src/physics/objetos/componentes/RolagemVirtual.ts](#modulo-86)
-- [src/physics/objetos/fontes-de-energia/Bateria.ts](#modulo-87)
-- [src/physics/objetos/fontes-de-energia/FonteEletrica.ts](#modulo-88)
-- [src/physics/objetos/fontes-de-energia/GeradorCA.ts](#modulo-89)
-- [src/physics/objetos/fontes-de-energia/PainelSolar.ts](#modulo-90)
-- [src/physics/objetos/fontes-de-energia/TanquePropelente.ts](#modulo-91)
-- [src/physics/objetos/mecanismos/BracoArticuladoDeBancada.ts](#modulo-92)
-- [src/physics/objetos/mecanismos/ConjuntoPortaBatente.ts](#modulo-93)
-- [src/physics/objetos/mecanismos/Porta.ts](#modulo-94)
-- [src/physics/objetos/mecanismos/TravaPorta.ts](#modulo-95)
-- [src/physics/objetos/propulsao/Propulsor.ts](#modulo-96)
-- [src/physics/objetos/propulsao/PropulsorVetorizado.ts](#modulo-97)
-- [src/physics/objetos/propulsao/alimentacao/BombaPropelente.ts](#modulo-98)
-- [src/physics/objetos/propulsao/alimentacao/LinhaDePropelente.ts](#modulo-99)
-- [src/physics/objetos/propulsao/alimentacao/ValvulaPropelente.ts](#modulo-100)
-- [src/physics/objetos/propulsao/combustao/Bocal.ts](#modulo-101)
-- [src/physics/objetos/propulsao/combustao/CamaraCombustao.ts](#modulo-102)
-- [src/physics/objetos/propulsao/vetorizacao/AtuadorVetorizacao.ts](#modulo-103)
-- [src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts](#modulo-104)
-- [src/physics/objetos/veiculos/Bss03.ts](#modulo-105)
-- [src/physics/objetos/veiculos/Bss04.ts](#modulo-106)
-- [src/physics/objetos/veiculos/ComputadorDeVoo.ts](#modulo-107)
-- [src/physics/objetos/veiculos/OrbitadorReentrada.ts](#modulo-108)
-- [src/physics/objetos/veiculos/VeiculoAlado.ts](#modulo-109)
-- [src/physics/objetos/veiculos/VeiculoComposto.ts](#modulo-110)
-- [src/physics/objetos/veiculos/VeiculoTerrestre.ts](#modulo-111)
-- [src/physics/reentrada/ConfiguracaoTermicaReentrada.ts](#modulo-112)
-- [src/physics/reentrada/ModeloAerodinamicoReentrada.ts](#modulo-113)
-- [src/physics/sensores/SensoresVeiculoComposto.ts](#modulo-114)
-- [src/physics/sensores/SistemaSensores.ts](#modulo-115)
-- [src/physics/sensores/SwitchFimDeCurso.ts](#modulo-116)
-- [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.ts](#modulo-117)
-- [src/physics/sistemas de controle/ControladorAletasAerodinamicas.ts](#modulo-118)
-- [src/physics/sistemas de controle/ControladorAproximacao.ts](#modulo-119)
-- [src/physics/sistemas de controle/ControladorDesaceleracao.ts](#modulo-120)
-- [src/physics/sistemas de controle/ControladorDesaceleracaoDePropulsores.ts](#modulo-121)
-- [src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.ts](#modulo-122)
-- [src/physics/sistemas de controle/ControladorGimbalDescidaDePropulsores.ts](#modulo-123)
-- [src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts](#modulo-124)
-- [src/physics/sistemas de controle/ControladorInclinacaoDePropulsores.ts](#modulo-125)
-- [src/physics/sistemas de controle/ControladorInclinacaoPid.ts](#modulo-126)
-- [src/physics/sistemas de controle/ControladorPerfilVooExperimental.ts](#modulo-127)
-- [src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts](#modulo-128)
-- [src/physics/sistemas de controle/ControladorPouso.ts](#modulo-129)
-- [src/physics/sistemas de controle/ControladorPousoDePropulsores.ts](#modulo-130)
-- [src/physics/sistemas de controle/ControladorReentrada.ts](#modulo-131)
-- [src/physics/sistemas de controle/EstrategiaCorredorReentrada.ts](#modulo-132)
-- [src/physics/sistemas de controle/FronteiraAproximacao.ts](#modulo-133)
-- [src/physics/sistemas de controle/GerenciadorDeControladores.ts](#modulo-134)
-- [src/physics/sistemas de controle/SupervisorRecuperacao.ts](#modulo-135)
-- [src/physics/sistemas de controle/SupervisorReentrada.ts](#modulo-136)
-- [src/physics/solucionadores/IntegradorFisico.ts](#modulo-137)
-- [src/physics/solucionadores/ResolvedorColisoes.ts](#modulo-138)
-- [src/physics/solucionadores/ResolvedorContatoSuperficie.ts](#modulo-139)
-- [src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts](#modulo-140)
-- [src/physics/solucionadores/SistemaAtmosferico.ts](#modulo-141)
-- [src/physics/solucionadores/SistemaTermico.ts](#modulo-142)
-- [src/physics/termica/RedeTermica.ts](#modulo-143)
-- [src/reentrada.ts](#modulo-144)
-- [src/simulacao/ExecutorPassoFixo.ts](#modulo-145)
-- [src/testes.ts](#modulo-146)
-- [src/validacao/ReferenciaBancadaM10.ts](#modulo-147)
-- [src/veiculos/DefinicaoBss006.ts](#modulo-148)
-- [src/veiculos/HidrodinamicaBss006.ts](#modulo-149)
-- [src/veiculos/MontagemBss.ts](#modulo-150)
-- [src/veiculos/TelemetriaBss.ts](#modulo-151)
-- [src/visualizacao/CameraFisica2D.ts](#modulo-152)
-- [src/visualizacao/ConexoesEletricas.ts](#modulo-153)
-- [src/visualizacao/RegistroEnsaioBancada.ts](#modulo-154)
-- [src/visualizacao/TracePLC.ts](#modulo-155)
+- [site/build/markdownEstudos.ts](#modulo-20)
+- [site/build/pluginInstitucional.ts](#modulo-21)
+- [site/scripts/carrossel.ts](#modulo-22)
+- [site/scripts/navegacao.ts](#modulo-23)
+- [src/apresentacao/missao/CameraMissao.ts](#modulo-24)
+- [src/apresentacao/missao/CenaMissao.ts](#modulo-25)
+- [src/apresentacao/missao/EntradaMissao.ts](#modulo-26)
+- [src/apresentacao/missao/HudMissao.ts](#modulo-27)
+- [src/apresentacao/missao/RenderizadorMissao.ts](#modulo-28)
+- [src/apresentacao/reentrada/RenderizadorReentrada.ts](#modulo-29)
+- [src/cenarios/BancadaBss.ts](#modulo-30)
+- [src/cenarios/BancadaBss003.ts](#modulo-31)
+- [src/cenarios/EnsaioMissaoBss005.ts](#modulo-32)
+- [src/cenarios/EnsaioOrbitalInerte.ts](#modulo-33)
+- [src/cenarios/EnsaioReentrada.ts](#modulo-34)
+- [src/cenarios/ReproducaoDiarioBss005.ts](#modulo-35)
+- [src/missoes/AmbienteAmerissagem.ts](#modulo-36)
+- [src/missoes/AmbienteLancamento.ts](#modulo-37)
+- [src/missoes/CicloMissao.ts](#modulo-38)
+- [src/missoes/ContratoMissao.ts](#modulo-39)
+- [src/missoes/EnsaioAmerissagem.ts](#modulo-40)
+- [src/missoes/ExecutorMissao.ts](#modulo-41)
+- [src/missoes/MissaoBss006.ts](#modulo-42)
+- [src/missoes/ObservacaoAmerissagem.ts](#modulo-43)
+- [src/missoes/RegistroExtremos.ts](#modulo-44)
+- [src/missoes/RegistroMissao.ts](#modulo-45)
+- [src/missoes/ReplayMissaoBss006.ts](#modulo-46)
+- [src/missoes/SnapshotMissao.ts](#modulo-47)
+- [src/orbitas.ts](#modulo-48)
+- [src/physics/MundoFisico.ts](#modulo-49)
+- [src/physics/SistemaOperacional.ts](#modulo-50)
+- [src/physics/SuperficieCosteira.ts](#modulo-51)
+- [src/physics/SuperficieEsferica.ts](#modulo-52)
+- [src/physics/SuperficieFisica.ts](#modulo-53)
+- [src/physics/SuperficiePlano.ts](#modulo-54)
+- [src/physics/SuperficiePlanoLocal.ts](#modulo-55)
+- [src/physics/Vetor3.ts](#modulo-56)
+- [src/physics/agua/GeometriaSubmersa.ts](#modulo-57)
+- [src/physics/agua/RegiaoAquatica.ts](#modulo-58)
+- [src/physics/agua/SistemaHidrodinamico.ts](#modulo-59)
+- [src/physics/ambiente/AmbienteFisico.ts](#modulo-60)
+- [src/physics/ambiente/CampoGravitacional.ts](#modulo-61)
+- [src/physics/ambiente/EstadoInicialLocal.ts](#modulo-62)
+- [src/physics/ambiente/GeografiaCosteira.ts](#modulo-63)
+- [src/physics/ambiente/PerfilAtmosfericoReentrada.ts](#modulo-64)
+- [src/physics/ambiente/ReferencialFisico.ts](#modulo-65)
+- [src/physics/ambiente/TelemetriaOrbital.ts](#modulo-66)
+- [src/physics/cenarios/EnsaioPortaVertical.ts](#modulo-67)
+- [src/physics/conexoes/ChumbadorAoSolo.ts](#modulo-68)
+- [src/physics/conexoes/ConexaoEletrica.ts](#modulo-69)
+- [src/physics/conexoes/FixadorEstrutural.ts](#modulo-70)
+- [src/physics/conexoes/GuiaLinear.ts](#modulo-71)
+- [src/physics/conexoes/JuntaRotacionalDeBancada.ts](#modulo-72)
+- [src/physics/conexoes/eletrica/Contator.ts](#modulo-73)
+- [src/physics/conexoes/eletrica/Interruptor.ts](#modulo-74)
+- [src/physics/conexoes/eletrica/Resistor.ts](#modulo-75)
+- [src/physics/estruturas/ConjuntoEstruturalRigido.ts](#modulo-76)
+- [src/physics/estruturas/DiagnosticoAngular.ts](#modulo-77)
+- [src/physics/geometria/ContatoCaixasOrientadas.ts](#modulo-78)
+- [src/physics/objetos/atuadores/Cilindro.ts](#modulo-79)
+- [src/physics/objetos/atuadores/CilindroEletrico.ts](#modulo-80)
+- [src/physics/objetos/atuadores/MotorEletricoRotacional.ts](#modulo-81)
+- [src/physics/objetos/base/Objeto.ts](#modulo-82)
+- [src/physics/objetos/base/ObjetoTriangularRetangulo.ts](#modulo-83)
+- [src/physics/objetos/componentes/AletaAerodinamica.ts](#modulo-84)
+- [src/physics/objetos/componentes/FlapReentrada.ts](#modulo-85)
+- [src/physics/objetos/componentes/Paraquedas.ts](#modulo-86)
+- [src/physics/objetos/componentes/RolagemVirtual.ts](#modulo-87)
+- [src/physics/objetos/fontes-de-energia/Bateria.ts](#modulo-88)
+- [src/physics/objetos/fontes-de-energia/FonteEletrica.ts](#modulo-89)
+- [src/physics/objetos/fontes-de-energia/GeradorCA.ts](#modulo-90)
+- [src/physics/objetos/fontes-de-energia/PainelSolar.ts](#modulo-91)
+- [src/physics/objetos/fontes-de-energia/TanquePropelente.ts](#modulo-92)
+- [src/physics/objetos/mecanismos/BracoArticuladoDeBancada.ts](#modulo-93)
+- [src/physics/objetos/mecanismos/ConjuntoPortaBatente.ts](#modulo-94)
+- [src/physics/objetos/mecanismos/Porta.ts](#modulo-95)
+- [src/physics/objetos/mecanismos/TravaPorta.ts](#modulo-96)
+- [src/physics/objetos/propulsao/Propulsor.ts](#modulo-97)
+- [src/physics/objetos/propulsao/PropulsorVetorizado.ts](#modulo-98)
+- [src/physics/objetos/propulsao/alimentacao/BombaPropelente.ts](#modulo-99)
+- [src/physics/objetos/propulsao/alimentacao/LinhaDePropelente.ts](#modulo-100)
+- [src/physics/objetos/propulsao/alimentacao/ValvulaPropelente.ts](#modulo-101)
+- [src/physics/objetos/propulsao/combustao/Bocal.ts](#modulo-102)
+- [src/physics/objetos/propulsao/combustao/CamaraCombustao.ts](#modulo-103)
+- [src/physics/objetos/propulsao/vetorizacao/AtuadorVetorizacao.ts](#modulo-104)
+- [src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts](#modulo-105)
+- [src/physics/objetos/veiculos/Bss03.ts](#modulo-106)
+- [src/physics/objetos/veiculos/Bss04.ts](#modulo-107)
+- [src/physics/objetos/veiculos/ComputadorDeVoo.ts](#modulo-108)
+- [src/physics/objetos/veiculos/OrbitadorReentrada.ts](#modulo-109)
+- [src/physics/objetos/veiculos/VeiculoAlado.ts](#modulo-110)
+- [src/physics/objetos/veiculos/VeiculoComposto.ts](#modulo-111)
+- [src/physics/objetos/veiculos/VeiculoTerrestre.ts](#modulo-112)
+- [src/physics/reentrada/ConfiguracaoTermicaReentrada.ts](#modulo-113)
+- [src/physics/reentrada/ModeloAerodinamicoReentrada.ts](#modulo-114)
+- [src/physics/sensores/SensoresVeiculoComposto.ts](#modulo-115)
+- [src/physics/sensores/SistemaSensores.ts](#modulo-116)
+- [src/physics/sensores/SwitchFimDeCurso.ts](#modulo-117)
+- [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.ts](#modulo-118)
+- [src/physics/sistemas de controle/ControladorAletasAerodinamicas.ts](#modulo-119)
+- [src/physics/sistemas de controle/ControladorAproximacao.ts](#modulo-120)
+- [src/physics/sistemas de controle/ControladorDesaceleracao.ts](#modulo-121)
+- [src/physics/sistemas de controle/ControladorDesaceleracaoDePropulsores.ts](#modulo-122)
+- [src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.ts](#modulo-123)
+- [src/physics/sistemas de controle/ControladorGimbalDescidaDePropulsores.ts](#modulo-124)
+- [src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts](#modulo-125)
+- [src/physics/sistemas de controle/ControladorInclinacaoDePropulsores.ts](#modulo-126)
+- [src/physics/sistemas de controle/ControladorInclinacaoPid.ts](#modulo-127)
+- [src/physics/sistemas de controle/ControladorPerfilVooExperimental.ts](#modulo-128)
+- [src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts](#modulo-129)
+- [src/physics/sistemas de controle/ControladorPouso.ts](#modulo-130)
+- [src/physics/sistemas de controle/ControladorPousoDePropulsores.ts](#modulo-131)
+- [src/physics/sistemas de controle/ControladorReentrada.ts](#modulo-132)
+- [src/physics/sistemas de controle/EstrategiaCorredorReentrada.ts](#modulo-133)
+- [src/physics/sistemas de controle/FronteiraAproximacao.ts](#modulo-134)
+- [src/physics/sistemas de controle/GerenciadorDeControladores.ts](#modulo-135)
+- [src/physics/sistemas de controle/SupervisorRecuperacao.ts](#modulo-136)
+- [src/physics/sistemas de controle/SupervisorReentrada.ts](#modulo-137)
+- [src/physics/solucionadores/IntegradorFisico.ts](#modulo-138)
+- [src/physics/solucionadores/ResolvedorColisoes.ts](#modulo-139)
+- [src/physics/solucionadores/ResolvedorContatoSuperficie.ts](#modulo-140)
+- [src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts](#modulo-141)
+- [src/physics/solucionadores/SistemaAtmosferico.ts](#modulo-142)
+- [src/physics/solucionadores/SistemaTermico.ts](#modulo-143)
+- [src/physics/termica/RedeTermica.ts](#modulo-144)
+- [src/reentrada.ts](#modulo-145)
+- [src/simulacao/ExecutorPassoFixo.ts](#modulo-146)
+- [src/testes.ts](#modulo-147)
+- [src/validacao/ReferenciaBancadaM10.ts](#modulo-148)
+- [src/veiculos/DefinicaoBss006.ts](#modulo-149)
+- [src/veiculos/HidrodinamicaBss006.ts](#modulo-150)
+- [src/veiculos/MontagemBss.ts](#modulo-151)
+- [src/veiculos/TelemetriaBss.ts](#modulo-152)
+- [src/visualizacao/CameraFisica2D.ts](#modulo-153)
+- [src/visualizacao/ConexoesEletricas.ts](#modulo-154)
+- [src/visualizacao/RegistroEnsaioBancada.ts](#modulo-155)
+- [src/visualizacao/TracePLC.ts](#modulo-156)
 
 <a id="modulo-1"></a>
 ## scripts/benchmark-missao.ts
@@ -1126,17 +1127,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>scripts/site/verificar.ts::verificarDistribuicao:FunctionDeclaration</code> · [fonte L41](../../scripts/site/verificar.ts#L41) |
+| Identificador | <code>scripts/site/verificar.ts::verificarDistribuicao:FunctionDeclaration</code> · [fonte L42](../../scripts/site/verificar.ts#L42) |
 | Assinatura | <code>export (raiz: string): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }</code> |
 | Responsabilidade | Qualifica arquivos e referências da distribuição única, sem executar simulação. |
 | Entradas | <code>raiz: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }</code>; expressões retornadas: <code>{ paginas: entradas.length, imagens: imagens.size, referencias, pdfIdentico: true }</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>referencias</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>resolve</code>; <code>Set</code>; <code>readFileSync</code>; <code>join</code>; <code>/&lt;html[\s&gt;]/i.test</code>; <code>Error</code>; <code>/starship_v1&#124;vendor\/prototipo2&#124;src\/js\//.test</code>; <code>html.matchAll</code>; <code>imagens.add</code>; <code>/^(?:https?:&#124;data:&#124;mailto:)/.test</code>; <code>URL</code>; <code>resolverRecurso</code>; <code>arquivo.endsWith</code>; <code>readFileSync(arquivo, 'utf8').includes</code>; <code>decodeURIComponent</code>; <code>ref.hash.slice</code>; <code>srcset.split</code>; <code>imagem.trim().split</code>; <code>imagem.trim</code>; <code>listarArquivos</code>; <code>relative(dist, arquivo).replaceAll</code>; <code>relative</code>; <code>/^(?:docs&#124;src&#124;scripts&#124;vendor&#124;node_modules&#124;site)\/&#124;starship_v1&#124;\.(?:ts&#124;map)$/.test</code>; <code>hashArquivo</code>; <code>readFileSync(pdf).subarray(0, 5).equals</code>; <code>readFileSync(pdf).subarray</code>; <code>Buffer.from</code>; <code>JSON.parse</code>; <code>hosting.rewrites?.some</code>; <code>hosting.predeploy?.includes</code> |
-| Invariantes | Contrato documentado abaixo; ramos observados: <code>!/&lt;html[\s&gt;]/i.test(html)</code>; <code>/starship_v1&#124;vendor\/prototipo2&#124;src\/js\//.test(html)</code>; <code>/^(?:https?:&#124;data:&#124;mailto:)/.test(url)</code>; <code>ref.hash &amp;&amp; arquivo.endsWith('.html') &amp;&amp; !readFileSync(arquivo, 'utf8').includes(`id="${decodeURIComponent(ref.hash.slice(1))}"`)</code>; <code>/^(?:docs&#124;src&#124;scripts&#124;vendor&#124;node_modules&#124;site)\/&#124;starship_v1&#124;\.(?:ts&#124;map)$/.test(nome)</code>; <code>hashArquivo(resolverRecurso(dist, estudo.caminho)) !== hashArquivo(resolve(raiz, estudo.fonte))</code>; <code>hashArquivo(pdf) !== hashArquivo(resolve(raiz, publicacao.fonte))</code>; <code>!readFileSync(pdf).subarray(0, 5).equals(Buffer.from('%PDF-'))</code>; <code>hosting.public !== 'dist' &#124;&#124; hosting.rewrites?.some((r: {<br>    source: string;<br>}) =&gt; r.source === '**')</code>; <code>!hosting.predeploy?.includes('npm --prefix "$PROJECT_DIR" run preparar:deploy')</code>; exceções: <code>new Error(`Página inválida: ${pagina}`)</code>; <code>new Error(`Dependência legada em ${pagina}`)</code>; <code>new Error(`Âncora ausente: ${url}`)</code>; <code>new Error(`Arquivo interno/legado publicado: ${nome}`)</code>; <code>new Error(`Markdown divergente: ${estudo.caminho}`)</code>; <code>new Error(`PDF público diverge da fonte canônica: ${publicacao.caminho}`)</code>; <code>new Error(`Fonte documental inválida: ${publicacao.fonte}`)</code>; <code>new Error('Hosting deve publicar somente dist, sem rewrite global.')</code>; <code>new Error('Hosting deve preparar e validar build antes de publicar.')</code> |
+| Dependências | Chamadas/construções diretas: <code>resolve</code>; <code>Set</code>; <code>readFileSync</code>; <code>join</code>; <code>/&lt;html[\s&gt;]/i.test</code>; <code>Error</code>; <code>/starship_v1&#124;vendor\/prototipo2&#124;src\/js\//.test</code>; <code>html.matchAll</code>; <code>imagens.add</code>; <code>/^(?:https?:&#124;data:&#124;mailto:)/.test</code>; <code>URL</code>; <code>resolverRecurso</code>; <code>arquivo.endsWith</code>; <code>readFileSync(arquivo, 'utf8').includes</code>; <code>decodeURIComponent</code>; <code>ref.hash.slice</code>; <code>srcset.split</code>; <code>imagem.trim().split</code>; <code>imagem.trim</code>; <code>listarArquivos</code>; <code>relative(dist, arquivo).replaceAll</code>; <code>relative</code>; <code>/^(?:docs&#124;src&#124;scripts&#124;vendor&#124;node_modules&#124;site)\/&#124;starship_v1&#124;\.(?:ts&#124;map)$/.test</code>; <code>hashArquivo</code>; <code>estudo.caminho.replace</code>; <code>artigo.includes</code>; <code>readFileSync(pdf).subarray(0, 5).equals</code>; <code>readFileSync(pdf).subarray</code>; <code>Buffer.from</code>; <code>JSON.parse</code>; <code>hosting.rewrites?.some</code>; <code>hosting.predeploy?.includes</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>!/&lt;html[\s&gt;]/i.test(html)</code>; <code>/starship_v1&#124;vendor\/prototipo2&#124;src\/js\//.test(html)</code>; <code>/^(?:https?:&#124;data:&#124;mailto:)/.test(url)</code>; <code>ref.hash &amp;&amp; arquivo.endsWith('.html') &amp;&amp; !readFileSync(arquivo, 'utf8').includes(`id="${decodeURIComponent(ref.hash.slice(1))}"`)</code>; <code>/^(?:docs&#124;src&#124;scripts&#124;vendor&#124;node_modules&#124;site)\/&#124;starship_v1&#124;\.(?:ts&#124;map)$/.test(nome)</code>; <code>hashArquivo(resolverRecurso(dist, estudo.caminho)) !== hashArquivo(resolve(raiz, estudo.fonte))</code>; <code>!artigo.includes('&lt;article class="article"&gt;') &#124;&#124; !artigo.includes('Baixar arquivo original .md')</code>; <code>hashArquivo(pdf) !== hashArquivo(resolve(raiz, publicacao.fonte))</code>; <code>!readFileSync(pdf).subarray(0, 5).equals(Buffer.from('%PDF-'))</code>; <code>hosting.public !== 'dist' &#124;&#124; hosting.rewrites?.some((r: {<br>    source: string;<br>}) =&gt; r.source === '**')</code>; <code>!hosting.predeploy?.includes('npm --prefix "$PROJECT_DIR" run preparar:deploy')</code>; exceções: <code>new Error(`Página inválida: ${pagina}`)</code>; <code>new Error(`Dependência legada em ${pagina}`)</code>; <code>new Error(`Âncora ausente: ${url}`)</code>; <code>new Error(`Arquivo interno/legado publicado: ${nome}`)</code>; <code>new Error(`Markdown divergente: ${estudo.caminho}`)</code>; <code>new Error(`Página HTML do estudo ausente: ${estudo.caminho}`)</code>; <code>new Error(`PDF público diverge da fonte canônica: ${publicacao.caminho}`)</code>; <code>new Error(`Fonte documental inválida: ${publicacao.fonte}`)</code>; <code>new Error('Hosting deve publicar somente dist, sem rewrite global.')</code>; <code>new Error('Hosting deve preparar e validar build antes de publicar.')</code> |
 | Testes | [site/build/pluginInstitucional.test.ts](../../site/build/pluginInstitucional.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /**<br> * Qualifica arquivos e referências da distribuição única, sem executar simulação.<br> * @param raiz Checkout P2 com build concluído; lê dist, fontes PDF/Markdown e Hosting.<br> * @returns Contagens auditáveis. Não grava arquivos nem chama Firebase/deploy.<br> * @throws Em página/recurso ausente, PDF/Markdown divergente, publicação de internos/legado<br> * ou configuração que possa mascarar ausência de assets com HTML.<br>  @contract f-85ec71145d9ea817 */ |
+| JSDoc integral | /**<br> * Qualifica arquivos e referências da distribuição única, sem executar simulação.<br> * @param raiz Checkout P2 com build concluído; lê dist, fontes PDF/Markdown e Hosting.<br> * @returns Contagens auditáveis. Não grava arquivos nem chama Firebase/deploy.<br> * @remarks Confere também o artigo HTML e seu link de download para cada caderno.<br> * @throws Em página/recurso ausente, PDF/Markdown divergente, publicação de internos/legado<br> * ou configuração que possa mascarar ausência de assets com HTML.<br>  @contract f-85ec71145d9ea817 */ |
 
 </details>
 
@@ -1478,6 +1479,162 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 
 <a id="modulo-20"></a>
+## site/build/markdownEstudos.ts
+
+<a id="f-3f1fea5a5a2a37ee"></a>
+<details><summary>escapar · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>site/build/markdownEstudos.ts::escapar:FunctionDeclaration</code> · [fonte L15](../../site/build/markdownEstudos.ts#L15) |
+| Assinatura | <code> (s: string): string</code> |
+| Responsabilidade | Escapa &amp;, sinais de marcação e aspas no texto recebido; retorna string nova, sem interpretar HTML nem acessar DOM/FS. |
+| Entradas | <code>s: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>string</code>; expressões retornadas: <code>s.replace(/&amp;/g, '&amp;amp;').replace(/&lt;/g, '&amp;lt;').replace(/&gt;/g, '&amp;gt;')<br>    .replace(/"/g, '&amp;quot;').replace(/'/g, '&amp;#39;')</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>s.replace(/&amp;/g, '&amp;amp;').replace(/&lt;/g, '&amp;lt;').replace(/&gt;/g, '&amp;gt;')<br>    .replace(/"/g, '&amp;quot;').replace</code>; <code>s.replace(/&amp;/g, '&amp;amp;').replace(/&lt;/g, '&amp;lt;').replace(/&gt;/g, '&amp;gt;')<br>    .replace</code>; <code>s.replace(/&amp;/g, '&amp;amp;').replace(/&lt;/g, '&amp;lt;').replace</code>; <code>s.replace(/&amp;/g, '&amp;amp;').replace</code>; <code>s.replace</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | [site/build/markdownEstudos.test.ts](../../site/build/markdownEstudos.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Escapa &amp;, sinais de marcação e aspas no texto recebido; retorna string nova,<br> * sem interpretar HTML nem acessar DOM/FS.<br> * @contract f-3f1fea5a5a2a37ee<br> */ |
+
+</details>
+
+<a id="f-e1d82d6e57ba5f86"></a>
+<details><summary>inline · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>site/build/markdownEstudos.ts::inline:FunctionDeclaration</code> · [fonte L25](../../site/build/markdownEstudos.ts#L25) |
+| Assinatura | <code> (texto: string): string</code> |
+| Responsabilidade | Converte links HTTP(S), negrito e código do subconjunto inline existente. Escapa o texto e atributos emitidos; negrito chama recursivamente este parser. Retorna fragmento HTML sem IO. Não implementa toda a sintaxe Markdown. |
+| Entradas | <code>texto: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>string</code>; expressões retornadas: <code>result + escapar(texto.slice(pos))</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>result</code>; <code>pos</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>texto.matchAll</code>; <code>escapar</code>; <code>texto.slice</code>; <code>inline</code>; <code>m[0].replace</code>; <code>m[0].slice</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>m[2]</code>; <code>m[3]</code>; <code>m[4] !== undefined</code>; exceções: — |
+| Testes | [site/build/markdownEstudos.test.ts](../../site/build/markdownEstudos.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Converte links HTTP(S), negrito e código do subconjunto inline existente.<br> * Escapa o texto e atributos emitidos; negrito chama recursivamente este parser.<br> * Retorna fragmento HTML sem IO. Não implementa toda a sintaxe Markdown.<br> * @contract f-e1d82d6e57ba5f86<br> */ |
+
+</details>
+
+<a id="f-3c6fdeef3d93f8f2"></a>
+<details><summary>cols · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>site/build/markdownEstudos.ts::cols:FunctionDeclaration</code> · [fonte L46](../../site/build/markdownEstudos.ts#L46) |
+| Assinatura | <code> (line: string): string[]</code> |
+| Responsabilidade | Divide uma linha de tabela em células aparadas, removendo barras das bordas. Barras internas sempre separam células; não interpreta escapes Markdown. |
+| Entradas | <code>line: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>string[]</code>; expressões retornadas: <code>line.trim().replace(/^\&#124;/, '').replace(/\&#124;$/, '').split('&#124;').map(c =&gt; c.trim())</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>line.trim().replace(/^\&#124;/, '').replace(/\&#124;$/, '').split('&#124;').map</code>; <code>line.trim().replace(/^\&#124;/, '').replace(/\&#124;$/, '').split</code>; <code>line.trim().replace(/^\&#124;/, '').replace</code>; <code>line.trim().replace</code>; <code>line.trim</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | [site/build/markdownEstudos.test.ts](../../site/build/markdownEstudos.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Divide uma linha de tabela em células aparadas, removendo barras das bordas.<br> * Barras internas sempre separam células; não interpreta escapes Markdown.<br> * @contract f-3c6fdeef3d93f8f2<br> */ |
+
+</details>
+
+<a id="f-8d42c2b9dde6d8d5"></a>
+<details><summary>tableDivider · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>site/build/markdownEstudos.ts::tableDivider:FunctionDeclaration</code> · [fonte L53](../../site/build/markdownEstudos.ts#L53) |
+| Assinatura | <code> (line: string): boolean</code> |
+| Responsabilidade | Reconhece separador com ao menos duas células de três ou mais hífens e dois-pontos opcionais nas bordas; consulta cols, sem alterar a entrada. |
+| Entradas | <code>line: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>cells.length &gt;= 2 &amp;&amp; cells.every(c =&gt; /^:?-{3,}:?$/.test(c))</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>cols</code>; <code>cells.every</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | [site/build/markdownEstudos.test.ts](../../site/build/markdownEstudos.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Reconhece separador com ao menos duas células de três ou mais hífens e<br> * dois-pontos opcionais nas bordas; consulta cols, sem alterar a entrada.<br> * @contract f-8d42c2b9dde6d8d5<br> */ |
+
+</details>
+
+<a id="f-746c1737837df4fd"></a>
+<details><summary>listType · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>site/build/markdownEstudos.ts::listType:FunctionDeclaration</code> · [fonte L61](../../site/build/markdownEstudos.ts#L61) |
+| Assinatura | <code> (line: string): "ul" &#124; "ol" &#124; null</code> |
+| Responsabilidade | Identifica hífen ou numeração decimal seguida de ponto/espaço; retorna o tipo HTML da lista ou null, sem consumir nem modificar a linha. |
+| Entradas | <code>line: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>"ol" &#124; "ul" &#124; null</code>; expressões retornadas: <code>'ul'</code>; <code>'ol'</code>; <code>null</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>/^\s*-\s+/.test</code>; <code>/^\s*\d+\.\s+/.test</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>/^\s*-\s+/.test(line)</code>; <code>/^\s*\d+\.\s+/.test(line)</code>; exceções: — |
+| Testes | [site/build/markdownEstudos.test.ts](../../site/build/markdownEstudos.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Identifica hífen ou numeração decimal seguida de ponto/espaço; retorna o<br> * tipo HTML da lista ou null, sem consumir nem modificar a linha.<br> * @contract f-746c1737837df4fd<br> */ |
+
+</details>
+
+<a id="f-35c71b79ff587f29"></a>
+<details><summary>beginsBlock · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>site/build/markdownEstudos.ts::beginsBlock:FunctionDeclaration</code> · [fonte L70](../../site/build/markdownEstudos.ts#L70) |
+| Assinatura | <code> (lines: string[], i: number): boolean</code> |
+| Responsabilidade | Consulta se a linha no índice válido i inicia bloco reconhecido pelo parser. Depende de listType/tableDivider; não consome linhas nem altera o array. |
+| Entradas | <code>lines: string[]</code>; <code>i: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>/^#{1,6}\s+/.test(l) &#124;&#124; /^\x60{3}/.test(l) &#124;&#124; /^&gt;\s?/.test(l)<br>    &#124;&#124; /^(-{3,}&#124;\*{3,})$/.test(l) &#124;&#124; listType(l) !== null<br>    &#124;&#124; (l.startsWith('&#124;') &amp;&amp; i + 1 &lt; lines.length &amp;&amp; tableDivider(lines[i + 1]))</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>lines[i].trim</code>; <code>/^#{1,6}\s+/.test</code>; <code>/^\x60{3}/.test</code>; <code>/^&gt;\s?/.test</code>; <code>/^(-{3,}&#124;\*{3,})$/.test</code>; <code>listType</code>; <code>l.startsWith</code>; <code>tableDivider</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | [site/build/markdownEstudos.test.ts](../../site/build/markdownEstudos.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Consulta se a linha no índice válido i inicia bloco reconhecido pelo parser.<br> * Depende de listType/tableDivider; não consome linhas nem altera o array.<br> * @contract f-35c71b79ff587f29<br> */ |
+
+</details>
+
+<a id="f-f63acbb89b8d1822"></a>
+<details><summary>converterMarkdownSeguro · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>site/build/markdownEstudos.ts::converterMarkdownSeguro:FunctionDeclaration</code> · [fonte L85](../../site/build/markdownEstudos.ts#L85) |
+| Assinatura | <code>export (source: string): string</code> |
+| Responsabilidade | Converte o subconjunto dos cadernos RE-004 em fragmento HTML, escapando texto. |
+| Entradas | <code>source: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>string</code>; expressões retornadas: <code>html.join('\n')</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>i</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>source.replace(/\r\n?/g, '\n').split</code>; <code>source.replace</code>; <code>lines[i].trim</code>; <code>l.match</code>; <code>/^\x60{3}\s*$/.test</code>; <code>code.push</code>; <code>Error</code>; <code>html.push</code>; <code>escapar</code>; <code>code.join</code>; <code>inline</code>; <code>l.startsWith</code>; <code>tableDivider</code>; <code>cols</code>; <code>header.map((v, n) =&gt; '&lt;th' + (align[n].endsWith(':') ? ' class="numeric"' : '') + '&gt;' + inline(v) + '&lt;/th&gt;').join</code>; <code>header.map</code>; <code>lines[i].trim().startsWith</code>; <code>rows.push</code>; <code>values.map((v, n) =&gt; '&lt;td' + (align[n].endsWith(':') ? ' class="numeric"' : '') + '&gt;' + inline(v) + '&lt;/td&gt;').join</code>; <code>values.map</code>; <code>rows.join</code>; <code>/^(-{3,}&#124;\*{3,})$/.test</code>; <code>listType</code>; <code>items.push</code>; <code>lines[i].trim().replace</code>; <code>items.join</code>; <code>/^\s*&gt;\s?/.test</code>; <code>quote.push</code>; <code>lines[i++].replace</code>; <code>quote.join</code>; <code>beginsBlock</code>; <code>p.push</code>; <code>lines[i++].trim</code>; <code>p.join</code>; <code>html.join</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>!l</code>; <code>fence</code>; <code>i === lines.length</code>; <code>head</code>; <code>l.startsWith('&#124;') &amp;&amp; i + 1 &lt; lines.length &amp;&amp; tableDivider(lines[i + 1])</code>; <code>header.length !== align.length</code>; <code>values.length !== header.length</code>; <code>/^(-{3,}&#124;\*{3,})$/.test(l)</code>; <code>kind</code>; <code>l.startsWith('&gt;')</code>; exceções: <code>new Error('Bloco Markdown sem fechamento.')</code>; <code>new Error('Tabela Markdown inconsistente.')</code>; <code>new Error('Linha de tabela Markdown inconsistente.')</code> |
+| Testes | [site/build/markdownEstudos.test.ts](../../site/build/markdownEstudos.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Converte o subconjunto dos cadernos RE-004 em fragmento HTML, escapando texto.<br> * @param source Markdown em memória; normaliza CRLF/CR para LF.<br> * @returns Fragmento com títulos, parágrafos, tabelas, listas, citações e código.<br> * @throws Em cerca de código sem fechamento ou quantidades de células divergentes.<br> * @remarks Usa somente auxiliares locais e acumuladores; não acessa DOM/FS.<br> * Não aceita HTML bruto como marcação nem implementa Markdown completo.<br> * @contract f-f63acbb89b8d1822<br> */ |
+
+</details>
+
+<a id="f-ac94d9b4013a3948"></a>
+<details><summary>paginaEstudoMarkdown · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>site/build/markdownEstudos.ts::paginaEstudoMarkdown:FunctionDeclaration</code> · [fonte L155](../../site/build/markdownEstudos.ts#L155) |
+| Assinatura | <code>export (source: string, name: string): string</code> |
+| Responsabilidade | Compõe página estática de um dos três cadernos cadastrados, sem escrita ou IO. |
+| Entradas | <code>source: string</code>; <code>name: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>string</code>; expressões retornadas: <code>'&lt;!doctype html&gt;&lt;html lang="pt-BR"&gt;&lt;head&gt;&lt;meta charset="utf-8"&gt;'<br>    + '&lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;'<br>    + '&lt;meta name="theme-color" content="#101112"&gt;'<br>    + '&lt;title&gt;' + escapar(title) + ' &#124; Black St… [continua na fonte]</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>nomes.includes</code>; <code>Error</code>; <code>source.match</code>; <code>nomes.map((nome, i) =&gt; '&lt;a' + (nome === name ? ' aria-current="page"' : '') +<br>    ' href="/estudos/re004/' + nome + '.html"&gt;Caderno ' + (i + 1) + '&lt;/a&gt;').join</code>; <code>nomes.map</code>; <code>escapar</code>; <code>converterMarkdownSeguro</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>!nomes.includes(name as typeof nomes[number])</code>; <code>!title</code>; exceções: <code>new Error('Caderno desconhecido.')</code>; <code>new Error('Caderno Markdown sem título principal.')</code> |
+| Testes | [site/build/markdownEstudos.test.ts](../../site/build/markdownEstudos.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Compõe página estática de um dos três cadernos cadastrados, sem escrita ou IO.<br> * @param source Markdown com título principal iniciado por #.<br> * @param name Nome sem extensão presente no catálogo local nomes.<br> * @returns Documento HTML com navegação, artigo convertido e download do .md.<br> * @throws Em nome não cadastrado, ausência de título ou erro do conversor.<br> * @remarks Depende de escapar/converterMarkdownSeguro; não executa simulação.<br> * @contract f-ac94d9b4013a3948<br> */ |
+
+</details>
+
+
+<a id="modulo-21"></a>
 ## site/build/pluginInstitucional.ts
 
 <a id="f-1a321c694e8857ca"></a>
@@ -1485,7 +1642,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>site/build/pluginInstitucional.ts::pluginInstitucional:FunctionDeclaration</code> · [fonte L27](../../site/build/pluginInstitucional.ts#L27) |
+| Identificador | <code>site/build/pluginInstitucional.ts::pluginInstitucional:FunctionDeclaration</code> · [fonte L28](../../site/build/pluginInstitucional.ts#L28) |
 | Assinatura | <code>export (raiz: string): Plugin</code> |
 | Responsabilidade | Integra HTMLs agrupados em site/ às rotas públicas, sem gerar conteúdo em JS. |
 | Entradas | <code>raiz: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -1495,7 +1652,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [site/build/pluginInstitucional.test.ts](../../site/build/pluginInstitucional.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /**<br> * Integra HTMLs agrupados em site/ às rotas públicas, sem gerar conteúdo em JS.<br> * @param raiz Checkout único do P2; resolve fontes HTML, PDF e Markdown cadastradas.<br> * @returns Plugin Vite: atende fontes canônicas no dev e emite HTML/documentos no build.<br> * @remarks Não importa domínio físico, não sincroniza repositórios nem faz deploy.<br>  @contract f-1a321c694e8857ca */ |
+| JSDoc integral | /**<br> * Integra HTMLs agrupados em site/ às rotas públicas, sem gerar conteúdo em JS.<br> * @param raiz Checkout único do P2; resolve fontes HTML, PDF e Markdown cadastradas.<br> * @returns Plugin Vite: atende fontes e artigos derivados no dev e os emite no build.<br> * @remarks Não importa domínio físico, não sincroniza repositórios nem faz deploy.<br>  @contract f-1a321c694e8857ca */ |
 
 </details>
 
@@ -1504,17 +1661,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>site/build/pluginInstitucional.ts::pluginInstitucional.atenderInstitucional:FunctionDeclaration</code> · [fonte L38](../../site/build/pluginInstitucional.ts#L38) |
+| Identificador | <code>site/build/pluginInstitucional.ts::pluginInstitucional.atenderInstitucional:FunctionDeclaration</code> · [fonte L40](../../site/build/pluginInstitucional.ts#L40) |
 | Assinatura | <code> (req: IncomingMessage, res: ServerResponse, next: (erro?: unknown) =&gt; void): void</code> |
-| Responsabilidade | Mapeia páginas cadastradas, incluindo /pesquisa/termica-re004; no dev atende os PDFs e cadernos Markdown canônicos com MIME próprio e sem corpo em HEAD. |
+| Responsabilidade | Mapeia páginas cadastradas, incluindo /pesquisa/termica-re004; no dev atende os PDFs, Markdown canônicos e artigos HTML derivados com MIME próprio, sem corpo em HEAD. A conversão usa paginaEstudoMarkdown, sem DOM. |
 | Entradas | <code>req: IncomingMessage</code>; <code>res: ServerResponse</code>; <code>next: (erro?: unknown) =&gt; void</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>req.url</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>URL</code>; <code>publicacoes.find</code>; <code>estudosMarkdown.find</code>; <code>paginasInstitucionais.find</code>; <code>next</code>; <code>readFileSync</code>; <code>resolve</code>; <code>res.setHeader</code>; <code>res.end</code> |
-| Invariantes | Contrato documentado abaixo; ramos observados: <code>pagina</code>; <code>desenvolvimento &amp;&amp; publicacao</code>; <code>desenvolvimento &amp;&amp; estudo</code>; exceções: — |
+| Dependências | Chamadas/construções diretas: <code>URL</code>; <code>publicacoes.find</code>; <code>estudosMarkdown.find</code>; <code>paginasInstitucionais.find</code>; <code>next</code>; <code>readFileSync</code>; <code>resolve</code>; <code>res.setHeader</code>; <code>res.end</code>; <code>estudoHtml.caminho.split('/').pop()!.replace</code>; <code>estudoHtml.caminho.split('/').pop</code>; <code>estudoHtml.caminho.split</code>; <code>Buffer.from</code>; <code>paginaEstudoMarkdown</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>pagina</code>; <code>desenvolvimento &amp;&amp; publicacao</code>; <code>desenvolvimento &amp;&amp; estudoHtml</code>; <code>desenvolvimento &amp;&amp; estudo</code>; exceções: — |
 | Testes | [site/build/pluginInstitucional.test.ts](../../site/build/pluginInstitucional.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /**<br>   * Mapeia páginas cadastradas, incluindo /pesquisa/termica-re004; no dev atende<br>   * os PDFs e cadernos Markdown canônicos com MIME próprio e sem corpo em HEAD.<br>   * @returns void. Altera URL interna do servidor ou responde bytes/MIME; demais<br>   * recursos seguem ao Vite MPA, cujo fallback não transforma ausência em homepage.<br>   * @remarks Lê somente fontes cadastradas; erros de leitura seguem para next.<br>   * No preview, documentos são atendidos pela saída estática já compilada.<br>    @contract f-8acac9034ca2a25b */ |
+| JSDoc integral | /**<br>   * Mapeia páginas cadastradas, incluindo /pesquisa/termica-re004; no dev atende<br>   * os PDFs, Markdown canônicos e artigos HTML derivados com MIME próprio,<br>   * sem corpo em HEAD. A conversão usa paginaEstudoMarkdown, sem DOM.<br>   * @returns void. Altera URL interna do servidor ou responde bytes/MIME; demais<br>   * recursos seguem ao Vite MPA, cujo fallback não transforma ausência em homepage.<br>   * @remarks Lê somente fontes cadastradas; erros de leitura seguem para next.<br>   * No preview, documentos são atendidos pela saída estática já compilada.<br>    @contract f-8acac9034ca2a25b */ |
 
 </details>
 
@@ -1523,7 +1680,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>site/build/pluginInstitucional.ts::pluginInstitucional.atenderInstitucional.next[tipo]:FunctionType</code> · [fonte L38](../../site/build/pluginInstitucional.ts#L38) |
+| Identificador | <code>site/build/pluginInstitucional.ts::pluginInstitucional.atenderInstitucional.next[tipo]:FunctionType</code> · [fonte L40](../../site/build/pluginInstitucional.ts#L40) |
 | Assinatura | <code> (erro?: unknown): void</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | <code>erro?: unknown</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -1542,7 +1699,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>site/build/pluginInstitucional.ts::pluginInstitucional.configureServer:MethodDeclaration</code> · [fonte L70](../../site/build/pluginInstitucional.ts#L70) |
+| Identificador | <code>site/build/pluginInstitucional.ts::pluginInstitucional.configureServer:MethodDeclaration</code> · [fonte L83](../../site/build/pluginInstitucional.ts#L83) |
 | Assinatura | <code> (server: ViteDevServer): void</code> |
 | Responsabilidade | Registra rotas das fontes no dev; não grava HTML de preparação na raiz. |
 | Entradas | <code>server</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -1561,7 +1718,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>site/build/pluginInstitucional.ts::pluginInstitucional.configurePreviewServer:MethodDeclaration</code> · [fonte L75](../../site/build/pluginInstitucional.ts#L75) |
+| Identificador | <code>site/build/pluginInstitucional.ts::pluginInstitucional.configurePreviewServer:MethodDeclaration</code> · [fonte L88](../../site/build/pluginInstitucional.ts#L88) |
 | Assinatura | <code> (server: PreviewServer): void</code> |
 | Responsabilidade | Registra as mesmas URLs no preview do dist já compilado, sem fallback global. |
 | Entradas | <code>server</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -1580,22 +1737,22 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>site/build/pluginInstitucional.ts::pluginInstitucional.generateBundle:MethodDeclaration</code> · [fonte L85](../../site/build/pluginInstitucional.ts#L85) |
+| Identificador | <code>site/build/pluginInstitucional.ts::pluginInstitucional.generateBundle:MethodDeclaration</code> · [fonte L99](../../site/build/pluginInstitucional.ts#L99) |
 | Assinatura | <code> (_opcoes: NormalizedOutputOptions, bundle: OutputBundle): void</code> |
-| Responsabilidade | Move os HTMLs institucionais cadastrados para a raiz e emite cada PDF e caderno Markdown com os mesmos bytes de sua fonte canônica. |
+| Responsabilidade | Move os HTMLs institucionais cadastrados para a raiz e emite cada PDF e caderno Markdown com os mesmos bytes de sua fonte canônica. Emite também artigos HTML derivados pelo conversor paginaEstudoMarkdown. |
 | Entradas | <code>_opcoes</code>; <code>bundle</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>html.fileName</code>; <code>bundle[pagina]</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>this.error</code>; <code>this.emitFile</code>; <code>publicacao.caminho.slice</code>; <code>readFileSync</code>; <code>resolve</code>; <code>estudo.caminho.slice</code> |
+| Dependências | Chamadas/construções diretas: <code>this.error</code>; <code>this.emitFile</code>; <code>publicacao.caminho.slice</code>; <code>readFileSync</code>; <code>resolve</code>; <code>estudo.caminho.slice</code>; <code>estudo.caminho.split('/').pop()!.replace</code>; <code>estudo.caminho.split('/').pop</code>; <code>estudo.caminho.split</code>; <code>estudo.caminho.replace(/\.md$/, '.html').slice</code>; <code>estudo.caminho.replace</code>; <code>paginaEstudoMarkdown</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!html &#124;&#124; html.type !== 'asset'</code>; <code>bundle[pagina]</code>; exceções: — |
 | Testes | [site/build/pluginInstitucional.test.ts](../../site/build/pluginInstitucional.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /**<br>     * Move os HTMLs institucionais cadastrados para a raiz e emite cada PDF e<br>     * caderno Markdown com os mesmos bytes de sua fonte canônica.<br>     * @remarks Executa após processamento HTML do Vite; recusa ausência/colisão.<br>     * Não copia bundle de simulador nem diretório vizinho; documentos emitidos<br>     * são exclusivamente os cadastrados em publicacoes e estudosMarkdown.<br>      @contract f-423d67f295d31202 */ |
+| JSDoc integral | /**<br>     * Move os HTMLs institucionais cadastrados para a raiz e emite cada PDF e<br>     * caderno Markdown com os mesmos bytes de sua fonte canônica.<br>     * Emite também artigos HTML derivados pelo conversor paginaEstudoMarkdown.<br>     * @remarks Executa após processamento HTML do Vite; recusa ausência/colisão.<br>     * Não copia bundle de simulador nem diretório vizinho; documentos emitidos<br>     * são exclusivamente os cadastrados em publicacoes e estudosMarkdown.<br>      @contract f-423d67f295d31202 */ |
 
 </details>
 
 
-<a id="modulo-21"></a>
+<a id="modulo-22"></a>
 ## site/scripts/carrossel.ts
 
 <a id="f-9538cdc37f1c3dd9"></a>
@@ -1751,7 +1908,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-22"></a>
+<a id="modulo-23"></a>
 ## site/scripts/navegacao.ts
 
 <a id="f-6b6f4dc45ad56a89"></a>
@@ -1869,7 +2026,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-23"></a>
+<a id="modulo-24"></a>
 ## src/apresentacao/missao/CameraMissao.ts
 
 <a id="f-09a1763e24b38923"></a>
@@ -1949,7 +2106,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-24"></a>
+<a id="modulo-25"></a>
 ## src/apresentacao/missao/CenaMissao.ts
 
 <a id="f-630f6c4cff870920"></a>
@@ -2219,7 +2376,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-25"></a>
+<a id="modulo-26"></a>
 ## src/apresentacao/missao/EntradaMissao.ts
 
 <a id="f-aa10bea9c0ca5993"></a>
@@ -2394,7 +2551,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-26"></a>
+<a id="modulo-27"></a>
 ## src/apresentacao/missao/HudMissao.ts
 
 <a id="f-ebea6b265766d795"></a>
@@ -2474,7 +2631,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-27"></a>
+<a id="modulo-28"></a>
 ## src/apresentacao/missao/RenderizadorMissao.ts
 
 <a id="f-3676bd6b2dc965cc"></a>
@@ -2649,7 +2806,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-28"></a>
+<a id="modulo-29"></a>
 ## src/apresentacao/reentrada/RenderizadorReentrada.ts
 
 <a id="f-9bdbc3539c49fc5c"></a>
@@ -2881,7 +3038,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-29"></a>
+<a id="modulo-30"></a>
 ## src/cenarios/BancadaBss.ts
 
 <a id="f-3f9895645d11ab94"></a>
@@ -3569,7 +3726,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-30"></a>
+<a id="modulo-31"></a>
 ## src/cenarios/BancadaBss003.ts
 
 <a id="f-222b829569202826"></a>
@@ -3934,7 +4091,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-31"></a>
+<a id="modulo-32"></a>
 ## src/cenarios/EnsaioMissaoBss005.ts
 
 <a id="f-de6aadae2b4cd7e6"></a>
@@ -4166,7 +4323,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-32"></a>
+<a id="modulo-33"></a>
 ## src/cenarios/EnsaioOrbitalInerte.ts
 
 <a id="f-b2090ed5afdb1862"></a>
@@ -4227,7 +4384,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-33"></a>
+<a id="modulo-34"></a>
 ## src/cenarios/EnsaioReentrada.ts
 
 <a id="f-52a010df6b7f3e6e"></a>
@@ -4744,7 +4901,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-34"></a>
+<a id="modulo-35"></a>
 ## src/cenarios/ReproducaoDiarioBss005.ts
 
 <a id="f-8eaee0207c980ead"></a>
@@ -4900,7 +5057,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-35"></a>
+<a id="modulo-36"></a>
 ## src/missoes/AmbienteAmerissagem.ts
 
 <a id="f-f44552b345a6763f"></a>
@@ -4923,7 +5080,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-36"></a>
+<a id="modulo-37"></a>
 ## src/missoes/AmbienteLancamento.ts
 
 <a id="f-8091c7d8f7b297f8"></a>
@@ -4946,7 +5103,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-37"></a>
+<a id="modulo-38"></a>
 ## src/missoes/CicloMissao.ts
 
 <a id="f-b04eae8408c853c9"></a>
@@ -5045,7 +5202,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-38"></a>
+<a id="modulo-39"></a>
 ## src/missoes/ContratoMissao.ts
 
 <a id="f-2f9e0038be674f24"></a>
@@ -5182,7 +5339,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-39"></a>
+<a id="modulo-40"></a>
 ## src/missoes/EnsaioAmerissagem.ts
 
 <a id="f-12deb531d4750ffb"></a>
@@ -5205,7 +5362,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-40"></a>
+<a id="modulo-41"></a>
 ## src/missoes/ExecutorMissao.ts
 
 <a id="f-4fb79278b0d3fc06"></a>
@@ -5228,7 +5385,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-41"></a>
+<a id="modulo-42"></a>
 ## src/missoes/MissaoBss006.ts
 
 <a id="f-3193da7b000083f4"></a>
@@ -5498,7 +5655,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-42"></a>
+<a id="modulo-43"></a>
 ## src/missoes/ObservacaoAmerissagem.ts
 
 <a id="f-1b2d123e0fbf8914"></a>
@@ -5540,7 +5697,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-43"></a>
+<a id="modulo-44"></a>
 ## src/missoes/RegistroExtremos.ts
 
 <a id="f-a127d9dc71e4e4e5"></a>
@@ -5601,7 +5758,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-44"></a>
+<a id="modulo-45"></a>
 ## src/missoes/RegistroMissao.ts
 
 <a id="f-4554d825e0078446"></a>
@@ -5852,7 +6009,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-45"></a>
+<a id="modulo-46"></a>
 ## src/missoes/ReplayMissaoBss006.ts
 
 <a id="f-8da6d56d70ab70fd"></a>
@@ -5989,7 +6146,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-46"></a>
+<a id="modulo-47"></a>
 ## src/missoes/SnapshotMissao.ts
 
 <a id="f-738b80ed4008a5b6"></a>
@@ -6012,7 +6169,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-47"></a>
+<a id="modulo-48"></a>
 ## src/orbitas.ts
 
 <a id="f-16848ec4b453ff12"></a>
@@ -6073,7 +6230,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-48"></a>
+<a id="modulo-49"></a>
 ## src/physics/MundoFisico.ts
 
 <a id="f-518ff75ab4b7f057"></a>
@@ -7141,7 +7298,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-49"></a>
+<a id="modulo-50"></a>
 ## src/physics/SistemaOperacional.ts
 
 <a id="f-d90f25d253e2ab58"></a>
@@ -7278,7 +7435,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-50"></a>
+<a id="modulo-51"></a>
 ## src/physics/SuperficieCosteira.ts
 
 <a id="f-6f0395858ebb9ab5"></a>
@@ -7415,7 +7572,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-51"></a>
+<a id="modulo-52"></a>
 ## src/physics/SuperficieEsferica.ts
 
 <a id="f-9eac1149d1a4ca7a"></a>
@@ -7514,7 +7671,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-52"></a>
+<a id="modulo-53"></a>
 ## src/physics/SuperficieFisica.ts
 
 <a id="f-de0f9204a43fbad4"></a>
@@ -7746,7 +7903,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-53"></a>
+<a id="modulo-54"></a>
 ## src/physics/SuperficiePlano.ts
 
 <a id="f-e05668c4d2d10883"></a>
@@ -7826,7 +7983,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-54"></a>
+<a id="modulo-55"></a>
 ## src/physics/SuperficiePlanoLocal.ts
 
 <a id="f-0b7412a4b180e52d"></a>
@@ -7944,7 +8101,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-55"></a>
+<a id="modulo-56"></a>
 ## src/physics/Vetor3.ts
 
 <a id="f-74cb96218f91335f"></a>
@@ -8081,7 +8238,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-56"></a>
+<a id="modulo-57"></a>
 ## src/physics/agua/GeometriaSubmersa.ts
 
 <a id="f-00378e285877f165"></a>
@@ -8237,7 +8394,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-57"></a>
+<a id="modulo-58"></a>
 ## src/physics/agua/RegiaoAquatica.ts
 
 <a id="f-42624cfaf3e01aed"></a>
@@ -8317,7 +8474,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-58"></a>
+<a id="modulo-59"></a>
 ## src/physics/agua/SistemaHidrodinamico.ts
 
 <a id="f-3ac2ce558ad57f3c"></a>
@@ -8568,7 +8725,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-59"></a>
+<a id="modulo-60"></a>
 ## src/physics/ambiente/AmbienteFisico.ts
 
 <a id="f-f65d4a56ef06dbbd"></a>
@@ -8648,7 +8805,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-60"></a>
+<a id="modulo-61"></a>
 ## src/physics/ambiente/CampoGravitacional.ts
 
 <a id="f-d84e2f25e040d596"></a>
@@ -8804,7 +8961,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-61"></a>
+<a id="modulo-62"></a>
 ## src/physics/ambiente/EstadoInicialLocal.ts
 
 <a id="f-4ab5e3de34eaedc3"></a>
@@ -8827,7 +8984,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-62"></a>
+<a id="modulo-63"></a>
 ## src/physics/ambiente/GeografiaCosteira.ts
 
 <a id="f-75cb7b00f89bfaba"></a>
@@ -8945,7 +9102,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-63"></a>
+<a id="modulo-64"></a>
 ## src/physics/ambiente/PerfilAtmosfericoReentrada.ts
 
 <a id="f-9eb2c4644fba8970"></a>
@@ -9044,7 +9201,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-64"></a>
+<a id="modulo-65"></a>
 ## src/physics/ambiente/ReferencialFisico.ts
 
 <a id="f-a83a925cd4624e54"></a>
@@ -9846,7 +10003,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-65"></a>
+<a id="modulo-66"></a>
 ## src/physics/ambiente/TelemetriaOrbital.ts
 
 <a id="f-f08ef7862a1cdb97"></a>
@@ -9869,7 +10026,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-66"></a>
+<a id="modulo-67"></a>
 ## src/physics/cenarios/EnsaioPortaVertical.ts
 
 <a id="f-26bd768dc18b239f"></a>
@@ -10044,7 +10201,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-67"></a>
+<a id="modulo-68"></a>
 ## src/physics/conexoes/ChumbadorAoSolo.ts
 
 <a id="f-3edd21e1d5a19ecc"></a>
@@ -10257,7 +10414,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-68"></a>
+<a id="modulo-69"></a>
 ## src/physics/conexoes/ConexaoEletrica.ts
 
 <a id="f-379a6000119fc4ae"></a>
@@ -10983,7 +11140,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-69"></a>
+<a id="modulo-70"></a>
 ## src/physics/conexoes/FixadorEstrutural.ts
 
 <a id="f-cd671b03c8af2236"></a>
@@ -11424,7 +11581,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-70"></a>
+<a id="modulo-71"></a>
 ## src/physics/conexoes/GuiaLinear.ts
 
 <a id="f-912072f48d95626b"></a>
@@ -11523,7 +11680,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-71"></a>
+<a id="modulo-72"></a>
 ## src/physics/conexoes/JuntaRotacionalDeBancada.ts
 
 <a id="f-a132b0bde695eb85"></a>
@@ -11698,7 +11855,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-72"></a>
+<a id="modulo-73"></a>
 ## src/physics/conexoes/eletrica/Contator.ts
 
 <a id="f-3376117ecdde8868"></a>
@@ -11778,7 +11935,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-73"></a>
+<a id="modulo-74"></a>
 ## src/physics/conexoes/eletrica/Interruptor.ts
 
 <a id="f-33f15af7abb38cd9"></a>
@@ -11858,7 +12015,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-74"></a>
+<a id="modulo-75"></a>
 ## src/physics/conexoes/eletrica/Resistor.ts
 
 <a id="f-464f0a613325638b"></a>
@@ -11900,7 +12057,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-75"></a>
+<a id="modulo-76"></a>
 ## src/physics/estruturas/ConjuntoEstruturalRigido.ts
 
 <a id="f-d3848f1d1b9d7918"></a>
@@ -12284,7 +12441,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-76"></a>
+<a id="modulo-77"></a>
 ## src/physics/estruturas/DiagnosticoAngular.ts
 
 <a id="f-62f73b2d7d2e4053"></a>
@@ -12364,7 +12521,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-77"></a>
+<a id="modulo-78"></a>
 ## src/physics/geometria/ContatoCaixasOrientadas.ts
 
 <a id="f-738d840a42e74122"></a>
@@ -12558,7 +12715,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-78"></a>
+<a id="modulo-79"></a>
 ## src/physics/objetos/atuadores/Cilindro.ts
 
 <a id="f-0268843ba048392d"></a>
@@ -12923,7 +13080,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-79"></a>
+<a id="modulo-80"></a>
 ## src/physics/objetos/atuadores/CilindroEletrico.ts
 
 <a id="f-57b1b7d21164f2d4"></a>
@@ -13269,7 +13426,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-80"></a>
+<a id="modulo-81"></a>
 ## src/physics/objetos/atuadores/MotorEletricoRotacional.ts
 
 <a id="f-338925f6e3377ab1"></a>
@@ -13425,7 +13582,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-81"></a>
+<a id="modulo-82"></a>
 ## src/physics/objetos/base/Objeto.ts
 
 <a id="f-0a5a2a6326f96011"></a>
@@ -14550,7 +14707,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-82"></a>
+<a id="modulo-83"></a>
 ## src/physics/objetos/base/ObjetoTriangularRetangulo.ts
 
 <a id="f-13053ef3d73ba42a"></a>
@@ -14630,7 +14787,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-83"></a>
+<a id="modulo-84"></a>
 ## src/physics/objetos/componentes/AletaAerodinamica.ts
 
 <a id="f-740741f36db4d1e3"></a>
@@ -14805,7 +14962,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-84"></a>
+<a id="modulo-85"></a>
 ## src/physics/objetos/componentes/FlapReentrada.ts
 
 <a id="f-713ac4483df17789"></a>
@@ -14980,7 +15137,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-85"></a>
+<a id="modulo-86"></a>
 ## src/physics/objetos/componentes/Paraquedas.ts
 
 <a id="f-a9ae40fb84d5293f"></a>
@@ -15231,7 +15388,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-86"></a>
+<a id="modulo-87"></a>
 ## src/physics/objetos/componentes/RolagemVirtual.ts
 
 <a id="f-71592e454cdc955f"></a>
@@ -15349,7 +15506,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-87"></a>
+<a id="modulo-88"></a>
 ## src/physics/objetos/fontes-de-energia/Bateria.ts
 
 <a id="f-b8dcea8c991456f9"></a>
@@ -15543,7 +15700,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-88"></a>
+<a id="modulo-89"></a>
 ## src/physics/objetos/fontes-de-energia/FonteEletrica.ts
 
 <a id="f-ab20e650db054ae0"></a>
@@ -15566,7 +15723,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-89"></a>
+<a id="modulo-90"></a>
 ## src/physics/objetos/fontes-de-energia/GeradorCA.ts
 
 <a id="f-692af7e2d7d6cffa"></a>
@@ -15855,7 +16012,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-90"></a>
+<a id="modulo-91"></a>
 ## src/physics/objetos/fontes-de-energia/PainelSolar.ts
 
 <a id="f-c5ec22d9c45e3d17"></a>
@@ -16163,7 +16320,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-91"></a>
+<a id="modulo-92"></a>
 ## src/physics/objetos/fontes-de-energia/TanquePropelente.ts
 
 <a id="f-5e48dc8f6370a867"></a>
@@ -16281,7 +16438,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-92"></a>
+<a id="modulo-93"></a>
 ## src/physics/objetos/mecanismos/BracoArticuladoDeBancada.ts
 
 <a id="f-2429e53025cf49cb"></a>
@@ -16361,7 +16518,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-93"></a>
+<a id="modulo-94"></a>
 ## src/physics/objetos/mecanismos/ConjuntoPortaBatente.ts
 
 <a id="f-288f1848d7fa9e2a"></a>
@@ -16536,7 +16693,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-94"></a>
+<a id="modulo-95"></a>
 ## src/physics/objetos/mecanismos/Porta.ts
 
 <a id="f-b99653bcaa9220e0"></a>
@@ -17243,7 +17400,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-95"></a>
+<a id="modulo-96"></a>
 ## src/physics/objetos/mecanismos/TravaPorta.ts
 
 <a id="f-b39a816efc5a1c38"></a>
@@ -17532,7 +17689,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-96"></a>
+<a id="modulo-97"></a>
 ## src/physics/objetos/propulsao/Propulsor.ts
 
 <a id="f-20905674966ffa86"></a>
@@ -18486,7 +18643,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-97"></a>
+<a id="modulo-98"></a>
 ## src/physics/objetos/propulsao/PropulsorVetorizado.ts
 
 <a id="f-77abc1442947b6a6"></a>
@@ -18604,7 +18761,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-98"></a>
+<a id="modulo-99"></a>
 ## src/physics/objetos/propulsao/alimentacao/BombaPropelente.ts
 
 <a id="f-08499cf7b7b5281e"></a>
@@ -18703,7 +18860,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-99"></a>
+<a id="modulo-100"></a>
 ## src/physics/objetos/propulsao/alimentacao/LinhaDePropelente.ts
 
 <a id="f-e6203b52037d845b"></a>
@@ -18954,7 +19111,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-100"></a>
+<a id="modulo-101"></a>
 ## src/physics/objetos/propulsao/alimentacao/ValvulaPropelente.ts
 
 <a id="f-8ee9a0cb7c08bc7e"></a>
@@ -19034,7 +19191,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-101"></a>
+<a id="modulo-102"></a>
 ## src/physics/objetos/propulsao/combustao/Bocal.ts
 
 <a id="f-a3901e8f9e6759b1"></a>
@@ -19114,7 +19271,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-102"></a>
+<a id="modulo-103"></a>
 ## src/physics/objetos/propulsao/combustao/CamaraCombustao.ts
 
 <a id="f-b0538dd43b1921f1"></a>
@@ -19175,7 +19332,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-103"></a>
+<a id="modulo-104"></a>
 ## src/physics/objetos/propulsao/vetorizacao/AtuadorVetorizacao.ts
 
 <a id="f-d5fed7dda85b3573"></a>
@@ -19274,7 +19431,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-104"></a>
+<a id="modulo-105"></a>
 ## src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts
 
 <a id="f-eca3958041fee892"></a>
@@ -19373,7 +19530,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-105"></a>
+<a id="modulo-106"></a>
 ## src/physics/objetos/veiculos/Bss03.ts
 
 <a id="f-860287d56592b29a"></a>
@@ -19510,7 +19667,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-106"></a>
+<a id="modulo-107"></a>
 ## src/physics/objetos/veiculos/Bss04.ts
 
 <a id="f-618b5173fdbe54b8"></a>
@@ -19571,7 +19728,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-107"></a>
+<a id="modulo-108"></a>
 ## src/physics/objetos/veiculos/ComputadorDeVoo.ts
 
 <a id="f-812afc3623292bce"></a>
@@ -20506,7 +20663,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-108"></a>
+<a id="modulo-109"></a>
 ## src/physics/objetos/veiculos/OrbitadorReentrada.ts
 
 <a id="f-f474385619746e2c"></a>
@@ -20738,7 +20895,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-109"></a>
+<a id="modulo-110"></a>
 ## src/physics/objetos/veiculos/VeiculoAlado.ts
 
 <a id="f-a0a40213b7cd3903"></a>
@@ -20799,7 +20956,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-110"></a>
+<a id="modulo-111"></a>
 ## src/physics/objetos/veiculos/VeiculoComposto.ts
 
 <a id="f-64296b093cc455c5"></a>
@@ -21639,7 +21796,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-111"></a>
+<a id="modulo-112"></a>
 ## src/physics/objetos/veiculos/VeiculoTerrestre.ts
 
 <a id="f-11d563c8accc999f"></a>
@@ -21909,7 +22066,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-112"></a>
+<a id="modulo-113"></a>
 ## src/physics/reentrada/ConfiguracaoTermicaReentrada.ts
 
 <a id="f-1043d2497bfcabb6"></a>
@@ -21970,7 +22127,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-113"></a>
+<a id="modulo-114"></a>
 ## src/physics/reentrada/ModeloAerodinamicoReentrada.ts
 
 <a id="f-e334f1718df02bee"></a>
@@ -22050,7 +22207,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-114"></a>
+<a id="modulo-115"></a>
 ## src/physics/sensores/SensoresVeiculoComposto.ts
 
 <a id="f-1a302daca133db57"></a>
@@ -22339,7 +22496,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-115"></a>
+<a id="modulo-116"></a>
 ## src/physics/sensores/SistemaSensores.ts
 
 <a id="f-11d76a7fff48a0bd"></a>
@@ -22533,7 +22690,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-116"></a>
+<a id="modulo-117"></a>
 ## src/physics/sensores/SwitchFimDeCurso.ts
 
 <a id="f-958eb2b7694765e1"></a>
@@ -22898,7 +23055,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-117"></a>
+<a id="modulo-118"></a>
 ## src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.ts
 
 <a id="f-e507ddc521012566"></a>
@@ -22997,7 +23154,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-118"></a>
+<a id="modulo-119"></a>
 ## src/physics/sistemas de controle/ControladorAletasAerodinamicas.ts
 
 <a id="f-63d060f8a840b02f"></a>
@@ -23077,7 +23234,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-119"></a>
+<a id="modulo-120"></a>
 ## src/physics/sistemas de controle/ControladorAproximacao.ts
 
 <a id="f-534188cc7979d4c8"></a>
@@ -23157,7 +23314,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-120"></a>
+<a id="modulo-121"></a>
 ## src/physics/sistemas de controle/ControladorDesaceleracao.ts
 
 <a id="f-2df8a6ec72d97e33"></a>
@@ -23294,7 +23451,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-121"></a>
+<a id="modulo-122"></a>
 ## src/physics/sistemas de controle/ControladorDesaceleracaoDePropulsores.ts
 
 <a id="f-c21cd42fd0b7de7c"></a>
@@ -23393,7 +23550,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-122"></a>
+<a id="modulo-123"></a>
 ## src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.ts
 
 <a id="f-f48142ef0b2674dd"></a>
@@ -23606,7 +23763,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-123"></a>
+<a id="modulo-124"></a>
 ## src/physics/sistemas de controle/ControladorGimbalDescidaDePropulsores.ts
 
 <a id="f-cce221037c45b500"></a>
@@ -23724,7 +23881,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-124"></a>
+<a id="modulo-125"></a>
 ## src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts
 
 <a id="f-51e931aaa927f1e1"></a>
@@ -23937,7 +24094,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-125"></a>
+<a id="modulo-126"></a>
 ## src/physics/sistemas de controle/ControladorInclinacaoDePropulsores.ts
 
 <a id="f-072ca5129fc83639"></a>
@@ -24093,7 +24250,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-126"></a>
+<a id="modulo-127"></a>
 ## src/physics/sistemas de controle/ControladorInclinacaoPid.ts
 
 <a id="f-6fd33485b6c6ed80"></a>
@@ -24192,7 +24349,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-127"></a>
+<a id="modulo-128"></a>
 ## src/physics/sistemas de controle/ControladorPerfilVooExperimental.ts
 
 <a id="f-0c9abac72f8565f4"></a>
@@ -24234,7 +24391,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-128"></a>
+<a id="modulo-129"></a>
 ## src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts
 
 <a id="f-093ae6a77da90e61"></a>
@@ -24523,7 +24680,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-129"></a>
+<a id="modulo-130"></a>
 ## src/physics/sistemas de controle/ControladorPouso.ts
 
 <a id="f-d697d010640b8674"></a>
@@ -24679,7 +24836,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-130"></a>
+<a id="modulo-131"></a>
 ## src/physics/sistemas de controle/ControladorPousoDePropulsores.ts
 
 <a id="f-23b3b270943a05e3"></a>
@@ -24797,7 +24954,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-131"></a>
+<a id="modulo-132"></a>
 ## src/physics/sistemas de controle/ControladorReentrada.ts
 
 <a id="f-c18886ab4102b0a9"></a>
@@ -24953,7 +25110,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-132"></a>
+<a id="modulo-133"></a>
 ## src/physics/sistemas de controle/EstrategiaCorredorReentrada.ts
 
 <a id="f-c23886613e0b2192"></a>
@@ -24976,7 +25133,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-133"></a>
+<a id="modulo-134"></a>
 ## src/physics/sistemas de controle/FronteiraAproximacao.ts
 
 <a id="f-3f8022ec198f2a6a"></a>
@@ -25018,7 +25175,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-134"></a>
+<a id="modulo-135"></a>
 ## src/physics/sistemas de controle/GerenciadorDeControladores.ts
 
 <a id="f-c239c04410fd7830"></a>
@@ -25250,7 +25407,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-135"></a>
+<a id="modulo-136"></a>
 ## src/physics/sistemas de controle/SupervisorRecuperacao.ts
 
 <a id="f-100510609617f2a3"></a>
@@ -25349,7 +25506,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-136"></a>
+<a id="modulo-137"></a>
 ## src/physics/sistemas de controle/SupervisorReentrada.ts
 
 <a id="f-cadd2a244c36f2e6"></a>
@@ -25448,7 +25605,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-137"></a>
+<a id="modulo-138"></a>
 ## src/physics/solucionadores/IntegradorFisico.ts
 
 <a id="f-37bd83a7107d9325"></a>
@@ -25490,7 +25647,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-138"></a>
+<a id="modulo-139"></a>
 ## src/physics/solucionadores/ResolvedorColisoes.ts
 
 <a id="f-20b3443c43cccc2d"></a>
@@ -25798,7 +25955,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-139"></a>
+<a id="modulo-140"></a>
 ## src/physics/solucionadores/ResolvedorContatoSuperficie.ts
 
 <a id="f-c962b279ad805fe0"></a>
@@ -26239,7 +26396,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-140"></a>
+<a id="modulo-141"></a>
 ## src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts
 
 <a id="f-ca6b22a41219e7be"></a>
@@ -26319,7 +26476,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-141"></a>
+<a id="modulo-142"></a>
 ## src/physics/solucionadores/SistemaAtmosferico.ts
 
 <a id="f-6538ff18b9c53fb0"></a>
@@ -26494,7 +26651,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-142"></a>
+<a id="modulo-143"></a>
 ## src/physics/solucionadores/SistemaTermico.ts
 
 <a id="f-4a293a694405dea2"></a>
@@ -26612,7 +26769,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-143"></a>
+<a id="modulo-144"></a>
 ## src/physics/termica/RedeTermica.ts
 
 <a id="f-e1b7ca33c8d712ad"></a>
@@ -26825,7 +26982,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-144"></a>
+<a id="modulo-145"></a>
 ## src/reentrada.ts
 
 <a id="f-bdf1e31dbe2aa399"></a>
@@ -27380,7 +27537,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-145"></a>
+<a id="modulo-146"></a>
 ## src/simulacao/ExecutorPassoFixo.ts
 
 <a id="f-b5c741e87d68944a"></a>
@@ -27555,7 +27712,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-146"></a>
+<a id="modulo-147"></a>
 ## src/testes.ts
 
 <a id="f-5e1aa4998dc58a80"></a>
@@ -34038,7 +34195,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-147"></a>
+<a id="modulo-148"></a>
 ## src/validacao/ReferenciaBancadaM10.ts
 
 <a id="f-3b5aba79d123ca41"></a>
@@ -34099,7 +34256,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-148"></a>
+<a id="modulo-149"></a>
 ## src/veiculos/DefinicaoBss006.ts
 
 <a id="f-2f5724b4057c7208"></a>
@@ -34122,7 +34279,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-149"></a>
+<a id="modulo-150"></a>
 ## src/veiculos/HidrodinamicaBss006.ts
 
 <a id="f-af9fca02b4f4ccdc"></a>
@@ -34145,7 +34302,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-150"></a>
+<a id="modulo-151"></a>
 ## src/veiculos/MontagemBss.ts
 
 <a id="f-fd616459b962f64d"></a>
@@ -34529,7 +34686,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-151"></a>
+<a id="modulo-152"></a>
 ## src/veiculos/TelemetriaBss.ts
 
 <a id="f-4b8411290e34c3a4"></a>
@@ -34552,7 +34709,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-152"></a>
+<a id="modulo-153"></a>
 ## src/visualizacao/CameraFisica2D.ts
 
 <a id="f-07a1929a163d1610"></a>
@@ -34613,7 +34770,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-153"></a>
+<a id="modulo-154"></a>
 ## src/visualizacao/ConexoesEletricas.ts
 
 <a id="f-aff2a7f3384f78eb"></a>
@@ -34731,7 +34888,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-154"></a>
+<a id="modulo-155"></a>
 ## src/visualizacao/RegistroEnsaioBancada.ts
 
 <a id="f-b8117d1c26329bb7"></a>
@@ -34811,7 +34968,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-155"></a>
+<a id="modulo-156"></a>
 ## src/visualizacao/TracePLC.ts
 
 <a id="f-c59acbd9414e88e5"></a>
@@ -35110,7 +35267,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#28</code> · [L163](../../scripts/site/smoke.ts#L163) | <code>(concluir: (value: void &#124; PromiseLike&lt;void&gt;) =&gt; void, falhar: (reason?: any) =&gt; void): Server&lt;typeof IncomingMessage, typeof ServerResponse&gt; &#124; Http2SecureServer&lt;typeof IncomingMessage, typeof ServerResponse, typeof Http2ServerRequest, typeof Http2ServerResponse&gt;</code> | <code>servidor.httpServer.close</code> / — |
 | <code>scripts/site/smoke.ts::executarSmokeSite.[callback]#28.[callback]:ArrowFunction#1</code> · [L163](../../scripts/site/smoke.ts#L163) | <code>(erro: Error &#124; undefined): void</code> | <code>falhar</code>; <code>concluir</code> / — |
 | <code>scripts/site/verificar.ts::listarArquivos.[callback]:ArrowFunction#1</code> · [L8](../../scripts/site/verificar.ts#L8) | <code>(this: undefined, entrada: Dirent&lt;string&gt;): string[]</code> | <code>join</code>; <code>entrada.isDirectory</code>; <code>listarArquivos</code> / — |
-| <code>scripts/site/verificar.ts::verificarDistribuicao.[callback]:ArrowFunction#1</code> · [L75](../../scripts/site/verificar.ts#L75) | <code>(r: { source: string; }): boolean</code> | — / — |
+| <code>scripts/site/verificar.ts::verificarDistribuicao.[callback]:ArrowFunction#1</code> · [L78](../../scripts/site/verificar.ts#L78) | <code>(r: { source: string; }): boolean</code> | — / — |
 | <code>scripts/smoke-configuracao-re003.ts::validarInterfaceConfiguracao.abrir.[callback]:ArrowFunction#1</code> · [L35](../../scripts/smoke-configuracao-re003.ts#L35) | <code>(e: Error): number</code> | <code>erros.push</code> / — |
 | <code>scripts/smoke-configuracao-re003.ts::validarInterfaceConfiguracao.abrir.[callback]:ArrowFunction#2</code> · [L36](../../scripts/smoke-configuracao-re003.ts#L36) | <code>(e: ConsoleMessage): void</code> | <code>e.type</code>; <code>erros.push</code>; <code>e.text</code> / — |
 | <code>scripts/smoke-configuracao-re003.ts::validarInterfaceConfiguracao.iniciarPausar.[callback]:ArrowFunction#1</code> · [L44](../../scripts/smoke-configuracao-re003.ts#L44) | <code>(): boolean</code> | <code>/t = (?!0\.000)\d/.test</code>; <code>document.querySelector</code> / — |
@@ -35169,9 +35326,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>scripts/validar-termica-re004.ts::compararTermica.coletar.[callback]:ArrowFunction#1</code> · [L36](../../scripts/validar-termica-re004.ts#L36) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; integridadeMecanismo?: number &#124; undefined; }; knudsenEstimado: number; modeloEscoamento: string; }): number</code> | — / — |
 | <code>scripts/validar-termica-re004.ts::compararTermica.coletar.[callback]:ArrowFunction#2</code> · [L37](../../scripts/validar-termica-re004.ts#L37) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; integridadeMecanismo?: number &#124; undefined; }; knudsenEstimado: number; modeloEscoamento: string; }): number</code> | — / — |
 | <code>scripts/validar-termica-re004.ts::compararTermica.[callback]:ArrowFunction#1</code> · [L52](../../scripts/validar-termica-re004.ts#L52) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; integridadeMecanismo?: number &#124; undefined; }; knudsenEstimado: number; modeloEscoamento: string; }): number</code> | — / — |
-| <code>site/build/pluginInstitucional.ts::pluginInstitucional.atenderInstitucional.[callback]:ArrowFunction#1</code> · [L40](../../site/build/pluginInstitucional.ts#L40) | <code>(p: { readonly caminho: "/publicacoes/pouso-propulsivo-bss-2026.pdf"; readonly fonte: "docs/estudos/Artigo_Cientifico_BlackStar_BSS_Pouso_Propulsivo.pdf"; } &#124; { readonly caminho: "/publicacoes/engenharia-orbita-retorno-re001-2026.pdf"; readonly fonte: "docs/estudos/Black_Star_RE001_Tese_Engenharia_Orbita_e_Retorno.pdf"; }): boolean</code> | — / — |
-| <code>site/build/pluginInstitucional.ts::pluginInstitucional.atenderInstitucional.[callback]:ArrowFunction#2</code> · [L41](../../site/build/pluginInstitucional.ts#L41) | <code>(e: { readonly caminho: "/estudos/re004/01-auditoria-termica-comparativa.md"; readonly fonte: "docs/estudos/re004/01-auditoria-termica-comparativa.md"; } &#124; { readonly caminho: "/estudos/re004/02-arquitetura-e-modelo-termico.md"; readonly fonte: "docs/estudos/re004/02-arquitetura-e-modelo-termico.md"; } &#124; { readonly caminho: "/estudos/re004/03-protocolo-proximos-ensaios.md"; readonly fonte: "docs/estudos/re004/03-protocolo-proximos-ensaios.md"; }): boolean</code> | — / — |
-| <code>site/build/pluginInstitucional.ts::pluginInstitucional.atenderInstitucional.[callback]:ArrowFunction#3</code> · [L42](../../site/build/pluginInstitucional.ts#L42) | <code>(p: "index.html" &#124; "pesquisa.html" &#124; "simulador.html" &#124; "termica-re004.html"): boolean</code> | <code>p.slice</code> / — |
+| <code>site/build/markdownEstudos.ts::cols.[callback]:ArrowFunction#1</code> · [L47](../../site/build/markdownEstudos.ts#L47) | <code>(c: string): string</code> | <code>c.trim</code> / — |
+| <code>site/build/markdownEstudos.ts::tableDivider.[callback]:ArrowFunction#1</code> · [L55](../../site/build/markdownEstudos.ts#L55) | <code>(c: string): boolean</code> | <code>/^:?-{3,}:?$/.test</code> / — |
+| <code>site/build/markdownEstudos.ts::converterMarkdownSeguro.[callback]:ArrowFunction#1</code> · [L112](../../site/build/markdownEstudos.ts#L112) | <code>(v: string, n: number): string</code> | <code>align[n].endsWith</code>; <code>inline</code> / — |
+| <code>site/build/markdownEstudos.ts::converterMarkdownSeguro.[callback]:ArrowFunction#2</code> · [L117](../../site/build/markdownEstudos.ts#L117) | <code>(v: string, n: number): string</code> | <code>align[n].endsWith</code>; <code>inline</code> / — |
+| <code>site/build/markdownEstudos.ts::paginaEstudoMarkdown.[callback]:ArrowFunction#1</code> · [L159](../../site/build/markdownEstudos.ts#L159) | <code>(nome: "01-auditoria-termica-comparativa" &#124; "02-arquitetura-e-modelo-termico" &#124; "03-protocolo-proximos-ensaios", i: number): string</code> | — / — |
+| <code>site/build/pluginInstitucional.ts::pluginInstitucional.atenderInstitucional.[callback]:ArrowFunction#1</code> · [L42](../../site/build/pluginInstitucional.ts#L42) | <code>(p: { readonly caminho: "/publicacoes/pouso-propulsivo-bss-2026.pdf"; readonly fonte: "docs/estudos/Artigo_Cientifico_BlackStar_BSS_Pouso_Propulsivo.pdf"; } &#124; { readonly caminho: "/publicacoes/engenharia-orbita-retorno-re001-2026.pdf"; readonly fonte: "docs/estudos/Black_Star_RE001_Tese_Engenharia_Orbita_e_Retorno.pdf"; }): boolean</code> | — / — |
+| <code>site/build/pluginInstitucional.ts::pluginInstitucional.atenderInstitucional.[callback]:ArrowFunction#2</code> · [L43](../../site/build/pluginInstitucional.ts#L43) | <code>(e: { readonly caminho: "/estudos/re004/01-auditoria-termica-comparativa.md"; readonly fonte: "docs/estudos/re004/01-auditoria-termica-comparativa.md"; } &#124; { readonly caminho: "/estudos/re004/02-arquitetura-e-modelo-termico.md"; readonly fonte: "docs/estudos/re004/02-arquitetura-e-modelo-termico.md"; } &#124; { readonly caminho: "/estudos/re004/03-protocolo-proximos-ensaios.md"; readonly fonte: "docs/estudos/re004/03-protocolo-proximos-ensaios.md"; }): boolean</code> | — / — |
+| <code>site/build/pluginInstitucional.ts::pluginInstitucional.atenderInstitucional.[callback]:ArrowFunction#3</code> · [L44](../../site/build/pluginInstitucional.ts#L44) | <code>(e: { readonly caminho: "/estudos/re004/01-auditoria-termica-comparativa.md"; readonly fonte: "docs/estudos/re004/01-auditoria-termica-comparativa.md"; } &#124; { readonly caminho: "/estudos/re004/02-arquitetura-e-modelo-termico.md"; readonly fonte: "docs/estudos/re004/02-arquitetura-e-modelo-termico.md"; } &#124; { readonly caminho: "/estudos/re004/03-protocolo-proximos-ensaios.md"; readonly fonte: "docs/estudos/re004/03-protocolo-proximos-ensaios.md"; }): boolean</code> | <code>e.caminho.replace</code> / — |
+| <code>site/build/pluginInstitucional.ts::pluginInstitucional.atenderInstitucional.[callback]:ArrowFunction#4</code> · [L45](../../site/build/pluginInstitucional.ts#L45) | <code>(p: "index.html" &#124; "pesquisa.html" &#124; "simulador.html" &#124; "termica-re004.html"): boolean</code> | <code>p.slice</code> / — |
 | <code>site/scripts/carrossel.ts::iniciarCarrossel.mostrarSlide.[callback]:ArrowFunction#1</code> · [L55](../../site/scripts/carrossel.ts#L55) | <code>(slide: HTMLImageElement, i: number): void</code> | <code>slide.classList.toggle</code>; <code>slide.setAttribute</code>; <code>String</code> / — |
 | <code>site/scripts/carrossel.ts::iniciarCarrossel.[callback]:ArrowFunction#1</code> · [L81](../../site/scripts/carrossel.ts#L81) | <code>(this: HTMLElement, evento: PointerEvent): void</code> | <code>atualizarReproducao</code> / <code>sobreposto</code> |
 | <code>site/scripts/carrossel.ts::iniciarCarrossel.[callback]:ArrowFunction#2</code> · [L82](../../site/scripts/carrossel.ts#L82) | <code>(): void</code> | <code>atualizarReproducao</code> / <code>sobreposto</code> |
@@ -35849,6 +36012,14 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>scripts/documentacao/reprodutibilidade.test.ts::[callback]#2.[callback]#1.[callback]:ArrowFunction#1</code> · [L77](../../scripts/documentacao/reprodutibilidade.test.ts#L77) | <code>(f: Funcao): string</code> | — / — |
 | <code>scripts/documentacao/reprodutibilidade.test.ts::[callback]#2.[callback]#1.[callback]:ArrowFunction#2</code> · [L77](../../scripts/documentacao/reprodutibilidade.test.ts#L77) | <code>(f: Funcao): string</code> | — / — |
 | <code>scripts/documentacao/reprodutibilidade.test.ts::[callback]#2.[callback]:ArrowFunction#2</code> · [L89](../../scripts/documentacao/reprodutibilidade.test.ts#L89) | <code>(): void</code> | <code>novaRaiz</code>; <code>escreverFontes</code>; <code>executar</code>; <code>lerArtefatos</code>; <code>estadoArquivos</code>; <code>expect(JSON.parse(executar(a, 'verificar')).catalogoDesatualizado).toBe</code>; <code>expect</code>; <code>JSON.parse</code>; <code>expect(estadoArquivos(a)).toEqual</code>; <code>expect(lerArtefatos(a)).toEqual</code>; <code>expect(lerArtefatos(b)).toEqual</code>; <code>appendFileSync</code>; <code>join</code>; <code>spawnSync</code>; <code>expect(r.status).toBe</code>; <code>expect(JSON.parse(r.stdout).catalogoDesatualizado).toBe</code>; <code>writeFileSync</code>; <code>readFileSync(caminho, 'utf8').replace</code>; <code>readFileSync</code>; <code>expect(s.status).toBe</code>; <code>expect(divergencias.adicionadas).toEqual</code>; <code>expect(divergencias.removidas).toEqual</code>; <code>expect(divergencias.alteradas).toEqual</code> / — |
+| <code>site/build/markdownEstudos.test.ts::[callback]:ArrowFunction#1</code> · [L4](../../site/build/markdownEstudos.test.ts#L4) | <code>(): void</code> | <code>it</code> / — |
+| <code>site/build/markdownEstudos.test.ts::[callback]#1.[callback]:ArrowFunction#1</code> · [L5](../../site/build/markdownEstudos.test.ts#L5) | <code>(): void</code> | <code>paginaEstudoMarkdown</code>; <code>expect(html).toContain</code>; <code>expect</code> / — |
+| <code>site/build/markdownEstudos.test.ts::[callback]#1.[callback]:ArrowFunction#2</code> · [L20](../../site/build/markdownEstudos.test.ts#L20) | <code>(): void</code> | <code>converterMarkdownSeguro</code>; <code>expect(html).not.toContain</code>; <code>expect</code>; <code>expect(html).toContain</code> / — |
+| <code>site/build/markdownEstudos.test.ts::[callback]#1.[callback]:ArrowFunction#3</code> · [L26](../../site/build/markdownEstudos.test.ts#L26) | <code>(): void</code> | <code>expect(() =&gt; paginaEstudoMarkdown('# Teste', 'fora')).toThrow</code>; <code>expect</code>; <code>expect(() =&gt; paginaEstudoMarkdown('Sem título', '01-auditoria-termica-comparativa')).toThrow</code>; <code>expect(() =&gt; converterMarkdownSeguro('&#124; A &#124; B &#124;\n&#124;---&#124;---&#124;\n&#124; 1 &#124;')).toThrow</code>; <code>expect(() =&gt; converterMarkdownSeguro('\x60\x60\x60text\nabc')).toThrow</code> / — |
+| <code>site/build/markdownEstudos.test.ts::[callback]#1.[callback]#3.[callback]:ArrowFunction#1</code> · [L27](../../site/build/markdownEstudos.test.ts#L27) | <code>(): string</code> | <code>paginaEstudoMarkdown</code> / — |
+| <code>site/build/markdownEstudos.test.ts::[callback]#1.[callback]#3.[callback]:ArrowFunction#2</code> · [L28](../../site/build/markdownEstudos.test.ts#L28) | <code>(): string</code> | <code>paginaEstudoMarkdown</code> / — |
+| <code>site/build/markdownEstudos.test.ts::[callback]#1.[callback]#3.[callback]:ArrowFunction#3</code> · [L29](../../site/build/markdownEstudos.test.ts#L29) | <code>(): string</code> | <code>converterMarkdownSeguro</code> / — |
+| <code>site/build/markdownEstudos.test.ts::[callback]#1.[callback]#3.[callback]:ArrowFunction#4</code> · [L30](../../site/build/markdownEstudos.test.ts#L30) | <code>(): string</code> | <code>converterMarkdownSeguro</code> / — |
 | <code>site/build/pluginInstitucional.test.ts::[callback]:ArrowFunction#1</code> · [L17](../../site/build/pluginInstitucional.test.ts#L17) | <code>(p: "index.html" &#124; "pesquisa.html" &#124; "simulador.html" &#124; "termica-re004.html"): string</code> | — / — |
 | <code>site/build/pluginInstitucional.test.ts::[callback]:ArrowFunction#2</code> · [L19](../../site/build/pluginInstitucional.test.ts#L19) | <code>(): Promise&lt;void&gt;</code> | <code>mkdirSync</code>; <code>join</code>; <code>writeFileSync</code>; <code>dirname</code>; <code>JSON.stringify</code>; <code>build</code>; <code>pluginInstitucional</code>; <code>fontes.map</code>; <code>createServer</code>; <code>http.on</code>; <code>Promise</code>; <code>http.address</code> / <code>servidor</code>; <code>base</code> |
 | <code>site/build/pluginInstitucional.test.ts::[callback]#2.[callback]:ArrowFunction#1</code> · [L31](../../site/build/pluginInstitucional.test.ts#L31) | <code>(p: string): string</code> | <code>join</code> / — |
@@ -35860,13 +36031,14 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>site/build/pluginInstitucional.test.ts::[callback]#4.[callback]:ArrowFunction#1</code> · [L41](../../site/build/pluginInstitucional.test.ts#L41) | <code>(): void</code> | <code>expect(existsSync(join(raiz, 'dist', pagina))).toBe</code>; <code>expect</code>; <code>existsSync</code>; <code>join</code>; <code>expect(existsSync(join(raiz, 'dist/site/pages/index.html'))).toBe</code>; <code>expect(readFileSync(join(raiz, 'dist', caminhoArtigo))).toEqual</code>; <code>readFileSync</code>; <code>expect(verificarDistribuicao(raiz)).toMatchObject</code>; <code>verificarDistribuicao</code> / — |
 | <code>site/build/pluginInstitucional.test.ts::[callback]#4.[callback]:ArrowFunction#2</code> · [L48](../../site/build/pluginInstitucional.test.ts#L48) | <code>(): Promise&lt;void&gt;</code> | <code>fetch</code>; <code>expect(a.status).toBe</code>; <code>expect</code>; <code>expect(b.status).toBe</code>; <code>expect(await a.text()).toContain</code>; <code>a.text</code>; <code>expect(pdf.headers.get('content-type')).toBe</code>; <code>pdf.headers.get</code>; <code>expect(Buffer.from(await pdf.arrayBuffer())).toEqual</code>; <code>Buffer.from</code>; <code>pdf.arrayBuffer</code> / — |
 | <code>site/build/pluginInstitucional.test.ts::[callback]#4.[callback]:ArrowFunction#3</code> · [L59](../../site/build/pluginInstitucional.test.ts#L59) | <code>(): Promise&lt;void&gt;</code> | <code>readFileSync</code>; <code>join</code>; <code>expect(readFileSync(join(raiz, 'dist', md.caminho))).toEqual</code>; <code>expect</code>; <code>fetch</code>; <code>expect(r.status).toBe</code>; <code>expect(r.headers.get('content-type')).toContain</code>; <code>r.headers.get</code>; <code>expect(Buffer.from(await r.arrayBuffer())).toEqual</code>; <code>Buffer.from</code>; <code>r.arrayBuffer</code> / — |
-| <code>site/build/pluginInstitucional.test.ts::[callback]#4.[callback]:ArrowFunction#4</code> · [L69](../../site/build/pluginInstitucional.test.ts#L69) | <code>(): Promise&lt;void&gt;</code> | <code>expect((await fetch(base + rota)).status, rota).toBe</code>; <code>expect</code>; <code>fetch</code> / — |
-| <code>site/build/pluginInstitucional.test.ts::[callback]#4.[callback]:ArrowFunction#5</code> · [L73](../../site/build/pluginInstitucional.test.ts#L73) | <code>(): Promise&lt;void&gt;</code> | <code>expect(readFileSync(join(raiz, 'dist', publicacao.caminho))).toEqual</code>; <code>expect</code>; <code>readFileSync</code>; <code>join</code>; <code>fetch</code>; <code>expect(resposta.status).toBe</code>; <code>expect(resposta.headers.get('content-type')).toBe</code>; <code>resposta.headers.get</code>; <code>expect(Buffer.from(await resposta.arrayBuffer())).toEqual</code>; <code>Buffer.from</code>; <code>resposta.arrayBuffer</code>; <code>expect(head.status).toBe</code>; <code>expect(head.headers.get('content-length')).toBe</code>; <code>head.headers.get</code>; <code>String</code>; <code>expect(await head.text()).toBe</code>; <code>head.text</code>; <code>writeFileSync</code>; <code>expect(() =&gt; verificarDistribuicao(raiz)).toThrow</code> / — |
-| <code>site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#5.[callback]:ArrowFunction#1</code> · [L85](../../site/build/pluginInstitucional.test.ts#L85) | <code>(): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }</code> | <code>verificarDistribuicao</code> / — |
-| <code>site/build/pluginInstitucional.test.ts::[callback]#4.[callback]:ArrowFunction#6</code> · [L89](../../site/build/pluginInstitucional.test.ts#L89) | <code>(): void</code> | <code>join</code>; <code>readFileSync</code>; <code>writeFileSync</code>; <code>Buffer.concat</code>; <code>Buffer.from</code>; <code>expect(() =&gt; verificarDistribuicao(raiz)).toThrow</code>; <code>expect</code>; <code>rmSync</code> / — |
-| <code>site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#6.[callback]:ArrowFunction#1</code> · [L93](../../site/build/pluginInstitucional.test.ts#L93) | <code>(): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }</code> | <code>verificarDistribuicao</code> / — |
-| <code>site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#6.[callback]:ArrowFunction#2</code> · [L96](../../site/build/pluginInstitucional.test.ts#L96) | <code>(): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }</code> | <code>verificarDistribuicao</code> / — |
-| <code>site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#6.[callback]:ArrowFunction#3</code> · [L99](../../site/build/pluginInstitucional.test.ts#L99) | <code>(): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }</code> | <code>verificarDistribuicao</code> / — |
+| <code>site/build/pluginInstitucional.test.ts::[callback]#4.[callback]:ArrowFunction#4</code> · [L69](../../site/build/pluginInstitucional.test.ts#L69) | <code>(): Promise&lt;void&gt;</code> | <code>estudo.caminho.replace</code>; <code>readFileSync</code>; <code>join</code>; <code>expect(html).toContain</code>; <code>expect</code>; <code>expect(readFileSync(join(raiz, 'dist', estudo.caminho), 'utf8')).toBe</code>; <code>fetch</code>; <code>expect(resposta.status).toBe</code>; <code>expect(resposta.headers.get('content-type')).toContain</code>; <code>resposta.headers.get</code>; <code>expect(await resposta.text()).toContain</code>; <code>resposta.text</code> / — |
+| <code>site/build/pluginInstitucional.test.ts::[callback]#4.[callback]:ArrowFunction#5</code> · [L84](../../site/build/pluginInstitucional.test.ts#L84) | <code>(): Promise&lt;void&gt;</code> | <code>expect((await fetch(base + rota)).status, rota).toBe</code>; <code>expect</code>; <code>fetch</code> / — |
+| <code>site/build/pluginInstitucional.test.ts::[callback]#4.[callback]:ArrowFunction#6</code> · [L88](../../site/build/pluginInstitucional.test.ts#L88) | <code>(): Promise&lt;void&gt;</code> | <code>expect(readFileSync(join(raiz, 'dist', publicacao.caminho))).toEqual</code>; <code>expect</code>; <code>readFileSync</code>; <code>join</code>; <code>fetch</code>; <code>expect(resposta.status).toBe</code>; <code>expect(resposta.headers.get('content-type')).toBe</code>; <code>resposta.headers.get</code>; <code>expect(Buffer.from(await resposta.arrayBuffer())).toEqual</code>; <code>Buffer.from</code>; <code>resposta.arrayBuffer</code>; <code>expect(head.status).toBe</code>; <code>expect(head.headers.get('content-length')).toBe</code>; <code>head.headers.get</code>; <code>String</code>; <code>expect(await head.text()).toBe</code>; <code>head.text</code>; <code>writeFileSync</code>; <code>expect(() =&gt; verificarDistribuicao(raiz)).toThrow</code> / — |
+| <code>site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#6.[callback]:ArrowFunction#1</code> · [L100](../../site/build/pluginInstitucional.test.ts#L100) | <code>(): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }</code> | <code>verificarDistribuicao</code> / — |
+| <code>site/build/pluginInstitucional.test.ts::[callback]#4.[callback]:ArrowFunction#7</code> · [L104](../../site/build/pluginInstitucional.test.ts#L104) | <code>(): void</code> | <code>join</code>; <code>readFileSync</code>; <code>writeFileSync</code>; <code>Buffer.concat</code>; <code>Buffer.from</code>; <code>expect(() =&gt; verificarDistribuicao(raiz)).toThrow</code>; <code>expect</code>; <code>rmSync</code> / — |
+| <code>site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#7.[callback]:ArrowFunction#1</code> · [L108](../../site/build/pluginInstitucional.test.ts#L108) | <code>(): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }</code> | <code>verificarDistribuicao</code> / — |
+| <code>site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#7.[callback]:ArrowFunction#2</code> · [L111](../../site/build/pluginInstitucional.test.ts#L111) | <code>(): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }</code> | <code>verificarDistribuicao</code> / — |
+| <code>site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#7.[callback]:ArrowFunction#3</code> · [L114](../../site/build/pluginInstitucional.test.ts#L114) | <code>(): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }</code> | <code>verificarDistribuicao</code> / — |
 | <code>src/apresentacao/missao/CameraMissao.test.ts::[callback]:ArrowFunction#1</code> · [L5](../../src/apresentacao/missao/CameraMissao.test.ts#L5) | <code>(): void</code> | <code>it</code> / — |
 | <code>src/apresentacao/missao/CameraMissao.test.ts::[callback]#1.[callback]:ArrowFunction#1</code> · [L6](../../src/apresentacao/missao/CameraMissao.test.ts#L6) | <code>(): void</code> | <code>BSS006_VOO_EXPERIMENTAL.criar</code>; <code>m.observar</code>; <code>CameraMissao</code>; <code>c.projetar</code>; <code>expect(p.x).toBeCloseTo</code>; <code>expect</code>; <code>expect(p.y).toBeCloseTo</code>; <code>expect(c.pontoNaTela(p.x, p.y).subtrair(o.casco.posicaoM).magnitude).toBeLessThan</code>; <code>c.pontoNaTela(p.x, p.y).subtrair</code>; <code>c.pontoNaTela</code>; <code>expect(c.anguloCanvas(o.casco.orientacaoRad.z)).toBeCloseTo</code>; <code>c.anguloCanvas</code>; <code>expect(c.anguloCanvas(o.casco.orientacaoRad.z + 0.1)).toBeCloseTo</code> / — |
 | <code>src/apresentacao/missao/CameraMissao.test.ts::[callback]#1.[callback]:ArrowFunction#2</code> · [L14](../../src/apresentacao/missao/CameraMissao.test.ts#L14) | <code>(): void</code> | <code>BSS006_VOO_EXPERIMENTAL.criar</code>; <code>m.observar</code>; <code>m.obterEventos</code>; <code>new CameraMissao(antes, 390, 440, escala).projetar</code>; <code>CameraMissao</code>; <code>expect(m.observar()).toEqual</code>; <code>expect</code>; <code>expect(m.obterEventos()).toEqual</code>; <code>expect(() =&gt; new CameraMissao(antes, 390, 440, 0)).toThrow</code> / — |

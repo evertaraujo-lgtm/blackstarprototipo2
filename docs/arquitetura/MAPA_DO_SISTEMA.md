@@ -94,10 +94,14 @@ O catálogo institucional inclui quatro páginas: início, pesquisa, simulador e
 estudo térmico RE-004. A rota `/pesquisa/termica-re004` aponta para
 `termica-re004.html`. Os dois PDFs e os três cadernos Markdown do RE-004 têm
 fontes canônicas em `docs/estudos`; o plugin serve esses documentos no dev e
-emite seus bytes sem alteração no build. `verificarDistribuicao` confere
-referências e identidade SHA-256 das cópias. O catálogo AST registra também o
-callback de seleção de Markdown e os callbacks dos testes recebidos em
-`f709b6a`; isso não representa execução ou aprovação desses testes.
+emite seus bytes sem alteração no build. Desde `2e6b034`, o conversor estático
+`site/build/markdownEstudos.ts` também gera artigos `.html` a partir dos três
+cadernos; o Markdown permanece disponível para download. Esse módulo reconhece
+o subconjunto usado nos cadernos e escapa texto, sem acessar DOM ou física.
+`verificarDistribuicao` confere referências, identidade SHA-256 das cópias e
+presença dos artigos. O catálogo AST registra as funções do conversor e os
+callbacks recebidos nos commits remotos; isso não representa execução ou
+aprovação dos testes inventariados.
 
 ## Classes, portas e composição
 
@@ -314,7 +318,8 @@ Escopo: imports/exportações estáticos locais das fontes próprias; chamadas d
 | [scripts/validar-termica-re003.ts](../../scripts/validar-termica-re003.ts) | funções/entrada | node:assert/strict, node:fs, ../src/cenarios/EnsaioReentrada |
 | [scripts/validar-termica-re004.ts](../../scripts/validar-termica-re004.ts) | funções/entrada | node:assert/strict, node:fs, node:path, ../src/cenarios/EnsaioReentrada, ../src/physics/reentrada/ConfiguracaoTermicaReentrada |
 | [scripts/verificar-site.ts](../../scripts/verificar-site.ts) | funções/entrada | ./site/verificar |
-| [site/build/pluginInstitucional.ts](../../site/build/pluginInstitucional.ts) | funções/entrada | node:fs, node:path, T: node:http, T: vite |
+| [site/build/markdownEstudos.ts](../../site/build/markdownEstudos.ts) | funções/entrada | — |
+| [site/build/pluginInstitucional.ts](../../site/build/pluginInstitucional.ts) | funções/entrada | node:fs, node:path, T: node:http, T: vite, ./markdownEstudos |
 | [site/scripts/carrossel.ts](../../site/scripts/carrossel.ts) | funções/entrada | — |
 | [site/scripts/navegacao.ts](../../site/scripts/navegacao.ts) | funções/entrada | — |
 | [src/apresentacao/missao/CameraMissao.ts](../../src/apresentacao/missao/CameraMissao.ts) | CameraMissao | ../../physics/Vetor3, ../../visualizacao/CameraFisica2D, T: ../../missoes/TiposMissaoBss006 |

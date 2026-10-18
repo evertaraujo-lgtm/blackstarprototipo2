@@ -1954,6 +1954,136 @@
     "categoria": "callback"
   },
   {
+    "id": "site/build/markdownEstudos.test.ts::[callback]:ArrowFunction#1",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/markdownEstudos.test.ts::[callback]#1.[callback]:ArrowFunction#1",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/markdownEstudos.test.ts::[callback]#1.[callback]:ArrowFunction#2",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/markdownEstudos.test.ts::[callback]#1.[callback]:ArrowFunction#3",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/markdownEstudos.test.ts::[callback]#1.[callback]#3.[callback]:ArrowFunction#1",
+    "assinatura": "(): string",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/markdownEstudos.test.ts::[callback]#1.[callback]#3.[callback]:ArrowFunction#2",
+    "assinatura": "(): string",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/markdownEstudos.test.ts::[callback]#1.[callback]#3.[callback]:ArrowFunction#3",
+    "assinatura": "(): string",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/markdownEstudos.test.ts::[callback]#1.[callback]#3.[callback]:ArrowFunction#4",
+    "assinatura": "(): string",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/markdownEstudos.ts::escapar:FunctionDeclaration",
+    "assinatura": "(s: string): string",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "site/build/markdownEstudos.ts::inline:FunctionDeclaration",
+    "assinatura": "(texto: string): string",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "site/build/markdownEstudos.ts::cols:FunctionDeclaration",
+    "assinatura": "(line: string): string[]",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "site/build/markdownEstudos.ts::cols.[callback]:ArrowFunction#1",
+    "assinatura": "(c: string): string",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "site/build/markdownEstudos.ts::tableDivider:FunctionDeclaration",
+    "assinatura": "(line: string): boolean",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "site/build/markdownEstudos.ts::tableDivider.[callback]:ArrowFunction#1",
+    "assinatura": "(c: string): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "site/build/markdownEstudos.ts::listType:FunctionDeclaration",
+    "assinatura": "(line: string): \"ul\" | \"ol\" | null",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "site/build/markdownEstudos.ts::beginsBlock:FunctionDeclaration",
+    "assinatura": "(lines: string[], i: number): boolean",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "site/build/markdownEstudos.ts::converterMarkdownSeguro:FunctionDeclaration",
+    "assinatura": "(source: string): string",
+    "modificadores": [
+      "export"
+    ],
+    "categoria": "producao"
+  },
+  {
+    "id": "site/build/markdownEstudos.ts::converterMarkdownSeguro.[callback]:ArrowFunction#1",
+    "assinatura": "(v: string, n: number): string",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "site/build/markdownEstudos.ts::converterMarkdownSeguro.[callback]:ArrowFunction#2",
+    "assinatura": "(v: string, n: number): string",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "site/build/markdownEstudos.ts::paginaEstudoMarkdown:FunctionDeclaration",
+    "assinatura": "(source: string, name: string): string",
+    "modificadores": [
+      "export"
+    ],
+    "categoria": "producao"
+  },
+  {
+    "id": "site/build/markdownEstudos.ts::paginaEstudoMarkdown.[callback]:ArrowFunction#1",
+    "assinatura": "(nome: \"01-auditoria-termica-comparativa\" | \"02-arquitetura-e-modelo-termico\" | \"03-protocolo-proximos-ensaios\", i: number): string",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
     "id": "site/build/pluginInstitucional.test.ts::[callback]:ArrowFunction#1",
     "assinatura": "(p: \"index.html\" | \"pesquisa.html\" | \"simulador.html\" | \"termica-re004.html\"): string",
     "modificadores": [],
@@ -2044,15 +2174,11 @@
     "categoria": "teste"
   },
   {
-    "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#5.[callback]:ArrowFunction#1",
-    "assinatura": "(): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }",
-    "modificadores": [],
-    "categoria": "teste"
-  },
-  {
     "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]:ArrowFunction#6",
-    "assinatura": "(): void",
-    "modificadores": [],
+    "assinatura": "(): Promise<void>",
+    "modificadores": [
+      "async"
+    ],
     "categoria": "teste"
   },
   {
@@ -2062,13 +2188,25 @@
     "categoria": "teste"
   },
   {
-    "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#6.[callback]:ArrowFunction#2",
+    "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]:ArrowFunction#7",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#7.[callback]:ArrowFunction#1",
     "assinatura": "(): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }",
     "modificadores": [],
     "categoria": "teste"
   },
   {
-    "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#6.[callback]:ArrowFunction#3",
+    "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#7.[callback]:ArrowFunction#2",
+    "assinatura": "(): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#7.[callback]:ArrowFunction#3",
     "assinatura": "(): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }",
     "modificadores": [],
     "categoria": "teste"
@@ -2107,6 +2245,12 @@
   },
   {
     "id": "site/build/pluginInstitucional.ts::pluginInstitucional.atenderInstitucional.[callback]:ArrowFunction#3",
+    "assinatura": "(e: { readonly caminho: \"/estudos/re004/01-auditoria-termica-comparativa.md\"; readonly fonte: \"docs/estudos/re004/01-auditoria-termica-comparativa.md\"; } | { readonly caminho: \"/estudos/re004/02-arquitetura-e-modelo-termico.md\"; readonly fonte: \"docs/estudos/re004/02-arquitetura-e-modelo-termico.md\"; } | { readonly caminho: \"/estudos/re004/03-protocolo-proximos-ensaios.md\"; readonly fonte: \"docs/estudos/re004/03-protocolo-proximos-ensaios.md\"; }): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "site/build/pluginInstitucional.ts::pluginInstitucional.atenderInstitucional.[callback]:ArrowFunction#4",
     "assinatura": "(p: \"index.html\" | \"pesquisa.html\" | \"simulador.html\" | \"termica-re004.html\"): boolean",
     "modificadores": [],
     "categoria": "callback"

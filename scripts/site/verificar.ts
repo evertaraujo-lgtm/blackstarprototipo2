@@ -35,6 +35,7 @@ export function resolverRecurso(dist: string, caminho: string): string {
  * Qualifica arquivos e referências da distribuição única, sem executar simulação.
  * @param raiz Checkout P2 com build concluído; lê dist, fontes PDF/Markdown e Hosting.
  * @returns Contagens auditáveis. Não grava arquivos nem chama Firebase/deploy.
+ * @remarks Confere também o artigo HTML e seu link de download para cada caderno.
  * @throws Em página/recurso ausente, PDF/Markdown divergente, publicação de internos/legado
  * ou configuração que possa mascarar ausência de assets com HTML.
   @contract f-85ec71145d9ea817 */

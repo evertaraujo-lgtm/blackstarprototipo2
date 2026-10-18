@@ -8,11 +8,20 @@ const nomes = [
   '03-protocolo-proximos-ensaios',
 ] as const;
 
+/** Escapa &, sinais de marcação e aspas no texto recebido; retorna string nova,
+ * sem interpretar HTML nem acessar DOM/FS.
+ * @contract f-3f1fea5a5a2a37ee
+ */
 function escapar(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 
+/** Converte links HTTP(S), negrito e código do subconjunto inline existente.
+ * Escapa o texto e atributos emitidos; negrito chama recursivamente este parser.
+ * Retorna fragmento HTML sem IO. Não implementa toda a sintaxe Markdown.
+ * @contract f-e1d82d6e57ba5f86
+ */
 function inline(texto: string): string {
   const padrao = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)|\*\*([^*\n]+)\*\*|\x60([^\x60\n]+)\x60|https?:\/\/[^\s<>()]+/g;
   let result = '', pos = 0;
@@ -30,18 +39,34 @@ function inline(texto: string): string {
   return result + escapar(texto.slice(pos));
 }
 
+/** Divide uma linha de tabela em células aparadas, removendo barras das bordas.
+ * Barras internas sempre separam células; não interpreta escapes Markdown.
+ * @contract f-3c6fdeef3d93f8f2
+ */
 function cols(line: string): string[] {
   return line.trim().replace(/^\|/, '').replace(/\|$/, '').split('|').map(c => c.trim());
 }
+/** Reconhece separador com ao menos duas células de três ou mais hífens e
+ * dois-pontos opcionais nas bordas; consulta cols, sem alterar a entrada.
+ * @contract f-8d42c2b9dde6d8d5
+ */
 function tableDivider(line: string): boolean {
   const cells = cols(line);
   return cells.length >= 2 && cells.every(c => /^:?-{3,}:?$/.test(c));
 }
+/** Identifica hífen ou numeração decimal seguida de ponto/espaço; retorna o
+ * tipo HTML da lista ou null, sem consumir nem modificar a linha.
+ * @contract f-746c1737837df4fd
+ */
 function listType(line: string): 'ul' | 'ol' | null {
   if (/^\s*-\s+/.test(line)) return 'ul';
   if (/^\s*\d+\.\s+/.test(line)) return 'ol';
   return null;
 }
+/** Consulta se a linha no índice válido i inicia bloco reconhecido pelo parser.
+ * Depende de listType/tableDivider; não consome linhas nem altera o array.
+ * @contract f-35c71b79ff587f29
+ */
 function beginsBlock(lines: string[], i: number): boolean {
   const l = lines[i].trim();
   return /^#{1,6}\s+/.test(l) || /^\x60{3}/.test(l) || /^>\s?/.test(l)
@@ -49,6 +74,14 @@ function beginsBlock(lines: string[], i: number): boolean {
     || (l.startsWith('|') && i + 1 < lines.length && tableDivider(lines[i + 1]));
 }
 
+/** Converte o subconjunto dos cadernos RE-004 em fragmento HTML, escapando texto.
+ * @param source Markdown em memória; normaliza CRLF/CR para LF.
+ * @returns Fragmento com títulos, parágrafos, tabelas, listas, citações e código.
+ * @throws Em cerca de código sem fechamento ou quantidades de células divergentes.
+ * @remarks Usa somente auxiliares locais e acumuladores; não acessa DOM/FS.
+ * Não aceita HTML bruto como marcação nem implementa Markdown completo.
+ * @contract f-f63acbb89b8d1822
+ */
 export function converterMarkdownSeguro(source: string): string {
   const lines = source.replace(/\r\n?/g, '\n').split('\n');
   const html: string[] = [];
@@ -111,6 +144,14 @@ export function converterMarkdownSeguro(source: string): string {
   return html.join('\n');
 }
 
+/** Compõe página estática de um dos três cadernos cadastrados, sem escrita ou IO.
+ * @param source Markdown com título principal iniciado por #.
+ * @param name Nome sem extensão presente no catálogo local nomes.
+ * @returns Documento HTML com navegação, artigo convertido e download do .md.
+ * @throws Em nome não cadastrado, ausência de título ou erro do conversor.
+ * @remarks Depende de escapar/converterMarkdownSeguro; não executa simulação.
+ * @contract f-ac94d9b4013a3948
+ */
 export function paginaEstudoMarkdown(source: string, name: string): string {
   if (!nomes.includes(name as typeof nomes[number])) throw new Error('Caderno desconhecido.');
   const title = source.match(/^#\s+(.+)$/m)?.[1];

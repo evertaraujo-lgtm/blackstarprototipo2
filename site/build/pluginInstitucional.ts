@@ -22,7 +22,7 @@ export const estudosMarkdown = Object.freeze([
 /**
  * Integra HTMLs agrupados em site/ às rotas públicas, sem gerar conteúdo em JS.
  * @param raiz Checkout único do P2; resolve fontes HTML, PDF e Markdown cadastradas.
- * @returns Plugin Vite: atende fontes canônicas no dev e emite HTML/documentos no build.
+ * @returns Plugin Vite: atende fontes e artigos derivados no dev e os emite no build.
  * @remarks Não importa domínio físico, não sincroniza repositórios nem faz deploy.
   @contract f-1a321c694e8857ca */
 export function pluginInstitucional(raiz: string): Plugin {
@@ -30,7 +30,8 @@ export function pluginInstitucional(raiz: string): Plugin {
 
   /**
    * Mapeia páginas cadastradas, incluindo /pesquisa/termica-re004; no dev atende
-   * os PDFs e cadernos Markdown canônicos com MIME próprio e sem corpo em HEAD.
+   * os PDFs, Markdown canônicos e artigos HTML derivados com MIME próprio,
+   * sem corpo em HEAD. A conversão usa paginaEstudoMarkdown, sem DOM.
    * @returns void. Altera URL interna do servidor ou responde bytes/MIME; demais
    * recursos seguem ao Vite MPA, cujo fallback não transforma ausência em homepage.
    * @remarks Lê somente fontes cadastradas; erros de leitura seguem para next.
@@ -90,6 +91,7 @@ export function pluginInstitucional(raiz: string): Plugin {
     /**
      * Move os HTMLs institucionais cadastrados para a raiz e emite cada PDF e
      * caderno Markdown com os mesmos bytes de sua fonte canônica.
+     * Emite também artigos HTML derivados pelo conversor paginaEstudoMarkdown.
      * @remarks Executa após processamento HTML do Vite; recusa ausência/colisão.
      * Não copia bundle de simulador nem diretório vizinho; documentos emitidos
      * são exclusivamente os cadastrados em publicacoes e estudosMarkdown.
