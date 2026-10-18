@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
 import type { AddressInfo } from 'node:net';
 import { createServer as criarServidorHttp } from 'node:http';
-import { pluginInstitucional, paginasInstitucionais, fonteArtigo, caminhoArtigo } from './pluginInstitucional';
+import { pluginInstitucional, paginasInstitucionais, fonteArtigo, caminhoArtigo, publicacoes, estudosMarkdown } from './pluginInstitucional';
 import { verificarDistribuicao } from '../../scripts/site/verificar';
 
 const raiz = mkdtempSync(join(tmpdir(), 'blackstar-build-unico-'));
@@ -21,6 +21,8 @@ beforeAll(async () => {
   writeFileSync(join(raiz, 'site/public/media/fixture.svg'), '<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"></svg>');
   mkdirSync(dirname(join(raiz, fonteArtigo)), { recursive: true });
   writeFileSync(join(raiz, fonteArtigo), documento);
+  for (const publicacao of publicacoes) writeFileSync(join(raiz, publicacao.fonte), documento);
+  for (const md of estudosMarkdown) { mkdirSync(dirname(join(raiz, md.fonte)), { recursive: true }); writeFileSync(join(raiz, md.fonte), '# Teste markdown\n'); }
   for (const fonte of fontes) {
     mkdirSync(dirname(join(raiz, fonte)), { recursive: true });
     writeFileSync(join(raiz, fonte), `<!doctype html><html lang="pt-BR"><head><title>${fonte}</title></head><body><h1 id="conteudo">${fonte}</h1><img src="/media/fixture.svg" alt="Fixture" width="1" height="1"><a href="/pesquisa#conteudo">Pesquisa</a><a href="${caminhoArtigo}">Artigo</a></body></html>`);
@@ -40,11 +42,11 @@ describe('Build único e rotas nativas sem outro repositório', () => {
     for (const pagina of [...paginasInstitucionais, 'tests.html', 'missao.html', 'orbitas.html']) expect(existsSync(join(raiz, 'dist', pagina))).toBe(true);
     expect(existsSync(join(raiz, 'dist/site/pages/index.html'))).toBe(false);
     expect(readFileSync(join(raiz, 'dist', caminhoArtigo))).toEqual(documento);
-    expect(verificarDistribuicao(raiz)).toMatchObject({ paginas: 6, imagens: 1, pdfIdentico: true });
+    expect(verificarDistribuicao(raiz)).toMatchObject({ paginas: 7, imagens: 1, pdfIdentico: true });
   });
 
   it('serve diretamente e após recarga as rotas institucionais e mantém interfaces existentes', async () => {
-    for (const rota of ['/', '/index.html', '/pesquisa', '/simulador', '/tests.html', '/missao.html', '/orbitas.html']) {
+    for (const rota of ['/', '/index.html', '/pesquisa', '/pesquisa/termica-re004', '/simulador', '/tests.html', '/missao.html', '/orbitas.html']) {
       const a = await fetch(base + rota), b = await fetch(base + rota);
       expect(a.status).toBe(200); expect(b.status).toBe(200);
       expect(await a.text()).toContain('<h1 id="conteudo">');
@@ -54,8 +56,49 @@ describe('Build único e rotas nativas sem outro repositório', () => {
     expect(Buffer.from(await pdf.arrayBuffer())).toEqual(documento);
   });
 
+  it('distribui e serve os estudos em Markdown sem alterar bytes', async () => {
+    for (const md of estudosMarkdown) {
+      const expected = readFileSync(join(raiz, md.fonte));
+      expect(readFileSync(join(raiz, 'dist', md.caminho))).toEqual(expected);
+      const r = await fetch(base + md.caminho);
+      expect(r.status).toBe(200);
+      expect(r.headers.get('content-type')).toContain('text/markdown');
+      expect(Buffer.from(await r.arrayBuffer())).toEqual(expected);
+    }
+  });
+  it('publica HTML formatado e mantém Markdown como fonte sem alterações', async () => {
+    for (const estudo of estudosMarkdown) {
+      const urlHtml = estudo.caminho.replace(/\.md$/, '.html');
+      const html = readFileSync(join(raiz, 'dist', urlHtml), 'utf8');
+      expect(html).toContain('<article class="article">');
+      expect(html).toContain('<h1>Teste markdown</h1>');
+      expect(html).toContain('Baixar arquivo original .md');
+      expect(readFileSync(join(raiz, 'dist', estudo.caminho), 'utf8')).toBe(readFileSync(join(raiz, estudo.fonte), 'utf8'));
+      const resposta = await fetch(base + urlHtml);
+      expect(resposta.status).toBe(200);
+      expect(resposta.headers.get('content-type')).toContain('text/html');
+      expect(await resposta.text()).toContain('<h1>Teste markdown</h1>');
+    }
+  });
+
   it('retorna 404 em JS, CSS, imagem e PDF ausentes e no legado abandonado', async () => {
     for (const rota of ['/assets/ausente.js', '/assets/ausente.css', '/media/ausente.webp', '/publicacoes/ausente.pdf', '/rota-inexistente', '/starship_v1.html', '/vendor/prototipo2/tests.html']) expect((await fetch(base + rota)).status, rota).toBe(404);
+  });
+
+  it('preserva ambos os PDFs em dev/build, HEAD, query string e ausência de fallback', async () => {
+    for (const publicacao of publicacoes) {
+      expect(readFileSync(join(raiz, 'dist', publicacao.caminho))).toEqual(documento);
+      const resposta = await fetch(base + publicacao.caminho + '?download=1');
+      expect(resposta.status).toBe(200);
+      expect(resposta.headers.get('content-type')).toBe('application/pdf');
+      expect(Buffer.from(await resposta.arrayBuffer())).toEqual(documento);
+      const head = await fetch(base + publicacao.caminho, { method: 'HEAD' });
+      expect(head.status).toBe(200); expect(head.headers.get('content-length')).toBe(String(documento.length));
+      expect(await head.text()).toBe('');
+    }
+    const novo = join(raiz, 'dist', publicacoes[1].caminho);
+    try { writeFileSync(novo, '%PDF-alterado'); expect(() => verificarDistribuicao(raiz)).toThrow('fonte canônica'); }
+    finally { writeFileSync(novo, documento); }
   });
 
   it('rejeita recurso quebrado, PDF divergente e reintrodução de runtime legado', () => {

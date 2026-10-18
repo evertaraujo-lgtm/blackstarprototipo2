@@ -1,15 +1,17 @@
 import { AletaAerodinamica, type DefinicaoAletaAerodinamica } from './AletaAerodinamica';
 import type { CondicoesAtmosfericas, ForcaFisicaSolicitada } from '../base/Objeto';
-import { calcularFluxoTermicoIndicador, projetarSustentacao, MODELO_REENTRADA } from '../../reentrada/ModeloAerodinamicoReentrada';
+import { calcularFluxoTermicoIndicador, projetarSustentacao, MODELO_REENTRADA, type ParametrosReentrada } from '../../reentrada/ModeloAerodinamicoReentrada';
 import { Vetor3 } from '../../Vetor3';
 
 /** Especializa cargas hipersônicas preliminares, preservando atuador elétrico Aleta. */
 export class FlapReentrada extends AletaAerodinamica {
   private phiUltimoConectadoRad: number;
+  private taxaEfetivaRadps = 0;
   /** Recebe somente porta de leitura da projeção e permissivo da montagem.  @contract f-713ac4483df17789 */
   public constructor(definicao: DefinicaoAletaAerodinamica,
-    private readonly lerRolagemRad: () => number, private readonly montagemIntegra: () => boolean) {
-    super(definicao); this.phiUltimoConectadoRad = lerRolagemRad();
+    private readonly lerRolagemRad: () => number, private readonly montagemIntegra: () => boolean, private readonly parametros: ParametrosReentrada = MODELO_REENTRADA) {
+    super(definicao);
+    this.phiUltimoConectadoRad = lerRolagemRad();
   }
 
   /** Reutiliza atuador elétrico e acompanha bank enquanto conectado. Após separação
@@ -18,7 +20,9 @@ export class FlapReentrada extends AletaAerodinamica {
    * @contract f-d940577d02a1ae47
    */
   public override prepararPassoOperacional(dtS: number): void {
+    const anterior = this.deflexaoAtualRad;
     super.prepararPassoOperacional(dtS);
+    this.taxaEfetivaRadps = dtS > 0 ? (this.deflexaoAtualRad - anterior) / dtS : 0;
     if (this.montagemIntegra()) this.phiUltimoConectadoRad = this.lerRolagemRad();
   }
 
@@ -30,22 +34,39 @@ export class FlapReentrada extends AletaAerodinamica {
   public override obterForcasAerodinamicas(c: CondicoesAtmosfericas): readonly ForcaFisicaSolicitada[] {
     const e = this.getEstadoFisico(), v = e.velocidadeMps.subtrair(c.velocidadeArMps), V = v.magnitude;
     if (V < 1e-6 || c.densidadeArKgM3 === 0) return [];
-    const L = 0.5 * c.densidadeArKgM3 * V ** 2 * MODELO_REENTRADA.areaFlapM2
-      * MODELO_REENTRADA.clFlapPorRad * Math.sin(this.deflexaoAtualRad) * this.integridadeEstrutural;
+    const L = 0.5 * c.densidadeArKgM3 * V ** 2 * this.parametros.areaFlapM2
+      * this.parametros.clFlapPorRad * Math.sin(this.deflexaoAtualRad) * this.integridadeEstrutural;
     return [{ forcaN: new Vetor3(-v.y / V, v.x / V, 0).multiplicar(projetarSustentacao(L, this.phiUltimoConectadoRad)), pontoM: e.posicaoM }];
   }
 
   /** Cd positivo por deflexão real; permanece no caminho único de arrasto do core.  @contract f-f2617c9c3b49b631 */
   public override getCoeficienteArrastoEfetivo(): number {
-    return MODELO_REENTRADA.cdFlapBase + MODELO_REENTRADA.cdFlapDeflexao * Math.sin(this.deflexaoAtualRad) ** 2;
+    return this.parametros.cdFlapBase + this.parametros.cdFlapDeflexao * Math.sin(this.deflexaoAtualRad) ** 2;
   }
 
-  /** Aquecimento indicador do flap com raio efetivo 0,5 m e área aquecida 2 m²;
-   * temperatura é do componente concentrado, sem interpretação de atuador interno.
+  /** Aquecimento indicador com raio/área configurados (padrões 0,5 m e 2 m²);
+   * rede optante fornece fluxo externo prescrito sem teto D·V local; legado
+   * conserva calor concentrado min(indicador,D·V). O core aplica uma única vez.
    * @contract f-d1d83ab8a5f815b3
    */
   public override obterPotenciaAquecimentoAerodinamicoW(c: CondicoesAtmosfericas, dissipacaoW: number): number {
     const V = this.getEstadoFisico().velocidadeMps.subtrair(c.velocidadeArMps).magnitude;
-    return Math.min(dissipacaoW, 2 * calcularFluxoTermicoIndicador(c.densidadeArKgM3, V, 0.5));
+    const indicadorW = this.parametros.areaAquecidaFlapM2 * calcularFluxoTermicoIndicador(c.densidadeArKgM3, V, this.parametros.raioNarizFlapM, this.parametros.coeficienteSuttonGravesSI);
+    return this.obterRedeTermicaPeloCore() ? indicadorW : Math.min(dissipacaoW, indicadorW);
+  }
+  /** Capacidade estrutural regional optante, ou massa instantânea × c no legado.  @contract f-3e48ec123ef93cbe */
+  public override get capacidadeTermicaJPorC(): number { return this.obterRedeTermicaPeloCore() ? super.capacidadeTermicaJPorC : this.massaKg * this.parametros.calorEspecificoFlapJPorKgC; }
+
+  /** Diagnóstico do atuador prescrito, em rad/s, por permissivos reais. Torque e
+   * carga mecânica não são inventados a partir dos 300 W elétricos do modelo.
+   * Expõe dano próprio do mecanismo, separado da superfície/estrutura.
+   * @contract f-b750057ae1f8513b
+   */
+  public obterDiagnosticoAtuacao() {
+    return { ...(this.obterRedeTermicaPeloCore() ? { integridadeMecanismo: this.obterRedeTermicaPeloCore()!.obterRegiao('interna').integridade } : {}), taxaEfetivaRadps: this.taxaEfetivaRadps, cursoRad: this.parametros.cursoFlapRad,
+      taxaMaximaRadps: this.parametros.taxaFlapRadps, modeloMecanico: 'taxa-prescrita-eletrica',
+      torqueDisponivelNm: null, torqueCargaNm: null,
+      bloqueio: !this.montagemIntegra() ? 'vinculo' : this.integridadeEstrutural <= 0 ? 'integridade'
+        : !this.conexaoEletrica.estaEnergizada ? 'alimentacao' : this.obterRedeTermicaPeloCore()?.obterRegiao('interna').integridade === 0 ? 'termica-mecanismo' : Math.abs(this.comandoAtualRad - this.deflexaoAtualRad) > 1e-9 ? 'curso-taxa-ou-energia' : 'nenhum' };
   }
 }

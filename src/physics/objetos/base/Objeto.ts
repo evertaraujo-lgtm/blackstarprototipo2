@@ -1,3 +1,4 @@
+import { RedeTermica, type DefinicaoRedeTermica } from '../../termica/RedeTermica';
 import { Vetor3 } from '../../Vetor3';
 import { Paraquedas, type EstadoParaquedas } from '../componentes/Paraquedas';
 
@@ -73,6 +74,7 @@ export class Objeto {
   private inerciaCalculada?: { massaKg: number; x: number; y: number; z: number; valor: Vetor3 };
   private paraquedasAcoplado?: Paraquedas;
   private temperaturaAtualC: number;
+  private redeTermica?: RedeTermica;
   private energiaTermicaDeAtritoJ = 0;
   private energiaTermicaAerodinamicaJ = 0;
 
@@ -139,16 +141,16 @@ export class Objeto {
   public get coeficienteAtrito(): number { return this.definicao.coeficienteAtrito ?? 0.65; }
   /** Devolve `this.definicao.coeficienteAtritoEntreObjetos ?? 0`. Efeitos indiretos seguem as dependências chamadas. @contract f-a56d92711ddba117 */
   public get coeficienteAtritoEntreObjetos(): number { return this.definicao.coeficienteAtritoEntreObjetos ?? 0; }
-  /** Devolve `this.definicao.limiteTermicoC`. Efeitos indiretos seguem as dependências chamadas. @contract f-ef895eec91db525d */
-  public get limiteTermicoC(): number { return this.definicao.limiteTermicoC; }
+  /** Limiar estrutural °C na rede optante; limite concentrado legado nos demais. @contract f-ef895eec91db525d */
+  public get limiteTermicoC(): number { return this.redeTermica?.obterRegiao(this.redeTermica.definicao.regiaoEstrutural).limiteTermicoC ?? this.definicao.limiteTermicoC; }
   /** Devolve `this.definicao.temperaturaFusaoC`. Efeitos indiretos seguem as dependências chamadas. @contract f-8a88686ab77df881 */
   public get temperaturaFusaoC(): number | undefined { return this.definicao.temperaturaFusaoC; }
   /** Devolve `this.definicao.temperaturaFalhaTotalC`. Efeitos indiretos seguem as dependências chamadas. @contract f-e691146ec640ca1b */
   public get temperaturaFalhaTotalC(): number | undefined { return this.definicao.temperaturaFalhaTotalC; }
-  /** Devolve `this.temperaturaAtualC`. Efeitos indiretos seguem as dependências chamadas. @contract f-f51e927410ea5fc0 */
-  public get temperaturaC(): number { return this.temperaturaAtualC; }
-  /** Devolve `this.definicao.capacidadeTermicaJPorC ?? this.massaKg * 500`. Efeitos indiretos seguem as dependências chamadas. @contract f-50b0fd0df35bc5d7 */
-  public get capacidadeTermicaJPorC(): number { return this.definicao.capacidadeTermicaJPorC ?? this.massaKg * 500; }
+  /** Temperatura estrutural °C na rede optante; temperatura uniforme legada nos demais. @contract f-f51e927410ea5fc0 */
+  public get temperaturaC(): number { return this.redeTermica?.obterRegiao(this.redeTermica.definicao.regiaoEstrutural).temperaturaC ?? this.temperaturaAtualC; }
+  /** Capacidade estrutural J/°C na rede optante; capacidade concentrada legada nos demais. @contract f-50b0fd0df35bc5d7 */
+  public get capacidadeTermicaJPorC(): number { return this.redeTermica?.obterRegiao(this.redeTermica.definicao.regiaoEstrutural).capacidadeJPorC ?? this.definicao.capacidadeTermicaJPorC ?? this.massaKg * 500; }
   /** Devolve `this.definicao.areaTermicaM2 ?? Math.max(0.1, this.dimensoesM.x * this.dimensoesM.y)`. Efeitos indiretos seguem as dependências chamadas. @contract f-cf1ecdb8534b1ed7 */
   public get areaTermicaM2(): number { return this.definicao.areaTermicaM2 ?? Math.max(0.1, this.dimensoesM.x * this.dimensoesM.y); }
   /** Devolve `this.definicao.coeficienteConveccaoWPorM2C ?? 10`. Efeitos indiretos seguem as dependências chamadas. @contract f-af88ebcdb549f68a */
@@ -363,10 +365,12 @@ export class Objeto {
   }
 
   /** API do core térmico: energia positiva aquece, negativa resfria.
+   * Rede optante recebe na superfície sem dano repetido; legado permanece igual.
    * @contract f-c9f39a12ef5d34b7
    */
   public aplicarEnergiaTermicaPeloCore(energiaJ: number, dtS: number): void {
     if (!Number.isFinite(energiaJ) || !Number.isFinite(dtS) || dtS <= 0) throw new Error('Atualização térmica inválida.');
+    if (this.redeTermica) { this.redeTermica.adicionarEnergia(this.redeTermica.definicao.regiaoSuperficial, energiaJ, 'contato'); return; }
     this.temperaturaAtualC += energiaJ / this.capacidadeTermicaJPorC;
     if (this.temperaturaAtualC <= this.limiteTermicoC) return;
     const excessoC = this.temperaturaAtualC - this.limiteTermicoC;
@@ -389,13 +393,49 @@ export class Objeto {
     this.aplicarEnergiaTermicaPeloCore(energiaJ, dtS);
   }
 
-  /** Parcela da dissipação aerodinâmica que efetivamente entra no corpo.
+  /** Calor aero recebido uma vez na superfície optante ou corpo concentrado
+   * legado. Contador de energia mantém origem; dano regional só na finalização.
    * @contract f-2df99f0558a645cd
    */
   public aplicarAquecimentoAerodinamicoPeloCore(energiaJ: number, dtS: number): void {
-    if (!Number.isFinite(energiaJ) || energiaJ < 0) throw new Error('Energia aerodinâmica inválida.');
+    if (!Number.isFinite(energiaJ) || energiaJ < 0 || !Number.isFinite(dtS) || dtS <= 0) throw new Error('Energia/passo aerodinâmico inválido.');
     this.energiaTermicaAerodinamicaJ += energiaJ;
-    this.aplicarEnergiaTermicaPeloCore(energiaJ, dtS);
+    if (this.redeTermica) this.redeTermica.adicionarEnergia(this.redeTermica.definicao.regiaoSuperficial, energiaJ, 'incidente');
+    else this.aplicarEnergiaTermicaPeloCore(energiaJ, dtS);
+  }
+
+  /** Instala rede optante apenas na montagem, sem alterar massa, CM ou inércia.
+   * Reinstalação é rejeitada para não apagar energia/dano durante uma missão.
+   * @contract f-49a28bfc7e1c0730
+   */
+  public configurarRedeTermicaPeloCore(definicao: DefinicaoRedeTermica): void {
+    if (this.redeTermica) throw new Error('Rede térmica já instalada.');
+    this.redeTermica = new RedeTermica(definicao);
+  }
+
+  /** Porta de mutação reservada aos solucionadores do core e fixadores físicos.
+   * Apresentação deve usar observarRedeTermica e nunca evoluir esta referência.
+   * @contract f-2428daa6a99ed3ee
+   */
+  public obterRedeTermicaPeloCore(): RedeTermica | undefined { return this.redeTermica; }
+
+  /** Snapshot térmico somente leitura; ausente preserva semântica concentrada.  @contract f-42efdd82fec8c0c0 */
+  public observarRedeTermica() { return this.redeTermica?.observar(); }
+
+  /** Aplica incremento de dano estrutural uma vez por passo térmico, somando-o
+   * ao dano mecânico já existente. Superfície não reduz estrutura diretamente.
+   * A fase térmica precede contatos cinemáticos: seu calor evolui no próximo passo.
+   * @contract f-0e87f43f588acec7
+   */
+  public finalizarPassoTermicoPeloCore(dtS: number): void {
+    if (!this.redeTermica) return;
+    const id = this.redeTermica.definicao.regiaoEstrutural;
+    const antes = this.redeTermica.obterRegiao(id).integridade;
+    this.redeTermica.degradar(dtS);
+    const depois = this.redeTermica.obterRegiao(id).integridade;
+    // Sem dano mecânico, usa o valor regional diretamente para preservar os bits
+    // da evolução nominal; com dano prévio, acrescenta somente o novo incremento.
+    this.integridade = this.integridade === antes ? depois : Math.max(0, this.integridade - (antes - depois));
   }
 
   /** API reservada ao MundoFisico; não deve ser chamada por controladores ou UI.

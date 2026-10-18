@@ -15,14 +15,19 @@ export class SistemaTermico {
 
   /** Geração interna, convecção ambiente, aquecimento aero e jatos em ordem
    * determinística, dt em s do core. O hook aero devolve uma única parcela W
-   * limitada à dissipação D·V; o padrão preserva a fração histórica. Especializações
+   * limitada à dissipação D·V no legado; rede optante declara fluxo externo
+   * prescrito e não usa D·V local como teto universal. Especializações
    * não aplicam calor por conta própria. Energia entra em Objeto uma vez por troca.
    * @contract f-52ff1b5ad0ab53a2
    */
   public atualizar(objetos: readonly Objeto[], dtS: number): void {
     for (const objeto of objetos) {
+      const rede = objeto.obterRedeTermicaPeloCore(); rede?.iniciarPasso();
       const potenciaGeradaW = objeto.obterPotenciaTermicaGeradaW();
-      if (potenciaGeradaW > 0) objeto.aplicarEnergiaTermicaPeloCore(potenciaGeradaW * dtS, dtS);
+      if (potenciaGeradaW > 0) {
+        if (rede) rede.adicionarEnergia(rede.definicao.regiaoInterna, potenciaGeradaW * dtS, 'geracao');
+        else objeto.aplicarEnergiaTermicaPeloCore(potenciaGeradaW * dtS, dtS);
+      }
       // Modelo concentrado: h é a calibração a 1,225 kg/m³; a rarefação
       // reduz a troca. Sem gás ambiente não há convecção ambiente.
       // Não modela convecção forçada/Reynolds; o fluxo entra no aquecimento por arrasto.
@@ -32,14 +37,14 @@ export class SistemaTermico {
       // Um subpasso nunca transfere mais energia que a necessária ao equilíbrio.
       const energiaEquilibrioJ = objeto.capacidadeTermicaJPorC * Math.abs(objeto.temperaturaC - this.temperaturaAmbienteC);
       const energiaConveccaoJ = Math.sign(potenciaConveccaoW) * Math.min(Math.abs(potenciaConveccaoW * dtS), energiaEquilibrioJ);
-      if (energiaConveccaoJ !== 0) objeto.aplicarEnergiaTermicaPeloCore(-energiaConveccaoJ, dtS);
+      if (!rede && energiaConveccaoJ !== 0) objeto.aplicarEnergiaTermicaPeloCore(-energiaConveccaoJ, dtS);
       const velocidadeRelativa = objeto.getEstadoFisico().velocidadeMps.subtrair(this.atmosfera.velocidadeArMps);
       const forcaArrastoN = this.atmosfera.calcularArrasto(objeto, objeto.getEstadoFisico().velocidadeMps);
       const potenciaDissipadaNoArW = Math.max(0, -forcaArrastoN.produtoEscalar(velocidadeRelativa));
       const potenciaNoObjetoW = objeto.obterPotenciaAquecimentoAerodinamicoW({
         densidadeArKgM3: densidadeLocal, velocidadeArMps: this.atmosfera.velocidadeArMps,
       }, potenciaDissipadaNoArW);
-      if (!Number.isFinite(potenciaNoObjetoW) || potenciaNoObjetoW < 0 || potenciaNoObjetoW > potenciaDissipadaNoArW) {
+      if (!Number.isFinite(potenciaNoObjetoW) || potenciaNoObjetoW < 0 || (!rede && potenciaNoObjetoW > potenciaDissipadaNoArW)) {
         throw new Error('Aquecimento aerodinâmico deve estar entre zero e a potência dissipada no ar.');
       }
       const energiaNoObjetoJ = potenciaNoObjetoW * dtS;
@@ -60,6 +65,20 @@ export class SistemaTermico {
         alvo.aplicarEnergiaTermicaPeloCore(jato.potenciaW * fracao * dtS, dtS);
       }
     }
+    for (const objeto of objetos) {
+      const rede = objeto.obterRedeTermicaPeloCore();
+      if (rede) rede.evoluir(dtS, objeto.coeficienteConveccaoWPorM2C
+        * this.atmosfera.obterDensidadeNaPosicaoKgM3(objeto.getEstadoFisico().posicaoM) * this.exposicaoAoAr(objeto) / 1.225,
+      this.temperaturaAmbienteC);
+    }
+  }
+
+  /** Finaliza dano regional uma vez, após condução dos fixadores. Não modifica
+   * objetos não optantes; o passo continua sob autoridade de MundoFisico.
+   * @contract f-51394ca18ed8bc24
+   */
+  public finalizarPasso(objetos: readonly Objeto[], dtS: number): void {
+    for (const objeto of objetos) objeto.finalizarPassoTermicoPeloCore(dtS);
   }
 
   /** Sem dados de efusividade, reparte a dissipação entre os materiais.

@@ -12,6 +12,7 @@ export default defineConfig({
       input: {
         principal: resolve(import.meta.dirname, 'site/pages/index.html'),
         pesquisa: resolve(import.meta.dirname, 'site/pages/pesquisa.html'),
+        termicaRe004: resolve(import.meta.dirname, 'site/pages/termica-re004.html'),
         simulador: resolve(import.meta.dirname, 'site/pages/simulador.html'),
         testes: resolve(import.meta.dirname, 'tests.html'),
         orbitas: resolve(import.meta.dirname, 'orbitas.html'),

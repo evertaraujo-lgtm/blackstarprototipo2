@@ -16,6 +16,7 @@ export interface DiarioMissao<C, O> {
   readonly entradas: readonly EntradaMissao<C>[];
   readonly eventos: readonly EventoMissao[];
   readonly amostras: readonly { readonly passo: number; readonly observacao: O }[];
+  readonly retencao?: { readonly limiteAmostras: number; readonly amostrasDescartadas: number; readonly agendaCompleta: true };
 }
 /** Decorador de domínio: registro portátil em memória; exportação não acessa disco/rede. */
 export class RegistroMissao<C, O> implements InstanciaMissao<C, O> {
@@ -23,10 +24,15 @@ export class RegistroMissao<C, O> implements InstanciaMissao<C, O> {
   private readonly amostras: { passo: number; observacao: O }[] = [];
   private readonly inicial: O;
   private readonly identificacao: object;
-  /** Decora instância de missão com registro em memória, identificador copiado/congelado e primeira observação no passo zero; exige intervalo de amostragem inteiro positivo. @contract f-4554d825e0078446 @reviewed M12-DOC: implementação lida. */
+  private amostrasDescartadas = 0;
+  /** Decora missão com registro em memória e primeira observação imutável. Intervalo
+   * em passos positivo; limite opcional >=2 preserva inicial + janela recente e
+   * informa descartes. Agenda continua completa para reexecução; sem limite mantém
+   * comportamento histórico. Não grava disco/rede. @contract f-4554d825e0078446 */
   public constructor(private readonly instancia: InstanciaMissao<C, O>, identificacao: object,
-    private readonly validarComando: /** Validador injetado converte entrada desconhecida em comando tipado somente se formato aceito; não executa comando nem altera missão. @contract f-020f0a9a496837f4 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (c: unknown) => c is C, private readonly intervaloAmostraPassos = 240) {
+    private readonly validarComando: /** Validador injetado converte entrada desconhecida em comando tipado somente se formato aceito; não executa comando nem altera missão. @contract f-020f0a9a496837f4 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (c: unknown) => c is C, private readonly intervaloAmostraPassos = 240, private readonly limiteAmostras?: number) {
     if (!Number.isSafeInteger(intervaloAmostraPassos) || intervaloAmostraPassos <= 0) throw new Error('Intervalo de amostra inválido.');
+    if (limiteAmostras !== undefined && (!Number.isSafeInteger(limiteAmostras) || limiteAmostras < 2)) throw new Error('Limite de amostras inválido.');
     this.identificacao = copiarSnapshot(identificacao); this.inicial = copiarSnapshot(instancia.observar());
     this.amostras.push({ passo: 0, observacao: this.inicial });
   }
@@ -53,20 +59,30 @@ export class RegistroMissao<C, O> implements InstanciaMissao<C, O> {
     this.entradas.push(copiarSnapshot({ tipo: 'comando', passo: this.passosExecutados, sequencia: this.entradas.length, comando, resultado }));
     return copiarSnapshot(resultado);
   }
-  /** Delega um passo físico; somente se executado registra amostra quando índice é múltiplo do intervalo contratado. Retorna false se instância não avança. @contract f-823c2c01169947e0 @reviewed M12-DOC: implementação lida. */
+  /** Delega passo físico; registra no intervalo contratado. Retenção opcional
+   * preserva a amostra inicial e contabiliza descarte da janela recente, sem
+   * alterar comandos, extremos globais ou física. @contract f-823c2c01169947e0 */
   public avancarPasso(): boolean {
     if (!this.instancia.avancarPasso()) return false;
     if (this.passosExecutados % this.intervaloAmostraPassos === 0) this.amostras.push({ passo: this.passosExecutados, observacao: this.instancia.observar() });
+    if (this.limiteAmostras !== undefined && this.amostras.length > this.limiteAmostras) {
+      this.amostras.splice(1, 1); this.amostrasDescartadas++;
+    }
     return true;
   }
   /** Consulta observação da instância decorada sem gerar amostra adicional no diário. @contract f-601da3428577f9c0 @reviewed M12-DOC: implementação lida. */
   public observar(): O { return this.instancia.observar(); }
   /** Consulta eventos produzidos pela missão real, sem duplicar máquina de estados. @contract f-92f199d3da33b9c9 @reviewed M12-DOC: implementação lida. */
   public obterEventos() { return this.instancia.obterEventos(); }
-  /** Constrói e copia/congela diário completo com identificação, inicial/final, agenda, eventos e amostras; não grava em disco, rede ou Firestore. @contract f-459c9ad4545d6300 @reviewed M12-DOC: implementação lida. */
+  /** Copia diário com identificação, agenda e dados retidos. Quando configurado,
+   * explicita janela/descartes; agenda completa permite reconstruir amostras pelo
+   * mesmo modelo. Sem limite preserva formato histórico. Não grava disco/rede.
+   * @contract f-459c9ad4545d6300 */
   public exportar(): DiarioMissao<C, O> {
     return copiarSnapshot({ formato: 'blackstar-missao-1', identificacao: this.identificacao, passoS: this.passoS,
       intervaloAmostraPassos: this.intervaloAmostraPassos, passosExecutados: this.passosExecutados,
-      inicial: this.inicial, final: this.observar(), entradas: this.entradas, eventos: this.obterEventos(), amostras: this.amostras });
+      inicial: this.inicial, final: this.observar(), entradas: this.entradas, eventos: this.obterEventos(), amostras: this.amostras,
+      ...(this.limiteAmostras === undefined ? {} : { retencao: { limiteAmostras: this.limiteAmostras,
+        amostrasDescartadas: this.amostrasDescartadas, agendaCompleta: true as const } }) });
   }
 }

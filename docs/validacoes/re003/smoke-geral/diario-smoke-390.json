@@ -1,0 +1,5789 @@
+{
+  "formato": "blackstar-missao-1",
+  "identificacao": {
+    "id": "RE-001",
+    "revisao": "RE-002-r4",
+    "configuracao": {
+      "altitudeM": 120000,
+      "velocidadeMps": 7700,
+      "taxaAtitudeLocalInicialRadps": 0,
+      "anguloAtaqueRad": 0.6981317007977318,
+      "trajetoriaRad": -0.017453292519943295,
+      "rolagemRad": 0,
+      "limiteOrbitadorC": 1100,
+      "limiteFlapsC": 900,
+      "limiteBateriaC": 60,
+      "automatico": true,
+      "chaveamentoAutomatico": false,
+      "vacuo": false,
+      "semente": 1,
+      "passoS": 0.004166666666666667,
+      "corredor": {
+        "pressaoMaximaPa": 50000,
+        "fluxoMaximoWm2": 500000,
+        "cargaMaximaG": 5
+      },
+      "intervaloColetaS": 1,
+      "limiteAmostras": 3600,
+      "limiteEventos": 20000,
+      "aproximacao": {
+        "alvoArcoM": null,
+        "aceleracoesLiquidasHipoteticasMps2": [
+          1,
+          2,
+          5
+        ],
+        "erroAlphaMaxRad": 0.17453292519943295,
+        "omegaMaxRadps": 0.02
+      },
+      "transferencia": {
+        "altitudeMinimaM": 20,
+        "altitudeMaximaM": 5000,
+        "velocidadeMaximaMps": 150,
+        "atitudeMaximaRad": 0.2617993877991494,
+        "trajetoriaMinimaRad": -1.5707963267948966,
+        "trajetoriaMaximaRad": -0.08726646259971647
+      },
+      "parametros": {
+        "areaReferenciaM2": 250,
+        "comprimentoM": 40,
+        "alturaM": 8,
+        "raioNarizM": 2,
+        "areaAquecidaM2": 80,
+        "massaCorpoKg": 78900,
+        "massaFlapKg": 500,
+        "massaBateriaKg": 100,
+        "resistenciaCorpoJ": 100000000,
+        "resistenciaFlapJ": 1000000,
+        "resistenciaFixadorN": 100000000,
+        "areaFlapM2": 16,
+        "clFlapPorRad": 1.2,
+        "cdFlapBase": 0.06,
+        "cdFlapDeflexao": 0.4,
+        "cursoFlapRad": 0.5235987755982988,
+        "taxaFlapRadps": 0.3490658503988659,
+        "bracoFlapM": 16,
+        "potenciaFlapW": 300,
+        "potenciaRepousoFlapW": 6,
+        "tensaoBateriaV": 28,
+        "energiaBateriaJ": 20000000,
+        "ganhoAlpha": 0.008,
+        "ganhoTaxa": 0.18,
+        "torqueMinimoAutoridadeNm": 100,
+        "taxaRolagemRadps": 0.17453292519943295,
+        "coeficienteSuttonGravesSI": 0.00017415,
+        "larguraM": 16,
+        "clCorpo": 0.9,
+        "fatorMachBase": 0.85,
+        "fatorMachVariacao": 0.15,
+        "cdCorpoBase": 0.12,
+        "cdCorpoAlpha": 1.6,
+        "cdMachGauss": 0.08,
+        "cpBaseM": -0.15,
+        "cpVariacaoM": -0.35,
+        "deslocamentoVerticalFlapM": -5,
+        "raioNarizFlapM": 0.5,
+        "areaAquecidaFlapM2": 2,
+        "calorEspecificoCorpoJPorKgC": 800,
+        "calorEspecificoFlapJPorKgC": 500,
+        "comprimentoCaracteristicoCorpoM": 8,
+        "comprimentoCaracteristicoFlapM": 2,
+        "cursoRolagemRad": 1.5707963267948966,
+        "conveccaoCorpoWPorM2C": 10,
+        "condutanciaFlapWPorC": 100,
+        "fracaoCargaInicialBateria": 1
+      }
+    },
+    "modeloFisico": {
+      "revisao": "terra-esferica-m9",
+      "plano": "XY",
+      "rotacaoRadps": 0,
+      "raioM": 6371000,
+      "g0ReferenciaIspMps2": 9.80665,
+      "campo": {
+        "modelo": "central",
+        "centroM": {
+          "x": 0,
+          "y": -6371000,
+          "z": 0
+        },
+        "muM3S2": 398600441800000
+      },
+      "integracao": "verlet-gravitacional",
+      "revisaoDinamicaAngular": "intrinseca-relativa-3",
+      "maxDtS": 0.004166666666666667,
+      "politicaAtmosferica": "perfil-injetado",
+      "densidadeNivelMarKgM3": 1.225,
+      "cargasDistribuidas": "axial-pontes-1",
+      "perfilAtmosferico": {
+        "revisao": "re-atmosfera-log-1",
+        "dominioM": [
+          0,
+          200000
+        ],
+        "camadas": [
+          [
+            0,
+            1.225,
+            15
+          ],
+          [
+            11000,
+            0.36391,
+            -56.5
+          ],
+          [
+            20000,
+            0.08891,
+            -56.5
+          ],
+          [
+            32000,
+            0.01322,
+            -44.5
+          ],
+          [
+            47000,
+            0.001427,
+            -2.5
+          ],
+          [
+            51000,
+            0.0008616,
+            -2.5
+          ],
+          [
+            71000,
+            0.00006421,
+            -58.5
+          ],
+          [
+            86000,
+            0.000006958,
+            -86.2
+          ],
+          [
+            100000,
+            5.604e-7,
+            -78.15
+          ],
+          [
+            120000,
+            2.222e-8,
+            86.85
+          ],
+          [
+            150000,
+            2.076e-9,
+            360.85
+          ],
+          [
+            200000,
+            2.541e-10,
+            581.45
+          ]
+        ],
+        "interpolacao": "log-rho/linear-T; C0; geometria aproximada",
+        "cauda": "acima de 200 km: H=50000 m e T constante; fora do domínio",
+        "fonte": "https://ntrs.nasa.gov/citations/19770009539",
+        "limites": "Âncoras arredondadas; sem atividade solar, composição variável ou rotação terrestre."
+      }
+    },
+    "modeloOrbitador": {
+      "revisao": "RE-002-r4",
+      "areaReferenciaM2": 250,
+      "comprimentoM": 40,
+      "alturaM": 8,
+      "raioNarizM": 2,
+      "areaAquecidaM2": 80,
+      "massaCorpoKg": 78900,
+      "massaFlapKg": 500,
+      "massaBateriaKg": 100,
+      "resistenciaCorpoJ": 100000000,
+      "resistenciaFlapJ": 1000000,
+      "resistenciaFixadorN": 100000000,
+      "areaFlapM2": 16,
+      "clFlapPorRad": 1.2,
+      "cdFlapBase": 0.06,
+      "cdFlapDeflexao": 0.4,
+      "cursoFlapRad": 0.5235987755982988,
+      "taxaFlapRadps": 0.3490658503988659,
+      "bracoFlapM": 16,
+      "potenciaFlapW": 300,
+      "potenciaRepousoFlapW": 6,
+      "tensaoBateriaV": 28,
+      "energiaBateriaJ": 20000000,
+      "ganhoAlpha": 0.008,
+      "ganhoTaxa": 0.18,
+      "torqueMinimoAutoridadeNm": 100,
+      "taxaRolagemRadps": 0.17453292519943295,
+      "coeficienteSuttonGravesSI": 0.00017415,
+      "larguraM": 16,
+      "clCorpo": 0.9,
+      "fatorMachBase": 0.85,
+      "fatorMachVariacao": 0.15,
+      "cdCorpoBase": 0.12,
+      "cdCorpoAlpha": 1.6,
+      "cdMachGauss": 0.08,
+      "cpBaseM": -0.15,
+      "cpVariacaoM": -0.35,
+      "deslocamentoVerticalFlapM": -5,
+      "raioNarizFlapM": 0.5,
+      "areaAquecidaFlapM2": 2,
+      "calorEspecificoCorpoJPorKgC": 800,
+      "calorEspecificoFlapJPorKgC": 500,
+      "comprimentoCaracteristicoCorpoM": 8,
+      "comprimentoCaracteristicoFlapM": 2,
+      "cursoRolagemRad": 1.5707963267948966,
+      "conveccaoCorpoWPorM2C": 10,
+      "condutanciaFlapWPorC": 100,
+      "fracaoCargaInicialBateria": 1
+    },
+    "hipoteses": "ADM XY, Terra e ar estáticos; coeficientes analíticos preliminares; sem RCS/propulsão; rolagem prescrita; lateral omitida; calor concentrado sem TPS separado."
+  },
+  "passoS": 0.004166666666666667,
+  "intervaloAmostraPassos": 240,
+  "passosExecutados": 508,
+  "inicial": {
+    "id": "RE-001",
+    "tempoS": 0,
+    "passo": 0,
+    "execucao": "preparada",
+    "estado": {
+      "posicaoM": {
+        "x": 0,
+        "y": 120000,
+        "z": 0
+      },
+      "velocidadeMps": {
+        "x": 7698.827252704212,
+        "y": -134.383529567083,
+        "z": 0
+      },
+      "orientacaoRad": {
+        "x": 0,
+        "y": 0,
+        "z": 0.6806784082777885
+      },
+      "velocidadeAngularRadps": {
+        "x": 0,
+        "y": 0,
+        "z": -0.00118607722272442
+      }
+    },
+    "extremos": {
+      "globais": {
+        "cargaG": {
+          "minimo": {
+            "valor": 0.0002480691423367663,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 0.0002480691423367663,
+            "passo": 0,
+            "tempoS": 0
+          }
+        },
+        "erroAlphaRad": {
+          "minimo": {
+            "valor": 0,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 0,
+            "passo": 0,
+            "tempoS": 0
+          }
+        },
+        "energiaTermicaCorpoJ": {
+          "minimo": {
+            "valor": 0,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 0,
+            "passo": 0,
+            "tempoS": 0
+          }
+        },
+        "energiaTermicaFlap1J": {
+          "minimo": {
+            "valor": 0,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 0,
+            "passo": 0,
+            "tempoS": 0
+          }
+        },
+        "energiaTermicaFlap2J": {
+          "minimo": {
+            "valor": 0,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 0,
+            "passo": 0,
+            "tempoS": 0
+          }
+        },
+        "altitudeM": {
+          "minimo": {
+            "valor": 120000,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 120000,
+            "passo": 0,
+            "tempoS": 0
+          }
+        },
+        "velocidadeMps": {
+          "minimo": {
+            "valor": 7700,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 7700,
+            "passo": 0,
+            "tempoS": 0
+          }
+        },
+        "omegaInercialRadps": {
+          "minimo": {
+            "valor": -0.00118607722272442,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": -0.00118607722272442,
+            "passo": 0,
+            "tempoS": 0
+          }
+        },
+        "alphaRad": {
+          "minimo": {
+            "valor": 0.6981317007977318,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 0.6981317007977318,
+            "passo": 0,
+            "tempoS": 0
+          }
+        },
+        "pressaoDinamicaPa": {
+          "minimo": {
+            "valor": 0.6587118999999987,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 0.6587118999999987,
+            "passo": 0,
+            "tempoS": 0
+          }
+        },
+        "fluxoTermicoIndicadorWm2": {
+          "minimo": {
+            "valor": 5072.081629999991,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 5072.081629999991,
+            "passo": 0,
+            "tempoS": 0
+          }
+        },
+        "temperaturaCorpoC": {
+          "minimo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          }
+        },
+        "temperaturaFlap1C": {
+          "minimo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          }
+        },
+        "temperaturaFlap2C": {
+          "minimo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          }
+        },
+        "integridadeCorpo": {
+          "minimo": {
+            "valor": 1,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 1,
+            "passo": 0,
+            "tempoS": 0
+          }
+        },
+        "integridadeFlap1": {
+          "minimo": {
+            "valor": 1,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 1,
+            "passo": 0,
+            "tempoS": 0
+          }
+        },
+        "integridadeFlap2": {
+          "minimo": {
+            "valor": 1,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 1,
+            "passo": 0,
+            "tempoS": 0
+          }
+        },
+        "energiaMecanicaEspecificaJPorKg": {
+          "minimo": {
+            "valor": -31763171.591434292,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": -31763171.591434292,
+            "passo": 0,
+            "tempoS": 0
+          }
+        },
+        "torqueAerodinamicoNm": {
+          "minimo": {
+            "valor": 0,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 0,
+            "passo": 0,
+            "tempoS": 0
+          }
+        },
+        "energiaBateriaJ": {
+          "minimo": {
+            "valor": 20000000,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 20000000,
+            "passo": 0,
+            "tempoS": 0
+          }
+        }
+      },
+      "intervaloAtual": {
+        "inicioPasso": 0,
+        "fimPasso": 0,
+        "extremos": {
+          "cargaG": {
+            "minimo": {
+              "valor": 0.0002480691423367663,
+              "passo": 0,
+              "tempoS": 0
+            },
+            "maximo": {
+              "valor": 0.0002480691423367663,
+              "passo": 0,
+              "tempoS": 0
+            }
+          },
+          "erroAlphaRad": {
+            "minimo": {
+              "valor": 0,
+              "passo": 0,
+              "tempoS": 0
+            },
+            "maximo": {
+              "valor": 0,
+              "passo": 0,
+              "tempoS": 0
+            }
+          },
+          "energiaTermicaCorpoJ": {
+            "minimo": {
+              "valor": 0,
+              "passo": 0,
+              "tempoS": 0
+            },
+            "maximo": {
+              "valor": 0,
+              "passo": 0,
+              "tempoS": 0
+            }
+          },
+          "energiaTermicaFlap1J": {
+            "minimo": {
+              "valor": 0,
+              "passo": 0,
+              "tempoS": 0
+            },
+            "maximo": {
+              "valor": 0,
+              "passo": 0,
+              "tempoS": 0
+            }
+          },
+          "energiaTermicaFlap2J": {
+            "minimo": {
+              "valor": 0,
+              "passo": 0,
+              "tempoS": 0
+            },
+            "maximo": {
+              "valor": 0,
+              "passo": 0,
+              "tempoS": 0
+            }
+          },
+          "altitudeM": {
+            "minimo": {
+              "valor": 120000,
+              "passo": 0,
+              "tempoS": 0
+            },
+            "maximo": {
+              "valor": 120000,
+              "passo": 0,
+              "tempoS": 0
+            }
+          },
+          "velocidadeMps": {
+            "minimo": {
+              "valor": 7700,
+              "passo": 0,
+              "tempoS": 0
+            },
+            "maximo": {
+              "valor": 7700,
+              "passo": 0,
+              "tempoS": 0
+            }
+          },
+          "omegaInercialRadps": {
+            "minimo": {
+              "valor": -0.00118607722272442,
+              "passo": 0,
+              "tempoS": 0
+            },
+            "maximo": {
+              "valor": -0.00118607722272442,
+              "passo": 0,
+              "tempoS": 0
+            }
+          },
+          "alphaRad": {
+            "minimo": {
+              "valor": 0.6981317007977318,
+              "passo": 0,
+              "tempoS": 0
+            },
+            "maximo": {
+              "valor": 0.6981317007977318,
+              "passo": 0,
+              "tempoS": 0
+            }
+          },
+          "pressaoDinamicaPa": {
+            "minimo": {
+              "valor": 0.6587118999999987,
+              "passo": 0,
+              "tempoS": 0
+            },
+            "maximo": {
+              "valor": 0.6587118999999987,
+              "passo": 0,
+              "tempoS": 0
+            }
+          },
+          "fluxoTermicoIndicadorWm2": {
+            "minimo": {
+              "valor": 5072.081629999991,
+              "passo": 0,
+              "tempoS": 0
+            },
+            "maximo": {
+              "valor": 5072.081629999991,
+              "passo": 0,
+              "tempoS": 0
+            }
+          },
+          "temperaturaCorpoC": {
+            "minimo": {
+              "valor": 20,
+              "passo": 0,
+              "tempoS": 0
+            },
+            "maximo": {
+              "valor": 20,
+              "passo": 0,
+              "tempoS": 0
+            }
+          },
+          "temperaturaFlap1C": {
+            "minimo": {
+              "valor": 20,
+              "passo": 0,
+              "tempoS": 0
+            },
+            "maximo": {
+              "valor": 20,
+              "passo": 0,
+              "tempoS": 0
+            }
+          },
+          "temperaturaFlap2C": {
+            "minimo": {
+              "valor": 20,
+              "passo": 0,
+              "tempoS": 0
+            },
+            "maximo": {
+              "valor": 20,
+              "passo": 0,
+              "tempoS": 0
+            }
+          },
+          "integridadeCorpo": {
+            "minimo": {
+              "valor": 1,
+              "passo": 0,
+              "tempoS": 0
+            },
+            "maximo": {
+              "valor": 1,
+              "passo": 0,
+              "tempoS": 0
+            }
+          },
+          "integridadeFlap1": {
+            "minimo": {
+              "valor": 1,
+              "passo": 0,
+              "tempoS": 0
+            },
+            "maximo": {
+              "valor": 1,
+              "passo": 0,
+              "tempoS": 0
+            }
+          },
+          "integridadeFlap2": {
+            "minimo": {
+              "valor": 1,
+              "passo": 0,
+              "tempoS": 0
+            },
+            "maximo": {
+              "valor": 1,
+              "passo": 0,
+              "tempoS": 0
+            }
+          },
+          "energiaMecanicaEspecificaJPorKg": {
+            "minimo": {
+              "valor": -31763171.591434292,
+              "passo": 0,
+              "tempoS": 0
+            },
+            "maximo": {
+              "valor": -31763171.591434292,
+              "passo": 0,
+              "tempoS": 0
+            }
+          },
+          "torqueAerodinamicoNm": {
+            "minimo": {
+              "valor": 0,
+              "passo": 0,
+              "tempoS": 0
+            },
+            "maximo": {
+              "valor": 0,
+              "passo": 0,
+              "tempoS": 0
+            }
+          },
+          "energiaBateriaJ": {
+            "minimo": {
+              "valor": 20000000,
+              "passo": 0,
+              "tempoS": 0
+            },
+            "maximo": {
+              "valor": 20000000,
+              "passo": 0,
+              "tempoS": 0
+            }
+          }
+        }
+      },
+      "ultimoIntervalo": null
+    },
+    "eventosDescartados": 0,
+    "altitudeM": 120000,
+    "arcoM": 0,
+    "velocidadeMps": 7700,
+    "trajetoriaRad": -0.01745329251994329,
+    "velocidadeRadialMps": -134.38352956708297,
+    "velocidadeTangencialMps": 7698.827252704211,
+    "energiaMecanicaEspecificaJPorKg": -31763171.591434292,
+    "atitudeInercialRad": 0.6806784082777885,
+    "atitudeLocalRad": 0.6806784082777885,
+    "aerodinamica": {
+      "velocidadeRelativaMps": 7700,
+      "anguloAtaqueRad": 0.6981317007977318,
+      "mach": 20.243915239427142,
+      "pressaoDinamicaPa": 0.6587118999999987,
+      "cl": 0.8800687599974321,
+      "cd": 0.7810814578664557,
+      "sustentacaoN": 144.92794125713783,
+      "sustentacaoXYN": 144.92794125713783,
+      "sustentacaoLateralOmitidaN": 0,
+      "arrastoN": 128.62691279149547,
+      "forcaSustentacaoN": {
+        "x": 2.5293413349383185,
+        "y": 144.90586802971012,
+        "z": 0
+      },
+      "forcaArrastoN": {
+        "x": -128.60732228965887,
+        "y": 2.2448491608101997,
+        "z": 0
+      },
+      "centroPressaoLocalM": -0.2946115689082871,
+      "fluxoTermicoIndicadorWm2": 5072.081629999991,
+      "knudsen": 0.45482673267326823,
+      "regime": "transicao",
+      "foraDominioAtmosferico": false,
+      "modeloEscoamentoEfetivo": "polar-continua-analitica-extrapolada",
+      "modeloContinuoAplicavel": false
+    },
+    "rolagem": {
+      "solicitadaRad": 0,
+      "atualRad": 0,
+      "taxaMaximaRadps": 0.17453292519943295,
+      "limiteRad": 1.5707963267948966,
+      "disponivel": true
+    },
+    "controle": {
+      "estado": "automatico",
+      "alphaSolicitadoRad": 0.6981317007977318,
+      "alphaGerenciadoRad": 0.6981317007977318,
+      "phiSolicitadoRad": 0,
+      "torqueSolicitadoNm": 0,
+      "torqueComandadoNm": 0,
+      "corredor": null
+    },
+    "historicoRolagem": [
+      {
+        "tempoS": 0,
+        "anguloRad": 0
+      }
+    ],
+    "supervisor": {
+      "fase": "reentrada",
+      "automatico": false,
+      "candidatoCinematico": false,
+      "autorizado": false,
+      "requisitos": [
+        {
+          "descricao": "Sensores e finitude",
+          "atendido": true,
+          "atual": true,
+          "esperado": "leituras válidas SI"
+        },
+        {
+          "descricao": "Alvo definido à frente",
+          "atendido": false,
+          "atual": null,
+          "esperado": "arco restante > 0 m"
+        },
+        {
+          "descricao": "Altitude e descida",
+          "atendido": true,
+          "atual": 120000,
+          "esperado": "acima da superfície, descendente e progredindo ao alvo"
+        },
+        {
+          "descricao": "Integridade do corpo",
+          "atendido": true,
+          "atual": 1,
+          "esperado": "> 0; não é margem qualificada"
+        },
+        {
+          "descricao": "Flaps conectados e íntegros",
+          "atendido": true,
+          "atual": 1,
+          "esperado": "> 0"
+        },
+        {
+          "descricao": "Condição térmica",
+          "atendido": true,
+          "atual": true,
+          "esperado": "abaixo dos limiares provisórios"
+        },
+        {
+          "descricao": "Alimentação",
+          "atendido": true,
+          "atual": true,
+          "esperado": "disponível aos flaps"
+        },
+        {
+          "descricao": "Autoridade aerodinâmica",
+          "atendido": true,
+          "atual": true,
+          "esperado": "autoridade remanescente acima do limiar experimental"
+        },
+        {
+          "descricao": "Corredor",
+          "atendido": true,
+          "atual": true,
+          "esperado": "q, indicador térmico e carga nos limites configurados"
+        },
+        {
+          "descricao": "Erro de alpha",
+          "atendido": true,
+          "atual": 0,
+          "esperado": "|erro| ≤ 0.17453292519943295 rad (provisório)"
+        },
+        {
+          "descricao": "Rotação",
+          "atendido": true,
+          "atual": -0.00118607722272442,
+          "esperado": "|ω| ≤ 0.02 rad/s (provisório)"
+        },
+        {
+          "descricao": "Frenagem hipotética",
+          "atendido": false,
+          "atual": false,
+          "esperado": "ao menos uma hipótese satisfaz limites necessários; trajetória ainda não demonstrada"
+        },
+        {
+          "descricao": "Propulsão operacional",
+          "atendido": false,
+          "atual": false,
+          "esperado": "motores reais, reserva, permissivos e capacidade de partida verificados"
+        },
+        {
+          "descricao": "Integração com aproximação",
+          "atendido": false,
+          "atual": false,
+          "esperado": "controle/planejamento físico compatível, além deste protótipo sem atuação"
+        }
+      ],
+      "limites": {
+        "alvoArcoM": null,
+        "aceleracoesLiquidasHipoteticasMps2": [
+          1,
+          2,
+          5
+        ],
+        "erroAlphaMaxRad": 0.17453292519943295,
+        "omegaMaxRadps": 0.02
+      },
+      "avaliacao": {
+        "candidatoCinematico": false,
+        "autorizado": false,
+        "distanciaRestanteM": null,
+        "energiaMecanicaEspecificaJPorKg": -31763171.591434292,
+        "natureza": "limites-necessarios-ideais-nao-trajetoria-certificada",
+        "hipoteses": [
+          {
+            "aceleracaoLiquidaMps2": 1,
+            "distanciaFrenagemM": 29644999.999999993,
+            "quedaFrenagemRadialM": 9029.466509453532,
+            "tempoFrenagemS": 7699.999999999999,
+            "velocidadeLimiteNecessariaMps": null,
+            "desvioVelocidadeMps": null,
+            "limitesNecessariosAtendidos": false
+          },
+          {
+            "aceleracaoLiquidaMps2": 2,
+            "distanciaFrenagemM": 14822499.999999996,
+            "quedaFrenagemRadialM": 4514.733254726766,
+            "tempoFrenagemS": 3849.9999999999995,
+            "velocidadeLimiteNecessariaMps": null,
+            "desvioVelocidadeMps": null,
+            "limitesNecessariosAtendidos": false
+          },
+          {
+            "aceleracaoLiquidaMps2": 5,
+            "distanciaFrenagemM": 5928999.999999998,
+            "quedaFrenagemRadialM": 1805.8933018907064,
+            "tempoFrenagemS": 1539.9999999999998,
+            "velocidadeLimiteNecessariaMps": null,
+            "desvioVelocidadeMps": null,
+            "limitesNecessariosAtendidos": false
+          }
+        ],
+        "requisitos": [
+          {
+            "descricao": "Sensores e finitude",
+            "atendido": true,
+            "atual": true,
+            "esperado": "leituras válidas SI"
+          },
+          {
+            "descricao": "Alvo definido à frente",
+            "atendido": false,
+            "atual": null,
+            "esperado": "arco restante > 0 m"
+          },
+          {
+            "descricao": "Altitude e descida",
+            "atendido": true,
+            "atual": 120000,
+            "esperado": "acima da superfície, descendente e progredindo ao alvo"
+          },
+          {
+            "descricao": "Integridade do corpo",
+            "atendido": true,
+            "atual": 1,
+            "esperado": "> 0; não é margem qualificada"
+          },
+          {
+            "descricao": "Flaps conectados e íntegros",
+            "atendido": true,
+            "atual": 1,
+            "esperado": "> 0"
+          },
+          {
+            "descricao": "Condição térmica",
+            "atendido": true,
+            "atual": true,
+            "esperado": "abaixo dos limiares provisórios"
+          },
+          {
+            "descricao": "Alimentação",
+            "atendido": true,
+            "atual": true,
+            "esperado": "disponível aos flaps"
+          },
+          {
+            "descricao": "Autoridade aerodinâmica",
+            "atendido": true,
+            "atual": true,
+            "esperado": "autoridade remanescente acima do limiar experimental"
+          },
+          {
+            "descricao": "Corredor",
+            "atendido": true,
+            "atual": true,
+            "esperado": "q, indicador térmico e carga nos limites configurados"
+          },
+          {
+            "descricao": "Erro de alpha",
+            "atendido": true,
+            "atual": 0,
+            "esperado": "|erro| ≤ 0.17453292519943295 rad (provisório)"
+          },
+          {
+            "descricao": "Rotação",
+            "atendido": true,
+            "atual": -0.00118607722272442,
+            "esperado": "|ω| ≤ 0.02 rad/s (provisório)"
+          },
+          {
+            "descricao": "Frenagem hipotética",
+            "atendido": false,
+            "atual": false,
+            "esperado": "ao menos uma hipótese satisfaz limites necessários; trajetória ainda não demonstrada"
+          },
+          {
+            "descricao": "Propulsão operacional",
+            "atendido": false,
+            "atual": false,
+            "esperado": "motores reais, reserva, permissivos e capacidade de partida verificados"
+          },
+          {
+            "descricao": "Integração com aproximação",
+            "atendido": false,
+            "atual": false,
+            "esperado": "controle/planejamento físico compatível, além deste protótipo sem atuação"
+          }
+        ]
+      }
+    },
+    "arbitragem": [],
+    "massaKg": 80000,
+    "inerciaKgM2": 11223158.333333371,
+    "centroM": {
+      "x": 0.039332524440614844,
+      "y": 119999.9514283774,
+      "z": 0
+    },
+    "forcaAerodinamicaN": {
+      "x": -127.34363033361606,
+      "y": 147.17280980610002,
+      "z": 0
+    },
+    "torqueAerodinamicoNm": -61.5361800064253,
+    "aceleracaoMps2": {
+      "x": -0.001591795379170201,
+      "y": -9.45867052188856,
+      "z": 0
+    },
+    "rotacao": {
+      "massaKg": 80000,
+      "centroM": {
+        "x": 0.039332524440614844,
+        "y": 119999.9514283774,
+        "z": 0
+      },
+      "velocidadeCentroMps": {
+        "x": 7698.827195094516,
+        "y": -134.38357621849434,
+        "z": 0
+      },
+      "inerciaKgM2": 11223158.33333337,
+      "momentoIntrinsecoKgM2ps": -13311.532466200437,
+      "momentoOrbitalKgM2ps": -3997846956375969.5,
+      "momentoTotalKgM2ps": -3997846956389281,
+      "omegaInercialRadps": -0.001186077222724773,
+      "torqueGravitacionalNm": 0.4946509637067322,
+      "impulsoTorqueNmS": 0,
+      "residuoPassoKgM2ps": 0,
+      "residuoAcumuladoKgM2ps": 0,
+      "residuoMaximoPassoKgM2ps": 0,
+      "passosIncompletos": 0,
+      "cargasEfetivamenteIntegradas": null,
+      "torqueAerodinamicoNm": -61.5361800064253,
+      "torqueOutrosContinuosNm": 0,
+      "fontesImpulsivas": false
+    },
+    "cargaG": 0.0002480691423367663,
+    "desaceleracaoMps2": 0.0016236594371895827,
+    "temperaturaC": 20,
+    "integridade": 1,
+    "limiteOrbitadorC": 1100,
+    "limiteFlapsC": 900,
+    "energiaAbsorvidaJ": 0,
+    "energiaDissipadaJ": 0,
+    "energiaAtmosferaJ": 0,
+    "respostaTermica": {
+      "energiaAbsorvidaCorpoJ": 0,
+      "modelo": "concentrado-min-indicador-DV-experimental",
+      "tetoUniversal": false,
+      "potenciaIndicadorCorpoW": 405766.53039999923,
+      "potenciaTransferidaCorpoW": 405766.53039999923,
+      "tpsInstalado": false,
+      "camadasInternasModeladas": false
+    },
+    "estadosTerminais": {
+      "corpoDestruido": false,
+      "controlePerdido": false,
+      "contato": false,
+      "impactoDestrutivo": false
+    },
+    "dissipacaoW": 1000174.2075370651,
+    "calorTransferidoW": 415513.5094425494,
+    "potenciaAtmosferaW": 584660.6980945158,
+    "energiaBateriaJ": 20000000,
+    "temperaturaBateriaC": 20,
+    "integridadeBateria": 1,
+    "limiteBateriaC": 60,
+    "flaps": [
+      {
+        "id": "flap-dianteiro",
+        "estado": {
+          "posicaoM": {
+            "x": 15.580937338560721,
+            "y": 120006.18339644952,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": 7698.8345866899,
+            "y": -134.40200976196897,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 0.6806784082777885
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": -0.00118607722272442
+          }
+        },
+        "comandoRad": 0,
+        "deflexaoRad": 0,
+        "integridade": 1,
+        "temperaturaC": 20,
+        "energiaAbsorvidaJ": 0,
+        "conectado": true,
+        "fluxoTermicoIndicadorWm2": 5069.619121181498,
+        "energizado": true,
+        "atuacao": {
+          "taxaEfetivaRadps": 0,
+          "cursoRad": 0.5235987755982988,
+          "taxaMaximaRadps": 0.3490658503988659,
+          "modeloMecanico": "taxa-prescrita-eletrica",
+          "torqueDisponivelNm": null,
+          "torqueCargaNm": null,
+          "bloqueio": "nenhum"
+        },
+        "knudsenEstimado": 1.820196066938978,
+        "modeloEscoamento": "polar-continua-extrapolada"
+      },
+      {
+        "id": "flap-traseiro",
+        "estado": {
+          "posicaoM": {
+            "x": -9.287733428062348,
+            "y": 119986.04514393592,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": 7698.810701167287,
+            "y": -134.37251359801323,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 0.6806784082777885
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": -0.00118607722272442
+          }
+        },
+        "comandoRad": 0,
+        "deflexaoRad": 0,
+        "integridade": 1,
+        "temperaturaC": 20,
+        "energiaAbsorvidaJ": 0,
+        "conectado": true,
+        "fluxoTermicoIndicadorWm2": 5083.4840481415395,
+        "energizado": true,
+        "atuacao": {
+          "taxaEfetivaRadps": 0,
+          "cursoRad": 0.5235987755982988,
+          "taxaMaximaRadps": 0.3490658503988659,
+          "modeloMecanico": "taxa-prescrita-eletrica",
+          "torqueDisponivelNm": null,
+          "torqueCargaNm": null,
+          "bloqueio": "nenhum"
+        },
+        "knudsenEstimado": 1.8152143268467398,
+        "modeloEscoamento": "polar-continua-extrapolada"
+      }
+    ],
+    "vinculos": [
+      {
+        "id": "fixador-flap-dianteiro",
+        "estado": "integro",
+        "tracaoAtualN": 0,
+        "picoTracaoN": 0,
+        "resistenciaTracaoN": 100000000,
+        "cisalhamentoFlexaoTorcaoModelados": false
+      },
+      {
+        "id": "fixador-flap-traseiro",
+        "estado": "integro",
+        "tracaoAtualN": 0,
+        "picoTracaoN": 0,
+        "resistenciaTracaoN": 100000000,
+        "cisalhamentoFlexaoTorcaoModelados": false
+      },
+      {
+        "id": "fixador-bateria-interna-re",
+        "estado": "integro",
+        "tracaoAtualN": 0,
+        "picoTracaoN": 0,
+        "resistenciaTracaoN": 100000000,
+        "cisalhamentoFlexaoTorcaoModelados": false
+      }
+    ],
+    "raioTerraM": 6371000,
+    "centroTerraM": {
+      "x": 0,
+      "y": -6371000,
+      "z": 0
+    },
+    "propulsaoDisponivel": false,
+    "rcsDisponivel": false
+  },
+  "final": {
+    "id": "RE-001",
+    "tempoS": 2.1166666666666667,
+    "passo": 508,
+    "execucao": "pausada",
+    "estado": {
+      "posicaoM": {
+        "x": 16295.829657099217,
+        "y": 119694.3655553002,
+        "z": 0
+      },
+      "velocidadeMps": {
+        "x": 7698.798670188629,
+        "y": -154.405220608994,
+        "z": 0
+      },
+      "orientacaoRad": {
+        "x": 0,
+        "y": 0,
+        "z": 0.6781552857341141
+      },
+      "velocidadeAngularRadps": {
+        "x": 0,
+        "y": 0,
+        "z": -0.0011978499830288458
+      }
+    },
+    "extremos": {
+      "globais": {
+        "cargaG": {
+          "minimo": {
+            "valor": 0.0002480691423367663,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 0.00025223964456516537,
+            "passo": 340,
+            "tempoS": 1.416666666666663
+          }
+        },
+        "erroAlphaRad": {
+          "minimo": {
+            "valor": 0,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 0.00007665164325632023,
+            "passo": 508,
+            "tempoS": 2.1166666666666667
+          }
+        },
+        "energiaTermicaCorpoJ": {
+          "minimo": {
+            "valor": 0,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 878945.631999121,
+            "passo": 508,
+            "tempoS": 2.1166666666666667
+          }
+        },
+        "energiaTermicaFlap1J": {
+          "minimo": {
+            "valor": 0,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 10541.116219030568,
+            "passo": 508,
+            "tempoS": 2.1166666666666667
+          }
+        },
+        "energiaTermicaFlap2J": {
+          "minimo": {
+            "valor": 0,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 10575.26663820246,
+            "passo": 508,
+            "tempoS": 2.1166666666666667
+          }
+        },
+        "altitudeM": {
+          "minimo": {
+            "valor": 119714.82204506733,
+            "passo": 508,
+            "tempoS": 2.1166666666666667
+          },
+          "maximo": {
+            "valor": 120000,
+            "passo": 0,
+            "tempoS": 0
+          }
+        },
+        "velocidadeMps": {
+          "minimo": {
+            "valor": 7700,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 7700.346871164281,
+            "passo": 508,
+            "tempoS": 2.1166666666666667
+          }
+        },
+        "omegaInercialRadps": {
+          "minimo": {
+            "valor": -0.0011978499830288458,
+            "passo": 508,
+            "tempoS": 2.1166666666666667
+          },
+          "maximo": {
+            "valor": -0.00118607722272442,
+            "passo": 0,
+            "tempoS": 0
+          }
+        },
+        "alphaRad": {
+          "minimo": {
+            "valor": 0.6981317007977318,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 0.6982083524409881,
+            "passo": 508,
+            "tempoS": 2.1166666666666667
+          }
+        },
+        "pressaoDinamicaPa": {
+          "minimo": {
+            "valor": 0.6587118999999987,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 0.6897982762330349,
+            "passo": 508,
+            "tempoS": 2.1166666666666667
+          }
+        },
+        "fluxoTermicoIndicadorWm2": {
+          "minimo": {
+            "valor": 5072.081629999991,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 5311.685998125565,
+            "passo": 508,
+            "tempoS": 2.1166666666666667
+          }
+        },
+        "temperaturaCorpoC": {
+          "minimo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 20.013924994169866,
+            "passo": 508,
+            "tempoS": 2.1166666666666667
+          }
+        },
+        "temperaturaFlap1C": {
+          "minimo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 20.04216446487609,
+            "passo": 508,
+            "tempoS": 2.1166666666666667
+          }
+        },
+        "temperaturaFlap2C": {
+          "minimo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 20.042301066552824,
+            "passo": 508,
+            "tempoS": 2.1166666666666667
+          }
+        },
+        "integridadeCorpo": {
+          "minimo": {
+            "valor": 1,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 1,
+            "passo": 0,
+            "tempoS": 0
+          }
+        },
+        "integridadeFlap1": {
+          "minimo": {
+            "valor": 1,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 1,
+            "passo": 0,
+            "tempoS": 0
+          }
+        },
+        "integridadeFlap2": {
+          "minimo": {
+            "valor": 1,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 1,
+            "passo": 0,
+            "tempoS": 0
+          }
+        },
+        "energiaMecanicaEspecificaJPorKg": {
+          "minimo": {
+            "valor": -31763198.67079285,
+            "passo": 508,
+            "tempoS": 2.1166666666666667
+          },
+          "maximo": {
+            "valor": -31763171.591434292,
+            "passo": 0,
+            "tempoS": 0
+          }
+        },
+        "torqueAerodinamicoNm": {
+          "minimo": {
+            "valor": -74.39878189101988,
+            "passo": 28,
+            "tempoS": 0.11666666666666665
+          },
+          "maximo": {
+            "valor": 0,
+            "passo": 0,
+            "tempoS": 0
+          }
+        },
+        "energiaBateriaJ": {
+          "minimo": {
+            "valor": 19999846.6000008,
+            "passo": 268,
+            "tempoS": 1.116666666666664
+          },
+          "maximo": {
+            "valor": 20000000,
+            "passo": 0,
+            "tempoS": 0
+          }
+        }
+      },
+      "intervaloAtual": {
+        "inicioPasso": 481,
+        "fimPasso": 508,
+        "extremos": {
+          "cargaG": {
+            "minimo": {
+              "valor": 0.0002512336836193895,
+              "passo": 508,
+              "tempoS": 2.1166666666666667
+            },
+            "maximo": {
+              "valor": 0.00025152999018602466,
+              "passo": 481,
+              "tempoS": 2.004166666666661
+            }
+          },
+          "erroAlphaRad": {
+            "minimo": {
+              "valor": 0.00007319621660661912,
+              "passo": 481,
+              "tempoS": 2.004166666666661
+            },
+            "maximo": {
+              "valor": 0.00007665164325632023,
+              "passo": 508,
+              "tempoS": 2.1166666666666667
+            }
+          },
+          "energiaTermicaCorpoJ": {
+            "minimo": {
+              "valor": 831201.3692424181,
+              "passo": 481,
+              "tempoS": 2.004166666666661
+            },
+            "maximo": {
+              "valor": 878945.631999121,
+              "passo": 508,
+              "tempoS": 2.1166666666666667
+            }
+          },
+          "energiaTermicaFlap1J": {
+            "minimo": {
+              "valor": 9968.754766476592,
+              "passo": 481,
+              "tempoS": 2.004166666666661
+            },
+            "maximo": {
+              "valor": 10541.116219030568,
+              "passo": 508,
+              "tempoS": 2.1166666666666667
+            }
+          },
+          "energiaTermicaFlap2J": {
+            "minimo": {
+              "valor": 10001.047539469806,
+              "passo": 481,
+              "tempoS": 2.004166666666661
+            },
+            "maximo": {
+              "valor": 10575.26663820246,
+              "passo": 508,
+              "tempoS": 2.1166666666666667
+            }
+          },
+          "altitudeM": {
+            "minimo": {
+              "valor": 119714.82204506733,
+              "passo": 508,
+              "tempoS": 2.1166666666666667
+            },
+            "maximo": {
+              "valor": 119730.016008229,
+              "passo": 481,
+              "tempoS": 2.004166666666661
+            }
+          },
+          "velocidadeMps": {
+            "minimo": {
+              "valor": 7700.328393547704,
+              "passo": 481,
+              "tempoS": 2.004166666666661
+            },
+            "maximo": {
+              "valor": 7700.346871164281,
+              "passo": 508,
+              "tempoS": 2.1166666666666667
+            }
+          },
+          "omegaInercialRadps": {
+            "minimo": {
+              "valor": -0.0011978499830288458,
+              "passo": 508,
+              "tempoS": 2.1166666666666667
+            },
+            "maximo": {
+              "valor": -0.0011972327669360744,
+              "passo": 481,
+              "tempoS": 2.004166666666661
+            }
+          },
+          "alphaRad": {
+            "minimo": {
+              "valor": 0.6982048970143384,
+              "passo": 481,
+              "tempoS": 2.004166666666661
+            },
+            "maximo": {
+              "valor": 0.6982083524409881,
+              "passo": 508,
+              "tempoS": 2.1166666666666667
+            }
+          },
+          "pressaoDinamicaPa": {
+            "minimo": {
+              "valor": 0.6881056289031855,
+              "passo": 481,
+              "tempoS": 2.004166666666661
+            },
+            "maximo": {
+              "valor": 0.6897982762330349,
+              "passo": 508,
+              "tempoS": 2.1166666666666667
+            }
+          },
+          "fluxoTermicoIndicadorWm2": {
+            "minimo": {
+              "valor": 5298.639312003198,
+              "passo": 481,
+              "tempoS": 2.004166666666661
+            },
+            "maximo": {
+              "valor": 5311.685998125565,
+              "passo": 508,
+              "tempoS": 2.1166666666666667
+            }
+          },
+          "temperaturaCorpoC": {
+            "minimo": {
+              "valor": 20.01316858950008,
+              "passo": 481,
+              "tempoS": 2.004166666666661
+            },
+            "maximo": {
+              "valor": 20.013924994169866,
+              "passo": 508,
+              "tempoS": 2.1166666666666667
+            }
+          },
+          "temperaturaFlap1C": {
+            "minimo": {
+              "valor": 20.03987501906587,
+              "passo": 481,
+              "tempoS": 2.004166666666661
+            },
+            "maximo": {
+              "valor": 20.04216446487609,
+              "passo": 508,
+              "tempoS": 2.1166666666666667
+            }
+          },
+          "temperaturaFlap2C": {
+            "minimo": {
+              "valor": 20.040004190157884,
+              "passo": 481,
+              "tempoS": 2.004166666666661
+            },
+            "maximo": {
+              "valor": 20.042301066552824,
+              "passo": 508,
+              "tempoS": 2.1166666666666667
+            }
+          },
+          "integridadeCorpo": {
+            "minimo": {
+              "valor": 1,
+              "passo": 481,
+              "tempoS": 2.004166666666661
+            },
+            "maximo": {
+              "valor": 1,
+              "passo": 481,
+              "tempoS": 2.004166666666661
+            }
+          },
+          "integridadeFlap1": {
+            "minimo": {
+              "valor": 1,
+              "passo": 481,
+              "tempoS": 2.004166666666661
+            },
+            "maximo": {
+              "valor": 1,
+              "passo": 481,
+              "tempoS": 2.004166666666661
+            }
+          },
+          "integridadeFlap2": {
+            "minimo": {
+              "valor": 1,
+              "passo": 481,
+              "tempoS": 2.004166666666661
+            },
+            "maximo": {
+              "valor": 1,
+              "passo": 481,
+              "tempoS": 2.004166666666661
+            }
+          },
+          "energiaMecanicaEspecificaJPorKg": {
+            "minimo": {
+              "valor": -31763198.67079285,
+              "passo": 508,
+              "tempoS": 2.1166666666666667
+            },
+            "maximo": {
+              "valor": -31763197.199741136,
+              "passo": 481,
+              "tempoS": 2.004166666666661
+            }
+          },
+          "torqueAerodinamicoNm": {
+            "minimo": {
+              "valor": -62.12496894323458,
+              "passo": 481,
+              "tempoS": 2.004166666666661
+            },
+            "maximo": {
+              "valor": -62.014647397887636,
+              "passo": 508,
+              "tempoS": 2.1166666666666667
+            }
+          },
+          "energiaBateriaJ": {
+            "minimo": {
+              "valor": 19999846.6000008,
+              "passo": 481,
+              "tempoS": 2.004166666666661
+            },
+            "maximo": {
+              "valor": 19999846.6000008,
+              "passo": 481,
+              "tempoS": 2.004166666666661
+            }
+          }
+        }
+      },
+      "ultimoIntervalo": {
+        "inicioPasso": 241,
+        "fimPasso": 480,
+        "extremos": {
+          "cargaG": {
+            "minimo": {
+              "valor": 0.0002515399884907466,
+              "passo": 480,
+              "tempoS": 1.9999999999999942
+            },
+            "maximo": {
+              "valor": 0.00025223964456516537,
+              "passo": 340,
+              "tempoS": 1.416666666666663
+            }
+          },
+          "erroAlphaRad": {
+            "minimo": {
+              "valor": 0.000039435056514713906,
+              "passo": 241,
+              "tempoS": 1.0041666666666644
+            },
+            "maximo": {
+              "valor": 0.00007306691201114379,
+              "passo": 480,
+              "tempoS": 1.9999999999999942
+            }
+          },
+          "energiaTermicaCorpoJ": {
+            "minimo": {
+              "valor": 411924.5386882008,
+              "passo": 241,
+              "tempoS": 1.0041666666666644
+            },
+            "maximo": {
+              "valor": 829435.3169806064,
+              "passo": 480,
+              "tempoS": 1.9999999999999942
+            }
+          },
+          "energiaTermicaFlap1J": {
+            "minimo": {
+              "valor": 4942.435856604476,
+              "passo": 241,
+              "tempoS": 1.0041666666666644
+            },
+            "maximo": {
+              "valor": 9947.58321251387,
+              "passo": 480,
+              "tempoS": 1.9999999999999942
+            }
+          },
+          "energiaTermicaFlap2J": {
+            "minimo": {
+              "valor": 4958.41506821751,
+              "passo": 241,
+              "tempoS": 1.0041666666666644
+            },
+            "maximo": {
+              "valor": 9979.807271376365,
+              "passo": 480,
+              "tempoS": 1.9999999999999942
+            }
+          },
+          "altitudeM": {
+            "minimo": {
+              "valor": 119730.5786681408,
+              "passo": 480,
+              "tempoS": 1.9999999999999942
+            },
+            "maximo": {
+              "valor": 119864.89157734439,
+              "passo": 241,
+              "tempoS": 1.0041666666666644
+            }
+          },
+          "velocidadeMps": {
+            "minimo": {
+              "valor": 7700.164352891774,
+              "passo": 241,
+              "tempoS": 1.0041666666666644
+            },
+            "maximo": {
+              "valor": 7700.32770928095,
+              "passo": 480,
+              "tempoS": 1.9999999999999942
+            }
+          },
+          "omegaInercialRadps": {
+            "minimo": {
+              "valor": -0.0011972098863235797,
+              "passo": 480,
+              "tempoS": 1.9999999999999942
+            },
+            "maximo": {
+              "valor": -0.0011917190226527045,
+              "passo": 241,
+              "tempoS": 1.0041666666666644
+            }
+          },
+          "alphaRad": {
+            "minimo": {
+              "valor": 0.6981711358542465,
+              "passo": 241,
+              "tempoS": 1.0041666666666644
+            },
+            "maximo": {
+              "valor": 0.6982047677097429,
+              "passo": 480,
+              "tempoS": 1.9999999999999942
+            }
+          },
+          "pressaoDinamicaPa": {
+            "minimo": {
+              "valor": 0.6732610464758633,
+              "passo": 241,
+              "tempoS": 1.0041666666666644
+            },
+            "maximo": {
+              "valor": 0.6880430269284981,
+              "passo": 480,
+              "tempoS": 1.9999999999999942
+            }
+          },
+          "fluxoTermicoIndicadorWm2": {
+            "minimo": {
+              "valor": 5184.220710264053,
+              "passo": 241,
+              "tempoS": 1.0041666666666644
+            },
+            "maximo": {
+              "valor": 5298.156785435053,
+              "passo": 480,
+              "tempoS": 1.9999999999999942
+            }
+          },
+          "temperaturaCorpoC": {
+            "minimo": {
+              "valor": 20.00652605416175,
+              "passo": 241,
+              "tempoS": 1.0041666666666644
+            },
+            "maximo": {
+              "valor": 20.013140610218365,
+              "passo": 480,
+              "tempoS": 1.9999999999999942
+            }
+          },
+          "temperaturaFlap1C": {
+            "minimo": {
+              "valor": 20.01976974342641,
+              "passo": 241,
+              "tempoS": 1.0041666666666644
+            },
+            "maximo": {
+              "valor": 20.03979033285002,
+              "passo": 480,
+              "tempoS": 1.9999999999999942
+            }
+          },
+          "temperaturaFlap2C": {
+            "minimo": {
+              "valor": 20.019833660272873,
+              "passo": 241,
+              "tempoS": 1.0041666666666644
+            },
+            "maximo": {
+              "valor": 20.03991922908551,
+              "passo": 480,
+              "tempoS": 1.9999999999999942
+            }
+          },
+          "integridadeCorpo": {
+            "minimo": {
+              "valor": 1,
+              "passo": 241,
+              "tempoS": 1.0041666666666644
+            },
+            "maximo": {
+              "valor": 1,
+              "passo": 241,
+              "tempoS": 1.0041666666666644
+            }
+          },
+          "integridadeFlap1": {
+            "minimo": {
+              "valor": 1,
+              "passo": 241,
+              "tempoS": 1.0041666666666644
+            },
+            "maximo": {
+              "valor": 1,
+              "passo": 241,
+              "tempoS": 1.0041666666666644
+            }
+          },
+          "integridadeFlap2": {
+            "minimo": {
+              "valor": 1,
+              "passo": 241,
+              "tempoS": 1.0041666666666644
+            },
+            "maximo": {
+              "valor": 1,
+              "passo": 241,
+              "tempoS": 1.0041666666666644
+            }
+          },
+          "energiaMecanicaEspecificaJPorKg": {
+            "minimo": {
+              "valor": -31763197.145327415,
+              "passo": 480,
+              "tempoS": 1.9999999999999942
+            },
+            "maximo": {
+              "valor": -31763184.281875737,
+              "passo": 241,
+              "tempoS": 1.0041666666666644
+            }
+          },
+          "torqueAerodinamicoNm": {
+            "minimo": {
+              "valor": -62.46469686730308,
+              "passo": 302,
+              "tempoS": 1.2583333333333302
+            },
+            "maximo": {
+              "valor": -62.12875658627141,
+              "passo": 480,
+              "tempoS": 1.9999999999999942
+            }
+          },
+          "energiaBateriaJ": {
+            "minimo": {
+              "valor": 19999846.6000008,
+              "passo": 268,
+              "tempoS": 1.116666666666664
+            },
+            "maximo": {
+              "valor": 19999847.95000072,
+              "passo": 241,
+              "tempoS": 1.0041666666666644
+            }
+          }
+        }
+      }
+    },
+    "eventosDescartados": 0,
+    "altitudeM": 119714.82204506733,
+    "arcoM": 15995.285983281774,
+    "velocidadeMps": 7700.346871164281,
+    "trajetoriaRad": -0.01754242693552227,
+    "velocidadeRadialMps": -135.07584415011866,
+    "velocidadeTangencialMps": 7699.162061716629,
+    "energiaMecanicaEspecificaJPorKg": -31763198.67079285,
+    "atitudeInercialRad": 0.6781552857341141,
+    "atitudeLocalRad": 0.6806659255054658,
+    "aerodinamica": {
+      "velocidadeRelativaMps": 7700.346871164281,
+      "anguloAtaqueRad": 0.6982083524409881,
+      "mach": 20.31130651196122,
+      "pressaoDinamicaPa": 0.6897982762330349,
+      "cl": 0.8801123297036654,
+      "cd": 0.7812022389105032,
+      "sustentacaoN": 151.77499198025723,
+      "sustentacaoXYN": 142.62183998368826,
+      "sustentacaoLateralOmitidaN": 51.910104510339494,
+      "arrastoN": 134.71798944746317,
+      "forcaSustentacaoN": {
+        "x": 2.8598135947364667,
+        "y": 142.59316500637797,
+        "z": 0
+      },
+      "forcaArrastoN": {
+        "x": -134.69090358676235,
+        "y": 2.701327775055226,
+        "z": 0
+      },
+      "centroPressaoLocalM": -0.29463798976167255,
+      "fluxoTermicoIndicadorWm2": 5311.685998125565,
+      "knudsen": 0.4343686916091797,
+      "regime": "transicao",
+      "foraDominioAtmosferico": false,
+      "modeloEscoamentoEfetivo": "polar-continua-analitica-extrapolada",
+      "modeloContinuoAplicavel": false
+    },
+    "rolagem": {
+      "solicitadaRad": 1.0471975511965976,
+      "atualRad": 0.3490658503988638,
+      "taxaMaximaRadps": 0.17453292519943295,
+      "limiteRad": 1.5707963267948966,
+      "disponivel": true
+    },
+    "controle": {
+      "estado": "manual",
+      "alphaSolicitadoRad": 0.6981317007977318,
+      "alphaGerenciadoRad": 0.6981317007977318,
+      "phiSolicitadoRad": 1.0471975511965976,
+      "torqueSolicitadoNm": 0,
+      "torqueComandadoNm": 0,
+      "corredor": {
+        "estrategia": "heuristica-experimental-55-70-graus",
+        "excedeu": false,
+        "violacoes": [],
+        "alphaAlvoRad": 0.6981317007977318,
+        "phiAlvoRad": 0,
+        "energiaMecanicaEspecificaJPorKg": -31763172.999394625,
+        "integridadeMinima": 1,
+        "eficaciaQualificada": false
+      }
+    },
+    "historicoRolagem": [
+      {
+        "tempoS": 0,
+        "anguloRad": 0
+      },
+      {
+        "tempoS": 0.11666666666666665,
+        "anguloRad": 1.0471975511965976
+      }
+    ],
+    "supervisor": {
+      "fase": "reentrada",
+      "automatico": true,
+      "candidatoCinematico": false,
+      "autorizado": false,
+      "requisitos": [
+        {
+          "descricao": "Sensores e finitude",
+          "atendido": true,
+          "atual": true,
+          "esperado": "leituras válidas SI"
+        },
+        {
+          "descricao": "Alvo definido à frente",
+          "atendido": false,
+          "atual": null,
+          "esperado": "arco restante > 0 m"
+        },
+        {
+          "descricao": "Altitude e descida",
+          "atendido": true,
+          "atual": 119714.82204506733,
+          "esperado": "acima da superfície, descendente e progredindo ao alvo"
+        },
+        {
+          "descricao": "Integridade do corpo",
+          "atendido": true,
+          "atual": 1,
+          "esperado": "> 0; não é margem qualificada"
+        },
+        {
+          "descricao": "Flaps conectados e íntegros",
+          "atendido": true,
+          "atual": 1,
+          "esperado": "> 0"
+        },
+        {
+          "descricao": "Condição térmica",
+          "atendido": true,
+          "atual": true,
+          "esperado": "abaixo dos limiares provisórios"
+        },
+        {
+          "descricao": "Alimentação",
+          "atendido": false,
+          "atual": false,
+          "esperado": "disponível aos flaps"
+        },
+        {
+          "descricao": "Autoridade aerodinâmica",
+          "atendido": true,
+          "atual": true,
+          "esperado": "autoridade remanescente acima do limiar experimental"
+        },
+        {
+          "descricao": "Corredor",
+          "atendido": true,
+          "atual": true,
+          "esperado": "q, indicador térmico e carga nos limites configurados"
+        },
+        {
+          "descricao": "Erro de alpha",
+          "atendido": true,
+          "atual": 0.00007665164325632023,
+          "esperado": "|erro| ≤ 0.17453292519943295 rad (provisório)"
+        },
+        {
+          "descricao": "Rotação",
+          "atendido": true,
+          "atual": -0.0011978499830288458,
+          "esperado": "|ω| ≤ 0.02 rad/s (provisório)"
+        },
+        {
+          "descricao": "Frenagem hipotética",
+          "atendido": false,
+          "atual": false,
+          "esperado": "ao menos uma hipótese satisfaz limites necessários; trajetória ainda não demonstrada"
+        },
+        {
+          "descricao": "Propulsão operacional",
+          "atendido": false,
+          "atual": false,
+          "esperado": "motores reais, reserva, permissivos e capacidade de partida verificados"
+        },
+        {
+          "descricao": "Integração com aproximação",
+          "atendido": false,
+          "atual": false,
+          "esperado": "controle/planejamento físico compatível, além deste protótipo sem atuação"
+        }
+      ],
+      "limites": {
+        "alvoArcoM": null,
+        "aceleracoesLiquidasHipoteticasMps2": [
+          1,
+          2,
+          5
+        ],
+        "erroAlphaMaxRad": 0.17453292519943295,
+        "omegaMaxRadps": 0.02
+      },
+      "avaliacao": {
+        "candidatoCinematico": false,
+        "autorizado": false,
+        "distanciaRestanteM": null,
+        "energiaMecanicaEspecificaJPorKg": -31763198.67079285,
+        "natureza": "limites-necessarios-ideais-nao-trajetoria-certificada",
+        "hipoteses": [
+          {
+            "aceleracaoLiquidaMps2": 1,
+            "distanciaFrenagemM": 29647670.968124766,
+            "quedaFrenagemRadialM": 9122.741836433572,
+            "tempoFrenagemS": 7700.346871164281,
+            "velocidadeLimiteNecessariaMps": null,
+            "desvioVelocidadeMps": null,
+            "limitesNecessariosAtendidos": false
+          },
+          {
+            "aceleracaoLiquidaMps2": 2,
+            "distanciaFrenagemM": 14823835.484062383,
+            "quedaFrenagemRadialM": 4561.370918216786,
+            "tempoFrenagemS": 3850.1734355821404,
+            "velocidadeLimiteNecessariaMps": null,
+            "desvioVelocidadeMps": null,
+            "limitesNecessariosAtendidos": false
+          },
+          {
+            "aceleracaoLiquidaMps2": 5,
+            "distanciaFrenagemM": 5929534.193624953,
+            "quedaFrenagemRadialM": 1824.5483672867144,
+            "tempoFrenagemS": 1540.0693742328563,
+            "velocidadeLimiteNecessariaMps": null,
+            "desvioVelocidadeMps": null,
+            "limitesNecessariosAtendidos": false
+          }
+        ],
+        "requisitos": [
+          {
+            "descricao": "Sensores e finitude",
+            "atendido": true,
+            "atual": true,
+            "esperado": "leituras válidas SI"
+          },
+          {
+            "descricao": "Alvo definido à frente",
+            "atendido": false,
+            "atual": null,
+            "esperado": "arco restante > 0 m"
+          },
+          {
+            "descricao": "Altitude e descida",
+            "atendido": true,
+            "atual": 119714.82204506733,
+            "esperado": "acima da superfície, descendente e progredindo ao alvo"
+          },
+          {
+            "descricao": "Integridade do corpo",
+            "atendido": true,
+            "atual": 1,
+            "esperado": "> 0; não é margem qualificada"
+          },
+          {
+            "descricao": "Flaps conectados e íntegros",
+            "atendido": true,
+            "atual": 1,
+            "esperado": "> 0"
+          },
+          {
+            "descricao": "Condição térmica",
+            "atendido": true,
+            "atual": true,
+            "esperado": "abaixo dos limiares provisórios"
+          },
+          {
+            "descricao": "Alimentação",
+            "atendido": false,
+            "atual": false,
+            "esperado": "disponível aos flaps"
+          },
+          {
+            "descricao": "Autoridade aerodinâmica",
+            "atendido": true,
+            "atual": true,
+            "esperado": "autoridade remanescente acima do limiar experimental"
+          },
+          {
+            "descricao": "Corredor",
+            "atendido": true,
+            "atual": true,
+            "esperado": "q, indicador térmico e carga nos limites configurados"
+          },
+          {
+            "descricao": "Erro de alpha",
+            "atendido": true,
+            "atual": 0.00007665164325632023,
+            "esperado": "|erro| ≤ 0.17453292519943295 rad (provisório)"
+          },
+          {
+            "descricao": "Rotação",
+            "atendido": true,
+            "atual": -0.0011978499830288458,
+            "esperado": "|ω| ≤ 0.02 rad/s (provisório)"
+          },
+          {
+            "descricao": "Frenagem hipotética",
+            "atendido": false,
+            "atual": false,
+            "esperado": "ao menos uma hipótese satisfaz limites necessários; trajetória ainda não demonstrada"
+          },
+          {
+            "descricao": "Propulsão operacional",
+            "atendido": false,
+            "atual": false,
+            "esperado": "motores reais, reserva, permissivos e capacidade de partida verificados"
+          },
+          {
+            "descricao": "Integração com aproximação",
+            "atendido": false,
+            "atual": false,
+            "esperado": "controle/planejamento físico compatível, além deste protótipo sem atuação"
+          }
+        ]
+      }
+    },
+    "arbitragem": [],
+    "massaKg": 80000,
+    "inerciaKgM2": 11223158.333333457,
+    "centroM": {
+      "x": 16295.868866946432,
+      "y": 119694.31688459154,
+      "z": 0
+    },
+    "forcaAerodinamicaN": {
+      "x": -133.156067177216,
+      "y": 145.32106685800994,
+      "z": 0
+    },
+    "torqueAerodinamicoNm": -62.019969332694025,
+    "aceleracaoMps2": {
+      "x": -0.02541844619481001,
+      "y": -9.459495187573761,
+      "z": 0
+    },
+    "rotacao": {
+      "massaKg": 80000,
+      "centroM": {
+        "x": 16295.868866946434,
+        "y": 119694.31688459155,
+        "z": 0
+      },
+      "velocidadeCentroMps": {
+        "x": 7698.798611888422,
+        "y": -154.40526757650883,
+        "z": 0
+      },
+      "inerciaKgM2": 11223158.333333455,
+      "momentoIntrinsecoKgM2ps": -13443.66001911322,
+      "momentoOrbitalKgM2ps": -3997845165201276.5,
+      "momentoTotalKgM2ps": -3997845165214720,
+      "omegaInercialRadps": -0.0011978499830288182,
+      "torqueGravitacionalNm": 0.4947135406871452,
+      "impulsoTorqueNmS": -132.1275533532186,
+      "residuoPassoKgM2ps": 3.9546532715206695e-10,
+      "residuoAcumuladoKgM2ps": 4.40435162230024e-7,
+      "residuoMaximoPassoKgM2ps": 2.9391494460462297e-8,
+      "passosIncompletos": 0,
+      "cargasEfetivamenteIntegradas": {
+        "impulsoGravitacionalNmS": 0.002061303716382204,
+        "torqueAerodinamicoNm": -62.014647397887636,
+        "torqueOutrosContinuosNm": 0,
+        "dtS": 0.004166666666666667
+      },
+      "torqueAerodinamicoNm": -62.019969332694025,
+      "torqueOutrosContinuosNm": 0,
+      "fontesImpulsivas": false
+    },
+    "cargaG": 0.0002512336836193895,
+    "desaceleracaoMps2": 0.0017005404136756295,
+    "temperaturaC": 20.013924994169866,
+    "integridade": 1,
+    "limiteOrbitadorC": 1100,
+    "limiteFlapsC": 900,
+    "energiaAbsorvidaJ": 900062.0148563541,
+    "energiaDissipadaJ": 2166692.5193240005,
+    "energiaAtmosferaJ": 1266630.5044676464,
+    "respostaTermica": {
+      "energiaAbsorvidaCorpoJ": 878945.631999121,
+      "modelo": "concentrado-min-indicador-DV-experimental",
+      "tetoUniversal": false,
+      "potenciaIndicadorCorpoW": 424934.8798500452,
+      "potenciaTransferidaCorpoW": 424934.8798500452,
+      "tpsInstalado": false,
+      "camadasInternasModeladas": false
+    },
+    "estadosTerminais": {
+      "corpoDestruido": false,
+      "controlePerdido": false,
+      "contato": false,
+      "impactoDestrutivo": false
+    },
+    "dissipacaoW": 1047580.0781925351,
+    "calorTransferidoW": 435139.70951126475,
+    "potenciaAtmosferaW": 612440.3686812704,
+    "energiaBateriaJ": 19999846.6000008,
+    "temperaturaBateriaC": 20,
+    "integridadeBateria": 1,
+    "limiteBateriaC": 60,
+    "flaps": [
+      {
+        "id": "flap-dianteiro",
+        "estado": {
+          "posicaoM": {
+            "x": 16311.426146292957,
+            "y": 119700.50961949497,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": 7698.806029855821,
+            "y": -154.42390286331005,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 0.6781552857341141
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": -0.0011978499830288458
+          }
+        },
+        "comandoRad": 0,
+        "deflexaoRad": 0,
+        "integridade": 1,
+        "temperaturaC": 20.04216446487609,
+        "energiaAbsorvidaJ": 10541.116219030568,
+        "conectado": true,
+        "fluxoTermicoIndicadorWm2": 5306.404276742246,
+        "energizado": false,
+        "atuacao": {
+          "taxaEfetivaRadps": 0,
+          "cursoRad": 0.5235987755982988,
+          "taxaMaximaRadps": 0.3490658503988659,
+          "modeloMecanico": "taxa-prescrita-eletrica",
+          "torqueDisponivelNm": null,
+          "torqueCargaNm": null,
+          "bloqueio": "alimentacao"
+        },
+        "knudsenEstimado": 1.7392093989105997,
+        "modeloEscoamento": "polar-continua-extrapolada"
+      },
+      {
+        "id": "flap-traseiro",
+        "estado": {
+          "posicaoM": {
+            "x": 16286.506743460108,
+            "y": 119680.43417772015,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": 7698.781982488232,
+            "y": -154.39405315704963,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 0.6781552857341141
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": -0.0011978499830288458
+          }
+        },
+        "comandoRad": 0,
+        "deflexaoRad": 0,
+        "integridade": 1,
+        "temperaturaC": 20.042301066552824,
+        "energiaAbsorvidaJ": 10575.26663820246,
+        "conectado": true,
+        "fluxoTermicoIndicadorWm2": 5323.626620361464,
+        "energizado": false,
+        "atuacao": {
+          "taxaEfetivaRadps": 0,
+          "cursoRad": 0.5235987755982988,
+          "taxaMaximaRadps": 0.3490658503988659,
+          "modeloMecanico": "taxa-prescrita-eletrica",
+          "torqueDisponivelNm": null,
+          "torqueCargaNm": null,
+          "bloqueio": "alimentacao"
+        },
+        "knudsenEstimado": 1.7335662797593048,
+        "modeloEscoamento": "polar-continua-extrapolada"
+      }
+    ],
+    "vinculos": [
+      {
+        "id": "fixador-flap-dianteiro",
+        "estado": "integro",
+        "tracaoAtualN": 0,
+        "picoTracaoN": 0,
+        "resistenciaTracaoN": 100000000,
+        "cisalhamentoFlexaoTorcaoModelados": false
+      },
+      {
+        "id": "fixador-flap-traseiro",
+        "estado": "integro",
+        "tracaoAtualN": 0.6726927623586499,
+        "picoTracaoN": 0.695440424747998,
+        "resistenciaTracaoN": 100000000,
+        "cisalhamentoFlexaoTorcaoModelados": false
+      },
+      {
+        "id": "fixador-bateria-interna-re",
+        "estado": "integro",
+        "tracaoAtualN": 0,
+        "picoTracaoN": 0,
+        "resistenciaTracaoN": 100000000,
+        "cisalhamentoFlexaoTorcaoModelados": false
+      }
+    ],
+    "raioTerraM": 6371000,
+    "centroTerraM": {
+      "x": 0,
+      "y": -6371000,
+      "z": 0
+    },
+    "propulsaoDisponivel": false,
+    "rcsDisponivel": false
+  },
+  "entradas": [
+    {
+      "tipo": "iniciar",
+      "passo": 0,
+      "sequencia": 0
+    },
+    {
+      "tipo": "pausar",
+      "passo": 28,
+      "sequencia": 1
+    },
+    {
+      "tipo": "comando",
+      "passo": 28,
+      "sequencia": 2,
+      "comando": {
+        "tipo": "modo",
+        "automatico": false
+      },
+      "resultado": {
+        "aceito": true,
+        "motivo": "Comando aplicado."
+      }
+    },
+    {
+      "tipo": "comando",
+      "passo": 28,
+      "sequencia": 3,
+      "comando": {
+        "tipo": "alvos",
+        "alphaRad": 0.6981317007977318,
+        "phiRad": 1.0471975511965976
+      },
+      "resultado": {
+        "aceito": true,
+        "motivo": "Comando aplicado."
+      }
+    },
+    {
+      "tipo": "comando",
+      "passo": 28,
+      "sequencia": 4,
+      "comando": {
+        "tipo": "rolagem",
+        "phiRad": 1.0471975511965976
+      },
+      "resultado": {
+        "aceito": true,
+        "motivo": "Comando aplicado."
+      }
+    },
+    {
+      "tipo": "iniciar",
+      "passo": 28,
+      "sequencia": 5
+    },
+    {
+      "tipo": "pausar",
+      "passo": 268,
+      "sequencia": 6
+    },
+    {
+      "tipo": "comando",
+      "passo": 268,
+      "sequencia": 7,
+      "comando": {
+        "tipo": "chaveamento",
+        "automatico": true
+      },
+      "resultado": {
+        "aceito": true,
+        "motivo": "Comando aplicado."
+      }
+    },
+    {
+      "tipo": "comando",
+      "passo": 268,
+      "sequencia": 8,
+      "comando": {
+        "tipo": "aproximacao"
+      },
+      "resultado": {
+        "aceito": false,
+        "motivo": "Alvo definido à frente; Frenagem hipotética; Propulsão operacional; Integração com aproximação"
+      }
+    },
+    {
+      "tipo": "comando",
+      "passo": 268,
+      "sequencia": 9,
+      "comando": {
+        "tipo": "alimentacao",
+        "ligada": false
+      },
+      "resultado": {
+        "aceito": true,
+        "motivo": "Comando aplicado."
+      }
+    },
+    {
+      "tipo": "iniciar",
+      "passo": 268,
+      "sequencia": 10
+    },
+    {
+      "tipo": "pausar",
+      "passo": 508,
+      "sequencia": 11
+    }
+  ],
+  "eventos": [
+    {
+      "sequencia": 0,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "modelo",
+      "descricao": "RE-002-r4; re-atmosfera-log-1; XY, Terra estática; atmosfera de engenharia; RCS/propulsão ausentes; indicadores preliminares."
+    },
+    {
+      "sequencia": 1,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "limites-termicos",
+      "descricao": "Limiares provisórios: orbitador 1100 °C; flaps 900 °C; bateria isolada 60 °C. Sem qualificação material/limite interno; bateria sem previsão de fuga térmica ou falha catastrófica."
+    },
+    {
+      "sequencia": 2,
+      "passo": 28,
+      "tempoS": 0.11666666666666665,
+      "categoria": "comando",
+      "tipo": "comando",
+      "descricao": "modo: Comando aplicado."
+    },
+    {
+      "sequencia": 3,
+      "passo": 28,
+      "tempoS": 0.11666666666666665,
+      "categoria": "comando",
+      "tipo": "comando",
+      "descricao": "alvos: Comando aplicado."
+    },
+    {
+      "sequencia": 4,
+      "passo": 28,
+      "tempoS": 0.11666666666666665,
+      "categoria": "comando",
+      "tipo": "comando",
+      "descricao": "rolagem: Comando aplicado."
+    },
+    {
+      "sequencia": 5,
+      "passo": 268,
+      "tempoS": 1.116666666666664,
+      "categoria": "comando",
+      "tipo": "comando",
+      "descricao": "chaveamento: Comando aplicado."
+    },
+    {
+      "sequencia": 6,
+      "passo": 268,
+      "tempoS": 1.116666666666664,
+      "categoria": "comando",
+      "tipo": "comando-bloqueado",
+      "descricao": "aproximacao: Alvo definido à frente; Frenagem hipotética; Propulsão operacional; Integração com aproximação"
+    },
+    {
+      "sequencia": 7,
+      "passo": 268,
+      "tempoS": 1.116666666666664,
+      "categoria": "comando",
+      "tipo": "comando",
+      "descricao": "alimentacao: Comando aplicado."
+    },
+    {
+      "sequencia": 8,
+      "passo": 269,
+      "tempoS": 1.1208333333333307,
+      "categoria": "fisico",
+      "tipo": "perda-alimentacao",
+      "descricao": "Condição detectada.",
+      "dados": {
+        "ativo": true,
+        "valor": true,
+        "causa": "perda-alimentacao"
+      }
+    }
+  ],
+  "amostras": [
+    {
+      "passo": 0,
+      "observacao": {
+        "id": "RE-001",
+        "tempoS": 0,
+        "passo": 0,
+        "execucao": "preparada",
+        "estado": {
+          "posicaoM": {
+            "x": 0,
+            "y": 120000,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": 7698.827252704212,
+            "y": -134.383529567083,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 0.6806784082777885
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": -0.00118607722272442
+          }
+        },
+        "extremos": {
+          "globais": {
+            "cargaG": {
+              "minimo": {
+                "valor": 0.0002480691423367663,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 0.0002480691423367663,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "erroAlphaRad": {
+              "minimo": {
+                "valor": 0,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 0,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "energiaTermicaCorpoJ": {
+              "minimo": {
+                "valor": 0,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 0,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "energiaTermicaFlap1J": {
+              "minimo": {
+                "valor": 0,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 0,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "energiaTermicaFlap2J": {
+              "minimo": {
+                "valor": 0,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 0,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "altitudeM": {
+              "minimo": {
+                "valor": 120000,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 120000,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "velocidadeMps": {
+              "minimo": {
+                "valor": 7700,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 7700,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "omegaInercialRadps": {
+              "minimo": {
+                "valor": -0.00118607722272442,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": -0.00118607722272442,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "alphaRad": {
+              "minimo": {
+                "valor": 0.6981317007977318,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 0.6981317007977318,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "pressaoDinamicaPa": {
+              "minimo": {
+                "valor": 0.6587118999999987,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 0.6587118999999987,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "fluxoTermicoIndicadorWm2": {
+              "minimo": {
+                "valor": 5072.081629999991,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 5072.081629999991,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "temperaturaCorpoC": {
+              "minimo": {
+                "valor": 20,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 20,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "temperaturaFlap1C": {
+              "minimo": {
+                "valor": 20,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 20,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "temperaturaFlap2C": {
+              "minimo": {
+                "valor": 20,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 20,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "integridadeCorpo": {
+              "minimo": {
+                "valor": 1,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 1,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "integridadeFlap1": {
+              "minimo": {
+                "valor": 1,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 1,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "integridadeFlap2": {
+              "minimo": {
+                "valor": 1,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 1,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "energiaMecanicaEspecificaJPorKg": {
+              "minimo": {
+                "valor": -31763171.591434292,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": -31763171.591434292,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "torqueAerodinamicoNm": {
+              "minimo": {
+                "valor": 0,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 0,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "energiaBateriaJ": {
+              "minimo": {
+                "valor": 20000000,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 20000000,
+                "passo": 0,
+                "tempoS": 0
+              }
+            }
+          },
+          "intervaloAtual": {
+            "inicioPasso": 0,
+            "fimPasso": 0,
+            "extremos": {
+              "cargaG": {
+                "minimo": {
+                  "valor": 0.0002480691423367663,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 0.0002480691423367663,
+                  "passo": 0,
+                  "tempoS": 0
+                }
+              },
+              "erroAlphaRad": {
+                "minimo": {
+                  "valor": 0,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 0,
+                  "passo": 0,
+                  "tempoS": 0
+                }
+              },
+              "energiaTermicaCorpoJ": {
+                "minimo": {
+                  "valor": 0,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 0,
+                  "passo": 0,
+                  "tempoS": 0
+                }
+              },
+              "energiaTermicaFlap1J": {
+                "minimo": {
+                  "valor": 0,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 0,
+                  "passo": 0,
+                  "tempoS": 0
+                }
+              },
+              "energiaTermicaFlap2J": {
+                "minimo": {
+                  "valor": 0,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 0,
+                  "passo": 0,
+                  "tempoS": 0
+                }
+              },
+              "altitudeM": {
+                "minimo": {
+                  "valor": 120000,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 120000,
+                  "passo": 0,
+                  "tempoS": 0
+                }
+              },
+              "velocidadeMps": {
+                "minimo": {
+                  "valor": 7700,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 7700,
+                  "passo": 0,
+                  "tempoS": 0
+                }
+              },
+              "omegaInercialRadps": {
+                "minimo": {
+                  "valor": -0.00118607722272442,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": -0.00118607722272442,
+                  "passo": 0,
+                  "tempoS": 0
+                }
+              },
+              "alphaRad": {
+                "minimo": {
+                  "valor": 0.6981317007977318,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 0.6981317007977318,
+                  "passo": 0,
+                  "tempoS": 0
+                }
+              },
+              "pressaoDinamicaPa": {
+                "minimo": {
+                  "valor": 0.6587118999999987,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 0.6587118999999987,
+                  "passo": 0,
+                  "tempoS": 0
+                }
+              },
+              "fluxoTermicoIndicadorWm2": {
+                "minimo": {
+                  "valor": 5072.081629999991,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 5072.081629999991,
+                  "passo": 0,
+                  "tempoS": 0
+                }
+              },
+              "temperaturaCorpoC": {
+                "minimo": {
+                  "valor": 20,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 20,
+                  "passo": 0,
+                  "tempoS": 0
+                }
+              },
+              "temperaturaFlap1C": {
+                "minimo": {
+                  "valor": 20,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 20,
+                  "passo": 0,
+                  "tempoS": 0
+                }
+              },
+              "temperaturaFlap2C": {
+                "minimo": {
+                  "valor": 20,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 20,
+                  "passo": 0,
+                  "tempoS": 0
+                }
+              },
+              "integridadeCorpo": {
+                "minimo": {
+                  "valor": 1,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 1,
+                  "passo": 0,
+                  "tempoS": 0
+                }
+              },
+              "integridadeFlap1": {
+                "minimo": {
+                  "valor": 1,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 1,
+                  "passo": 0,
+                  "tempoS": 0
+                }
+              },
+              "integridadeFlap2": {
+                "minimo": {
+                  "valor": 1,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 1,
+                  "passo": 0,
+                  "tempoS": 0
+                }
+              },
+              "energiaMecanicaEspecificaJPorKg": {
+                "minimo": {
+                  "valor": -31763171.591434292,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": -31763171.591434292,
+                  "passo": 0,
+                  "tempoS": 0
+                }
+              },
+              "torqueAerodinamicoNm": {
+                "minimo": {
+                  "valor": 0,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 0,
+                  "passo": 0,
+                  "tempoS": 0
+                }
+              },
+              "energiaBateriaJ": {
+                "minimo": {
+                  "valor": 20000000,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 20000000,
+                  "passo": 0,
+                  "tempoS": 0
+                }
+              }
+            }
+          },
+          "ultimoIntervalo": null
+        },
+        "eventosDescartados": 0,
+        "altitudeM": 120000,
+        "arcoM": 0,
+        "velocidadeMps": 7700,
+        "trajetoriaRad": -0.01745329251994329,
+        "velocidadeRadialMps": -134.38352956708297,
+        "velocidadeTangencialMps": 7698.827252704211,
+        "energiaMecanicaEspecificaJPorKg": -31763171.591434292,
+        "atitudeInercialRad": 0.6806784082777885,
+        "atitudeLocalRad": 0.6806784082777885,
+        "aerodinamica": {
+          "velocidadeRelativaMps": 7700,
+          "anguloAtaqueRad": 0.6981317007977318,
+          "mach": 20.243915239427142,
+          "pressaoDinamicaPa": 0.6587118999999987,
+          "cl": 0.8800687599974321,
+          "cd": 0.7810814578664557,
+          "sustentacaoN": 144.92794125713783,
+          "sustentacaoXYN": 144.92794125713783,
+          "sustentacaoLateralOmitidaN": 0,
+          "arrastoN": 128.62691279149547,
+          "forcaSustentacaoN": {
+            "x": 2.5293413349383185,
+            "y": 144.90586802971012,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": -128.60732228965887,
+            "y": 2.2448491608101997,
+            "z": 0
+          },
+          "centroPressaoLocalM": -0.2946115689082871,
+          "fluxoTermicoIndicadorWm2": 5072.081629999991,
+          "knudsen": 0.45482673267326823,
+          "regime": "transicao",
+          "foraDominioAtmosferico": false,
+          "modeloEscoamentoEfetivo": "polar-continua-analitica-extrapolada",
+          "modeloContinuoAplicavel": false
+        },
+        "rolagem": {
+          "solicitadaRad": 0,
+          "atualRad": 0,
+          "taxaMaximaRadps": 0.17453292519943295,
+          "limiteRad": 1.5707963267948966,
+          "disponivel": true
+        },
+        "controle": {
+          "estado": "automatico",
+          "alphaSolicitadoRad": 0.6981317007977318,
+          "alphaGerenciadoRad": 0.6981317007977318,
+          "phiSolicitadoRad": 0,
+          "torqueSolicitadoNm": 0,
+          "torqueComandadoNm": 0,
+          "corredor": null
+        },
+        "historicoRolagem": [
+          {
+            "tempoS": 0,
+            "anguloRad": 0
+          }
+        ],
+        "supervisor": {
+          "fase": "reentrada",
+          "automatico": false,
+          "candidatoCinematico": false,
+          "autorizado": false,
+          "requisitos": [
+            {
+              "descricao": "Sensores e finitude",
+              "atendido": true,
+              "atual": true,
+              "esperado": "leituras válidas SI"
+            },
+            {
+              "descricao": "Alvo definido à frente",
+              "atendido": false,
+              "atual": null,
+              "esperado": "arco restante > 0 m"
+            },
+            {
+              "descricao": "Altitude e descida",
+              "atendido": true,
+              "atual": 120000,
+              "esperado": "acima da superfície, descendente e progredindo ao alvo"
+            },
+            {
+              "descricao": "Integridade do corpo",
+              "atendido": true,
+              "atual": 1,
+              "esperado": "> 0; não é margem qualificada"
+            },
+            {
+              "descricao": "Flaps conectados e íntegros",
+              "atendido": true,
+              "atual": 1,
+              "esperado": "> 0"
+            },
+            {
+              "descricao": "Condição térmica",
+              "atendido": true,
+              "atual": true,
+              "esperado": "abaixo dos limiares provisórios"
+            },
+            {
+              "descricao": "Alimentação",
+              "atendido": true,
+              "atual": true,
+              "esperado": "disponível aos flaps"
+            },
+            {
+              "descricao": "Autoridade aerodinâmica",
+              "atendido": true,
+              "atual": true,
+              "esperado": "autoridade remanescente acima do limiar experimental"
+            },
+            {
+              "descricao": "Corredor",
+              "atendido": true,
+              "atual": true,
+              "esperado": "q, indicador térmico e carga nos limites configurados"
+            },
+            {
+              "descricao": "Erro de alpha",
+              "atendido": true,
+              "atual": 0,
+              "esperado": "|erro| ≤ 0.17453292519943295 rad (provisório)"
+            },
+            {
+              "descricao": "Rotação",
+              "atendido": true,
+              "atual": -0.00118607722272442,
+              "esperado": "|ω| ≤ 0.02 rad/s (provisório)"
+            },
+            {
+              "descricao": "Frenagem hipotética",
+              "atendido": false,
+              "atual": false,
+              "esperado": "ao menos uma hipótese satisfaz limites necessários; trajetória ainda não demonstrada"
+            },
+            {
+              "descricao": "Propulsão operacional",
+              "atendido": false,
+              "atual": false,
+              "esperado": "motores reais, reserva, permissivos e capacidade de partida verificados"
+            },
+            {
+              "descricao": "Integração com aproximação",
+              "atendido": false,
+              "atual": false,
+              "esperado": "controle/planejamento físico compatível, além deste protótipo sem atuação"
+            }
+          ],
+          "limites": {
+            "alvoArcoM": null,
+            "aceleracoesLiquidasHipoteticasMps2": [
+              1,
+              2,
+              5
+            ],
+            "erroAlphaMaxRad": 0.17453292519943295,
+            "omegaMaxRadps": 0.02
+          },
+          "avaliacao": {
+            "candidatoCinematico": false,
+            "autorizado": false,
+            "distanciaRestanteM": null,
+            "energiaMecanicaEspecificaJPorKg": -31763171.591434292,
+            "natureza": "limites-necessarios-ideais-nao-trajetoria-certificada",
+            "hipoteses": [
+              {
+                "aceleracaoLiquidaMps2": 1,
+                "distanciaFrenagemM": 29644999.999999993,
+                "quedaFrenagemRadialM": 9029.466509453532,
+                "tempoFrenagemS": 7699.999999999999,
+                "velocidadeLimiteNecessariaMps": null,
+                "desvioVelocidadeMps": null,
+                "limitesNecessariosAtendidos": false
+              },
+              {
+                "aceleracaoLiquidaMps2": 2,
+                "distanciaFrenagemM": 14822499.999999996,
+                "quedaFrenagemRadialM": 4514.733254726766,
+                "tempoFrenagemS": 3849.9999999999995,
+                "velocidadeLimiteNecessariaMps": null,
+                "desvioVelocidadeMps": null,
+                "limitesNecessariosAtendidos": false
+              },
+              {
+                "aceleracaoLiquidaMps2": 5,
+                "distanciaFrenagemM": 5928999.999999998,
+                "quedaFrenagemRadialM": 1805.8933018907064,
+                "tempoFrenagemS": 1539.9999999999998,
+                "velocidadeLimiteNecessariaMps": null,
+                "desvioVelocidadeMps": null,
+                "limitesNecessariosAtendidos": false
+              }
+            ],
+            "requisitos": [
+              {
+                "descricao": "Sensores e finitude",
+                "atendido": true,
+                "atual": true,
+                "esperado": "leituras válidas SI"
+              },
+              {
+                "descricao": "Alvo definido à frente",
+                "atendido": false,
+                "atual": null,
+                "esperado": "arco restante > 0 m"
+              },
+              {
+                "descricao": "Altitude e descida",
+                "atendido": true,
+                "atual": 120000,
+                "esperado": "acima da superfície, descendente e progredindo ao alvo"
+              },
+              {
+                "descricao": "Integridade do corpo",
+                "atendido": true,
+                "atual": 1,
+                "esperado": "> 0; não é margem qualificada"
+              },
+              {
+                "descricao": "Flaps conectados e íntegros",
+                "atendido": true,
+                "atual": 1,
+                "esperado": "> 0"
+              },
+              {
+                "descricao": "Condição térmica",
+                "atendido": true,
+                "atual": true,
+                "esperado": "abaixo dos limiares provisórios"
+              },
+              {
+                "descricao": "Alimentação",
+                "atendido": true,
+                "atual": true,
+                "esperado": "disponível aos flaps"
+              },
+              {
+                "descricao": "Autoridade aerodinâmica",
+                "atendido": true,
+                "atual": true,
+                "esperado": "autoridade remanescente acima do limiar experimental"
+              },
+              {
+                "descricao": "Corredor",
+                "atendido": true,
+                "atual": true,
+                "esperado": "q, indicador térmico e carga nos limites configurados"
+              },
+              {
+                "descricao": "Erro de alpha",
+                "atendido": true,
+                "atual": 0,
+                "esperado": "|erro| ≤ 0.17453292519943295 rad (provisório)"
+              },
+              {
+                "descricao": "Rotação",
+                "atendido": true,
+                "atual": -0.00118607722272442,
+                "esperado": "|ω| ≤ 0.02 rad/s (provisório)"
+              },
+              {
+                "descricao": "Frenagem hipotética",
+                "atendido": false,
+                "atual": false,
+                "esperado": "ao menos uma hipótese satisfaz limites necessários; trajetória ainda não demonstrada"
+              },
+              {
+                "descricao": "Propulsão operacional",
+                "atendido": false,
+                "atual": false,
+                "esperado": "motores reais, reserva, permissivos e capacidade de partida verificados"
+              },
+              {
+                "descricao": "Integração com aproximação",
+                "atendido": false,
+                "atual": false,
+                "esperado": "controle/planejamento físico compatível, além deste protótipo sem atuação"
+              }
+            ]
+          }
+        },
+        "arbitragem": [],
+        "massaKg": 80000,
+        "inerciaKgM2": 11223158.333333371,
+        "centroM": {
+          "x": 0.039332524440614844,
+          "y": 119999.9514283774,
+          "z": 0
+        },
+        "forcaAerodinamicaN": {
+          "x": -127.34363033361606,
+          "y": 147.17280980610002,
+          "z": 0
+        },
+        "torqueAerodinamicoNm": -61.5361800064253,
+        "aceleracaoMps2": {
+          "x": -0.001591795379170201,
+          "y": -9.45867052188856,
+          "z": 0
+        },
+        "rotacao": {
+          "massaKg": 80000,
+          "centroM": {
+            "x": 0.039332524440614844,
+            "y": 119999.9514283774,
+            "z": 0
+          },
+          "velocidadeCentroMps": {
+            "x": 7698.827195094516,
+            "y": -134.38357621849434,
+            "z": 0
+          },
+          "inerciaKgM2": 11223158.33333337,
+          "momentoIntrinsecoKgM2ps": -13311.532466200437,
+          "momentoOrbitalKgM2ps": -3997846956375969.5,
+          "momentoTotalKgM2ps": -3997846956389281,
+          "omegaInercialRadps": -0.001186077222724773,
+          "torqueGravitacionalNm": 0.4946509637067322,
+          "impulsoTorqueNmS": 0,
+          "residuoPassoKgM2ps": 0,
+          "residuoAcumuladoKgM2ps": 0,
+          "residuoMaximoPassoKgM2ps": 0,
+          "passosIncompletos": 0,
+          "cargasEfetivamenteIntegradas": null,
+          "torqueAerodinamicoNm": -61.5361800064253,
+          "torqueOutrosContinuosNm": 0,
+          "fontesImpulsivas": false
+        },
+        "cargaG": 0.0002480691423367663,
+        "desaceleracaoMps2": 0.0016236594371895827,
+        "temperaturaC": 20,
+        "integridade": 1,
+        "limiteOrbitadorC": 1100,
+        "limiteFlapsC": 900,
+        "energiaAbsorvidaJ": 0,
+        "energiaDissipadaJ": 0,
+        "energiaAtmosferaJ": 0,
+        "respostaTermica": {
+          "energiaAbsorvidaCorpoJ": 0,
+          "modelo": "concentrado-min-indicador-DV-experimental",
+          "tetoUniversal": false,
+          "potenciaIndicadorCorpoW": 405766.53039999923,
+          "potenciaTransferidaCorpoW": 405766.53039999923,
+          "tpsInstalado": false,
+          "camadasInternasModeladas": false
+        },
+        "estadosTerminais": {
+          "corpoDestruido": false,
+          "controlePerdido": false,
+          "contato": false,
+          "impactoDestrutivo": false
+        },
+        "dissipacaoW": 1000174.2075370651,
+        "calorTransferidoW": 415513.5094425494,
+        "potenciaAtmosferaW": 584660.6980945158,
+        "energiaBateriaJ": 20000000,
+        "temperaturaBateriaC": 20,
+        "integridadeBateria": 1,
+        "limiteBateriaC": 60,
+        "flaps": [
+          {
+            "id": "flap-dianteiro",
+            "estado": {
+              "posicaoM": {
+                "x": 15.580937338560721,
+                "y": 120006.18339644952,
+                "z": 0
+              },
+              "velocidadeMps": {
+                "x": 7698.8345866899,
+                "y": -134.40200976196897,
+                "z": 0
+              },
+              "orientacaoRad": {
+                "x": 0,
+                "y": 0,
+                "z": 0.6806784082777885
+              },
+              "velocidadeAngularRadps": {
+                "x": 0,
+                "y": 0,
+                "z": -0.00118607722272442
+              }
+            },
+            "comandoRad": 0,
+            "deflexaoRad": 0,
+            "integridade": 1,
+            "temperaturaC": 20,
+            "energiaAbsorvidaJ": 0,
+            "conectado": true,
+            "fluxoTermicoIndicadorWm2": 5069.619121181498,
+            "energizado": true,
+            "atuacao": {
+              "taxaEfetivaRadps": 0,
+              "cursoRad": 0.5235987755982988,
+              "taxaMaximaRadps": 0.3490658503988659,
+              "modeloMecanico": "taxa-prescrita-eletrica",
+              "torqueDisponivelNm": null,
+              "torqueCargaNm": null,
+              "bloqueio": "nenhum"
+            },
+            "knudsenEstimado": 1.820196066938978,
+            "modeloEscoamento": "polar-continua-extrapolada"
+          },
+          {
+            "id": "flap-traseiro",
+            "estado": {
+              "posicaoM": {
+                "x": -9.287733428062348,
+                "y": 119986.04514393592,
+                "z": 0
+              },
+              "velocidadeMps": {
+                "x": 7698.810701167287,
+                "y": -134.37251359801323,
+                "z": 0
+              },
+              "orientacaoRad": {
+                "x": 0,
+                "y": 0,
+                "z": 0.6806784082777885
+              },
+              "velocidadeAngularRadps": {
+                "x": 0,
+                "y": 0,
+                "z": -0.00118607722272442
+              }
+            },
+            "comandoRad": 0,
+            "deflexaoRad": 0,
+            "integridade": 1,
+            "temperaturaC": 20,
+            "energiaAbsorvidaJ": 0,
+            "conectado": true,
+            "fluxoTermicoIndicadorWm2": 5083.4840481415395,
+            "energizado": true,
+            "atuacao": {
+              "taxaEfetivaRadps": 0,
+              "cursoRad": 0.5235987755982988,
+              "taxaMaximaRadps": 0.3490658503988659,
+              "modeloMecanico": "taxa-prescrita-eletrica",
+              "torqueDisponivelNm": null,
+              "torqueCargaNm": null,
+              "bloqueio": "nenhum"
+            },
+            "knudsenEstimado": 1.8152143268467398,
+            "modeloEscoamento": "polar-continua-extrapolada"
+          }
+        ],
+        "vinculos": [
+          {
+            "id": "fixador-flap-dianteiro",
+            "estado": "integro",
+            "tracaoAtualN": 0,
+            "picoTracaoN": 0,
+            "resistenciaTracaoN": 100000000,
+            "cisalhamentoFlexaoTorcaoModelados": false
+          },
+          {
+            "id": "fixador-flap-traseiro",
+            "estado": "integro",
+            "tracaoAtualN": 0,
+            "picoTracaoN": 0,
+            "resistenciaTracaoN": 100000000,
+            "cisalhamentoFlexaoTorcaoModelados": false
+          },
+          {
+            "id": "fixador-bateria-interna-re",
+            "estado": "integro",
+            "tracaoAtualN": 0,
+            "picoTracaoN": 0,
+            "resistenciaTracaoN": 100000000,
+            "cisalhamentoFlexaoTorcaoModelados": false
+          }
+        ],
+        "raioTerraM": 6371000,
+        "centroTerraM": {
+          "x": 0,
+          "y": -6371000,
+          "z": 0
+        },
+        "propulsaoDisponivel": false,
+        "rcsDisponivel": false
+      }
+    },
+    {
+      "passo": 240,
+      "observacao": {
+        "id": "RE-001",
+        "tempoS": 0.9999999999999977,
+        "passo": 240,
+        "execucao": "executando",
+        "estado": {
+          "posicaoM": {
+            "x": 7698.8245779738345,
+            "y": 119860.8870798405,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": 7698.820034081616,
+            "y": -143.84237928371,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 0.6794894656670059
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": -0.0011916960302178193
+          }
+        },
+        "extremos": {
+          "globais": {
+            "cargaG": {
+              "minimo": {
+                "valor": 0.0002480691423367663,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 0.0002518742280393676,
+                "passo": 240,
+                "tempoS": 0.9999999999999977
+              }
+            },
+            "erroAlphaRad": {
+              "minimo": {
+                "valor": 0,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 0.00003928289886823144,
+                "passo": 240,
+                "tempoS": 0.9999999999999977
+              }
+            },
+            "energiaTermicaCorpoJ": {
+              "minimo": {
+                "valor": 0,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 410196.6221061122,
+                "passo": 240,
+                "tempoS": 0.9999999999999977
+              }
+            },
+            "energiaTermicaFlap1J": {
+              "minimo": {
+                "valor": 0,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 4921.721476473723,
+                "passo": 240,
+                "tempoS": 0.9999999999999977
+              }
+            },
+            "energiaTermicaFlap2J": {
+              "minimo": {
+                "valor": 0,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 4937.633456138002,
+                "passo": 240,
+                "tempoS": 0.9999999999999977
+              }
+            },
+            "altitudeM": {
+              "minimo": {
+                "valor": 119865.45287473779,
+                "passo": 240,
+                "tempoS": 0.9999999999999977
+              },
+              "maximo": {
+                "valor": 120000,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "velocidadeMps": {
+              "minimo": {
+                "valor": 7700,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 7700.163670160165,
+                "passo": 240,
+                "tempoS": 0.9999999999999977
+              }
+            },
+            "omegaInercialRadps": {
+              "minimo": {
+                "valor": -0.0011916960302178193,
+                "passo": 240,
+                "tempoS": 0.9999999999999977
+              },
+              "maximo": {
+                "valor": -0.00118607722272442,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "alphaRad": {
+              "minimo": {
+                "valor": 0.6981317007977318,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 0.6981709836966,
+                "passo": 240,
+                "tempoS": 0.9999999999999977
+              }
+            },
+            "pressaoDinamicaPa": {
+              "minimo": {
+                "valor": 0.6587118999999987,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 0.6731999433147189,
+                "passo": 240,
+                "tempoS": 0.9999999999999977
+              }
+            },
+            "fluxoTermicoIndicadorWm2": {
+              "minimo": {
+                "valor": 5072.081629999991,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 5183.74974626588,
+                "passo": 240,
+                "tempoS": 0.9999999999999977
+              }
+            },
+            "temperaturaCorpoC": {
+              "minimo": {
+                "valor": 20,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 20.006498679057472,
+                "passo": 240,
+                "tempoS": 0.9999999999999977
+              }
+            },
+            "temperaturaFlap1C": {
+              "minimo": {
+                "valor": 20,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 20.019686885905884,
+                "passo": 240,
+                "tempoS": 0.9999999999999977
+              }
+            },
+            "temperaturaFlap2C": {
+              "minimo": {
+                "valor": 20,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 20.019750533824556,
+                "passo": 240,
+                "tempoS": 0.9999999999999977
+              }
+            },
+            "integridadeCorpo": {
+              "minimo": {
+                "valor": 1,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 1,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "integridadeFlap1": {
+              "minimo": {
+                "valor": 1,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 1,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "integridadeFlap2": {
+              "minimo": {
+                "valor": 1,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 1,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "energiaMecanicaEspecificaJPorKg": {
+              "minimo": {
+                "valor": -31763184.228640795,
+                "passo": 240,
+                "tempoS": 0.9999999999999977
+              },
+              "maximo": {
+                "valor": -31763171.591434292,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "torqueAerodinamicoNm": {
+              "minimo": {
+                "valor": -74.39878189101988,
+                "passo": 28,
+                "tempoS": 0.11666666666666665
+              },
+              "maximo": {
+                "valor": 0,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "energiaBateriaJ": {
+              "minimo": {
+                "valor": 19999848.000000715,
+                "passo": 240,
+                "tempoS": 0.9999999999999977
+              },
+              "maximo": {
+                "valor": 20000000,
+                "passo": 0,
+                "tempoS": 0
+              }
+            }
+          },
+          "intervaloAtual": {
+            "inicioPasso": 241,
+            "fimPasso": 240,
+            "extremos": {}
+          },
+          "ultimoIntervalo": {
+            "inicioPasso": 0,
+            "fimPasso": 240,
+            "extremos": {
+              "cargaG": {
+                "minimo": {
+                  "valor": 0.0002480691423367663,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 0.0002518742280393676,
+                  "passo": 240,
+                  "tempoS": 0.9999999999999977
+                }
+              },
+              "erroAlphaRad": {
+                "minimo": {
+                  "valor": 0,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 0.00003928289886823144,
+                  "passo": 240,
+                  "tempoS": 0.9999999999999977
+                }
+              },
+              "energiaTermicaCorpoJ": {
+                "minimo": {
+                  "valor": 0,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 410196.6221061122,
+                  "passo": 240,
+                  "tempoS": 0.9999999999999977
+                }
+              },
+              "energiaTermicaFlap1J": {
+                "minimo": {
+                  "valor": 0,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 4921.721476473723,
+                  "passo": 240,
+                  "tempoS": 0.9999999999999977
+                }
+              },
+              "energiaTermicaFlap2J": {
+                "minimo": {
+                  "valor": 0,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 4937.633456138002,
+                  "passo": 240,
+                  "tempoS": 0.9999999999999977
+                }
+              },
+              "altitudeM": {
+                "minimo": {
+                  "valor": 119865.45287473779,
+                  "passo": 240,
+                  "tempoS": 0.9999999999999977
+                },
+                "maximo": {
+                  "valor": 120000,
+                  "passo": 0,
+                  "tempoS": 0
+                }
+              },
+              "velocidadeMps": {
+                "minimo": {
+                  "valor": 7700,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 7700.163670160165,
+                  "passo": 240,
+                  "tempoS": 0.9999999999999977
+                }
+              },
+              "omegaInercialRadps": {
+                "minimo": {
+                  "valor": -0.0011916960302178193,
+                  "passo": 240,
+                  "tempoS": 0.9999999999999977
+                },
+                "maximo": {
+                  "valor": -0.00118607722272442,
+                  "passo": 0,
+                  "tempoS": 0
+                }
+              },
+              "alphaRad": {
+                "minimo": {
+                  "valor": 0.6981317007977318,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 0.6981709836966,
+                  "passo": 240,
+                  "tempoS": 0.9999999999999977
+                }
+              },
+              "pressaoDinamicaPa": {
+                "minimo": {
+                  "valor": 0.6587118999999987,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 0.6731999433147189,
+                  "passo": 240,
+                  "tempoS": 0.9999999999999977
+                }
+              },
+              "fluxoTermicoIndicadorWm2": {
+                "minimo": {
+                  "valor": 5072.081629999991,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 5183.74974626588,
+                  "passo": 240,
+                  "tempoS": 0.9999999999999977
+                }
+              },
+              "temperaturaCorpoC": {
+                "minimo": {
+                  "valor": 20,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 20.006498679057472,
+                  "passo": 240,
+                  "tempoS": 0.9999999999999977
+                }
+              },
+              "temperaturaFlap1C": {
+                "minimo": {
+                  "valor": 20,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 20.019686885905884,
+                  "passo": 240,
+                  "tempoS": 0.9999999999999977
+                }
+              },
+              "temperaturaFlap2C": {
+                "minimo": {
+                  "valor": 20,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 20.019750533824556,
+                  "passo": 240,
+                  "tempoS": 0.9999999999999977
+                }
+              },
+              "integridadeCorpo": {
+                "minimo": {
+                  "valor": 1,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 1,
+                  "passo": 0,
+                  "tempoS": 0
+                }
+              },
+              "integridadeFlap1": {
+                "minimo": {
+                  "valor": 1,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 1,
+                  "passo": 0,
+                  "tempoS": 0
+                }
+              },
+              "integridadeFlap2": {
+                "minimo": {
+                  "valor": 1,
+                  "passo": 0,
+                  "tempoS": 0
+                },
+                "maximo": {
+                  "valor": 1,
+                  "passo": 0,
+                  "tempoS": 0
+                }
+              },
+              "energiaMecanicaEspecificaJPorKg": {
+                "minimo": {
+                  "valor": -31763184.228640795,
+                  "passo": 240,
+                  "tempoS": 0.9999999999999977
+                },
+                "maximo": {
+                  "valor": -31763171.591434292,
+                  "passo": 0,
+                  "tempoS": 0
+                }
+              },
+              "torqueAerodinamicoNm": {
+                "minimo": {
+                  "valor": -74.39878189101988,
+                  "passo": 28,
+                  "tempoS": 0.11666666666666665
+                },
+                "maximo": {
+                  "valor": 0,
+                  "passo": 0,
+                  "tempoS": 0
+                }
+              },
+              "energiaBateriaJ": {
+                "minimo": {
+                  "valor": 19999848.000000715,
+                  "passo": 240,
+                  "tempoS": 0.9999999999999977
+                },
+                "maximo": {
+                  "valor": 20000000,
+                  "passo": 0,
+                  "tempoS": 0
+                }
+              }
+            }
+          }
+        },
+        "eventosDescartados": 0,
+        "altitudeM": 119865.45287473779,
+        "arcoM": 7556.65376876035,
+        "velocidadeMps": 7700.163670160165,
+        "trajetoriaRad": -0.01749541635501243,
+        "velocidadeRadialMps": -134.71069690869865,
+        "velocidadeTangencialMps": 7698.985230236049,
+        "energiaMecanicaEspecificaJPorKg": -31763184.228640795,
+        "atitudeInercialRad": 0.6794894656670059,
+        "atitudeLocalRad": 0.6806755673415876,
+        "aerodinamica": {
+          "velocidadeRelativaMps": 7700.163670160165,
+          "anguloAtaqueRad": 0.6981709836966,
+          "mach": 20.275628322562245,
+          "pressaoDinamicaPa": 0.6731999433147189,
+          "cl": 0.8800902776314811,
+          "cd": 0.7811433560605213,
+          "sustentacaoN": 148.11918125333708,
+          "sustentacaoXYN": 146.3623708472892,
+          "sustentacaoLateralOmitidaN": 22.745290833917768,
+          "arrastoN": 131.46641575515306,
+          "forcaSustentacaoN": {
+            "x": 2.734112229570425,
+            "y": 146.3368314210593,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": -131.44347559090556,
+            "y": 2.4558493621901536,
+            "z": 0
+          },
+          "centroPressaoLocalM": -0.294625109138239,
+          "fluxoTermicoIndicadorWm2": 5183.74974626588,
+          "knudsen": 0.44505725359260356,
+          "regime": "transicao",
+          "foraDominioAtmosferico": false,
+          "modeloEscoamentoEfetivo": "polar-continua-analitica-extrapolada",
+          "modeloContinuoAplicavel": false
+        },
+        "rolagem": {
+          "solicitadaRad": 1.0471975511965976,
+          "atualRad": 0.15417075059283253,
+          "taxaMaximaRadps": 0.17453292519943295,
+          "limiteRad": 1.5707963267948966,
+          "disponivel": true
+        },
+        "controle": {
+          "estado": "manual",
+          "alphaSolicitadoRad": 0.6981317007977318,
+          "alphaGerenciadoRad": 0.6981317007977318,
+          "phiSolicitadoRad": 1.0471975511965976,
+          "torqueSolicitadoNm": 0,
+          "torqueComandadoNm": 0,
+          "corredor": {
+            "estrategia": "heuristica-experimental-55-70-graus",
+            "excedeu": false,
+            "violacoes": [],
+            "alphaAlvoRad": 0.6981317007977318,
+            "phiAlvoRad": 0,
+            "energiaMecanicaEspecificaJPorKg": -31763172.999394625,
+            "integridadeMinima": 1,
+            "eficaciaQualificada": false
+          }
+        },
+        "historicoRolagem": [
+          {
+            "tempoS": 0,
+            "anguloRad": 0
+          },
+          {
+            "tempoS": 0.11666666666666665,
+            "anguloRad": 1.0471975511965976
+          }
+        ],
+        "supervisor": {
+          "fase": "reentrada",
+          "automatico": false,
+          "candidatoCinematico": false,
+          "autorizado": false,
+          "requisitos": [
+            {
+              "descricao": "Sensores e finitude",
+              "atendido": true,
+              "atual": true,
+              "esperado": "leituras válidas SI"
+            },
+            {
+              "descricao": "Alvo definido à frente",
+              "atendido": false,
+              "atual": null,
+              "esperado": "arco restante > 0 m"
+            },
+            {
+              "descricao": "Altitude e descida",
+              "atendido": true,
+              "atual": 119865.45287473779,
+              "esperado": "acima da superfície, descendente e progredindo ao alvo"
+            },
+            {
+              "descricao": "Integridade do corpo",
+              "atendido": true,
+              "atual": 1,
+              "esperado": "> 0; não é margem qualificada"
+            },
+            {
+              "descricao": "Flaps conectados e íntegros",
+              "atendido": true,
+              "atual": 1,
+              "esperado": "> 0"
+            },
+            {
+              "descricao": "Condição térmica",
+              "atendido": true,
+              "atual": true,
+              "esperado": "abaixo dos limiares provisórios"
+            },
+            {
+              "descricao": "Alimentação",
+              "atendido": true,
+              "atual": true,
+              "esperado": "disponível aos flaps"
+            },
+            {
+              "descricao": "Autoridade aerodinâmica",
+              "atendido": true,
+              "atual": true,
+              "esperado": "autoridade remanescente acima do limiar experimental"
+            },
+            {
+              "descricao": "Corredor",
+              "atendido": true,
+              "atual": true,
+              "esperado": "q, indicador térmico e carga nos limites configurados"
+            },
+            {
+              "descricao": "Erro de alpha",
+              "atendido": true,
+              "atual": 0.00003928289886823144,
+              "esperado": "|erro| ≤ 0.17453292519943295 rad (provisório)"
+            },
+            {
+              "descricao": "Rotação",
+              "atendido": true,
+              "atual": -0.0011916960302178193,
+              "esperado": "|ω| ≤ 0.02 rad/s (provisório)"
+            },
+            {
+              "descricao": "Frenagem hipotética",
+              "atendido": false,
+              "atual": false,
+              "esperado": "ao menos uma hipótese satisfaz limites necessários; trajetória ainda não demonstrada"
+            },
+            {
+              "descricao": "Propulsão operacional",
+              "atendido": false,
+              "atual": false,
+              "esperado": "motores reais, reserva, permissivos e capacidade de partida verificados"
+            },
+            {
+              "descricao": "Integração com aproximação",
+              "atendido": false,
+              "atual": false,
+              "esperado": "controle/planejamento físico compatível, além deste protótipo sem atuação"
+            }
+          ],
+          "limites": {
+            "alvoArcoM": null,
+            "aceleracoesLiquidasHipoteticasMps2": [
+              1,
+              2,
+              5
+            ],
+            "erroAlphaMaxRad": 0.17453292519943295,
+            "omegaMaxRadps": 0.02
+          },
+          "avaliacao": {
+            "candidatoCinematico": false,
+            "autorizado": false,
+            "distanciaRestanteM": null,
+            "energiaMecanicaEspecificaJPorKg": -31763184.228640795,
+            "natureza": "limites-necessarios-ideais-nao-trajetoria-certificada",
+            "hipoteses": [
+              {
+                "aceleracaoLiquidaMps2": 1,
+                "distanciaFrenagemM": 29646260.273627214,
+                "quedaFrenagemRadialM": 9073.485930813637,
+                "tempoFrenagemS": 7700.163670160163,
+                "velocidadeLimiteNecessariaMps": null,
+                "desvioVelocidadeMps": null,
+                "limitesNecessariosAtendidos": false
+              },
+              {
+                "aceleracaoLiquidaMps2": 2,
+                "distanciaFrenagemM": 14823130.136813607,
+                "quedaFrenagemRadialM": 4536.742965406818,
+                "tempoFrenagemS": 3850.0818350800814,
+                "velocidadeLimiteNecessariaMps": null,
+                "desvioVelocidadeMps": null,
+                "limitesNecessariosAtendidos": false
+              },
+              {
+                "aceleracaoLiquidaMps2": 5,
+                "distanciaFrenagemM": 5929252.054725443,
+                "quedaFrenagemRadialM": 1814.6971861627273,
+                "tempoFrenagemS": 1540.0327340320325,
+                "velocidadeLimiteNecessariaMps": null,
+                "desvioVelocidadeMps": null,
+                "limitesNecessariosAtendidos": false
+              }
+            ],
+            "requisitos": [
+              {
+                "descricao": "Sensores e finitude",
+                "atendido": true,
+                "atual": true,
+                "esperado": "leituras válidas SI"
+              },
+              {
+                "descricao": "Alvo definido à frente",
+                "atendido": false,
+                "atual": null,
+                "esperado": "arco restante > 0 m"
+              },
+              {
+                "descricao": "Altitude e descida",
+                "atendido": true,
+                "atual": 119865.45287473779,
+                "esperado": "acima da superfície, descendente e progredindo ao alvo"
+              },
+              {
+                "descricao": "Integridade do corpo",
+                "atendido": true,
+                "atual": 1,
+                "esperado": "> 0; não é margem qualificada"
+              },
+              {
+                "descricao": "Flaps conectados e íntegros",
+                "atendido": true,
+                "atual": 1,
+                "esperado": "> 0"
+              },
+              {
+                "descricao": "Condição térmica",
+                "atendido": true,
+                "atual": true,
+                "esperado": "abaixo dos limiares provisórios"
+              },
+              {
+                "descricao": "Alimentação",
+                "atendido": true,
+                "atual": true,
+                "esperado": "disponível aos flaps"
+              },
+              {
+                "descricao": "Autoridade aerodinâmica",
+                "atendido": true,
+                "atual": true,
+                "esperado": "autoridade remanescente acima do limiar experimental"
+              },
+              {
+                "descricao": "Corredor",
+                "atendido": true,
+                "atual": true,
+                "esperado": "q, indicador térmico e carga nos limites configurados"
+              },
+              {
+                "descricao": "Erro de alpha",
+                "atendido": true,
+                "atual": 0.00003928289886823144,
+                "esperado": "|erro| ≤ 0.17453292519943295 rad (provisório)"
+              },
+              {
+                "descricao": "Rotação",
+                "atendido": true,
+                "atual": -0.0011916960302178193,
+                "esperado": "|ω| ≤ 0.02 rad/s (provisório)"
+              },
+              {
+                "descricao": "Frenagem hipotética",
+                "atendido": false,
+                "atual": false,
+                "esperado": "ao menos uma hipótese satisfaz limites necessários; trajetória ainda não demonstrada"
+              },
+              {
+                "descricao": "Propulsão operacional",
+                "atendido": false,
+                "atual": false,
+                "esperado": "motores reais, reserva, permissivos e capacidade de partida verificados"
+              },
+              {
+                "descricao": "Integração com aproximação",
+                "atendido": false,
+                "atual": false,
+                "esperado": "controle/planejamento físico compatível, além deste protótipo sem atuação"
+              }
+            ]
+          }
+        },
+        "arbitragem": [],
+        "massaKg": 80000,
+        "inerciaKgM2": 11223158.333333299,
+        "centroM": {
+          "x": 7698.863852721617,
+          "y": 119860.83846148814,
+          "z": 0
+        },
+        "forcaAerodinamicaN": {
+          "x": -130.0024925201064,
+          "y": 148.81684184913496,
+          "z": 0
+        },
+        "torqueAerodinamicoNm": -62.43020919747978,
+        "aceleracaoMps2": {
+          "x": -0.012846620697926707,
+          "y": -9.459035528508197,
+          "z": 0
+        },
+        "rotacao": {
+          "massaKg": 80000,
+          "centroM": {
+            "x": 7698.863852721617,
+            "y": 119860.83846148812,
+            "z": 0
+          },
+          "velocidadeCentroMps": {
+            "x": 7698.819976143318,
+            "y": -143.842426087271,
+            "z": 0
+          },
+          "inerciaKgM2": 11223158.333333297,
+          "momentoIntrinsecoKgM2ps": -13374.593232343263,
+          "momentoOrbitalKgM2ps": -3997846120701469.5,
+          "momentoTotalKgM2ps": -3997846120714844,
+          "omegaInercialRadps": -0.0011916960302181699,
+          "torqueGravitacionalNm": 0.49468112740420833,
+          "impulsoTorqueNmS": -63.06076647404461,
+          "residuoPassoKgM2ps": -4.412059495528808e-9,
+          "residuoAcumuladoKgM2ps": 3.3121887904608016e-7,
+          "residuoMaximoPassoKgM2ps": 2.3363191270497907e-8,
+          "passosIncompletos": 0,
+          "cargasEfetivamenteIntegradas": {
+            "impulsoGravitacionalNmS": 0.002061171336706011,
+            "torqueAerodinamicoNm": -62.42485807548717,
+            "torqueOutrosContinuosNm": 0,
+            "dtS": 0.004166666666666667
+          },
+          "torqueAerodinamicoNm": -62.43020919747978,
+          "torqueOutrosContinuosNm": 0,
+          "fontesImpulsivas": false
+        },
+        "cargaG": 0.0002518742280393676,
+        "desaceleracaoMps2": 0.0016594971326144296,
+        "temperaturaC": 20.006498679057472,
+        "integridade": 1,
+        "limiteOrbitadorC": 1100,
+        "limiteFlapsC": 900,
+        "energiaAbsorvidaJ": 420055.97703872394,
+        "energiaDissipadaJ": 1011140.4888328629,
+        "energiaAtmosferaJ": 591084.5117941389,
+        "respostaTermica": {
+          "energiaAbsorvidaCorpoJ": 410196.6221061122,
+          "modelo": "concentrado-min-indicador-DV-experimental",
+          "tetoUniversal": false,
+          "potenciaIndicadorCorpoW": 414699.9797012704,
+          "potenciaTransferidaCorpoW": 414699.9797012704,
+          "tpsInstalado": false,
+          "camadasInternasModeladas": false
+        },
+        "estadosTerminais": {
+          "corpoDestruido": false,
+          "controlePerdido": false,
+          "contato": false,
+          "impactoDestrutivo": false
+        },
+        "dissipacaoW": 1022271.9565744641,
+        "calorTransferidoW": 424659.01783173316,
+        "potenciaAtmosferaW": 597612.938742731,
+        "energiaBateriaJ": 19999848.000000715,
+        "temperaturaBateriaC": 20,
+        "integridadeBateria": 1,
+        "limiteBateriaC": 60,
+        "flaps": [
+          {
+            "id": "flap-dianteiro",
+            "estado": {
+              "posicaoM": {
+                "x": 7714.412856001697,
+                "y": 119867.05194708367,
+                "z": 0
+              },
+              "velocidadeMps": {
+                "x": 7698.827380729436,
+                "y": -143.86095577275373,
+                "z": 0
+              },
+              "orientacaoRad": {
+                "x": 0,
+                "y": 0,
+                "z": 0.6794894656670059
+              },
+              "velocidadeAngularRadps": {
+                "x": 0,
+                "y": 0,
+                "z": -0.0011916960302178193
+              }
+            },
+            "comandoRad": 0,
+            "deflexaoRad": 0,
+            "integridade": 1,
+            "temperaturaC": 20.019686885905884,
+            "energiaAbsorvidaJ": 4921.721476473723,
+            "conectado": true,
+            "fluxoTermicoIndicadorWm2": 5178.59503268814,
+            "energizado": true,
+            "atuacao": {
+              "taxaEfetivaRadps": 0,
+              "cursoRad": 0.5235987755982988,
+              "taxaMaximaRadps": 0.3490658503988659,
+              "modeloMecanico": "taxa-prescrita-eletrica",
+              "torqueDisponivelNm": null,
+              "torqueCargaNm": null,
+              "bloqueio": "nenhum"
+            },
+            "knudsenEstimado": 1.7820063743552228,
+            "modeloEscoamento": "polar-continua-extrapolada"
+          },
+          {
+            "id": "flap-traseiro",
+            "estado": {
+              "posicaoM": {
+                "x": 7689.520259591177,
+                "y": 119846.94327621903,
+                "z": 0
+              },
+              "velocidadeMps": {
+                "x": 7698.803417306193,
+                "y": -143.8312913644295,
+                "z": 0
+              },
+              "orientacaoRad": {
+                "x": 0,
+                "y": 0,
+                "z": 0.6794894656670059
+              },
+              "velocidadeAngularRadps": {
+                "x": 0,
+                "y": 0,
+                "z": -0.0011916960302178193
+              }
+            },
+            "comandoRad": 0,
+            "deflexaoRad": 0,
+            "integridade": 1,
+            "temperaturaC": 20.019750533824556,
+            "energiaAbsorvidaJ": 4937.633456138002,
+            "conectado": true,
+            "fluxoTermicoIndicadorWm2": 5195.403019877212,
+            "energizado": true,
+            "atuacao": {
+              "taxaEfetivaRadps": 0,
+              "cursoRad": 0.5235987755982988,
+              "taxaMaximaRadps": 0.3490658503988659,
+              "modeloMecanico": "taxa-prescrita-eletrica",
+              "torqueDisponivelNm": null,
+              "torqueCargaNm": null,
+              "bloqueio": "nenhum"
+            },
+            "knudsenEstimado": 1.7762243254265102,
+            "modeloEscoamento": "polar-continua-extrapolada"
+          }
+        ],
+        "vinculos": [
+          {
+            "id": "fixador-flap-dianteiro",
+            "estado": "integro",
+            "tracaoAtualN": 0,
+            "picoTracaoN": 0,
+            "resistenciaTracaoN": 100000000,
+            "cisalhamentoFlexaoTorcaoModelados": false
+          },
+          {
+            "id": "fixador-flap-traseiro",
+            "estado": "integro",
+            "tracaoAtualN": 0.6946524450997038,
+            "picoTracaoN": 0.695440424747998,
+            "resistenciaTracaoN": 100000000,
+            "cisalhamentoFlexaoTorcaoModelados": false
+          },
+          {
+            "id": "fixador-bateria-interna-re",
+            "estado": "integro",
+            "tracaoAtualN": 0,
+            "picoTracaoN": 0,
+            "resistenciaTracaoN": 100000000,
+            "cisalhamentoFlexaoTorcaoModelados": false
+          }
+        ],
+        "raioTerraM": 6371000,
+        "centroTerraM": {
+          "x": 0,
+          "y": -6371000,
+          "z": 0
+        },
+        "propulsaoDisponivel": false,
+        "rcsDisponivel": false
+      }
+    },
+    {
+      "passo": 480,
+      "observacao": {
+        "id": "RE-001",
+        "tempoS": 1.9999999999999942,
+        "passo": 480,
+        "execucao": "executando",
+        "estado": {
+          "posicaoM": {
+            "x": 15397.636309306468,
+            "y": 119712.31512025559,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": 7698.801559004115,
+            "y": -153.30161576385396,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 0.6782949989156231
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": -0.0011972098863235797
+          }
+        },
+        "extremos": {
+          "globais": {
+            "cargaG": {
+              "minimo": {
+                "valor": 0.0002480691423367663,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 0.00025223964456516537,
+                "passo": 340,
+                "tempoS": 1.416666666666663
+              }
+            },
+            "erroAlphaRad": {
+              "minimo": {
+                "valor": 0,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 0.00007306691201114379,
+                "passo": 480,
+                "tempoS": 1.9999999999999942
+              }
+            },
+            "energiaTermicaCorpoJ": {
+              "minimo": {
+                "valor": 0,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 829435.3169806064,
+                "passo": 480,
+                "tempoS": 1.9999999999999942
+              }
+            },
+            "energiaTermicaFlap1J": {
+              "minimo": {
+                "valor": 0,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 9947.58321251387,
+                "passo": 480,
+                "tempoS": 1.9999999999999942
+              }
+            },
+            "energiaTermicaFlap2J": {
+              "minimo": {
+                "valor": 0,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 9979.807271376365,
+                "passo": 480,
+                "tempoS": 1.9999999999999942
+              }
+            },
+            "altitudeM": {
+              "minimo": {
+                "valor": 119730.5786681408,
+                "passo": 480,
+                "tempoS": 1.9999999999999942
+              },
+              "maximo": {
+                "valor": 120000,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "velocidadeMps": {
+              "minimo": {
+                "valor": 7700,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 7700.32770928095,
+                "passo": 480,
+                "tempoS": 1.9999999999999942
+              }
+            },
+            "omegaInercialRadps": {
+              "minimo": {
+                "valor": -0.0011972098863235797,
+                "passo": 480,
+                "tempoS": 1.9999999999999942
+              },
+              "maximo": {
+                "valor": -0.00118607722272442,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "alphaRad": {
+              "minimo": {
+                "valor": 0.6981317007977318,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 0.6982047677097429,
+                "passo": 480,
+                "tempoS": 1.9999999999999942
+              }
+            },
+            "pressaoDinamicaPa": {
+              "minimo": {
+                "valor": 0.6587118999999987,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 0.6880430269284981,
+                "passo": 480,
+                "tempoS": 1.9999999999999942
+              }
+            },
+            "fluxoTermicoIndicadorWm2": {
+              "minimo": {
+                "valor": 5072.081629999991,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 5298.156785435053,
+                "passo": 480,
+                "tempoS": 1.9999999999999942
+              }
+            },
+            "temperaturaCorpoC": {
+              "minimo": {
+                "valor": 20,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 20.013140610218365,
+                "passo": 480,
+                "tempoS": 1.9999999999999942
+              }
+            },
+            "temperaturaFlap1C": {
+              "minimo": {
+                "valor": 20,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 20.03979033285002,
+                "passo": 480,
+                "tempoS": 1.9999999999999942
+              }
+            },
+            "temperaturaFlap2C": {
+              "minimo": {
+                "valor": 20,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 20.03991922908551,
+                "passo": 480,
+                "tempoS": 1.9999999999999942
+              }
+            },
+            "integridadeCorpo": {
+              "minimo": {
+                "valor": 1,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 1,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "integridadeFlap1": {
+              "minimo": {
+                "valor": 1,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 1,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "integridadeFlap2": {
+              "minimo": {
+                "valor": 1,
+                "passo": 0,
+                "tempoS": 0
+              },
+              "maximo": {
+                "valor": 1,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "energiaMecanicaEspecificaJPorKg": {
+              "minimo": {
+                "valor": -31763197.145327415,
+                "passo": 480,
+                "tempoS": 1.9999999999999942
+              },
+              "maximo": {
+                "valor": -31763171.591434292,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "torqueAerodinamicoNm": {
+              "minimo": {
+                "valor": -74.39878189101988,
+                "passo": 28,
+                "tempoS": 0.11666666666666665
+              },
+              "maximo": {
+                "valor": 0,
+                "passo": 0,
+                "tempoS": 0
+              }
+            },
+            "energiaBateriaJ": {
+              "minimo": {
+                "valor": 19999846.6000008,
+                "passo": 268,
+                "tempoS": 1.116666666666664
+              },
+              "maximo": {
+                "valor": 20000000,
+                "passo": 0,
+                "tempoS": 0
+              }
+            }
+          },
+          "intervaloAtual": {
+            "inicioPasso": 481,
+            "fimPasso": 480,
+            "extremos": {}
+          },
+          "ultimoIntervalo": {
+            "inicioPasso": 241,
+            "fimPasso": 480,
+            "extremos": {
+              "cargaG": {
+                "minimo": {
+                  "valor": 0.0002515399884907466,
+                  "passo": 480,
+                  "tempoS": 1.9999999999999942
+                },
+                "maximo": {
+                  "valor": 0.00025223964456516537,
+                  "passo": 340,
+                  "tempoS": 1.416666666666663
+                }
+              },
+              "erroAlphaRad": {
+                "minimo": {
+                  "valor": 0.000039435056514713906,
+                  "passo": 241,
+                  "tempoS": 1.0041666666666644
+                },
+                "maximo": {
+                  "valor": 0.00007306691201114379,
+                  "passo": 480,
+                  "tempoS": 1.9999999999999942
+                }
+              },
+              "energiaTermicaCorpoJ": {
+                "minimo": {
+                  "valor": 411924.5386882008,
+                  "passo": 241,
+                  "tempoS": 1.0041666666666644
+                },
+                "maximo": {
+                  "valor": 829435.3169806064,
+                  "passo": 480,
+                  "tempoS": 1.9999999999999942
+                }
+              },
+              "energiaTermicaFlap1J": {
+                "minimo": {
+                  "valor": 4942.435856604476,
+                  "passo": 241,
+                  "tempoS": 1.0041666666666644
+                },
+                "maximo": {
+                  "valor": 9947.58321251387,
+                  "passo": 480,
+                  "tempoS": 1.9999999999999942
+                }
+              },
+              "energiaTermicaFlap2J": {
+                "minimo": {
+                  "valor": 4958.41506821751,
+                  "passo": 241,
+                  "tempoS": 1.0041666666666644
+                },
+                "maximo": {
+                  "valor": 9979.807271376365,
+                  "passo": 480,
+                  "tempoS": 1.9999999999999942
+                }
+              },
+              "altitudeM": {
+                "minimo": {
+                  "valor": 119730.5786681408,
+                  "passo": 480,
+                  "tempoS": 1.9999999999999942
+                },
+                "maximo": {
+                  "valor": 119864.89157734439,
+                  "passo": 241,
+                  "tempoS": 1.0041666666666644
+                }
+              },
+              "velocidadeMps": {
+                "minimo": {
+                  "valor": 7700.164352891774,
+                  "passo": 241,
+                  "tempoS": 1.0041666666666644
+                },
+                "maximo": {
+                  "valor": 7700.32770928095,
+                  "passo": 480,
+                  "tempoS": 1.9999999999999942
+                }
+              },
+              "omegaInercialRadps": {
+                "minimo": {
+                  "valor": -0.0011972098863235797,
+                  "passo": 480,
+                  "tempoS": 1.9999999999999942
+                },
+                "maximo": {
+                  "valor": -0.0011917190226527045,
+                  "passo": 241,
+                  "tempoS": 1.0041666666666644
+                }
+              },
+              "alphaRad": {
+                "minimo": {
+                  "valor": 0.6981711358542465,
+                  "passo": 241,
+                  "tempoS": 1.0041666666666644
+                },
+                "maximo": {
+                  "valor": 0.6982047677097429,
+                  "passo": 480,
+                  "tempoS": 1.9999999999999942
+                }
+              },
+              "pressaoDinamicaPa": {
+                "minimo": {
+                  "valor": 0.6732610464758633,
+                  "passo": 241,
+                  "tempoS": 1.0041666666666644
+                },
+                "maximo": {
+                  "valor": 0.6880430269284981,
+                  "passo": 480,
+                  "tempoS": 1.9999999999999942
+                }
+              },
+              "fluxoTermicoIndicadorWm2": {
+                "minimo": {
+                  "valor": 5184.220710264053,
+                  "passo": 241,
+                  "tempoS": 1.0041666666666644
+                },
+                "maximo": {
+                  "valor": 5298.156785435053,
+                  "passo": 480,
+                  "tempoS": 1.9999999999999942
+                }
+              },
+              "temperaturaCorpoC": {
+                "minimo": {
+                  "valor": 20.00652605416175,
+                  "passo": 241,
+                  "tempoS": 1.0041666666666644
+                },
+                "maximo": {
+                  "valor": 20.013140610218365,
+                  "passo": 480,
+                  "tempoS": 1.9999999999999942
+                }
+              },
+              "temperaturaFlap1C": {
+                "minimo": {
+                  "valor": 20.01976974342641,
+                  "passo": 241,
+                  "tempoS": 1.0041666666666644
+                },
+                "maximo": {
+                  "valor": 20.03979033285002,
+                  "passo": 480,
+                  "tempoS": 1.9999999999999942
+                }
+              },
+              "temperaturaFlap2C": {
+                "minimo": {
+                  "valor": 20.019833660272873,
+                  "passo": 241,
+                  "tempoS": 1.0041666666666644
+                },
+                "maximo": {
+                  "valor": 20.03991922908551,
+                  "passo": 480,
+                  "tempoS": 1.9999999999999942
+                }
+              },
+              "integridadeCorpo": {
+                "minimo": {
+                  "valor": 1,
+                  "passo": 241,
+                  "tempoS": 1.0041666666666644
+                },
+                "maximo": {
+                  "valor": 1,
+                  "passo": 241,
+                  "tempoS": 1.0041666666666644
+                }
+              },
+              "integridadeFlap1": {
+                "minimo": {
+                  "valor": 1,
+                  "passo": 241,
+                  "tempoS": 1.0041666666666644
+                },
+                "maximo": {
+                  "valor": 1,
+                  "passo": 241,
+                  "tempoS": 1.0041666666666644
+                }
+              },
+              "integridadeFlap2": {
+                "minimo": {
+                  "valor": 1,
+                  "passo": 241,
+                  "tempoS": 1.0041666666666644
+                },
+                "maximo": {
+                  "valor": 1,
+                  "passo": 241,
+                  "tempoS": 1.0041666666666644
+                }
+              },
+              "energiaMecanicaEspecificaJPorKg": {
+                "minimo": {
+                  "valor": -31763197.145327415,
+                  "passo": 480,
+                  "tempoS": 1.9999999999999942
+                },
+                "maximo": {
+                  "valor": -31763184.281875737,
+                  "passo": 241,
+                  "tempoS": 1.0041666666666644
+                }
+              },
+              "torqueAerodinamicoNm": {
+                "minimo": {
+                  "valor": -62.46469686730308,
+                  "passo": 302,
+                  "tempoS": 1.2583333333333302
+                },
+                "maximo": {
+                  "valor": -62.12875658627141,
+                  "passo": 480,
+                  "tempoS": 1.9999999999999942
+                }
+              },
+              "energiaBateriaJ": {
+                "minimo": {
+                  "valor": 19999846.6000008,
+                  "passo": 268,
+                  "tempoS": 1.116666666666664
+                },
+                "maximo": {
+                  "valor": 19999847.95000072,
+                  "passo": 241,
+                  "tempoS": 1.0041666666666644
+                }
+              }
+            }
+          }
+        },
+        "eventosDescartados": 0,
+        "altitudeM": 119730.5786681408,
+        "arcoM": 15113.619606774137,
+        "velocidadeMps": 7700.32770928095,
+        "trajetoriaRad": -0.017537516462182285,
+        "velocidadeRadialMps": -135.03770158382767,
+        "velocidadeTangencialMps": 7699.143565973488,
+        "energiaMecanicaEspecificaJPorKg": -31763197.145327415,
+        "atitudeInercialRad": 0.6782949989156231,
+        "atitudeLocalRad": 0.6806672512475604,
+        "aerodinamica": {
+          "velocidadeRelativaMps": 7700.32770928095,
+          "anguloAtaqueRad": 0.6982047677097429,
+          "mach": 20.30756576265914,
+          "pressaoDinamicaPa": 0.6880430269284981,
+          "cl": 0.8801101228225529,
+          "cd": 0.7811965903276549,
+          "sustentacaoN": 151.38840823431036,
+          "sustentacaoXYN": 143.28331709863562,
+          "sustentacaoLateralOmitidaN": 48.870657750126895,
+          "arrastoN": 134.37421665881539,
+          "forcaSustentacaoN": {
+            "x": 2.852549248878215,
+            "y": 143.25491936255065,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": -134.34758464317972,
+            "y": 2.6751828374746105,
+            "z": 0
+          },
+          "centroPressaoLocalM": -0.29463675413417445,
+          "fluxoTermicoIndicadorWm2": 5298.156785435053,
+          "knudsen": 0.4354746313642941,
+          "regime": "transicao",
+          "foraDominioAtmosferico": false,
+          "modeloEscoamentoEfetivo": "polar-continua-analitica-extrapolada",
+          "modeloContinuoAplicavel": false
+        },
+        "rolagem": {
+          "solicitadaRad": 1.0471975511965976,
+          "atualRad": 0.3287036757922635,
+          "taxaMaximaRadps": 0.17453292519943295,
+          "limiteRad": 1.5707963267948966,
+          "disponivel": true
+        },
+        "controle": {
+          "estado": "manual",
+          "alphaSolicitadoRad": 0.6981317007977318,
+          "alphaGerenciadoRad": 0.6981317007977318,
+          "phiSolicitadoRad": 1.0471975511965976,
+          "torqueSolicitadoNm": 0,
+          "torqueComandadoNm": 0,
+          "corredor": {
+            "estrategia": "heuristica-experimental-55-70-graus",
+            "excedeu": false,
+            "violacoes": [],
+            "alphaAlvoRad": 0.6981317007977318,
+            "phiAlvoRad": 0,
+            "energiaMecanicaEspecificaJPorKg": -31763172.999394625,
+            "integridadeMinima": 1,
+            "eficaciaQualificada": false
+          }
+        },
+        "historicoRolagem": [
+          {
+            "tempoS": 0,
+            "anguloRad": 0
+          },
+          {
+            "tempoS": 0.11666666666666665,
+            "anguloRad": 1.0471975511965976
+          }
+        ],
+        "supervisor": {
+          "fase": "reentrada",
+          "automatico": true,
+          "candidatoCinematico": false,
+          "autorizado": false,
+          "requisitos": [
+            {
+              "descricao": "Sensores e finitude",
+              "atendido": true,
+              "atual": true,
+              "esperado": "leituras válidas SI"
+            },
+            {
+              "descricao": "Alvo definido à frente",
+              "atendido": false,
+              "atual": null,
+              "esperado": "arco restante > 0 m"
+            },
+            {
+              "descricao": "Altitude e descida",
+              "atendido": true,
+              "atual": 119730.5786681408,
+              "esperado": "acima da superfície, descendente e progredindo ao alvo"
+            },
+            {
+              "descricao": "Integridade do corpo",
+              "atendido": true,
+              "atual": 1,
+              "esperado": "> 0; não é margem qualificada"
+            },
+            {
+              "descricao": "Flaps conectados e íntegros",
+              "atendido": true,
+              "atual": 1,
+              "esperado": "> 0"
+            },
+            {
+              "descricao": "Condição térmica",
+              "atendido": true,
+              "atual": true,
+              "esperado": "abaixo dos limiares provisórios"
+            },
+            {
+              "descricao": "Alimentação",
+              "atendido": false,
+              "atual": false,
+              "esperado": "disponível aos flaps"
+            },
+            {
+              "descricao": "Autoridade aerodinâmica",
+              "atendido": true,
+              "atual": true,
+              "esperado": "autoridade remanescente acima do limiar experimental"
+            },
+            {
+              "descricao": "Corredor",
+              "atendido": true,
+              "atual": true,
+              "esperado": "q, indicador térmico e carga nos limites configurados"
+            },
+            {
+              "descricao": "Erro de alpha",
+              "atendido": true,
+              "atual": 0.00007306691201114379,
+              "esperado": "|erro| ≤ 0.17453292519943295 rad (provisório)"
+            },
+            {
+              "descricao": "Rotação",
+              "atendido": true,
+              "atual": -0.0011972098863235797,
+              "esperado": "|ω| ≤ 0.02 rad/s (provisório)"
+            },
+            {
+              "descricao": "Frenagem hipotética",
+              "atendido": false,
+              "atual": false,
+              "esperado": "ao menos uma hipótese satisfaz limites necessários; trajetória ainda não demonstrada"
+            },
+            {
+              "descricao": "Propulsão operacional",
+              "atendido": false,
+              "atual": false,
+              "esperado": "motores reais, reserva, permissivos e capacidade de partida verificados"
+            },
+            {
+              "descricao": "Integração com aproximação",
+              "atendido": false,
+              "atual": false,
+              "esperado": "controle/planejamento físico compatível, além deste protótipo sem atuação"
+            }
+          ],
+          "limites": {
+            "alvoArcoM": null,
+            "aceleracoesLiquidasHipoteticasMps2": [
+              1,
+              2,
+              5
+            ],
+            "erroAlphaMaxRad": 0.17453292519943295,
+            "omegaMaxRadps": 0.02
+          },
+          "avaliacao": {
+            "candidatoCinematico": false,
+            "autorizado": false,
+            "distanciaRestanteM": null,
+            "energiaMecanicaEspecificaJPorKg": -31763197.145327415,
+            "natureza": "limites-necessarios-ideais-nao-trajetoria-certificada",
+            "hipoteses": [
+              {
+                "aceleracaoLiquidaMps2": 1,
+                "distanciaFrenagemM": 29647523.415159997,
+                "quedaFrenagemRadialM": 9117.590424521446,
+                "tempoFrenagemS": 7700.327709280949,
+                "velocidadeLimiteNecessariaMps": null,
+                "desvioVelocidadeMps": null,
+                "limitesNecessariosAtendidos": false
+              },
+              {
+                "aceleracaoLiquidaMps2": 2,
+                "distanciaFrenagemM": 14823761.707579998,
+                "quedaFrenagemRadialM": 4558.795212260723,
+                "tempoFrenagemS": 3850.1638546404747,
+                "velocidadeLimiteNecessariaMps": null,
+                "desvioVelocidadeMps": null,
+                "limitesNecessariosAtendidos": false
+              },
+              {
+                "aceleracaoLiquidaMps2": 5,
+                "distanciaFrenagemM": 5929504.6830319995,
+                "quedaFrenagemRadialM": 1823.5180849042893,
+                "tempoFrenagemS": 1540.0655418561898,
+                "velocidadeLimiteNecessariaMps": null,
+                "desvioVelocidadeMps": null,
+                "limitesNecessariosAtendidos": false
+              }
+            ],
+            "requisitos": [
+              {
+                "descricao": "Sensores e finitude",
+                "atendido": true,
+                "atual": true,
+                "esperado": "leituras válidas SI"
+              },
+              {
+                "descricao": "Alvo definido à frente",
+                "atendido": false,
+                "atual": null,
+                "esperado": "arco restante > 0 m"
+              },
+              {
+                "descricao": "Altitude e descida",
+                "atendido": true,
+                "atual": 119730.5786681408,
+                "esperado": "acima da superfície, descendente e progredindo ao alvo"
+              },
+              {
+                "descricao": "Integridade do corpo",
+                "atendido": true,
+                "atual": 1,
+                "esperado": "> 0; não é margem qualificada"
+              },
+              {
+                "descricao": "Flaps conectados e íntegros",
+                "atendido": true,
+                "atual": 1,
+                "esperado": "> 0"
+              },
+              {
+                "descricao": "Condição térmica",
+                "atendido": true,
+                "atual": true,
+                "esperado": "abaixo dos limiares provisórios"
+              },
+              {
+                "descricao": "Alimentação",
+                "atendido": false,
+                "atual": false,
+                "esperado": "disponível aos flaps"
+              },
+              {
+                "descricao": "Autoridade aerodinâmica",
+                "atendido": true,
+                "atual": true,
+                "esperado": "autoridade remanescente acima do limiar experimental"
+              },
+              {
+                "descricao": "Corredor",
+                "atendido": true,
+                "atual": true,
+                "esperado": "q, indicador térmico e carga nos limites configurados"
+              },
+              {
+                "descricao": "Erro de alpha",
+                "atendido": true,
+                "atual": 0.00007306691201114379,
+                "esperado": "|erro| ≤ 0.17453292519943295 rad (provisório)"
+              },
+              {
+                "descricao": "Rotação",
+                "atendido": true,
+                "atual": -0.0011972098863235797,
+                "esperado": "|ω| ≤ 0.02 rad/s (provisório)"
+              },
+              {
+                "descricao": "Frenagem hipotética",
+                "atendido": false,
+                "atual": false,
+                "esperado": "ao menos uma hipótese satisfaz limites necessários; trajetória ainda não demonstrada"
+              },
+              {
+                "descricao": "Propulsão operacional",
+                "atendido": false,
+                "atual": false,
+                "esperado": "motores reais, reserva, permissivos e capacidade de partida verificados"
+              },
+              {
+                "descricao": "Integração com aproximação",
+                "atendido": false,
+                "atual": false,
+                "esperado": "controle/planejamento físico compatível, além deste protótipo sem atuação"
+              }
+            ]
+          }
+        },
+        "arbitragem": [],
+        "massaKg": 80000,
+        "inerciaKgM2": 11223158.333333347,
+        "centroM": {
+          "x": 15397.67552595324,
+          "y": 119712.26645502553,
+          "z": 0
+        },
+        "forcaAerodinamicaN": {
+          "x": -132.81664484913313,
+          "y": 145.9564192726869,
+          "z": 0
+        },
+        "torqueAerodinamicoNm": -62.134087926166906,
+        "aceleracaoMps2": {
+          "x": -0.024104767521319015,
+          "y": -9.45944450660584,
+          "z": 0
+        },
+        "rotacao": {
+          "massaKg": 80000,
+          "centroM": {
+            "x": 15397.67552595324,
+            "y": 119712.26645502554,
+            "z": 0
+          },
+          "velocidadeCentroMps": {
+            "x": 7698.801500741621,
+            "y": -153.30166271441118,
+            "z": 0
+          },
+          "inerciaKgM2": 11223158.333333347,
+          "momentoIntrinsecoKgM2ps": -13436.4761124408,
+          "momentoOrbitalKgM2ps": -3997845266170085,
+          "momentoTotalKgM2ps": -3997845266183521.5,
+          "omegaInercialRadps": -0.0011972098863235127,
+          "torqueGravitacionalNm": 0.4947102166744529,
+          "impulsoTorqueNmS": -124.94364662108978,
+          "residuoPassoKgM2ps": 8.69478045117944e-10,
+          "residuoAcumuladoKgM2ps": 3.807269262634527e-7,
+          "residuoMaximoPassoKgM2ps": 2.9391494460462297e-8,
+          "passosIncompletos": 0,
+          "cargasEfetivamenteIntegradas": {
+            "impulsoGravitacionalNmS": 0.002061288584740778,
+            "torqueAerodinamicoNm": -62.12875658627141,
+            "torqueOutrosContinuosNm": 0,
+            "dtS": 0.004166666666666667
+          },
+          "torqueAerodinamicoNm": -62.134087926166906,
+          "torqueOutrosContinuosNm": 0,
+          "fontesImpulsivas": false
+        },
+        "cargaG": 0.0002515399884907466,
+        "desaceleracaoMps2": 0.001696201101403163,
+        "temperaturaC": 20.013140610218365,
+        "integridade": 1,
+        "limiteOrbitadorC": 1100,
+        "limiteFlapsC": 900,
+        "energiaAbsorvidaJ": 849362.7074644966,
+        "energiaDissipadaJ": 2044636.574896385,
+        "energiaAtmosferaJ": 1195273.8674318884,
+        "respostaTermica": {
+          "energiaAbsorvidaCorpoJ": 829435.3169806064,
+          "modelo": "concentrado-min-indicador-DV-experimental",
+          "tetoUniversal": false,
+          "potenciaIndicadorCorpoW": 423852.5428348043,
+          "potenciaTransferidaCorpoW": 423852.5428348043,
+          "tpsInstalado": false,
+          "camadasInternasModeladas": false
+        },
+        "estadosTerminais": {
+          "corpoDestruido": false,
+          "controlePerdido": false,
+          "contato": false,
+          "impactoDestrutivo": false
+        },
+        "dissipacaoW": 1044904.3412442773,
+        "calorTransferidoW": 434031.38012828375,
+        "potenciaAtmosferaW": 610872.9611159936,
+        "energiaBateriaJ": 19999846.6000008,
+        "temperaturaBateriaC": 20,
+        "integridadeBateria": 1,
+        "limiteBateriaC": 60,
+        "flaps": [
+          {
+            "id": "flap-dianteiro",
+            "estado": {
+              "posicaoM": {
+                "x": 15413.231939941235,
+                "y": 119718.46136342552,
+                "z": 0
+              },
+              "velocidadeMps": {
+                "x": 7698.808917347202,
+                "y": -153.32028700703336,
+                "z": 0
+              },
+              "orientacaoRad": {
+                "x": 0,
+                "y": 0,
+                "z": 0.6782949989156231
+              },
+              "velocidadeAngularRadps": {
+                "x": 0,
+                "y": 0,
+                "z": -0.0011972098863235797
+              }
+            },
+            "comandoRad": 0,
+            "deflexaoRad": 0,
+            "integridade": 1,
+            "temperaturaC": 20.03979033285002,
+            "energiaAbsorvidaJ": 9947.58321251387,
+            "conectado": true,
+            "fluxoTermicoIndicadorWm2": 5292.888490680623,
+            "energizado": false,
+            "atuacao": {
+              "taxaEfetivaRadps": 0,
+              "cursoRad": 0.5235987755982988,
+              "taxaMaximaRadps": 0.3490658503988659,
+              "modeloMecanico": "taxa-prescrita-eletrica",
+              "torqueDisponivelNm": null,
+              "torqueCargaNm": null,
+              "bloqueio": "alimentacao"
+            },
+            "knudsenEstimado": 1.7436375802657627,
+            "modeloEscoamento": "polar-continua-extrapolada"
+          },
+          {
+            "id": "flap-traseiro",
+            "estado": {
+              "posicaoM": {
+                "x": 15388.315342155429,
+                "y": 119698.3824402776,
+                "z": 0
+              },
+              "velocidadeMps": {
+                "x": 7698.784878661902,
+                "y": -153.29045660983064,
+                "z": 0
+              },
+              "orientacaoRad": {
+                "x": 0,
+                "y": 0,
+                "z": 0.6782949989156231
+              },
+              "velocidadeAngularRadps": {
+                "x": 0,
+                "y": 0,
+                "z": -0.0011972098863235797
+              }
+            },
+            "comandoRad": 0,
+            "deflexaoRad": 0,
+            "integridade": 1,
+            "temperaturaC": 20.03991922908551,
+            "energiaAbsorvidaJ": 9979.807271376365,
+            "conectado": true,
+            "fluxoTermicoIndicadorWm2": 5310.067023360481,
+            "energizado": false,
+            "atuacao": {
+              "taxaEfetivaRadps": 0,
+              "cursoRad": 0.5235987755982988,
+              "taxaMaximaRadps": 0.3490658503988659,
+              "modeloMecanico": "taxa-prescrita-eletrica",
+              "torqueDisponivelNm": null,
+              "torqueCargaNm": null,
+              "bloqueio": "alimentacao"
+            },
+            "knudsenEstimado": 1.7379800839853377,
+            "modeloEscoamento": "polar-continua-extrapolada"
+          }
+        ],
+        "vinculos": [
+          {
+            "id": "fixador-flap-dianteiro",
+            "estado": "integro",
+            "tracaoAtualN": 0,
+            "picoTracaoN": 0,
+            "resistenciaTracaoN": 100000000,
+            "cisalhamentoFlexaoTorcaoModelados": false
+          },
+          {
+            "id": "fixador-flap-traseiro",
+            "estado": "integro",
+            "tracaoAtualN": 0.67641134896246,
+            "picoTracaoN": 0.695440424747998,
+            "resistenciaTracaoN": 100000000,
+            "cisalhamentoFlexaoTorcaoModelados": false
+          },
+          {
+            "id": "fixador-bateria-interna-re",
+            "estado": "integro",
+            "tracaoAtualN": 0,
+            "picoTracaoN": 0,
+            "resistenciaTracaoN": 100000000,
+            "cisalhamentoFlexaoTorcaoModelados": false
+          }
+        ],
+        "raioTerraM": 6371000,
+        "centroTerraM": {
+          "x": 0,
+          "y": -6371000,
+          "z": 0
+        },
+        "propulsaoDisponivel": false,
+        "rcsDisponivel": false
+      }
+    }
+  ],
+  "retencao": {
+    "limiteAmostras": 3600,
+    "amostrasDescartadas": 0,
+    "agendaCompleta": true
+  }
+}

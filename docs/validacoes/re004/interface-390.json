@@ -1,0 +1,244 @@
+{
+  "largura": 390,
+  "erros": [],
+  "verificacoes": [
+    "TPS",
+    "sem TPS",
+    "limites superficiais 5000 sem evento",
+    "limite estrutural editado",
+    "JSON rejeitado sem fallback",
+    "restauração padrão",
+    "tempo avançou",
+    "download real"
+  ],
+  "configuracao": {
+    "altitudeM": 120000,
+    "velocidadeMps": 7700,
+    "taxaAtitudeLocalInicialRadps": 0,
+    "anguloAtaqueRad": 0.6981317007977318,
+    "trajetoriaRad": -0.017453292519943295,
+    "rolagemRad": 0,
+    "limiteOrbitadorC": 5000,
+    "limiteFlapsC": 5000,
+    "limiteBateriaC": 60,
+    "automatico": true,
+    "chaveamentoAutomatico": false,
+    "vacuo": false,
+    "semente": 1,
+    "passoS": 0.004166666666666667,
+    "corredor": {
+      "pressaoMaximaPa": 50000,
+      "fluxoMaximoWm2": 500000,
+      "cargaMaximaG": 5
+    },
+    "intervaloColetaS": 1,
+    "limiteAmostras": 3600,
+    "limiteEventos": 20000,
+    "aproximacao": {
+      "alvoArcoM": null,
+      "aceleracoesLiquidasHipoteticasMps2": [
+        1,
+        2,
+        5
+      ],
+      "erroAlphaMaxRad": 0.17453292519943295,
+      "omegaMaxRadps": 0.02
+    },
+    "transferencia": {
+      "altitudeMinimaM": 20,
+      "altitudeMaximaM": 5000,
+      "velocidadeMaximaMps": 150,
+      "atitudeMaximaRad": 0.2617993877991494,
+      "trajetoriaMinimaRad": -1.5707963267948966,
+      "trajetoriaMaximaRad": -0.08726646259971647
+    },
+    "parametros": {
+      "areaReferenciaM2": 250,
+      "comprimentoM": 40,
+      "alturaM": 8,
+      "raioNarizM": 2,
+      "areaAquecidaM2": 80,
+      "massaCorpoKg": 78900,
+      "massaFlapKg": 500,
+      "massaBateriaKg": 100,
+      "resistenciaCorpoJ": 100000000,
+      "resistenciaFlapJ": 1000000,
+      "resistenciaFixadorN": 100000000,
+      "areaFlapM2": 16,
+      "clFlapPorRad": 1.2,
+      "cdFlapBase": 0.06,
+      "cdFlapDeflexao": 0.4,
+      "cursoFlapRad": 0.5235987755982988,
+      "taxaFlapRadps": 0.3490658503988659,
+      "bracoFlapM": 16,
+      "potenciaFlapW": 300,
+      "potenciaRepousoFlapW": 6,
+      "tensaoBateriaV": 28,
+      "energiaBateriaJ": 20000000,
+      "ganhoAlpha": 0.008,
+      "ganhoTaxa": 0.18,
+      "torqueMinimoAutoridadeNm": 100,
+      "taxaRolagemRadps": 0.17453292519943295,
+      "coeficienteSuttonGravesSI": 0.00017415,
+      "larguraM": 16,
+      "clCorpo": 0.9,
+      "fatorMachBase": 0.85,
+      "fatorMachVariacao": 0.15,
+      "cdCorpoBase": 0.12,
+      "cdCorpoAlpha": 1.6,
+      "cdMachGauss": 0.08,
+      "cpBaseM": -0.15,
+      "cpVariacaoM": -0.35,
+      "deslocamentoVerticalFlapM": -5,
+      "raioNarizFlapM": 0.5,
+      "areaAquecidaFlapM2": 2,
+      "calorEspecificoCorpoJPorKgC": 800,
+      "calorEspecificoFlapJPorKgC": 500,
+      "comprimentoCaracteristicoCorpoM": 8,
+      "comprimentoCaracteristicoFlapM": 2,
+      "cursoRolagemRad": 1.5707963267948966,
+      "conveccaoCorpoWPorM2C": 10,
+      "condutanciaFlapWPorC": 100,
+      "fracaoCargaInicialBateria": 1
+    },
+    "termica": {
+      "revisao": "RE-004-r1",
+      "perfil": "tps-experimental",
+      "hipotese": "Capacidades, emissividades, limites e condutâncias hipotéticos ajustáveis. Ambiente radiativo equivalente 270 K; sem radiação solar/visada Terra separadas. Sem ablação/CFD. Dano do revestimento aumenta condutância equivalente, sem alterar massa.",
+      "corpo": {
+        "revisao": "RE-004-r1",
+        "ambienteRadiativoC": -3.15,
+        "regiaoSuperficial": "superficie",
+        "regiaoEstrutural": "estrutura",
+        "regiaoInterna": "interna",
+        "regioes": [
+          {
+            "id": "superficie",
+            "material": "Revestimento cerâmico equivalente hipotético",
+            "massaTermicaKg": 2000,
+            "calorEspecificoJPorKgC": 1000,
+            "areaExpostaM2": 80,
+            "emissividade": 0.85,
+            "temperaturaInicialC": 20,
+            "taxaDanoPorSegundo": 0.02,
+            "limiteTermicoC": 5000
+          },
+          {
+            "id": "estrutura",
+            "material": "Estrutura equivalente hipotética; limiar experimental 800 °C",
+            "massaTermicaKg": 70000,
+            "calorEspecificoJPorKgC": 800,
+            "areaExpostaM2": 0,
+            "emissividade": 0,
+            "temperaturaInicialC": 20,
+            "limiteTermicoC": 800,
+            "taxaDanoPorSegundo": 0.02
+          },
+          {
+            "id": "interna",
+            "material": "Compartimento e equipamentos equivalentes hipotéticos",
+            "massaTermicaKg": 6900,
+            "calorEspecificoJPorKgC": 900,
+            "areaExpostaM2": 0,
+            "emissividade": 0,
+            "temperaturaInicialC": 20,
+            "limiteTermicoC": 80,
+            "taxaDanoPorSegundo": 0.02
+          }
+        ],
+        "ligacoes": [
+          {
+            "a": "superficie",
+            "b": "estrutura",
+            "condutanciaWPorC": 80,
+            "condutanciaSemProtecaoWPorC": 20000
+          },
+          {
+            "a": "estrutura",
+            "b": "interna",
+            "condutanciaWPorC": 200,
+            "condutanciaSemProtecaoWPorC": 200
+          }
+        ]
+      },
+      "flap": {
+        "revisao": "RE-004-r1",
+        "ambienteRadiativoC": -3.15,
+        "regiaoSuperficial": "superficie",
+        "regiaoEstrutural": "estrutura",
+        "regiaoInterna": "interna",
+        "regioes": [
+          {
+            "id": "superficie",
+            "material": "TPS cerâmico equivalente hipotético",
+            "massaTermicaKg": 30,
+            "calorEspecificoJPorKgC": 1000,
+            "areaExpostaM2": 2,
+            "emissividade": 0.85,
+            "temperaturaInicialC": 20,
+            "taxaDanoPorSegundo": 0.02,
+            "limiteTermicoC": 5000
+          },
+          {
+            "id": "estrutura",
+            "material": "Estrutura de flap hipotética; não propriedade universal de flap",
+            "massaTermicaKg": 420,
+            "calorEspecificoJPorKgC": 500,
+            "areaExpostaM2": 0,
+            "emissividade": 0,
+            "temperaturaInicialC": 20,
+            "limiteTermicoC": 800,
+            "taxaDanoPorSegundo": 0.02
+          },
+          {
+            "id": "interna",
+            "material": "Articulação/atuador equivalente; limiar hipotético, não certificado",
+            "massaTermicaKg": 50,
+            "calorEspecificoJPorKgC": 600,
+            "areaExpostaM2": 0,
+            "emissividade": 0,
+            "temperaturaInicialC": 20,
+            "limiteTermicoC": 120,
+            "taxaDanoPorSegundo": 0.02
+          }
+        ],
+        "ligacoes": [
+          {
+            "a": "superficie",
+            "b": "estrutura",
+            "condutanciaWPorC": 0.8,
+            "condutanciaSemProtecaoWPorC": 200
+          },
+          {
+            "a": "estrutura",
+            "b": "interna",
+            "condutanciaWPorC": 2,
+            "condutanciaSemProtecaoWPorC": 2
+          }
+        ]
+      },
+      "bateria": {
+        "revisao": "RE-004-r1",
+        "ambienteRadiativoC": -3.15,
+        "regiaoSuperficial": "estrutura",
+        "regiaoEstrutural": "estrutura",
+        "regiaoInterna": "estrutura",
+        "regioes": [
+          {
+            "id": "estrutura",
+            "material": "Bateria interna equivalente; sem modelo de fuga térmica ou geração interna",
+            "massaTermicaKg": 100,
+            "calorEspecificoJPorKgC": 1000,
+            "areaExpostaM2": 0,
+            "emissividade": 0,
+            "temperaturaInicialC": 20,
+            "taxaDanoPorSegundo": 0.02,
+            "limiteTermicoC": 60
+          }
+        ],
+        "ligacoes": []
+      },
+      "condutanciaBateriaWPorC": 20
+    }
+  }
+}

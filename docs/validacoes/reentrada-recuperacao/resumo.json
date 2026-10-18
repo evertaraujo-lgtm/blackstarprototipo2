@@ -1,0 +1,33 @@
+{
+  "resultado": "validacoes focadas aprovadas",
+  "testes": {
+    "validacaoMecanica": 6,
+    "instrumentacaoRegressao": 13,
+    "recuperacaoDesktopMobile": 2,
+    "documentacao": 23,
+    "total": 44
+  },
+  "typecheck": "aprovado",
+  "build": "aprovado",
+  "docsVerificar": "1625 funções de produção documentadas, sem divergências",
+  "siteVerificar": {
+    "paginas": 6,
+    "imagens": 10,
+    "referencias": 139,
+    "pdfIdentico": true
+  },
+  "emulador": {
+    "url": "http://127.0.0.1:5000/reentrada.html",
+    "status": 200,
+    "canvas": {
+      "largura": 876,
+      "altura": 589,
+      "coresDistintas": 2072
+    },
+    "errosConsoleOuPagina": [],
+    "recursosComErroHTTP": [],
+    "execucao120x": "avançou e pausou; orçamento existente preservado"
+  },
+  "suiteCompleta": "não reexecutada neste reparo de interface",
+  "commitPushDeploy": "não realizados"
+}

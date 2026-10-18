@@ -12,6 +12,10 @@
         "destination": "/pesquisa.html"
       },
       {
+        "source": "/pesquisa/termica-re004",
+        "destination": "/termica-re004.html"
+      },
+      {
         "source": "/simulador",
         "destination": "/simulador.html"
       }

@@ -1,0 +1,79 @@
+{
+  "resultado": "OK",
+  "casos": [
+    {
+      "largura": 1440,
+      "eventos": true,
+      "primeiraExecucao": true,
+      "preparoPassoZero": true,
+      "pausaEscolha": true,
+      "cancelar": true,
+      "continuarAnterior": true,
+      "iniciarNovo": true,
+      "exportacaoImutavel": true,
+      "reinicializar": true,
+      "invalidosRejeitados": true
+    },
+    {
+      "largura": 1440,
+      "eventos": false,
+      "primeiraExecucao": true,
+      "preparoPassoZero": true,
+      "pausaEscolha": true,
+      "cancelar": true,
+      "continuarAnterior": true,
+      "iniciarNovo": true,
+      "exportacaoImutavel": true,
+      "reinicializar": true,
+      "invalidosRejeitados": true
+    },
+    {
+      "largura": 390,
+      "eventos": true,
+      "primeiraExecucao": true,
+      "preparoPassoZero": true,
+      "pausaEscolha": true,
+      "cancelar": true,
+      "continuarAnterior": true,
+      "iniciarNovo": true,
+      "exportacaoImutavel": true,
+      "reinicializar": true,
+      "invalidosRejeitados": true
+    },
+    {
+      "largura": 390,
+      "eventos": false,
+      "primeiraExecucao": true,
+      "preparoPassoZero": true,
+      "pausaEscolha": true,
+      "cancelar": true,
+      "continuarAnterior": true,
+      "iniciarNovo": true,
+      "exportacaoImutavel": true,
+      "reinicializar": true,
+      "invalidosRejeitados": true
+    },
+    {
+      "resistenciaIndividual": "resistenciaCorpoJ",
+      "semEventos": true,
+      "aplicado": 5000
+    },
+    {
+      "resistenciaIndividual": "resistenciaFlapJ",
+      "semEventos": true,
+      "aplicado": 5000
+    },
+    {
+      "resistenciaIndividual": "resistenciaFixadorN",
+      "semEventos": true,
+      "aplicado": 5000
+    },
+    {
+      "inicialInvalidoSemDefaults": true,
+      "recuperacao": true,
+      "pausaEdicaoInvalida": true
+    }
+  ],
+  "downloads": 53,
+  "erros": []
+}

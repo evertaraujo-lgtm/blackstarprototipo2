@@ -2,10 +2,22 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { Plugin } from 'vite';
+import { paginaEstudoMarkdown } from './markdownEstudos';
 
-export const paginasInstitucionais = ['index.html', 'pesquisa.html', 'simulador.html'] as const;
+export const paginasInstitucionais = ['index.html', 'pesquisa.html', 'simulador.html', 'termica-re004.html'] as const;
 export const caminhoArtigo = '/publicacoes/pouso-propulsivo-bss-2026.pdf';
 export const fonteArtigo = 'docs/estudos/Artigo_Cientifico_BlackStar_BSS_Pouso_Propulsivo.pdf';
+/** Fontes canônicas e URLs estáveis; publicação não implica qualificação de voo. */
+export const publicacoes = Object.freeze([
+  { caminho: caminhoArtigo, fonte: fonteArtigo },
+  { caminho: '/publicacoes/engenharia-orbita-retorno-re001-2026.pdf',
+    fonte: 'docs/estudos/Black_Star_RE001_Tese_Engenharia_Orbita_e_Retorno.pdf' },
+] as const);
+export const estudosMarkdown = Object.freeze([
+  { caminho: '/estudos/re004/01-auditoria-termica-comparativa.md', fonte: 'docs/estudos/re004/01-auditoria-termica-comparativa.md' },
+  { caminho: '/estudos/re004/02-arquitetura-e-modelo-termico.md', fonte: 'docs/estudos/re004/02-arquitetura-e-modelo-termico.md' },
+  { caminho: '/estudos/re004/03-protocolo-proximos-ensaios.md', fonte: 'docs/estudos/re004/03-protocolo-proximos-ensaios.md' },
+] as const);
 
 /**
  * Integra HTMLs agrupados em site/ às rotas públicas, sem gerar conteúdo em JS.
@@ -17,21 +29,42 @@ export function pluginInstitucional(raiz: string): Plugin {
   let desenvolvimento = false;
 
   /**
-   * Mapeia somente rotas institucionais; dev serve a fonte canônica do PDF.
+   * Mapeia somente rotas institucionais; dev serve fontes canônicas do catálogo PDF.
    * @returns void. Altera URL interna do servidor ou responde bytes/MIME; demais
    * recursos seguem ao Vite MPA, cujo fallback não transforma ausência em homepage.
     @contract f-8acac9034ca2a25b */
   function atenderInstitucional(req: IncomingMessage, res: ServerResponse, next: (erro?: unknown) => void): void {
     const url = new URL(req.url ?? '/', 'http://localhost');
-    const pagina = paginasInstitucionais.find(p => url.pathname === `/${p}`
+    const publicacao = publicacoes.find(p => p.caminho === url.pathname);
+    const estudo = estudosMarkdown.find(e => e.caminho === url.pathname);
+    const estudoHtml = estudosMarkdown.find(e => e.caminho.replace(/\.md$/, '.html') === url.pathname);
+    const pagina = paginasInstitucionais.find(p => (p === 'termica-re004.html' && url.pathname === '/pesquisa/termica-re004') || url.pathname === `/${p}`
       || url.pathname === (p === 'index.html' ? '/' : `/${p.slice(0, -5)}`));
     if (pagina) {
       req.url = `${desenvolvimento ? '/site/pages/' : '/'}${pagina}${url.search}`;
       next();
-    } else if (desenvolvimento && url.pathname === caminhoArtigo) {
+    } else if (desenvolvimento && publicacao) {
       try {
-        const bytes = readFileSync(resolve(raiz, fonteArtigo));
+        const bytes = readFileSync(resolve(raiz, publicacao.fonte));
         res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Length', bytes.length);
+        res.setHeader('X-Content-Type-Options', 'nosniff');
+        res.end(req.method === 'HEAD' ? undefined : bytes);
+      } catch (erro) { next(erro); }
+    } else if (desenvolvimento && estudoHtml) {
+      try {
+        const fonte = readFileSync(resolve(raiz, estudoHtml.fonte), 'utf8');
+        const nome = estudoHtml.caminho.split('/').pop()!.replace(/\.md$/, '');
+        const html = Buffer.from(paginaEstudoMarkdown(fonte, nome), 'utf8');
+        res.setHeader('Content-Type', 'text/html; charset=utf-8');
+        res.setHeader('Content-Length', html.length);
+        res.setHeader('X-Content-Type-Options', 'nosniff');
+        res.end(req.method === 'HEAD' ? undefined : html);
+      } catch (erro) { next(erro); }
+    } else if (desenvolvimento && estudo) {
+      try {
+        const bytes = readFileSync(resolve(raiz, estudo.fonte));
+        res.setHeader('Content-Type', 'text/markdown; charset=utf-8');
         res.setHeader('Content-Length', bytes.length);
         res.setHeader('X-Content-Type-Options', 'nosniff');
         res.end(req.method === 'HEAD' ? undefined : bytes);
@@ -52,7 +85,7 @@ export function pluginInstitucional(raiz: string): Plugin {
       server.middlewares.use(atenderInstitucional);
     },
     /**
-     * Move as três saídas HTML para a raiz e emite PDF idêntico ao original.
+     * Move as três saídas HTML para a raiz e emite cada PDF idêntico ao original.
      * @remarks Executa após processamento HTML do Vite; recusa ausência/colisão.
      * Não copia bundle de simulador, diretório vizinho ou documento interno.
       @contract f-423d67f295d31202 */
@@ -66,7 +99,15 @@ export function pluginInstitucional(raiz: string): Plugin {
         bundle[pagina] = html;
         delete bundle[chave];
       }
-      this.emitFile({ type: 'asset', fileName: caminhoArtigo.slice(1), source: readFileSync(resolve(raiz, fonteArtigo)) });
+      for (const publicacao of publicacoes) this.emitFile({ type: 'asset', fileName: publicacao.caminho.slice(1),
+        source: readFileSync(resolve(raiz, publicacao.fonte)) });
+      for (const estudo of estudosMarkdown) {
+        const fonte = readFileSync(resolve(raiz, estudo.fonte), 'utf8');
+        this.emitFile({ type: 'asset', fileName: estudo.caminho.slice(1), source: fonte });
+        const nome = estudo.caminho.split('/').pop()!.replace(/\.md$/, '');
+        this.emitFile({ type: 'asset', fileName: estudo.caminho.replace(/\.md$/, '.html').slice(1),
+          source: paginaEstudoMarkdown(fonte, nome) });
+      }
     },
   };
 }

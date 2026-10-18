@@ -25,6 +25,7 @@ Protótipo 2
 │   ├── ambiente/                     gravidade, referenciais, costa, órbitas
 │   ├── agua/                         recorte volumétrico, empuxo, arrasto, entrada
 │   ├── geometria/                    caixas orientadas e contato SAT
+│   ├── termica/                      capacidades regionais, condução e radiação optantes
 │   ├── estruturas/                   ilhas rígidas: massa, G, I e projeção
 │   ├── solucionadores/               integração, contato, colisão, esforços, ar/calor
 │   ├── conexoes/                      fixadores, fundação, guias, juntas, circuitos
@@ -276,7 +277,7 @@ assinaturas/impacto funcional, validações reais e pendências.
 <!-- INDICE_AST_INICIO -->
 ## Índice de módulos próprios (AST)
 
-Ciclos de imports executáveis: **nenhum encontrado**. Incluindo tipos: **nenhum encontrado**.
+Ciclos de imports executáveis: **nenhum encontrado**. Incluindo tipos: src/physics/sistemas de controle/ControladorReentrada.ts → src/physics/sistemas de controle/EstrategiaCorredorReentrada.ts.
 
 Escopo: imports/exportações estáticos locais das fontes próprias; chamadas dinâmicas e pacotes externos não são inferidos. A tabela inclui entradas sem funções.
 
@@ -284,18 +285,25 @@ Escopo: imports/exportações estáticos locais das fontes próprias; chamadas d
 |---|---|---|
 | [scripts/auditar-documentacao.ts](../../scripts/auditar-documentacao.ts) | funções/entrada | ./documentacao/cli |
 | [scripts/benchmark-missao.ts](../../scripts/benchmark-missao.ts) | funções/entrada | node:util, node:fs, node:crypto, node:os, node:perf_hooks, ../src/missoes/ReplayMissaoBss006, ../src/physics/MundoFisico, ../src/physics/agua/SistemaHidrodinamico, ../src/physics/estruturas/ConjuntoEstruturalRigido, ../src/missoes/MissaoBss006, ../src/physics/Vetor3 |
+| [scripts/campanha-re002.ts](../../scripts/campanha-re002.ts) | funções/entrada | node:fs, ../src/cenarios/EnsaioReentrada |
 | [scripts/comparar-desempenho-missao.ts](../../scripts/comparar-desempenho-missao.ts) | Medicao | node:util, ../src/physics/ambiente/CampoGravitacional, node:fs, T: ../src/missoes/RegistroMissao, T: ../src/missoes/TiposMissaoBss006 |
+| [scripts/convergencia-angular-re002.ts](../../scripts/convergencia-angular-re002.ts) | funções/entrada | node:fs, ../src/cenarios/EnsaioReentrada, ../src/physics/estruturas/DiagnosticoAngular |
 | [scripts/documentacao/ast.ts](../../scripts/documentacao/ast.ts) | Funcao, Modulo, Analise | typescript |
 | [scripts/documentacao/auditoria.ts](../../scripts/documentacao/auditoria.ts) | Cobertura | T: ./ast, ./catalogo |
 | [scripts/documentacao/catalogo.ts](../../scripts/documentacao/catalogo.ts) | EntradaEstrutural, Divergencias | node:crypto, T: ./ast |
 | [scripts/documentacao/cli.ts](../../scripts/documentacao/cli.ts) | funções/entrada | node:fs, node:path, node:crypto, node:child_process, typescript, ./projeto, T: ./ast, ./catalogo, T: ./catalogo, ./auditoria |
 | [scripts/documentacao/projeto.ts](../../scripts/documentacao/projeto.ts) | funções/entrada | node:fs, node:path, typescript, ./ast, T: ./ast |
 | [scripts/executar-missao.ts](../../scripts/executar-missao.ts) | funções/entrada | node:util, node:fs, ../src/missoes/ReplayMissaoBss006, ../src/missoes/ExecutorMissao |
-| [scripts/site/smoke.ts](../../scripts/site/smoke.ts) | funções/entrada | node:assert/strict, node:fs, node:os, node:path, T: node:net, node:timers/promises, playwright-core, T: playwright-core, vite |
+| [scripts/site/smoke.ts](../../scripts/site/smoke.ts) | funções/entrada | ../../site/build/pluginInstitucional, node:assert/strict, node:fs, node:os, node:path, T: node:net, node:timers/promises, playwright-core, T: playwright-core, vite |
 | [scripts/site/verificar.ts](../../scripts/site/verificar.ts) | funções/entrada | node:crypto, node:fs, node:path, ../../site/build/pluginInstitucional |
+| [scripts/smoke-configuracao-re003.ts](../../scripts/smoke-configuracao-re003.ts) | funções/entrada | node:assert/strict, node:fs, node:path, T: node:net, playwright-core, vite, T: ../src/cenarios/EnsaioReentrada |
 | [scripts/smoke-reentrada.ts](../../scripts/smoke-reentrada.ts) | funções/entrada | node:assert/strict, node:fs, node:path, T: node:net, playwright-core, vite |
+| [scripts/validar-compatibilidade-re003.ts](../../scripts/validar-compatibilidade-re003.ts) | funções/entrada | node:assert/strict, node:fs, node:path, ../src/cenarios/EnsaioReentrada |
 | [scripts/validar-hidrodinamica.ts](../../scripts/validar-hidrodinamica.ts) | funções/entrada | node:fs, node:util, ../src/physics/MundoFisico, ../src/physics/objetos/base/Objeto, ../src/physics/Vetor3, ../src/physics/ambiente/AmbienteFisico, ../src/physics/ambiente/GeografiaCosteira, ../src/physics/agua/RegiaoAquatica, ../src/physics/agua/SistemaHidrodinamico |
+| [scripts/validar-re002.ts](../../scripts/validar-re002.ts) | funções/entrada | node:fs, ../src/cenarios/EnsaioReentrada |
 | [scripts/validar-reentrada.ts](../../scripts/validar-reentrada.ts) | funções/entrada | node:assert/strict, node:fs, node:path, ../src/cenarios/EnsaioReentrada |
+| [scripts/validar-termica-re003.ts](../../scripts/validar-termica-re003.ts) | funções/entrada | node:assert/strict, node:fs, ../src/cenarios/EnsaioReentrada |
+| [scripts/validar-termica-re004.ts](../../scripts/validar-termica-re004.ts) | funções/entrada | node:assert/strict, node:fs, node:path, ../src/cenarios/EnsaioReentrada, ../src/physics/reentrada/ConfiguracaoTermicaReentrada |
 | [scripts/verificar-site.ts](../../scripts/verificar-site.ts) | funções/entrada | ./site/verificar |
 | [site/build/pluginInstitucional.ts](../../site/build/pluginInstitucional.ts) | funções/entrada | node:fs, node:path, T: node:http, T: vite |
 | [site/scripts/carrossel.ts](../../site/scripts/carrossel.ts) | funções/entrada | — |
@@ -305,12 +313,13 @@ Escopo: imports/exportações estáticos locais das fontes próprias; chamadas d
 | [src/apresentacao/missao/EntradaMissao.ts](../../src/apresentacao/missao/EntradaMissao.ts) | AcoesApresentacaoMissao | T: ../../missoes/TiposMissaoBss006 |
 | [src/apresentacao/missao/HudMissao.ts](../../src/apresentacao/missao/HudMissao.ts) | funções/entrada | T: ../../missoes/ContratoMissao, T: ../../missoes/TiposMissaoBss006 |
 | [src/apresentacao/missao/RenderizadorMissao.ts](../../src/apresentacao/missao/RenderizadorMissao.ts) | RenderizadorMissao | ../../physics/Vetor3, T: ../../missoes/TiposMissaoBss006, ../../visualizacao/ConexoesEletricas, ./CameraMissao, ../../physics/ambiente/ReferencialFisico, ../../physics/ambiente/GeografiaCosteira |
+| [src/apresentacao/reentrada/CamposParametrosReentrada.ts](../../src/apresentacao/reentrada/CamposParametrosReentrada.ts) | funções/entrada | T: ../../physics/reentrada/ModeloAerodinamicoReentrada |
 | [src/apresentacao/reentrada/RenderizadorReentrada.ts](../../src/apresentacao/reentrada/RenderizadorReentrada.ts) | RenderizadorReentrada | T: ../../cenarios/EnsaioReentrada, ../../visualizacao/CameraFisica2D |
 | [src/cenarios/BancadaBss.ts](../../src/cenarios/BancadaBss.ts) | ConfiguracaoBancadaDecolagem: ParametrosMontagemBss | ../physics/ambiente/AmbienteFisico, ../physics/SuperficieEsferica, ../physics/ambiente/ReferencialFisico, ../physics/MundoFisico, ../physics/SuperficiePlano, ../physics/Vetor3, ../veiculos/MontagemBss, ../veiculos/DefinicaoBss006 |
 | [src/cenarios/BancadaBss003.ts](../../src/cenarios/BancadaBss003.ts) | funções/entrada | ../physics/MundoFisico, ../physics/objetos/base/Objeto, ../physics/SuperficiePlano, ../physics/SuperficieEsferica, ../physics/ambiente/ReferencialFisico, ../physics/objetos/veiculos/Bss03, ../physics/objetos/fontes-de-energia/TanquePropelente, ../physics/objetos/fontes-de-energia/Bateria, ../physics/objetos/propulsao/PropulsorVetorizado, ../physics/conexoes/FixadorEstrutural, ../physics/Vetor3, T: ./BancadaBss |
 | [src/cenarios/EnsaioMissaoBss005.ts](../../src/cenarios/EnsaioMissaoBss005.ts) | ConfiguracaoEnsaioBss005, LeituraMissaoBss005 | T: ../physics/ambiente/AmbienteFisico, ./BancadaBss, T: ../physics/objetos/base/Objeto, ../physics/objetos/fontes-de-energia/TanquePropelente, ../physics/MundoFisico, ../physics/solucionadores/ResolvedorContatoSuperficie, ../physics/Vetor3 |
 | [src/cenarios/EnsaioOrbitalInerte.ts](../../src/cenarios/EnsaioOrbitalInerte.ts) | funções/entrada | ../physics/ambiente/AmbienteFisico, ../physics/ambiente/CampoGravitacional, ../physics/ambiente/EstadoInicialLocal, ../physics/ambiente/TelemetriaOrbital, ../physics/MundoFisico, ../physics/objetos/base/Objeto, ../physics/Vetor3, ../physics/SuperficieEsferica |
-| [src/cenarios/EnsaioReentrada.ts](../../src/cenarios/EnsaioReentrada.ts) | ConfiguracaoReentrada, EnsaioReentrada: InstanciaMissao&lt;ComandoReentrada, ObservacaoReentrada&gt; | ../physics/ambiente/AmbienteFisico, ../physics/ambiente/EstadoInicialLocal, ../physics/ambiente/ReferencialFisico, ../physics/ambiente/PerfilAtmosfericoReentrada, ../physics/MundoFisico, ../physics/Vetor3, T: ../physics/objetos/base/Objeto, ../physics/objetos/veiculos/OrbitadorReentrada, ../physics/objetos/componentes/FlapReentrada, ../physics/objetos/fontes-de-energia/Bateria, ../physics/conexoes/FixadorEstrutural, ../physics/SuperficieEsferica, ../physics/sensores/SensoresVeiculoComposto, ../physics/sistemas de controle/GerenciadorDeControladores, ../physics/sistemas de controle/ControladorPousoDePropulsores, ../physics/sistemas de controle/ControladorReentrada, ../physics/sistemas de controle/SupervisorReentrada, ../physics/reentrada/ModeloAerodinamicoReentrada, T: ../missoes/ContratoMissao, ../missoes/RegistroMissao, ../missoes/SnapshotMissao |
+| [src/cenarios/EnsaioReentrada.ts](../../src/cenarios/EnsaioReentrada.ts) | ConfiguracaoReentrada, EnsaioReentrada: InstanciaMissao&lt;ComandoReentrada, ObservacaoReentrada&gt; | ../physics/reentrada/ConfiguracaoTermicaReentrada, ../missoes/RegistroExtremos, ../physics/ambiente/AmbienteFisico, ../physics/ambiente/ReferencialFisico, ../physics/ambiente/EstadoInicialLocal, ../physics/ambiente/PerfilAtmosfericoReentrada, ../physics/MundoFisico, ../physics/Vetor3, T: ../physics/objetos/base/Objeto, ../physics/objetos/veiculos/OrbitadorReentrada, ../physics/objetos/componentes/FlapReentrada, ../physics/objetos/fontes-de-energia/Bateria, ../physics/conexoes/FixadorEstrutural, ../physics/SuperficieEsferica, ../physics/sensores/SensoresVeiculoComposto, ../physics/sistemas de controle/GerenciadorDeControladores, ../physics/sistemas de controle/ControladorPousoDePropulsores, ../physics/sistemas de controle/ControladorReentrada, ../physics/sistemas de controle/SupervisorReentrada, ../physics/sistemas de controle/SupervisorRecuperacao, ../physics/sistemas de controle/ControladorAproximacao, ../physics/sistemas de controle/FronteiraAproximacao, ../physics/reentrada/ModeloAerodinamicoReentrada, T: ../missoes/ContratoMissao, ../missoes/RegistroMissao, ../missoes/SnapshotMissao, ../physics/estruturas/DiagnosticoAngular |
 | [src/cenarios/ReproducaoDiarioBss005.ts](../../src/cenarios/ReproducaoDiarioBss005.ts) | EntradaDiarioBss005, DiarioBss005, EventoReplayBss005, OpcoesReplayBss005, ResultadoReplayBss005 | T: ../physics/ambiente/AmbienteFisico, ./BancadaBss, ./EnsaioMissaoBss005, ../physics/objetos/fontes-de-energia/PainelSolar |
 | [src/cenarios/TelemetriaMissaoBss.ts](../../src/cenarios/TelemetriaMissaoBss.ts) | funções/entrada | ../veiculos/TelemetriaBss |
 | [src/missao.ts](../../src/missao.ts) | funções/entrada | ./missao.css, ./apresentacao/missao/CenaMissao |
@@ -322,6 +331,7 @@ Escopo: imports/exportações estáticos locais das fontes próprias; chamadas d
 | [src/missoes/ExecutorMissao.ts](../../src/missoes/ExecutorMissao.ts) | ComandoAgendado | T: ./ContratoMissao |
 | [src/missoes/MissaoBss006.ts](../../src/missoes/MissaoBss006.ts) | MissaoBss006: InstanciaMissao&lt;ComandoBss006, ObservacaoBss006&gt; | ../physics/sistemas de controle/ControladorPerfilVooExperimental, ../veiculos/DefinicaoBss006, T: ../veiculos/MontagemBss, ./SnapshotMissao, ./CicloMissao, ./AmbienteLancamento, ./AmbienteAmerissagem, ../veiculos/HidrodinamicaBss006, ../physics/Vetor3, ./ObservacaoAmerissagem, T: ./ContratoMissao, T: ./TiposMissaoBss006 |
 | [src/missoes/ObservacaoAmerissagem.ts](../../src/missoes/ObservacaoAmerissagem.ts) | ObservacaoAmerissagem, MedidasAmerissagem, AcompanhamentoAmerissagem | T: ../physics/agua/SistemaHidrodinamico, ../physics/Vetor3 |
+| [src/missoes/RegistroExtremos.ts](../../src/missoes/RegistroExtremos.ts) | ExtremoTemporal, FaixaTemporal, RegistroExtremos | ./SnapshotMissao |
 | [src/missoes/RegistroMissao.ts](../../src/missoes/RegistroMissao.ts) | DiarioMissao, RegistroMissao: InstanciaMissao&lt;C, O&gt; | T: ./ContratoMissao, ./SnapshotMissao |
 | [src/missoes/ReplayMissaoBss006.ts](../../src/missoes/ReplayMissaoBss006.ts) | funções/entrada | ../veiculos/DefinicaoBss006, ./MissaoBss006, ./RegistroMissao, T: ./TiposMissaoBss006 |
 | [src/missoes/SnapshotMissao.ts](../../src/missoes/SnapshotMissao.ts) | funções/entrada | ../physics/Vetor3 |
@@ -348,18 +358,19 @@ Escopo: imports/exportações estáticos locais das fontes próprias; chamadas d
 | [src/physics/cenarios/EnsaioPortaVertical.ts](../../src/physics/cenarios/EnsaioPortaVertical.ts) | ConfiguracaoEnsaioPorta | ../objetos/fontes-de-energia/GeradorCA, ../conexoes/eletrica/Contator, ../conexoes/ConexaoEletrica, ../MundoFisico, ../objetos/base/Objeto, ../objetos/mecanismos/Porta, ../objetos/mecanismos/TravaPorta, ../objetos/mecanismos/ConjuntoPortaBatente, ../objetos/fontes-de-energia/Bateria, ../sensores/SwitchFimDeCurso, ../conexoes/ChumbadorAoSolo, ../conexoes/GuiaLinear, ../SuperficiePlano, ../Vetor3 |
 | [src/physics/conexoes/ChumbadorAoSolo.ts](../../src/physics/conexoes/ChumbadorAoSolo.ts) | DefinicaoChumbadorAoSolo, ChumbadorAoSolo | ../objetos/base/Objeto |
 | [src/physics/conexoes/ConexaoEletrica.ts](../../src/physics/conexoes/ConexaoEletrica.ts) | DestinoEletricoRecarregavel, DefinicaoConexaoEletrica, ConexaoEletrica | T: ../objetos/fontes-de-energia/FonteEletrica, ../objetos/base/Objeto, ./eletrica/Interruptor, ./eletrica/Resistor |
-| [src/physics/conexoes/FixadorEstrutural.ts](../../src/physics/conexoes/FixadorEstrutural.ts) | DefinicaoFixadorEstrutural, FixadorEstrutural | ../objetos/base/Objeto, ../Vetor3 |
+| [src/physics/conexoes/FixadorEstrutural.ts](../../src/physics/conexoes/FixadorEstrutural.ts) | DefinicaoFixadorEstrutural, FixadorEstrutural | ../termica/RedeTermica, ../objetos/base/Objeto, ../Vetor3 |
 | [src/physics/conexoes/GuiaLinear.ts](../../src/physics/conexoes/GuiaLinear.ts) | GuiaLinear | ../objetos/base/Objeto, ../Vetor3 |
 | [src/physics/conexoes/JuntaRotacionalDeBancada.ts](../../src/physics/conexoes/JuntaRotacionalDeBancada.ts) | DefinicaoJuntaRotacionalDeBancada, JuntaRotacionalDeBancada | T: ../tipos/ForcaAplicada, ../Vetor3, T: ../objetos/base/Objeto, T: ../objetos/atuadores/MotorEletricoRotacional |
 | [src/physics/conexoes/eletrica/Contator.ts](../../src/physics/conexoes/eletrica/Contator.ts) | Contator | — |
 | [src/physics/conexoes/eletrica/Interruptor.ts](../../src/physics/conexoes/eletrica/Interruptor.ts) | Interruptor | — |
 | [src/physics/conexoes/eletrica/Resistor.ts](../../src/physics/conexoes/eletrica/Resistor.ts) | Resistor | — |
 | [src/physics/estruturas/ConjuntoEstruturalRigido.ts](../../src/physics/estruturas/ConjuntoEstruturalRigido.ts) | ConjuntoEstruturalRigido | T: ../objetos/base/Objeto, ../objetos/base/Objeto, T: ../tipos/ForcaAplicada, ../Vetor3 |
+| [src/physics/estruturas/DiagnosticoAngular.ts](../../src/physics/estruturas/DiagnosticoAngular.ts) | DiagnosticoAngular, BalancoAngular | T: ../objetos/base/Objeto, ../Vetor3 |
 | [src/physics/geometria/ContatoCaixasOrientadas.ts](../../src/physics/geometria/ContatoCaixasOrientadas.ts) | Ponto2D, CaixaOrientada, ContatoCaixasOrientadas | ../Vetor3 |
 | [src/physics/objetos/atuadores/Cilindro.ts](../../src/physics/objetos/atuadores/Cilindro.ts) | EntradasCilindro, DefinicaoCilindro, Cilindro, ComCilindro.[classe-anonima]: Base | — |
 | [src/physics/objetos/atuadores/CilindroEletrico.ts](../../src/physics/objetos/atuadores/CilindroEletrico.ts) | DefinicaoCilindroEletrico: DefinicaoCilindro, CilindroEletrico: Cilindro, HasteDeCilindroEletrico: Objeto, CorpoDeCilindroEletrico: ComCilindro(Objeto) | ../../Vetor3, ../../conexoes/ConexaoEletrica, T: ../fontes-de-energia/FonteEletrica, ../base/Objeto, ./Cilindro, T: ./Cilindro |
 | [src/physics/objetos/atuadores/MotorEletricoRotacional.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.ts) | DefinicaoMotorEletricoRotacional: DefinicaoControladorPosicionamentoMotorEletrico, MotorEletricoRotacional: ControladorPosicionamentoMotorEletrico | ../../conexoes/ConexaoEletrica, ../../Vetor3, ../../sistemas de controle/ControladorPosicionamentoMotorEletrico, T: ../fontes-de-energia/FonteEletrica |
-| [src/physics/objetos/base/Objeto.ts](../../src/physics/objetos/base/Objeto.ts) | EstadoFisico, DefinicaoObjeto, ForcaFisicaSolicitada, CondicoesAtmosfericas, JatoTermico, Objeto | ../../Vetor3, ../componentes/Paraquedas |
+| [src/physics/objetos/base/Objeto.ts](../../src/physics/objetos/base/Objeto.ts) | EstadoFisico, DefinicaoObjeto, ForcaFisicaSolicitada, CondicoesAtmosfericas, JatoTermico, Objeto | ../../termica/RedeTermica, ../../Vetor3, ../componentes/Paraquedas |
 | [src/physics/objetos/base/ObjetoTriangularRetangulo.ts](../../src/physics/objetos/base/ObjetoTriangularRetangulo.ts) | DefinicaoObjetoTriangularRetangulo: DefinicaoObjeto, ObjetoTriangularRetangulo: Objeto | ./Objeto, ../../Vetor3 |
 | [src/physics/objetos/componentes/AletaAerodinamica.ts](../../src/physics/objetos/componentes/AletaAerodinamica.ts) | DefinicaoAletaAerodinamica, AletaAerodinamica: Objeto | ../../Vetor3, ../../conexoes/ConexaoEletrica, ../base/Objeto, T: ../fontes-de-energia/FonteEletrica |
 | [src/physics/objetos/componentes/FlapReentrada.ts](../../src/physics/objetos/componentes/FlapReentrada.ts) | FlapReentrada: AletaAerodinamica | ./AletaAerodinamica, T: ../base/Objeto, ../../reentrada/ModeloAerodinamicoReentrada, ../../Vetor3 |
@@ -390,12 +401,14 @@ Escopo: imports/exportações estáticos locais das fontes próprias; chamadas d
 | [src/physics/objetos/veiculos/VeiculoAlado.ts](../../src/physics/objetos/veiculos/VeiculoAlado.ts) | DefinicaoVeiculoAlado: DefinicaoVeiculoTerrestre, VeiculoAlado: VeiculoTerrestre | T: ../base/Objeto, ./VeiculoTerrestre, ../../Vetor3 |
 | [src/physics/objetos/veiculos/VeiculoComposto.ts](../../src/physics/objetos/veiculos/VeiculoComposto.ts) | DefinicaoVeiculoComposto: DefinicaoObjeto, VeiculoComposto: Objeto | ../../conexoes/FixadorEstrutural, ../../MundoFisico, ../../Vetor3, ../base/Objeto, ../propulsao/Propulsor, ./ComputadorDeVoo, ../../sensores/SensoresVeiculoComposto, T: ../../sistemas de controle/GerenciadorDeControladores, T: ../../sistemas de controle/ControladorPouso, T: ../../sistemas de controle/ControladorDesaceleracao, T: ../../sistemas de controle/ControladorDescidaFuzzyPidDePropulsores |
 | [src/physics/objetos/veiculos/VeiculoTerrestre.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.ts) | DefinicaoVeiculoTerrestre: DefinicaoObjeto, VeiculoTerrestre: Objeto | ../base/Objeto, ../../Vetor3 |
+| [src/physics/reentrada/ConfiguracaoTermicaReentrada.ts](../../src/physics/reentrada/ConfiguracaoTermicaReentrada.ts) | ConfiguracaoTermicaReentrada | ../termica/RedeTermica |
 | [src/physics/reentrada/ModeloAerodinamicoReentrada.ts](../../src/physics/reentrada/ModeloAerodinamicoReentrada.ts) | CargasReentrada | ../ambiente/ReferencialFisico, T: ../ambiente/PerfilAtmosfericoReentrada, T: ../objetos/base/Objeto, ../Vetor3 |
 | [src/physics/sensores/SensoresVeiculoComposto.ts](../../src/physics/sensores/SensoresVeiculoComposto.ts) | LeiturasVeiculoComposto, AmostraFisica: LeiturasVeiculoComposto, GpsIdealizado, SensorNivelInterno, SensoresVeiculoComposto | ../ambiente/AmbienteFisico, T: ../ambiente/ReferencialFisico, ../objetos/base/Objeto, ../Vetor3 |
 | [src/physics/sensores/SistemaSensores.ts](../../src/physics/sensores/SistemaSensores.ts) | SistemaSensores | ../geometria/ContatoCaixasOrientadas, ../estruturas/ConjuntoEstruturalRigido, ../objetos/base/Objeto, ../SuperficieFisica, ./SwitchFimDeCurso, T: ./SensoresVeiculoComposto |
 | [src/physics/sensores/SwitchFimDeCurso.ts](../../src/physics/sensores/SwitchFimDeCurso.ts) | DefinicaoSwitchFimDeCurso, SwitchFimDeCurso | ../Vetor3, T: ../geometria/ContatoCaixasOrientadas, ../objetos/base/Objeto |
 | [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.ts](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.ts) | ProgressoAutotunePosicionamentoMotorEletrico, ResultadoAutotunePosicionamentoMotorEletrico, AutotunadorPosicionamentoMotorEletrico | T: ./ControladorPosicionamentoMotorEletrico |
 | [src/physics/sistemas de controle/ControladorAletasAerodinamicas.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.ts) | ControladorAletasAerodinamicas | ../objetos/componentes/AletaAerodinamica |
+| [src/physics/sistemas de controle/ControladorAproximacao.ts](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.ts) | ControladorAproximacao: ControladorDeVoo | T: ./GerenciadorDeControladores, T: ../sensores/SensoresVeiculoComposto |
 | [src/physics/sistemas de controle/ControladorDesaceleracao.ts](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracao.ts) | ConfiguracaoControleDesaceleracao, ComandoDesaceleracao, ControladorDesaceleracao | T: ../sensores/SensoresVeiculoComposto |
 | [src/physics/sistemas de controle/ControladorDesaceleracaoDePropulsores.ts](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracaoDePropulsores.ts) | ControladorDesaceleracaoDePropulsores: ControladorDeVoo | T: ../sensores/SensoresVeiculoComposto, ./ControladorDesaceleracao, T: ./GerenciadorDeControladores |
 | [src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.ts](../../src/physics/sistemas%20de%20controle/ControladorDescidaFuzzyPidDePropulsores.ts) | ConfiguracaoDescidaFuzzyPid, ComandoDescidaFuzzyPid, ControladorDescidaFuzzyPidDePropulsores: ControladorDeVoo | T: ../sensores/SensoresVeiculoComposto, ../sensores/SensoresVeiculoComposto, T: ./GerenciadorDeControladores |
@@ -407,8 +420,11 @@ Escopo: imports/exportações estáticos locais das fontes próprias; chamadas d
 | [src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts](../../src/physics/sistemas%20de%20controle/ControladorPosicionamentoMotorEletrico.ts) | DefinicaoControladorPosicionamentoMotorEletrico: DefinicaoObjeto, GanhosControladorPosicionamentoMotorEletrico, ModeloAutotunePosicionamentoMotorEletrico, ControladorPosicionamentoMotorEletrico: Objeto | ../objetos/base/Objeto |
 | [src/physics/sistemas de controle/ControladorPouso.ts](../../src/physics/sistemas%20de%20controle/ControladorPouso.ts) | ConfiguracaoControlePouso, ComandoControlePouso, ControladorPouso | T: ../sensores/SensoresVeiculoComposto, ../sensores/SensoresVeiculoComposto |
 | [src/physics/sistemas de controle/ControladorPousoDePropulsores.ts](../../src/physics/sistemas%20de%20controle/ControladorPousoDePropulsores.ts) | ControladorPousoDePropulsores: ControladorDeVoo | T: ../sensores/SensoresVeiculoComposto, ./ControladorPouso, T: ./GerenciadorDeControladores |
-| [src/physics/sistemas de controle/ControladorReentrada.ts](../../src/physics/sistemas%20de%20controle/ControladorReentrada.ts) | TelemetriaControleReentrada, CorredorReentrada, ControladorReentrada: ControladorDeVoo | ../ambiente/ReferencialFisico, T: ../sensores/SensoresVeiculoComposto, T: ./GerenciadorDeControladores, ../reentrada/ModeloAerodinamicoReentrada |
+| [src/physics/sistemas de controle/ControladorReentrada.ts](../../src/physics/sistemas%20de%20controle/ControladorReentrada.ts) | TelemetriaControleReentrada, CorredorReentrada, ControladorReentrada: ControladorDeVoo | ./EstrategiaCorredorReentrada, ../ambiente/ReferencialFisico, T: ../sensores/SensoresVeiculoComposto, T: ./GerenciadorDeControladores, ../reentrada/ModeloAerodinamicoReentrada |
+| [src/physics/sistemas de controle/EstrategiaCorredorReentrada.ts](../../src/physics/sistemas%20de%20controle/EstrategiaCorredorReentrada.ts) | funções/entrada | T: ./ControladorReentrada |
+| [src/physics/sistemas de controle/FronteiraAproximacao.ts](../../src/physics/sistemas%20de%20controle/FronteiraAproximacao.ts) | ConfiguracaoFronteiraAproximacao, EstadoFronteiraAproximacao, RequisitoAproximacao | ../ambiente/ReferencialFisico |
 | [src/physics/sistemas de controle/GerenciadorDeControladores.ts](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts) | SolicitacaoDeAtuador, SolicitacaoArbitrada: SolicitacaoDeAtuador, ControladorDeVoo, GerenciadorDeControladores | T: ../sensores/SensoresVeiculoComposto |
+| [src/physics/sistemas de controle/SupervisorRecuperacao.ts](../../src/physics/sistemas%20de%20controle/SupervisorRecuperacao.ts) | SupervisorRecuperacao | ./GerenciadorDeControladores, ./FronteiraAproximacao |
 | [src/physics/sistemas de controle/SupervisorReentrada.ts](../../src/physics/sistemas%20de%20controle/SupervisorReentrada.ts) | EstadoTransferenciaPouso, LimitesTransferencia, RequisitoTransferencia, SupervisorReentrada | ./GerenciadorDeControladores |
 | [src/physics/solucionadores/IntegradorFisico.ts](../../src/physics/solucionadores/IntegradorFisico.ts) | IntegradorFisico | T: ../objetos/base/Objeto, ../objetos/base/Objeto, T: ../tipos/ForcaAplicada, ../Vetor3 |
 | [src/physics/solucionadores/ResolvedorColisoes.ts](../../src/physics/solucionadores/ResolvedorColisoes.ts) | ContextoResolvedorColisoes, ResolvedorColisoes | ../conexoes/FixadorEstrutural, ../geometria/ContatoCaixasOrientadas, ../estruturas/ConjuntoEstruturalRigido, ../objetos/base/Objeto, ../Vetor3, ./ResolvedorEsforcoEstrutural |
@@ -416,8 +432,9 @@ Escopo: imports/exportações estáticos locais das fontes próprias; chamadas d
 | [src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts](../../src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts) | ResolvedorEsforcoEstrutural | ../conexoes/FixadorEstrutural, ../objetos/base/Objeto, ../Vetor3, T: ../tipos/ForcaAplicada, T: ../estruturas/ConjuntoEstruturalRigido |
 | [src/physics/solucionadores/SistemaAtmosferico.ts](../../src/physics/solucionadores/SistemaAtmosferico.ts) | SistemaAtmosferico | ../ambiente/ReferencialFisico, ../objetos/base/Objeto, ../Vetor3, T: ../ambiente/PerfilAtmosfericoReentrada |
 | [src/physics/solucionadores/SistemaTermico.ts](../../src/physics/solucionadores/SistemaTermico.ts) | SistemaTermico | ../objetos/base/Objeto, ./SistemaAtmosferico |
+| [src/physics/termica/RedeTermica.ts](../../src/physics/termica/RedeTermica.ts) | RegiaoTermica, LigacaoTermica, DefinicaoRedeTermica, RedeTermica | — |
 | [src/physics/tipos/ForcaAplicada.ts](../../src/physics/tipos/ForcaAplicada.ts) | ForcaAplicada | ../Vetor3 |
-| [src/reentrada.ts](../../src/reentrada.ts) | funções/entrada | ./style.css, ./reentrada.css, ./cenarios/EnsaioReentrada, ./simulacao/ExecutorPassoFixo, ./apresentacao/reentrada/RenderizadorReentrada |
+| [src/reentrada.ts](../../src/reentrada.ts) | funções/entrada | ./physics/reentrada/ConfiguracaoTermicaReentrada, ./physics/reentrada/ModeloAerodinamicoReentrada, ./apresentacao/reentrada/CamposParametrosReentrada, ./style.css, ./reentrada.css, ./cenarios/EnsaioReentrada, ./simulacao/ExecutorPassoFixo, ./apresentacao/reentrada/RenderizadorReentrada |
 | [src/simulacao/ExecutorPassoFixo.ts](../../src/simulacao/ExecutorPassoFixo.ts) | LimiteExecucaoPassos, ExecutorPassoFixo | — |
 | [src/testes.ts](../../src/testes.ts) | CenárioVisual, OpcoesQueda, ProjetoSandboxSalvo, PerfilPidPersistido, CanalTrace | ./cenarios/BancadaBss003, T: ./physics/SuperficieFisica, ./cenarios/BancadaBss, ./physics/objetos/fontes-de-energia/GeradorCA, ./physics/objetos/mecanismos/TravaPorta, ./style.css, ./visualizacao/ConexoesEletricas, ./physics/MundoFisico, ./physics/objetos/base/Objeto, ./physics/objetos/base/ObjetoTriangularRetangulo, ./physics/SuperficiePlano, ./physics/objetos/veiculos/VeiculoTerrestre, ./physics/objetos/veiculos/VeiculoAlado, ./physics/objetos/veiculos/VeiculoComposto, ./physics/objetos/propulsao/Propulsor, ./physics/objetos/propulsao/PropulsorVetorizado, ./physics/objetos/fontes-de-energia/TanquePropelente, ./physics/objetos/fontes-de-energia/Bateria, ./physics/objetos/fontes-de-energia/PainelSolar, ./physics/conexoes/ConexaoEletrica, ./physics/objetos/propulsao/alimentacao/ValvulaPropelente, ./physics/objetos/propulsao/alimentacao/LinhaDePropelente, ./physics/objetos/propulsao/alimentacao/BombaPropelente, ./physics/objetos/propulsao/combustao/CamaraCombustao, ./physics/objetos/propulsao/combustao/Bocal, ./physics/conexoes/FixadorEstrutural, ./physics/conexoes/ChumbadorAoSolo, ./physics/objetos/componentes/Paraquedas, ./physics/objetos/componentes/AletaAerodinamica, ./physics/Vetor3, ./physics/objetos/atuadores/CilindroEletrico, ./physics/sensores/SwitchFimDeCurso, ./physics/conexoes/GuiaLinear, ./physics/conexoes/JuntaRotacionalDeBancada, ./physics/objetos/atuadores/MotorEletricoRotacional, ./physics/objetos/mecanismos/BracoArticuladoDeBancada, ./physics/objetos/mecanismos/Porta, ./physics/cenarios/EnsaioPortaVertical, ./visualizacao/TracePLC, ./visualizacao/RegistroEnsaioBancada, ./physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico, ./simulacao/ExecutorPassoFixo |
 | [src/validacao/ReferenciaBancadaM10.ts](../../src/validacao/ReferenciaBancadaM10.ts) | ReferenciaCasoM10 | ../physics/objetos/fontes-de-energia/Bateria, node:crypto, T: ../cenarios/BancadaBss, T: ../missoes/TiposMissaoBss006 |
@@ -452,3 +469,74 @@ trace ao desenhar: esse efeito é observacional, sem força ou integração adic
 Alguns critérios de término arquivados ainda usam meia altura fixa ou apenas dano,
 sem provar repouso orientado de todos os corpos. Permanecem registrados como
 limites históricos, sem alteração executável nesta auditoria.
+
+## RE-002B — diagnóstico de conservação
+
+`DiagnosticoAngular` consulta L intrínseco/orbital, I e torque de gradiente dos membros. `BalancoAngular` registra quadratura e resíduos, sem integrar nem corrigir estados. O conjunto rígido reconstrói L com velocidades relativas a Vg; o KDK translacional permanece compartilhado. O marco B introduziu `intrinseca-relativa-2`; a consolidação usa `intrinseca-relativa-3`, mantendo também a associatividade exata entre impulsos individuais e em lote. Detalhes e evidências em [RE-002](../planos-codex/2026-10-18-re002.md).
+
+## RE-002C/D/E — instrumentação e fronteira de aproximação
+
+O laboratório RE usa parâmetros de instância, redução de extremos/eventos por
+passo e diagnósticos de torques efetivamente integrados. `FronteiraAproximacao`
+é análise pura de candidatura sob hipóteses; `SupervisorRecuperacao` governa
+a posse RE→aproximação. `ControladorAproximacao` é protótipo sem atuação e a
+fábrica declara propulsão/integração operacional ausentes. O antigo
+`SupervisorReentrada` permanece histórico, sem governar o fluxo nominal RE.
+Pouso direto é bloqueado e a fase de pouso não foi desenvolvida neste marco.
+
+O [projeto RE-002E](../planos-codex/RE002E-INTEGRACAO-PROPULSIVA.md) especifica
+como reutilizar tanques, linhas, válvulas, bombas, câmara, bocal, propulsores,
+energia, sensores e gerenciador. Hardware, TPS em camadas e esforços completos
+continuam futuros. Candidatura A não autoriza B e não demonstra alcance do alvo.
+Referências numéricas antigas M10/M11 permanecem preservadas, com revisão de
+requalificação pendente; não são substituídas pelo candidato experimental.
+
+## RE-003 — aplicação explícita da configuração
+
+A bancada de reentrada lê todos os campos atuais antes do início ou passo manual,
+mesmo sem evento de edição. `validarConfiguracaoExplicitaReentrada` exige campos
+completos e delega às validações de domínio; a fábrica parcial existente continua
+disponível aos consumidores anteriores. Preparar constrói uma nova instância e
+somente a substitui após sucesso. Configuração aplicada vem da identificação do
+registro retornado pelo domínio e permanece congelada no ensaio.
+
+Edição em pausa é separada da configuração aplicada: continuar o ensaio anterior
+ou preparar um novo exige escolha explícita. Exportar conserva o diário aplicado
+e informa a pendência; não reescreve a receita por valores ainda não aplicados.
+O chaveamento inicial possui campo separado do comando operacional. Nenhuma
+lei física, integração ou revisão de material foi alterada. Contrato e evidências:
+[RE-003](../planos-codex/2026-10-18-re003.md).
+
+O seletor de tempo da reentrada oferece 1×, 10×, 60×, 120×, 240× e 500×. Todas as opções
+reutilizam o executor de passo fixo; a escala solicitada conserva o dt físico
+e fica sujeita ao orçamento de processamento existente. Contrato:
+[Reentrada 120×](../planos-codex/2026-10-18-reentrada-120x.md) e
+[Reentrada 240× e 500×](../planos-codex/2026-10-18-reentrada-240x-500x.md).
+
+## Recuperação de configuração rejeitada na reentrada
+
+A configuração mecânica rejeitada identifica chave, valor e limite. Uma cena
+sem ensaio válido apresenta aviso visível. **Restaurar configuração padrão**
+redefine explicitamente todos os campos, inclusive os parâmetros de engenharia
+e limiares térmicos, e prepara novo ensaio no tempo zero sem executar.
+Nenhuma tolerância física ou configuração alternativa automática foi criada.
+Contrato e diagnóstico: [recuperação da reentrada](../planos-codex/2026-10-18-reentrada-recuperacao.md).
+
+## RE-004 — capacidades térmicas por região
+
+`physics/termica/RedeTermica` compõe `Objeto` somente por opt-in explícito.
+`SistemaTermico` aplica fluxo aero uma vez na superfície, conduz e irradia;
+`MundoFisico` finaliza dano regional depois das trocas nos fixadores. A rede
+não acrescenta massa mecânica. `temperaturaC` é estrutural no optante e mantém
+seu significado concentrado nos consumidores legados.
+
+Corpo/flaps: superfície → estrutura → interior/articulação. Bateria: nó
+independente, ligado ao interior por condutância física interrompida ao separar.
+Fixadores optantes trocam os mesmos joules entre portas e informam fluxo; os
+legados mantêm o modelo anterior. Dano do revestimento aumenta condutância
+explicitamente declarada; mecanismo limita atuação por sua própria integridade.
+
+Receitas `sem-tps` e `tps-experimental` são hipóteses editáveis, sem materiais
+certificados. UI registra configuração completa RE-004-r1, gráficos por região,
+potências e balanços; receita ausente mantém RE-003. Replay valida ambas as
+revisões sem conversão implícita de históricos. Ver [contrato RE-004](../planos-codex/2026-10-18-re004.md).

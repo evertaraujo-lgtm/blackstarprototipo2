@@ -1,0 +1,64 @@
+{
+  "navegador": "Firefox 146.0.1, headless, perfil temporário isolado",
+  "url": "http://127.0.0.1:5000/reentrada.html",
+  "canal": "WebDriver BiDi local",
+  "observacoes": [
+    {
+      "message": "Configuração aplicada ao RE-001 (preparo 1, RE-002-r4). Limite térmico do corpo: 1100 °C. Limite térmico dos flaps: 900 °C. Limite térmico da bateria: 60 °C. Resistência a impacto: corpo 100000000 J; flaps 1000000 J. Resistência axial dos fixadores: 100000000 N.",
+      "values": [
+        {
+          "k": "cursoFlapRad",
+          "value": "0.5235987755982988",
+          "valueAsNumber": 0.523598775598299,
+          "attribute": "0.5235987755982988"
+        },
+        {
+          "k": "cursoRolagemRad",
+          "value": "1.5707963267948966",
+          "valueAsNumber": 1.5707963267949,
+          "attribute": "1.5707963267948966"
+        },
+        {
+          "k": "fracaoCargaInicialBateria",
+          "value": "1",
+          "valueAsNumber": 1,
+          "attribute": "1"
+        },
+        {
+          "k": "taxaFlapRadps",
+          "value": "0.3490658503988659",
+          "valueAsNumber": 0.349065850398866,
+          "attribute": "0.3490658503988659"
+        },
+        {
+          "k": "taxaRolagemRadps",
+          "value": "0.17453292519943295",
+          "valueAsNumber": 0.174532925199433,
+          "attribute": "0.17453292519943295"
+        }
+      ],
+      "probe": {
+        "assigned": "1.5707963267948966",
+        "read": "1.5707963267948966",
+        "number": 1.5707963267949
+      }
+    },
+    {
+      "value": "1.5707963267949",
+      "message": "Configuração rejeitada: cursoRolagemRad: 1.5707963267949 rad; deve ser menor ou igual a 1.5707963267948966 rad."
+    },
+    {
+      "value": "1.5707963267948966",
+      "message": "Configuração aplicada ao RE-001 (preparo 2, RE-002-r4). Limite térmico do corpo: 1100 °C. Limite térmico dos flaps: 900 °C. Limite térmico da bateria: 60 °C. Resistência a impacto: corpo 100000000 J; flaps 1000000 J. Resistência axial dos fixadores: 100000000 N.",
+      "state": "t = 0.000 s · preparada · dt = 0.0041667 s · dívida 0.00 s",
+      "warningHidden": true,
+      "telemetry": true
+    },
+    {
+      "state": "t = 1.000 s · pausada · dt = 0.0041667 s · dívida 0.00 s"
+    }
+  ],
+  "resultado": "aprovado",
+  "limiteDaEvidencia": "O valor inválido foi injetado explicitamente. A captura original não identifica qual dos cinco parâmetros provocou a rejeição; não se atribui sua origem ao navegador.",
+  "limitacoesDoAmbiente": "O processo Firefox headless emitiu avisos de timeout de script durante desenho em execuções de diagnóstico. A evidência BiDi confirma estado/validação/recuperação/avanço de 1 s; a captura de pixels inspecionada e os smokes visuais automatizados foram realizados no Chrome."
+}

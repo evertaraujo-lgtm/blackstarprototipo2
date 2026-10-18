@@ -25,6 +25,8 @@ import type { PrismaDeslocador } from './agua/GeometriaSubmersa';
 import type { PerfilAtmosferico } from './ambiente/PerfilAtmosfericoReentrada';
 
 export interface ConfiguracaoMundoFisico {
+  /** Opt-in de cargas axiais distribuídas e diagnóstico das cargas realmente integradas. */
+  readonly avaliarCargasEstruturaisDistribuidas?: boolean;
   /** Perfil especializado opt-in. Ausente preserva atmosfera histórica. */
   readonly perfilAtmosferico?: PerfilAtmosferico;
   readonly regioesAquaticas?: readonly RegiaoAquatica[];
@@ -89,12 +91,16 @@ export class MundoFisico {
   private readonly sistemaSensores: SistemaSensores;
   private readonly hidrodinamica?: SistemaHidrodinamico;
   private readonly perfilAtmosferico?: PerfilAtmosferico;
+  private readonly avaliarCargasEstruturaisDistribuidas: boolean;
+  private readonly diagnosticosAngularesPasso = new Map<string, { impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number }>();
+  private dtDiagnosticoS = 0;
 
   /** Compõe registros, ambiente, integração e solucionadores determinísticos; configura água somente quando regiões são declaradas. maxDtS em s positivo/finito; densidade kg/m³ não negativa (zero = vácuo), vento m/s, temperatura °C. Legado plano/Euler por padrão; central usa KDK e restringe XY. Perfil atmosférico opcional é injetado no solucionador compartilhado, sem alterar padrões anteriores. Instala callbacks de consulta/reação, sem depender de relógio real. @contract f-518ff75ab4b7f057 */
   public constructor(private readonly maxDtS = 1 / 60, configuracao: ConfiguracaoMundoFisico = {}) {
     if (!Number.isFinite(maxDtS) || maxDtS <= 0) throw new Error('maxDt deve ser positivo.');
     this.ambiente = configuracao.ambiente ?? new AmbientePlano();
     this.perfilAtmosferico = configuracao.perfilAtmosferico;
+    this.avaliarCargasEstruturaisDistribuidas = configuracao.avaliarCargasEstruturaisDistribuidas ?? false;
     this.integracao = configuracao.integracao ?? (this.ambiente.campo.modelo === 'central' ? 'verlet-gravitacional' : 'euler-semi-implicito');
     this.densidadeAtmosfericaNivelMarKgM3 = configuracao.densidadeAtmosfericaKgM3 ?? MundoFisico.densidadeAtmosferaPadraoKgM3;
     this.velocidadeArBaseMps = configuracao.velocidadeArMps ?? Vetor3.zero;
@@ -363,21 +369,24 @@ export class MundoFisico {
   }
 
   /** Receita explícita do passo; fenômenos físicos vivem nos subsistemas.
+   * Finaliza dano das redes térmicas optantes após trocas nos fixadores.
    * @contract f-99ffa3537971f382
    */
   private integrarPasso(dtS: number, aplicarImpulsos: boolean): void {
+    this.diagnosticosAngularesPasso.clear(); this.dtDiagnosticoS = dtS;
     this.atualizarVentoDoPasso();
     this.atualizarApoioDeTracao();
     for (const objeto of this.objetos.values()) objeto.prepararPassoEnergetico(dtS);
     for (const objeto of this.objetos.values()) objeto.prepararPassoOperacional(dtS);
     this.sistemaTermico.atualizar([...this.objetos.values()], dtS);
     for (const fixador of this.fixadores.values()) fixador.prepararPasso(dtS);
+    this.sistemaTermico.finalizarPasso([...this.objetos.values()], dtS);
     for (const chumbador of this.chumbadoresAoSolo.values()) chumbador.prepararPasso();
     this.sincronizarConjuntosEstruturais(0, false);
     if (aplicarImpulsos) this.aplicarImpulsosPendentes();
-    if (this.hidrodinamica) {
+    if (this.hidrodinamica || this.avaliarCargasEstruturaisDistribuidas) {
       const ativosAntes = [...this.fixadores.values()].filter(f => f.estaAtivo).length;
-      for (const o of this.objetos.values()) this.hidrodinamica.atualizarCarregamento(o, dtS);
+      for (const o of this.objetos.values()) this.hidrodinamica?.atualizarCarregamento(o, dtS);
       for (const conjunto of this.conjuntosEstruturais.values()) {
         const cargas = conjunto.membros.map(objeto => {
           const e = objeto.getEstadoFisico();
@@ -440,9 +449,14 @@ export class MundoFisico {
   /** Consulta aceleração m/s² do campo do ambiente na posição inercial em m; não integra nem depende da orientação. @contract f-b8b386144342054d @reviewed M12-DOC: implementação lida. */
   public obterGravidadeMps2(posicaoM: Vetor3): Vetor3 { return this.ambiente.campo.aceleracaoEm(posicaoM); }
 
-  /** Exporta identificação do ambiente, integração, dt máximo, atmosfera e água declarada para diários/replay; inclui a revisão completa do perfil atmosférico somente quando injetado. Não altera parâmetros. @contract f-d3dca202d77d15ec */
+  /** Exporta identificação do ambiente, integração, dt máximo, revisão angular,
+   * atmosfera e água para diários/replay. Perfil completo somente quando injetado.
+   * A revisão angular distingue reconstrução intrínseca relativa RE-002B de
+   * diários anteriores; não altera parâmetros nem garante compatibilidade antiga.
+   * @contract f-d3dca202d77d15ec */
   public obterConfiguracaoFisica(): object {
-    return { ...this.ambiente.obterConfiguracao(), integracao: this.integracao, maxDtS: this.maxDtS, politicaAtmosferica: this.atmosfera.politicaAltitude, densidadeNivelMarKgM3: this.densidadeAtmosfericaNivelMarKgM3,
+    return { ...this.ambiente.obterConfiguracao(), integracao: this.integracao, revisaoDinamicaAngular: 'intrinseca-relativa-3', maxDtS: this.maxDtS, politicaAtmosferica: this.atmosfera.politicaAltitude, densidadeNivelMarKgM3: this.densidadeAtmosfericaNivelMarKgM3,
+      ...(this.avaliarCargasEstruturaisDistribuidas ? { cargasDistribuidas: 'axial-pontes-1' } : {}),
       ...(this.perfilAtmosferico ? { politicaAtmosferica: 'perfil-injetado', perfilAtmosferico: this.perfilAtmosferico.obterConfiguracao() } : {}),
       ...(this.hidrodinamica ? { hidrodinamica: this.hidrodinamica.obterConfiguracao() } : {}) };
   }
@@ -461,7 +475,14 @@ export class MundoFisico {
         const lote = lotes.get(conjunto) ?? []; lote.push({ impulsoNs: impulso, pontoM: p }); lotes.set(conjunto, lote);
       } else this.integrador.aplicarImpulsoNoPonto(objeto, impulso, p);
     }
-    for (const [conjunto, lote] of lotes) conjunto.aplicarImpulsosSequenciais(lote);
+    for (const [conjunto, lote] of lotes) {
+      if (this.avaliarCargasEstruturaisDistribuidas) {
+        const G = conjunto.obterCentroDeMassaAtual();
+        const impulsoAngular = lote.reduce((s, j) => s + j.pontoM.subtrair(G).produtoVetorial(j.impulsoNs).z, 0);
+        this.registrarDiagnosticoAngular(conjunto, impulsoAngular);
+      }
+      conjunto.aplicarImpulsosSequenciais(lote);
+    }
   }
   /** Aplica impulso F_empuxo·dt em N·s nos centros de volume; usa lotes sequenciais por ilha e não reaplica o arrasto dissipativo. @contract f-1d8fd7f1e67ca925 @reviewed M12-DOC: implementação lida. */
   private aplicarKickHidrostatico(dtS: number): void {
@@ -474,6 +495,34 @@ export class MundoFisico {
       } else this.integrador.aplicarImpulsoNoPonto(objeto, impulso, f.pontoM);
     }
     for (const [conjunto, lote] of lotes) conjunto.aplicarImpulsosSequenciais(lote);
+  }
+
+  /** Consulta cópia das cargas angulares do último subpasso, somente se ativadas.
+   * Impulso gravitacional N·m·s vem dos dois kicks; torque aero/outros em N·m
+   * vem da lista efetivamente integrada. Não inclui impulsos de contato/ruptura,
+   * que exigem classificação separada do balanço. Não escreve estado físico.
+   * @contract f-09aef6aae989916b
+   */
+  public obterDiagnosticoAngularDoPasso(objeto: Objeto) {
+    const d = this.diagnosticosAngularesPasso.get(objeto.id);
+    return d ? { ...d, dtS: this.dtDiagnosticoS } : undefined;
+  }
+
+  /** Registra grandezas derivadas das cargas aplicadas à ilha, sem reaplicá-las.
+   * Sem opt-in não faz cálculos adicionais. G é o mesmo usado pela integração;
+   * outros torques são a resultante não aero (gravidade KDK entra por impulso).
+   * @contract f-5a683553b2a0f912
+   */
+  private registrarDiagnosticoAngular(conjunto: ConjuntoEstruturalRigido, impulsoGravitacionalNmS: number,
+    forcas?: readonly ForcaAplicada[]): void {
+    if (!this.avaliarCargasEstruturaisDistribuidas) return;
+    const antigo = this.diagnosticosAngularesPasso.get(conjunto.membros[0].id);
+    const G = conjunto.obterCentroDeMassaAtual();
+    const aero = forcas ? this.obterCargasAerodinamicas(conjunto.membros, G).torqueNm.z : antigo?.torqueAerodinamicoNm ?? 0;
+    const total = forcas?.reduce((s, f) => s + f.pontoM.subtrair(G).produtoVetorial(f.forcaN).z + (f.torqueNm?.z ?? 0), 0);
+    const d = { impulsoGravitacionalNmS: (antigo?.impulsoGravitacionalNmS ?? 0) + impulsoGravitacionalNmS,
+      torqueAerodinamicoNm: aero, torqueOutrosContinuosNm: total === undefined ? antigo?.torqueOutrosContinuosNm ?? 0 : total - aero };
+    for (const o of conjunto.membros) this.diagnosticosAngularesPasso.set(o.id, d);
   }
 
   /** Rejeita componente Z diferente de zero no ambiente central; o legado conserva o contrato anterior. @contract f-bed4015e9d6bffc1 @reviewed M12-DOC: implementação lida. */
@@ -495,7 +544,7 @@ export class MundoFisico {
     }
   }
 
-  /** Reúne forças operacionais, externas, aerodinâmicas, juntas e água; integra uma vez cada corpo isolado ou ilha e registra uso em horas. dtS em s escolhido pelo avanço. Gravidade/empuxo já aplicados por KDK são omitidos da força explícita. Pontos de aplicação são físicos e massas são instantâneas; atualiza estados somente pelos integradores/ilha. @contract f-3e1c3598586d381e @reviewed M12-DOC: implementação lida. */
+  /** Reúne forças operacionais, externas, aerodinâmicas, juntas e água; integra uma vez cada corpo isolado ou ilha e registra uso em horas. dtS em s escolhido pelo avanço. Gravidade/empuxo já aplicados por KDK são omitidos da força explícita. Pontos de aplicação são físicos e massas são instantâneas; atualiza estados somente pelos integradores/ilha. Diagnóstico opt-in captura forças no instante efetivamente integrado, após atuação e primeiro kick. @contract f-3e1c3598586d381e */
   private integrarCorpos(dtS: number): void {
     for (const objeto of this.objetos.values()) {
       if (this.obterConjuntoEstruturalDoObjeto(objeto)) continue;
@@ -528,6 +577,7 @@ export class MundoFisico {
         objeto.registrarUso(dtS / 3600);
       }
       if (this.ambiente.campo.modelo === 'central') for (const f of forcasDoConjunto) this.validarForcaPlanar(f);
+      this.registrarDiagnosticoAngular(conjunto, 0, forcasDoConjunto);
       conjunto.integrar(forcasDoConjunto, dtS);
     }
   }

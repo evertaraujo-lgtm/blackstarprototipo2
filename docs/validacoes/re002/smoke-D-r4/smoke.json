@@ -1,0 +1,38 @@
+{
+  "resultado": "OK",
+  "verificacoes": [
+    {
+      "largura": 1440,
+      "rota": "/reentrada.html",
+      "tempoAvancou": true,
+      "pausa": true,
+      "rolagemLimitada": true,
+      "modoManual": true,
+      "aproximacaoBloqueada": true,
+      "parametrosExportados": true,
+      "modoManualInicial": true,
+      "passo480": true,
+      "alimentacaoDesligada": true,
+      "exportacao": true,
+      "danoTermico": true,
+      "overflow": false
+    },
+    {
+      "largura": 390,
+      "rota": "/reentrada.html",
+      "tempoAvancou": true,
+      "pausa": true,
+      "rolagemLimitada": true,
+      "modoManual": true,
+      "aproximacaoBloqueada": true,
+      "parametrosExportados": true,
+      "modoManualInicial": true,
+      "passo480": true,
+      "alimentacaoDesligada": true,
+      "exportacao": true,
+      "danoTermico": true,
+      "overflow": false
+    }
+  ],
+  "erros": []
+}
