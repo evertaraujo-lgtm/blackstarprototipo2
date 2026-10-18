@@ -465,4 +465,21 @@ limites históricos, sem alteração executável nesta auditoria.
 
 ## RE-002B — diagnóstico de conservação
 
-`DiagnosticoAngular` consulta L intrínseco/orbital, I e torque de gradiente dos membros. `BalancoAngular` registra quadratura e resíduos, sem integrar nem corrigir estados. O conjunto rígido reconstrói L com velocidades relativas a Vg; o KDK translacional permanece compartilhado. A identificação física inclui `intrinseca-relativa-2`. Detalhes e evidências em [RE-002](../planos-codex/2026-10-18-re002.md).
+`DiagnosticoAngular` consulta L intrínseco/orbital, I e torque de gradiente dos membros. `BalancoAngular` registra quadratura e resíduos, sem integrar nem corrigir estados. O conjunto rígido reconstrói L com velocidades relativas a Vg; o KDK translacional permanece compartilhado. O marco B introduziu `intrinseca-relativa-2`; a consolidação usa `intrinseca-relativa-3`, mantendo também a associatividade exata entre impulsos individuais e em lote. Detalhes e evidências em [RE-002](../planos-codex/2026-10-18-re002.md).
+
+## RE-002C/D/E — instrumentação e fronteira de aproximação
+
+O laboratório RE usa parâmetros de instância, redução de extremos/eventos por
+passo e diagnósticos de torques efetivamente integrados. `FronteiraAproximacao`
+é análise pura de candidatura sob hipóteses; `SupervisorRecuperacao` governa
+a posse RE→aproximação. `ControladorAproximacao` é protótipo sem atuação e a
+fábrica declara propulsão/integração operacional ausentes. O antigo
+`SupervisorReentrada` permanece histórico, sem governar o fluxo nominal RE.
+Pouso direto é bloqueado e a fase de pouso não foi desenvolvida neste marco.
+
+O [projeto RE-002E](../planos-codex/RE002E-INTEGRACAO-PROPULSIVA.md) especifica
+como reutilizar tanques, linhas, válvulas, bombas, câmara, bocal, propulsores,
+energia, sensores e gerenciador. Hardware, TPS em camadas e esforços completos
+continuam futuros. Candidatura A não autoriza B e não demonstra alcance do alvo.
+Referências numéricas antigas M10/M11 permanecem preservadas, com revisão de
+requalificação pendente; não são substituídas pelo candidato experimental.
