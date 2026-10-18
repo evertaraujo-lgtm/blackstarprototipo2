@@ -66,6 +66,21 @@ describe('Build único e rotas nativas sem outro repositório', () => {
       expect(Buffer.from(await r.arrayBuffer())).toEqual(expected);
     }
   });
+  it('publica HTML formatado e mantém Markdown como fonte sem alterações', async () => {
+    for (const estudo of estudosMarkdown) {
+      const urlHtml = estudo.caminho.replace(/\.md$/, '.html');
+      const html = readFileSync(join(raiz, 'dist', urlHtml), 'utf8');
+      expect(html).toContain('<article class="article">');
+      expect(html).toContain('<h1>Teste markdown</h1>');
+      expect(html).toContain('Baixar arquivo original .md');
+      expect(readFileSync(join(raiz, 'dist', estudo.caminho), 'utf8')).toBe(readFileSync(join(raiz, estudo.fonte), 'utf8'));
+      const resposta = await fetch(base + urlHtml);
+      expect(resposta.status).toBe(200);
+      expect(resposta.headers.get('content-type')).toContain('text/html');
+      expect(await resposta.text()).toContain('<h1>Teste markdown</h1>');
+    }
+  });
+
   it('retorna 404 em JS, CSS, imagem e PDF ausentes e no legado abandonado', async () => {
     for (const rota of ['/assets/ausente.js', '/assets/ausente.css', '/media/ausente.webp', '/publicacoes/ausente.pdf', '/rota-inexistente', '/starship_v1.html', '/vendor/prototipo2/tests.html']) expect((await fetch(base + rota)).status, rota).toBe(404);
   });
