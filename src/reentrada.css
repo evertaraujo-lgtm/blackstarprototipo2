@@ -41,3 +41,9 @@
 @media (max-width: 720px) { .re-layout { grid-template-columns: minmax(0, 1fr); }.re-page .test-header { flex-direction: column; gap: .5rem; margin-bottom: 1rem; }.re-page h1 { font-size: clamp(2rem, 8vw, 3rem); }.re-toolbar { gap: .2rem .7rem; }.re-telemetria { padding: 0 .6rem; gap: .35rem; }.re-metrica { padding: .5rem; }.re-metrica strong { font-size: .74rem; } }
 
 .re-parametros{max-height:28rem;overflow:auto;padding:.2rem .5rem .2rem 0}
+
+.re-config-resumo { display: block; margin: .8rem 0; color: #b7c8dc; font-size: .75rem; line-height: 1.6; overflow-wrap: anywhere; }
+#re-config-estado[data-pendente="true"] { color: #fde68a; }
+.re-config-escolha { padding: .8rem; border: 1px solid #b19147; border-radius: .4rem; font-size: .8rem; }
+.re-config-escolha[hidden] { display: none; }
+.re-config-escolha button { width: 100%; white-space: normal; }

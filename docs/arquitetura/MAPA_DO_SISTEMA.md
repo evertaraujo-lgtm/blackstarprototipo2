@@ -295,10 +295,12 @@ Escopo: imports/exportações estáticos locais das fontes próprias; chamadas d
 | [scripts/executar-missao.ts](../../scripts/executar-missao.ts) | funções/entrada | node:util, node:fs, ../src/missoes/ReplayMissaoBss006, ../src/missoes/ExecutorMissao |
 | [scripts/site/smoke.ts](../../scripts/site/smoke.ts) | funções/entrada | ../../site/build/pluginInstitucional, node:assert/strict, node:fs, node:os, node:path, T: node:net, node:timers/promises, playwright-core, T: playwright-core, vite |
 | [scripts/site/verificar.ts](../../scripts/site/verificar.ts) | funções/entrada | node:crypto, node:fs, node:path, ../../site/build/pluginInstitucional |
+| [scripts/smoke-configuracao-re003.ts](../../scripts/smoke-configuracao-re003.ts) | funções/entrada | node:assert/strict, node:fs, node:path, T: node:net, playwright-core, vite, T: ../src/cenarios/EnsaioReentrada |
 | [scripts/smoke-reentrada.ts](../../scripts/smoke-reentrada.ts) | funções/entrada | node:assert/strict, node:fs, node:path, T: node:net, playwright-core, vite |
 | [scripts/validar-hidrodinamica.ts](../../scripts/validar-hidrodinamica.ts) | funções/entrada | node:fs, node:util, ../src/physics/MundoFisico, ../src/physics/objetos/base/Objeto, ../src/physics/Vetor3, ../src/physics/ambiente/AmbienteFisico, ../src/physics/ambiente/GeografiaCosteira, ../src/physics/agua/RegiaoAquatica, ../src/physics/agua/SistemaHidrodinamico |
 | [scripts/validar-re002.ts](../../scripts/validar-re002.ts) | funções/entrada | node:fs, ../src/cenarios/EnsaioReentrada |
 | [scripts/validar-reentrada.ts](../../scripts/validar-reentrada.ts) | funções/entrada | node:assert/strict, node:fs, node:path, ../src/cenarios/EnsaioReentrada |
+| [scripts/validar-termica-re003.ts](../../scripts/validar-termica-re003.ts) | funções/entrada | node:assert/strict, node:fs, ../src/cenarios/EnsaioReentrada |
 | [scripts/verificar-site.ts](../../scripts/verificar-site.ts) | funções/entrada | ./site/verificar |
 | [site/build/pluginInstitucional.ts](../../site/build/pluginInstitucional.ts) | funções/entrada | node:fs, node:path, T: node:http, T: vite |
 | [site/scripts/carrossel.ts](../../site/scripts/carrossel.ts) | funções/entrada | — |
@@ -483,3 +485,19 @@ energia, sensores e gerenciador. Hardware, TPS em camadas e esforços completos
 continuam futuros. Candidatura A não autoriza B e não demonstra alcance do alvo.
 Referências numéricas antigas M10/M11 permanecem preservadas, com revisão de
 requalificação pendente; não são substituídas pelo candidato experimental.
+
+## RE-003 — aplicação explícita da configuração
+
+A bancada de reentrada lê todos os campos atuais antes do início ou passo manual,
+mesmo sem evento de edição. `validarConfiguracaoExplicitaReentrada` exige campos
+completos e delega às validações de domínio; a fábrica parcial existente continua
+disponível aos consumidores anteriores. Preparar constrói uma nova instância e
+somente a substitui após sucesso. Configuração aplicada vem da identificação do
+registro retornado pelo domínio e permanece congelada no ensaio.
+
+Edição em pausa é separada da configuração aplicada: continuar o ensaio anterior
+ou preparar um novo exige escolha explícita. Exportar conserva o diário aplicado
+e informa a pendência; não reescreve a receita por valores ainda não aplicados.
+O chaveamento inicial possui campo separado do comando operacional. Nenhuma
+lei física, integração ou revisão de material foi alterada. Contrato e evidências:
+[RE-003](../planos-codex/2026-10-18-re003.md).

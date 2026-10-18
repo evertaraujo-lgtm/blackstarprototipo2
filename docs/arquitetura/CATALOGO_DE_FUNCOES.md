@@ -21,144 +21,146 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 - [scripts/documentacao/projeto.ts](#modulo-9)
 - [scripts/site/smoke.ts](#modulo-10)
 - [scripts/site/verificar.ts](#modulo-11)
-- [scripts/smoke-reentrada.ts](#modulo-12)
-- [scripts/validar-hidrodinamica.ts](#modulo-13)
-- [scripts/validar-re002.ts](#modulo-14)
-- [scripts/validar-reentrada.ts](#modulo-15)
-- [site/build/pluginInstitucional.ts](#modulo-16)
-- [site/scripts/carrossel.ts](#modulo-17)
-- [site/scripts/navegacao.ts](#modulo-18)
-- [src/apresentacao/missao/CameraMissao.ts](#modulo-19)
-- [src/apresentacao/missao/CenaMissao.ts](#modulo-20)
-- [src/apresentacao/missao/EntradaMissao.ts](#modulo-21)
-- [src/apresentacao/missao/HudMissao.ts](#modulo-22)
-- [src/apresentacao/missao/RenderizadorMissao.ts](#modulo-23)
-- [src/apresentacao/reentrada/RenderizadorReentrada.ts](#modulo-24)
-- [src/cenarios/BancadaBss.ts](#modulo-25)
-- [src/cenarios/BancadaBss003.ts](#modulo-26)
-- [src/cenarios/EnsaioMissaoBss005.ts](#modulo-27)
-- [src/cenarios/EnsaioOrbitalInerte.ts](#modulo-28)
-- [src/cenarios/EnsaioReentrada.ts](#modulo-29)
-- [src/cenarios/ReproducaoDiarioBss005.ts](#modulo-30)
-- [src/missoes/AmbienteAmerissagem.ts](#modulo-31)
-- [src/missoes/AmbienteLancamento.ts](#modulo-32)
-- [src/missoes/CicloMissao.ts](#modulo-33)
-- [src/missoes/ContratoMissao.ts](#modulo-34)
-- [src/missoes/EnsaioAmerissagem.ts](#modulo-35)
-- [src/missoes/ExecutorMissao.ts](#modulo-36)
-- [src/missoes/MissaoBss006.ts](#modulo-37)
-- [src/missoes/ObservacaoAmerissagem.ts](#modulo-38)
-- [src/missoes/RegistroExtremos.ts](#modulo-39)
-- [src/missoes/RegistroMissao.ts](#modulo-40)
-- [src/missoes/ReplayMissaoBss006.ts](#modulo-41)
-- [src/missoes/SnapshotMissao.ts](#modulo-42)
-- [src/orbitas.ts](#modulo-43)
-- [src/physics/MundoFisico.ts](#modulo-44)
-- [src/physics/SistemaOperacional.ts](#modulo-45)
-- [src/physics/SuperficieCosteira.ts](#modulo-46)
-- [src/physics/SuperficieEsferica.ts](#modulo-47)
-- [src/physics/SuperficieFisica.ts](#modulo-48)
-- [src/physics/SuperficiePlano.ts](#modulo-49)
-- [src/physics/SuperficiePlanoLocal.ts](#modulo-50)
-- [src/physics/Vetor3.ts](#modulo-51)
-- [src/physics/agua/GeometriaSubmersa.ts](#modulo-52)
-- [src/physics/agua/RegiaoAquatica.ts](#modulo-53)
-- [src/physics/agua/SistemaHidrodinamico.ts](#modulo-54)
-- [src/physics/ambiente/AmbienteFisico.ts](#modulo-55)
-- [src/physics/ambiente/CampoGravitacional.ts](#modulo-56)
-- [src/physics/ambiente/EstadoInicialLocal.ts](#modulo-57)
-- [src/physics/ambiente/GeografiaCosteira.ts](#modulo-58)
-- [src/physics/ambiente/PerfilAtmosfericoReentrada.ts](#modulo-59)
-- [src/physics/ambiente/ReferencialFisico.ts](#modulo-60)
-- [src/physics/ambiente/TelemetriaOrbital.ts](#modulo-61)
-- [src/physics/cenarios/EnsaioPortaVertical.ts](#modulo-62)
-- [src/physics/conexoes/ChumbadorAoSolo.ts](#modulo-63)
-- [src/physics/conexoes/ConexaoEletrica.ts](#modulo-64)
-- [src/physics/conexoes/FixadorEstrutural.ts](#modulo-65)
-- [src/physics/conexoes/GuiaLinear.ts](#modulo-66)
-- [src/physics/conexoes/JuntaRotacionalDeBancada.ts](#modulo-67)
-- [src/physics/conexoes/eletrica/Contator.ts](#modulo-68)
-- [src/physics/conexoes/eletrica/Interruptor.ts](#modulo-69)
-- [src/physics/conexoes/eletrica/Resistor.ts](#modulo-70)
-- [src/physics/estruturas/ConjuntoEstruturalRigido.ts](#modulo-71)
-- [src/physics/estruturas/DiagnosticoAngular.ts](#modulo-72)
-- [src/physics/geometria/ContatoCaixasOrientadas.ts](#modulo-73)
-- [src/physics/objetos/atuadores/Cilindro.ts](#modulo-74)
-- [src/physics/objetos/atuadores/CilindroEletrico.ts](#modulo-75)
-- [src/physics/objetos/atuadores/MotorEletricoRotacional.ts](#modulo-76)
-- [src/physics/objetos/base/Objeto.ts](#modulo-77)
-- [src/physics/objetos/base/ObjetoTriangularRetangulo.ts](#modulo-78)
-- [src/physics/objetos/componentes/AletaAerodinamica.ts](#modulo-79)
-- [src/physics/objetos/componentes/FlapReentrada.ts](#modulo-80)
-- [src/physics/objetos/componentes/Paraquedas.ts](#modulo-81)
-- [src/physics/objetos/componentes/RolagemVirtual.ts](#modulo-82)
-- [src/physics/objetos/fontes-de-energia/Bateria.ts](#modulo-83)
-- [src/physics/objetos/fontes-de-energia/FonteEletrica.ts](#modulo-84)
-- [src/physics/objetos/fontes-de-energia/GeradorCA.ts](#modulo-85)
-- [src/physics/objetos/fontes-de-energia/PainelSolar.ts](#modulo-86)
-- [src/physics/objetos/fontes-de-energia/TanquePropelente.ts](#modulo-87)
-- [src/physics/objetos/mecanismos/BracoArticuladoDeBancada.ts](#modulo-88)
-- [src/physics/objetos/mecanismos/ConjuntoPortaBatente.ts](#modulo-89)
-- [src/physics/objetos/mecanismos/Porta.ts](#modulo-90)
-- [src/physics/objetos/mecanismos/TravaPorta.ts](#modulo-91)
-- [src/physics/objetos/propulsao/Propulsor.ts](#modulo-92)
-- [src/physics/objetos/propulsao/PropulsorVetorizado.ts](#modulo-93)
-- [src/physics/objetos/propulsao/alimentacao/BombaPropelente.ts](#modulo-94)
-- [src/physics/objetos/propulsao/alimentacao/LinhaDePropelente.ts](#modulo-95)
-- [src/physics/objetos/propulsao/alimentacao/ValvulaPropelente.ts](#modulo-96)
-- [src/physics/objetos/propulsao/combustao/Bocal.ts](#modulo-97)
-- [src/physics/objetos/propulsao/combustao/CamaraCombustao.ts](#modulo-98)
-- [src/physics/objetos/propulsao/vetorizacao/AtuadorVetorizacao.ts](#modulo-99)
-- [src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts](#modulo-100)
-- [src/physics/objetos/veiculos/Bss03.ts](#modulo-101)
-- [src/physics/objetos/veiculos/Bss04.ts](#modulo-102)
-- [src/physics/objetos/veiculos/ComputadorDeVoo.ts](#modulo-103)
-- [src/physics/objetos/veiculos/OrbitadorReentrada.ts](#modulo-104)
-- [src/physics/objetos/veiculos/VeiculoAlado.ts](#modulo-105)
-- [src/physics/objetos/veiculos/VeiculoComposto.ts](#modulo-106)
-- [src/physics/objetos/veiculos/VeiculoTerrestre.ts](#modulo-107)
-- [src/physics/reentrada/ModeloAerodinamicoReentrada.ts](#modulo-108)
-- [src/physics/sensores/SensoresVeiculoComposto.ts](#modulo-109)
-- [src/physics/sensores/SistemaSensores.ts](#modulo-110)
-- [src/physics/sensores/SwitchFimDeCurso.ts](#modulo-111)
-- [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.ts](#modulo-112)
-- [src/physics/sistemas de controle/ControladorAletasAerodinamicas.ts](#modulo-113)
-- [src/physics/sistemas de controle/ControladorAproximacao.ts](#modulo-114)
-- [src/physics/sistemas de controle/ControladorDesaceleracao.ts](#modulo-115)
-- [src/physics/sistemas de controle/ControladorDesaceleracaoDePropulsores.ts](#modulo-116)
-- [src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.ts](#modulo-117)
-- [src/physics/sistemas de controle/ControladorGimbalDescidaDePropulsores.ts](#modulo-118)
-- [src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts](#modulo-119)
-- [src/physics/sistemas de controle/ControladorInclinacaoDePropulsores.ts](#modulo-120)
-- [src/physics/sistemas de controle/ControladorInclinacaoPid.ts](#modulo-121)
-- [src/physics/sistemas de controle/ControladorPerfilVooExperimental.ts](#modulo-122)
-- [src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts](#modulo-123)
-- [src/physics/sistemas de controle/ControladorPouso.ts](#modulo-124)
-- [src/physics/sistemas de controle/ControladorPousoDePropulsores.ts](#modulo-125)
-- [src/physics/sistemas de controle/ControladorReentrada.ts](#modulo-126)
-- [src/physics/sistemas de controle/EstrategiaCorredorReentrada.ts](#modulo-127)
-- [src/physics/sistemas de controle/FronteiraAproximacao.ts](#modulo-128)
-- [src/physics/sistemas de controle/GerenciadorDeControladores.ts](#modulo-129)
-- [src/physics/sistemas de controle/SupervisorRecuperacao.ts](#modulo-130)
-- [src/physics/sistemas de controle/SupervisorReentrada.ts](#modulo-131)
-- [src/physics/solucionadores/IntegradorFisico.ts](#modulo-132)
-- [src/physics/solucionadores/ResolvedorColisoes.ts](#modulo-133)
-- [src/physics/solucionadores/ResolvedorContatoSuperficie.ts](#modulo-134)
-- [src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts](#modulo-135)
-- [src/physics/solucionadores/SistemaAtmosferico.ts](#modulo-136)
-- [src/physics/solucionadores/SistemaTermico.ts](#modulo-137)
-- [src/reentrada.ts](#modulo-138)
-- [src/simulacao/ExecutorPassoFixo.ts](#modulo-139)
-- [src/testes.ts](#modulo-140)
-- [src/validacao/ReferenciaBancadaM10.ts](#modulo-141)
-- [src/veiculos/DefinicaoBss006.ts](#modulo-142)
-- [src/veiculos/HidrodinamicaBss006.ts](#modulo-143)
-- [src/veiculos/MontagemBss.ts](#modulo-144)
-- [src/veiculos/TelemetriaBss.ts](#modulo-145)
-- [src/visualizacao/CameraFisica2D.ts](#modulo-146)
-- [src/visualizacao/ConexoesEletricas.ts](#modulo-147)
-- [src/visualizacao/RegistroEnsaioBancada.ts](#modulo-148)
-- [src/visualizacao/TracePLC.ts](#modulo-149)
+- [scripts/smoke-configuracao-re003.ts](#modulo-12)
+- [scripts/smoke-reentrada.ts](#modulo-13)
+- [scripts/validar-hidrodinamica.ts](#modulo-14)
+- [scripts/validar-re002.ts](#modulo-15)
+- [scripts/validar-reentrada.ts](#modulo-16)
+- [scripts/validar-termica-re003.ts](#modulo-17)
+- [site/build/pluginInstitucional.ts](#modulo-18)
+- [site/scripts/carrossel.ts](#modulo-19)
+- [site/scripts/navegacao.ts](#modulo-20)
+- [src/apresentacao/missao/CameraMissao.ts](#modulo-21)
+- [src/apresentacao/missao/CenaMissao.ts](#modulo-22)
+- [src/apresentacao/missao/EntradaMissao.ts](#modulo-23)
+- [src/apresentacao/missao/HudMissao.ts](#modulo-24)
+- [src/apresentacao/missao/RenderizadorMissao.ts](#modulo-25)
+- [src/apresentacao/reentrada/RenderizadorReentrada.ts](#modulo-26)
+- [src/cenarios/BancadaBss.ts](#modulo-27)
+- [src/cenarios/BancadaBss003.ts](#modulo-28)
+- [src/cenarios/EnsaioMissaoBss005.ts](#modulo-29)
+- [src/cenarios/EnsaioOrbitalInerte.ts](#modulo-30)
+- [src/cenarios/EnsaioReentrada.ts](#modulo-31)
+- [src/cenarios/ReproducaoDiarioBss005.ts](#modulo-32)
+- [src/missoes/AmbienteAmerissagem.ts](#modulo-33)
+- [src/missoes/AmbienteLancamento.ts](#modulo-34)
+- [src/missoes/CicloMissao.ts](#modulo-35)
+- [src/missoes/ContratoMissao.ts](#modulo-36)
+- [src/missoes/EnsaioAmerissagem.ts](#modulo-37)
+- [src/missoes/ExecutorMissao.ts](#modulo-38)
+- [src/missoes/MissaoBss006.ts](#modulo-39)
+- [src/missoes/ObservacaoAmerissagem.ts](#modulo-40)
+- [src/missoes/RegistroExtremos.ts](#modulo-41)
+- [src/missoes/RegistroMissao.ts](#modulo-42)
+- [src/missoes/ReplayMissaoBss006.ts](#modulo-43)
+- [src/missoes/SnapshotMissao.ts](#modulo-44)
+- [src/orbitas.ts](#modulo-45)
+- [src/physics/MundoFisico.ts](#modulo-46)
+- [src/physics/SistemaOperacional.ts](#modulo-47)
+- [src/physics/SuperficieCosteira.ts](#modulo-48)
+- [src/physics/SuperficieEsferica.ts](#modulo-49)
+- [src/physics/SuperficieFisica.ts](#modulo-50)
+- [src/physics/SuperficiePlano.ts](#modulo-51)
+- [src/physics/SuperficiePlanoLocal.ts](#modulo-52)
+- [src/physics/Vetor3.ts](#modulo-53)
+- [src/physics/agua/GeometriaSubmersa.ts](#modulo-54)
+- [src/physics/agua/RegiaoAquatica.ts](#modulo-55)
+- [src/physics/agua/SistemaHidrodinamico.ts](#modulo-56)
+- [src/physics/ambiente/AmbienteFisico.ts](#modulo-57)
+- [src/physics/ambiente/CampoGravitacional.ts](#modulo-58)
+- [src/physics/ambiente/EstadoInicialLocal.ts](#modulo-59)
+- [src/physics/ambiente/GeografiaCosteira.ts](#modulo-60)
+- [src/physics/ambiente/PerfilAtmosfericoReentrada.ts](#modulo-61)
+- [src/physics/ambiente/ReferencialFisico.ts](#modulo-62)
+- [src/physics/ambiente/TelemetriaOrbital.ts](#modulo-63)
+- [src/physics/cenarios/EnsaioPortaVertical.ts](#modulo-64)
+- [src/physics/conexoes/ChumbadorAoSolo.ts](#modulo-65)
+- [src/physics/conexoes/ConexaoEletrica.ts](#modulo-66)
+- [src/physics/conexoes/FixadorEstrutural.ts](#modulo-67)
+- [src/physics/conexoes/GuiaLinear.ts](#modulo-68)
+- [src/physics/conexoes/JuntaRotacionalDeBancada.ts](#modulo-69)
+- [src/physics/conexoes/eletrica/Contator.ts](#modulo-70)
+- [src/physics/conexoes/eletrica/Interruptor.ts](#modulo-71)
+- [src/physics/conexoes/eletrica/Resistor.ts](#modulo-72)
+- [src/physics/estruturas/ConjuntoEstruturalRigido.ts](#modulo-73)
+- [src/physics/estruturas/DiagnosticoAngular.ts](#modulo-74)
+- [src/physics/geometria/ContatoCaixasOrientadas.ts](#modulo-75)
+- [src/physics/objetos/atuadores/Cilindro.ts](#modulo-76)
+- [src/physics/objetos/atuadores/CilindroEletrico.ts](#modulo-77)
+- [src/physics/objetos/atuadores/MotorEletricoRotacional.ts](#modulo-78)
+- [src/physics/objetos/base/Objeto.ts](#modulo-79)
+- [src/physics/objetos/base/ObjetoTriangularRetangulo.ts](#modulo-80)
+- [src/physics/objetos/componentes/AletaAerodinamica.ts](#modulo-81)
+- [src/physics/objetos/componentes/FlapReentrada.ts](#modulo-82)
+- [src/physics/objetos/componentes/Paraquedas.ts](#modulo-83)
+- [src/physics/objetos/componentes/RolagemVirtual.ts](#modulo-84)
+- [src/physics/objetos/fontes-de-energia/Bateria.ts](#modulo-85)
+- [src/physics/objetos/fontes-de-energia/FonteEletrica.ts](#modulo-86)
+- [src/physics/objetos/fontes-de-energia/GeradorCA.ts](#modulo-87)
+- [src/physics/objetos/fontes-de-energia/PainelSolar.ts](#modulo-88)
+- [src/physics/objetos/fontes-de-energia/TanquePropelente.ts](#modulo-89)
+- [src/physics/objetos/mecanismos/BracoArticuladoDeBancada.ts](#modulo-90)
+- [src/physics/objetos/mecanismos/ConjuntoPortaBatente.ts](#modulo-91)
+- [src/physics/objetos/mecanismos/Porta.ts](#modulo-92)
+- [src/physics/objetos/mecanismos/TravaPorta.ts](#modulo-93)
+- [src/physics/objetos/propulsao/Propulsor.ts](#modulo-94)
+- [src/physics/objetos/propulsao/PropulsorVetorizado.ts](#modulo-95)
+- [src/physics/objetos/propulsao/alimentacao/BombaPropelente.ts](#modulo-96)
+- [src/physics/objetos/propulsao/alimentacao/LinhaDePropelente.ts](#modulo-97)
+- [src/physics/objetos/propulsao/alimentacao/ValvulaPropelente.ts](#modulo-98)
+- [src/physics/objetos/propulsao/combustao/Bocal.ts](#modulo-99)
+- [src/physics/objetos/propulsao/combustao/CamaraCombustao.ts](#modulo-100)
+- [src/physics/objetos/propulsao/vetorizacao/AtuadorVetorizacao.ts](#modulo-101)
+- [src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts](#modulo-102)
+- [src/physics/objetos/veiculos/Bss03.ts](#modulo-103)
+- [src/physics/objetos/veiculos/Bss04.ts](#modulo-104)
+- [src/physics/objetos/veiculos/ComputadorDeVoo.ts](#modulo-105)
+- [src/physics/objetos/veiculos/OrbitadorReentrada.ts](#modulo-106)
+- [src/physics/objetos/veiculos/VeiculoAlado.ts](#modulo-107)
+- [src/physics/objetos/veiculos/VeiculoComposto.ts](#modulo-108)
+- [src/physics/objetos/veiculos/VeiculoTerrestre.ts](#modulo-109)
+- [src/physics/reentrada/ModeloAerodinamicoReentrada.ts](#modulo-110)
+- [src/physics/sensores/SensoresVeiculoComposto.ts](#modulo-111)
+- [src/physics/sensores/SistemaSensores.ts](#modulo-112)
+- [src/physics/sensores/SwitchFimDeCurso.ts](#modulo-113)
+- [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.ts](#modulo-114)
+- [src/physics/sistemas de controle/ControladorAletasAerodinamicas.ts](#modulo-115)
+- [src/physics/sistemas de controle/ControladorAproximacao.ts](#modulo-116)
+- [src/physics/sistemas de controle/ControladorDesaceleracao.ts](#modulo-117)
+- [src/physics/sistemas de controle/ControladorDesaceleracaoDePropulsores.ts](#modulo-118)
+- [src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.ts](#modulo-119)
+- [src/physics/sistemas de controle/ControladorGimbalDescidaDePropulsores.ts](#modulo-120)
+- [src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts](#modulo-121)
+- [src/physics/sistemas de controle/ControladorInclinacaoDePropulsores.ts](#modulo-122)
+- [src/physics/sistemas de controle/ControladorInclinacaoPid.ts](#modulo-123)
+- [src/physics/sistemas de controle/ControladorPerfilVooExperimental.ts](#modulo-124)
+- [src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts](#modulo-125)
+- [src/physics/sistemas de controle/ControladorPouso.ts](#modulo-126)
+- [src/physics/sistemas de controle/ControladorPousoDePropulsores.ts](#modulo-127)
+- [src/physics/sistemas de controle/ControladorReentrada.ts](#modulo-128)
+- [src/physics/sistemas de controle/EstrategiaCorredorReentrada.ts](#modulo-129)
+- [src/physics/sistemas de controle/FronteiraAproximacao.ts](#modulo-130)
+- [src/physics/sistemas de controle/GerenciadorDeControladores.ts](#modulo-131)
+- [src/physics/sistemas de controle/SupervisorRecuperacao.ts](#modulo-132)
+- [src/physics/sistemas de controle/SupervisorReentrada.ts](#modulo-133)
+- [src/physics/solucionadores/IntegradorFisico.ts](#modulo-134)
+- [src/physics/solucionadores/ResolvedorColisoes.ts](#modulo-135)
+- [src/physics/solucionadores/ResolvedorContatoSuperficie.ts](#modulo-136)
+- [src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts](#modulo-137)
+- [src/physics/solucionadores/SistemaAtmosferico.ts](#modulo-138)
+- [src/physics/solucionadores/SistemaTermico.ts](#modulo-139)
+- [src/reentrada.ts](#modulo-140)
+- [src/simulacao/ExecutorPassoFixo.ts](#modulo-141)
+- [src/testes.ts](#modulo-142)
+- [src/validacao/ReferenciaBancadaM10.ts](#modulo-143)
+- [src/veiculos/DefinicaoBss006.ts](#modulo-144)
+- [src/veiculos/HidrodinamicaBss006.ts](#modulo-145)
+- [src/veiculos/MontagemBss.ts](#modulo-146)
+- [src/veiculos/TelemetriaBss.ts](#modulo-147)
+- [src/visualizacao/CameraFisica2D.ts](#modulo-148)
+- [src/visualizacao/ConexoesEletricas.ts](#modulo-149)
+- [src/visualizacao/RegistroEnsaioBancada.ts](#modulo-150)
+- [src/visualizacao/TracePLC.ts](#modulo-151)
 
 <a id="modulo-1"></a>
 ## scripts/benchmark-missao.ts
@@ -1136,6 +1138,105 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 
 <a id="modulo-12"></a>
+## scripts/smoke-configuracao-re003.ts
+
+<a id="f-6243448c45e0a365"></a>
+<details><summary>validarInterfaceConfiguracao · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>scripts/smoke-configuracao-re003.ts::validarInterfaceConfiguracao:FunctionDeclaration</code> · [fonte L14](../../scripts/smoke-configuracao-re003.ts#L14) |
+| Assinatura | <code>async (): Promise&lt;void&gt;</code> |
+| Responsabilidade | Testes A–G do RE-003 no build real: inputs, início, pausa/escolha, reset, validação e downloads. Não modifica instâncias físicas; a fábrica é conferida nos testes de domínio. Evidências separadas, desktop/mobile, sem deploy. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>Promise&lt;void&gt;</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>resolve</code>; <code>mkdirSync</code>; <code>preview</code>; <code>servidor.httpServer.address</code>; <code>chromium.launch</code>; <code>abrir</code>; <code>page.fill</code>; <code>page.evaluate</code>; <code>iniciarPausar</code>; <code>exportar</code>; <code>configuracao</code>; <code>assert.deepEqual</code>; <code>assert.equal</code>; <code>assert.match</code>; <code>page.locator('#re-config-aplicada').textContent</code>; <code>page.locator</code>; <code>page.locator('#re-iniciais').isEnabled</code>; <code>page.click</code>; <code>assert</code>; <code>page.locator('#re-config-escolha').isVisible</code>; <code>page.locator('#re-mensagem').textContent</code>; <code>page.inputValue</code>; <code>page.locator('summary').filter({ hasText: 'Parâmetros de engenharia' }).click</code>; <code>page.locator('summary').filter</code>; <code>page.locator('summary').filter({ hasText: 'Configuração avançada' }).click</code>; <code>page.screenshot</code>; <code>casos.push</code>; <code>page.close</code>; <code>browser.newPage</code>; <code>page.route</code>; <code>page.goto</code>; <code>page.waitForFunction</code>; <code>writeFileSync</code>; <code>JSON.stringify</code>; <code>console.log</code>; <code>browser.close</code>; <code>Promise</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>eventos</code>; <code>outra !== chave</code>; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Testes A–G do RE-003 no build real: inputs, início, pausa/escolha, reset,<br> * validação e downloads. Não modifica instâncias físicas; a fábrica é conferida<br> * nos testes de domínio. Evidências separadas, desktop/mobile, sem deploy.<br> * @contract f-6243448c45e0a365<br>   */ |
+
+</details>
+
+<a id="f-2d05a4f5e37ea385"></a>
+<details><summary>validarInterfaceConfiguracao.exportar · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>scripts/smoke-configuracao-re003.ts::validarInterfaceConfiguracao.exportar:FunctionDeclaration</code> · [fonte L23](../../scripts/smoke-configuracao-re003.ts#L23) |
+| Assinatura | <code>async (page: Page, nome: string): Promise&lt;DiarioReentrada&gt;</code> |
+| Responsabilidade | Baixa JSON real e conserva a evidência integral do ensaio aplicado. |
+| Entradas | <code>page: Page</code>; <code>nome: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>Promise&lt;DiarioReentrada&gt;</code>; expressões retornadas: <code>JSON.parse(readFileSync(caminho, 'utf8'))</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>downloads</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>Promise.all</code>; <code>page.waitForEvent</code>; <code>page.click</code>; <code>resolve</code>; <code>download.saveAs</code>; <code>JSON.parse</code>; <code>readFileSync</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Baixa JSON real e conserva a evidência integral do ensaio aplicado.  @contract f-2d05a4f5e37ea385 */ |
+
+</details>
+
+<a id="f-ca4e642a3640220a"></a>
+<details><summary>validarInterfaceConfiguracao.configuracao · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>scripts/smoke-configuracao-re003.ts::validarInterfaceConfiguracao.configuracao:FunctionDeclaration</code> · [fonte L29](../../scripts/smoke-configuracao-re003.ts#L29) |
+| Assinatura | <code> (diario: DiarioReentrada): ConfiguracaoReentrada</code> |
+| Responsabilidade | Consulta somente configuração da identificação oficial do diário. |
+| Entradas | <code>diario: DiarioReentrada</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>ConfiguracaoReentrada</code>; expressões retornadas: <code>(diario.identificacao as {<br>    configuracao: ConfiguracaoReentrada;<br>}).configuracao</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: — |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Consulta somente configuração da identificação oficial do diário.  @contract f-ca4e642a3640220a */ |
+
+</details>
+
+<a id="f-a223d9287819384a"></a>
+<details><summary>validarInterfaceConfiguracao.abrir · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>scripts/smoke-configuracao-re003.ts::validarInterfaceConfiguracao.abrir:FunctionDeclaration</code> · [fonte L33](../../scripts/smoke-configuracao-re003.ts#L33) |
+| Assinatura | <code>async (largura: number): Promise&lt;Page&gt;</code> |
+| Responsabilidade | Abre página real, observa erros e expande as seções de configuração. |
+| Entradas | <code>largura: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>Promise&lt;Page&gt;</code>; expressões retornadas: <code>page</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>browser.newPage</code>; <code>page.on</code>; <code>page.goto</code>; <code>page.waitForSelector</code>; <code>page.locator('summary').filter({ hasText: 'Configuração avançada' }).click</code>; <code>page.locator('summary').filter</code>; <code>page.locator</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Abre página real, observa erros e expande as seções de configuração.  @contract f-a223d9287819384a */ |
+
+</details>
+
+<a id="f-f124caa617850c95"></a>
+<details><summary>validarInterfaceConfiguracao.iniciarPausar · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>scripts/smoke-configuracao-re003.ts::validarInterfaceConfiguracao.iniciarPausar:FunctionDeclaration</code> · [fonte L42](../../scripts/smoke-configuracao-re003.ts#L42) |
+| Assinatura | <code>async (page: Page): Promise&lt;void&gt;</code> |
+| Responsabilidade | Inicia e pausa pela UI, comprovando avanço positivo do relógio da missão. |
+| Entradas | <code>page: Page</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>Promise&lt;void&gt;</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>page.click</code>; <code>page.waitForFunction</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Inicia e pausa pela UI, comprovando avanço positivo do relógio da missão.  @contract f-f124caa617850c95 */ |
+
+</details>
+
+
+<a id="modulo-13"></a>
 ## scripts/smoke-reentrada.ts
 
 <a id="f-4fe97b4e82bb0961"></a>
@@ -1158,7 +1259,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-13"></a>
+<a id="modulo-14"></a>
 ## scripts/validar-hidrodinamica.ts
 
 <a id="f-cce6c0793c2585ad"></a>
@@ -1219,7 +1320,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-14"></a>
+<a id="modulo-15"></a>
 ## scripts/validar-re002.ts
 
 <a id="f-d54d78e5c1917df6"></a>
@@ -1242,7 +1343,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-15"></a>
+<a id="modulo-16"></a>
 ## scripts/validar-reentrada.ts
 
 <a id="f-9e0ba414efcfb974"></a>
@@ -1265,7 +1366,30 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-16"></a>
+<a id="modulo-17"></a>
+## scripts/validar-termica-re003.ts
+
+<a id="f-f789e7f0f396e3e7"></a>
+<details><summary>validarLimiaresTermicos · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>scripts/validar-termica-re003.ts::validarLimiaresTermicos:FunctionDeclaration</code> · [fonte L12](../../scripts/validar-termica-re003.ts#L12) |
+| Assinatura | <code> (): void</code> |
+| Responsabilidade | Ensaio H do RE-003: duas receitas SI idênticas salvo limiar 900/5000 °C. Executa o mesmo core a 1/240 s por 410 s de coleta, sem mudar leis, temperatura inicial, controles ou resistências. Compara trajetória antes do dano e observa início real de degradação; não exige sobrevivência após falhas. Escreve evidência separada, sem sobrescrever referências históricas e sem publicar resultados. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>i</code>; <code>cruzamento</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>EnsaioReentrada</code>; <code>a.observar</code>; <code>b.observar</code>; <code>assert.deepEqual</code>; <code>iniciais[0].flaps.map</code>; <code>iniciais[1].flaps.map</code>; <code>a.iniciar</code>; <code>b.iniciar</code>; <code>assert</code>; <code>a.avancarPasso</code>; <code>b.avancarPasso</code>; <code>a.obterEventos().some</code>; <code>a.obterEventos</code>; <code>oa.flaps.some</code>; <code>ob.flaps.every</code>; <code>ob.flaps.some</code>; <code>oa.flaps.map</code>; <code>ob.flaps.map</code>; <code>amostras.push</code>; <code>b.obterEventos().some</code>; <code>b.obterEventos</code>; <code>mkdirSync</code>; <code>a.obterIdentificacao</code>; <code>b.obterIdentificacao</code>; <code>writeFileSync</code>; <code>JSON.stringify</code>; <code>console.log</code>; <code>resultado.finais.map</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>!cruzamento &amp;&amp; a.obterEventos().some(e =&gt; e.tipo === 'limite-termico-flaps')</code>; <code>i % 240 === 0</code>; <code>!cruzamento</code>; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Ensaio H do RE-003: duas receitas SI idênticas salvo limiar 900/5000 °C.<br> * Executa o mesmo core a 1/240 s por 410 s de coleta, sem mudar leis, temperatura<br> * inicial, controles ou resistências. Compara trajetória antes do dano e observa<br> * início real de degradação; não exige sobrevivência após falhas. Escreve evidência<br> * separada, sem sobrescrever referências históricas e sem publicar resultados.<br> * @contract f-f789e7f0f396e3e7<br>   */ |
+
+</details>
+
+
+<a id="modulo-18"></a>
 ## site/build/pluginInstitucional.ts
 
 <a id="f-1a321c694e8857ca"></a>
@@ -1383,7 +1507,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-17"></a>
+<a id="modulo-19"></a>
 ## site/scripts/carrossel.ts
 
 <a id="f-9538cdc37f1c3dd9"></a>
@@ -1539,7 +1663,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-18"></a>
+<a id="modulo-20"></a>
 ## site/scripts/navegacao.ts
 
 <a id="f-6b6f4dc45ad56a89"></a>
@@ -1657,7 +1781,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-19"></a>
+<a id="modulo-21"></a>
 ## src/apresentacao/missao/CameraMissao.ts
 
 <a id="f-09a1763e24b38923"></a>
@@ -1737,7 +1861,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-20"></a>
+<a id="modulo-22"></a>
 ## src/apresentacao/missao/CenaMissao.ts
 
 <a id="f-630f6c4cff870920"></a>
@@ -2007,7 +2131,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-21"></a>
+<a id="modulo-23"></a>
 ## src/apresentacao/missao/EntradaMissao.ts
 
 <a id="f-aa10bea9c0ca5993"></a>
@@ -2182,7 +2306,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-22"></a>
+<a id="modulo-24"></a>
 ## src/apresentacao/missao/HudMissao.ts
 
 <a id="f-ebea6b265766d795"></a>
@@ -2262,7 +2386,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-23"></a>
+<a id="modulo-25"></a>
 ## src/apresentacao/missao/RenderizadorMissao.ts
 
 <a id="f-3676bd6b2dc965cc"></a>
@@ -2437,7 +2561,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-24"></a>
+<a id="modulo-26"></a>
 ## src/apresentacao/reentrada/RenderizadorReentrada.ts
 
 <a id="f-9bdbc3539c49fc5c"></a>
@@ -2631,7 +2755,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-25"></a>
+<a id="modulo-27"></a>
 ## src/cenarios/BancadaBss.ts
 
 <a id="f-3f9895645d11ab94"></a>
@@ -3319,7 +3443,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-26"></a>
+<a id="modulo-28"></a>
 ## src/cenarios/BancadaBss003.ts
 
 <a id="f-222b829569202826"></a>
@@ -3684,7 +3808,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-27"></a>
+<a id="modulo-29"></a>
 ## src/cenarios/EnsaioMissaoBss005.ts
 
 <a id="f-de6aadae2b4cd7e6"></a>
@@ -3916,7 +4040,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-28"></a>
+<a id="modulo-30"></a>
 ## src/cenarios/EnsaioOrbitalInerte.ts
 
 <a id="f-b2090ed5afdb1862"></a>
@@ -3977,7 +4101,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-29"></a>
+<a id="modulo-31"></a>
 ## src/cenarios/EnsaioReentrada.ts
 
 <a id="f-52a010df6b7f3e6e"></a>
@@ -3993,7 +4117,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Array.isArray</code>; <code>Object.hasOwn</code>; <code>Object.keys</code>; <code>chaves[e.tipo].every</code>; <code>Number.isFinite</code>; <code>Math.abs</code>; <code>[e.dianteiroRad, e.traseiroRad].every</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!entrada &#124;&#124; typeof entrada !== 'object' &#124;&#124; Array.isArray(entrada)</code>; <code>typeof e.tipo !== 'string' &#124;&#124; !Object.hasOwn(chaves, e.tipo)</code>; <code>Object.keys(e).length !== chaves[e.tipo].length + 1 &#124;&#124; !chaves[e.tipo].every(k =&gt; Object.hasOwn(e, k))</code>; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Valida comando serializável por chaves exatas, finitude e limites; não executa.  @contract f-52a010df6b7f3e6e */ |
 
@@ -4010,11 +4134,49 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Entradas | <code>entrada: EntradaConfiguracaoReentrada = {}</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ConfiguracaoReentrada</code>; expressões retornadas: <code>c</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>copiarSnapshot</code>; <code>configurarParametrosReentrada</code>; <code>configurarFronteiraAproximacao</code>; <code>[c.altitudeM, c.velocidadeMps, c.anguloAtaqueRad, c.trajetoriaRad, c.rolagemRad,<br>    c.limiteOrbitadorC, c.limiteFlapsC, c.limiteBateriaC, c.passoS, c.taxaAtitudeLocalInicialRadps].every</code>; <code>Math.abs</code>; <code>Number.isSafeInteger</code>; <code>[c.automatico, c.chaveamentoAutomatico, c.vacuo].every</code>; <code>Number.isFinite</code>; <code>Math.round</code>; <code>Object.values(c.corredor).every</code>; <code>Object.values</code>; <code>Error</code> |
-| Invariantes | Contrato documentado abaixo; ramos observados: <code>![c.altitudeM, c.velocidadeMps, c.anguloAtaqueRad, c.trajetoriaRad, c.rolagemRad,<br>    c.limiteOrbitadorC, c.limiteFlapsC, c.limiteBateriaC, c.passoS, c.taxaAtitudeLocalInicialRadps].every(Number.isFinite)<br>    &#124;&#124; c.altitudeM &lt; 10 &#124;&#124; c.altitu… [continua na fonte]</code>; exceções: <code>new Error('Configuração RE-001 inválida.')</code> |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Dependências | Chamadas/construções diretas: <code>copiarSnapshot</code>; <code>configurarParametrosReentrada</code>; <code>configurarFronteiraAproximacao</code>; <code>Number.isFinite</code>; <code>Error</code>; <code>Number.isSafeInteger</code>; <code>Math.abs</code>; <code>Math.round</code>; <code>Object.values(c.corredor).every</code>; <code>Object.values</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>typeof valor !== 'number' &#124;&#124; !Number.isFinite(valor) &#124;&#124; valor &lt; minimo &#124;&#124; valor &gt; maximo</code>; <code>!Number.isSafeInteger(c[nome])</code>; <code>typeof c[nome] !== 'boolean'</code>; <code>Math.abs(c.intervaloColetaS / c.passoS - Math.round(c.intervaloColetaS / c.passoS)) &gt; 1e-8</code>; <code>!c.corredor &#124;&#124; !Object.values(c.corredor).every(v =&gt; Number.isFinite(v) &amp;&amp; v &gt; 0)</code>; exceções: <code>new Error(`Configuração RE-001 inválida: ${nome} deve estar entre ${minimo} e ${maximo}.`)</code>; <code>new Error(`Configuração RE-001 inválida: ${nome} deve ser inteiro seguro.`)</code>; <code>new Error(`Configuração RE-001 inválida: ${nome} deve ser booleano.`)</code>; <code>new Error('Configuração RE-001 inválida: intervaloColetaS deve ser múltiplo inteiro de passoS.')</code>; <code>new Error('Configuração RE-001 inválida: corredor deve conter limites positivos e finitos em Pa, W/m² e g₀.')</code> |
+| Testes | [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Cria configuração copiada, validada e congelada; os limiares térmicos padrão<br> * foram definidos pelo operador, não representam estrutura interna/qualificação.<br> * @contract f-f88e23012b3ae8c3<br>   */ |
+
+</details>
+
+<a id="f-25970cc620e51b6d"></a>
+<details><summary>exigirCamposConfiguracao · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::exigirCamposConfiguracao:FunctionDeclaration</code> · [fonte L134](../../src/cenarios/EnsaioReentrada.ts#L134) |
+| Assinatura | <code> (valor: unknown, referencia: object, prefixo: string, ignorados?: readonly string[]): void</code> |
+| Responsabilidade | Exige campos próprios conhecidos, sem undefined nem omissão. Validação de valores/unidades permanece nas regras do cenário; não cria objetos físicos. O campo legado não editável pode ser omitido explicitamente pela interface. |
+| Entradas | <code>valor: unknown</code>; <code>referencia: object</code>; <code>prefixo: string</code>; <code>ignorados: readonly string[] = []</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>Array.isArray</code>; <code>Error</code>; <code>Object.keys</code>; <code>ignorados.includes</code>; <code>Object.hasOwn</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>!valor &#124;&#124; typeof valor !== 'object' &#124;&#124; Array.isArray(valor)</code>; <code>!ignorados.includes(nome) &amp;&amp; (!Object.hasOwn(valor, nome) &#124;&#124; (valor as Record&lt;string, unknown&gt;)[nome] === undefined)</code>; <code>!Object.hasOwn(referencia, nome)</code>; exceções: <code>new Error(`Configuração inválida: ${prefixo} deve ser objeto.`)</code>; <code>new Error(`Configuração incompleta: ${prefixo}.${nome}. Nenhum padrão foi aplicado.`)</code>; <code>new Error(`Campo desconhecido: ${prefixo}.${nome}.`)</code> |
+| Testes | [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Exige campos próprios conhecidos, sem undefined nem omissão. Validação de<br> * valores/unidades permanece nas regras do cenário; não cria objetos físicos.<br> * O campo legado não editável pode ser omitido explicitamente pela interface.<br> * @contract f-25970cc620e51b6d<br>   */ |
+
+</details>
+
+<a id="f-a01ba13dc3b415ea"></a>
+<details><summary>validarConfiguracaoExplicitaReentrada · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::validarConfiguracaoExplicitaReentrada:FunctionDeclaration</code> · [fonte L153](../../src/cenarios/EnsaioReentrada.ts#L153) |
+| Assinatura | <code>export (entrada: unknown): ConfiguracaoReentrada</code> |
+| Responsabilidade | Fronteira estrita para formulários: exige todos os parâmetros editáveis em SI antes da validação/congelamento de domínio. Somente transferência legada, ausente da interface, usa a referência declarada. Não altera fábrica parcial, física, relógio ou configuração de ensaios existentes. Testes RE-003 A–G. |
+| Entradas | <code>entrada: unknown</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>ConfiguracaoReentrada</code>; expressões retornadas: <code>configurarReentrada(e)</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>exigirCamposConfiguracao</code>; <code>configurarReentrada</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Fronteira estrita para formulários: exige todos os parâmetros editáveis em SI<br> * antes da validação/congelamento de domínio. Somente transferência legada,<br> * ausente da interface, usa a referência declarada. Não altera fábrica parcial,<br> * física, relógio ou configuração de ensaios existentes. Testes RE-003 A–G.<br> * @contract f-a01ba13dc3b415ea<br>   */ |
 
 </details>
 
@@ -4023,7 +4185,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::estadoModulo:FunctionDeclaration</code> · [fonte L121](../../src/cenarios/EnsaioReentrada.ts#L121) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::estadoModulo:FunctionDeclaration</code> · [fonte L166](../../src/cenarios/EnsaioReentrada.ts#L166) |
 | Assinatura | <code> (e: EstadoFisico, x: number, y: number): EstadoFisico</code> |
 | Responsabilidade | Constrói somente estado inicial de módulo: pose relativa rígida e velocidade v+ω×r em SI. Não é usada para reposicionar objetos durante o ensaio. |
 | Entradas | <code>e: EstadoFisico</code>; <code>x: number</code>; <code>y: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4031,7 +4193,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Vetor3</code>; <code>Math.cos</code>; <code>Math.sin</code>; <code>e.posicaoM.adicionar</code>; <code>e.velocidadeMps.adicionar</code>; <code>e.velocidadeAngularRadps.produtoVetorial</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Constrói somente estado inicial de módulo: pose relativa rígida e velocidade<br> * v+ω×r em SI. Não é usada para reposicionar objetos durante o ensaio.<br> * @contract f-532e693d7fa63ff9<br>   */ |
 
@@ -4042,7 +4204,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada:FunctionDeclaration</code> · [fonte L132](../../src/cenarios/EnsaioReentrada.ts#L132) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada:FunctionDeclaration</code> · [fonte L177](../../src/cenarios/EnsaioReentrada.ts#L177) |
 | Assinatura | <code>export (entrada?: EntradaConfiguracaoReentrada): { configuracao: ConfiguracaoReentrada; ambiente: AmbienteTerrestre; perfil: PerfilAtmosfericoReentrada; mundo: MundoFisico; orbitador: OrbitadorReentrada; flaps: FlapReentrada[]; bateria: Bateria; fixadores: FixadorEstrutural[]; objetos: readonly Objeto[]; sensores: SensoresVeiculoComposto; solo: SuperficieEsferica; }</code> |
 | Responsabilidade | Fábrica ADM de corpos reais e vínculos no mesmo MundoFisico. Vácuo é explícito; atmosfera RE é opt-in. Terra estática, XY; padrão 1/240 s, máximo exploratório 1/120 s. Fonte enclausurada. |
 | Entradas | <code>entrada: EntradaConfiguracaoReentrada = {}</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4050,7 +4212,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>configurarReentrada</code>; <code>AmbienteTerrestre</code>; <code>PerfilAtmosfericoReentrada</code>; <code>MundoFisico</code>; <code>criarEstadoInicialLocal</code>; <code>Math.cos</code>; <code>Math.sin</code>; <code>OrbitadorReentrada</code>; <code>Bateria</code>; <code>Vetor3</code>; <code>[0, 1].map</code>; <code>mundo.registrarObjeto</code>; <code>FixadorEstrutural</code>; <code>fixadores.push</code>; <code>mundo.registrarFixador</code>; <code>SuperficieEsferica</code>; <code>mundo.registrarSuperficie</code>; <code>SensoresVeiculoComposto</code>; <code>mundo.registrarSensoresVeiculo</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Fábrica ADM de corpos reais e vínculos no mesmo MundoFisico. Vácuo é explícito;<br> * atmosfera RE é opt-in. Terra estática, XY; padrão 1/240 s, máximo exploratório 1/120 s. Fonte enclausurada.<br> * @contract f-8fc45f499c16a562<br>   */ |
 
@@ -4061,7 +4223,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#2.operacaoAutorizada:ArrowFunction</code> · [fonte L156](../../src/cenarios/EnsaioReentrada.ts#L156) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#2.operacaoAutorizada:ArrowFunction</code> · [fonte L201](../../src/cenarios/EnsaioReentrada.ts#L201) |
 | Assinatura | <code> (): boolean</code> |
 | Responsabilidade | Permissivo do atuador: vínculo íntegro e corpo vivo; não produz força. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4069,7 +4231,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Permissivo do atuador: vínculo íntegro e corpo vivo; não produz força.  @contract f-974c61344181bb4f */ |
 
@@ -4080,7 +4242,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L170](../../src/cenarios/EnsaioReentrada.ts#L170) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L215](../../src/cenarios/EnsaioReentrada.ts#L215) |
 | Assinatura | <code> (): number</code> |
 | Responsabilidade | Sem solicitação operacional extra; impactos são registrados pelo core. Esforço aerodinâmico distribuído de vínculos não é qualificado neste ensaio. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4088,7 +4250,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Sem solicitação operacional extra; impactos são registrados pelo core.<br>       * Esforço aerodinâmico distribuído de vínculos não é qualificado neste ensaio.<br>       * @contract f-f310bba164029a51<br>   */ |
 
@@ -4099,7 +4261,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto:FunctionDeclaration</code> · [fonte L187](../../src/cenarios/EnsaioReentrada.ts#L187) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto:FunctionDeclaration</code> · [fonte L232](../../src/cenarios/EnsaioReentrada.ts#L232) |
 | Assinatura | <code> (c: CenarioReentrada): { membros: Objeto[]; massaKg: number; centroM: Vetor3; inerciaKgM2: number; }</code> |
 | Responsabilidade | Calcula massa/CM/inércia instantâneos somente dos módulos ainda conectados. Diagnóstico, não segunda cópia de posições nem um integrador. |
 | Entradas | <code>c: CenarioReentrada</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4107,7 +4269,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>c.objetos.filter</code>; <code>membros.reduce</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Calcula massa/CM/inércia instantâneos somente dos módulos ainda conectados.<br> * Diagnóstico, não segunda cópia de posições nem um integrador.<br> * @contract f-79e1834474e775f0<br>   */ |
 
@@ -4118,7 +4280,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.constructor:Constructor</code> · [fonte L219](../../src/cenarios/EnsaioReentrada.ts#L219) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.constructor:Constructor</code> · [fonte L264](../../src/cenarios/EnsaioReentrada.ts#L264) |
 | Assinatura | <code>public (entrada?: EntradaConfiguracaoReentrada): EnsaioReentrada</code> |
 | Responsabilidade | Monta controles por portas de leitura, registra adaptador de pouso desabilitado sem motores, e registra hipóteses/revisão. Não inicia execução ou ignição. |
 | Entradas | <code>entrada: EntradaConfiguracaoReentrada = {}</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4126,7 +4288,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.id</code>; <code>this.passoS</code>; <code>this.configuracao</code>; <code>this.passos</code>; <code>this.execucao</code>; <code>this.cenario</code>; <code>this.gerenciador</code>; <code>this.controlador</code>; <code>this.supervisor</code>; <code>this.eventos</code>; <code>this.condicoesRegistradas</code>; <code>this.energiaDissipadaJ</code>; <code>this.balancoAngular</code>; <code>this.extremos</code>; <code>this.sequenciaEvento</code>; <code>this.eventosDescartados</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>GerenciadorDeControladores</code>; <code>Map</code>; <code>BalancoAngular</code>; <code>criarCenarioReentrada</code>; <code>RegistroExtremos</code>; <code>Math.round</code>; <code>ControladorReentrada</code>; <code>this.gerenciador.registrar</code>; <code>ControladorAproximacao</code>; <code>ControladorPousoDePropulsores</code>; <code>pouso.configurar</code>; <code>this.gerenciador.habilitar</code>; <code>this.controlador.desabilitar</code>; <code>SupervisorRecuperacao</code>; <code>this.supervisor.definirAutomatico</code>; <code>this.atualizarSupervisor</code>; <code>this.evento</code>; <code>this.extremos.registrar</code>; <code>this.lerMetricasPasso</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>this.configuracao.automatico</code>; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Monta controles por portas de leitura, registra adaptador de pouso desabilitado<br>   * sem motores, e registra hipóteses/revisão. Não inicia execução ou ignição.<br>   * @contract f-34fba91cf8789bd5<br>   */ |
 
@@ -4137,7 +4299,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.passosExecutados:GetAccessor</code> · [fonte L240](../../src/cenarios/EnsaioReentrada.ts#L240) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.passosExecutados:GetAccessor</code> · [fonte L285](../../src/cenarios/EnsaioReentrada.ts#L285) |
 | Assinatura | <code>public (): number</code> |
 | Responsabilidade | Índice exato usado pela agenda reproduzível. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4145,7 +4307,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Índice exato usado pela agenda reproduzível.  @contract f-675d2c66285d618a */ |
 
@@ -4156,7 +4318,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.estadoExecucao:GetAccessor</code> · [fonte L242](../../src/cenarios/EnsaioReentrada.ts#L242) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.estadoExecucao:GetAccessor</code> · [fonte L287](../../src/cenarios/EnsaioReentrada.ts#L287) |
 | Assinatura | <code>public (): EstadoExecucaoMissao</code> |
 | Responsabilidade | Consulta execução real; pausa não altera estado físico. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4164,7 +4326,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Consulta execução real; pausa não altera estado físico.  @contract f-a7a4e68b04548ca1 */ |
 
@@ -4175,7 +4337,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.iniciar:MethodDeclaration</code> · [fonte L244](../../src/cenarios/EnsaioReentrada.ts#L244) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.iniciar:MethodDeclaration</code> · [fonte L289](../../src/cenarios/EnsaioReentrada.ts#L289) |
 | Assinatura | <code>public (): void</code> |
 | Responsabilidade | Autoriza passos simulados, sem alterar trajetória. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4183,7 +4345,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.execucao</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Autoriza passos simulados, sem alterar trajetória.  @contract f-cd5bce11227c4b08 */ |
 
@@ -4194,7 +4356,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.pausar:MethodDeclaration</code> · [fonte L246](../../src/cenarios/EnsaioReentrada.ts#L246) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.pausar:MethodDeclaration</code> · [fonte L291](../../src/cenarios/EnsaioReentrada.ts#L291) |
 | Assinatura | <code>public (): void</code> |
 | Responsabilidade | Suspende executor mantendo corpos e fila operacional. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4202,7 +4364,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.execucao</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Suspende executor mantendo corpos e fila operacional.  @contract f-862b111fdbd503d8 */ |
 
@@ -4213,7 +4375,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.obterEventos:MethodDeclaration</code> · [fonte L248](../../src/cenarios/EnsaioReentrada.ts#L248) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.obterEventos:MethodDeclaration</code> · [fonte L293](../../src/cenarios/EnsaioReentrada.ts#L293) |
 | Assinatura | <code>public (): readonly EventoMissao[]</code> |
 | Responsabilidade | Eventos são copiados/congelados para consumidores. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4221,7 +4383,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>copiarSnapshot</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Eventos são copiados/congelados para consumidores.  @contract f-6a94dcd54d1a0d5d */ |
 
@@ -4232,7 +4394,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando:MethodDeclaration</code> · [fonte L254](../../src/cenarios/EnsaioReentrada.ts#L254) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando:MethodDeclaration</code> · [fonte L299](../../src/cenarios/EnsaioReentrada.ts#L299) |
 | Assinatura | <code>public (comando: ComandoReentrada): ResultadoComandoMissao</code> |
 | Responsabilidade | Aplica comandos públicos e registra aceitação/bloqueio. Comando manual exige seleção manual; aproximação passa pelo supervisor e pouso direto é bloqueado. |
 | Entradas | <code>comando: ComandoReentrada</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4240,7 +4402,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>aceito</code>; <code>motivo</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>validarComandoReentrada</code>; <code>this.supervisor.observar</code>; <code>['modo', 'alvos', 'flaps', 'rolagem'].includes</code>; <code>this.gerenciador.habilitar</code>; <code>this.gerenciador.desabilitar</code>; <code>c.flaps.forEach</code>; <code>this.controlador.configurarAlvos</code>; <code>c.flaps[0].solicitarDeflexaoRad</code>; <code>c.flaps[1].solicitarDeflexaoRad</code>; <code>c.orbitador.solicitarRolagem</code>; <code>this.supervisor.definirAutomatico</code>; <code>this.supervisor.solicitarAproximacao</code>; <code>this.atualizarSupervisor</code>; <code>this.supervisor.observar().requisitos.filter(r =&gt; !r.atendido).map(r =&gt; r.descricao).join</code>; <code>this.supervisor.observar().requisitos.filter(r =&gt; !r.atendido).map</code>; <code>this.supervisor.observar().requisitos.filter</code>; <code>c.orbitador.definirDisponibilidadeRolagem</code>; <code>c.fixadores[comando.indice].liberar</code>; <code>this.evento</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!validarComandoReentrada(comando)</code>; <code>this.supervisor.observar().fase !== 'reentrada' &amp;&amp; ['modo', 'alvos', 'flaps', 'rolagem'].includes(comando.tipo)</code>; <code>comando.tipo === 'modo'</code>; <code>comando.automatico</code>; <code>comando.tipo === 'alvos'</code>; <code>comando.tipo === 'flaps' &#124;&#124; comando.tipo === 'rolagem'</code>; <code>this.controlador.estaHabilitado</code>; <code>comando.tipo === 'flaps'</code>; <code>comando.tipo === 'chaveamento'</code>; <code>comando.tipo === 'pouso'</code>; <code>comando.tipo === 'aproximacao'</code>; <code>comando.tipo === 'alimentacao'</code>; <code>comando.tipo === 'falha-rolagem'</code>; <code>comando.tipo === 'separar-flap'</code>; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Aplica comandos públicos e registra aceitação/bloqueio. Comando manual exige<br>   * seleção manual; aproximação passa pelo supervisor e pouso direto é bloqueado.<br>   * @contract f-ea3e069c929c0c05<br>   */ |
 
@@ -4251,7 +4413,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso:MethodDeclaration</code> · [fonte L291](../../src/cenarios/EnsaioReentrada.ts#L291) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso:MethodDeclaration</code> · [fonte L336](../../src/cenarios/EnsaioReentrada.ts#L336) |
 | Assinatura | <code>public (): boolean</code> |
 | Responsabilidade | Consome solicitações arbitradas e avança um único passo no mundo compartilhado. Não encerra por tempo/evento intermediário. Registra quadratura do torque e resíduo de L intrínseco, sem correção UI. Contato/ruptura sinaliza balanço incompleto. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4259,7 +4421,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.passos</code>; <code>this.energiaDissipadaJ</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.atualizarSupervisor</code>; <code>this.gerenciador.calcularSolicitacoes</code>; <code>c.sensores.obterLeituras</code>; <code>c.flaps.find(f =&gt; f.id === s.idAtuador)?.solicitarDeflexaoRad</code>; <code>c.flaps.find</code>; <code>c.orbitador.solicitarRolagem</code>; <code>c.objetos.reduce</code>; <code>geometriaConjunto</code>; <code>diagnosticarMomentoAngular</code>; <code>c.mundo.obterCargasAerodinamicas</code>; <code>c.mundo.avancar</code>; <code>c.mundo.obterDiagnosticoAngularDoPasso</code>; <code>this.balancoAngular.registrar</code>; <code>c.mundo.obterContatosComSuperficie</code>; <code>this.registrarCondicoes</code>; <code>this.extremos.registrar</code>; <code>this.lerMetricasPasso</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>this.execucao !== 'executando'</code>; <code>s.recurso === 'flap'</code>; <code>s.recurso === 'rolagem-virtual'</code>; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Consome solicitações arbitradas e avança um único passo no mundo compartilhado.<br>   * Não encerra por tempo/evento intermediário. Registra quadratura do torque<br>   * e resíduo de L intrínseco, sem correção UI. Contato/ruptura sinaliza balanço incompleto.<br>   * @contract f-6c85c671f0b775b6<br>   */ |
 
@@ -4270,7 +4432,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar:MethodDeclaration</code> · [fonte L323](../../src/cenarios/EnsaioReentrada.ts#L323) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar:MethodDeclaration</code> · [fonte L368](../../src/cenarios/EnsaioReentrada.ts#L368) |
 | Assinatura | <code>public (): { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "aproximacao" &#124; "reentrada" &#124; "falha"; automatico: boolean; candidatoCinematico: boolean; autorizado: boolean; requisitos: readonly Readonly&lt;RequisitoAproximacao&gt;[]; limites: ConfiguracaoFronteiraAproximacao; avaliacao: Readonly&lt;{ candidatoCinematico: boolean; autorizado: boolean; distanciaRestanteM: number &#124; null; energiaMecanicaEspecificaJPorKg: number; natureza: "limites-necessarios-ideais-nao-trajetoria-certificada"; hipoteses: readonly Readonly&lt;{ aceleracaoLiquidaMps2: number; distanciaFrenagemM: number; quedaFrenagemRadialM: number; tempoFrenagemS: number; velocidadeLimiteNecessariaMps: number &#124; null; desvioVelocidadeMps: number &#124; null; limitesNecessariosAtendidos: boolean; }&gt;[]; requisitos: readonly Readonly&lt;RequisitoAproximacao&gt;[]; }&gt; &#124; null; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { cargasEfetivamenteIntegradas: { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } &#124; null; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; respostaTermica: { energiaAbsorvidaCorpoJ: number; modelo: string; tetoUniversal: boolean; potenciaIndicadorCorpoW: number; potenciaTransferidaCorpoW: number; tpsInstalado: boolean; camadasInternasModeladas: boolean; }; estadosTerminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }[]; vinculos: { id: string; estado: "integro" &#124; "rompido" &#124; "liberado"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }</code> |
 | Responsabilidade | Observação escalar/geométrica e balanço angular, copiada e congelada. Torque gravítico é o gradiente entre centros dos membros, não distribuição interna. Resíduo usa cargas efetivamente integradas; contatos/fontes impulsivas são sinalizados. Não oferece objetos mutáveis nem corrige estado. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4278,7 +4440,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>c.orbitador.getEstadoFisico</code>; <code>c.mundo.obterCondicoesAtmosfericas</code>; <code>c.orbitador.avaliar</code>; <code>geometriaConjunto</code>; <code>c.mundo.obterCargasAerodinamicas</code>; <code>cargas.forcaN.multiplicar</code>; <code>c.mundo.obterGravidadeMps2</code>; <code>c.ambiente.referencial.vetorParaLocal</code>; <code>g.membros.reduce</code>; <code>copiarSnapshot</code>; <code>this.extremos.observar</code>; <code>c.ambiente.referencial.altitudeGeometricaM</code>; <code>c.ambiente.referencial.posicaoHorizontalM</code>; <code>Math.atan2</code>; <code>e.posicaoM.subtrair</code>; <code>c.ambiente.referencial.atitudeLocalRad</code>; <code>c.orbitador.observarRolagem</code>; <code>this.controlador.observar</code>; <code>c.orbitador.obterHistoricoRolagem</code>; <code>this.supervisor.observar</code>; <code>this.gerenciador.obterUltimaArbitragem</code>; <code>gravidade.adicionar</code>; <code>diagnosticarMomentoAngular</code>; <code>this.balancoAngular.observar</code>; <code>c.mundo.obterDiagnosticoAngularDoPasso</code>; <code>c.mundo.obterContatosComSuperficie</code>; <code>aceleracaoAero.produtoEscalar</code>; <code>Math.max</code>; <code>c.objetos.reduce</code>; <code>c.orbitador.obterPotenciaAquecimentoAerodinamicoW</code>; <code>c.mundo.obterForcaArrastoAtmosferico(c.orbitador).produtoEscalar</code>; <code>c.mundo.obterForcaArrastoAtmosferico</code>; <code>e.velocidadeMps.subtrair</code>; <code>c.flaps.some</code>; <code>c.mundo.obterContatosComSuperficie().some</code>; <code>c.flaps.map</code>; <code>c.fixadores.map</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Observação escalar/geométrica e balanço angular, copiada e congelada. Torque<br>   * gravítico é o gradiente entre centros dos membros, não distribuição interna.<br>   * Resíduo usa cargas efetivamente integradas; contatos/fontes impulsivas são sinalizados.<br>   * Não oferece objetos mutáveis nem corrige estado. @contract f-05755a69bc286c7f */ |
 
@@ -4289,7 +4451,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle:MethodDeclaration</code> · [fonte L387](../../src/cenarios/EnsaioReentrada.ts#L387) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle:MethodDeclaration</code> · [fonte L432](../../src/cenarios/EnsaioReentrada.ts#L432) |
 | Assinatura | <code>private (): { alphaRad: number; taxaArfagemRadps: number; taxaFluxoRadps: number; pressaoDinamicaPa: number; fluxoTermicoWm2: number; cargaG: number; torquePassivoNm: number; energiaMecanicaEspecificaJPorKg: number; integridadeMinima: number; inerciaKgM2: number; phiRad: number; disponivel: boolean; }</code> |
 | Responsabilidade | Telemetria física para PD; calcula derivada angular do fluxo por v×a/&#124;v&#124;², sem diferenciar relógio real ou alterar estado. Torque passivo exclui lift ativo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4297,7 +4459,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>c.orbitador.getEstadoFisico</code>; <code>geometriaConjunto</code>; <code>c.orbitador.avaliar</code>; <code>c.mundo.obterCondicoesAtmosfericas</code>; <code>c.mundo.obterCargasAerodinamicas</code>; <code>c.mundo.obterGravidadeMps2(e.posicaoM).adicionar</code>; <code>c.mundo.obterGravidadeMps2</code>; <code>cargas.forcaN.multiplicar</code>; <code>e.velocidadeMps.subtrair</code>; <code>c.flaps.reduce</code>; <code>v.produtoVetorial</code>; <code>e.posicaoM.subtrair</code>; <code>Math.min</code>; <code>g.membros.map</code>; <code>c.orbitador.observarRolagem</code>; <code>c.flaps.every</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Telemetria física para PD; calcula derivada angular do fluxo por v×a/&#124;v&#124;²,<br>   * sem diferenciar relógio real ou alterar estado. Torque passivo exclui lift ativo.<br>   * @contract f-2db95d019a3477f5<br>   */ |
 
@@ -4308,7 +4470,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.atualizarSupervisor:MethodDeclaration</code> · [fonte L411](../../src/cenarios/EnsaioReentrada.ts#L411) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.atualizarSupervisor:MethodDeclaration</code> · [fonte L456](../../src/cenarios/EnsaioReentrada.ts#L456) |
 | Assinatura | <code>private (): void</code> |
 | Responsabilidade | Avalia estado real, autoridade remanescente e filtros A/B sem reutilizar limites antigos de pouso. Não há propulsão nem integração física de aproximação. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4316,7 +4478,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>c.sensores.obterLeituras</code>; <code>this.supervisor.observar</code>; <code>this.lerControle</code>; <code>Math.min</code>; <code>c.flaps.map</code>; <code>Math.abs</code>; <code>Math.cos</code>; <code>this.supervisor.atualizar</code>; <code>Math.hypot</code>; <code>this.controlador.observar</code>; <code>c.flaps.every</code>; <code>this.evento</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>this.supervisor.observar().fase !== fase</code>; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Avalia estado real, autoridade remanescente e filtros A/B sem reutilizar<br>   * limites antigos de pouso. Não há propulsão nem integração física de aproximação.<br>   * @contract f-b5dfd4d0081ccbd9<br>   */ |
 
@@ -4327,7 +4489,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes:MethodDeclaration</code> · [fonte L438](../../src/cenarios/EnsaioReentrada.ts#L438) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes:MethodDeclaration</code> · [fonte L483](../../src/cenarios/EnsaioReentrada.ts#L483) |
 | Assinatura | <code>private (): void</code> |
 | Responsabilidade | Registra arestas de falha/recuperação de condições, não repete eventos por frame. Colisão, dano e separação não encerram evolução física. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4335,7 +4497,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>condicoes[`degradacao-flap-${i + 1}`]</code>; <code>condicoes[`colapso-flap-${i + 1}`]</code>; <code>valores[`degradacao-flap-${i + 1}`]</code>; <code>valores[`colapso-flap-${i + 1}`]</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>c.orbitador.avaliar</code>; <code>c.mundo.obterCondicoesAtmosfericas</code>; <code>c.flaps.some</code>; <code>this.controlador.observar</code>; <code>c.fixadores.some</code>; <code>c.mundo.obterContatosComSuperficie</code>; <code>this.supervisor.observar</code>; <code>this.lerControle</code>; <code>c.perfil.amostrar</code>; <code>c.ambiente.referencial.altitudeGeometricaM</code>; <code>c.orbitador.getEstadoFisico</code>; <code>c.orbitador.observarRolagem</code>; <code>c.flaps.entries</code>; <code>Math.max</code>; <code>c.flaps.map</code>; <code>Object.entries</code>; <code>this.condicoesRegistradas.get</code>; <code>this.evento</code>; <code>this.condicoesRegistradas.set</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>ativo !== (this.condicoesRegistradas.get(tipo) ?? false)</code>; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Registra arestas de falha/recuperação de condições, não repete eventos por frame.<br>   * Colisão, dano e separação não encerram evolução física.<br>   * @contract f-5dacbb18677d6f4c<br>   */ |
 
@@ -4346,7 +4508,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.evento:MethodDeclaration</code> · [fonte L481](../../src/cenarios/EnsaioReentrada.ts#L481) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.evento:MethodDeclaration</code> · [fonte L526](../../src/cenarios/EnsaioReentrada.ts#L526) |
 | Assinatura | <code>private (tipo: string, descricao: string, categoria?: EventoMissao["categoria"], dados?: EventoMissao["dados"]): void</code> |
 | Responsabilidade | Acrescenta evento no tempo de missão, com sequência estável e categoria. |
 | Entradas | <code>tipo: string</code>; <code>descricao: string</code>; <code>categoria: EventoMissao['categoria'] = 'missao'</code>; <code>dados?: EventoMissao['dados']</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4354,7 +4516,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.sequenciaEvento</code>; <code>this.eventosDescartados</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.eventos.push</code>; <code>this.eventos.splice</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>this.eventos.length &gt; this.configuracao.limiteEventos</code>; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Acrescenta evento no tempo de missão, com sequência estável e categoria.  @contract f-593973bfbdc79c20 */ |
 
@@ -4365,7 +4527,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerMetricasPasso:MethodDeclaration</code> · [fonte L492](../../src/cenarios/EnsaioReentrada.ts#L492) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerMetricasPasso:MethodDeclaration</code> · [fonte L537](../../src/cenarios/EnsaioReentrada.ts#L537) |
 | Assinatura | <code>private (): Readonly&lt;Record&lt;string, number&gt;&gt;</code> |
 | Responsabilidade | Coleta canais físicos SI em todo passo, antes de qualquer redução visual. Sem cópia de trajetória ou recalibração de forças. Chaves/unidades acompanham o diário; extremos têm passo e instante e não dependem da renderização. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4373,7 +4535,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>c.orbitador.getEstadoFisico</code>; <code>c.orbitador.avaliar</code>; <code>c.mundo.obterCondicoesAtmosfericas</code>; <code>this.lerControle</code>; <code>normalizarAngulo</code>; <code>this.controlador.observar</code>; <code>c.ambiente.referencial.altitudeGeometricaM</code>; <code>e.posicaoM.subtrair</code>; <code>c.mundo.obterDiagnosticoAngularDoPasso</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Coleta canais físicos SI em todo passo, antes de qualquer redução visual.<br>   * Sem cópia de trajetória ou recalibração de forças. Chaves/unidades acompanham<br>   * o diário; extremos têm passo e instante e não dependem da renderização.<br>   * @contract f-08107e4693116363<br>   */ |
 
@@ -4384,7 +4546,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.obterIdentificacao:MethodDeclaration</code> · [fonte L511](../../src/cenarios/EnsaioReentrada.ts#L511) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.obterIdentificacao:MethodDeclaration</code> · [fonte L556](../../src/cenarios/EnsaioReentrada.ts#L556) |
 | Assinatura | <code>public (): object</code> |
 | Responsabilidade | Exporta identificação completa/revisões para o decorador de diário compartilhado. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4392,7 +4554,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>copiarSnapshot</code>; <code>this.cenario.mundo.obterConfiguracaoFisica</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Exporta identificação completa/revisões para o decorador de diário compartilhado.  @contract f-4987311594a9418d */ |
 
@@ -4403,7 +4565,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::criarEnsaioReentrada:FunctionDeclaration</code> · [fonte L522](../../src/cenarios/EnsaioReentrada.ts#L522) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::criarEnsaioReentrada:FunctionDeclaration</code> · [fonte L567](../../src/cenarios/EnsaioReentrada.ts#L567) |
 | Assinatura | <code>export (configuracao?: EntradaConfiguracaoReentrada): RegistroMissao&lt;ComandoReentrada, { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "aproximacao" &#124; "reentrada" &#124; "falha"; automatico: boolean; candidatoCinematico: boolean; autorizado: boolean; requisitos: readonly Readonly&lt;RequisitoAproximacao&gt;[]; limites: ConfiguracaoFronteiraAproximacao; avaliacao: Readonly&lt;{ candidatoCinematico: boolean; autorizado: boolean; distanciaRestanteM: number &#124; null; energiaMecanicaEspecificaJPorKg: number; natureza: "limites-necessarios-ideais-nao-trajetoria-certificada"; hipoteses: readonly Readonly&lt;{ aceleracaoLiquidaMps2: number; distanciaFrenagemM: number; quedaFrenagemRadialM: number; tempoFrenagemS: number; velocidadeLimiteNecessariaMps: number &#124; null; desvioVelocidadeMps: number &#124; null; limitesNecessariosAtendidos: boolean; }&gt;[]; requisitos: readonly Readonly&lt;RequisitoAproximacao&gt;[]; }&gt; &#124; null; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { cargasEfetivamenteIntegradas: { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } &#124; null; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; respostaTermica: { energiaAbsorvidaCorpoJ: number; modelo: string; tetoUniversal: boolean; potenciaIndicadorCorpoW: number; potenciaTransferidaCorpoW: number; tpsInstalado: boolean; camadasInternasModeladas: boolean; }; estadosTerminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }[]; vinculos: { id: string; estado: "integro" &#124; "rompido" &#124; "liberado"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }&gt;</code> |
 | Responsabilidade | Fábrica pública de ensaio registrável, sem relógio, DOM ou escrita externa. |
 | Entradas | <code>configuracao: EntradaConfiguracaoReentrada = {}</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4411,7 +4573,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>EnsaioReentrada</code>; <code>RegistroMissao</code>; <code>ensaio.obterIdentificacao</code>; <code>Math.round</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Fábrica pública de ensaio registrável, sem relógio, DOM ou escrita externa.  @contract f-fbefc47b0a643060 */ |
 
@@ -4422,7 +4584,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::reproduzirEnsaioReentrada:FunctionDeclaration</code> · [fonte L532](../../src/cenarios/EnsaioReentrada.ts#L532) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::reproduzirEnsaioReentrada:FunctionDeclaration</code> · [fonte L577](../../src/cenarios/EnsaioReentrada.ts#L577) |
 | Assinatura | <code>export (diario: DiarioReentrada): RegistroMissao&lt;ComandoReentrada, { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "aproximacao" &#124; "reentrada" &#124; "falha"; automatico: boolean; candidatoCinematico: boolean; autorizado: boolean; requisitos: readonly Readonly&lt;RequisitoAproximacao&gt;[]; limites: ConfiguracaoFronteiraAproximacao; avaliacao: Readonly&lt;{ candidatoCinematico: boolean; autorizado: boolean; distanciaRestanteM: number &#124; null; energiaMecanicaEspecificaJPorKg: number; natureza: "limites-necessarios-ideais-nao-trajetoria-certificada"; hipoteses: readonly Readonly&lt;{ aceleracaoLiquidaMps2: number; distanciaFrenagemM: number; quedaFrenagemRadialM: number; tempoFrenagemS: number; velocidadeLimiteNecessariaMps: number &#124; null; desvioVelocidadeMps: number &#124; null; limitesNecessariosAtendidos: boolean; }&gt;[]; requisitos: readonly Readonly&lt;RequisitoAproximacao&gt;[]; }&gt; &#124; null; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { cargasEfetivamenteIntegradas: { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } &#124; null; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; respostaTermica: { energiaAbsorvidaCorpoJ: number; modelo: string; tetoUniversal: boolean; potenciaIndicadorCorpoW: number; potenciaTransferidaCorpoW: number; tpsInstalado: boolean; camadasInternasModeladas: boolean; }; estadosTerminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }[]; vinculos: { id: string; estado: "integro" &#124; "rompido" &#124; "liberado"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }&gt;</code> |
 | Responsabilidade | Reexecuta agenda no mesmo modelo/runtime; rejeita revisão, entradas e resultados divergentes. Pausa/exportação não reproduzem relógio real. O custo é proporcional ao número de passos físicos do diário; chamada síncrona headless. |
 | Entradas | <code>diario: DiarioReentrada</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4430,14 +4592,14 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>indice</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isSafeInteger</code>; <code>Error</code>; <code>criarEnsaioReentrada</code>; <code>JSON.stringify</code>; <code>ensaio.exportar</code>; <code>Math.round</code>; <code>ensaio.observar</code>; <code>ensaio.iniciar</code>; <code>ensaio.pausar</code>; <code>ensaio.receberComando</code>; <code>ensaio.avancarPasso</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!diario &#124;&#124; diario.formato !== 'blackstar-missao-1' &#124;&#124; !Number.isSafeInteger(diario.passosExecutados)<br>    &#124;&#124; diario.passosExecutados &lt; 0</code>; <code>identificacao.revisao !== MODELO_REENTRADA.revisao &#124;&#124; !identificacao.configuracao</code>; <code>JSON.stringify(ensaio.exportar().identificacao) !== JSON.stringify(diario.identificacao)<br>    &#124;&#124; diario.passoS !== ensaio.passoS &#124;&#124; diario.intervaloAmostraPassos !== Math.round(identificacao.configuracao.intervaloColetaS / ensaio.passoS)<br>   … [continua na fonte]</code>; <code>e.sequencia !== indice</code>; <code>e.tipo === 'iniciar'</code>; <code>e.tipo === 'pausar'</code>; <code>e.tipo === 'comando'</code>; <code>JSON.stringify(ensaio.receberComando(e.comando)) !== JSON.stringify(e.resultado)</code>; <code>ensaio.passosExecutados === diario.passosExecutados</code>; <code>!ensaio.avancarPasso()</code>; <code>indice !== diario.entradas.length &#124;&#124; JSON.stringify(ensaio.exportar()) !== JSON.stringify(diario)</code>; exceções: <code>new Error('Diário RE inválido.')</code>; <code>new Error('Revisão RE incompatível.')</code>; <code>new Error('Modelo/estado inicial RE divergente.')</code>; <code>new Error('Sequência de diário inválida.')</code>; <code>new Error('Resultado de comando divergente.')</code>; <code>new Error('Entrada desconhecida.')</code>; <code>new Error('Agenda não autoriza avanço.')</code>; <code>new Error('Replay RE divergente.')</code> |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Reexecuta agenda no mesmo modelo/runtime; rejeita revisão, entradas e resultados<br> * divergentes. Pausa/exportação não reproduzem relógio real. O custo é<br> * proporcional ao número de passos físicos do diário; chamada síncrona headless.<br> * @contract f-af7e1ca547762556<br>   */ |
 
 </details>
 
 
-<a id="modulo-30"></a>
+<a id="modulo-32"></a>
 ## src/cenarios/ReproducaoDiarioBss005.ts
 
 <a id="f-8eaee0207c980ead"></a>
@@ -4593,7 +4755,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-31"></a>
+<a id="modulo-33"></a>
 ## src/missoes/AmbienteAmerissagem.ts
 
 <a id="f-f44552b345a6763f"></a>
@@ -4616,7 +4778,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-32"></a>
+<a id="modulo-34"></a>
 ## src/missoes/AmbienteLancamento.ts
 
 <a id="f-8091c7d8f7b297f8"></a>
@@ -4639,7 +4801,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-33"></a>
+<a id="modulo-35"></a>
 ## src/missoes/CicloMissao.ts
 
 <a id="f-b04eae8408c853c9"></a>
@@ -4738,7 +4900,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-34"></a>
+<a id="modulo-36"></a>
 ## src/missoes/ContratoMissao.ts
 
 <a id="f-2f9e0038be674f24"></a>
@@ -4875,7 +5037,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-35"></a>
+<a id="modulo-37"></a>
 ## src/missoes/EnsaioAmerissagem.ts
 
 <a id="f-12deb531d4750ffb"></a>
@@ -4898,7 +5060,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-36"></a>
+<a id="modulo-38"></a>
 ## src/missoes/ExecutorMissao.ts
 
 <a id="f-4fb79278b0d3fc06"></a>
@@ -4921,7 +5083,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-37"></a>
+<a id="modulo-39"></a>
 ## src/missoes/MissaoBss006.ts
 
 <a id="f-3193da7b000083f4"></a>
@@ -5191,7 +5353,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-38"></a>
+<a id="modulo-40"></a>
 ## src/missoes/ObservacaoAmerissagem.ts
 
 <a id="f-1b2d123e0fbf8914"></a>
@@ -5233,7 +5395,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-39"></a>
+<a id="modulo-41"></a>
 ## src/missoes/RegistroExtremos.ts
 
 <a id="f-a127d9dc71e4e4e5"></a>
@@ -5294,7 +5456,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-40"></a>
+<a id="modulo-42"></a>
 ## src/missoes/RegistroMissao.ts
 
 <a id="f-4554d825e0078446"></a>
@@ -5545,7 +5707,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-41"></a>
+<a id="modulo-43"></a>
 ## src/missoes/ReplayMissaoBss006.ts
 
 <a id="f-8da6d56d70ab70fd"></a>
@@ -5682,7 +5844,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-42"></a>
+<a id="modulo-44"></a>
 ## src/missoes/SnapshotMissao.ts
 
 <a id="f-738b80ed4008a5b6"></a>
@@ -5705,7 +5867,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-43"></a>
+<a id="modulo-45"></a>
 ## src/orbitas.ts
 
 <a id="f-16848ec4b453ff12"></a>
@@ -5766,7 +5928,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-44"></a>
+<a id="modulo-46"></a>
 ## src/physics/MundoFisico.ts
 
 <a id="f-518ff75ab4b7f057"></a>
@@ -6834,7 +6996,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-45"></a>
+<a id="modulo-47"></a>
 ## src/physics/SistemaOperacional.ts
 
 <a id="f-d90f25d253e2ab58"></a>
@@ -6971,7 +7133,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-46"></a>
+<a id="modulo-48"></a>
 ## src/physics/SuperficieCosteira.ts
 
 <a id="f-6f0395858ebb9ab5"></a>
@@ -7108,7 +7270,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-47"></a>
+<a id="modulo-49"></a>
 ## src/physics/SuperficieEsferica.ts
 
 <a id="f-9eac1149d1a4ca7a"></a>
@@ -7207,7 +7369,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-48"></a>
+<a id="modulo-50"></a>
 ## src/physics/SuperficieFisica.ts
 
 <a id="f-de0f9204a43fbad4"></a>
@@ -7439,7 +7601,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-49"></a>
+<a id="modulo-51"></a>
 ## src/physics/SuperficiePlano.ts
 
 <a id="f-e05668c4d2d10883"></a>
@@ -7519,7 +7681,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-50"></a>
+<a id="modulo-52"></a>
 ## src/physics/SuperficiePlanoLocal.ts
 
 <a id="f-0b7412a4b180e52d"></a>
@@ -7637,7 +7799,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-51"></a>
+<a id="modulo-53"></a>
 ## src/physics/Vetor3.ts
 
 <a id="f-74cb96218f91335f"></a>
@@ -7774,7 +7936,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-52"></a>
+<a id="modulo-54"></a>
 ## src/physics/agua/GeometriaSubmersa.ts
 
 <a id="f-00378e285877f165"></a>
@@ -7930,7 +8092,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-53"></a>
+<a id="modulo-55"></a>
 ## src/physics/agua/RegiaoAquatica.ts
 
 <a id="f-42624cfaf3e01aed"></a>
@@ -8010,7 +8172,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-54"></a>
+<a id="modulo-56"></a>
 ## src/physics/agua/SistemaHidrodinamico.ts
 
 <a id="f-3ac2ce558ad57f3c"></a>
@@ -8261,7 +8423,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-55"></a>
+<a id="modulo-57"></a>
 ## src/physics/ambiente/AmbienteFisico.ts
 
 <a id="f-f65d4a56ef06dbbd"></a>
@@ -8341,7 +8503,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-56"></a>
+<a id="modulo-58"></a>
 ## src/physics/ambiente/CampoGravitacional.ts
 
 <a id="f-d84e2f25e040d596"></a>
@@ -8497,7 +8659,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-57"></a>
+<a id="modulo-59"></a>
 ## src/physics/ambiente/EstadoInicialLocal.ts
 
 <a id="f-4ab5e3de34eaedc3"></a>
@@ -8520,7 +8682,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-58"></a>
+<a id="modulo-60"></a>
 ## src/physics/ambiente/GeografiaCosteira.ts
 
 <a id="f-75cb7b00f89bfaba"></a>
@@ -8638,7 +8800,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-59"></a>
+<a id="modulo-61"></a>
 ## src/physics/ambiente/PerfilAtmosfericoReentrada.ts
 
 <a id="f-9eb2c4644fba8970"></a>
@@ -8737,7 +8899,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-60"></a>
+<a id="modulo-62"></a>
 ## src/physics/ambiente/ReferencialFisico.ts
 
 <a id="f-a83a925cd4624e54"></a>
@@ -9539,7 +9701,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-61"></a>
+<a id="modulo-63"></a>
 ## src/physics/ambiente/TelemetriaOrbital.ts
 
 <a id="f-f08ef7862a1cdb97"></a>
@@ -9562,7 +9724,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-62"></a>
+<a id="modulo-64"></a>
 ## src/physics/cenarios/EnsaioPortaVertical.ts
 
 <a id="f-26bd768dc18b239f"></a>
@@ -9737,7 +9899,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-63"></a>
+<a id="modulo-65"></a>
 ## src/physics/conexoes/ChumbadorAoSolo.ts
 
 <a id="f-3edd21e1d5a19ecc"></a>
@@ -9950,7 +10112,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-64"></a>
+<a id="modulo-66"></a>
 ## src/physics/conexoes/ConexaoEletrica.ts
 
 <a id="f-379a6000119fc4ae"></a>
@@ -10676,7 +10838,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-65"></a>
+<a id="modulo-67"></a>
 ## src/physics/conexoes/FixadorEstrutural.ts
 
 <a id="f-cd671b03c8af2236"></a>
@@ -11098,7 +11260,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-66"></a>
+<a id="modulo-68"></a>
 ## src/physics/conexoes/GuiaLinear.ts
 
 <a id="f-912072f48d95626b"></a>
@@ -11197,7 +11359,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-67"></a>
+<a id="modulo-69"></a>
 ## src/physics/conexoes/JuntaRotacionalDeBancada.ts
 
 <a id="f-a132b0bde695eb85"></a>
@@ -11372,7 +11534,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-68"></a>
+<a id="modulo-70"></a>
 ## src/physics/conexoes/eletrica/Contator.ts
 
 <a id="f-3376117ecdde8868"></a>
@@ -11452,7 +11614,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-69"></a>
+<a id="modulo-71"></a>
 ## src/physics/conexoes/eletrica/Interruptor.ts
 
 <a id="f-33f15af7abb38cd9"></a>
@@ -11532,7 +11694,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-70"></a>
+<a id="modulo-72"></a>
 ## src/physics/conexoes/eletrica/Resistor.ts
 
 <a id="f-464f0a613325638b"></a>
@@ -11574,7 +11736,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-71"></a>
+<a id="modulo-73"></a>
 ## src/physics/estruturas/ConjuntoEstruturalRigido.ts
 
 <a id="f-d3848f1d1b9d7918"></a>
@@ -11958,7 +12120,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-72"></a>
+<a id="modulo-74"></a>
 ## src/physics/estruturas/DiagnosticoAngular.ts
 
 <a id="f-62f73b2d7d2e4053"></a>
@@ -12038,7 +12200,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-73"></a>
+<a id="modulo-75"></a>
 ## src/physics/geometria/ContatoCaixasOrientadas.ts
 
 <a id="f-738d840a42e74122"></a>
@@ -12232,7 +12394,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-74"></a>
+<a id="modulo-76"></a>
 ## src/physics/objetos/atuadores/Cilindro.ts
 
 <a id="f-0268843ba048392d"></a>
@@ -12597,7 +12759,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-75"></a>
+<a id="modulo-77"></a>
 ## src/physics/objetos/atuadores/CilindroEletrico.ts
 
 <a id="f-57b1b7d21164f2d4"></a>
@@ -12943,7 +13105,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-76"></a>
+<a id="modulo-78"></a>
 ## src/physics/objetos/atuadores/MotorEletricoRotacional.ts
 
 <a id="f-338925f6e3377ab1"></a>
@@ -13099,7 +13261,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-77"></a>
+<a id="modulo-79"></a>
 ## src/physics/objetos/base/Objeto.ts
 
 <a id="f-0a5a2a6326f96011"></a>
@@ -14148,7 +14310,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-78"></a>
+<a id="modulo-80"></a>
 ## src/physics/objetos/base/ObjetoTriangularRetangulo.ts
 
 <a id="f-13053ef3d73ba42a"></a>
@@ -14228,7 +14390,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-79"></a>
+<a id="modulo-81"></a>
 ## src/physics/objetos/componentes/AletaAerodinamica.ts
 
 <a id="f-740741f36db4d1e3"></a>
@@ -14384,7 +14546,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-80"></a>
+<a id="modulo-82"></a>
 ## src/physics/objetos/componentes/FlapReentrada.ts
 
 <a id="f-713ac4483df17789"></a>
@@ -14559,7 +14721,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-81"></a>
+<a id="modulo-83"></a>
 ## src/physics/objetos/componentes/Paraquedas.ts
 
 <a id="f-a9ae40fb84d5293f"></a>
@@ -14810,7 +14972,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-82"></a>
+<a id="modulo-84"></a>
 ## src/physics/objetos/componentes/RolagemVirtual.ts
 
 <a id="f-71592e454cdc955f"></a>
@@ -14928,7 +15090,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-83"></a>
+<a id="modulo-85"></a>
 ## src/physics/objetos/fontes-de-energia/Bateria.ts
 
 <a id="f-b8dcea8c991456f9"></a>
@@ -15122,7 +15284,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-84"></a>
+<a id="modulo-86"></a>
 ## src/physics/objetos/fontes-de-energia/FonteEletrica.ts
 
 <a id="f-ab20e650db054ae0"></a>
@@ -15145,7 +15307,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-85"></a>
+<a id="modulo-87"></a>
 ## src/physics/objetos/fontes-de-energia/GeradorCA.ts
 
 <a id="f-692af7e2d7d6cffa"></a>
@@ -15434,7 +15596,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-86"></a>
+<a id="modulo-88"></a>
 ## src/physics/objetos/fontes-de-energia/PainelSolar.ts
 
 <a id="f-c5ec22d9c45e3d17"></a>
@@ -15742,7 +15904,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-87"></a>
+<a id="modulo-89"></a>
 ## src/physics/objetos/fontes-de-energia/TanquePropelente.ts
 
 <a id="f-5e48dc8f6370a867"></a>
@@ -15860,7 +16022,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-88"></a>
+<a id="modulo-90"></a>
 ## src/physics/objetos/mecanismos/BracoArticuladoDeBancada.ts
 
 <a id="f-2429e53025cf49cb"></a>
@@ -15940,7 +16102,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-89"></a>
+<a id="modulo-91"></a>
 ## src/physics/objetos/mecanismos/ConjuntoPortaBatente.ts
 
 <a id="f-288f1848d7fa9e2a"></a>
@@ -16115,7 +16277,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-90"></a>
+<a id="modulo-92"></a>
 ## src/physics/objetos/mecanismos/Porta.ts
 
 <a id="f-b99653bcaa9220e0"></a>
@@ -16822,7 +16984,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-91"></a>
+<a id="modulo-93"></a>
 ## src/physics/objetos/mecanismos/TravaPorta.ts
 
 <a id="f-b39a816efc5a1c38"></a>
@@ -17111,7 +17273,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-92"></a>
+<a id="modulo-94"></a>
 ## src/physics/objetos/propulsao/Propulsor.ts
 
 <a id="f-20905674966ffa86"></a>
@@ -18065,7 +18227,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-93"></a>
+<a id="modulo-95"></a>
 ## src/physics/objetos/propulsao/PropulsorVetorizado.ts
 
 <a id="f-77abc1442947b6a6"></a>
@@ -18183,7 +18345,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-94"></a>
+<a id="modulo-96"></a>
 ## src/physics/objetos/propulsao/alimentacao/BombaPropelente.ts
 
 <a id="f-08499cf7b7b5281e"></a>
@@ -18282,7 +18444,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-95"></a>
+<a id="modulo-97"></a>
 ## src/physics/objetos/propulsao/alimentacao/LinhaDePropelente.ts
 
 <a id="f-e6203b52037d845b"></a>
@@ -18533,7 +18695,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-96"></a>
+<a id="modulo-98"></a>
 ## src/physics/objetos/propulsao/alimentacao/ValvulaPropelente.ts
 
 <a id="f-8ee9a0cb7c08bc7e"></a>
@@ -18613,7 +18775,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-97"></a>
+<a id="modulo-99"></a>
 ## src/physics/objetos/propulsao/combustao/Bocal.ts
 
 <a id="f-a3901e8f9e6759b1"></a>
@@ -18693,7 +18855,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-98"></a>
+<a id="modulo-100"></a>
 ## src/physics/objetos/propulsao/combustao/CamaraCombustao.ts
 
 <a id="f-b0538dd43b1921f1"></a>
@@ -18754,7 +18916,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-99"></a>
+<a id="modulo-101"></a>
 ## src/physics/objetos/propulsao/vetorizacao/AtuadorVetorizacao.ts
 
 <a id="f-d5fed7dda85b3573"></a>
@@ -18853,7 +19015,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-100"></a>
+<a id="modulo-102"></a>
 ## src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts
 
 <a id="f-eca3958041fee892"></a>
@@ -18952,7 +19114,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-101"></a>
+<a id="modulo-103"></a>
 ## src/physics/objetos/veiculos/Bss03.ts
 
 <a id="f-860287d56592b29a"></a>
@@ -19089,7 +19251,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-102"></a>
+<a id="modulo-104"></a>
 ## src/physics/objetos/veiculos/Bss04.ts
 
 <a id="f-618b5173fdbe54b8"></a>
@@ -19150,7 +19312,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-103"></a>
+<a id="modulo-105"></a>
 ## src/physics/objetos/veiculos/ComputadorDeVoo.ts
 
 <a id="f-812afc3623292bce"></a>
@@ -20085,7 +20247,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-104"></a>
+<a id="modulo-106"></a>
 ## src/physics/objetos/veiculos/OrbitadorReentrada.ts
 
 <a id="f-f474385619746e2c"></a>
@@ -20317,7 +20479,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-105"></a>
+<a id="modulo-107"></a>
 ## src/physics/objetos/veiculos/VeiculoAlado.ts
 
 <a id="f-a0a40213b7cd3903"></a>
@@ -20378,7 +20540,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-106"></a>
+<a id="modulo-108"></a>
 ## src/physics/objetos/veiculos/VeiculoComposto.ts
 
 <a id="f-64296b093cc455c5"></a>
@@ -21218,7 +21380,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-107"></a>
+<a id="modulo-109"></a>
 ## src/physics/objetos/veiculos/VeiculoTerrestre.ts
 
 <a id="f-11d563c8accc999f"></a>
@@ -21488,7 +21650,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-108"></a>
+<a id="modulo-110"></a>
 ## src/physics/reentrada/ModeloAerodinamicoReentrada.ts
 
 <a id="f-e334f1718df02bee"></a>
@@ -21568,7 +21730,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-109"></a>
+<a id="modulo-111"></a>
 ## src/physics/sensores/SensoresVeiculoComposto.ts
 
 <a id="f-1a302daca133db57"></a>
@@ -21857,7 +22019,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-110"></a>
+<a id="modulo-112"></a>
 ## src/physics/sensores/SistemaSensores.ts
 
 <a id="f-11d76a7fff48a0bd"></a>
@@ -22051,7 +22213,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-111"></a>
+<a id="modulo-113"></a>
 ## src/physics/sensores/SwitchFimDeCurso.ts
 
 <a id="f-958eb2b7694765e1"></a>
@@ -22416,7 +22578,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-112"></a>
+<a id="modulo-114"></a>
 ## src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.ts
 
 <a id="f-e507ddc521012566"></a>
@@ -22515,7 +22677,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-113"></a>
+<a id="modulo-115"></a>
 ## src/physics/sistemas de controle/ControladorAletasAerodinamicas.ts
 
 <a id="f-63d060f8a840b02f"></a>
@@ -22595,7 +22757,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-114"></a>
+<a id="modulo-116"></a>
 ## src/physics/sistemas de controle/ControladorAproximacao.ts
 
 <a id="f-534188cc7979d4c8"></a>
@@ -22675,7 +22837,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-115"></a>
+<a id="modulo-117"></a>
 ## src/physics/sistemas de controle/ControladorDesaceleracao.ts
 
 <a id="f-2df8a6ec72d97e33"></a>
@@ -22812,7 +22974,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-116"></a>
+<a id="modulo-118"></a>
 ## src/physics/sistemas de controle/ControladorDesaceleracaoDePropulsores.ts
 
 <a id="f-c21cd42fd0b7de7c"></a>
@@ -22911,7 +23073,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-117"></a>
+<a id="modulo-119"></a>
 ## src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.ts
 
 <a id="f-f48142ef0b2674dd"></a>
@@ -23124,7 +23286,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-118"></a>
+<a id="modulo-120"></a>
 ## src/physics/sistemas de controle/ControladorGimbalDescidaDePropulsores.ts
 
 <a id="f-cce221037c45b500"></a>
@@ -23242,7 +23404,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-119"></a>
+<a id="modulo-121"></a>
 ## src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts
 
 <a id="f-51e931aaa927f1e1"></a>
@@ -23455,7 +23617,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-120"></a>
+<a id="modulo-122"></a>
 ## src/physics/sistemas de controle/ControladorInclinacaoDePropulsores.ts
 
 <a id="f-072ca5129fc83639"></a>
@@ -23611,7 +23773,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-121"></a>
+<a id="modulo-123"></a>
 ## src/physics/sistemas de controle/ControladorInclinacaoPid.ts
 
 <a id="f-6fd33485b6c6ed80"></a>
@@ -23710,7 +23872,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-122"></a>
+<a id="modulo-124"></a>
 ## src/physics/sistemas de controle/ControladorPerfilVooExperimental.ts
 
 <a id="f-0c9abac72f8565f4"></a>
@@ -23752,7 +23914,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-123"></a>
+<a id="modulo-125"></a>
 ## src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts
 
 <a id="f-093ae6a77da90e61"></a>
@@ -24041,7 +24203,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-124"></a>
+<a id="modulo-126"></a>
 ## src/physics/sistemas de controle/ControladorPouso.ts
 
 <a id="f-d697d010640b8674"></a>
@@ -24197,7 +24359,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-125"></a>
+<a id="modulo-127"></a>
 ## src/physics/sistemas de controle/ControladorPousoDePropulsores.ts
 
 <a id="f-23b3b270943a05e3"></a>
@@ -24315,7 +24477,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-126"></a>
+<a id="modulo-128"></a>
 ## src/physics/sistemas de controle/ControladorReentrada.ts
 
 <a id="f-c18886ab4102b0a9"></a>
@@ -24471,7 +24633,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-127"></a>
+<a id="modulo-129"></a>
 ## src/physics/sistemas de controle/EstrategiaCorredorReentrada.ts
 
 <a id="f-c23886613e0b2192"></a>
@@ -24494,7 +24656,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-128"></a>
+<a id="modulo-130"></a>
 ## src/physics/sistemas de controle/FronteiraAproximacao.ts
 
 <a id="f-3f8022ec198f2a6a"></a>
@@ -24536,7 +24698,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-129"></a>
+<a id="modulo-131"></a>
 ## src/physics/sistemas de controle/GerenciadorDeControladores.ts
 
 <a id="f-c239c04410fd7830"></a>
@@ -24768,7 +24930,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-130"></a>
+<a id="modulo-132"></a>
 ## src/physics/sistemas de controle/SupervisorRecuperacao.ts
 
 <a id="f-100510609617f2a3"></a>
@@ -24867,7 +25029,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-131"></a>
+<a id="modulo-133"></a>
 ## src/physics/sistemas de controle/SupervisorReentrada.ts
 
 <a id="f-cadd2a244c36f2e6"></a>
@@ -24966,7 +25128,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-132"></a>
+<a id="modulo-134"></a>
 ## src/physics/solucionadores/IntegradorFisico.ts
 
 <a id="f-37bd83a7107d9325"></a>
@@ -25008,7 +25170,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-133"></a>
+<a id="modulo-135"></a>
 ## src/physics/solucionadores/ResolvedorColisoes.ts
 
 <a id="f-20b3443c43cccc2d"></a>
@@ -25316,7 +25478,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-134"></a>
+<a id="modulo-136"></a>
 ## src/physics/solucionadores/ResolvedorContatoSuperficie.ts
 
 <a id="f-c962b279ad805fe0"></a>
@@ -25757,7 +25919,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-135"></a>
+<a id="modulo-137"></a>
 ## src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts
 
 <a id="f-ca6b22a41219e7be"></a>
@@ -25837,7 +25999,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-136"></a>
+<a id="modulo-138"></a>
 ## src/physics/solucionadores/SistemaAtmosferico.ts
 
 <a id="f-6538ff18b9c53fb0"></a>
@@ -26012,7 +26174,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-137"></a>
+<a id="modulo-139"></a>
 ## src/physics/solucionadores/SistemaTermico.ts
 
 <a id="f-4a293a694405dea2"></a>
@@ -26111,7 +26273,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-138"></a>
+<a id="modulo-140"></a>
 ## src/reentrada.ts
 
 <a id="f-bdf1e31dbe2aa399"></a>
@@ -26125,7 +26287,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>label.textContent</code>; <code>input.type</code>; <code>input.step</code>; <code>input.required</code>; <code>input.id</code>; <code>input.value</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>elemento</code>; <code>Map</code>; <code>Object.entries</code>; <code>configurarParametrosReentrada</code>; <code>document.createElement</code>; <code>String</code>; <code>label.append</code>; <code>elemento('re-parametros').append</code>; <code>camposParametros.set</code>; <code>RenderizadorReentrada</code>; <code>criarEnsaioReentrada</code>; <code>ExecutorPassoFixo</code>; <code>ensaio.observar</code>; <code>iniciais.addEventListener</code>; <code>form.addEventListener</code>; <code>elemento('re-reset').addEventListener</code>; <code>modo.addEventListener</code>; <code>elemento('re-alvos').addEventListener</code>; <code>elemento(id).addEventListener</code>; <code>elemento('re-chaveamento').addEventListener</code>; <code>elemento('re-pouso').addEventListener</code>; <code>energia.addEventListener</code>; <code>elemento('re-falha-rolagem').addEventListener</code>; <code>elemento('re-separar').addEventListener</code>; <code>elemento('re-passo').addEventListener</code>; <code>elemento('re-exportar').addEventListener</code>; <code>requestAnimationFrame</code> |
+| Dependências | Chamadas/construções diretas: <code>elemento</code>; <code>Map</code>; <code>Object.entries</code>; <code>configurarParametrosReentrada</code>; <code>document.createElement</code>; <code>String</code>; <code>label.append</code>; <code>elemento('re-parametros').append</code>; <code>camposParametros.set</code>; <code>RenderizadorReentrada</code>; <code>iniciais.addEventListener</code>; <code>form.addEventListener</code>; <code>elemento('re-reset').addEventListener</code>; <code>elemento('re-continuar-aplicada').addEventListener</code>; <code>elemento('re-iniciar-nova').addEventListener</code>; <code>elemento('re-cancelar-escolha').addEventListener</code>; <code>modo.addEventListener</code>; <code>elemento('re-alvos').addEventListener</code>; <code>elemento(id).addEventListener</code>; <code>elemento('re-chaveamento').addEventListener</code>; <code>elemento('re-pouso').addEventListener</code>; <code>energia.addEventListener</code>; <code>elemento('re-falha-rolagem').addEventListener</code>; <code>elemento('re-separar').addEventListener</code>; <code>elemento('re-passo').addEventListener</code>; <code>elemento('re-exportar').addEventListener</code>; <code>preparar</code>; <code>requestAnimationFrame</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
@@ -26157,17 +26319,36 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.numero:FunctionDeclaration</code> · [fonte L19](../../src/reentrada.ts#L19) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.numero:FunctionDeclaration</code> · [fonte L21](../../src/reentrada.ts#L21) |
 | Assinatura | <code> (id: string): number</code> |
-| Responsabilidade | Converte entrada numérica em SI; validação final pertence ao domínio. |
+| Responsabilidade | Lê número explícito, rejeitando vazio, não finito e restrições HTML com diagnóstico do campo. Unidades físicas são validadas também no domínio. |
 | Entradas | <code>id: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
-| Saídas | Tipo <code>number</code>; expressões retornadas: <code>Number(elemento&lt;HTMLInputElement&gt;(id).value)</code> |
+| Saídas | Tipo <code>number</code>; expressões retornadas: <code>Number(valor)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>Number</code>; <code>elemento</code> |
-| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Dependências | Chamadas/construções diretas: <code>elemento</code>; <code>input.value.trim</code>; <code>Number.isFinite</code>; <code>Number</code>; <code>Error</code>; <code>input.labels?.[0]?.textContent?.trim</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>valor === '' &#124;&#124; !Number.isFinite(Number(valor)) &#124;&#124; !input.validity.valid</code>; exceções: <code>new Error(`${input.labels?.[0]?.textContent?.trim() ?? id}: ${input.validationMessage &#124;&#124; 'Informe um número finito.'}`)</code> |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Converte entrada numérica em SI; validação final pertence ao domínio.  @contract f-125d2a3542b41de5 */ |
+| JSDoc integral | /** Lê número explícito, rejeitando vazio, não finito e restrições HTML com<br>   * diagnóstico do campo. Unidades físicas são validadas também no domínio.<br>   * @contract f-125d2a3542b41de5 */ |
+
+</details>
+
+<a id="f-00c81d5a7e7c47cb"></a>
+<details><summary>iniciarBancada.opcao · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/reentrada.ts::iniciarBancada.opcao:FunctionDeclaration</code> · [fonte L29](../../src/reentrada.ts#L29) |
+| Assinatura | <code> (id: string, permitidas: readonly string[]): string</code> |
+| Responsabilidade | Valida seleção conhecida antes de convertê-la em estado inicial booleano. |
+| Entradas | <code>id: string</code>; <code>permitidas: readonly string[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>string</code>; expressões retornadas: <code>valor</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>elemento</code>; <code>permitidas.includes</code>; <code>Error</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>!permitidas.includes(valor)</code>; exceções: <code>new Error(`Seleção inválida: ${id}.`)</code> |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Valida seleção conhecida antes de convertê-la em estado inicial booleano.  @contract f-00c81d5a7e7c47cb */ |
 
 </details>
 
@@ -26176,7 +26357,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.rad:FunctionDeclaration</code> · [fonte L21](../../src/reentrada.ts#L21) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.rad:FunctionDeclaration</code> · [fonte L35](../../src/reentrada.ts#L35) |
 | Assinatura | <code> (id: string): number</code> |
 | Responsabilidade | Converte graus da interface para radianos explicitamente. |
 | Entradas | <code>id: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -26195,17 +26376,74 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.lerConfiguracao:FunctionDeclaration</code> · [fonte L42](../../src/reentrada.ts#L42) |
-| Assinatura | <code> (): EntradaConfiguracaoReentrada</code> |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.lerConfiguracao:FunctionDeclaration</code> · [fonte L61](../../src/reentrada.ts#L61) |
+| Assinatura | <code> (): ConfiguracaoReentrada</code> |
 | Responsabilidade | Lê configuração pré-ensaio; todas as conversões são explícitas e registradas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
-| Saídas | Tipo <code>EntradaConfiguracaoReentrada</code>; expressões retornadas: <code>{ parametros: Object.fromEntries([...camposParametros].map(([k, input]) =&gt; [k, Number(input.value)])),<br>    passoS: 1 / numero('re-divisor-dt'), intervaloColetaS: numero('re-intervalo-coleta'),<br>    limiteAmostras: numero('re-limite-amostras'… [continua na fonte]</code> |
+| Saídas | Tipo <code>ConfiguracaoReentrada</code>; expressões retornadas: <code>validarConfiguracaoExplicitaReentrada({ parametros: Object.fromEntries([...camposParametros].map(([k, input]) =&gt; [k, numero(input.id)])),<br>    passoS: 1 / numero('re-divisor-dt'), intervaloColetaS: numero('re-intervalo-coleta'),<br>    limiteAm… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>Object.fromEntries</code>; <code>[...camposParametros].map</code>; <code>numero</code>; <code>rad</code>; <code>elemento</code>; <code>elemento&lt;HTMLInputElement&gt;('re-alvo-arco').value.trim</code> |
+| Dependências | Chamadas/construções diretas: <code>validarConfiguracaoExplicitaReentrada</code>; <code>Object.fromEntries</code>; <code>[...camposParametros].map</code>; <code>numero</code>; <code>rad</code>; <code>opcao</code>; <code>elemento&lt;HTMLInputElement&gt;('re-alvo-arco').value.trim</code>; <code>elemento</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Lê configuração pré-ensaio; todas as conversões são explícitas e registradas.  @contract f-9f19a52f59d415b4 */ |
+
+</details>
+
+<a id="f-4edb2d339a14b022"></a>
+<details><summary>iniciarBancada.capturarCamposConfiguracao · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/reentrada.ts::iniciarBancada.capturarCamposConfiguracao:FunctionDeclaration</code> · [fonte L81](../../src/reentrada.ts#L81) |
+| Assinatura | <code> (): Readonly&lt;Record&lt;string, string&gt;&gt;</code> |
+| Responsabilidade | Captura somente valores de configuração, inclusive restaurados sem eventos. As strings detectam edição; não substituem a configuração física validada. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>Readonly&lt;Record&lt;string, string&gt;&gt;</code>; expressões retornadas: <code>Object.fromEntries([...iniciais.querySelectorAll&lt;HTMLInputElement &#124; HTMLSelectElement&gt;('input, select')]<br>    .map(input =&gt; [input.id, input.value]))</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>Object.fromEntries</code>; <code>[...iniciais.querySelectorAll&lt;HTMLInputElement &#124; HTMLSelectElement&gt;('input, select')]<br>    .map</code>; <code>iniciais.querySelectorAll</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Captura somente valores de configuração, inclusive restaurados sem eventos.<br>   * As strings detectam edição; não substituem a configuração física validada.<br>   * @contract f-4edb2d339a14b022<br>   */ |
+
+</details>
+
+<a id="f-9662794860c9ef0a"></a>
+<details><summary>iniciarBancada.atualizarEstadoConfiguracao · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/reentrada.ts::iniciarBancada.atualizarEstadoConfiguracao:FunctionDeclaration</code> · [fonte L90](../../src/reentrada.ts#L90) |
+| Assinatura | <code> (): void</code> |
+| Responsabilidade | Mostra pendência comparando o formulário com a última preparação. Consulta apenas strings e snapshot aplicado; nunca exporta todo o diário por frame. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>estado.dataset.pendente</code>; <code>estado.textContent</code>; <code>elemento('re-config-rastreio').textContent</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>JSON.stringify</code>; <code>capturarCamposConfiguracao</code>; <code>elemento</code>; <code>String</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Mostra pendência comparando o formulário com a última preparação. Consulta<br>   * apenas strings e snapshot aplicado; nunca exporta todo o diário por frame.<br>   * @contract f-9662794860c9ef0a<br>   */ |
+
+</details>
+
+<a id="f-a0d4388c173e901d"></a>
+<details><summary>iniciarBancada.rejeitarConfiguracao · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/reentrada.ts::iniciarBancada.rejeitarConfiguracao:FunctionDeclaration</code> · [fonte L101](../../src/reentrada.ts#L101) |
+| Assinatura | <code> (erro: unknown): void</code> |
+| Responsabilidade | Rejeição pertence à apresentação e não altera o diário do ensaio anterior. |
+| Entradas | <code>erro: unknown</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>rejeicoes</code>; <code>mensagem.textContent</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>String</code>; <code>atualizarEstadoConfiguracao</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Rejeição pertence à apresentação e não altera o diário do ensaio anterior.  @contract f-a0d4388c173e901d */ |
 
 </details>
 
@@ -26214,17 +26452,188 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.preparar:FunctionDeclaration</code> · [fonte L59](../../src/reentrada.ts#L59) |
-| Assinatura | <code> (): boolean</code> |
-| Responsabilidade | Recria ensaio solicitado; reinicia somente pela fábrica, sem editar corpos. |
-| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
-| Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>false</code>; <code>true</code> |
-| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>ensaio</code>; <code>executor</code>; <code>historico</code>; <code>intervaloVisualPassos</code>; <code>limiteVisualAmostras</code>; <code>e.min</code>; <code>e.max</code>; <code>configAlterada</code>; <code>eventosMostrados</code>; <code>ultimaAtualizacaoMs</code>; <code>modo.value</code>; <code>elemento&lt;HTMLInputElement&gt;('re-alpha-alvo').value</code>; <code>elemento&lt;HTMLInputElement&gt;('re-phi-alvo').value</code>; <code>elemento&lt;HTMLInputElement&gt;('re-flap-dianteiro').value</code>; <code>elemento&lt;HTMLInputElement&gt;('re-flap-traseiro').value</code>; <code>mensagem.textContent</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>form.reportValidity</code>; <code>criarEnsaioReentrada</code>; <code>lerConfiguracao</code>; <code>ExecutorPassoFixo</code>; <code>ensaio.observar</code>; <code>Math.round</code>; <code>numero</code>; <code>elemento</code>; <code>Number</code>; <code>camposParametros.get</code>; <code>String</code> |
-| Invariantes | Contrato documentado abaixo; ramos observados: <code>!form.reportValidity()</code>; exceções: — |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.preparar:FunctionDeclaration</code> · [fonte L111](../../src/reentrada.ts#L111) |
+| Assinatura | <code> (configuracao?: ConfiguracaoReentrada): boolean</code> |
+| Responsabilidade | Recria pela fábrica após leitura/validação única; só substitui instância após construção bem sucedida. Confirma valores do diário retornado pelo domínio, sem reescrever inputs ou materiais do ensaio anterior. Testes RE-003 A–G. |
+| Entradas | <code>configuracao?: ConfiguracaoReentrada</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>true</code>; <code>false</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>iniciais.disabled</code>; <code>ensaio</code>; <code>aplicada</code>; <code>executor</code>; <code>historico</code>; <code>camposAplicados</code>; <code>numeroPreparo</code>; <code>intervaloVisualPassos</code>; <code>limiteVisualAmostras</code>; <code>e.min</code>; <code>e.max</code>; <code>e.value</code>; <code>eventosMostrados</code>; <code>ultimaAtualizacaoMs</code>; <code>modo.value</code>; <code>elemento&lt;HTMLInputElement&gt;('re-alpha-alvo').value</code>; <code>elemento&lt;HTMLInputElement&gt;('re-phi-alvo').value</code>; <code>elemento('re-config-aplicada').textContent</code>; <code>mensagem.textContent</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>ensaio.pausar</code>; <code>executor?.suspenderReferenciaRelogio</code>; <code>criarEnsaioReentrada</code>; <code>lerConfiguracao</code>; <code>novo.exportar</code>; <code>ExecutorPassoFixo</code>; <code>novo.observar</code>; <code>capturarCamposConfiguracao</code>; <code>Math.round</code>; <code>elemento</code>; <code>String</code>; <code>cancelarEscolhaConfiguracao</code>; <code>atualizarEstadoConfiguracao</code>; <code>atualizarPainel</code>; <code>rejeitarConfiguracao</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>ensaio?.estadoExecucao === 'executando'</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Recria ensaio solicitado; reinicia somente pela fábrica, sem editar corpos.  @contract f-c51586eefc46d9d2 */ |
+| JSDoc integral | /** Recria pela fábrica após leitura/validação única; só substitui instância após<br>   * construção bem sucedida. Confirma valores do diário retornado pelo domínio,<br>   * sem reescrever inputs ou materiais do ensaio anterior. Testes RE-003 A–G.<br>   * @contract f-c51586eefc46d9d2 */ |
+
+</details>
+
+<a id="f-9b4f1d58114ea0f6"></a>
+<details><summary>iniciarBancada.garantirConfiguracaoParaInicio · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/reentrada.ts::iniciarBancada.garantirConfiguracaoParaInicio:FunctionDeclaration</code> · [fonte L143](../../src/reentrada.ts#L143) |
+| Assinatura | <code> (acao: "executar" &#124; "passo"): boolean</code> |
+| Responsabilidade | Nenhum novo início/passo depende de evento de edição. Revalida o formulário; ensaio pausado com edição exige escolha, inclusive se a edição for inválida. |
+| Entradas | <code>acao: 'executar' &#124; 'passo'</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>false</code>; <code>(!ensaio &#124;&#124; pendente) ? preparar(configuracao) : true</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>acaoPendente</code>; <code>elemento('re-config-escolha').hidden</code>; <code>mensagem.textContent</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>JSON.stringify</code>; <code>capturarCamposConfiguracao</code>; <code>atualizarEstadoConfiguracao</code>; <code>elemento</code>; <code>elemento('re-continuar-aplicada').focus</code>; <code>lerConfiguracao</code>; <code>preparar</code>; <code>rejeitarConfiguracao</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>ensaio?.estadoExecucao === 'pausada' &amp;&amp; pendente</code>; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Nenhum novo início/passo depende de evento de edição. Revalida o formulário;<br>   * ensaio pausado com edição exige escolha, inclusive se a edição for inválida.<br>   * @contract f-9b4f1d58114ea0f6<br>   */ |
+
+</details>
+
+<a id="f-f954882670778897"></a>
+<details><summary>iniciarBancada.executarAcaoPreparada · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/reentrada.ts::iniciarBancada.executarAcaoPreparada:FunctionDeclaration</code> · [fonte L162](../../src/reentrada.ts#L162) |
+| Assinatura | <code> (acao: "executar" &#124; "passo"): void</code> |
+| Responsabilidade | Executa somente sobre instância já escolhida/validada; tempo real fica na apresentação. Passo manual avança exatamente 1 s usando dt configurado. |
+| Entradas | <code>acao: 'executar' &#124; 'passo'</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>i</code>; <code>ultimaAtualizacaoMs</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>cancelarEscolhaConfiguracao</code>; <code>ensaio.iniciar</code>; <code>executor.suspenderReferenciaRelogio</code>; <code>Math.round</code>; <code>avancar</code>; <code>ensaio.pausar</code>; <code>atualizarPainel</code>; <code>ensaio.observar</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>!ensaio &#124;&#124; !executor</code>; <code>acao === 'passo'</code>; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Executa somente sobre instância já escolhida/validada; tempo real fica na<br>   * apresentação. Passo manual avança exatamente 1 s usando dt configurado.<br>   * @contract f-f954882670778897<br>   */ |
+
+</details>
+
+<a id="f-3761f7ab8221f2db"></a>
+<details><summary>iniciarBancada.tratarExecucao · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/reentrada.ts::iniciarBancada.tratarExecucao:FunctionDeclaration</code> · [fonte L174](../../src/reentrada.ts#L174) |
+| Assinatura | <code> (evento: SubmitEvent): void</code> |
+| Responsabilidade | Handler de início/pausa: pausar não valida nem aplica edições. |
+| Entradas | <code>evento: SubmitEvent</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>ultimaAtualizacaoMs</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>evento.preventDefault</code>; <code>ensaio.pausar</code>; <code>executor?.suspenderReferenciaRelogio</code>; <code>atualizarPainel</code>; <code>ensaio.observar</code>; <code>garantirConfiguracaoParaInicio</code>; <code>executarAcaoPreparada</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>ensaio?.estadoExecucao === 'executando'</code>; <code>garantirConfiguracaoParaInicio('executar')</code>; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Handler de início/pausa: pausar não valida nem aplica edições.  @contract f-3761f7ab8221f2db */ |
+
+</details>
+
+<a id="f-cb43a54875d00a72"></a>
+<details><summary>iniciarBancada.reinicializar · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/reentrada.ts::iniciarBancada.reinicializar:FunctionDeclaration</code> · [fonte L183](../../src/reentrada.ts#L183) |
+| Assinatura | <code> (): void</code> |
+| Responsabilidade | Reinicialização explícita aplica a edição e conserva novo ensaio no passo 0. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>cancelarEscolhaConfiguracao</code>; <code>preparar</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Reinicialização explícita aplica a edição e conserva novo ensaio no passo 0.  @contract f-cb43a54875d00a72 */ |
+
+</details>
+
+<a id="f-2c6793de2a48e002"></a>
+<details><summary>iniciarBancada.avancarUmSegundo · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/reentrada.ts::iniciarBancada.avancarUmSegundo:FunctionDeclaration</code> · [fonte L186](../../src/reentrada.ts#L186) |
+| Assinatura | <code> (): void</code> |
+| Responsabilidade | Avanço manual usa a mesma validação e a mesma escolha da execução contínua. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>garantirConfiguracaoParaInicio</code>; <code>executarAcaoPreparada</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>garantirConfiguracaoParaInicio('passo')</code>; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Avanço manual usa a mesma validação e a mesma escolha da execução contínua.  @contract f-2c6793de2a48e002 */ |
+
+</details>
+
+<a id="f-0245250bccc43c18"></a>
+<details><summary>iniciarBancada.cancelarEscolhaConfiguracao · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/reentrada.ts::iniciarBancada.cancelarEscolhaConfiguracao:FunctionDeclaration</code> · [fonte L191](../../src/reentrada.ts#L191) |
+| Assinatura | <code> (): void</code> |
+| Responsabilidade | Fecha escolha sem tocar em corpos, diário ou valores digitados. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>acaoPendente</code>; <code>elemento('re-config-escolha').hidden</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>elemento</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Fecha escolha sem tocar em corpos, diário ou valores digitados.  @contract f-0245250bccc43c18 */ |
+
+</details>
+
+<a id="f-aa238813e3495b38"></a>
+<details><summary>iniciarBancada.continuarConfiguracaoAplicada · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/reentrada.ts::iniciarBancada.continuarConfiguracaoAplicada:FunctionDeclaration</code> · [fonte L199](../../src/reentrada.ts#L199) |
+| Assinatura | <code> (): void</code> |
+| Responsabilidade | Retoma explicitamente a configuração anterior mesmo com edição inválida; preserva edição e agenda física anterior. Não reinterpreta inputs como comandos. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>mensagem.textContent</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>executarAcaoPreparada</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>!acaoPendente</code>; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Retoma explicitamente a configuração anterior mesmo com edição inválida;<br>   * preserva edição e agenda física anterior. Não reinterpreta inputs como comandos.<br>   * @contract f-aa238813e3495b38<br>   */ |
+
+</details>
+
+<a id="f-5a22c7b79b3d9a12"></a>
+<details><summary>iniciarBancada.iniciarNovaConfiguracao · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/reentrada.ts::iniciarBancada.iniciarNovaConfiguracao:FunctionDeclaration</code> · [fonte L206](../../src/reentrada.ts#L206) |
+| Assinatura | <code> (): void</code> |
+| Responsabilidade | Troca de ensaio só após validação bem sucedida da edição atual. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>preparar</code>; <code>executarAcaoPreparada</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>acao &amp;&amp; preparar()</code>; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Troca de ensaio só após validação bem sucedida da edição atual.  @contract f-5a22c7b79b3d9a12 */ |
+
+</details>
+
+<a id="f-e5c5a5583589aedc"></a>
+<details><summary>iniciarBancada.exportarDiario · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/reentrada.ts::iniciarBancada.exportarDiario:FunctionDeclaration</code> · [fonte L215](../../src/reentrada.ts#L215) |
+| Assinatura | <code> (): void</code> |
+| Responsabilidade | Exporta somente o ensaio aplicado, identificando edição pendente. Antes de existir um ensaio válido não fabrica um diário com defaults. Download local. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>mensagem.textContent</code>; <code>link.href</code>; <code>link.download</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>Blob</code>; <code>JSON.stringify</code>; <code>ensaio.exportar</code>; <code>URL.createObjectURL</code>; <code>document.createElement</code>; <code>link.click</code>; <code>URL.revokeObjectURL</code>; <code>atualizarEstadoConfiguracao</code>; <code>elemento</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>!ensaio</code>; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Exporta somente o ensaio aplicado, identificando edição pendente. Antes de<br>   * existir um ensaio válido não fabrica um diário com defaults. Download local.<br>   * @contract f-e5c5a5583589aedc<br>   */ |
 
 </details>
 
@@ -26233,14 +26642,14 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.comandar:FunctionDeclaration</code> · [fonte L80](../../src/reentrada.ts#L80) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.comandar:FunctionDeclaration</code> · [fonte L227](../../src/reentrada.ts#L227) |
 | Assinatura | <code> (c: ComandoReentrada): void</code> |
 | Responsabilidade | Encaminha intenção e apresenta diagnóstico real, sem duplicar estados. |
 | Entradas | <code>c: ComandoReentrada</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>mensagem.textContent</code>; <code>ultimaAtualizacaoMs</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>ensaio.receberComando</code>; <code>String</code> |
-| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Dependências | Chamadas/construções diretas: <code>Error</code>; <code>ensaio.receberComando</code>; <code>String</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>!ensaio</code>; exceções: <code>new Error('Prepare uma configuração válida antes de comandar.')</code> |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Encaminha intenção e apresenta diagnóstico real, sem duplicar estados.  @contract f-cf79be1a17c2b2c7 */ |
@@ -26252,14 +26661,14 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.avancar:FunctionDeclaration</code> · [fonte L90](../../src/reentrada.ts#L90) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.avancar:FunctionDeclaration</code> · [fonte L237](../../src/reentrada.ts#L237) |
 | Assinatura | <code> (): void</code> |
 | Responsabilidade | Executa um passo fixo e registra amostra visual a cada segundo simulado. O diário compartilha coleta configurada e informa retenção/descartes; extremos são medidos em todo passo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>ensaio.avancarPasso</code>; <code>historico.push</code>; <code>ensaio.observar</code>; <code>historico.shift</code> |
-| Invariantes | Contrato documentado abaixo; ramos observados: <code>ensaio.avancarPasso() &amp;&amp; ensaio.passosExecutados % intervaloVisualPassos === 0</code>; <code>historico.length &gt; limiteVisualAmostras</code>; exceções: — |
+| Dependências | Chamadas/construções diretas: <code>ensaio?.avancarPasso</code>; <code>historico.push</code>; <code>ensaio.observar</code>; <code>historico.shift</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>ensaio?.avancarPasso() &amp;&amp; ensaio.passosExecutados % intervaloVisualPassos === 0</code>; <code>historico.length &gt; limiteVisualAmostras</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Executa um passo fixo e registra amostra visual a cada segundo simulado.<br>   * O diário compartilha coleta configurada e informa retenção/descartes; extremos são medidos em todo passo.<br>   * @contract f-9085698dbe6b0394<br>   */ |
@@ -26271,7 +26680,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.metrica:FunctionDeclaration</code> · [fonte L98](../../src/reentrada.ts#L98) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.metrica:FunctionDeclaration</code> · [fonte L245](../../src/reentrada.ts#L245) |
 | Assinatura | <code> (id: string, nome: string, valor: string): void</code> |
 | Responsabilidade | Atualiza valor de telemetria em nó persistente, evitando reconstrução por frame. |
 | Entradas | <code>id: string</code>; <code>nome: string</code>; <code>valor: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -26290,7 +26699,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.graus:FunctionDeclaration</code> · [fonte L110](../../src/reentrada.ts#L110) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.graus:FunctionDeclaration</code> · [fonte L257](../../src/reentrada.ts#L257) |
 | Assinatura | <code> (rad: number): string</code> |
 | Responsabilidade | Converte radianos observados para graus de apresentação. |
 | Entradas | <code>rad: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -26309,13 +26718,13 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.atualizarPainel:FunctionDeclaration</code> · [fonte L113](../../src/reentrada.ts#L113) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.atualizarPainel:FunctionDeclaration</code> · [fonte L260](../../src/reentrada.ts#L260) |
 | Assinatura | <code> (o: ObservacaoReentrada): void</code> |
 | Responsabilidade | Renderiza comandos, estado físico e variáveis virtuais explicitamente distintos. |
 | Entradas | <code>o: ObservacaoReentrada</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>play.textContent</code>; <code>iniciais.disabled</code>; <code>manuais.disabled</code>; <code>modo.value</code>; <code>modo.disabled</code>; <code>elemento&lt;HTMLButtonElement&gt;('re-passo').disabled</code>; <code>elemento&lt;HTMLSelectElement&gt;('re-chaveamento').value</code>; <code>energia.textContent</code>; <code>elemento('re-tempo-real').textContent</code>; <code>linha.className</code>; <code>descricao.textContent</code>; <code>valor.textContent</code>; <code>li.textContent</code>; <code>eventosMostrados</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>metrica</code>; <code>o.altitudeM.toFixed</code>; <code>o.velocidadeMps.toFixed</code>; <code>graus</code>; <code>a.mach.toFixed</code>; <code>a.pressaoDinamicaPa.toPrecision</code>; <code>a.sustentacaoN.toFixed</code>; <code>a.sustentacaoXYN.toFixed</code>; <code>a.arrastoN.toFixed</code>; <code>a.sustentacaoLateralOmitidaN.toFixed</code>; <code>o.cargaG.toFixed</code>; <code>o.desaceleracaoMps2.toFixed</code>; <code>o.aceleracaoMps2.x.toFixed</code>; <code>o.aceleracaoMps2.y.toFixed</code>; <code>o.torqueAerodinamicoNm.toFixed</code>; <code>a.centroPressaoLocalM.toFixed</code>; <code>a.fluxoTermicoIndicadorWm2.toPrecision</code>; <code>o.temperaturaC.toFixed</code>; <code>(100 * o.integridade).toFixed</code>; <code>o.massaKg.toFixed</code>; <code>o.energiaAbsorvidaJ.toPrecision</code>; <code>o.dissipacaoW.toPrecision</code>; <code>o.calorTransferidoW.toPrecision</code>; <code>o.potenciaAtmosferaW.toPrecision</code>; <code>a.knudsen.toPrecision</code>; <code>o.estado.velocidadeAngularRadps.z.toPrecision</code>; <code>o.rotacao.momentoIntrinsecoKgM2ps.toPrecision</code>; <code>o.rotacao.momentoOrbitalKgM2ps.toPrecision</code>; <code>o.inerciaKgM2.toPrecision</code>; <code>o.rotacao.torqueGravitacionalNm.toPrecision</code>; <code>(o.rotacao.cargasEfetivamenteIntegradas?.torqueOutrosContinuosNm ?? 0).toPrecision</code>; <code>o.rotacao.residuoPassoKgM2ps.toPrecision</code>; <code>o.rotacao.residuoAcumuladoKgM2ps.toPrecision</code>; <code>o.energiaMecanicaEspecificaJPorKg.toPrecision</code>; <code>o.velocidadeRadialMps.toFixed</code>; <code>o.velocidadeTangencialMps.toFixed</code>; <code>o.extremos.globais.pressaoDinamicaPa.maximo.valor.toPrecision</code>; <code>o.extremos.globais.fluxoTermicoIndicadorWm2.maximo.valor.toPrecision</code>; <code>o.respostaTermica.potenciaIndicadorCorpoW.toPrecision</code>; <code>o.respostaTermica.potenciaTransferidaCorpoW.toPrecision</code>; <code>o.controle.torqueSolicitadoNm.toPrecision</code>; <code>fronteira.distanciaRestanteM.toFixed</code>; <code>fronteira.hipoteses.map(h =&gt; `${h.aceleracaoLiquidaMps2} m/s² → ${h.velocidadeLimiteNecessariaMps?.toFixed(0)} m/s (desvio ${h.desvioVelocidadeMps?.toFixed(0)})`).join</code>; <code>fronteira.hipoteses.map</code>; <code>o.energiaBateriaJ.toFixed</code>; <code>o.temperaturaBateriaC.toFixed</code>; <code>(100 * o.integridadeBateria).toFixed</code>; <code>o.flaps.entries</code>; <code>f.temperaturaC.toFixed</code>; <code>(100 * f.integridade).toFixed</code>; <code>elemento</code>; <code>o.flaps.every</code>; <code>o.tempoS.toFixed</code>; <code>ensaio.passoS.toPrecision</code>; <code>executor.tempoPendenteS.toFixed</code>; <code>diagnostico.replaceChildren</code>; <code>document.createElement</code>; <code>r.atual.toPrecision</code>; <code>linha.append</code>; <code>diagnostico.append</code>; <code>ensaio.obterEventos</code>; <code>eventos.at</code>; <code>lista.replaceChildren</code>; <code>eventos.slice</code>; <code>evento.tempoS.toFixed</code>; <code>lista.append</code> |
+| Dependências | Chamadas/construções diretas: <code>metrica</code>; <code>o.altitudeM.toFixed</code>; <code>o.velocidadeMps.toFixed</code>; <code>graus</code>; <code>a.mach.toFixed</code>; <code>a.pressaoDinamicaPa.toPrecision</code>; <code>a.sustentacaoN.toFixed</code>; <code>a.sustentacaoXYN.toFixed</code>; <code>a.arrastoN.toFixed</code>; <code>a.sustentacaoLateralOmitidaN.toFixed</code>; <code>o.cargaG.toFixed</code>; <code>o.desaceleracaoMps2.toFixed</code>; <code>o.aceleracaoMps2.x.toFixed</code>; <code>o.aceleracaoMps2.y.toFixed</code>; <code>o.torqueAerodinamicoNm.toFixed</code>; <code>a.centroPressaoLocalM.toFixed</code>; <code>a.fluxoTermicoIndicadorWm2.toPrecision</code>; <code>o.temperaturaC.toFixed</code>; <code>(100 * o.integridade).toFixed</code>; <code>o.massaKg.toFixed</code>; <code>o.energiaAbsorvidaJ.toPrecision</code>; <code>o.dissipacaoW.toPrecision</code>; <code>o.calorTransferidoW.toPrecision</code>; <code>o.potenciaAtmosferaW.toPrecision</code>; <code>a.knudsen.toPrecision</code>; <code>o.estado.velocidadeAngularRadps.z.toPrecision</code>; <code>o.rotacao.momentoIntrinsecoKgM2ps.toPrecision</code>; <code>o.rotacao.momentoOrbitalKgM2ps.toPrecision</code>; <code>o.inerciaKgM2.toPrecision</code>; <code>o.rotacao.torqueGravitacionalNm.toPrecision</code>; <code>(o.rotacao.cargasEfetivamenteIntegradas?.torqueOutrosContinuosNm ?? 0).toPrecision</code>; <code>o.rotacao.residuoPassoKgM2ps.toPrecision</code>; <code>o.rotacao.residuoAcumuladoKgM2ps.toPrecision</code>; <code>o.energiaMecanicaEspecificaJPorKg.toPrecision</code>; <code>o.velocidadeRadialMps.toFixed</code>; <code>o.velocidadeTangencialMps.toFixed</code>; <code>o.extremos.globais.pressaoDinamicaPa.maximo.valor.toPrecision</code>; <code>o.extremos.globais.fluxoTermicoIndicadorWm2.maximo.valor.toPrecision</code>; <code>o.respostaTermica.potenciaIndicadorCorpoW.toPrecision</code>; <code>o.respostaTermica.potenciaTransferidaCorpoW.toPrecision</code>; <code>o.controle.torqueSolicitadoNm.toPrecision</code>; <code>fronteira.distanciaRestanteM.toFixed</code>; <code>fronteira.hipoteses.map(h =&gt; `${h.aceleracaoLiquidaMps2} m/s² → ${h.velocidadeLimiteNecessariaMps?.toFixed(0)} m/s (desvio ${h.desvioVelocidadeMps?.toFixed(0)})`).join</code>; <code>fronteira.hipoteses.map</code>; <code>o.energiaBateriaJ.toFixed</code>; <code>o.temperaturaBateriaC.toFixed</code>; <code>(100 * o.integridadeBateria).toFixed</code>; <code>o.flaps.entries</code>; <code>f.temperaturaC.toFixed</code>; <code>(100 * f.integridade).toFixed</code>; <code>atualizarEstadoConfiguracao</code>; <code>elemento</code>; <code>o.flaps.every</code>; <code>o.tempoS.toFixed</code>; <code>aplicada!.passoS.toPrecision</code>; <code>executor!.tempoPendenteS.toFixed</code>; <code>diagnostico.replaceChildren</code>; <code>document.createElement</code>; <code>r.atual.toPrecision</code>; <code>linha.append</code>; <code>diagnostico.append</code>; <code>ensaio?.obterEventos</code>; <code>eventos.at</code>; <code>lista.replaceChildren</code>; <code>eventos.slice</code>; <code>evento.tempoS.toFixed</code>; <code>lista.append</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>eventosMostrados !== (eventos.at(-1)?.sequencia ?? -1)</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
@@ -26328,14 +26737,14 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.quadro:FunctionDeclaration</code> · [fonte L218](../../src/reentrada.ts#L218) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.quadro:FunctionDeclaration</code> · [fonte L355](../../src/reentrada.ts#L355) |
 | Assinatura | <code> (timestamp: number): void</code> |
 | Responsabilidade | Cooperação da apresentação: orçamento 8 ms/quadro, mantém dívida temporal. Pausa em erro explícito e conserva diagnóstico; não declara sucesso/repouso. |
 | Entradas | <code>timestamp: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>ultimaAtualizacaoMs</code>; <code>mensagem.textContent</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>performance.now</code>; <code>executor.avancarAte</code>; <code>numero</code>; <code>ensaio.observar</code>; <code>renderer.desenhar</code>; <code>atualizarPainel</code>; <code>renderer.desenharGraficos</code>; <code>ensaio.pausar</code>; <code>String</code>; <code>requestAnimationFrame</code> |
-| Invariantes | Contrato documentado abaixo; ramos observados: <code>ensaio.estadoExecucao === 'executando'</code>; <code>timestamp - ultimaAtualizacaoMs &gt;= 100</code>; exceções: — |
+| Dependências | Chamadas/construções diretas: <code>performance.now</code>; <code>executor.avancarAte</code>; <code>numero</code>; <code>ensaio?.observar</code>; <code>renderer.desenhar</code>; <code>atualizarPainel</code>; <code>atualizarEstadoConfiguracao</code>; <code>renderer.desenharGraficos</code>; <code>ensaio?.pausar</code>; <code>String</code>; <code>requestAnimationFrame</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>ensaio?.estadoExecucao === 'executando' &amp;&amp; executor</code>; <code>o</code>; <code>timestamp - ultimaAtualizacaoMs &gt;= 100</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Cooperação da apresentação: orçamento 8 ms/quadro, mantém dívida temporal.<br>   * Pausa em erro explícito e conserva diagnóstico; não declara sucesso/repouso.<br>   * @contract f-081506ae1d0d1404<br>   */ |
@@ -26347,7 +26756,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.quadro.continuar:ArrowFunction</code> · [fonte L225](../../src/reentrada.ts#L225) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.quadro.continuar:ArrowFunction</code> · [fonte L362](../../src/reentrada.ts#L362) |
 | Assinatura | <code> (): boolean</code> |
 | Responsabilidade | Orçamento visual em ms; interrompe lote, preservando dívida e dt físico. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -26362,7 +26771,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-139"></a>
+<a id="modulo-141"></a>
 ## src/simulacao/ExecutorPassoFixo.ts
 
 <a id="f-b5c741e87d68944a"></a>
@@ -26537,7 +26946,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-140"></a>
+<a id="modulo-142"></a>
 ## src/testes.ts
 
 <a id="f-5e1aa4998dc58a80"></a>
@@ -33020,7 +33429,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-141"></a>
+<a id="modulo-143"></a>
 ## src/validacao/ReferenciaBancadaM10.ts
 
 <a id="f-3b5aba79d123ca41"></a>
@@ -33081,7 +33490,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-142"></a>
+<a id="modulo-144"></a>
 ## src/veiculos/DefinicaoBss006.ts
 
 <a id="f-2f5724b4057c7208"></a>
@@ -33104,7 +33513,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-143"></a>
+<a id="modulo-145"></a>
 ## src/veiculos/HidrodinamicaBss006.ts
 
 <a id="f-af9fca02b4f4ccdc"></a>
@@ -33127,7 +33536,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-144"></a>
+<a id="modulo-146"></a>
 ## src/veiculos/MontagemBss.ts
 
 <a id="f-fd616459b962f64d"></a>
@@ -33511,7 +33920,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-145"></a>
+<a id="modulo-147"></a>
 ## src/veiculos/TelemetriaBss.ts
 
 <a id="f-4b8411290e34c3a4"></a>
@@ -33534,7 +33943,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-146"></a>
+<a id="modulo-148"></a>
 ## src/visualizacao/CameraFisica2D.ts
 
 <a id="f-07a1929a163d1610"></a>
@@ -33595,7 +34004,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-147"></a>
+<a id="modulo-149"></a>
 ## src/visualizacao/ConexoesEletricas.ts
 
 <a id="f-aff2a7f3384f78eb"></a>
@@ -33713,7 +34122,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-148"></a>
+<a id="modulo-150"></a>
 ## src/visualizacao/RegistroEnsaioBancada.ts
 
 <a id="f-b8117d1c26329bb7"></a>
@@ -33793,7 +34202,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-149"></a>
+<a id="modulo-151"></a>
 ## src/visualizacao/TracePLC.ts
 
 <a id="f-c59acbd9414e88e5"></a>
@@ -34093,6 +34502,18 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>scripts/site/smoke.ts::executarSmokeSite.[callback]#28.[callback]:ArrowFunction#1</code> · [L163](../../scripts/site/smoke.ts#L163) | <code>(erro: Error &#124; undefined): void</code> | <code>falhar</code>; <code>concluir</code> / — |
 | <code>scripts/site/verificar.ts::listarArquivos.[callback]:ArrowFunction#1</code> · [L8](../../scripts/site/verificar.ts#L8) | <code>(this: undefined, entrada: Dirent&lt;string&gt;): string[]</code> | <code>join</code>; <code>entrada.isDirectory</code>; <code>listarArquivos</code> / — |
 | <code>scripts/site/verificar.ts::verificarDistribuicao.[callback]:ArrowFunction#1</code> · [L71](../../scripts/site/verificar.ts#L71) | <code>(r: { source: string; }): boolean</code> | — / — |
+| <code>scripts/smoke-configuracao-re003.ts::validarInterfaceConfiguracao.abrir.[callback]:ArrowFunction#1</code> · [L35](../../scripts/smoke-configuracao-re003.ts#L35) | <code>(e: Error): number</code> | <code>erros.push</code> / — |
+| <code>scripts/smoke-configuracao-re003.ts::validarInterfaceConfiguracao.abrir.[callback]:ArrowFunction#2</code> · [L36](../../scripts/smoke-configuracao-re003.ts#L36) | <code>(e: ConsoleMessage): void</code> | <code>e.type</code>; <code>erros.push</code>; <code>e.text</code> / — |
+| <code>scripts/smoke-configuracao-re003.ts::validarInterfaceConfiguracao.iniciarPausar.[callback]:ArrowFunction#1</code> · [L44](../../scripts/smoke-configuracao-re003.ts#L44) | <code>(): boolean</code> | <code>/t = (?!0\.000)\d/.test</code>; <code>document.querySelector</code> / — |
+| <code>scripts/smoke-configuracao-re003.ts::validarInterfaceConfiguracao.iniciarPausar.[callback]:ArrowFunction#2</code> · [L46](../../scripts/smoke-configuracao-re003.ts#L46) | <code>(): boolean</code> | <code>document.querySelector('#re-tempo-real')!.textContent!.includes</code>; <code>document.querySelector</code> / — |
+| <code>scripts/smoke-configuracao-re003.ts::validarInterfaceConfiguracao.[callback]:ArrowFunction#1</code> · [L54](../../scripts/smoke-configuracao-re003.ts#L54) | <code>(ids: string[]): void</code> | <code>document.getElementById</code> / <code>(document.getElementById(id) as HTMLInputElement).value</code> |
+| <code>scripts/smoke-configuracao-re003.ts::validarInterfaceConfiguracao.[callback]:ArrowFunction#2</code> · [L91](../../scripts/smoke-configuracao-re003.ts#L91) | <code>(valor: string): void</code> | <code>document.getElementById</code> / <code>(document.getElementById('re-limite-flaps') as HTMLInputElement).value</code> |
+| <code>scripts/smoke-configuracao-re003.ts::validarInterfaceConfiguracao.[callback]:ArrowFunction#3</code> · [L99](../../scripts/smoke-configuracao-re003.ts#L99) | <code>(): boolean</code> | — / — |
+| <code>scripts/smoke-configuracao-re003.ts::validarInterfaceConfiguracao.[callback]:ArrowFunction#4</code> · [L111](../../scripts/smoke-configuracao-re003.ts#L111) | <code>(chave: string): void</code> | <code>document.getElementById</code> / <code>(document.getElementById(`re-param-${chave}`) as HTMLInputElement).value</code> |
+| <code>scripts/smoke-configuracao-re003.ts::validarInterfaceConfiguracao.[callback]:ArrowFunction#5</code> · [L121](../../scripts/smoke-configuracao-re003.ts#L121) | <code>(route: Route): Promise&lt;void&gt;</code> | <code>route.fetch</code>; <code>route.fulfill</code>; <code>(await resposta.text()).replace</code>; <code>resposta.text</code> / — |
+| <code>scripts/smoke-configuracao-re003.ts::validarInterfaceConfiguracao.[callback]:ArrowFunction#6</code> · [L126](../../scripts/smoke-configuracao-re003.ts#L126) | <code>(): boolean</code> | <code>document.querySelector('#re-mensagem')!.textContent!.includes</code>; <code>document.querySelector</code> / — |
+| <code>scripts/smoke-configuracao-re003.ts::validarInterfaceConfiguracao.[callback]:ArrowFunction#7</code> · [L141](../../scripts/smoke-configuracao-re003.ts#L141) | <code>(r: (value: void &#124; PromiseLike&lt;void&gt;) =&gt; void): Server&lt;typeof IncomingMessage, typeof ServerResponse&gt; &#124; Http2SecureServer&lt;typeof IncomingMessage, typeof ServerResponse, typeof Http2ServerRequest, typeof Http2ServerResponse&gt;</code> | <code>servidor.httpServer.close</code> / — |
+| <code>scripts/smoke-configuracao-re003.ts::validarInterfaceConfiguracao.[callback]#7.[callback]:ArrowFunction#1</code> · [L141](../../scripts/smoke-configuracao-re003.ts#L141) | <code>(): void</code> | <code>r</code> / — |
 | <code>scripts/smoke-reentrada.ts::executarSmokeReentrada.[callback]:ArrowFunction#1</code> · [L23](../../scripts/smoke-reentrada.ts#L23) | <code>(e: Error): number</code> | <code>erros.push</code> / — |
 | <code>scripts/smoke-reentrada.ts::executarSmokeReentrada.[callback]:ArrowFunction#2</code> · [L24](../../scripts/smoke-reentrada.ts#L24) | <code>(e: ConsoleMessage): void</code> | <code>e.type</code>; <code>erros.push</code>; <code>e.text</code> / — |
 | <code>scripts/smoke-reentrada.ts::executarSmokeReentrada.[callback]:ArrowFunction#3</code> · [L25](../../scripts/smoke-reentrada.ts#L25) | <code>(r: Response): void</code> | <code>r.status</code>; <code>erros.push</code>; <code>r.url</code> / — |
@@ -34120,6 +34541,22 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>scripts/validar-reentrada.ts::validarReentrada.resultado.[callback]:ArrowFunction#2</code> · [L29](../../scripts/validar-reentrada.ts#L29) | <code>(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "aproximacao" &#124; "reentrada" &#124; "falha"; automatico: boolean; candidatoCinematico: boolean; autorizado: boolean; requisitos: readonly Readonly&lt;RequisitoAproximacao&gt;[]; limites: ConfiguracaoFronteiraAproximacao; avaliacao: Readonly&lt;{ candidatoCinemati… [continua na fonte]</code> | — / — |
 | <code>scripts/validar-reentrada.ts::validarReentrada.resultado.[callback]:ArrowFunction#3</code> · [L30](../../scripts/validar-reentrada.ts#L30) | <code>(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "aproximacao" &#124; "reentrada" &#124; "falha"; automatico: boolean; candidatoCinematico: boolean; autorizado: boolean; requisitos: readonly Readonly&lt;RequisitoAproximacao&gt;[]; limites: ConfiguracaoFronteiraAproximacao; avaliacao: Readonly&lt;{ candidatoCinemati… [continua na fonte]</code> | — / — |
 | <code>scripts/validar-reentrada.ts::validarReentrada.resultado.[callback]:ArrowFunction#4</code> · [L30](../../scripts/validar-reentrada.ts#L30) | <code>(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "aproximacao" &#124; "reentrada" &#124; "falha"; automatico: boolean; candidatoCinematico: boolean; autorizado: boolean; requisitos: readonly Readonly&lt;RequisitoAproximacao&gt;[]; limites: ConfiguracaoFronteiraAproximacao; avaliacao: Readonly&lt;{ candidatoCinemati… [continua na fonte]</code> | — / — |
+| <code>scripts/validar-termica-re003.ts::validarLimiaresTermicos.[callback]:ArrowFunction#1</code> · [L18](../../scripts/validar-termica-re003.ts#L18) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): EstadoFisico</code> | — / — |
+| <code>scripts/validar-termica-re003.ts::validarLimiaresTermicos.[callback]:ArrowFunction#2</code> · [L18](../../scripts/validar-termica-re003.ts#L18) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): EstadoFisico</code> | — / — |
+| <code>scripts/validar-termica-re003.ts::validarLimiaresTermicos.[callback]:ArrowFunction#3</code> · [L24](../../scripts/validar-termica-re003.ts#L24) | <code>(e: EventoMissao): boolean</code> | — / — |
+| <code>scripts/validar-termica-re003.ts::validarLimiaresTermicos.[callback]:ArrowFunction#4</code> · [L26](../../scripts/validar-termica-re003.ts#L26) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): boolean</code> | — / — |
+| <code>scripts/validar-termica-re003.ts::validarLimiaresTermicos.[callback]:ArrowFunction#5</code> · [L27](../../scripts/validar-termica-re003.ts#L27) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): boolean</code> | — / — |
+| <code>scripts/validar-termica-re003.ts::validarLimiaresTermicos.[callback]:ArrowFunction#6</code> · [L28](../../scripts/validar-termica-re003.ts#L28) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): boolean</code> | — / — |
+| <code>scripts/validar-termica-re003.ts::validarLimiaresTermicos.[callback]:ArrowFunction#7</code> · [L35](../../scripts/validar-termica-re003.ts#L35) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): number</code> | — / — |
+| <code>scripts/validar-termica-re003.ts::validarLimiaresTermicos.[callback]:ArrowFunction#8</code> · [L35](../../scripts/validar-termica-re003.ts#L35) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): number</code> | — / — |
+| <code>scripts/validar-termica-re003.ts::validarLimiaresTermicos.[callback]:ArrowFunction#9</code> · [L38](../../scripts/validar-termica-re003.ts#L38) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): number</code> | — / — |
+| <code>scripts/validar-termica-re003.ts::validarLimiaresTermicos.[callback]:ArrowFunction#10</code> · [L38](../../scripts/validar-termica-re003.ts#L38) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): number</code> | — / — |
+| <code>scripts/validar-termica-re003.ts::validarLimiaresTermicos.[callback]:ArrowFunction#11</code> · [L39](../../scripts/validar-termica-re003.ts#L39) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): number</code> | — / — |
+| <code>scripts/validar-termica-re003.ts::validarLimiaresTermicos.[callback]:ArrowFunction#12</code> · [L39](../../scripts/validar-termica-re003.ts#L39) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): number</code> | — / — |
+| <code>scripts/validar-termica-re003.ts::validarLimiaresTermicos.[callback]:ArrowFunction#13</code> · [L43](../../scripts/validar-termica-re003.ts#L43) | <code>(e: EventoMissao): boolean</code> | — / — |
+| <code>scripts/validar-termica-re003.ts::validarLimiaresTermicos.[callback]:ArrowFunction#14</code> · [L50](../../scripts/validar-termica-re003.ts#L50) | <code>(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "aproximacao" &#124; "reentrada" &#124; "falha"; automatico: boolean; candidatoCinematico: boolean; autorizado: boolean; requisitos: readonly Readonly&lt;RequisitoAproximacao&gt;[]; limites: ConfiguracaoFronteiraAproximacao; avaliacao: Readonly&lt;{ candidatoCinemati… [continua na fonte]</code> | <code>o.flaps.map</code> / — |
+| <code>scripts/validar-termica-re003.ts::validarLimiaresTermicos.[callback]#14.[callback]:ArrowFunction#1</code> · [L50](../../scripts/validar-termica-re003.ts#L50) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): number</code> | — / — |
+| <code>scripts/validar-termica-re003.ts::validarLimiaresTermicos.[callback]#14.[callback]:ArrowFunction#2</code> · [L50](../../scripts/validar-termica-re003.ts#L50) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): number</code> | — / — |
 | <code>site/build/pluginInstitucional.ts::pluginInstitucional.atenderInstitucional.[callback]:ArrowFunction#1</code> · [L32](../../site/build/pluginInstitucional.ts#L32) | <code>(p: { readonly caminho: "/publicacoes/pouso-propulsivo-bss-2026.pdf"; readonly fonte: "docs/estudos/Artigo_Cientifico_BlackStar_BSS_Pouso_Propulsivo.pdf"; } &#124; { readonly caminho: "/publicacoes/engenharia-orbita-retorno-re001-2026.pdf"; readonly fonte: "docs/estudos/Black_Star_RE001_Tese_Engenharia_Orbita_e_Retorno.pdf"; }): boolean</code> | — / — |
 | <code>site/build/pluginInstitucional.ts::pluginInstitucional.atenderInstitucional.[callback]:ArrowFunction#2</code> · [L33](../../site/build/pluginInstitucional.ts#L33) | <code>(p: "index.html" &#124; "pesquisa.html" &#124; "simulador.html"): boolean</code> | <code>p.slice</code> / — |
 | <code>site/scripts/carrossel.ts::iniciarCarrossel.mostrarSlide.[callback]:ArrowFunction#1</code> · [L55](../../site/scripts/carrossel.ts#L55) | <code>(slide: HTMLImageElement, i: number): void</code> | <code>slide.classList.toggle</code>; <code>slide.setAttribute</code>; <code>String</code> / — |
@@ -34201,49 +34638,48 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/cenarios/EnsaioMissaoBss005.ts::avancarEnsaioMissaoBss005.[callback]:ArrowFunction#5</code> · [L384](../../src/cenarios/EnsaioMissaoBss005.ts#L384) | <code>(motivo: string): boolean</code> | <code>['velocidade-vertical-no-toque', 'velocidade-horizontal-no-toque',<br>    'atitude-ou-rotacao-no-toque', 'vinculos-rompidos'].includes</code> / — |
 | <code>src/cenarios/EnsaioReentrada.ts::validarComandoReentrada.[callback]:ArrowFunction#1</code> · [L81](../../src/cenarios/EnsaioReentrada.ts#L81) | <code>(k: string): boolean</code> | <code>Object.hasOwn</code> / — |
 | <code>src/cenarios/EnsaioReentrada.ts::validarComandoReentrada.[callback]:ArrowFunction#2</code> · [L89](../../src/cenarios/EnsaioReentrada.ts#L89) | <code>(v: unknown): boolean</code> | <code>Number.isFinite</code>; <code>Math.abs</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::configurarReentrada.[callback]:ArrowFunction#1</code> · [L108](../../src/cenarios/EnsaioReentrada.ts#L108) | <code>(v: boolean): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::configurarReentrada.[callback]:ArrowFunction#2</code> · [L113](../../src/cenarios/EnsaioReentrada.ts#L113) | <code>(v: any): boolean</code> | <code>Number.isFinite</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]:ArrowFunction#1</code> · [L142](../../src/cenarios/EnsaioReentrada.ts#L142) | <code>(): Vetor3</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]:ArrowFunction#2</code> · [L149](../../src/cenarios/EnsaioReentrada.ts#L149) | <code>(i: number): FlapReentrada</code> | <code>FlapReentrada</code>; <code>Vetor3</code>; <code>estadoModulo</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#2.[callback]:ArrowFunction#1</code> · [L159](../../src/cenarios/EnsaioReentrada.ts#L159) | <code>(): number</code> | <code>orbitador.observarRolagem</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#2.[callback]:ArrowFunction#2</code> · [L159](../../src/cenarios/EnsaioReentrada.ts#L159) | <code>(): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]:ArrowFunction#3</code> · [L176](../../src/cenarios/EnsaioReentrada.ts#L176) | <code>(): number</code> | <code>fixadores.filter(f =&gt; f.estaAtivo).reduce</code>; <code>fixadores.filter</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#3.[callback]:ArrowFunction#1</code> · [L176](../../src/cenarios/EnsaioReentrada.ts#L176) | <code>(f: FixadorEstrutural): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#3.[callback]:ArrowFunction#2</code> · [L176](../../src/cenarios/EnsaioReentrada.ts#L176) | <code>(s: number, f: FixadorEstrutural): number</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]:ArrowFunction#1</code> · [L188](../../src/cenarios/EnsaioReentrada.ts#L188) | <code>(o: Objeto): boolean</code> | <code>c.fixadores.some</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]#1.[callback]:ArrowFunction#1</code> · [L188](../../src/cenarios/EnsaioReentrada.ts#L188) | <code>(f: FixadorEstrutural): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]:ArrowFunction#2</code> · [L189](../../src/cenarios/EnsaioReentrada.ts#L189) | <code>(s: number, o: Objeto): number</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]:ArrowFunction#3</code> · [L190](../../src/cenarios/EnsaioReentrada.ts#L190) | <code>(s: Vetor3, o: Objeto): Vetor3</code> | <code>s.adicionar</code>; <code>o.getEstadoFisico().posicaoM.multiplicar</code>; <code>o.getEstadoFisico</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]:ArrowFunction#4</code> · [L191](../../src/cenarios/EnsaioReentrada.ts#L191) | <code>(s: number, o: Objeto): number</code> | <code>o.getMomentoInerciaKgM2</code>; <code>o.getEstadoFisico().posicaoM.subtrair</code>; <code>o.getEstadoFisico</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.constructor.[callback]:ArrowFunction#1</code> · [L223](../../src/cenarios/EnsaioReentrada.ts#L223) | <code>(): { alphaRad: number; taxaArfagemRadps: number; taxaFluxoRadps: number; pressaoDinamicaPa: number; fluxoTermicoWm2: number; cargaG: number; torquePassivoNm: number; energiaMecanicaEspecificaJPorKg: number; integridadeMinima: number; inerciaKgM2: number; phiRad: number; disponivel: boolean; }</code> | <code>this.lerControle</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando.[callback]:ArrowFunction#1</code> · [L262](../../src/cenarios/EnsaioReentrada.ts#L262) | <code>(f: FlapReentrada): void</code> | <code>f.solicitarDeflexaoRad</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando.[callback]:ArrowFunction#2</code> · [L276](../../src/cenarios/EnsaioReentrada.ts#L276) | <code>(r: Readonly&lt;RequisitoAproximacao&gt;): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando.[callback]:ArrowFunction#3</code> · [L276](../../src/cenarios/EnsaioReentrada.ts#L276) | <code>(r: Readonly&lt;RequisitoAproximacao&gt;): string</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando.[callback]:ArrowFunction#4</code> · [L277](../../src/cenarios/EnsaioReentrada.ts#L277) | <code>(f: FlapReentrada): void</code> | <code>f.conexaoEletrica.fecharInterruptor</code>; <code>f.conexaoEletrica.abrirInterruptor</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso.[callback]:ArrowFunction#1</code> · [L296](../../src/cenarios/EnsaioReentrada.ts#L296) | <code>(f: FlapReentrada): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso.[callback]:ArrowFunction#2</code> · [L299](../../src/cenarios/EnsaioReentrada.ts#L299) | <code>(s: number, o: Objeto): number</code> | <code>Math.max</code>; <code>c.mundo.obterForcaArrastoAtmosferico(o)<br>    .produtoEscalar</code>; <code>c.mundo.obterForcaArrastoAtmosferico</code>; <code>o.getEstadoFisico().velocidadeMps.subtrair</code>; <code>o.getEstadoFisico</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso.[callback]:ArrowFunction#3</code> · [L302](../../src/cenarios/EnsaioReentrada.ts#L302) | <code>(p: Vetor3): Vetor3</code> | <code>c.mundo.obterGravidadeMps2</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso.[callback]:ArrowFunction#4</code> · [L306](../../src/cenarios/EnsaioReentrada.ts#L306) | <code>(p: Vetor3): Vetor3</code> | <code>c.mundo.obterGravidadeMps2</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#1</code> · [L330](../../src/cenarios/EnsaioReentrada.ts#L330) | <code>(s: number, o: Objeto): number</code> | <code>Math.max</code>; <code>c.mundo.obterForcaArrastoAtmosferico(o)<br>    .produtoEscalar</code>; <code>c.mundo.obterForcaArrastoAtmosferico</code>; <code>o.getEstadoFisico().velocidadeMps.subtrair</code>; <code>o.getEstadoFisico</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#2</code> · [L332](../../src/cenarios/EnsaioReentrada.ts#L332) | <code>(s: number, o: Objeto): number</code> | <code>Math.max</code>; <code>c.mundo.obterForcaArrastoAtmosferico(o).produtoEscalar</code>; <code>c.mundo.obterForcaArrastoAtmosferico</code>; <code>o.getEstadoFisico().velocidadeMps.subtrair</code>; <code>o.getEstadoFisico</code>; <code>o.obterPotenciaAquecimentoAerodinamicoW</code>; <code>c.mundo.obterCondicoesAtmosfericas</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#3</code> · [L347](../../src/cenarios/EnsaioReentrada.ts#L347) | <code>(p: Vetor3): Vetor3</code> | <code>c.mundo.obterGravidadeMps2</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#4</code> · [L354](../../src/cenarios/EnsaioReentrada.ts#L354) | <code>(s: number, o: Objeto): number</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#5</code> · [L356](../../src/cenarios/EnsaioReentrada.ts#L356) | <code>(s: number, o: Objeto): number</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#6</code> · [L362](../../src/cenarios/EnsaioReentrada.ts#L362) | <code>(f: FlapReentrada): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#7</code> · [L364](../../src/cenarios/EnsaioReentrada.ts#L364) | <code>(ct: ContatoSuperficieFisico): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#8</code> · [L369](../../src/cenarios/EnsaioReentrada.ts#L369) | <code>(f: FlapReentrada, i: number): { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }</code> | <code>f.getEstadoFisico</code>; <code>calcularFluxoTermicoIndicador</code>; <code>c.mundo.obterCondicoesAtmosfericas</code>; <code>f.getEstadoFisico().velocidadeMps.subtrair</code>; <code>f.obterDiagnosticoAtuacao</code>; <code>c.perfil.amostrar</code>; <code>c.ambiente.referencial.altitudeGeometricaM</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#9</code> · [L378](../../src/cenarios/EnsaioReentrada.ts#L378) | <code>(f: FixadorEstrutural): { id: string; estado: "integro" &#124; "rompido" &#124; "liberado"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; }</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle.[callback]:ArrowFunction#1</code> · [L393](../../src/cenarios/EnsaioReentrada.ts#L393) | <code>(s: number, f: FlapReentrada, i: number): number</code> | <code>f.obterForcasAerodinamicas(c.mundo.obterCondicoesAtmosfericas(f)).reduce</code>; <code>f.obterForcasAerodinamicas</code>; <code>c.mundo.obterCondicoesAtmosfericas</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle.[callback]#1.[callback]:ArrowFunction#1</code> · [L394](../../src/cenarios/EnsaioReentrada.ts#L394) | <code>(p: number, forca: ForcaFisicaSolicitada): number</code> | <code>(forca.pontoM ?? f.getEstadoFisico().posicaoM).subtrair(g.centroM).produtoVetorial</code>; <code>(forca.pontoM ?? f.getEstadoFisico().posicaoM).subtrair</code>; <code>f.getEstadoFisico</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle.[callback]:ArrowFunction#2</code> · [L401](../../src/cenarios/EnsaioReentrada.ts#L401) | <code>(o: Objeto): number</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle.[callback]:ArrowFunction#3</code> · [L403](../../src/cenarios/EnsaioReentrada.ts#L403) | <code>(f: FlapReentrada, i: number): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.atualizarSupervisor.[callback]:ArrowFunction#1</code> · [L414](../../src/cenarios/EnsaioReentrada.ts#L414) | <code>(f: FlapReentrada, i: number): number</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.atualizarSupervisor.[callback]:ArrowFunction#2</code> · [L425](../../src/cenarios/EnsaioReentrada.ts#L425) | <code>(f: FlapReentrada): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.atualizarSupervisor.[callback]:ArrowFunction#3</code> · [L426](../../src/cenarios/EnsaioReentrada.ts#L426) | <code>(f: FlapReentrada): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes.condicoes.[callback]:ArrowFunction#1</code> · [L444](../../src/cenarios/EnsaioReentrada.ts#L444) | <code>(f: FlapReentrada): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes.condicoes.[callback]:ArrowFunction#2</code> · [L448](../../src/cenarios/EnsaioReentrada.ts#L448) | <code>(f: FlapReentrada): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes.condicoes.[callback]:ArrowFunction#3</code> · [L449](../../src/cenarios/EnsaioReentrada.ts#L449) | <code>(f: FixadorEstrutural): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes.valores.[callback]:ArrowFunction#1</code> · [L464](../../src/cenarios/EnsaioReentrada.ts#L464) | <code>(f: FlapReentrada): number</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::configurarReentrada.[callback]:ArrowFunction#1</code> · [L123](../../src/cenarios/EnsaioReentrada.ts#L123) | <code>(v: any): boolean</code> | <code>Number.isFinite</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]:ArrowFunction#1</code> · [L187](../../src/cenarios/EnsaioReentrada.ts#L187) | <code>(): Vetor3</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]:ArrowFunction#2</code> · [L194](../../src/cenarios/EnsaioReentrada.ts#L194) | <code>(i: number): FlapReentrada</code> | <code>FlapReentrada</code>; <code>Vetor3</code>; <code>estadoModulo</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#2.[callback]:ArrowFunction#1</code> · [L204](../../src/cenarios/EnsaioReentrada.ts#L204) | <code>(): number</code> | <code>orbitador.observarRolagem</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#2.[callback]:ArrowFunction#2</code> · [L204](../../src/cenarios/EnsaioReentrada.ts#L204) | <code>(): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]:ArrowFunction#3</code> · [L221](../../src/cenarios/EnsaioReentrada.ts#L221) | <code>(): number</code> | <code>fixadores.filter(f =&gt; f.estaAtivo).reduce</code>; <code>fixadores.filter</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#3.[callback]:ArrowFunction#1</code> · [L221](../../src/cenarios/EnsaioReentrada.ts#L221) | <code>(f: FixadorEstrutural): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#3.[callback]:ArrowFunction#2</code> · [L221](../../src/cenarios/EnsaioReentrada.ts#L221) | <code>(s: number, f: FixadorEstrutural): number</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]:ArrowFunction#1</code> · [L233](../../src/cenarios/EnsaioReentrada.ts#L233) | <code>(o: Objeto): boolean</code> | <code>c.fixadores.some</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]#1.[callback]:ArrowFunction#1</code> · [L233](../../src/cenarios/EnsaioReentrada.ts#L233) | <code>(f: FixadorEstrutural): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]:ArrowFunction#2</code> · [L234](../../src/cenarios/EnsaioReentrada.ts#L234) | <code>(s: number, o: Objeto): number</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]:ArrowFunction#3</code> · [L235](../../src/cenarios/EnsaioReentrada.ts#L235) | <code>(s: Vetor3, o: Objeto): Vetor3</code> | <code>s.adicionar</code>; <code>o.getEstadoFisico().posicaoM.multiplicar</code>; <code>o.getEstadoFisico</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]:ArrowFunction#4</code> · [L236](../../src/cenarios/EnsaioReentrada.ts#L236) | <code>(s: number, o: Objeto): number</code> | <code>o.getMomentoInerciaKgM2</code>; <code>o.getEstadoFisico().posicaoM.subtrair</code>; <code>o.getEstadoFisico</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.constructor.[callback]:ArrowFunction#1</code> · [L268](../../src/cenarios/EnsaioReentrada.ts#L268) | <code>(): { alphaRad: number; taxaArfagemRadps: number; taxaFluxoRadps: number; pressaoDinamicaPa: number; fluxoTermicoWm2: number; cargaG: number; torquePassivoNm: number; energiaMecanicaEspecificaJPorKg: number; integridadeMinima: number; inerciaKgM2: number; phiRad: number; disponivel: boolean; }</code> | <code>this.lerControle</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando.[callback]:ArrowFunction#1</code> · [L307](../../src/cenarios/EnsaioReentrada.ts#L307) | <code>(f: FlapReentrada): void</code> | <code>f.solicitarDeflexaoRad</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando.[callback]:ArrowFunction#2</code> · [L321](../../src/cenarios/EnsaioReentrada.ts#L321) | <code>(r: Readonly&lt;RequisitoAproximacao&gt;): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando.[callback]:ArrowFunction#3</code> · [L321](../../src/cenarios/EnsaioReentrada.ts#L321) | <code>(r: Readonly&lt;RequisitoAproximacao&gt;): string</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando.[callback]:ArrowFunction#4</code> · [L322](../../src/cenarios/EnsaioReentrada.ts#L322) | <code>(f: FlapReentrada): void</code> | <code>f.conexaoEletrica.fecharInterruptor</code>; <code>f.conexaoEletrica.abrirInterruptor</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso.[callback]:ArrowFunction#1</code> · [L341](../../src/cenarios/EnsaioReentrada.ts#L341) | <code>(f: FlapReentrada): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso.[callback]:ArrowFunction#2</code> · [L344](../../src/cenarios/EnsaioReentrada.ts#L344) | <code>(s: number, o: Objeto): number</code> | <code>Math.max</code>; <code>c.mundo.obterForcaArrastoAtmosferico(o)<br>    .produtoEscalar</code>; <code>c.mundo.obterForcaArrastoAtmosferico</code>; <code>o.getEstadoFisico().velocidadeMps.subtrair</code>; <code>o.getEstadoFisico</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso.[callback]:ArrowFunction#3</code> · [L347](../../src/cenarios/EnsaioReentrada.ts#L347) | <code>(p: Vetor3): Vetor3</code> | <code>c.mundo.obterGravidadeMps2</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso.[callback]:ArrowFunction#4</code> · [L351](../../src/cenarios/EnsaioReentrada.ts#L351) | <code>(p: Vetor3): Vetor3</code> | <code>c.mundo.obterGravidadeMps2</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#1</code> · [L375](../../src/cenarios/EnsaioReentrada.ts#L375) | <code>(s: number, o: Objeto): number</code> | <code>Math.max</code>; <code>c.mundo.obterForcaArrastoAtmosferico(o)<br>    .produtoEscalar</code>; <code>c.mundo.obterForcaArrastoAtmosferico</code>; <code>o.getEstadoFisico().velocidadeMps.subtrair</code>; <code>o.getEstadoFisico</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#2</code> · [L377](../../src/cenarios/EnsaioReentrada.ts#L377) | <code>(s: number, o: Objeto): number</code> | <code>Math.max</code>; <code>c.mundo.obterForcaArrastoAtmosferico(o).produtoEscalar</code>; <code>c.mundo.obterForcaArrastoAtmosferico</code>; <code>o.getEstadoFisico().velocidadeMps.subtrair</code>; <code>o.getEstadoFisico</code>; <code>o.obterPotenciaAquecimentoAerodinamicoW</code>; <code>c.mundo.obterCondicoesAtmosfericas</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#3</code> · [L392](../../src/cenarios/EnsaioReentrada.ts#L392) | <code>(p: Vetor3): Vetor3</code> | <code>c.mundo.obterGravidadeMps2</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#4</code> · [L399](../../src/cenarios/EnsaioReentrada.ts#L399) | <code>(s: number, o: Objeto): number</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#5</code> · [L401](../../src/cenarios/EnsaioReentrada.ts#L401) | <code>(s: number, o: Objeto): number</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#6</code> · [L407](../../src/cenarios/EnsaioReentrada.ts#L407) | <code>(f: FlapReentrada): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#7</code> · [L409](../../src/cenarios/EnsaioReentrada.ts#L409) | <code>(ct: ContatoSuperficieFisico): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#8</code> · [L414](../../src/cenarios/EnsaioReentrada.ts#L414) | <code>(f: FlapReentrada, i: number): { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }</code> | <code>f.getEstadoFisico</code>; <code>calcularFluxoTermicoIndicador</code>; <code>c.mundo.obterCondicoesAtmosfericas</code>; <code>f.getEstadoFisico().velocidadeMps.subtrair</code>; <code>f.obterDiagnosticoAtuacao</code>; <code>c.perfil.amostrar</code>; <code>c.ambiente.referencial.altitudeGeometricaM</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#9</code> · [L423](../../src/cenarios/EnsaioReentrada.ts#L423) | <code>(f: FixadorEstrutural): { id: string; estado: "integro" &#124; "rompido" &#124; "liberado"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; }</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle.[callback]:ArrowFunction#1</code> · [L438](../../src/cenarios/EnsaioReentrada.ts#L438) | <code>(s: number, f: FlapReentrada, i: number): number</code> | <code>f.obterForcasAerodinamicas(c.mundo.obterCondicoesAtmosfericas(f)).reduce</code>; <code>f.obterForcasAerodinamicas</code>; <code>c.mundo.obterCondicoesAtmosfericas</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle.[callback]#1.[callback]:ArrowFunction#1</code> · [L439](../../src/cenarios/EnsaioReentrada.ts#L439) | <code>(p: number, forca: ForcaFisicaSolicitada): number</code> | <code>(forca.pontoM ?? f.getEstadoFisico().posicaoM).subtrair(g.centroM).produtoVetorial</code>; <code>(forca.pontoM ?? f.getEstadoFisico().posicaoM).subtrair</code>; <code>f.getEstadoFisico</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle.[callback]:ArrowFunction#2</code> · [L446](../../src/cenarios/EnsaioReentrada.ts#L446) | <code>(o: Objeto): number</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle.[callback]:ArrowFunction#3</code> · [L448](../../src/cenarios/EnsaioReentrada.ts#L448) | <code>(f: FlapReentrada, i: number): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.atualizarSupervisor.[callback]:ArrowFunction#1</code> · [L459](../../src/cenarios/EnsaioReentrada.ts#L459) | <code>(f: FlapReentrada, i: number): number</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.atualizarSupervisor.[callback]:ArrowFunction#2</code> · [L470](../../src/cenarios/EnsaioReentrada.ts#L470) | <code>(f: FlapReentrada): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.atualizarSupervisor.[callback]:ArrowFunction#3</code> · [L471](../../src/cenarios/EnsaioReentrada.ts#L471) | <code>(f: FlapReentrada): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes.condicoes.[callback]:ArrowFunction#1</code> · [L489](../../src/cenarios/EnsaioReentrada.ts#L489) | <code>(f: FlapReentrada): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes.condicoes.[callback]:ArrowFunction#2</code> · [L493](../../src/cenarios/EnsaioReentrada.ts#L493) | <code>(f: FlapReentrada): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes.condicoes.[callback]:ArrowFunction#3</code> · [L494](../../src/cenarios/EnsaioReentrada.ts#L494) | <code>(f: FixadorEstrutural): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes.valores.[callback]:ArrowFunction#1</code> · [L509](../../src/cenarios/EnsaioReentrada.ts#L509) | <code>(f: FlapReentrada): number</code> | — / — |
 | <code>src/cenarios/ReproducaoDiarioBss005.ts::normalizarParaComparacao.[callback]:ArrowFunction#1</code> · [L55](../../src/cenarios/ReproducaoDiarioBss005.ts#L55) | <code>(chave: string): [string, unknown]</code> | <code>normalizarParaComparacao</code> / — |
 | <code>src/cenarios/ReproducaoDiarioBss005.ts::validarDiario.[callback]:ArrowFunction#1</code> · [L72](../../src/cenarios/ReproducaoDiarioBss005.ts#L72) | <code>([k]: [string, string &#124; number &#124; boolean &#124; object &#124; Vetor3 &#124; { readonly centroCascoLocalM: Vetor3; readonly velocidadeLocalMps: Vetor3; readonly inclinacaoRad: number; readonly velocidadeAngularRadps: number; } &#124; readonly RajadaVento[]]): boolean</code> | — / — |
 | <code>src/cenarios/ReproducaoDiarioBss005.ts::validarDiario.[callback]:ArrowFunction#2</code> · [L78](../../src/cenarios/ReproducaoDiarioBss005.ts#L78) | <code>(objeto: Objeto): { id: string; massaKg: number; temperaturaC: number; integridade: number; estado: EstadoFisico; }</code> | <code>objeto.getEstadoFisico</code> / — |
@@ -34492,24 +34928,19 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts::ResolvedorEsforcoEstrutural.registrarImpulsoDeContato.[callback]#3.[callback]:ArrowFunction#4</code> · [L67](../../src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts#L67) | <code>(membro: Objeto): boolean</code> | <code>alcancaveis.has</code> / — |
 | <code>src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts::ResolvedorEsforcoEstrutural.obterCentroDeMassa.[callback]:ArrowFunction#1</code> · [L92](../../src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts#L92) | <code>(soma: number, membro: Objeto): number</code> | — / — |
 | <code>src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts::ResolvedorEsforcoEstrutural.obterCentroDeMassa.[callback]:ArrowFunction#2</code> · [L93](../../src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts#L93) | <code>(soma: Vetor3, membro: Objeto): Vetor3</code> | <code>membro.getEstadoFisico</code>; <code>soma.adicionar</code>; <code>posicao.multiplicar</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.lerConfiguracao.[callback]:ArrowFunction#1</code> · [L43](../../src/reentrada.ts#L43) | <code>([k, input]: ["areaReferenciaM2" &#124; "comprimentoM" &#124; "alturaM" &#124; "raioNarizM" &#124; "areaAquecidaM2" &#124; "massaCorpoKg" &#124; "massaFlapKg" &#124; "massaBateriaKg" &#124; "resistenciaCorpoJ" &#124; "resistenciaFlapJ" &#124; "resistenciaFixadorN" &#124; "areaFlapM2" &#124; "clFlapPorRad" &#124; "cdFlapBase" &#124; "cdFlapDeflexao" &#124; "cursoFlapRad" &#124; "taxaFlapRadps" &#124; "bracoFlapM" &#124; "potenciaFlapW" &#124; "potenciaRepousoFlapW" &#124; "tensaoBateriaV" &#124; "energiaBateriaJ" &#124; "ganhoAlpha" &#124; "ganhoTaxa" &#124; "torqueMinimoAutoridadeNm" &#124; "taxaRolagemRadps" &#124; "coeficienteSuttonGravesSI" &#124; "larguraM" &#124; "clCorpo" &#124; "fatorMachBase" &#124; "fatorMachVariacao" &#124; "cdCorpoBase" &#124; "cdCorpoAlpha" &#124; "cdMachGauss" &#124; "cpBaseM" &#124; "cpVariacaoM" &#124; "deslocamentoVerticalFlapM" &#124; "raioNarizFlapM" &#124; "areaAquecidaFlapM2" &#124; "calorEspecificoCorpoJPorKgC" &#124; "calorEspecificoFlapJPorKgC" &#124; "comprimentoCaracteristicoCorpoM" &#124; "comprimentoCaracteristicoFlapM" &#124; "cursoRolagemRad" &#124; "conveccaoCorpoWPorM2C" &#124; "condutanciaFlapWPorC" &#124; "fracaoCargaInicialBateria", HTMLInputElement]): ["areaReferenciaM2" &#124; "comprimentoM" &#124; "alturaM" &#124; "raioNarizM" &#124; "areaAquecidaM2" &#124; "massaCorpoKg" &#124; "massaFlapKg" &#124; "massaBateriaKg" &#124; "resistenciaCorpoJ" &#124; "resistenciaFlapJ" &#124; "resistenciaFixadorN" &#124; "areaFlapM2" &#124; "clFlapPorRad" &#124; "cdFlapBase" &#124; "cdFlapDeflexao" &#124; "cursoFlapRad" &#124; "taxaFlapRadps" &#124; "bracoFlapM" &#124; "potenciaFlapW" &#124; "potenciaRepousoFlapW" &#124; "tensaoBateriaV" &#124; "energiaBateriaJ" &#124; "ganhoAlpha" &#124; "ganhoTaxa" &#124; "torqueMinimoAutoridadeNm" &#124; "taxaRolagemRadps" &#124; "coeficienteSuttonGravesSI"… [continua na fonte]</code> | <code>Number</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.atualizarPainel.[callback]:ArrowFunction#1</code> · [L146](../../src/reentrada.ts#L146) | <code>(h: Readonly&lt;{ aceleracaoLiquidaMps2: number; distanciaFrenagemM: number; quedaFrenagemRadialM: number; tempoFrenagemS: number; velocidadeLimiteNecessariaMps: number &#124; null; desvioVelocidadeMps: number &#124; null; limitesNecessariosAtendidos: boolean; }&gt;): string</code> | <code>h.velocidadeLimiteNecessariaMps?.toFixed</code>; <code>h.desvioVelocidadeMps?.toFixed</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.atualizarPainel.[callback]:ArrowFunction#2</code> · [L161](../../src/reentrada.ts#L161) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): boolean</code> | — / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#1</code> · [L180](../../src/reentrada.ts#L180) | <code>(): void</code> | — / <code>configAlterada</code> |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#2</code> · [L181](../../src/reentrada.ts#L181) | <code>(): void</code> | — / <code>configAlterada</code> |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#3</code> · [L182](../../src/reentrada.ts#L182) | <code>(this: HTMLFormElement, e: SubmitEvent): void</code> | <code>e.preventDefault</code>; <code>ensaio.pausar</code>; <code>executor.suspenderReferenciaRelogio</code>; <code>preparar</code>; <code>ensaio.iniciar</code> / <code>ultimaAtualizacaoMs</code> |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#4</code> · [L188](../../src/reentrada.ts#L188) | <code>(): void</code> | <code>preparar</code> / <code>iniciais.disabled</code> |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#5</code> · [L189](../../src/reentrada.ts#L189) | <code>(): void</code> | <code>comandar</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#6</code> · [L190](../../src/reentrada.ts#L190) | <code>(): void</code> | <code>comandar</code>; <code>rad</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#7</code> · [L194](../../src/reentrada.ts#L194) | <code>(): void</code> | <code>comandar</code>; <code>rad</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#8</code> · [L197](../../src/reentrada.ts#L197) | <code>(): void</code> | <code>comandar</code>; <code>elemento</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#9</code> · [L198](../../src/reentrada.ts#L198) | <code>(): void</code> | <code>comandar</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#10</code> · [L199](../../src/reentrada.ts#L199) | <code>(): void</code> | <code>comandar</code>; <code>ensaio.observar().flaps.every</code>; <code>ensaio.observar</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]#10.[callback]:ArrowFunction#1</code> · [L199](../../src/reentrada.ts#L199) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): boolean</code> | — / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#11</code> · [L200](../../src/reentrada.ts#L200) | <code>(): void</code> | <code>comandar</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#12</code> · [L201](../../src/reentrada.ts#L201) | <code>(): void</code> | <code>comandar</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#13</code> · [L202](../../src/reentrada.ts#L202) | <code>(): void</code> | <code>preparar</code>; <code>ensaio.iniciar</code>; <code>Math.round</code>; <code>avancar</code>; <code>ensaio.pausar</code>; <code>executor.suspenderReferenciaRelogio</code> / <code>i</code>; <code>ultimaAtualizacaoMs</code> |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#14</code> · [L207](../../src/reentrada.ts#L207) | <code>(): void</code> | <code>Blob</code>; <code>JSON.stringify</code>; <code>ensaio.exportar</code>; <code>URL.createObjectURL</code>; <code>document.createElement</code>; <code>link.click</code>; <code>URL.revokeObjectURL</code> / <code>link.href</code>; <code>link.download</code>; <code>mensagem.textContent</code> |
+| <code>src/reentrada.ts::iniciarBancada.lerConfiguracao.[callback]:ArrowFunction#1</code> · [L62](../../src/reentrada.ts#L62) | <code>([k, input]: ["areaReferenciaM2" &#124; "comprimentoM" &#124; "alturaM" &#124; "raioNarizM" &#124; "areaAquecidaM2" &#124; "massaCorpoKg" &#124; "massaFlapKg" &#124; "massaBateriaKg" &#124; "resistenciaCorpoJ" &#124; "resistenciaFlapJ" &#124; "resistenciaFixadorN" &#124; "areaFlapM2" &#124; "clFlapPorRad" &#124; "cdFlapBase" &#124; "cdFlapDeflexao" &#124; "cursoFlapRad" &#124; "taxaFlapRadps" &#124; "bracoFlapM" &#124; "potenciaFlapW" &#124; "potenciaRepousoFlapW" &#124; "tensaoBateriaV" &#124; "energiaBateriaJ" &#124; "ganhoAlpha" &#124; "ganhoTaxa" &#124; "torqueMinimoAutoridadeNm" &#124; "taxaRolagemRadps" &#124; "coeficienteSuttonGravesSI" &#124; "larguraM" &#124; "clCorpo" &#124; "fatorMachBase" &#124; "fatorMachVariacao" &#124; "cdCorpoBase" &#124; "cdCorpoAlpha" &#124; "cdMachGauss" &#124; "cpBaseM" &#124; "cpVariacaoM" &#124; "deslocamentoVerticalFlapM" &#124; "raioNarizFlapM" &#124; "areaAquecidaFlapM2" &#124; "calorEspecificoCorpoJPorKgC" &#124; "calorEspecificoFlapJPorKgC" &#124; "comprimentoCaracteristicoCorpoM" &#124; "comprimentoCaracteristicoFlapM" &#124; "cursoRolagemRad" &#124; "conveccaoCorpoWPorM2C" &#124; "condutanciaFlapWPorC" &#124; "fracaoCargaInicialBateria", HTMLInputElement]): ["areaReferenciaM2" &#124; "comprimentoM" &#124; "alturaM" &#124; "raioNarizM" &#124; "areaAquecidaM2" &#124; "massaCorpoKg" &#124; "massaFlapKg" &#124; "massaBateriaKg" &#124; "resistenciaCorpoJ" &#124; "resistenciaFlapJ" &#124; "resistenciaFixadorN" &#124; "areaFlapM2" &#124; "clFlapPorRad" &#124; "cdFlapBase" &#124; "cdFlapDeflexao" &#124; "cursoFlapRad" &#124; "taxaFlapRadps" &#124; "bracoFlapM" &#124; "potenciaFlapW" &#124; "potenciaRepousoFlapW" &#124; "tensaoBateriaV" &#124; "energiaBateriaJ" &#124; "ganhoAlpha" &#124; "ganhoTaxa" &#124; "torqueMinimoAutoridadeNm" &#124; "taxaRolagemRadps" &#124; "coeficienteSuttonGravesSI"… [continua na fonte]</code> | <code>numero</code> / — |
+| <code>src/reentrada.ts::iniciarBancada.capturarCamposConfiguracao.[callback]:ArrowFunction#1</code> · [L83](../../src/reentrada.ts#L83) | <code>(input: HTMLInputElement &#124; HTMLSelectElement): [string, string]</code> | — / — |
+| <code>src/reentrada.ts::iniciarBancada.atualizarPainel.[callback]:ArrowFunction#1</code> · [L293](../../src/reentrada.ts#L293) | <code>(h: Readonly&lt;{ aceleracaoLiquidaMps2: number; distanciaFrenagemM: number; quedaFrenagemRadialM: number; tempoFrenagemS: number; velocidadeLimiteNecessariaMps: number &#124; null; desvioVelocidadeMps: number &#124; null; limitesNecessariosAtendidos: boolean; }&gt;): string</code> | <code>h.velocidadeLimiteNecessariaMps?.toFixed</code>; <code>h.desvioVelocidadeMps?.toFixed</code> / — |
+| <code>src/reentrada.ts::iniciarBancada.atualizarPainel.[callback]:ArrowFunction#2</code> · [L309](../../src/reentrada.ts#L309) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): boolean</code> | — / — |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#1</code> · [L335](../../src/reentrada.ts#L335) | <code>(): void</code> | <code>comandar</code> / — |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#2</code> · [L336](../../src/reentrada.ts#L336) | <code>(): void</code> | <code>comandar</code>; <code>rad</code> / — |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#3</code> · [L340](../../src/reentrada.ts#L340) | <code>(): void</code> | <code>comandar</code>; <code>rad</code> / — |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#4</code> · [L343](../../src/reentrada.ts#L343) | <code>(): void</code> | <code>comandar</code>; <code>elemento</code> / — |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#5</code> · [L344](../../src/reentrada.ts#L344) | <code>(): void</code> | <code>comandar</code> / — |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#6</code> · [L345](../../src/reentrada.ts#L345) | <code>(): void</code> | <code>comandar</code>; <code>ensaio?.observar().flaps.every</code>; <code>ensaio?.observar</code> / — |
+| <code>src/reentrada.ts::iniciarBancada.[callback]#6.[callback]:ArrowFunction#1</code> · [L345](../../src/reentrada.ts#L345) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): boolean</code> | — / — |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#7</code> · [L346](../../src/reentrada.ts#L346) | <code>(): void</code> | <code>comandar</code> / — |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#8</code> · [L347](../../src/reentrada.ts#L347) | <code>(): void</code> | <code>comandar</code> / — |
 | <code>src/testes.ts::[callback]:ArrowFunction#1</code> · [L159](../../src/testes.ts#L159) | <code>(): void</code> | <code>toggleControlLayoutButton.setAttribute</code>; <code>String</code>; <code>localStorage.setItem</code> / <code>testLayout.dataset.controlsLayout</code> |
 | <code>src/testes.ts::objetosEmRepouso.[callback]:ArrowFunction#1</code> · [L260](../../src/testes.ts#L260) | <code>(objeto: Objeto): boolean</code> | <code>objeto.getEstadoFisico</code> / — |
 | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.[callback]:ArrowFunction#1</code> · [L343](../../src/testes.ts#L343) | <code>(_: unknown, indice: number): Objeto</code> | <code>Objeto</code>; <code>Vetor3</code> / — |
@@ -34866,6 +35297,28 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/cenarios/ComparacaoBssM9.test.ts::[callback]#1.[callback]#4.[callback]:ArrowFunction#1</code> · [L112](../../src/cenarios/ComparacaoBssM9.test.ts#L112) | <code>(m: number, o: Objeto): number</code> | — / — |
 | <code>src/cenarios/ComparacaoBssM9.test.ts::[callback]#1.[callback]#4.[callback]:ArrowFunction#2</code> · [L115](../../src/cenarios/ComparacaoBssM9.test.ts#L115) | <code>(m: number, o: Objeto): number</code> | — / — |
 | <code>src/cenarios/ComparacaoBssM9.test.ts::[callback]#1.[callback]:ArrowFunction#5</code> · [L118](../../src/cenarios/ComparacaoBssM9.test.ts#L118) | <code>(): void</code> | <code>mkdirSync</code>; <code>writeFileSync</code>; <code>JSON.stringify</code> / — |
+| <code>src/cenarios/ConfiguracaoReentrada.test.ts::[callback]:ArrowFunction#1</code> · [L4](../../src/cenarios/ConfiguracaoReentrada.test.ts#L4) | <code>(): void</code> | <code>it</code>; <code>it.each(['resistenciaCorpoJ', 'resistenciaFlapJ', 'resistenciaFixadorN'] as const)</code>; <code>it.each</code>; <code>it.each([undefined, null, [], {}, { limiteFlapsC: 5000 }])</code>; <code>it.each(['limiteOrbitadorC', 'limiteFlapsC', 'limiteBateriaC', 'altitudeM', 'parametros', 'corredor', 'aproximacao'])</code>; <code>it.each(['parametros', 'corredor', 'aproximacao'] as const)</code>; <code>it.each([NaN, Infinity, -Infinity, '', '5000', 5000.00001, -200.00001, undefined])</code>; <code>it.each([-200, 0, 900, 5000])</code>; <code>it.each([0, -1, NaN, Infinity, 1e12 + 1])</code> / — |
+| <code>src/cenarios/ConfiguracaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#1</code> · [L5](../../src/cenarios/ConfiguracaoReentrada.test.ts#L5) | <code>(): void</code> | <code>validarConfiguracaoExplicitaReentrada</code>; <code>criarCenarioReentrada</code>; <code>expect(fisico.objetos.map(o =&gt; o.limiteTermicoC)).toEqual</code>; <code>expect</code>; <code>fisico.objetos.map</code>; <code>criarEnsaioReentrada</code>; <code>e.exportar</code>; <code>expect(d.passosExecutados).toBe</code>; <code>expect(d.identificacao).toMatchObject</code>; <code>expect(d.inicial).toMatchObject</code> / — |
+| <code>src/cenarios/ConfiguracaoReentrada.test.ts::[callback]#1.[callback]#1.[callback]:ArrowFunction#1</code> · [L9](../../src/cenarios/ConfiguracaoReentrada.test.ts#L9) | <code>(o: Objeto): number</code> | — / — |
+| <code>src/cenarios/ConfiguracaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#2</code> · [L16](../../src/cenarios/ConfiguracaoReentrada.test.ts#L16) | <code>(chave: "resistenciaCorpoJ" &#124; "resistenciaFlapJ" &#124; "resistenciaFixadorN"): void</code> | <code>validarConfiguracaoExplicitaReentrada</code>; <code>criarCenarioReentrada</code>; <code>expect(f.orbitador.resistenciaColisaoJ).toBe</code>; <code>expect</code>; <code>expect(f.flaps.map(o =&gt; o.resistenciaColisaoJ)).toEqual</code>; <code>f.flaps.map</code>; <code>[1, 1].map</code>; <code>expect(f.fixadores.map(o =&gt; o.resistenciaTracaoN)).toEqual</code>; <code>f.fixadores.map</code>; <code>[1, 1, 1].map</code>; <code>expect(f.bateria.resistenciaColisaoJ).toBe</code>; <code>expect(criarEnsaioReentrada(c).exportar().identificacao).toMatchObject</code>; <code>criarEnsaioReentrada(c).exportar</code>; <code>criarEnsaioReentrada</code> / — |
+| <code>src/cenarios/ConfiguracaoReentrada.test.ts::[callback]#1.[callback]#2.[callback]:ArrowFunction#1</code> · [L21](../../src/cenarios/ConfiguracaoReentrada.test.ts#L21) | <code>(o: FlapReentrada): number</code> | — / — |
+| <code>src/cenarios/ConfiguracaoReentrada.test.ts::[callback]#1.[callback]#2.[callback]:ArrowFunction#2</code> · [L21](../../src/cenarios/ConfiguracaoReentrada.test.ts#L21) | <code>(): 1000000 &#124; 5000</code> | — / — |
+| <code>src/cenarios/ConfiguracaoReentrada.test.ts::[callback]#1.[callback]#2.[callback]:ArrowFunction#3</code> · [L22](../../src/cenarios/ConfiguracaoReentrada.test.ts#L22) | <code>(o: FixadorEstrutural): number</code> | — / — |
+| <code>src/cenarios/ConfiguracaoReentrada.test.ts::[callback]#1.[callback]#2.[callback]:ArrowFunction#4</code> · [L22](../../src/cenarios/ConfiguracaoReentrada.test.ts#L22) | <code>(): 100000000 &#124; 5000</code> | — / — |
+| <code>src/cenarios/ConfiguracaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#3</code> · [L27](../../src/cenarios/ConfiguracaoReentrada.test.ts#L27) | <code>(valor: never[] &#124; { limiteFlapsC?: undefined; } &#124; { limiteFlapsC: number; } &#124; null &#124; undefined): void</code> | <code>expect(() =&gt; validarConfiguracaoExplicitaReentrada(valor)).toThrow</code>; <code>expect</code> / — |
+| <code>src/cenarios/ConfiguracaoReentrada.test.ts::[callback]#1.[callback]#3.[callback]:ArrowFunction#1</code> · [L28](../../src/cenarios/ConfiguracaoReentrada.test.ts#L28) | <code>(): ConfiguracaoReentrada</code> | <code>validarConfiguracaoExplicitaReentrada</code> / — |
+| <code>src/cenarios/ConfiguracaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#4</code> · [L31](../../src/cenarios/ConfiguracaoReentrada.test.ts#L31) | <code>(chave: string): void</code> | <code>expect(() =&gt; validarConfiguracaoExplicitaReentrada(c)).toThrow</code>; <code>expect</code> / — |
+| <code>src/cenarios/ConfiguracaoReentrada.test.ts::[callback]#1.[callback]#4.[callback]:ArrowFunction#1</code> · [L33](../../src/cenarios/ConfiguracaoReentrada.test.ts#L33) | <code>(): ConfiguracaoReentrada</code> | <code>validarConfiguracaoExplicitaReentrada</code> / — |
+| <code>src/cenarios/ConfiguracaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#5</code> · [L36](../../src/cenarios/ConfiguracaoReentrada.test.ts#L36) | <code>(chave: "parametros" &#124; "aproximacao" &#124; "corredor"): void</code> | <code>expect(() =&gt; validarConfiguracaoExplicitaReentrada({ ...CONFIGURACAO_REENTRADA, [chave]: {} })).toThrow</code>; <code>expect</code>; <code>expect(() =&gt; validarConfiguracaoExplicitaReentrada({ ...CONFIGURACAO_REENTRADA,<br>    [chave]: { ...CONFIGURACAO_REENTRADA[chave], desconhecido: 5000 } })).toThrow</code> / — |
+| <code>src/cenarios/ConfiguracaoReentrada.test.ts::[callback]#1.[callback]#5.[callback]:ArrowFunction#1</code> · [L37](../../src/cenarios/ConfiguracaoReentrada.test.ts#L37) | <code>(): ConfiguracaoReentrada</code> | <code>validarConfiguracaoExplicitaReentrada</code> / — |
+| <code>src/cenarios/ConfiguracaoReentrada.test.ts::[callback]#1.[callback]#5.[callback]:ArrowFunction#2</code> · [L38](../../src/cenarios/ConfiguracaoReentrada.test.ts#L38) | <code>(): ConfiguracaoReentrada</code> | <code>validarConfiguracaoExplicitaReentrada</code> / — |
+| <code>src/cenarios/ConfiguracaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#6</code> · [L42](../../src/cenarios/ConfiguracaoReentrada.test.ts#L42) | <code>(valor: string &#124; number &#124; undefined): void</code> | <code>expect(() =&gt; validarConfiguracaoExplicitaReentrada({ ...CONFIGURACAO_REENTRADA, limiteFlapsC: valor })).toThrow</code>; <code>expect</code> / — |
+| <code>src/cenarios/ConfiguracaoReentrada.test.ts::[callback]#1.[callback]#6.[callback]:ArrowFunction#1</code> · [L43](../../src/cenarios/ConfiguracaoReentrada.test.ts#L43) | <code>(): ConfiguracaoReentrada</code> | <code>validarConfiguracaoExplicitaReentrada</code> / — |
+| <code>src/cenarios/ConfiguracaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#7</code> · [L46](../../src/cenarios/ConfiguracaoReentrada.test.ts#L46) | <code>(valor: number): void</code> | <code>expect(validarConfiguracaoExplicitaReentrada({ ...CONFIGURACAO_REENTRADA, limiteFlapsC: valor }).limiteFlapsC).toBe</code>; <code>expect</code>; <code>validarConfiguracaoExplicitaReentrada</code> / — |
+| <code>src/cenarios/ConfiguracaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#8</code> · [L50](../../src/cenarios/ConfiguracaoReentrada.test.ts#L50) | <code>(resistenciaCorpoJ: number): void</code> | <code>expect(() =&gt; validarConfiguracaoExplicitaReentrada({ ...CONFIGURACAO_REENTRADA,<br>    parametros: { ...CONFIGURACAO_REENTRADA.parametros, resistenciaCorpoJ } })).toThrow</code>; <code>expect</code> / — |
+| <code>src/cenarios/ConfiguracaoReentrada.test.ts::[callback]#1.[callback]#8.[callback]:ArrowFunction#1</code> · [L51](../../src/cenarios/ConfiguracaoReentrada.test.ts#L51) | <code>(): ConfiguracaoReentrada</code> | <code>validarConfiguracaoExplicitaReentrada</code> / — |
+| <code>src/cenarios/ConfiguracaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#9</code> · [L55](../../src/cenarios/ConfiguracaoReentrada.test.ts#L55) | <code>(): void</code> | <code>JSON.parse</code>; <code>JSON.stringify</code>; <code>validarConfiguracaoExplicitaReentrada</code>; <code>expect(c.parametros.resistenciaCorpoJ).toBe</code>; <code>expect</code>; <code>expect(c.transferencia).toEqual</code>; <code>expect(Object.isFrozen(c)).toBe</code>; <code>Object.isFrozen</code>; <code>expect(Object.isFrozen(c.parametros)).toBe</code> / <code>entrada.parametros.resistenciaCorpoJ</code> |
+| <code>src/cenarios/ConfiguracaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#10</code> · [L66](../../src/cenarios/ConfiguracaoReentrada.test.ts#L66) | <code>(): void</code> | <code>JSON.parse</code>; <code>JSON.stringify</code>; <code>validarConfiguracaoExplicitaReentrada</code>; <code>criarEnsaioReentrada</code>; <code>e.exportar</code>; <code>e.iniciar</code>; <code>e.avancarPasso</code>; <code>e.pausar</code>; <code>expect(antes.identificacao).toEqual</code>; <code>expect</code>; <code>expect(durante.identificacao).toEqual</code>; <code>expect(reproduzirEnsaioReentrada(depois).exportar()).toEqual</code>; <code>reproduzirEnsaioReentrada(depois).exportar</code>; <code>reproduzirEnsaioReentrada</code>; <code>expect(e.observar().limiteFlapsC).toBe</code>; <code>e.observar</code> / <code>entrada.limiteFlapsC</code>; <code>entrada.parametros.resistenciaFlapJ</code>; <code>i</code> |
 | <code>src/cenarios/ControleLateralM3.test.ts::registrar:ArrowFunction</code> · [L20](../../src/cenarios/ControleLateralM3.test.ts#L20) | <code>(nome: string, resultado: unknown): void</code> | <code>mkdirSync</code>; <code>writeFileSync</code>; <code>join</code>; <code>JSON.stringify</code> / — |
 | <code>src/cenarios/ControleLateralM3.test.ts::criarEnsaio:ArrowFunction</code> · [L28](../../src/cenarios/ControleLateralM3.test.ts#L28) | <code>(config?: ConfiguracaoEnsaio): { mundo: MundoFisico; casco: VeiculoComposto; bateria: Bateria; tanque: TanquePropelente; motor: PropulsorVetorizado; aletas: AletaAerodinamica[]; guia: ControladorGuiaPousoBss06; }</code> | <code>MundoFisico</code>; <code>Vetor3</code>; <code>VeiculoComposto</code>; <code>base</code>; <code>Bateria</code>; <code>TanquePropelente</code>; <code>PropulsorVetorizado</code>; <code>motor.conectarTanque</code>; <code>motor.conectarBateria</code>; <code>[-1, 1].map</code>; <code>casco.adicionarModulo</code>; <code>casco.adicionarFixador</code>; <code>FixadorEstrutural</code>; <code>casco.instalarPropulsor</code>; <code>casco.registrarNoMundo</code>; <code>casco.habilitarControleDeInclinacao</code>; <code>ControladorGuiaPousoBss06</code>; <code>casco.registrarControlador</code>; <code>guia.habilitar</code>; <code>expect(motor.ligarSistema(sistema)).toBe</code>; <code>expect</code>; <code>motor.ligarSistema</code>; <code>motor.definirThrottle</code>; <code>expect(motor.solicitarIgnicao()).toBe</code>; <code>motor.solicitarIgnicao</code> / — |
 | <code>src/cenarios/ControleLateralM3.test.ts::criarEnsaio.base:ArrowFunction</code> · [L35](../../src/cenarios/ControleLateralM3.test.ts#L35) | <code>(id: string, massaBaseKg: number, dimensoesM: Vetor3, x?: number, y?: number, angulo?: number): { id: string; massaBaseKg: number; dimensoesM: Vetor3; resistenciaColisaoJ: number; limiteTermicoC: number; estadoInicial: { posicaoM: Vetor3; velocidadeMps: Vetor3; orientacaoRad: Vetor3; velocidadeAngularRadps: Vetor3; }; }</code> | <code>Vetor3</code>; <code>Math.cos</code>; <code>Math.sin</code>; <code>new Vetor3(0, 1000, 0).adicionar</code> / — |

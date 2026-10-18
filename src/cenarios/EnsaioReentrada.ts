@@ -97,21 +97,66 @@ export function validarComandoReentrada(entrada: unknown): entrada is ComandoRee
    */
 export function configurarReentrada(entrada: EntradaConfiguracaoReentrada = {}): ConfiguracaoReentrada {
   const c = copiarSnapshot({ ...CONFIGURACAO_REENTRADA, ...entrada, parametros: configurarParametrosReentrada(entrada.parametros), aproximacao: configurarFronteiraAproximacao(entrada.aproximacao) });
-  if (![c.altitudeM, c.velocidadeMps, c.anguloAtaqueRad, c.trajetoriaRad, c.rolagemRad,
-    c.limiteOrbitadorC, c.limiteFlapsC, c.limiteBateriaC, c.passoS, c.taxaAtitudeLocalInicialRadps].every(Number.isFinite)
-    || c.altitudeM < 10 || c.altitudeM > 200_000 || c.velocidadeMps < 0 || c.velocidadeMps > 12_000
-    || c.anguloAtaqueRad < 0 || c.anguloAtaqueRad > 80 * Math.PI / 180 || Math.abs(c.trajetoriaRad) > Math.PI / 2
-    || Math.abs(c.taxaAtitudeLocalInicialRadps) > 1 || Math.abs(c.rolagemRad) > Math.PI / 2 || c.passoS <= 0 || c.passoS > 1 / 120
-    || c.limiteOrbitadorC < -200 || c.limiteOrbitadorC > 5000 || c.limiteFlapsC < -200 || c.limiteFlapsC > 5000
-    || c.limiteBateriaC < -200 || c.limiteBateriaC > 5000
-    || !Number.isSafeInteger(c.semente) || c.semente < 0
-    || ![c.automatico, c.chaveamentoAutomatico, c.vacuo].every(v => typeof v === 'boolean')
-    || !Number.isFinite(c.intervaloColetaS) || c.intervaloColetaS < c.passoS || c.intervaloColetaS > 60
-    || Math.abs(c.intervaloColetaS / c.passoS - Math.round(c.intervaloColetaS / c.passoS)) > 1e-8
-    || !Number.isSafeInteger(c.limiteAmostras) || c.limiteAmostras < 2 || c.limiteAmostras > 100000
-    || !Number.isSafeInteger(c.limiteEventos) || c.limiteEventos < 10 || c.limiteEventos > 100000
-    || !c.corredor || !Object.values(c.corredor).every(v => Number.isFinite(v) && v > 0)) throw new Error('Configuração RE-001 inválida.');
+  const intervalos: readonly [keyof ConfiguracaoReentrada, number, number][] = [
+    ['altitudeM', 10, 200000], ['velocidadeMps', 0, 12000],
+    ['anguloAtaqueRad', 0, 80 * Math.PI / 180], ['trajetoriaRad', -Math.PI / 2, Math.PI / 2],
+    ['rolagemRad', -Math.PI / 2, Math.PI / 2], ['taxaAtitudeLocalInicialRadps', -1, 1],
+    ['limiteOrbitadorC', -200, 5000], ['limiteFlapsC', -200, 5000], ['limiteBateriaC', -200, 5000],
+    ['passoS', Number.MIN_VALUE, 1 / 120], ['intervaloColetaS', c.passoS, 60],
+    ['semente', 0, Number.MAX_SAFE_INTEGER], ['limiteAmostras', 2, 100000], ['limiteEventos', 10, 100000],
+  ];
+  for (const [nome, minimo, maximo] of intervalos) {
+    const valor = c[nome];
+    if (typeof valor !== 'number' || !Number.isFinite(valor) || valor < minimo || valor > maximo) {
+      throw new Error(`Configuração RE-001 inválida: ${nome} deve estar entre ${minimo} e ${maximo}.`);
+    }
+  }
+  for (const nome of ['semente', 'limiteAmostras', 'limiteEventos'] as const) {
+    if (!Number.isSafeInteger(c[nome])) throw new Error(`Configuração RE-001 inválida: ${nome} deve ser inteiro seguro.`);
+  }
+  for (const nome of ['automatico', 'chaveamentoAutomatico', 'vacuo'] as const) {
+    if (typeof c[nome] !== 'boolean') throw new Error(`Configuração RE-001 inválida: ${nome} deve ser booleano.`);
+  }
+  if (Math.abs(c.intervaloColetaS / c.passoS - Math.round(c.intervaloColetaS / c.passoS)) > 1e-8) {
+    throw new Error('Configuração RE-001 inválida: intervaloColetaS deve ser múltiplo inteiro de passoS.');
+  }
+  if (!c.corredor || !Object.values(c.corredor).every(v => Number.isFinite(v) && v > 0)) {
+    throw new Error('Configuração RE-001 inválida: corredor deve conter limites positivos e finitos em Pa, W/m² e g₀.');
+  }
   return c;
+}
+
+/** Exige campos próprios conhecidos, sem undefined nem omissão. Validação de
+ * valores/unidades permanece nas regras do cenário; não cria objetos físicos.
+ * O campo legado não editável pode ser omitido explicitamente pela interface.
+ * @contract f-25970cc620e51b6d
+   */
+function exigirCamposConfiguracao(valor: unknown, referencia: object, prefixo: string,
+  ignorados: readonly string[] = []): void {
+  if (!valor || typeof valor !== 'object' || Array.isArray(valor)) throw new Error(`Configuração inválida: ${prefixo} deve ser objeto.`);
+  for (const nome of Object.keys(referencia)) {
+    if (!ignorados.includes(nome) && (!Object.hasOwn(valor, nome) || (valor as Record<string, unknown>)[nome] === undefined)) {
+      throw new Error(`Configuração incompleta: ${prefixo}.${nome}. Nenhum padrão foi aplicado.`);
+    }
+  }
+  for (const nome of Object.keys(valor)) {
+    if (!Object.hasOwn(referencia, nome)) throw new Error(`Campo desconhecido: ${prefixo}.${nome}.`);
+  }
+}
+
+/** Fronteira estrita para formulários: exige todos os parâmetros editáveis em SI
+ * antes da validação/congelamento de domínio. Somente transferência legada,
+ * ausente da interface, usa a referência declarada. Não altera fábrica parcial,
+ * física, relógio ou configuração de ensaios existentes. Testes RE-003 A–G.
+ * @contract f-a01ba13dc3b415ea
+   */
+export function validarConfiguracaoExplicitaReentrada(entrada: unknown): ConfiguracaoReentrada {
+  exigirCamposConfiguracao(entrada, CONFIGURACAO_REENTRADA, 'configuracao', ['transferencia']);
+  const e = entrada as EntradaConfiguracaoReentrada;
+  exigirCamposConfiguracao(e.parametros, CONFIGURACAO_REENTRADA.parametros, 'parametros');
+  exigirCamposConfiguracao(e.corredor, CONFIGURACAO_REENTRADA.corredor, 'corredor');
+  exigirCamposConfiguracao(e.aproximacao, CONFIGURACAO_REENTRADA.aproximacao, 'aproximacao');
+  return configurarReentrada(e);
 }
 
 /** Constrói somente estado inicial de módulo: pose relativa rígida e velocidade

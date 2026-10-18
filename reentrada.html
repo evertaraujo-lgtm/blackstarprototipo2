@@ -8,21 +8,22 @@
   <p class="re-notice">Modelo preliminar de engenharia. Coeficientes analíticos e calor concentrado; sem qualificação de reentrada ou materiais. Rolagem virtual prescrita: a força lateral é omitida. RCS e propulsão de pouso ainda não instalados.</p>
   <div class="re-layout">
     <aside class="re-panel">
-      <form id="re-config">
+      <form id="re-config" novalidate>
         <h2>Condições iniciais</h2>
-        <fieldset id="re-iniciais"><legend>Configuração antes do ensaio</legend>
+        <fieldset id="re-iniciais"><legend>Configuração editada · aplique ao iniciar ou reinicializar</legend>
           <label>Altitude (m)<input id="re-altitude" type="number" min="10" max="200000" value="120000" step="10" required></label>
           <label>Velocidade (m/s)<input id="re-velocidade" type="number" min="0" max="12000" value="7700" step="10" required></label>
           <div class="re-pair"><label>Ângulo de ataque (°)<input id="re-alpha-inicial" type="number" min="0" max="80" value="40" step="0.1" required></label><label>Trajetória (°)<input id="re-trajetoria" type="number" min="-90" max="90" value="-1" step="0.1" required></label></div>
           <label>Taxa inicial de atitude local (°/s)<input id="re-taxa-inicial" type="number" min="-57" max="57" value="0" step="any" required></label>
           <label>Rolagem virtual inicial (°)<input id="re-phi-inicial" type="number" min="-90" max="90" value="0" step="1" required></label>
           <label>Controle inicial<select id="re-controle-inicial"><option value="automatico">Automático</option><option value="manual">Manual</option></select></label>
+          <label>Transição inicial para aproximação<select id="re-chaveamento-inicial"><option value="manual">Manual supervisionada</option><option value="automatico">Automática</option></select></label>
           <label>Ambiente<select id="re-atmosfera"><option value="atmosfera">Atmosfera RE · 1,225 kg/m³ ao nível do mar</option><option value="vacuo">Vácuo explícito · sem cargas atmosféricas</option></select></label>
           <details><summary>Configuração avançada</summary>
             <p class="re-help">Limiares provisórios de início de degradação em °C. Representam orbitador e flaps concentrados, sem proteção térmica ou estrutura interna separadas.</p>
-            <label>Limite do orbitador (°C)<input id="re-limite-corpo" type="number" min="-200" max="5000" value="1100" step="any" required></label>
-            <label>Limite dos flaps (°C)<input id="re-limite-flaps" type="number" min="-200" max="5000" value="900" step="any" required></label>
-            <label>Limite da bateria interna (°C)<input id="re-limite-bateria" type="number" min="-200" max="5000" value="60" step="any" required></label>
+            <label>Início de degradação térmica do corpo (°C)<input id="re-limite-corpo" type="number" min="-200" max="5000" value="1100" step="any" required></label>
+            <label>Início de degradação térmica dos flaps (°C)<input id="re-limite-flaps" type="number" min="-200" max="5000" value="900" step="any" required></label>
+            <label>Início de degradação térmica da bateria (°C)<input id="re-limite-bateria" type="number" min="-200" max="5000" value="60" step="any" required></label>
             <p class="re-help">Bateria isolada termicamente neste marco. 60 °C é uma hipótese provisória de degradação, não fuga térmica, limite certificado ou falha catastrófica.</p>
             <label>Pressão dinâmica máxima (Pa)<input id="re-qmax" type="number" min="1" value="50000" required></label>
             <label>Fluxo indicador máximo (W/m²)<input id="re-heatmax" type="number" min="1" value="500000" required></label>
@@ -39,11 +40,19 @@
             <label>Máximo de amostras retidas<input id="re-limite-amostras" type="number" value="3600" min="2" max="100000" required></label>
             <label>Máximo de eventos retidos<input id="re-limite-eventos" type="number" value="20000" min="10" max="100000" required></label>
             <p class="re-help">Picos e cruzamentos são medidos em todo passo físico. O diário informa descartes da janela, conserva configuração, agenda completa e extremos globais para reexecução.</p>
-            <details><summary>Parâmetros de engenharia (SI)</summary><p class="re-help">Hipóteses editáveis, registradas no JSON. Cabos e limites reais continuam ativos; alterar geometria pode romper alimentação. Potência elétrica não certifica torque mecânico.</p><div id="re-parametros" class="re-parametros"></div></details>
+            <details><summary>Parâmetros de engenharia (SI)</summary><p class="re-help">Hipóteses editáveis, registradas no JSON. Cabos e limites reais continuam ativos; alterar geometria pode romper alimentação. Potência elétrica não certifica torque mecânico.</p><p class="re-help">Resistências mecânicas: corpo e flaps em joules (impacto); fixadores em newtons (tração axial). Não são temperaturas. Reduzir milhões de J ou N para 5000 pode tornar o conjunto mais frágil.</p><div id="re-parametros" class="re-parametros"></div></details>
             <label>Semente reproduzível<input id="re-semente" type="number" min="0" value="1" step="1" required></label>
           </details>
         </fieldset>
         <div class="re-actions"><button id="re-play" type="submit">Iniciar ensaio</button><button id="re-reset" type="button" class="secondary-button">Reinicializar</button></div>
+        <output id="re-config-estado" role="status" class="re-config-resumo">Configuração editada ainda não aplicada.</output>
+        <details class="re-config-resumo"><summary>Configuração aplicada ao ensaio atual</summary><p id="re-config-aplicada">Nenhuma configuração aplicada.</p><p id="re-config-rastreio"></p></details>
+        <section id="re-config-escolha" class="re-config-escolha" aria-label="Escolha de configuração" hidden>
+          <p>O ensaio está pausado e há edições pendentes. Como deseja continuar?</p>
+          <button id="re-continuar-aplicada" type="button">Continuar configuração aplicada</button>
+          <button id="re-iniciar-nova" type="button">Preparar e iniciar novo ensaio</button>
+          <button id="re-cancelar-escolha" type="button" class="secondary-button">Cancelar</button>
+        </section>
       </form>
       <h2>Atitude e atuadores</h2>
       <label>Controle ativo<select id="re-modo"><option value="automatico">Automático</option><option value="manual">Manual</option></select></label>
