@@ -1,7 +1,8 @@
+import { avaliarCorredorReentrada } from './EstrategiaCorredorReentrada';
 import { normalizarAngulo } from '../ambiente/ReferencialFisico';
 import type { LeiturasVeiculoComposto } from '../sensores/SensoresVeiculoComposto';
 import type { ControladorDeVoo, SolicitacaoDeAtuador } from './GerenciadorDeControladores';
-import { MODELO_REENTRADA } from '../reentrada/ModeloAerodinamicoReentrada';
+import { MODELO_REENTRADA, type ParametrosReentrada } from '../reentrada/ModeloAerodinamicoReentrada';
 
 export interface TelemetriaControleReentrada {
   readonly alphaRad: number;
@@ -14,6 +15,8 @@ export interface TelemetriaControleReentrada {
   readonly inerciaKgM2: number;
   readonly phiRad: number;
   readonly disponivel: boolean;
+  readonly energiaMecanicaEspecificaJPorKg?: number;
+  readonly integridadeMinima?: number;
 }
 export interface CorredorReentrada {
   readonly pressaoMaximaPa: number;
@@ -30,13 +33,16 @@ export class ControladorReentrada implements ControladorDeVoo {
   private alvoPhiRad: number;
   private estado = 'inativo';
   private alphaGerenciadoRad: number;
+  private diagnosticoCorredor?: ReturnType<typeof avaliarCorredorReentrada>;
+  private torqueSolicitadoNm = 0;
+  private torqueComandadoNm = 0;
 
   /** Recebe porta escalar de sensores/cargas, sem acesso ao objeto ou mundo.
    * Corredor é uma heurística de investigação, sem garantia de trajetória segura.
    * @contract f-c18886ab4102b0a9
    */
   public constructor(private readonly ler: () => TelemetriaControleReentrada,
-    alphaRad: number, phiRad: number, private readonly corredor: CorredorReentrada) {
+    alphaRad: number, phiRad: number, private readonly corredor: CorredorReentrada, private readonly parametros: ParametrosReentrada = MODELO_REENTRADA) {
     this.alvoAlphaRad = alphaRad; this.alvoPhiRad = phiRad; this.alphaGerenciadoRad = alphaRad;
     this.configurarAlvos(alphaRad, phiRad);
     if (!Object.values(corredor).every(v => Number.isFinite(v) && v > 0)) throw new Error('Corredor inválido.');
@@ -44,7 +50,7 @@ export class ControladorReentrada implements ControladorDeVoo {
   /** Seleciona automação; ignição/posição/orientação não são comandadas.  @contract f-984a523bb78d293a */
   public habilitar(): void { this.habilitado = true; this.estado = 'automatico'; }
   /** Retira solicitações da arbitragem, preservando o estado físico.  @contract f-3355374dcb4f6b5f */
-  public desabilitar(): void { this.habilitado = false; this.estado = 'manual'; }
+  public desabilitar(): void { this.habilitado = false; this.estado = 'manual'; this.torqueSolicitadoNm = 0; this.torqueComandadoNm = 0; }
   /** Consulta seleção operacional real.  @contract f-8759d6e7ccb5a8f2 */
   public get estaHabilitado(): boolean { return this.habilitado; }
   /** Alvos rad finitos, alpha de 0–80° e bank de ±90°.  @contract f-c5e7649bb6a75116 */
@@ -55,7 +61,8 @@ export class ControladorReentrada implements ControladorDeVoo {
   }
   /** Snapshot de alvo do operador, alvo gerenciado e estado efetivo do controle.  @contract f-f9d73dd15b5c52e4 */
   public observar() { return { estado: this.estado, alphaSolicitadoRad: this.alvoAlphaRad,
-    alphaGerenciadoRad: this.alphaGerenciadoRad, phiSolicitadoRad: this.alvoPhiRad }; }
+    alphaGerenciadoRad: this.alphaGerenciadoRad, phiSolicitadoRad: this.alvoPhiRad,
+    torqueSolicitadoNm: this.torqueSolicitadoNm, torqueComandadoNm: this.torqueComandadoNm, corredor: this.diagnosticoCorredor ?? null }; }
 
   /** Calcula deflexões opostas para torque de arfagem, limitado por q, geometria,
    * projeção virtual e curso de 30°. PD sem integral evita windup. dt s em (0,1/60].
@@ -69,13 +76,14 @@ export class ControladorReentrada implements ControladorDeVoo {
     const t = this.ler();
     if (leituras.sensoresValidos === false || (leituras.idadeLeituraS ?? 0) > 0.25
       || !t.disponivel || !Object.values(t).filter(v => typeof v === 'number').every(Number.isFinite)) {
-      this.estado = 'falha'; return [];
+      this.estado = 'falha'; this.torqueSolicitadoNm = 0; this.torqueComandadoNm = 0; return [];
     }
-    const excedeuCorredor = t.pressaoDinamicaPa > this.corredor.pressaoMaximaPa
-      || t.fluxoTermicoWm2 > this.corredor.fluxoMaximoWm2 || t.cargaG > this.corredor.cargaMaximaG;
-    this.alphaGerenciadoRad = excedeuCorredor ? Math.min(70 * Math.PI / 180, Math.max(this.alvoAlphaRad, 55 * Math.PI / 180)) : this.alvoAlphaRad;
-    const phi = excedeuCorredor ? 0 : this.alvoPhiRad;
-    const modelo = MODELO_REENTRADA;
+    const estrategia = avaliarCorredorReentrada(t, this.corredor, this.alvoAlphaRad, this.alvoPhiRad);
+    this.diagnosticoCorredor = estrategia;
+    const excedeuCorredor = estrategia.excedeu;
+    this.alphaGerenciadoRad = estrategia.alphaAlvoRad;
+    const phi = estrategia.phiAlvoRad;
+    const modelo = this.parametros;
     const torquePorRad = 2 * t.pressaoDinamicaPa * modelo.areaFlapM2 * modelo.clFlapPorRad * modelo.bracoFlapM
       * Math.cos(t.alphaRad) * Math.cos(t.phiRad);
     const torqueAlvo = t.inerciaKgM2 * (modelo.ganhoAlpha * normalizarAngulo(this.alphaGerenciadoRad - t.alphaRad)
@@ -83,6 +91,7 @@ export class ControladorReentrada implements ControladorDeVoo {
     const semAutoridade = Math.abs(torquePorRad) < modelo.torqueMinimoAutoridadeNm;
     const bruto = semAutoridade ? 0 : torqueAlvo / torquePorRad;
     const delta = Math.max(-modelo.cursoFlapRad, Math.min(modelo.cursoFlapRad, bruto));
+    this.torqueSolicitadoNm = torqueAlvo; this.torqueComandadoNm = delta * torquePorRad;
     this.estado = semAutoridade ? 'sem-autoridade' : delta !== bruto ? 'saturado'
       : excedeuCorredor ? 'corredor-excedido' : 'automatico';
     return [{ idAtuador: 'flap-dianteiro', recurso: 'flap', valor: delta },

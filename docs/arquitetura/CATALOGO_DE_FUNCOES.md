@@ -46,112 +46,114 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 - [src/missoes/ExecutorMissao.ts](#modulo-34)
 - [src/missoes/MissaoBss006.ts](#modulo-35)
 - [src/missoes/ObservacaoAmerissagem.ts](#modulo-36)
-- [src/missoes/RegistroMissao.ts](#modulo-37)
-- [src/missoes/ReplayMissaoBss006.ts](#modulo-38)
-- [src/missoes/SnapshotMissao.ts](#modulo-39)
-- [src/orbitas.ts](#modulo-40)
-- [src/physics/MundoFisico.ts](#modulo-41)
-- [src/physics/SistemaOperacional.ts](#modulo-42)
-- [src/physics/SuperficieCosteira.ts](#modulo-43)
-- [src/physics/SuperficieEsferica.ts](#modulo-44)
-- [src/physics/SuperficieFisica.ts](#modulo-45)
-- [src/physics/SuperficiePlano.ts](#modulo-46)
-- [src/physics/SuperficiePlanoLocal.ts](#modulo-47)
-- [src/physics/Vetor3.ts](#modulo-48)
-- [src/physics/agua/GeometriaSubmersa.ts](#modulo-49)
-- [src/physics/agua/RegiaoAquatica.ts](#modulo-50)
-- [src/physics/agua/SistemaHidrodinamico.ts](#modulo-51)
-- [src/physics/ambiente/AmbienteFisico.ts](#modulo-52)
-- [src/physics/ambiente/CampoGravitacional.ts](#modulo-53)
-- [src/physics/ambiente/EstadoInicialLocal.ts](#modulo-54)
-- [src/physics/ambiente/GeografiaCosteira.ts](#modulo-55)
-- [src/physics/ambiente/PerfilAtmosfericoReentrada.ts](#modulo-56)
-- [src/physics/ambiente/ReferencialFisico.ts](#modulo-57)
-- [src/physics/ambiente/TelemetriaOrbital.ts](#modulo-58)
-- [src/physics/cenarios/EnsaioPortaVertical.ts](#modulo-59)
-- [src/physics/conexoes/ChumbadorAoSolo.ts](#modulo-60)
-- [src/physics/conexoes/ConexaoEletrica.ts](#modulo-61)
-- [src/physics/conexoes/FixadorEstrutural.ts](#modulo-62)
-- [src/physics/conexoes/GuiaLinear.ts](#modulo-63)
-- [src/physics/conexoes/JuntaRotacionalDeBancada.ts](#modulo-64)
-- [src/physics/conexoes/eletrica/Contator.ts](#modulo-65)
-- [src/physics/conexoes/eletrica/Interruptor.ts](#modulo-66)
-- [src/physics/conexoes/eletrica/Resistor.ts](#modulo-67)
-- [src/physics/estruturas/ConjuntoEstruturalRigido.ts](#modulo-68)
-- [src/physics/estruturas/DiagnosticoAngular.ts](#modulo-69)
-- [src/physics/geometria/ContatoCaixasOrientadas.ts](#modulo-70)
-- [src/physics/objetos/atuadores/Cilindro.ts](#modulo-71)
-- [src/physics/objetos/atuadores/CilindroEletrico.ts](#modulo-72)
-- [src/physics/objetos/atuadores/MotorEletricoRotacional.ts](#modulo-73)
-- [src/physics/objetos/base/Objeto.ts](#modulo-74)
-- [src/physics/objetos/base/ObjetoTriangularRetangulo.ts](#modulo-75)
-- [src/physics/objetos/componentes/AletaAerodinamica.ts](#modulo-76)
-- [src/physics/objetos/componentes/FlapReentrada.ts](#modulo-77)
-- [src/physics/objetos/componentes/Paraquedas.ts](#modulo-78)
-- [src/physics/objetos/componentes/RolagemVirtual.ts](#modulo-79)
-- [src/physics/objetos/fontes-de-energia/Bateria.ts](#modulo-80)
-- [src/physics/objetos/fontes-de-energia/FonteEletrica.ts](#modulo-81)
-- [src/physics/objetos/fontes-de-energia/GeradorCA.ts](#modulo-82)
-- [src/physics/objetos/fontes-de-energia/PainelSolar.ts](#modulo-83)
-- [src/physics/objetos/fontes-de-energia/TanquePropelente.ts](#modulo-84)
-- [src/physics/objetos/mecanismos/BracoArticuladoDeBancada.ts](#modulo-85)
-- [src/physics/objetos/mecanismos/ConjuntoPortaBatente.ts](#modulo-86)
-- [src/physics/objetos/mecanismos/Porta.ts](#modulo-87)
-- [src/physics/objetos/mecanismos/TravaPorta.ts](#modulo-88)
-- [src/physics/objetos/propulsao/Propulsor.ts](#modulo-89)
-- [src/physics/objetos/propulsao/PropulsorVetorizado.ts](#modulo-90)
-- [src/physics/objetos/propulsao/alimentacao/BombaPropelente.ts](#modulo-91)
-- [src/physics/objetos/propulsao/alimentacao/LinhaDePropelente.ts](#modulo-92)
-- [src/physics/objetos/propulsao/alimentacao/ValvulaPropelente.ts](#modulo-93)
-- [src/physics/objetos/propulsao/combustao/Bocal.ts](#modulo-94)
-- [src/physics/objetos/propulsao/combustao/CamaraCombustao.ts](#modulo-95)
-- [src/physics/objetos/propulsao/vetorizacao/AtuadorVetorizacao.ts](#modulo-96)
-- [src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts](#modulo-97)
-- [src/physics/objetos/veiculos/Bss03.ts](#modulo-98)
-- [src/physics/objetos/veiculos/Bss04.ts](#modulo-99)
-- [src/physics/objetos/veiculos/ComputadorDeVoo.ts](#modulo-100)
-- [src/physics/objetos/veiculos/OrbitadorReentrada.ts](#modulo-101)
-- [src/physics/objetos/veiculos/VeiculoAlado.ts](#modulo-102)
-- [src/physics/objetos/veiculos/VeiculoComposto.ts](#modulo-103)
-- [src/physics/objetos/veiculos/VeiculoTerrestre.ts](#modulo-104)
-- [src/physics/reentrada/ModeloAerodinamicoReentrada.ts](#modulo-105)
-- [src/physics/sensores/SensoresVeiculoComposto.ts](#modulo-106)
-- [src/physics/sensores/SistemaSensores.ts](#modulo-107)
-- [src/physics/sensores/SwitchFimDeCurso.ts](#modulo-108)
-- [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.ts](#modulo-109)
-- [src/physics/sistemas de controle/ControladorAletasAerodinamicas.ts](#modulo-110)
-- [src/physics/sistemas de controle/ControladorDesaceleracao.ts](#modulo-111)
-- [src/physics/sistemas de controle/ControladorDesaceleracaoDePropulsores.ts](#modulo-112)
-- [src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.ts](#modulo-113)
-- [src/physics/sistemas de controle/ControladorGimbalDescidaDePropulsores.ts](#modulo-114)
-- [src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts](#modulo-115)
-- [src/physics/sistemas de controle/ControladorInclinacaoDePropulsores.ts](#modulo-116)
-- [src/physics/sistemas de controle/ControladorInclinacaoPid.ts](#modulo-117)
-- [src/physics/sistemas de controle/ControladorPerfilVooExperimental.ts](#modulo-118)
-- [src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts](#modulo-119)
-- [src/physics/sistemas de controle/ControladorPouso.ts](#modulo-120)
-- [src/physics/sistemas de controle/ControladorPousoDePropulsores.ts](#modulo-121)
-- [src/physics/sistemas de controle/ControladorReentrada.ts](#modulo-122)
-- [src/physics/sistemas de controle/GerenciadorDeControladores.ts](#modulo-123)
-- [src/physics/sistemas de controle/SupervisorReentrada.ts](#modulo-124)
-- [src/physics/solucionadores/IntegradorFisico.ts](#modulo-125)
-- [src/physics/solucionadores/ResolvedorColisoes.ts](#modulo-126)
-- [src/physics/solucionadores/ResolvedorContatoSuperficie.ts](#modulo-127)
-- [src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts](#modulo-128)
-- [src/physics/solucionadores/SistemaAtmosferico.ts](#modulo-129)
-- [src/physics/solucionadores/SistemaTermico.ts](#modulo-130)
-- [src/reentrada.ts](#modulo-131)
-- [src/simulacao/ExecutorPassoFixo.ts](#modulo-132)
-- [src/testes.ts](#modulo-133)
-- [src/validacao/ReferenciaBancadaM10.ts](#modulo-134)
-- [src/veiculos/DefinicaoBss006.ts](#modulo-135)
-- [src/veiculos/HidrodinamicaBss006.ts](#modulo-136)
-- [src/veiculos/MontagemBss.ts](#modulo-137)
-- [src/veiculos/TelemetriaBss.ts](#modulo-138)
-- [src/visualizacao/CameraFisica2D.ts](#modulo-139)
-- [src/visualizacao/ConexoesEletricas.ts](#modulo-140)
-- [src/visualizacao/RegistroEnsaioBancada.ts](#modulo-141)
-- [src/visualizacao/TracePLC.ts](#modulo-142)
+- [src/missoes/RegistroExtremos.ts](#modulo-37)
+- [src/missoes/RegistroMissao.ts](#modulo-38)
+- [src/missoes/ReplayMissaoBss006.ts](#modulo-39)
+- [src/missoes/SnapshotMissao.ts](#modulo-40)
+- [src/orbitas.ts](#modulo-41)
+- [src/physics/MundoFisico.ts](#modulo-42)
+- [src/physics/SistemaOperacional.ts](#modulo-43)
+- [src/physics/SuperficieCosteira.ts](#modulo-44)
+- [src/physics/SuperficieEsferica.ts](#modulo-45)
+- [src/physics/SuperficieFisica.ts](#modulo-46)
+- [src/physics/SuperficiePlano.ts](#modulo-47)
+- [src/physics/SuperficiePlanoLocal.ts](#modulo-48)
+- [src/physics/Vetor3.ts](#modulo-49)
+- [src/physics/agua/GeometriaSubmersa.ts](#modulo-50)
+- [src/physics/agua/RegiaoAquatica.ts](#modulo-51)
+- [src/physics/agua/SistemaHidrodinamico.ts](#modulo-52)
+- [src/physics/ambiente/AmbienteFisico.ts](#modulo-53)
+- [src/physics/ambiente/CampoGravitacional.ts](#modulo-54)
+- [src/physics/ambiente/EstadoInicialLocal.ts](#modulo-55)
+- [src/physics/ambiente/GeografiaCosteira.ts](#modulo-56)
+- [src/physics/ambiente/PerfilAtmosfericoReentrada.ts](#modulo-57)
+- [src/physics/ambiente/ReferencialFisico.ts](#modulo-58)
+- [src/physics/ambiente/TelemetriaOrbital.ts](#modulo-59)
+- [src/physics/cenarios/EnsaioPortaVertical.ts](#modulo-60)
+- [src/physics/conexoes/ChumbadorAoSolo.ts](#modulo-61)
+- [src/physics/conexoes/ConexaoEletrica.ts](#modulo-62)
+- [src/physics/conexoes/FixadorEstrutural.ts](#modulo-63)
+- [src/physics/conexoes/GuiaLinear.ts](#modulo-64)
+- [src/physics/conexoes/JuntaRotacionalDeBancada.ts](#modulo-65)
+- [src/physics/conexoes/eletrica/Contator.ts](#modulo-66)
+- [src/physics/conexoes/eletrica/Interruptor.ts](#modulo-67)
+- [src/physics/conexoes/eletrica/Resistor.ts](#modulo-68)
+- [src/physics/estruturas/ConjuntoEstruturalRigido.ts](#modulo-69)
+- [src/physics/estruturas/DiagnosticoAngular.ts](#modulo-70)
+- [src/physics/geometria/ContatoCaixasOrientadas.ts](#modulo-71)
+- [src/physics/objetos/atuadores/Cilindro.ts](#modulo-72)
+- [src/physics/objetos/atuadores/CilindroEletrico.ts](#modulo-73)
+- [src/physics/objetos/atuadores/MotorEletricoRotacional.ts](#modulo-74)
+- [src/physics/objetos/base/Objeto.ts](#modulo-75)
+- [src/physics/objetos/base/ObjetoTriangularRetangulo.ts](#modulo-76)
+- [src/physics/objetos/componentes/AletaAerodinamica.ts](#modulo-77)
+- [src/physics/objetos/componentes/FlapReentrada.ts](#modulo-78)
+- [src/physics/objetos/componentes/Paraquedas.ts](#modulo-79)
+- [src/physics/objetos/componentes/RolagemVirtual.ts](#modulo-80)
+- [src/physics/objetos/fontes-de-energia/Bateria.ts](#modulo-81)
+- [src/physics/objetos/fontes-de-energia/FonteEletrica.ts](#modulo-82)
+- [src/physics/objetos/fontes-de-energia/GeradorCA.ts](#modulo-83)
+- [src/physics/objetos/fontes-de-energia/PainelSolar.ts](#modulo-84)
+- [src/physics/objetos/fontes-de-energia/TanquePropelente.ts](#modulo-85)
+- [src/physics/objetos/mecanismos/BracoArticuladoDeBancada.ts](#modulo-86)
+- [src/physics/objetos/mecanismos/ConjuntoPortaBatente.ts](#modulo-87)
+- [src/physics/objetos/mecanismos/Porta.ts](#modulo-88)
+- [src/physics/objetos/mecanismos/TravaPorta.ts](#modulo-89)
+- [src/physics/objetos/propulsao/Propulsor.ts](#modulo-90)
+- [src/physics/objetos/propulsao/PropulsorVetorizado.ts](#modulo-91)
+- [src/physics/objetos/propulsao/alimentacao/BombaPropelente.ts](#modulo-92)
+- [src/physics/objetos/propulsao/alimentacao/LinhaDePropelente.ts](#modulo-93)
+- [src/physics/objetos/propulsao/alimentacao/ValvulaPropelente.ts](#modulo-94)
+- [src/physics/objetos/propulsao/combustao/Bocal.ts](#modulo-95)
+- [src/physics/objetos/propulsao/combustao/CamaraCombustao.ts](#modulo-96)
+- [src/physics/objetos/propulsao/vetorizacao/AtuadorVetorizacao.ts](#modulo-97)
+- [src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts](#modulo-98)
+- [src/physics/objetos/veiculos/Bss03.ts](#modulo-99)
+- [src/physics/objetos/veiculos/Bss04.ts](#modulo-100)
+- [src/physics/objetos/veiculos/ComputadorDeVoo.ts](#modulo-101)
+- [src/physics/objetos/veiculos/OrbitadorReentrada.ts](#modulo-102)
+- [src/physics/objetos/veiculos/VeiculoAlado.ts](#modulo-103)
+- [src/physics/objetos/veiculos/VeiculoComposto.ts](#modulo-104)
+- [src/physics/objetos/veiculos/VeiculoTerrestre.ts](#modulo-105)
+- [src/physics/reentrada/ModeloAerodinamicoReentrada.ts](#modulo-106)
+- [src/physics/sensores/SensoresVeiculoComposto.ts](#modulo-107)
+- [src/physics/sensores/SistemaSensores.ts](#modulo-108)
+- [src/physics/sensores/SwitchFimDeCurso.ts](#modulo-109)
+- [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.ts](#modulo-110)
+- [src/physics/sistemas de controle/ControladorAletasAerodinamicas.ts](#modulo-111)
+- [src/physics/sistemas de controle/ControladorDesaceleracao.ts](#modulo-112)
+- [src/physics/sistemas de controle/ControladorDesaceleracaoDePropulsores.ts](#modulo-113)
+- [src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.ts](#modulo-114)
+- [src/physics/sistemas de controle/ControladorGimbalDescidaDePropulsores.ts](#modulo-115)
+- [src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts](#modulo-116)
+- [src/physics/sistemas de controle/ControladorInclinacaoDePropulsores.ts](#modulo-117)
+- [src/physics/sistemas de controle/ControladorInclinacaoPid.ts](#modulo-118)
+- [src/physics/sistemas de controle/ControladorPerfilVooExperimental.ts](#modulo-119)
+- [src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts](#modulo-120)
+- [src/physics/sistemas de controle/ControladorPouso.ts](#modulo-121)
+- [src/physics/sistemas de controle/ControladorPousoDePropulsores.ts](#modulo-122)
+- [src/physics/sistemas de controle/ControladorReentrada.ts](#modulo-123)
+- [src/physics/sistemas de controle/EstrategiaCorredorReentrada.ts](#modulo-124)
+- [src/physics/sistemas de controle/GerenciadorDeControladores.ts](#modulo-125)
+- [src/physics/sistemas de controle/SupervisorReentrada.ts](#modulo-126)
+- [src/physics/solucionadores/IntegradorFisico.ts](#modulo-127)
+- [src/physics/solucionadores/ResolvedorColisoes.ts](#modulo-128)
+- [src/physics/solucionadores/ResolvedorContatoSuperficie.ts](#modulo-129)
+- [src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts](#modulo-130)
+- [src/physics/solucionadores/SistemaAtmosferico.ts](#modulo-131)
+- [src/physics/solucionadores/SistemaTermico.ts](#modulo-132)
+- [src/reentrada.ts](#modulo-133)
+- [src/simulacao/ExecutorPassoFixo.ts](#modulo-134)
+- [src/testes.ts](#modulo-135)
+- [src/validacao/ReferenciaBancadaM10.ts](#modulo-136)
+- [src/veiculos/DefinicaoBss006.ts](#modulo-137)
+- [src/veiculos/HidrodinamicaBss006.ts](#modulo-138)
+- [src/veiculos/MontagemBss.ts](#modulo-139)
+- [src/veiculos/TelemetriaBss.ts](#modulo-140)
+- [src/visualizacao/CameraFisica2D.ts](#modulo-141)
+- [src/visualizacao/ConexoesEletricas.ts](#modulo-142)
+- [src/visualizacao/RegistroEnsaioBancada.ts](#modulo-143)
+- [src/visualizacao/TracePLC.ts](#modulo-144)
 
 <a id="modulo-1"></a>
 ## scripts/benchmark-missao.ts
@@ -3875,15 +3877,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::validarComandoReentrada:FunctionDeclaration</code> · [fonte L60](../../src/cenarios/EnsaioReentrada.ts#L60) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::validarComandoReentrada:FunctionDeclaration</code> · [fonte L68](../../src/cenarios/EnsaioReentrada.ts#L68) |
 | Assinatura | <code>export (entrada: unknown): entrada is ComandoReentrada</code> |
 | Responsabilidade | Valida comando serializável por chaves exatas, finitude e limites; não executa. |
 | Entradas | <code>entrada: unknown</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
-| Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>false</code>; <code>typeof e.automatico === 'boolean'</code>; <code>typeof e.ligada === 'boolean'</code>; <code>e.indice === 0 &#124;&#124; e.indice === 1</code>; <code>typeof e.alphaRad === 'number' &amp;&amp; Number.isFinite(e.alphaRad) &amp;&amp; e.alphaRad &gt;= 0<br>    &amp;&amp; e.alphaRad &lt;= 80 * Math.PI / 180 &amp;&amp; typeof e.phiRad === 'number' &amp;&amp; Number.isFinite(e.phiRad) &amp;&amp; Math.abs(e.phiRad) &lt;= Math.PI / 2</code>; <code>typeof e.phiRad === 'number' &amp;&amp; Number.isFinite(e.phiRad) &amp;&amp; Math.abs(e.phiRad) &lt;= Math.PI / 2</code>; <code>[e.dianteiroRad, e.traseiroRad].every(v =&gt; typeof v === 'number' &amp;&amp; Number.isFinite(v) &amp;&amp; Math.abs(v) &lt;= Math.PI / 6)</code>; <code>true</code> |
+| Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>false</code>; <code>typeof e.automatico === 'boolean'</code>; <code>typeof e.ligada === 'boolean'</code>; <code>e.indice === 0 &#124;&#124; e.indice === 1</code>; <code>typeof e.alphaRad === 'number' &amp;&amp; Number.isFinite(e.alphaRad) &amp;&amp; e.alphaRad &gt;= 0<br>    &amp;&amp; e.alphaRad &lt;= 80 * Math.PI / 180 &amp;&amp; typeof e.phiRad === 'number' &amp;&amp; Number.isFinite(e.phiRad) &amp;&amp; Math.abs(e.phiRad) &lt;= Math.PI / 2</code>; <code>typeof e.phiRad === 'number' &amp;&amp; Number.isFinite(e.phiRad) &amp;&amp; Math.abs(e.phiRad) &lt;= Math.PI / 2</code>; <code>[e.dianteiroRad, e.traseiroRad].every(v =&gt; typeof v === 'number' &amp;&amp; Number.isFinite(v) &amp;&amp; Math.abs(v) &lt; Math.PI / 2)</code>; <code>true</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Array.isArray</code>; <code>Object.hasOwn</code>; <code>Object.keys</code>; <code>chaves[e.tipo].every</code>; <code>Number.isFinite</code>; <code>Math.abs</code>; <code>[e.dianteiroRad, e.traseiroRad].every</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!entrada &#124;&#124; typeof entrada !== 'object' &#124;&#124; Array.isArray(entrada)</code>; <code>typeof e.tipo !== 'string' &#124;&#124; !Object.hasOwn(chaves, e.tipo)</code>; <code>Object.keys(e).length !== chaves[e.tipo].length + 1 &#124;&#124; !chaves[e.tipo].every(k =&gt; Object.hasOwn(e, k))</code>; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Valida comando serializável por chaves exatas, finitude e limites; não executa.  @contract f-52a010df6b7f3e6e */ |
 
@@ -3894,15 +3896,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::configurarReentrada:FunctionDeclaration</code> · [fonte L84](../../src/cenarios/EnsaioReentrada.ts#L84) |
-| Assinatura | <code>export (entrada?: Partial&lt;ConfiguracaoReentrada&gt;): ConfiguracaoReentrada</code> |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::configurarReentrada:FunctionDeclaration</code> · [fonte L92](../../src/cenarios/EnsaioReentrada.ts#L92) |
+| Assinatura | <code>export (entrada?: EntradaConfiguracaoReentrada): ConfiguracaoReentrada</code> |
 | Responsabilidade | Cria configuração copiada, validada e congelada; os limiares térmicos padrão foram definidos pelo operador, não representam estrutura interna/qualificação. |
-| Entradas | <code>entrada: Partial&lt;ConfiguracaoReentrada&gt; = {}</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>entrada: EntradaConfiguracaoReentrada = {}</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ConfiguracaoReentrada</code>; expressões retornadas: <code>c</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>copiarSnapshot</code>; <code>[c.altitudeM, c.velocidadeMps, c.anguloAtaqueRad, c.trajetoriaRad, c.rolagemRad,<br>    c.limiteOrbitadorC, c.limiteFlapsC, c.limiteBateriaC, c.passoS].every</code>; <code>Math.abs</code>; <code>Number.isSafeInteger</code>; <code>[c.automatico, c.chaveamentoAutomatico, c.vacuo].every</code>; <code>Object.values(c.corredor).every</code>; <code>Object.values</code>; <code>Error</code> |
-| Invariantes | Contrato documentado abaixo; ramos observados: <code>![c.altitudeM, c.velocidadeMps, c.anguloAtaqueRad, c.trajetoriaRad, c.rolagemRad,<br>    c.limiteOrbitadorC, c.limiteFlapsC, c.limiteBateriaC, c.passoS].every(Number.isFinite)<br>    &#124;&#124; c.altitudeM &lt; 10 &#124;&#124; c.altitudeM &gt; 200000 &#124;&#124; c.velocidadeMps … [continua na fonte]</code>; exceções: <code>new Error('Configuração RE-001 inválida.')</code> |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Dependências | Chamadas/construções diretas: <code>copiarSnapshot</code>; <code>configurarParametrosReentrada</code>; <code>[c.altitudeM, c.velocidadeMps, c.anguloAtaqueRad, c.trajetoriaRad, c.rolagemRad,<br>    c.limiteOrbitadorC, c.limiteFlapsC, c.limiteBateriaC, c.passoS, c.taxaAtitudeLocalInicialRadps].every</code>; <code>Math.abs</code>; <code>Number.isSafeInteger</code>; <code>[c.automatico, c.chaveamentoAutomatico, c.vacuo].every</code>; <code>Number.isFinite</code>; <code>Math.round</code>; <code>Object.values(c.corredor).every</code>; <code>Object.values</code>; <code>Error</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>![c.altitudeM, c.velocidadeMps, c.anguloAtaqueRad, c.trajetoriaRad, c.rolagemRad,<br>    c.limiteOrbitadorC, c.limiteFlapsC, c.limiteBateriaC, c.passoS, c.taxaAtitudeLocalInicialRadps].every(Number.isFinite)<br>    &#124;&#124; c.altitudeM &lt; 10 &#124;&#124; c.altitu… [continua na fonte]</code>; exceções: <code>new Error('Configuração RE-001 inválida.')</code> |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Cria configuração copiada, validada e congelada; os limiares térmicos padrão<br> * foram definidos pelo operador, não representam estrutura interna/qualificação.<br> * @contract f-f88e23012b3ae8c3<br>   */ |
 
@@ -3913,7 +3915,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::estadoModulo:FunctionDeclaration</code> · [fonte L103](../../src/cenarios/EnsaioReentrada.ts#L103) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::estadoModulo:FunctionDeclaration</code> · [fonte L115](../../src/cenarios/EnsaioReentrada.ts#L115) |
 | Assinatura | <code> (e: EstadoFisico, x: number, y: number): EstadoFisico</code> |
 | Responsabilidade | Constrói somente estado inicial de módulo: pose relativa rígida e velocidade v+ω×r em SI. Não é usada para reposicionar objetos durante o ensaio. |
 | Entradas | <code>e: EstadoFisico</code>; <code>x: number</code>; <code>y: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -3921,7 +3923,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Vetor3</code>; <code>Math.cos</code>; <code>Math.sin</code>; <code>e.posicaoM.adicionar</code>; <code>e.velocidadeMps.adicionar</code>; <code>e.velocidadeAngularRadps.produtoVetorial</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Constrói somente estado inicial de módulo: pose relativa rígida e velocidade<br> * v+ω×r em SI. Não é usada para reposicionar objetos durante o ensaio.<br> * @contract f-532e693d7fa63ff9<br>   */ |
 
@@ -3932,15 +3934,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada:FunctionDeclaration</code> · [fonte L114](../../src/cenarios/EnsaioReentrada.ts#L114) |
-| Assinatura | <code>export (entrada?: Partial&lt;ConfiguracaoReentrada&gt;): { configuracao: ConfiguracaoReentrada; ambiente: AmbienteTerrestre; perfil: PerfilAtmosfericoReentrada; mundo: MundoFisico; orbitador: OrbitadorReentrada; flaps: FlapReentrada[]; bateria: Bateria; fixadores: FixadorEstrutural[]; objetos: readonly Objeto[]; sensores: SensoresVeiculoComposto; solo: SuperficieEsferica; }</code> |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada:FunctionDeclaration</code> · [fonte L126](../../src/cenarios/EnsaioReentrada.ts#L126) |
+| Assinatura | <code>export (entrada?: EntradaConfiguracaoReentrada): { configuracao: ConfiguracaoReentrada; ambiente: AmbienteTerrestre; perfil: PerfilAtmosfericoReentrada; mundo: MundoFisico; orbitador: OrbitadorReentrada; flaps: FlapReentrada[]; bateria: Bateria; fixadores: FixadorEstrutural[]; objetos: readonly Objeto[]; sensores: SensoresVeiculoComposto; solo: SuperficieEsferica; }</code> |
 | Responsabilidade | Fábrica ADM de corpos reais e vínculos no mesmo MundoFisico. Vácuo é explícito; atmosfera RE é opt-in. Terra estática, XY; padrão 1/240 s, máximo exploratório 1/120 s. Fonte enclausurada. |
-| Entradas | <code>entrada: Partial&lt;ConfiguracaoReentrada&gt; = {}</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>entrada: EntradaConfiguracaoReentrada = {}</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ configuracao: ConfiguracaoReentrada; ambiente: AmbienteTerrestre; perfil: PerfilAtmosfericoReentrada; mundo: MundoFisico; orbitador: OrbitadorReentrada; flaps: FlapReentrada[]; bateria: Bateria; fixadores: FixadorEstrutural[]; objetos: readonly Objeto[]; sensores: SensoresVeiculoComposto; solo: SuperficieEsferica; }</code>; expressões retornadas: <code>{ configuracao, ambiente, perfil, mundo, orbitador, flaps, bateria, fixadores, objetos, sensores, solo }</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>configurarReentrada</code>; <code>AmbienteTerrestre</code>; <code>PerfilAtmosfericoReentrada</code>; <code>MundoFisico</code>; <code>criarEstadoInicialLocal</code>; <code>Math.cos</code>; <code>Math.sin</code>; <code>OrbitadorReentrada</code>; <code>Bateria</code>; <code>Vetor3</code>; <code>[0, 1].map</code>; <code>mundo.registrarObjeto</code>; <code>FixadorEstrutural</code>; <code>fixadores.push</code>; <code>mundo.registrarFixador</code>; <code>SuperficieEsferica</code>; <code>mundo.registrarSuperficie</code>; <code>SensoresVeiculoComposto</code>; <code>mundo.registrarSensoresVeiculo</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Fábrica ADM de corpos reais e vínculos no mesmo MundoFisico. Vácuo é explícito;<br> * atmosfera RE é opt-in. Terra estática, XY; padrão 1/240 s, máximo exploratório 1/120 s. Fonte enclausurada.<br> * @contract f-8fc45f499c16a562<br>   */ |
 
@@ -3951,7 +3953,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#2.operacaoAutorizada:ArrowFunction</code> · [fonte L138](../../src/cenarios/EnsaioReentrada.ts#L138) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#2.operacaoAutorizada:ArrowFunction</code> · [fonte L150](../../src/cenarios/EnsaioReentrada.ts#L150) |
 | Assinatura | <code> (): boolean</code> |
 | Responsabilidade | Permissivo do atuador: vínculo íntegro e corpo vivo; não produz força. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -3959,7 +3961,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Permissivo do atuador: vínculo íntegro e corpo vivo; não produz força.  @contract f-974c61344181bb4f */ |
 
@@ -3970,7 +3972,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L152](../../src/cenarios/EnsaioReentrada.ts#L152) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L164](../../src/cenarios/EnsaioReentrada.ts#L164) |
 | Assinatura | <code> (): number</code> |
 | Responsabilidade | Sem solicitação operacional extra; impactos são registrados pelo core. Esforço aerodinâmico distribuído de vínculos não é qualificado neste ensaio. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -3978,7 +3980,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Sem solicitação operacional extra; impactos são registrados pelo core.<br>       * Esforço aerodinâmico distribuído de vínculos não é qualificado neste ensaio.<br>       * @contract f-f310bba164029a51<br>   */ |
 
@@ -3989,7 +3991,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto:FunctionDeclaration</code> · [fonte L169](../../src/cenarios/EnsaioReentrada.ts#L169) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto:FunctionDeclaration</code> · [fonte L181](../../src/cenarios/EnsaioReentrada.ts#L181) |
 | Assinatura | <code> (c: CenarioReentrada): { membros: Objeto[]; massaKg: number; centroM: Vetor3; inerciaKgM2: number; }</code> |
 | Responsabilidade | Calcula massa/CM/inércia instantâneos somente dos módulos ainda conectados. Diagnóstico, não segunda cópia de posições nem um integrador. |
 | Entradas | <code>c: CenarioReentrada</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -3997,7 +3999,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>c.objetos.filter</code>; <code>membros.reduce</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Calcula massa/CM/inércia instantâneos somente dos módulos ainda conectados.<br> * Diagnóstico, não segunda cópia de posições nem um integrador.<br> * @contract f-79e1834474e775f0<br>   */ |
 
@@ -4008,15 +4010,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.constructor:Constructor</code> · [fonte L198](../../src/cenarios/EnsaioReentrada.ts#L198) |
-| Assinatura | <code>public (entrada?: Partial&lt;ConfiguracaoReentrada&gt;): EnsaioReentrada</code> |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.constructor:Constructor</code> · [fonte L213](../../src/cenarios/EnsaioReentrada.ts#L213) |
+| Assinatura | <code>public (entrada?: EntradaConfiguracaoReentrada): EnsaioReentrada</code> |
 | Responsabilidade | Monta controles por portas de leitura, registra adaptador de pouso desabilitado sem motores, e registra hipóteses/revisão. Não inicia execução ou ignição. |
-| Entradas | <code>entrada: Partial&lt;ConfiguracaoReentrada&gt; = {}</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>entrada: EntradaConfiguracaoReentrada = {}</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>EnsaioReentrada</code>; expressões retornadas: — |
-| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.id</code>; <code>this.passoS</code>; <code>this.configuracao</code>; <code>this.passos</code>; <code>this.execucao</code>; <code>this.cenario</code>; <code>this.gerenciador</code>; <code>this.controlador</code>; <code>this.supervisor</code>; <code>this.eventos</code>; <code>this.condicoesRegistradas</code>; <code>this.energiaDissipadaJ</code>; <code>this.balancoAngular</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>GerenciadorDeControladores</code>; <code>Map</code>; <code>BalancoAngular</code>; <code>criarCenarioReentrada</code>; <code>ControladorReentrada</code>; <code>this.gerenciador.registrar</code>; <code>ControladorPousoDePropulsores</code>; <code>pouso.configurar</code>; <code>this.gerenciador.habilitar</code>; <code>SupervisorReentrada</code>; <code>this.supervisor.definirAutomatico</code>; <code>this.atualizarSupervisor</code>; <code>this.evento</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.id</code>; <code>this.passoS</code>; <code>this.configuracao</code>; <code>this.passos</code>; <code>this.execucao</code>; <code>this.cenario</code>; <code>this.gerenciador</code>; <code>this.controlador</code>; <code>this.supervisor</code>; <code>this.eventos</code>; <code>this.condicoesRegistradas</code>; <code>this.energiaDissipadaJ</code>; <code>this.balancoAngular</code>; <code>this.extremos</code>; <code>this.sequenciaEvento</code>; <code>this.eventosDescartados</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>GerenciadorDeControladores</code>; <code>Map</code>; <code>BalancoAngular</code>; <code>criarCenarioReentrada</code>; <code>RegistroExtremos</code>; <code>Math.round</code>; <code>ControladorReentrada</code>; <code>this.gerenciador.registrar</code>; <code>ControladorPousoDePropulsores</code>; <code>pouso.configurar</code>; <code>this.gerenciador.habilitar</code>; <code>SupervisorReentrada</code>; <code>this.supervisor.definirAutomatico</code>; <code>this.atualizarSupervisor</code>; <code>this.evento</code>; <code>this.extremos.registrar</code>; <code>this.lerMetricasPasso</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>this.configuracao.automatico</code>; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Monta controles por portas de leitura, registra adaptador de pouso desabilitado<br>   * sem motores, e registra hipóteses/revisão. Não inicia execução ou ignição.<br>   * @contract f-34fba91cf8789bd5<br>   */ |
 
@@ -4027,7 +4029,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.passosExecutados:GetAccessor</code> · [fonte L215](../../src/cenarios/EnsaioReentrada.ts#L215) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.passosExecutados:GetAccessor</code> · [fonte L232](../../src/cenarios/EnsaioReentrada.ts#L232) |
 | Assinatura | <code>public (): number</code> |
 | Responsabilidade | Índice exato usado pela agenda reproduzível. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4035,7 +4037,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Índice exato usado pela agenda reproduzível.  @contract f-675d2c66285d618a */ |
 
@@ -4046,7 +4048,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.estadoExecucao:GetAccessor</code> · [fonte L217](../../src/cenarios/EnsaioReentrada.ts#L217) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.estadoExecucao:GetAccessor</code> · [fonte L234](../../src/cenarios/EnsaioReentrada.ts#L234) |
 | Assinatura | <code>public (): EstadoExecucaoMissao</code> |
 | Responsabilidade | Consulta execução real; pausa não altera estado físico. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4054,7 +4056,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Consulta execução real; pausa não altera estado físico.  @contract f-a7a4e68b04548ca1 */ |
 
@@ -4065,7 +4067,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.iniciar:MethodDeclaration</code> · [fonte L219](../../src/cenarios/EnsaioReentrada.ts#L219) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.iniciar:MethodDeclaration</code> · [fonte L236](../../src/cenarios/EnsaioReentrada.ts#L236) |
 | Assinatura | <code>public (): void</code> |
 | Responsabilidade | Autoriza passos simulados, sem alterar trajetória. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4073,7 +4075,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.execucao</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Autoriza passos simulados, sem alterar trajetória.  @contract f-cd5bce11227c4b08 */ |
 
@@ -4084,7 +4086,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.pausar:MethodDeclaration</code> · [fonte L221](../../src/cenarios/EnsaioReentrada.ts#L221) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.pausar:MethodDeclaration</code> · [fonte L238](../../src/cenarios/EnsaioReentrada.ts#L238) |
 | Assinatura | <code>public (): void</code> |
 | Responsabilidade | Suspende executor mantendo corpos e fila operacional. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4092,7 +4094,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.execucao</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Suspende executor mantendo corpos e fila operacional.  @contract f-862b111fdbd503d8 */ |
 
@@ -4103,7 +4105,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.obterEventos:MethodDeclaration</code> · [fonte L223](../../src/cenarios/EnsaioReentrada.ts#L223) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.obterEventos:MethodDeclaration</code> · [fonte L240](../../src/cenarios/EnsaioReentrada.ts#L240) |
 | Assinatura | <code>public (): readonly EventoMissao[]</code> |
 | Responsabilidade | Eventos são copiados/congelados para consumidores. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4111,7 +4113,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>copiarSnapshot</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Eventos são copiados/congelados para consumidores.  @contract f-6a94dcd54d1a0d5d */ |
 
@@ -4122,7 +4124,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando:MethodDeclaration</code> · [fonte L229](../../src/cenarios/EnsaioReentrada.ts#L229) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando:MethodDeclaration</code> · [fonte L246](../../src/cenarios/EnsaioReentrada.ts#L246) |
 | Assinatura | <code>public (comando: ComandoReentrada): ResultadoComandoMissao</code> |
 | Responsabilidade | Aplica comandos públicos e registra aceitação/bloqueio. Comando manual exige seleção manual; pouso sempre verifica supervisor, não habilita motor implícito. |
 | Entradas | <code>comando: ComandoReentrada</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4130,7 +4132,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>aceito</code>; <code>motivo</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>validarComandoReentrada</code>; <code>this.supervisor.observar</code>; <code>['modo', 'alvos', 'flaps', 'rolagem'].includes</code>; <code>this.gerenciador.habilitar</code>; <code>this.gerenciador.desabilitar</code>; <code>c.flaps.forEach</code>; <code>this.controlador.configurarAlvos</code>; <code>c.flaps[0].solicitarDeflexaoRad</code>; <code>c.flaps[1].solicitarDeflexaoRad</code>; <code>c.orbitador.solicitarRolagem</code>; <code>this.supervisor.definirAutomatico</code>; <code>this.supervisor.solicitarPouso</code>; <code>this.atualizarSupervisor</code>; <code>this.supervisor.observar().requisitos.filter(r =&gt; !r.atendido).map(r =&gt; r.descricao).join</code>; <code>this.supervisor.observar().requisitos.filter(r =&gt; !r.atendido).map</code>; <code>this.supervisor.observar().requisitos.filter</code>; <code>c.orbitador.definirDisponibilidadeRolagem</code>; <code>c.fixadores[comando.indice].liberar</code>; <code>this.evento</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!validarComandoReentrada(comando)</code>; <code>this.supervisor.observar().fase !== 'reentrada' &amp;&amp; ['modo', 'alvos', 'flaps', 'rolagem'].includes(comando.tipo)</code>; <code>comando.tipo === 'modo'</code>; <code>comando.automatico</code>; <code>comando.tipo === 'alvos'</code>; <code>comando.tipo === 'flaps' &#124;&#124; comando.tipo === 'rolagem'</code>; <code>this.controlador.estaHabilitado</code>; <code>comando.tipo === 'flaps'</code>; <code>comando.tipo === 'chaveamento'</code>; <code>comando.tipo === 'pouso'</code>; <code>comando.tipo === 'alimentacao'</code>; <code>comando.tipo === 'falha-rolagem'</code>; <code>comando.tipo === 'separar-flap'</code>; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Aplica comandos públicos e registra aceitação/bloqueio. Comando manual exige<br>   * seleção manual; pouso sempre verifica supervisor, não habilita motor implícito.<br>   * @contract f-ea3e069c929c0c05<br>   */ |
 
@@ -4141,15 +4143,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso:MethodDeclaration</code> · [fonte L264](../../src/cenarios/EnsaioReentrada.ts#L264) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso:MethodDeclaration</code> · [fonte L281](../../src/cenarios/EnsaioReentrada.ts#L281) |
 | Assinatura | <code>public (): boolean</code> |
 | Responsabilidade | Consome solicitações arbitradas e avança um único passo no mundo compartilhado. Não encerra por tempo/evento intermediário. Registra quadratura do torque e resíduo de L intrínseco, sem correção UI. Contato/ruptura sinaliza balanço incompleto. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>false</code>; <code>true</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.passos</code>; <code>this.energiaDissipadaJ</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>this.atualizarSupervisor</code>; <code>this.gerenciador.calcularSolicitacoes</code>; <code>c.sensores.obterLeituras</code>; <code>c.flaps.find(f =&gt; f.id === s.idAtuador)?.solicitarDeflexaoRad</code>; <code>c.flaps.find</code>; <code>c.orbitador.solicitarRolagem</code>; <code>c.objetos.reduce</code>; <code>geometriaConjunto</code>; <code>diagnosticarMomentoAngular</code>; <code>c.mundo.obterCargasAerodinamicas</code>; <code>c.mundo.avancar</code>; <code>this.balancoAngular.registrar</code>; <code>c.mundo.obterContatosComSuperficie</code>; <code>this.registrarCondicoes</code> |
-| Invariantes | Contrato documentado abaixo; ramos observados: <code>this.execucao !== 'executando'</code>; <code>s.recurso === 'flap'</code>; <code>s.recurso === 'rolagem-virtual'</code>; <code>this.passos % 24 === 0</code>; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Dependências | Chamadas/construções diretas: <code>this.atualizarSupervisor</code>; <code>this.gerenciador.calcularSolicitacoes</code>; <code>c.sensores.obterLeituras</code>; <code>c.flaps.find(f =&gt; f.id === s.idAtuador)?.solicitarDeflexaoRad</code>; <code>c.flaps.find</code>; <code>c.orbitador.solicitarRolagem</code>; <code>c.objetos.reduce</code>; <code>geometriaConjunto</code>; <code>diagnosticarMomentoAngular</code>; <code>c.mundo.obterCargasAerodinamicas</code>; <code>c.mundo.avancar</code>; <code>c.mundo.obterDiagnosticoAngularDoPasso</code>; <code>this.balancoAngular.registrar</code>; <code>c.mundo.obterContatosComSuperficie</code>; <code>this.registrarCondicoes</code>; <code>this.extremos.registrar</code>; <code>this.lerMetricasPasso</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>this.execucao !== 'executando'</code>; <code>s.recurso === 'flap'</code>; <code>s.recurso === 'rolagem-virtual'</code>; exceções: — |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Consome solicitações arbitradas e avança um único passo no mundo compartilhado.<br>   * Não encerra por tempo/evento intermediário. Registra quadratura do torque<br>   * e resíduo de L intrínseco, sem correção UI. Contato/ruptura sinaliza balanço incompleto.<br>   * @contract f-6c85c671f0b775b6<br>   */ |
 
@@ -4160,15 +4162,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar:MethodDeclaration</code> · [fonte L293](../../src/cenarios/EnsaioReentrada.ts#L293) |
-| Assinatura | <code>public (): { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }[]; vinculos: { id: string; estado: "integro" &#124; "rompido" &#124; "liberado"; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }</code> |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar:MethodDeclaration</code> · [fonte L313](../../src/cenarios/EnsaioReentrada.ts#L313) |
+| Assinatura | <code>public (): { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { cargasEfetivamenteIntegradas: { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } &#124; null; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; respostaTermica: { modelo: string; tetoUniversal: boolean; potenciaIndicadorCorpoW: number; potenciaTransferidaCorpoW: number; tpsInstalado: boolean; camadasInternasModeladas: boolean; }; estadosTerminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }[]; vinculos: { id: string; estado: "integro" &#124; "rompido" &#124; "liberado"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }</code> |
 | Responsabilidade | Observação escalar/geométrica e balanço angular, copiada e congelada. Torque gravítico é o gradiente entre centros dos membros, não distribuição interna. Resíduo usa quadratura externa; contatos/fontes impulsivas são sinalizados. Não oferece objetos mutáveis nem corrige estado. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
-| Saídas | Tipo <code>{ id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }[]; vinculos: { id: string; estado: "integro" &#124; "rompido" &#124; "liberado"; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }</code>; expressões retornadas: <code>copiarSnapshot({ id: this.id, tempoS: c.mundo.tempoS, passo: this.passos,<br>    execucao: this.execucao, estado: e, altitudeM: c.ambiente.referencial.altitudeGeometricaM(e.posicaoM),<br>    arcoM: c.ambiente.referencial.posicaoHorizontalM(e.posi… [continua na fonte]</code> |
+| Saídas | Tipo <code>{ id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { cargasEfetivamenteIntegradas: { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } &#124; null; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; respostaTermica: { modelo: string; tetoUniversal: boolean; potenciaIndicadorCorpoW: number; potenciaTransferidaCorpoW: number; tpsInstalado: boolean; camadasInternasModeladas: boolean; }; estadosTerminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }[]; vinculos: { id: string; estado: "integro" &#124; "rompido" &#124; "liberado"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }</code>; expressões retornadas: <code>copiarSnapshot({ id: this.id, tempoS: c.mundo.tempoS, passo: this.passos,<br>    execucao: this.execucao, estado: e, extremos: this.extremos.observar(), eventosDescartados: this.eventosDescartados, altitudeM: c.ambiente.referencial.altitudeGeo… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>c.orbitador.getEstadoFisico</code>; <code>c.mundo.obterCondicoesAtmosfericas</code>; <code>c.orbitador.avaliar</code>; <code>geometriaConjunto</code>; <code>c.mundo.obterCargasAerodinamicas</code>; <code>cargas.forcaN.multiplicar</code>; <code>c.mundo.obterGravidadeMps2</code>; <code>c.ambiente.referencial.vetorParaLocal</code>; <code>g.membros.reduce</code>; <code>copiarSnapshot</code>; <code>c.ambiente.referencial.altitudeGeometricaM</code>; <code>c.ambiente.referencial.posicaoHorizontalM</code>; <code>Math.atan2</code>; <code>c.orbitador.observarRolagem</code>; <code>this.controlador.observar</code>; <code>c.orbitador.obterHistoricoRolagem</code>; <code>this.supervisor.observar</code>; <code>this.gerenciador.obterUltimaArbitragem</code>; <code>gravidade.adicionar</code>; <code>diagnosticarMomentoAngular</code>; <code>this.balancoAngular.observar</code>; <code>c.mundo.obterContatosComSuperficie</code>; <code>aceleracaoAero.produtoEscalar</code>; <code>Math.max</code>; <code>c.objetos.reduce</code>; <code>c.flaps.map</code>; <code>c.fixadores.map</code> |
+| Dependências | Chamadas/construções diretas: <code>c.orbitador.getEstadoFisico</code>; <code>c.mundo.obterCondicoesAtmosfericas</code>; <code>c.orbitador.avaliar</code>; <code>geometriaConjunto</code>; <code>c.mundo.obterCargasAerodinamicas</code>; <code>cargas.forcaN.multiplicar</code>; <code>c.mundo.obterGravidadeMps2</code>; <code>c.ambiente.referencial.vetorParaLocal</code>; <code>g.membros.reduce</code>; <code>copiarSnapshot</code>; <code>this.extremos.observar</code>; <code>c.ambiente.referencial.altitudeGeometricaM</code>; <code>c.ambiente.referencial.posicaoHorizontalM</code>; <code>Math.atan2</code>; <code>e.posicaoM.subtrair</code>; <code>c.ambiente.referencial.atitudeLocalRad</code>; <code>c.orbitador.observarRolagem</code>; <code>this.controlador.observar</code>; <code>c.orbitador.obterHistoricoRolagem</code>; <code>this.supervisor.observar</code>; <code>this.gerenciador.obterUltimaArbitragem</code>; <code>gravidade.adicionar</code>; <code>diagnosticarMomentoAngular</code>; <code>this.balancoAngular.observar</code>; <code>c.mundo.obterDiagnosticoAngularDoPasso</code>; <code>c.mundo.obterContatosComSuperficie</code>; <code>aceleracaoAero.produtoEscalar</code>; <code>Math.max</code>; <code>c.objetos.reduce</code>; <code>c.orbitador.obterPotenciaAquecimentoAerodinamicoW</code>; <code>c.mundo.obterForcaArrastoAtmosferico(c.orbitador).produtoEscalar</code>; <code>c.mundo.obterForcaArrastoAtmosferico</code>; <code>e.velocidadeMps.subtrair</code>; <code>c.flaps.some</code>; <code>c.mundo.obterContatosComSuperficie().some</code>; <code>c.flaps.map</code>; <code>c.fixadores.map</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Observação escalar/geométrica e balanço angular, copiada e congelada. Torque<br>   * gravítico é o gradiente entre centros dos membros, não distribuição interna.<br>   * Resíduo usa quadratura externa; contatos/fontes impulsivas são sinalizados.<br>   * Não oferece objetos mutáveis nem corrige estado. @contract f-05755a69bc286c7f */ |
 
@@ -4179,15 +4181,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle:MethodDeclaration</code> · [fonte L342](../../src/cenarios/EnsaioReentrada.ts#L342) |
-| Assinatura | <code>private (): { alphaRad: number; taxaArfagemRadps: number; taxaFluxoRadps: number; pressaoDinamicaPa: number; fluxoTermicoWm2: number; cargaG: number; torquePassivoNm: number; inerciaKgM2: number; phiRad: number; disponivel: boolean; }</code> |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle:MethodDeclaration</code> · [fonte L377](../../src/cenarios/EnsaioReentrada.ts#L377) |
+| Assinatura | <code>private (): { alphaRad: number; taxaArfagemRadps: number; taxaFluxoRadps: number; pressaoDinamicaPa: number; fluxoTermicoWm2: number; cargaG: number; torquePassivoNm: number; energiaMecanicaEspecificaJPorKg: number; integridadeMinima: number; inerciaKgM2: number; phiRad: number; disponivel: boolean; }</code> |
 | Responsabilidade | Telemetria física para PD; calcula derivada angular do fluxo por v×a/&#124;v&#124;², sem diferenciar relógio real ou alterar estado. Torque passivo exclui lift ativo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
-| Saídas | Tipo <code>{ alphaRad: number; taxaArfagemRadps: number; taxaFluxoRadps: number; pressaoDinamicaPa: number; fluxoTermicoWm2: number; cargaG: number; torquePassivoNm: number; inerciaKgM2: number; phiRad: number; disponivel: boolean; }</code>; expressões retornadas: <code>{ alphaRad: a.anguloAtaqueRad, taxaArfagemRadps: e.velocidadeAngularRadps.z,<br>    taxaFluxoRadps: v.magnitude &gt; 1 ? v.produtoVetorial(aceleracao).z / v.magnitude ** 2 : 0,<br>    pressaoDinamicaPa: a.pressaoDinamicaPa, fluxoTermicoWm2: a.fluxoT… [continua na fonte]</code> |
+| Saídas | Tipo <code>{ alphaRad: number; taxaArfagemRadps: number; taxaFluxoRadps: number; pressaoDinamicaPa: number; fluxoTermicoWm2: number; cargaG: number; torquePassivoNm: number; energiaMecanicaEspecificaJPorKg: number; integridadeMinima: number; inerciaKgM2: number; phiRad: number; disponivel: boolean; }</code>; expressões retornadas: <code>{ alphaRad: a.anguloAtaqueRad, taxaArfagemRadps: e.velocidadeAngularRadps.z,<br>    taxaFluxoRadps: v.magnitude &gt; 1 ? v.produtoVetorial(aceleracao).z / v.magnitude ** 2 : 0,<br>    pressaoDinamicaPa: a.pressaoDinamicaPa, fluxoTermicoWm2: a.fluxoT… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>c.orbitador.getEstadoFisico</code>; <code>geometriaConjunto</code>; <code>c.orbitador.avaliar</code>; <code>c.mundo.obterCondicoesAtmosfericas</code>; <code>c.mundo.obterCargasAerodinamicas</code>; <code>c.mundo.obterGravidadeMps2(e.posicaoM).adicionar</code>; <code>c.mundo.obterGravidadeMps2</code>; <code>cargas.forcaN.multiplicar</code>; <code>e.velocidadeMps.subtrair</code>; <code>c.flaps.reduce</code>; <code>v.produtoVetorial</code>; <code>c.orbitador.observarRolagem</code>; <code>c.flaps.every</code> |
+| Dependências | Chamadas/construções diretas: <code>c.orbitador.getEstadoFisico</code>; <code>geometriaConjunto</code>; <code>c.orbitador.avaliar</code>; <code>c.mundo.obterCondicoesAtmosfericas</code>; <code>c.mundo.obterCargasAerodinamicas</code>; <code>c.mundo.obterGravidadeMps2(e.posicaoM).adicionar</code>; <code>c.mundo.obterGravidadeMps2</code>; <code>cargas.forcaN.multiplicar</code>; <code>e.velocidadeMps.subtrair</code>; <code>c.flaps.reduce</code>; <code>v.produtoVetorial</code>; <code>e.posicaoM.subtrair</code>; <code>Math.min</code>; <code>g.membros.map</code>; <code>c.orbitador.observarRolagem</code>; <code>c.flaps.every</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Telemetria física para PD; calcula derivada angular do fluxo por v×a/&#124;v&#124;²,<br>   * sem diferenciar relógio real ou alterar estado. Torque passivo exclui lift ativo.<br>   * @contract f-2db95d019a3477f5<br>   */ |
 
@@ -4198,7 +4200,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.atualizarSupervisor:MethodDeclaration</code> · [fonte L364](../../src/cenarios/EnsaioReentrada.ts#L364) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.atualizarSupervisor:MethodDeclaration</code> · [fonte L401](../../src/cenarios/EnsaioReentrada.ts#L401) |
 | Assinatura | <code>private (): void</code> |
 | Responsabilidade | Mapeia eixo longitudinal +X para atitude da vertical esperada pelo pouso BSS (+Y); integração propulsiva ausente bloqueia transferência explicitamente. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4206,7 +4208,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>c.sensores.obterLeituras</code>; <code>this.supervisor.observar</code>; <code>this.supervisor.atualizar</code>; <code>Math.hypot</code>; <code>normalizarAngulo</code>; <code>Math.atan2</code>; <code>this.evento</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>this.supervisor.observar().fase !== fase</code>; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Mapeia eixo longitudinal +X para atitude da vertical esperada pelo pouso<br>   * BSS (+Y); integração propulsiva ausente bloqueia transferência explicitamente.<br>   * @contract f-b5dfd4d0081ccbd9<br>   */ |
 
@@ -4217,15 +4219,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes:MethodDeclaration</code> · [fonte L377](../../src/cenarios/EnsaioReentrada.ts#L377) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes:MethodDeclaration</code> · [fonte L414](../../src/cenarios/EnsaioReentrada.ts#L414) |
 | Assinatura | <code>private (): void</code> |
 | Responsabilidade | Registra arestas de falha/recuperação de condições, não repete eventos por frame. Colisão, dano e separação não encerram evolução física. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
-| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>condicoes[`degradacao-flap-${i + 1}`]</code>; <code>condicoes[`colapso-flap-${i + 1}`]</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>c.orbitador.avaliar</code>; <code>c.mundo.obterCondicoesAtmosfericas</code>; <code>c.flaps.some</code>; <code>this.controlador.observar</code>; <code>c.fixadores.some</code>; <code>c.mundo.obterContatosComSuperficie</code>; <code>this.lerControle</code>; <code>c.perfil.amostrar</code>; <code>c.ambiente.referencial.altitudeGeometricaM</code>; <code>c.orbitador.getEstadoFisico</code>; <code>c.orbitador.observarRolagem</code>; <code>c.flaps.entries</code>; <code>Object.entries</code>; <code>this.condicoesRegistradas.get</code>; <code>this.evento</code>; <code>this.condicoesRegistradas.set</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>condicoes[`degradacao-flap-${i + 1}`]</code>; <code>condicoes[`colapso-flap-${i + 1}`]</code>; <code>valores[`degradacao-flap-${i + 1}`]</code>; <code>valores[`colapso-flap-${i + 1}`]</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>c.orbitador.avaliar</code>; <code>c.mundo.obterCondicoesAtmosfericas</code>; <code>c.flaps.some</code>; <code>this.controlador.observar</code>; <code>c.fixadores.some</code>; <code>c.mundo.obterContatosComSuperficie</code>; <code>this.lerControle</code>; <code>c.perfil.amostrar</code>; <code>c.ambiente.referencial.altitudeGeometricaM</code>; <code>c.orbitador.getEstadoFisico</code>; <code>c.orbitador.observarRolagem</code>; <code>c.flaps.entries</code>; <code>Math.max</code>; <code>c.flaps.map</code>; <code>Object.entries</code>; <code>this.condicoesRegistradas.get</code>; <code>this.evento</code>; <code>this.condicoesRegistradas.set</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>ativo !== (this.condicoesRegistradas.get(tipo) ?? false)</code>; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Registra arestas de falha/recuperação de condições, não repete eventos por frame.<br>   * Colisão, dano e separação não encerram evolução física.<br>   * @contract f-5dacbb18677d6f4c<br>   */ |
 
@@ -4236,17 +4238,36 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.evento:MethodDeclaration</code> · [fonte L407](../../src/cenarios/EnsaioReentrada.ts#L407) |
-| Assinatura | <code>private (tipo: string, descricao: string, categoria?: EventoMissao["categoria"]): void</code> |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.evento:MethodDeclaration</code> · [fonte L455](../../src/cenarios/EnsaioReentrada.ts#L455) |
+| Assinatura | <code>private (tipo: string, descricao: string, categoria?: EventoMissao["categoria"], dados?: EventoMissao["dados"]): void</code> |
 | Responsabilidade | Acrescenta evento no tempo de missão, com sequência estável e categoria. |
-| Entradas | <code>tipo: string</code>; <code>descricao: string</code>; <code>categoria: EventoMissao['categoria'] = 'missao'</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>tipo: string</code>; <code>descricao: string</code>; <code>categoria: EventoMissao['categoria'] = 'missao'</code>; <code>dados?: EventoMissao['dados']</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
-| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>this.eventos.push</code> |
-| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.sequenciaEvento</code>; <code>this.eventosDescartados</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>this.eventos.push</code>; <code>this.eventos.splice</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>this.eventos.length &gt; this.configuracao.limiteEventos</code>; exceções: — |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Acrescenta evento no tempo de missão, com sequência estável e categoria.  @contract f-593973bfbdc79c20 */ |
+
+</details>
+
+<a id="f-08107e4693116363"></a>
+<details><summary>EnsaioReentrada.lerMetricasPasso · MethodDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerMetricasPasso:MethodDeclaration</code> · [fonte L466](../../src/cenarios/EnsaioReentrada.ts#L466) |
+| Assinatura | <code>private (): Readonly&lt;Record&lt;string, number&gt;&gt;</code> |
+| Responsabilidade | Coleta canais físicos SI em todo passo, antes de qualquer redução visual. Sem cópia de trajetória ou recalibração de forças. Chaves/unidades acompanham o diário; extremos têm passo e instante e não dependem da renderização. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>Readonly&lt;Record&lt;string, number&gt;&gt;</code>; expressões retornadas: <code>{ altitudeM: c.ambiente.referencial.altitudeGeometricaM(e.posicaoM), velocidadeMps: e.velocidadeMps.magnitude,<br>    omegaInercialRadps: e.velocidadeAngularRadps.z, alphaRad: a.anguloAtaqueRad,<br>    pressaoDinamicaPa: a.pressaoDinamicaPa, flux… [continua na fonte]</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>c.orbitador.getEstadoFisico</code>; <code>c.orbitador.avaliar</code>; <code>c.mundo.obterCondicoesAtmosfericas</code>; <code>c.ambiente.referencial.altitudeGeometricaM</code>; <code>e.posicaoM.subtrair</code>; <code>c.mundo.obterDiagnosticoAngularDoPasso</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Coleta canais físicos SI em todo passo, antes de qualquer redução visual.<br>   * Sem cópia de trajetória ou recalibração de forças. Chaves/unidades acompanham<br>   * o diário; extremos têm passo e instante e não dependem da renderização.<br>   * @contract f-08107e4693116363<br>   */ |
 
 </details>
 
@@ -4255,15 +4276,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.obterIdentificacao:MethodDeclaration</code> · [fonte L412](../../src/cenarios/EnsaioReentrada.ts#L412) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.obterIdentificacao:MethodDeclaration</code> · [fonte L480](../../src/cenarios/EnsaioReentrada.ts#L480) |
 | Assinatura | <code>public (): object</code> |
 | Responsabilidade | Exporta identificação completa/revisões para o decorador de diário compartilhado. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
-| Saídas | Tipo <code>object</code>; expressões retornadas: <code>copiarSnapshot({ id: this.id, revisao: MODELO_REENTRADA.revisao, configuracao: this.configuracao,<br>    modeloFisico: this.cenario.mundo.obterConfiguracaoFisica(), modeloOrbitador: MODELO_REENTRADA,<br>    hipoteses: 'ADM XY, Terra e ar estático… [continua na fonte]</code> |
+| Saídas | Tipo <code>object</code>; expressões retornadas: <code>copiarSnapshot({ id: this.id, revisao: MODELO_REENTRADA.revisao, configuracao: this.configuracao,<br>    modeloFisico: this.cenario.mundo.obterConfiguracaoFisica(), modeloOrbitador: { revisao: MODELO_REENTRADA.revisao, ...this.configuracao.par… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>copiarSnapshot</code>; <code>this.cenario.mundo.obterConfiguracaoFisica</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Exporta identificação completa/revisões para o decorador de diário compartilhado.  @contract f-4987311594a9418d */ |
 
@@ -4274,15 +4295,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::criarEnsaioReentrada:FunctionDeclaration</code> · [fonte L423](../../src/cenarios/EnsaioReentrada.ts#L423) |
-| Assinatura | <code>export (configuracao?: Partial&lt;ConfiguracaoReentrada&gt;): RegistroMissao&lt;ComandoReentrada, { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }[]; vinculos: { id: string; estado: "integro" &#124; "rompido" &#124; "liberado"; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }&gt;</code> |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::criarEnsaioReentrada:FunctionDeclaration</code> · [fonte L491](../../src/cenarios/EnsaioReentrada.ts#L491) |
+| Assinatura | <code>export (configuracao?: EntradaConfiguracaoReentrada): RegistroMissao&lt;ComandoReentrada, { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { cargasEfetivamenteIntegradas: { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } &#124; null; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; respostaTermica: { modelo: string; tetoUniversal: boolean; potenciaIndicadorCorpoW: number; potenciaTransferidaCorpoW: number; tpsInstalado: boolean; camadasInternasModeladas: boolean; }; estadosTerminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }[]; vinculos: { id: string; estado: "integro" &#124; "rompido" &#124; "liberado"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }&gt;</code> |
 | Responsabilidade | Fábrica pública de ensaio registrável, sem relógio, DOM ou escrita externa. |
-| Entradas | <code>configuracao: Partial&lt;ConfiguracaoReentrada&gt; = {}</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
-| Saídas | Tipo <code>RegistroMissao&lt;ComandoReentrada, { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }[]; vinculos: { id: string; estado: "integro" &#124; "rompido" &#124; "liberado"; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }&gt;</code>; expressões retornadas: <code>new RegistroMissao(ensaio, ensaio.obterIdentificacao(), validarComandoReentrada, 240)</code> |
+| Entradas | <code>configuracao: EntradaConfiguracaoReentrada = {}</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>RegistroMissao&lt;ComandoReentrada, { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { cargasEfetivamenteIntegradas: { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } &#124; null; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; respostaTermica: { modelo: string; tetoUniversal: boolean; potenciaIndicadorCorpoW: number; potenciaTransferidaCorpoW: number; tpsInstalado: boolean; camadasInternasModeladas: boolean; }; estadosTerminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }[]; vinculos: { id: string; estado: "integro" &#124; "rompido" &#124; "liberado"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }&gt;</code>; expressões retornadas: <code>new RegistroMissao(ensaio, ensaio.obterIdentificacao(), validarComandoReentrada, Math.round(ensaio.configuracao.intervaloColetaS / ensaio.passoS), ensaio.configuracao.limiteAmostras)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>EnsaioReentrada</code>; <code>RegistroMissao</code>; <code>ensaio.obterIdentificacao</code> |
+| Dependências | Chamadas/construções diretas: <code>EnsaioReentrada</code>; <code>RegistroMissao</code>; <code>ensaio.obterIdentificacao</code>; <code>Math.round</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Fábrica pública de ensaio registrável, sem relógio, DOM ou escrita externa.  @contract f-fbefc47b0a643060 */ |
 
@@ -4293,15 +4314,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::reproduzirEnsaioReentrada:FunctionDeclaration</code> · [fonte L433](../../src/cenarios/EnsaioReentrada.ts#L433) |
-| Assinatura | <code>export (diario: DiarioReentrada): RegistroMissao&lt;ComandoReentrada, { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }[]; vinculos: { id: string; estado: "integro" &#124; "rompido" &#124; "liberado"; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }&gt;</code> |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::reproduzirEnsaioReentrada:FunctionDeclaration</code> · [fonte L501](../../src/cenarios/EnsaioReentrada.ts#L501) |
+| Assinatura | <code>export (diario: DiarioReentrada): RegistroMissao&lt;ComandoReentrada, { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { cargasEfetivamenteIntegradas: { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } &#124; null; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; respostaTermica: { modelo: string; tetoUniversal: boolean; potenciaIndicadorCorpoW: number; potenciaTransferidaCorpoW: number; tpsInstalado: boolean; camadasInternasModeladas: boolean; }; estadosTerminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }[]; vinculos: { id: string; estado: "integro" &#124; "rompido" &#124; "liberado"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }&gt;</code> |
 | Responsabilidade | Reexecuta agenda no mesmo modelo/runtime; rejeita revisão, entradas e resultados divergentes. Pausa/exportação não reproduzem relógio real. O custo é proporcional ao número de passos físicos do diário; chamada síncrona headless. |
 | Entradas | <code>diario: DiarioReentrada</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
-| Saídas | Tipo <code>RegistroMissao&lt;ComandoReentrada, { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }[]; vinculos: { id: string; estado: "integro" &#124; "rompido" &#124; "liberado"; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }&gt;</code>; expressões retornadas: <code>ensaio</code> |
+| Saídas | Tipo <code>RegistroMissao&lt;ComandoReentrada, { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { cargasEfetivamenteIntegradas: { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } &#124; null; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; respostaTermica: { modelo: string; tetoUniversal: boolean; potenciaIndicadorCorpoW: number; potenciaTransferidaCorpoW: number; tpsInstalado: boolean; camadasInternasModeladas: boolean; }; estadosTerminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }[]; vinculos: { id: string; estado: "integro" &#124; "rompido" &#124; "liberado"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }&gt;</code>; expressões retornadas: <code>ensaio</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>indice</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>Number.isSafeInteger</code>; <code>Error</code>; <code>criarEnsaioReentrada</code>; <code>JSON.stringify</code>; <code>ensaio.exportar</code>; <code>ensaio.observar</code>; <code>ensaio.iniciar</code>; <code>ensaio.pausar</code>; <code>ensaio.receberComando</code>; <code>ensaio.avancarPasso</code> |
-| Invariantes | Contrato documentado abaixo; ramos observados: <code>!diario &#124;&#124; diario.formato !== 'blackstar-missao-1' &#124;&#124; !Number.isSafeInteger(diario.passosExecutados)<br>    &#124;&#124; diario.passosExecutados &lt; 0</code>; <code>identificacao.revisao !== MODELO_REENTRADA.revisao &#124;&#124; !identificacao.configuracao</code>; <code>JSON.stringify(ensaio.exportar().identificacao) !== JSON.stringify(diario.identificacao)<br>    &#124;&#124; diario.passoS !== ensaio.passoS &#124;&#124; diario.intervaloAmostraPassos !== 240<br>    &#124;&#124; JSON.stringify(ensaio.observar()) !== JSON.stringify(diario.inic… [continua na fonte]</code>; <code>e.sequencia !== indice</code>; <code>e.tipo === 'iniciar'</code>; <code>e.tipo === 'pausar'</code>; <code>e.tipo === 'comando'</code>; <code>JSON.stringify(ensaio.receberComando(e.comando)) !== JSON.stringify(e.resultado)</code>; <code>ensaio.passosExecutados === diario.passosExecutados</code>; <code>!ensaio.avancarPasso()</code>; <code>indice !== diario.entradas.length &#124;&#124; JSON.stringify(ensaio.exportar()) !== JSON.stringify(diario)</code>; exceções: <code>new Error('Diário RE inválido.')</code>; <code>new Error('Revisão RE incompatível.')</code>; <code>new Error('Modelo/estado inicial RE divergente.')</code>; <code>new Error('Sequência de diário inválida.')</code>; <code>new Error('Resultado de comando divergente.')</code>; <code>new Error('Entrada desconhecida.')</code>; <code>new Error('Agenda não autoriza avanço.')</code>; <code>new Error('Replay RE divergente.')</code> |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Dependências | Chamadas/construções diretas: <code>Number.isSafeInteger</code>; <code>Error</code>; <code>criarEnsaioReentrada</code>; <code>JSON.stringify</code>; <code>ensaio.exportar</code>; <code>Math.round</code>; <code>ensaio.observar</code>; <code>ensaio.iniciar</code>; <code>ensaio.pausar</code>; <code>ensaio.receberComando</code>; <code>ensaio.avancarPasso</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>!diario &#124;&#124; diario.formato !== 'blackstar-missao-1' &#124;&#124; !Number.isSafeInteger(diario.passosExecutados)<br>    &#124;&#124; diario.passosExecutados &lt; 0</code>; <code>identificacao.revisao !== MODELO_REENTRADA.revisao &#124;&#124; !identificacao.configuracao</code>; <code>JSON.stringify(ensaio.exportar().identificacao) !== JSON.stringify(diario.identificacao)<br>    &#124;&#124; diario.passoS !== ensaio.passoS &#124;&#124; diario.intervaloAmostraPassos !== Math.round(identificacao.configuracao.intervaloColetaS / ensaio.passoS)<br>   … [continua na fonte]</code>; <code>e.sequencia !== indice</code>; <code>e.tipo === 'iniciar'</code>; <code>e.tipo === 'pausar'</code>; <code>e.tipo === 'comando'</code>; <code>JSON.stringify(ensaio.receberComando(e.comando)) !== JSON.stringify(e.resultado)</code>; <code>ensaio.passosExecutados === diario.passosExecutados</code>; <code>!ensaio.avancarPasso()</code>; <code>indice !== diario.entradas.length &#124;&#124; JSON.stringify(ensaio.exportar()) !== JSON.stringify(diario)</code>; exceções: <code>new Error('Diário RE inválido.')</code>; <code>new Error('Revisão RE incompatível.')</code>; <code>new Error('Modelo/estado inicial RE divergente.')</code>; <code>new Error('Sequência de diário inválida.')</code>; <code>new Error('Resultado de comando divergente.')</code>; <code>new Error('Entrada desconhecida.')</code>; <code>new Error('Agenda não autoriza avanço.')</code>; <code>new Error('Replay RE divergente.')</code> |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Reexecuta agenda no mesmo modelo/runtime; rejeita revisão, entradas e resultados<br> * divergentes. Pausa/exportação não reproduzem relógio real. O custo é<br> * proporcional ao número de passos físicos do diário; chamada síncrona headless.<br> * @contract f-af7e1ca547762556<br>   */ |
 
@@ -4617,7 +4638,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/ContratoMissao.ts::InstanciaMissao.iniciar:MethodSignature</code> · [fonte L26](../../src/missoes/ContratoMissao.ts#L26) |
+| Identificador | <code>src/missoes/ContratoMissao.ts::InstanciaMissao.iniciar:MethodSignature</code> · [fonte L27](../../src/missoes/ContratoMissao.ts#L27) |
 | Assinatura | <code> (): void</code> |
 | Responsabilidade | Habilita avanço da instância preparada/pausada; não ignita motores nem avança tempo por relógio real. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4636,7 +4657,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/ContratoMissao.ts::InstanciaMissao.pausar:MethodSignature</code> · [fonte L28](../../src/missoes/ContratoMissao.ts#L28) |
+| Identificador | <code>src/missoes/ContratoMissao.ts::InstanciaMissao.pausar:MethodSignature</code> · [fonte L29](../../src/missoes/ContratoMissao.ts#L29) |
 | Assinatura | <code> (): void</code> |
 | Responsabilidade | Suspende avanço por passos mantendo estado físico e agenda reproduzível. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4655,7 +4676,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/ContratoMissao.ts::InstanciaMissao.receberComando:MethodSignature</code> · [fonte L30](../../src/missoes/ContratoMissao.ts#L30) |
+| Identificador | <code>src/missoes/ContratoMissao.ts::InstanciaMissao.receberComando:MethodSignature</code> · [fonte L31](../../src/missoes/ContratoMissao.ts#L31) |
 | Assinatura | <code> (comando: C): ResultadoComandoMissao</code> |
 | Responsabilidade | Recebe comando de domínio tipado e retorna aceitação/motivo; efeitos passam pelas operações autorizadas, sem escrita cinemática pela interface. |
 | Entradas | <code>comando: C</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4674,7 +4695,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/ContratoMissao.ts::InstanciaMissao.avancarPasso:MethodSignature</code> · [fonte L32](../../src/missoes/ContratoMissao.ts#L32) |
+| Identificador | <code>src/missoes/ContratoMissao.ts::InstanciaMissao.avancarPasso:MethodSignature</code> · [fonte L33](../../src/missoes/ContratoMissao.ts#L33) |
 | Assinatura | <code> (): boolean</code> |
 | Responsabilidade | Executa exatamente um passo fixo quando em execução e informa se avançou; preparada/pausada retorna false. Física permanece autoridade do mundo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4693,7 +4714,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/ContratoMissao.ts::InstanciaMissao.observar:MethodSignature</code> · [fonte L34](../../src/missoes/ContratoMissao.ts#L34) |
+| Identificador | <code>src/missoes/ContratoMissao.ts::InstanciaMissao.observar:MethodSignature</code> · [fonte L35](../../src/missoes/ContratoMissao.ts#L35) |
 | Assinatura | <code> (): O</code> |
 | Responsabilidade | Entrega observação para consumidores sem expor objetos físicos mutáveis; implementações de missão usam snapshots copiados/congelados. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4712,7 +4733,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/ContratoMissao.ts::InstanciaMissao.obterEventos:MethodSignature</code> · [fonte L36](../../src/missoes/ContratoMissao.ts#L36) |
+| Identificador | <code>src/missoes/ContratoMissao.ts::InstanciaMissao.obterEventos:MethodSignature</code> · [fonte L37](../../src/missoes/ContratoMissao.ts#L37) |
 | Assinatura | <code> (): readonly EventoMissao[]</code> |
 | Responsabilidade | Consulta eventos sequenciados e datados no tempo simulado; eventos descrevem medidas/comandos e não determinam trajetória. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4731,7 +4752,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/ContratoMissao.ts::DefinicaoMissao.criar:MethodSignature</code> · [fonte L42](../../src/missoes/ContratoMissao.ts#L42) |
+| Identificador | <code>src/missoes/ContratoMissao.ts::DefinicaoMissao.criar:MethodSignature</code> · [fonte L43](../../src/missoes/ContratoMissao.ts#L43) |
 | Assinatura | <code> (configuracao?: Configuracao): InstanciaMissao&lt;C, O&gt;</code> |
 | Responsabilidade | Constrói nova instância independente a partir da configuração opcional, com mundo/veículo próprios; não inicia loop de navegador. |
 | Entradas | <code>configuracao?: Configuracao</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5105,6 +5126,67 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 
 <a id="modulo-37"></a>
+## src/missoes/RegistroExtremos.ts
+
+<a id="f-a127d9dc71e4e4e5"></a>
+<details><summary>RegistroExtremos.constructor · Constructor</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/missoes/RegistroExtremos.ts::RegistroExtremos.constructor:Constructor</code> · [fonte L18](../../src/missoes/RegistroExtremos.ts#L18) |
+| Assinatura | <code>public (intervaloPassos: number): RegistroExtremos</code> |
+| Responsabilidade | Recebe intervalo inteiro positivo em passos; não depende do relógio real. |
+| Entradas | <code>private readonly intervaloPassos: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>RegistroExtremos</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.intervaloPassos</code>; <code>this.globais</code>; <code>this.atual</code>; <code>this.ultimoIntervalo</code>; <code>this.inicioPasso</code>; <code>this.ultimoPasso</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>Number.isSafeInteger</code>; <code>Error</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isSafeInteger(intervaloPassos) &#124;&#124; intervaloPassos &lt; 1</code>; exceções: <code>new Error('Intervalo de extremos inválido.')</code> |
+| Testes | [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Recebe intervalo inteiro positivo em passos; não depende do relógio real.  @contract f-a127d9dc71e4e4e5 */ |
+
+</details>
+
+<a id="f-924d20c3c048dff6"></a>
+<details><summary>RegistroExtremos.registrar · MethodDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/missoes/RegistroExtremos.ts::RegistroExtremos.registrar:MethodDeclaration</code> · [fonte L26](../../src/missoes/RegistroExtremos.ts#L26) |
+| Assinatura | <code>public (valores: Readonly&lt;Record&lt;string, number&gt;&gt;, passo: number, tempoS: number): void</code> |
+| Responsabilidade | Registra valores SI finitos no índice/tempo efetivos. Empates preservam o primeiro instante. A resolução é do passo integrado, não interpolação contínua. |
+| Entradas | <code>valores: Readonly&lt;Record&lt;string, number&gt;&gt;</code>; <code>passo: number</code>; <code>tempoS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>tabela[canal]</code>; <code>this.ultimoPasso</code>; <code>this.ultimoIntervalo</code>; <code>this.atual</code>; <code>this.inicioPasso</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>Number.isSafeInteger</code>; <code>Number.isFinite</code>; <code>Error</code>; <code>Object.entries</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isSafeInteger(passo) &#124;&#124; passo &lt;= this.ultimoPasso &#124;&#124; !Number.isFinite(tempoS) &#124;&#124; tempoS &lt; 0</code>; <code>!Number.isFinite(valor)</code>; <code>passo &gt; 0 &amp;&amp; passo % this.intervaloPassos === 0</code>; exceções: <code>new Error('Ordem temporal dos extremos inválida.')</code>; <code>new Error(`Extremo não finito: ${canal}`)</code> |
+| Testes | [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Registra valores SI finitos no índice/tempo efetivos. Empates preservam o<br>   * primeiro instante. A resolução é do passo integrado, não interpolação contínua.<br>   * @contract f-924d20c3c048dff6<br>   */ |
+
+</details>
+
+<a id="f-06f593710de6734b"></a>
+<details><summary>RegistroExtremos.observar · MethodDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/missoes/RegistroExtremos.ts::RegistroExtremos.observar:MethodDeclaration</code> · [fonte L48](../../src/missoes/RegistroExtremos.ts#L48) |
+| Assinatura | <code>public (): { globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }</code> |
+| Responsabilidade | Copia resumo global, intervalo em curso e último fechado; sem histórico O(t). Cada amostra do diário carrega seu intervalo e a frequência consta da receita. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>{ globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }</code>; expressões retornadas: <code>copiarSnapshot({ globais: this.globais, intervaloAtual: { inicioPasso: this.inicioPasso,<br>        fimPasso: this.ultimoPasso, extremos: this.atual }, ultimoIntervalo: this.ultimoIntervalo })</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>copiarSnapshot</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Copia resumo global, intervalo em curso e último fechado; sem histórico O(t).<br>   * Cada amostra do diário carrega seu intervalo e a frequência consta da receita.<br>   * @contract f-06f593710de6734b<br>   */ |
+
+</details>
+
+
+<a id="modulo-38"></a>
 ## src/missoes/RegistroMissao.ts
 
 <a id="f-4554d825e0078446"></a>
@@ -5112,17 +5194,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/RegistroMissao.ts::RegistroMissao.constructor:Constructor</code> · [fonte L27](../../src/missoes/RegistroMissao.ts#L27) |
-| Assinatura | <code>public &lt;C, O&gt;(instancia: InstanciaMissao&lt;C, O&gt;, identificacao: object, validarComando: (c: unknown) =&gt; c is C, intervaloAmostraPassos?: number): RegistroMissao&lt;C, O&gt;</code> |
-| Responsabilidade | Decora instância de missão com registro em memória, identificador copiado/congelado e primeira observação no passo zero; exige intervalo de amostragem inteiro positivo. |
-| Entradas | <code>private readonly instancia: InstanciaMissao&lt;C, O&gt;</code>; <code>identificacao: object</code>; <code>private readonly validarComando: /** Validador injetado converte entrada desconhecida em comando tipado somente se formato aceito; não executa comando nem altera missão. @contract f-020f0a9a496837f4 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (c: unknown) =&gt; c is C</code>; <code>private readonly intervaloAmostraPassos = 240</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Identificador | <code>src/missoes/RegistroMissao.ts::RegistroMissao.constructor:Constructor</code> · [fonte L32](../../src/missoes/RegistroMissao.ts#L32) |
+| Assinatura | <code>public &lt;C, O&gt;(instancia: InstanciaMissao&lt;C, O&gt;, identificacao: object, validarComando: (c: unknown) =&gt; c is C, intervaloAmostraPassos?: number, limiteAmostras?: number &#124; undefined): RegistroMissao&lt;C, O&gt;</code> |
+| Responsabilidade | Decora missão com registro em memória e primeira observação imutável. Intervalo em passos positivo; limite opcional &gt;=2 preserva inicial + janela recente e informa descartes. Agenda continua completa para reexecução; sem limite mantém comportamento histórico. Não grava disco/rede. |
+| Entradas | <code>private readonly instancia: InstanciaMissao&lt;C, O&gt;</code>; <code>identificacao: object</code>; <code>private readonly validarComando: /** Validador injetado converte entrada desconhecida em comando tipado somente se formato aceito; não executa comando nem altera missão. @contract f-020f0a9a496837f4 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ (c: unknown) =&gt; c is C</code>; <code>private readonly intervaloAmostraPassos = 240</code>; <code>private readonly limiteAmostras?: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>RegistroMissao&lt;C, O&gt;</code>; expressões retornadas: — |
-| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.instancia</code>; <code>this.validarComando</code>; <code>this.intervaloAmostraPassos</code>; <code>this.entradas</code>; <code>this.amostras</code>; <code>this.inicial</code>; <code>this.identificacao</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.instancia</code>; <code>this.validarComando</code>; <code>this.intervaloAmostraPassos</code>; <code>this.limiteAmostras</code>; <code>this.entradas</code>; <code>this.amostras</code>; <code>this.inicial</code>; <code>this.identificacao</code>; <code>this.amostrasDescartadas</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isSafeInteger</code>; <code>Error</code>; <code>copiarSnapshot</code>; <code>instancia.observar</code>; <code>this.amostras.push</code> |
-| Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isSafeInteger(intervaloAmostraPassos) &#124;&#124; intervaloAmostraPassos &lt;= 0</code>; exceções: <code>new Error('Intervalo de amostra inválido.')</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isSafeInteger(intervaloAmostraPassos) &#124;&#124; intervaloAmostraPassos &lt;= 0</code>; <code>limiteAmostras !== undefined &amp;&amp; (!Number.isSafeInteger(limiteAmostras) &#124;&#124; limiteAmostras &lt; 2)</code>; exceções: <code>new Error('Intervalo de amostra inválido.')</code>; <code>new Error('Limite de amostras inválido.')</code> |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Verificada (revisão explicitamente registrada) |
-| JSDoc integral | /** Decora instância de missão com registro em memória, identificador copiado/congelado e primeira observação no passo zero; exige intervalo de amostragem inteiro positivo. @contract f-4554d825e0078446 @reviewed M12-DOC: implementação lida. */ |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Decora missão com registro em memória e primeira observação imutável. Intervalo<br>   * em passos positivo; limite opcional &gt;=2 preserva inicial + janela recente e<br>   * informa descartes. Agenda continua completa para reexecução; sem limite mantém<br>   * comportamento histórico. Não grava disco/rede. @contract f-4554d825e0078446 */ |
 
 </details>
 
@@ -5131,7 +5213,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/RegistroMissao.ts::RegistroMissao.constructor.validarComando[tipo]:FunctionType</code> · [fonte L28](../../src/missoes/RegistroMissao.ts#L28) |
+| Identificador | <code>src/missoes/RegistroMissao.ts::RegistroMissao.constructor.validarComando[tipo]:FunctionType</code> · [fonte L33](../../src/missoes/RegistroMissao.ts#L33) |
 | Assinatura | <code> (c: unknown): c is C</code> |
 | Responsabilidade | Validador injetado converte entrada desconhecida em comando tipado somente se formato aceito; não executa comando nem altera missão. |
 | Entradas | <code>c: unknown</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5150,7 +5232,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/RegistroMissao.ts::RegistroMissao.id:GetAccessor</code> · [fonte L34](../../src/missoes/RegistroMissao.ts#L34) |
+| Identificador | <code>src/missoes/RegistroMissao.ts::RegistroMissao.id:GetAccessor</code> · [fonte L40](../../src/missoes/RegistroMissao.ts#L40) |
 | Assinatura | <code>public (): string</code> |
 | Responsabilidade | Consulta identificação da instância decorada. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5169,7 +5251,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/RegistroMissao.ts::RegistroMissao.passoS:GetAccessor</code> · [fonte L36](../../src/missoes/RegistroMissao.ts#L36) |
+| Identificador | <code>src/missoes/RegistroMissao.ts::RegistroMissao.passoS:GetAccessor</code> · [fonte L42](../../src/missoes/RegistroMissao.ts#L42) |
 | Assinatura | <code>public (): number</code> |
 | Responsabilidade | Consulta duração física fixa em s da instância decorada. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5188,7 +5270,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/RegistroMissao.ts::RegistroMissao.passosExecutados:GetAccessor</code> · [fonte L38](../../src/missoes/RegistroMissao.ts#L38) |
+| Identificador | <code>src/missoes/RegistroMissao.ts::RegistroMissao.passosExecutados:GetAccessor</code> · [fonte L44](../../src/missoes/RegistroMissao.ts#L44) |
 | Assinatura | <code>public (): number</code> |
 | Responsabilidade | Consulta índice de passos físicos da missão real, sem contador paralelo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5207,7 +5289,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/RegistroMissao.ts::RegistroMissao.estadoExecucao:GetAccessor</code> · [fonte L40](../../src/missoes/RegistroMissao.ts#L40) |
+| Identificador | <code>src/missoes/RegistroMissao.ts::RegistroMissao.estadoExecucao:GetAccessor</code> · [fonte L46](../../src/missoes/RegistroMissao.ts#L46) |
 | Assinatura | <code>public (): EstadoExecucaoMissao</code> |
 | Responsabilidade | Consulta preparada/executando/pausada na missão decorada. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5226,7 +5308,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/RegistroMissao.ts::RegistroMissao.iniciar:MethodDeclaration</code> · [fonte L42](../../src/missoes/RegistroMissao.ts#L42) |
+| Identificador | <code>src/missoes/RegistroMissao.ts::RegistroMissao.iniciar:MethodDeclaration</code> · [fonte L48](../../src/missoes/RegistroMissao.ts#L48) |
 | Assinatura | <code>public (): void</code> |
 | Responsabilidade | Registra entrada iniciar com sequência/passo atuais e delega início operacional; não avança física por si. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5245,7 +5327,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/RegistroMissao.ts::RegistroMissao.pausar:MethodDeclaration</code> · [fonte L46](../../src/missoes/RegistroMissao.ts#L46) |
+| Identificador | <code>src/missoes/RegistroMissao.ts::RegistroMissao.pausar:MethodDeclaration</code> · [fonte L52](../../src/missoes/RegistroMissao.ts#L52) |
 | Assinatura | <code>public (): void</code> |
 | Responsabilidade | Registra entrada pausar ordenada e delega pausa, preservando estados físicos. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5264,7 +5346,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/RegistroMissao.ts::RegistroMissao.receberComando:MethodDeclaration</code> · [fonte L50](../../src/missoes/RegistroMissao.ts#L50) |
+| Identificador | <code>src/missoes/RegistroMissao.ts::RegistroMissao.receberComando:MethodDeclaration</code> · [fonte L56](../../src/missoes/RegistroMissao.ts#L56) |
 | Assinatura | <code>public (comando: C): ResultadoComandoMissao</code> |
 | Responsabilidade | Valida comando serializável, aplica na mesma porta da missão e registra cópias congeladas do comando/resultado no passo corrente; devolve resultado copiado. |
 | Entradas | <code>comando: C</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5283,17 +5365,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/RegistroMissao.ts::RegistroMissao.avancarPasso:MethodDeclaration</code> · [fonte L57](../../src/missoes/RegistroMissao.ts#L57) |
+| Identificador | <code>src/missoes/RegistroMissao.ts::RegistroMissao.avancarPasso:MethodDeclaration</code> · [fonte L65](../../src/missoes/RegistroMissao.ts#L65) |
 | Assinatura | <code>public (): boolean</code> |
-| Responsabilidade | Delega um passo físico; somente se executado registra amostra quando índice é múltiplo do intervalo contratado. Retorna false se instância não avança. |
+| Responsabilidade | Delega passo físico; registra no intervalo contratado. Retenção opcional preserva a amostra inicial e contabiliza descarte da janela recente, sem alterar comandos, extremos globais ou física. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>false</code>; <code>true</code> |
-| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>this.instancia.avancarPasso</code>; <code>this.amostras.push</code>; <code>this.instancia.observar</code> |
-| Invariantes | Contrato documentado abaixo; ramos observados: <code>!this.instancia.avancarPasso()</code>; <code>this.passosExecutados % this.intervaloAmostraPassos === 0</code>; exceções: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.amostrasDescartadas</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>this.instancia.avancarPasso</code>; <code>this.amostras.push</code>; <code>this.instancia.observar</code>; <code>this.amostras.splice</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>!this.instancia.avancarPasso()</code>; <code>this.passosExecutados % this.intervaloAmostraPassos === 0</code>; <code>this.limiteAmostras !== undefined &amp;&amp; this.amostras.length &gt; this.limiteAmostras</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Verificada (revisão explicitamente registrada) |
-| JSDoc integral | /** Delega um passo físico; somente se executado registra amostra quando índice é múltiplo do intervalo contratado. Retorna false se instância não avança. @contract f-823c2c01169947e0 @reviewed M12-DOC: implementação lida. */ |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Delega passo físico; registra no intervalo contratado. Retenção opcional<br>   * preserva a amostra inicial e contabiliza descarte da janela recente, sem<br>   * alterar comandos, extremos globais ou física. @contract f-823c2c01169947e0 */ |
 
 </details>
 
@@ -5302,7 +5384,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/RegistroMissao.ts::RegistroMissao.observar:MethodDeclaration</code> · [fonte L63](../../src/missoes/RegistroMissao.ts#L63) |
+| Identificador | <code>src/missoes/RegistroMissao.ts::RegistroMissao.observar:MethodDeclaration</code> · [fonte L74](../../src/missoes/RegistroMissao.ts#L74) |
 | Assinatura | <code>public (): O</code> |
 | Responsabilidade | Consulta observação da instância decorada sem gerar amostra adicional no diário. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5321,7 +5403,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/RegistroMissao.ts::RegistroMissao.obterEventos:MethodDeclaration</code> · [fonte L65](../../src/missoes/RegistroMissao.ts#L65) |
+| Identificador | <code>src/missoes/RegistroMissao.ts::RegistroMissao.obterEventos:MethodDeclaration</code> · [fonte L76](../../src/missoes/RegistroMissao.ts#L76) |
 | Assinatura | <code>public (): readonly EventoMissao[]</code> |
 | Responsabilidade | Consulta eventos produzidos pela missão real, sem duplicar máquina de estados. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5340,22 +5422,22 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/missoes/RegistroMissao.ts::RegistroMissao.exportar:MethodDeclaration</code> · [fonte L67](../../src/missoes/RegistroMissao.ts#L67) |
+| Identificador | <code>src/missoes/RegistroMissao.ts::RegistroMissao.exportar:MethodDeclaration</code> · [fonte L81](../../src/missoes/RegistroMissao.ts#L81) |
 | Assinatura | <code>public (): DiarioMissao&lt;C, O&gt;</code> |
-| Responsabilidade | Constrói e copia/congela diário completo com identificação, inicial/final, agenda, eventos e amostras; não grava em disco, rede ou Firestore. |
+| Responsabilidade | Copia diário com identificação, agenda e dados retidos. Quando configurado, explicita janela/descartes; agenda completa permite reconstruir amostras pelo mesmo modelo. Sem limite preserva formato histórico. Não grava disco/rede. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>DiarioMissao&lt;C, O&gt;</code>; expressões retornadas: <code>copiarSnapshot({ formato: 'blackstar-missao-1', identificacao: this.identificacao, passoS: this.passoS,<br>    intervaloAmostraPassos: this.intervaloAmostraPassos, passosExecutados: this.passosExecutados,<br>    inicial: this.inicial, final: this… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>copiarSnapshot</code>; <code>this.observar</code>; <code>this.obterEventos</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
-| Estado da documentação | Verificada (revisão explicitamente registrada) |
-| JSDoc integral | /** Constrói e copia/congela diário completo com identificação, inicial/final, agenda, eventos e amostras; não grava em disco, rede ou Firestore. @contract f-459c9ad4545d6300 @reviewed M12-DOC: implementação lida. */ |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Copia diário com identificação, agenda e dados retidos. Quando configurado,<br>   * explicita janela/descartes; agenda completa permite reconstruir amostras pelo<br>   * mesmo modelo. Sem limite preserva formato histórico. Não grava disco/rede.<br>   * @contract f-459c9ad4545d6300 */ |
 
 </details>
 
 
-<a id="modulo-38"></a>
+<a id="modulo-39"></a>
 ## src/missoes/ReplayMissaoBss006.ts
 
 <a id="f-8da6d56d70ab70fd"></a>
@@ -5492,7 +5574,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-39"></a>
+<a id="modulo-40"></a>
 ## src/missoes/SnapshotMissao.ts
 
 <a id="f-738b80ed4008a5b6"></a>
@@ -5515,7 +5597,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-40"></a>
+<a id="modulo-41"></a>
 ## src/orbitas.ts
 
 <a id="f-16848ec4b453ff12"></a>
@@ -5576,7 +5658,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-41"></a>
+<a id="modulo-42"></a>
 ## src/physics/MundoFisico.ts
 
 <a id="f-518ff75ab4b7f057"></a>
@@ -5584,12 +5666,12 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor:Constructor</code> · [fonte L94](../../src/physics/MundoFisico.ts#L94) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor:Constructor</code> · [fonte L99](../../src/physics/MundoFisico.ts#L99) |
 | Assinatura | <code>public (maxDtS?: number, configuracao?: ConfiguracaoMundoFisico): MundoFisico</code> |
 | Responsabilidade | Compõe registros, ambiente, integração e solucionadores determinísticos; configura água somente quando regiões são declaradas. maxDtS em s positivo/finito; densidade kg/m³ não negativa (zero = vácuo), vento m/s, temperatura °C. Legado plano/Euler por padrão; central usa KDK e restringe XY. Perfil atmosférico opcional é injetado no solucionador compartilhado, sem alterar padrões anteriores. Instala callbacks de consulta/reação, sem depender de relógio real. |
 | Entradas | <code>private readonly maxDtS = 1 / 60</code>; <code>configuracao: ConfiguracaoMundoFisico = {}</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>MundoFisico</code>; expressões retornadas: — |
-| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.maxDtS</code>; <code>this.ambiente</code>; <code>this.integracao</code>; <code>this.objetos</code>; <code>this.superficies</code>; <code>this.fixadores</code>; <code>this.chumbadoresAoSolo</code>; <code>this.guiasLineares</code>; <code>this.juntasRotacionaisDeBancada</code>; <code>this.conjuntosEstruturais</code>; <code>this.forcasPendentes</code>; <code>this.impulsosPendentes</code>; <code>this.tempoMissaoS</code>; <code>this.densidadeAtmosfericaNivelMarKgM3</code>; <code>this.velocidadeArBaseMps</code>; <code>this.rajadasVento</code>; <code>this.velocidadeArAtualMps</code>; <code>this.atmosfera</code>; <code>this.integrador</code>; <code>this.sistemaTermico</code>; <code>this.resolvedorEsforcoEstrutural</code>; <code>this.resolvedorColisoes</code>; <code>this.resolvedorContatoSuperficie</code>; <code>this.sistemaSensores</code>; <code>this.hidrodinamica</code>; <code>this.perfilAtmosferico</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.maxDtS</code>; <code>this.ambiente</code>; <code>this.integracao</code>; <code>this.objetos</code>; <code>this.superficies</code>; <code>this.fixadores</code>; <code>this.chumbadoresAoSolo</code>; <code>this.guiasLineares</code>; <code>this.juntasRotacionaisDeBancada</code>; <code>this.conjuntosEstruturais</code>; <code>this.forcasPendentes</code>; <code>this.impulsosPendentes</code>; <code>this.tempoMissaoS</code>; <code>this.densidadeAtmosfericaNivelMarKgM3</code>; <code>this.velocidadeArBaseMps</code>; <code>this.rajadasVento</code>; <code>this.velocidadeArAtualMps</code>; <code>this.atmosfera</code>; <code>this.integrador</code>; <code>this.sistemaTermico</code>; <code>this.resolvedorEsforcoEstrutural</code>; <code>this.resolvedorColisoes</code>; <code>this.resolvedorContatoSuperficie</code>; <code>this.sistemaSensores</code>; <code>this.hidrodinamica</code>; <code>this.perfilAtmosferico</code>; <code>this.avaliarCargasEstruturaisDistribuidas</code>; <code>this.diagnosticosAngularesPasso</code>; <code>this.dtDiagnosticoS</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Map</code>; <code>IntegradorFisico</code>; <code>ResolvedorEsforcoEstrutural</code>; <code>Number.isFinite</code>; <code>Error</code>; <code>AmbientePlano</code>; <code>this.validarVetorPlanar</code>; <code>[...(configuracao.rajadasVento ?? [])].sort</code>; <code>[rajada.velocidadeAdicionalMps.x, rajada.velocidadeAdicionalMps.y, rajada.velocidadeAdicionalMps.z].every</code>; <code>SistemaAtmosferico</code>; <code>SistemaHidrodinamico</code>; <code>SistemaTermico</code>; <code>SistemaSensores</code>; <code>ResolvedorColisoes</code>; <code>ResolvedorContatoSuperficie</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(maxDtS) &#124;&#124; maxDtS &lt;= 0</code>; <code>!Number.isFinite(rajada.inicioS) &#124;&#124; rajada.inicioS &lt; 0 &#124;&#124; !Number.isFinite(rajada.duracaoS) &#124;&#124; rajada.duracaoS &lt;= 0<br>    &#124;&#124; ![rajada.velocidadeAdicionalMps.x, rajada.velocidadeAdicionalMps.y, rajada.velocidadeAdicionalMps.z].every(Number.isF… [continua na fonte]</code>; <code>!Number.isFinite(this.densidadeAtmosfericaNivelMarKgM3) &#124;&#124; this.densidadeAtmosfericaNivelMarKgM3 &lt; 0</code>; <code>configuracao.regioesAquaticas?.length</code>; exceções: <code>new Error('maxDt deve ser positivo.')</code>; <code>new Error('Perfil de rajada de vento inválido.')</code>; <code>new Error('Densidade atmosférica deve ser finita e não negativa.')</code> |
 | Testes | [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
@@ -5603,7 +5685,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.verticalEm:ArrowFunction</code> · [fonte L125](../../src/physics/MundoFisico.ts#L125) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.verticalEm:ArrowFunction</code> · [fonte L131](../../src/physics/MundoFisico.ts#L131) |
 | Assinatura | <code> (p: Vetor3): Vetor3</code> |
 | Responsabilidade | Fornece ao resolvedor a direção radial local do ambiente na posição global em metros; não calcula uma vertical alternativa. |
 | Entradas | <code>p</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5622,7 +5704,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.obterObjetos:ArrowFunction</code> · [fonte L127](../../src/physics/MundoFisico.ts#L127) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.obterObjetos:ArrowFunction</code> · [fonte L133](../../src/physics/MundoFisico.ts#L133) |
 | Assinatura | <code> (): MapIterator&lt;Objeto&gt;</code> |
 | Responsabilidade | Entrega iterador dos corpos registrados aos resolvedores; os objetos continuam pertencendo ao core, sem cópia da dinâmica. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5641,7 +5723,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.obterConjuntoEstrutural:ArrowFunction</code> · [fonte L129](../../src/physics/MundoFisico.ts#L129) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.obterConjuntoEstrutural:ArrowFunction</code> · [fonte L135](../../src/physics/MundoFisico.ts#L135) |
 | Assinatura | <code> (objeto: Objeto): ConjuntoEstruturalRigido &#124; undefined</code> |
 | Responsabilidade | Consulta a ilha estrutural atual do corpo para resolver contatos com massa e inércia compostas. |
 | Entradas | <code>objeto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5660,7 +5742,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.obterFixadores:ArrowFunction</code> · [fonte L131](../../src/physics/MundoFisico.ts#L131) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.obterFixadores:ArrowFunction</code> · [fonte L137](../../src/physics/MundoFisico.ts#L137) |
 | Assinatura | <code> (): MapIterator&lt;FixadorEstrutural&gt;</code> |
 | Responsabilidade | Entrega iterador dos fixadores registrados para transmissão e eventual ruptura de esforços físicos. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5679,7 +5761,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.distribuirCalorDeAtrito:ArrowFunction</code> · [fonte L134](../../src/physics/MundoFisico.ts#L134) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.distribuirCalorDeAtrito:ArrowFunction</code> · [fonte L140](../../src/physics/MundoFisico.ts#L140) |
 | Assinatura | <code> (objetoA: Objeto, objetoB: Objeto, energiaJ: number, dtS: number): void</code> |
 | Responsabilidade | Porta que encaminha energia dissipada em J aos participantes do contato; delega ao sistema térmico entre objetos ou divide igualmente entre objeto e superfície. O dt em s acompanha o aquecimento do objeto, sem alterar cinemática. |
 | Entradas | <code>objetoA</code>; <code>objetoB</code>; <code>energiaJ</code>; <code>dtS</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5698,7 +5780,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.deveIgnorarColisao:ArrowFunction</code> · [fonte L137](../../src/physics/MundoFisico.ts#L137) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.deveIgnorarColisao:ArrowFunction</code> · [fonte L143](../../src/physics/MundoFisico.ts#L143) |
 | Assinatura | <code> (objetoA: Objeto, objetoB: Objeto): boolean</code> |
 | Responsabilidade | Exclui o par de colisões quando alguma junta rotacional registrada declara essa exceção física. |
 | Entradas | <code>objetoA</code>; <code>objetoB</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5717,7 +5799,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.obterObjetos:ArrowFunction#2</code> · [fonte L142](../../src/physics/MundoFisico.ts#L142) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.obterObjetos:ArrowFunction#2</code> · [fonte L148](../../src/physics/MundoFisico.ts#L148) |
 | Assinatura | <code> (): MapIterator&lt;Objeto&gt;</code> |
 | Responsabilidade | Entrega iterador dos corpos registrados aos resolvedores; os objetos continuam pertencendo ao core, sem cópia da dinâmica. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5736,7 +5818,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.obterSuperficies:ArrowFunction</code> · [fonte L144](../../src/physics/MundoFisico.ts#L144) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.obterSuperficies:ArrowFunction</code> · [fonte L150](../../src/physics/MundoFisico.ts#L150) |
 | Assinatura | <code> (): MapIterator&lt;SuperficieFisica&gt;</code> |
 | Responsabilidade | Entrega iterador das superfícies rígidas ao resolvedor; regiões líquidas não são adicionadas como piso. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5755,7 +5837,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.obterConjuntoEstrutural:ArrowFunction#2</code> · [fonte L146](../../src/physics/MundoFisico.ts#L146) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.obterConjuntoEstrutural:ArrowFunction#2</code> · [fonte L152](../../src/physics/MundoFisico.ts#L152) |
 | Assinatura | <code> (objeto: Objeto): ConjuntoEstruturalRigido &#124; undefined</code> |
 | Responsabilidade | Consulta a ilha estrutural atual do corpo para resolver contatos com massa e inércia compostas. |
 | Entradas | <code>objeto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5774,7 +5856,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.obterMassaEfetivaNoContato:ArrowFunction</code> · [fonte L148](../../src/physics/MundoFisico.ts#L148) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.obterMassaEfetivaNoContato:ArrowFunction</code> · [fonte L154](../../src/physics/MundoFisico.ts#L154) |
 | Assinatura | <code> (objeto: Objeto, pontoM: Vetor3, normal: Vetor3): number &#124; undefined</code> |
 | Responsabilidade | Encaminha ponto global em m e normal à consulta de massa efetiva, preservando contribuição da ilha estrutural. |
 | Entradas | <code>objeto</code>; <code>pontoM</code>; <code>normal</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5793,7 +5875,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.obterFixadores:ArrowFunction#2</code> · [fonte L150](../../src/physics/MundoFisico.ts#L150) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.obterFixadores:ArrowFunction#2</code> · [fonte L156](../../src/physics/MundoFisico.ts#L156) |
 | Assinatura | <code> (): MapIterator&lt;FixadorEstrutural&gt;</code> |
 | Responsabilidade | Entrega iterador dos fixadores registrados para transmissão e eventual ruptura de esforços físicos. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5812,7 +5894,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.distribuirCalorDeAtrito:ArrowFunction#2</code> · [fonte L153](../../src/physics/MundoFisico.ts#L153) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.distribuirCalorDeAtrito:ArrowFunction#2</code> · [fonte L159](../../src/physics/MundoFisico.ts#L159) |
 | Assinatura | <code> (objeto: Objeto, superficie: SuperficieFisica, energiaJ: number, dtS: number): void</code> |
 | Responsabilidade | Porta que encaminha energia dissipada em J aos participantes do contato; delega ao sistema térmico entre objetos ou divide igualmente entre objeto e superfície. O dt em s acompanha o aquecimento do objeto, sem alterar cinemática. |
 | Entradas | <code>objeto</code>; <code>superficie</code>; <code>energiaJ</code>; <code>dtS</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5831,7 +5913,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.obterGravidadeMps2:ArrowFunction</code> · [fonte L159](../../src/physics/MundoFisico.ts#L159) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.constructor.obterGravidadeMps2:ArrowFunction</code> · [fonte L165](../../src/physics/MundoFisico.ts#L165) |
 | Assinatura | <code> (p: Vetor3): Vetor3</code> |
 | Responsabilidade | Consulta o campo ativo na posição global em m para determinar reação normal e limite de atrito. |
 | Entradas | <code>p</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5850,7 +5932,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.tempoS:GetAccessor</code> · [fonte L165](../../src/physics/MundoFisico.ts#L165) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.tempoS:GetAccessor</code> · [fonte L171](../../src/physics/MundoFisico.ts#L171) |
 | Assinatura | <code>public (): number</code> |
 | Responsabilidade | Consulta o tempo físico acumulado em s; não avança o mundo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5869,7 +5951,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.velocidadeDoArMps:GetAccessor</code> · [fonte L167](../../src/physics/MundoFisico.ts#L167) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.velocidadeDoArMps:GetAccessor</code> · [fonte L173](../../src/physics/MundoFisico.ts#L173) |
 | Assinatura | <code>public (): Vetor3</code> |
 | Responsabilidade | Consulta o vento inercial vigente no último subpasso em m/s. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5888,7 +5970,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.registrarGeometriaAquatica:MethodDeclaration</code> · [fonte L170](../../src/physics/MundoFisico.ts#L170) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.registrarGeometriaAquatica:MethodDeclaration</code> · [fonte L176](../../src/physics/MundoFisico.ts#L176) |
 | Assinatura | <code>public (objeto: Objeto, prisma: PrismaDeslocador): void</code> |
 | Responsabilidade | Vincula prisma deslocador a objeto já registrado; exige sistema aquático e delega validação de geometria exclusiva. |
 | Entradas | <code>objeto: Objeto</code>; <code>prisma: PrismaDeslocador</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5907,7 +5989,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.obterImersao:MethodDeclaration</code> · [fonte L176](../../src/physics/MundoFisico.ts#L176) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.obterImersao:MethodDeclaration</code> · [fonte L182](../../src/physics/MundoFisico.ts#L182) |
 | Assinatura | <code>public (objeto: Objeto): readonly EstadoImersao[]</code> |
 | Responsabilidade | Calcula observações aquáticas do objeto registrado, tomando G da ilha como referência de torque; pode preencher cache geométrico, sem integrar. |
 | Entradas | <code>objeto: Objeto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5926,7 +6008,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.fracaoExpostaAr:MethodDeclaration</code> · [fonte L182](../../src/physics/MundoFisico.ts#L182) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.fracaoExpostaAr:MethodDeclaration</code> · [fonte L188](../../src/physics/MundoFisico.ts#L188) |
 | Assinatura | <code>private (o: Objeto): number</code> |
 | Responsabilidade | Consulta a fração geométrica fora da água, ou 1 em mundo seco; reutiliza o cache hidrodinâmico. |
 | Entradas | <code>o: Objeto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5945,7 +6027,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.registrarObjeto:MethodDeclaration</code> · [fonte L185](../../src/physics/MundoFisico.ts#L185) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.registrarObjeto:MethodDeclaration</code> · [fonte L191](../../src/physics/MundoFisico.ts#L191) |
 | Assinatura | <code>public (objeto: Objeto): void</code> |
 | Responsabilidade | Insere corpo por identidade única após validar compatibilidade XY no ambiente central; não integra. |
 | Entradas | <code>objeto: Objeto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5964,7 +6046,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.registrarSuperficie:MethodDeclaration</code> · [fonte L192](../../src/physics/MundoFisico.ts#L192) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.registrarSuperficie:MethodDeclaration</code> · [fonte L198](../../src/physics/MundoFisico.ts#L198) |
 | Assinatura | <code>public (superficie: SuperficieFisica): void</code> |
 | Responsabilidade | Insere geometria sólida por ID único; rejeita plano infinito no ambiente central, preservando plataformas finitas. |
 | Entradas | <code>superficie: SuperficieFisica</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -5983,7 +6065,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.registrarFixador:MethodDeclaration</code> · [fonte L201](../../src/physics/MundoFisico.ts#L201) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.registrarFixador:MethodDeclaration</code> · [fonte L207](../../src/physics/MundoFisico.ts#L207) |
 | Assinatura | <code>public (fixador: FixadorEstrutural): void</code> |
 | Responsabilidade | Registra vínculo por ID único entre dois corpos já presentes; topologia será sincronizada no passo físico. |
 | Entradas | <code>fixador: FixadorEstrutural</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6002,7 +6084,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.registrarChumbadorAoSolo:MethodDeclaration</code> · [fonte L208](../../src/physics/MundoFisico.ts#L208) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.registrarChumbadorAoSolo:MethodDeclaration</code> · [fonte L214](../../src/physics/MundoFisico.ts#L214) |
 | Assinatura | <code>public (chumbador: ChumbadorAoSolo): void</code> |
 | Responsabilidade | Registra fundação por ID único para corpo presente; a reação física é resolvida no avanço. |
 | Entradas | <code>chumbador: ChumbadorAoSolo</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6021,7 +6103,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.registrarSwitchFimDeCurso:MethodDeclaration</code> · [fonte L215](../../src/physics/MundoFisico.ts#L215) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.registrarSwitchFimDeCurso:MethodDeclaration</code> · [fonte L221](../../src/physics/MundoFisico.ts#L221) |
 | Assinatura | <code>public (switchFimDeCurso: SwitchFimDeCurso): void</code> |
 | Responsabilidade | Registra sensor físico de contato após exigir registro do hospedeiro; delega ao SistemaSensores. |
 | Entradas | <code>switchFimDeCurso: SwitchFimDeCurso</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6040,7 +6122,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.registrarSensoresVeiculo:MethodDeclaration</code> · [fonte L221](../../src/physics/MundoFisico.ts#L221) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.registrarSensoresVeiculo:MethodDeclaration</code> · [fonte L227](../../src/physics/MundoFisico.ts#L227) |
 | Assinatura | <code>public (sensores: SensoresVeiculoComposto): void</code> |
 | Responsabilidade | Configura o ambiente inicial das leituras e instala o pacote de sensores no sistema observacional. |
 | Entradas | <code>sensores: SensoresVeiculoComposto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6059,7 +6141,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.reavaliarSwitchesFimDeCurso:MethodDeclaration</code> · [fonte L227](../../src/physics/MundoFisico.ts#L227) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.reavaliarSwitchesFimDeCurso:MethodDeclaration</code> · [fonte L233](../../src/physics/MundoFisico.ts#L233) |
 | Assinatura | <code>public (): void</code> |
 | Responsabilidade | Reavalia contatos binários imediatamente, sem integrar tempo; destinado também ao reposicionamento ADM de sensores. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6078,7 +6160,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.registrarGuiaLinear:MethodDeclaration</code> · [fonte L230](../../src/physics/MundoFisico.ts#L230) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.registrarGuiaLinear:MethodDeclaration</code> · [fonte L236](../../src/physics/MundoFisico.ts#L236) |
 | Assinatura | <code>public (guia: GuiaLinear): void</code> |
 | Responsabilidade | Registra guia por ID único e corpo presente; não impõe movimento comandado na interface. |
 | Entradas | <code>guia: GuiaLinear</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6097,7 +6179,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.registrarJuntaRotacionalDeBancada:MethodDeclaration</code> · [fonte L237](../../src/physics/MundoFisico.ts#L237) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.registrarJuntaRotacionalDeBancada:MethodDeclaration</code> · [fonte L243](../../src/physics/MundoFisico.ts#L243) |
 | Assinatura | <code>public (junta: JuntaRotacionalDeBancada): void</code> |
 | Responsabilidade | Registra junta por ID único e exige base/braço presentes; suas forças/restrições pertencem ao core. |
 | Entradas | <code>junta: JuntaRotacionalDeBancada</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6116,7 +6198,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.aplicarForca:MethodDeclaration</code> · [fonte L248](../../src/physics/MundoFisico.ts#L248) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.aplicarForca:MethodDeclaration</code> · [fonte L254](../../src/physics/MundoFisico.ts#L254) |
 | Assinatura | <code>public (objeto: Objeto, forcaN: Vetor3, pontoM?: Vetor3): void</code> |
 | Responsabilidade | Solicita uma força externa, em N, mantida durante todo o próximo avanço. Para manter a força em avanços seguintes, o chamador deve solicitá-la novamente. |
 | Entradas | <code>objeto: Objeto</code>; <code>forcaN: Vetor3</code>; <code>pontoM?: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6135,7 +6217,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.aplicarImpulso:MethodDeclaration</code> · [fonte L260](../../src/physics/MundoFisico.ts#L260) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.aplicarImpulso:MethodDeclaration</code> · [fonte L266](../../src/physics/MundoFisico.ts#L266) |
 | Assinatura | <code>public (objeto: Objeto, impulsoNs: Vetor3, pontoM?: Vetor3): void</code> |
 | Responsabilidade | Solicita um impulso instantâneo, em N.s, aplicado uma única vez no próximo avanço. |
 | Entradas | <code>objeto: Objeto</code>; <code>impulsoNs: Vetor3</code>; <code>pontoM?: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6154,7 +6236,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.obterForcaArrastoAtmosferico:MethodDeclaration</code> · [fonte L270](../../src/physics/MundoFisico.ts#L270) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.obterForcaArrastoAtmosferico:MethodDeclaration</code> · [fonte L276](../../src/physics/MundoFisico.ts#L276) |
 | Assinatura | <code>public (objeto: Objeto): Vetor3</code> |
 | Responsabilidade | Calcula o arrasto atmosférico atual em N para corpo registrado, consultando velocidade física e densidade do mesmo ambiente. |
 | Entradas | <code>objeto: Objeto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6173,7 +6255,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.obterCondicoesAtmosfericas:MethodDeclaration</code> · [fonte L278](../../src/physics/MundoFisico.ts#L278) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.obterCondicoesAtmosfericas:MethodDeclaration</code> · [fonte L284](../../src/physics/MundoFisico.ts#L284) |
 | Assinatura | <code>public (objeto: Objeto): CondicoesAtmosfericas</code> |
 | Responsabilidade | Leitura do mesmo ambiente usado na integração; não modifica a física. |
 | Entradas | <code>objeto: Objeto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6192,7 +6274,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.obterMenorDistanciaSuperficieM:MethodDeclaration</code> · [fonte L287](../../src/physics/MundoFisico.ts#L287) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.obterMenorDistanciaSuperficieM:MethodDeclaration</code> · [fonte L293](../../src/physics/MundoFisico.ts#L293) |
 | Assinatura | <code>public (objeto: Objeto, superficie: SuperficieFisica): number</code> |
 | Responsabilidade | Mede menor distância assinada em m dos pontos orientados/candidatos à superfície; retorna Infinity quando não há projeção válida. Exige objeto registrado. Caminho para plano conserva ordem numérica legada; demais geometrias consultam candidatos/projeção da superfície. Não corrige penetração nem resolve contato. |
 | Entradas | <code>objeto: Objeto</code>; <code>superficie: SuperficieFisica</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6211,7 +6293,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.obterContatosComSuperficie:MethodDeclaration</code> · [fonte L305](../../src/physics/MundoFisico.ts#L305) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.obterContatosComSuperficie:MethodDeclaration</code> · [fonte L311](../../src/physics/MundoFisico.ts#L311) |
 | Assinatura | <code>public (): readonly ContatoSuperficieFisico[]</code> |
 | Responsabilidade | Contatos e apoios efetivamente resolvidos pelo core no último subpasso. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6230,7 +6312,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.obterContatosDoObjeto:MethodDeclaration</code> · [fonte L312](../../src/physics/MundoFisico.ts#L312) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.obterContatosDoObjeto:MethodDeclaration</code> · [fonte L318](../../src/physics/MundoFisico.ts#L318) |
 | Assinatura | <code>public (objeto: Objeto, superficie?: SuperficieFisica): readonly ContatoSuperficieFisico[]</code> |
 | Responsabilidade | Contatos resolvidos deste objeto, opcionalmente limitados a uma superfície. |
 | Entradas | <code>objeto: Objeto</code>; <code>superficie?: SuperficieFisica</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6249,7 +6331,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.obterCargasAerodinamicas:MethodDeclaration</code> · [fonte L322](../../src/physics/MundoFisico.ts#L322) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.obterCargasAerodinamicas:MethodDeclaration</code> · [fonte L328](../../src/physics/MundoFisico.ts#L328) |
 | Assinatura | <code>public (objetos: readonly Objeto[], referenciaM: Vetor3): { forcaN: Vetor3; torqueNm: Vetor3; }</code> |
 | Responsabilidade | Soma das mesmas forças aerodinâmicas usadas na integração, em torno da referência SI. |
 | Entradas | <code>objetos: readonly Objeto[]</code>; <code>referenciaM: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6268,7 +6350,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.avancar:MethodDeclaration</code> · [fonte L339](../../src/physics/MundoFisico.ts#L339) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.avancar:MethodDeclaration</code> · [fonte L345](../../src/physics/MundoFisico.ts#L345) |
 | Assinatura | <code>public (deltaS: number): void</code> |
 | Responsabilidade | Avança deltaS físico com subpassos limitados por maxDtS e estabilidade hidrodinâmica; não consulta relógio real. deltaS em s positivo/finito. Verifica geometrias aquáticas de todos os corpos. Impulsos pendentes entram uma vez; forças externas duram toda a chamada. Limpa ambas as filas em finally e propaga falhas. Altera cinemática, sistemas, contatos, integridade, sensores e tempo pela receita compartilhada. |
 | Entradas | <code>deltaS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6287,14 +6369,14 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.integrarPasso:MethodDeclaration</code> · [fonte L368](../../src/physics/MundoFisico.ts#L368) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.integrarPasso:MethodDeclaration</code> · [fonte L374](../../src/physics/MundoFisico.ts#L374) |
 | Assinatura | <code>private (dtS: number, aplicarImpulsos: boolean): void</code> |
 | Responsabilidade | Receita explícita do passo; fenômenos físicos vivem nos subsistemas. |
 | Entradas | <code>dtS: number</code>; <code>aplicarImpulsos: boolean</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
-| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.tempoMissaoS</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>this.atualizarVentoDoPasso</code>; <code>this.atualizarApoioDeTracao</code>; <code>this.objetos.values</code>; <code>objeto.prepararPassoEnergetico</code>; <code>objeto.prepararPassoOperacional</code>; <code>this.sistemaTermico.atualizar</code>; <code>this.fixadores.values</code>; <code>fixador.prepararPasso</code>; <code>this.chumbadoresAoSolo.values</code>; <code>chumbador.prepararPasso</code>; <code>this.sincronizarConjuntosEstruturais</code>; <code>this.aplicarImpulsosPendentes</code>; <code>[...this.fixadores.values()].filter</code>; <code>this.hidrodinamica.atualizarCarregamento</code>; <code>this.conjuntosEstruturais.values</code>; <code>conjunto.membros.map</code>; <code>this.resolvedorEsforcoEstrutural.registrarCargasDistribuidas</code>; <code>this.aplicarKickGravitacional</code>; <code>this.aplicarKickHidrostatico</code>; <code>this.integrarCorpos</code>; <code>this.resolvedorColisoes.resolver</code>; <code>this.resolvedorContatoSuperficie.resolver</code>; <code>chumbador.resolverRestricao</code>; <code>this.obterConjuntoEstruturalDoObjeto</code>; <code>conjunto.restringirNoMembro</code>; <code>this.guiasLineares.values</code>; <code>guia.resolverRestricao</code>; <code>this.sistemaSensores.atualizar</code> |
-| Invariantes | Contrato documentado abaixo; ramos observados: <code>aplicarImpulsos</code>; <code>this.hidrodinamica</code>; <code>[...this.fixadores.values()].filter(f =&gt; f.estaAtivo).length !== ativosAntes</code>; <code>this.integracao === 'verlet-gravitacional'</code>; <code>chumbador.estaRompido</code>; <code>conjunto</code>; exceções: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.dtDiagnosticoS</code>; <code>this.tempoMissaoS</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>this.diagnosticosAngularesPasso.clear</code>; <code>this.atualizarVentoDoPasso</code>; <code>this.atualizarApoioDeTracao</code>; <code>this.objetos.values</code>; <code>objeto.prepararPassoEnergetico</code>; <code>objeto.prepararPassoOperacional</code>; <code>this.sistemaTermico.atualizar</code>; <code>this.fixadores.values</code>; <code>fixador.prepararPasso</code>; <code>this.chumbadoresAoSolo.values</code>; <code>chumbador.prepararPasso</code>; <code>this.sincronizarConjuntosEstruturais</code>; <code>this.aplicarImpulsosPendentes</code>; <code>[...this.fixadores.values()].filter</code>; <code>this.hidrodinamica?.atualizarCarregamento</code>; <code>this.conjuntosEstruturais.values</code>; <code>conjunto.membros.map</code>; <code>this.resolvedorEsforcoEstrutural.registrarCargasDistribuidas</code>; <code>this.aplicarKickGravitacional</code>; <code>this.aplicarKickHidrostatico</code>; <code>this.integrarCorpos</code>; <code>this.resolvedorColisoes.resolver</code>; <code>this.resolvedorContatoSuperficie.resolver</code>; <code>chumbador.resolverRestricao</code>; <code>this.obterConjuntoEstruturalDoObjeto</code>; <code>conjunto.restringirNoMembro</code>; <code>this.guiasLineares.values</code>; <code>guia.resolverRestricao</code>; <code>this.sistemaSensores.atualizar</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>aplicarImpulsos</code>; <code>this.hidrodinamica &#124;&#124; this.avaliarCargasEstruturaisDistribuidas</code>; <code>[...this.fixadores.values()].filter(f =&gt; f.estaAtivo).length !== ativosAntes</code>; <code>this.integracao === 'verlet-gravitacional'</code>; <code>chumbador.estaRompido</code>; <code>conjunto</code>; exceções: — |
 | Testes | [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Receita explícita do passo; fenômenos físicos vivem nos subsistemas.<br>   * @contract f-99ffa3537971f382<br>   */ |
@@ -6306,7 +6388,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.atualizarVentoDoPasso:MethodDeclaration</code> · [fonte L415](../../src/physics/MundoFisico.ts#L415) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.atualizarVentoDoPasso:MethodDeclaration</code> · [fonte L422](../../src/physics/MundoFisico.ts#L422) |
 | Assinatura | <code>private (): void</code> |
 | Responsabilidade | Soma rajadas ativas no intervalo [início,início+duração) ao vento base e atualiza atmosfera no tempo físico atual. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6325,7 +6407,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.aplicarImpulsosPendentes:MethodDeclaration</code> · [fonte L426](../../src/physics/MundoFisico.ts#L426) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.aplicarImpulsosPendentes:MethodDeclaration</code> · [fonte L433](../../src/physics/MundoFisico.ts#L433) |
 | Assinatura | <code>private (): void</code> |
 | Responsabilidade | Consome a fila de impulsos em N·s uma única vez, aplicando na ilha ou corpo isolado; ponto ausente usa centro atual. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6344,7 +6426,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.obterGravidadeMps2:MethodDeclaration</code> · [fonte L441](../../src/physics/MundoFisico.ts#L441) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.obterGravidadeMps2:MethodDeclaration</code> · [fonte L448](../../src/physics/MundoFisico.ts#L448) |
 | Assinatura | <code>public (posicaoM: Vetor3): Vetor3</code> |
 | Responsabilidade | Consulta aceleração m/s² do campo do ambiente na posição inercial em m; não integra nem depende da orientação. |
 | Entradas | <code>posicaoM: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6363,7 +6445,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.obterConfiguracaoFisica:MethodDeclaration</code> · [fonte L448](../../src/physics/MundoFisico.ts#L448) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.obterConfiguracaoFisica:MethodDeclaration</code> · [fonte L455](../../src/physics/MundoFisico.ts#L455) |
 | Assinatura | <code>public (): object</code> |
 | Responsabilidade | Exporta identificação do ambiente, integração, dt máximo, revisão angular, atmosfera e água para diários/replay. Perfil completo somente quando injetado. A revisão angular distingue reconstrução intrínseca relativa RE-002B de diários anteriores; não altera parâmetros nem garante compatibilidade antiga. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6382,14 +6464,14 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.aplicarKickGravitacional:MethodDeclaration</code> · [fonte L457](../../src/physics/MundoFisico.ts#L457) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.aplicarKickGravitacional:MethodDeclaration</code> · [fonte L465](../../src/physics/MundoFisico.ts#L465) |
 | Assinatura | <code>private (dtS: number): void</code> |
 | Responsabilidade | Metade do impulso gravitacional em cada membro, preservando torque de gradiente. |
 | Entradas | <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>Map</code>; <code>this.objetos.values</code>; <code>this.validarEstadoPlanar</code>; <code>objeto.getEstadoFisico</code>; <code>this.obterGravidadeMps2(p).multiplicar</code>; <code>this.obterGravidadeMps2</code>; <code>this.obterConjuntoEstruturalDoObjeto</code>; <code>lotes.get</code>; <code>lote.push</code>; <code>lotes.set</code>; <code>this.integrador.aplicarImpulsoNoPonto</code>; <code>conjunto.aplicarImpulsosSequenciais</code> |
-| Invariantes | Contrato documentado abaixo; ramos observados: <code>conjunto</code>; exceções: — |
+| Dependências | Chamadas/construções diretas: <code>Map</code>; <code>this.objetos.values</code>; <code>this.validarEstadoPlanar</code>; <code>objeto.getEstadoFisico</code>; <code>this.obterGravidadeMps2(p).multiplicar</code>; <code>this.obterGravidadeMps2</code>; <code>this.obterConjuntoEstruturalDoObjeto</code>; <code>lotes.get</code>; <code>lote.push</code>; <code>lotes.set</code>; <code>this.integrador.aplicarImpulsoNoPonto</code>; <code>conjunto.obterCentroDeMassaAtual</code>; <code>lote.reduce</code>; <code>this.registrarDiagnosticoAngular</code>; <code>conjunto.aplicarImpulsosSequenciais</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>conjunto</code>; <code>this.avaliarCargasEstruturaisDistribuidas</code>; exceções: — |
 | Testes | [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Metade do impulso gravitacional em cada membro, preservando torque de gradiente.<br>   * @contract f-ba4f542a6685a8b0<br>   */ |
@@ -6401,7 +6483,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.aplicarKickHidrostatico:MethodDeclaration</code> · [fonte L471](../../src/physics/MundoFisico.ts#L471) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.aplicarKickHidrostatico:MethodDeclaration</code> · [fonte L486](../../src/physics/MundoFisico.ts#L486) |
 | Assinatura | <code>private (dtS: number): void</code> |
 | Responsabilidade | Aplica impulso F_empuxo·dt em N·s nos centros de volume; usa lotes sequenciais por ilha e não reaplica o arrasto dissipativo. |
 | Entradas | <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6415,12 +6497,50 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 </details>
 
+<a id="f-09aef6aae989916b"></a>
+<details><summary>MundoFisico.obterDiagnosticoAngularDoPasso · MethodDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.obterDiagnosticoAngularDoPasso:MethodDeclaration</code> · [fonte L504](../../src/physics/MundoFisico.ts#L504) |
+| Assinatura | <code>public (objeto: Objeto): { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } &#124; undefined</code> |
+| Responsabilidade | Consulta cópia das cargas angulares do último subpasso, somente se ativadas. Impulso gravitacional N·m·s vem dos dois kicks; torque aero/outros em N·m vem da lista efetivamente integrada. Não inclui impulsos de contato/ruptura, que exigem classificação separada do balanço. Não escreve estado físico. |
+| Entradas | <code>objeto: Objeto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>{ dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } &#124; undefined</code>; expressões retornadas: <code>d ? { ...d, dtS: this.dtDiagnosticoS } : undefined</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>this.diagnosticosAngularesPasso.get</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Consulta cópia das cargas angulares do último subpasso, somente se ativadas.<br>   * Impulso gravitacional N·m·s vem dos dois kicks; torque aero/outros em N·m<br>   * vem da lista efetivamente integrada. Não inclui impulsos de contato/ruptura,<br>   * que exigem classificação separada do balanço. Não escreve estado físico.<br>   * @contract f-09aef6aae989916b<br>   */ |
+
+</details>
+
+<a id="f-5a683553b2a0f912"></a>
+<details><summary>MundoFisico.registrarDiagnosticoAngular · MethodDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.registrarDiagnosticoAngular:MethodDeclaration</code> · [fonte L514](../../src/physics/MundoFisico.ts#L514) |
+| Assinatura | <code>private (conjunto: ConjuntoEstruturalRigido, impulsoGravitacionalNmS: number, forcas?: readonly ForcaAplicada[]): void</code> |
+| Responsabilidade | Registra grandezas derivadas das cargas aplicadas à ilha, sem reaplicá-las. Sem opt-in não faz cálculos adicionais. G é o mesmo usado pela integração; outros torques são a resultante não aero (gravidade KDK entra por impulso). |
+| Entradas | <code>conjunto: ConjuntoEstruturalRigido</code>; <code>impulsoGravitacionalNmS: number</code>; <code>forcas?: readonly ForcaAplicada[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>this.diagnosticosAngularesPasso.get</code>; <code>conjunto.obterCentroDeMassaAtual</code>; <code>this.obterCargasAerodinamicas</code>; <code>forcas?.reduce</code>; <code>this.diagnosticosAngularesPasso.set</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>!this.avaliarCargasEstruturaisDistribuidas</code>; exceções: — |
+| Testes | [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Registra grandezas derivadas das cargas aplicadas à ilha, sem reaplicá-las.<br>   * Sem opt-in não faz cálculos adicionais. G é o mesmo usado pela integração;<br>   * outros torques são a resultante não aero (gravidade KDK entra por impulso).<br>   * @contract f-5a683553b2a0f912<br>   */ |
+
+</details>
+
 <a id="f-bed4015e9d6bffc1"></a>
 <details><summary>MundoFisico.validarVetorPlanar · MethodDeclaration</summary>
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.validarVetorPlanar:MethodDeclaration</code> · [fonte L484](../../src/physics/MundoFisico.ts#L484) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.validarVetorPlanar:MethodDeclaration</code> · [fonte L527](../../src/physics/MundoFisico.ts#L527) |
 | Assinatura | <code>private (v: Vetor3): void</code> |
 | Responsabilidade | Rejeita componente Z diferente de zero no ambiente central; o legado conserva o contrato anterior. |
 | Entradas | <code>v: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6439,7 +6559,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.validarForcaPlanar:MethodDeclaration</code> · [fonte L488](../../src/physics/MundoFisico.ts#L488) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.validarForcaPlanar:MethodDeclaration</code> · [fonte L531](../../src/physics/MundoFisico.ts#L531) |
 | Assinatura | <code>private (f: ForcaAplicada): void</code> |
 | Responsabilidade | Exige força/ponto em XY e torque externo somente em Z; rejeita solicitações incompatíveis com o modelo central. |
 | Entradas | <code>f: ForcaAplicada</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6458,7 +6578,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.validarEstadoPlanar:MethodDeclaration</code> · [fonte L493](../../src/physics/MundoFisico.ts#L493) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.validarEstadoPlanar:MethodDeclaration</code> · [fonte L536](../../src/physics/MundoFisico.ts#L536) |
 | Assinatura | <code>private (objeto: Objeto): void</code> |
 | Responsabilidade | No ambiente central exige posição/velocidade XY e atitude/taxa somente em Z; não projeta estados inválidos silenciosamente. |
 | Entradas | <code>objeto: Objeto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6477,17 +6597,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.integrarCorpos:MethodDeclaration</code> · [fonte L503](../../src/physics/MundoFisico.ts#L503) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.integrarCorpos:MethodDeclaration</code> · [fonte L546](../../src/physics/MundoFisico.ts#L546) |
 | Assinatura | <code>private (dtS: number): void</code> |
-| Responsabilidade | Reúne forças operacionais, externas, aerodinâmicas, juntas e água; integra uma vez cada corpo isolado ou ilha e registra uso em horas. dtS em s escolhido pelo avanço. Gravidade/empuxo já aplicados por KDK são omitidos da força explícita. Pontos de aplicação são físicos e massas são instantâneas; atualiza estados somente pelos integradores/ilha. |
+| Responsabilidade | Reúne forças operacionais, externas, aerodinâmicas, juntas e água; integra uma vez cada corpo isolado ou ilha e registra uso em horas. dtS em s escolhido pelo avanço. Gravidade/empuxo já aplicados por KDK são omitidos da força explícita. Pontos de aplicação são físicos e massas são instantâneas; atualiza estados somente pelos integradores/ilha. Diagnóstico opt-in captura forças no instante efetivamente integrado, após atuação e primeiro kick. |
 | Entradas | <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>this.objetos.values</code>; <code>this.obterConjuntoEstruturalDoObjeto</code>; <code>objeto.getEstadoFisico</code>; <code>(this.forcasPendentes.get(objeto.id) ?? [])<br>    .map</code>; <code>this.forcasPendentes.get</code>; <code>objeto.obterForcasOperacionais().map</code>; <code>objeto.obterForcasOperacionais</code>; <code>objeto.obterForcasAerodinamicas(this.obterCondicoesAtmosfericas(objeto))<br>    .map</code>; <code>objeto.obterForcasAerodinamicas</code>; <code>this.obterCondicoesAtmosfericas</code>; <code>this.validarForcaPlanar</code>; <code>[...this.juntasRotacionaisDeBancada.values()].flatMap</code>; <code>this.juntasRotacionaisDeBancada.values</code>; <code>this.hidrodinamica?.calcular</code>; <code>this.integrador.integrarObjeto</code>; <code>this.obterForcaArrastoAtmosferico</code>; <code>objeto.obterCentroPressaoM</code>; <code>this.obterGravidadeMps2</code>; <code>objeto.registrarUso</code>; <code>this.conjuntosEstruturais.values</code>; <code>forcasDoConjunto.push</code>; <code>objeto.obterForcasAerodinamicas(this.obterCondicoesAtmosfericas(objeto)).map</code>; <code>this.obterGravidadeMps2(estado.posicaoM).multiplicar</code>; <code>conjunto.obterCentroDeMassaAtual</code>; <code>junta.obterForcasPara</code>; <code>conjunto.integrar</code> |
+| Dependências | Chamadas/construções diretas: <code>this.objetos.values</code>; <code>this.obterConjuntoEstruturalDoObjeto</code>; <code>objeto.getEstadoFisico</code>; <code>(this.forcasPendentes.get(objeto.id) ?? [])<br>    .map</code>; <code>this.forcasPendentes.get</code>; <code>objeto.obterForcasOperacionais().map</code>; <code>objeto.obterForcasOperacionais</code>; <code>objeto.obterForcasAerodinamicas(this.obterCondicoesAtmosfericas(objeto))<br>    .map</code>; <code>objeto.obterForcasAerodinamicas</code>; <code>this.obterCondicoesAtmosfericas</code>; <code>this.validarForcaPlanar</code>; <code>[...this.juntasRotacionaisDeBancada.values()].flatMap</code>; <code>this.juntasRotacionaisDeBancada.values</code>; <code>this.hidrodinamica?.calcular</code>; <code>this.integrador.integrarObjeto</code>; <code>this.obterForcaArrastoAtmosferico</code>; <code>objeto.obterCentroPressaoM</code>; <code>this.obterGravidadeMps2</code>; <code>objeto.registrarUso</code>; <code>this.conjuntosEstruturais.values</code>; <code>forcasDoConjunto.push</code>; <code>objeto.obterForcasAerodinamicas(this.obterCondicoesAtmosfericas(objeto)).map</code>; <code>this.obterGravidadeMps2(estado.posicaoM).multiplicar</code>; <code>conjunto.obterCentroDeMassaAtual</code>; <code>junta.obterForcasPara</code>; <code>this.registrarDiagnosticoAngular</code>; <code>conjunto.integrar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>this.obterConjuntoEstruturalDoObjeto(objeto)</code>; <code>this.ambiente.campo.modelo === 'central'</code>; <code>this.integracao === 'euler-semi-implicito'</code>; <code>junta.objetoBase === objeto &#124;&#124; junta.braco === objeto</code>; exceções: — |
 | Testes | [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/veiculos/MontagemBss.test.ts](../../src/veiculos/MontagemBss.test.ts) (imports diretos do módulo) |
-| Estado da documentação | Verificada (revisão explicitamente registrada) |
-| JSDoc integral | /** Reúne forças operacionais, externas, aerodinâmicas, juntas e água; integra uma vez cada corpo isolado ou ilha e registra uso em horas. dtS em s escolhido pelo avanço. Gravidade/empuxo já aplicados por KDK são omitidos da força explícita. Pontos de aplicação são físicos e massas são instantâneas; atualiza estados somente pelos integradores/ilha. @contract f-3e1c3598586d381e @reviewed M12-DOC: implementação lida. */ |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Reúne forças operacionais, externas, aerodinâmicas, juntas e água; integra uma vez cada corpo isolado ou ilha e registra uso em horas. dtS em s escolhido pelo avanço. Gravidade/empuxo já aplicados por KDK são omitidos da força explícita. Pontos de aplicação são físicos e massas são instantâneas; atualiza estados somente pelos integradores/ilha. Diagnóstico opt-in captura forças no instante efetivamente integrado, após atuação e primeiro kick. @contract f-3e1c3598586d381e */ |
 
 </details>
 
@@ -6496,7 +6616,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.sincronizarConjuntosEstruturais:MethodDeclaration</code> · [fonte L540](../../src/physics/MundoFisico.ts#L540) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.sincronizarConjuntosEstruturais:MethodDeclaration</code> · [fonte L584](../../src/physics/MundoFisico.ts#L584) |
 | Assinatura | <code>private (dtS: number, avancarOrientacao: boolean): void</code> |
 | Responsabilidade | Reconstrói componentes conexos dos fixadores ativos, reutiliza ilhas por assinatura de membros e remove ilhas cuja topologia deixou de existir; sincroniza rigidez. |
 | Entradas | <code>dtS: number</code>; <code>avancarOrientacao: boolean</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6515,7 +6635,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.atualizarApoioDeTracao:MethodDeclaration</code> · [fonte L578](../../src/physics/MundoFisico.ts#L578) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.atualizarApoioDeTracao:MethodDeclaration</code> · [fonte L622](../../src/physics/MundoFisico.ts#L622) |
 | Assinatura | <code>private (): void</code> |
 | Responsabilidade | Avalia pontos de aderência orientados contra superfícies sólidas com tolerância de 0,02 m; atualiza permissão de tração no core, sem ancorar corpos. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6534,7 +6654,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.obterPontosOrientados:MethodDeclaration</code> · [fonte L588](../../src/physics/MundoFisico.ts#L588) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.obterPontosOrientados:MethodDeclaration</code> · [fonte L632](../../src/physics/MundoFisico.ts#L632) |
 | Assinatura | <code>private (objeto: Objeto, pontosLocais: readonly Vetor3[]): Vetor3[]</code> |
 | Responsabilidade | Transforma pontos locais em m pela rotação Z e translação física atuais; devolve novos vetores globais. |
 | Entradas | <code>objeto: Objeto</code>; <code>pontosLocais: readonly Vetor3[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6553,7 +6673,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.obterConjuntoEstruturalDoObjeto:MethodDeclaration</code> · [fonte L600](../../src/physics/MundoFisico.ts#L600) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.obterConjuntoEstruturalDoObjeto:MethodDeclaration</code> · [fonte L644](../../src/physics/MundoFisico.ts#L644) |
 | Assinatura | <code>private (objeto: Objeto): ConjuntoEstruturalRigido &#124; undefined</code> |
 | Responsabilidade | Procura a ilha atualmente registrada que contém o mesmo objeto; ausência devolve undefined. |
 | Entradas | <code>objeto: Objeto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6572,7 +6692,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.obterMassaEfetivaNoContato:MethodDeclaration</code> · [fonte L605](../../src/physics/MundoFisico.ts#L605) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.obterMassaEfetivaNoContato:MethodDeclaration</code> · [fonte L649](../../src/physics/MundoFisico.ts#L649) |
 | Assinatura | <code>private (objeto: Objeto, pontoContatoM: Vetor3, normal: Vetor3): number &#124; undefined</code> |
 | Responsabilidade | Consulta massa efetiva em kg no ponto/normal da ilha ou fixador; undefined indica ausência dessas restrições. |
 | Entradas | <code>objeto: Objeto</code>; <code>pontoContatoM: Vetor3</code>; <code>normal: Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6591,7 +6711,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.exigirRegistro:MethodDeclaration</code> · [fonte L616](../../src/physics/MundoFisico.ts#L616) |
+| Identificador | <code>src/physics/MundoFisico.ts::MundoFisico.exigirRegistro:MethodDeclaration</code> · [fonte L660](../../src/physics/MundoFisico.ts#L660) |
 | Assinatura | <code>private (objeto: Objeto): void</code> |
 | Responsabilidade | Impede operação do mundo sobre identidade de objeto não registrada; lança erro, sem inserir automaticamente. |
 | Entradas | <code>objeto: Objeto</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -6606,7 +6726,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-42"></a>
+<a id="modulo-43"></a>
 ## src/physics/SistemaOperacional.ts
 
 <a id="f-d90f25d253e2ab58"></a>
@@ -6743,7 +6863,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-43"></a>
+<a id="modulo-44"></a>
 ## src/physics/SuperficieCosteira.ts
 
 <a id="f-6f0395858ebb9ab5"></a>
@@ -6880,7 +7000,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-44"></a>
+<a id="modulo-45"></a>
 ## src/physics/SuperficieEsferica.ts
 
 <a id="f-9eac1149d1a4ca7a"></a>
@@ -6979,7 +7099,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-45"></a>
+<a id="modulo-46"></a>
 ## src/physics/SuperficieFisica.ts
 
 <a id="f-de0f9204a43fbad4"></a>
@@ -7211,7 +7331,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-46"></a>
+<a id="modulo-47"></a>
 ## src/physics/SuperficiePlano.ts
 
 <a id="f-e05668c4d2d10883"></a>
@@ -7291,7 +7411,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-47"></a>
+<a id="modulo-48"></a>
 ## src/physics/SuperficiePlanoLocal.ts
 
 <a id="f-0b7412a4b180e52d"></a>
@@ -7409,7 +7529,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-48"></a>
+<a id="modulo-49"></a>
 ## src/physics/Vetor3.ts
 
 <a id="f-74cb96218f91335f"></a>
@@ -7546,7 +7666,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-49"></a>
+<a id="modulo-50"></a>
 ## src/physics/agua/GeometriaSubmersa.ts
 
 <a id="f-00378e285877f165"></a>
@@ -7702,7 +7822,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-50"></a>
+<a id="modulo-51"></a>
 ## src/physics/agua/RegiaoAquatica.ts
 
 <a id="f-42624cfaf3e01aed"></a>
@@ -7782,7 +7902,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-51"></a>
+<a id="modulo-52"></a>
 ## src/physics/agua/SistemaHidrodinamico.ts
 
 <a id="f-3ac2ce558ad57f3c"></a>
@@ -8033,7 +8153,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-52"></a>
+<a id="modulo-53"></a>
 ## src/physics/ambiente/AmbienteFisico.ts
 
 <a id="f-f65d4a56ef06dbbd"></a>
@@ -8113,7 +8233,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-53"></a>
+<a id="modulo-54"></a>
 ## src/physics/ambiente/CampoGravitacional.ts
 
 <a id="f-d84e2f25e040d596"></a>
@@ -8269,7 +8389,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-54"></a>
+<a id="modulo-55"></a>
 ## src/physics/ambiente/EstadoInicialLocal.ts
 
 <a id="f-4ab5e3de34eaedc3"></a>
@@ -8292,7 +8412,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-55"></a>
+<a id="modulo-56"></a>
 ## src/physics/ambiente/GeografiaCosteira.ts
 
 <a id="f-75cb7b00f89bfaba"></a>
@@ -8410,7 +8530,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-56"></a>
+<a id="modulo-57"></a>
 ## src/physics/ambiente/PerfilAtmosfericoReentrada.ts
 
 <a id="f-9eb2c4644fba8970"></a>
@@ -8509,7 +8629,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-57"></a>
+<a id="modulo-58"></a>
 ## src/physics/ambiente/ReferencialFisico.ts
 
 <a id="f-a83a925cd4624e54"></a>
@@ -9311,7 +9431,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-58"></a>
+<a id="modulo-59"></a>
 ## src/physics/ambiente/TelemetriaOrbital.ts
 
 <a id="f-f08ef7862a1cdb97"></a>
@@ -9334,7 +9454,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-59"></a>
+<a id="modulo-60"></a>
 ## src/physics/cenarios/EnsaioPortaVertical.ts
 
 <a id="f-26bd768dc18b239f"></a>
@@ -9509,7 +9629,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-60"></a>
+<a id="modulo-61"></a>
 ## src/physics/conexoes/ChumbadorAoSolo.ts
 
 <a id="f-3edd21e1d5a19ecc"></a>
@@ -9722,7 +9842,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-61"></a>
+<a id="modulo-62"></a>
 ## src/physics/conexoes/ConexaoEletrica.ts
 
 <a id="f-379a6000119fc4ae"></a>
@@ -10448,7 +10568,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-62"></a>
+<a id="modulo-63"></a>
 ## src/physics/conexoes/FixadorEstrutural.ts
 
 <a id="f-cd671b03c8af2236"></a>
@@ -10870,7 +10990,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-63"></a>
+<a id="modulo-64"></a>
 ## src/physics/conexoes/GuiaLinear.ts
 
 <a id="f-912072f48d95626b"></a>
@@ -10969,7 +11089,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-64"></a>
+<a id="modulo-65"></a>
 ## src/physics/conexoes/JuntaRotacionalDeBancada.ts
 
 <a id="f-a132b0bde695eb85"></a>
@@ -11144,7 +11264,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-65"></a>
+<a id="modulo-66"></a>
 ## src/physics/conexoes/eletrica/Contator.ts
 
 <a id="f-3376117ecdde8868"></a>
@@ -11224,7 +11344,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-66"></a>
+<a id="modulo-67"></a>
 ## src/physics/conexoes/eletrica/Interruptor.ts
 
 <a id="f-33f15af7abb38cd9"></a>
@@ -11304,7 +11424,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-67"></a>
+<a id="modulo-68"></a>
 ## src/physics/conexoes/eletrica/Resistor.ts
 
 <a id="f-464f0a613325638b"></a>
@@ -11346,7 +11466,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-68"></a>
+<a id="modulo-69"></a>
 ## src/physics/estruturas/ConjuntoEstruturalRigido.ts
 
 <a id="f-d3848f1d1b9d7918"></a>
@@ -11730,7 +11850,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-69"></a>
+<a id="modulo-70"></a>
 ## src/physics/estruturas/DiagnosticoAngular.ts
 
 <a id="f-62f73b2d7d2e4053"></a>
@@ -11777,9 +11897,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Campo | Contrato / evidência |
 |---|---|
 | Identificador | <code>src/physics/estruturas/DiagnosticoAngular.ts::BalancoAngular.registrar:MethodDeclaration</code> · [fonte L65](../../src/physics/estruturas/DiagnosticoAngular.ts#L65) |
-| Assinatura | <code>public (antes: DiagnosticoAngular, depois: DiagnosticoAngular, dtS: number, torqueNaoGravitacionalNm: number, completo: boolean): void</code> |
+| Assinatura | <code>public (antes: DiagnosticoAngular, depois: DiagnosticoAngular, dtS: number, torqueNaoGravitacionalNm: number, completo: boolean, impulsoMedidoPeloCoreNmS?: number): void</code> |
 | Responsabilidade | Acumula somente grandezas observadas; quadratura aero explícita pode ter erro O(dt²) no passo com atuação variável. Não corrige rotação ou energia. |
-| Entradas | <code>antes: DiagnosticoAngular</code>; <code>depois: DiagnosticoAngular</code>; <code>dtS: number</code>; <code>torqueNaoGravitacionalNm: number</code>; <code>completo: boolean</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>antes: DiagnosticoAngular</code>; <code>depois: DiagnosticoAngular</code>; <code>dtS: number</code>; <code>torqueNaoGravitacionalNm: number</code>; <code>completo: boolean</code>; <code>impulsoMedidoPeloCoreNmS?: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.residuoPassoKgM2ps</code>; <code>this.impulsoTorqueNmS</code>; <code>this.residuoAcumuladoKgM2ps</code>; <code>this.residuoMaximoPassoKgM2ps</code>; <code>this.passosIncompletos</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code>; <code>Math.max</code>; <code>Math.abs</code> |
@@ -11810,7 +11930,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-70"></a>
+<a id="modulo-71"></a>
 ## src/physics/geometria/ContatoCaixasOrientadas.ts
 
 <a id="f-738d840a42e74122"></a>
@@ -12004,7 +12124,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-71"></a>
+<a id="modulo-72"></a>
 ## src/physics/objetos/atuadores/Cilindro.ts
 
 <a id="f-0268843ba048392d"></a>
@@ -12369,7 +12489,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-72"></a>
+<a id="modulo-73"></a>
 ## src/physics/objetos/atuadores/CilindroEletrico.ts
 
 <a id="f-57b1b7d21164f2d4"></a>
@@ -12715,7 +12835,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-73"></a>
+<a id="modulo-74"></a>
 ## src/physics/objetos/atuadores/MotorEletricoRotacional.ts
 
 <a id="f-338925f6e3377ab1"></a>
@@ -12871,7 +12991,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-74"></a>
+<a id="modulo-75"></a>
 ## src/physics/objetos/base/Objeto.ts
 
 <a id="f-0a5a2a6326f96011"></a>
@@ -13920,7 +14040,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-75"></a>
+<a id="modulo-76"></a>
 ## src/physics/objetos/base/ObjetoTriangularRetangulo.ts
 
 <a id="f-13053ef3d73ba42a"></a>
@@ -14000,7 +14120,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-76"></a>
+<a id="modulo-77"></a>
 ## src/physics/objetos/componentes/AletaAerodinamica.ts
 
 <a id="f-740741f36db4d1e3"></a>
@@ -14156,7 +14276,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-77"></a>
+<a id="modulo-78"></a>
 ## src/physics/objetos/componentes/FlapReentrada.ts
 
 <a id="f-713ac4483df17789"></a>
@@ -14164,12 +14284,12 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/componentes/FlapReentrada.ts::FlapReentrada.constructor:Constructor</code> · [fonte L10](../../src/physics/objetos/componentes/FlapReentrada.ts#L10) |
-| Assinatura | <code>public (definicao: DefinicaoAletaAerodinamica, lerRolagemRad: () =&gt; number, montagemIntegra: () =&gt; boolean): FlapReentrada</code> |
+| Identificador | <code>src/physics/objetos/componentes/FlapReentrada.ts::FlapReentrada.constructor:Constructor</code> · [fonte L11](../../src/physics/objetos/componentes/FlapReentrada.ts#L11) |
+| Assinatura | <code>public (definicao: DefinicaoAletaAerodinamica, lerRolagemRad: () =&gt; number, montagemIntegra: () =&gt; boolean, parametros?: ParametrosReentrada): FlapReentrada</code> |
 | Responsabilidade | Recebe somente porta de leitura da projeção e permissivo da montagem. |
-| Entradas | <code>definicao: DefinicaoAletaAerodinamica</code>; <code>private readonly lerRolagemRad: () =&gt; number</code>; <code>private readonly montagemIntegra: () =&gt; boolean</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>definicao: DefinicaoAletaAerodinamica</code>; <code>private readonly lerRolagemRad: () =&gt; number</code>; <code>private readonly montagemIntegra: () =&gt; boolean</code>; <code>private readonly parametros: ParametrosReentrada = MODELO_REENTRADA</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>FlapReentrada</code>; expressões retornadas: — |
-| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.lerRolagemRad</code>; <code>this.montagemIntegra</code>; <code>this.phiUltimoConectadoRad</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.lerRolagemRad</code>; <code>this.montagemIntegra</code>; <code>this.parametros</code>; <code>this.phiUltimoConectadoRad</code>; <code>this.taxaEfetivaRadps</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>super</code>; <code>lerRolagemRad</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
@@ -14183,7 +14303,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/componentes/FlapReentrada.ts::FlapReentrada.constructor.lerRolagemRad[tipo]:FunctionType</code> · [fonte L11](../../src/physics/objetos/componentes/FlapReentrada.ts#L11) |
+| Identificador | <code>src/physics/objetos/componentes/FlapReentrada.ts::FlapReentrada.constructor.lerRolagemRad[tipo]:FunctionType</code> · [fonte L12](../../src/physics/objetos/componentes/FlapReentrada.ts#L12) |
 | Assinatura | <code> (): number</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -14202,7 +14322,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/componentes/FlapReentrada.ts::FlapReentrada.constructor.montagemIntegra[tipo]:FunctionType</code> · [fonte L11](../../src/physics/objetos/componentes/FlapReentrada.ts#L11) |
+| Identificador | <code>src/physics/objetos/componentes/FlapReentrada.ts::FlapReentrada.constructor.montagemIntegra[tipo]:FunctionType</code> · [fonte L12](../../src/physics/objetos/componentes/FlapReentrada.ts#L12) |
 | Assinatura | <code> (): boolean</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -14221,12 +14341,12 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/componentes/FlapReentrada.ts::FlapReentrada.prepararPassoOperacional:MethodDeclaration</code> · [fonte L20](../../src/physics/objetos/componentes/FlapReentrada.ts#L20) |
+| Identificador | <code>src/physics/objetos/componentes/FlapReentrada.ts::FlapReentrada.prepararPassoOperacional:MethodDeclaration</code> · [fonte L22](../../src/physics/objetos/componentes/FlapReentrada.ts#L22) |
 | Assinatura | <code>public override (dtS: number): void</code> |
 | Responsabilidade | Reutiliza atuador elétrico e acompanha bank enquanto conectado. Após separação conserva última projeção prescrita: o corpo livre mantém cargas aerodinâmicas, e sua posição/atitude XY continuam sendo calculadas exclusivamente pelo core. |
 | Entradas | <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
-| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.phiUltimoConectadoRad</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.taxaEfetivaRadps</code>; <code>this.phiUltimoConectadoRad</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>super.prepararPassoOperacional</code>; <code>this.montagemIntegra</code>; <code>this.lerRolagemRad</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>this.montagemIntegra()</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
@@ -14240,7 +14360,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/componentes/FlapReentrada.ts::FlapReentrada.obterForcasAerodinamicas:MethodDeclaration</code> · [fonte L30](../../src/physics/objetos/componentes/FlapReentrada.ts#L30) |
+| Identificador | <code>src/physics/objetos/componentes/FlapReentrada.ts::FlapReentrada.obterForcasAerodinamicas:MethodDeclaration</code> · [fonte L34](../../src/physics/objetos/componentes/FlapReentrada.ts#L34) |
 | Assinatura | <code>public override (c: CondicoesAtmosfericas): readonly ForcaFisicaSolicitada[]</code> |
 | Responsabilidade | Força perpendicular ao fluxo no CP real do flap, N, proporcional a q. Corpo destacado mantém lift/drag próprios e última projeção de bank, sem transmitir forças a distância para o orbitador. |
 | Entradas | <code>c: CondicoesAtmosfericas</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -14259,11 +14379,11 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/componentes/FlapReentrada.ts::FlapReentrada.getCoeficienteArrastoEfetivo:MethodDeclaration</code> · [fonte L39](../../src/physics/objetos/componentes/FlapReentrada.ts#L39) |
+| Identificador | <code>src/physics/objetos/componentes/FlapReentrada.ts::FlapReentrada.getCoeficienteArrastoEfetivo:MethodDeclaration</code> · [fonte L43](../../src/physics/objetos/componentes/FlapReentrada.ts#L43) |
 | Assinatura | <code>public override (): number</code> |
 | Responsabilidade | Cd positivo por deflexão real; permanece no caminho único de arrasto do core. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
-| Saídas | Tipo <code>number</code>; expressões retornadas: <code>MODELO_REENTRADA.cdFlapBase + MODELO_REENTRADA.cdFlapDeflexao * Math.sin(this.deflexaoAtualRad) ** 2</code> |
+| Saídas | Tipo <code>number</code>; expressões retornadas: <code>this.parametros.cdFlapBase + this.parametros.cdFlapDeflexao * Math.sin(this.deflexaoAtualRad) ** 2</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.sin</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
@@ -14278,11 +14398,11 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/objetos/componentes/FlapReentrada.ts::FlapReentrada.obterPotenciaAquecimentoAerodinamicoW:MethodDeclaration</code> · [fonte L47](../../src/physics/objetos/componentes/FlapReentrada.ts#L47) |
+| Identificador | <code>src/physics/objetos/componentes/FlapReentrada.ts::FlapReentrada.obterPotenciaAquecimentoAerodinamicoW:MethodDeclaration</code> · [fonte L51](../../src/physics/objetos/componentes/FlapReentrada.ts#L51) |
 | Assinatura | <code>public override (c: CondicoesAtmosfericas, dissipacaoW: number): number</code> |
 | Responsabilidade | Aquecimento indicador do flap com raio efetivo 0,5 m e área aquecida 2 m²; temperatura é do componente concentrado, sem interpretação de atuador interno. |
 | Entradas | <code>c: CondicoesAtmosfericas</code>; <code>dissipacaoW: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
-| Saídas | Tipo <code>number</code>; expressões retornadas: <code>Math.min(dissipacaoW, 2 * calcularFluxoTermicoIndicador(c.densidadeArKgM3, V, 0.5))</code> |
+| Saídas | Tipo <code>number</code>; expressões retornadas: <code>Math.min(dissipacaoW, this.parametros.areaAquecidaFlapM2 * calcularFluxoTermicoIndicador(c.densidadeArKgM3, V, this.parametros.raioNarizFlapM, this.parametros.coeficienteSuttonGravesSI))</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.getEstadoFisico().velocidadeMps.subtrair</code>; <code>this.getEstadoFisico</code>; <code>Math.min</code>; <code>calcularFluxoTermicoIndicador</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
@@ -14292,8 +14412,46 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 </details>
 
+<a id="f-3e48ec123ef93cbe"></a>
+<details><summary>FlapReentrada.capacidadeTermicaJPorC · GetAccessor</summary>
 
-<a id="modulo-78"></a>
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/physics/objetos/componentes/FlapReentrada.ts::FlapReentrada.capacidadeTermicaJPorC:GetAccessor</code> · [fonte L56](../../src/physics/objetos/componentes/FlapReentrada.ts#L56) |
+| Assinatura | <code>public override (): number</code> |
+| Responsabilidade | Capacidade térmica concentrada J/°C calculada pela massa instantânea e c configurado. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>number</code>; expressões retornadas: <code>this.massaKg * this.parametros.calorEspecificoFlapJPorKgC</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: — |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Capacidade térmica concentrada J/°C calculada pela massa instantânea e c configurado.  @contract f-3e48ec123ef93cbe */ |
+
+</details>
+
+<a id="f-b750057ae1f8513b"></a>
+<details><summary>FlapReentrada.obterDiagnosticoAtuacao · MethodDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/physics/objetos/componentes/FlapReentrada.ts::FlapReentrada.obterDiagnosticoAtuacao:MethodDeclaration</code> · [fonte L62](../../src/physics/objetos/componentes/FlapReentrada.ts#L62) |
+| Assinatura | <code>public (): { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }</code> |
+| Responsabilidade | Diagnóstico do atuador prescrito, em rad/s, por permissivos reais. Torque e carga mecânica não são inventados a partir dos 300 W elétricos do modelo. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>{ taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }</code>; expressões retornadas: <code>{ taxaEfetivaRadps: this.taxaEfetivaRadps, cursoRad: this.parametros.cursoFlapRad,<br>    taxaMaximaRadps: this.parametros.taxaFlapRadps, modeloMecanico: 'taxa-prescrita-eletrica',<br>    torqueDisponivelNm: null, torqueCargaNm: null,<br>    bloquei… [continua na fonte]</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>this.montagemIntegra</code>; <code>Math.abs</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Diagnóstico do atuador prescrito, em rad/s, por permissivos reais. Torque e<br>   * carga mecânica não são inventados a partir dos 300 W elétricos do modelo.<br>   * @contract f-b750057ae1f8513b<br>   */ |
+
+</details>
+
+
+<a id="modulo-79"></a>
 ## src/physics/objetos/componentes/Paraquedas.ts
 
 <a id="f-a9ae40fb84d5293f"></a>
@@ -14544,7 +14702,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-79"></a>
+<a id="modulo-80"></a>
 ## src/physics/objetos/componentes/RolagemVirtual.ts
 
 <a id="f-71592e454cdc955f"></a>
@@ -14662,7 +14820,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-80"></a>
+<a id="modulo-81"></a>
 ## src/physics/objetos/fontes-de-energia/Bateria.ts
 
 <a id="f-b8dcea8c991456f9"></a>
@@ -14856,7 +15014,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-81"></a>
+<a id="modulo-82"></a>
 ## src/physics/objetos/fontes-de-energia/FonteEletrica.ts
 
 <a id="f-ab20e650db054ae0"></a>
@@ -14879,7 +15037,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-82"></a>
+<a id="modulo-83"></a>
 ## src/physics/objetos/fontes-de-energia/GeradorCA.ts
 
 <a id="f-692af7e2d7d6cffa"></a>
@@ -15168,7 +15326,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-83"></a>
+<a id="modulo-84"></a>
 ## src/physics/objetos/fontes-de-energia/PainelSolar.ts
 
 <a id="f-c5ec22d9c45e3d17"></a>
@@ -15476,7 +15634,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-84"></a>
+<a id="modulo-85"></a>
 ## src/physics/objetos/fontes-de-energia/TanquePropelente.ts
 
 <a id="f-5e48dc8f6370a867"></a>
@@ -15594,7 +15752,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-85"></a>
+<a id="modulo-86"></a>
 ## src/physics/objetos/mecanismos/BracoArticuladoDeBancada.ts
 
 <a id="f-2429e53025cf49cb"></a>
@@ -15674,7 +15832,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-86"></a>
+<a id="modulo-87"></a>
 ## src/physics/objetos/mecanismos/ConjuntoPortaBatente.ts
 
 <a id="f-288f1848d7fa9e2a"></a>
@@ -15849,7 +16007,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-87"></a>
+<a id="modulo-88"></a>
 ## src/physics/objetos/mecanismos/Porta.ts
 
 <a id="f-b99653bcaa9220e0"></a>
@@ -16556,7 +16714,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-88"></a>
+<a id="modulo-89"></a>
 ## src/physics/objetos/mecanismos/TravaPorta.ts
 
 <a id="f-b39a816efc5a1c38"></a>
@@ -16845,7 +17003,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-89"></a>
+<a id="modulo-90"></a>
 ## src/physics/objetos/propulsao/Propulsor.ts
 
 <a id="f-20905674966ffa86"></a>
@@ -17799,7 +17957,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-90"></a>
+<a id="modulo-91"></a>
 ## src/physics/objetos/propulsao/PropulsorVetorizado.ts
 
 <a id="f-77abc1442947b6a6"></a>
@@ -17917,7 +18075,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-91"></a>
+<a id="modulo-92"></a>
 ## src/physics/objetos/propulsao/alimentacao/BombaPropelente.ts
 
 <a id="f-08499cf7b7b5281e"></a>
@@ -18016,7 +18174,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-92"></a>
+<a id="modulo-93"></a>
 ## src/physics/objetos/propulsao/alimentacao/LinhaDePropelente.ts
 
 <a id="f-e6203b52037d845b"></a>
@@ -18267,7 +18425,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-93"></a>
+<a id="modulo-94"></a>
 ## src/physics/objetos/propulsao/alimentacao/ValvulaPropelente.ts
 
 <a id="f-8ee9a0cb7c08bc7e"></a>
@@ -18347,7 +18505,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-94"></a>
+<a id="modulo-95"></a>
 ## src/physics/objetos/propulsao/combustao/Bocal.ts
 
 <a id="f-a3901e8f9e6759b1"></a>
@@ -18427,7 +18585,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-95"></a>
+<a id="modulo-96"></a>
 ## src/physics/objetos/propulsao/combustao/CamaraCombustao.ts
 
 <a id="f-b0538dd43b1921f1"></a>
@@ -18488,7 +18646,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-96"></a>
+<a id="modulo-97"></a>
 ## src/physics/objetos/propulsao/vetorizacao/AtuadorVetorizacao.ts
 
 <a id="f-d5fed7dda85b3573"></a>
@@ -18587,7 +18745,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-97"></a>
+<a id="modulo-98"></a>
 ## src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts
 
 <a id="f-eca3958041fee892"></a>
@@ -18686,7 +18844,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-98"></a>
+<a id="modulo-99"></a>
 ## src/physics/objetos/veiculos/Bss03.ts
 
 <a id="f-860287d56592b29a"></a>
@@ -18823,7 +18981,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-99"></a>
+<a id="modulo-100"></a>
 ## src/physics/objetos/veiculos/Bss04.ts
 
 <a id="f-618b5173fdbe54b8"></a>
@@ -18884,7 +19042,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-100"></a>
+<a id="modulo-101"></a>
 ## src/physics/objetos/veiculos/ComputadorDeVoo.ts
 
 <a id="f-812afc3623292bce"></a>
@@ -19819,7 +19977,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-101"></a>
+<a id="modulo-102"></a>
 ## src/physics/objetos/veiculos/OrbitadorReentrada.ts
 
 <a id="f-f474385619746e2c"></a>
@@ -19828,11 +19986,11 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Campo | Contrato / evidência |
 |---|---|
 | Identificador | <code>src/physics/objetos/veiculos/OrbitadorReentrada.ts::OrbitadorReentrada.constructor:Constructor</code> · [fonte L16](../../src/physics/objetos/veiculos/OrbitadorReentrada.ts#L16) |
-| Assinatura | <code>public (estadoInicial: EstadoFisico, limiteTermicoC: number, phiInicialRad: number, perfil: PerfilAtmosfericoReentrada, referencial: ReferencialFisico, lerVelocidadeArMps: () =&gt; Vetor3): OrbitadorReentrada</code> |
+| Assinatura | <code>public (estadoInicial: EstadoFisico, limiteTermicoC: number, phiInicialRad: number, perfil: PerfilAtmosfericoReentrada, referencial: ReferencialFisico, lerVelocidadeArMps: () =&gt; Vetor3, parametros?: ParametrosReentrada): OrbitadorReentrada</code> |
 | Responsabilidade | Material concentrado provisório e geometria de engenharia, SI. TPS/estrutura não são camadas independentes. Recebe serviços compartilhados, sem DOM/relógio. |
-| Entradas | <code>estadoInicial: EstadoFisico</code>; <code>limiteTermicoC: number</code>; <code>phiInicialRad: number</code>; <code>private readonly perfil: PerfilAtmosfericoReentrada</code>; <code>private readonly referencial: ReferencialFisico</code>; <code>private readonly lerVelocidadeArMps: () =&gt; Vetor3</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>estadoInicial: EstadoFisico</code>; <code>limiteTermicoC: number</code>; <code>phiInicialRad: number</code>; <code>private readonly perfil: PerfilAtmosfericoReentrada</code>; <code>private readonly referencial: ReferencialFisico</code>; <code>private readonly lerVelocidadeArMps: () =&gt; Vetor3</code>; <code>private readonly parametros: ParametrosReentrada = MODELO_REENTRADA</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>OrbitadorReentrada</code>; expressões retornadas: — |
-| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.perfil</code>; <code>this.referencial</code>; <code>this.lerVelocidadeArMps</code>; <code>this.rolagem</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.perfil</code>; <code>this.referencial</code>; <code>this.lerVelocidadeArMps</code>; <code>this.parametros</code>; <code>this.rolagem</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>super</code>; <code>Vetor3</code>; <code>RolagemVirtual</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts) (imports diretos do módulo) |
@@ -19869,7 +20027,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Assinatura | <code>public (condicoes: CondicoesAtmosfericas): CargasReentrada</code> |
 | Responsabilidade | Consulta cargas com a mesma densidade/vento do core e perfil compartilhado. |
 | Entradas | <code>condicoes: CondicoesAtmosfericas</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
-| Saídas | Tipo <code>CargasReentrada</code>; expressões retornadas: <code>avaliarAerodinamica(e, condicoes, this.perfil.amostrar(this.referencial.altitudeGeometricaM(e.posicaoM)), this.integridadeEstrutural, this.rolagem.observar().atualRad)</code> |
+| Saídas | Tipo <code>CargasReentrada</code>; expressões retornadas: <code>avaliarAerodinamica(e, condicoes, this.perfil.amostrar(this.referencial.altitudeGeometricaM(e.posicaoM)), this.integridadeEstrutural, this.rolagem.observar().atualRad, this.parametros)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.getEstadoFisico</code>; <code>avaliarAerodinamica</code>; <code>this.perfil.amostrar</code>; <code>this.referencial.altitudeGeometricaM</code>; <code>this.rolagem.observar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
@@ -19945,7 +20103,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Assinatura | <code>public override (c: CondicoesAtmosfericas, potenciaW: number): number</code> |
 | Responsabilidade | Fluxo indicador vezes área efetiva, limitado à dissipação D·V; substitui a fração histórica. SistemaTermico aplica uma vez e conserva contadores/dano. |
 | Entradas | <code>c: CondicoesAtmosfericas</code>; <code>potenciaW: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
-| Saídas | Tipo <code>number</code>; expressões retornadas: <code>Math.min(potenciaW, this.avaliar(c).fluxoTermicoIndicadorWm2 * MODELO_REENTRADA.areaAquecidaM2)</code> |
+| Saídas | Tipo <code>number</code>; expressões retornadas: <code>Math.min(potenciaW, this.avaliar(c).fluxoTermicoIndicadorWm2 * this.parametros.areaAquecidaM2)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.min</code>; <code>this.avaliar</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
@@ -20051,7 +20209,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-102"></a>
+<a id="modulo-103"></a>
 ## src/physics/objetos/veiculos/VeiculoAlado.ts
 
 <a id="f-a0a40213b7cd3903"></a>
@@ -20112,7 +20270,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-103"></a>
+<a id="modulo-104"></a>
 ## src/physics/objetos/veiculos/VeiculoComposto.ts
 
 <a id="f-64296b093cc455c5"></a>
@@ -20952,7 +21110,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-104"></a>
+<a id="modulo-105"></a>
 ## src/physics/objetos/veiculos/VeiculoTerrestre.ts
 
 <a id="f-11d563c8accc999f"></a>
@@ -21222,15 +21380,34 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-105"></a>
+<a id="modulo-106"></a>
 ## src/physics/reentrada/ModeloAerodinamicoReentrada.ts
+
+<a id="f-e334f1718df02bee"></a>
+<details><summary>configurarParametrosReentrada · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/physics/reentrada/ModeloAerodinamicoReentrada.ts::configurarParametrosReentrada:FunctionDeclaration</code> · [fonte L31](../../src/physics/reentrada/ModeloAerodinamicoReentrada.ts#L31) |
+| Assinatura | <code>export (entrada?: Partial&lt;ParametrosReentrada&gt;): ParametrosReentrada</code> |
+| Responsabilidade | Copia parâmetros SI conhecidos e valida finitude, sinal e domínio mecânico. São calibrações de ensaio, não especificações certificadas. Nenhuma alteração afeta o objeto padrão global nem modifica corpos já em voo. |
+| Entradas | <code>entrada: Partial&lt;ParametrosReentrada&gt; = {}</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>ParametrosReentrada</code>; expressões retornadas: <code>Object.freeze(p)</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>Array.isArray</code>; <code>Object.keys(entrada).some</code>; <code>Object.keys</code>; <code>Error</code>; <code>Object.entries</code>; <code>Number.isFinite</code>; <code>Math.abs</code>; <code>assinados.includes</code>; <code>podemZerar.includes</code>; <code>Object.freeze</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>!entrada &#124;&#124; typeof entrada !== 'object' &#124;&#124; Array.isArray(entrada)<br>    &#124;&#124; Object.keys(entrada).some(k =&gt; !Object.hasOwn(padroes, k))</code>; <code>!Number.isFinite(v) &#124;&#124; Math.abs(v) &gt; 1e12<br>    &#124;&#124; (!assinados.includes(k) &amp;&amp; (podemZerar.includes(k) ? v &lt; 0 : v &lt;= 0))</code>; <code>p.cursoFlapRad &gt;= Math.PI / 2 &#124;&#124; p.cursoRolagemRad &gt; Math.PI / 2 &#124;&#124; p.fracaoCargaInicialBateria &gt; 1<br>    &#124;&#124; p.taxaFlapRadps &gt; 10 &#124;&#124; p.taxaRolagemRadps &gt; 10</code>; exceções: <code>new Error('Parâmetro RE desconhecido.')</code>; <code>new Error(`Parâmetro RE inválido: ${k}`)</code>; <code>new Error('Curso/taxa/carga fora do domínio experimental.')</code> |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Copia parâmetros SI conhecidos e valida finitude, sinal e domínio mecânico.<br> * São calibrações de ensaio, não especificações certificadas. Nenhuma alteração<br> * afeta o objeto padrão global nem modifica corpos já em voo.<br> * @contract f-e334f1718df02bee<br>   */ |
+
+</details>
 
 <a id="f-b963603558db9e7b"></a>
 <details><summary>projetarSustentacao · FunctionDeclaration</summary>
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/reentrada/ModeloAerodinamicoReentrada.ts::projetarSustentacao:FunctionDeclaration</code> · [fonte L41](../../src/physics/reentrada/ModeloAerodinamicoReentrada.ts#L41) |
+| Identificador | <code>src/physics/reentrada/ModeloAerodinamicoReentrada.ts::projetarSustentacao:FunctionDeclaration</code> · [fonte L72](../../src/physics/reentrada/ModeloAerodinamicoReentrada.ts#L72) |
 | Assinatura | <code>export (sustentacaoN: number, phiRad: number): number</code> |
 | Responsabilidade | Projeção puramente algébrica L*cos(phi), inclusive em rolagem negativa; lateral L*sin(phi) não é integrada. Não produz arrasto ou integração. |
 | Entradas | <code>sustentacaoN: number</code>; <code>phiRad: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -21238,7 +21415,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>[sustentacaoN, phiRad].every</code>; <code>Error</code>; <code>Math.cos</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>![sustentacaoN, phiRad].every(Number.isFinite)</code>; exceções: <code>new Error('Projeção não finita.')</code> |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Projeção puramente algébrica L*cos(phi), inclusive em rolagem negativa;<br> * lateral L*sin(phi) não é integrada. Não produz arrasto ou integração.<br> * @contract f-b963603558db9e7b<br>   */ |
 
@@ -21249,15 +21426,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/reentrada/ModeloAerodinamicoReentrada.ts::calcularFluxoTermicoIndicador:FunctionDeclaration</code> · [fonte L51](../../src/physics/reentrada/ModeloAerodinamicoReentrada.ts#L51) |
-| Assinatura | <code>export (rho: number, velocidadeMps: number, raioM: number): number</code> |
+| Identificador | <code>src/physics/reentrada/ModeloAerodinamicoReentrada.ts::calcularFluxoTermicoIndicador:FunctionDeclaration</code> · [fonte L82](../../src/physics/reentrada/ModeloAerodinamicoReentrada.ts#L82) |
+| Assinatura | <code>export (rho: number, velocidadeMps: number, raioM: number, coeficienteSI?: number): number</code> |
 | Responsabilidade | Indicador Sutton–Graves SI, limitado pelo fluxo cinético molecular incidente. rho kg/m³, V m/s e raio m; retorna W/m². Não é previsão qualificada de TPS, especialmente no rarefeito, fora do hipersônico ou com química/composição variáveis. |
-| Entradas | <code>rho: number</code>; <code>velocidadeMps: number</code>; <code>raioM: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
-| Saídas | Tipo <code>number</code>; expressões retornadas: <code>Math.min(MODELO_REENTRADA.coeficienteSuttonGravesSI * Math.sqrt(rho / raioM) * velocidadeMps ** 3, 0.5 * rho * velocidadeMps ** 3)</code> |
+| Entradas | <code>rho: number</code>; <code>velocidadeMps: number</code>; <code>raioM: number</code>; <code>coeficienteSI: number = MODELO_REENTRADA.coeficienteSuttonGravesSI</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>number</code>; expressões retornadas: <code>Math.min(coeficienteSI * Math.sqrt(rho / raioM) * velocidadeMps ** 3, 0.5 * rho * velocidadeMps ** 3)</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>[rho, velocidadeMps, raioM].every</code>; <code>Error</code>; <code>Math.min</code>; <code>Math.sqrt</code> |
-| Invariantes | Contrato documentado abaixo; ramos observados: <code>![rho, velocidadeMps, raioM].every(Number.isFinite) &#124;&#124; rho &lt; 0 &#124;&#124; velocidadeMps &lt; 0 &#124;&#124; raioM &lt;= 0</code>; exceções: <code>new Error('Parâmetros térmicos inválidos.')</code> |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts) (imports diretos do módulo) |
+| Dependências | Chamadas/construções diretas: <code>[rho, velocidadeMps, raioM, coeficienteSI].every</code>; <code>Error</code>; <code>Math.min</code>; <code>Math.sqrt</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>![rho, velocidadeMps, raioM, coeficienteSI].every(Number.isFinite) &#124;&#124; rho &lt; 0 &#124;&#124; velocidadeMps &lt; 0 &#124;&#124; raioM &lt;= 0 &#124;&#124; coeficienteSI &lt;= 0</code>; exceções: <code>new Error('Parâmetros térmicos inválidos.')</code> |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Indicador Sutton–Graves SI, limitado pelo fluxo cinético molecular incidente.<br> * rho kg/m³, V m/s e raio m; retorna W/m². Não é previsão qualificada de TPS,<br> * especialmente no rarefeito, fora do hipersônico ou com química/composição variáveis.<br> * @contract f-5b99eb90d683a84a<br>   */ |
 
@@ -21268,22 +21445,22 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/reentrada/ModeloAerodinamicoReentrada.ts::avaliarAerodinamica:FunctionDeclaration</code> · [fonte L65](../../src/physics/reentrada/ModeloAerodinamicoReentrada.ts#L65) |
-| Assinatura | <code>export (estado: EstadoFisico, condicoes: CondicoesAtmosfericas, atmosfera: AmostraAtmosferaReentrada, integridade: number, phiRad: number): CargasReentrada</code> |
+| Identificador | <code>src/physics/reentrada/ModeloAerodinamicoReentrada.ts::avaliarAerodinamica:FunctionDeclaration</code> · [fonte L96](../../src/physics/reentrada/ModeloAerodinamicoReentrada.ts#L96) |
+| Assinatura | <code>export (estado: EstadoFisico, condicoes: CondicoesAtmosfericas, atmosfera: AmostraAtmosferaReentrada, integridade: number, phiRad: number, p?: ParametrosReentrada): CargasReentrada</code> |
 | Responsabilidade | Modelo analítico preliminar XY, eixo longitudinal local +X. Cl=0,9*sin(2α) com correção Mach suave; Cd=0,12+1,6*sin²α+termo Mach. Não usa tabela validada. CP levemente a ré produz momento real; lift normal ao fluxo é projetado por phi. Condições SI finitas fornecidas pelo mundo; função pura, dt não se aplica. |
-| Entradas | <code>estado: EstadoFisico</code>; <code>condicoes: CondicoesAtmosfericas</code>; <code>atmosfera: AmostraAtmosferaReentrada</code>; <code>integridade: number</code>; <code>phiRad: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>estado: EstadoFisico</code>; <code>condicoes: CondicoesAtmosfericas</code>; <code>atmosfera: AmostraAtmosferaReentrada</code>; <code>integridade: number</code>; <code>phiRad: number</code>; <code>p: ParametrosReentrada = MODELO_REENTRADA</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>CargasReentrada</code>; expressões retornadas: <code>{ velocidadeRelativaMps: V, anguloAtaqueRad: alpha, mach, pressaoDinamicaPa: q, cl, cd,<br>    sustentacaoN: L, sustentacaoXYN: Lxy, sustentacaoLateralOmitidaN: L * Math.sin(phiRad), arrastoN: D,<br>    forcaSustentacaoN: n.multiplicar(Lxy), forc… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>estado.velocidadeMps.subtrair</code>; <code>normalizarAngulo</code>; <code>Math.atan2</code>; <code>Math.sin</code>; <code>Math.exp</code>; <code>projetarSustentacao</code>; <code>Vetor3</code>; <code>n.multiplicar</code>; <code>v.multiplicar</code>; <code>calcularFluxoTermicoIndicador</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Modelo analítico preliminar XY, eixo longitudinal local +X. Cl=0,9*sin(2α)<br> * com correção Mach suave; Cd=0,12+1,6*sin²α+termo Mach. Não usa tabela validada.<br> * CP levemente a ré produz momento real; lift normal ao fluxo é projetado por phi.<br> * Condições SI finitas fornecidas pelo mundo; função pura, dt não se aplica.<br> * @contract f-1ed66fedcef47f81<br>   */ |
 
 </details>
 
 
-<a id="modulo-106"></a>
+<a id="modulo-107"></a>
 ## src/physics/sensores/SensoresVeiculoComposto.ts
 
 <a id="f-1a302daca133db57"></a>
@@ -21572,7 +21749,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-107"></a>
+<a id="modulo-108"></a>
 ## src/physics/sensores/SistemaSensores.ts
 
 <a id="f-11d76a7fff48a0bd"></a>
@@ -21766,7 +21943,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-108"></a>
+<a id="modulo-109"></a>
 ## src/physics/sensores/SwitchFimDeCurso.ts
 
 <a id="f-958eb2b7694765e1"></a>
@@ -22131,7 +22308,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-109"></a>
+<a id="modulo-110"></a>
 ## src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.ts
 
 <a id="f-e507ddc521012566"></a>
@@ -22230,7 +22407,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-110"></a>
+<a id="modulo-111"></a>
 ## src/physics/sistemas de controle/ControladorAletasAerodinamicas.ts
 
 <a id="f-63d060f8a840b02f"></a>
@@ -22310,7 +22487,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-111"></a>
+<a id="modulo-112"></a>
 ## src/physics/sistemas de controle/ControladorDesaceleracao.ts
 
 <a id="f-2df8a6ec72d97e33"></a>
@@ -22447,7 +22624,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-112"></a>
+<a id="modulo-113"></a>
 ## src/physics/sistemas de controle/ControladorDesaceleracaoDePropulsores.ts
 
 <a id="f-c21cd42fd0b7de7c"></a>
@@ -22546,7 +22723,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-113"></a>
+<a id="modulo-114"></a>
 ## src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.ts
 
 <a id="f-f48142ef0b2674dd"></a>
@@ -22759,7 +22936,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-114"></a>
+<a id="modulo-115"></a>
 ## src/physics/sistemas de controle/ControladorGimbalDescidaDePropulsores.ts
 
 <a id="f-cce221037c45b500"></a>
@@ -22877,7 +23054,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-115"></a>
+<a id="modulo-116"></a>
 ## src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts
 
 <a id="f-51e931aaa927f1e1"></a>
@@ -23090,7 +23267,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-116"></a>
+<a id="modulo-117"></a>
 ## src/physics/sistemas de controle/ControladorInclinacaoDePropulsores.ts
 
 <a id="f-072ca5129fc83639"></a>
@@ -23246,7 +23423,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-117"></a>
+<a id="modulo-118"></a>
 ## src/physics/sistemas de controle/ControladorInclinacaoPid.ts
 
 <a id="f-6fd33485b6c6ed80"></a>
@@ -23345,7 +23522,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-118"></a>
+<a id="modulo-119"></a>
 ## src/physics/sistemas de controle/ControladorPerfilVooExperimental.ts
 
 <a id="f-0c9abac72f8565f4"></a>
@@ -23387,7 +23564,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-119"></a>
+<a id="modulo-120"></a>
 ## src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts
 
 <a id="f-093ae6a77da90e61"></a>
@@ -23676,7 +23853,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-120"></a>
+<a id="modulo-121"></a>
 ## src/physics/sistemas de controle/ControladorPouso.ts
 
 <a id="f-d697d010640b8674"></a>
@@ -23832,7 +24009,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-121"></a>
+<a id="modulo-122"></a>
 ## src/physics/sistemas de controle/ControladorPousoDePropulsores.ts
 
 <a id="f-23b3b270943a05e3"></a>
@@ -23950,7 +24127,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-122"></a>
+<a id="modulo-123"></a>
 ## src/physics/sistemas de controle/ControladorReentrada.ts
 
 <a id="f-c18886ab4102b0a9"></a>
@@ -23958,12 +24135,12 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/ControladorReentrada.ts::ControladorReentrada.constructor:Constructor</code> · [fonte L38](../../src/physics/sistemas%20de%20controle/ControladorReentrada.ts#L38) |
-| Assinatura | <code>public (ler: () =&gt; TelemetriaControleReentrada, alphaRad: number, phiRad: number, corredor: CorredorReentrada): ControladorReentrada</code> |
+| Identificador | <code>src/physics/sistemas de controle/ControladorReentrada.ts::ControladorReentrada.constructor:Constructor</code> · [fonte L44](../../src/physics/sistemas%20de%20controle/ControladorReentrada.ts#L44) |
+| Assinatura | <code>public (ler: () =&gt; TelemetriaControleReentrada, alphaRad: number, phiRad: number, corredor: CorredorReentrada, parametros?: ParametrosReentrada): ControladorReentrada</code> |
 | Responsabilidade | Recebe porta escalar de sensores/cargas, sem acesso ao objeto ou mundo. Corredor é uma heurística de investigação, sem garantia de trajetória segura. |
-| Entradas | <code>private readonly ler: () =&gt; TelemetriaControleReentrada</code>; <code>alphaRad: number</code>; <code>phiRad: number</code>; <code>private readonly corredor: CorredorReentrada</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Entradas | <code>private readonly ler: () =&gt; TelemetriaControleReentrada</code>; <code>alphaRad: number</code>; <code>phiRad: number</code>; <code>private readonly corredor: CorredorReentrada</code>; <code>private readonly parametros: ParametrosReentrada = MODELO_REENTRADA</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>ControladorReentrada</code>; expressões retornadas: — |
-| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.ler</code>; <code>this.corredor</code>; <code>this.id</code>; <code>this.prioridade</code>; <code>this.habilitado</code>; <code>this.alvoAlphaRad</code>; <code>this.alvoPhiRad</code>; <code>this.estado</code>; <code>this.alphaGerenciadoRad</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.ler</code>; <code>this.corredor</code>; <code>this.parametros</code>; <code>this.id</code>; <code>this.prioridade</code>; <code>this.habilitado</code>; <code>this.alvoAlphaRad</code>; <code>this.alvoPhiRad</code>; <code>this.estado</code>; <code>this.alphaGerenciadoRad</code>; <code>this.diagnosticoCorredor</code>; <code>this.torqueSolicitadoNm</code>; <code>this.torqueComandadoNm</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>this.configurarAlvos</code>; <code>Object.values(corredor).every</code>; <code>Object.values</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Object.values(corredor).every(v =&gt; Number.isFinite(v) &amp;&amp; v &gt; 0)</code>; exceções: <code>new Error('Corredor inválido.')</code> |
 | Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts) (imports diretos do módulo) |
@@ -23977,7 +24154,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/ControladorReentrada.ts::ControladorReentrada.constructor.ler[tipo]:FunctionType</code> · [fonte L38](../../src/physics/sistemas%20de%20controle/ControladorReentrada.ts#L38) |
+| Identificador | <code>src/physics/sistemas de controle/ControladorReentrada.ts::ControladorReentrada.constructor.ler[tipo]:FunctionType</code> · [fonte L44](../../src/physics/sistemas%20de%20controle/ControladorReentrada.ts#L44) |
 | Assinatura | <code> (): TelemetriaControleReentrada</code> |
 | Responsabilidade | Contrato declarativo; implementação fornecida pelo participante que atende à interface. REVISÃO NECESSÁRIA. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -23996,7 +24173,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/ControladorReentrada.ts::ControladorReentrada.habilitar:MethodDeclaration</code> · [fonte L45](../../src/physics/sistemas%20de%20controle/ControladorReentrada.ts#L45) |
+| Identificador | <code>src/physics/sistemas de controle/ControladorReentrada.ts::ControladorReentrada.habilitar:MethodDeclaration</code> · [fonte L51](../../src/physics/sistemas%20de%20controle/ControladorReentrada.ts#L51) |
 | Assinatura | <code>public (): void</code> |
 | Responsabilidade | Seleciona automação; ignição/posição/orientação não são comandadas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -24015,12 +24192,12 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/ControladorReentrada.ts::ControladorReentrada.desabilitar:MethodDeclaration</code> · [fonte L47](../../src/physics/sistemas%20de%20controle/ControladorReentrada.ts#L47) |
+| Identificador | <code>src/physics/sistemas de controle/ControladorReentrada.ts::ControladorReentrada.desabilitar:MethodDeclaration</code> · [fonte L53](../../src/physics/sistemas%20de%20controle/ControladorReentrada.ts#L53) |
 | Assinatura | <code>public (): void</code> |
 | Responsabilidade | Retira solicitações da arbitragem, preservando o estado físico. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
-| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.habilitado</code>; <code>this.estado</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.habilitado</code>; <code>this.estado</code>; <code>this.torqueSolicitadoNm</code>; <code>this.torqueComandadoNm</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts) (imports diretos do módulo) |
@@ -24034,7 +24211,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/ControladorReentrada.ts::ControladorReentrada.estaHabilitado:GetAccessor</code> · [fonte L49](../../src/physics/sistemas%20de%20controle/ControladorReentrada.ts#L49) |
+| Identificador | <code>src/physics/sistemas de controle/ControladorReentrada.ts::ControladorReentrada.estaHabilitado:GetAccessor</code> · [fonte L55](../../src/physics/sistemas%20de%20controle/ControladorReentrada.ts#L55) |
 | Assinatura | <code>public (): boolean</code> |
 | Responsabilidade | Consulta seleção operacional real. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -24053,7 +24230,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/ControladorReentrada.ts::ControladorReentrada.configurarAlvos:MethodDeclaration</code> · [fonte L51](../../src/physics/sistemas%20de%20controle/ControladorReentrada.ts#L51) |
+| Identificador | <code>src/physics/sistemas de controle/ControladorReentrada.ts::ControladorReentrada.configurarAlvos:MethodDeclaration</code> · [fonte L57](../../src/physics/sistemas%20de%20controle/ControladorReentrada.ts#L57) |
 | Assinatura | <code>public (alphaRad: number, phiRad: number): void</code> |
 | Responsabilidade | Alvos rad finitos, alpha de 0–80° e bank de ±90°. |
 | Entradas | <code>alphaRad: number</code>; <code>phiRad: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -24072,11 +24249,11 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/ControladorReentrada.ts::ControladorReentrada.observar:MethodDeclaration</code> · [fonte L57](../../src/physics/sistemas%20de%20controle/ControladorReentrada.ts#L57) |
-| Assinatura | <code>public (): { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }</code> |
+| Identificador | <code>src/physics/sistemas de controle/ControladorReentrada.ts::ControladorReentrada.observar:MethodDeclaration</code> · [fonte L63](../../src/physics/sistemas%20de%20controle/ControladorReentrada.ts#L63) |
+| Assinatura | <code>public (): { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }</code> |
 | Responsabilidade | Snapshot de alvo do operador, alvo gerenciado e estado efetivo do controle. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
-| Saídas | Tipo <code>{ estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }</code>; expressões retornadas: <code>{ estado: this.estado, alphaSolicitadoRad: this.alvoAlphaRad,<br>    alphaGerenciadoRad: this.alphaGerenciadoRad, phiSolicitadoRad: this.alvoPhiRad }</code> |
+| Saídas | Tipo <code>{ estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }</code>; expressões retornadas: <code>{ estado: this.estado, alphaSolicitadoRad: this.alvoAlphaRad,<br>    alphaGerenciadoRad: this.alphaGerenciadoRad, phiSolicitadoRad: this.alvoPhiRad,<br>    torqueSolicitadoNm: this.torqueSolicitadoNm, torqueComandadoNm: this.torqueComandadoNm, co… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
@@ -24091,13 +24268,13 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/ControladorReentrada.ts::ControladorReentrada.calcularSolicitacoes:MethodDeclaration</code> · [fonte L66](../../src/physics/sistemas%20de%20controle/ControladorReentrada.ts#L66) |
+| Identificador | <code>src/physics/sistemas de controle/ControladorReentrada.ts::ControladorReentrada.calcularSolicitacoes:MethodDeclaration</code> · [fonte L73](../../src/physics/sistemas%20de%20controle/ControladorReentrada.ts#L73) |
 | Assinatura | <code>public (leituras: LeiturasVeiculoComposto, dtS: number): readonly SolicitacaoDeAtuador[]</code> |
 | Responsabilidade | Calcula deflexões opostas para torque de arfagem, limitado por q, geometria, projeção virtual e curso de 30°. PD sem integral evita windup. dt s em (0,1/60]. Sem autoridade não aplica torque substituto/RCS fictício. Leituras inválidas produzem ausência de pedidos; sensores só observam o estado real do core. |
 | Entradas | <code>leituras: LeiturasVeiculoComposto</code>; <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>readonly SolicitacaoDeAtuador[]</code>; expressões retornadas: <code>[]</code>; <code>[{ idAtuador: 'flap-dianteiro', recurso: 'flap', valor: delta },<br>    { idAtuador: 'flap-traseiro', recurso: 'flap', valor: -delta },<br>    { idAtuador: 'orbitador-re-001', recurso: 'rolagem-virtual', valor: phi }]</code> |
-| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.estado</code>; <code>this.alphaGerenciadoRad</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code>; <code>this.ler</code>; <code>Object.values(t).filter(v =&gt; typeof v === 'number').every</code>; <code>Object.values(t).filter</code>; <code>Object.values</code>; <code>Math.min</code>; <code>Math.max</code>; <code>Math.cos</code>; <code>normalizarAngulo</code>; <code>Math.abs</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.estado</code>; <code>this.torqueSolicitadoNm</code>; <code>this.torqueComandadoNm</code>; <code>this.diagnosticoCorredor</code>; <code>this.alphaGerenciadoRad</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code>; <code>this.ler</code>; <code>Object.values(t).filter(v =&gt; typeof v === 'number').every</code>; <code>Object.values(t).filter</code>; <code>Object.values</code>; <code>avaliarCorredorReentrada</code>; <code>Math.cos</code>; <code>normalizarAngulo</code>; <code>Math.abs</code>; <code>Math.max</code>; <code>Math.min</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(dtS) &#124;&#124; dtS &lt;= 0 &#124;&#124; dtS &gt; 1 / 60</code>; <code>!this.habilitado</code>; <code>leituras.sensoresValidos === false &#124;&#124; (leituras.idadeLeituraS ?? 0) &gt; 0.25<br>    &#124;&#124; !t.disponivel &#124;&#124; !Object.values(t).filter(v =&gt; typeof v === 'number').every(Number.isFinite)</code>; exceções: <code>new Error('dt de controle inválido.')</code> |
 | Testes | [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
@@ -24106,7 +24283,30 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-123"></a>
+<a id="modulo-124"></a>
+## src/physics/sistemas de controle/EstrategiaCorredorReentrada.ts
+
+<a id="f-c23886613e0b2192"></a>
+<details><summary>avaliarCorredorReentrada · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/physics/sistemas de controle/EstrategiaCorredorReentrada.ts::avaliarCorredorReentrada:FunctionDeclaration</code> · [fonte L8](../../src/physics/sistemas%20de%20controle/EstrategiaCorredorReentrada.ts#L8) |
+| Assinatura | <code>export (t: TelemetriaControleReentrada, limites: CorredorReentrada, alphaSolicitadoRad: number, phiSolicitadoRad: number): Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt;</code> |
+| Responsabilidade | Política experimental separada do PD: considera q/fluxo/carga e informa energia/integridade monitoradas, sem inventar lei ótima ou escrever estado. Não há atuador capaz de impor energia diretamente. Alvos rad; limites SI. |
+| Entradas | <code>t: TelemetriaControleReentrada</code>; <code>limites: CorredorReentrada</code>; <code>alphaSolicitadoRad: number</code>; <code>phiSolicitadoRad: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt;</code>; expressões retornadas: <code>Object.freeze({ estrategia: 'heuristica-experimental-55-70-graus', excedeu: violacoes.length &gt; 0,<br>    violacoes: Object.freeze(violacoes),<br>    alphaAlvoRad: violacoes.length ? Math.min(70 * Math.PI / 180, Math.max(alphaSolicitadoRad, 55 * M… [continua na fonte]</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>[t.pressaoDinamicaPa &gt; limites.pressaoMaximaPa ? 'pressao' : '',<br>    t.fluxoTermicoWm2 &gt; limites.fluxoMaximoWm2 ? 'fluxo-termico' : '', t.cargaG &gt; limites.cargaMaximaG ? 'carga' : ''].filter</code>; <code>Object.freeze</code>; <code>Math.min</code>; <code>Math.max</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Política experimental separada do PD: considera q/fluxo/carga e informa<br> * energia/integridade monitoradas, sem inventar lei ótima ou escrever estado.<br> * Não há atuador capaz de impor energia diretamente. Alvos rad; limites SI.<br> * @contract f-c23886613e0b2192<br>   */ |
+
+</details>
+
+
+<a id="modulo-125"></a>
 ## src/physics/sistemas de controle/GerenciadorDeControladores.ts
 
 <a id="f-c239c04410fd7830"></a>
@@ -24338,7 +24538,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-124"></a>
+<a id="modulo-126"></a>
 ## src/physics/sistemas de controle/SupervisorReentrada.ts
 
 <a id="f-cadd2a244c36f2e6"></a>
@@ -24437,7 +24637,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-125"></a>
+<a id="modulo-127"></a>
 ## src/physics/solucionadores/IntegradorFisico.ts
 
 <a id="f-37bd83a7107d9325"></a>
@@ -24479,7 +24679,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-126"></a>
+<a id="modulo-128"></a>
 ## src/physics/solucionadores/ResolvedorColisoes.ts
 
 <a id="f-20b3443c43cccc2d"></a>
@@ -24787,7 +24987,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-127"></a>
+<a id="modulo-129"></a>
 ## src/physics/solucionadores/ResolvedorContatoSuperficie.ts
 
 <a id="f-c962b279ad805fe0"></a>
@@ -25228,7 +25428,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-128"></a>
+<a id="modulo-130"></a>
 ## src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts
 
 <a id="f-ca6b22a41219e7be"></a>
@@ -25308,7 +25508,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-129"></a>
+<a id="modulo-131"></a>
 ## src/physics/solucionadores/SistemaAtmosferico.ts
 
 <a id="f-6538ff18b9c53fb0"></a>
@@ -25483,7 +25683,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-130"></a>
+<a id="modulo-132"></a>
 ## src/physics/solucionadores/SistemaTermico.ts
 
 <a id="f-4a293a694405dea2"></a>
@@ -25582,7 +25782,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-131"></a>
+<a id="modulo-133"></a>
 ## src/reentrada.ts
 
 <a id="f-bdf1e31dbe2aa399"></a>
@@ -25590,13 +25790,13 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada:FunctionDeclaration</code> · [fonte L11](../../src/reentrada.ts#L11) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada:FunctionDeclaration</code> · [fonte L13](../../src/reentrada.ts#L13) |
 | Assinatura | <code> (): void</code> |
 | Responsabilidade | Fronteira de apresentação: lê controles, comanda portas de missão e desenha snapshots; tempo real serve apenas ao executor fixo, nunca à lei física. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
-| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>elemento</code>; <code>RenderizadorReentrada</code>; <code>criarEnsaioReentrada</code>; <code>ExecutorPassoFixo</code>; <code>ensaio.observar</code>; <code>Map</code>; <code>iniciais.addEventListener</code>; <code>form.addEventListener</code>; <code>elemento('re-reset').addEventListener</code>; <code>modo.addEventListener</code>; <code>elemento('re-alvos').addEventListener</code>; <code>elemento(id).addEventListener</code>; <code>elemento('re-chaveamento').addEventListener</code>; <code>elemento('re-pouso').addEventListener</code>; <code>energia.addEventListener</code>; <code>elemento('re-falha-rolagem').addEventListener</code>; <code>elemento('re-separar').addEventListener</code>; <code>elemento('re-passo').addEventListener</code>; <code>elemento('re-exportar').addEventListener</code>; <code>requestAnimationFrame</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>label.textContent</code>; <code>input.type</code>; <code>input.step</code>; <code>input.required</code>; <code>input.id</code>; <code>input.value</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>elemento</code>; <code>Map</code>; <code>Object.entries</code>; <code>configurarParametrosReentrada</code>; <code>document.createElement</code>; <code>String</code>; <code>label.append</code>; <code>elemento('re-parametros').append</code>; <code>camposParametros.set</code>; <code>RenderizadorReentrada</code>; <code>criarEnsaioReentrada</code>; <code>ExecutorPassoFixo</code>; <code>ensaio.observar</code>; <code>iniciais.addEventListener</code>; <code>form.addEventListener</code>; <code>elemento('re-reset').addEventListener</code>; <code>modo.addEventListener</code>; <code>elemento('re-alvos').addEventListener</code>; <code>elemento(id).addEventListener</code>; <code>elemento('re-chaveamento').addEventListener</code>; <code>elemento('re-pouso').addEventListener</code>; <code>energia.addEventListener</code>; <code>elemento('re-falha-rolagem').addEventListener</code>; <code>elemento('re-separar').addEventListener</code>; <code>elemento('re-passo').addEventListener</code>; <code>elemento('re-exportar').addEventListener</code>; <code>requestAnimationFrame</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
@@ -25609,7 +25809,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.elemento:FunctionDeclaration</code> · [fonte L13](../../src/reentrada.ts#L13) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.elemento:FunctionDeclaration</code> · [fonte L15](../../src/reentrada.ts#L15) |
 | Assinatura | <code> &lt;T extends HTMLElement&gt;(id: string): T</code> |
 | Responsabilidade | Resolve elemento obrigatório da página, falhando explicitamente se ausente. |
 | Entradas | <code>id: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -25628,7 +25828,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.numero:FunctionDeclaration</code> · [fonte L17](../../src/reentrada.ts#L17) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.numero:FunctionDeclaration</code> · [fonte L19](../../src/reentrada.ts#L19) |
 | Assinatura | <code> (id: string): number</code> |
 | Responsabilidade | Converte entrada numérica em SI; validação final pertence ao domínio. |
 | Entradas | <code>id: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -25647,7 +25847,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.rad:FunctionDeclaration</code> · [fonte L19](../../src/reentrada.ts#L19) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.rad:FunctionDeclaration</code> · [fonte L21](../../src/reentrada.ts#L21) |
 | Assinatura | <code> (id: string): number</code> |
 | Responsabilidade | Converte graus da interface para radianos explicitamente. |
 | Entradas | <code>id: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -25666,13 +25866,13 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.lerConfiguracao:FunctionDeclaration</code> · [fonte L31](../../src/reentrada.ts#L31) |
-| Assinatura | <code> (): Partial&lt;ConfiguracaoReentrada&gt;</code> |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.lerConfiguracao:FunctionDeclaration</code> · [fonte L42](../../src/reentrada.ts#L42) |
+| Assinatura | <code> (): EntradaConfiguracaoReentrada</code> |
 | Responsabilidade | Lê configuração pré-ensaio; todas as conversões são explícitas e registradas. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
-| Saídas | Tipo <code>Partial&lt;ConfiguracaoReentrada&gt;</code>; expressões retornadas: <code>{ altitudeM: numero('re-altitude'), velocidadeMps: numero('re-velocidade'),<br>    anguloAtaqueRad: rad('re-alpha-inicial'), trajetoriaRad: rad('re-trajetoria'), rolagemRad: rad('re-phi-inicial'),<br>    limiteOrbitadorC: numero('re-limite-corpo'… [continua na fonte]</code> |
+| Saídas | Tipo <code>EntradaConfiguracaoReentrada</code>; expressões retornadas: <code>{ parametros: Object.fromEntries([...camposParametros].map(([k, input]) =&gt; [k, Number(input.value)])),<br>    passoS: 1 / numero('re-divisor-dt'), intervaloColetaS: numero('re-intervalo-coleta'),<br>    limiteAmostras: numero('re-limite-amostras'… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>numero</code>; <code>rad</code>; <code>elemento</code> |
+| Dependências | Chamadas/construções diretas: <code>Object.fromEntries</code>; <code>[...camposParametros].map</code>; <code>numero</code>; <code>rad</code>; <code>elemento</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
@@ -25685,13 +25885,13 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.preparar:FunctionDeclaration</code> · [fonte L46](../../src/reentrada.ts#L46) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.preparar:FunctionDeclaration</code> · [fonte L59](../../src/reentrada.ts#L59) |
 | Assinatura | <code> (): boolean</code> |
 | Responsabilidade | Recria ensaio solicitado; reinicia somente pela fábrica, sem editar corpos. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>false</code>; <code>true</code> |
-| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>ensaio</code>; <code>executor</code>; <code>historico</code>; <code>configAlterada</code>; <code>eventosMostrados</code>; <code>ultimaAtualizacaoMs</code>; <code>modo.value</code>; <code>elemento&lt;HTMLInputElement&gt;('re-alpha-alvo').value</code>; <code>elemento&lt;HTMLInputElement&gt;('re-phi-alvo').value</code>; <code>elemento&lt;HTMLInputElement&gt;('re-flap-dianteiro').value</code>; <code>elemento&lt;HTMLInputElement&gt;('re-flap-traseiro').value</code>; <code>mensagem.textContent</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>form.reportValidity</code>; <code>criarEnsaioReentrada</code>; <code>lerConfiguracao</code>; <code>ExecutorPassoFixo</code>; <code>ensaio.observar</code>; <code>elemento</code>; <code>String</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>ensaio</code>; <code>executor</code>; <code>historico</code>; <code>intervaloVisualPassos</code>; <code>limiteVisualAmostras</code>; <code>e.min</code>; <code>e.max</code>; <code>configAlterada</code>; <code>eventosMostrados</code>; <code>ultimaAtualizacaoMs</code>; <code>modo.value</code>; <code>elemento&lt;HTMLInputElement&gt;('re-alpha-alvo').value</code>; <code>elemento&lt;HTMLInputElement&gt;('re-phi-alvo').value</code>; <code>elemento&lt;HTMLInputElement&gt;('re-flap-dianteiro').value</code>; <code>elemento&lt;HTMLInputElement&gt;('re-flap-traseiro').value</code>; <code>mensagem.textContent</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>form.reportValidity</code>; <code>criarEnsaioReentrada</code>; <code>lerConfiguracao</code>; <code>ExecutorPassoFixo</code>; <code>ensaio.observar</code>; <code>Math.round</code>; <code>numero</code>; <code>elemento</code>; <code>Number</code>; <code>camposParametros.get</code>; <code>String</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!form.reportValidity()</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
@@ -25704,7 +25904,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.comandar:FunctionDeclaration</code> · [fonte L62](../../src/reentrada.ts#L62) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.comandar:FunctionDeclaration</code> · [fonte L80](../../src/reentrada.ts#L80) |
 | Assinatura | <code> (c: ComandoReentrada): void</code> |
 | Responsabilidade | Encaminha intenção e apresenta diagnóstico real, sem duplicar estados. |
 | Entradas | <code>c: ComandoReentrada</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -25723,17 +25923,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.avancar:FunctionDeclaration</code> · [fonte L72](../../src/reentrada.ts#L72) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.avancar:FunctionDeclaration</code> · [fonte L90](../../src/reentrada.ts#L90) |
 | Assinatura | <code> (): void</code> |
-| Responsabilidade | Executa um passo fixo e registra amostra visual a cada segundo simulado. O diário compartilhado mantém sua própria coleta determinística completa. |
+| Responsabilidade | Executa um passo fixo e registra amostra visual a cada segundo simulado. O diário compartilha coleta configurada e informa retenção/descartes; extremos são medidos em todo passo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>ensaio.avancarPasso</code>; <code>historico.push</code>; <code>ensaio.observar</code>; <code>historico.shift</code> |
-| Invariantes | Contrato documentado abaixo; ramos observados: <code>ensaio.avancarPasso() &amp;&amp; ensaio.passosExecutados % 240 === 0</code>; <code>historico.length &gt; 3600</code>; exceções: — |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>ensaio.avancarPasso() &amp;&amp; ensaio.passosExecutados % intervaloVisualPassos === 0</code>; <code>historico.length &gt; limiteVisualAmostras</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Executa um passo fixo e registra amostra visual a cada segundo simulado.<br>   * O diário compartilhado mantém sua própria coleta determinística completa.<br>   * @contract f-9085698dbe6b0394<br>   */ |
+| JSDoc integral | /** Executa um passo fixo e registra amostra visual a cada segundo simulado.<br>   * O diário compartilha coleta configurada e informa retenção/descartes; extremos são medidos em todo passo.<br>   * @contract f-9085698dbe6b0394<br>   */ |
 
 </details>
 
@@ -25742,7 +25942,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.metrica:FunctionDeclaration</code> · [fonte L80](../../src/reentrada.ts#L80) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.metrica:FunctionDeclaration</code> · [fonte L98](../../src/reentrada.ts#L98) |
 | Assinatura | <code> (id: string, nome: string, valor: string): void</code> |
 | Responsabilidade | Atualiza valor de telemetria em nó persistente, evitando reconstrução por frame. |
 | Entradas | <code>id: string</code>; <code>nome: string</code>; <code>valor: string</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -25761,7 +25961,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.graus:FunctionDeclaration</code> · [fonte L92](../../src/reentrada.ts#L92) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.graus:FunctionDeclaration</code> · [fonte L110](../../src/reentrada.ts#L110) |
 | Assinatura | <code> (rad: number): string</code> |
 | Responsabilidade | Converte radianos observados para graus de apresentação. |
 | Entradas | <code>rad: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -25780,14 +25980,14 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.atualizarPainel:FunctionDeclaration</code> · [fonte L95](../../src/reentrada.ts#L95) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.atualizarPainel:FunctionDeclaration</code> · [fonte L113](../../src/reentrada.ts#L113) |
 | Assinatura | <code> (o: ObservacaoReentrada): void</code> |
 | Responsabilidade | Renderiza comandos, estado físico e variáveis virtuais explicitamente distintos. |
 | Entradas | <code>o: ObservacaoReentrada</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>play.textContent</code>; <code>iniciais.disabled</code>; <code>manuais.disabled</code>; <code>modo.value</code>; <code>modo.disabled</code>; <code>elemento&lt;HTMLButtonElement&gt;('re-passo').disabled</code>; <code>elemento&lt;HTMLSelectElement&gt;('re-chaveamento').value</code>; <code>energia.textContent</code>; <code>elemento('re-tempo-real').textContent</code>; <code>linha.className</code>; <code>descricao.textContent</code>; <code>valor.textContent</code>; <code>li.textContent</code>; <code>eventosMostrados</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>metrica</code>; <code>o.altitudeM.toFixed</code>; <code>o.velocidadeMps.toFixed</code>; <code>graus</code>; <code>a.mach.toFixed</code>; <code>a.pressaoDinamicaPa.toPrecision</code>; <code>a.sustentacaoN.toFixed</code>; <code>a.sustentacaoXYN.toFixed</code>; <code>a.arrastoN.toFixed</code>; <code>a.sustentacaoLateralOmitidaN.toFixed</code>; <code>o.cargaG.toFixed</code>; <code>o.desaceleracaoMps2.toFixed</code>; <code>o.aceleracaoMps2.x.toFixed</code>; <code>o.aceleracaoMps2.y.toFixed</code>; <code>o.torqueAerodinamicoNm.toFixed</code>; <code>a.centroPressaoLocalM.toFixed</code>; <code>a.fluxoTermicoIndicadorWm2.toPrecision</code>; <code>o.temperaturaC.toFixed</code>; <code>(100 * o.integridade).toFixed</code>; <code>o.massaKg.toFixed</code>; <code>o.energiaAbsorvidaJ.toPrecision</code>; <code>o.dissipacaoW.toPrecision</code>; <code>o.calorTransferidoW.toPrecision</code>; <code>o.potenciaAtmosferaW.toPrecision</code>; <code>a.knudsen.toPrecision</code>; <code>o.energiaBateriaJ.toFixed</code>; <code>o.temperaturaBateriaC.toFixed</code>; <code>(100 * o.integridadeBateria).toFixed</code>; <code>o.flaps.entries</code>; <code>f.temperaturaC.toFixed</code>; <code>(100 * f.integridade).toFixed</code>; <code>elemento</code>; <code>o.flaps.every</code>; <code>o.tempoS.toFixed</code>; <code>executor.tempoPendenteS.toFixed</code>; <code>diagnostico.replaceChildren</code>; <code>document.createElement</code>; <code>r.atual.toPrecision</code>; <code>linha.append</code>; <code>diagnostico.append</code>; <code>ensaio.obterEventos</code>; <code>lista.replaceChildren</code>; <code>eventos.slice</code>; <code>evento.tempoS.toFixed</code>; <code>lista.append</code> |
-| Invariantes | Contrato documentado abaixo; ramos observados: <code>eventosMostrados !== eventos.length</code>; exceções: — |
+| Dependências | Chamadas/construções diretas: <code>metrica</code>; <code>o.altitudeM.toFixed</code>; <code>o.velocidadeMps.toFixed</code>; <code>graus</code>; <code>a.mach.toFixed</code>; <code>a.pressaoDinamicaPa.toPrecision</code>; <code>a.sustentacaoN.toFixed</code>; <code>a.sustentacaoXYN.toFixed</code>; <code>a.arrastoN.toFixed</code>; <code>a.sustentacaoLateralOmitidaN.toFixed</code>; <code>o.cargaG.toFixed</code>; <code>o.desaceleracaoMps2.toFixed</code>; <code>o.aceleracaoMps2.x.toFixed</code>; <code>o.aceleracaoMps2.y.toFixed</code>; <code>o.torqueAerodinamicoNm.toFixed</code>; <code>a.centroPressaoLocalM.toFixed</code>; <code>a.fluxoTermicoIndicadorWm2.toPrecision</code>; <code>o.temperaturaC.toFixed</code>; <code>(100 * o.integridade).toFixed</code>; <code>o.massaKg.toFixed</code>; <code>o.energiaAbsorvidaJ.toPrecision</code>; <code>o.dissipacaoW.toPrecision</code>; <code>o.calorTransferidoW.toPrecision</code>; <code>o.potenciaAtmosferaW.toPrecision</code>; <code>a.knudsen.toPrecision</code>; <code>o.estado.velocidadeAngularRadps.z.toPrecision</code>; <code>o.rotacao.momentoIntrinsecoKgM2ps.toPrecision</code>; <code>o.rotacao.momentoOrbitalKgM2ps.toPrecision</code>; <code>o.inerciaKgM2.toPrecision</code>; <code>o.rotacao.torqueGravitacionalNm.toPrecision</code>; <code>(o.rotacao.cargasEfetivamenteIntegradas?.torqueOutrosContinuosNm ?? 0).toPrecision</code>; <code>o.rotacao.residuoPassoKgM2ps.toPrecision</code>; <code>o.rotacao.residuoAcumuladoKgM2ps.toPrecision</code>; <code>o.energiaMecanicaEspecificaJPorKg.toPrecision</code>; <code>o.velocidadeRadialMps.toFixed</code>; <code>o.velocidadeTangencialMps.toFixed</code>; <code>o.extremos.globais.pressaoDinamicaPa.maximo.valor.toPrecision</code>; <code>o.extremos.globais.fluxoTermicoIndicadorWm2.maximo.valor.toPrecision</code>; <code>o.respostaTermica.potenciaIndicadorCorpoW.toPrecision</code>; <code>o.respostaTermica.potenciaTransferidaCorpoW.toPrecision</code>; <code>o.controle.torqueSolicitadoNm.toPrecision</code>; <code>o.energiaBateriaJ.toFixed</code>; <code>o.temperaturaBateriaC.toFixed</code>; <code>(100 * o.integridadeBateria).toFixed</code>; <code>o.flaps.entries</code>; <code>f.temperaturaC.toFixed</code>; <code>(100 * f.integridade).toFixed</code>; <code>elemento</code>; <code>o.flaps.every</code>; <code>o.tempoS.toFixed</code>; <code>ensaio.passoS.toPrecision</code>; <code>executor.tempoPendenteS.toFixed</code>; <code>diagnostico.replaceChildren</code>; <code>document.createElement</code>; <code>r.atual.toPrecision</code>; <code>linha.append</code>; <code>diagnostico.append</code>; <code>ensaio.obterEventos</code>; <code>eventos.at</code>; <code>lista.replaceChildren</code>; <code>eventos.slice</code>; <code>evento.tempoS.toFixed</code>; <code>lista.append</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>eventosMostrados !== (eventos.at(-1)?.sequencia ?? -1)</code>; exceções: — |
 | Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
 | JSDoc integral | /** Renderiza comandos, estado físico e variáveis virtuais explicitamente distintos.  @contract f-886d03c02bf67e85 */ |
@@ -25799,7 +25999,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.quadro:FunctionDeclaration</code> · [fonte L184](../../src/reentrada.ts#L184) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.quadro:FunctionDeclaration</code> · [fonte L213](../../src/reentrada.ts#L213) |
 | Assinatura | <code> (timestamp: number): void</code> |
 | Responsabilidade | Cooperação da apresentação: orçamento 8 ms/quadro, mantém dívida temporal. Pausa em erro explícito e conserva diagnóstico; não declara sucesso/repouso. |
 | Entradas | <code>timestamp: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -25818,7 +26018,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/reentrada.ts::iniciarBancada.quadro.continuar:ArrowFunction</code> · [fonte L191](../../src/reentrada.ts#L191) |
+| Identificador | <code>src/reentrada.ts::iniciarBancada.quadro.continuar:ArrowFunction</code> · [fonte L220](../../src/reentrada.ts#L220) |
 | Assinatura | <code> (): boolean</code> |
 | Responsabilidade | Orçamento visual em ms; interrompe lote, preservando dívida e dt físico. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -25833,7 +26033,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-132"></a>
+<a id="modulo-134"></a>
 ## src/simulacao/ExecutorPassoFixo.ts
 
 <a id="f-b5c741e87d68944a"></a>
@@ -26008,7 +26208,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-133"></a>
+<a id="modulo-135"></a>
 ## src/testes.ts
 
 <a id="f-5e1aa4998dc58a80"></a>
@@ -32491,7 +32691,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-134"></a>
+<a id="modulo-136"></a>
 ## src/validacao/ReferenciaBancadaM10.ts
 
 <a id="f-3b5aba79d123ca41"></a>
@@ -32552,7 +32752,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-135"></a>
+<a id="modulo-137"></a>
 ## src/veiculos/DefinicaoBss006.ts
 
 <a id="f-2f5724b4057c7208"></a>
@@ -32575,7 +32775,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-136"></a>
+<a id="modulo-138"></a>
 ## src/veiculos/HidrodinamicaBss006.ts
 
 <a id="f-af9fca02b4f4ccdc"></a>
@@ -32598,7 +32798,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-137"></a>
+<a id="modulo-139"></a>
 ## src/veiculos/MontagemBss.ts
 
 <a id="f-fd616459b962f64d"></a>
@@ -32982,7 +33182,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-138"></a>
+<a id="modulo-140"></a>
 ## src/veiculos/TelemetriaBss.ts
 
 <a id="f-4b8411290e34c3a4"></a>
@@ -33005,7 +33205,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-139"></a>
+<a id="modulo-141"></a>
 ## src/visualizacao/CameraFisica2D.ts
 
 <a id="f-07a1929a163d1610"></a>
@@ -33066,7 +33266,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-140"></a>
+<a id="modulo-142"></a>
 ## src/visualizacao/ConexoesEletricas.ts
 
 <a id="f-aff2a7f3384f78eb"></a>
@@ -33184,7 +33384,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-141"></a>
+<a id="modulo-143"></a>
 ## src/visualizacao/RegistroEnsaioBancada.ts
 
 <a id="f-b8117d1c26329bb7"></a>
@@ -33264,7 +33464,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-142"></a>
+<a id="modulo-144"></a>
 ## src/visualizacao/TracePLC.ts
 
 <a id="f-c59acbd9414e88e5"></a>
@@ -33578,10 +33778,10 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>scripts/validar-hidrodinamica.ts::[callback]:ArrowFunction#4</code> · [L47](../../scripts/validar-hidrodinamica.ts#L47) | <code>(dtS: number): { estado: EstadoFisico; imersao: EstadoImersao; integridade: number; massaKg: number; dtS: number; }</code> | <code>avancar</code>; <code>criar</code>; <code>Vetor3</code> / — |
 | <code>scripts/validar-hidrodinamica.ts::[callback]:ArrowFunction#5</code> · [L55](../../scripts/validar-hidrodinamica.ts#L55) | <code>(v: number): { vMps: number; analiticoN: number; medidoN: number; }</code> | <code>criar</code>; <code>Vetor3</code>; <code>SistemaHidrodinamico</code>; <code>sistema.registrar</code>; <code>sistema.calcular</code> / — |
 | <code>scripts/validar-hidrodinamica.ts::[callback]#5.[callback]:ArrowFunction#1</code> · [L57](../../scripts/validar-hidrodinamica.ts#L57) | <code>(q: Vetor3): Vetor3</code> | <code>p.ambiente.campo.aceleracaoEm</code> / — |
-| <code>scripts/validar-reentrada.ts::validarReentrada.resultado.[callback]:ArrowFunction#1</code> · [L28](../../scripts/validar-reentrada.ts#L28) | <code>(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitaciona… [continua na fonte]</code> | — / — |
-| <code>scripts/validar-reentrada.ts::validarReentrada.resultado.[callback]:ArrowFunction#2</code> · [L29](../../scripts/validar-reentrada.ts#L29) | <code>(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitaciona… [continua na fonte]</code> | — / — |
-| <code>scripts/validar-reentrada.ts::validarReentrada.resultado.[callback]:ArrowFunction#3</code> · [L30](../../scripts/validar-reentrada.ts#L30) | <code>(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitaciona… [continua na fonte]</code> | — / — |
-| <code>scripts/validar-reentrada.ts::validarReentrada.resultado.[callback]:ArrowFunction#4</code> · [L30](../../scripts/validar-reentrada.ts#L30) | <code>(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitaciona… [continua na fonte]</code> | — / — |
+| <code>scripts/validar-reentrada.ts::validarReentrada.resultado.[callback]:ArrowFunction#1</code> · [L28](../../scripts/validar-reentrada.ts#L28) | <code>(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMa… [continua na fonte]</code> | — / — |
+| <code>scripts/validar-reentrada.ts::validarReentrada.resultado.[callback]:ArrowFunction#2</code> · [L29](../../scripts/validar-reentrada.ts#L29) | <code>(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMa… [continua na fonte]</code> | — / — |
+| <code>scripts/validar-reentrada.ts::validarReentrada.resultado.[callback]:ArrowFunction#3</code> · [L30](../../scripts/validar-reentrada.ts#L30) | <code>(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMa… [continua na fonte]</code> | — / — |
+| <code>scripts/validar-reentrada.ts::validarReentrada.resultado.[callback]:ArrowFunction#4</code> · [L30](../../scripts/validar-reentrada.ts#L30) | <code>(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMa… [continua na fonte]</code> | — / — |
 | <code>site/build/pluginInstitucional.ts::pluginInstitucional.atenderInstitucional.[callback]:ArrowFunction#1</code> · [L32](../../site/build/pluginInstitucional.ts#L32) | <code>(p: { readonly caminho: "/publicacoes/pouso-propulsivo-bss-2026.pdf"; readonly fonte: "docs/estudos/Artigo_Cientifico_BlackStar_BSS_Pouso_Propulsivo.pdf"; } &#124; { readonly caminho: "/publicacoes/engenharia-orbita-retorno-re001-2026.pdf"; readonly fonte: "docs/estudos/Black_Star_RE001_Tese_Engenharia_Orbita_e_Retorno.pdf"; }): boolean</code> | — / — |
 | <code>site/build/pluginInstitucional.ts::pluginInstitucional.atenderInstitucional.[callback]:ArrowFunction#2</code> · [L33](../../site/build/pluginInstitucional.ts#L33) | <code>(p: "index.html" &#124; "pesquisa.html" &#124; "simulador.html"): boolean</code> | <code>p.slice</code> / — |
 | <code>site/scripts/carrossel.ts::iniciarCarrossel.mostrarSlide.[callback]:ArrowFunction#1</code> · [L55](../../site/scripts/carrossel.ts#L55) | <code>(slide: HTMLImageElement, i: number): void</code> | <code>slide.classList.toggle</code>; <code>slide.setAttribute</code>; <code>String</code> / — |
@@ -33620,15 +33820,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.desenhar.[callback]:ArrowFunction#5</code> · [L40](../../src/apresentacao/missao/RenderizadorMissao.ts#L40) | <code>(c: CorpoObservado): boolean</code> | — / — |
 | <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.agua.[callback]:ArrowFunction#1</code> · [L97](../../src/apresentacao/missao/RenderizadorMissao.ts#L97) | <code>(p: { x: number; y: number; molhado: boolean; }, i: number): void</code> | <code>ctx.moveTo</code>; <code>ctx.lineTo</code> / — |
 | <code>src/apresentacao/missao/RenderizadorMissao.ts::RenderizadorMissao.agua.[callback]:ArrowFunction#2</code> · [L101](../../src/apresentacao/missao/RenderizadorMissao.ts#L101) | <code>(p: { x: number; y: number; molhado: boolean; }): void</code> | <code>ctx.lineTo</code>; <code>ctx.moveTo</code> / <code>anteriorMolhado</code> |
-| <code>src/apresentacao/reentrada/RenderizadorReentrada.ts::RenderizadorReentrada.desenhar.[callback]:ArrowFunction#1</code> · [L39](../../src/apresentacao/reentrada/RenderizadorReentrada.ts#L39) | <code>(amostra: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravit… [continua na fonte]</code> | <code>camera.projetar</code>; <code>ctx.moveTo</code>; <code>ctx.lineTo</code> / — |
+| <code>src/apresentacao/reentrada/RenderizadorReentrada.ts::RenderizadorReentrada.desenhar.[callback]:ArrowFunction#1</code> · [L39](../../src/apresentacao/reentrada/RenderizadorReentrada.ts#L39) | <code>(amostra: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; veloci… [continua na fonte]</code> | <code>camera.projetar</code>; <code>ctx.moveTo</code>; <code>ctx.lineTo</code> / — |
 | <code>src/apresentacao/reentrada/RenderizadorReentrada.ts::RenderizadorReentrada.desenharReguas.[callback]:ArrowFunction#1</code> · [L86](../../src/apresentacao/reentrada/RenderizadorReentrada.ts#L86) | <code>(v: number): number</code> | — / — |
 | <code>src/apresentacao/reentrada/RenderizadorReentrada.ts::RenderizadorReentrada.desenharReguas.[callback]:ArrowFunction#2</code> · [L86](../../src/apresentacao/reentrada/RenderizadorReentrada.ts#L86) | <code>(v: number): boolean</code> | — / — |
 | <code>src/apresentacao/reentrada/RenderizadorReentrada.ts::RenderizadorReentrada.desenharGraficos.[callback]:ArrowFunction#1</code> · [L128](../../src/apresentacao/reentrada/RenderizadorReentrada.ts#L128) | <code>(canal: { nome: string; unidade: string; cor: string; ler: (o: ObservacaoReentrada) =&gt; number; }, i: number): void</code> | <code>historico.map</code>; <code>Math.max</code>; <code>ctx.fillText</code>; <code>maximo.toPrecision</code>; <code>inicio.toFixed</code>; <code>fim.toFixed</code>; <code>ctx.beginPath</code>; <code>ctx.moveTo</code>; <code>ctx.lineTo</code>; <code>ctx.stroke</code>; <code>historico.forEach</code>; <code>historico.at</code>; <code>ctx.setLineDash</code> / <code>ctx.fillStyle</code>; <code>ctx.font</code>; <code>ctx.strokeStyle</code>; <code>ctx.lineWidth</code> |
-| <code>src/apresentacao/reentrada/RenderizadorReentrada.ts::RenderizadorReentrada.desenharGraficos.[callback]#1.[callback]:ArrowFunction#1</code> · [L131](../../src/apresentacao/reentrada/RenderizadorReentrada.ts#L131) | <code>(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitaciona… [continua na fonte]</code> | <code>Math.max</code>; <code>o.flaps.map</code> / — |
-| <code>src/apresentacao/reentrada/RenderizadorReentrada.ts::RenderizadorReentrada.desenharGraficos.[callback]#1.[callback]#1.[callback]:ArrowFunction#1</code> · [L131](../../src/apresentacao/reentrada/RenderizadorReentrada.ts#L131) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }): number</code> | — / — |
-| <code>src/apresentacao/reentrada/RenderizadorReentrada.ts::RenderizadorReentrada.desenharGraficos.[callback]#1.[callback]:ArrowFunction#2</code> · [L137](../../src/apresentacao/reentrada/RenderizadorReentrada.ts#L137) | <code>(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitaciona… [continua na fonte]</code> | <code>canal.ler</code>; <code>ctx.moveTo</code>; <code>ctx.lineTo</code> / — |
-| <code>src/apresentacao/reentrada/RenderizadorReentrada.ts::RenderizadorReentrada.desenharGraficos.[callback]#1.[callback]:ArrowFunction#3</code> · [L149](../../src/apresentacao/reentrada/RenderizadorReentrada.ts#L149) | <code>(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitaciona… [continua na fonte]</code> | <code>Math.max</code>; <code>o.flaps.map</code>; <code>ctx.moveTo</code>; <code>ctx.lineTo</code> / — |
-| <code>src/apresentacao/reentrada/RenderizadorReentrada.ts::RenderizadorReentrada.desenharGraficos.[callback]#1.[callback]#3.[callback]:ArrowFunction#1</code> · [L151](../../src/apresentacao/reentrada/RenderizadorReentrada.ts#L151) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }): number</code> | — / — |
+| <code>src/apresentacao/reentrada/RenderizadorReentrada.ts::RenderizadorReentrada.desenharGraficos.[callback]#1.[callback]:ArrowFunction#1</code> · [L131](../../src/apresentacao/reentrada/RenderizadorReentrada.ts#L131) | <code>(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMa… [continua na fonte]</code> | <code>Math.max</code>; <code>o.flaps.map</code> / — |
+| <code>src/apresentacao/reentrada/RenderizadorReentrada.ts::RenderizadorReentrada.desenharGraficos.[callback]#1.[callback]#1.[callback]:ArrowFunction#1</code> · [L131](../../src/apresentacao/reentrada/RenderizadorReentrada.ts#L131) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): number</code> | — / — |
+| <code>src/apresentacao/reentrada/RenderizadorReentrada.ts::RenderizadorReentrada.desenharGraficos.[callback]#1.[callback]:ArrowFunction#2</code> · [L137](../../src/apresentacao/reentrada/RenderizadorReentrada.ts#L137) | <code>(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMa… [continua na fonte]</code> | <code>canal.ler</code>; <code>ctx.moveTo</code>; <code>ctx.lineTo</code> / — |
+| <code>src/apresentacao/reentrada/RenderizadorReentrada.ts::RenderizadorReentrada.desenharGraficos.[callback]#1.[callback]:ArrowFunction#3</code> · [L149](../../src/apresentacao/reentrada/RenderizadorReentrada.ts#L149) | <code>(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMa… [continua na fonte]</code> | <code>Math.max</code>; <code>o.flaps.map</code>; <code>ctx.moveTo</code>; <code>ctx.lineTo</code> / — |
+| <code>src/apresentacao/reentrada/RenderizadorReentrada.ts::RenderizadorReentrada.desenharGraficos.[callback]#1.[callback]#3.[callback]:ArrowFunction#1</code> · [L151](../../src/apresentacao/reentrada/RenderizadorReentrada.ts#L151) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): number</code> | — / — |
 | <code>src/cenarios/BancadaBss.ts::criarTesteDecolagemComPainelSolar.[callback]:ArrowFunction#1</code> · [L69](../../src/cenarios/BancadaBss.ts#L69) | <code>(aleta: AletaAerodinamica): ConexaoEletrica</code> | — / — |
 | <code>src/cenarios/BancadaBss.ts::criarTesteDecolagemComPainelSolar.dados.[callback]:ArrowFunction#1</code> · [L148](../../src/cenarios/BancadaBss.ts#L148) | <code>(s: SolicitacaoArbitrada): boolean</code> | — / — |
 | <code>src/cenarios/BancadaBss003.ts::criarTesteBss003.[callback]:ArrowFunction#1</code> · [L108](../../src/cenarios/BancadaBss003.ts#L108) | <code>(modulo: Objeto): FixadorEstrutural</code> | <code>FixadorEstrutural</code> / — |
@@ -33661,50 +33861,54 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/cenarios/EnsaioMissaoBss005.ts::avancarEnsaioMissaoBss005.[callback]:ArrowFunction#3</code> · [L213](../../src/cenarios/EnsaioMissaoBss005.ts#L213) | <code>(objeto: Objeto): objeto is TanquePropelente</code> | — / — |
 | <code>src/cenarios/EnsaioMissaoBss005.ts::avancarEnsaioMissaoBss005.[callback]:ArrowFunction#4</code> · [L311](../../src/cenarios/EnsaioMissaoBss005.ts#L311) | <code>(contato: { readonly objetoId: string; readonly superficieId: string; readonly emApoio: boolean; readonly penetracaoM: number; readonly velocidadeNormalAntesMps: number; readonly velocidadeNormalDepoisMps: number; readonly energiaImpactoJ: number; }): boolean</code> | <code>idsDosContatosDePouso.has</code> / — |
 | <code>src/cenarios/EnsaioMissaoBss005.ts::avancarEnsaioMissaoBss005.[callback]:ArrowFunction#5</code> · [L384](../../src/cenarios/EnsaioMissaoBss005.ts#L384) | <code>(motivo: string): boolean</code> | <code>['velocidade-vertical-no-toque', 'velocidade-horizontal-no-toque',<br>    'atitude-ou-rotacao-no-toque', 'vinculos-rompidos'].includes</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::validarComandoReentrada.[callback]:ArrowFunction#1</code> · [L67](../../src/cenarios/EnsaioReentrada.ts#L67) | <code>(k: string): boolean</code> | <code>Object.hasOwn</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::validarComandoReentrada.[callback]:ArrowFunction#2</code> · [L75](../../src/cenarios/EnsaioReentrada.ts#L75) | <code>(v: unknown): boolean</code> | <code>Number.isFinite</code>; <code>Math.abs</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::configurarReentrada.[callback]:ArrowFunction#1</code> · [L94](../../src/cenarios/EnsaioReentrada.ts#L94) | <code>(v: boolean): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::configurarReentrada.[callback]:ArrowFunction#2</code> · [L95](../../src/cenarios/EnsaioReentrada.ts#L95) | <code>(v: any): boolean</code> | <code>Number.isFinite</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]:ArrowFunction#1</code> · [L124](../../src/cenarios/EnsaioReentrada.ts#L124) | <code>(): Vetor3</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]:ArrowFunction#2</code> · [L131](../../src/cenarios/EnsaioReentrada.ts#L131) | <code>(i: number): FlapReentrada</code> | <code>FlapReentrada</code>; <code>Vetor3</code>; <code>estadoModulo</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#2.[callback]:ArrowFunction#1</code> · [L141](../../src/cenarios/EnsaioReentrada.ts#L141) | <code>(): number</code> | <code>orbitador.observarRolagem</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#2.[callback]:ArrowFunction#2</code> · [L141](../../src/cenarios/EnsaioReentrada.ts#L141) | <code>(): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]:ArrowFunction#3</code> · [L158](../../src/cenarios/EnsaioReentrada.ts#L158) | <code>(): number</code> | <code>fixadores.filter(f =&gt; f.estaAtivo).reduce</code>; <code>fixadores.filter</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#3.[callback]:ArrowFunction#1</code> · [L158](../../src/cenarios/EnsaioReentrada.ts#L158) | <code>(f: FixadorEstrutural): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#3.[callback]:ArrowFunction#2</code> · [L158](../../src/cenarios/EnsaioReentrada.ts#L158) | <code>(s: number, f: FixadorEstrutural): number</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]:ArrowFunction#1</code> · [L170](../../src/cenarios/EnsaioReentrada.ts#L170) | <code>(o: Objeto): boolean</code> | <code>c.fixadores.some</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]#1.[callback]:ArrowFunction#1</code> · [L170](../../src/cenarios/EnsaioReentrada.ts#L170) | <code>(f: FixadorEstrutural): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]:ArrowFunction#2</code> · [L171](../../src/cenarios/EnsaioReentrada.ts#L171) | <code>(s: number, o: Objeto): number</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]:ArrowFunction#3</code> · [L172](../../src/cenarios/EnsaioReentrada.ts#L172) | <code>(s: Vetor3, o: Objeto): Vetor3</code> | <code>s.adicionar</code>; <code>o.getEstadoFisico().posicaoM.multiplicar</code>; <code>o.getEstadoFisico</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]:ArrowFunction#4</code> · [L173](../../src/cenarios/EnsaioReentrada.ts#L173) | <code>(s: number, o: Objeto): number</code> | <code>o.getMomentoInerciaKgM2</code>; <code>o.getEstadoFisico().posicaoM.subtrair</code>; <code>o.getEstadoFisico</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.constructor.[callback]:ArrowFunction#1</code> · [L201](../../src/cenarios/EnsaioReentrada.ts#L201) | <code>(): { alphaRad: number; taxaArfagemRadps: number; taxaFluxoRadps: number; pressaoDinamicaPa: number; fluxoTermicoWm2: number; cargaG: number; torquePassivoNm: number; inerciaKgM2: number; phiRad: number; disponivel: boolean; }</code> | <code>this.lerControle</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando.[callback]:ArrowFunction#1</code> · [L237](../../src/cenarios/EnsaioReentrada.ts#L237) | <code>(f: FlapReentrada): void</code> | <code>f.solicitarDeflexaoRad</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando.[callback]:ArrowFunction#2</code> · [L249](../../src/cenarios/EnsaioReentrada.ts#L249) | <code>(r: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando.[callback]:ArrowFunction#3</code> · [L249](../../src/cenarios/EnsaioReentrada.ts#L249) | <code>(r: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }): string</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando.[callback]:ArrowFunction#4</code> · [L250](../../src/cenarios/EnsaioReentrada.ts#L250) | <code>(f: FlapReentrada): void</code> | <code>f.conexaoEletrica.fecharInterruptor</code>; <code>f.conexaoEletrica.abrirInterruptor</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso.[callback]:ArrowFunction#1</code> · [L269](../../src/cenarios/EnsaioReentrada.ts#L269) | <code>(f: FlapReentrada): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso.[callback]:ArrowFunction#2</code> · [L272](../../src/cenarios/EnsaioReentrada.ts#L272) | <code>(s: number, o: Objeto): number</code> | <code>Math.max</code>; <code>c.mundo.obterForcaArrastoAtmosferico(o)<br>    .produtoEscalar</code>; <code>c.mundo.obterForcaArrastoAtmosferico</code>; <code>o.getEstadoFisico().velocidadeMps.subtrair</code>; <code>o.getEstadoFisico</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso.[callback]:ArrowFunction#3</code> · [L275](../../src/cenarios/EnsaioReentrada.ts#L275) | <code>(p: Vetor3): Vetor3</code> | <code>c.mundo.obterGravidadeMps2</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso.[callback]:ArrowFunction#4</code> · [L279](../../src/cenarios/EnsaioReentrada.ts#L279) | <code>(p: Vetor3): Vetor3</code> | <code>c.mundo.obterGravidadeMps2</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#1</code> · [L300](../../src/cenarios/EnsaioReentrada.ts#L300) | <code>(s: number, o: Objeto): number</code> | <code>Math.max</code>; <code>c.mundo.obterForcaArrastoAtmosferico(o)<br>    .produtoEscalar</code>; <code>c.mundo.obterForcaArrastoAtmosferico</code>; <code>o.getEstadoFisico().velocidadeMps.subtrair</code>; <code>o.getEstadoFisico</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#2</code> · [L302](../../src/cenarios/EnsaioReentrada.ts#L302) | <code>(s: number, o: Objeto): number</code> | <code>Math.max</code>; <code>c.mundo.obterForcaArrastoAtmosferico(o).produtoEscalar</code>; <code>c.mundo.obterForcaArrastoAtmosferico</code>; <code>o.getEstadoFisico().velocidadeMps.subtrair</code>; <code>o.getEstadoFisico</code>; <code>o.obterPotenciaAquecimentoAerodinamicoW</code>; <code>c.mundo.obterCondicoesAtmosfericas</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#3</code> · [L315](../../src/cenarios/EnsaioReentrada.ts#L315) | <code>(p: Vetor3): Vetor3</code> | <code>c.mundo.obterGravidadeMps2</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#4</code> · [L322](../../src/cenarios/EnsaioReentrada.ts#L322) | <code>(s: number, o: Objeto): number</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#5</code> · [L324](../../src/cenarios/EnsaioReentrada.ts#L324) | <code>(s: number, o: Objeto): number</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#6</code> · [L329](../../src/cenarios/EnsaioReentrada.ts#L329) | <code>(f: FlapReentrada, i: number): { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }</code> | <code>f.getEstadoFisico</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#7</code> · [L333](../../src/cenarios/EnsaioReentrada.ts#L333) | <code>(f: FixadorEstrutural): { id: string; estado: "integro" &#124; "rompido" &#124; "liberado"; }</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle.[callback]:ArrowFunction#1</code> · [L348](../../src/cenarios/EnsaioReentrada.ts#L348) | <code>(s: number, f: FlapReentrada, i: number): number</code> | <code>f.obterForcasAerodinamicas(c.mundo.obterCondicoesAtmosfericas(f)).reduce</code>; <code>f.obterForcasAerodinamicas</code>; <code>c.mundo.obterCondicoesAtmosfericas</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle.[callback]#1.[callback]:ArrowFunction#1</code> · [L349](../../src/cenarios/EnsaioReentrada.ts#L349) | <code>(p: number, forca: ForcaFisicaSolicitada): number</code> | <code>(forca.pontoM ?? f.getEstadoFisico().posicaoM).subtrair(g.centroM).produtoVetorial</code>; <code>(forca.pontoM ?? f.getEstadoFisico().posicaoM).subtrair</code>; <code>f.getEstadoFisico</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle.[callback]:ArrowFunction#2</code> · [L356](../../src/cenarios/EnsaioReentrada.ts#L356) | <code>(f: FlapReentrada, i: number): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes.condicoes.[callback]:ArrowFunction#1</code> · [L383](../../src/cenarios/EnsaioReentrada.ts#L383) | <code>(f: FlapReentrada): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes.condicoes.[callback]:ArrowFunction#2</code> · [L387](../../src/cenarios/EnsaioReentrada.ts#L387) | <code>(f: FlapReentrada): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes.condicoes.[callback]:ArrowFunction#3</code> · [L388](../../src/cenarios/EnsaioReentrada.ts#L388) | <code>(f: FixadorEstrutural): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::validarComandoReentrada.[callback]:ArrowFunction#1</code> · [L75](../../src/cenarios/EnsaioReentrada.ts#L75) | <code>(k: string): boolean</code> | <code>Object.hasOwn</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::validarComandoReentrada.[callback]:ArrowFunction#2</code> · [L83](../../src/cenarios/EnsaioReentrada.ts#L83) | <code>(v: unknown): boolean</code> | <code>Number.isFinite</code>; <code>Math.abs</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::configurarReentrada.[callback]:ArrowFunction#1</code> · [L102](../../src/cenarios/EnsaioReentrada.ts#L102) | <code>(v: boolean): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::configurarReentrada.[callback]:ArrowFunction#2</code> · [L107](../../src/cenarios/EnsaioReentrada.ts#L107) | <code>(v: any): boolean</code> | <code>Number.isFinite</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]:ArrowFunction#1</code> · [L136](../../src/cenarios/EnsaioReentrada.ts#L136) | <code>(): Vetor3</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]:ArrowFunction#2</code> · [L143](../../src/cenarios/EnsaioReentrada.ts#L143) | <code>(i: number): FlapReentrada</code> | <code>FlapReentrada</code>; <code>Vetor3</code>; <code>estadoModulo</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#2.[callback]:ArrowFunction#1</code> · [L153](../../src/cenarios/EnsaioReentrada.ts#L153) | <code>(): number</code> | <code>orbitador.observarRolagem</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#2.[callback]:ArrowFunction#2</code> · [L153](../../src/cenarios/EnsaioReentrada.ts#L153) | <code>(): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]:ArrowFunction#3</code> · [L170](../../src/cenarios/EnsaioReentrada.ts#L170) | <code>(): number</code> | <code>fixadores.filter(f =&gt; f.estaAtivo).reduce</code>; <code>fixadores.filter</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#3.[callback]:ArrowFunction#1</code> · [L170](../../src/cenarios/EnsaioReentrada.ts#L170) | <code>(f: FixadorEstrutural): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#3.[callback]:ArrowFunction#2</code> · [L170](../../src/cenarios/EnsaioReentrada.ts#L170) | <code>(s: number, f: FixadorEstrutural): number</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]:ArrowFunction#1</code> · [L182](../../src/cenarios/EnsaioReentrada.ts#L182) | <code>(o: Objeto): boolean</code> | <code>c.fixadores.some</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]#1.[callback]:ArrowFunction#1</code> · [L182](../../src/cenarios/EnsaioReentrada.ts#L182) | <code>(f: FixadorEstrutural): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]:ArrowFunction#2</code> · [L183](../../src/cenarios/EnsaioReentrada.ts#L183) | <code>(s: number, o: Objeto): number</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]:ArrowFunction#3</code> · [L184](../../src/cenarios/EnsaioReentrada.ts#L184) | <code>(s: Vetor3, o: Objeto): Vetor3</code> | <code>s.adicionar</code>; <code>o.getEstadoFisico().posicaoM.multiplicar</code>; <code>o.getEstadoFisico</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]:ArrowFunction#4</code> · [L185](../../src/cenarios/EnsaioReentrada.ts#L185) | <code>(s: number, o: Objeto): number</code> | <code>o.getMomentoInerciaKgM2</code>; <code>o.getEstadoFisico().posicaoM.subtrair</code>; <code>o.getEstadoFisico</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.constructor.[callback]:ArrowFunction#1</code> · [L217](../../src/cenarios/EnsaioReentrada.ts#L217) | <code>(): { alphaRad: number; taxaArfagemRadps: number; taxaFluxoRadps: number; pressaoDinamicaPa: number; fluxoTermicoWm2: number; cargaG: number; torquePassivoNm: number; energiaMecanicaEspecificaJPorKg: number; integridadeMinima: number; inerciaKgM2: number; phiRad: number; disponivel: boolean; }</code> | <code>this.lerControle</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando.[callback]:ArrowFunction#1</code> · [L254](../../src/cenarios/EnsaioReentrada.ts#L254) | <code>(f: FlapReentrada): void</code> | <code>f.solicitarDeflexaoRad</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando.[callback]:ArrowFunction#2</code> · [L266](../../src/cenarios/EnsaioReentrada.ts#L266) | <code>(r: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando.[callback]:ArrowFunction#3</code> · [L266](../../src/cenarios/EnsaioReentrada.ts#L266) | <code>(r: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }): string</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando.[callback]:ArrowFunction#4</code> · [L267](../../src/cenarios/EnsaioReentrada.ts#L267) | <code>(f: FlapReentrada): void</code> | <code>f.conexaoEletrica.fecharInterruptor</code>; <code>f.conexaoEletrica.abrirInterruptor</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso.[callback]:ArrowFunction#1</code> · [L286](../../src/cenarios/EnsaioReentrada.ts#L286) | <code>(f: FlapReentrada): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso.[callback]:ArrowFunction#2</code> · [L289](../../src/cenarios/EnsaioReentrada.ts#L289) | <code>(s: number, o: Objeto): number</code> | <code>Math.max</code>; <code>c.mundo.obterForcaArrastoAtmosferico(o)<br>    .produtoEscalar</code>; <code>c.mundo.obterForcaArrastoAtmosferico</code>; <code>o.getEstadoFisico().velocidadeMps.subtrair</code>; <code>o.getEstadoFisico</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso.[callback]:ArrowFunction#3</code> · [L292](../../src/cenarios/EnsaioReentrada.ts#L292) | <code>(p: Vetor3): Vetor3</code> | <code>c.mundo.obterGravidadeMps2</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso.[callback]:ArrowFunction#4</code> · [L296](../../src/cenarios/EnsaioReentrada.ts#L296) | <code>(p: Vetor3): Vetor3</code> | <code>c.mundo.obterGravidadeMps2</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#1</code> · [L320](../../src/cenarios/EnsaioReentrada.ts#L320) | <code>(s: number, o: Objeto): number</code> | <code>Math.max</code>; <code>c.mundo.obterForcaArrastoAtmosferico(o)<br>    .produtoEscalar</code>; <code>c.mundo.obterForcaArrastoAtmosferico</code>; <code>o.getEstadoFisico().velocidadeMps.subtrair</code>; <code>o.getEstadoFisico</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#2</code> · [L322](../../src/cenarios/EnsaioReentrada.ts#L322) | <code>(s: number, o: Objeto): number</code> | <code>Math.max</code>; <code>c.mundo.obterForcaArrastoAtmosferico(o).produtoEscalar</code>; <code>c.mundo.obterForcaArrastoAtmosferico</code>; <code>o.getEstadoFisico().velocidadeMps.subtrair</code>; <code>o.getEstadoFisico</code>; <code>o.obterPotenciaAquecimentoAerodinamicoW</code>; <code>c.mundo.obterCondicoesAtmosfericas</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#3</code> · [L337](../../src/cenarios/EnsaioReentrada.ts#L337) | <code>(p: Vetor3): Vetor3</code> | <code>c.mundo.obterGravidadeMps2</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#4</code> · [L344](../../src/cenarios/EnsaioReentrada.ts#L344) | <code>(s: number, o: Objeto): number</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#5</code> · [L346](../../src/cenarios/EnsaioReentrada.ts#L346) | <code>(s: number, o: Objeto): number</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#6</code> · [L352](../../src/cenarios/EnsaioReentrada.ts#L352) | <code>(f: FlapReentrada): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#7</code> · [L354](../../src/cenarios/EnsaioReentrada.ts#L354) | <code>(ct: ContatoSuperficieFisico): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#8</code> · [L359](../../src/cenarios/EnsaioReentrada.ts#L359) | <code>(f: FlapReentrada, i: number): { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }</code> | <code>f.getEstadoFisico</code>; <code>calcularFluxoTermicoIndicador</code>; <code>c.mundo.obterCondicoesAtmosfericas</code>; <code>f.getEstadoFisico().velocidadeMps.subtrair</code>; <code>f.obterDiagnosticoAtuacao</code>; <code>c.perfil.amostrar</code>; <code>c.ambiente.referencial.altitudeGeometricaM</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#9</code> · [L368](../../src/cenarios/EnsaioReentrada.ts#L368) | <code>(f: FixadorEstrutural): { id: string; estado: "integro" &#124; "rompido" &#124; "liberado"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; }</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle.[callback]:ArrowFunction#1</code> · [L383](../../src/cenarios/EnsaioReentrada.ts#L383) | <code>(s: number, f: FlapReentrada, i: number): number</code> | <code>f.obterForcasAerodinamicas(c.mundo.obterCondicoesAtmosfericas(f)).reduce</code>; <code>f.obterForcasAerodinamicas</code>; <code>c.mundo.obterCondicoesAtmosfericas</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle.[callback]#1.[callback]:ArrowFunction#1</code> · [L384](../../src/cenarios/EnsaioReentrada.ts#L384) | <code>(p: number, forca: ForcaFisicaSolicitada): number</code> | <code>(forca.pontoM ?? f.getEstadoFisico().posicaoM).subtrair(g.centroM).produtoVetorial</code>; <code>(forca.pontoM ?? f.getEstadoFisico().posicaoM).subtrair</code>; <code>f.getEstadoFisico</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle.[callback]:ArrowFunction#2</code> · [L391](../../src/cenarios/EnsaioReentrada.ts#L391) | <code>(o: Objeto): number</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle.[callback]:ArrowFunction#3</code> · [L393](../../src/cenarios/EnsaioReentrada.ts#L393) | <code>(f: FlapReentrada, i: number): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes.condicoes.[callback]:ArrowFunction#1</code> · [L420](../../src/cenarios/EnsaioReentrada.ts#L420) | <code>(f: FlapReentrada): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes.condicoes.[callback]:ArrowFunction#2</code> · [L424](../../src/cenarios/EnsaioReentrada.ts#L424) | <code>(f: FlapReentrada): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes.condicoes.[callback]:ArrowFunction#3</code> · [L425](../../src/cenarios/EnsaioReentrada.ts#L425) | <code>(f: FixadorEstrutural): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes.valores.[callback]:ArrowFunction#1</code> · [L438](../../src/cenarios/EnsaioReentrada.ts#L438) | <code>(f: FlapReentrada): number</code> | — / — |
 | <code>src/cenarios/ReproducaoDiarioBss005.ts::normalizarParaComparacao.[callback]:ArrowFunction#1</code> · [L55](../../src/cenarios/ReproducaoDiarioBss005.ts#L55) | <code>(chave: string): [string, unknown]</code> | <code>normalizarParaComparacao</code> / — |
 | <code>src/cenarios/ReproducaoDiarioBss005.ts::validarDiario.[callback]:ArrowFunction#1</code> · [L72](../../src/cenarios/ReproducaoDiarioBss005.ts#L72) | <code>([k]: [string, string &#124; number &#124; boolean &#124; object &#124; Vetor3 &#124; { readonly centroCascoLocalM: Vetor3; readonly velocidadeLocalMps: Vetor3; readonly inclinacaoRad: number; readonly velocidadeAngularRadps: number; } &#124; readonly RajadaVento[]]): boolean</code> | — / — |
 | <code>src/cenarios/ReproducaoDiarioBss005.ts::validarDiario.[callback]:ArrowFunction#2</code> · [L78](../../src/cenarios/ReproducaoDiarioBss005.ts#L78) | <code>(objeto: Objeto): { id: string; massaKg: number; temperaturaC: number; integridade: number; estado: EstadoFisico; }</code> | <code>objeto.getEstadoFisico</code> / — |
 | <code>src/cenarios/ReproducaoDiarioBss005.ts::avancarReplayDiarioBss005.aplicar.[callback]:ArrowFunction#1</code> · [L183](../../src/cenarios/ReproducaoDiarioBss005.ts#L183) | <code>(objeto: Objeto): objeto is PainelSolar</code> | — / — |
 | <code>src/missoes/MissaoBss006.ts::MissaoBss006.constructor.[callback]:ArrowFunction#1</code> · [L75](../../src/missoes/MissaoBss006.ts#L75) | <code>(o: Objeto): boolean</code> | <code>this.ambiente.mundo.obterMenorDistanciaSuperficieM</code> / — |
-| <code>src/missoes/MissaoBss006.ts::MissaoBss006.obterEventos.[callback]:ArrowFunction#1</code> · [L94](../../src/missoes/MissaoBss006.ts#L94) | <code>(e: EventoMissao): { sequencia: number; passo: number; tempoS: number; categoria: "fisico" &#124; "missao" &#124; "comando"; tipo: string; descricao: string; }</code> | — / — |
+| <code>src/missoes/MissaoBss006.ts::MissaoBss006.obterEventos.[callback]:ArrowFunction#1</code> · [L94](../../src/missoes/MissaoBss006.ts#L94) | <code>(e: EventoMissao): { sequencia: number; passo: number; tempoS: number; categoria: "fisico" &#124; "missao" &#124; "comando"; tipo: string; descricao: string; dados?: Readonly&lt;Record&lt;string, number &#124; string &#124; boolean &#124; null&gt;&gt;; }</code> | — / — |
 | <code>src/missoes/MissaoBss006.ts::MissaoBss006.avancarPasso.[callback]:ArrowFunction#1</code> · [L160](../../src/missoes/MissaoBss006.ts#L160) | <code>(ct: ContatoSuperficieFisico): boolean</code> | <code>/sapata&#124;perna/.test</code> / — |
 | <code>src/missoes/MissaoBss006.ts::MissaoBss006.avancarPasso.[callback]:ArrowFunction#2</code> · [L170](../../src/missoes/MissaoBss006.ts#L170) | <code>(o: Objeto): number</code> | — / — |
 | <code>src/missoes/MissaoBss006.ts::MissaoBss006.avancarPasso.[callback]:ArrowFunction#3</code> · [L176](../../src/missoes/MissaoBss006.ts#L176) | <code>(o: Objeto): boolean</code> | <code>o.getEstadoFisico</code> / — |
@@ -33747,36 +33951,38 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/orbitas.ts::[callback]:ArrowFunction#1</code> · [L28](../../src/orbitas.ts#L28) | <code>(): void</code> | — / <code>rodando</code>; <code>ultimoTimestamp</code>; <code>play.textContent</code> |
 | <code>src/orbitas.ts::[callback]:ArrowFunction#2</code> · [L31](../../src/orbitas.ts#L31) | <code>(): void</code> | <code>Blob</code>; <code>JSON.stringify</code>; <code>ensaio.obterConfiguracao</code>; <code>ensaio.ler</code>; <code>URL.createObjectURL</code>; <code>document.createElement</code>; <code>a.click</code>; <code>URL.revokeObjectURL</code> / <code>a.href</code>; <code>a.download</code> |
 | <code>src/orbitas.ts::desenhar.[callback]:ArrowFunction#1</code> · [L61](../../src/orbitas.ts#L61) | <code>(ponto: Vetor3, i: number): void</code> | <code>camera.projetar</code>; <code>ctx.lineTo</code>; <code>ctx.moveTo</code> / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.constructor.[callback]:ArrowFunction#1</code> · [L103](../../src/physics/MundoFisico.ts#L103) | <code>(a: RajadaVento, b: RajadaVento): number</code> | — / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.constructor.[callback]:ArrowFunction#2</code> · [L113](../../src/physics/MundoFisico.ts#L113) | <code>(o: Objeto): number</code> | <code>this.fracaoExpostaAr</code> / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.constructor.[callback]:ArrowFunction#3</code> · [L115](../../src/physics/MundoFisico.ts#L115) | <code>(p: Vetor3): Vetor3</code> | <code>this.obterGravidadeMps2</code> / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.constructor.[callback]:ArrowFunction#4</code> · [L116](../../src/physics/MundoFisico.ts#L116) | <code>(o: Objeto): number</code> | <code>this.fracaoExpostaAr</code> / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.constructor.[callback]:ArrowFunction#5</code> · [L118](../../src/physics/MundoFisico.ts#L118) | <code>(): MapIterator&lt;Objeto&gt;</code> | <code>this.objetos.values</code> / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.constructor.[callback]:ArrowFunction#6</code> · [L119](../../src/physics/MundoFisico.ts#L119) | <code>(): MapIterator&lt;SuperficieFisica&gt;</code> | <code>this.superficies.values</code> / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.constructor.[callback]:ArrowFunction#7</code> · [L120](../../src/physics/MundoFisico.ts#L120) | <code>(objeto: Objeto): ConjuntoEstruturalRigido &#124; undefined</code> | <code>this.obterConjuntoEstruturalDoObjeto</code> / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.constructor.deveIgnorarColisao.[callback]:ArrowFunction#1</code> · [L137](../../src/physics/MundoFisico.ts#L137) | <code>(junta: JuntaRotacionalDeBancada): boolean</code> | <code>junta.ignoraColisaoEntre</code> / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.obterMenorDistanciaSuperficieM.[callback]:ArrowFunction#1</code> · [L293](../../src/physics/MundoFisico.ts#L293) | <code>(p: Vetor3): number</code> | — / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.obterMenorDistanciaSuperficieM.[callback]:ArrowFunction#2</code> · [L298](../../src/physics/MundoFisico.ts#L298) | <code>(p: Vetor3): boolean</code> | <code>superficie.contemProjecao</code> / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.obterMenorDistanciaSuperficieM.[callback]:ArrowFunction#3</code> · [L299](../../src/physics/MundoFisico.ts#L299) | <code>(p: Vetor3): number</code> | <code>superficie.distanciaAssinadaM</code> / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.obterContatosDoObjeto.[callback]:ArrowFunction#1</code> · [L314](../../src/physics/MundoFisico.ts#L314) | <code>(contato: ContatoSuperficieFisico): boolean</code> | — / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.integrarPasso.[callback]:ArrowFunction#1</code> · [L379](../../src/physics/MundoFisico.ts#L379) | <code>(f: FixadorEstrutural): boolean</code> | — / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.integrarPasso.[callback]:ArrowFunction#2</code> · [L382](../../src/physics/MundoFisico.ts#L382) | <code>(objeto: Objeto): { objeto: Objeto; forcas: ForcaAplicada[]; }</code> | <code>objeto.getEstadoFisico</code>; <code>this.obterGravidadeMps2(e.posicaoM).multiplicar</code>; <code>this.obterGravidadeMps2</code>; <code>this.obterForcaArrastoAtmosferico</code>; <code>objeto.obterCentroPressaoM</code>; <code>this.hidrodinamica?.calcular</code>; <code>objeto.obterForcasOperacionais().map</code>; <code>objeto.obterForcasOperacionais</code>; <code>objeto.obterForcasAerodinamicas(this.obterCondicoesAtmosfericas(objeto)).map</code>; <code>objeto.obterForcasAerodinamicas</code>; <code>this.obterCondicoesAtmosfericas</code>; <code>(this.forcasPendentes.get(objeto.id) ?? []).map</code>; <code>this.forcasPendentes.get</code> / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.integrarPasso.[callback]#2.[callback]:ArrowFunction#1</code> · [L388](../../src/physics/MundoFisico.ts#L388) | <code>(f: ForcaFisicaSolicitada): { pontoM: Vetor3; forcaN: Vetor3; torqueNm?: Vetor3; }</code> | — / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.integrarPasso.[callback]#2.[callback]:ArrowFunction#2</code> · [L389](../../src/physics/MundoFisico.ts#L389) | <code>(f: ForcaFisicaSolicitada): { pontoM: Vetor3; forcaN: Vetor3; torqueNm?: Vetor3; }</code> | — / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.integrarPasso.[callback]#2.[callback]:ArrowFunction#3</code> · [L390](../../src/physics/MundoFisico.ts#L390) | <code>(f: ForcaExternaPendente): { pontoM: Vetor3; forcaN: Vetor3; }</code> | — / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.integrarPasso.[callback]:ArrowFunction#3</code> · [L395](../../src/physics/MundoFisico.ts#L395) | <code>(f: FixadorEstrutural): boolean</code> | — / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.integrarCorpos.[callback]:ArrowFunction#1</code> · [L508](../../src/physics/MundoFisico.ts#L508) | <code>(forca: ForcaExternaPendente): { forcaN: Vetor3; pontoM: Vetor3; }</code> | — / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.integrarCorpos.[callback]:ArrowFunction#2</code> · [L509](../../src/physics/MundoFisico.ts#L509) | <code>(forca: ForcaFisicaSolicitada): { forcaN: Vetor3; pontoM: Vetor3; torqueNm: Vetor3 &#124; undefined; }</code> | — / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.integrarCorpos.[callback]:ArrowFunction#3</code> · [L511](../../src/physics/MundoFisico.ts#L511) | <code>(forca: ForcaFisicaSolicitada): { forcaN: Vetor3; pontoM: Vetor3; }</code> | — / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.integrarCorpos.[callback]:ArrowFunction#4</code> · [L513](../../src/physics/MundoFisico.ts#L513) | <code>(this: undefined, junta: JuntaRotacionalDeBancada): ForcaAplicada[]</code> | <code>junta.obterForcasPara</code> / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.integrarCorpos.[callback]:ArrowFunction#5</code> · [L523](../../src/physics/MundoFisico.ts#L523) | <code>(forca: ForcaExternaPendente): { forcaN: Vetor3; pontoM: Vetor3; }</code> | — / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.integrarCorpos.[callback]:ArrowFunction#6</code> · [L524](../../src/physics/MundoFisico.ts#L524) | <code>(forca: ForcaFisicaSolicitada): { forcaN: Vetor3; pontoM: Vetor3; torqueNm: Vetor3 &#124; undefined; }</code> | — / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.integrarCorpos.[callback]:ArrowFunction#7</code> · [L525](../../src/physics/MundoFisico.ts#L525) | <code>(forca: ForcaFisicaSolicitada): { forcaN: Vetor3; pontoM: Vetor3; }</code> | — / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.sincronizarConjuntosEstruturais.[callback]:ArrowFunction#1</code> · [L563](../../src/physics/MundoFisico.ts#L563) | <code>(objeto: Objeto): string</code> | — / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.atualizarApoioDeTracao.[callback]:ArrowFunction#1</code> · [L582](../../src/physics/MundoFisico.ts#L582) | <code>(superficie: SuperficieFisica): boolean</code> | <code>pontos.some</code> / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.atualizarApoioDeTracao.[callback]#1.[callback]:ArrowFunction#1</code> · [L582](../../src/physics/MundoFisico.ts#L582) | <code>(ponto: Vetor3): boolean</code> | <code>superficie.contemProjecao</code>; <code>superficie.distanciaAssinadaM</code> / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.obterPontosOrientados.[callback]:ArrowFunction#1</code> · [L592](../../src/physics/MundoFisico.ts#L592) | <code>(ponto: Vetor3): Vetor3</code> | <code>Vetor3</code> / — |
-| <code>src/physics/MundoFisico.ts::MundoFisico.obterConjuntoEstruturalDoObjeto.[callback]:ArrowFunction#1</code> · [L601](../../src/physics/MundoFisico.ts#L601) | <code>(conjunto: ConjuntoEstruturalRigido): boolean</code> | <code>conjunto.contem</code> / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.constructor.[callback]:ArrowFunction#1</code> · [L109](../../src/physics/MundoFisico.ts#L109) | <code>(a: RajadaVento, b: RajadaVento): number</code> | — / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.constructor.[callback]:ArrowFunction#2</code> · [L119](../../src/physics/MundoFisico.ts#L119) | <code>(o: Objeto): number</code> | <code>this.fracaoExpostaAr</code> / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.constructor.[callback]:ArrowFunction#3</code> · [L121](../../src/physics/MundoFisico.ts#L121) | <code>(p: Vetor3): Vetor3</code> | <code>this.obterGravidadeMps2</code> / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.constructor.[callback]:ArrowFunction#4</code> · [L122](../../src/physics/MundoFisico.ts#L122) | <code>(o: Objeto): number</code> | <code>this.fracaoExpostaAr</code> / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.constructor.[callback]:ArrowFunction#5</code> · [L124](../../src/physics/MundoFisico.ts#L124) | <code>(): MapIterator&lt;Objeto&gt;</code> | <code>this.objetos.values</code> / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.constructor.[callback]:ArrowFunction#6</code> · [L125](../../src/physics/MundoFisico.ts#L125) | <code>(): MapIterator&lt;SuperficieFisica&gt;</code> | <code>this.superficies.values</code> / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.constructor.[callback]:ArrowFunction#7</code> · [L126](../../src/physics/MundoFisico.ts#L126) | <code>(objeto: Objeto): ConjuntoEstruturalRigido &#124; undefined</code> | <code>this.obterConjuntoEstruturalDoObjeto</code> / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.constructor.deveIgnorarColisao.[callback]:ArrowFunction#1</code> · [L143](../../src/physics/MundoFisico.ts#L143) | <code>(junta: JuntaRotacionalDeBancada): boolean</code> | <code>junta.ignoraColisaoEntre</code> / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.obterMenorDistanciaSuperficieM.[callback]:ArrowFunction#1</code> · [L299](../../src/physics/MundoFisico.ts#L299) | <code>(p: Vetor3): number</code> | — / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.obterMenorDistanciaSuperficieM.[callback]:ArrowFunction#2</code> · [L304](../../src/physics/MundoFisico.ts#L304) | <code>(p: Vetor3): boolean</code> | <code>superficie.contemProjecao</code> / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.obterMenorDistanciaSuperficieM.[callback]:ArrowFunction#3</code> · [L305](../../src/physics/MundoFisico.ts#L305) | <code>(p: Vetor3): number</code> | <code>superficie.distanciaAssinadaM</code> / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.obterContatosDoObjeto.[callback]:ArrowFunction#1</code> · [L320](../../src/physics/MundoFisico.ts#L320) | <code>(contato: ContatoSuperficieFisico): boolean</code> | — / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.integrarPasso.[callback]:ArrowFunction#1</code> · [L386](../../src/physics/MundoFisico.ts#L386) | <code>(f: FixadorEstrutural): boolean</code> | — / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.integrarPasso.[callback]:ArrowFunction#2</code> · [L389](../../src/physics/MundoFisico.ts#L389) | <code>(objeto: Objeto): { objeto: Objeto; forcas: ForcaAplicada[]; }</code> | <code>objeto.getEstadoFisico</code>; <code>this.obterGravidadeMps2(e.posicaoM).multiplicar</code>; <code>this.obterGravidadeMps2</code>; <code>this.obterForcaArrastoAtmosferico</code>; <code>objeto.obterCentroPressaoM</code>; <code>this.hidrodinamica?.calcular</code>; <code>objeto.obterForcasOperacionais().map</code>; <code>objeto.obterForcasOperacionais</code>; <code>objeto.obterForcasAerodinamicas(this.obterCondicoesAtmosfericas(objeto)).map</code>; <code>objeto.obterForcasAerodinamicas</code>; <code>this.obterCondicoesAtmosfericas</code>; <code>(this.forcasPendentes.get(objeto.id) ?? []).map</code>; <code>this.forcasPendentes.get</code> / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.integrarPasso.[callback]#2.[callback]:ArrowFunction#1</code> · [L395](../../src/physics/MundoFisico.ts#L395) | <code>(f: ForcaFisicaSolicitada): { pontoM: Vetor3; forcaN: Vetor3; torqueNm?: Vetor3; }</code> | — / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.integrarPasso.[callback]#2.[callback]:ArrowFunction#2</code> · [L396](../../src/physics/MundoFisico.ts#L396) | <code>(f: ForcaFisicaSolicitada): { pontoM: Vetor3; forcaN: Vetor3; torqueNm?: Vetor3; }</code> | — / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.integrarPasso.[callback]#2.[callback]:ArrowFunction#3</code> · [L397](../../src/physics/MundoFisico.ts#L397) | <code>(f: ForcaExternaPendente): { pontoM: Vetor3; forcaN: Vetor3; }</code> | — / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.integrarPasso.[callback]:ArrowFunction#3</code> · [L402](../../src/physics/MundoFisico.ts#L402) | <code>(f: FixadorEstrutural): boolean</code> | — / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.aplicarKickGravitacional.[callback]:ArrowFunction#1</code> · [L479](../../src/physics/MundoFisico.ts#L479) | <code>(s: number, j: { impulsoNs: Vetor3; pontoM: Vetor3; }): number</code> | <code>j.pontoM.subtrair(G).produtoVetorial</code>; <code>j.pontoM.subtrair</code> / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.registrarDiagnosticoAngular.[callback]:ArrowFunction#1</code> · [L520](../../src/physics/MundoFisico.ts#L520) | <code>(s: number, f: ForcaAplicada): number</code> | <code>f.pontoM.subtrair(G).produtoVetorial</code>; <code>f.pontoM.subtrair</code> / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.integrarCorpos.[callback]:ArrowFunction#1</code> · [L551](../../src/physics/MundoFisico.ts#L551) | <code>(forca: ForcaExternaPendente): { forcaN: Vetor3; pontoM: Vetor3; }</code> | — / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.integrarCorpos.[callback]:ArrowFunction#2</code> · [L552](../../src/physics/MundoFisico.ts#L552) | <code>(forca: ForcaFisicaSolicitada): { forcaN: Vetor3; pontoM: Vetor3; torqueNm: Vetor3 &#124; undefined; }</code> | — / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.integrarCorpos.[callback]:ArrowFunction#3</code> · [L554](../../src/physics/MundoFisico.ts#L554) | <code>(forca: ForcaFisicaSolicitada): { forcaN: Vetor3; pontoM: Vetor3; }</code> | — / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.integrarCorpos.[callback]:ArrowFunction#4</code> · [L556](../../src/physics/MundoFisico.ts#L556) | <code>(this: undefined, junta: JuntaRotacionalDeBancada): ForcaAplicada[]</code> | <code>junta.obterForcasPara</code> / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.integrarCorpos.[callback]:ArrowFunction#5</code> · [L566](../../src/physics/MundoFisico.ts#L566) | <code>(forca: ForcaExternaPendente): { forcaN: Vetor3; pontoM: Vetor3; }</code> | — / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.integrarCorpos.[callback]:ArrowFunction#6</code> · [L567](../../src/physics/MundoFisico.ts#L567) | <code>(forca: ForcaFisicaSolicitada): { forcaN: Vetor3; pontoM: Vetor3; torqueNm: Vetor3 &#124; undefined; }</code> | — / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.integrarCorpos.[callback]:ArrowFunction#7</code> · [L568](../../src/physics/MundoFisico.ts#L568) | <code>(forca: ForcaFisicaSolicitada): { forcaN: Vetor3; pontoM: Vetor3; }</code> | — / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.sincronizarConjuntosEstruturais.[callback]:ArrowFunction#1</code> · [L607](../../src/physics/MundoFisico.ts#L607) | <code>(objeto: Objeto): string</code> | — / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.atualizarApoioDeTracao.[callback]:ArrowFunction#1</code> · [L626](../../src/physics/MundoFisico.ts#L626) | <code>(superficie: SuperficieFisica): boolean</code> | <code>pontos.some</code> / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.atualizarApoioDeTracao.[callback]#1.[callback]:ArrowFunction#1</code> · [L626](../../src/physics/MundoFisico.ts#L626) | <code>(ponto: Vetor3): boolean</code> | <code>superficie.contemProjecao</code>; <code>superficie.distanciaAssinadaM</code> / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.obterPontosOrientados.[callback]:ArrowFunction#1</code> · [L636](../../src/physics/MundoFisico.ts#L636) | <code>(ponto: Vetor3): Vetor3</code> | <code>Vetor3</code> / — |
+| <code>src/physics/MundoFisico.ts::MundoFisico.obterConjuntoEstruturalDoObjeto.[callback]:ArrowFunction#1</code> · [L645](../../src/physics/MundoFisico.ts#L645) | <code>(conjunto: ConjuntoEstruturalRigido): boolean</code> | <code>conjunto.contem</code> / — |
 | <code>src/physics/SistemaOperacional.ts::GerenciadorDeSistemas.operacaoAutorizada.[callback]:ArrowFunction#1</code> · [L19](../../src/physics/SistemaOperacional.ts#L19) | <code>(sistema: SistemaOperacional): boolean</code> | — / — |
 | <code>src/physics/SistemaOperacional.ts::GerenciadorDeSistemas.motivosDeBloqueio.[callback]:ArrowFunction#1</code> · [L21](../../src/physics/SistemaOperacional.ts#L21) | <code>(sistema: SistemaOperacional): boolean</code> | — / — |
 | <code>src/physics/SistemaOperacional.ts::GerenciadorDeSistemas.motivosDeBloqueio.[callback]:ArrowFunction#2</code> · [L21](../../src/physics/SistemaOperacional.ts#L21) | <code>(sistema: SistemaOperacional): string</code> | — / — |
@@ -33861,6 +34067,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/physics/objetos/veiculos/VeiculoComposto.ts::VeiculoComposto.massaInstantaneaDoConjuntoKg.[callback]:ArrowFunction#1</code> · [L226](../../src/physics/objetos/veiculos/VeiculoComposto.ts#L226) | <code>(massa: number, objeto: Objeto): number</code> | — / — |
 | <code>src/physics/objetos/veiculos/VeiculoComposto.ts::VeiculoComposto.centroDeMassaDoConjuntoM.[callback]:ArrowFunction#1</code> · [L232](../../src/physics/objetos/veiculos/VeiculoComposto.ts#L232) | <code>(soma: number, objeto: Objeto): number</code> | — / — |
 | <code>src/physics/objetos/veiculos/VeiculoComposto.ts::VeiculoComposto.centroDeMassaDoConjuntoM.[callback]:ArrowFunction#2</code> · [L234](../../src/physics/objetos/veiculos/VeiculoComposto.ts#L234) | <code>(soma: Vetor3, objeto: Objeto): Vetor3</code> | <code>soma.adicionar</code>; <code>objeto.getEstadoFisico().posicaoM.multiplicar</code>; <code>objeto.getEstadoFisico</code> / — |
+| <code>src/physics/reentrada/ModeloAerodinamicoReentrada.ts::configurarParametrosReentrada.[callback]:ArrowFunction#1</code> · [L34](../../src/physics/reentrada/ModeloAerodinamicoReentrada.ts#L34) | <code>(k: string): boolean</code> | <code>Object.hasOwn</code> / — |
 | <code>src/physics/sensores/SensoresVeiculoComposto.ts::SensoresVeiculoComposto.constructor.[callback]:ArrowFunction#1</code> · [L83](../../src/physics/sensores/SensoresVeiculoComposto.ts#L83) | <code>(): ReferencialFisico</code> | — / — |
 | <code>src/physics/sensores/SistemaSensores.ts::SistemaSensores.atualizarSwitchesFimDeCurso.[callback]:ArrowFunction#1</code> · [L52](../../src/physics/sensores/SistemaSensores.ts#L52) | <code>(objeto: Objeto): boolean</code> | <code>this.estaoNaMesmaIlhaEstrutural</code>; <code>objeto.getEstadoFisico</code>; <code>obterContatoCaixasOrientadas</code> / — |
 | <code>src/physics/sensores/SistemaSensores.ts::SistemaSensores.atualizarSwitchesFimDeCurso.[callback]:ArrowFunction#2</code> · [L65](../../src/physics/sensores/SistemaSensores.ts#L65) | <code>(superficie: SuperficieFisica): boolean</code> | <code>switchFimDeCurso.obterPontosDaFaceSensivelM().some</code>; <code>switchFimDeCurso.obterPontosDaFaceSensivelM</code> / — |
@@ -33885,8 +34092,8 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/physics/sistemas de controle/ControladorInclinacaoDePropulsores.ts::ControladorInclinacaoDePropulsores.calcularSolicitacoes.[callback]:ArrowFunction#1</code> · [L52](../../src/physics/sistemas%20de%20controle/ControladorInclinacaoDePropulsores.ts#L52) | <code>(idAtuador: string): { idAtuador: string; recurso: "gimbal"; valor: number; }</code> | — / — |
 | <code>src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts::ControladorPosicionamentoMotorEletrico.constructor.[callback]:ArrowFunction#1</code> · [L49](../../src/physics/sistemas%20de%20controle/ControladorPosicionamentoMotorEletrico.ts#L49) | <code>(ganho: number): boolean</code> | — / — |
 | <code>src/physics/sistemas de controle/ControladorPousoDePropulsores.ts::ControladorPousoDePropulsores.calcularSolicitacoes.[callback]:ArrowFunction#1</code> · [L30](../../src/physics/sistemas%20de%20controle/ControladorPousoDePropulsores.ts#L30) | <code>(this: undefined, idAtuador: string): ({ idAtuador: string; recurso: "throttle"; valor: number; } &#124; { idAtuador: string; recurso: "gimbal"; valor: number; })[]</code> | — / — |
-| <code>src/physics/sistemas de controle/ControladorReentrada.ts::ControladorReentrada.constructor.[callback]:ArrowFunction#1</code> · [L42](../../src/physics/sistemas%20de%20controle/ControladorReentrada.ts#L42) | <code>(v: any): boolean</code> | <code>Number.isFinite</code> / — |
-| <code>src/physics/sistemas de controle/ControladorReentrada.ts::ControladorReentrada.calcularSolicitacoes.[callback]:ArrowFunction#1</code> · [L71](../../src/physics/sistemas%20de%20controle/ControladorReentrada.ts#L71) | <code>(v: any): v is number</code> | — / — |
+| <code>src/physics/sistemas de controle/ControladorReentrada.ts::ControladorReentrada.constructor.[callback]:ArrowFunction#1</code> · [L48](../../src/physics/sistemas%20de%20controle/ControladorReentrada.ts#L48) | <code>(v: any): boolean</code> | <code>Number.isFinite</code> / — |
+| <code>src/physics/sistemas de controle/ControladorReentrada.ts::ControladorReentrada.calcularSolicitacoes.[callback]:ArrowFunction#1</code> · [L78](../../src/physics/sistemas%20de%20controle/ControladorReentrada.ts#L78) | <code>(v: any): v is number</code> | — / — |
 | <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.obterUltimaArbitragem.[callback]:ArrowFunction#1</code> · [L44](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L44) | <code>(solicitacao: SolicitacaoArbitrada): { idControlador: string; idAtuador: string; recurso: RecursoDeAtuador; valor: number; }</code> | — / — |
 | <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.idsAtivos.[callback]:ArrowFunction#1</code> · [L78](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L78) | <code>(controlador: ControladorDeVoo): boolean</code> | — / — |
 | <code>src/physics/sistemas de controle/GerenciadorDeControladores.ts::GerenciadorDeControladores.idsAtivos.[callback]:ArrowFunction#2</code> · [L78](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.ts#L78) | <code>(controlador: ControladorDeVoo): string</code> | — / — |
@@ -33935,22 +34142,23 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts::ResolvedorEsforcoEstrutural.registrarImpulsoDeContato.[callback]#3.[callback]:ArrowFunction#4</code> · [L67](../../src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts#L67) | <code>(membro: Objeto): boolean</code> | <code>alcancaveis.has</code> / — |
 | <code>src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts::ResolvedorEsforcoEstrutural.obterCentroDeMassa.[callback]:ArrowFunction#1</code> · [L92](../../src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts#L92) | <code>(soma: number, membro: Objeto): number</code> | — / — |
 | <code>src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts::ResolvedorEsforcoEstrutural.obterCentroDeMassa.[callback]:ArrowFunction#2</code> · [L93](../../src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts#L93) | <code>(soma: Vetor3, membro: Objeto): Vetor3</code> | <code>membro.getEstadoFisico</code>; <code>soma.adicionar</code>; <code>posicao.multiplicar</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.atualizarPainel.[callback]:ArrowFunction#1</code> · [L127](../../src/reentrada.ts#L127) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }): boolean</code> | — / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#1</code> · [L146](../../src/reentrada.ts#L146) | <code>(): void</code> | — / <code>configAlterada</code> |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#2</code> · [L147](../../src/reentrada.ts#L147) | <code>(): void</code> | — / <code>configAlterada</code> |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#3</code> · [L148](../../src/reentrada.ts#L148) | <code>(this: HTMLFormElement, e: SubmitEvent): void</code> | <code>e.preventDefault</code>; <code>ensaio.pausar</code>; <code>executor.suspenderReferenciaRelogio</code>; <code>preparar</code>; <code>ensaio.iniciar</code> / <code>ultimaAtualizacaoMs</code> |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#4</code> · [L154](../../src/reentrada.ts#L154) | <code>(): void</code> | <code>preparar</code> / <code>iniciais.disabled</code> |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#5</code> · [L155](../../src/reentrada.ts#L155) | <code>(): void</code> | <code>comandar</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#6</code> · [L156](../../src/reentrada.ts#L156) | <code>(): void</code> | <code>comandar</code>; <code>rad</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#7</code> · [L160](../../src/reentrada.ts#L160) | <code>(): void</code> | <code>comandar</code>; <code>rad</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#8</code> · [L163](../../src/reentrada.ts#L163) | <code>(): void</code> | <code>comandar</code>; <code>elemento</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#9</code> · [L164](../../src/reentrada.ts#L164) | <code>(): void</code> | <code>comandar</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#10</code> · [L165](../../src/reentrada.ts#L165) | <code>(): void</code> | <code>comandar</code>; <code>ensaio.observar().flaps.every</code>; <code>ensaio.observar</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]#10.[callback]:ArrowFunction#1</code> · [L165](../../src/reentrada.ts#L165) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }): boolean</code> | — / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#11</code> · [L166](../../src/reentrada.ts#L166) | <code>(): void</code> | <code>comandar</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#12</code> · [L167](../../src/reentrada.ts#L167) | <code>(): void</code> | <code>comandar</code> / — |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#13</code> · [L168](../../src/reentrada.ts#L168) | <code>(): void</code> | <code>preparar</code>; <code>ensaio.iniciar</code>; <code>avancar</code>; <code>ensaio.pausar</code>; <code>executor.suspenderReferenciaRelogio</code> / <code>i</code>; <code>ultimaAtualizacaoMs</code> |
-| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#14</code> · [L173](../../src/reentrada.ts#L173) | <code>(): void</code> | <code>Blob</code>; <code>JSON.stringify</code>; <code>ensaio.exportar</code>; <code>URL.createObjectURL</code>; <code>document.createElement</code>; <code>link.click</code>; <code>URL.revokeObjectURL</code> / <code>link.href</code>; <code>link.download</code>; <code>mensagem.textContent</code> |
+| <code>src/reentrada.ts::iniciarBancada.lerConfiguracao.[callback]:ArrowFunction#1</code> · [L43](../../src/reentrada.ts#L43) | <code>([k, input]: ["areaReferenciaM2" &#124; "comprimentoM" &#124; "alturaM" &#124; "raioNarizM" &#124; "areaAquecidaM2" &#124; "massaCorpoKg" &#124; "massaFlapKg" &#124; "massaBateriaKg" &#124; "resistenciaCorpoJ" &#124; "resistenciaFlapJ" &#124; "resistenciaFixadorN" &#124; "areaFlapM2" &#124; "clFlapPorRad" &#124; "cdFlapBase" &#124; "cdFlapDeflexao" &#124; "cursoFlapRad" &#124; "taxaFlapRadps" &#124; "bracoFlapM" &#124; "potenciaFlapW" &#124; "potenciaRepousoFlapW" &#124; "tensaoBateriaV" &#124; "energiaBateriaJ" &#124; "ganhoAlpha" &#124; "ganhoTaxa" &#124; "torqueMinimoAutoridadeNm" &#124; "taxaRolagemRadps" &#124; "coeficienteSuttonGravesSI" &#124; "larguraM" &#124; "clCorpo" &#124; "fatorMachBase" &#124; "fatorMachVariacao" &#124; "cdCorpoBase" &#124; "cdCorpoAlpha" &#124; "cdMachGauss" &#124; "cpBaseM" &#124; "cpVariacaoM" &#124; "deslocamentoVerticalFlapM" &#124; "raioNarizFlapM" &#124; "areaAquecidaFlapM2" &#124; "calorEspecificoCorpoJPorKgC" &#124; "calorEspecificoFlapJPorKgC" &#124; "comprimentoCaracteristicoCorpoM" &#124; "comprimentoCaracteristicoFlapM" &#124; "cursoRolagemRad" &#124; "conveccaoCorpoWPorM2C" &#124; "condutanciaFlapWPorC" &#124; "fracaoCargaInicialBateria", HTMLInputElement]): ["areaReferenciaM2" &#124; "comprimentoM" &#124; "alturaM" &#124; "raioNarizM" &#124; "areaAquecidaM2" &#124; "massaCorpoKg" &#124; "massaFlapKg" &#124; "massaBateriaKg" &#124; "resistenciaCorpoJ" &#124; "resistenciaFlapJ" &#124; "resistenciaFixadorN" &#124; "areaFlapM2" &#124; "clFlapPorRad" &#124; "cdFlapBase" &#124; "cdFlapDeflexao" &#124; "cursoFlapRad" &#124; "taxaFlapRadps" &#124; "bracoFlapM" &#124; "potenciaFlapW" &#124; "potenciaRepousoFlapW" &#124; "tensaoBateriaV" &#124; "energiaBateriaJ" &#124; "ganhoAlpha" &#124; "ganhoTaxa" &#124; "torqueMinimoAutoridadeNm" &#124; "taxaRolagemRadps" &#124; "coeficienteSuttonGravesSI"… [continua na fonte]</code> | <code>Number</code> / — |
+| <code>src/reentrada.ts::iniciarBancada.atualizarPainel.[callback]:ArrowFunction#1</code> · [L156](../../src/reentrada.ts#L156) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): boolean</code> | — / — |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#1</code> · [L175](../../src/reentrada.ts#L175) | <code>(): void</code> | — / <code>configAlterada</code> |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#2</code> · [L176](../../src/reentrada.ts#L176) | <code>(): void</code> | — / <code>configAlterada</code> |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#3</code> · [L177](../../src/reentrada.ts#L177) | <code>(this: HTMLFormElement, e: SubmitEvent): void</code> | <code>e.preventDefault</code>; <code>ensaio.pausar</code>; <code>executor.suspenderReferenciaRelogio</code>; <code>preparar</code>; <code>ensaio.iniciar</code> / <code>ultimaAtualizacaoMs</code> |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#4</code> · [L183](../../src/reentrada.ts#L183) | <code>(): void</code> | <code>preparar</code> / <code>iniciais.disabled</code> |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#5</code> · [L184](../../src/reentrada.ts#L184) | <code>(): void</code> | <code>comandar</code> / — |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#6</code> · [L185](../../src/reentrada.ts#L185) | <code>(): void</code> | <code>comandar</code>; <code>rad</code> / — |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#7</code> · [L189](../../src/reentrada.ts#L189) | <code>(): void</code> | <code>comandar</code>; <code>rad</code> / — |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#8</code> · [L192](../../src/reentrada.ts#L192) | <code>(): void</code> | <code>comandar</code>; <code>elemento</code> / — |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#9</code> · [L193](../../src/reentrada.ts#L193) | <code>(): void</code> | <code>comandar</code> / — |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#10</code> · [L194](../../src/reentrada.ts#L194) | <code>(): void</code> | <code>comandar</code>; <code>ensaio.observar().flaps.every</code>; <code>ensaio.observar</code> / — |
+| <code>src/reentrada.ts::iniciarBancada.[callback]#10.[callback]:ArrowFunction#1</code> · [L194](../../src/reentrada.ts#L194) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): boolean</code> | — / — |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#11</code> · [L195](../../src/reentrada.ts#L195) | <code>(): void</code> | <code>comandar</code> / — |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#12</code> · [L196](../../src/reentrada.ts#L196) | <code>(): void</code> | <code>comandar</code> / — |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#13</code> · [L197](../../src/reentrada.ts#L197) | <code>(): void</code> | <code>preparar</code>; <code>ensaio.iniciar</code>; <code>Math.round</code>; <code>avancar</code>; <code>ensaio.pausar</code>; <code>executor.suspenderReferenciaRelogio</code> / <code>i</code>; <code>ultimaAtualizacaoMs</code> |
+| <code>src/reentrada.ts::iniciarBancada.[callback]:ArrowFunction#14</code> · [L202](../../src/reentrada.ts#L202) | <code>(): void</code> | <code>Blob</code>; <code>JSON.stringify</code>; <code>ensaio.exportar</code>; <code>URL.createObjectURL</code>; <code>document.createElement</code>; <code>link.click</code>; <code>URL.revokeObjectURL</code> / <code>link.href</code>; <code>link.download</code>; <code>mensagem.textContent</code> |
 | <code>src/testes.ts::[callback]:ArrowFunction#1</code> · [L159](../../src/testes.ts#L159) | <code>(): void</code> | <code>toggleControlLayoutButton.setAttribute</code>; <code>String</code>; <code>localStorage.setItem</code> / <code>testLayout.dataset.controlsLayout</code> |
 | <code>src/testes.ts::objetosEmRepouso.[callback]:ArrowFunction#1</code> · [L260](../../src/testes.ts#L260) | <code>(objeto: Objeto): boolean</code> | <code>objeto.getEstadoFisico</code> / — |
 | <code>src/testes.ts::criarTesteQuedaLivreDeCinquentaQuadrados.[callback]:ArrowFunction#1</code> · [L343](../../src/testes.ts#L343) | <code>(_: unknown, indice: number): Objeto</code> | <code>Objeto</code>; <code>Vetor3</code> / — |
@@ -34431,9 +34639,31 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/cenarios/EnsaioReentrada.test.ts::[callback]#3.[callback]:ArrowFunction#7</code> · [L297](../../src/cenarios/EnsaioReentrada.test.ts#L297) | <code>(automatico: boolean): void</code> | <code>montagem</code>; <code>s.definirAutomatico</code>; <code>s.atualizar</code>; <code>expect(g.idsAtivos()).toEqual</code>; <code>expect</code>; <code>g.idsAtivos</code>; <code>s.solicitarPouso</code>; <code>expect(s.observar().fase).toBe</code>; <code>s.observar</code> / — |
 | <code>src/cenarios/EnsaioReentrada.test.ts::[callback]:ArrowFunction#4</code> · [L306](../../src/cenarios/EnsaioReentrada.test.ts#L306) | <code>(): void</code> | <code>it</code> / — |
 | <code>src/cenarios/EnsaioReentrada.test.ts::[callback]#4.[callback]:ArrowFunction#1</code> · [L307](../../src/cenarios/EnsaioReentrada.test.ts#L307) | <code>(): void</code> | <code>criarEnsaioReentrada</code>; <code>r.iniciar</code>; <code>r.receberComando</code>; <code>r.pausar</code>; <code>expect(r.avancarPasso()).toBe</code>; <code>expect</code>; <code>r.avancarPasso</code>; <code>JSON.parse</code>; <code>JSON.stringify</code>; <code>r.exportar</code>; <code>expect(JSON.stringify(reproduzirEnsaioReentrada(diario).exportar())).toBe</code>; <code>reproduzirEnsaioReentrada(diario).exportar</code>; <code>reproduzirEnsaioReentrada</code>; <code>r.observar</code>; <code>expect([o.altitudeM, o.velocidadeMps, o.temperaturaC, o.estado.orientacaoRad.z,<br>    o.estado.velocidadeAngularRadps.z, o.cargaG, o.calorTransferidoW].every(Number.isFinite)).toBe</code>; <code>[o.altitudeM, o.velocidadeMps, o.temperaturaC, o.estado.orientacaoRad.z,<br>    o.estado.velocidadeAngularRadps.z, o.cargaG, o.calorTransferidoW].every</code>; <code>expect(o.estado.posicaoM.z).toBe</code>; <code>expect(o.estado.orientacaoRad.x).toBe</code>; <code>expect(o.energiaAbsorvidaJ).toBeGreaterThan</code>; <code>expect(() =&gt; reproduzirEnsaioReentrada(adulterado)).toThrow</code>; <code>expect(() =&gt; reproduzirEnsaioReentrada({ ...diario, identificacao: { revisao: 'outra' } })).toThrow</code> / <code>i</code> |
-| <code>src/cenarios/EnsaioReentrada.test.ts::[callback]#4.[callback]#1.[callback]:ArrowFunction#1</code> · [L324](../../src/cenarios/EnsaioReentrada.test.ts#L324) | <code>(): RegistroMissao&lt;ComandoReentrada, { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercial… [continua na fonte]</code> | <code>reproduzirEnsaioReentrada</code> / — |
-| <code>src/cenarios/EnsaioReentrada.test.ts::[callback]#4.[callback]#1.[callback]:ArrowFunction#2</code> · [L325](../../src/cenarios/EnsaioReentrada.test.ts#L325) | <code>(): RegistroMissao&lt;ComandoReentrada, { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercial… [continua na fonte]</code> | <code>reproduzirEnsaioReentrada</code> / — |
+| <code>src/cenarios/EnsaioReentrada.test.ts::[callback]#4.[callback]#1.[callback]:ArrowFunction#1</code> · [L324](../../src/cenarios/EnsaioReentrada.test.ts#L324) | <code>(): RegistroMissao&lt;ComandoReentrada, { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; alti… [continua na fonte]</code> | <code>reproduzirEnsaioReentrada</code> / — |
+| <code>src/cenarios/EnsaioReentrada.test.ts::[callback]#4.[callback]#1.[callback]:ArrowFunction#2</code> · [L325](../../src/cenarios/EnsaioReentrada.test.ts#L325) | <code>(): RegistroMissao&lt;ComandoReentrada, { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "reentrada" &#124; "pouso" &#124; "falha"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number &#124; boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; alti… [continua na fonte]</code> | <code>reproduzirEnsaioReentrada</code> / — |
 | <code>src/cenarios/EnsaioReentrada.test.ts::[callback]#4.[callback]:ArrowFunction#2</code> · [L328](../../src/cenarios/EnsaioReentrada.test.ts#L328) | <code>(): void</code> | <code>criarEnsaioReentrada</code>; <code>a.iniciar</code>; <code>b.iniciar</code>; <code>a.avancarPasso</code>; <code>b.avancarPasso</code>; <code>expect(a.observar().estado.posicaoM.subtrair(b.observar().estado.posicaoM).magnitude).toBeLessThan</code>; <code>expect</code>; <code>a.observar().estado.posicaoM.subtrair</code>; <code>a.observar</code>; <code>b.observar</code>; <code>expect(Math.abs(a.observar().velocidadeMps - b.observar().velocidadeMps)).toBeLessThan</code>; <code>Math.abs</code> / <code>i</code> |
+| <code>src/cenarios/InstrumentacaoReentrada.test.ts::[callback]:ArrowFunction#1</code> · [L6](../../src/cenarios/InstrumentacaoReentrada.test.ts#L6) | <code>(): void</code> | <code>it</code> / — |
+| <code>src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#1</code> · [L7](../../src/cenarios/InstrumentacaoReentrada.test.ts#L7) | <code>(): void</code> | <code>configurarReentrada</code>; <code>expect(c.parametros.cpBaseM).toBe</code>; <code>expect</code>; <code>expect(c.parametros.cdCorpoBase).toBe</code>; <code>expect(configurarReentrada().parametros.cpBaseM).toBe</code>; <code>expect(Object.isFrozen(c.parametros)).toBe</code>; <code>Object.isFrozen</code>; <code>expect(() =&gt; configurarParametrosReentrada({ desconhecido: 1 } as never)).toThrow</code>; <code>expect(() =&gt; configurarParametrosReentrada({ massaCorpoKg: -1 })).toThrow</code>; <code>expect(() =&gt; configurarParametrosReentrada({ calorEspecificoCorpoJPorKgC: 0 })).toThrow</code>; <code>expect(() =&gt; configurarParametrosReentrada({ fracaoCargaInicialBateria: 2 })).toThrow</code>; <code>expect(() =&gt; configurarParametrosReentrada({ cursoFlapRad: Math.PI })).toThrow</code> / — |
+| <code>src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]#1.[callback]:ArrowFunction#1</code> · [L12](../../src/cenarios/InstrumentacaoReentrada.test.ts#L12) | <code>(): ParametrosReentrada</code> | <code>configurarParametrosReentrada</code> / — |
+| <code>src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]#1.[callback]:ArrowFunction#2</code> · [L13](../../src/cenarios/InstrumentacaoReentrada.test.ts#L13) | <code>(): ParametrosReentrada</code> | <code>configurarParametrosReentrada</code> / — |
+| <code>src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]#1.[callback]:ArrowFunction#3</code> · [L14](../../src/cenarios/InstrumentacaoReentrada.test.ts#L14) | <code>(): ParametrosReentrada</code> | <code>configurarParametrosReentrada</code> / — |
+| <code>src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]#1.[callback]:ArrowFunction#4</code> · [L15](../../src/cenarios/InstrumentacaoReentrada.test.ts#L15) | <code>(): ParametrosReentrada</code> | <code>configurarParametrosReentrada</code> / — |
+| <code>src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]#1.[callback]:ArrowFunction#5</code> · [L16](../../src/cenarios/InstrumentacaoReentrada.test.ts#L16) | <code>(): ParametrosReentrada</code> | <code>configurarParametrosReentrada</code> / — |
+| <code>src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#2</code> · [L19](../../src/cenarios/InstrumentacaoReentrada.test.ts#L19) | <code>(): void</code> | <code>criarCenarioReentrada</code>; <code>expect(b.orbitador.avaliar(b.mundo.obterCondicoesAtmosfericas(b.orbitador)).sustentacaoN)<br>    .toBeCloseTo</code>; <code>expect</code>; <code>b.orbitador.avaliar</code>; <code>b.mundo.obterCondicoesAtmosfericas</code>; <code>a.orbitador.avaliar</code>; <code>a.mundo.obterCondicoesAtmosfericas</code>; <code>expect(b.orbitador.massaKg).toBe</code>; <code>expect(b.orbitador.capacidadeTermicaJPorC).toBe</code>; <code>expect(b.orbitador.avaliar(b.mundo.obterCondicoesAtmosfericas(b.orbitador)).centroPressaoLocalM).toBeLessThan</code>; <code>b.orbitador.solicitarRolagem</code>; <code>b.mundo.avancar</code>; <code>expect(b.orbitador.observarRolagem().atualRad).toBeCloseTo</code>; <code>b.orbitador.observarRolagem</code> / — |
+| <code>src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#3</code> · [L31](../../src/cenarios/InstrumentacaoReentrada.test.ts#L31) | <code>(): void</code> | <code>criarEnsaioReentrada</code>; <code>expect(b.observar().aerodinamica.knudsen).toBe</code>; <code>expect</code>; <code>b.observar</code>; <code>a.observar</code>; <code>expect(b.observar().flaps[0].modeloEscoamento).toBe</code> / — |
+| <code>src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#4</code> · [L37](../../src/cenarios/InstrumentacaoReentrada.test.ts#L37) | <code>(): void</code> | <code>criarEnsaioReentrada</code>; <code>e.iniciar</code>; <code>e.avancarPasso</code>; <code>e.obterEventos().find</code>; <code>e.obterEventos</code>; <code>expect(evento?.passo).toBe</code>; <code>expect</code>; <code>expect(evento?.tempoS).toBe</code>; <code>expect(evento?.dados?.causa).toBe</code>; <code>expect(Number(evento?.dados?.valor)).toBeGreaterThan</code>; <code>Number</code>; <code>expect(e.exportar().amostras).toHaveLength</code>; <code>e.exportar</code>; <code>expect(e.observar().extremos.globais.temperaturaCorpoC.maximo.passo).toBe</code>; <code>e.observar</code> / — |
+| <code>src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]#4.[callback]:ArrowFunction#1</code> · [L40](../../src/cenarios/InstrumentacaoReentrada.test.ts#L40) | <code>(x: EventoMissao): boolean</code> | — / — |
+| <code>src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#5</code> · [L48](../../src/cenarios/InstrumentacaoReentrada.test.ts#L48) | <code>(): void</code> | <code>RegistroExtremos</code>; <code>r.registrar</code>; <code>r.observar</code>; <code>expect(o.ultimoIntervalo?.extremos.qPa.maximo).toEqual</code>; <code>expect</code>; <code>expect(o.globais.qPa.maximo.valor).toBe</code>; <code>expect(() =&gt; r.registrar({ qPa: NaN }, 5, 5 / 240)).toThrow</code> / <code>p</code> |
+| <code>src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]#5.[callback]:ArrowFunction#1</code> · [L54](../../src/cenarios/InstrumentacaoReentrada.test.ts#L54) | <code>(): void</code> | <code>r.registrar</code> / — |
+| <code>src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#6</code> · [L57](../../src/cenarios/InstrumentacaoReentrada.test.ts#L57) | <code>(): void</code> | <code>criarEnsaioReentrada</code>; <code>e.iniciar</code>; <code>e.avancarPasso</code>; <code>e.exportar</code>; <code>expect(d.amostras).toHaveLength</code>; <code>expect</code>; <code>expect(d.amostras[0].passo).toBe</code>; <code>expect(d.amostras[1].passo).toBe</code>; <code>expect(d.retencao).toMatchObject</code>; <code>expect(reproduzirEnsaioReentrada(d).exportar()).toEqual</code>; <code>reproduzirEnsaioReentrada(d).exportar</code>; <code>reproduzirEnsaioReentrada</code> / <code>i</code> |
+| <code>src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#7</code> · [L66](../../src/cenarios/InstrumentacaoReentrada.test.ts#L66) | <code>(): void</code> | <code>criarEnsaioReentrada</code>; <code>e.receberComando</code>; <code>expect(e.obterEventos()).toHaveLength</code>; <code>expect</code>; <code>e.obterEventos</code>; <code>expect(e.observar().eventosDescartados).toBe</code>; <code>e.observar</code>; <code>expect(e.obterEventos()[2].sequencia).toBe</code>; <code>expect(reproduzirEnsaioReentrada(e.exportar()).exportar()).toEqual</code>; <code>reproduzirEnsaioReentrada(e.exportar()).exportar</code>; <code>reproduzirEnsaioReentrada</code>; <code>e.exportar</code> / <code>i</code> |
+| <code>src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#8</code> · [L74](../../src/cenarios/InstrumentacaoReentrada.test.ts#L74) | <code>(): void</code> | <code>criarEnsaioReentrada</code>; <code>e.iniciar</code>; <code>e.avancarPasso</code>; <code>e.observar</code>; <code>expect(o.rotacao.cargasEfetivamenteIntegradas).not.toBeNull</code>; <code>expect</code>; <code>expect(o.rotacao.passosIncompletos).toBe</code>; <code>expect(Math.abs(o.rotacao.residuoAcumuladoKgM2ps)).toBeLessThan</code>; <code>Math.abs</code>; <code>expect(o.flaps[0].atuacao.torqueDisponivelNm).toBeNull</code>; <code>expect(Math.abs(o.flaps[0].atuacao.taxaEfetivaRadps)).toBeLessThanOrEqual</code> / <code>i</code> |
+| <code>src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#9</code> · [L84](../../src/cenarios/InstrumentacaoReentrada.test.ts#L84) | <code>(): void</code> | <code>criarCenarioReentrada</code>; <code>c.mundo.avancar</code>; <code>expect(Math.max(...c.fixadores.map(f =&gt; f.picoEsforcoFisicoN))).toBeGreaterThan</code>; <code>expect</code>; <code>Math.max</code>; <code>c.fixadores.map</code>; <code>expect(Math.max(...c.fixadores.map(f =&gt; f.picoEsforcoFisicoN))).toBeLessThan</code>; <code>expect(c.objetos).toHaveLength</code>; <code>expect(Number.isFinite(o.getEstadoFisico().velocidadeMps.magnitude)).toBe</code>; <code>Number.isFinite</code>; <code>o.getEstadoFisico</code> / — |
+| <code>src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]#9.[callback]:ArrowFunction#1</code> · [L87](../../src/cenarios/InstrumentacaoReentrada.test.ts#L87) | <code>(f: FixadorEstrutural): number</code> | — / — |
+| <code>src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]#9.[callback]:ArrowFunction#2</code> · [L90](../../src/cenarios/InstrumentacaoReentrada.test.ts#L90) | <code>(f: FixadorEstrutural): number</code> | — / — |
+| <code>src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#10</code> · [L95](../../src/cenarios/InstrumentacaoReentrada.test.ts#L95) | <code>(): void</code> | <code>criarCenarioReentrada</code>; <code>c.flaps[0].getEstadoFisico().posicaoM.subtrair</code>; <code>c.flaps[0].getEstadoFisico</code>; <code>c.orbitador.getEstadoFisico</code>; <code>c.mundo.aplicarForca</code>; <code>r.multiplicar</code>; <code>c.mundo.avancar</code>; <code>expect(c.fixadores[0].resistenciaTracaoN).toBe</code>; <code>expect</code>; <code>expect(c.fixadores[0].estaRompido).toBe</code>; <code>expect(c.objetos).toHaveLength</code>; <code>expect(c.flaps[0].getEstadoFisico().velocidadeMps).not.toEqual</code> / — |
+| <code>src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#11</code> · [L106](../../src/cenarios/InstrumentacaoReentrada.test.ts#L106) | <code>(): void</code> | <code>criarEnsaioReentrada</code>; <code>e.observar</code>; <code>expect(t.potenciaIndicadorCorpoW).toBeGreaterThan</code>; <code>expect</code>; <code>expect(t.potenciaTransferidaCorpoW).toBe</code>; <code>expect(t.tetoUniversal).toBe</code> / — |
+| <code>src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#12</code> · [L115](../../src/cenarios/InstrumentacaoReentrada.test.ts#L115) | <code>(): void</code> | <code>criarEnsaioReentrada</code>; <code>e.iniciar</code>; <code>e.avancarPasso</code>; <code>e.observar</code>; <code>expect(o.energiaBateriaJ).toBe</code>; <code>expect</code>; <code>expect(o.temperaturaBateriaC).toBe</code>; <code>expect(o.flaps[0].atuacao.taxaEfetivaRadps).toBe</code>; <code>expect((e.exportar().identificacao as {<br>    modeloOrbitador: {<br>        cdCorpoBase: number;<br>    };<br>}).modeloOrbitador.cdCorpoBase).toBe</code>; <code>e.exportar</code>; <code>expect(o.respostaTermica.tetoUniversal).toBe</code> / — |
 | <code>src/cenarios/ReproducaoDiarioBss005.test.ts::criarDiario:ArrowFunction</code> · [L8](../../src/cenarios/ReproducaoDiarioBss005.test.ts#L8) | <code>(): { versao: number; dtS: number; passosExecutados: number; configuracao: unknown; entradas: { passo: number; acao: string; valor?: string &#124; number &#124; boolean; }[]; reproducao: string; }</code> | <code>criarTesteBss005</code>; <code>RegistroEnsaioBancada</code>; <code>cenario.obterConfiguracaoEnsaio</code>; <code>cenario.objetos.map</code>; <code>registro.registrarEntrada</code>; <code>registro.registrarPasso</code>; <code>registro.exportar</code> / <code>passo</code> |
 | <code>src/cenarios/ReproducaoDiarioBss005.test.ts::criarDiario.[callback]:ArrowFunction#1</code> · [L13](../../src/cenarios/ReproducaoDiarioBss005.test.ts#L13) | <code>(objeto: Objeto): { id: string; massaKg: number; temperaturaC: number; integridade: number; estado: EstadoFisico; }</code> | <code>objeto.getEstadoFisico</code> / — |
 | <code>src/cenarios/ReproducaoDiarioBss005.test.ts::[callback]:ArrowFunction#1</code> · [L33](../../src/cenarios/ReproducaoDiarioBss005.test.ts#L33) | <code>(): void</code> | <code>it</code> / — |
@@ -34982,7 +35212,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/physics/objetos/propulsao/PropulsaoQuimica.test.ts::[callback]#1.[callback]:ArrowFunction#9</code> · [L140](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts#L140) | <code>(): void</code> | <code>criarEnsaio</code>; <code>Objeto</code>; <code>Vetor3</code>; <code>cenario.mundo.registrarObjeto</code>; <code>motor.definirThrottle</code>; <code>cenario.mundo.avancar</code>; <code>cenario.seguirObjeto.getEstadoFisico</code>; <code>cenario.objetos.some</code>; <code>expect(acelerou).toBe</code>; <code>expect</code>; <code>expect(cenario.objetos.some((objeto) =&gt; objeto.integridadeEstrutural &lt; 1)).toBe</code> / <code>passo</code>; <code>acelerou</code> |
 | <code>src/physics/objetos/propulsao/PropulsaoQuimica.test.ts::[callback]#1.[callback]#9.[callback]:ArrowFunction#1</code> · [L154](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts#L154) | <code>(objeto: Objeto): boolean</code> | — / — |
 | <code>src/physics/objetos/propulsao/PropulsaoQuimica.test.ts::[callback]#1.[callback]#9.[callback]:ArrowFunction#2</code> · [L157](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts#L157) | <code>(objeto: Objeto): boolean</code> | — / — |
-| <code>src/physics/objetos/propulsao/PropulsaoQuimica.test.ts::[callback]#1.[callback]:ArrowFunction#10</code> · [L160](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts#L160) | <code>(falha: "controle" &#124; "ignicao" &#124; "eletrica" &#124; "integridade"): void</code> | <code>criarEnsaio</code>; <code>motor.definirThrottle</code>; <code>motor.desligarSistema</code>; <code>motor.ligarSistema</code>; <code>motor.bateriaConectada!.fornecerEnergia</code>; <code>motor.aplicarDanoPorImpacto</code>; <code>motor.prepararPassoOperacional</code>; <code>expect(motor.empuxoAtualN).toBe</code>; <code>expect</code>; <code>expect(motor.vazaoAtualKgS).toBe</code>; <code>expect(metano.massaPropelenteKg + oxidante.massaPropelenteKg).toBe</code>; <code>expect(motor.estaIgnitado).toBe</code> / — |
+| <code>src/physics/objetos/propulsao/PropulsaoQuimica.test.ts::[callback]#1.[callback]:ArrowFunction#10</code> · [L160](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts#L160) | <code>(falha: "integridade" &#124; "controle" &#124; "ignicao" &#124; "eletrica"): void</code> | <code>criarEnsaio</code>; <code>motor.definirThrottle</code>; <code>motor.desligarSistema</code>; <code>motor.ligarSistema</code>; <code>motor.bateriaConectada!.fornecerEnergia</code>; <code>motor.aplicarDanoPorImpacto</code>; <code>motor.prepararPassoOperacional</code>; <code>expect(motor.empuxoAtualN).toBe</code>; <code>expect</code>; <code>expect(motor.vazaoAtualKgS).toBe</code>; <code>expect(metano.massaPropelenteKg + oxidante.massaPropelenteKg).toBe</code>; <code>expect(motor.estaIgnitado).toBe</code> / — |
 | <code>src/physics/objetos/propulsao/PropulsaoQuimica.test.ts::[callback]#1.[callback]:ArrowFunction#11</code> · [L177](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts#L177) | <code>(): void</code> | <code>criarEnsaio</code>; <code>motor.definirThrottle</code>; <code>cenario.mundo.avancar</code>; <code>expect(motor.vazaoAtualKgS).toBe</code>; <code>expect</code>; <code>expect(cenario.linhasComFalhaControlavel.combustivel.vazaoAtualKgS).toBe</code>; <code>expect(cenario.linhasComFalhaControlavel.oxidante.vazaoAtualKgS).toBe</code>; <code>expect(motor.potenciaTermicaAtualW).toBe</code> / — |
 | <code>src/physics/objetos/propulsao/PropulsaoQuimica.test.ts::[callback]:ArrowFunction#2</code> · [L190](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts#L190) | <code>(): void</code> | <code>it</code>; <code>it.each([0, -1, NaN, Infinity])</code>; <code>it.each</code> / — |
 | <code>src/physics/objetos/propulsao/PropulsaoQuimica.test.ts::[callback]#2.[callback]:ArrowFunction#1</code> · [L191](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts#L191) | <code>(): void</code> | <code>CamaraCombustao</code>; <code>camara.reagir</code>; <code>Bocal</code>; <code>expect(resultado.eficiencia).toBe</code>; <code>expect</code>; <code>expect(bocal.calcularEmpuxo(resultado, 1, 1, 1)).toBe</code>; <code>bocal.calcularEmpuxo</code>; <code>expect(bocal.calcularEmpuxo(camara.reagir(0, 2, 1), 1, 1, 1)).toBe</code> / — |

@@ -11,7 +11,7 @@ import { preview } from 'vite';
  * @contract f-4fe97b4e82bb0961
    */
 export async function executarSmokeReentrada(): Promise<void> {
-  const pasta = resolve('docs/validacoes/reentrada'); mkdirSync(pasta, { recursive: true });
+  const pasta = resolve(process.env.REENTRADA_EVIDENCIAS_DIR ?? 'docs/validacoes/reentrada'); mkdirSync(pasta, { recursive: true });
   const servidor = await preview({ preview: { host: '127.0.0.1', port: 0, strictPort: true } });
   const base = `http://127.0.0.1:${(servidor.httpServer.address() as AddressInfo).port}`;
   const browser = await chromium.launch({ executablePath: process.env.CHROME_BIN ?? '/usr/bin/google-chrome',

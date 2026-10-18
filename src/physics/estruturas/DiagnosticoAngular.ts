@@ -63,9 +63,9 @@ export class BalancoAngular {
    * @contract f-22a29b5a950e9118
    */
   public registrar(antes: DiagnosticoAngular, depois: DiagnosticoAngular, dtS: number,
-    torqueNaoGravitacionalNm: number, completo: boolean): void {
+    torqueNaoGravitacionalNm: number, completo: boolean, impulsoMedidoPeloCoreNmS?: number): void {
     if (!Number.isFinite(dtS) || dtS <= 0 || !Number.isFinite(torqueNaoGravitacionalNm)) throw new Error('Balanço angular inválido.');
-    const impulso = dtS * ((antes.torqueGravitacionalNm + depois.torqueGravitacionalNm) / 2 + torqueNaoGravitacionalNm);
+    const impulso = impulsoMedidoPeloCoreNmS ?? dtS * ((antes.torqueGravitacionalNm + depois.torqueGravitacionalNm) / 2 + torqueNaoGravitacionalNm);
     this.residuoPassoKgM2ps = depois.momentoIntrinsecoKgM2ps - antes.momentoIntrinsecoKgM2ps - impulso;
     this.impulsoTorqueNmS += impulso;
     this.residuoAcumuladoKgM2ps += this.residuoPassoKgM2ps;

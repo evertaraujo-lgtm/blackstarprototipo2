@@ -1,6 +1,8 @@
+import { configurarParametrosReentrada, type ParametrosReentrada } from './physics/reentrada/ModeloAerodinamicoReentrada';
+import { rotulosParametros } from './apresentacao/reentrada/CamposParametrosReentrada';
 import './style.css';
 import './reentrada.css';
-import { criarEnsaioReentrada, type ComandoReentrada, type ConfiguracaoReentrada, type ObservacaoReentrada } from './cenarios/EnsaioReentrada';
+import { criarEnsaioReentrada, type ComandoReentrada, type EntradaConfiguracaoReentrada, type ObservacaoReentrada } from './cenarios/EnsaioReentrada';
 import { ExecutorPassoFixo } from './simulacao/ExecutorPassoFixo';
 import { RenderizadorReentrada } from './apresentacao/reentrada/RenderizadorReentrada';
 
@@ -21,16 +23,27 @@ function iniciarBancada(): void {
   const play = elemento<HTMLButtonElement>('re-play'), mensagem = elemento<HTMLOutputElement>('re-mensagem');
   const modo = elemento<HTMLSelectElement>('re-modo'), manuais = elemento<HTMLFieldSetElement>('re-manuais');
   const energia = elemento<HTMLButtonElement>('re-energia');
+  const camposParametros = new Map<keyof ParametrosReentrada, HTMLInputElement>();
+  for (const [nome, valor] of Object.entries(configurarParametrosReentrada())) {
+    const chave = nome as keyof ParametrosReentrada;
+    const label = document.createElement('label'); label.textContent = rotulosParametros[chave];
+    const input = document.createElement('input'); input.type = 'number'; input.step = 'any'; input.required = true;
+    input.id = `re-param-${chave}`; input.value = String(valor); label.append(input);
+    elemento('re-parametros').append(label); camposParametros.set(chave, input);
+  }
   const renderer = new RenderizadorReentrada(elemento('re-canvas'), elemento('re-graficos'));
   let ensaio = criarEnsaioReentrada(), executor = new ExecutorPassoFixo(ensaio.passoS);
   let historico: ObservacaoReentrada[] = [ensaio.observar()];
+  let intervaloVisualPassos = 240, limiteVisualAmostras = 3600;
   let configAlterada = false, ultimaAtualizacaoMs = -Infinity, eventosMostrados = -1;
   const metricas = new Map<string, HTMLElement>();
 
   /** Lê configuração pré-ensaio; todas as conversões são explícitas e registradas.  @contract f-9f19a52f59d415b4 */
-  function lerConfiguracao(): Partial<ConfiguracaoReentrada> {
-    return { altitudeM: numero('re-altitude'), velocidadeMps: numero('re-velocidade'),
-      anguloAtaqueRad: rad('re-alpha-inicial'), trajetoriaRad: rad('re-trajetoria'), rolagemRad: rad('re-phi-inicial'),
+  function lerConfiguracao(): EntradaConfiguracaoReentrada {
+    return { parametros: Object.fromEntries([...camposParametros].map(([k, input]) => [k, Number(input.value)])),
+      passoS: 1 / numero('re-divisor-dt'), intervaloColetaS: numero('re-intervalo-coleta'),
+      limiteAmostras: numero('re-limite-amostras'), limiteEventos: numero('re-limite-eventos'), altitudeM: numero('re-altitude'), velocidadeMps: numero('re-velocidade'),
+      taxaAtitudeLocalInicialRadps: rad('re-taxa-inicial'), anguloAtaqueRad: rad('re-alpha-inicial'), trajetoriaRad: rad('re-trajetoria'), rolagemRad: rad('re-phi-inicial'),
       limiteOrbitadorC: numero('re-limite-corpo'), limiteFlapsC: numero('re-limite-flaps'),
       limiteBateriaC: numero('re-limite-bateria'),
       automatico: elemento<HTMLSelectElement>('re-controle-inicial').value === 'automatico',
@@ -48,6 +61,11 @@ function iniciarBancada(): void {
     try {
       const novo = criarEnsaioReentrada(lerConfiguracao());
       ensaio = novo; executor = new ExecutorPassoFixo(ensaio.passoS); historico = [ensaio.observar()];
+      intervaloVisualPassos = Math.round(numero('re-intervalo-coleta') / ensaio.passoS); limiteVisualAmostras = numero('re-limite-amostras');
+      for (const id of ['re-flap-dianteiro', 're-flap-traseiro']) {
+        const e = elemento<HTMLInputElement>(id), curso = Number(camposParametros.get('cursoFlapRad')!.value) * 180 / Math.PI;
+        e.min = String(-curso); e.max = String(curso);
+      }
       configAlterada = false; eventosMostrados = -1; ultimaAtualizacaoMs = -Infinity;
       modo.value = lerConfiguracao().automatico ? 'automatico' : 'manual';
       elemento<HTMLInputElement>('re-alpha-alvo').value = elemento<HTMLInputElement>('re-alpha-inicial').value;
@@ -66,13 +84,13 @@ function iniciarBancada(): void {
   }
 
   /** Executa um passo fixo e registra amostra visual a cada segundo simulado.
-   * O diário compartilhado mantém sua própria coleta determinística completa.
+   * O diário compartilha coleta configurada e informa retenção/descartes; extremos são medidos em todo passo.
    * @contract f-9085698dbe6b0394
    */
   function avancar(): void {
-    if (ensaio.avancarPasso() && ensaio.passosExecutados % 240 === 0) {
+    if (ensaio.avancarPasso() && ensaio.passosExecutados % intervaloVisualPassos === 0) {
       historico.push(ensaio.observar());
-      if (historico.length > 3600) historico.shift();
+      if (historico.length > limiteVisualAmostras) historico.shift();
     }
   }
 
@@ -110,11 +128,22 @@ function iniciarBancada(): void {
     metrica('energia', 'Calor absorvido acumulado', `${o.energiaAbsorvidaJ.toPrecision(5)} J`);
     metrica('balanco', 'Dissipação / calor transferido / atmosfera', `${o.dissipacaoW.toPrecision(4)} / ${o.calorTransferidoW.toPrecision(4)} / ${o.potenciaAtmosferaW.toPrecision(4)} W`);
     metrica('rarefacao', 'Knudsen / modelo contínuo aplicável', `${a.knudsen.toPrecision(3)} / ${a.modeloContinuoAplicavel ? 'sim, preliminar' : 'não'}`);
+    metrica('rotacao', 'ω inercial / momento intrínseco', `${o.estado.velocidadeAngularRadps.z.toPrecision(6)} rad/s / ${o.rotacao.momentoIntrinsecoKgM2ps.toPrecision(6)} kg·m²/s`);
+    metrica('momento-orbital', 'Momento orbital / inércia', `${o.rotacao.momentoOrbitalKgM2ps.toPrecision(6)} kg·m²/s / ${o.inerciaKgM2.toPrecision(6)} kg·m²`);
+    metrica('torque-gravidade', 'Torque de gradiente / outros contínuos', `${o.rotacao.torqueGravitacionalNm.toPrecision(5)} / ${(o.rotacao.cargasEfetivamenteIntegradas?.torqueOutrosContinuosNm ?? 0).toPrecision(5)} N·m`);
+    metrica('residuo-angular', 'Resíduo angular por passo / acumulado', `${o.rotacao.residuoPassoKgM2ps.toPrecision(4)} / ${o.rotacao.residuoAcumuladoKgM2ps.toPrecision(4)} kg·m²/s · ${o.rotacao.passosIncompletos} passos incompletos`);
+    metrica('energia-voo', 'Energia mecânica específica / velocidade local', `${o.energiaMecanicaEspecificaJPorKg.toPrecision(6)} J/kg · radial ${o.velocidadeRadialMps.toFixed(1)} / tangencial ${o.velocidadeTangencialMps.toFixed(1)} m/s`);
+    metrica('picos', 'Picos por passo · pressão / fluxo', `${o.extremos.globais.pressaoDinamicaPa.maximo.valor.toPrecision(4)} Pa / ${o.extremos.globais.fluxoTermicoIndicadorWm2.maximo.valor.toPrecision(4)} W/m²`);
+    metrica('termica-modelo', 'Potência térmica indicada → recebida pelo corpo', `${o.respostaTermica.potenciaIndicadorCorpoW.toPrecision(4)} → ${o.respostaTermica.potenciaTransferidaCorpoW.toPrecision(4)} W · hipótese min(indicador, D·V)`);
+    metrica('corridor', 'Estratégia experimental / torque PD solicitado', `${o.controle.corredor?.estrategia ?? 'inativa'} / ${o.controle.torqueSolicitadoNm.toPrecision(5)} N·m`);
+    metrica('coleta', 'Coleta e eventos / descarte explícito', `extremos a cada passo · ${o.eventosDescartados} eventos fora da janela`);
+    metrica('modelo-escoamento', 'Modelo empregado / domínio atmosférico', `${a.modeloEscoamentoEfetivo} · ${a.foraDominioAtmosferico ? 'fora de 0–200 km' : 'dentro de 0–200 km'}`);
     metrica('controle', 'Modo do controlador / supervisor', `${o.controle.estado} / ${o.supervisor.fase}`);
     metrica('bateria', 'Energia elétrica interna / RCS', `${o.energiaBateriaJ.toFixed(0)} J / ausente`);
     metrica('bateria-termica', 'Bateria isolada · temperatura / limiar / integridade', `${o.temperaturaBateriaC.toFixed(2)} / ${o.limiteBateriaC} °C / ${(100 * o.integridadeBateria).toFixed(2)} %`);
     for (const [i, f] of o.flaps.entries()) {
       metrica(`flap-${i}`, `${i === 0 ? 'Dianteiro' : 'Traseiro'} · comando → efetivo`, `${graus(f.comandoRad)}° → ${graus(f.deflexaoRad)}° · ${f.energizado ? 'energizado' : 'sem energia'} · ${f.conectado ? 'vinculado' : 'separado'}`);
+      metrica(`flap-atuacao-${i}`, `Flap ${i + 1} · taxa efetiva / impedimento`, `${graus(f.atuacao.taxaEfetivaRadps)} °/s · ${f.atuacao.bloqueio} · torque mecânico não modelado`);
       metrica(`flap-termico-${i}`, `Flap ${i + 1} · temperatura / limiar / integridade`, `${f.temperaturaC.toFixed(2)} / ${o.limiteFlapsC} °C / ${(100 * f.integridade).toFixed(1)} %`);
     }
     play.textContent = o.execucao === 'executando' ? 'Pausar' : o.execucao === 'preparada' ? 'Iniciar ensaio' : 'Continuar';
@@ -125,7 +154,7 @@ function iniciarBancada(): void {
     elemento<HTMLButtonElement>('re-passo').disabled = o.execucao === 'executando';
     elemento<HTMLSelectElement>('re-chaveamento').value = o.supervisor.automatico ? 'automatico' : 'manual';
     energia.textContent = o.flaps.every(f => f.energizado) ? 'Desligar alimentação dos flaps' : 'Ligar alimentação dos flaps';
-    elemento('re-tempo-real').textContent = `t = ${o.tempoS.toFixed(3)} s · ${o.execucao} · dt = 1/240 s · dívida ${executor.tempoPendenteS.toFixed(2)} s`;
+    elemento('re-tempo-real').textContent = `t = ${o.tempoS.toFixed(3)} s · ${o.execucao} · dt = ${ensaio.passoS.toPrecision(5)} s · dívida ${executor.tempoPendenteS.toFixed(2)} s`;
     const diagnostico = elemento('re-requisitos'); diagnostico.replaceChildren();
     for (const r of o.supervisor.requisitos) {
       const linha = document.createElement('div'); linha.className = `re-requisito ${r.atendido ? 're-ok' : 're-bloqueado'}`;
@@ -134,12 +163,12 @@ function iniciarBancada(): void {
       linha.append(descricao, valor); diagnostico.append(linha);
     }
     const eventos = ensaio.obterEventos();
-    if (eventosMostrados !== eventos.length) {
+    if (eventosMostrados !== (eventos.at(-1)?.sequencia ?? -1)) {
       const lista = elemento('re-eventos'); lista.replaceChildren();
       for (const evento of eventos.slice(-80)) {
-        const li = document.createElement('li'); li.textContent = `${evento.tempoS.toFixed(3)} s · ${evento.tipo} · ${evento.descricao}`; lista.append(li);
+        const li = document.createElement('li'); li.textContent = `${evento.tempoS.toFixed(3)} s · ${evento.tipo} · ${evento.descricao}${evento.dados ? ` · valor ${evento.dados.valor} · causa ${evento.dados.causa}` : ''}`; lista.append(li);
       }
-      eventosMostrados = eventos.length;
+      eventosMostrados = eventos.at(-1)?.sequencia ?? -1;
     }
   }
 
@@ -167,7 +196,7 @@ function iniciarBancada(): void {
   elemento('re-separar').addEventListener('click', () => comandar({ tipo: 'separar-flap', indice: 0 }));
   elemento('re-passo').addEventListener('click', () => {
     if (configAlterada && !preparar()) return;
-    ensaio.iniciar(); for (let i = 0; i < 240; i++) avancar(); ensaio.pausar(); executor.suspenderReferenciaRelogio();
+    ensaio.iniciar(); for (let i = 0; i < Math.round(1 / ensaio.passoS); i++) avancar(); ensaio.pausar(); executor.suspenderReferenciaRelogio();
     ultimaAtualizacaoMs = -Infinity;
   });
   elemento('re-exportar').addEventListener('click', () => {

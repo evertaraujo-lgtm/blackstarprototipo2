@@ -1585,25 +1585,25 @@
   },
   {
     "id": "scripts/validar-reentrada.ts::validarReentrada.resultado.[callback]:ArrowFunction#1",
-    "assinatura": "(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: \"reentrada\" | \"pouso\" | \"falha\"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number | boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }[]; vinculos: { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }): number",
+    "assinatura": "(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record<string, FaixaTemporal>; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; } | null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly<{ estrategia: \"heuristica-experimental-55-70-graus\"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number | null; integridadeMinima: number | null; eficaciaQualificada: false; }> | null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: \"reentrada\" | \"pouso\" | \"falha\"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number | boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { cargasEfetivamenteIntegradas: { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } | null; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; respostaTermica: { modelo: string; tetoUniversal: boolean; potenciaIndicadorCorpoW: number; potenciaTransferidaCorpoW: number; tpsInstalado: boolean; camadasInternasModeladas: boolean; }; estadosTerminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }[]; vinculos: { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }): number",
     "modificadores": [],
     "categoria": "callback"
   },
   {
     "id": "scripts/validar-reentrada.ts::validarReentrada.resultado.[callback]:ArrowFunction#2",
-    "assinatura": "(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: \"reentrada\" | \"pouso\" | \"falha\"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number | boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }[]; vinculos: { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }): number",
+    "assinatura": "(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record<string, FaixaTemporal>; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; } | null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly<{ estrategia: \"heuristica-experimental-55-70-graus\"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number | null; integridadeMinima: number | null; eficaciaQualificada: false; }> | null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: \"reentrada\" | \"pouso\" | \"falha\"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number | boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { cargasEfetivamenteIntegradas: { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } | null; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; respostaTermica: { modelo: string; tetoUniversal: boolean; potenciaIndicadorCorpoW: number; potenciaTransferidaCorpoW: number; tpsInstalado: boolean; camadasInternasModeladas: boolean; }; estadosTerminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }[]; vinculos: { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }): number",
     "modificadores": [],
     "categoria": "callback"
   },
   {
     "id": "scripts/validar-reentrada.ts::validarReentrada.resultado.[callback]:ArrowFunction#3",
-    "assinatura": "(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: \"reentrada\" | \"pouso\" | \"falha\"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number | boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }[]; vinculos: { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }): number",
+    "assinatura": "(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record<string, FaixaTemporal>; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; } | null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly<{ estrategia: \"heuristica-experimental-55-70-graus\"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number | null; integridadeMinima: number | null; eficaciaQualificada: false; }> | null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: \"reentrada\" | \"pouso\" | \"falha\"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number | boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { cargasEfetivamenteIntegradas: { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } | null; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; respostaTermica: { modelo: string; tetoUniversal: boolean; potenciaIndicadorCorpoW: number; potenciaTransferidaCorpoW: number; tpsInstalado: boolean; camadasInternasModeladas: boolean; }; estadosTerminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }[]; vinculos: { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }): number",
     "modificadores": [],
     "categoria": "callback"
   },
   {
     "id": "scripts/validar-reentrada.ts::validarReentrada.resultado.[callback]:ArrowFunction#4",
-    "assinatura": "(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: \"reentrada\" | \"pouso\" | \"falha\"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number | boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }[]; vinculos: { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }): number",
+    "assinatura": "(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record<string, FaixaTemporal>; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; } | null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly<{ estrategia: \"heuristica-experimental-55-70-graus\"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number | null; integridadeMinima: number | null; eficaciaQualificada: false; }> | null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: \"reentrada\" | \"pouso\" | \"falha\"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number | boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { cargasEfetivamenteIntegradas: { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } | null; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; respostaTermica: { modelo: string; tetoUniversal: boolean; potenciaIndicadorCorpoW: number; potenciaTransferidaCorpoW: number; tpsInstalado: boolean; camadasInternasModeladas: boolean; }; estadosTerminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }[]; vinculos: { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }): number",
     "modificadores": [],
     "categoria": "callback"
   },
@@ -2401,7 +2401,7 @@
   },
   {
     "id": "src/apresentacao/reentrada/RenderizadorReentrada.ts::RenderizadorReentrada.desenhar.[callback]:ArrowFunction#1",
-    "assinatura": "(amostra: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: \"reentrada\" | \"pouso\" | \"falha\"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number | boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }[]; vinculos: { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }, i: number): void",
+    "assinatura": "(amostra: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record<string, FaixaTemporal>; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; } | null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly<{ estrategia: \"heuristica-experimental-55-70-graus\"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number | null; integridadeMinima: number | null; eficaciaQualificada: false; }> | null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: \"reentrada\" | \"pouso\" | \"falha\"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number | boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { cargasEfetivamenteIntegradas: { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } | null; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; respostaTermica: { modelo: string; tetoUniversal: boolean; potenciaIndicadorCorpoW: number; potenciaTransferidaCorpoW: number; tpsInstalado: boolean; camadasInternasModeladas: boolean; }; estadosTerminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }[]; vinculos: { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }, i: number): void",
     "modificadores": [],
     "categoria": "callback"
   },
@@ -2471,31 +2471,31 @@
   },
   {
     "id": "src/apresentacao/reentrada/RenderizadorReentrada.ts::RenderizadorReentrada.desenharGraficos.[callback]#1.[callback]:ArrowFunction#1",
-    "assinatura": "(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: \"reentrada\" | \"pouso\" | \"falha\"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number | boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }[]; vinculos: { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }): number",
+    "assinatura": "(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record<string, FaixaTemporal>; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; } | null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly<{ estrategia: \"heuristica-experimental-55-70-graus\"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number | null; integridadeMinima: number | null; eficaciaQualificada: false; }> | null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: \"reentrada\" | \"pouso\" | \"falha\"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number | boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { cargasEfetivamenteIntegradas: { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } | null; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; respostaTermica: { modelo: string; tetoUniversal: boolean; potenciaIndicadorCorpoW: number; potenciaTransferidaCorpoW: number; tpsInstalado: boolean; camadasInternasModeladas: boolean; }; estadosTerminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }[]; vinculos: { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }): number",
     "modificadores": [],
     "categoria": "callback"
   },
   {
     "id": "src/apresentacao/reentrada/RenderizadorReentrada.ts::RenderizadorReentrada.desenharGraficos.[callback]#1.[callback]#1.[callback]:ArrowFunction#1",
-    "assinatura": "(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }): number",
+    "assinatura": "(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): number",
     "modificadores": [],
     "categoria": "callback"
   },
   {
     "id": "src/apresentacao/reentrada/RenderizadorReentrada.ts::RenderizadorReentrada.desenharGraficos.[callback]#1.[callback]:ArrowFunction#2",
-    "assinatura": "(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: \"reentrada\" | \"pouso\" | \"falha\"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number | boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }[]; vinculos: { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }, j: number): void",
+    "assinatura": "(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record<string, FaixaTemporal>; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; } | null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly<{ estrategia: \"heuristica-experimental-55-70-graus\"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number | null; integridadeMinima: number | null; eficaciaQualificada: false; }> | null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: \"reentrada\" | \"pouso\" | \"falha\"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number | boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { cargasEfetivamenteIntegradas: { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } | null; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; respostaTermica: { modelo: string; tetoUniversal: boolean; potenciaIndicadorCorpoW: number; potenciaTransferidaCorpoW: number; tpsInstalado: boolean; camadasInternasModeladas: boolean; }; estadosTerminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }[]; vinculos: { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }, j: number): void",
     "modificadores": [],
     "categoria": "callback"
   },
   {
     "id": "src/apresentacao/reentrada/RenderizadorReentrada.ts::RenderizadorReentrada.desenharGraficos.[callback]#1.[callback]:ArrowFunction#3",
-    "assinatura": "(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: \"reentrada\" | \"pouso\" | \"falha\"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number | boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }[]; vinculos: { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }, j: number): void",
+    "assinatura": "(o: { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record<string, FaixaTemporal>; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; } | null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly<{ estrategia: \"heuristica-experimental-55-70-graus\"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number | null; integridadeMinima: number | null; eficaciaQualificada: false; }> | null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: \"reentrada\" | \"pouso\" | \"falha\"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number | boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { cargasEfetivamenteIntegradas: { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } | null; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; respostaTermica: { modelo: string; tetoUniversal: boolean; potenciaIndicadorCorpoW: number; potenciaTransferidaCorpoW: number; tpsInstalado: boolean; camadasInternasModeladas: boolean; }; estadosTerminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }[]; vinculos: { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }, j: number): void",
     "modificadores": [],
     "categoria": "callback"
   },
   {
     "id": "src/apresentacao/reentrada/RenderizadorReentrada.ts::RenderizadorReentrada.desenharGraficos.[callback]#1.[callback]#3.[callback]:ArrowFunction#1",
-    "assinatura": "(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }): number",
+    "assinatura": "(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): number",
     "modificadores": [],
     "categoria": "callback"
   },
@@ -4281,13 +4281,13 @@
   },
   {
     "id": "src/cenarios/EnsaioReentrada.test.ts::[callback]#4.[callback]#1.[callback]:ArrowFunction#1",
-    "assinatura": "(): RegistroMissao<ComandoReentrada, { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: \"reentrada\" | \"pouso\" | \"falha\"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number | boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }[]; vinculos: { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }>",
+    "assinatura": "(): RegistroMissao<ComandoReentrada, { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record<string, FaixaTemporal>; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; } | null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly<{ estrategia: \"heuristica-experimental-55-70-graus\"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number | null; integridadeMinima: number | null; eficaciaQualificada: false; }> | null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: \"reentrada\" | \"pouso\" | \"falha\"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number | boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { cargasEfetivamenteIntegradas: { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } | null; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; respostaTermica: { modelo: string; tetoUniversal: boolean; potenciaIndicadorCorpoW: number; potenciaTransferidaCorpoW: number; tpsInstalado: boolean; camadasInternasModeladas: boolean; }; estadosTerminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }[]; vinculos: { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }>",
     "modificadores": [],
     "categoria": "teste"
   },
   {
     "id": "src/cenarios/EnsaioReentrada.test.ts::[callback]#4.[callback]#1.[callback]:ArrowFunction#2",
-    "assinatura": "(): RegistroMissao<ComandoReentrada, { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: \"reentrada\" | \"pouso\" | \"falha\"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number | boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }[]; vinculos: { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }>",
+    "assinatura": "(): RegistroMissao<ComandoReentrada, { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record<string, FaixaTemporal>; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; } | null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly<{ estrategia: \"heuristica-experimental-55-70-graus\"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number | null; integridadeMinima: number | null; eficaciaQualificada: false; }> | null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: \"reentrada\" | \"pouso\" | \"falha\"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number | boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { cargasEfetivamenteIntegradas: { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } | null; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; respostaTermica: { modelo: string; tetoUniversal: boolean; potenciaIndicadorCorpoW: number; potenciaTransferidaCorpoW: number; tpsInstalado: boolean; camadasInternasModeladas: boolean; }; estadosTerminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }[]; vinculos: { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }>",
     "modificadores": [],
     "categoria": "teste"
   },
@@ -4319,7 +4319,7 @@
   },
   {
     "id": "src/cenarios/EnsaioReentrada.ts::configurarReentrada:FunctionDeclaration",
-    "assinatura": "(entrada?: Partial<ConfiguracaoReentrada>): ConfiguracaoReentrada",
+    "assinatura": "(entrada?: EntradaConfiguracaoReentrada): ConfiguracaoReentrada",
     "modificadores": [
       "export"
     ],
@@ -4345,7 +4345,7 @@
   },
   {
     "id": "src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada:FunctionDeclaration",
-    "assinatura": "(entrada?: Partial<ConfiguracaoReentrada>): { configuracao: ConfiguracaoReentrada; ambiente: AmbienteTerrestre; perfil: PerfilAtmosfericoReentrada; mundo: MundoFisico; orbitador: OrbitadorReentrada; flaps: FlapReentrada[]; bateria: Bateria; fixadores: FixadorEstrutural[]; objetos: readonly Objeto[]; sensores: SensoresVeiculoComposto; solo: SuperficieEsferica; }",
+    "assinatura": "(entrada?: EntradaConfiguracaoReentrada): { configuracao: ConfiguracaoReentrada; ambiente: AmbienteTerrestre; perfil: PerfilAtmosfericoReentrada; mundo: MundoFisico; orbitador: OrbitadorReentrada; flaps: FlapReentrada[]; bateria: Bateria; fixadores: FixadorEstrutural[]; objetos: readonly Objeto[]; sensores: SensoresVeiculoComposto; solo: SuperficieEsferica; }",
     "modificadores": [
       "export"
     ],
@@ -4443,7 +4443,7 @@
   },
   {
     "id": "src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.constructor:Constructor",
-    "assinatura": "(entrada?: Partial<ConfiguracaoReentrada>): EnsaioReentrada",
+    "assinatura": "(entrada?: EntradaConfiguracaoReentrada): EnsaioReentrada",
     "modificadores": [
       "public"
     ],
@@ -4451,7 +4451,7 @@
   },
   {
     "id": "src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.constructor.[callback]:ArrowFunction#1",
-    "assinatura": "(): { alphaRad: number; taxaArfagemRadps: number; taxaFluxoRadps: number; pressaoDinamicaPa: number; fluxoTermicoWm2: number; cargaG: number; torquePassivoNm: number; inerciaKgM2: number; phiRad: number; disponivel: boolean; }",
+    "assinatura": "(): { alphaRad: number; taxaArfagemRadps: number; taxaFluxoRadps: number; pressaoDinamicaPa: number; fluxoTermicoWm2: number; cargaG: number; torquePassivoNm: number; energiaMecanicaEspecificaJPorKg: number; integridadeMinima: number; inerciaKgM2: number; phiRad: number; disponivel: boolean; }",
     "modificadores": [],
     "categoria": "callback"
   },
@@ -4561,7 +4561,7 @@
   },
   {
     "id": "src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar:MethodDeclaration",
-    "assinatura": "(): { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: \"reentrada\" | \"pouso\" | \"falha\"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number | boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }[]; vinculos: { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }",
+    "assinatura": "(): { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record<string, FaixaTemporal>; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; } | null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly<{ estrategia: \"heuristica-experimental-55-70-graus\"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number | null; integridadeMinima: number | null; eficaciaQualificada: false; }> | null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: \"reentrada\" | \"pouso\" | \"falha\"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number | boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { cargasEfetivamenteIntegradas: { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } | null; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; respostaTermica: { modelo: string; tetoUniversal: boolean; potenciaIndicadorCorpoW: number; potenciaTransferidaCorpoW: number; tpsInstalado: boolean; camadasInternasModeladas: boolean; }; estadosTerminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }[]; vinculos: { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }",
     "modificadores": [
       "public"
     ],
@@ -4599,19 +4599,31 @@
   },
   {
     "id": "src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#6",
-    "assinatura": "(f: FlapReentrada, i: number): { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }",
+    "assinatura": "(f: FlapReentrada): boolean",
     "modificadores": [],
     "categoria": "callback"
   },
   {
     "id": "src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#7",
-    "assinatura": "(f: FixadorEstrutural): { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; }",
+    "assinatura": "(ct: ContatoSuperficieFisico): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#8",
+    "assinatura": "(f: FlapReentrada, i: number): { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#9",
+    "assinatura": "(f: FixadorEstrutural): { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; }",
     "modificadores": [],
     "categoria": "callback"
   },
   {
     "id": "src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle:MethodDeclaration",
-    "assinatura": "(): { alphaRad: number; taxaArfagemRadps: number; taxaFluxoRadps: number; pressaoDinamicaPa: number; fluxoTermicoWm2: number; cargaG: number; torquePassivoNm: number; inerciaKgM2: number; phiRad: number; disponivel: boolean; }",
+    "assinatura": "(): { alphaRad: number; taxaArfagemRadps: number; taxaFluxoRadps: number; pressaoDinamicaPa: number; fluxoTermicoWm2: number; cargaG: number; torquePassivoNm: number; energiaMecanicaEspecificaJPorKg: number; integridadeMinima: number; inerciaKgM2: number; phiRad: number; disponivel: boolean; }",
     "modificadores": [
       "private"
     ],
@@ -4631,6 +4643,12 @@
   },
   {
     "id": "src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle.[callback]:ArrowFunction#2",
+    "assinatura": "(o: Objeto): number",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle.[callback]:ArrowFunction#3",
     "assinatura": "(f: FlapReentrada, i: number): boolean",
     "modificadores": [],
     "categoria": "callback"
@@ -4670,8 +4688,22 @@
     "categoria": "callback"
   },
   {
+    "id": "src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes.valores.[callback]:ArrowFunction#1",
+    "assinatura": "(f: FlapReentrada): number",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
     "id": "src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.evento:MethodDeclaration",
-    "assinatura": "(tipo: string, descricao: string, categoria?: EventoMissao[\"categoria\"]): void",
+    "assinatura": "(tipo: string, descricao: string, categoria?: EventoMissao[\"categoria\"], dados?: EventoMissao[\"dados\"]): void",
+    "modificadores": [
+      "private"
+    ],
+    "categoria": "producao"
+  },
+  {
+    "id": "src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerMetricasPasso:MethodDeclaration",
+    "assinatura": "(): Readonly<Record<string, number>>",
     "modificadores": [
       "private"
     ],
@@ -4687,7 +4719,7 @@
   },
   {
     "id": "src/cenarios/EnsaioReentrada.ts::criarEnsaioReentrada:FunctionDeclaration",
-    "assinatura": "(configuracao?: Partial<ConfiguracaoReentrada>): RegistroMissao<ComandoReentrada, { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: \"reentrada\" | \"pouso\" | \"falha\"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number | boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }[]; vinculos: { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }>",
+    "assinatura": "(configuracao?: EntradaConfiguracaoReentrada): RegistroMissao<ComandoReentrada, { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record<string, FaixaTemporal>; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; } | null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly<{ estrategia: \"heuristica-experimental-55-70-graus\"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number | null; integridadeMinima: number | null; eficaciaQualificada: false; }> | null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: \"reentrada\" | \"pouso\" | \"falha\"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number | boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { cargasEfetivamenteIntegradas: { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } | null; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; respostaTermica: { modelo: string; tetoUniversal: boolean; potenciaIndicadorCorpoW: number; potenciaTransferidaCorpoW: number; tpsInstalado: boolean; camadasInternasModeladas: boolean; }; estadosTerminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }[]; vinculos: { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }>",
     "modificadores": [
       "export"
     ],
@@ -4695,11 +4727,143 @@
   },
   {
     "id": "src/cenarios/EnsaioReentrada.ts::reproduzirEnsaioReentrada:FunctionDeclaration",
-    "assinatura": "(diario: DiarioReentrada): RegistroMissao<ComandoReentrada, { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: \"reentrada\" | \"pouso\" | \"falha\"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number | boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }[]; vinculos: { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }>",
+    "assinatura": "(diario: DiarioReentrada): RegistroMissao<ComandoReentrada, { id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record<string, FaixaTemporal>; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; } | null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly<{ estrategia: \"heuristica-experimental-55-70-graus\"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number | null; integridadeMinima: number | null; eficaciaQualificada: false; }> | null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: \"reentrada\" | \"pouso\" | \"falha\"; automatico: boolean; autorizado: boolean; requisitos: { descricao: string; atendido: boolean; atual: number | boolean; esperado: string; }[]; limites: { altitudeMinimaM: number; altitudeMaximaM: number; velocidadeMaximaMps: number; atitudeMaximaRad: number; trajetoriaMinimaRad: number; trajetoriaMaximaRad: number; }; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { cargasEfetivamenteIntegradas: { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } | null; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; respostaTermica: { modelo: string; tetoUniversal: boolean; potenciaIndicadorCorpoW: number; potenciaTransferidaCorpoW: number; tpsInstalado: boolean; camadasInternasModeladas: boolean; }; estadosTerminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }[]; vinculos: { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; }>",
     "modificadores": [
       "export"
     ],
     "categoria": "producao"
+  },
+  {
+    "id": "src/cenarios/InstrumentacaoReentrada.test.ts::[callback]:ArrowFunction#1",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#1",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]#1.[callback]:ArrowFunction#1",
+    "assinatura": "(): ParametrosReentrada",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]#1.[callback]:ArrowFunction#2",
+    "assinatura": "(): ParametrosReentrada",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]#1.[callback]:ArrowFunction#3",
+    "assinatura": "(): ParametrosReentrada",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]#1.[callback]:ArrowFunction#4",
+    "assinatura": "(): ParametrosReentrada",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]#1.[callback]:ArrowFunction#5",
+    "assinatura": "(): ParametrosReentrada",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#2",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#3",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#4",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]#4.[callback]:ArrowFunction#1",
+    "assinatura": "(x: EventoMissao): boolean",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#5",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]#5.[callback]:ArrowFunction#1",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#6",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#7",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#8",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#9",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]#9.[callback]:ArrowFunction#1",
+    "assinatura": "(f: FixadorEstrutural): number",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]#9.[callback]:ArrowFunction#2",
+    "assinatura": "(f: FixadorEstrutural): number",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#10",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#11",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/InstrumentacaoReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#12",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
   },
   {
     "id": "src/cenarios/ReproducaoDiarioBss005.test.ts::criarDiario:ArrowFunction",
@@ -5427,7 +5591,7 @@
   },
   {
     "id": "src/missoes/MissaoBss006.ts::MissaoBss006.obterEventos.[callback]:ArrowFunction#1",
-    "assinatura": "(e: EventoMissao): { sequencia: number; passo: number; tempoS: number; categoria: \"fisico\" | \"missao\" | \"comando\"; tipo: string; descricao: string; }",
+    "assinatura": "(e: EventoMissao): { sequencia: number; passo: number; tempoS: number; categoria: \"fisico\" | \"missao\" | \"comando\"; tipo: string; descricao: string; dados?: Readonly<Record<string, number | string | boolean | null>>; }",
     "modificadores": [],
     "categoria": "callback"
   },
@@ -5756,8 +5920,32 @@
     "categoria": "teste"
   },
   {
+    "id": "src/missoes/RegistroExtremos.ts::RegistroExtremos.constructor:Constructor",
+    "assinatura": "(intervaloPassos: number): RegistroExtremos",
+    "modificadores": [
+      "public"
+    ],
+    "categoria": "producao"
+  },
+  {
+    "id": "src/missoes/RegistroExtremos.ts::RegistroExtremos.registrar:MethodDeclaration",
+    "assinatura": "(valores: Readonly<Record<string, number>>, passo: number, tempoS: number): void",
+    "modificadores": [
+      "public"
+    ],
+    "categoria": "producao"
+  },
+  {
+    "id": "src/missoes/RegistroExtremos.ts::RegistroExtremos.observar:MethodDeclaration",
+    "assinatura": "(): { globais: Record<string, FaixaTemporal>; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; } | null; }",
+    "modificadores": [
+      "public"
+    ],
+    "categoria": "producao"
+  },
+  {
     "id": "src/missoes/RegistroMissao.ts::RegistroMissao.constructor:Constructor",
-    "assinatura": "<C, O>(instancia: InstanciaMissao<C, O>, identificacao: object, validarComando: (c: unknown) => c is C, intervaloAmostraPassos?: number): RegistroMissao<C, O>",
+    "assinatura": "<C, O>(instancia: InstanciaMissao<C, O>, identificacao: object, validarComando: (c: unknown) => c is C, intervaloAmostraPassos?: number, limiteAmostras?: number | undefined): RegistroMissao<C, O>",
     "modificadores": [
       "public"
     ],
@@ -7231,12 +7419,40 @@
     "categoria": "producao"
   },
   {
+    "id": "src/physics/MundoFisico.ts::MundoFisico.aplicarKickGravitacional.[callback]:ArrowFunction#1",
+    "assinatura": "(s: number, j: { impulsoNs: Vetor3; pontoM: Vetor3; }): number",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
     "id": "src/physics/MundoFisico.ts::MundoFisico.aplicarKickHidrostatico:MethodDeclaration",
     "assinatura": "(dtS: number): void",
     "modificadores": [
       "private"
     ],
     "categoria": "producao"
+  },
+  {
+    "id": "src/physics/MundoFisico.ts::MundoFisico.obterDiagnosticoAngularDoPasso:MethodDeclaration",
+    "assinatura": "(objeto: Objeto): { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } | undefined",
+    "modificadores": [
+      "public"
+    ],
+    "categoria": "producao"
+  },
+  {
+    "id": "src/physics/MundoFisico.ts::MundoFisico.registrarDiagnosticoAngular:MethodDeclaration",
+    "assinatura": "(conjunto: ConjuntoEstruturalRigido, impulsoGravitacionalNmS: number, forcas?: readonly ForcaAplicada[]): void",
+    "modificadores": [
+      "private"
+    ],
+    "categoria": "producao"
+  },
+  {
+    "id": "src/physics/MundoFisico.ts::MundoFisico.registrarDiagnosticoAngular.[callback]:ArrowFunction#1",
+    "assinatura": "(s: number, f: ForcaAplicada): number",
+    "modificadores": [],
+    "categoria": "callback"
   },
   {
     "id": "src/physics/MundoFisico.ts::MundoFisico.validarVetorPlanar:MethodDeclaration",
@@ -11164,7 +11380,7 @@
   },
   {
     "id": "src/physics/estruturas/DiagnosticoAngular.ts::BalancoAngular.registrar:MethodDeclaration",
-    "assinatura": "(antes: DiagnosticoAngular, depois: DiagnosticoAngular, dtS: number, torqueNaoGravitacionalNm: number, completo: boolean): void",
+    "assinatura": "(antes: DiagnosticoAngular, depois: DiagnosticoAngular, dtS: number, torqueNaoGravitacionalNm: number, completo: boolean, impulsoMedidoPeloCoreNmS?: number): void",
     "modificadores": [
       "public"
     ],
@@ -12447,7 +12663,7 @@
   },
   {
     "id": "src/physics/objetos/componentes/FlapReentrada.ts::FlapReentrada.constructor:Constructor",
-    "assinatura": "(definicao: DefinicaoAletaAerodinamica, lerRolagemRad: () => number, montagemIntegra: () => boolean): FlapReentrada",
+    "assinatura": "(definicao: DefinicaoAletaAerodinamica, lerRolagemRad: () => number, montagemIntegra: () => boolean, parametros?: ParametrosReentrada): FlapReentrada",
     "modificadores": [
       "public"
     ],
@@ -12498,6 +12714,23 @@
     "modificadores": [
       "public",
       "override"
+    ],
+    "categoria": "producao"
+  },
+  {
+    "id": "src/physics/objetos/componentes/FlapReentrada.ts::FlapReentrada.capacidadeTermicaJPorC:GetAccessor",
+    "assinatura": "(): number",
+    "modificadores": [
+      "public",
+      "override"
+    ],
+    "categoria": "producao"
+  },
+  {
+    "id": "src/physics/objetos/componentes/FlapReentrada.ts::FlapReentrada.obterDiagnosticoAtuacao:MethodDeclaration",
+    "assinatura": "(): { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }",
+    "modificadores": [
+      "public"
     ],
     "categoria": "producao"
   },
@@ -13924,7 +14157,7 @@
   },
   {
     "id": "src/physics/objetos/propulsao/PropulsaoQuimica.test.ts::[callback]#1.[callback]:ArrowFunction#10",
-    "assinatura": "(falha: \"controle\" | \"ignicao\" | \"eletrica\" | \"integridade\"): void",
+    "assinatura": "(falha: \"integridade\" | \"controle\" | \"ignicao\" | \"eletrica\"): void",
     "modificadores": [],
     "categoria": "teste"
   },
@@ -16113,7 +16346,7 @@
   },
   {
     "id": "src/physics/objetos/veiculos/OrbitadorReentrada.ts::OrbitadorReentrada.constructor:Constructor",
-    "assinatura": "(estadoInicial: EstadoFisico, limiteTermicoC: number, phiInicialRad: number, perfil: PerfilAtmosfericoReentrada, referencial: ReferencialFisico, lerVelocidadeArMps: () => Vetor3): OrbitadorReentrada",
+    "assinatura": "(estadoInicial: EstadoFisico, limiteTermicoC: number, phiInicialRad: number, perfil: PerfilAtmosfericoReentrada, referencial: ReferencialFisico, lerVelocidadeArMps: () => Vetor3, parametros?: ParametrosReentrada): OrbitadorReentrada",
     "modificadores": [
       "public"
     ],
@@ -16934,6 +17167,20 @@
     "categoria": "producao"
   },
   {
+    "id": "src/physics/reentrada/ModeloAerodinamicoReentrada.ts::configurarParametrosReentrada:FunctionDeclaration",
+    "assinatura": "(entrada?: Partial<ParametrosReentrada>): ParametrosReentrada",
+    "modificadores": [
+      "export"
+    ],
+    "categoria": "producao"
+  },
+  {
+    "id": "src/physics/reentrada/ModeloAerodinamicoReentrada.ts::configurarParametrosReentrada.[callback]:ArrowFunction#1",
+    "assinatura": "(k: string): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
     "id": "src/physics/reentrada/ModeloAerodinamicoReentrada.ts::projetarSustentacao:FunctionDeclaration",
     "assinatura": "(sustentacaoN: number, phiRad: number): number",
     "modificadores": [
@@ -16943,7 +17190,7 @@
   },
   {
     "id": "src/physics/reentrada/ModeloAerodinamicoReentrada.ts::calcularFluxoTermicoIndicador:FunctionDeclaration",
-    "assinatura": "(rho: number, velocidadeMps: number, raioM: number): number",
+    "assinatura": "(rho: number, velocidadeMps: number, raioM: number, coeficienteSI?: number): number",
     "modificadores": [
       "export"
     ],
@@ -16951,7 +17198,7 @@
   },
   {
     "id": "src/physics/reentrada/ModeloAerodinamicoReentrada.ts::avaliarAerodinamica:FunctionDeclaration",
-    "assinatura": "(estado: EstadoFisico, condicoes: CondicoesAtmosfericas, atmosfera: AmostraAtmosferaReentrada, integridade: number, phiRad: number): CargasReentrada",
+    "assinatura": "(estado: EstadoFisico, condicoes: CondicoesAtmosfericas, atmosfera: AmostraAtmosferaReentrada, integridade: number, phiRad: number, p?: ParametrosReentrada): CargasReentrada",
     "modificadores": [
       "export"
     ],
@@ -18696,7 +18943,7 @@
   },
   {
     "id": "src/physics/sistemas de controle/ControladorReentrada.ts::ControladorReentrada.constructor:Constructor",
-    "assinatura": "(ler: () => TelemetriaControleReentrada, alphaRad: number, phiRad: number, corredor: CorredorReentrada): ControladorReentrada",
+    "assinatura": "(ler: () => TelemetriaControleReentrada, alphaRad: number, phiRad: number, corredor: CorredorReentrada, parametros?: ParametrosReentrada): ControladorReentrada",
     "modificadores": [
       "public"
     ],
@@ -18748,7 +18995,7 @@
   },
   {
     "id": "src/physics/sistemas de controle/ControladorReentrada.ts::ControladorReentrada.observar:MethodDeclaration",
-    "assinatura": "(): { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; }",
+    "assinatura": "(): { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly<{ estrategia: \"heuristica-experimental-55-70-graus\"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number | null; integridadeMinima: number | null; eficaciaQualificada: false; }> | null; }",
     "modificadores": [
       "public"
     ],
@@ -18803,6 +19050,14 @@
     "assinatura": "(solicitacao: SolicitacaoDeAtuador): boolean",
     "modificadores": [],
     "categoria": "teste"
+  },
+  {
+    "id": "src/physics/sistemas de controle/EstrategiaCorredorReentrada.ts::avaliarCorredorReentrada:FunctionDeclaration",
+    "assinatura": "(t: TelemetriaControleReentrada, limites: CorredorReentrada, alphaSolicitadoRad: number, phiSolicitadoRad: number): Readonly<{ estrategia: \"heuristica-experimental-55-70-graus\"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number | null; integridadeMinima: number | null; eficaciaQualificada: false; }>",
+    "modificadores": [
+      "export"
+    ],
+    "categoria": "producao"
   },
   {
     "id": "src/physics/sistemas de controle/GerenciadorDeControladores.test.ts::criarControlador:ArrowFunction",
@@ -19890,9 +20145,15 @@
   },
   {
     "id": "src/reentrada.ts::iniciarBancada.lerConfiguracao:FunctionDeclaration",
-    "assinatura": "(): Partial<ConfiguracaoReentrada>",
+    "assinatura": "(): EntradaConfiguracaoReentrada",
     "modificadores": [],
     "categoria": "producao"
+  },
+  {
+    "id": "src/reentrada.ts::iniciarBancada.lerConfiguracao.[callback]:ArrowFunction#1",
+    "assinatura": "([k, input]: [\"areaReferenciaM2\" | \"comprimentoM\" | \"alturaM\" | \"raioNarizM\" | \"areaAquecidaM2\" | \"massaCorpoKg\" | \"massaFlapKg\" | \"massaBateriaKg\" | \"resistenciaCorpoJ\" | \"resistenciaFlapJ\" | \"resistenciaFixadorN\" | \"areaFlapM2\" | \"clFlapPorRad\" | \"cdFlapBase\" | \"cdFlapDeflexao\" | \"cursoFlapRad\" | \"taxaFlapRadps\" | \"bracoFlapM\" | \"potenciaFlapW\" | \"potenciaRepousoFlapW\" | \"tensaoBateriaV\" | \"energiaBateriaJ\" | \"ganhoAlpha\" | \"ganhoTaxa\" | \"torqueMinimoAutoridadeNm\" | \"taxaRolagemRadps\" | \"coeficienteSuttonGravesSI\" | \"larguraM\" | \"clCorpo\" | \"fatorMachBase\" | \"fatorMachVariacao\" | \"cdCorpoBase\" | \"cdCorpoAlpha\" | \"cdMachGauss\" | \"cpBaseM\" | \"cpVariacaoM\" | \"deslocamentoVerticalFlapM\" | \"raioNarizFlapM\" | \"areaAquecidaFlapM2\" | \"calorEspecificoCorpoJPorKgC\" | \"calorEspecificoFlapJPorKgC\" | \"comprimentoCaracteristicoCorpoM\" | \"comprimentoCaracteristicoFlapM\" | \"cursoRolagemRad\" | \"conveccaoCorpoWPorM2C\" | \"condutanciaFlapWPorC\" | \"fracaoCargaInicialBateria\", HTMLInputElement]): [\"areaReferenciaM2\" | \"comprimentoM\" | \"alturaM\" | \"raioNarizM\" | \"areaAquecidaM2\" | \"massaCorpoKg\" | \"massaFlapKg\" | \"massaBateriaKg\" | \"resistenciaCorpoJ\" | \"resistenciaFlapJ\" | \"resistenciaFixadorN\" | \"areaFlapM2\" | \"clFlapPorRad\" | \"cdFlapBase\" | \"cdFlapDeflexao\" | \"cursoFlapRad\" | \"taxaFlapRadps\" | \"bracoFlapM\" | \"potenciaFlapW\" | \"potenciaRepousoFlapW\" | \"tensaoBateriaV\" | \"energiaBateriaJ\" | \"ganhoAlpha\" | \"ganhoTaxa\" | \"torqueMinimoAutoridadeNm\" | \"taxaRolagemRadps\" | \"coeficienteSuttonGravesSI\" | \"larguraM\" | \"clCorpo\" | \"fatorMachBase\" | \"fatorMachVariacao\" | \"cdCorpoBase\" | \"cdCorpoAlpha\" | \"cdMachGauss\" | \"cpBaseM\" | \"cpVariacaoM\" | \"deslocamentoVerticalFlapM\" | \"raioNarizFlapM\" | \"areaAquecidaFlapM2\" | \"calorEspecificoCorpoJPorKgC\" | \"calorEspecificoFlapJPorKgC\" | \"comprimentoCaracteristicoCorpoM\" | \"comprimentoCaracteristicoFlapM\" | \"cursoRolagemRad\" | \"conveccaoCorpoWPorM2C\" | \"condutanciaFlapWPorC\" | \"fracaoCargaInicialBateria\", number]",
+    "modificadores": [],
+    "categoria": "callback"
   },
   {
     "id": "src/reentrada.ts::iniciarBancada.preparar:FunctionDeclaration",
@@ -19932,7 +20193,7 @@
   },
   {
     "id": "src/reentrada.ts::iniciarBancada.atualizarPainel.[callback]:ArrowFunction#1",
-    "assinatura": "(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }): boolean",
+    "assinatura": "(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): boolean",
     "modificadores": [],
     "categoria": "callback"
   },
@@ -19998,7 +20259,7 @@
   },
   {
     "id": "src/reentrada.ts::iniciarBancada.[callback]#10.[callback]:ArrowFunction#1",
-    "assinatura": "(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; }): boolean",
+    "assinatura": "(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; }; knudsenEstimado: number; modeloEscoamento: string; }): boolean",
     "modificadores": [],
     "categoria": "callback"
   },
