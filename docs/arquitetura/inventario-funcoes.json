@@ -1284,7 +1284,7 @@
   },
   {
     "id": "scripts/site/smoke.ts::executarSmokeSite.[callback]:ArrowFunction#15",
-    "assinatura": "(): boolean",
+    "assinatura": "(caminho: \"/publicacoes/pouso-propulsivo-bss-2026.pdf\" | \"/publicacoes/engenharia-orbita-retorno-re001-2026.pdf\"): boolean",
     "modificadores": [],
     "categoria": "callback"
   },
@@ -1675,8 +1675,10 @@
   },
   {
     "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]:ArrowFunction#4",
-    "assinatura": "(): void",
-    "modificadores": [],
+    "assinatura": "(): Promise<void>",
+    "modificadores": [
+      "async"
+    ],
     "categoria": "teste"
   },
   {
@@ -1686,13 +1688,25 @@
     "categoria": "teste"
   },
   {
-    "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#4.[callback]:ArrowFunction#2",
+    "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]:ArrowFunction#5",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#5.[callback]:ArrowFunction#1",
     "assinatura": "(): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }",
     "modificadores": [],
     "categoria": "teste"
   },
   {
-    "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#4.[callback]:ArrowFunction#3",
+    "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#5.[callback]:ArrowFunction#2",
+    "assinatura": "(): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "site/build/pluginInstitucional.test.ts::[callback]#4.[callback]#5.[callback]:ArrowFunction#3",
     "assinatura": "(): { paginas: number; imagens: number; referencias: number; pdfIdentico: boolean; }",
     "modificadores": [],
     "categoria": "teste"
@@ -1719,6 +1733,12 @@
   },
   {
     "id": "site/build/pluginInstitucional.ts::pluginInstitucional.atenderInstitucional.[callback]:ArrowFunction#1",
+    "assinatura": "(p: { readonly caminho: \"/publicacoes/pouso-propulsivo-bss-2026.pdf\"; readonly fonte: \"docs/estudos/Artigo_Cientifico_BlackStar_BSS_Pouso_Propulsivo.pdf\"; } | { readonly caminho: \"/publicacoes/engenharia-orbita-retorno-re001-2026.pdf\"; readonly fonte: \"docs/estudos/Black_Star_RE001_Tese_Engenharia_Orbita_e_Retorno.pdf\"; }): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "site/build/pluginInstitucional.ts::pluginInstitucional.atenderInstitucional.[callback]:ArrowFunction#2",
     "assinatura": "(p: \"index.html\" | \"pesquisa.html\" | \"simulador.html\"): boolean",
     "modificadores": [],
     "categoria": "callback"

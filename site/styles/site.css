@@ -32,3 +32,6 @@
 .somente-leitor{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
 @media(max-width:650px){.hero{padding-bottom:165px}.hero-rodape{flex-direction:column;align-items:flex-start;gap:14px}.hero-creditos{max-width:100%;gap:6px}.hero-rodape .hero-creditos span:last-child{max-width:100%;font-size:8px}.carrossel-controles{gap:9px}.carrossel-controles button{min-width:44px;min-height:44px}}
 @media(prefers-reduced-motion:reduce){.hero .hero-slide{transition:none}}
+
+/* RE-002: composição editorial das duas publicações e atualização científica. */
+.artigo+.artigo{margin-top:64px}.noticia-re{background:#12171c;border-top:1px solid var(--linha)}.noticia-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:70px}.noticia-grid h2{font-size:clamp(30px,3.4vw,54px);line-height:1.12}.noticia-grid time{display:block;margin-top:30px;font-size:11px;color:#a5a8aa}.noticia-grid p{font-size:15px;line-height:1.85}.noticia-grid .nota{margin-top:28px;font-size:12px}.noticia-grid .elo{display:inline-block;margin-top:12px}@media(max-width:650px){.noticia-grid{grid-template-columns:1fr;gap:30px}.artigo+.artigo{margin-top:45px}}

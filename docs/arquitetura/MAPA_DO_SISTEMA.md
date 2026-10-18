@@ -291,7 +291,7 @@ Escopo: imports/exportações estáticos locais das fontes próprias; chamadas d
 | [scripts/documentacao/cli.ts](../../scripts/documentacao/cli.ts) | funções/entrada | node:fs, node:path, node:crypto, node:child_process, typescript, ./projeto, T: ./ast, ./catalogo, T: ./catalogo, ./auditoria |
 | [scripts/documentacao/projeto.ts](../../scripts/documentacao/projeto.ts) | funções/entrada | node:fs, node:path, typescript, ./ast, T: ./ast |
 | [scripts/executar-missao.ts](../../scripts/executar-missao.ts) | funções/entrada | node:util, node:fs, ../src/missoes/ReplayMissaoBss006, ../src/missoes/ExecutorMissao |
-| [scripts/site/smoke.ts](../../scripts/site/smoke.ts) | funções/entrada | node:assert/strict, node:fs, node:os, node:path, T: node:net, node:timers/promises, playwright-core, T: playwright-core, vite |
+| [scripts/site/smoke.ts](../../scripts/site/smoke.ts) | funções/entrada | ../../site/build/pluginInstitucional, node:assert/strict, node:fs, node:os, node:path, T: node:net, node:timers/promises, playwright-core, T: playwright-core, vite |
 | [scripts/site/verificar.ts](../../scripts/site/verificar.ts) | funções/entrada | node:crypto, node:fs, node:path, ../../site/build/pluginInstitucional |
 | [scripts/smoke-reentrada.ts](../../scripts/smoke-reentrada.ts) | funções/entrada | node:assert/strict, node:fs, node:path, T: node:net, playwright-core, vite |
 | [scripts/validar-hidrodinamica.ts](../../scripts/validar-hidrodinamica.ts) | funções/entrada | node:fs, node:util, ../src/physics/MundoFisico, ../src/physics/objetos/base/Objeto, ../src/physics/Vetor3, ../src/physics/ambiente/AmbienteFisico, ../src/physics/ambiente/GeografiaCosteira, ../src/physics/agua/RegiaoAquatica, ../src/physics/agua/SistemaHidrodinamico |

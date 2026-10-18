@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
 import type { AddressInfo } from 'node:net';
 import { createServer as criarServidorHttp } from 'node:http';
-import { pluginInstitucional, paginasInstitucionais, fonteArtigo, caminhoArtigo } from './pluginInstitucional';
+import { pluginInstitucional, paginasInstitucionais, fonteArtigo, caminhoArtigo, publicacoes } from './pluginInstitucional';
 import { verificarDistribuicao } from '../../scripts/site/verificar';
 
 const raiz = mkdtempSync(join(tmpdir(), 'blackstar-build-unico-'));
@@ -21,6 +21,7 @@ beforeAll(async () => {
   writeFileSync(join(raiz, 'site/public/media/fixture.svg'), '<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"></svg>');
   mkdirSync(dirname(join(raiz, fonteArtigo)), { recursive: true });
   writeFileSync(join(raiz, fonteArtigo), documento);
+  for (const publicacao of publicacoes) writeFileSync(join(raiz, publicacao.fonte), documento);
   for (const fonte of fontes) {
     mkdirSync(dirname(join(raiz, fonte)), { recursive: true });
     writeFileSync(join(raiz, fonte), `<!doctype html><html lang="pt-BR"><head><title>${fonte}</title></head><body><h1 id="conteudo">${fonte}</h1><img src="/media/fixture.svg" alt="Fixture" width="1" height="1"><a href="/pesquisa#conteudo">Pesquisa</a><a href="${caminhoArtigo}">Artigo</a></body></html>`);
@@ -56,6 +57,22 @@ describe('Build único e rotas nativas sem outro repositório', () => {
 
   it('retorna 404 em JS, CSS, imagem e PDF ausentes e no legado abandonado', async () => {
     for (const rota of ['/assets/ausente.js', '/assets/ausente.css', '/media/ausente.webp', '/publicacoes/ausente.pdf', '/rota-inexistente', '/starship_v1.html', '/vendor/prototipo2/tests.html']) expect((await fetch(base + rota)).status, rota).toBe(404);
+  });
+
+  it('preserva ambos os PDFs em dev/build, HEAD, query string e ausência de fallback', async () => {
+    for (const publicacao of publicacoes) {
+      expect(readFileSync(join(raiz, 'dist', publicacao.caminho))).toEqual(documento);
+      const resposta = await fetch(base + publicacao.caminho + '?download=1');
+      expect(resposta.status).toBe(200);
+      expect(resposta.headers.get('content-type')).toBe('application/pdf');
+      expect(Buffer.from(await resposta.arrayBuffer())).toEqual(documento);
+      const head = await fetch(base + publicacao.caminho, { method: 'HEAD' });
+      expect(head.status).toBe(200); expect(head.headers.get('content-length')).toBe(String(documento.length));
+      expect(await head.text()).toBe('');
+    }
+    const novo = join(raiz, 'dist', publicacoes[1].caminho);
+    try { writeFileSync(novo, '%PDF-alterado'); expect(() => verificarDistribuicao(raiz)).toThrow('fonte canônica'); }
+    finally { writeFileSync(novo, documento); }
   });
 
   it('rejeita recurso quebrado, PDF divergente e reintrodução de runtime legado', () => {

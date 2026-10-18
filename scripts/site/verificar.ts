@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { resolve, join, relative } from 'node:path';
-import { caminhoArtigo, fonteArtigo, paginasInstitucionais } from '../../site/build/pluginInstitucional';
+import { publicacoes, paginasInstitucionais } from '../../site/build/pluginInstitucional';
 
 /** Enumera arquivos de uma saída conhecida em ordem estável; somente leitura FS.  @contract f-37e394dbdd56c265 */
 export function listarArquivos(pasta: string): string[] {
@@ -32,7 +32,7 @@ export function resolverRecurso(dist: string, caminho: string): string {
 
 /**
  * Qualifica arquivos e referências da distribuição única, sem executar simulação.
- * @param raiz Checkout P2 com build concluído; lê dist, fonte do artigo e Hosting.
+ * @param raiz Checkout P2 com build concluído; lê dist, todas as fontes PDF e Hosting.
  * @returns Contagens auditáveis. Não grava arquivos nem chama Firebase/deploy.
  * @throws Em página/recurso ausente, PDF divergente, publicação de internos/legado
  * ou configuração que possa mascarar ausência de assets com HTML.
@@ -62,9 +62,11 @@ export function verificarDistribuicao(raiz: string): { paginas: number; imagens:
     const nome = relative(dist, arquivo).replaceAll('\\', '/');
     if (/^(?:docs|src|scripts|vendor|node_modules|site)\/|starship_v1|\.(?:ts|map)$/.test(nome)) throw new Error(`Arquivo interno/legado publicado: ${nome}`);
   }
-  const pdf = resolverRecurso(dist, caminhoArtigo);
-  if (hashArquivo(pdf) !== hashArquivo(resolve(raiz, fonteArtigo))) throw new Error('PDF público diverge da fonte canônica.');
-  if (!readFileSync(pdf).subarray(0, 5).equals(Buffer.from('%PDF-'))) throw new Error('Fonte documental inválida.');
+  for (const publicacao of publicacoes) {
+    const pdf = resolverRecurso(dist, publicacao.caminho);
+    if (hashArquivo(pdf) !== hashArquivo(resolve(raiz, publicacao.fonte))) throw new Error(`PDF público diverge da fonte canônica: ${publicacao.caminho}`);
+    if (!readFileSync(pdf).subarray(0, 5).equals(Buffer.from('%PDF-'))) throw new Error(`Fonte documental inválida: ${publicacao.fonte}`);
+  }
   const hosting = JSON.parse(readFileSync(resolve(raiz, 'firebase.json'), 'utf8')).hosting;
   if (hosting.public !== 'dist' || hosting.rewrites?.some((r: { source: string }) => r.source === '**')) throw new Error('Hosting deve publicar somente dist, sem rewrite global.');
   if (!hosting.predeploy?.includes('npm --prefix "$PROJECT_DIR" run preparar:deploy')) throw new Error('Hosting deve preparar e validar build antes de publicar.');

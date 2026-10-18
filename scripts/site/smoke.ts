@@ -1,3 +1,4 @@
+import { publicacoes } from '../../site/build/pluginInstitucional';
 import assert from 'node:assert/strict';
 import { existsSync, mkdirSync, mkdtempSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -96,20 +97,22 @@ export async function executarSmokeSite(raiz: string): Promise<{ resultado: stri
     }
     const page = await abrirPagina(browser, 1440, 1000, erros, falhas);
     await page.goto(base + '/pesquisa', { waitUntil: 'networkidle' });
-    const pdf = await fetch(base + '/publicacoes/pouso-propulsivo-bss-2026.pdf');
-    assert.equal(pdf.status, 200); assert(pdf.headers.get('content-type')!.includes('application/pdf'));
-    const bytes = Buffer.from(await pdf.arrayBuffer()); assert.equal(bytes.subarray(0, 5).toString(), '%PDF-');
-    const aba = page.waitForEvent('popup');
-    await page.click('a[target="_blank"]');
-    const leitor = await aba;
-    await leitor.waitForFunction(() => location.href.includes('/publicacoes/pouso-propulsivo-bss-2026.pdf')); await leitor.close();
-    const baixando = page.waitForEvent('download');
-    await page.click('a[download]');
-    const download = await baixando;
-    const arquivo = join(downloads, download.suggestedFilename());
-    await download.saveAs(arquivo);
-    assert(readFileSync(arquivo).equals(bytes));
-    verificacoes.push('PDF: nova aba, MIME e download idêntico.');
+    for (const publicacao of publicacoes) {
+      const pdf = await fetch(base + publicacao.caminho);
+      assert.equal(pdf.status, 200); assert(pdf.headers.get('content-type')!.includes('application/pdf'));
+      const bytes = Buffer.from(await pdf.arrayBuffer()); assert.equal(bytes.subarray(0, 5).toString(), '%PDF-');
+      assert(readFileSync(join(raiz, publicacao.fonte)).equals(bytes));
+      const aba = page.waitForEvent('popup');
+      await page.locator(`a[target="_blank"][href="${publicacao.caminho}"]`).click();
+      const leitor = await aba;
+      await leitor.waitForFunction(caminho => location.pathname === caminho, publicacao.caminho); await leitor.close();
+      const baixando = page.waitForEvent('download');
+      await page.locator(`a[download][href="${publicacao.caminho}"]`).click();
+      const download = await baixando;
+      const arquivo = join(downloads, download.suggestedFilename());
+      await download.saveAs(arquivo); assert(readFileSync(arquivo).equals(bytes));
+      verificacoes.push(`PDF ${publicacao.caminho}: nova aba, MIME e download idêntico.`);
+    }
 
     await page.goto(base + '/simulador', { waitUntil: 'networkidle' });
     await Promise.all([page.waitForNavigation({ waitUntil: 'networkidle' }), page.click('a[href="/missao.html"]')]);
