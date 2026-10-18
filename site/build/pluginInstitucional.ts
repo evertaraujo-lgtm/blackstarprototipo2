@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { Plugin } from 'vite';
 
-export const paginasInstitucionais = ['index.html', 'pesquisa.html', 'simulador.html'] as const;
+export const paginasInstitucionais = ['index.html', 'pesquisa.html', 'simulador.html', 'termica-re004.html'] as const;
 export const caminhoArtigo = '/publicacoes/pouso-propulsivo-bss-2026.pdf';
 export const fonteArtigo = 'docs/estudos/Artigo_Cientifico_BlackStar_BSS_Pouso_Propulsivo.pdf';
 /** Fontes canônicas e URLs estáveis; publicação não implica qualificação de voo. */
@@ -11,6 +11,11 @@ export const publicacoes = Object.freeze([
   { caminho: caminhoArtigo, fonte: fonteArtigo },
   { caminho: '/publicacoes/engenharia-orbita-retorno-re001-2026.pdf',
     fonte: 'docs/estudos/Black_Star_RE001_Tese_Engenharia_Orbita_e_Retorno.pdf' },
+] as const);
+export const estudosMarkdown = Object.freeze([
+  { caminho: '/estudos/re004/01-auditoria-termica-comparativa.md', fonte: 'docs/estudos/re004/01-auditoria-termica-comparativa.md' },
+  { caminho: '/estudos/re004/02-arquitetura-e-modelo-termico.md', fonte: 'docs/estudos/re004/02-arquitetura-e-modelo-termico.md' },
+  { caminho: '/estudos/re004/03-protocolo-proximos-ensaios.md', fonte: 'docs/estudos/re004/03-protocolo-proximos-ensaios.md' },
 ] as const);
 
 /**
@@ -30,7 +35,8 @@ export function pluginInstitucional(raiz: string): Plugin {
   function atenderInstitucional(req: IncomingMessage, res: ServerResponse, next: (erro?: unknown) => void): void {
     const url = new URL(req.url ?? '/', 'http://localhost');
     const publicacao = publicacoes.find(p => p.caminho === url.pathname);
-    const pagina = paginasInstitucionais.find(p => url.pathname === `/${p}`
+    const estudo = estudosMarkdown.find(e => e.caminho === url.pathname);
+    const pagina = paginasInstitucionais.find(p => (p === 'termica-re004.html' && url.pathname === '/pesquisa/termica-re004') || url.pathname === `/${p}`
       || url.pathname === (p === 'index.html' ? '/' : `/${p.slice(0, -5)}`));
     if (pagina) {
       req.url = `${desenvolvimento ? '/site/pages/' : '/'}${pagina}${url.search}`;
@@ -39,6 +45,14 @@ export function pluginInstitucional(raiz: string): Plugin {
       try {
         const bytes = readFileSync(resolve(raiz, publicacao.fonte));
         res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Length', bytes.length);
+        res.setHeader('X-Content-Type-Options', 'nosniff');
+        res.end(req.method === 'HEAD' ? undefined : bytes);
+      } catch (erro) { next(erro); }
+    } else if (desenvolvimento && estudo) {
+      try {
+        const bytes = readFileSync(resolve(raiz, estudo.fonte));
+        res.setHeader('Content-Type', 'text/markdown; charset=utf-8');
         res.setHeader('Content-Length', bytes.length);
         res.setHeader('X-Content-Type-Options', 'nosniff');
         res.end(req.method === 'HEAD' ? undefined : bytes);
@@ -75,6 +89,8 @@ export function pluginInstitucional(raiz: string): Plugin {
       }
       for (const publicacao of publicacoes) this.emitFile({ type: 'asset', fileName: publicacao.caminho.slice(1),
         source: readFileSync(resolve(raiz, publicacao.fonte)) });
+      for (const estudo of estudosMarkdown) this.emitFile({ type: 'asset', fileName: estudo.caminho.slice(1),
+        source: readFileSync(resolve(raiz, estudo.fonte)) });
     },
   };
 }

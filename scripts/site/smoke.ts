@@ -76,7 +76,7 @@ export async function executarSmokeSite(raiz: string): Promise<{ resultado: stri
     for (const largura of [1440, 768, 390, 320]) {
       const page = await abrirPagina(browser, largura, largura === 1440 ? 1000 : 844, erros, falhas);
       await page.emulateMedia({ reducedMotion: 'reduce' });
-      for (const rota of ['/', '/pesquisa', '/simulador']) {
+      for (const rota of ['/', '/pesquisa', '/pesquisa/termica-re004', '/simulador']) {
         assert.equal((await page.goto(base + rota, { waitUntil: 'networkidle' }))!.status(), 200);
         await conferirImagens(page);
         assert.equal(await page.$$eval('h1', es => es.length), 1);

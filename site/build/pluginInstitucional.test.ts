@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
 import type { AddressInfo } from 'node:net';
 import { createServer as criarServidorHttp } from 'node:http';
-import { pluginInstitucional, paginasInstitucionais, fonteArtigo, caminhoArtigo, publicacoes } from './pluginInstitucional';
+import { pluginInstitucional, paginasInstitucionais, fonteArtigo, caminhoArtigo, publicacoes, estudosMarkdown } from './pluginInstitucional';
 import { verificarDistribuicao } from '../../scripts/site/verificar';
 
 const raiz = mkdtempSync(join(tmpdir(), 'blackstar-build-unico-'));
@@ -22,6 +22,7 @@ beforeAll(async () => {
   mkdirSync(dirname(join(raiz, fonteArtigo)), { recursive: true });
   writeFileSync(join(raiz, fonteArtigo), documento);
   for (const publicacao of publicacoes) writeFileSync(join(raiz, publicacao.fonte), documento);
+  for (const md of estudosMarkdown) { mkdirSync(dirname(join(raiz, md.fonte)), { recursive: true }); writeFileSync(join(raiz, md.fonte), '# Teste markdown\n'); }
   for (const fonte of fontes) {
     mkdirSync(dirname(join(raiz, fonte)), { recursive: true });
     writeFileSync(join(raiz, fonte), `<!doctype html><html lang="pt-BR"><head><title>${fonte}</title></head><body><h1 id="conteudo">${fonte}</h1><img src="/media/fixture.svg" alt="Fixture" width="1" height="1"><a href="/pesquisa#conteudo">Pesquisa</a><a href="${caminhoArtigo}">Artigo</a></body></html>`);
@@ -41,11 +42,11 @@ describe('Build único e rotas nativas sem outro repositório', () => {
     for (const pagina of [...paginasInstitucionais, 'tests.html', 'missao.html', 'orbitas.html']) expect(existsSync(join(raiz, 'dist', pagina))).toBe(true);
     expect(existsSync(join(raiz, 'dist/site/pages/index.html'))).toBe(false);
     expect(readFileSync(join(raiz, 'dist', caminhoArtigo))).toEqual(documento);
-    expect(verificarDistribuicao(raiz)).toMatchObject({ paginas: 6, imagens: 1, pdfIdentico: true });
+    expect(verificarDistribuicao(raiz)).toMatchObject({ paginas: 7, imagens: 1, pdfIdentico: true });
   });
 
   it('serve diretamente e após recarga as rotas institucionais e mantém interfaces existentes', async () => {
-    for (const rota of ['/', '/index.html', '/pesquisa', '/simulador', '/tests.html', '/missao.html', '/orbitas.html']) {
+    for (const rota of ['/', '/index.html', '/pesquisa', '/pesquisa/termica-re004', '/simulador', '/tests.html', '/missao.html', '/orbitas.html']) {
       const a = await fetch(base + rota), b = await fetch(base + rota);
       expect(a.status).toBe(200); expect(b.status).toBe(200);
       expect(await a.text()).toContain('<h1 id="conteudo">');
@@ -55,6 +56,16 @@ describe('Build único e rotas nativas sem outro repositório', () => {
     expect(Buffer.from(await pdf.arrayBuffer())).toEqual(documento);
   });
 
+  it('distribui e serve os estudos em Markdown sem alterar bytes', async () => {
+    for (const md of estudosMarkdown) {
+      const expected = readFileSync(join(raiz, md.fonte));
+      expect(readFileSync(join(raiz, 'dist', md.caminho))).toEqual(expected);
+      const r = await fetch(base + md.caminho);
+      expect(r.status).toBe(200);
+      expect(r.headers.get('content-type')).toContain('text/markdown');
+      expect(Buffer.from(await r.arrayBuffer())).toEqual(expected);
+    }
+  });
   it('retorna 404 em JS, CSS, imagem e PDF ausentes e no legado abandonado', async () => {
     for (const rota of ['/assets/ausente.js', '/assets/ausente.css', '/media/ausente.webp', '/publicacoes/ausente.pdf', '/rota-inexistente', '/starship_v1.html', '/vendor/prototipo2/tests.html']) expect((await fetch(base + rota)).status, rota).toBe(404);
   });

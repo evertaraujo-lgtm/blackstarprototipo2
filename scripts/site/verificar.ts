@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { resolve, join, relative } from 'node:path';
-import { publicacoes, paginasInstitucionais } from '../../site/build/pluginInstitucional';
+import { publicacoes, paginasInstitucionais, estudosMarkdown } from '../../site/build/pluginInstitucional';
 
 /** Enumera arquivos de uma saída conhecida em ordem estável; somente leitura FS.  @contract f-37e394dbdd56c265 */
 export function listarArquivos(pasta: string): string[] {
@@ -25,7 +25,7 @@ export function resolverRecurso(dist: string, caminho: string): string {
   const nome = decodeURIComponent(caminho);
   const arquivo = resolve(dist, `.${nome}`);
   if (!nome.startsWith('/') || (arquivo !== dist && !arquivo.startsWith(dist + '/'))) throw new Error(`Caminho fora de dist: ${caminho}`);
-  const alvo = arquivo === dist ? join(dist, 'index.html') : ['/pesquisa', '/simulador'].includes(nome) ? arquivo + '.html' : arquivo;
+  const alvo = arquivo === dist ? join(dist, 'index.html') : ['/pesquisa', '/simulador'].includes(nome) ? arquivo + '.html' : nome === '/pesquisa/termica-re004' ? join(dist, 'termica-re004.html') : arquivo;
   if (!existsSync(alvo)) throw new Error(`Recurso ausente: ${caminho}`);
   return alvo;
 }
@@ -61,6 +61,9 @@ export function verificarDistribuicao(raiz: string): { paginas: number; imagens:
   for (const arquivo of listarArquivos(dist)) {
     const nome = relative(dist, arquivo).replaceAll('\\', '/');
     if (/^(?:docs|src|scripts|vendor|node_modules|site)\/|starship_v1|\.(?:ts|map)$/.test(nome)) throw new Error(`Arquivo interno/legado publicado: ${nome}`);
+  }
+  for (const estudo of estudosMarkdown) {
+    if (hashArquivo(resolverRecurso(dist, estudo.caminho)) !== hashArquivo(resolve(raiz, estudo.fonte))) throw new Error(`Markdown divergente: ${estudo.caminho}`);
   }
   for (const publicacao of publicacoes) {
     const pdf = resolverRecurso(dist, publicacao.caminho);
