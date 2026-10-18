@@ -50,9 +50,9 @@ function iniciarBancada(): void {
       vacuo: elemento<HTMLSelectElement>('re-atmosfera').value === 'vacuo', semente: numero('re-semente'),
       chaveamentoAutomatico: elemento<HTMLSelectElement>('re-chaveamento').value === 'automatico',
       corredor: { pressaoMaximaPa: numero('re-qmax'), fluxoMaximoWm2: numero('re-heatmax'), cargaMaximaG: numero('re-gmax') },
-      transferencia: { altitudeMinimaM: numero('re-hmin-pouso'), altitudeMaximaM: numero('re-hmax-pouso'),
-        velocidadeMaximaMps: numero('re-vmax-pouso'), atitudeMaximaRad: rad('re-atitude-pouso'),
-        trajetoriaMinimaRad: rad('re-gamma-min'), trajetoriaMaximaRad: rad('re-gamma-max') } };
+      aproximacao: { alvoArcoM: elemento<HTMLInputElement>('re-alvo-arco').value.trim() === '' ? null : numero('re-alvo-arco'),
+        aceleracoesLiquidasHipoteticasMps2: [numero('re-acc-1'), numero('re-acc-2'), numero('re-acc-3')],
+        erroAlphaMaxRad: rad('re-erro-alpha'), omegaMaxRadps: rad('re-omega-max') } };
   }
 
   /** Recria ensaio solicitado; reinicia somente pela fábrica, sem editar corpos.  @contract f-c51586eefc46d9d2 */
@@ -139,6 +139,11 @@ function iniciarBancada(): void {
     metrica('coleta', 'Coleta e eventos / descarte explícito', `extremos a cada passo · ${o.eventosDescartados} eventos fora da janela`);
     metrica('modelo-escoamento', 'Modelo empregado / domínio atmosférico', `${a.modeloEscoamentoEfetivo} · ${a.foraDominioAtmosferico ? 'fora de 0–200 km' : 'dentro de 0–200 km'}`);
     metrica('controle', 'Modo do controlador / supervisor', `${o.controle.estado} / ${o.supervisor.fase}`);
+    metrica('aproximacao', 'Candidato A / autorização operacional B', `${o.supervisor.candidatoCinematico ? 'candidato hipotético' : 'não candidato'} / ${o.supervisor.autorizado ? 'autorizada' : 'bloqueada'}`);
+    const fronteira = o.supervisor.avaliacao;
+    metrica('alvo-aproximacao', 'Arco restante / limites necessários de velocidade', fronteira?.distanciaRestanteM == null
+      ? 'Alvo não definido · configurar antes de estudar aproximação'
+      : `${fronteira.distanciaRestanteM.toFixed(0)} m · ${fronteira.hipoteses.map(h => `${h.aceleracaoLiquidaMps2} m/s² → ${h.velocidadeLimiteNecessariaMps?.toFixed(0)} m/s (desvio ${h.desvioVelocidadeMps?.toFixed(0)})`).join(' · ')} · frenagem ideal, trajetória não certificada`);
     metrica('bateria', 'Energia elétrica interna / RCS', `${o.energiaBateriaJ.toFixed(0)} J / ausente`);
     metrica('bateria-termica', 'Bateria isolada · temperatura / limiar / integridade', `${o.temperaturaBateriaC.toFixed(2)} / ${o.limiteBateriaC} °C / ${(100 * o.integridadeBateria).toFixed(2)} %`);
     for (const [i, f] of o.flaps.entries()) {
@@ -159,7 +164,7 @@ function iniciarBancada(): void {
     for (const r of o.supervisor.requisitos) {
       const linha = document.createElement('div'); linha.className = `re-requisito ${r.atendido ? 're-ok' : 're-bloqueado'}`;
       const descricao = document.createElement('span'); descricao.textContent = `${r.atendido ? 'OK' : 'BLOQUEADO'} · ${r.descricao}`;
-      const valor = document.createElement('span'); valor.textContent = `${typeof r.atual === 'number' ? r.atual.toPrecision(4) : r.atual ? 'sim' : 'não'} · ${r.esperado}`;
+      const valor = document.createElement('span'); valor.textContent = `${typeof r.atual === 'number' ? r.atual.toPrecision(4) : r.atual === null ? 'não definido' : r.atual ? 'sim' : 'não'} · ${r.esperado}`;
       linha.append(descricao, valor); diagnostico.append(linha);
     }
     const eventos = ensaio.obterEventos();
@@ -190,7 +195,7 @@ function iniciarBancada(): void {
     comandar({ tipo: 'flaps', dianteiroRad: rad('re-flap-dianteiro'), traseiroRad: rad('re-flap-traseiro') });
   });
   elemento('re-chaveamento').addEventListener('change', () => comandar({ tipo: 'chaveamento', automatico: elemento<HTMLSelectElement>('re-chaveamento').value === 'automatico' }));
-  elemento('re-pouso').addEventListener('click', () => comandar({ tipo: 'pouso' }));
+  elemento('re-pouso').addEventListener('click', () => comandar({ tipo: 'aproximacao' }));
   energia.addEventListener('click', () => comandar({ tipo: 'alimentacao', ligada: !ensaio.observar().flaps.every(f => f.energizado) }));
   elemento('re-falha-rolagem').addEventListener('click', () => comandar({ tipo: 'falha-rolagem' }));
   elemento('re-separar').addEventListener('click', () => comandar({ tipo: 'separar-flap', indice: 0 }));

@@ -453,7 +453,7 @@ export class MundoFisico {
    * diários anteriores; não altera parâmetros nem garante compatibilidade antiga.
    * @contract f-d3dca202d77d15ec */
   public obterConfiguracaoFisica(): object {
-    return { ...this.ambiente.obterConfiguracao(), integracao: this.integracao, revisaoDinamicaAngular: 'intrinseca-relativa-2', maxDtS: this.maxDtS, politicaAtmosferica: this.atmosfera.politicaAltitude, densidadeNivelMarKgM3: this.densidadeAtmosfericaNivelMarKgM3,
+    return { ...this.ambiente.obterConfiguracao(), integracao: this.integracao, revisaoDinamicaAngular: 'intrinseca-relativa-3', maxDtS: this.maxDtS, politicaAtmosferica: this.atmosfera.politicaAltitude, densidadeNivelMarKgM3: this.densidadeAtmosfericaNivelMarKgM3,
       ...(this.avaliarCargasEstruturaisDistribuidas ? { cargasDistribuidas: 'axial-pontes-1' } : {}),
       ...(this.perfilAtmosferico ? { politicaAtmosferica: 'perfil-injetado', perfilAtmosferico: this.perfilAtmosferico.obterConfiguracao() } : {}),
       ...(this.hidrodinamica ? { hidrodinamica: this.hidrodinamica.obterConfiguracao() } : {}) };

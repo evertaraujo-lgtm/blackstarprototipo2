@@ -1,3 +1,4 @@
+import { EnsaioReentrada } from './EnsaioReentrada';
 import { describe, expect, it } from 'vitest';
 import { criarCenarioReentrada, criarEnsaioReentrada, configurarReentrada, reproduzirEnsaioReentrada } from './EnsaioReentrada';
 import { configurarParametrosReentrada, MODELO_REENTRADA } from '../physics/reentrada/ModeloAerodinamicoReentrada';
@@ -120,4 +121,15 @@ describe('RE-002C — parâmetros e instrumentação por passo', () => {
     expect((e.exportar().identificacao as { modeloOrbitador: { cdCorpoBase: number } }).modeloOrbitador.cdCorpoBase).toBe(0.25);
     expect(o.respostaTermica.tetoUniversal).toBe(false);
   });
+});
+
+// A revisão r4 registra máximos/minimos globais também para carga/erro e calor individual.
+it('reduz carga G e erro de alpha em cada passo e separa energia térmica do corpo', () => {
+  const e = new EnsaioReentrada({ altitudeM: 65000, velocidadeMps: 2500 });
+  e.iniciar(); for (let i = 0; i < 240; i++) e.avancarPasso();
+  const o = e.observar();
+  expect(o.extremos.globais.cargaG.maximo.valor).toBeGreaterThanOrEqual(o.cargaG);
+  expect(o.extremos.globais.erroAlphaRad.minimo.valor).toBeLessThanOrEqual(o.aerodinamica.anguloAtaqueRad - o.controle.alphaGerenciadoRad + 1e-12);
+  expect(o.respostaTermica.energiaAbsorvidaCorpoJ).toBe(o.extremos.globais.energiaTermicaCorpoJ.maximo.valor);
+  expect(o.respostaTermica.energiaAbsorvidaCorpoJ).toBeLessThan(o.energiaAbsorvidaJ);
 });

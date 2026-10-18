@@ -27,11 +27,13 @@
             <label>Pressão dinâmica máxima (Pa)<input id="re-qmax" type="number" min="1" value="50000" required></label>
             <label>Fluxo indicador máximo (W/m²)<input id="re-heatmax" type="number" min="1" value="500000" required></label>
             <label>Carga máxima (g₀)<input id="re-gmax" type="number" min="0.1" value="5" step="0.1" required></label>
-            <p class="re-help">Critérios de transferência para pouso. Propulsão e integração compatíveis também são obrigatórias.</p>
-            <div class="re-pair"><label>Altitude mínima (m)<input id="re-hmin-pouso" type="number" min="0" value="20" required></label><label>Altitude máxima (m)<input id="re-hmax-pouso" type="number" min="1" value="5000" required></label></div>
-            <label>Velocidade máxima (m/s)<input id="re-vmax-pouso" type="number" min="1" value="150" required></label>
-            <label>Desvio máximo da vertical (°)<input id="re-atitude-pouso" type="number" min="0.1" max="90" value="15" step="0.1" required></label>
-            <div class="re-pair"><label>Trajetória mínima (°)<input id="re-gamma-min" type="number" min="-90" max="-0.1" value="-90" step="0.1" required></label><label>Trajetória máxima (°)<input id="re-gamma-max" type="number" min="-89.9" max="-0.1" value="-5" step="0.1" required></label></div>
+            <p class="re-help">Fronteira Reentrada → Aproximação → Pouso. Limites necessários de frenagem ideal; hipóteses não representam motores instalados ou trajetória certificada. Alvo em branco bloqueia candidatura.</p>
+            <label>Arco do alvo sintético (m, opcional)<input id="re-alvo-arco" type="number" min="-20000000" max="20000000" step="any"></label>
+            <label>Aceleração líquida hipotética 1 (m/s²)<input id="re-acc-1" type="number" min="0.01" max="100" step="any" value="1" required></label>
+            <label>Aceleração líquida hipotética 2 (m/s²)<input id="re-acc-2" type="number" min="0.01" max="100" step="any" value="2" required></label>
+            <label>Aceleração líquida hipotética 3 (m/s²)<input id="re-acc-3" type="number" min="0.01" max="100" step="any" value="5" required></label>
+            <label>Erro máximo de alpha exploratório (°)<input id="re-erro-alpha" type="number" min="0.01" max="90" step="any" value="10" required></label>
+            <label>Rotação máxima exploratória (°/s)<input id="re-omega-max" type="number" min="0.001" max="57.2957795" step="any" value="1.1459155902616465" required></label>
             <label>Passo físico (s)<select id="re-divisor-dt"><option value="120">1/120 · exploratório</option><option value="240" selected>1/240 · referência</option><option value="480">1/480 · refinamento</option><option value="960">1/960 · refinamento</option></select></label>
             <label>Intervalo das amostras (s)<input id="re-intervalo-coleta" type="number" value="1" min="0.1" max="60" step="any" required></label>
             <label>Máximo de amostras retidas<input id="re-limite-amostras" type="number" value="3600" min="2" max="100000" required></label>
@@ -51,8 +53,8 @@
         <label>Dianteiro (°)<input id="re-flap-dianteiro" type="range" min="-30" max="30" value="0" step="1"></label>
         <label>Traseiro (°)<input id="re-flap-traseiro" type="range" min="-30" max="30" value="0" step="1"></label>
       </fieldset>
-      <label>Transferência para pouso<select id="re-chaveamento"><option value="manual">Manual supervisionada</option><option value="automatico">Automática</option></select></label>
-      <button id="re-pouso" type="button" class="secondary-button">Solicitar transferência</button>
+      <label>Transição para aproximação<select id="re-chaveamento"><option value="manual">Manual supervisionada</option><option value="automatico">Automática</option></select></label>
+      <button id="re-pouso" type="button" class="secondary-button">Solicitar aproximação</button>
       <details><summary>Falhas de ensaio</summary><button id="re-energia" type="button" class="secondary-button">Desligar alimentação dos flaps</button><button id="re-falha-rolagem" type="button" class="secondary-button">Indisponibilizar rolagem virtual</button><button id="re-separar" type="button" class="secondary-button">Liberar fixador dianteiro</button></details>
     </aside>
     <section class="re-main" aria-label="Observação da reentrada">
@@ -62,7 +64,7 @@
       <output id="re-mensagem" role="status">Pronto para iniciar. Propulsão desligada e não instalada.</output>
       <div id="re-telemetria" class="re-telemetria" aria-label="Telemetria física e comandos"></div>
       <section class="re-chart-panel"><h2>Histórico do ensaio</h2><p class="re-help">Altitude, velocidade, pressão dinâmica, fluxo térmico e temperatura · amostras visuais, com extremos por passo no diário · escalas independentes com unidades declaradas</p><canvas id="re-graficos" width="1100" height="560" aria-label="Gráficos temporais de altitude, velocidade, pressão dinâmica, fluxo térmico e temperatura"></canvas></section>
-      <details open class="re-diagnostico"><summary>Supervisor de pouso · critérios e bloqueios</summary><div id="re-requisitos"></div></details>
+      <details open class="re-diagnostico"><summary>Fronteira de aproximação · candidato A / autorização B</summary><div id="re-requisitos"></div></details>
       <details open class="re-diagnostico"><summary>Eventos de falha e chaveamento</summary><ol id="re-eventos"></ol></details>
       <details class="re-diagnostico"><summary>Modelos e limites de fidelidade</summary><p>Atmosfera RE: interpolação contínua de âncoras arredondadas inspiradas na USSA-1976, domínio 0–200 km; cauda exponencial explícita acima disso. Não inclui atividade solar ou composição variável. Mach e Knudsen são indicadores aproximados.</p><p>Sustentação e arrasto usam coeficientes analíticos preliminares, sem dados aerodinâmicos validados do Black Star. O regime rarefeito é identificado, mas não possui solução DSMC. Fora do contínuo, as forças servem à investigação do software.</p><p>Calor: indicador Sutton–Graves limitado pelo fluxo cinético incidente; transferência experimental min(indicador × área, D·V), registrada separadamente; D·V não é teto universal de transferência de calor. Um modelo concentrado evolui temperatura e dano progressivo. Não inclui ablação, radiação, distribuição de TPS ou temperatura interna dos atuadores.</p><p>Rolagem: L no plano = L·cos(φ). A força L·sin(φ) é omitida, sem compensação. A taxa prescrita não comprova manobra real. Sem RCS instalado, flaps em baixa densidade não garantem atitude. O corredor automático é heurístico, sem garantia de segurança.</p><p>Passo fixo configurável (referência 1/240 s); gravidade KDK e forças dissipativas explícitas no mundo compartilhado. O ensaio permanece observável até pausa ou reinício pelo operador; colisões e danos não o encerram.</p></details>
     </section>

@@ -65,7 +65,7 @@ export class ControladorReentrada implements ControladorDeVoo {
     torqueSolicitadoNm: this.torqueSolicitadoNm, torqueComandadoNm: this.torqueComandadoNm, corredor: this.diagnosticoCorredor ?? null }; }
 
   /** Calcula deflexões opostas para torque de arfagem, limitado por q, geometria,
-   * projeção virtual e curso de 30°. PD sem integral evita windup. dt s em (0,1/60].
+   * projeção virtual e curso configurado (padrão 30°). PD sem integral evita windup. dt s em (0,1/60].
    * Sem autoridade não aplica torque substituto/RCS fictício. Leituras inválidas
    * produzem ausência de pedidos; sensores só observam o estado real do core.
    * @contract f-e02341d58116ed62

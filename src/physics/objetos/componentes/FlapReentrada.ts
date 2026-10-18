@@ -44,7 +44,7 @@ export class FlapReentrada extends AletaAerodinamica {
     return this.parametros.cdFlapBase + this.parametros.cdFlapDeflexao * Math.sin(this.deflexaoAtualRad) ** 2;
   }
 
-  /** Aquecimento indicador do flap com raio efetivo 0,5 m e área aquecida 2 m²;
+  /** Aquecimento indicador com raio/área configurados (padrões 0,5 m e 2 m²);
    * temperatura é do componente concentrado, sem interpretação de atuador interno.
    * @contract f-d1d83ab8a5f815b3
    */

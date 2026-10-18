@@ -177,7 +177,7 @@ export class ConjuntoEstruturalRigido {
    * Kicks N·s sem mudança de pose/massa, em ordem declarada; duas passagens
    * calculam Vg e L intrínseco com v−Vg antes de cada impulso. Evita multiplicar
    * resíduos de CM pela velocidade orbital. Publica velocidades rígidas ao fim;
-   * não altera KDK, dt ou forças. Regressão: conservação/Galileu RE-002B.
+   * não altera KDK, dt ou forças. Soma (L+orbital)+spin na ordem individual. Regressão: conservação/Galileu RE-002B.
    * @contract f-ef8ab0fbe286de89
    */
   public aplicarImpulsosSequenciais(impulsos: readonly { impulsoNs: Vetor3; pontoM: Vetor3 }[]): void {
@@ -195,7 +195,7 @@ export class ConjuntoEstruturalRigido {
         vx += b.vx * b.peso; vy += b.vy * b.peso; vz += b.vz * b.peso;
 
       }
-      for (const b of membros) L += b.bx * ((b.vy - vy) * b.m) - b.by * ((b.vx - vx) * b.m) + b.propria * b.w;
+      for (const b of membros) L = L + (b.bx * ((b.vy - vy) * b.m) - b.by * ((b.vx - vx) * b.m)) + b.propria * b.w;
       vx += j.x * (1 / massa); vy += j.y * (1 / massa); vz += j.z * (1 / massa);
       const w = L / I + ((p.x - G.x) * j.y - (p.y - G.y) * j.x) / I;
       for (const b of membros) {

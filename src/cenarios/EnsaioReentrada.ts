@@ -1,7 +1,7 @@
 import { RegistroExtremos } from '../missoes/RegistroExtremos';
 import { AmbienteTerrestre } from '../physics/ambiente/AmbienteFisico';
-import { criarEstadoInicialLocal } from '../physics/ambiente/EstadoInicialLocal';
 import { normalizarAngulo } from '../physics/ambiente/ReferencialFisico';
+import { criarEstadoInicialLocal } from '../physics/ambiente/EstadoInicialLocal';
 import { PerfilAtmosfericoReentrada } from '../physics/ambiente/PerfilAtmosfericoReentrada';
 import { MundoFisico } from '../physics/MundoFisico';
 import { Vetor3 } from '../physics/Vetor3';
@@ -15,7 +15,10 @@ import { SensoresVeiculoComposto } from '../physics/sensores/SensoresVeiculoComp
 import { GerenciadorDeControladores } from '../physics/sistemas de controle/GerenciadorDeControladores';
 import { ControladorPousoDePropulsores } from '../physics/sistemas de controle/ControladorPousoDePropulsores';
 import { ControladorReentrada, type CorredorReentrada } from '../physics/sistemas de controle/ControladorReentrada';
-import { SupervisorReentrada, LIMITES_TRANSFERENCIA, type LimitesTransferencia } from '../physics/sistemas de controle/SupervisorReentrada';
+import { LIMITES_TRANSFERENCIA, type LimitesTransferencia } from '../physics/sistemas de controle/SupervisorReentrada';
+import { SupervisorRecuperacao } from '../physics/sistemas de controle/SupervisorRecuperacao';
+import { ControladorAproximacao } from '../physics/sistemas de controle/ControladorAproximacao';
+import { configurarFronteiraAproximacao, type ConfiguracaoFronteiraAproximacao } from '../physics/sistemas de controle/FronteiraAproximacao';
 import { MODELO_REENTRADA, configurarParametrosReentrada, calcularFluxoTermicoIndicador, type ParametrosReentrada } from '../physics/reentrada/ModeloAerodinamicoReentrada';
 import type { EstadoExecucaoMissao, EventoMissao, InstanciaMissao, ResultadoComandoMissao } from '../missoes/ContratoMissao';
 import { RegistroMissao, type DiarioMissao } from '../missoes/RegistroMissao';
@@ -38,20 +41,22 @@ export interface ConfiguracaoReentrada {
   readonly semente: number;
   readonly passoS: number;
   readonly corredor: CorredorReentrada;
+  /** Legado serializado; não define a nova fronteira de aproximação. */
   readonly transferencia: LimitesTransferencia;
+  readonly aproximacao: ConfiguracaoFronteiraAproximacao;
   readonly parametros: ParametrosReentrada;
   readonly intervaloColetaS: number;
   readonly limiteAmostras: number;
   readonly limiteEventos: number;
 }
-export type EntradaConfiguracaoReentrada = Omit<Partial<ConfiguracaoReentrada>, 'parametros'> & { readonly parametros?: Partial<ParametrosReentrada> };
+export type EntradaConfiguracaoReentrada = Omit<Partial<ConfiguracaoReentrada>, 'parametros' | 'aproximacao'> & { readonly parametros?: Partial<ParametrosReentrada>; readonly aproximacao?: Partial<ConfiguracaoFronteiraAproximacao> };
 export const CONFIGURACAO_REENTRADA: ConfiguracaoReentrada = copiarSnapshot({ altitudeM: 120_000,
   velocidadeMps: 7700, taxaAtitudeLocalInicialRadps: 0, anguloAtaqueRad: 40 * Math.PI / 180, trajetoriaRad: -Math.PI / 180,
   rolagemRad: 0, limiteOrbitadorC: 1100, limiteFlapsC: 900, limiteBateriaC: 60, automatico: true,
   chaveamentoAutomatico: false, vacuo: false, semente: 1, passoS: 1 / 240,
   corredor: { pressaoMaximaPa: 50_000, fluxoMaximoWm2: 500_000, cargaMaximaG: 5 },
   intervaloColetaS: 1, limiteAmostras: 3600, limiteEventos: 20000,
-  transferencia: LIMITES_TRANSFERENCIA, parametros: configurarParametrosReentrada() });
+  aproximacao: configurarFronteiraAproximacao(), transferencia: LIMITES_TRANSFERENCIA, parametros: configurarParametrosReentrada() });
 
 export type ComandoReentrada =
   | { readonly tipo: 'modo'; readonly automatico: boolean }
@@ -60,6 +65,7 @@ export type ComandoReentrada =
   | { readonly tipo: 'rolagem'; readonly phiRad: number }
   | { readonly tipo: 'chaveamento'; readonly automatico: boolean }
   | { readonly tipo: 'pouso' }
+  | { readonly tipo: 'aproximacao' }
   | { readonly tipo: 'alimentacao'; readonly ligada: boolean }
   | { readonly tipo: 'falha-rolagem' }
   | { readonly tipo: 'separar-flap'; readonly indice: 0 | 1 };
@@ -69,7 +75,7 @@ export function validarComandoReentrada(entrada: unknown): entrada is ComandoRee
   if (!entrada || typeof entrada !== 'object' || Array.isArray(entrada)) return false;
   const e = entrada as Record<string, unknown>;
   const chaves: Record<string, string[]> = { modo: ['automatico'], alvos: ['alphaRad', 'phiRad'],
-    flaps: ['dianteiroRad', 'traseiroRad'], rolagem: ['phiRad'], chaveamento: ['automatico'], pouso: [],
+    flaps: ['dianteiroRad', 'traseiroRad'], rolagem: ['phiRad'], chaveamento: ['automatico'], pouso: [], aproximacao: [],
     alimentacao: ['ligada'], 'falha-rolagem': [], 'separar-flap': ['indice'] };
   if (typeof e.tipo !== 'string' || !Object.hasOwn(chaves, e.tipo)) return false;
   if (Object.keys(e).length !== chaves[e.tipo].length + 1 || !chaves[e.tipo].every(k => Object.hasOwn(e, k))) return false;
@@ -90,7 +96,7 @@ export function validarComandoReentrada(entrada: unknown): entrada is ComandoRee
  * @contract f-f88e23012b3ae8c3
    */
 export function configurarReentrada(entrada: EntradaConfiguracaoReentrada = {}): ConfiguracaoReentrada {
-  const c = copiarSnapshot({ ...CONFIGURACAO_REENTRADA, ...entrada, parametros: configurarParametrosReentrada(entrada.parametros) });
+  const c = copiarSnapshot({ ...CONFIGURACAO_REENTRADA, ...entrada, parametros: configurarParametrosReentrada(entrada.parametros), aproximacao: configurarFronteiraAproximacao(entrada.aproximacao) });
   if (![c.altitudeM, c.velocidadeMps, c.anguloAtaqueRad, c.trajetoriaRad, c.rolagemRad,
     c.limiteOrbitadorC, c.limiteFlapsC, c.limiteBateriaC, c.passoS, c.taxaAtitudeLocalInicialRadps].every(Number.isFinite)
     || c.altitudeM < 10 || c.altitudeM > 200_000 || c.velocidadeMps < 0 || c.velocidadeMps > 12_000
@@ -197,7 +203,7 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
   private readonly cenario: CenarioReentrada;
   private readonly gerenciador = new GerenciadorDeControladores();
   private readonly controlador: ControladorReentrada;
-  private readonly supervisor: SupervisorReentrada;
+  private readonly supervisor: SupervisorRecuperacao;
   private readonly eventos: EventoMissao[] = [];
   private readonly condicoesRegistradas = new Map<string, boolean>();
   private energiaDissipadaJ = 0;
@@ -217,10 +223,12 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
     this.controlador = new ControladorReentrada(() => this.lerControle(), this.configuracao.anguloAtaqueRad,
       this.configuracao.rolagemRad, this.configuracao.corredor, this.configuracao.parametros);
     this.gerenciador.registrar(this.controlador);
+    this.gerenciador.registrar(new ControladorAproximacao());
     const pouso = new ControladorPousoDePropulsores();
     pouso.configurar({}, []); this.gerenciador.registrar(pouso);
     if (this.configuracao.automatico) this.gerenciador.habilitar('reentrada');
-    this.supervisor = new SupervisorReentrada(this.gerenciador, this.configuracao.transferencia);
+    else this.controlador.desabilitar();
+    this.supervisor = new SupervisorRecuperacao(this.gerenciador, this.configuracao.aproximacao);
     this.supervisor.definirAutomatico(this.configuracao.chaveamentoAutomatico);
     this.atualizarSupervisor();
     this.evento('modelo', `${MODELO_REENTRADA.revisao}; ${this.cenario.perfil.revisao}; XY, Terra estática; `
@@ -240,7 +248,7 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
   public obterEventos(): readonly EventoMissao[] { return copiarSnapshot(this.eventos); }
 
   /** Aplica comandos públicos e registra aceitação/bloqueio. Comando manual exige
-   * seleção manual; pouso sempre verifica supervisor, não habilita motor implícito.
+   * seleção manual; aproximação passa pelo supervisor e pouso direto é bloqueado.
    * @contract f-ea3e069c929c0c05
    */
   public receberComando(comando: ComandoReentrada): ResultadoComandoMissao {
@@ -261,9 +269,11 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
       } else c.orbitador.solicitarRolagem(comando.phiRad, c.mundo.tempoS);
     } else if (comando.tipo === 'chaveamento') this.supervisor.definirAutomatico(comando.automatico);
     else if (comando.tipo === 'pouso') {
-      this.supervisor.solicitarPouso(); this.atualizarSupervisor();
-      aceito = this.supervisor.observar().fase === 'pouso';
-      motivo = aceito ? 'Posse transferida ao pouso.' : this.supervisor.observar().requisitos.filter(r => !r.atendido).map(r => r.descricao).join('; ');
+      aceito = false; motivo = 'Fluxo obrigatório: Reentrada → Aproximação → Pouso; pouso fora deste marco.';
+    } else if (comando.tipo === 'aproximacao') {
+      this.supervisor.solicitarAproximacao(); this.atualizarSupervisor();
+      aceito = this.supervisor.observar().fase === 'aproximacao';
+      motivo = aceito ? 'Posse transferida à aproximação.' : this.supervisor.observar().requisitos.filter(r => !r.atendido).map(r => r.descricao).join('; ');
     } else if (comando.tipo === 'alimentacao') c.flaps.forEach(f => {
       if (comando.ligada) f.conexaoEletrica.fecharInterruptor(); else f.conexaoEletrica.abrirInterruptor();
     });
@@ -308,7 +318,7 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
 
   /** Observação escalar/geométrica e balanço angular, copiada e congelada. Torque
    * gravítico é o gradiente entre centros dos membros, não distribuição interna.
-   * Resíduo usa quadratura externa; contatos/fontes impulsivas são sinalizados.
+   * Resíduo usa cargas efetivamente integradas; contatos/fontes impulsivas são sinalizados.
    * Não oferece objetos mutáveis nem corrige estado. @contract f-05755a69bc286c7f */
   public observar() {
     const c = this.cenario, e = c.orbitador.getEstadoFisico();
@@ -327,7 +337,7 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
       execucao: this.execucao, estado: e, extremos: this.extremos.observar(), eventosDescartados: this.eventosDescartados, altitudeM: c.ambiente.referencial.altitudeGeometricaM(e.posicaoM),
       arcoM: c.ambiente.referencial.posicaoHorizontalM(e.posicaoM), velocidadeMps: e.velocidadeMps.magnitude,
       trajetoriaRad: Math.atan2(velLocal.y, velLocal.x), velocidadeRadialMps: velLocal.y, velocidadeTangencialMps: velLocal.x,
-      energiaMecanicaEspecificaJPorKg: e.velocidadeMps.magnitude ** 2 / 2 - 3.986004418e14 / e.posicaoM.subtrair(c.ambiente.campo.centroM).magnitude,
+      energiaMecanicaEspecificaJPorKg: e.velocidadeMps.magnitude ** 2 / 2 - c.ambiente.campo.muM3S2 / e.posicaoM.subtrair(c.ambiente.campo.centroM).magnitude,
       atitudeInercialRad: e.orientacaoRad.z, atitudeLocalRad: c.ambiente.referencial.atitudeLocalRad(e.orientacaoRad.z, e.posicaoM),
       aerodinamica: a, rolagem: c.orbitador.observarRolagem(), controle: this.controlador.observar(),
       historicoRolagem: c.orbitador.obterHistoricoRolagem(),
@@ -344,7 +354,7 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
       energiaAbsorvidaJ: c.objetos.reduce((s, o) => s + o.energiaTermicaAerodinamicaAcumuladaJ, 0),
       energiaDissipadaJ: this.energiaDissipadaJ,
       energiaAtmosferaJ: Math.max(0, this.energiaDissipadaJ - c.objetos.reduce((s, o) => s + o.energiaTermicaAerodinamicaAcumuladaJ, 0)),
-      respostaTermica: { modelo: 'concentrado-min-indicador-DV-experimental', tetoUniversal: false,
+      respostaTermica: { energiaAbsorvidaCorpoJ: c.orbitador.energiaTermicaAerodinamicaAcumuladaJ, modelo: 'concentrado-min-indicador-DV-experimental', tetoUniversal: false,
         potenciaIndicadorCorpoW: a.fluxoTermicoIndicadorWm2 * this.configuracao.parametros.areaAquecidaM2,
         potenciaTransferidaCorpoW: c.orbitador.obterPotenciaAquecimentoAerodinamicoW(condicoes, Math.max(0, -c.mundo.obterForcaArrastoAtmosferico(c.orbitador).produtoEscalar(e.velocidadeMps.subtrair(c.mundo.velocidadeDoArMps)))),
         tpsInstalado: false, camadasInternasModeladas: false },
@@ -387,23 +397,37 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
       taxaFluxoRadps: v.magnitude > 1 ? v.produtoVetorial(aceleracao).z / v.magnitude ** 2 : 0,
       pressaoDinamicaPa: a.pressaoDinamicaPa, fluxoTermicoWm2: a.fluxoTermicoIndicadorWm2,
       cargaG: cargas.forcaN.magnitude / g.massaKg / 9.80665, torquePassivoNm: cargas.torqueNm.z - torqueFlaps,
-      energiaMecanicaEspecificaJPorKg: e.velocidadeMps.magnitude ** 2 / 2 - 3.986004418e14 / e.posicaoM.subtrair(c.ambiente.campo.centroM).magnitude,
+      energiaMecanicaEspecificaJPorKg: e.velocidadeMps.magnitude ** 2 / 2 - c.ambiente.campo.muM3S2 / e.posicaoM.subtrair(c.ambiente.campo.centroM).magnitude,
       integridadeMinima: Math.min(...g.membros.map(o => o.integridadeEstrutural)),
       inerciaKgM2: g.inerciaKgM2, phiRad: c.orbitador.observarRolagem().atualRad,
       disponivel: c.orbitador.integridadeEstrutural > 0 && c.flaps.every((f, i) => f.integridadeEstrutural > 0
         && f.conexaoEletrica.estaEnergizada && c.fixadores[i].estaAtivo) };
   }
 
-  /** Mapeia eixo longitudinal +X para atitude da vertical esperada pelo pouso
-   * BSS (+Y); integração propulsiva ausente bloqueia transferência explicitamente.
+  /** Avalia estado real, autoridade remanescente e filtros A/B sem reutilizar
+   * limites antigos de pouso. Não há propulsão nem integração física de aproximação.
    * @contract f-b5dfd4d0081ccbd9
    */
   private atualizarSupervisor(): void {
     const c = this.cenario, l = c.sensores.obterLeituras(), fase = this.supervisor.observar().fase;
-    this.supervisor.atualizar({ altitudeM: l.altitudeM, velocidadeMps: Math.hypot(l.velocidadeHorizontalMps, l.velocidadeVerticalMps),
-      atitudeVerticalRad: normalizarAngulo(l.inclinacaoRad - Math.PI / 2),
-      trajetoriaRad: Math.atan2(l.velocidadeVerticalMps, l.velocidadeHorizontalMps), sensoresValidos: l.sensoresValidos !== false,
-      integridade: c.orbitador.integridadeEstrutural, propulsaoDisponivel: false, integracaoCompativel: false });
+    const t = this.lerControle(), p = this.configuracao.parametros;
+    const integridadeFlaps = Math.min(...c.flaps.map((f, i) => c.fixadores[i].estaAtivo ? f.integridadeEstrutural : 0));
+    const autoridadeNmPorRad = Math.abs(2 * t.pressaoDinamicaPa * p.areaFlapM2 * p.clFlapPorRad * p.bracoFlapM
+      * Math.cos(t.alphaRad) * Math.cos(t.phiRad)) * integridadeFlaps;
+    this.supervisor.atualizar({ altitudeM: l.altitudeM, arcoM: l.posicaoHorizontalM ?? 0,
+      velocidadeMps: Math.hypot(l.velocidadeHorizontalMps, l.velocidadeVerticalMps),
+      velocidadeRadialMps: l.velocidadeVerticalMps, velocidadeTangencialMps: l.velocidadeHorizontalMps,
+      alphaRad: t.alphaRad, alphaAlvoRad: this.controlador.observar().alphaGerenciadoRad,
+      omegaRadps: t.taxaArfagemRadps, energiaMecanicaEspecificaJPorKg: t.energiaMecanicaEspecificaJPorKg,
+      sensoresValidos: l.sensoresValidos !== false && (l.idadeLeituraS ?? 0) <= 0.25,
+      integridade: c.orbitador.integridadeEstrutural, integridadeFlaps,
+      termicaCompativel: c.orbitador.temperaturaC <= c.orbitador.limiteTermicoC
+        && c.flaps.every(f => f.temperaturaC <= f.limiteTermicoC) && c.bateria.temperaturaC <= c.bateria.limiteTermicoC,
+      alimentacaoDisponivel: c.flaps.every(f => f.conexaoEletrica.estaEnergizada),
+      autoridadeAerodinamicaDisponivel: autoridadeNmPorRad >= p.torqueMinimoAutoridadeNm,
+      corredorCompativel: t.pressaoDinamicaPa <= this.configuracao.corredor.pressaoMaximaPa
+        && t.fluxoTermicoWm2 <= this.configuracao.corredor.fluxoMaximoWm2 && t.cargaG <= this.configuracao.corredor.cargaMaximaG,
+      propulsaoDisponivel: false, integracaoCompativel: false });
     if (this.supervisor.observar().fase !== fase) this.evento('chaveamento', `${fase} → ${this.supervisor.observar().fase}`);
   }
 
@@ -424,6 +448,8 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
       'perda-alimentacao': c.flaps.some(f => f.conexaoEletrica.estaIndisponivel),
       'perda-vinculo': c.fixadores.some(f => !f.estaAtivo),
       'contato-superficie': c.mundo.obterContatosComSuperficie().length > 0,
+      'candidato-aproximacao': this.supervisor.observar().candidatoCinematico,
+      'autorizacao-aproximacao': this.supervisor.observar().autorizado,
       'corredor-pressao': a.pressaoDinamicaPa > this.configuracao.corredor.pressaoMaximaPa,
       'corredor-aquecimento': a.fluxoTermicoIndicadorWm2 > this.configuracao.corredor.fluxoMaximoWm2,
       'corredor-carga': this.lerControle().cargaG > this.configuracao.corredor.cargaMaximaG,
@@ -465,13 +491,18 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
    */
   private lerMetricasPasso(): Readonly<Record<string, number>> {
     const c = this.cenario, e = c.orbitador.getEstadoFisico(), a = c.orbitador.avaliar(c.mundo.obterCondicoesAtmosfericas(c.orbitador));
-    return { altitudeM: c.ambiente.referencial.altitudeGeometricaM(e.posicaoM), velocidadeMps: e.velocidadeMps.magnitude,
+    return { cargaG: this.lerControle().cargaG,
+      erroAlphaRad: normalizarAngulo(a.anguloAtaqueRad - this.controlador.observar().alphaGerenciadoRad),
+      energiaTermicaCorpoJ: c.orbitador.energiaTermicaAerodinamicaAcumuladaJ,
+      energiaTermicaFlap1J: c.flaps[0].energiaTermicaAerodinamicaAcumuladaJ,
+      energiaTermicaFlap2J: c.flaps[1].energiaTermicaAerodinamicaAcumuladaJ,
+      altitudeM: c.ambiente.referencial.altitudeGeometricaM(e.posicaoM), velocidadeMps: e.velocidadeMps.magnitude,
       omegaInercialRadps: e.velocidadeAngularRadps.z, alphaRad: a.anguloAtaqueRad,
       pressaoDinamicaPa: a.pressaoDinamicaPa, fluxoTermicoIndicadorWm2: a.fluxoTermicoIndicadorWm2,
       temperaturaCorpoC: c.orbitador.temperaturaC, temperaturaFlap1C: c.flaps[0].temperaturaC,
       temperaturaFlap2C: c.flaps[1].temperaturaC, integridadeCorpo: c.orbitador.integridadeEstrutural,
       integridadeFlap1: c.flaps[0].integridadeEstrutural, integridadeFlap2: c.flaps[1].integridadeEstrutural,
-      energiaMecanicaEspecificaJPorKg: e.velocidadeMps.magnitude ** 2 / 2 - 3.986004418e14 / e.posicaoM.subtrair(c.ambiente.campo.centroM).magnitude,
+      energiaMecanicaEspecificaJPorKg: e.velocidadeMps.magnitude ** 2 / 2 - c.ambiente.campo.muM3S2 / e.posicaoM.subtrair(c.ambiente.campo.centroM).magnitude,
       torqueAerodinamicoNm: c.mundo.obterDiagnosticoAngularDoPasso(c.orbitador)?.torqueAerodinamicoNm ?? 0,
       energiaBateriaJ: c.bateria.energiaArmazenadaJ };
   }

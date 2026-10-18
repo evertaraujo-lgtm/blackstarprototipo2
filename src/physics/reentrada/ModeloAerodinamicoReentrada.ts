@@ -3,7 +3,7 @@ import type { AmostraAtmosferaReentrada } from '../ambiente/PerfilAtmosfericoRee
 import type { CondicoesAtmosfericas, EstadoFisico } from '../objetos/base/Objeto';
 import { Vetor3 } from '../Vetor3';
 
-export const MODELO_REENTRADA = Object.freeze({ revisao: 'RE-002-r2', areaReferenciaM2: 250,
+export const MODELO_REENTRADA = Object.freeze({ revisao: 'RE-002-r4', areaReferenciaM2: 250,
   comprimentoM: 40, alturaM: 8, raioNarizM: 2, areaAquecidaM2: 80,
   massaCorpoKg: 78_900, massaFlapKg: 500, massaBateriaKg: 100,
   resistenciaCorpoJ: 1e8, resistenciaFlapJ: 1e6, resistenciaFixadorN: 1e8,
