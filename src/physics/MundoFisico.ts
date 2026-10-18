@@ -440,9 +440,13 @@ export class MundoFisico {
   /** Consulta aceleração m/s² do campo do ambiente na posição inercial em m; não integra nem depende da orientação. @contract f-b8b386144342054d @reviewed M12-DOC: implementação lida. */
   public obterGravidadeMps2(posicaoM: Vetor3): Vetor3 { return this.ambiente.campo.aceleracaoEm(posicaoM); }
 
-  /** Exporta identificação do ambiente, integração, dt máximo, atmosfera e água declarada para diários/replay; inclui a revisão completa do perfil atmosférico somente quando injetado. Não altera parâmetros. @contract f-d3dca202d77d15ec */
+  /** Exporta identificação do ambiente, integração, dt máximo, revisão angular,
+   * atmosfera e água para diários/replay. Perfil completo somente quando injetado.
+   * A revisão angular distingue reconstrução intrínseca relativa RE-002B de
+   * diários anteriores; não altera parâmetros nem garante compatibilidade antiga.
+   * @contract f-d3dca202d77d15ec */
   public obterConfiguracaoFisica(): object {
-    return { ...this.ambiente.obterConfiguracao(), integracao: this.integracao, maxDtS: this.maxDtS, politicaAtmosferica: this.atmosfera.politicaAltitude, densidadeNivelMarKgM3: this.densidadeAtmosfericaNivelMarKgM3,
+    return { ...this.ambiente.obterConfiguracao(), integracao: this.integracao, revisaoDinamicaAngular: 'intrinseca-relativa-2', maxDtS: this.maxDtS, politicaAtmosferica: this.atmosfera.politicaAltitude, densidadeNivelMarKgM3: this.densidadeAtmosfericaNivelMarKgM3,
       ...(this.perfilAtmosferico ? { politicaAtmosferica: 'perfil-injetado', perfilAtmosferico: this.perfilAtmosferico.obterConfiguracao() } : {}),
       ...(this.hidrodinamica ? { hidrodinamica: this.hidrodinamica.obterConfiguracao() } : {}) };
   }

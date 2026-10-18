@@ -19,6 +19,7 @@ import { MODELO_REENTRADA } from '../physics/reentrada/ModeloAerodinamicoReentra
 import type { EstadoExecucaoMissao, EventoMissao, InstanciaMissao, ResultadoComandoMissao } from '../missoes/ContratoMissao';
 import { RegistroMissao, type DiarioMissao } from '../missoes/RegistroMissao';
 import { copiarSnapshot } from '../missoes/SnapshotMissao';
+import { diagnosticarMomentoAngular, BalancoAngular } from '../physics/estruturas/DiagnosticoAngular';
 
 export interface ConfiguracaoReentrada {
   readonly altitudeM: number;
@@ -86,7 +87,7 @@ export function configurarReentrada(entrada: Partial<ConfiguracaoReentrada> = {}
     c.limiteOrbitadorC, c.limiteFlapsC, c.limiteBateriaC, c.passoS].every(Number.isFinite)
     || c.altitudeM < 10 || c.altitudeM > 200_000 || c.velocidadeMps < 0 || c.velocidadeMps > 12_000
     || c.anguloAtaqueRad < 0 || c.anguloAtaqueRad > 80 * Math.PI / 180 || Math.abs(c.trajetoriaRad) > Math.PI / 2
-    || Math.abs(c.rolagemRad) > Math.PI / 2 || c.passoS <= 0 || c.passoS > 1 / 240
+    || Math.abs(c.rolagemRad) > Math.PI / 2 || c.passoS <= 0 || c.passoS > 1 / 120
     || c.limiteOrbitadorC < -200 || c.limiteOrbitadorC > 5000 || c.limiteFlapsC < -200 || c.limiteFlapsC > 5000
     || c.limiteBateriaC < -200 || c.limiteBateriaC > 5000
     || !Number.isSafeInteger(c.semente) || c.semente < 0
@@ -107,7 +108,7 @@ function estadoModulo(e: EstadoFisico, x: number, y: number): EstadoFisico {
 }
 
 /** Fábrica ADM de corpos reais e vínculos no mesmo MundoFisico. Vácuo é explícito;
- * atmosfera RE é opt-in. Terra estática, XY, dt máximo 1/240 s. Fonte enclausurada.
+ * atmosfera RE é opt-in. Terra estática, XY; padrão 1/240 s, máximo exploratório 1/120 s. Fonte enclausurada.
  * @contract f-8fc45f499c16a562
    */
 export function criarCenarioReentrada(entrada: Partial<ConfiguracaoReentrada> = {}) {
@@ -188,6 +189,7 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
   private readonly eventos: EventoMissao[] = [];
   private readonly condicoesRegistradas = new Map<string, boolean>();
   private energiaDissipadaJ = 0;
+  private readonly balancoAngular = new BalancoAngular();
 
   /** Monta controles por portas de leitura, registra adaptador de pouso desabilitado
    * sem motores, e registra hipóteses/revisão. Não inicia execução ou ignição.
@@ -255,7 +257,8 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
   }
 
   /** Consome solicitações arbitradas e avança um único passo no mundo compartilhado.
-   * Não encerra por tempo/evento intermediário. Falhas são observadas, sem correção UI.
+   * Não encerra por tempo/evento intermediário. Registra quadratura do torque
+   * e resíduo de L intrínseco, sem correção UI. Contato/ruptura sinaliza balanço incompleto.
    * @contract f-6c85c671f0b775b6
    */
   public avancarPasso(): boolean {
@@ -268,14 +271,25 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
     }
     const potenciaDissipadaW = c.objetos.reduce((s, o) => s + Math.max(0, -c.mundo.obterForcaArrastoAtmosferico(o)
       .produtoEscalar(o.getEstadoFisico().velocidadeMps.subtrair(c.mundo.velocidadeDoArMps))), 0);
+    const gAntes = geometriaConjunto(c);
+    const antes = diagnosticarMomentoAngular(gAntes.membros, c.ambiente.campo.centroM, p => c.mundo.obterGravidadeMps2(p));
+    const torqueAero = c.mundo.obterCargasAerodinamicas(gAntes.membros, antes.centroM).torqueNm.z;
     c.mundo.avancar(this.passoS); this.passos++;
+    const gDepois = geometriaConjunto(c);
+    const depois = diagnosticarMomentoAngular(gDepois.membros, c.ambiente.campo.centroM, p => c.mundo.obterGravidadeMps2(p));
+    this.balancoAngular.registrar(antes, depois, this.passoS, torqueAero,
+      gAntes.massaKg === gDepois.massaKg && gAntes.membros.length === gDepois.membros.length
+      && c.mundo.obterContatosComSuperficie().length === 0);
     this.energiaDissipadaJ += potenciaDissipadaW * this.passoS;
     this.atualizarSupervisor();
     if (this.passos % 24 === 0) this.registrarCondicoes();
     return true;
   }
 
-  /** Observação escalar/geométrica, copiada e congelada, sem oferecer objetos mutáveis.  @contract f-05755a69bc286c7f */
+  /** Observação escalar/geométrica e balanço angular, copiada e congelada. Torque
+   * gravítico é o gradiente entre centros dos membros, não distribuição interna.
+   * Resíduo usa quadratura externa; contatos/fontes impulsivas são sinalizados.
+   * Não oferece objetos mutáveis nem corrige estado. @contract f-05755a69bc286c7f */
   public observar() {
     const c = this.cenario, e = c.orbitador.getEstadoFisico();
     const condicoes = c.mundo.obterCondicoesAtmosfericas(c.orbitador), a = c.orbitador.avaliar(condicoes);
@@ -298,6 +312,9 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
       supervisor: this.supervisor.observar(), arbitragem: this.gerenciador.obterUltimaArbitragem(),
       massaKg: g.massaKg, inerciaKgM2: g.inerciaKgM2, centroM: g.centroM, forcaAerodinamicaN: cargas.forcaN,
       torqueAerodinamicoNm: cargas.torqueNm.z, aceleracaoMps2: gravidade.adicionar(aceleracaoAero),
+      rotacao: { ...diagnosticarMomentoAngular(g.membros, c.ambiente.campo.centroM, p => c.mundo.obterGravidadeMps2(p)),
+        ...this.balancoAngular.observar(), torqueAerodinamicoNm: cargas.torqueNm.z,
+        torqueOutrosContinuosNm: 0, fontesImpulsivas: c.mundo.obterContatosComSuperficie().length > 0 },
       cargaG: aceleracaoAero.magnitude / 9.80665,
       desaceleracaoMps2: a.velocidadeRelativaMps > 0 ? -aceleracaoAero.produtoEscalar(e.velocidadeMps) / Math.max(1e-6, e.velocidadeMps.magnitude) : 0,
       temperaturaC: c.orbitador.temperaturaC, integridade: c.orbitador.integridadeEstrutural,

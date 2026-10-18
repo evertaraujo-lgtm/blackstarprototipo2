@@ -29,6 +29,8 @@ export class ConjuntoEstruturalRigido {
 
   /**
    * Conserva momento linear e angular de todos os membros simultaneamente.
+   * Momento intrínseco usa v−Vg, evitando contaminação pela translação orbital
+   * quando o primeiro momento de massa residual não é zero em Float64.
    * Avançar o ângulo só ocorre uma vez por passo; após colisões, a projeção
    * reaplica a rigidez sem introduzir avanço angular duplicado.
    * @contract f-dd4593ec27d92adb
@@ -42,10 +44,11 @@ export class ConjuntoEstruturalRigido {
       Vetor3.zero,
     );
     const inerciaZ = this.obterInerciaCompostaZ();
+    const centroVel = this.obterVelocidadeDoCentroAtual();
     const momentoAngularZ = this.objetos.reduce((soma, objeto) => {
       const estado = objeto.getEstadoFisico();
       const bx = estado.posicaoM.x - centroMassa.x, by = estado.posicaoM.y - centroMassa.y;
-      return soma + (bx * (estado.velocidadeMps.y * objeto.massaKg) - by * (estado.velocidadeMps.x * objeto.massaKg))
+      return soma + (bx * ((estado.velocidadeMps.y - centroVel.y) * objeto.massaKg) - by * ((estado.velocidadeMps.x - centroVel.x) * objeto.massaKg))
         + objeto.getMomentoInerciaKgM2().z * estado.velocidadeAngularRadps.z;
     }, 0);
     const velocidadeAngularZ = momentoAngularZ / inerciaZ;
@@ -171,9 +174,10 @@ export class ConjuntoEstruturalRigido {
   }
 
   /**
-   * Kicks sem mudança de pose/massa: reproduz cada projeção na ordem original.
-   * Mantém as velocidades intermediárias em escalares locais e publica só ao fim.
-   * Não soma impulsos nem altera arredondamento, colisões ou a integração temporal.
+   * Kicks N·s sem mudança de pose/massa, em ordem declarada; duas passagens
+   * calculam Vg e L intrínseco com v−Vg antes de cada impulso. Evita multiplicar
+   * resíduos de CM pela velocidade orbital. Publica velocidades rígidas ao fim;
+   * não altera KDK, dt ou forças. Regressão: conservação/Galileu RE-002B.
    * @contract f-ef8ab0fbe286de89
    */
   public aplicarImpulsosSequenciais(impulsos: readonly { impulsoNs: Vetor3; pontoM: Vetor3 }[]): void {
@@ -189,8 +193,9 @@ export class ConjuntoEstruturalRigido {
       let vx = 0, vy = 0, vz = 0, L = 0;
       for (const b of membros) {
         vx += b.vx * b.peso; vy += b.vy * b.peso; vz += b.vz * b.peso;
-        L = L + (b.bx * (b.vy * b.m) - b.by * (b.vx * b.m)) + b.propria * b.w;
+
       }
+      for (const b of membros) L += b.bx * ((b.vy - vy) * b.m) - b.by * ((b.vx - vx) * b.m) + b.propria * b.w;
       vx += j.x * (1 / massa); vy += j.y * (1 / massa); vz += j.z * (1 / massa);
       const w = L / I + ((p.x - G.x) * j.y - (p.y - G.y) * j.x) / I;
       for (const b of membros) {
@@ -253,12 +258,17 @@ export class ConjuntoEstruturalRigido {
     return new Vetor3(x, y, z);
   }
 
-  /** Obtém ωZ=LZ/IZ da soma do momento orbital e das inércias próprias dos membros em relação a G; retorno rad/s. @contract f-20bfea7b2e381c3a @reviewed M12-DOC: implementação lida. */
+  /** Obtém ωZ=LZ/IZ em rad/s; L intrínseco soma r×m(v−Vg) e Ipróprio·ω.
+   * Subtrair Vg antes dos produtos evita torque numérico por cancelamento de
+   * velocidades orbitais com braços pequenos. Não integra nem altera corpos.
+   * @contract f-20bfea7b2e381c3a
+   */
   private obterVelocidadeAngularAtual(centroMassa: Vetor3): number {
+    const centroVel = this.obterVelocidadeDoCentroAtual();
     const momentoAngularZ = this.objetos.reduce((soma, objeto) => {
       const estado = objeto.getEstadoFisico();
       const bx = estado.posicaoM.x - centroMassa.x, by = estado.posicaoM.y - centroMassa.y;
-      return soma + (bx * (estado.velocidadeMps.y * objeto.massaKg) - by * (estado.velocidadeMps.x * objeto.massaKg))
+      return soma + (bx * ((estado.velocidadeMps.y - centroVel.y) * objeto.massaKg) - by * ((estado.velocidadeMps.x - centroVel.x) * objeto.massaKg))
         + objeto.getMomentoInerciaKgM2().z * estado.velocidadeAngularRadps.z;
     }, 0);
     return momentoAngularZ / this.obterInerciaCompostaZ();

@@ -1,0 +1,1830 @@
+{
+  "formato": "blackstar-missao-1",
+  "identificacao": {
+    "id": "RE-001",
+    "revisao": "RE-001-r1",
+    "configuracao": {
+      "altitudeM": 120000,
+      "velocidadeMps": 7700,
+      "anguloAtaqueRad": 0.6981317007977318,
+      "trajetoriaRad": -0.017453292519943295,
+      "rolagemRad": 0,
+      "limiteOrbitadorC": 1100,
+      "limiteFlapsC": 900,
+      "limiteBateriaC": 60,
+      "automatico": true,
+      "chaveamentoAutomatico": false,
+      "vacuo": false,
+      "semente": 1,
+      "passoS": 0.004166666666666667,
+      "corredor": {
+        "pressaoMaximaPa": 50000,
+        "fluxoMaximoWm2": 500000,
+        "cargaMaximaG": 5
+      },
+      "transferencia": {
+        "altitudeMinimaM": 20,
+        "altitudeMaximaM": 5000,
+        "velocidadeMaximaMps": 150,
+        "atitudeMaximaRad": 0.2617993877991494,
+        "trajetoriaMinimaRad": -1.5707963267948966,
+        "trajetoriaMaximaRad": -0.08726646259971647
+      }
+    },
+    "modeloFisico": {
+      "revisao": "terra-esferica-m9",
+      "plano": "XY",
+      "rotacaoRadps": 0,
+      "raioM": 6371000,
+      "g0ReferenciaIspMps2": 9.80665,
+      "campo": {
+        "modelo": "central",
+        "centroM": {
+          "x": 0,
+          "y": -6371000,
+          "z": 0
+        },
+        "muM3S2": 398600441800000
+      },
+      "integracao": "verlet-gravitacional",
+      "revisaoDinamicaAngular": "intrinseca-relativa-2",
+      "maxDtS": 0.004166666666666667,
+      "politicaAtmosferica": "perfil-injetado",
+      "densidadeNivelMarKgM3": 1.225,
+      "perfilAtmosferico": {
+        "revisao": "re-atmosfera-log-1",
+        "dominioM": [
+          0,
+          200000
+        ],
+        "camadas": [
+          [
+            0,
+            1.225,
+            15
+          ],
+          [
+            11000,
+            0.36391,
+            -56.5
+          ],
+          [
+            20000,
+            0.08891,
+            -56.5
+          ],
+          [
+            32000,
+            0.01322,
+            -44.5
+          ],
+          [
+            47000,
+            0.001427,
+            -2.5
+          ],
+          [
+            51000,
+            0.0008616,
+            -2.5
+          ],
+          [
+            71000,
+            0.00006421,
+            -58.5
+          ],
+          [
+            86000,
+            0.000006958,
+            -86.2
+          ],
+          [
+            100000,
+            5.604e-7,
+            -78.15
+          ],
+          [
+            120000,
+            2.222e-8,
+            86.85
+          ],
+          [
+            150000,
+            2.076e-9,
+            360.85
+          ],
+          [
+            200000,
+            2.541e-10,
+            581.45
+          ]
+        ],
+        "interpolacao": "log-rho/linear-T; C0; geometria aproximada",
+        "cauda": "acima de 200 km: H=50000 m e T constante; fora do domínio",
+        "fonte": "https://ntrs.nasa.gov/citations/19770009539",
+        "limites": "Âncoras arredondadas; sem atividade solar, composição variável ou rotação terrestre."
+      }
+    },
+    "modeloOrbitador": {
+      "revisao": "RE-001-r1",
+      "areaReferenciaM2": 250,
+      "comprimentoM": 40,
+      "alturaM": 8,
+      "raioNarizM": 2,
+      "areaAquecidaM2": 80,
+      "massaCorpoKg": 78900,
+      "massaFlapKg": 500,
+      "massaBateriaKg": 100,
+      "resistenciaCorpoJ": 100000000,
+      "resistenciaFlapJ": 1000000,
+      "resistenciaFixadorN": 100000000,
+      "areaFlapM2": 16,
+      "clFlapPorRad": 1.2,
+      "cdFlapBase": 0.06,
+      "cdFlapDeflexao": 0.4,
+      "cursoFlapRad": 0.5235987755982988,
+      "taxaFlapRadps": 0.3490658503988659,
+      "bracoFlapM": 16,
+      "potenciaFlapW": 300,
+      "potenciaRepousoFlapW": 6,
+      "tensaoBateriaV": 28,
+      "energiaBateriaJ": 20000000,
+      "ganhoAlpha": 0.008,
+      "ganhoTaxa": 0.18,
+      "torqueMinimoAutoridadeNm": 100,
+      "taxaRolagemRadps": 0.17453292519943295,
+      "coeficienteSuttonGravesSI": 0.00017415
+    },
+    "hipoteses": "ADM XY, Terra e ar estáticos; coeficientes analíticos preliminares; sem RCS/propulsão; rolagem prescrita; lateral omitida; calor concentrado sem TPS separado."
+  },
+  "passoS": 0.004166666666666667,
+  "intervaloAmostraPassos": 240,
+  "passosExecutados": 510,
+  "inicial": {
+    "id": "RE-001",
+    "tempoS": 0,
+    "passo": 0,
+    "execucao": "preparada",
+    "estado": {
+      "posicaoM": {
+        "x": 0,
+        "y": 120000,
+        "z": 0
+      },
+      "velocidadeMps": {
+        "x": 7698.827252704212,
+        "y": -134.383529567083,
+        "z": 0
+      },
+      "orientacaoRad": {
+        "x": 0,
+        "y": 0,
+        "z": 0.6806784082777885
+      },
+      "velocidadeAngularRadps": {
+        "x": 0,
+        "y": 0,
+        "z": -0.00118607722272442
+      }
+    },
+    "altitudeM": 120000,
+    "arcoM": 0,
+    "velocidadeMps": 7700,
+    "trajetoriaRad": -0.01745329251994329,
+    "velocidadeRadialMps": -134.38352956708297,
+    "aerodinamica": {
+      "velocidadeRelativaMps": 7700,
+      "anguloAtaqueRad": 0.6981317007977318,
+      "mach": 20.243915239427142,
+      "pressaoDinamicaPa": 0.6587118999999987,
+      "cl": 0.8800687599974321,
+      "cd": 0.7810814578664557,
+      "sustentacaoN": 144.92794125713783,
+      "sustentacaoXYN": 144.92794125713783,
+      "sustentacaoLateralOmitidaN": 0,
+      "arrastoN": 128.62691279149547,
+      "forcaSustentacaoN": {
+        "x": 2.5293413349383185,
+        "y": 144.90586802971012,
+        "z": 0
+      },
+      "forcaArrastoN": {
+        "x": -128.60732228965887,
+        "y": 2.2448491608101997,
+        "z": 0
+      },
+      "centroPressaoLocalM": -0.2946115689082871,
+      "fluxoTermicoIndicadorWm2": 5072.081629999991,
+      "knudsen": 0.45482673267326823,
+      "regime": "transicao",
+      "modeloContinuoAplicavel": false
+    },
+    "rolagem": {
+      "solicitadaRad": 0,
+      "atualRad": 0,
+      "taxaMaximaRadps": 0.17453292519943295,
+      "limiteRad": 1.5707963267948966,
+      "disponivel": true
+    },
+    "controle": {
+      "estado": "automatico",
+      "alphaSolicitadoRad": 0.6981317007977318,
+      "alphaGerenciadoRad": 0.6981317007977318,
+      "phiSolicitadoRad": 0
+    },
+    "historicoRolagem": [
+      {
+        "tempoS": 0,
+        "anguloRad": 0
+      }
+    ],
+    "supervisor": {
+      "fase": "reentrada",
+      "automatico": false,
+      "autorizado": false,
+      "requisitos": [
+        {
+          "descricao": "Altitude",
+          "atendido": false,
+          "atual": 120000,
+          "esperado": "20–5000 m"
+        },
+        {
+          "descricao": "Velocidade",
+          "atendido": false,
+          "atual": 7699.999999999999,
+          "esperado": "0–150 m/s"
+        },
+        {
+          "descricao": "Atitude vertical",
+          "atendido": false,
+          "atual": -0.890117918517108,
+          "esperado": "|atitude| ≤ 0.2617993877991494 rad"
+        },
+        {
+          "descricao": "Trajetória descendente",
+          "atendido": false,
+          "atual": -0.01745329251994329,
+          "esperado": "-1.5707963267948966–-0.08726646259971647 rad"
+        },
+        {
+          "descricao": "Sensores e finitude",
+          "atendido": true,
+          "atual": true,
+          "esperado": "válidos"
+        },
+        {
+          "descricao": "Integridade",
+          "atendido": true,
+          "atual": 1,
+          "esperado": "> 0"
+        },
+        {
+          "descricao": "Propulsão operacional",
+          "atendido": false,
+          "atual": false,
+          "esperado": "motores disponíveis, permissivos e ignição explícita"
+        },
+        {
+          "descricao": "Integração com ControladorPouso",
+          "atendido": false,
+          "atual": false,
+          "esperado": "sensores, atuadores propulsivos e configuração compatíveis"
+        }
+      ],
+      "limites": {
+        "altitudeMinimaM": 20,
+        "altitudeMaximaM": 5000,
+        "velocidadeMaximaMps": 150,
+        "atitudeMaximaRad": 0.2617993877991494,
+        "trajetoriaMinimaRad": -1.5707963267948966,
+        "trajetoriaMaximaRad": -0.08726646259971647
+      }
+    },
+    "arbitragem": [],
+    "massaKg": 80000,
+    "inerciaKgM2": 11223158.333333371,
+    "centroM": {
+      "x": 0.039332524440614844,
+      "y": 119999.9514283774,
+      "z": 0
+    },
+    "forcaAerodinamicaN": {
+      "x": -127.34363033361606,
+      "y": 147.17280980610002,
+      "z": 0
+    },
+    "torqueAerodinamicoNm": -61.5361800064253,
+    "aceleracaoMps2": {
+      "x": -0.001591795379170201,
+      "y": -9.45867052188856,
+      "z": 0
+    },
+    "rotacao": {
+      "massaKg": 80000,
+      "centroM": {
+        "x": 0.039332524440614844,
+        "y": 119999.9514283774,
+        "z": 0
+      },
+      "velocidadeCentroMps": {
+        "x": 7698.827195094516,
+        "y": -134.38357621849434,
+        "z": 0
+      },
+      "inerciaKgM2": 11223158.33333337,
+      "momentoIntrinsecoKgM2ps": -13311.532466200437,
+      "momentoOrbitalKgM2ps": -3997846956375969.5,
+      "momentoTotalKgM2ps": -3997846956389281,
+      "omegaInercialRadps": -0.001186077222724773,
+      "torqueGravitacionalNm": 0.4946509637067322,
+      "impulsoTorqueNmS": 0,
+      "residuoPassoKgM2ps": 0,
+      "residuoAcumuladoKgM2ps": 0,
+      "residuoMaximoPassoKgM2ps": 0,
+      "passosIncompletos": 0,
+      "torqueAerodinamicoNm": -61.5361800064253,
+      "torqueOutrosContinuosNm": 0,
+      "fontesImpulsivas": false
+    },
+    "cargaG": 0.0002480691423367663,
+    "desaceleracaoMps2": 0.0016236594371895827,
+    "temperaturaC": 20,
+    "integridade": 1,
+    "limiteOrbitadorC": 1100,
+    "limiteFlapsC": 900,
+    "energiaAbsorvidaJ": 0,
+    "energiaDissipadaJ": 0,
+    "energiaAtmosferaJ": 0,
+    "dissipacaoW": 1000174.2075370651,
+    "calorTransferidoW": 415513.5094425494,
+    "potenciaAtmosferaW": 584660.6980945158,
+    "energiaBateriaJ": 20000000,
+    "temperaturaBateriaC": 20,
+    "integridadeBateria": 1,
+    "limiteBateriaC": 60,
+    "flaps": [
+      {
+        "id": "flap-dianteiro",
+        "estado": {
+          "posicaoM": {
+            "x": 15.580937338560721,
+            "y": 120006.18339644952,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": 7698.8345866899,
+            "y": -134.40200976196897,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 0.6806784082777885
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": -0.00118607722272442
+          }
+        },
+        "comandoRad": 0,
+        "deflexaoRad": 0,
+        "integridade": 1,
+        "temperaturaC": 20,
+        "energiaAbsorvidaJ": 0,
+        "conectado": true,
+        "energizado": true
+      },
+      {
+        "id": "flap-traseiro",
+        "estado": {
+          "posicaoM": {
+            "x": -9.287733428062348,
+            "y": 119986.04514393592,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": 7698.810701167287,
+            "y": -134.37251359801323,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 0.6806784082777885
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": -0.00118607722272442
+          }
+        },
+        "comandoRad": 0,
+        "deflexaoRad": 0,
+        "integridade": 1,
+        "temperaturaC": 20,
+        "energiaAbsorvidaJ": 0,
+        "conectado": true,
+        "energizado": true
+      }
+    ],
+    "vinculos": [
+      {
+        "id": "fixador-flap-dianteiro",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-flap-traseiro",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-bateria-interna-re",
+        "estado": "integro"
+      }
+    ],
+    "raioTerraM": 6371000,
+    "centroTerraM": {
+      "x": 0,
+      "y": -6371000,
+      "z": 0
+    },
+    "propulsaoDisponivel": false,
+    "rcsDisponivel": false
+  },
+  "final": {
+    "id": "RE-001",
+    "tempoS": 2.1250000000000004,
+    "passo": 510,
+    "execucao": "pausada",
+    "estado": {
+      "posicaoM": {
+        "x": 16359.986311779774,
+        "y": 119693.07851733918,
+        "z": 0
+      },
+      "velocidadeMps": {
+        "x": 7698.798457996363,
+        "y": -154.48404880672263,
+        "z": 0
+      },
+      "orientacaoRad": {
+        "x": 0,
+        "y": 0,
+        "z": 0.6781452640339068
+      },
+      "velocidadeAngularRadps": {
+        "x": 0,
+        "y": 0,
+        "z": -0.0011979170253627227
+      }
+    },
+    "altitudeM": 119713.69640234765,
+    "arcoM": 16058.26231599354,
+    "velocidadeMps": 7700.348240059205,
+    "trajetoriaRad": -0.017542777552488238,
+    "velocidadeRadialMps": -135.07856761994037,
+    "aerodinamica": {
+      "velocidadeRelativaMps": 7700.348240059205,
+      "anguloAtaqueRad": 0.6982085662004264,
+      "mach": 20.311573826269182,
+      "pressaoDinamicaPa": 0.6899238413134761,
+      "cl": 0.8801124742413851,
+      "cd": 0.78120257573874,
+      "sustentacaoN": 151.80264475413102,
+      "sustentacaoXYN": 142.6478250912417,
+      "sustentacaoLateralOmitidaN": 51.91956231602316,
+      "arrastoN": 134.7425704744133,
+      "forcaSustentacaoN": {
+        "x": 2.861794413261339,
+        "y": 142.61911560515904,
+        "z": 0
+      },
+      "forcaArrastoN": {
+        "x": -134.7154520101163,
+        "y": 2.7031995417070234,
+        "z": 0
+      },
+      "centroPressaoLocalM": -0.2946380634428494,
+      "fluxoTermicoIndicadorWm2": 5312.6538372331115,
+      "knudsen": 0.434289791581671,
+      "regime": "transicao",
+      "modeloContinuoAplicavel": false
+    },
+    "rolagem": {
+      "solicitadaRad": 1.0471975511965976,
+      "atualRad": 0.3490658503988638,
+      "taxaMaximaRadps": 0.17453292519943295,
+      "limiteRad": 1.5707963267948966,
+      "disponivel": true
+    },
+    "controle": {
+      "estado": "manual",
+      "alphaSolicitadoRad": 0.6981317007977318,
+      "alphaGerenciadoRad": 0.6981317007977318,
+      "phiSolicitadoRad": 1.0471975511965976
+    },
+    "historicoRolagem": [
+      {
+        "tempoS": 0,
+        "anguloRad": 0
+      },
+      {
+        "tempoS": 0.12499999999999999,
+        "anguloRad": 1.0471975511965976
+      }
+    ],
+    "supervisor": {
+      "fase": "reentrada",
+      "automatico": true,
+      "autorizado": false,
+      "requisitos": [
+        {
+          "descricao": "Altitude",
+          "atendido": false,
+          "atual": 119713.69640234765,
+          "esperado": "20–5000 m"
+        },
+        {
+          "descricao": "Velocidade",
+          "atendido": false,
+          "atual": 7700.348240059204,
+          "esperado": "0–150 m/s"
+        },
+        {
+          "descricao": "Atitude vertical",
+          "atendido": false,
+          "atual": -0.8901305381469584,
+          "esperado": "|atitude| ≤ 0.2617993877991494 rad"
+        },
+        {
+          "descricao": "Trajetória descendente",
+          "atendido": false,
+          "atual": -0.017542777552488238,
+          "esperado": "-1.5707963267948966–-0.08726646259971647 rad"
+        },
+        {
+          "descricao": "Sensores e finitude",
+          "atendido": true,
+          "atual": true,
+          "esperado": "válidos"
+        },
+        {
+          "descricao": "Integridade",
+          "atendido": true,
+          "atual": 1,
+          "esperado": "> 0"
+        },
+        {
+          "descricao": "Propulsão operacional",
+          "atendido": false,
+          "atual": false,
+          "esperado": "motores disponíveis, permissivos e ignição explícita"
+        },
+        {
+          "descricao": "Integração com ControladorPouso",
+          "atendido": false,
+          "atual": false,
+          "esperado": "sensores, atuadores propulsivos e configuração compatíveis"
+        }
+      ],
+      "limites": {
+        "altitudeMinimaM": 20,
+        "altitudeMaximaM": 5000,
+        "velocidadeMaximaMps": 150,
+        "atitudeMaximaRad": 0.2617993877991494,
+        "trajetoriaMinimaRad": -1.5707963267948966,
+        "trajetoriaMaximaRad": -0.08726646259971647
+      }
+    },
+    "arbitragem": [],
+    "massaKg": 80000,
+    "inerciaKgM2": 11223158.333333345,
+    "centroM": {
+      "x": 16360.025521139223,
+      "y": 119693.02984623758,
+      "z": 0
+    },
+    "forcaAerodinamicaN": {
+      "x": -133.17887569764147,
+      "y": 145.3489076250191,
+      "z": 0
+    },
+    "torqueAerodinamicoNm": -62.03129025292057,
+    "aceleracaoMps2": {
+      "x": -0.025512263149303802,
+      "y": -9.45949788592648,
+      "z": 0
+    },
+    "rotacao": {
+      "massaKg": 80000,
+      "centroM": {
+        "x": 16360.025521139225,
+        "y": 119693.02984623756,
+        "z": 0
+      },
+      "velocidadeCentroMps": {
+        "x": 7698.798399692422,
+        "y": -154.48409577628186,
+        "z": 0
+      },
+      "inerciaKgM2": 11223158.333333345,
+      "momentoIntrinsecoKgM2ps": -13444.412445837774,
+      "momentoOrbitalKgM2ps": -3997845157985959,
+      "momentoTotalKgM2ps": -3997845157999403.5,
+      "omegaInercialRadps": -0.0011979170253623877,
+      "torqueGravitacionalNm": 0.4947137692485713,
+      "impulsoTorqueNmS": -132.88941317236745,
+      "residuoPassoKgM2ps": 0.00004036693714126738,
+      "residuoAcumuladoKgM2ps": 0.009433535030542839,
+      "residuoMaximoPassoKgM2ps": 0.001900358370493016,
+      "passosIncompletos": 0,
+      "torqueAerodinamicoNm": -62.03129025292057,
+      "torqueOutrosContinuosNm": 0,
+      "fontesImpulsivas": false
+    },
+    "cargaG": 0.000251279488807133,
+    "desaceleracaoMps2": 0.0017008506919652358,
+    "temperaturaC": 20.013981098182438,
+    "integridade": 1,
+    "limiteOrbitadorC": 1100,
+    "limiteFlapsC": 900,
+    "energiaAbsorvidaJ": 903690.2770626638,
+    "energiaDissipadaJ": 2175424.607086746,
+    "energiaAtmosferaJ": 1271734.3300240822,
+    "dissipacaoW": 1047771.404490478,
+    "calorTransferidoW": 435218.996055425,
+    "potenciaAtmosferaW": 612552.408435053,
+    "energiaBateriaJ": 19999836.500000805,
+    "temperaturaBateriaC": 20,
+    "integridadeBateria": 1,
+    "limiteBateriaC": 60,
+    "flaps": [
+      {
+        "id": "flap-dianteiro",
+        "estado": {
+          "posicaoM": {
+            "x": 16375.5828625467,
+            "y": 119699.22242523031,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": 7698.805817888228,
+            "y": -154.50273218042327,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 0.6781452640339068
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": -0.0011979170253627227
+          }
+        },
+        "comandoRad": 0,
+        "deflexaoRad": 0,
+        "integridade": 1,
+        "temperaturaC": 20.04233813691025,
+        "energiaAbsorvidaJ": 10584.534227560616,
+        "conectado": true,
+        "energizado": false
+      },
+      {
+        "id": "flap-traseiro",
+        "estado": {
+          "posicaoM": {
+            "x": 16350.663258525045,
+            "y": 119679.14723319128,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": 7698.781769473898,
+            "y": -154.47288056250042,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 0.6781452640339068
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": -0.0011979170253627227
+          }
+        },
+        "comandoRad": 0,
+        "deflexaoRad": 0,
+        "integridade": 1,
+        "temperaturaC": 20.04247530224408,
+        "energiaAbsorvidaJ": 10618.825561011981,
+        "conectado": true,
+        "energizado": false
+      }
+    ],
+    "vinculos": [
+      {
+        "id": "fixador-flap-dianteiro",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-flap-traseiro",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-bateria-interna-re",
+        "estado": "integro"
+      }
+    ],
+    "raioTerraM": 6371000,
+    "centroTerraM": {
+      "x": 0,
+      "y": -6371000,
+      "z": 0
+    },
+    "propulsaoDisponivel": false,
+    "rcsDisponivel": false
+  },
+  "entradas": [
+    {
+      "tipo": "iniciar",
+      "passo": 0,
+      "sequencia": 0
+    },
+    {
+      "tipo": "pausar",
+      "passo": 30,
+      "sequencia": 1
+    },
+    {
+      "tipo": "comando",
+      "passo": 30,
+      "sequencia": 2,
+      "comando": {
+        "tipo": "modo",
+        "automatico": false
+      },
+      "resultado": {
+        "aceito": true,
+        "motivo": "Comando aplicado."
+      }
+    },
+    {
+      "tipo": "comando",
+      "passo": 30,
+      "sequencia": 3,
+      "comando": {
+        "tipo": "alvos",
+        "alphaRad": 0.6981317007977318,
+        "phiRad": 1.0471975511965976
+      },
+      "resultado": {
+        "aceito": true,
+        "motivo": "Comando aplicado."
+      }
+    },
+    {
+      "tipo": "comando",
+      "passo": 30,
+      "sequencia": 4,
+      "comando": {
+        "tipo": "rolagem",
+        "phiRad": 1.0471975511965976
+      },
+      "resultado": {
+        "aceito": true,
+        "motivo": "Comando aplicado."
+      }
+    },
+    {
+      "tipo": "iniciar",
+      "passo": 30,
+      "sequencia": 5
+    },
+    {
+      "tipo": "pausar",
+      "passo": 270,
+      "sequencia": 6
+    },
+    {
+      "tipo": "comando",
+      "passo": 270,
+      "sequencia": 7,
+      "comando": {
+        "tipo": "chaveamento",
+        "automatico": true
+      },
+      "resultado": {
+        "aceito": true,
+        "motivo": "Comando aplicado."
+      }
+    },
+    {
+      "tipo": "comando",
+      "passo": 270,
+      "sequencia": 8,
+      "comando": {
+        "tipo": "pouso"
+      },
+      "resultado": {
+        "aceito": false,
+        "motivo": "Altitude; Velocidade; Atitude vertical; Trajetória descendente; Propulsão operacional; Integração com ControladorPouso"
+      }
+    },
+    {
+      "tipo": "comando",
+      "passo": 270,
+      "sequencia": 9,
+      "comando": {
+        "tipo": "alimentacao",
+        "ligada": false
+      },
+      "resultado": {
+        "aceito": true,
+        "motivo": "Comando aplicado."
+      }
+    },
+    {
+      "tipo": "iniciar",
+      "passo": 270,
+      "sequencia": 10
+    },
+    {
+      "tipo": "pausar",
+      "passo": 510,
+      "sequencia": 11
+    }
+  ],
+  "eventos": [
+    {
+      "sequencia": 0,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "modelo",
+      "descricao": "RE-001-r1; re-atmosfera-log-1; XY, Terra estática; atmosfera de engenharia; RCS/propulsão ausentes; indicadores preliminares."
+    },
+    {
+      "sequencia": 1,
+      "passo": 0,
+      "tempoS": 0,
+      "categoria": "missao",
+      "tipo": "limites-termicos",
+      "descricao": "Limiares provisórios: orbitador 1100 °C; flaps 900 °C; bateria isolada 60 °C. Sem qualificação material/limite interno; bateria sem previsão de fuga térmica ou falha catastrófica."
+    },
+    {
+      "sequencia": 2,
+      "passo": 30,
+      "tempoS": 0.12499999999999999,
+      "categoria": "comando",
+      "tipo": "comando",
+      "descricao": "modo: Comando aplicado."
+    },
+    {
+      "sequencia": 3,
+      "passo": 30,
+      "tempoS": 0.12499999999999999,
+      "categoria": "comando",
+      "tipo": "comando",
+      "descricao": "alvos: Comando aplicado."
+    },
+    {
+      "sequencia": 4,
+      "passo": 30,
+      "tempoS": 0.12499999999999999,
+      "categoria": "comando",
+      "tipo": "comando",
+      "descricao": "rolagem: Comando aplicado."
+    },
+    {
+      "sequencia": 5,
+      "passo": 270,
+      "tempoS": 1.1249999999999973,
+      "categoria": "comando",
+      "tipo": "comando",
+      "descricao": "chaveamento: Comando aplicado."
+    },
+    {
+      "sequencia": 6,
+      "passo": 270,
+      "tempoS": 1.1249999999999973,
+      "categoria": "comando",
+      "tipo": "comando-bloqueado",
+      "descricao": "pouso: Altitude; Velocidade; Atitude vertical; Trajetória descendente; Propulsão operacional; Integração com ControladorPouso"
+    },
+    {
+      "sequencia": 7,
+      "passo": 270,
+      "tempoS": 1.1249999999999973,
+      "categoria": "comando",
+      "tipo": "comando",
+      "descricao": "alimentacao: Comando aplicado."
+    },
+    {
+      "sequencia": 8,
+      "passo": 288,
+      "tempoS": 1.199999999999997,
+      "categoria": "fisico",
+      "tipo": "perda-alimentacao",
+      "descricao": "Condição detectada."
+    }
+  ],
+  "amostras": [
+    {
+      "passo": 0,
+      "observacao": {
+        "id": "RE-001",
+        "tempoS": 0,
+        "passo": 0,
+        "execucao": "preparada",
+        "estado": {
+          "posicaoM": {
+            "x": 0,
+            "y": 120000,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": 7698.827252704212,
+            "y": -134.383529567083,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 0.6806784082777885
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": -0.00118607722272442
+          }
+        },
+        "altitudeM": 120000,
+        "arcoM": 0,
+        "velocidadeMps": 7700,
+        "trajetoriaRad": -0.01745329251994329,
+        "velocidadeRadialMps": -134.38352956708297,
+        "aerodinamica": {
+          "velocidadeRelativaMps": 7700,
+          "anguloAtaqueRad": 0.6981317007977318,
+          "mach": 20.243915239427142,
+          "pressaoDinamicaPa": 0.6587118999999987,
+          "cl": 0.8800687599974321,
+          "cd": 0.7810814578664557,
+          "sustentacaoN": 144.92794125713783,
+          "sustentacaoXYN": 144.92794125713783,
+          "sustentacaoLateralOmitidaN": 0,
+          "arrastoN": 128.62691279149547,
+          "forcaSustentacaoN": {
+            "x": 2.5293413349383185,
+            "y": 144.90586802971012,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": -128.60732228965887,
+            "y": 2.2448491608101997,
+            "z": 0
+          },
+          "centroPressaoLocalM": -0.2946115689082871,
+          "fluxoTermicoIndicadorWm2": 5072.081629999991,
+          "knudsen": 0.45482673267326823,
+          "regime": "transicao",
+          "modeloContinuoAplicavel": false
+        },
+        "rolagem": {
+          "solicitadaRad": 0,
+          "atualRad": 0,
+          "taxaMaximaRadps": 0.17453292519943295,
+          "limiteRad": 1.5707963267948966,
+          "disponivel": true
+        },
+        "controle": {
+          "estado": "automatico",
+          "alphaSolicitadoRad": 0.6981317007977318,
+          "alphaGerenciadoRad": 0.6981317007977318,
+          "phiSolicitadoRad": 0
+        },
+        "historicoRolagem": [
+          {
+            "tempoS": 0,
+            "anguloRad": 0
+          }
+        ],
+        "supervisor": {
+          "fase": "reentrada",
+          "automatico": false,
+          "autorizado": false,
+          "requisitos": [
+            {
+              "descricao": "Altitude",
+              "atendido": false,
+              "atual": 120000,
+              "esperado": "20–5000 m"
+            },
+            {
+              "descricao": "Velocidade",
+              "atendido": false,
+              "atual": 7699.999999999999,
+              "esperado": "0–150 m/s"
+            },
+            {
+              "descricao": "Atitude vertical",
+              "atendido": false,
+              "atual": -0.890117918517108,
+              "esperado": "|atitude| ≤ 0.2617993877991494 rad"
+            },
+            {
+              "descricao": "Trajetória descendente",
+              "atendido": false,
+              "atual": -0.01745329251994329,
+              "esperado": "-1.5707963267948966–-0.08726646259971647 rad"
+            },
+            {
+              "descricao": "Sensores e finitude",
+              "atendido": true,
+              "atual": true,
+              "esperado": "válidos"
+            },
+            {
+              "descricao": "Integridade",
+              "atendido": true,
+              "atual": 1,
+              "esperado": "> 0"
+            },
+            {
+              "descricao": "Propulsão operacional",
+              "atendido": false,
+              "atual": false,
+              "esperado": "motores disponíveis, permissivos e ignição explícita"
+            },
+            {
+              "descricao": "Integração com ControladorPouso",
+              "atendido": false,
+              "atual": false,
+              "esperado": "sensores, atuadores propulsivos e configuração compatíveis"
+            }
+          ],
+          "limites": {
+            "altitudeMinimaM": 20,
+            "altitudeMaximaM": 5000,
+            "velocidadeMaximaMps": 150,
+            "atitudeMaximaRad": 0.2617993877991494,
+            "trajetoriaMinimaRad": -1.5707963267948966,
+            "trajetoriaMaximaRad": -0.08726646259971647
+          }
+        },
+        "arbitragem": [],
+        "massaKg": 80000,
+        "inerciaKgM2": 11223158.333333371,
+        "centroM": {
+          "x": 0.039332524440614844,
+          "y": 119999.9514283774,
+          "z": 0
+        },
+        "forcaAerodinamicaN": {
+          "x": -127.34363033361606,
+          "y": 147.17280980610002,
+          "z": 0
+        },
+        "torqueAerodinamicoNm": -61.5361800064253,
+        "aceleracaoMps2": {
+          "x": -0.001591795379170201,
+          "y": -9.45867052188856,
+          "z": 0
+        },
+        "rotacao": {
+          "massaKg": 80000,
+          "centroM": {
+            "x": 0.039332524440614844,
+            "y": 119999.9514283774,
+            "z": 0
+          },
+          "velocidadeCentroMps": {
+            "x": 7698.827195094516,
+            "y": -134.38357621849434,
+            "z": 0
+          },
+          "inerciaKgM2": 11223158.33333337,
+          "momentoIntrinsecoKgM2ps": -13311.532466200437,
+          "momentoOrbitalKgM2ps": -3997846956375969.5,
+          "momentoTotalKgM2ps": -3997846956389281,
+          "omegaInercialRadps": -0.001186077222724773,
+          "torqueGravitacionalNm": 0.4946509637067322,
+          "impulsoTorqueNmS": 0,
+          "residuoPassoKgM2ps": 0,
+          "residuoAcumuladoKgM2ps": 0,
+          "residuoMaximoPassoKgM2ps": 0,
+          "passosIncompletos": 0,
+          "torqueAerodinamicoNm": -61.5361800064253,
+          "torqueOutrosContinuosNm": 0,
+          "fontesImpulsivas": false
+        },
+        "cargaG": 0.0002480691423367663,
+        "desaceleracaoMps2": 0.0016236594371895827,
+        "temperaturaC": 20,
+        "integridade": 1,
+        "limiteOrbitadorC": 1100,
+        "limiteFlapsC": 900,
+        "energiaAbsorvidaJ": 0,
+        "energiaDissipadaJ": 0,
+        "energiaAtmosferaJ": 0,
+        "dissipacaoW": 1000174.2075370651,
+        "calorTransferidoW": 415513.5094425494,
+        "potenciaAtmosferaW": 584660.6980945158,
+        "energiaBateriaJ": 20000000,
+        "temperaturaBateriaC": 20,
+        "integridadeBateria": 1,
+        "limiteBateriaC": 60,
+        "flaps": [
+          {
+            "id": "flap-dianteiro",
+            "estado": {
+              "posicaoM": {
+                "x": 15.580937338560721,
+                "y": 120006.18339644952,
+                "z": 0
+              },
+              "velocidadeMps": {
+                "x": 7698.8345866899,
+                "y": -134.40200976196897,
+                "z": 0
+              },
+              "orientacaoRad": {
+                "x": 0,
+                "y": 0,
+                "z": 0.6806784082777885
+              },
+              "velocidadeAngularRadps": {
+                "x": 0,
+                "y": 0,
+                "z": -0.00118607722272442
+              }
+            },
+            "comandoRad": 0,
+            "deflexaoRad": 0,
+            "integridade": 1,
+            "temperaturaC": 20,
+            "energiaAbsorvidaJ": 0,
+            "conectado": true,
+            "energizado": true
+          },
+          {
+            "id": "flap-traseiro",
+            "estado": {
+              "posicaoM": {
+                "x": -9.287733428062348,
+                "y": 119986.04514393592,
+                "z": 0
+              },
+              "velocidadeMps": {
+                "x": 7698.810701167287,
+                "y": -134.37251359801323,
+                "z": 0
+              },
+              "orientacaoRad": {
+                "x": 0,
+                "y": 0,
+                "z": 0.6806784082777885
+              },
+              "velocidadeAngularRadps": {
+                "x": 0,
+                "y": 0,
+                "z": -0.00118607722272442
+              }
+            },
+            "comandoRad": 0,
+            "deflexaoRad": 0,
+            "integridade": 1,
+            "temperaturaC": 20,
+            "energiaAbsorvidaJ": 0,
+            "conectado": true,
+            "energizado": true
+          }
+        ],
+        "vinculos": [
+          {
+            "id": "fixador-flap-dianteiro",
+            "estado": "integro"
+          },
+          {
+            "id": "fixador-flap-traseiro",
+            "estado": "integro"
+          },
+          {
+            "id": "fixador-bateria-interna-re",
+            "estado": "integro"
+          }
+        ],
+        "raioTerraM": 6371000,
+        "centroTerraM": {
+          "x": 0,
+          "y": -6371000,
+          "z": 0
+        },
+        "propulsaoDisponivel": false,
+        "rcsDisponivel": false
+      }
+    },
+    {
+      "passo": 240,
+      "observacao": {
+        "id": "RE-001",
+        "tempoS": 0.9999999999999977,
+        "passo": 240,
+        "execucao": "executando",
+        "estado": {
+          "posicaoM": {
+            "x": 7698.824577973028,
+            "y": 119860.88707989459,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": 7698.820034082896,
+            "y": -143.84237910157424,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 0.6794894494564578
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": -0.0011917159494614835
+          }
+        },
+        "altitudeM": 119865.45287479181,
+        "arcoM": 7556.653768759496,
+        "velocidadeMps": 7700.163670158043,
+        "trajetoriaRad": -0.017495416331360095,
+        "velocidadeRadialMps": -134.71069672656256,
+        "aerodinamica": {
+          "velocidadeRelativaMps": 7700.163670158043,
+          "anguloAtaqueRad": 0.6981709674623996,
+          "mach": 20.27562832254407,
+          "pressaoDinamicaPa": 0.6731999433084787,
+          "cl": 0.8800902725952248,
+          "cd": 0.7811433304800607,
+          "sustentacaoN": 148.1191804043622,
+          "sustentacaoXYN": 146.39529687370216,
+          "sustentacaoLateralOmitidaN": 22.532391282786747,
+          "arrastoN": 131.46641144874326,
+          "forcaSustentacaoN": {
+            "x": 2.734727298486419,
+            "y": 146.36975170212696,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": -131.4434712853053,
+            "y": 2.455849278635598,
+            "z": 0
+          },
+          "centroPressaoLocalM": -0.29462510354251326,
+          "fluxoTermicoIndicadorWm2": 5183.749746216401,
+          "knudsen": 0.4450572535964837,
+          "regime": "transicao",
+          "modeloContinuoAplicavel": false
+        },
+        "rolagem": {
+          "solicitadaRad": 1.0471975511965976,
+          "atualRad": 0.15271630954950394,
+          "taxaMaximaRadps": 0.17453292519943295,
+          "limiteRad": 1.5707963267948966,
+          "disponivel": true
+        },
+        "controle": {
+          "estado": "manual",
+          "alphaSolicitadoRad": 0.6981317007977318,
+          "alphaGerenciadoRad": 0.6981317007977318,
+          "phiSolicitadoRad": 1.0471975511965976
+        },
+        "historicoRolagem": [
+          {
+            "tempoS": 0,
+            "anguloRad": 0
+          },
+          {
+            "tempoS": 0.12499999999999999,
+            "anguloRad": 1.0471975511965976
+          }
+        ],
+        "supervisor": {
+          "fase": "reentrada",
+          "automatico": false,
+          "autorizado": false,
+          "requisitos": [
+            {
+              "descricao": "Altitude",
+              "atendido": false,
+              "atual": 119865.45287479181,
+              "esperado": "20–5000 m"
+            },
+            {
+              "descricao": "Velocidade",
+              "atendido": false,
+              "atual": 7700.163670158044,
+              "esperado": "0–150 m/s"
+            },
+            {
+              "descricao": "Atitude vertical",
+              "atendido": false,
+              "atual": -0.8901207756638572,
+              "esperado": "|atitude| ≤ 0.2617993877991494 rad"
+            },
+            {
+              "descricao": "Trajetória descendente",
+              "atendido": false,
+              "atual": -0.017495416331360095,
+              "esperado": "-1.5707963267948966–-0.08726646259971647 rad"
+            },
+            {
+              "descricao": "Sensores e finitude",
+              "atendido": true,
+              "atual": true,
+              "esperado": "válidos"
+            },
+            {
+              "descricao": "Integridade",
+              "atendido": true,
+              "atual": 1,
+              "esperado": "> 0"
+            },
+            {
+              "descricao": "Propulsão operacional",
+              "atendido": false,
+              "atual": false,
+              "esperado": "motores disponíveis, permissivos e ignição explícita"
+            },
+            {
+              "descricao": "Integração com ControladorPouso",
+              "atendido": false,
+              "atual": false,
+              "esperado": "sensores, atuadores propulsivos e configuração compatíveis"
+            }
+          ],
+          "limites": {
+            "altitudeMinimaM": 20,
+            "altitudeMaximaM": 5000,
+            "velocidadeMaximaMps": 150,
+            "atitudeMaximaRad": 0.2617993877991494,
+            "trajetoriaMinimaRad": -1.5707963267948966,
+            "trajetoriaMaximaRad": -0.08726646259971647
+          }
+        },
+        "arbitragem": [],
+        "massaKg": 80000,
+        "inerciaKgM2": 11223158.333333358,
+        "centroM": {
+          "x": 7698.863852720022,
+          "y": 119860.83846154159,
+          "z": 0
+        },
+        "forcaAerodinamicaN": {
+          "x": -130.0018731455633,
+          "y": 148.8497620466277,
+          "z": 0
+        },
+        "torqueAerodinamicoNm": -62.4389611850468,
+        "aceleracaoMps2": {
+          "x": -0.012846612955743464,
+          "y": -9.459035117005572,
+          "z": 0
+        },
+        "rotacao": {
+          "massaKg": 80000,
+          "centroM": {
+            "x": 7698.863852720023,
+            "y": 119860.83846154159,
+            "z": 0
+          },
+          "velocidadeCentroMps": {
+            "x": 7698.819976143629,
+            "y": -143.84242590591666,
+            "z": 0
+          },
+          "inerciaKgM2": 11223158.333333356,
+          "momentoIntrinsecoKgM2ps": -13374.816789165829,
+          "momentoOrbitalKgM2ps": -3997846120701551.5,
+          "momentoTotalKgM2ps": -3997846120714926.5,
+          "omegaInercialRadps": -0.0011917159494615644,
+          "torqueGravitacionalNm": 0.49468112399139563,
+          "impulsoTorqueNmS": -63.28604071946533,
+          "residuoPassoKgM2ps": 0.000016699581803558683,
+          "residuoAcumuladoKgM2ps": 0.001717754073566613,
+          "residuoMaximoPassoKgM2ps": 0.001900358370493016,
+          "passosIncompletos": 0,
+          "torqueAerodinamicoNm": -62.4389611850468,
+          "torqueOutrosContinuosNm": 0,
+          "fontesImpulsivas": false
+        },
+        "cargaG": 0.00025190531184840584,
+        "desaceleracaoMps2": 0.0016594970787839674,
+        "temperaturaC": 20.006498679057447,
+        "integridade": 1,
+        "limiteOrbitadorC": 1100,
+        "limiteFlapsC": 900,
+        "energiaAbsorvidaJ": 420057.9098488991,
+        "energiaDissipadaJ": 1011142.4083476859,
+        "energiaAtmosferaJ": 591084.4984987868,
+        "dissipacaoW": 1022271.9234138133,
+        "calorTransferidoW": 424659.01782746334,
+        "potenciaAtmosferaW": 597612.90558635,
+        "energiaBateriaJ": 19999838.000000715,
+        "temperaturaBateriaC": 20,
+        "integridadeBateria": 1,
+        "limiteBateriaC": 60,
+        "flaps": [
+          {
+            "id": "flap-dianteiro",
+            "estado": {
+              "posicaoM": {
+                "x": 7714.412856100826,
+                "y": 119867.05194688508,
+                "z": 0
+              },
+              "velocidadeMps": {
+                "x": 7698.827380853216,
+                "y": -143.86095590124378,
+                "z": 0
+              },
+              "orientacaoRad": {
+                "x": 0,
+                "y": 0,
+                "z": 0.6794894494564578
+              },
+              "velocidadeAngularRadps": {
+                "x": 0,
+                "y": 0,
+                "z": -0.0011917159494614835
+              }
+            },
+            "comandoRad": 0,
+            "deflexaoRad": 0,
+            "integridade": 1,
+            "temperaturaC": 20.0196907452668,
+            "energiaAbsorvidaJ": 4922.686316697657,
+            "conectado": true,
+            "energizado": true
+          },
+          {
+            "id": "flap-traseiro",
+            "estado": {
+              "posicaoM": {
+                "x": 7689.520259364333,
+                "y": 119846.94327642395,
+                "z": 0
+              },
+              "velocidadeMps": {
+                "x": 7698.803417029904,
+                "y": -143.8312909966894,
+                "z": 0
+              },
+              "orientacaoRad": {
+                "x": 0,
+                "y": 0,
+                "z": 0.6794894494564578
+              },
+              "velocidadeAngularRadps": {
+                "x": 0,
+                "y": 0,
+                "z": -0.0011917159494614835
+              }
+            },
+            "comandoRad": 0,
+            "deflexaoRad": 0,
+            "integridade": 1,
+            "temperaturaC": 20.019754405708767,
+            "energiaAbsorvidaJ": 4938.6014271870845,
+            "conectado": true,
+            "energizado": true
+          }
+        ],
+        "vinculos": [
+          {
+            "id": "fixador-flap-dianteiro",
+            "estado": "integro"
+          },
+          {
+            "id": "fixador-flap-traseiro",
+            "estado": "integro"
+          },
+          {
+            "id": "fixador-bateria-interna-re",
+            "estado": "integro"
+          }
+        ],
+        "raioTerraM": 6371000,
+        "centroTerraM": {
+          "x": 0,
+          "y": -6371000,
+          "z": 0
+        },
+        "propulsaoDisponivel": false,
+        "rcsDisponivel": false
+      }
+    },
+    {
+      "passo": 480,
+      "observacao": {
+        "id": "RE-001",
+        "tempoS": 1.9999999999999942,
+        "passo": 480,
+        "execucao": "executando",
+        "estado": {
+          "posicaoM": {
+            "x": 15397.636309312533,
+            "y": 119712.3151207777,
+            "z": 0
+          },
+          "velocidadeMps": {
+            "x": 7698.8015590181685,
+            "y": -153.30161493184772,
+            "z": 0
+          },
+          "orientacaoRad": {
+            "x": 0,
+            "y": 0,
+            "z": 0.6782949622425616
+          },
+          "velocidadeAngularRadps": {
+            "x": 0,
+            "y": 0,
+            "z": -0.0011972310370263058
+          }
+        },
+        "altitudeM": 119730.57866866328,
+        "arcoM": 15113.61960677887,
+        "velocidadeMps": 7700.3277092784365,
+        "trajetoriaRad": -0.017537516354118463,
+        "velocidadeRadialMps": -135.0377007517847,
+        "aerodinamica": {
+          "velocidadeRelativaMps": 7700.3277092784365,
+          "anguloAtaqueRad": 0.6982047309286183,
+          "mach": 20.307565762530185,
+          "pressaoDinamicaPa": 0.6880430268700355,
+          "cl": 0.8801101114163511,
+          "cd": 0.7811965323704236,
+          "sustentacaoN": 151.3884062594576,
+          "sustentacaoXYN": 143.35424314332596,
+          "sustentacaoLateralOmitidaN": 48.66220836113759,
+          "arrastoN": 134.3742066781305,
+          "forcaSustentacaoN": {
+            "x": 2.853961261249223,
+            "y": 143.32583135051095,
+            "z": 0
+          },
+          "forcaArrastoN": {
+            "x": -134.34757466476202,
+            "y": 2.6751826242565975,
+            "z": 0
+          },
+          "centroPressaoLocalM": -0.29463674145603014,
+          "fluxoTermicoIndicadorWm2": 5298.156784983142,
+          "knudsen": 0.43547463140101184,
+          "regime": "transicao",
+          "modeloContinuoAplicavel": false
+        },
+        "rolagem": {
+          "solicitadaRad": 1.0471975511965976,
+          "atualRad": 0.3272492347489349,
+          "taxaMaximaRadps": 0.17453292519943295,
+          "limiteRad": 1.5707963267948966,
+          "disponivel": true
+        },
+        "controle": {
+          "estado": "manual",
+          "alphaSolicitadoRad": 0.6981317007977318,
+          "alphaGerenciadoRad": 0.6981317007977318,
+          "phiSolicitadoRad": 1.0471975511965976
+        },
+        "historicoRolagem": [
+          {
+            "tempoS": 0,
+            "anguloRad": 0
+          },
+          {
+            "tempoS": 0.12499999999999999,
+            "anguloRad": 1.0471975511965976
+          }
+        ],
+        "supervisor": {
+          "fase": "reentrada",
+          "automatico": true,
+          "autorizado": false,
+          "requisitos": [
+            {
+              "descricao": "Altitude",
+              "atendido": false,
+              "atual": 119730.57866866328,
+              "esperado": "20–5000 m"
+            },
+            {
+              "descricao": "Velocidade",
+              "atendido": false,
+              "atual": 7700.327709278437,
+              "esperado": "0–150 m/s"
+            },
+            {
+              "descricao": "Atitude vertical",
+              "atendido": false,
+              "atual": -0.8901291122203965,
+              "esperado": "|atitude| ≤ 0.2617993877991494 rad"
+            },
+            {
+              "descricao": "Trajetória descendente",
+              "atendido": false,
+              "atual": -0.017537516354118463,
+              "esperado": "-1.5707963267948966–-0.08726646259971647 rad"
+            },
+            {
+              "descricao": "Sensores e finitude",
+              "atendido": true,
+              "atual": true,
+              "esperado": "válidos"
+            },
+            {
+              "descricao": "Integridade",
+              "atendido": true,
+              "atual": 1,
+              "esperado": "> 0"
+            },
+            {
+              "descricao": "Propulsão operacional",
+              "atendido": false,
+              "atual": false,
+              "esperado": "motores disponíveis, permissivos e ignição explícita"
+            },
+            {
+              "descricao": "Integração com ControladorPouso",
+              "atendido": false,
+              "atual": false,
+              "esperado": "sensores, atuadores propulsivos e configuração compatíveis"
+            }
+          ],
+          "limites": {
+            "altitudeMinimaM": 20,
+            "altitudeMaximaM": 5000,
+            "velocidadeMaximaMps": 150,
+            "atitudeMaximaRad": 0.2617993877991494,
+            "trajetoriaMinimaRad": -1.5707963267948966,
+            "trajetoriaMaximaRad": -0.08726646259971647
+          }
+        },
+        "arbitragem": [],
+        "massaKg": 80000,
+        "inerciaKgM2": 11223158.333333239,
+        "centroM": {
+          "x": 15397.675525957522,
+          "y": 119712.26645554621,
+          "z": 0
+        },
+        "forcaAerodinamicaN": {
+          "x": -132.81522285823112,
+          "y": 146.02733104729566,
+          "z": 0
+        },
+        "torqueAerodinamicoNm": -62.1529406284969,
+        "aceleracaoMps2": {
+          "x": -0.024104749746436154,
+          "y": -9.459443620207134,
+          "z": 0
+        },
+        "rotacao": {
+          "massaKg": 80000,
+          "centroM": {
+            "x": 15397.675525957522,
+            "y": 119712.26645554621,
+            "z": 0
+          },
+          "velocidadeCentroMps": {
+            "x": 7698.801500754643,
+            "y": -153.30166188323227,
+            "z": 0
+          },
+          "inerciaKgM2": 11223158.333333239,
+          "momentoIntrinsecoKgM2ps": -13436.713490128992,
+          "momentoOrbitalKgM2ps": -3997845266176143.5,
+          "momentoTotalKgM2ps": -3997845266189580,
+          "omegaInercialRadps": -0.0011972310370264852,
+          "torqueGravitacionalNm": 0.4947102090016714,
+          "impulsoTorqueNmS": -125.18928466852309,
+          "residuoPassoKgM2ps": 0.00003773905632065144,
+          "residuoAcumuladoKgM2ps": 0.008260739967965336,
+          "residuoMaximoPassoKgM2ps": 0.001900358370493016,
+          "passosIncompletos": 0,
+          "torqueAerodinamicoNm": -62.1529406284969,
+          "torqueOutrosContinuosNm": 0,
+          "fontesImpulsivas": false
+        },
+        "cargaG": 0.0002516056280952463,
+        "desaceleracaoMps2": 0.0016962009766431528,
+        "temperaturaC": 20.01314061021807,
+        "integridade": 1,
+        "limiteOrbitadorC": 1100,
+        "limiteFlapsC": 900,
+        "energiaAbsorvidaJ": 849364.6402579526,
+        "energiaDissipadaJ": 2044638.4398830987,
+        "energiaAtmosferaJ": 1195273.7996251462,
+        "dissipacaoW": 1044904.2643883914,
+        "calorTransferidoW": 434031.3800911271,
+        "potenciaAtmosferaW": 610872.8842972643,
+        "energiaBateriaJ": 19999836.500000805,
+        "temperaturaBateriaC": 20,
+        "integridadeBateria": 1,
+        "limiteBateriaC": 60,
+        "flaps": [
+          {
+            "id": "flap-dianteiro",
+            "estado": {
+              "posicaoM": {
+                "x": 15413.231940172702,
+                "y": 119718.4613633757,
+                "z": 0
+              },
+              "velocidadeMps": {
+                "x": 7698.808917490568,
+                "y": -153.3202865051555,
+                "z": 0
+              },
+              "orientacaoRad": {
+                "x": 0,
+                "y": 0,
+                "z": 0.6782949622425616
+              },
+              "velocidadeAngularRadps": {
+                "x": 0,
+                "y": 0,
+                "z": -0.0011972310370263058
+              }
+            },
+            "comandoRad": 0,
+            "deflexaoRad": 0,
+            "integridade": 1,
+            "temperaturaC": 20.03979419221254,
+            "energiaAbsorvidaJ": 9948.548053134544,
+            "conectado": true,
+            "energizado": false
+          },
+          {
+            "id": "flap-traseiro",
+            "estado": {
+              "posicaoM": {
+                "x": 15388.31534165054,
+                "y": 119698.38244114154,
+                "z": 0
+              },
+              "velocidadeMps": {
+                "x": 7698.784878381679,
+                "y": -153.29045558006766,
+                "z": 0
+              },
+              "orientacaoRad": {
+                "x": 0,
+                "y": 0,
+                "z": 0.6782949622425616
+              },
+              "velocidadeAngularRadps": {
+                "x": 0,
+                "y": 0,
+                "z": -0.0011972310370263058
+              }
+            },
+            "comandoRad": 0,
+            "deflexaoRad": 0,
+            "integridade": 1,
+            "temperaturaC": 20.039923100965886,
+            "energiaAbsorvidaJ": 9980.775241465284,
+            "conectado": true,
+            "energizado": false
+          }
+        ],
+        "vinculos": [
+          {
+            "id": "fixador-flap-dianteiro",
+            "estado": "integro"
+          },
+          {
+            "id": "fixador-flap-traseiro",
+            "estado": "integro"
+          },
+          {
+            "id": "fixador-bateria-interna-re",
+            "estado": "integro"
+          }
+        ],
+        "raioTerraM": 6371000,
+        "centroTerraM": {
+          "x": 0,
+          "y": -6371000,
+          "z": 0
+        },
+        "propulsaoDisponivel": false,
+        "rcsDisponivel": false
+      }
+    }
+  ]
+}
