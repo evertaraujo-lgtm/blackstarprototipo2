@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { Plugin } from 'vite';
+import { paginaEstudoMarkdown } from './markdownEstudos';
 
 export const paginasInstitucionais = ['index.html', 'pesquisa.html', 'simulador.html', 'termica-re004.html'] as const;
 export const caminhoArtigo = '/publicacoes/pouso-propulsivo-bss-2026.pdf';
@@ -36,6 +37,7 @@ export function pluginInstitucional(raiz: string): Plugin {
     const url = new URL(req.url ?? '/', 'http://localhost');
     const publicacao = publicacoes.find(p => p.caminho === url.pathname);
     const estudo = estudosMarkdown.find(e => e.caminho === url.pathname);
+    const estudoHtml = estudosMarkdown.find(e => e.caminho.replace(/\.md$/, '.html') === url.pathname);
     const pagina = paginasInstitucionais.find(p => (p === 'termica-re004.html' && url.pathname === '/pesquisa/termica-re004') || url.pathname === `/${p}`
       || url.pathname === (p === 'index.html' ? '/' : `/${p.slice(0, -5)}`));
     if (pagina) {
@@ -48,6 +50,16 @@ export function pluginInstitucional(raiz: string): Plugin {
         res.setHeader('Content-Length', bytes.length);
         res.setHeader('X-Content-Type-Options', 'nosniff');
         res.end(req.method === 'HEAD' ? undefined : bytes);
+      } catch (erro) { next(erro); }
+    } else if (desenvolvimento && estudoHtml) {
+      try {
+        const fonte = readFileSync(resolve(raiz, estudoHtml.fonte), 'utf8');
+        const nome = estudoHtml.caminho.split('/').pop()!.replace(/\.md$/, '');
+        const html = Buffer.from(paginaEstudoMarkdown(fonte, nome), 'utf8');
+        res.setHeader('Content-Type', 'text/html; charset=utf-8');
+        res.setHeader('Content-Length', html.length);
+        res.setHeader('X-Content-Type-Options', 'nosniff');
+        res.end(req.method === 'HEAD' ? undefined : html);
       } catch (erro) { next(erro); }
     } else if (desenvolvimento && estudo) {
       try {
@@ -89,8 +101,13 @@ export function pluginInstitucional(raiz: string): Plugin {
       }
       for (const publicacao of publicacoes) this.emitFile({ type: 'asset', fileName: publicacao.caminho.slice(1),
         source: readFileSync(resolve(raiz, publicacao.fonte)) });
-      for (const estudo of estudosMarkdown) this.emitFile({ type: 'asset', fileName: estudo.caminho.slice(1),
-        source: readFileSync(resolve(raiz, estudo.fonte)) });
+      for (const estudo of estudosMarkdown) {
+        const fonte = readFileSync(resolve(raiz, estudo.fonte), 'utf8');
+        this.emitFile({ type: 'asset', fileName: estudo.caminho.slice(1), source: fonte });
+        const nome = estudo.caminho.split('/').pop()!.replace(/\.md$/, '');
+        this.emitFile({ type: 'asset', fileName: estudo.caminho.replace(/\.md$/, '.html').slice(1),
+          source: paginaEstudoMarkdown(fonte, nome) });
+      }
     },
   };
 }

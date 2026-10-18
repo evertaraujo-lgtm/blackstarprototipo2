@@ -64,6 +64,8 @@ export function verificarDistribuicao(raiz: string): { paginas: number; imagens:
   }
   for (const estudo of estudosMarkdown) {
     if (hashArquivo(resolverRecurso(dist, estudo.caminho)) !== hashArquivo(resolve(raiz, estudo.fonte))) throw new Error(`Markdown divergente: ${estudo.caminho}`);
+    const artigo = readFileSync(resolverRecurso(dist, estudo.caminho.replace(/\.md$/, '.html')), 'utf8');
+    if (!artigo.includes('<article class="article">') || !artigo.includes('Baixar arquivo original .md')) throw new Error(`Página HTML do estudo ausente: ${estudo.caminho}`);
   }
   for (const publicacao of publicacoes) {
     const pdf = resolverRecurso(dist, publicacao.caminho);
