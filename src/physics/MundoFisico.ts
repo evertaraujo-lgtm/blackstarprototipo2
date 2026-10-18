@@ -369,6 +369,7 @@ export class MundoFisico {
   }
 
   /** Receita explícita do passo; fenômenos físicos vivem nos subsistemas.
+   * Finaliza dano das redes térmicas optantes após trocas nos fixadores.
    * @contract f-99ffa3537971f382
    */
   private integrarPasso(dtS: number, aplicarImpulsos: boolean): void {
@@ -379,6 +380,7 @@ export class MundoFisico {
     for (const objeto of this.objetos.values()) objeto.prepararPassoOperacional(dtS);
     this.sistemaTermico.atualizar([...this.objetos.values()], dtS);
     for (const fixador of this.fixadores.values()) fixador.prepararPasso(dtS);
+    this.sistemaTermico.finalizarPasso([...this.objetos.values()], dtS);
     for (const chumbador of this.chumbadoresAoSolo.values()) chumbador.prepararPasso();
     this.sincronizarConjuntosEstruturais(0, false);
     if (aplicarImpulsos) this.aplicarImpulsosPendentes();

@@ -50,3 +50,5 @@
 .re-config-escolha { padding: .8rem; border: 1px solid #b19147; border-radius: .4rem; font-size: .8rem; }
 .re-config-escolha[hidden] { display: none; }
 .re-config-escolha button { width: 100%; white-space: normal; }
+
+#re-termica-json { width: 100%; min-width: 0; resize: vertical; border: 1px solid #29496e; background: #071126; color: #e5edf7; padding: .6rem; font: .72rem/1.5 ui-monospace, monospace; }

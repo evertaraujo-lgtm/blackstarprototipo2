@@ -45,25 +45,28 @@ export class FlapReentrada extends AletaAerodinamica {
   }
 
   /** Aquecimento indicador com raio/área configurados (padrões 0,5 m e 2 m²);
-   * temperatura é do componente concentrado, sem interpretação de atuador interno.
+   * rede optante fornece fluxo externo prescrito sem teto D·V local; legado
+   * conserva calor concentrado min(indicador,D·V). O core aplica uma única vez.
    * @contract f-d1d83ab8a5f815b3
    */
   public override obterPotenciaAquecimentoAerodinamicoW(c: CondicoesAtmosfericas, dissipacaoW: number): number {
     const V = this.getEstadoFisico().velocidadeMps.subtrair(c.velocidadeArMps).magnitude;
-    return Math.min(dissipacaoW, this.parametros.areaAquecidaFlapM2 * calcularFluxoTermicoIndicador(c.densidadeArKgM3, V, this.parametros.raioNarizFlapM, this.parametros.coeficienteSuttonGravesSI));
+    const indicadorW = this.parametros.areaAquecidaFlapM2 * calcularFluxoTermicoIndicador(c.densidadeArKgM3, V, this.parametros.raioNarizFlapM, this.parametros.coeficienteSuttonGravesSI);
+    return this.obterRedeTermicaPeloCore() ? indicadorW : Math.min(dissipacaoW, indicadorW);
   }
-  /** Capacidade térmica concentrada J/°C calculada pela massa instantânea e c configurado.  @contract f-3e48ec123ef93cbe */
-  public override get capacidadeTermicaJPorC(): number { return this.massaKg * this.parametros.calorEspecificoFlapJPorKgC; }
+  /** Capacidade estrutural regional optante, ou massa instantânea × c no legado.  @contract f-3e48ec123ef93cbe */
+  public override get capacidadeTermicaJPorC(): number { return this.obterRedeTermicaPeloCore() ? super.capacidadeTermicaJPorC : this.massaKg * this.parametros.calorEspecificoFlapJPorKgC; }
 
   /** Diagnóstico do atuador prescrito, em rad/s, por permissivos reais. Torque e
    * carga mecânica não são inventados a partir dos 300 W elétricos do modelo.
+   * Expõe dano próprio do mecanismo, separado da superfície/estrutura.
    * @contract f-b750057ae1f8513b
    */
   public obterDiagnosticoAtuacao() {
-    return { taxaEfetivaRadps: this.taxaEfetivaRadps, cursoRad: this.parametros.cursoFlapRad,
+    return { ...(this.obterRedeTermicaPeloCore() ? { integridadeMecanismo: this.obterRedeTermicaPeloCore()!.obterRegiao('interna').integridade } : {}), taxaEfetivaRadps: this.taxaEfetivaRadps, cursoRad: this.parametros.cursoFlapRad,
       taxaMaximaRadps: this.parametros.taxaFlapRadps, modeloMecanico: 'taxa-prescrita-eletrica',
       torqueDisponivelNm: null, torqueCargaNm: null,
       bloqueio: !this.montagemIntegra() ? 'vinculo' : this.integridadeEstrutural <= 0 ? 'integridade'
-        : !this.conexaoEletrica.estaEnergizada ? 'alimentacao' : Math.abs(this.comandoAtualRad - this.deflexaoAtualRad) > 1e-9 ? 'curso-taxa-ou-energia' : 'nenhum' };
+        : !this.conexaoEletrica.estaEnergizada ? 'alimentacao' : this.obterRedeTermicaPeloCore()?.obterRegiao('interna').integridade === 0 ? 'termica-mecanismo' : Math.abs(this.comandoAtualRad - this.deflexaoAtualRad) > 1e-9 ? 'curso-taxa-ou-energia' : 'nenhum' };
   }
 }

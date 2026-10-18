@@ -1,3 +1,4 @@
+import { energiaConduzida } from '../termica/RedeTermica';
 import { Objeto } from '../objetos/base/Objeto';
 import { Vetor3 } from '../Vetor3';
 
@@ -13,6 +14,8 @@ export interface DefinicaoFixadorEstrutural {
   readonly temperaturaInicialC?: number;
   readonly capacidadeTermicaJPorC?: number;
   readonly condutanciaTermicaWPorC?: number;
+  /** Opt-in conservativo: portas de redes existentes, sem reservatório fictício. */
+  readonly portasTermicas?: { readonly regiaoA: string; readonly regiaoB: string };
   /** Esforço solicitado pela operação que o fixador precisa transmitir. */
   readonly obterEsforcoSolicitadoN: /** Consulta esforço externo solicitado em N para verificar resistência do vínculo; core acrescenta cargas físicas observadas. Não rompe vínculo por esta leitura. @contract f-cd671b03c8af2236 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => number;
 }
@@ -27,12 +30,15 @@ export class FixadorEstrutural {
   /** Rotação planar do conjunto em torno do seu centro de massa. */
   private rotacaoDoConjuntoRad = 0;
   private temperaturaAtualC: number;
+  private energiaConduzidaJ = 0;
+  private potenciaConduzidaW = 0;
   private esforcoFisicoAtualN = 0;
   private maiorEsforcoFisicoRegistradoN = 0;
   private esforcoCompressaoAtualN = 0;
   private maiorEsforcoCompressaoRegistradoN = 0;
 
-  /** Captura deslocamento/atitude relativos de dois corpos distintos; valida resistência de tração N e compressão opcional N positivas/finitas; inicializa temperatura °C. @contract f-0f5869bdaef2f59f @reviewed M12-DOC: implementação lida. */
+  /** Valida portas de rede optantes e condutância W/°C, sem evoluir calor.
+   * Captura deslocamento/atitude relativos de dois corpos distintos; valida resistência de tração N e compressão opcional N positivas/finitas; inicializa temperatura °C. @contract f-0f5869bdaef2f59f @reviewed M12-DOC: implementação lida. */
   public constructor(private readonly definicao: DefinicaoFixadorEstrutural) {
     if (!definicao.id || !Number.isFinite(definicao.resistenciaTracaoN) || definicao.resistenciaTracaoN <= 0) {
       throw new Error('Definição de fixador estrutural inválida.');
@@ -46,6 +52,11 @@ export class FixadorEstrutural {
     this.orientacaoInicialARad = definicao.objetoA.getEstadoFisico().orientacaoRad;
     this.orientacaoRelativaInicialRad = definicao.objetoB.getEstadoFisico().orientacaoRad.subtrair(definicao.objetoA.getEstadoFisico().orientacaoRad);
     this.temperaturaAtualC = definicao.temperaturaInicialC ?? 20;
+    if (definicao.portasTermicas) {
+      if (!Number.isFinite(definicao.condutanciaTermicaWPorC) || definicao.condutanciaTermicaWPorC! < 0
+        || !definicao.objetoA.obterRedeTermicaPeloCore()?.obterRegiao(definicao.portasTermicas.regiaoA)
+        || !definicao.objetoB.obterRedeTermicaPeloCore()?.obterRegiao(definicao.portasTermicas.regiaoB)) throw new Error('Portas/condutância térmica do fixador inválidas.');
+    }
   }
 
   /** Consulta identidade declarada do vínculo. @contract f-055ce00a96446730 @reviewed M12-DOC: implementação lida. */
@@ -117,19 +128,41 @@ export class FixadorEstrutural {
   }
 
   /** Avaliado pelo core após a preparação operacional e antes da integração.
+   * Optantes trocam energia A→B pelos mesmos J em redes declaradas, sem
+   * atravessar equilíbrio. Sua temperatura é diagnóstica (média das portas), não
+   * capacidade adicional. Liberação/ruptura corta caminho; legado é preservado.
    * @contract f-7423b87c58676970
    */
   public prepararPasso(dtS = 0): void {
     if (!this.estaAtivo) return;
     this.esforcoFisicoAtualN = 0;
     this.esforcoCompressaoAtualN = 0;
-    if (dtS > 0) {
+    if (dtS > 0 && this.definicao.portasTermicas) {
+      const portas = this.definicao.portasTermicas;
+      const a = this.objetoA.obterRedeTermicaPeloCore()!, b = this.objetoB.obterRedeTermicaPeloCore()!;
+      const ra = a.obterRegiao(portas.regiaoA), rb = b.obterRegiao(portas.regiaoB);
+      const j = energiaConduzida(ra.temperaturaC, rb.temperaturaC, ra.capacidadeJPorC, rb.capacidadeJPorC,
+        this.definicao.condutanciaTermicaWPorC!, dtS);
+      a.adicionarEnergia(portas.regiaoA, -j, 'externa'); b.adicionarEnergia(portas.regiaoB, j, 'externa');
+      this.energiaConduzidaJ += j; this.potenciaConduzidaW = j / dtS;
+      this.temperaturaAtualC = (a.obterRegiao(portas.regiaoA).temperaturaC + b.obterRegiao(portas.regiaoB).temperaturaC) / 2;
+    } else if (dtS > 0) {
       const mediaC = (this.objetoA.temperaturaC + this.objetoB.temperaturaC) / 2;
       const condutancia = this.definicao.condutanciaTermicaWPorC ?? 100;
       const capacidade = this.definicao.capacidadeTermicaJPorC ?? 10_000;
       this.temperaturaAtualC += (condutancia * (mediaC - this.temperaturaAtualC) * dtS) / capacidade;
     }
     if (Math.abs(this.definicao.obterEsforcoSolicitadoN()) > this.resistenciaTracaoEfetivaN) this.rompido = true;
+  }
+
+  /** Diagnóstico SI da condução conservativa optante; potência zero se separado.
+   * Legado apenas informa temperatura do vínculo, sem alegar transferência real.
+   * @contract f-40f68796b6d4661c
+   */
+  public obterDiagnosticoTermico() {
+    return Object.freeze({ modelo: this.definicao.portasTermicas ? 'condutancia-conservativa' : 'temperatura-media-legada',
+      temperaturaC: this.temperaturaAtualC, energiaConduzidaJ: this.energiaConduzidaJ,
+      potenciaConduzidaW: this.estaAtivo ? this.potenciaConduzidaW : 0, portas: this.definicao.portasTermicas ? Object.freeze({ ...this.definicao.portasTermicas }) : undefined });
   }
 
   /** Recebe o esforço calculado pelo core a partir de um impulso de contato.

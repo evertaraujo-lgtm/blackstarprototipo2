@@ -48,12 +48,14 @@ export class OrbitadorReentrada extends Objeto {
     return [{ forcaN: this.avaliar(c).forcaSustentacaoN, pontoM: this.obterCentroPressaoM() }];
   }
 
-  /** Fluxo indicador vezes área efetiva, limitado à dissipação D·V; substitui a
+  /** Rede optante: fluxo indicador externo vezes área efetiva, sem teto D·V
+   * local. Legado limitado à dissipação D·V; substitui a
    * fração histórica. SistemaTermico aplica uma vez e conserva contadores/dano.
    * @contract f-93990e131a83cd8a
    */
   public override obterPotenciaAquecimentoAerodinamicoW(c: CondicoesAtmosfericas, potenciaW: number): number {
-    return Math.min(potenciaW, this.avaliar(c).fluxoTermicoIndicadorWm2 * this.parametros.areaAquecidaM2);
+    const indicadorW = this.avaliar(c).fluxoTermicoIndicadorWm2 * this.parametros.areaAquecidaM2;
+    return this.obterRedeTermicaPeloCore() ? indicadorW : Math.min(potenciaW, indicadorW);
   }
 
   /** Atualiza exclusivamente a cinemática virtual em subpassos do core, s;

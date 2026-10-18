@@ -1,0 +1,48 @@
+{
+  "focados": {
+    "numTotalTests": 126,
+    "numPassedTests": 126,
+    "numFailedTests": 0,
+    "numPendingTests": 0
+  },
+  "regionais": {
+    "numTotalTests": 20,
+    "numPassedTests": 20,
+    "numFailedTests": 0,
+    "numPendingTests": 0
+  },
+  "interface": {
+    "numTotalTests": 4,
+    "numPassedTests": 4,
+    "numFailedTests": 0,
+    "numPendingTests": 0
+  },
+  "integral": {
+    "numTotalTests": 706,
+    "numPassedTests": 685,
+    "numFailedTests": 21,
+    "numPendingTests": 0
+  },
+  "documentacaoNaRodadaIntegral": {
+    "passed": 23,
+    "failed": 0
+  },
+  "base": "9db1ef9",
+  "modelo": "RE-004-r1",
+  "integralCoincideCom21Historicas": true,
+  "typecheck": "aprovado",
+  "build": "aprovado",
+  "documentacaoAST": "1653 funções de produção com JSDoc/contrato; sem divergências",
+  "siteVerificar": {
+    "paginas": 6,
+    "imagens": 10,
+    "referencias": 139,
+    "pdfIdentico": true
+  },
+  "observacoes": [
+    "Rodada integral anterior à regressão adicional de dano combinado; alteração posterior validada por 126 focados e 20 regionais finais.",
+    "SMOKE final confirma build da entrega, quatro cenários desktop/mobile.",
+    "Tentativas sob carga e limitações de runtime/performance preservadas separadamente no relatório."
+  ],
+  "mergeDeploy": "não realizados"
+}

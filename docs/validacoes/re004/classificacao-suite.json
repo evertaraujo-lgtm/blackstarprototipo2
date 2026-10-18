@@ -1,0 +1,91 @@
+{
+  "mesmas21Historicas": true,
+  "novas": [],
+  "historicasAusentes": [],
+  "falhasAtuais": [
+    {
+      "arquivo": "MontagemBss.test.ts",
+      "teste": "M10-B — referência física pré-extração (M9-G) mantém identidade, geometria, massa, energia, consumo, contatos e arbitragem"
+    },
+    {
+      "arquivo": "ReferenciaBancadaM10.test.ts",
+      "teste": "M10-E — referência independente do voo na bancada 'alvo-direita': coleta física completa em instância separada"
+    },
+    {
+      "arquivo": "ReferenciaBancadaM10.test.ts",
+      "teste": "M10-E — referência independente do voo na bancada 'alvo-esquerda': coleta física completa em instância separada"
+    },
+    {
+      "arquivo": "ReferenciaBancadaM10.test.ts",
+      "teste": "M10-E — referência independente do voo na bancada 'alvo-zero': coleta física completa em instância separada"
+    },
+    {
+      "arquivo": "ReferenciaBancadaM10.test.ts",
+      "teste": "M10-E — referência independente do voo na bancada 'falha-eletrica': coleta física completa em instância separada"
+    },
+    {
+      "arquivo": "ReferenciaBancadaM10.test.ts",
+      "teste": "M10-E — referência independente do voo na bancada 'falha-metano': coleta física completa em instância separada"
+    },
+    {
+      "arquivo": "ReferenciaBancadaM10.test.ts",
+      "teste": "M10-E — referência independente do voo na bancada 'falha-oxidante': coleta física completa em instância separada"
+    },
+    {
+      "arquivo": "ReferenciaBancadaM10.test.ts",
+      "teste": "M10-E — referência independente do voo na bancada 'sem-ignicao': coleta física completa em instância separada"
+    },
+    {
+      "arquivo": "ReferenciaBancadaM10.test.ts",
+      "teste": "M10-E — referência independente do voo na bancada 'vento-direita': coleta física completa em instância separada"
+    },
+    {
+      "arquivo": "ReferenciaBancadaM10.test.ts",
+      "teste": "M10-E — referência independente do voo na bancada 'vento-esquerda': coleta física completa em instância separada"
+    },
+    {
+      "arquivo": "RegressaoDesempenho.test.ts",
+      "teste": "preserva exatamente a trajetória de entrada e tombamento anterior à M11-P"
+    },
+    {
+      "arquivo": "ReplayMissaoBss006.test.ts",
+      "teste": "reexecuta diário Node de voo completo, incluindo transição e repouso geométrico"
+    },
+    {
+      "arquivo": "ValidacaoMissaoBss006.test.ts",
+      "teste": "M10-E — equivalência exata e determinismo em instâncias independentes 'alvo-direita': mesmos estados, controles, massa, contatos e consumo da bancada"
+    },
+    {
+      "arquivo": "ValidacaoMissaoBss006.test.ts",
+      "teste": "M10-E — equivalência exata e determinismo em instâncias independentes 'alvo-esquerda': mesmos estados, controles, massa, contatos e consumo da bancada"
+    },
+    {
+      "arquivo": "ValidacaoMissaoBss006.test.ts",
+      "teste": "M10-E — equivalência exata e determinismo em instâncias independentes 'alvo-zero': mesmos estados, controles, massa, contatos e consumo da bancada"
+    },
+    {
+      "arquivo": "ValidacaoMissaoBss006.test.ts",
+      "teste": "M10-E — equivalência exata e determinismo em instâncias independentes 'falha-eletrica': mesmos estados, controles, massa, contatos e consumo da bancada"
+    },
+    {
+      "arquivo": "ValidacaoMissaoBss006.test.ts",
+      "teste": "M10-E — equivalência exata e determinismo em instâncias independentes 'falha-metano': mesmos estados, controles, massa, contatos e consumo da bancada"
+    },
+    {
+      "arquivo": "ValidacaoMissaoBss006.test.ts",
+      "teste": "M10-E — equivalência exata e determinismo em instâncias independentes 'falha-oxidante': mesmos estados, controles, massa, contatos e consumo da bancada"
+    },
+    {
+      "arquivo": "ValidacaoMissaoBss006.test.ts",
+      "teste": "M10-E — equivalência exata e determinismo em instâncias independentes 'sem-ignicao': mesmos estados, controles, massa, contatos e consumo da bancada"
+    },
+    {
+      "arquivo": "ValidacaoMissaoBss006.test.ts",
+      "teste": "M10-E — equivalência exata e determinismo em instâncias independentes 'vento-direita': mesmos estados, controles, massa, contatos e consumo da bancada"
+    },
+    {
+      "arquivo": "ValidacaoMissaoBss006.test.ts",
+      "teste": "M10-E — equivalência exata e determinismo em instâncias independentes 'vento-esquerda': mesmos estados, controles, massa, contatos e consumo da bancada"
+    }
+  ]
+}

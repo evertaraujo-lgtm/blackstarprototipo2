@@ -1,3 +1,4 @@
+import { validarConfiguracaoTermicaReentrada, type ConfiguracaoTermicaReentrada } from '../physics/reentrada/ConfiguracaoTermicaReentrada';
 import { RegistroExtremos } from '../missoes/RegistroExtremos';
 import { AmbienteTerrestre } from '../physics/ambiente/AmbienteFisico';
 import { normalizarAngulo } from '../physics/ambiente/ReferencialFisico';
@@ -26,6 +27,8 @@ import { copiarSnapshot } from '../missoes/SnapshotMissao';
 import { diagnosticarMomentoAngular, BalancoAngular } from '../physics/estruturas/DiagnosticoAngular';
 
 export interface ConfiguracaoReentrada {
+  /** Ausente/null: legado RE-003. Presente: opt-in explícito na rede RE-004. */
+  readonly termica?: ConfiguracaoTermicaReentrada | null;
   readonly altitudeM: number;
   readonly velocidadeMps: number;
   readonly anguloAtaqueRad: number;
@@ -92,11 +95,20 @@ export function validarComandoReentrada(entrada: unknown): entrada is ComandoRee
 }
 
 /** Cria configuração copiada, validada e congelada; os limiares térmicos padrão
- * foram definidos pelo operador, não representam estrutura interna/qualificação.
+ * foram definidos pelo operador. Com rede optante migram para superfície;
+ * região estrutural tem limite próprio. Divergência entre representações é erro.
  * @contract f-f88e23012b3ae8c3
    */
 export function configurarReentrada(entrada: EntradaConfiguracaoReentrada = {}): ConfiguracaoReentrada {
-  const c = copiarSnapshot({ ...CONFIGURACAO_REENTRADA, ...entrada, parametros: configurarParametrosReentrada(entrada.parametros), aproximacao: configurarFronteiraAproximacao(entrada.aproximacao) });
+  const termica = entrada.termica == null ? entrada.termica : validarConfiguracaoTermicaReentrada(entrada.termica);
+  const limites = termica ? { limiteOrbitadorC: termica.corpo.regioes.find(r => r.id === 'superficie')!.limiteTermicoC,
+    limiteFlapsC: termica.flap.regioes.find(r => r.id === 'superficie')!.limiteTermicoC,
+    limiteBateriaC: termica.bateria.regioes[0].limiteTermicoC } : {};
+  for (const [chave, valor] of Object.entries(limites)) {
+    if (entrada[chave as keyof typeof limites] !== undefined && entrada[chave as keyof typeof limites] !== valor) throw new Error(`Limite ${chave} diverge da região térmica declarada.`);
+  }
+  const c = copiarSnapshot({ ...CONFIGURACAO_REENTRADA, ...entrada, ...limites,
+    ...(termica ? { termica } : {}), parametros: configurarParametrosReentrada(entrada.parametros), aproximacao: configurarFronteiraAproximacao(entrada.aproximacao) });
   const intervalos: readonly [keyof ConfiguracaoReentrada, number, number][] = [
     ['altitudeM', 10, 200000], ['velocidadeMps', 0, 12000],
     ['anguloAtaqueRad', 0, 80 * Math.PI / 180], ['trajetoriaRad', -Math.PI / 2, Math.PI / 2],
@@ -146,12 +158,13 @@ function exigirCamposConfiguracao(valor: unknown, referencia: object, prefixo: s
 
 /** Fronteira estrita para formulários: exige todos os parâmetros editáveis em SI
  * antes da validação/congelamento de domínio. Somente transferência legada,
- * ausente da interface, usa a referência declarada. Não altera fábrica parcial,
+ * ausente da interface, usa a referência declarada. Rede opcional é validada
+ * integralmente; ausência preserva contrato legado. Não altera fábrica parcial,
  * física, relógio ou configuração de ensaios existentes. Testes RE-003 A–G.
  * @contract f-a01ba13dc3b415ea
    */
 export function validarConfiguracaoExplicitaReentrada(entrada: unknown): ConfiguracaoReentrada {
-  exigirCamposConfiguracao(entrada, CONFIGURACAO_REENTRADA, 'configuracao', ['transferencia']);
+  exigirCamposConfiguracao(entrada, { ...CONFIGURACAO_REENTRADA, termica: null }, 'configuracao', ['transferencia', 'termica']);
   const e = entrada as EntradaConfiguracaoReentrada;
   exigirCamposConfiguracao(e.parametros, CONFIGURACAO_REENTRADA.parametros, 'parametros');
   exigirCamposConfiguracao(e.corredor, CONFIGURACAO_REENTRADA.corredor, 'corredor');
@@ -171,7 +184,8 @@ function estadoModulo(e: EstadoFisico, x: number, y: number): EstadoFisico {
 }
 
 /** Fábrica ADM de corpos reais e vínculos no mesmo MundoFisico. Vácuo é explícito;
- * atmosfera RE é opt-in. Terra estática, XY; padrão 1/240 s, máximo exploratório 1/120 s. Fonte enclausurada.
+ * atmosfera RE e rede térmica regional são opt-in. Redes e caminhos são
+ * instalados antes do registro, sem adicionar massa mecânica. Terra estática, XY; padrão 1/240 s, máximo exploratório 1/120 s. Fonte enclausurada.
  * @contract f-8fc45f499c16a562
    */
 export function criarCenarioReentrada(entrada: EntradaConfiguracaoReentrada = {}) {
@@ -187,27 +201,38 @@ export function criarCenarioReentrada(entrada: EntradaConfiguracaoReentrada = {}
   const orbitador = new OrbitadorReentrada(e, c.limiteOrbitadorC, c.rolagemRad, perfil, ambiente.referencial, () => mundo.velocidadeDoArMps, p);
   const bateria = new Bateria({ id: 'bateria-interna-re', massaBaseKg: p.massaBateriaKg, dimensoesM: new Vetor3(0.5, 0.5, 0.5),
     resistenciaColisaoJ: 1e6, limiteTermicoC: c.limiteBateriaC,
-    // Fonte ideal enclausurada sem modelo térmico de atuador interno neste marco.
+    // Legado isolado; optante recebe rede própria e condução pelo fixador interno.
     coeficienteConveccaoWPorM2C: 0, tensaoNominalV: p.tensaoBateriaV,
     capacidadeEnergiaJ: p.energiaBateriaJ, energiaInicialJ: p.energiaBateriaJ * p.fracaoCargaInicialBateria, estadoInicial: e });
   const fixadores: FixadorEstrutural[] = [];
-  const flaps = [0, 1].map(i => new FlapReentrada({ id: i === 0 ? 'flap-dianteiro' : 'flap-traseiro',
+  const flaps = [0, 1].map((i): FlapReentrada => { const flap: FlapReentrada = new FlapReentrada({ id: i === 0 ? 'flap-dianteiro' : 'flap-traseiro',
     massaBaseKg: p.massaFlapKg, dimensoesM: new Vetor3(4, 2, 8),
     areaEfetivaM2: p.areaFlapM2, coeficienteSustentacaoPorRad: p.clFlapPorRad,
     coeficienteArrasto: p.cdFlapBase, deflexaoMaximaRad: p.cursoFlapRad,
     velocidadeAngularMaximaRadps: p.taxaFlapRadps,
+    /** Eficiência do mecanismo interno, sem alterar controlador ou corrente.  @contract f-a8c04a2cf1437583 */
+    lerEficienciaAtuacao: () => flap.obterRedeTermicaPeloCore()?.obterRegiao('interna').integridade ?? 1,
     potenciaNominalAtuadorW: p.potenciaFlapW, potenciaEmRepousoW: p.potenciaRepousoFlapW, fonteEletrica: bateria,
     /** Permissivo do atuador: vínculo íntegro e corpo vivo; não produz força.  @contract f-974c61344181bb4f */
     operacaoAutorizada: () => fixadores[i]?.estaAtivo === true && orbitador.integridadeEstrutural > 0,
     resistenciaColisaoJ: p.resistenciaFlapJ, limiteTermicoC: c.limiteFlapsC,
     estadoInicial: estadoModulo(e, i === 0 ? p.bracoFlapM : -p.bracoFlapM, p.deslocamentoVerticalFlapM) },
-  () => orbitador.observarRolagem().atualRad, () => fixadores[i]?.estaAtivo === true, p));
+  () => orbitador.observarRolagem().atualRad, () => fixadores[i]?.estaAtivo === true, p);
+    if (c.termica) flap.configurarRedeTermicaPeloCore(c.termica.flap);
+    return flap;
+  });
+  if (c.termica) {
+    orbitador.configurarRedeTermicaPeloCore(c.termica.corpo);
+    bateria.configurarRedeTermicaPeloCore(c.termica.bateria);
+  }
   const objetos: readonly Objeto[] = [orbitador, ...flaps, bateria];
   for (const o of objetos) mundo.registrarObjeto(o);
   for (const modulo of [...flaps, bateria]) {
     const f = new FixadorEstrutural({ id: `fixador-${modulo.id}`, objetoA: orbitador, objetoB: modulo,
       resistenciaTracaoN: p.resistenciaFixadorN, limiteTermicoC: c.limiteFlapsC,
-      condutanciaTermicaWPorC: modulo === bateria ? 0 : p.condutanciaFlapWPorC,
+      condutanciaTermicaWPorC: modulo === bateria ? c.termica?.condutanciaBateriaWPorC ?? 0 : p.condutanciaFlapWPorC,
+      ...(c.termica ? { portasTermicas: { regiaoA: modulo === bateria ? 'interna' : 'estrutura', regiaoB: 'estrutura' },
+        limiteTermicoC: orbitador.limiteTermicoC } : {}),
       /** Sem solicitação operacional extra; impactos são registrados pelo core.
        * Esforço aerodinâmico distribuído de vínculos não é qualificado neste ensaio.
        * @contract f-f310bba164029a51
@@ -258,7 +283,7 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
   private eventosDescartados = 0;
 
   /** Monta controles por portas de leitura, registra adaptador de pouso desabilitado
-   * sem motores, e registra hipóteses/revisão. Não inicia execução ou ignição.
+   * sem motores, e registra hipóteses/revisão, inclusive a térmica regional. Não inicia execução ou ignição.
    * @contract f-34fba91cf8789bd5
    */
   public constructor(entrada: EntradaConfiguracaoReentrada = {}) {
@@ -278,7 +303,9 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
     this.atualizarSupervisor();
     this.evento('modelo', `${MODELO_REENTRADA.revisao}; ${this.cenario.perfil.revisao}; XY, Terra estática; `
       + (this.configuracao.vacuo ? 'vácuo explícito' : 'atmosfera de engenharia') + '; RCS/propulsão ausentes; indicadores preliminares.');
-    this.evento('limites-termicos', `Limiares provisórios: orbitador ${this.configuracao.limiteOrbitadorC} °C; flaps ${this.configuracao.limiteFlapsC} °C; bateria isolada ${this.configuracao.limiteBateriaC} °C. Sem qualificação material/limite interno; bateria sem previsão de fuga térmica ou falha catastrófica.`);
+    this.evento('limites-termicos', this.configuracao.termica
+      ? `RE-004-r1: limites regionais em °C, perfis ${this.configuracao.termica.perfil}; bateria com caminho condutivo declarado. Sem certificação ou fuga térmica.`
+      : `Limiares provisórios: orbitador ${this.configuracao.limiteOrbitadorC} °C; flaps ${this.configuracao.limiteFlapsC} °C; bateria isolada ${this.configuracao.limiteBateriaC} °C. Sem qualificação material/limite interno; bateria sem previsão de fuga térmica ou falha catastrófica.`);
     this.extremos.registrar(this.lerMetricasPasso(), 0, 0);
   }
   /** Índice exato usado pela agenda reproduzível.  @contract f-675d2c66285d618a */
@@ -364,7 +391,8 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
   /** Observação escalar/geométrica e balanço angular, copiada e congelada. Torque
    * gravítico é o gradiente entre centros dos membros, não distribuição interna.
    * Resíduo usa cargas efetivamente integradas; contatos/fontes impulsivas são sinalizados.
-   * Não oferece objetos mutáveis nem corrige estado. @contract f-05755a69bc286c7f */
+   * Não oferece objetos mutáveis nem corrige estado. Rede optante expõe nós,
+   * balanços SI e limites; temperaturaC passa a significar estrutura. @contract f-05755a69bc286c7f */
   public observar() {
     const c = this.cenario, e = c.orbitador.getEstadoFisico();
     const condicoes = c.mundo.obterCondicoesAtmosfericas(c.orbitador), a = c.orbitador.avaliar(condicoes);
@@ -394,17 +422,21 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
         torqueOutrosContinuosNm: 0, fontesImpulsivas: c.mundo.obterContatosComSuperficie().length > 0 },
       cargaG: aceleracaoAero.magnitude / 9.80665,
       desaceleracaoMps2: a.velocidadeRelativaMps > 0 ? -aceleracaoAero.produtoEscalar(e.velocidadeMps) / Math.max(1e-6, e.velocidadeMps.magnitude) : 0,
+      ...(this.configuracao.termica ? { termica: { revisao: 'RE-004-r1', perfil: this.configuracao.termica.perfil,
+        corpo: c.orbitador.observarRedeTermica()!, flaps: c.flaps.map(f => f.observarRedeTermica()!), bateria: c.bateria.observarRedeTermica()!,
+        temperaturaLegadaSignifica: 'estrutura',
+        energiaAtmosferaLegadaSignifica: 'residuo-DV-menos-calor-nao-fechado-no-modelo-de-fluxo-prescrito' } } : {}),
       temperaturaC: c.orbitador.temperaturaC, integridade: c.orbitador.integridadeEstrutural,
       limiteOrbitadorC: this.configuracao.limiteOrbitadorC, limiteFlapsC: this.configuracao.limiteFlapsC,
       energiaAbsorvidaJ: c.objetos.reduce((s, o) => s + o.energiaTermicaAerodinamicaAcumuladaJ, 0),
       energiaDissipadaJ: this.energiaDissipadaJ,
       energiaAtmosferaJ: Math.max(0, this.energiaDissipadaJ - c.objetos.reduce((s, o) => s + o.energiaTermicaAerodinamicaAcumuladaJ, 0)),
-      respostaTermica: { energiaAbsorvidaCorpoJ: c.orbitador.energiaTermicaAerodinamicaAcumuladaJ, modelo: 'concentrado-min-indicador-DV-experimental', tetoUniversal: false,
+      respostaTermica: { energiaAbsorvidaCorpoJ: c.orbitador.energiaTermicaAerodinamicaAcumuladaJ, modelo: this.configuracao.termica ? 'rede-regional-fluxo-prescrito-SG-radiacao-conducao' : 'concentrado-min-indicador-DV-experimental', tetoUniversal: false,
         potenciaIndicadorCorpoW: a.fluxoTermicoIndicadorWm2 * this.configuracao.parametros.areaAquecidaM2,
         potenciaTransferidaCorpoW: c.orbitador.obterPotenciaAquecimentoAerodinamicoW(condicoes, Math.max(0, -c.mundo.obterForcaArrastoAtmosferico(c.orbitador).produtoEscalar(e.velocidadeMps.subtrair(c.mundo.velocidadeDoArMps)))),
-        tpsInstalado: false, camadasInternasModeladas: false },
+        tpsInstalado: this.configuracao.termica?.perfil === 'tps-experimental', camadasInternasModeladas: !!this.configuracao.termica },
       estadosTerminais: { corpoDestruido: c.orbitador.integridadeEstrutural === 0,
-        controlePerdido: c.flaps.some(f => f.integridadeEstrutural === 0),
+        controlePerdido: c.flaps.some(f => f.integridadeEstrutural === 0 || (f.obterDiagnosticoAtuacao().integridadeMecanismo === 0)),
         contato: c.mundo.obterContatosComSuperficie().length > 0,
         impactoDestrutivo: c.mundo.obterContatosComSuperficie().some(ct => ct.energiaImpactoJ > c.orbitador.resistenciaColisaoJ) },
       dissipacaoW, calorTransferidoW: calorW, potenciaAtmosferaW: Math.max(0, dissipacaoW - calorW),
@@ -420,13 +452,14 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
         energizado: f.conexaoEletrica.estaEnergizada, atuacao: f.obterDiagnosticoAtuacao(),
         knudsenEstimado: c.perfil.amostrar(c.ambiente.referencial.altitudeGeometricaM(f.getEstadoFisico().posicaoM)).caminhoLivreMedioM / this.configuracao.parametros.comprimentoCaracteristicoFlapM,
         modeloEscoamento: 'polar-continua-extrapolada' })),
-      vinculos: c.fixadores.map(f => ({ id: f.id, estado: f.estado, tracaoAtualN: f.esforcoFisicoSolicitadoN, picoTracaoN: f.picoEsforcoFisicoN, resistenciaTracaoN: f.resistenciaTracaoEfetivaN, cisalhamentoFlexaoTorcaoModelados: false })),
+      vinculos: c.fixadores.map(f => ({ ...(this.configuracao.termica ? { termica: f.obterDiagnosticoTermico() } : {}), id: f.id, estado: f.estado, tracaoAtualN: f.esforcoFisicoSolicitadoN, picoTracaoN: f.picoEsforcoFisicoN, resistenciaTracaoN: f.resistenciaTracaoEfetivaN, cisalhamentoFlexaoTorcaoModelados: false })),
       raioTerraM: c.ambiente.referencial.raioM, centroTerraM: c.ambiente.campo.centroM,
       propulsaoDisponivel: false, rcsDisponivel: false });
   }
 
   /** Telemetria física para PD; calcula derivada angular do fluxo por v×a/|v|²,
-   * sem diferenciar relógio real ou alterar estado. Torque passivo exclui lift ativo.
+   * sem diferenciar relógio real ou alterar estado. Dano próprio do mecanismo
+   * optante participa apenas da disponibilidade, sem mudar lei de controle. Torque passivo exclui lift ativo.
    * @contract f-2db95d019a3477f5
    */
   private lerControle() {
@@ -446,11 +479,11 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
       integridadeMinima: Math.min(...g.membros.map(o => o.integridadeEstrutural)),
       inerciaKgM2: g.inerciaKgM2, phiRad: c.orbitador.observarRolagem().atualRad,
       disponivel: c.orbitador.integridadeEstrutural > 0 && c.flaps.every((f, i) => f.integridadeEstrutural > 0
-        && f.conexaoEletrica.estaEnergizada && c.fixadores[i].estaAtivo) };
+        && f.conexaoEletrica.estaEnergizada && c.fixadores[i].estaAtivo && (f.obterDiagnosticoAtuacao().integridadeMecanismo ?? 1) > 0) };
   }
 
   /** Avalia estado real, autoridade remanescente e filtros A/B sem reutilizar
-   * limites antigos de pouso. Não há propulsão nem integração física de aproximação.
+   * limites antigos de pouso. Mecanismo optante sem integridade não oferece autoridade. Não há propulsão nem integração física de aproximação.
    * @contract f-b5dfd4d0081ccbd9
    */
   private atualizarSupervisor(): void {
@@ -467,7 +500,7 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
       sensoresValidos: l.sensoresValidos !== false && (l.idadeLeituraS ?? 0) <= 0.25,
       integridade: c.orbitador.integridadeEstrutural, integridadeFlaps,
       termicaCompativel: c.orbitador.temperaturaC <= c.orbitador.limiteTermicoC
-        && c.flaps.every(f => f.temperaturaC <= f.limiteTermicoC) && c.bateria.temperaturaC <= c.bateria.limiteTermicoC,
+        && c.flaps.every(f => f.temperaturaC <= f.limiteTermicoC && (f.obterDiagnosticoAtuacao().integridadeMecanismo ?? 1) > 0) && c.bateria.temperaturaC <= c.bateria.limiteTermicoC,
       alimentacaoDisponivel: c.flaps.every(f => f.conexaoEletrica.estaEnergizada),
       autoridadeAerodinamicaDisponivel: autoridadeNmPorRad >= p.torqueMinimoAutoridadeNm,
       corredorCompativel: t.pressaoDinamicaPa <= this.configuracao.corredor.pressaoMaximaPa
@@ -477,6 +510,7 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
   }
 
   /** Registra arestas de falha/recuperação de condições, não repete eventos por frame.
+   * Nó optante identifica corpo/região, limiar e colapso próprios.
    * Colisão, dano e separação não encerram evolução física.
    * @contract f-5dacbb18677d6f4c
    */
@@ -516,6 +550,14 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
       valores[`degradacao-flap-${i + 1}`] = f.integridadeEstrutural;
       valores[`colapso-flap-${i + 1}`] = f.integridadeEstrutural;
     }
+    if (this.configuracao.termica) for (const objeto of c.objetos) {
+      for (const r of objeto.observarRedeTermica()!.regioes) {
+        const chave = `limite-termico-${objeto.id}-${r.id}`;
+        condicoes[chave] = r.temperaturaC > r.limiteTermicoC; valores[chave] = r.temperaturaC;
+        condicoes[`colapso-termico-${objeto.id}-${r.id}`] = r.integridade === 0;
+        valores[`colapso-termico-${objeto.id}-${r.id}`] = r.integridade;
+      }
+    }
     for (const [tipo, ativo] of Object.entries(condicoes)) {
       if (ativo !== (this.condicoesRegistradas.get(tipo) ?? false)) this.evento(tipo, ativo ? 'Condição detectada.' : 'Condição cessou.', 'fisico', { ativo, valor: valores[tipo] ?? ativo, causa: tipo });
       this.condicoesRegistradas.set(tipo, ativo);
@@ -530,13 +572,20 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
   }
 
   /** Coleta canais físicos SI em todo passo, antes de qualquer redução visual.
+   * Inclui temperaturas e resíduos de cada região optante.
    * Sem cópia de trajetória ou recalibração de forças. Chaves/unidades acompanham
    * o diário; extremos têm passo e instante e não dependem da renderização.
    * @contract f-08107e4693116363
    */
   private lerMetricasPasso(): Readonly<Record<string, number>> {
     const c = this.cenario, e = c.orbitador.getEstadoFisico(), a = c.orbitador.avaliar(c.mundo.obterCondicoesAtmosfericas(c.orbitador));
-    return { cargaG: this.lerControle().cargaG,
+    const regionais: Record<string, number> = {};
+    if (this.configuracao.termica) for (const objeto of c.objetos) {
+      const rede = objeto.observarRedeTermica()!;
+      for (const r of rede.regioes) regionais[`temperatura-${objeto.id}-${r.id}-C`] = r.temperaturaC;
+      regionais[`residuo-termico-${objeto.id}-J`] = rede.residuoEnergiaJ;
+    }
+    return { ...regionais, cargaG: this.lerControle().cargaG,
       erroAlphaRad: normalizarAngulo(a.anguloAtaqueRad - this.controlador.observar().alphaGerenciadoRad),
       energiaTermicaCorpoJ: c.orbitador.energiaTermicaAerodinamicaAcumuladaJ,
       energiaTermicaFlap1J: c.flaps[0].energiaTermicaAerodinamicaAcumuladaJ,
@@ -552,11 +601,12 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
       energiaBateriaJ: c.bateria.energiaArmazenadaJ };
   }
 
-  /** Exporta identificação completa/revisões para o decorador de diário compartilhado.  @contract f-4987311594a9418d */
+  /** Exporta identificação/revisões e hipóteses; RE-004 só com rede optante.
+   * Toda definição regional é serializada para reprodução estrita.  @contract f-4987311594a9418d */
   public obterIdentificacao(): object {
-    return copiarSnapshot({ id: this.id, revisao: MODELO_REENTRADA.revisao, configuracao: this.configuracao,
+    return copiarSnapshot({ id: this.id, revisao: this.configuracao.termica ? 'RE-004-r1' : MODELO_REENTRADA.revisao, configuracao: this.configuracao,
       modeloFisico: this.cenario.mundo.obterConfiguracaoFisica(), modeloOrbitador: { revisao: MODELO_REENTRADA.revisao, ...this.configuracao.parametros },
-      hipoteses: 'ADM XY, Terra e ar estáticos; coeficientes analíticos preliminares; sem RCS/propulsão; rolagem prescrita; lateral omitida; calor concentrado sem TPS separado.' });
+      hipoteses: this.configuracao.termica ? this.configuracao.termica.hipotese + ' ADM XY, Terra e ar estáticos; coeficientes analíticos preliminares; sem RCS/propulsão; rolagem prescrita; lateral omitida; superfície/estrutura/interior separados.' : 'ADM XY, Terra e ar estáticos; coeficientes analíticos preliminares; sem RCS/propulsão; rolagem prescrita; lateral omitida; calor concentrado sem TPS separado.' });
   }
 }
 
@@ -569,7 +619,8 @@ export function criarEnsaioReentrada(configuracao: EntradaConfiguracaoReentrada 
   return new RegistroMissao(ensaio, ensaio.obterIdentificacao(), validarComandoReentrada, Math.round(ensaio.configuracao.intervaloColetaS / ensaio.passoS), ensaio.configuracao.limiteAmostras);
 }
 
-/** Reexecuta agenda no mesmo modelo/runtime; rejeita revisão, entradas e resultados
+/** Seleciona revisão térmica explícita do diário, preservando RE-003 sem rede.
+ * Reexecuta agenda no mesmo modelo/runtime; rejeita revisão, entradas e resultados
  * divergentes. Pausa/exportação não reproduzem relógio real. O custo é
  * proporcional ao número de passos físicos do diário; chamada síncrona headless.
  * @contract f-af7e1ca547762556
@@ -578,7 +629,7 @@ export function reproduzirEnsaioReentrada(diario: DiarioReentrada) {
   if (!diario || diario.formato !== 'blackstar-missao-1' || !Number.isSafeInteger(diario.passosExecutados)
     || diario.passosExecutados < 0) throw new Error('Diário RE inválido.');
   const identificacao = diario.identificacao as { revisao?: string; configuracao?: ConfiguracaoReentrada };
-  if (identificacao.revisao !== MODELO_REENTRADA.revisao || !identificacao.configuracao) throw new Error('Revisão RE incompatível.');
+  if (!identificacao.configuracao || identificacao.revisao !== (identificacao.configuracao.termica ? 'RE-004-r1' : MODELO_REENTRADA.revisao)) throw new Error('Revisão RE incompatível.');
   const ensaio = criarEnsaioReentrada(identificacao.configuracao);
   if (JSON.stringify(ensaio.exportar().identificacao) !== JSON.stringify(diario.identificacao)
     || diario.passoS !== ensaio.passoS || diario.intervaloAmostraPassos !== Math.round(identificacao.configuracao.intervaloColetaS / ensaio.passoS)

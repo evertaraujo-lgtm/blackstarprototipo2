@@ -19,7 +19,7 @@ export const rotulosParametros: Readonly<Record<keyof ParametrosReentrada, strin
   fatorMachVariacao: 'Variação com Mach em Cl', cdCorpoBase: 'Cd básico do corpo', cdCorpoAlpha: 'Variação de Cd com ataque', cdMachGauss: 'Amplitude transônica de Cd',
   cpBaseM: 'Centro de pressão longitudinal base (m)', cpVariacaoM: 'Variação de CP com ataque (m)',
   raioNarizFlapM: 'Raio térmico do flap (m)', areaAquecidaFlapM2: 'Área aquecida de cada flap (m²)',
-  calorEspecificoCorpoJPorKgC: 'Calor específico do corpo (J/kg·°C)', calorEspecificoFlapJPorKgC: 'Calor específico dos flaps (J/kg·°C)',
+  calorEspecificoCorpoJPorKgC: 'Calor específico concentrado do corpo (J/kg·°C; somente legado)', calorEspecificoFlapJPorKgC: 'Calor específico concentrado dos flaps (J/kg·°C; somente legado)',
   comprimentoCaracteristicoCorpoM: 'Comprimento de rarefação do corpo (m)', comprimentoCaracteristicoFlapM: 'Comprimento de rarefação do flap (m)',
   conveccaoCorpoWPorM2C: 'Convecção ambiente do corpo (W/m²·°C)', condutanciaFlapWPorC: 'Condutância corpo–flap (W/°C)',
 };

@@ -1,3 +1,4 @@
+import { criarConfiguracaoTermicaReentrada, validarConfiguracaoTermicaReentrada, type ConfiguracaoTermicaReentrada } from './physics/reentrada/ConfiguracaoTermicaReentrada';
 import { configurarParametrosReentrada, type ParametrosReentrada } from './physics/reentrada/ModeloAerodinamicoReentrada';
 import { rotulosParametros } from './apresentacao/reentrada/CamposParametrosReentrada';
 import './style.css';
@@ -59,9 +60,54 @@ function iniciarBancada(): void {
   let ultimaAtualizacaoMs = -Infinity, eventosMostrados = -1;
   const metricas = new Map<string, HTMLElement>();
 
-  /** Lê configuração pré-ensaio; todas as conversões são explícitas e registradas.  @contract f-9f19a52f59d415b4 */
+  /** Compõe parâmetros editados com os três limites dos campos dedicados.
+   * O editor não duplica limites de superfície/bateria; seus demais limites
+   * regionais são explícitos em °C. JSON inválido nunca recebe fallback.
+   * @contract f-31a88b3524a1e832
+   */
+  function lerTermica(): ConfiguracaoTermicaReentrada | null {
+    const perfil = opcao('re-perfil-termico', ['legado', 'sem-tps', 'tps-experimental']);
+    if (perfil === 'legado') return null;
+    const c = JSON.parse(elemento<HTMLTextAreaElement>('re-termica-json').value) as ConfiguracaoTermicaReentrada;
+    if (!c || c.perfil !== perfil) throw new Error('Perfil térmico do editor diverge da seleção.');
+    const pares = [['corpo', 'superficie', numero('re-limite-corpo')], ['flap', 'superficie', numero('re-limite-flaps')],
+      ['bateria', 'estrutura', numero('re-limite-bateria')]] as const;
+    const composto = { ...c };
+    for (const [nome, id, limite] of pares) {
+      if (!c[nome] || !Array.isArray(c[nome].regioes)) throw new Error(`Rede térmica ausente: ${nome}.`);
+      composto[nome] = { ...c[nome], regioes: c[nome].regioes.map(r => {
+        if (r.id !== id) return r;
+        if (Object.hasOwn(r, 'limiteTermicoC')) throw new Error(`Edite o limite de ${nome}/${id} no campo dedicado acima, sem duplicá-lo no JSON.`);
+        return { ...r, limiteTermicoC: limite };
+      }) };
+    }
+    return validarConfiguracaoTermicaReentrada(composto);
+  }
+
+  /** Carrega uma receita por seleção explícita. Remove do editor apenas os três
+   * limites que já têm campos dedicados. Nenhuma temperatura evolui na UI.
+   * Na carga inicial, defaultValue preserva o valor dirty restaurado pelo
+   * navegador; trocar perfil explicitamente substitui o editor.
+   * Reinicialização do ensaio continua sendo ação explícita separada.
+   * @contract f-1974365edf2e7548
+   */
+  function carregarPerfilTermico(preservarRestauracao = false): void {
+    const perfil = opcao('re-perfil-termico', ['legado', 'sem-tps', 'tps-experimental']);
+    const editor = elemento<HTMLTextAreaElement>('re-termica-json'); editor.disabled = perfil === 'legado';
+    if (perfil === 'legado') { if (preservarRestauracao) editor.defaultValue = ''; else editor.value = ''; return; }
+    const c = criarConfiguracaoTermicaReentrada(perfil as 'sem-tps' | 'tps-experimental');
+    const dados = JSON.parse(JSON.stringify(c));
+    for (const [nome, id] of [['corpo', 'superficie'], ['flap', 'superficie'], ['bateria', 'estrutura']]) {
+      for (const r of dados[nome].regioes) if (r.id === id) delete r.limiteTermicoC;
+    }
+    if (preservarRestauracao) editor.defaultValue = JSON.stringify(dados, null, 2);
+    else editor.value = JSON.stringify(dados, null, 2);
+  }
+
+  /** Lê configuração pré-ensaio; todas as conversões são explícitas e registradas.
+   * Inclui opt-in regional completo, sem calcular calor na interface.  @contract f-9f19a52f59d415b4 */
   function lerConfiguracao(): ConfiguracaoReentrada {
-    return validarConfiguracaoExplicitaReentrada({ parametros: Object.fromEntries([...camposParametros].map(([k, input]) => [k, numero(input.id)])),
+    return validarConfiguracaoExplicitaReentrada({ termica: lerTermica(), parametros: Object.fromEntries([...camposParametros].map(([k, input]) => [k, numero(input.id)])),
       passoS: 1 / numero('re-divisor-dt'), intervaloColetaS: numero('re-intervalo-coleta'),
       limiteAmostras: numero('re-limite-amostras'), limiteEventos: numero('re-limite-eventos'), altitudeM: numero('re-altitude'), velocidadeMps: numero('re-velocidade'),
       taxaAtitudeLocalInicialRadps: rad('re-taxa-inicial'), anguloAtaqueRad: rad('re-alpha-inicial'), trajetoriaRad: rad('re-trajetoria'), rolagemRad: rad('re-phi-inicial'),
@@ -77,11 +123,11 @@ function iniciarBancada(): void {
   }
 
   /** Captura somente valores de configuração, inclusive restaurados sem eventos.
-   * As strings detectam edição; não substituem a configuração física validada.
+   * Inclui editor térmico; as strings detectam edição; não substituem a configuração física validada.
    * @contract f-4edb2d339a14b022
    */
   function capturarCamposConfiguracao(): Readonly<Record<string, string>> {
-    return Object.fromEntries([...iniciais.querySelectorAll<HTMLInputElement | HTMLSelectElement>('input, select')]
+    return Object.fromEntries([...iniciais.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('input, select, textarea')]
       .map(input => [input.id, input.value]));
   }
 
@@ -132,8 +178,10 @@ function iniciarBancada(): void {
       const confirmacao = `Configuração aplicada ao RE-001 (preparo ${numeroPreparo}, ${identificacao.revisao}). `
         + `Limite térmico do corpo: ${c.limiteOrbitadorC} °C. Limite térmico dos flaps: ${c.limiteFlapsC} °C. Limite térmico da bateria: ${c.limiteBateriaC} °C. `
         + `Resistência a impacto: corpo ${c.parametros.resistenciaCorpoJ} J; flaps ${c.parametros.resistenciaFlapJ} J. Resistência axial dos fixadores: ${c.parametros.resistenciaFixadorN} N.`;
-      elemento('re-config-aplicada').textContent = confirmacao;
-      mensagem.textContent = confirmacao;
+      const contexto = c.termica ? ` Modelo térmico ${c.termica.revisao} (${c.termica.perfil}): limites acima são superfície; estrutura e mecanismo têm limites próprios no editor. Bateria com condução declarada.` : ' Modelo térmico legado concentrado; bateria isolada.';
+      elemento('re-config-aplicada').textContent = confirmacao + contexto;
+      mensagem.textContent = confirmacao + contexto;
+      elemento('re-telemetria').replaceChildren(); metricas.clear();
       cancelarEscolhaConfiguracao(); atualizarEstadoConfiguracao(); atualizarPainel(novo.observar());
       elemento('re-cena-indisponivel').hidden = true;
       return true;
@@ -189,11 +237,12 @@ function iniciarBancada(): void {
   /** Restaura explicitamente todos os campos de configuração aos padrões HTML
    * e SI do modelo, inclusive limiares térmicos aprovados, e prepara no tempo
    * zero pela mesma validação. Não inicia execução nem conserva o ensaio antigo.
+   * Recarrega receita térmica padrão após reset do seletor/editor.
    * Depende do DOM/form.reset e reinicializar; smoke cobre erro e recuperação.
    * @contract f-23de89613c49fbe8
    */
   function restaurarConfiguracaoPadrao(): void {
-    form.reset(); reinicializar();
+    form.reset(); carregarPerfilTermico(); reinicializar();
   }
 
   /** Avanço manual usa a mesma validação e a mesma escolha da execução contínua.  @contract f-2c6793de2a48e002 */
@@ -270,7 +319,8 @@ function iniciarBancada(): void {
   /** Converte radianos observados para graus de apresentação.  @contract f-8a757acdc377f6ca */
   function graus(rad: number): string { return (rad * 180 / Math.PI).toFixed(1); }
 
-  /** Renderiza comandos, estado físico e variáveis virtuais explicitamente distintos.  @contract f-886d03c02bf67e85 */
+  /** Renderiza comandos, física e canais térmicos regionais já calculados no
+   * core, incluindo potência, energia e causa. Não calcula transferências na UI.  @contract f-886d03c02bf67e85 */
   function atualizarPainel(o: ObservacaoReentrada): void {
     const a = o.aerodinamica;
     metrica('altitude', 'Altitude radial / velocidade', `${o.altitudeM.toFixed(0)} m / ${o.velocidadeMps.toFixed(1)} m/s`);
@@ -284,10 +334,10 @@ function iniciarBancada(): void {
     metrica('aceleracao', 'Aceleração total X / Y', `${o.aceleracaoMps2.x.toFixed(3)} / ${o.aceleracaoMps2.y.toFixed(3)} m/s²`);
     metrica('torque', 'Momento aero / CP local do corpo', `${o.torqueAerodinamicoNm.toFixed(1)} N·m / ${a.centroPressaoLocalM.toFixed(3)} m`);
     metrica('heat', 'Fluxo térmico indicador', `${a.fluxoTermicoIndicadorWm2.toPrecision(4)} W/m² · preliminar`);
-    metrica('temperatura', 'Temperatura corpo / início de dano', `${o.temperaturaC.toFixed(2)} / ${o.limiteOrbitadorC} °C`);
+    metrica('temperatura', o.termica ? 'Estrutura do corpo / limite estrutural' : 'Corpo concentrado / início de dano', `${o.temperaturaC.toFixed(2)} / ${o.termica?.corpo.regioes.find(r => r.id === 'estrutura')?.limiteTermicoC ?? o.limiteOrbitadorC} °C`);
     metrica('integridade', 'Integridade do corpo / massa conectada', `${(100 * o.integridade).toFixed(2)} % / ${o.massaKg.toFixed(0)} kg`);
     metrica('energia', 'Calor absorvido acumulado', `${o.energiaAbsorvidaJ.toPrecision(5)} J`);
-    metrica('balanco', 'Dissipação / calor transferido / atmosfera', `${o.dissipacaoW.toPrecision(4)} / ${o.calorTransferidoW.toPrecision(4)} / ${o.potenciaAtmosferaW.toPrecision(4)} W`);
+    metrica('balanco', o.termica ? 'D·V / fluxo prescrito / resíduo legado (não fecha atmosfera)' : 'Dissipação / calor transferido / atmosfera', `${o.dissipacaoW.toPrecision(4)} / ${o.calorTransferidoW.toPrecision(4)} / ${o.potenciaAtmosferaW.toPrecision(4)} W`);
     metrica('rarefacao', 'Knudsen / modelo contínuo aplicável', `${a.knudsen.toPrecision(3)} / ${a.modeloContinuoAplicavel ? 'sim, preliminar' : 'não'}`);
     metrica('rotacao', 'ω inercial / momento intrínseco', `${o.estado.velocidadeAngularRadps.z.toPrecision(6)} rad/s / ${o.rotacao.momentoIntrinsecoKgM2ps.toPrecision(6)} kg·m²/s`);
     metrica('momento-orbital', 'Momento orbital / inércia', `${o.rotacao.momentoOrbitalKgM2ps.toPrecision(6)} kg·m²/s / ${o.inerciaKgM2.toPrecision(6)} kg·m²`);
@@ -306,11 +356,11 @@ function iniciarBancada(): void {
       ? 'Alvo não definido · configurar antes de estudar aproximação'
       : `${fronteira.distanciaRestanteM.toFixed(0)} m · ${fronteira.hipoteses.map(h => `${h.aceleracaoLiquidaMps2} m/s² → ${h.velocidadeLimiteNecessariaMps?.toFixed(0)} m/s (desvio ${h.desvioVelocidadeMps?.toFixed(0)})`).join(' · ')} · frenagem ideal, trajetória não certificada`);
     metrica('bateria', 'Energia elétrica interna / RCS', `${o.energiaBateriaJ.toFixed(0)} J / ausente`);
-    metrica('bateria-termica', 'Bateria isolada · temperatura / limiar / integridade', `${o.temperaturaBateriaC.toFixed(2)} / ${o.limiteBateriaC} °C / ${(100 * o.integridadeBateria).toFixed(2)} %`);
+    metrica('bateria-termica', o.termica ? 'Bateria com condução · temperatura / limiar / integridade' : 'Bateria isolada · temperatura / limiar / integridade', `${o.temperaturaBateriaC.toFixed(o.termica ? 6 : 2)} / ${o.limiteBateriaC} °C / ${(100 * o.integridadeBateria).toFixed(2)} %`);
     for (const [i, f] of o.flaps.entries()) {
       metrica(`flap-${i}`, `${i === 0 ? 'Dianteiro' : 'Traseiro'} · comando → efetivo`, `${graus(f.comandoRad)}° → ${graus(f.deflexaoRad)}° · ${f.energizado ? 'energizado' : 'sem energia'} · ${f.conectado ? 'vinculado' : 'separado'}`);
       metrica(`flap-atuacao-${i}`, `Flap ${i + 1} · taxa efetiva / impedimento`, `${graus(f.atuacao.taxaEfetivaRadps)} °/s · ${f.atuacao.bloqueio} · torque mecânico não modelado`);
-      metrica(`flap-termico-${i}`, `Flap ${i + 1} · temperatura / limiar / integridade`, `${f.temperaturaC.toFixed(2)} / ${o.limiteFlapsC} °C / ${(100 * f.integridade).toFixed(1)} %`);
+      metrica(`flap-termico-${i}`, `Flap ${i + 1} · ${o.termica ? 'estrutura' : 'concentrado'} / limiar / integridade`, `${f.temperaturaC.toFixed(2)} / ${o.termica?.flaps[i].regioes.find(r => r.id === 'estrutura')?.limiteTermicoC ?? o.limiteFlapsC} °C / ${(100 * f.integridade).toFixed(1)} %`);
     }
     play.textContent = o.execucao === 'executando' ? 'Pausar' : o.execucao === 'preparada' ? 'Iniciar ensaio' : 'Continuar';
     iniciais.disabled = o.execucao === 'executando';
@@ -318,6 +368,18 @@ function iniciarBancada(): void {
     manuais.disabled = o.controle.estado !== 'manual' || o.supervisor.fase !== 'reentrada';
     modo.value = o.controle.estado === 'manual' ? 'manual' : 'automatico';
     modo.disabled = o.supervisor.fase !== 'reentrada';
+    if (o.termica) {
+      const redes = [['corpo', o.termica.corpo], ...o.termica.flaps.map((r, i) => [`flap-${i + 1}`, r] as const), ['bateria', o.termica.bateria]] as const;
+      for (const [nome, rede] of redes) {
+        for (const r of rede.regioes) metrica(`regiao-${nome}-${r.id}`, `${nome} · ${nome === 'bateria' ? 'interna' : r.id === 'interna' && nome !== 'corpo' ? 'articulação/atuador' : r.id} · T / limite / integridade`,
+          `${r.temperaturaC.toFixed(nome === 'bateria' ? 6 : 3)} / ${r.limiteTermicoC} °C · ${(r.integridade * 100).toFixed(2)}%${r.causa ? ' · ' + r.causa : ''}`);
+        metrica(`termica-potencia-${nome}`, `${nome} · incidente / irradiada / convecção`, `${rede.potenciaIncidenteW.toPrecision(4)} / ${rede.potenciaRadiadaW.toPrecision(4)} / ${rede.potenciaConveccaoW.toPrecision(4)} W`);
+        metrica(`termica-energia-${nome}`, `${nome} · ΔU / radiação / convecção / condução externa / resíduo`,
+          `${rede.energiaArmazenadaJ.toPrecision(4)} / ${rede.energiaRadiadaJ.toPrecision(4)} / ${rede.energiaConveccaoJ.toPrecision(4)} / ${rede.energiaConducaoExternaJ.toPrecision(4)} / ${rede.residuoEnergiaJ.toPrecision(3)} J`);
+        for (const l of rede.conducoes) metrica(`conducao-${nome}-${l.a}-${l.b}`, `${nome} · ${l.a} → ${l.b}`, `${l.potenciaW.toPrecision(4)} W · ${l.energiaJ.toPrecision(4)} J`);
+      }
+      for (const f of o.vinculos) if (f.termica) metrica(`conducao-${f.id}`, `${f.id} · condução entre objetos`, `${f.termica.potenciaConduzidaW.toPrecision(4)} W · ${f.termica.energiaConduzidaJ.toPrecision(4)} J`);
+    }
     elemento<HTMLButtonElement>('re-passo').disabled = o.execucao === 'executando';
     elemento<HTMLSelectElement>('re-chaveamento').value = o.supervisor.automatico ? 'automatico' : 'manual';
     energia.textContent = o.flaps.every(f => f.energizado) ? 'Desligar alimentação dos flaps' : 'Ligar alimentação dos flaps';
@@ -343,6 +405,7 @@ function iniciarBancada(): void {
   iniciais.addEventListener('change', atualizarEstadoConfiguracao);
   form.addEventListener('submit', tratarExecucao);
   elemento('re-reset').addEventListener('click', reinicializar);
+  elemento('re-perfil-termico').addEventListener('change', () => carregarPerfilTermico());
   elemento('re-restaurar-padroes').addEventListener('click', restaurarConfiguracaoPadrao);
   elemento('re-continuar-aplicada').addEventListener('click', continuarConfiguracaoAplicada);
   elemento('re-iniciar-nova').addEventListener('click', iniciarNovaConfiguracao);
@@ -385,6 +448,7 @@ function iniciarBancada(): void {
     } catch (e) { ensaio?.pausar(); mensagem.textContent = `Ensaio pausado por erro: ${e instanceof Error ? e.message : String(e)}`; }
     requestAnimationFrame(quadro);
   }
+  carregarPerfilTermico(true);
   preparar();
   requestAnimationFrame(quadro);
 }

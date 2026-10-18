@@ -1,0 +1,422 @@
+{
+  "duracaoS": 900,
+  "baseLegada": "9db1ef9",
+  "curvas": "amostragem de 1 s; picos por passo também registrados no JSON original",
+  "observacao": "Os valores 429/5160 °C da captura não foram reproduzidos nesta janela; duração da captura não foi fornecida. Não se ajustou receita para forçar esses números.",
+  "plotador": "Matplotlib 3.11.2",
+  "resultados": {
+    "legado": {
+      "picosAmostradosC": {
+        "corpoConcentrado": 216.10894369942983,
+        "flapsConcentrados": [
+          2476.665745813769,
+          2480.488158722848
+        ],
+        "bateria": 20
+      },
+      "final": {
+        "altitudeM": 77692.27871974837,
+        "velocidadeMps": 6658.506768932694,
+        "integridadeCorpo": 1,
+        "integridadeFlaps": [
+          1,
+          1
+        ],
+        "bateriaC": 20
+      },
+      "residuoMaximoJ": 0
+    },
+    "sem-tps": {
+      "picosAmostradosC": {
+        "corpo": {
+          "superficie": 1239.5001501164356,
+          "estrutura": 280.19631210529315,
+          "interna": 23.012072515529365
+        },
+        "flap1": {
+          "superficie": 3131.976277818809,
+          "estrutura": 1624.7574008240138,
+          "interna": 65.01969954155982
+        },
+        "flap2": {
+          "superficie": 3130.6498505434333,
+          "estrutura": 1624.754936688309,
+          "interna": 65.04126586063829
+        },
+        "bateria": 20.13602953791991
+      },
+      "final": {
+        "altitudeM": 3255.1015242990106,
+        "velocidadeMps": 117.76678435243134,
+        "integridadeCorpo": 1,
+        "integridadeFlaps": [
+          0,
+          0
+        ],
+        "bateriaC": 20.13602953791991
+      },
+      "residuoMaximoJ": 0.000579833984375,
+      "balancoFinalJ": {
+        "energiaIncidenteJ": 16749293776.508856,
+        "energiaRadiadaJ": 1196911160.5515206,
+        "energiaConveccaoJ": 16685167.472583875,
+        "energiaArmazenadaJ": 15535697448.48417,
+        "energiaConducaoExternaJ": -2.0616225810954347e-06,
+        "residuoEnergiaJ": -0.0003289079322712496
+      },
+      "picosPorPasso": {
+        "temperatura-orbitador-re-001-superficie-C": {
+          "minimo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 1242.5874292521662,
+            "passo": 175053,
+            "tempoS": 729.3875000023845
+          }
+        },
+        "temperatura-orbitador-re-001-estrutura-C": {
+          "minimo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 280.19631616120694,
+            "passo": 189789,
+            "tempoS": 790.7875000031663
+          }
+        },
+        "temperatura-orbitador-re-001-interna-C": {
+          "minimo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 23.012072515529365,
+            "passo": 216000,
+            "tempoS": 900.0000000045569
+          }
+        },
+        "temperatura-flap-dianteiro-superficie-C": {
+          "minimo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 3132.5487587079792,
+            "passo": 174753,
+            "tempoS": 728.1375000023686
+          }
+        },
+        "temperatura-flap-dianteiro-estrutura-C": {
+          "minimo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 1624.7796473402154,
+            "passo": 176822,
+            "tempoS": 736.7583333358117
+          }
+        },
+        "temperatura-flap-dianteiro-interna-C": {
+          "minimo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 65.01969954155982,
+            "passo": 216000,
+            "tempoS": 900.0000000045569
+          }
+        },
+        "temperatura-flap-traseiro-superficie-C": {
+          "minimo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 3131.276421340883,
+            "passo": 174755,
+            "tempoS": 728.145833335702
+          }
+        },
+        "temperatura-flap-traseiro-estrutura-C": {
+          "minimo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 1624.7755486223855,
+            "passo": 176824,
+            "tempoS": 736.7666666691451
+          }
+        },
+        "temperatura-flap-traseiro-interna-C": {
+          "minimo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 65.04126586063829,
+            "passo": 216000,
+            "tempoS": 900.0000000045569
+          }
+        },
+        "temperatura-bateria-interna-re-estrutura-C": {
+          "minimo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 20.13602953791991,
+            "passo": 216000,
+            "tempoS": 900.0000000045569
+          }
+        }
+      },
+      "falhasRegionais": [
+        {
+          "sequencia": 2,
+          "passo": 87911,
+          "tempoS": 366.2958333330824,
+          "categoria": "fisico",
+          "tipo": "limite-termico-flaps",
+          "descricao": "Condição detectada.",
+          "dados": {
+            "ativo": true,
+            "valor": 800.0006782582573,
+            "causa": "limite-termico-flaps"
+          }
+        },
+        {
+          "sequencia": 4,
+          "passo": 87911,
+          "tempoS": 366.2958333330824,
+          "categoria": "fisico",
+          "tipo": "limite-termico-flap-traseiro-estrutura",
+          "descricao": "Condição detectada.",
+          "dados": {
+            "ativo": true,
+            "valor": 800.0006782582573,
+            "causa": "limite-termico-flap-traseiro-estrutura"
+          }
+        },
+        {
+          "sequencia": 6,
+          "passo": 87982,
+          "tempoS": 366.59166666641545,
+          "categoria": "fisico",
+          "tipo": "limite-termico-flap-dianteiro-estrutura",
+          "descricao": "Condição detectada.",
+          "dados": {
+            "ativo": true,
+            "valor": 800.0001108601481,
+            "causa": "limite-termico-flap-dianteiro-estrutura"
+          }
+        },
+        {
+          "sequencia": 9,
+          "passo": 103345,
+          "tempoS": 430.60416666635723,
+          "categoria": "fisico",
+          "tipo": "colapso-termico-flap-traseiro-estrutura",
+          "descricao": "Condição detectada.",
+          "dados": {
+            "ativo": true,
+            "valor": 0,
+            "causa": "colapso-termico-flap-traseiro-estrutura"
+          }
+        },
+        {
+          "sequencia": 12,
+          "passo": 103458,
+          "tempoS": 431.07499999969014,
+          "categoria": "fisico",
+          "tipo": "colapso-termico-flap-dianteiro-estrutura",
+          "descricao": "Condição detectada.",
+          "dados": {
+            "ativo": true,
+            "valor": 0,
+            "causa": "colapso-termico-flap-dianteiro-estrutura"
+          }
+        }
+      ],
+      "limiarDoFixadorBateriaInativoNaReceita": true
+    },
+    "tps-experimental": {
+      "picosAmostradosC": {
+        "corpo": {
+          "superficie": 1325.6569138581945,
+          "estrutura": 21.075627566142778,
+          "interna": 20.011641688501904
+        },
+        "flap1": {
+          "superficie": 1686.570616642567,
+          "estrutura": 23.394169202259967,
+          "interna": 20.084249920052958
+        },
+        "flap2": {
+          "superficie": 1687.319668217258,
+          "estrutura": 23.395994494297998,
+          "interna": 20.08430561432558
+        },
+        "bateria": 20.000523818201536
+      },
+      "final": {
+        "altitudeM": 77692.27871974837,
+        "velocidadeMps": 6658.506768932694,
+        "integridadeCorpo": 1,
+        "integridadeFlaps": [
+          1,
+          1
+        ],
+        "bateriaC": 20.000523818201536
+      },
+      "residuoMaximoJ": 0.01634979248046875,
+      "balancoFinalJ": {
+        "energiaIncidenteJ": 13612852996.49361,
+        "energiaRadiadaJ": 11135274278.345037,
+        "energiaConveccaoJ": 13802.702456995183,
+        "energiaArmazenadaJ": 2477564915.4294634,
+        "energiaConducaoExternaJ": 2.389214159848052e-09,
+        "residuoEnergiaJ": -0.01660123247185652
+      },
+      "picosPorPasso": {
+        "temperatura-orbitador-re-001-superficie-C": {
+          "minimo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 1325.6570283639317,
+            "passo": 193454,
+            "tempoS": 806.0583333366941
+          }
+        },
+        "temperatura-orbitador-re-001-estrutura-C": {
+          "minimo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 21.075627566142778,
+            "passo": 216000,
+            "tempoS": 900.0000000045569
+          }
+        },
+        "temperatura-orbitador-re-001-interna-C": {
+          "minimo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 20.011641688501904,
+            "passo": 216000,
+            "tempoS": 900.0000000045569
+          }
+        },
+        "temperatura-flap-dianteiro-superficie-C": {
+          "minimo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 1686.5776182702907,
+            "passo": 76713,
+            "tempoS": 319.6374999997915
+          }
+        },
+        "temperatura-flap-dianteiro-estrutura-C": {
+          "minimo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 23.394169202259967,
+            "passo": 216000,
+            "tempoS": 900.0000000045569
+          }
+        },
+        "temperatura-flap-dianteiro-interna-C": {
+          "minimo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 20.084249920052958,
+            "passo": 216000,
+            "tempoS": 900.0000000045569
+          }
+        },
+        "temperatura-flap-traseiro-superficie-C": {
+          "minimo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 1687.3270930138328,
+            "passo": 76711,
+            "tempoS": 319.62916666645816
+          }
+        },
+        "temperatura-flap-traseiro-estrutura-C": {
+          "minimo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 23.395994494297998,
+            "passo": 216000,
+            "tempoS": 900.0000000045569
+          }
+        },
+        "temperatura-flap-traseiro-interna-C": {
+          "minimo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 20.08430561432558,
+            "passo": 216000,
+            "tempoS": 900.0000000045569
+          }
+        },
+        "temperatura-bateria-interna-re-estrutura-C": {
+          "minimo": {
+            "valor": 20,
+            "passo": 0,
+            "tempoS": 0
+          },
+          "maximo": {
+            "valor": 20.000523818201536,
+            "passo": 216000,
+            "tempoS": 900.0000000045569
+          }
+        }
+      },
+      "falhasRegionais": [],
+      "limiarDoFixadorBateriaInativoNaReceita": true
+    }
+  }
+}
