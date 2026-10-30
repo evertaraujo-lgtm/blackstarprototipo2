@@ -11,6 +11,7 @@ export interface EventoMissao {
   readonly categoria: 'fisico' | 'missao' | 'comando';
   readonly tipo: string;
   readonly descricao: string;
+  readonly dados?: Readonly<Record<string, number | string | boolean | null>>;
 }
 export interface ObjetivoMissao {
   readonly id: string;

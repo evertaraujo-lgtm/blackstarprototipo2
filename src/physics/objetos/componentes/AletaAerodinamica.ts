@@ -16,6 +16,8 @@ export interface DefinicaoAletaAerodinamica {
   readonly potenciaEmRepousoW: number;
   readonly fonteEletrica: FonteEletrica;
   readonly operacaoAutorizada?: /** Consulta permissivo externo do atuador; false impede atuação, sem alterar pose ou substituir integridade/energia. @contract f-740741f36db4d1e3 @reviewed M12-DOC: papel da porta confrontado com consumidores/implementações. */ () => boolean;
+  /** Porta opcional [0,1] de capacidade do mecanismo; não é controlador. */
+  readonly lerEficienciaAtuacao?: () => number;
   readonly resistenciaColisaoJ: number;
   readonly limiteTermicoC: number;
   readonly estadoInicial?: ConstructorParameters<typeof Objeto>[0]['estadoInicial'];
@@ -76,14 +78,17 @@ export class AletaAerodinamica extends Objeto {
     this.comandoDeflexaoRad = Math.max(-limite, Math.min(limite, valorRad));
   }
 
-  /** Prepara circuito no subpasso, exige energia/controle/integridade, limita variação por rad/s e fração de energia efetiva; atualiza somente a deflexão interna do atuador. @contract f-4e987276a8db4cad @reviewed M12-DOC: implementação lida. */
+  /** Porta regional opcional limita velocidade pela integridade própria do mecanismo;
+   * ausência preserva fator 1. Prepara circuito no subpasso, exige energia/controle/integridade, limita variação por rad/s e fração de energia efetiva; atualiza somente a deflexão interna do atuador. @contract f-4e987276a8db4cad @reviewed M12-DOC: implementação lida. */
   public override prepararPassoOperacional(dtS: number): void {
     if (!Number.isFinite(dtS) || dtS < 0) throw new Error('Passo do atuador deve ser finito e não negativo.');
     this.conexaoEletrica.prepararPasso(Math.max(dtS, Number.EPSILON));
     if (this.conexaoEletrica.estaIndisponivel || this.definicaoAleta.fonteEletrica.estaDescarregada
         || this.definicaoAleta.fonteEletrica.integridadeEstrutural === 0
         || this.definicaoAleta.operacaoAutorizada?.() === false || this.integridadeEstrutural === 0) return;
-    const variacaoMaxima = this.definicaoAleta.velocidadeAngularMaximaRadps * dtS;
+    const eficiencia = this.definicaoAleta.lerEficienciaAtuacao?.() ?? 1;
+    if (!Number.isFinite(eficiencia) || eficiencia < 0 || eficiencia > 1) throw new Error('Eficiência do mecanismo inválida.');
+    const variacaoMaxima = this.definicaoAleta.velocidadeAngularMaximaRadps * dtS * eficiencia;
     const erro = this.comandoDeflexaoRad - this.anguloDeflexaoAtualRad;
     const variacaoSolicitada = Math.max(-variacaoMaxima, Math.min(variacaoMaxima, erro));
     const potenciaSolicitadaW = Math.abs(variacaoSolicitada) > 1e-12

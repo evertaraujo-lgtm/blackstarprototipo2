@@ -1,0 +1,813 @@
+{
+  "contrato": "RE-002E / ensaio físico experimental isolado; sem qualificação de veículo",
+  "identificacao": {
+    "revisao": "RE-002-r4 + propulsao-BSS-005-parametrica",
+    "ambiente": {
+      "revisao": "terra-esferica-m9",
+      "plano": "XY",
+      "rotacaoRadps": 0,
+      "raioM": 6371000,
+      "g0ReferenciaIspMps2": 9.80665,
+      "campo": {
+        "modelo": "central",
+        "centroM": {
+          "x": 0,
+          "y": -6371000,
+          "z": 0
+        },
+        "muM3S2": 398600441800000
+      },
+      "integracao": "verlet-gravitacional",
+      "revisaoDinamicaAngular": "intrinseca-relativa-3",
+      "maxDtS": 0.004166666666666667,
+      "politicaAtmosferica": "vacuo-simplificado-25km",
+      "densidadeNivelMarKgM3": 1.225
+    },
+    "dtS": 0.004166666666666667,
+    "duracaoMaximaS": 60,
+    "condicaoInicialRE002B": {
+      "altitudeM": 6755.82917311425,
+      "velocidadeVerticalMps": -250.5257888502,
+      "velocidadeHorizontalMps": 7.3797283675,
+      "atitudeInicialRad": 3.141592653589793,
+      "significadoAtitude": "configuração invertida no referencial VeiculoComposto"
+    },
+    "parametrosPropulsivos": {
+      "empuxoMaximoN": 2400000,
+      "impulsoEspecificoNominalS": 350,
+      "razaoMisturaOxidanteCombustivel": 4,
+      "vazaoCombustivelMaximaKgS": 139.8467949226873,
+      "vazaoOxidanteMaximaKgS": 559.3871796907492,
+      "limiteGimbalRad": 0.2617993877991494,
+      "fatorPropulsorBss005": 60,
+      "fatorTanqueBss005": 30,
+      "massaBaseCascoKg": 78900,
+      "massaPropulsorKg": 5400,
+      "massaBasePorTanqueKg": 1737.8808922901335,
+      "propelenteTotalInicialKg": 18000
+    },
+    "estimativas": {
+      "aceleracaoNecessariaLiquidaMps2": 8,
+      "distanciaParadaIdealM": 3922.698179938437,
+      "empuxoVerticalNecessarioInicialN": 1885292.6335813962,
+      "fracaoEmpuxoNominalRequerida": 0.7855385973255817
+    }
+  },
+  "permissivosIgnicao": [
+    {
+      "idPropulsor": "propulsor-re002e",
+      "aceito": true,
+      "diagnostico": [
+        "throttle em zero"
+      ]
+    }
+  ],
+  "controladores": [
+    "ControladorInclinacaoDePropulsores (flip; gimbal real)",
+    "ControladorAproximacao (frenagem/energia; throttle e gimbal reais)"
+  ],
+  "eventos": {
+    "trocaParaAproximacao": null,
+    "corteTerminal": null,
+    "primeiroContatoS": 25.149999999998894,
+    "encerramento": "falha estrutural do casco/propulsor"
+  },
+  "final": {
+    "tempoS": 25.149999999998894,
+    "altitudeM": 19.723651236854494,
+    "velocidadeHorizontalMps": -43.79622114487919,
+    "velocidadeVerticalMps": -20.07153122364524,
+    "atitudeLocalRad": -1.1159086513627425,
+    "omegaLocalRadps": 2.2204851103620413,
+    "massaInstantaneaKg": 79000,
+    "integridadeCasco": 0,
+    "integridadePropulsor": 1,
+    "empuxoN": 1919999.9999999998,
+    "fixadores": [
+      {
+        "id": "fixador-re002e-tanque-metano-re002e",
+        "estado": "rompido"
+      },
+      {
+        "id": "fixador-re002e-tanque-oxidante-re002e",
+        "estado": "rompido"
+      },
+      {
+        "id": "fixador-re002e-bateria-re002e",
+        "estado": "integro"
+      },
+      {
+        "id": "fixador-re002e-propulsor-re002e",
+        "estado": "rompido"
+      }
+    ],
+    "metanoRestanteKg": 786.2824861555382,
+    "oxidanteRestanteKg": 3145.129944622153,
+    "bateriaRestanteJ": 16482853.107695356,
+    "contatos": 1
+  },
+  "amostras": [
+    {
+      "tempoS": 0.004166666666666667,
+      "altitudeM": 6754.785056195222,
+      "velocidadeHorizontalMps": 7.3792682757431205,
+      "velocidadeVerticalMps": -250.60847613759674,
+      "velocidadeTotalMps": 250.71709537303948,
+      "atitudeLocalRad": 3.141592578414033,
+      "velocidadeAngularRadps": -0.000018042182268409747,
+      "massaInstantaneaKg": 105873.43100466489,
+      "propulsor": {
+        "ignitado": true,
+        "throttle": 0.8,
+        "empuxoN": 1919999.9999999998,
+        "vazaoKgS": 559.3871796907492,
+        "integridade": 1,
+        "gimbalRad": 0.006544984694978735
+      },
+      "propelente": {
+        "metanoKg": 3599.5338440169244,
+        "oxidanteKg": 14398.135376067698,
+        "bateriaJ": 19999417.305021156
+      },
+      "fase": "flip-propulsivo",
+      "integridadeCasco": 1,
+      "contatos": 0
+    },
+    {
+      "tempoS": 1.0041666666666644,
+      "altitudeM": 6494.671585474163,
+      "velocidadeHorizontalMps": 11.205840847273002,
+      "velocidadeVerticalMps": -269.3973686457663,
+      "velocidadeTotalMps": 269.63032674823006,
+      "atitudeLocalRad": 3.007251614920538,
+      "velocidadeAngularRadps": -0.28596547270723593,
+      "massaInstantaneaKg": 105314.04382497413,
+      "propulsor": {
+        "ignitado": true,
+        "throttle": 0.8,
+        "empuxoN": 1919999.9999999998,
+        "vazaoKgS": 559.3871796907492,
+        "integridade": 1,
+        "gimbalRad": 0.2617993877991494
+      },
+      "propelente": {
+        "metanoKg": 3487.656408078775,
+        "oxidanteKg": 13950.6256323151,
+        "bateriaJ": 19859570.510098506
+      },
+      "fase": "flip-propulsivo",
+      "integridadeCasco": 1,
+      "contatos": 0
+    },
+    {
+      "tempoS": 2.004166666666661,
+      "altitudeM": 6216.2001932235435,
+      "velocidadeHorizontalMps": 9.99400323110586,
+      "velocidadeVerticalMps": -287.2290677087197,
+      "velocidadeTotalMps": 287.40288348832485,
+      "atitudeLocalRad": 2.5817944518757123,
+      "velocidadeAngularRadps": -0.5528933574430063,
+      "massaInstantaneaKg": 104754.6566452834,
+      "propulsor": {
+        "ignitado": true,
+        "throttle": 0.8,
+        "empuxoN": 1919999.9999999998,
+        "vazaoKgS": 559.3871796907492,
+        "integridade": 1,
+        "gimbalRad": 0.2617993877991494
+      },
+      "propelente": {
+        "metanoKg": 3375.7789721406252,
+        "oxidanteKg": 13503.115888562501,
+        "bateriaJ": 19719723.715175856
+      },
+      "fase": "flip-propulsivo",
+      "integridadeCasco": 1,
+      "contatos": 0
+    },
+    {
+      "tempoS": 3.004166666666711,
+      "altitudeM": 5921.710201019421,
+      "velocidadeHorizontalMps": -0.9195859877540644,
+      "velocidadeVerticalMps": -300.3307462705126,
+      "velocidadeTotalMps": 300.33215411239587,
+      "atitudeLocalRad": 1.9264986422158688,
+      "velocidadeAngularRadps": -0.7440731300621137,
+      "massaInstantaneaKg": 104195.26946559263,
+      "propulsor": {
+        "ignitado": true,
+        "throttle": 0.8,
+        "empuxoN": 1919999.9999999998,
+        "vazaoKgS": 559.3871796907492,
+        "integridade": 1,
+        "gimbalRad": 0.2617993877991494
+      },
+      "propelente": {
+        "metanoKg": 3263.9015362024757,
+        "oxidanteKg": 13055.606144809903,
+        "bateriaJ": 19579876.920253206
+      },
+      "fase": "flip-propulsivo",
+      "integridadeCasco": 1,
+      "contatos": 0
+    },
+    {
+      "tempoS": 4.00416666666676,
+      "altitudeM": 5619.776663781144,
+      "velocidadeHorizontalMps": -19.14954911751675,
+      "velocidadeVerticalMps": -300.89968772337363,
+      "velocidadeTotalMps": 301.5084199544483,
+      "atitudeLocalRad": 1.1091491978542523,
+      "velocidadeAngularRadps": -0.8897324535683543,
+      "massaInstantaneaKg": 103635.8822859019,
+      "propulsor": {
+        "ignitado": true,
+        "throttle": 0.8,
+        "empuxoN": 1919999.9999999998,
+        "vazaoKgS": 559.3871796907492,
+        "integridade": 1,
+        "gimbalRad": 0.2617993877991494
+      },
+      "propelente": {
+        "metanoKg": 3152.024100264326,
+        "oxidanteKg": 12608.096401057304,
+        "bateriaJ": 19440030.125330556
+      },
+      "fase": "flip-propulsivo",
+      "integridadeCasco": 1,
+      "contatos": 0
+    },
+    {
+      "tempoS": 5.004166666666703,
+      "altitudeM": 5325.54356100969,
+      "velocidadeHorizontalMps": -32.89916584640061,
+      "velocidadeVerticalMps": -285.17928489722215,
+      "velocidadeTotalMps": 287.070687545559,
+      "atitudeLocalRad": 0.1259213963959165,
+      "velocidadeAngularRadps": -1.0876802707315263,
+      "massaInstantaneaKg": 103076.49510621114,
+      "propulsor": {
+        "ignitado": true,
+        "throttle": 0.8,
+        "empuxoN": 1919999.9999999998,
+        "vazaoKgS": 559.3871796907492,
+        "integridade": 1,
+        "gimbalRad": 0.10471975511965961
+      },
+      "propelente": {
+        "metanoKg": 3040.1466643261765,
+        "oxidanteKg": 12160.586657304706,
+        "bateriaJ": 19300183.330407906
+      },
+      "fase": "flip-propulsivo",
+      "integridadeCasco": 1,
+      "contatos": 0
+    },
+    {
+      "tempoS": 6.004166666666646,
+      "altitudeM": 5050.506083906628,
+      "velocidadeHorizontalMps": -20.772331355744363,
+      "velocidadeVerticalMps": -267.29896682954995,
+      "velocidadeTotalMps": 268.10488137685536,
+      "atitudeLocalRad": -0.8567915923428139,
+      "velocidadeAngularRadps": -0.8589150654022784,
+      "massaInstantaneaKg": 102517.1079265204,
+      "propulsor": {
+        "ignitado": true,
+        "throttle": 0.8,
+        "empuxoN": 1919999.9999999998,
+        "vazaoKgS": 559.3871796907492,
+        "integridade": 1,
+        "gimbalRad": -0.2617993877991494
+      },
+      "propelente": {
+        "metanoKg": 2928.269228388027,
+        "oxidanteKg": 11713.076913552108,
+        "bateriaJ": 19160336.535485256
+      },
+      "fase": "flip-propulsivo",
+      "integridadeCasco": 1,
+      "contatos": 0
+    },
+    {
+      "tempoS": 7.004166666666589,
+      "altitudeM": 4785.832346998155,
+      "velocidadeHorizontalMps": -1.0621081292878691,
+      "velocidadeVerticalMps": -264.55061565162424,
+      "velocidadeTotalMps": 264.55274769945544,
+      "atitudeLocalRad": -1.6159959812580644,
+      "velocidadeAngularRadps": -0.6666175453369805,
+      "massaInstantaneaKg": 101957.72074682964,
+      "propulsor": {
+        "ignitado": true,
+        "throttle": 0.8,
+        "empuxoN": 1919999.9999999998,
+        "vazaoKgS": 559.3871796907492,
+        "integridade": 1,
+        "gimbalRad": -0.2617993877991494
+      },
+      "propelente": {
+        "metanoKg": 2816.3917924498774,
+        "oxidanteKg": 11265.56716979951,
+        "bateriaJ": 19020489.740562607
+      },
+      "fase": "flip-propulsivo",
+      "integridadeCasco": 1,
+      "contatos": 0
+    },
+    {
+      "tempoS": 8.004166666666533,
+      "altitudeM": 4517.58638422098,
+      "velocidadeHorizontalMps": 14.265148826510451,
+      "velocidadeVerticalMps": -273.2504718101629,
+      "velocidadeTotalMps": 273.6225773132018,
+      "atitudeLocalRad": -2.1901807087926843,
+      "velocidadeAngularRadps": -0.4787554461076655,
+      "massaInstantaneaKg": 101398.3335671389,
+      "propulsor": {
+        "ignitado": true,
+        "throttle": 0.8,
+        "empuxoN": 1919999.9999999998,
+        "vazaoKgS": 559.3871796907492,
+        "integridade": 1,
+        "gimbalRad": -0.2617993877991494
+      },
+      "propelente": {
+        "metanoKg": 2704.514356511728,
+        "oxidanteKg": 10818.057426046911,
+        "bateriaJ": 18880642.945639957
+      },
+      "fase": "flip-propulsivo",
+      "integridadeCasco": 1,
+      "contatos": 0
+    },
+    {
+      "tempoS": 9.004166666666476,
+      "altitudeM": 4237.885504174046,
+      "velocidadeHorizontalMps": 22.075303308494142,
+      "velocidadeVerticalMps": -286.3785158589843,
+      "velocidadeTotalMps": 287.2280859556679,
+      "atitudeLocalRad": -2.5612273648018498,
+      "velocidadeAngularRadps": -0.2580605297611055,
+      "massaInstantaneaKg": 100838.94638744814,
+      "propulsor": {
+        "ignitado": true,
+        "throttle": 0.8,
+        "empuxoN": 1919999.9999999998,
+        "vazaoKgS": 559.3871796907492,
+        "integridade": 1,
+        "gimbalRad": -0.2617993877991494
+      },
+      "propelente": {
+        "metanoKg": 2592.636920573578,
+        "oxidanteKg": 10370.547682294313,
+        "bateriaJ": 18740796.150717307
+      },
+      "fase": "flip-propulsivo",
+      "integridadeCasco": 1,
+      "contatos": 0
+    },
+    {
+      "tempoS": 10.00416666666642,
+      "altitudeM": 3944.9166159350425,
+      "velocidadeHorizontalMps": 24.881718122527595,
+      "velocidadeVerticalMps": -299.3187376103611,
+      "velocidadeTotalMps": 300.3511388048814,
+      "atitudeLocalRad": -2.6956664727440085,
+      "velocidadeAngularRadps": -0.009322236476469663,
+      "massaInstantaneaKg": 100279.55920775741,
+      "propulsor": {
+        "ignitado": true,
+        "throttle": 0.8,
+        "empuxoN": 1919999.9999999998,
+        "vazaoKgS": 559.3871796907492,
+        "integridade": 1,
+        "gimbalRad": -0.2617993877991494
+      },
+      "propelente": {
+        "metanoKg": 2480.7594846354286,
+        "oxidanteKg": 9923.037938541715,
+        "bateriaJ": 18600949.355794657
+      },
+      "fase": "flip-propulsivo",
+      "integridadeCasco": 1,
+      "contatos": 0
+    },
+    {
+      "tempoS": 11.004166666666363,
+      "altitudeM": 3639.8523281980306,
+      "velocidadeHorizontalMps": 27.316283975173164,
+      "velocidadeVerticalMps": -310.4254941313374,
+      "velocidadeTotalMps": 311.6250419605223,
+      "atitudeLocalRad": -2.5801034424587543,
+      "velocidadeAngularRadps": 0.23542160708131277,
+      "massaInstantaneaKg": 99720.17202806665,
+      "propulsor": {
+        "ignitado": true,
+        "throttle": 0.8,
+        "empuxoN": 1919999.9999999998,
+        "vazaoKgS": 559.3871796907492,
+        "integridade": 1,
+        "gimbalRad": -0.2617993877991494
+      },
+      "propelente": {
+        "metanoKg": 2368.882048697279,
+        "oxidanteKg": 9475.528194789116,
+        "bateriaJ": 18461102.560872007
+      },
+      "fase": "flip-propulsivo",
+      "integridadeCasco": 1,
+      "contatos": 0
+    },
+    {
+      "tempoS": 12.004166666666306,
+      "altitudeM": 3325.11141729448,
+      "velocidadeHorizontalMps": 33.774031349171004,
+      "velocidadeVerticalMps": -318.3164254665697,
+      "velocidadeTotalMps": 320.1031582402601,
+      "atitudeLocalRad": -2.2380357396247725,
+      "velocidadeAngularRadps": 0.43844926166891196,
+      "massaInstantaneaKg": 99160.78484837592,
+      "propulsor": {
+        "ignitado": true,
+        "throttle": 0.8,
+        "empuxoN": 1919999.9999999998,
+        "vazaoKgS": 559.3871796907492,
+        "integridade": 1,
+        "gimbalRad": -0.2617993877991494
+      },
+      "propelente": {
+        "metanoKg": 2257.0046127591295,
+        "oxidanteKg": 9028.018451036518,
+        "bateriaJ": 18321255.765949357
+      },
+      "fase": "flip-propulsivo",
+      "integridadeCasco": 1,
+      "contatos": 0
+    },
+    {
+      "tempoS": 13.004166666666249,
+      "altitudeM": 3005.429421729408,
+      "velocidadeHorizontalMps": 46.290717555672686,
+      "velocidadeVerticalMps": -319.60279303952836,
+      "velocidadeTotalMps": 322.93772751180165,
+      "atitudeLocalRad": -1.7221297942328173,
+      "velocidadeAngularRadps": 0.5842905201006288,
+      "massaInstantaneaKg": 98601.39766868515,
+      "propulsor": {
+        "ignitado": true,
+        "throttle": 0.8,
+        "empuxoN": 1919999.9999999998,
+        "vazaoKgS": 559.3871796907492,
+        "integridade": 1,
+        "gimbalRad": -0.2617993877991494
+      },
+      "propelente": {
+        "metanoKg": 2145.12717682098,
+        "oxidanteKg": 8580.50870728392,
+        "bateriaJ": 18181408.971026707
+      },
+      "fase": "flip-propulsivo",
+      "integridadeCasco": 1,
+      "contatos": 0
+    },
+    {
+      "tempoS": 14.004166666666192,
+      "altitudeM": 2689.619312889874,
+      "velocidadeHorizontalMps": 62.2118988629321,
+      "velocidadeVerticalMps": -310.0226235002459,
+      "velocidadeTotalMps": 316.20301618122954,
+      "atitudeLocalRad": -1.0774963820457915,
+      "velocidadeAngularRadps": 0.705933156628817,
+      "massaInstantaneaKg": 98042.01048899442,
+      "propulsor": {
+        "ignitado": true,
+        "throttle": 0.8,
+        "empuxoN": 1919999.9999999998,
+        "vazaoKgS": 559.3871796907492,
+        "integridade": 1,
+        "gimbalRad": -0.2617993877991494
+      },
+      "propelente": {
+        "metanoKg": 2033.2497408828303,
+        "oxidanteKg": 8132.998963531321,
+        "bateriaJ": 18041562.176104058
+      },
+      "fase": "flip-propulsivo",
+      "integridadeCasco": 1,
+      "contatos": 0
+    },
+    {
+      "tempoS": 15.004166666666135,
+      "altitudeM": 2389.643562070094,
+      "velocidadeHorizontalMps": 73.84924902007351,
+      "velocidadeVerticalMps": -288.2130494025672,
+      "velocidadeTotalMps": 297.5239039585819,
+      "atitudeLocalRad": -0.2924085421168945,
+      "velocidadeAngularRadps": 0.8793621435678008,
+      "massaInstantaneaKg": 97482.62330930366,
+      "propulsor": {
+        "ignitado": true,
+        "throttle": 0.8,
+        "empuxoN": 1919999.9999999998,
+        "vazaoKgS": 559.3871796907492,
+        "integridade": 1,
+        "gimbalRad": -0.2617993877991494
+      },
+      "propelente": {
+        "metanoKg": 1921.3723049446808,
+        "oxidanteKg": 7685.489219778723,
+        "bateriaJ": 17901715.381181408
+      },
+      "fase": "flip-propulsivo",
+      "integridadeCasco": 1,
+      "contatos": 0
+    },
+    {
+      "tempoS": 16.00416666666608,
+      "altitudeM": 2115.1321343984455,
+      "velocidadeHorizontalMps": 63.960359959814234,
+      "velocidadeVerticalMps": -262.3103726645274,
+      "velocidadeTotalMps": 269.9956652496337,
+      "atitudeLocalRad": 0.543782483722654,
+      "velocidadeAngularRadps": 0.7042511661415465,
+      "massaInstantaneaKg": 96923.23612961292,
+      "propulsor": {
+        "ignitado": true,
+        "throttle": 0.8,
+        "empuxoN": 1919999.9999999998,
+        "vazaoKgS": 559.3871796907492,
+        "integridade": 1,
+        "gimbalRad": 0.2617993877991494
+      },
+      "propelente": {
+        "metanoKg": 1809.4948690065312,
+        "oxidanteKg": 7237.979476026125,
+        "bateriaJ": 17761868.586258758
+      },
+      "fase": "flip-propulsivo",
+      "integridadeCasco": 1,
+      "contatos": 0
+    },
+    {
+      "tempoS": 17.004166666666023,
+      "altitudeM": 1861.0601507248357,
+      "velocidadeHorizontalMps": 42.699017837140175,
+      "velocidadeVerticalMps": -247.93633784110833,
+      "velocidadeTotalMps": 251.58623520836076,
+      "atitudeLocalRad": 1.122634085851748,
+      "velocidadeAngularRadps": 0.4629469004989255,
+      "massaInstantaneaKg": 96363.84894992216,
+      "propulsor": {
+        "ignitado": true,
+        "throttle": 0.8,
+        "empuxoN": 1919999.9999999998,
+        "vazaoKgS": 559.3871796907492,
+        "integridade": 1,
+        "gimbalRad": 0.2617993877991494
+      },
+      "propelente": {
+        "metanoKg": 1697.6174330683816,
+        "oxidanteKg": 6790.4697322735265,
+        "bateriaJ": 17622021.791336108
+      },
+      "fase": "flip-propulsivo",
+      "integridadeCasco": 1,
+      "contatos": 0
+    },
+    {
+      "tempoS": 18.004166666665967,
+      "altitudeM": 1616.0304010855034,
+      "velocidadeHorizontalMps": 20.762196513547156,
+      "velocidadeVerticalMps": -243.41653961124703,
+      "velocidadeTotalMps": 244.30039001274832,
+      "atitudeLocalRad": 1.4774078260338879,
+      "velocidadeAngularRadps": 0.2490320130893641,
+      "massaInstantaneaKg": 95804.46177023143,
+      "propulsor": {
+        "ignitado": true,
+        "throttle": 0.8,
+        "empuxoN": 1919999.9999999998,
+        "vazaoKgS": 559.3871796907492,
+        "integridade": 1,
+        "gimbalRad": 0.2617993877991494
+      },
+      "propelente": {
+        "metanoKg": 1585.739997130232,
+        "oxidanteKg": 6342.959988520928,
+        "bateriaJ": 17482174.99641346
+      },
+      "fase": "flip-propulsivo",
+      "integridadeCasco": 1,
+      "contatos": 0
+    },
+    {
+      "tempoS": 19.00416666666591,
+      "altitudeM": 1372.6715300800279,
+      "velocidadeHorizontalMps": 0.677498907709002,
+      "velocidadeVerticalMps": -243.73655569895584,
+      "velocidadeTotalMps": 243.73749729731807,
+      "atitudeLocalRad": 1.6202841761369053,
+      "velocidadeAngularRadps": 0.037191814704438844,
+      "massaInstantaneaKg": 95245.07459054067,
+      "propulsor": {
+        "ignitado": true,
+        "throttle": 0.8,
+        "empuxoN": 1919999.9999999998,
+        "vazaoKgS": 559.3871796907492,
+        "integridade": 1,
+        "gimbalRad": 0.2617993877991494
+      },
+      "propelente": {
+        "metanoKg": 1473.8625611920825,
+        "oxidanteKg": 5895.45024476833,
+        "bateriaJ": 17342328.20149081
+      },
+      "fase": "flip-propulsivo",
+      "integridadeCasco": 1,
+      "contatos": 0
+    },
+    {
+      "tempoS": 20.004166666665853,
+      "altitudeM": 1128.5366799868643,
+      "velocidadeHorizontalMps": -18.117658922861455,
+      "velocidadeVerticalMps": -244.2539538656709,
+      "velocidadeTotalMps": 244.92497533705793,
+      "atitudeLocalRad": 1.5498995295894602,
+      "velocidadeAngularRadps": -0.17753456946936974,
+      "massaInstantaneaKg": 94685.68741084993,
+      "propulsor": {
+        "ignitado": true,
+        "throttle": 0.8,
+        "empuxoN": 1919999.9999999998,
+        "vazaoKgS": 559.3871796907492,
+        "integridade": 1,
+        "gimbalRad": 0.2617993877991494
+      },
+      "propelente": {
+        "metanoKg": 1361.985125253933,
+        "oxidanteKg": 5447.940501015732,
+        "bateriaJ": 17202481.40656816
+      },
+      "fase": "flip-propulsivo",
+      "integridadeCasco": 1,
+      "contatos": 0
+    },
+    {
+      "tempoS": 21.004166666665796,
+      "altitudeM": 885.5252447193488,
+      "velocidadeHorizontalMps": -36.5636008806833,
+      "velocidadeVerticalMps": -240.82740623497196,
+      "velocidadeTotalMps": 243.58722565690124,
+      "atitudeLocalRad": 1.2631580194379166,
+      "velocidadeAngularRadps": -0.3960168174932321,
+      "massaInstantaneaKg": 94126.30023115917,
+      "propulsor": {
+        "ignitado": true,
+        "throttle": 0.8,
+        "empuxoN": 1919999.9999999998,
+        "vazaoKgS": 559.3871796907492,
+        "integridade": 1,
+        "gimbalRad": 0.2617993877991494
+      },
+      "propelente": {
+        "metanoKg": 1250.1076893157833,
+        "oxidanteKg": 5000.430757263133,
+        "bateriaJ": 17062634.61164551
+      },
+      "fase": "flip-propulsivo",
+      "integridadeCasco": 1,
+      "contatos": 0
+    },
+    {
+      "tempoS": 22.00416666666574,
+      "altitudeM": 649.5736587122083,
+      "velocidadeHorizontalMps": -53.279161905968714,
+      "velocidadeVerticalMps": -229.60109160906933,
+      "velocidadeTotalMps": 235.70178268625517,
+      "atitudeLocalRad": 0.7528675338260018,
+      "velocidadeAngularRadps": -0.6271734795226036,
+      "massaInstantaneaKg": 93566.91305146844,
+      "propulsor": {
+        "ignitado": true,
+        "throttle": 0.8,
+        "empuxoN": 1919999.9999999998,
+        "vazaoKgS": 559.3871796907492,
+        "integridade": 1,
+        "gimbalRad": 0.2617993877991494
+      },
+      "propelente": {
+        "metanoKg": 1138.2302533776337,
+        "oxidanteKg": 4552.921013510535,
+        "bateriaJ": 16922787.81672286
+      },
+      "fase": "flip-propulsivo",
+      "integridadeCasco": 1,
+      "contatos": 0
+    },
+    {
+      "tempoS": 23.004166666665682,
+      "altitudeM": 429.60661083087325,
+      "velocidadeHorizontalMps": -61.10943848105252,
+      "velocidadeVerticalMps": -209.01029391431564,
+      "velocidadeTotalMps": 217.76057134756545,
+      "atitudeLocalRad": 0.0014606683665270676,
+      "velocidadeAngularRadps": -0.8343047769428338,
+      "massaInstantaneaKg": 93007.52587177767,
+      "propulsor": {
+        "ignitado": true,
+        "throttle": 0.8,
+        "empuxoN": 1919999.9999999998,
+        "vazaoKgS": 559.3871796907492,
+        "integridade": 1,
+        "gimbalRad": -0.12882221855228776
+      },
+      "propelente": {
+        "metanoKg": 1026.3528174394842,
+        "oxidanteKg": 4105.411269757937,
+        "bateriaJ": 16782941.02180021
+      },
+      "fase": "flip-propulsivo",
+      "integridadeCasco": 1,
+      "contatos": 0
+    },
+    {
+      "tempoS": 24.004166666665625,
+      "altitudeM": 230.8672406077385,
+      "velocidadeHorizontalMps": -45.83349835858243,
+      "velocidadeVerticalMps": -190.35985992714066,
+      "velocidadeTotalMps": 195.7998617039011,
+      "atitudeLocalRad": -0.6841617914113578,
+      "velocidadeAngularRadps": -0.5384852279360858,
+      "massaInstantaneaKg": 92448.13869208694,
+      "propulsor": {
+        "ignitado": true,
+        "throttle": 0.8,
+        "empuxoN": 1919999.9999999998,
+        "vazaoKgS": 559.3871796907492,
+        "integridade": 1,
+        "gimbalRad": -0.2617993877991494
+      },
+      "propelente": {
+        "metanoKg": 914.4753815013346,
+        "oxidanteKg": 3657.9015260053384,
+        "bateriaJ": 16643094.226877559
+      },
+      "fase": "flip-propulsivo",
+      "integridadeCasco": 1,
+      "contatos": 0
+    },
+    {
+      "tempoS": 25.00416666666557,
+      "altitudeM": 45.54855299089104,
+      "velocidadeHorizontalMps": -24.676069903451033,
+      "velocidadeVerticalMps": -181.7747563618028,
+      "velocidadeTotalMps": 183.44200848298834,
+      "atitudeLocalRad": -1.0812428357200334,
+      "velocidadeAngularRadps": -0.2584413869564871,
+      "massaInstantaneaKg": 91888.75151239618,
+      "propulsor": {
+        "ignitado": true,
+        "throttle": 0.8,
+        "empuxoN": 1919999.9999999998,
+        "vazaoKgS": 559.3871796907492,
+        "integridade": 1,
+        "gimbalRad": -0.2617993877991494
+      },
+      "propelente": {
+        "metanoKg": 802.597945563185,
+        "oxidanteKg": 3210.39178225274,
+        "bateriaJ": 16503247.43195491
+      },
+      "fase": "flip-propulsivo",
+      "integridadeCasco": 1,
+      "contatos": 0
+    },
+    {
+      "tempoS": 25.149999999998894,
+      "altitudeM": 19.723651236854494,
+      "velocidadeHorizontalMps": -43.79622114487919,
+      "velocidadeVerticalMps": -20.07153122364524,
+      "velocidadeTotalMps": 48.176502075523594,
+      "atitudeLocalRad": -1.1159086513627425,
+      "velocidadeAngularRadps": 2.2204851103620413,
+      "massaInstantaneaKg": 79000,
+      "propulsor": {
+        "ignitado": true,
+        "throttle": 0.8,
+        "empuxoN": 1919999.9999999998,
+        "vazaoKgS": 559.3871796907492,
+        "integridade": 1,
+        "gimbalRad": -0.2617993877991494
+      },
+      "propelente": {
+        "metanoKg": 786.2824861555382,
+        "oxidanteKg": 3145.129944622153,
+        "bateriaJ": 16482853.107695356
+      },
+      "fase": "flip-propulsivo",
+      "integridadeCasco": 0,
+      "contatos": 1
+    }
+  ]
+}

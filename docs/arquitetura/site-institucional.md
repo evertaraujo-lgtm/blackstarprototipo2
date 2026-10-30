@@ -285,3 +285,20 @@ Limitação restante: resultado do CI remoto pendente de envio das alterações.
 Os testes locais foram confirmados; não houve deploy, push ou modificação do
 repositório institucional anterior. Seus arquivos/código legado não fazem parte
 da distribuição nova.
+
+## RE-002A — segunda publicação (18/10/2026)
+
+O catálogo `publicacoes` em `site/build/pluginInstitucional.ts` contém duas
+fontes canônicas em `docs/estudos`: o artigo de pouso preservado e
+`Black_Star_RE001_Tese_Engenharia_Orbita_e_Retorno.pdf`. A URL adicional é
+`/publicacoes/engenharia-orbita-retorno-re001-2026.pdf`. O mesmo catálogo rege
+servidor dev, emissão de build, integridade de recursos e smoke de leitura/
+download. Não existem cópias editáveis em `site/public`. A configuração MIME
+PDF do Hosting já abrange ambas as URLs. Os resultados históricos acima
+continuam sendo registros da primeira publicação, não contagens atuais.
+
+A landing e `/pesquisa` apresentam os dois estudos, programas, datas, natureza
+numérica, leitura em nova aba e download. A notícia de outubro de 2026 descreve
+a pesquisa de recuperação sem afirmar missão orbital completa ou voo real.
+O laboratório `/reentrada.html` é a sétima entrada nativa desde RE-001; a
+fixture histórica de seis entradas permanece válida para o plugin genérico.

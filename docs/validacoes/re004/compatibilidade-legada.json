@@ -1,0 +1,12 @@
+{
+  "base": "9db1ef9",
+  "runtime": "v20.20.0",
+  "v8": "11.3.244.8-node.33",
+  "passos": 480,
+  "resultadoBrowserNoLegado": "Replay RE divergente.",
+  "mesmoRuntimeAntigoAtual": "idênticos, sem tolerância",
+  "replayNodeLegadoNoAtual": "OK",
+  "energiaPicoBrowserJ": 829435.3161595224,
+  "energiaPicoNodeJ": 829435.3161595222,
+  "restricao": "Replay exato exige mesmo modelo/runtime. Não se relaxou comparação nem se regravou diário RE-003."
+}

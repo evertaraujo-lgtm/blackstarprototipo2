@@ -1,0 +1,941 @@
+{
+  "contrato": "RE-002B / índice de resultados; orçamento não equivale a sucesso",
+  "matriz": [
+    {
+      "id": "fixo-alpha30",
+      "duracaoS": 838.0000000037675,
+      "hFinalM": 4.001838497817516,
+      "velocidadeFinalMps": 0.04524607620857324,
+      "velocidadeRadialFinalMps": -0.015818515058460658,
+      "velocidadeTangencialFinalMps": -0.04239082440360496,
+      "integridadeCorpo": 0,
+      "integridadeFlaps": [
+        0,
+        0
+      ],
+      "estadoControle": "manual",
+      "terminais": {
+        "corpoDestruido": true,
+        "controlePerdido": true,
+        "contato": true,
+        "impactoDestrutivo": false
+      },
+      "cruzamentosMach": [
+        {
+          "mach": 10,
+          "sentido": "decrescente",
+          "tempoS": 746.0461442706279,
+          "hM": 11582.238763226595,
+          "velocidadeMps": 2950.694935090715,
+          "velocidadeRadialMps": -2283.6985785061447,
+          "qPa": 1446164.0270081218,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 5,
+          "sentido": "decrescente",
+          "tempoS": 749.0236390589941,
+          "hM": 5796.27353261598,
+          "velocidadeMps": 1586.3407449911476,
+          "velocidadeRadialMps": -1556.6107089614404,
+          "qPa": 813073.7805120348,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 2,
+          "sentido": "decrescente",
+          "tempoS": 753.8635975488239,
+          "hM": 899.5029260005027,
+          "velocidadeMps": 673.6477800137575,
+          "velocidadeRadialMps": -587.6084145581934,
+          "qPa": 251689.95331827307,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 1,
+          "sentido": "decrescente",
+          "tempoS": 755.7070207733492,
+          "hM": 17.273085934706646,
+          "velocidadeMps": 340.2273586058049,
+          "velocidadeRadialMps": -242.8784151777534,
+          "qPa": 78300.93273473636,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 0.8,
+          "sentido": "decrescente",
+          "tempoS": 755.7082068397169,
+          "hM": 17.113292392502668,
+          "velocidadeMps": 272.1825944254162,
+          "velocidadeRadialMps": -184.81892557010397,
+          "qPa": 46318.58665787596,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        }
+      ],
+      "parecer": {
+        "cruzamentosComComponentesEssenciaisIntegrais": [],
+        "cruzamentosComControleDisponivel": [],
+        "casoSobreviveuOrcamento": false,
+        "descidaFinalMps": -0.015818515058460658,
+        "velocidadeTangencialResidualMps": -0.04239082440360496,
+        "variacaoEnergiaMecanicaEspecificaJPorKg": -30801604.96159462,
+        "passouMachNaoDefineSucesso": true
+      }
+    },
+    {
+      "id": "fixo-alpha40",
+      "duracaoS": 838.0000000037675,
+      "hFinalM": 2246.381562521681,
+      "velocidadeFinalMps": 209.64601130379265,
+      "velocidadeRadialFinalMps": -209.61633150993435,
+      "velocidadeTangencialFinalMps": 3.5275515456542053,
+      "integridadeCorpo": 1,
+      "integridadeFlaps": [
+        0,
+        0
+      ],
+      "estadoControle": "falha",
+      "terminais": {
+        "corpoDestruido": false,
+        "controlePerdido": true,
+        "contato": false,
+        "impactoDestrutivo": false
+      },
+      "cruzamentosMach": [
+        {
+          "mach": 10,
+          "sentido": "decrescente",
+          "tempoS": 715.4265156699391,
+          "hM": 12563.136249638117,
+          "velocidadeMps": 2950.694935090715,
+          "velocidadeRadialMps": -2947.1174232277044,
+          "qPa": 1240257.0308956013,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 5,
+          "sentido": "decrescente",
+          "tempoS": 717.7591289366815,
+          "hM": 8611.383321276995,
+          "velocidadeMps": 1527.297486160759,
+          "velocidadeRadialMps": -506.5310993336738,
+          "qPa": 552431.7388210881,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 2,
+          "sentido": "decrescente",
+          "tempoS": 723.6117594248183,
+          "hM": 10802.442379525723,
+          "velocidadeMps": 591.8853356087874,
+          "velocidadeRadialMps": 557.2850482231228,
+          "qPa": 65148.81805014208,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 1,
+          "sentido": "decrescente",
+          "tempoS": 732.5576192095544,
+          "hM": 14408.938044337721,
+          "velocidadeMps": 295.0694935090715,
+          "velocidadeRadialMps": 272.7040710224929,
+          "qPa": 9289.415927832439,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 0.8,
+          "sentido": "decrescente",
+          "tempoS": 736.8212997819267,
+          "hM": 15407.652610122937,
+          "velocidadeMps": 236.05559480725722,
+          "velocidadeRadialMps": 201.47403758714918,
+          "qPa": 5084.531858775036,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 0.8,
+          "sentido": "decrescente",
+          "tempoS": 818.4940415388228,
+          "hM": 6755.82917311425,
+          "velocidadeMps": 250.63445747019833,
+          "velocidadeRadialMps": -250.52578885017726,
+          "qPa": 18257.223952903525,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        }
+      ],
+      "parecer": {
+        "cruzamentosComComponentesEssenciaisIntegrais": [],
+        "cruzamentosComControleDisponivel": [],
+        "casoSobreviveuOrcamento": false,
+        "descidaFinalMps": -209.61633150993435,
+        "velocidadeTangencialResidualMps": 3.5275515456542053,
+        "variacaoEnergiaMecanicaEspecificaJPorKg": -30757616.28249917,
+        "passouMachNaoDefineSucesso": true
+      }
+    },
+    {
+      "id": "fixo-alpha55",
+      "duracaoS": 838.0000000037675,
+      "hFinalM": 4.001632293686271,
+      "velocidadeFinalMps": 0.049262269115982193,
+      "velocidadeRadialFinalMps": 0.02509855896488313,
+      "velocidadeTangencialFinalMps": -0.04238907284126107,
+      "integridadeCorpo": 1,
+      "integridadeFlaps": [
+        0,
+        0
+      ],
+      "estadoControle": "falha",
+      "terminais": {
+        "corpoDestruido": false,
+        "controlePerdido": true,
+        "contato": true,
+        "impactoDestrutivo": false
+      },
+      "cruzamentosMach": [
+        {
+          "mach": 10,
+          "sentido": "decrescente",
+          "tempoS": 632.1237208309286,
+          "hM": 14230.023094773505,
+          "velocidadeMps": 2950.694935090715,
+          "velocidadeRadialMps": -2949.768426749919,
+          "qPa": 955334.3094286263,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 5,
+          "sentido": "decrescente",
+          "tempoS": 634.5743286999391,
+          "hM": 9938.96856532845,
+          "velocidadeMps": 1498.646150357705,
+          "velocidadeRadialMps": -547.6143306640765,
+          "qPa": 459419.04699736345,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 2,
+          "sentido": "decrescente",
+          "tempoS": 640.0647839888319,
+          "hM": 11733.225278552507,
+          "velocidadeMps": 590.138987018143,
+          "velocidadeRadialMps": 535.6704166510299,
+          "qPa": 56494.97468525573,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 1,
+          "sentido": "decrescente",
+          "tempoS": 648.6209171831651,
+          "hM": 15182.95080626484,
+          "velocidadeMps": 295.0694935090715,
+          "velocidadeRadialMps": 283.4632487533443,
+          "qPa": 8229.0898025476,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 0.8,
+          "sentido": "decrescente",
+          "tempoS": 652.3408156143979,
+          "hM": 16098.526306651638,
+          "velocidadeMps": 236.05559480725722,
+          "velocidadeRadialMps": 212.06798710896857,
+          "qPa": 4563.186683711433,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 0.8,
+          "sentido": "decrescente",
+          "tempoS": 723.1431090864736,
+          "hM": 8036.205552239007,
+          "velocidadeMps": 246.32722802463442,
+          "velocidadeRadialMps": -213.76376171958952,
+          "qPa": 15311.573287811774,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        }
+      ],
+      "parecer": {
+        "cruzamentosComComponentesEssenciaisIntegrais": [],
+        "cruzamentosComControleDisponivel": [],
+        "casoSobreviveuOrcamento": false,
+        "descidaFinalMps": 0.02509855896488313,
+        "velocidadeTangencialResidualMps": -0.04238907284126107,
+        "variacaoEnergiaMecanicaEspecificaJPorKg": -30801604.96342981,
+        "passouMachNaoDefineSucesso": true
+      }
+    },
+    {
+      "id": "fixo-alpha70",
+      "duracaoS": 838.0000000037675,
+      "hFinalM": 4.000848294235766,
+      "velocidadeFinalMps": 0.03694563048367131,
+      "velocidadeRadialFinalMps": 0.01882970507779398,
+      "velocidadeTangencialFinalMps": -0.03178713290813254,
+      "integridadeCorpo": 1,
+      "integridadeFlaps": [
+        0,
+        0
+      ],
+      "estadoControle": "falha",
+      "terminais": {
+        "corpoDestruido": false,
+        "controlePerdido": true,
+        "contato": true,
+        "impactoDestrutivo": false
+      },
+      "cruzamentosMach": [
+        {
+          "mach": 10,
+          "sentido": "decrescente",
+          "tempoS": 596.0580467132114,
+          "hM": 14454.166560639462,
+          "velocidadeMps": 2950.6949350907153,
+          "velocidadeRadialMps": -2945.1802230825942,
+          "qPa": 922385.812500913,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 5,
+          "sentido": "decrescente",
+          "tempoS": 598.5595002601808,
+          "hM": 9979.489734382689,
+          "velocidadeMps": 1497.7630167942389,
+          "velocidadeRadialMps": -594.3867335622994,
+          "qPa": 456830.56646685116,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 2,
+          "sentido": "decrescente",
+          "tempoS": 604.0317562027332,
+          "hM": 11619.018074359137,
+          "velocidadeMps": 590.138987018143,
+          "velocidadeRadialMps": 527.3356004152275,
+          "qPa": 57514.381742868914,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 1,
+          "sentido": "decrescente",
+          "tempoS": 612.4347330211277,
+          "hM": 15002.040961825267,
+          "velocidadeMps": 295.0694935090715,
+          "velocidadeRadialMps": 286.07644722585115,
+          "qPa": 8465.537932138304,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 0.8,
+          "sentido": "decrescente",
+          "tempoS": 616.0688529494626,
+          "hM": 15908.23214622962,
+          "velocidadeMps": 236.05559480725722,
+          "velocidadeRadialMps": 215.8231434363011,
+          "qPa": 4701.204706794146,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 0.8,
+          "sentido": "decrescente",
+          "tempoS": 686.9305038694598,
+          "hM": 8112.059362211429,
+          "velocidadeMps": 246.06968764569177,
+          "velocidadeRadialMps": -214.86993881102015,
+          "qPa": 15152.215804079358,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        }
+      ],
+      "parecer": {
+        "cruzamentosComComponentesEssenciaisIntegrais": [],
+        "cruzamentosComControleDisponivel": [],
+        "casoSobreviveuOrcamento": false,
+        "descidaFinalMps": 0.01882970507779398,
+        "velocidadeTangencialResidualMps": -0.03178713290813254,
+        "variacaoEnergiaMecanicaEspecificaJPorKg": -30801604.971659772,
+        "passouMachNaoDefineSucesso": true
+      }
+    },
+    {
+      "id": "fixo-alpha80",
+      "duracaoS": 838.0000000037675,
+      "hFinalM": 4.001094923354685,
+      "velocidadeFinalMps": 0.03694738744457472,
+      "velocidadeRadialFinalMps": 0.01883025144864242,
+      "velocidadeTangencialFinalMps": 0.03178885133754313,
+      "integridadeCorpo": 1,
+      "integridadeFlaps": [
+        0,
+        0
+      ],
+      "estadoControle": "falha",
+      "terminais": {
+        "corpoDestruido": false,
+        "controlePerdido": true,
+        "contato": true,
+        "impactoDestrutivo": false
+      },
+      "cruzamentosMach": [
+        {
+          "mach": 10,
+          "sentido": "decrescente",
+          "tempoS": 597.0312600550913,
+          "hM": 14468.307513984846,
+          "velocidadeMps": 2950.694935090715,
+          "velocidadeRadialMps": -2944.760349009896,
+          "qPa": 920345.4774213969,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 5,
+          "sentido": "decrescente",
+          "tempoS": 599.5361185039736,
+          "hM": 9981.84287500839,
+          "velocidadeMps": 1497.7117145151183,
+          "velocidadeRadialMps": -597.3332019554447,
+          "qPa": 456680.681577969,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 2,
+          "sentido": "decrescente",
+          "tempoS": 605.0071377346248,
+          "hM": 11611.613865943518,
+          "velocidadeMps": 590.138987018143,
+          "velocidadeRadialMps": 526.7898079706193,
+          "qPa": 57581.10165823089,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 1,
+          "sentido": "decrescente",
+          "tempoS": 613.4003684630671,
+          "hM": 14990.25902569025,
+          "velocidadeMps": 295.0694935090715,
+          "velocidadeRadialMps": 286.22912931563843,
+          "qPa": 8481.17016041596,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 0.8,
+          "sentido": "decrescente",
+          "tempoS": 617.0291725887206,
+          "hM": 15895.817453518224,
+          "velocidadeMps": 236.05559480725722,
+          "velocidadeRadialMps": 216.04669020814762,
+          "qPa": 4710.352471532678,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 0.8,
+          "sentido": "decrescente",
+          "tempoS": 687.8917968629528,
+          "hM": 8113.386424721842,
+          "velocidadeMps": 246.06517961645784,
+          "velocidadeRadialMps": -214.90836354626347,
+          "qPa": 15149.442078493057,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        }
+      ],
+      "parecer": {
+        "cruzamentosComComponentesEssenciaisIntegrais": [],
+        "cruzamentosComControleDisponivel": [],
+        "casoSobreviveuOrcamento": false,
+        "descidaFinalMps": 0.01883025144864242,
+        "velocidadeTangencialResidualMps": 0.03178885133754313,
+        "variacaoEnergiaMecanicaEspecificaJPorKg": -30801604.969237745,
+        "passouMachNaoDefineSucesso": true
+      }
+    },
+    {
+      "id": "agenda-40-30-55",
+      "duracaoS": 838.0000000037675,
+      "hFinalM": 2246.381562521681,
+      "velocidadeFinalMps": 209.64601130379265,
+      "velocidadeRadialFinalMps": -209.61633150993435,
+      "velocidadeTangencialFinalMps": 3.5275515456542053,
+      "integridadeCorpo": 1,
+      "integridadeFlaps": [
+        0,
+        0
+      ],
+      "estadoControle": "falha",
+      "terminais": {
+        "corpoDestruido": false,
+        "controlePerdido": true,
+        "contato": false,
+        "impactoDestrutivo": false
+      },
+      "cruzamentosMach": [
+        {
+          "mach": 10,
+          "sentido": "decrescente",
+          "tempoS": 715.4265156699391,
+          "hM": 12563.136249638117,
+          "velocidadeMps": 2950.694935090715,
+          "velocidadeRadialMps": -2947.1174232277044,
+          "qPa": 1240257.0308956013,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 5,
+          "sentido": "decrescente",
+          "tempoS": 717.7591289366815,
+          "hM": 8611.383321276995,
+          "velocidadeMps": 1527.297486160759,
+          "velocidadeRadialMps": -506.5310993336738,
+          "qPa": 552431.7388210881,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 2,
+          "sentido": "decrescente",
+          "tempoS": 723.6117594248183,
+          "hM": 10802.442379525723,
+          "velocidadeMps": 591.8853356087874,
+          "velocidadeRadialMps": 557.2850482231228,
+          "qPa": 65148.81805014208,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 1,
+          "sentido": "decrescente",
+          "tempoS": 732.5576192095544,
+          "hM": 14408.938044337721,
+          "velocidadeMps": 295.0694935090715,
+          "velocidadeRadialMps": 272.7040710224929,
+          "qPa": 9289.415927832439,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 0.8,
+          "sentido": "decrescente",
+          "tempoS": 736.8212997819267,
+          "hM": 15407.652610122937,
+          "velocidadeMps": 236.05559480725722,
+          "velocidadeRadialMps": 201.47403758714918,
+          "qPa": 5084.531858775036,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 0.8,
+          "sentido": "decrescente",
+          "tempoS": 818.4940415388228,
+          "hM": 6755.82917311425,
+          "velocidadeMps": 250.63445747019833,
+          "velocidadeRadialMps": -250.52578885017726,
+          "qPa": 18257.223952903525,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        }
+      ],
+      "parecer": {
+        "cruzamentosComComponentesEssenciaisIntegrais": [],
+        "cruzamentosComControleDisponivel": [],
+        "casoSobreviveuOrcamento": false,
+        "descidaFinalMps": -209.61633150993435,
+        "velocidadeTangencialResidualMps": 3.5275515456542053,
+        "variacaoEnergiaMecanicaEspecificaJPorKg": -30757616.28249917,
+        "passouMachNaoDefineSucesso": true
+      }
+    },
+    {
+      "id": "agenda-40-55-30",
+      "duracaoS": 838.0000000037675,
+      "hFinalM": 2246.381562521681,
+      "velocidadeFinalMps": 209.64601130379265,
+      "velocidadeRadialFinalMps": -209.61633150993435,
+      "velocidadeTangencialFinalMps": 3.5275515456542053,
+      "integridadeCorpo": 1,
+      "integridadeFlaps": [
+        0,
+        0
+      ],
+      "estadoControle": "falha",
+      "terminais": {
+        "corpoDestruido": false,
+        "controlePerdido": true,
+        "contato": false,
+        "impactoDestrutivo": false
+      },
+      "cruzamentosMach": [
+        {
+          "mach": 10,
+          "sentido": "decrescente",
+          "tempoS": 715.4265156699391,
+          "hM": 12563.136249638117,
+          "velocidadeMps": 2950.694935090715,
+          "velocidadeRadialMps": -2947.1174232277044,
+          "qPa": 1240257.0308956013,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 5,
+          "sentido": "decrescente",
+          "tempoS": 717.7591289366815,
+          "hM": 8611.383321276995,
+          "velocidadeMps": 1527.297486160759,
+          "velocidadeRadialMps": -506.5310993336738,
+          "qPa": 552431.7388210881,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 2,
+          "sentido": "decrescente",
+          "tempoS": 723.6117594248183,
+          "hM": 10802.442379525723,
+          "velocidadeMps": 591.8853356087874,
+          "velocidadeRadialMps": 557.2850482231228,
+          "qPa": 65148.81805014208,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 1,
+          "sentido": "decrescente",
+          "tempoS": 732.5576192095544,
+          "hM": 14408.938044337721,
+          "velocidadeMps": 295.0694935090715,
+          "velocidadeRadialMps": 272.7040710224929,
+          "qPa": 9289.415927832439,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 0.8,
+          "sentido": "decrescente",
+          "tempoS": 736.8212997819267,
+          "hM": 15407.652610122937,
+          "velocidadeMps": 236.05559480725722,
+          "velocidadeRadialMps": 201.47403758714918,
+          "qPa": 5084.531858775036,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 0.8,
+          "sentido": "decrescente",
+          "tempoS": 818.4940415388228,
+          "hM": 6755.82917311425,
+          "velocidadeMps": 250.63445747019833,
+          "velocidadeRadialMps": -250.52578885017726,
+          "qPa": 18257.223952903525,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        }
+      ],
+      "parecer": {
+        "cruzamentosComComponentesEssenciaisIntegrais": [],
+        "cruzamentosComControleDisponivel": [],
+        "casoSobreviveuOrcamento": false,
+        "descidaFinalMps": -209.61633150993435,
+        "velocidadeTangencialResidualMps": 3.5275515456542053,
+        "variacaoEnergiaMecanicaEspecificaJPorKg": -30757616.28249917,
+        "passouMachNaoDefineSucesso": true
+      }
+    },
+    {
+      "id": "falha-alimentacao-mach2",
+      "duracaoS": 838.0000000037675,
+      "hFinalM": 2246.381562521681,
+      "velocidadeFinalMps": 209.64601130379265,
+      "velocidadeRadialFinalMps": -209.61633150993435,
+      "velocidadeTangencialFinalMps": 3.5275515456542053,
+      "integridadeCorpo": 1,
+      "integridadeFlaps": [
+        0,
+        0
+      ],
+      "estadoControle": "falha",
+      "terminais": {
+        "corpoDestruido": false,
+        "controlePerdido": true,
+        "contato": false,
+        "impactoDestrutivo": false
+      },
+      "cruzamentosMach": [
+        {
+          "mach": 10,
+          "sentido": "decrescente",
+          "tempoS": 715.4265156699391,
+          "hM": 12563.136249638117,
+          "velocidadeMps": 2950.694935090715,
+          "velocidadeRadialMps": -2947.1174232277044,
+          "qPa": 1240257.0308956013,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 5,
+          "sentido": "decrescente",
+          "tempoS": 717.7591289366815,
+          "hM": 8611.383321276995,
+          "velocidadeMps": 1527.297486160759,
+          "velocidadeRadialMps": -506.5310993336738,
+          "qPa": 552431.7388210881,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 2,
+          "sentido": "decrescente",
+          "tempoS": 723.6117594248183,
+          "hM": 10802.442379525723,
+          "velocidadeMps": 591.8853356087874,
+          "velocidadeRadialMps": 557.2850482231228,
+          "qPa": 65148.81805014208,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 1,
+          "sentido": "decrescente",
+          "tempoS": 732.5576192095544,
+          "hM": 14408.938044337721,
+          "velocidadeMps": 295.0694935090715,
+          "velocidadeRadialMps": 272.7040710224929,
+          "qPa": 9289.415927832439,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 0.8,
+          "sentido": "decrescente",
+          "tempoS": 736.8212997819267,
+          "hM": 15407.652610122937,
+          "velocidadeMps": 236.05559480725722,
+          "velocidadeRadialMps": 201.47403758714918,
+          "qPa": 5084.531858775036,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        },
+        {
+          "mach": 0.8,
+          "sentido": "decrescente",
+          "tempoS": 818.4940415388228,
+          "hM": 6755.82917311425,
+          "velocidadeMps": 250.63445747019833,
+          "velocidadeRadialMps": -250.52578885017726,
+          "qPa": 18257.223952903525,
+          "integridadeFlaps": [
+            0,
+            0
+          ],
+          "controleDisponivel": false
+        }
+      ],
+      "parecer": {
+        "cruzamentosComComponentesEssenciaisIntegrais": [],
+        "cruzamentosComControleDisponivel": [],
+        "casoSobreviveuOrcamento": false,
+        "descidaFinalMps": -209.61633150993435,
+        "velocidadeTangencialResidualMps": 3.5275515456542053,
+        "variacaoEnergiaMecanicaEspecificaJPorKg": -30757616.28249917,
+        "passouMachNaoDefineSucesso": true
+      }
+    },
+    {
+      "id": "vacio-conservacao-alpha40",
+      "duracaoS": 600.000000000737,
+      "hFinalM": 119999.96351228375,
+      "velocidadeFinalMps": 7836.336659588306,
+      "velocidadeRadialFinalMps": -0.00011643227662716527,
+      "velocidadeTangencialFinalMps": 7836.336659588305,
+      "integridadeCorpo": 1,
+      "integridadeFlaps": [
+        1,
+        1
+      ],
+      "estadoControle": "manual",
+      "terminais": {
+        "corpoDestruido": false,
+        "controlePerdido": false,
+        "contato": false,
+        "impactoDestrutivo": false
+      },
+      "cruzamentosMach": [],
+      "parecer": {
+        "cruzamentosComComponentesEssenciaisIntegrais": [],
+        "cruzamentosComControleDisponivel": [],
+        "casoSobreviveuOrcamento": true,
+        "descidaFinalMps": -0.00011643227662716527,
+        "velocidadeTangencialResidualMps": 7836.336659588305,
+        "variacaoEnergiaMecanicaEspecificaJPorKg": -0.01970575377345085,
+        "passouMachNaoDefineSucesso": true
+      }
+    }
+  ]
+}

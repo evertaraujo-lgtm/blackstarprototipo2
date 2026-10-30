@@ -29,7 +29,8 @@ function validarReentrada(): void {
       fluxoWm2: Math.max(...amostras.map(o => o.aerodinamica.fluxoTermicoIndicadorWm2)),
       temperaturaC: Math.max(...amostras.map(o => o.temperaturaC)), cargaG: Math.max(...amostras.map(o => o.cargaG)) },
     final, eventos: ensaio.obterEventos(), amostras };
-  const pasta = resolve('docs/validacoes/reentrada'); mkdirSync(pasta, { recursive: true });
+  const pasta = resolve(process.env.REENTRADA_EVIDENCIAS_DIR ?? 'docs/validacoes/reentrada');
+  mkdirSync(pasta, { recursive: true });
   writeFileSync(resolve(pasta, 'ensaio-600s.json'), JSON.stringify(resultado, null, 2));
   console.log(JSON.stringify({ resultado: resultado.resultado, maximosAmostrados: resultado.maximosAmostrados,
     final: { altitudeM: final.altitudeM, velocidadeMps: final.velocidadeMps, integridade: final.integridade, fase: final.supervisor.fase } }, null, 2));

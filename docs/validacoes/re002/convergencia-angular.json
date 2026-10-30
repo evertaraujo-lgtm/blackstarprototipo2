@@ -1,0 +1,960 @@
+{
+  "duracaoS": 10,
+  "criterioAngularRegressaoNmS": 0.01,
+  "criterioMomentoOrbitalRelativo": 1e-10,
+  "nota": "Erro de quadratura e arredondamento; não extrapolar certificação para contatos ou missão completa.",
+  "resultados": [
+    {
+      "passoS": 0.008333333333333333,
+      "configuracao": {
+        "altitudeM": 200000,
+        "velocidadeMps": 9000,
+        "taxaAtitudeLocalInicialRadps": 0,
+        "anguloAtaqueRad": 0.6981317007977318,
+        "trajetoriaRad": -0.017453292519943295,
+        "rolagemRad": 0,
+        "limiteOrbitadorC": 1100,
+        "limiteFlapsC": 900,
+        "limiteBateriaC": 60,
+        "automatico": true,
+        "chaveamentoAutomatico": false,
+        "vacuo": true,
+        "semente": 1,
+        "passoS": 0.008333333333333333,
+        "corredor": {
+          "pressaoMaximaPa": 50000,
+          "fluxoMaximoWm2": 500000,
+          "cargaMaximaG": 5
+        },
+        "intervaloColetaS": 1,
+        "limiteAmostras": 3600,
+        "limiteEventos": 20000,
+        "aproximacao": {
+          "alvoArcoM": null,
+          "aceleracoesLiquidasHipoteticasMps2": [
+            1,
+            2,
+            5
+          ],
+          "erroAlphaMaxRad": 0.17453292519943295,
+          "omegaMaxRadps": 0.02
+        },
+        "transferencia": {
+          "altitudeMinimaM": 20,
+          "altitudeMaximaM": 5000,
+          "velocidadeMaximaMps": 150,
+          "atitudeMaximaRad": 0.2617993877991494,
+          "trajetoriaMinimaRad": -1.5707963267948966,
+          "trajetoriaMaximaRad": -0.08726646259971647
+        },
+        "parametros": {
+          "areaReferenciaM2": 250,
+          "comprimentoM": 40,
+          "alturaM": 8,
+          "raioNarizM": 2,
+          "areaAquecidaM2": 80,
+          "massaCorpoKg": 78900,
+          "massaFlapKg": 500,
+          "massaBateriaKg": 100,
+          "resistenciaCorpoJ": 100000000,
+          "resistenciaFlapJ": 1000000,
+          "resistenciaFixadorN": 100000000,
+          "areaFlapM2": 16,
+          "clFlapPorRad": 1.2,
+          "cdFlapBase": 0.06,
+          "cdFlapDeflexao": 0.4,
+          "cursoFlapRad": 0.5235987755982988,
+          "taxaFlapRadps": 0.3490658503988659,
+          "bracoFlapM": 16,
+          "potenciaFlapW": 300,
+          "potenciaRepousoFlapW": 6,
+          "tensaoBateriaV": 28,
+          "energiaBateriaJ": 20000000,
+          "ganhoAlpha": 0.008,
+          "ganhoTaxa": 0.18,
+          "torqueMinimoAutoridadeNm": 100,
+          "taxaRolagemRadps": 0.17453292519943295,
+          "coeficienteSuttonGravesSI": 0.00017415,
+          "larguraM": 16,
+          "clCorpo": 0.9,
+          "fatorMachBase": 0.85,
+          "fatorMachVariacao": 0.15,
+          "cdCorpoBase": 0.12,
+          "cdCorpoAlpha": 1.6,
+          "cdMachGauss": 0.08,
+          "cpBaseM": -0.15,
+          "cpVariacaoM": -0.35,
+          "deslocamentoVerticalFlapM": -5,
+          "raioNarizFlapM": 0.5,
+          "areaAquecidaFlapM2": 2,
+          "calorEspecificoCorpoJPorKgC": 800,
+          "calorEspecificoFlapJPorKgC": 500,
+          "comprimentoCaracteristicoCorpoM": 8,
+          "comprimentoCaracteristicoFlapM": 2,
+          "cursoRolagemRad": 1.5707963267948966,
+          "conveccaoCorpoWPorM2C": 10,
+          "condutanciaFlapWPorC": 100,
+          "fracaoCargaInicialBateria": 1
+        }
+      },
+      "modeloFisico": {
+        "revisao": "terra-esferica-m9",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "raioM": 6371000,
+        "g0ReferenciaIspMps2": 9.80665,
+        "campo": {
+          "modelo": "central",
+          "centroM": {
+            "x": 0,
+            "y": -6371000,
+            "z": 0
+          },
+          "muM3S2": 398600441800000
+        },
+        "integracao": "verlet-gravitacional",
+        "revisaoDinamicaAngular": "intrinseca-relativa-3",
+        "maxDtS": 0.008333333333333333,
+        "politicaAtmosferica": "perfil-injetado",
+        "densidadeNivelMarKgM3": 0,
+        "cargasDistribuidas": "axial-pontes-1",
+        "perfilAtmosferico": {
+          "revisao": "re-atmosfera-log-1",
+          "dominioM": [
+            0,
+            200000
+          ],
+          "camadas": [
+            [
+              0,
+              1.225,
+              15
+            ],
+            [
+              11000,
+              0.36391,
+              -56.5
+            ],
+            [
+              20000,
+              0.08891,
+              -56.5
+            ],
+            [
+              32000,
+              0.01322,
+              -44.5
+            ],
+            [
+              47000,
+              0.001427,
+              -2.5
+            ],
+            [
+              51000,
+              0.0008616,
+              -2.5
+            ],
+            [
+              71000,
+              0.00006421,
+              -58.5
+            ],
+            [
+              86000,
+              0.000006958,
+              -86.2
+            ],
+            [
+              100000,
+              5.604e-7,
+              -78.15
+            ],
+            [
+              120000,
+              2.222e-8,
+              86.85
+            ],
+            [
+              150000,
+              2.076e-9,
+              360.85
+            ],
+            [
+              200000,
+              2.541e-10,
+              581.45
+            ]
+          ],
+          "interpolacao": "log-rho/linear-T; C0; geometria aproximada",
+          "cauda": "acima de 200 km: H=50000 m e T constante; fora do domínio",
+          "fonte": "https://ntrs.nasa.gov/citations/19770009539",
+          "limites": "Âncoras arredondadas; sem atividade solar, composição variável ou rotação terrestre."
+        }
+      },
+      "inicial": {
+        "massaKg": 80000,
+        "centroM": {
+          "x": 0.039332524440614844,
+          "y": 199999.9514283774,
+          "z": 0
+        },
+        "velocidadeCentroMps": {
+          "x": 8998.629189891311,
+          "y": -157.0717117993174,
+          "z": 0
+        },
+        "inerciaKgM2": 11223158.333333371,
+        "momentoIntrinsecoKgM2ps": -15369.508587374847,
+        "momentoOrbitalKgM2ps": -4730399358070065,
+        "momentoTotalKgM2ps": -4730399358085435,
+        "omegaInercialRadps": -0.001369445937666815,
+        "torqueGravitacionalNm": 0.47680332057348207
+      },
+      "final": {
+        "massaKg": 80000,
+        "centroM": {
+          "x": 89984.22351468678,
+          "y": 197967.5938450137,
+          "z": 0
+        },
+        "velocidadeCentroMps": {
+          "x": 8997.996811012421,
+          "y": -249.4049946650727,
+          "z": 0
+        },
+        "inerciaKgM2": 11223158.333333189,
+        "momentoIntrinsecoKgM2ps": -15364.738965574692,
+        "momentoOrbitalKgM2ps": -4730399358067760,
+        "momentoTotalKgM2ps": -4730399358083125,
+        "omegaInercialRadps": -0.0013690209573129569,
+        "torqueGravitacionalNm": 0.47711276215379567
+      },
+      "balancoTrapezoidal": {
+        "impulsoTorqueNmS": 4.769634620990487,
+        "residuoPassoKgM2ps": 2.648117528036842e-8,
+        "residuoAcumuladoKgM2ps": -0.000012820835772031636,
+        "residuoMaximoPassoKgM2ps": 1.556640254847183e-7,
+        "passosIncompletos": 0
+      },
+      "energiaInicialJ": -1612843690444.349,
+      "energiaFinalJ": -1612843690447.5693,
+      "erroRelativoEnergiaTranslacional": 1.99660690172822e-12,
+      "erroRelativoMomentoOrbital": 4.872738696084229e-13
+    },
+    {
+      "passoS": 0.004166666666666667,
+      "configuracao": {
+        "altitudeM": 200000,
+        "velocidadeMps": 9000,
+        "taxaAtitudeLocalInicialRadps": 0,
+        "anguloAtaqueRad": 0.6981317007977318,
+        "trajetoriaRad": -0.017453292519943295,
+        "rolagemRad": 0,
+        "limiteOrbitadorC": 1100,
+        "limiteFlapsC": 900,
+        "limiteBateriaC": 60,
+        "automatico": true,
+        "chaveamentoAutomatico": false,
+        "vacuo": true,
+        "semente": 1,
+        "passoS": 0.004166666666666667,
+        "corredor": {
+          "pressaoMaximaPa": 50000,
+          "fluxoMaximoWm2": 500000,
+          "cargaMaximaG": 5
+        },
+        "intervaloColetaS": 1,
+        "limiteAmostras": 3600,
+        "limiteEventos": 20000,
+        "aproximacao": {
+          "alvoArcoM": null,
+          "aceleracoesLiquidasHipoteticasMps2": [
+            1,
+            2,
+            5
+          ],
+          "erroAlphaMaxRad": 0.17453292519943295,
+          "omegaMaxRadps": 0.02
+        },
+        "transferencia": {
+          "altitudeMinimaM": 20,
+          "altitudeMaximaM": 5000,
+          "velocidadeMaximaMps": 150,
+          "atitudeMaximaRad": 0.2617993877991494,
+          "trajetoriaMinimaRad": -1.5707963267948966,
+          "trajetoriaMaximaRad": -0.08726646259971647
+        },
+        "parametros": {
+          "areaReferenciaM2": 250,
+          "comprimentoM": 40,
+          "alturaM": 8,
+          "raioNarizM": 2,
+          "areaAquecidaM2": 80,
+          "massaCorpoKg": 78900,
+          "massaFlapKg": 500,
+          "massaBateriaKg": 100,
+          "resistenciaCorpoJ": 100000000,
+          "resistenciaFlapJ": 1000000,
+          "resistenciaFixadorN": 100000000,
+          "areaFlapM2": 16,
+          "clFlapPorRad": 1.2,
+          "cdFlapBase": 0.06,
+          "cdFlapDeflexao": 0.4,
+          "cursoFlapRad": 0.5235987755982988,
+          "taxaFlapRadps": 0.3490658503988659,
+          "bracoFlapM": 16,
+          "potenciaFlapW": 300,
+          "potenciaRepousoFlapW": 6,
+          "tensaoBateriaV": 28,
+          "energiaBateriaJ": 20000000,
+          "ganhoAlpha": 0.008,
+          "ganhoTaxa": 0.18,
+          "torqueMinimoAutoridadeNm": 100,
+          "taxaRolagemRadps": 0.17453292519943295,
+          "coeficienteSuttonGravesSI": 0.00017415,
+          "larguraM": 16,
+          "clCorpo": 0.9,
+          "fatorMachBase": 0.85,
+          "fatorMachVariacao": 0.15,
+          "cdCorpoBase": 0.12,
+          "cdCorpoAlpha": 1.6,
+          "cdMachGauss": 0.08,
+          "cpBaseM": -0.15,
+          "cpVariacaoM": -0.35,
+          "deslocamentoVerticalFlapM": -5,
+          "raioNarizFlapM": 0.5,
+          "areaAquecidaFlapM2": 2,
+          "calorEspecificoCorpoJPorKgC": 800,
+          "calorEspecificoFlapJPorKgC": 500,
+          "comprimentoCaracteristicoCorpoM": 8,
+          "comprimentoCaracteristicoFlapM": 2,
+          "cursoRolagemRad": 1.5707963267948966,
+          "conveccaoCorpoWPorM2C": 10,
+          "condutanciaFlapWPorC": 100,
+          "fracaoCargaInicialBateria": 1
+        }
+      },
+      "modeloFisico": {
+        "revisao": "terra-esferica-m9",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "raioM": 6371000,
+        "g0ReferenciaIspMps2": 9.80665,
+        "campo": {
+          "modelo": "central",
+          "centroM": {
+            "x": 0,
+            "y": -6371000,
+            "z": 0
+          },
+          "muM3S2": 398600441800000
+        },
+        "integracao": "verlet-gravitacional",
+        "revisaoDinamicaAngular": "intrinseca-relativa-3",
+        "maxDtS": 0.004166666666666667,
+        "politicaAtmosferica": "perfil-injetado",
+        "densidadeNivelMarKgM3": 0,
+        "cargasDistribuidas": "axial-pontes-1",
+        "perfilAtmosferico": {
+          "revisao": "re-atmosfera-log-1",
+          "dominioM": [
+            0,
+            200000
+          ],
+          "camadas": [
+            [
+              0,
+              1.225,
+              15
+            ],
+            [
+              11000,
+              0.36391,
+              -56.5
+            ],
+            [
+              20000,
+              0.08891,
+              -56.5
+            ],
+            [
+              32000,
+              0.01322,
+              -44.5
+            ],
+            [
+              47000,
+              0.001427,
+              -2.5
+            ],
+            [
+              51000,
+              0.0008616,
+              -2.5
+            ],
+            [
+              71000,
+              0.00006421,
+              -58.5
+            ],
+            [
+              86000,
+              0.000006958,
+              -86.2
+            ],
+            [
+              100000,
+              5.604e-7,
+              -78.15
+            ],
+            [
+              120000,
+              2.222e-8,
+              86.85
+            ],
+            [
+              150000,
+              2.076e-9,
+              360.85
+            ],
+            [
+              200000,
+              2.541e-10,
+              581.45
+            ]
+          ],
+          "interpolacao": "log-rho/linear-T; C0; geometria aproximada",
+          "cauda": "acima de 200 km: H=50000 m e T constante; fora do domínio",
+          "fonte": "https://ntrs.nasa.gov/citations/19770009539",
+          "limites": "Âncoras arredondadas; sem atividade solar, composição variável ou rotação terrestre."
+        }
+      },
+      "inicial": {
+        "massaKg": 80000,
+        "centroM": {
+          "x": 0.039332524440614844,
+          "y": 199999.9514283774,
+          "z": 0
+        },
+        "velocidadeCentroMps": {
+          "x": 8998.629189891311,
+          "y": -157.0717117993174,
+          "z": 0
+        },
+        "inerciaKgM2": 11223158.333333371,
+        "momentoIntrinsecoKgM2ps": -15369.508587374847,
+        "momentoOrbitalKgM2ps": -4730399358070065,
+        "momentoTotalKgM2ps": -4730399358085435,
+        "omegaInercialRadps": -0.001369445937666815,
+        "torqueGravitacionalNm": 0.47680332057348207
+      },
+      "final": {
+        "massaKg": 80000,
+        "centroM": {
+          "x": 89984.22351355797,
+          "y": 197967.59384502005,
+          "z": 0
+        },
+        "velocidadeCentroMps": {
+          "x": 8997.996811007555,
+          "y": -249.40499466611223,
+          "z": 0
+        },
+        "inerciaKgM2": 11223158.333333516,
+        "momentoIntrinsecoKgM2ps": -15364.738967118863,
+        "momentoOrbitalKgM2ps": -4730399358065192,
+        "momentoTotalKgM2ps": -4730399358080557,
+        "omegaInercialRadps": -0.0013690209574505048,
+        "torqueGravitacionalNm": 0.4771127622267078
+      },
+      "balancoTrapezoidal": {
+        "impulsoTorqueNmS": 4.769634621014818,
+        "residuoPassoKgM2ps": 2.6654269433962208e-9,
+        "residuoAcumuladoKgM2ps": -0.000014365031142600775,
+        "residuoMaximoPassoKgM2ps": 8.362622025285052e-8,
+        "passosIncompletos": 0
+      },
+      "energiaInicialJ": -1612843690444.349,
+      "energiaFinalJ": -1612843690451.0564,
+      "erroRelativoEnergiaTranslacional": 4.158664246488202e-12,
+      "erroRelativoMomentoOrbital": 1.0301455820398457e-12
+    },
+    {
+      "passoS": 0.0020833333333333333,
+      "configuracao": {
+        "altitudeM": 200000,
+        "velocidadeMps": 9000,
+        "taxaAtitudeLocalInicialRadps": 0,
+        "anguloAtaqueRad": 0.6981317007977318,
+        "trajetoriaRad": -0.017453292519943295,
+        "rolagemRad": 0,
+        "limiteOrbitadorC": 1100,
+        "limiteFlapsC": 900,
+        "limiteBateriaC": 60,
+        "automatico": true,
+        "chaveamentoAutomatico": false,
+        "vacuo": true,
+        "semente": 1,
+        "passoS": 0.0020833333333333333,
+        "corredor": {
+          "pressaoMaximaPa": 50000,
+          "fluxoMaximoWm2": 500000,
+          "cargaMaximaG": 5
+        },
+        "intervaloColetaS": 1,
+        "limiteAmostras": 3600,
+        "limiteEventos": 20000,
+        "aproximacao": {
+          "alvoArcoM": null,
+          "aceleracoesLiquidasHipoteticasMps2": [
+            1,
+            2,
+            5
+          ],
+          "erroAlphaMaxRad": 0.17453292519943295,
+          "omegaMaxRadps": 0.02
+        },
+        "transferencia": {
+          "altitudeMinimaM": 20,
+          "altitudeMaximaM": 5000,
+          "velocidadeMaximaMps": 150,
+          "atitudeMaximaRad": 0.2617993877991494,
+          "trajetoriaMinimaRad": -1.5707963267948966,
+          "trajetoriaMaximaRad": -0.08726646259971647
+        },
+        "parametros": {
+          "areaReferenciaM2": 250,
+          "comprimentoM": 40,
+          "alturaM": 8,
+          "raioNarizM": 2,
+          "areaAquecidaM2": 80,
+          "massaCorpoKg": 78900,
+          "massaFlapKg": 500,
+          "massaBateriaKg": 100,
+          "resistenciaCorpoJ": 100000000,
+          "resistenciaFlapJ": 1000000,
+          "resistenciaFixadorN": 100000000,
+          "areaFlapM2": 16,
+          "clFlapPorRad": 1.2,
+          "cdFlapBase": 0.06,
+          "cdFlapDeflexao": 0.4,
+          "cursoFlapRad": 0.5235987755982988,
+          "taxaFlapRadps": 0.3490658503988659,
+          "bracoFlapM": 16,
+          "potenciaFlapW": 300,
+          "potenciaRepousoFlapW": 6,
+          "tensaoBateriaV": 28,
+          "energiaBateriaJ": 20000000,
+          "ganhoAlpha": 0.008,
+          "ganhoTaxa": 0.18,
+          "torqueMinimoAutoridadeNm": 100,
+          "taxaRolagemRadps": 0.17453292519943295,
+          "coeficienteSuttonGravesSI": 0.00017415,
+          "larguraM": 16,
+          "clCorpo": 0.9,
+          "fatorMachBase": 0.85,
+          "fatorMachVariacao": 0.15,
+          "cdCorpoBase": 0.12,
+          "cdCorpoAlpha": 1.6,
+          "cdMachGauss": 0.08,
+          "cpBaseM": -0.15,
+          "cpVariacaoM": -0.35,
+          "deslocamentoVerticalFlapM": -5,
+          "raioNarizFlapM": 0.5,
+          "areaAquecidaFlapM2": 2,
+          "calorEspecificoCorpoJPorKgC": 800,
+          "calorEspecificoFlapJPorKgC": 500,
+          "comprimentoCaracteristicoCorpoM": 8,
+          "comprimentoCaracteristicoFlapM": 2,
+          "cursoRolagemRad": 1.5707963267948966,
+          "conveccaoCorpoWPorM2C": 10,
+          "condutanciaFlapWPorC": 100,
+          "fracaoCargaInicialBateria": 1
+        }
+      },
+      "modeloFisico": {
+        "revisao": "terra-esferica-m9",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "raioM": 6371000,
+        "g0ReferenciaIspMps2": 9.80665,
+        "campo": {
+          "modelo": "central",
+          "centroM": {
+            "x": 0,
+            "y": -6371000,
+            "z": 0
+          },
+          "muM3S2": 398600441800000
+        },
+        "integracao": "verlet-gravitacional",
+        "revisaoDinamicaAngular": "intrinseca-relativa-3",
+        "maxDtS": 0.0020833333333333333,
+        "politicaAtmosferica": "perfil-injetado",
+        "densidadeNivelMarKgM3": 0,
+        "cargasDistribuidas": "axial-pontes-1",
+        "perfilAtmosferico": {
+          "revisao": "re-atmosfera-log-1",
+          "dominioM": [
+            0,
+            200000
+          ],
+          "camadas": [
+            [
+              0,
+              1.225,
+              15
+            ],
+            [
+              11000,
+              0.36391,
+              -56.5
+            ],
+            [
+              20000,
+              0.08891,
+              -56.5
+            ],
+            [
+              32000,
+              0.01322,
+              -44.5
+            ],
+            [
+              47000,
+              0.001427,
+              -2.5
+            ],
+            [
+              51000,
+              0.0008616,
+              -2.5
+            ],
+            [
+              71000,
+              0.00006421,
+              -58.5
+            ],
+            [
+              86000,
+              0.000006958,
+              -86.2
+            ],
+            [
+              100000,
+              5.604e-7,
+              -78.15
+            ],
+            [
+              120000,
+              2.222e-8,
+              86.85
+            ],
+            [
+              150000,
+              2.076e-9,
+              360.85
+            ],
+            [
+              200000,
+              2.541e-10,
+              581.45
+            ]
+          ],
+          "interpolacao": "log-rho/linear-T; C0; geometria aproximada",
+          "cauda": "acima de 200 km: H=50000 m e T constante; fora do domínio",
+          "fonte": "https://ntrs.nasa.gov/citations/19770009539",
+          "limites": "Âncoras arredondadas; sem atividade solar, composição variável ou rotação terrestre."
+        }
+      },
+      "inicial": {
+        "massaKg": 80000,
+        "centroM": {
+          "x": 0.039332524440614844,
+          "y": 199999.9514283774,
+          "z": 0
+        },
+        "velocidadeCentroMps": {
+          "x": 8998.629189891311,
+          "y": -157.0717117993174,
+          "z": 0
+        },
+        "inerciaKgM2": 11223158.333333371,
+        "momentoIntrinsecoKgM2ps": -15369.508587374847,
+        "momentoOrbitalKgM2ps": -4730399358070065,
+        "momentoTotalKgM2ps": -4730399358085435,
+        "omegaInercialRadps": -0.001369445937666815,
+        "torqueGravitacionalNm": 0.47680332057348207
+      },
+      "final": {
+        "massaKg": 80000,
+        "centroM": {
+          "x": 89984.22351322878,
+          "y": 197967.59384509173,
+          "z": 0
+        },
+        "velocidadeCentroMps": {
+          "x": 8997.996810998593,
+          "y": -249.40499466623524,
+          "z": 0
+        },
+        "inerciaKgM2": 11223158.333333327,
+        "momentoIntrinsecoKgM2ps": -15364.738967249963,
+        "momentoOrbitalKgM2ps": -4730399358060528,
+        "momentoTotalKgM2ps": -4730399358075893,
+        "omegaInercialRadps": -0.0013690209574622092,
+        "torqueGravitacionalNm": 0.47711276222633203
+      },
+      "balancoTrapezoidal": {
+        "impulsoTorqueNmS": 4.769634621024665,
+        "residuoPassoKgM2ps": 1.4793155332648578e-8,
+        "residuoAcumuladoKgM2ps": -0.00001449614099742892,
+        "residuoMaximoPassoKgM2ps": 7.64165737300506e-8,
+        "passosIncompletos": 0
+      },
+      "energiaInicialJ": -1612843690444.349,
+      "energiaFinalJ": -1612843690457.4565,
+      "erroRelativoEnergiaTranslacional": 8.126901542076169e-12,
+      "erroRelativoMomentoOrbital": 2.0161088479199693e-12
+    },
+    {
+      "passoS": 0.0010416666666666667,
+      "configuracao": {
+        "altitudeM": 200000,
+        "velocidadeMps": 9000,
+        "taxaAtitudeLocalInicialRadps": 0,
+        "anguloAtaqueRad": 0.6981317007977318,
+        "trajetoriaRad": -0.017453292519943295,
+        "rolagemRad": 0,
+        "limiteOrbitadorC": 1100,
+        "limiteFlapsC": 900,
+        "limiteBateriaC": 60,
+        "automatico": true,
+        "chaveamentoAutomatico": false,
+        "vacuo": true,
+        "semente": 1,
+        "passoS": 0.0010416666666666667,
+        "corredor": {
+          "pressaoMaximaPa": 50000,
+          "fluxoMaximoWm2": 500000,
+          "cargaMaximaG": 5
+        },
+        "intervaloColetaS": 1,
+        "limiteAmostras": 3600,
+        "limiteEventos": 20000,
+        "aproximacao": {
+          "alvoArcoM": null,
+          "aceleracoesLiquidasHipoteticasMps2": [
+            1,
+            2,
+            5
+          ],
+          "erroAlphaMaxRad": 0.17453292519943295,
+          "omegaMaxRadps": 0.02
+        },
+        "transferencia": {
+          "altitudeMinimaM": 20,
+          "altitudeMaximaM": 5000,
+          "velocidadeMaximaMps": 150,
+          "atitudeMaximaRad": 0.2617993877991494,
+          "trajetoriaMinimaRad": -1.5707963267948966,
+          "trajetoriaMaximaRad": -0.08726646259971647
+        },
+        "parametros": {
+          "areaReferenciaM2": 250,
+          "comprimentoM": 40,
+          "alturaM": 8,
+          "raioNarizM": 2,
+          "areaAquecidaM2": 80,
+          "massaCorpoKg": 78900,
+          "massaFlapKg": 500,
+          "massaBateriaKg": 100,
+          "resistenciaCorpoJ": 100000000,
+          "resistenciaFlapJ": 1000000,
+          "resistenciaFixadorN": 100000000,
+          "areaFlapM2": 16,
+          "clFlapPorRad": 1.2,
+          "cdFlapBase": 0.06,
+          "cdFlapDeflexao": 0.4,
+          "cursoFlapRad": 0.5235987755982988,
+          "taxaFlapRadps": 0.3490658503988659,
+          "bracoFlapM": 16,
+          "potenciaFlapW": 300,
+          "potenciaRepousoFlapW": 6,
+          "tensaoBateriaV": 28,
+          "energiaBateriaJ": 20000000,
+          "ganhoAlpha": 0.008,
+          "ganhoTaxa": 0.18,
+          "torqueMinimoAutoridadeNm": 100,
+          "taxaRolagemRadps": 0.17453292519943295,
+          "coeficienteSuttonGravesSI": 0.00017415,
+          "larguraM": 16,
+          "clCorpo": 0.9,
+          "fatorMachBase": 0.85,
+          "fatorMachVariacao": 0.15,
+          "cdCorpoBase": 0.12,
+          "cdCorpoAlpha": 1.6,
+          "cdMachGauss": 0.08,
+          "cpBaseM": -0.15,
+          "cpVariacaoM": -0.35,
+          "deslocamentoVerticalFlapM": -5,
+          "raioNarizFlapM": 0.5,
+          "areaAquecidaFlapM2": 2,
+          "calorEspecificoCorpoJPorKgC": 800,
+          "calorEspecificoFlapJPorKgC": 500,
+          "comprimentoCaracteristicoCorpoM": 8,
+          "comprimentoCaracteristicoFlapM": 2,
+          "cursoRolagemRad": 1.5707963267948966,
+          "conveccaoCorpoWPorM2C": 10,
+          "condutanciaFlapWPorC": 100,
+          "fracaoCargaInicialBateria": 1
+        }
+      },
+      "modeloFisico": {
+        "revisao": "terra-esferica-m9",
+        "plano": "XY",
+        "rotacaoRadps": 0,
+        "raioM": 6371000,
+        "g0ReferenciaIspMps2": 9.80665,
+        "campo": {
+          "modelo": "central",
+          "centroM": {
+            "x": 0,
+            "y": -6371000,
+            "z": 0
+          },
+          "muM3S2": 398600441800000
+        },
+        "integracao": "verlet-gravitacional",
+        "revisaoDinamicaAngular": "intrinseca-relativa-3",
+        "maxDtS": 0.0010416666666666667,
+        "politicaAtmosferica": "perfil-injetado",
+        "densidadeNivelMarKgM3": 0,
+        "cargasDistribuidas": "axial-pontes-1",
+        "perfilAtmosferico": {
+          "revisao": "re-atmosfera-log-1",
+          "dominioM": [
+            0,
+            200000
+          ],
+          "camadas": [
+            [
+              0,
+              1.225,
+              15
+            ],
+            [
+              11000,
+              0.36391,
+              -56.5
+            ],
+            [
+              20000,
+              0.08891,
+              -56.5
+            ],
+            [
+              32000,
+              0.01322,
+              -44.5
+            ],
+            [
+              47000,
+              0.001427,
+              -2.5
+            ],
+            [
+              51000,
+              0.0008616,
+              -2.5
+            ],
+            [
+              71000,
+              0.00006421,
+              -58.5
+            ],
+            [
+              86000,
+              0.000006958,
+              -86.2
+            ],
+            [
+              100000,
+              5.604e-7,
+              -78.15
+            ],
+            [
+              120000,
+              2.222e-8,
+              86.85
+            ],
+            [
+              150000,
+              2.076e-9,
+              360.85
+            ],
+            [
+              200000,
+              2.541e-10,
+              581.45
+            ]
+          ],
+          "interpolacao": "log-rho/linear-T; C0; geometria aproximada",
+          "cauda": "acima de 200 km: H=50000 m e T constante; fora do domínio",
+          "fonte": "https://ntrs.nasa.gov/citations/19770009539",
+          "limites": "Âncoras arredondadas; sem atividade solar, composição variável ou rotação terrestre."
+        }
+      },
+      "inicial": {
+        "massaKg": 80000,
+        "centroM": {
+          "x": 0.039332524440614844,
+          "y": 199999.9514283774,
+          "z": 0
+        },
+        "velocidadeCentroMps": {
+          "x": 8998.629189891311,
+          "y": -157.0717117993174,
+          "z": 0
+        },
+        "inerciaKgM2": 11223158.333333371,
+        "momentoIntrinsecoKgM2ps": -15369.508587374847,
+        "momentoOrbitalKgM2ps": -4730399358070065,
+        "momentoTotalKgM2ps": -4730399358085435,
+        "omegaInercialRadps": -0.001369445937666815,
+        "torqueGravitacionalNm": 0.47680332057348207
+      },
+      "final": {
+        "massaKg": 80000,
+        "centroM": {
+          "x": 89984.22351304124,
+          "y": 197967.59384525067,
+          "z": 0
+        },
+        "velocidadeCentroMps": {
+          "x": 8997.996810980383,
+          "y": -249.40499466599596,
+          "z": 0
+        },
+        "inerciaKgM2": 11223158.333333256,
+        "momentoIntrinsecoKgM2ps": -15364.738970177106,
+        "momentoOrbitalKgM2ps": -4730399358051068,
+        "momentoTotalKgM2ps": -4730399358066433,
+        "omegaInercialRadps": -0.0013690209577230307,
+        "torqueGravitacionalNm": 0.4771127622323682
+      },
+      "balancoTrapezoidal": {
+        "impulsoTorqueNmS": 4.769634621027144,
+        "residuoPassoKgM2ps": -1.9820516760087233e-8,
+        "residuoAcumuladoKgM2ps": -0.00001742328669667901,
+        "residuoMaximoPassoKgM2ps": 5.857438899962552e-8,
+        "passosIncompletos": 0
+      },
+      "energiaInicialJ": -1612843690444.349,
+      "energiaFinalJ": -1612843690470.4539,
+      "erroRelativoEnergiaTranslacional": 1.6185533962645178e-11,
+      "erroRelativoMomentoOrbital": 4.015940000412672e-12
+    }
+  ]
+}

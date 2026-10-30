@@ -1,0 +1,87 @@
+{
+  "resultado": "aprovado",
+  "verificacoes": [
+    "Carrossel: autoplay 7 s, teclado, pausa real, retomada e movimento reduzido.",
+    {
+      "rota": "/",
+      "largura": 1440,
+      "imagens": "ok",
+      "recargaDireta": true
+    },
+    {
+      "rota": "/pesquisa",
+      "largura": 1440,
+      "imagens": "ok",
+      "recargaDireta": true
+    },
+    {
+      "rota": "/simulador",
+      "largura": 1440,
+      "imagens": "ok",
+      "recargaDireta": true
+    },
+    {
+      "rota": "/",
+      "largura": 768,
+      "imagens": "ok",
+      "recargaDireta": true
+    },
+    {
+      "rota": "/pesquisa",
+      "largura": 768,
+      "imagens": "ok",
+      "recargaDireta": true
+    },
+    {
+      "rota": "/simulador",
+      "largura": 768,
+      "imagens": "ok",
+      "recargaDireta": true
+    },
+    {
+      "rota": "/",
+      "largura": 390,
+      "imagens": "ok",
+      "recargaDireta": true
+    },
+    {
+      "rota": "/pesquisa",
+      "largura": 390,
+      "imagens": "ok",
+      "recargaDireta": true
+    },
+    {
+      "rota": "/simulador",
+      "largura": 390,
+      "imagens": "ok",
+      "recargaDireta": true
+    },
+    {
+      "rota": "/",
+      "largura": 320,
+      "imagens": "ok",
+      "recargaDireta": true
+    },
+    {
+      "rota": "/pesquisa",
+      "largura": 320,
+      "imagens": "ok",
+      "recargaDireta": true
+    },
+    {
+      "rota": "/simulador",
+      "largura": 320,
+      "imagens": "ok",
+      "recargaDireta": true
+    },
+    "PDF /publicacoes/pouso-propulsivo-bss-2026.pdf: nova aba, MIME e download idêntico.",
+    "PDF /publicacoes/engenharia-orbita-retorno-re001-2026.pdf: nova aba, MIME e download idêntico.",
+    "Missão: navegação pelo portal, preparo, ignição, tempo/empuxo, pausa, reinício e água.",
+    "Canvas, CSS e módulos: órbita avança/reinicia e bancada inicializa/avança.",
+    "Mobile 390 × 844: missão, órbita e bancada inicializam e respondem aos controles.",
+    "404 reais para ausências e rotas P1/vendor deliberadamente abandonadas."
+  ],
+  "erros": [],
+  "falhas": [],
+  "capturas": "/tmp/blackstar-site-smoke-mCFqKF"
+}

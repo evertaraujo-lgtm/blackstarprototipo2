@@ -5,36 +5,58 @@
 <main class="test-shell">
   <header class="test-header"><div><p class="eyebrow">BLACK STAR SPACE / ENGENHARIA EXPERIMENTAL</p><h1>Reentrada atmosférica</h1><p class="subtitle">RE-001 · Orbitador · Terra esférica estática · dinâmica XY</p></div>
     <nav class="re-nav" aria-label="Simuladores"><a href="/simulador">Laboratórios</a><a href="/tests.html">Bancada</a><a href="/missao.html">Missões</a><a href="/orbitas.html">Órbitas</a></nav></header>
-  <p class="re-notice">Modelo preliminar de engenharia. Coeficientes analíticos e calor concentrado; sem qualificação de reentrada ou materiais. Rolagem virtual prescrita: a força lateral é omitida. RCS e propulsão de pouso ainda não instalados.</p>
+  <p class="re-notice">Modelo preliminar de engenharia. Coeficientes analíticos e rede térmica equivalente; sem qualificação de reentrada ou materiais. Rolagem virtual prescrita: a força lateral é omitida. RCS e propulsão de pouso ainda não instalados.</p>
   <div class="re-layout">
     <aside class="re-panel">
-      <form id="re-config">
+      <form id="re-config" novalidate>
         <h2>Condições iniciais</h2>
-        <fieldset id="re-iniciais"><legend>Configuração antes do ensaio</legend>
+        <fieldset id="re-iniciais"><legend>Configuração editada · aplique ao iniciar ou reinicializar</legend>
           <label>Altitude (m)<input id="re-altitude" type="number" min="10" max="200000" value="120000" step="10" required></label>
           <label>Velocidade (m/s)<input id="re-velocidade" type="number" min="0" max="12000" value="7700" step="10" required></label>
           <div class="re-pair"><label>Ângulo de ataque (°)<input id="re-alpha-inicial" type="number" min="0" max="80" value="40" step="0.1" required></label><label>Trajetória (°)<input id="re-trajetoria" type="number" min="-90" max="90" value="-1" step="0.1" required></label></div>
+          <label>Taxa inicial de atitude local (°/s)<input id="re-taxa-inicial" type="number" min="-57" max="57" value="0" step="any" required></label>
           <label>Rolagem virtual inicial (°)<input id="re-phi-inicial" type="number" min="-90" max="90" value="0" step="1" required></label>
           <label>Controle inicial<select id="re-controle-inicial"><option value="automatico">Automático</option><option value="manual">Manual</option></select></label>
+          <label>Transição inicial para aproximação<select id="re-chaveamento-inicial"><option value="manual">Manual supervisionada</option><option value="automatico">Automática</option></select></label>
           <label>Ambiente<select id="re-atmosfera"><option value="atmosfera">Atmosfera RE · 1,225 kg/m³ ao nível do mar</option><option value="vacuo">Vácuo explícito · sem cargas atmosféricas</option></select></label>
           <details><summary>Configuração avançada</summary>
-            <p class="re-help">Limiares provisórios de início de degradação em °C. Representam orbitador e flaps concentrados, sem proteção térmica ou estrutura interna separadas.</p>
-            <label>Limite do orbitador (°C)<input id="re-limite-corpo" type="number" min="-200" max="5000" value="1100" step="any" required></label>
-            <label>Limite dos flaps (°C)<input id="re-limite-flaps" type="number" min="-200" max="5000" value="900" step="any" required></label>
-            <label>Limite da bateria interna (°C)<input id="re-limite-bateria" type="number" min="-200" max="5000" value="60" step="any" required></label>
-            <p class="re-help">Bateria isolada termicamente neste marco. 60 °C é uma hipótese provisória de degradação, não fuga térmica, limite certificado ou falha catastrófica.</p>
+            <label>Modelo térmico<select id="re-perfil-termico"><option value="tps-experimental" selected>RE-004 · TPS experimental</option><option value="sem-tps">RE-004 · sem TPS</option><option value="legado">RE-003 · concentrado legado (bateria isolada)</option></select></label>
+            <p class="re-help">RE-004: corpo e cada flap têm superfície, estrutura e interior/articulação separados. Os dois limites abaixo correspondem à superfície; no modelo legado correspondem ao objeto concentrado. Não são limites internos. Parâmetros são hipóteses ajustáveis, sem certificação.</p>
+            <label>Início de degradação superficial do corpo (°C; concentrado no legado)<input id="re-limite-corpo" type="number" min="-200" max="5000" value="1100" step="any" required></label>
+            <label>Início de degradação superficial dos flaps (°C; concentrado no legado)<input id="re-limite-flaps" type="number" min="-200" max="5000" value="900" step="any" required></label>
+            <label>Início de degradação térmica da bateria (°C)<input id="re-limite-bateria" type="number" min="-200" max="5000" value="60" step="any" required></label>
+            <p class="re-help">Bateria interna: 60 °C é hipótese de degradação, não fuga térmica, limite certificado ou falha catastrófica. RE-004 inclui condução do compartimento; legado permanece isolado.</p>
+            <details><summary>Rede térmica · materiais e regiões</summary><p class="re-help">Edite kg, J/(kg·°C), m², emissividade [0–1], condutâncias W/°C, temperaturas e limites em °C. Estrutura: hipótese inicial 800 °C; articulação: 120 °C. Os limites superficiais e da bateria vêm dos campos acima e são omitidos deste editor para evitar duplicação. Alterar o perfil carrega sua receita; reinicialize para aplicar. Massas térmicas são configuradas à parte e não acrescentam massa mecânica. Área exposta regula radiação/convecção; área aquecida regula captação do indicador nos parâmetros de engenharia. Ambiente radiativo equivalente: −3,15 °C (270 K), sem visada Terra/sol separada.</p><label>Parâmetros da rede térmica (JSON editável)<textarea id="re-termica-json" rows="18" spellcheck="false"></textarea></label></details>
             <label>Pressão dinâmica máxima (Pa)<input id="re-qmax" type="number" min="1" value="50000" required></label>
             <label>Fluxo indicador máximo (W/m²)<input id="re-heatmax" type="number" min="1" value="500000" required></label>
             <label>Carga máxima (g₀)<input id="re-gmax" type="number" min="0.1" value="5" step="0.1" required></label>
-            <p class="re-help">Critérios de transferência para pouso. Propulsão e integração compatíveis também são obrigatórias.</p>
-            <div class="re-pair"><label>Altitude mínima (m)<input id="re-hmin-pouso" type="number" min="0" value="20" required></label><label>Altitude máxima (m)<input id="re-hmax-pouso" type="number" min="1" value="5000" required></label></div>
-            <label>Velocidade máxima (m/s)<input id="re-vmax-pouso" type="number" min="1" value="150" required></label>
-            <label>Desvio máximo da vertical (°)<input id="re-atitude-pouso" type="number" min="0.1" max="90" value="15" step="0.1" required></label>
-            <div class="re-pair"><label>Trajetória mínima (°)<input id="re-gamma-min" type="number" min="-90" max="-0.1" value="-90" step="0.1" required></label><label>Trajetória máxima (°)<input id="re-gamma-max" type="number" min="-89.9" max="-0.1" value="-5" step="0.1" required></label></div>
+            <p class="re-help">Fronteira Reentrada → Aproximação → Pouso. Limites necessários de frenagem ideal; hipóteses não representam motores instalados ou trajetória certificada. Alvo em branco bloqueia candidatura.</p>
+            <label>Arco do alvo sintético (m, opcional)<input id="re-alvo-arco" type="number" min="-20000000" max="20000000" step="any"></label>
+            <label>Aceleração líquida hipotética 1 (m/s²)<input id="re-acc-1" type="number" min="0.01" max="100" step="any" value="1" required></label>
+            <label>Aceleração líquida hipotética 2 (m/s²)<input id="re-acc-2" type="number" min="0.01" max="100" step="any" value="2" required></label>
+            <label>Aceleração líquida hipotética 3 (m/s²)<input id="re-acc-3" type="number" min="0.01" max="100" step="any" value="5" required></label>
+            <label>Erro máximo de alpha exploratório (°)<input id="re-erro-alpha" type="number" min="0.01" max="90" step="any" value="10" required></label>
+            <label>Rotação máxima exploratória (°/s)<input id="re-omega-max" type="number" min="0.001" max="57.2957795" step="any" value="1.1459155902616465" required></label>
+            <label>Passo físico (s)<select id="re-divisor-dt"><option value="120">1/120 · exploratório</option><option value="240" selected>1/240 · referência</option><option value="480">1/480 · refinamento</option><option value="960">1/960 · refinamento</option></select></label>
+            <label>Intervalo das amostras (s)<input id="re-intervalo-coleta" type="number" value="1" min="0.1" max="60" step="any" required></label>
+            <label>Máximo de amostras retidas<input id="re-limite-amostras" type="number" value="3600" min="2" max="100000" required></label>
+            <label>Máximo de eventos retidos<input id="re-limite-eventos" type="number" value="20000" min="10" max="100000" required></label>
+            <p class="re-help">Picos e cruzamentos são medidos em todo passo físico. O diário informa descartes da janela, conserva configuração, agenda completa e extremos globais para reexecução.</p>
+            <details><summary>Parâmetros de engenharia (SI)</summary><p class="re-help">Hipóteses editáveis, registradas no JSON. Cabos e limites reais continuam ativos; alterar geometria pode romper alimentação. Potência elétrica não certifica torque mecânico.</p><p class="re-help">Resistências mecânicas: corpo e flaps em joules (impacto); fixadores em newtons (tração axial). Não são temperaturas. Reduzir milhões de J ou N para 5000 pode tornar o conjunto mais frágil.</p><div id="re-parametros" class="re-parametros"></div></details>
             <label>Semente reproduzível<input id="re-semente" type="number" min="0" value="1" step="1" required></label>
           </details>
         </fieldset>
         <div class="re-actions"><button id="re-play" type="submit">Iniciar ensaio</button><button id="re-reset" type="button" class="secondary-button">Reinicializar</button></div>
+        <button id="re-restaurar-padroes" type="button" class="secondary-button">Restaurar configuração padrão</button>
+        <p class="re-help">Restaurar descarta as edições e prepara um novo ensaio no tempo zero, com os parâmetros e limites térmicos padrão.</p>
+        <output id="re-config-estado" role="status" class="re-config-resumo">Configuração editada ainda não aplicada.</output>
+        <details class="re-config-resumo"><summary>Configuração aplicada ao ensaio atual</summary><p id="re-config-aplicada">Nenhuma configuração aplicada.</p><p id="re-config-rastreio"></p></details>
+        <section id="re-config-escolha" class="re-config-escolha" aria-label="Escolha de configuração" hidden>
+          <p>O ensaio está pausado e há edições pendentes. Como deseja continuar?</p>
+          <button id="re-continuar-aplicada" type="button">Continuar configuração aplicada</button>
+          <button id="re-iniciar-nova" type="button">Preparar e iniciar novo ensaio</button>
+          <button id="re-cancelar-escolha" type="button" class="secondary-button">Cancelar</button>
+        </section>
       </form>
       <h2>Atitude e atuadores</h2>
       <label>Controle ativo<select id="re-modo"><option value="automatico">Automático</option><option value="manual">Manual</option></select></label>
@@ -44,20 +66,22 @@
         <label>Dianteiro (°)<input id="re-flap-dianteiro" type="range" min="-30" max="30" value="0" step="1"></label>
         <label>Traseiro (°)<input id="re-flap-traseiro" type="range" min="-30" max="30" value="0" step="1"></label>
       </fieldset>
-      <label>Transferência para pouso<select id="re-chaveamento"><option value="manual">Manual supervisionada</option><option value="automatico">Automática</option></select></label>
-      <button id="re-pouso" type="button" class="secondary-button">Solicitar transferência</button>
+      <label>Transição para aproximação<select id="re-chaveamento"><option value="manual">Manual supervisionada</option><option value="automatico">Automática</option></select></label>
+      <button id="re-pouso" type="button" class="secondary-button">Solicitar aproximação</button>
       <details><summary>Falhas de ensaio</summary><button id="re-energia" type="button" class="secondary-button">Desligar alimentação dos flaps</button><button id="re-falha-rolagem" type="button" class="secondary-button">Indisponibilizar rolagem virtual</button><button id="re-separar" type="button" class="secondary-button">Liberar fixador dianteiro</button></details>
     </aside>
     <section class="re-main" aria-label="Observação da reentrada">
-      <div class="re-toolbar"><button id="re-passo" type="button" class="secondary-button">Avançar 1 s</button><label>Tempo<select id="re-tempo"><option value="1">1×</option><option value="10">10×</option><option value="60">60×</option></select></label><label>Zoom<input id="re-zoom" type="range" min="-1" max="4" value="3" step="0.1"></label><button id="re-exportar" type="button" class="secondary-button">Exportar ensaio JSON</button></div>
-      <canvas id="re-canvas" width="1100" height="620" aria-label="Vista lateral XY do orbitador, curvatura terrestre e escalas em metros"></canvas>
+      <div class="re-toolbar"><button id="re-passo" type="button" class="secondary-button">Avançar 1 s</button><label>Tempo<select id="re-tempo"><option value="1">1×</option><option value="10">10×</option><option value="60">60×</option><option value="120">120×</option><option value="240">240×</option><option value="500">500×</option></select></label><label>Zoom<input id="re-zoom" type="range" min="-1" max="4" value="3" step="0.1"></label><button id="re-exportar" type="button" class="secondary-button">Exportar ensaio JSON</button></div>
+      <div class="re-cena"><canvas id="re-canvas" width="1100" height="620" aria-label="Vista lateral XY do orbitador, curvatura terrestre e escalas em metros"></canvas>
+        <p id="re-cena-indisponivel" role="status">Aguardando configuração válida para desenhar o cenário. Confira a mensagem abaixo. Corrija os campos ou use “Restaurar configuração padrão”.</p>
+      </div>
       <div class="re-caption"><output id="re-tempo-real">t = 0 s</output><span>Câmera centrada no orbitador · símbolo ampliado quando necessário</span></div>
       <output id="re-mensagem" role="status">Pronto para iniciar. Propulsão desligada e não instalada.</output>
       <div id="re-telemetria" class="re-telemetria" aria-label="Telemetria física e comandos"></div>
-      <section class="re-chart-panel"><h2>Histórico do ensaio</h2><p class="re-help">Altitude, velocidade, pressão dinâmica, fluxo térmico e temperatura · escalas independentes com unidades declaradas</p><canvas id="re-graficos" width="1100" height="560" aria-label="Gráficos temporais de altitude, velocidade, pressão dinâmica, fluxo térmico e temperatura"></canvas></section>
-      <details open class="re-diagnostico"><summary>Supervisor de pouso · critérios e bloqueios</summary><div id="re-requisitos"></div></details>
+      <section class="re-chart-panel"><h2>Histórico do ensaio</h2><p class="re-help">Altitude, velocidade, pressão dinâmica, fluxo térmico e temperaturas regionais · amostras visuais, com extremos por passo no diário · escalas independentes com unidades declaradas</p><canvas id="re-graficos" width="1100" height="560" aria-label="Gráficos temporais de altitude, velocidade, pressão dinâmica, fluxo térmico e temperatura"></canvas></section>
+      <details open class="re-diagnostico"><summary>Fronteira de aproximação · candidato A / autorização B</summary><div id="re-requisitos"></div></details>
       <details open class="re-diagnostico"><summary>Eventos de falha e chaveamento</summary><ol id="re-eventos"></ol></details>
-      <details class="re-diagnostico"><summary>Modelos e limites de fidelidade</summary><p>Atmosfera RE: interpolação contínua de âncoras arredondadas inspiradas na USSA-1976, domínio 0–200 km; cauda exponencial explícita acima disso. Não inclui atividade solar ou composição variável. Mach e Knudsen são indicadores aproximados.</p><p>Sustentação e arrasto usam coeficientes analíticos preliminares, sem dados aerodinâmicos validados do Black Star. O regime rarefeito é identificado, mas não possui solução DSMC. Fora do contínuo, as forças servem à investigação do software.</p><p>Calor: indicador Sutton–Graves limitado pelo fluxo cinético incidente; transferência ao corpo limitada à dissipação D·V. Um modelo concentrado evolui temperatura e dano progressivo. Não inclui ablação, radiação, distribuição de TPS ou temperatura interna dos atuadores.</p><p>Rolagem: L no plano = L·cos(φ). A força L·sin(φ) é omitida, sem compensação. A taxa prescrita não comprova manobra real. Sem RCS instalado, flaps em baixa densidade não garantem atitude. O corredor automático é heurístico, sem garantia de segurança.</p><p>Passo fixo 1/240 s; gravidade KDK e forças dissipativas explícitas no mundo compartilhado. O ensaio permanece observável até pausa ou reinício pelo operador; colisões e danos não o encerram.</p></details>
+      <details class="re-diagnostico"><summary>Modelos e limites de fidelidade</summary><p>Atmosfera RE: interpolação contínua de âncoras arredondadas inspiradas na USSA-1976, domínio 0–200 km; cauda exponencial explícita acima disso. Não inclui atividade solar ou composição variável. Mach e Knudsen são indicadores aproximados.</p><p>Sustentação e arrasto usam coeficientes analíticos preliminares, sem dados aerodinâmicos validados do Black Star. O regime rarefeito é identificado, mas não possui solução DSMC. Fora do contínuo, as forças servem à investigação do software.</p><p>Calor: indicador Sutton–Graves limitado pelo fluxo cinético incidente. RE-004 aplica indicador × área à superfície uma única vez; esse fluxo externo prescrito não fecha o balanço energético do escoamento e D·V local não é seu teto universal. Rede de capacidades equivalentes: condução conservativa, radiação εσA(T⁴−Tr⁴) inclusive em vácuo e degradação por região. TPS danificado aumenta condutância equivalente. Não inclui ablação, plasma, CFD ou visada radiativa variável. O legado preserva min(indicador × área, D·V) e corpo concentrado.</p><p>Rolagem: L no plano = L·cos(φ). A força L·sin(φ) é omitida, sem compensação. A taxa prescrita não comprova manobra real. Sem RCS instalado, flaps em baixa densidade não garantem atitude. O corredor automático é heurístico, sem garantia de segurança.</p><p>Passo fixo configurável (referência 1/240 s); gravidade KDK e forças dissipativas explícitas no mundo compartilhado. O ensaio permanece observável até pausa ou reinício pelo operador; colisões e danos não o encerram.</p></details>
     </section>
   </div>
 </main><script type="module" src="/src/reentrada.ts"></script>

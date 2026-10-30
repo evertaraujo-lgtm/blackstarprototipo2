@@ -6,12 +6,12 @@ import { chromium } from 'playwright-core';
 import { preview } from 'vite';
 
 /** Exercita dist real em desktop/mobile: controles, avanço, pausa, modo manual,
- * bank limitado, perda elétrica, bloqueio de pouso, dano térmico e exportação.
+ * bank limitado, perda elétrica, bloqueio de aproximação, dano térmico, parâmetros e exportação.
  * Escreve evidências locais; sem deploy ou mutação direta da física no navegador.
  * @contract f-4fe97b4e82bb0961
    */
 export async function executarSmokeReentrada(): Promise<void> {
-  const pasta = resolve('docs/validacoes/reentrada'); mkdirSync(pasta, { recursive: true });
+  const pasta = resolve(process.env.REENTRADA_EVIDENCIAS_DIR ?? 'docs/validacoes/reentrada'); mkdirSync(pasta, { recursive: true });
   const servidor = await preview({ preview: { host: '127.0.0.1', port: 0, strictPort: true } });
   const base = `http://127.0.0.1:${(servidor.httpServer.address() as AddressInfo).port}`;
   const browser = await chromium.launch({ executablePath: process.env.CHROME_BIN ?? '/usr/bin/google-chrome',
@@ -69,8 +69,27 @@ export async function executarSmokeReentrada(): Promise<void> {
       await page.fill('#re-limite-corpo', '20.001'); await page.fill('#re-limite-flaps', '20.001');
       await page.click('#re-passo');
       await page.waitForFunction(() => document.querySelector('[data-metrica="integridade"]')!.textContent!.split('%')[0].trim() !== '100.00');
+      await page.click('#re-reset');
+      await page.selectOption('#re-controle-inicial', 'manual');
+      await page.fill('#re-limite-corpo', '1100'); await page.fill('#re-limite-flaps', '900');
+      await page.selectOption('#re-divisor-dt', '480');
+      await page.fill('#re-alvo-arco', '2000000');
+      await page.locator('summary').filter({ hasText: 'Parâmetros de engenharia' }).click();
+      await page.fill('#re-param-cpBaseM', '-0.2');
+      await page.click('#re-passo');
+      await page.waitForFunction(() => document.querySelector('#re-tempo-real')!.textContent!.includes('0.0020833'));
+      const [avancado] = await Promise.all([page.waitForEvent('download'), page.click('#re-exportar')]);
+      const caminhoAvancado = resolve(pasta, `diario-avancado-${largura}.json`); await avancado.saveAs(caminhoAvancado);
+      const d = JSON.parse(readFileSync(caminhoAvancado, 'utf8'));
+      assert.equal(d.identificacao.configuracao.passoS, 1 / 480);
+      assert.equal(d.identificacao.configuracao.parametros.cpBaseM, -0.2);
+      assert.equal(d.identificacao.configuracao.aproximacao.alvoArcoM, 2000000);
+      assert.equal(d.final.supervisor.autorizado, false);
+      assert.equal(d.final.controle.estado, 'manual');
+      assert.equal(await page.locator('#re-manuais').isDisabled(), false);
+      assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'Overflow avançado.');
       verificacoes.push({ largura, rota: '/reentrada.html', tempoAvancou: true, pausa: true, rolagemLimitada: true,
-        modoManual: true, pousoBloqueado: true, alimentacaoDesligada: true, exportacao: true, danoTermico: true, overflow: false });
+        modoManual: true, aproximacaoBloqueada: true, parametrosExportados: true, modoManualInicial: true, passo480: true, alimentacaoDesligada: true, exportacao: true, danoTermico: true, overflow: false });
       await page.close();
     }
     assert.deepEqual(erros, []);

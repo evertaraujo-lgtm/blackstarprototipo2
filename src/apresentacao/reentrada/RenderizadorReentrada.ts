@@ -1,5 +1,6 @@
 import type { ObservacaoReentrada } from '../../cenarios/EnsaioReentrada';
 import { CameraFisica2D } from '../../visualizacao/CameraFisica2D';
+import { desenharOrbitadorRE001 } from './DesenhoOrbitadorRE001';
 
 /** Renderer XY somente de snapshots, independente de controladores/mundo mutáveis. */
 export class RenderizadorReentrada {
@@ -43,22 +44,12 @@ export class RenderizadorReentrada {
     this.desenharReguas(camera);
     const centro = camera.projetar(o.estado.posicaoM), pxM = Math.max(2.5, 1 / metrosPorPixel);
     ctx.save(); ctx.translate(centro.x, centro.y); ctx.rotate(-o.estado.orientacaoRad.z);
-    // Projeção visual das asas: phi não é somado à arfagem XY.
-    const asa = 5 + 14 * Math.abs(Math.cos(o.rolagem.atualRad));
-    ctx.fillStyle = '#49728c'; ctx.strokeStyle = '#a9cedd'; ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(-15 * pxM, 0); ctx.lineTo(-16 * pxM, asa * pxM);
-    ctx.lineTo(3 * pxM, 2 * pxM); ctx.lineTo(-16 * pxM, -asa * pxM); ctx.closePath(); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = o.integridade > 0.5 ? '#c8d8df' : '#977069';
-    ctx.beginPath(); ctx.moveTo(20 * pxM, 0); ctx.lineTo(12 * pxM, -3 * pxM);
-    ctx.lineTo(-20 * pxM, -4 * pxM); ctx.lineTo(-20 * pxM, 4 * pxM); ctx.lineTo(12 * pxM, 3 * pxM); ctx.closePath(); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = '#18344e'; ctx.fillRect(7 * pxM, -2 * pxM, 4 * pxM, 1.7 * pxM);
-    ctx.strokeStyle = '#f7c56c'; ctx.lineWidth = 2;
-    for (const [i, flap] of o.flaps.entries()) {
-      if (!flap.conectado) continue;
-      ctx.save(); ctx.translate((i === 0 ? 16 : -16) * pxM, 5 * pxM);
-      ctx.rotate(-flap.deflexaoRad); ctx.beginPath(); ctx.moveTo(-2 * pxM, 0);
-      ctx.lineTo(2 * pxM, (2 + 6 * Math.abs(Math.cos(o.rolagem.atualRad))) * pxM); ctx.stroke(); ctx.restore();
-    }
+    desenharOrbitadorRE001(ctx, {
+      pixelsPorMetro: pxM,
+      rolagemRad: o.rolagem.atualRad,
+      integridade: o.integridade,
+      flaps: o.flaps,
+    });
     ctx.restore();
     for (const flap of o.flaps) if (!flap.conectado) {
       const p = camera.projetar(flap.estado.posicaoM);
@@ -99,56 +90,68 @@ export class RenderizadorReentrada {
     }
   }
 
-  /** Cinco gráficos temporais independentes, com limites e unidades explícitos.
-   * Gráficos leem amostras; não interpolam nem reexecutam a dinâmica.
+  /** Canais regionais consultados do snapshot, nunca calculados no renderer.
+   * Retorna temperaturas °C na ordem superfície/estrutura/interior (bateria: um
+   * nó). Ausência de rede consulta somente o canal concentrado legado.
+   * @contract f-15a792e972db1713
+   */
+  private temperaturas(o: ObservacaoReentrada, grupo: 'corpo' | 'flap1' | 'flap2' | 'bateria'): readonly number[] {
+    if (!o.termica) return [grupo === 'corpo' ? o.temperaturaC : grupo === 'bateria' ? o.temperaturaBateriaC : o.flaps[grupo === 'flap1' ? 0 : 1].temperaturaC];
+    const rede = grupo === 'corpo' ? o.termica.corpo : grupo === 'bateria' ? o.termica.bateria : o.termica.flaps[grupo === 'flap1' ? 0 : 1];
+    return rede.regioes.map(r => r.temperaturaC);
+  }
+
+  /** Gráficos de observação SI; redes optantes têm painéis separados por corpo,
+   * flap e bateria. Cores identificam superfície, estrutura e interior. Não há
+   * integração térmica, interpolação física nem limite artificial de temperatura.
    * @contract f-8485960587076615
    */
   public desenharGraficos(historico: readonly ObservacaoReentrada[]): void {
+    const regional = !!historico.at(-1)?.termica;
+    this.graficos.style.height = regional ? '1120px' : '700px';
     this.dimensionar(this.graficos);
     const ctx = this.grafico, w = this.graficos.width, h = this.graficos.height;
     ctx.fillStyle = '#071126'; ctx.fillRect(0, 0, w, h);
-    const canais = [
-      { nome: 'Altitude', unidade: 'm', cor: '#67e8f9',
-        /** Consulta altitude radial m do snapshot para o canal visual.  @contract f-a4e96facd78790d5 */
-        ler: (o: ObservacaoReentrada) => o.altitudeM },
-      { nome: 'Velocidade', unidade: 'm/s', cor: '#a5b4fc',
-        /** Consulta velocidade inercial m/s, sem reexecutar física.  @contract f-e652f616f5e31ba6 */
-        ler: (o: ObservacaoReentrada) => o.velocidadeMps },
-      { nome: 'Pressão dinâmica', unidade: 'Pa', cor: '#86efac',
-        /** Consulta pressão dinâmica Pa já calculada no domínio.  @contract f-d0588f78abec3bc7 */
-        ler: (o: ObservacaoReentrada) => o.aerodinamica.pressaoDinamicaPa },
-      { nome: 'Fluxo térmico indicador', unidade: 'W/m²', cor: '#fbbf24',
-        /** Consulta indicador W/m², sem tratá-lo como temperatura ou qualificação.  @contract f-afbff7d4cef24d10 */
-        ler: (o: ObservacaoReentrada) => o.aerodinamica.fluxoTermicoIndicadorWm2 },
-      { nome: 'Temperatura corpo / flaps', unidade: '°C', cor: '#fb7185',
-        /** Consulta temperatura concentrada do corpo °C, sem integração visual.  @contract f-43e2920f305783b7 */
-        ler: (o: ObservacaoReentrada) => o.temperaturaC },
+    const canais: { nome: string; unidade: string; ler: (o: ObservacaoReentrada) => readonly number[] }[] = [
+      { nome: 'Altitude', unidade: 'm',
+        /** Consulta altitude radial m do snapshot.  @contract f-a4e96facd78790d5 */
+        ler: (o: ObservacaoReentrada) => [o.altitudeM] },
+      { nome: 'Velocidade', unidade: 'm/s',
+        /** Consulta velocidade inercial m/s do snapshot.  @contract f-e652f616f5e31ba6 */
+        ler: (o: ObservacaoReentrada) => [o.velocidadeMps] },
+      { nome: 'Pressão dinâmica', unidade: 'Pa',
+        /** Consulta pressão Pa calculada no core.  @contract f-d0588f78abec3bc7 */
+        ler: (o: ObservacaoReentrada) => [o.aerodinamica.pressaoDinamicaPa] },
+      { nome: 'Fluxo indicador', unidade: 'W/m²',
+        /** Consulta indicador SG W/m²; não infere temperatura.  @contract f-afbff7d4cef24d10 */
+        ler: (o: ObservacaoReentrada) => [o.aerodinamica.fluxoTermicoIndicadorWm2] },
     ];
+    for (const grupo of ['corpo', 'flap1', 'flap2', 'bateria'] as const) canais.push({
+      nome: `${grupo} · ${regional && grupo !== 'bateria' ? 'superfície / estrutura / interior' : regional ? 'interna' : 'concentrado'}`, unidade: '°C',
+      /** Consulta canais regionais ou legado, sem escrever estados térmicos.  @contract f-43e2920f305783b7 */
+      ler: (o: ObservacaoReentrada) => this.temperaturas(o, grupo),
+    });
     const inicio = historico[0]?.tempoS ?? 0, fim = Math.max(inicio + 1, historico.at(-1)?.tempoS ?? 1);
+    const cores = ['#fb7185', '#67e8f9', '#fbbf24'];
     canais.forEach((canal, i) => {
-      const top = i * h / canais.length, altura = h / canais.length - 35;
-      const valores = historico.map(canal.ler);
-      const maximo = Math.max(1, ...valores, ...(i === 4 ? historico.map(o => Math.max(o.limiteOrbitadorC, o.limiteFlapsC, ...o.flaps.map(f => f.temperaturaC))) : []));
-      ctx.fillStyle = canal.cor; ctx.font = '11px ui-monospace, monospace';
-      ctx.fillText(`${canal.nome} (${canal.unidade})`, 4, top + 14);
-      ctx.fillStyle = '#91a6be'; ctx.fillText(`0–${maximo.toPrecision(4)} · ${inicio.toFixed(0)}–${fim.toFixed(0)} s`, 4, top + 29);
-      ctx.strokeStyle = '#1d3655'; ctx.beginPath(); ctx.moveTo(4, top + 32 + altura); ctx.lineTo(w - 4, top + 32 + altura); ctx.stroke();
-      ctx.strokeStyle = canal.cor; ctx.lineWidth = 1.5; ctx.beginPath();
-      historico.forEach((o, j) => {
-        const x = 4 + (w - 8) * (o.tempoS - inicio) / (fim - inicio), y = top + 32 + altura * (1 - canal.ler(o) / maximo);
-        if (j === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-      }); ctx.stroke();
-      if (i === 4) {
-        const ultimo = historico.at(-1);
-        ctx.setLineDash([4, 4]);
-        for (const limite of [ultimo?.limiteOrbitadorC, ultimo?.limiteFlapsC]) if (limite !== undefined) {
-          const y = top + 32 + altura * (1 - limite / maximo);
-          ctx.beginPath(); ctx.moveTo(4, y); ctx.lineTo(w - 4, y); ctx.stroke();
+      const top = i * h / canais.length, altura = h / canais.length - 50;
+      const amostras = historico.map(canal.ler), valores = amostras.flat();
+      const minimo = valores.reduce((m, v) => Math.min(m, v), 0), maximo = valores.reduce((m, v) => Math.max(m, v), minimo + 1), faixa = maximo - minimo;
+      ctx.fillStyle = '#cbd5e1'; ctx.font = '10px ui-monospace, monospace';
+      ctx.fillText(`${canal.nome} (${canal.unidade})`, 4, top + 14, w - 8);
+      ctx.fillStyle = '#91a6be'; ctx.fillText(`${minimo.toPrecision(3)}–${maximo.toPrecision(4)} · ${inicio.toFixed(0)}–${fim.toFixed(0)} s`, 4, top + 29);
+      if (regional && i >= 4 && i < 7) {
+        for (const [j, nome] of ['sup', 'est', 'int/art'].entries()) {
+          ctx.fillStyle = cores[j]; ctx.fillText(nome, 4 + 75 * j, top + 42);
         }
-        ctx.setLineDash([]); ctx.strokeStyle = '#fbbf24'; ctx.beginPath();
+      }
+      ctx.strokeStyle = '#1d3655'; ctx.beginPath(); ctx.moveTo(4, top + 45 + altura); ctx.lineTo(w - 4, top + 45 + altura); ctx.stroke();
+      const numeroSeries = amostras.at(-1)?.length ?? 1;
+      for (let serie = 0; serie < numeroSeries; serie++) {
+        ctx.strokeStyle = cores[serie]; ctx.lineWidth = 1.5; ctx.beginPath();
         historico.forEach((o, j) => {
           const x = 4 + (w - 8) * (o.tempoS - inicio) / (fim - inicio);
-          const y = top + 32 + altura * (1 - Math.max(...o.flaps.map(f => f.temperaturaC)) / maximo);
+          const y = top + 45 + altura * (1 - (amostras[j][serie] - minimo) / faixa);
           if (j === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
         }); ctx.stroke();
       }

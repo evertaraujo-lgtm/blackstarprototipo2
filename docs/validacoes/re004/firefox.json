@@ -1,0 +1,19 @@
+{
+  "navegador": "Firefox 146.0.1, headless, perfil temporário isolado",
+  "url": "http://127.0.0.1:5000/reentrada.html",
+  "canal": "WebDriver BiDi",
+  "observacoes": [
+    {
+      "message": "Configuração aplicada ao RE-001 (preparo 1, RE-004-r1). Limite térmico do corpo: 1100 °C. Limite térmico dos flaps: 900 °C. Limite térmico da bateria: 60 °C. Resistência a impacto: corpo 100000000 J; flaps 1000000 J. Resistência axial dos fixadores: 100000000 N. Modelo térmico RE-004-r1 (tps-experimental): limites acima são superfície; estrutura e mecanismo têm limites próprios no editor. Bateria com condução declarada.",
+      "perfil": "tps-experimental",
+      "metrica": "20.000 / 1100 °C · 100.00%",
+      "editor": "RE-004-r1"
+    },
+    {
+      "state": "t = 1.000 s · pausada · dt = 0.0041667 s · dívida 0.00 s",
+      "potencia": "4.147e+5 / 8063 / 0.000002982 W"
+    }
+  ],
+  "captura": "firefox.png",
+  "limitacao": "Processo headless emitiu warning de timeout de script no renderer durante diagnóstico; estado, configuração e avanço de 1 s foram verificados. Não se afirma qualificação de desempenho de longa duração no Firefox."
+}

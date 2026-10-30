@@ -1,6 +1,6 @@
 import type { ReferencialFisico } from '../../ambiente/ReferencialFisico';
 import { PerfilAtmosfericoReentrada } from '../../ambiente/PerfilAtmosfericoReentrada';
-import { avaliarAerodinamica, MODELO_REENTRADA, type CargasReentrada } from '../../reentrada/ModeloAerodinamicoReentrada';
+import { avaliarAerodinamica, MODELO_REENTRADA, type ParametrosReentrada, type CargasReentrada } from '../../reentrada/ModeloAerodinamicoReentrada';
 import { Objeto, type CondicoesAtmosfericas, type EstadoFisico, type ForcaFisicaSolicitada } from '../base/Objeto';
 import { RolagemVirtual } from '../componentes/RolagemVirtual';
 import { Vetor3 } from '../../Vetor3';
@@ -15,20 +15,20 @@ export class OrbitadorReentrada extends Objeto {
    */
   public constructor(estadoInicial: EstadoFisico, limiteTermicoC: number, phiInicialRad: number,
     private readonly perfil: PerfilAtmosfericoReentrada, private readonly referencial: ReferencialFisico,
-    private readonly lerVelocidadeArMps: () => Vetor3) {
-    super({ id: 'orbitador-re-001', massaBaseKg: MODELO_REENTRADA.massaCorpoKg,
-      dimensoesM: new Vetor3(40, 8, 16), resistenciaColisaoJ: MODELO_REENTRADA.resistenciaCorpoJ,
-      limiteTermicoC, areaFrontalM2: MODELO_REENTRADA.areaReferenciaM2,
-      capacidadeTermicaJPorC: MODELO_REENTRADA.massaCorpoKg * 800,
-      areaTermicaM2: 80, coeficienteConveccaoWPorM2C: 10, estadoInicial });
-    this.rolagem = new RolagemVirtual(phiInicialRad, MODELO_REENTRADA.taxaRolagemRadps);
+    private readonly lerVelocidadeArMps: () => Vetor3, private readonly parametros: ParametrosReentrada = MODELO_REENTRADA) {
+    super({ id: 'orbitador-re-001', massaBaseKg: parametros.massaCorpoKg,
+      dimensoesM: new Vetor3(parametros.comprimentoM, parametros.alturaM, parametros.larguraM), resistenciaColisaoJ: parametros.resistenciaCorpoJ,
+      limiteTermicoC, areaFrontalM2: parametros.areaReferenciaM2,
+      capacidadeTermicaJPorC: parametros.massaCorpoKg * parametros.calorEspecificoCorpoJPorKgC,
+      areaTermicaM2: parametros.areaAquecidaM2, coeficienteConveccaoWPorM2C: parametros.conveccaoCorpoWPorM2C, estadoInicial });
+    this.rolagem = new RolagemVirtual(phiInicialRad, parametros.taxaRolagemRadps, parametros.cursoRolagemRad);
   }
 
   /** Consulta cargas com a mesma densidade/vento do core e perfil compartilhado.  @contract f-14919f1c850cb153 */
   public avaliar(condicoes: CondicoesAtmosfericas): CargasReentrada {
     const e = this.getEstadoFisico();
     return avaliarAerodinamica(e, condicoes, this.perfil.amostrar(this.referencial.altitudeGeometricaM(e.posicaoM)),
-      this.integridadeEstrutural, this.rolagem.observar().atualRad);
+      this.integridadeEstrutural, this.rolagem.observar().atualRad, this.parametros);
   }
 
   /** Cd analítico pelo fluxo atual; arrasto é aplicado exclusivamente pelo core.  @contract f-5af7c6e41f3ef618 */
@@ -48,12 +48,14 @@ export class OrbitadorReentrada extends Objeto {
     return [{ forcaN: this.avaliar(c).forcaSustentacaoN, pontoM: this.obterCentroPressaoM() }];
   }
 
-  /** Fluxo indicador vezes área efetiva, limitado à dissipação D·V; substitui a
+  /** Rede optante: fluxo indicador externo vezes área efetiva, sem teto D·V
+   * local. Legado limitado à dissipação D·V; substitui a
    * fração histórica. SistemaTermico aplica uma vez e conserva contadores/dano.
    * @contract f-93990e131a83cd8a
    */
   public override obterPotenciaAquecimentoAerodinamicoW(c: CondicoesAtmosfericas, potenciaW: number): number {
-    return Math.min(potenciaW, this.avaliar(c).fluxoTermicoIndicadorWm2 * MODELO_REENTRADA.areaAquecidaM2);
+    const indicadorW = this.avaliar(c).fluxoTermicoIndicadorWm2 * this.parametros.areaAquecidaM2;
+    return this.obterRedeTermicaPeloCore() ? indicadorW : Math.min(potenciaW, indicadorW);
   }
 
   /** Atualiza exclusivamente a cinemática virtual em subpassos do core, s;
