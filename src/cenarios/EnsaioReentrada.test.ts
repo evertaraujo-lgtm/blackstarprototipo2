@@ -17,7 +17,7 @@ import { ComputadorDeVoo } from '../physics/objetos/veiculos/ComputadorDeVoo';
 describe('RE-001 — inicialização e ambiente opt-in', () => {
   it('inicia o cenário manual horizontal a 120 km e transmite comandos aos atuadores dos flaps', () => {
     const r = new EnsaioReentrada({ altitudeM: 120_000, velocidadeMps: 7700,
-      anguloAtaqueRad: 0, trajetoriaRad: 0, automatico: false, chaveamentoAutomatico: false });
+      anguloAtaqueRad: 0, trajetoriaRad: 0, automatico: false, chaveamentoAutomatico: false, propulsaoExperimental: true });
     const inicial = r.observar();
     expect(inicial.altitudeM).toBe(120_000);
     expect(inicial.trajetoriaRad).toBeCloseTo(0, 12);
@@ -33,6 +33,27 @@ describe('RE-001 — inicialização e ambiente opt-in', () => {
     expect(avancado.tempoS).toBeCloseTo(1, 10);
     expect(avancado.flaps[0].deflexaoRad).toBeGreaterThan(0);
     expect(avancado.flaps[1].deflexaoRad).toBeLessThan(0);
+    expect(r.receberComando({ tipo: 'rcs', comando: -1 })).toMatchObject({ aceito: false });
+    expect(r.receberComando({ tipo: 'armar-rcs' }).aceito).toBe(true);
+    const nitrogenioInicial = r.observar().rcs.nitrogenioKg;
+    expect(r.receberComando({ tipo: 'rcs', comando: -1 }).aceito).toBe(true);
+    r.iniciar();
+    for (let i = 0; i < Math.round(1 / r.passoS); i++) r.avancarPasso();
+    r.pausar();
+    const rotacionado = r.observar();
+    expect(rotacionado.estado.velocidadeAngularRadps.z).toBeGreaterThan(0);
+    expect(rotacionado.atitudeLocalRad).toBeGreaterThan(0);
+    expect(rotacionado.rcs.nitrogenioKg).toBeLessThan(nitrogenioInicial);
+    expect(r.receberComando({ tipo: 'rcs', comando: 0 }).aceito).toBe(true);
+    const nitrogenioAposPulso = rotacionado.rcs.nitrogenioKg;
+    expect(r.receberComando({ tipo: 'throttle-propulsor', throttle: 0.2 }).aceito).toBe(true);
+    expect(r.receberComando({ tipo: 'ignicao-propulsor' }).aceito).toBe(true);
+    r.iniciar();
+    for (let i = 0; i < Math.round(1 / r.passoS); i++) r.avancarPasso();
+    r.pausar();
+    expect(r.observar().motor.empuxoN).toBeGreaterThan(0);
+    expect(r.observar().motor.metanoKg).toBeLessThan(3600);
+    expect(r.observar().rcs.nitrogenioKg).toBeCloseTo(nitrogenioAposPulso, 8);
   });
 
   it('inicializa 120 km, 7700 m/s, alpha 40°, trajetória −1°, automático e motores ausentes', () => {

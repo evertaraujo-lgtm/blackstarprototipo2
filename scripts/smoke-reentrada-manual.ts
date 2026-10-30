@@ -18,10 +18,32 @@ async function executar(): Promise<void> {
       assert.equal((await page.goto(`${base}/reentrada.html`, { waitUntil: 'networkidle' }))?.status(), 200);
       await page.locator('a[href="/reentrada-manual.html"]').click();
       await page.waitForSelector('#manual-cena');
-      assert.match(await page.title(), /flaps manuais/i);
+      assert.match(await page.title(), /flaps, propulsor e RCS manuais/i);
       assert.match((await page.locator('#manual-altitude').textContent())!, /120\.000 m/);
       assert.match((await page.locator('#manual-velocidade').textContent())!, /7\.700,0 m\/s/);
       assert.match((await page.locator('#manual-alpha').textContent())!, /0,00°/);
+      assert.match((await page.locator('#manual-empuxo').textContent())!, /0,00 MN/);
+      await page.click('#manual-armar-rcs');
+      assert.match((await page.locator('#manual-rcs-estado').textContent())!, /Armado/);
+      const caixaRcs = await page.locator('#manual-rcs-cima').boundingBox();
+      assert(caixaRcs, 'Comando RCS de nariz para cima sem caixa visual.');
+      await page.mouse.move(caixaRcs.x + caixaRcs.width / 2, caixaRcs.y + caixaRcs.height / 2);
+      await page.mouse.down();
+      await page.locator('#manual-passo').evaluate(element => (element as HTMLButtonElement).click());
+      await page.mouse.up();
+      const omega = (await page.locator('#manual-omega').textContent())!.split('°')[0].replace(',', '.');
+      assert(Number(omega) > 0, `RCS não girou a nave para cima (${omega}°/s).`);
+      assert.match((await page.locator('#manual-rcs-estado').textContent())!, /Armado/);
+      const nitrogenio = (await page.locator('#manual-rcs-propelente').textContent())!;
+      assert.notEqual(nitrogenio, '500,0 kg', 'RCS não consumiu propelente.');
+      await page.locator('#manual-throttle').evaluate(element => {
+        const input = element as HTMLInputElement; input.value = '20'; input.dispatchEvent(new Event('input', { bubbles: true }));
+      });
+      await page.click('#manual-ignitar');
+      assert.match((await page.locator('#manual-mensagem').textContent())!, /Comando aplicado/);
+      await page.click('#manual-passo');
+      const empuxo = (await page.locator('#manual-empuxo').textContent())!.split(' ')[0].replace(',', '.');
+      assert(Number(empuxo) > 0, `Propulsor ignitado sem empuxo (${empuxo} MN).`);
       await page.locator('#manual-dianteiro').evaluate((element) => {
         const input = element as HTMLInputElement; input.value = '15'; input.dispatchEvent(new Event('input', { bubbles: true }));
       });
@@ -30,7 +52,7 @@ async function executar(): Promise<void> {
       });
       assert.match((await page.locator('#manual-mensagem').textContent())!, /Comando aplicado/);
       await page.click('#manual-passo');
-      assert.match((await page.locator('#manual-tempo').textContent())!, /t = 1,00 s/);
+      assert.match((await page.locator('#manual-tempo').textContent())!, /t = 3,00 s/);
       assert(Number.parseFloat((await page.locator('#manual-dianteiro-efetivo').textContent())!) > 0);
       assert(Number.parseFloat((await page.locator('#manual-traseiro-efetivo').textContent())!) < 0);
       assert(await page.locator('#manual-graficos').evaluate(element => (element as HTMLCanvasElement).hidden), 'Canvas de gráficos interno não deve cobrir a cena.');
@@ -46,7 +68,7 @@ async function executar(): Promise<void> {
       await page.screenshot({ path: resolve('/tmp', `reentrada-flaps-manuais-${width}.png`), fullPage: true });
       await page.close();
     }
-    console.log('Smoke RE-001 flaps manuais: OK (desktop e mobile; link, 120 km horizontal, comando e atuação).');
+    console.log('Smoke reentrada manual: OK (desktop e mobile; link, 120 km horizontal, propulsor, RCS e flaps).');
   } finally {
     await browser.close();
     await new Promise<void>(resolveClose => servidor.httpServer.close(() => resolveClose()));
