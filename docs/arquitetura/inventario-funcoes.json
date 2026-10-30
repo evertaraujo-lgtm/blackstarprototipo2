@@ -2880,6 +2880,104 @@
     "categoria": "producao"
   },
   {
+    "id": "src/apresentacao/reentrada/DesenhoOrbitadorRE001.test.ts::contextoDeGravacao:FunctionDeclaration",
+    "assinatura": "(): { ctx: CanvasRenderingContext2D; operacoes: Operacao[]; }",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/apresentacao/reentrada/DesenhoOrbitadorRE001.test.ts::contextoDeGravacao.get:MethodDeclaration",
+    "assinatura": "(_objeto: {}, propriedade: string | symbol): (...argumentos: unknown[]) => void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/apresentacao/reentrada/DesenhoOrbitadorRE001.test.ts::contextoDeGravacao.get.[callback]:ArrowFunction#1",
+    "assinatura": "(...argumentos: unknown[]): { addColorStop: (offset: number, cor: string) => void; }",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/apresentacao/reentrada/DesenhoOrbitadorRE001.test.ts::contextoDeGravacao.get.[callback]#1.addColorStop:ArrowFunction",
+    "assinatura": "(offset: number, cor: string): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/apresentacao/reentrada/DesenhoOrbitadorRE001.test.ts::contextoDeGravacao.get.[callback]:ArrowFunction#2",
+    "assinatura": "(...argumentos: unknown[]): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/apresentacao/reentrada/DesenhoOrbitadorRE001.test.ts::contextoDeGravacao.set:MethodDeclaration",
+    "assinatura": "(_objeto: {}, propriedade: string | symbol, valor: any): boolean",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/apresentacao/reentrada/DesenhoOrbitadorRE001.test.ts::aparencia:ArrowFunction",
+    "assinatura": "(rolagemRad: number, flaps?: { conectado: boolean; deflexaoRad: number; integridade: number; }[]): { pixelsPorMetro: number; rolagemRad: number; integridade: number; flaps: { conectado: boolean; deflexaoRad: number; integridade: number; }[]; }",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/apresentacao/reentrada/DesenhoOrbitadorRE001.test.ts::[callback]:ArrowFunction#1",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/apresentacao/reentrada/DesenhoOrbitadorRE001.test.ts::[callback]#1.[callback]:ArrowFunction#1",
+    "assinatura": "(rolagemRad: number): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/apresentacao/reentrada/DesenhoOrbitadorRE001.test.ts::[callback]#1.[callback]:ArrowFunction#2",
+    "assinatura": "(deflexaoRad: number): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/apresentacao/reentrada/DesenhoOrbitadorRE001.test.ts::[callback]#1.[callback]#2.[callback]:ArrowFunction#1",
+    "assinatura": "([nome]: Operacao): boolean",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/apresentacao/reentrada/DesenhoOrbitadorRE001.test.ts::[callback]#1.[callback]:ArrowFunction#3",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/apresentacao/reentrada/DesenhoOrbitadorRE001.test.ts::[callback]#1.[callback]#3.[callback]:ArrowFunction#1",
+    "assinatura": "([nome]: Operacao): boolean",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/apresentacao/reentrada/DesenhoOrbitadorRE001.test.ts::[callback]#1.[callback]#3.[callback]:ArrowFunction#2",
+    "assinatura": "([nome]: Operacao): boolean",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/apresentacao/reentrada/DesenhoOrbitadorRE001.ts::desenharOrbitadorRE001:FunctionDeclaration",
+    "assinatura": "(ctx: CanvasRenderingContext2D, o: AparenciaOrbitadorRE001): void",
+    "modificadores": [
+      "export"
+    ],
+    "categoria": "producao"
+  },
+  {
+    "id": "src/apresentacao/reentrada/DesenhoOrbitadorRE001.ts::desenharOrbitadorRE001.fuselagem:ArrowFunction",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
     "id": "src/apresentacao/reentrada/RecuperacaoConfiguracaoReentrada.test.ts::[callback]:ArrowFunction#1",
     "assinatura": "(): Promise<void>",
     "modificadores": [

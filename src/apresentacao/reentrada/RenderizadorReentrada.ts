@@ -1,5 +1,6 @@
 import type { ObservacaoReentrada } from '../../cenarios/EnsaioReentrada';
 import { CameraFisica2D } from '../../visualizacao/CameraFisica2D';
+import { desenharOrbitadorRE001 } from './DesenhoOrbitadorRE001';
 
 /** Renderer XY somente de snapshots, independente de controladores/mundo mutáveis. */
 export class RenderizadorReentrada {
@@ -43,22 +44,12 @@ export class RenderizadorReentrada {
     this.desenharReguas(camera);
     const centro = camera.projetar(o.estado.posicaoM), pxM = Math.max(2.5, 1 / metrosPorPixel);
     ctx.save(); ctx.translate(centro.x, centro.y); ctx.rotate(-o.estado.orientacaoRad.z);
-    // Projeção visual das asas: phi não é somado à arfagem XY.
-    const asa = 5 + 14 * Math.abs(Math.cos(o.rolagem.atualRad));
-    ctx.fillStyle = '#49728c'; ctx.strokeStyle = '#a9cedd'; ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(-15 * pxM, 0); ctx.lineTo(-16 * pxM, asa * pxM);
-    ctx.lineTo(3 * pxM, 2 * pxM); ctx.lineTo(-16 * pxM, -asa * pxM); ctx.closePath(); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = o.integridade > 0.5 ? '#c8d8df' : '#977069';
-    ctx.beginPath(); ctx.moveTo(20 * pxM, 0); ctx.lineTo(12 * pxM, -3 * pxM);
-    ctx.lineTo(-20 * pxM, -4 * pxM); ctx.lineTo(-20 * pxM, 4 * pxM); ctx.lineTo(12 * pxM, 3 * pxM); ctx.closePath(); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = '#18344e'; ctx.fillRect(7 * pxM, -2 * pxM, 4 * pxM, 1.7 * pxM);
-    ctx.strokeStyle = '#f7c56c'; ctx.lineWidth = 2;
-    for (const [i, flap] of o.flaps.entries()) {
-      if (!flap.conectado) continue;
-      ctx.save(); ctx.translate((i === 0 ? 16 : -16) * pxM, 5 * pxM);
-      ctx.rotate(-flap.deflexaoRad); ctx.beginPath(); ctx.moveTo(-2 * pxM, 0);
-      ctx.lineTo(2 * pxM, (2 + 6 * Math.abs(Math.cos(o.rolagem.atualRad))) * pxM); ctx.stroke(); ctx.restore();
-    }
+    desenharOrbitadorRE001(ctx, {
+      pixelsPorMetro: pxM,
+      rolagemRad: o.rolagem.atualRad,
+      integridade: o.integridade,
+      flaps: o.flaps,
+    });
     ctx.restore();
     for (const flap of o.flaps) if (!flap.conectado) {
       const p = camera.projetar(flap.estado.posicaoM);
