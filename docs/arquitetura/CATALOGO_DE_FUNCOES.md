@@ -11,162 +11,166 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 ## Índice de módulos
 
 - [scripts/benchmark-missao.ts](#modulo-1)
-- [scripts/campanha-re002.ts](#modulo-2)
-- [scripts/comparar-desempenho-missao.ts](#modulo-3)
-- [scripts/convergencia-angular-re002.ts](#modulo-4)
-- [scripts/documentacao/ast.ts](#modulo-5)
-- [scripts/documentacao/auditoria.ts](#modulo-6)
-- [scripts/documentacao/catalogo.ts](#modulo-7)
-- [scripts/documentacao/cli.ts](#modulo-8)
-- [scripts/documentacao/projeto.ts](#modulo-9)
-- [scripts/site/smoke.ts](#modulo-10)
-- [scripts/site/verificar.ts](#modulo-11)
-- [scripts/smoke-configuracao-re003.ts](#modulo-12)
-- [scripts/smoke-reentrada.ts](#modulo-13)
-- [scripts/validar-compatibilidade-re003.ts](#modulo-14)
-- [scripts/validar-hidrodinamica.ts](#modulo-15)
-- [scripts/validar-re002.ts](#modulo-16)
-- [scripts/validar-reentrada.ts](#modulo-17)
-- [scripts/validar-termica-re003.ts](#modulo-18)
-- [scripts/validar-termica-re004.ts](#modulo-19)
-- [site/build/markdownEstudos.ts](#modulo-20)
-- [site/build/pluginInstitucional.ts](#modulo-21)
-- [site/scripts/carrossel.ts](#modulo-22)
-- [site/scripts/navegacao.ts](#modulo-23)
-- [src/apresentacao/missao/CameraMissao.ts](#modulo-24)
-- [src/apresentacao/missao/CenaMissao.ts](#modulo-25)
-- [src/apresentacao/missao/EntradaMissao.ts](#modulo-26)
-- [src/apresentacao/missao/HudMissao.ts](#modulo-27)
-- [src/apresentacao/missao/RenderizadorMissao.ts](#modulo-28)
-- [src/apresentacao/reentrada/DesenhoOrbitadorRE001.ts](#modulo-29)
-- [src/apresentacao/reentrada/RenderizadorReentrada.ts](#modulo-30)
-- [src/cenarios/BancadaBss.ts](#modulo-31)
-- [src/cenarios/BancadaBss003.ts](#modulo-32)
-- [src/cenarios/EnsaioMissaoBss005.ts](#modulo-33)
-- [src/cenarios/EnsaioOrbitalInerte.ts](#modulo-34)
-- [src/cenarios/EnsaioReentrada.ts](#modulo-35)
-- [src/cenarios/ReproducaoDiarioBss005.ts](#modulo-36)
-- [src/missoes/AmbienteAmerissagem.ts](#modulo-37)
-- [src/missoes/AmbienteLancamento.ts](#modulo-38)
-- [src/missoes/CicloMissao.ts](#modulo-39)
-- [src/missoes/ContratoMissao.ts](#modulo-40)
-- [src/missoes/EnsaioAmerissagem.ts](#modulo-41)
-- [src/missoes/ExecutorMissao.ts](#modulo-42)
-- [src/missoes/MissaoBss006.ts](#modulo-43)
-- [src/missoes/ObservacaoAmerissagem.ts](#modulo-44)
-- [src/missoes/RegistroExtremos.ts](#modulo-45)
-- [src/missoes/RegistroMissao.ts](#modulo-46)
-- [src/missoes/ReplayMissaoBss006.ts](#modulo-47)
-- [src/missoes/SnapshotMissao.ts](#modulo-48)
-- [src/orbitas.ts](#modulo-49)
-- [src/physics/MundoFisico.ts](#modulo-50)
-- [src/physics/SistemaOperacional.ts](#modulo-51)
-- [src/physics/SuperficieCosteira.ts](#modulo-52)
-- [src/physics/SuperficieEsferica.ts](#modulo-53)
-- [src/physics/SuperficieFisica.ts](#modulo-54)
-- [src/physics/SuperficiePlano.ts](#modulo-55)
-- [src/physics/SuperficiePlanoLocal.ts](#modulo-56)
-- [src/physics/Vetor3.ts](#modulo-57)
-- [src/physics/agua/GeometriaSubmersa.ts](#modulo-58)
-- [src/physics/agua/RegiaoAquatica.ts](#modulo-59)
-- [src/physics/agua/SistemaHidrodinamico.ts](#modulo-60)
-- [src/physics/ambiente/AmbienteFisico.ts](#modulo-61)
-- [src/physics/ambiente/CampoGravitacional.ts](#modulo-62)
-- [src/physics/ambiente/EstadoInicialLocal.ts](#modulo-63)
-- [src/physics/ambiente/GeografiaCosteira.ts](#modulo-64)
-- [src/physics/ambiente/PerfilAtmosfericoReentrada.ts](#modulo-65)
-- [src/physics/ambiente/ReferencialFisico.ts](#modulo-66)
-- [src/physics/ambiente/TelemetriaOrbital.ts](#modulo-67)
-- [src/physics/cenarios/EnsaioPortaVertical.ts](#modulo-68)
-- [src/physics/conexoes/ChumbadorAoSolo.ts](#modulo-69)
-- [src/physics/conexoes/ConexaoEletrica.ts](#modulo-70)
-- [src/physics/conexoes/FixadorEstrutural.ts](#modulo-71)
-- [src/physics/conexoes/GuiaLinear.ts](#modulo-72)
-- [src/physics/conexoes/JuntaRotacionalDeBancada.ts](#modulo-73)
-- [src/physics/conexoes/eletrica/Contator.ts](#modulo-74)
-- [src/physics/conexoes/eletrica/Interruptor.ts](#modulo-75)
-- [src/physics/conexoes/eletrica/Resistor.ts](#modulo-76)
-- [src/physics/estruturas/ConjuntoEstruturalRigido.ts](#modulo-77)
-- [src/physics/estruturas/DiagnosticoAngular.ts](#modulo-78)
-- [src/physics/geometria/ContatoCaixasOrientadas.ts](#modulo-79)
-- [src/physics/objetos/atuadores/Cilindro.ts](#modulo-80)
-- [src/physics/objetos/atuadores/CilindroEletrico.ts](#modulo-81)
-- [src/physics/objetos/atuadores/MotorEletricoRotacional.ts](#modulo-82)
-- [src/physics/objetos/base/Objeto.ts](#modulo-83)
-- [src/physics/objetos/base/ObjetoTriangularRetangulo.ts](#modulo-84)
-- [src/physics/objetos/componentes/AletaAerodinamica.ts](#modulo-85)
-- [src/physics/objetos/componentes/FlapReentrada.ts](#modulo-86)
-- [src/physics/objetos/componentes/Paraquedas.ts](#modulo-87)
-- [src/physics/objetos/componentes/RolagemVirtual.ts](#modulo-88)
-- [src/physics/objetos/fontes-de-energia/Bateria.ts](#modulo-89)
-- [src/physics/objetos/fontes-de-energia/FonteEletrica.ts](#modulo-90)
-- [src/physics/objetos/fontes-de-energia/GeradorCA.ts](#modulo-91)
-- [src/physics/objetos/fontes-de-energia/PainelSolar.ts](#modulo-92)
-- [src/physics/objetos/fontes-de-energia/TanquePropelente.ts](#modulo-93)
-- [src/physics/objetos/mecanismos/BracoArticuladoDeBancada.ts](#modulo-94)
-- [src/physics/objetos/mecanismos/ConjuntoPortaBatente.ts](#modulo-95)
-- [src/physics/objetos/mecanismos/Porta.ts](#modulo-96)
-- [src/physics/objetos/mecanismos/TravaPorta.ts](#modulo-97)
-- [src/physics/objetos/propulsao/Propulsor.ts](#modulo-98)
-- [src/physics/objetos/propulsao/PropulsorVetorizado.ts](#modulo-99)
-- [src/physics/objetos/propulsao/alimentacao/BombaPropelente.ts](#modulo-100)
-- [src/physics/objetos/propulsao/alimentacao/LinhaDePropelente.ts](#modulo-101)
-- [src/physics/objetos/propulsao/alimentacao/ValvulaPropelente.ts](#modulo-102)
-- [src/physics/objetos/propulsao/combustao/Bocal.ts](#modulo-103)
-- [src/physics/objetos/propulsao/combustao/CamaraCombustao.ts](#modulo-104)
-- [src/physics/objetos/propulsao/vetorizacao/AtuadorVetorizacao.ts](#modulo-105)
-- [src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts](#modulo-106)
-- [src/physics/objetos/veiculos/Bss03.ts](#modulo-107)
-- [src/physics/objetos/veiculos/Bss04.ts](#modulo-108)
-- [src/physics/objetos/veiculos/ComputadorDeVoo.ts](#modulo-109)
-- [src/physics/objetos/veiculos/OrbitadorReentrada.ts](#modulo-110)
-- [src/physics/objetos/veiculos/VeiculoAlado.ts](#modulo-111)
-- [src/physics/objetos/veiculos/VeiculoComposto.ts](#modulo-112)
-- [src/physics/objetos/veiculos/VeiculoTerrestre.ts](#modulo-113)
-- [src/physics/reentrada/ConfiguracaoTermicaReentrada.ts](#modulo-114)
-- [src/physics/reentrada/ModeloAerodinamicoReentrada.ts](#modulo-115)
-- [src/physics/sensores/SensoresVeiculoComposto.ts](#modulo-116)
-- [src/physics/sensores/SistemaSensores.ts](#modulo-117)
-- [src/physics/sensores/SwitchFimDeCurso.ts](#modulo-118)
-- [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.ts](#modulo-119)
-- [src/physics/sistemas de controle/ControladorAletasAerodinamicas.ts](#modulo-120)
-- [src/physics/sistemas de controle/ControladorAproximacao.ts](#modulo-121)
-- [src/physics/sistemas de controle/ControladorDesaceleracao.ts](#modulo-122)
-- [src/physics/sistemas de controle/ControladorDesaceleracaoDePropulsores.ts](#modulo-123)
-- [src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.ts](#modulo-124)
-- [src/physics/sistemas de controle/ControladorGimbalDescidaDePropulsores.ts](#modulo-125)
-- [src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts](#modulo-126)
-- [src/physics/sistemas de controle/ControladorInclinacaoDePropulsores.ts](#modulo-127)
-- [src/physics/sistemas de controle/ControladorInclinacaoPid.ts](#modulo-128)
-- [src/physics/sistemas de controle/ControladorPerfilVooExperimental.ts](#modulo-129)
-- [src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts](#modulo-130)
-- [src/physics/sistemas de controle/ControladorPouso.ts](#modulo-131)
-- [src/physics/sistemas de controle/ControladorPousoDePropulsores.ts](#modulo-132)
-- [src/physics/sistemas de controle/ControladorReentrada.ts](#modulo-133)
-- [src/physics/sistemas de controle/EstrategiaCorredorReentrada.ts](#modulo-134)
-- [src/physics/sistemas de controle/FronteiraAproximacao.ts](#modulo-135)
-- [src/physics/sistemas de controle/GerenciadorDeControladores.ts](#modulo-136)
-- [src/physics/sistemas de controle/SupervisorRecuperacao.ts](#modulo-137)
-- [src/physics/sistemas de controle/SupervisorReentrada.ts](#modulo-138)
-- [src/physics/solucionadores/IntegradorFisico.ts](#modulo-139)
-- [src/physics/solucionadores/ResolvedorColisoes.ts](#modulo-140)
-- [src/physics/solucionadores/ResolvedorContatoSuperficie.ts](#modulo-141)
-- [src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts](#modulo-142)
-- [src/physics/solucionadores/SistemaAtmosferico.ts](#modulo-143)
-- [src/physics/solucionadores/SistemaTermico.ts](#modulo-144)
-- [src/physics/termica/RedeTermica.ts](#modulo-145)
-- [src/reentrada.ts](#modulo-146)
-- [src/simulacao/ExecutorPassoFixo.ts](#modulo-147)
-- [src/testes.ts](#modulo-148)
-- [src/validacao/ReferenciaBancadaM10.ts](#modulo-149)
-- [src/veiculos/DefinicaoBss006.ts](#modulo-150)
-- [src/veiculos/HidrodinamicaBss006.ts](#modulo-151)
-- [src/veiculos/MontagemBss.ts](#modulo-152)
-- [src/veiculos/TelemetriaBss.ts](#modulo-153)
-- [src/visualizacao/CameraFisica2D.ts](#modulo-154)
-- [src/visualizacao/ConexoesEletricas.ts](#modulo-155)
-- [src/visualizacao/RegistroEnsaioBancada.ts](#modulo-156)
-- [src/visualizacao/TracePLC.ts](#modulo-157)
+- [scripts/campanha-desaceleracao-re002.ts](#modulo-2)
+- [scripts/campanha-re002.ts](#modulo-3)
+- [scripts/comparar-desempenho-missao.ts](#modulo-4)
+- [scripts/convergencia-angular-re002.ts](#modulo-5)
+- [scripts/documentacao/ast.ts](#modulo-6)
+- [scripts/documentacao/auditoria.ts](#modulo-7)
+- [scripts/documentacao/catalogo.ts](#modulo-8)
+- [scripts/documentacao/cli.ts](#modulo-9)
+- [scripts/documentacao/projeto.ts](#modulo-10)
+- [scripts/ensaio-propulsivo-reentrada-re002.ts](#modulo-11)
+- [scripts/site/smoke.ts](#modulo-12)
+- [scripts/site/verificar.ts](#modulo-13)
+- [scripts/smoke-configuracao-re003.ts](#modulo-14)
+- [scripts/smoke-reentrada.ts](#modulo-15)
+- [scripts/validar-compatibilidade-re003.ts](#modulo-16)
+- [scripts/validar-hidrodinamica.ts](#modulo-17)
+- [scripts/validar-re002.ts](#modulo-18)
+- [scripts/validar-reentrada.ts](#modulo-19)
+- [scripts/validar-termica-re003.ts](#modulo-20)
+- [scripts/validar-termica-re004.ts](#modulo-21)
+- [site/build/markdownEstudos.ts](#modulo-22)
+- [site/build/pluginInstitucional.ts](#modulo-23)
+- [site/scripts/carrossel.ts](#modulo-24)
+- [site/scripts/navegacao.ts](#modulo-25)
+- [src/apresentacao/missao/CameraMissao.ts](#modulo-26)
+- [src/apresentacao/missao/CenaMissao.ts](#modulo-27)
+- [src/apresentacao/missao/EntradaMissao.ts](#modulo-28)
+- [src/apresentacao/missao/HudMissao.ts](#modulo-29)
+- [src/apresentacao/missao/RenderizadorMissao.ts](#modulo-30)
+- [src/apresentacao/reentrada/DesenhoOrbitadorRE001.ts](#modulo-31)
+- [src/apresentacao/reentrada/RenderizadorReentrada.ts](#modulo-32)
+- [src/cenarios/BancadaBss.ts](#modulo-33)
+- [src/cenarios/BancadaBss003.ts](#modulo-34)
+- [src/cenarios/CruzamentosMach.ts](#modulo-35)
+- [src/cenarios/EnsaioMissaoBss005.ts](#modulo-36)
+- [src/cenarios/EnsaioOrbitalInerte.ts](#modulo-37)
+- [src/cenarios/EnsaioPropulsivoOrbitadorRe002.ts](#modulo-38)
+- [src/cenarios/EnsaioReentrada.ts](#modulo-39)
+- [src/cenarios/ReproducaoDiarioBss005.ts](#modulo-40)
+- [src/missoes/AmbienteAmerissagem.ts](#modulo-41)
+- [src/missoes/AmbienteLancamento.ts](#modulo-42)
+- [src/missoes/CicloMissao.ts](#modulo-43)
+- [src/missoes/ContratoMissao.ts](#modulo-44)
+- [src/missoes/EnsaioAmerissagem.ts](#modulo-45)
+- [src/missoes/ExecutorMissao.ts](#modulo-46)
+- [src/missoes/MissaoBss006.ts](#modulo-47)
+- [src/missoes/ObservacaoAmerissagem.ts](#modulo-48)
+- [src/missoes/RegistroExtremos.ts](#modulo-49)
+- [src/missoes/RegistroMissao.ts](#modulo-50)
+- [src/missoes/ReplayMissaoBss006.ts](#modulo-51)
+- [src/missoes/SnapshotMissao.ts](#modulo-52)
+- [src/orbitas.ts](#modulo-53)
+- [src/physics/MundoFisico.ts](#modulo-54)
+- [src/physics/SistemaOperacional.ts](#modulo-55)
+- [src/physics/SuperficieCosteira.ts](#modulo-56)
+- [src/physics/SuperficieEsferica.ts](#modulo-57)
+- [src/physics/SuperficieFisica.ts](#modulo-58)
+- [src/physics/SuperficiePlano.ts](#modulo-59)
+- [src/physics/SuperficiePlanoLocal.ts](#modulo-60)
+- [src/physics/Vetor3.ts](#modulo-61)
+- [src/physics/agua/GeometriaSubmersa.ts](#modulo-62)
+- [src/physics/agua/RegiaoAquatica.ts](#modulo-63)
+- [src/physics/agua/SistemaHidrodinamico.ts](#modulo-64)
+- [src/physics/ambiente/AmbienteFisico.ts](#modulo-65)
+- [src/physics/ambiente/CampoGravitacional.ts](#modulo-66)
+- [src/physics/ambiente/EstadoInicialLocal.ts](#modulo-67)
+- [src/physics/ambiente/GeografiaCosteira.ts](#modulo-68)
+- [src/physics/ambiente/PerfilAtmosfericoReentrada.ts](#modulo-69)
+- [src/physics/ambiente/ReferencialFisico.ts](#modulo-70)
+- [src/physics/ambiente/TelemetriaOrbital.ts](#modulo-71)
+- [src/physics/cenarios/EnsaioPortaVertical.ts](#modulo-72)
+- [src/physics/conexoes/ChumbadorAoSolo.ts](#modulo-73)
+- [src/physics/conexoes/ConexaoEletrica.ts](#modulo-74)
+- [src/physics/conexoes/FixadorEstrutural.ts](#modulo-75)
+- [src/physics/conexoes/GuiaLinear.ts](#modulo-76)
+- [src/physics/conexoes/JuntaRotacionalDeBancada.ts](#modulo-77)
+- [src/physics/conexoes/eletrica/Contator.ts](#modulo-78)
+- [src/physics/conexoes/eletrica/Interruptor.ts](#modulo-79)
+- [src/physics/conexoes/eletrica/Resistor.ts](#modulo-80)
+- [src/physics/estruturas/ConjuntoEstruturalRigido.ts](#modulo-81)
+- [src/physics/estruturas/DiagnosticoAngular.ts](#modulo-82)
+- [src/physics/geometria/ContatoCaixasOrientadas.ts](#modulo-83)
+- [src/physics/objetos/atuadores/Cilindro.ts](#modulo-84)
+- [src/physics/objetos/atuadores/CilindroEletrico.ts](#modulo-85)
+- [src/physics/objetos/atuadores/MotorEletricoRotacional.ts](#modulo-86)
+- [src/physics/objetos/base/Objeto.ts](#modulo-87)
+- [src/physics/objetos/base/ObjetoTriangularRetangulo.ts](#modulo-88)
+- [src/physics/objetos/componentes/AletaAerodinamica.ts](#modulo-89)
+- [src/physics/objetos/componentes/FlapReentrada.ts](#modulo-90)
+- [src/physics/objetos/componentes/Paraquedas.ts](#modulo-91)
+- [src/physics/objetos/componentes/RolagemVirtual.ts](#modulo-92)
+- [src/physics/objetos/fontes-de-energia/Bateria.ts](#modulo-93)
+- [src/physics/objetos/fontes-de-energia/FonteEletrica.ts](#modulo-94)
+- [src/physics/objetos/fontes-de-energia/GeradorCA.ts](#modulo-95)
+- [src/physics/objetos/fontes-de-energia/PainelSolar.ts](#modulo-96)
+- [src/physics/objetos/fontes-de-energia/TanquePropelente.ts](#modulo-97)
+- [src/physics/objetos/mecanismos/BracoArticuladoDeBancada.ts](#modulo-98)
+- [src/physics/objetos/mecanismos/ConjuntoPortaBatente.ts](#modulo-99)
+- [src/physics/objetos/mecanismos/Porta.ts](#modulo-100)
+- [src/physics/objetos/mecanismos/TravaPorta.ts](#modulo-101)
+- [src/physics/objetos/propulsao/Propulsor.ts](#modulo-102)
+- [src/physics/objetos/propulsao/PropulsorVetorizado.ts](#modulo-103)
+- [src/physics/objetos/propulsao/alimentacao/BombaPropelente.ts](#modulo-104)
+- [src/physics/objetos/propulsao/alimentacao/LinhaDePropelente.ts](#modulo-105)
+- [src/physics/objetos/propulsao/alimentacao/ValvulaPropelente.ts](#modulo-106)
+- [src/physics/objetos/propulsao/combustao/Bocal.ts](#modulo-107)
+- [src/physics/objetos/propulsao/combustao/CamaraCombustao.ts](#modulo-108)
+- [src/physics/objetos/propulsao/vetorizacao/AtuadorVetorizacao.ts](#modulo-109)
+- [src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts](#modulo-110)
+- [src/physics/objetos/veiculos/Bss03.ts](#modulo-111)
+- [src/physics/objetos/veiculos/Bss04.ts](#modulo-112)
+- [src/physics/objetos/veiculos/ComputadorDeVoo.ts](#modulo-113)
+- [src/physics/objetos/veiculos/OrbitadorReentrada.ts](#modulo-114)
+- [src/physics/objetos/veiculos/VeiculoAlado.ts](#modulo-115)
+- [src/physics/objetos/veiculos/VeiculoComposto.ts](#modulo-116)
+- [src/physics/objetos/veiculos/VeiculoTerrestre.ts](#modulo-117)
+- [src/physics/reentrada/ConfiguracaoTermicaReentrada.ts](#modulo-118)
+- [src/physics/reentrada/ModeloAerodinamicoReentrada.ts](#modulo-119)
+- [src/physics/sensores/SensoresVeiculoComposto.ts](#modulo-120)
+- [src/physics/sensores/SistemaSensores.ts](#modulo-121)
+- [src/physics/sensores/SwitchFimDeCurso.ts](#modulo-122)
+- [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.ts](#modulo-123)
+- [src/physics/sistemas de controle/ControladorAletasAerodinamicas.ts](#modulo-124)
+- [src/physics/sistemas de controle/ControladorAproximacao.ts](#modulo-125)
+- [src/physics/sistemas de controle/ControladorDesaceleracao.ts](#modulo-126)
+- [src/physics/sistemas de controle/ControladorDesaceleracaoDePropulsores.ts](#modulo-127)
+- [src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.ts](#modulo-128)
+- [src/physics/sistemas de controle/ControladorGimbalDescidaDePropulsores.ts](#modulo-129)
+- [src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts](#modulo-130)
+- [src/physics/sistemas de controle/ControladorInclinacaoDePropulsores.ts](#modulo-131)
+- [src/physics/sistemas de controle/ControladorInclinacaoPid.ts](#modulo-132)
+- [src/physics/sistemas de controle/ControladorPerfilVooExperimental.ts](#modulo-133)
+- [src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts](#modulo-134)
+- [src/physics/sistemas de controle/ControladorPouso.ts](#modulo-135)
+- [src/physics/sistemas de controle/ControladorPousoDePropulsores.ts](#modulo-136)
+- [src/physics/sistemas de controle/ControladorReentrada.ts](#modulo-137)
+- [src/physics/sistemas de controle/EstrategiaCorredorReentrada.ts](#modulo-138)
+- [src/physics/sistemas de controle/FronteiraAproximacao.ts](#modulo-139)
+- [src/physics/sistemas de controle/GerenciadorDeControladores.ts](#modulo-140)
+- [src/physics/sistemas de controle/SupervisorRecuperacao.ts](#modulo-141)
+- [src/physics/sistemas de controle/SupervisorReentrada.ts](#modulo-142)
+- [src/physics/solucionadores/IntegradorFisico.ts](#modulo-143)
+- [src/physics/solucionadores/ResolvedorColisoes.ts](#modulo-144)
+- [src/physics/solucionadores/ResolvedorContatoSuperficie.ts](#modulo-145)
+- [src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts](#modulo-146)
+- [src/physics/solucionadores/SistemaAtmosferico.ts](#modulo-147)
+- [src/physics/solucionadores/SistemaTermico.ts](#modulo-148)
+- [src/physics/termica/RedeTermica.ts](#modulo-149)
+- [src/reentrada.ts](#modulo-150)
+- [src/simulacao/ExecutorPassoFixo.ts](#modulo-151)
+- [src/testes.ts](#modulo-152)
+- [src/validacao/ReferenciaBancadaM10.ts](#modulo-153)
+- [src/veiculos/DefinicaoBss006.ts](#modulo-154)
+- [src/veiculos/HidrodinamicaBss006.ts](#modulo-155)
+- [src/veiculos/MontagemBss.ts](#modulo-156)
+- [src/veiculos/TelemetriaBss.ts](#modulo-157)
+- [src/visualizacao/CameraFisica2D.ts](#modulo-158)
+- [src/visualizacao/ConexoesEletricas.ts](#modulo-159)
+- [src/visualizacao/RegistroEnsaioBancada.ts](#modulo-160)
+- [src/visualizacao/TracePLC.ts](#modulo-161)
 
 <a id="modulo-1"></a>
 ## scripts/benchmark-missao.ts
@@ -249,6 +253,48 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 
 <a id="modulo-2"></a>
+## scripts/campanha-desaceleracao-re002.ts
+
+<a id="f-afa88301acb4dab3"></a>
+<details><summary>executarCampanhaDesaceleracaoRe002 · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>scripts/campanha-desaceleracao-re002.ts::executarCampanhaDesaceleracaoRe002:FunctionDeclaration</code> · [fonte L38](../../scripts/campanha-desaceleracao-re002.ts#L38) |
+| Assinatura | <code>export async (): Promise&lt;void&gt;</code> |
+| Responsabilidade | Executa uma matriz finita no `EnsaioReentrada` real: condições orbitais de referência idênticas, alvos de α constantes ou agendas acionadas por Mach, falha elétrica e vácuo explícito. Cada cruzamento é interpolado entre passos consecutivos; amostras são guardadas a cada 10 s e extremos vêm do redutor por passo do core. O limite temporal é orçamento de coleta, nunca evento de pouso/sucesso. Nenhum estado cinemático ou parâmetro aerodinâmico é corrigido. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>Promise&lt;void&gt;</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>passo</code>; <code>proximaMudanca</code>; <code>falhaAplicada</code>; <code>anterior</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>resolve</code>; <code>mkdirSync</code>; <code>process.env.RE002_DESACELERACAO_CASOS?.split(',').map(s =&gt; s.trim()).filter</code>; <code>process.env.RE002_DESACELERACAO_CASOS?.split(',').map</code>; <code>process.env.RE002_DESACELERACAO_CASOS?.split</code>; <code>Number</code>; <code>perfis.filter</code>; <code>Number.isFinite</code>; <code>Math.min</code>; <code>Math.sqrt</code>; <code>EnsaioReentrada</code>; <code>ensaio.receberComando</code>; <code>Error</code>; <code>ensaio.iniciar</code>; <code>ensaio.observar</code>; <code>ensaio.observarCruzamentoMach</code>; <code>reduzir</code>; <code>Math.round</code>; <code>ensaio.avancarPasso</code>; <code>amostrarCruzamentosMach</code>; <code>cruzamentos.push</code>; <code>comandos.push</code>; <code>amostras10s.push</code>; <code>console.log</code>; <code>JSON.stringify</code>; <code>ensaio.obterIdentificacao</code>; <code>ensaio.obterEventos</code>; <code>cruzamentos.filter(x =&gt; x.componentesEssenciaisIntegrais).map</code>; <code>cruzamentos.filter</code>; <code>cruzamentos.filter(x =&gt; x.controleDisponivel).map</code>; <code>final.flaps.every</code>; <code>writeFileSync</code>; <code>resumo.push</code>; <code>final.flaps.map</code>; <code>cruzamentos.map</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>!comandoInicial.aceito &amp;&amp; !perfil.vacuo</code>; <code>!ensaio.avancarPasso()</code>; <code>mudanca &amp;&amp; evento.machAlvo === mudanca.mach</code>; <code>!resultado.aceito</code>; <code>perfil.desligarNoMach === evento.machAlvo &amp;&amp; !falhaAplicada</code>; <code>passo % Math.round(10 / ensaio.passoS) === 0</code>; <code>passo % Math.round(60 / ensaio.passoS) === 0</code>; exceções: <code>new Error(`${perfil.id}: comando inicial rejeitado: ${comandoInicial.motivo}`)</code>; <code>new Error(`${perfil.id}: ensaio parou antes do orçamento no passo ${passo}.`)</code>; <code>new Error(`${perfil.id}: agenda Mach ${evento.machAlvo} rejeitada: ${resultado.motivo}`)</code> |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /**<br> * Executa uma matriz finita no `EnsaioReentrada` real: condições orbitais de<br> * referência idênticas, alvos de α constantes ou agendas acionadas por Mach,<br> * falha elétrica e vácuo explícito. Cada cruzamento é interpolado entre passos<br> * consecutivos; amostras são guardadas a cada 10 s e extremos vêm do redutor por<br> * passo do core. O limite temporal é orçamento de coleta, nunca evento de<br> * pouso/sucesso. Nenhum estado cinemático ou parâmetro aerodinâmico é corrigido.<br> * @contract f-afa88301acb4dab3<br> */ |
+
+</details>
+
+<a id="f-40b8cf9dfdf0dc66"></a>
+<details><summary>executarCampanhaDesaceleracaoRe002.reduzir · ArrowFunction</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>scripts/campanha-desaceleracao-re002.ts::executarCampanhaDesaceleracaoRe002.reduzir:ArrowFunction</code> · [fonte L62](../../scripts/campanha-desaceleracao-re002.ts#L62) |
+| Assinatura | <code> (o: ObservacaoReentrada): { tempoS: number; passo: number; altitudeM: number; arcoM: number; velocidadeTotalMps: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; velocidadeRelativaArMps: number; trajetoriaRad: number; atitudeInercialRad: number; atitudeLocalRad: number; alphaRad: number; alphaAlvoRad: number; omegaRadps: number; mach: number; regime: "vacuo" &#124; "continuo" &#124; "deslizamento" &#124; "transicao" &#124; "molecular"; knudsen: number; pressaoDinamicaPa: number; cl: number; cd: number; sustentacaoN: number; arrastoN: number; razaoLD: number &#124; null; desaceleracaoMps2: number; torqueAerodinamicoNm: number; energiaMecanicaEspecificaJPorKg: number; energiaDissipadaJ: number; energiaAbsorvidaJ: number; fluxoTermicoIndicadorWm2: number; temperaturaCorpoC: number; integridadeCorpo: number; bateriaJ: number; massaKg: number; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; flaps: { deflexaoRad: number; comandoRad: number; integridade: number; temperaturaC: number; energizado: boolean; conectado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; integridadeMecanismo?: number &#124; undefined; }; }[]; terminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; extremosPorPasso: Record&lt;string, FaixaTemporal&gt;; }</code> |
+| Responsabilidade | Extrai canais de campanha e extremos reduzidos pelo core sem integrar novamente. |
+| Entradas | <code>o: ObservacaoReentrada</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>{ tempoS: number; passo: number; altitudeM: number; arcoM: number; velocidadeTotalMps: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; velocidadeRelativaArMps: number; trajetoriaRad: number; atitudeInercialRad: number; atitudeLocalRad: number; alphaRad: number; alphaAlvoRad: number; omegaRadps: number; mach: number; regime: "vacuo" &#124; "continuo" &#124; "deslizamento" &#124; "transicao" &#124; "molecular"; knudsen: number; pressaoDinamicaPa: number; cl: number; cd: number; sustentacaoN: number; arrastoN: number; razaoLD: number &#124; null; desaceleracaoMps2: number; torqueAerodinamicoNm: number; energiaMecanicaEspecificaJPorKg: number; energiaDissipadaJ: number; energiaAbsorvidaJ: number; fluxoTermicoIndicadorWm2: number; temperaturaCorpoC: number; integridadeCorpo: number; bateriaJ: number; massaKg: number; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; flaps: { deflexaoRad: number; comandoRad: number; integridade: number; temperaturaC: number; energizado: boolean; conectado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; integridadeMecanismo?: number &#124; undefined; }; }[]; terminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; extremosPorPasso: Record&lt;string, FaixaTemporal&gt;; }</code>; expressões retornadas: <code>({ tempoS: o.tempoS, passo: o.passo,<br>    altitudeM: o.altitudeM, arcoM: o.arcoM, velocidadeTotalMps: o.velocidadeMps,<br>    velocidadeRadialMps: o.velocidadeRadialMps, velocidadeTangencialMps: o.velocidadeTangencialMps,<br>    velocidadeRelativa… [continua na fonte]</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>o.flaps.map</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Extrai canais de campanha e extremos reduzidos pelo core sem integrar novamente. @contract f-40b8cf9dfdf0dc66 */ |
+
+</details>
+
+
+<a id="modulo-3"></a>
 ## scripts/campanha-re002.ts
 
 <a id="f-a4e257495658a353"></a>
@@ -290,7 +336,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-3"></a>
+<a id="modulo-4"></a>
 ## scripts/comparar-desempenho-missao.ts
 
 <a id="f-d6e5cb554b81284d"></a>
@@ -332,7 +378,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-4"></a>
+<a id="modulo-5"></a>
 ## scripts/convergencia-angular-re002.ts
 
 <a id="f-c01c0626f58071c1"></a>
@@ -393,7 +439,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-5"></a>
+<a id="modulo-6"></a>
 ## scripts/documentacao/ast.ts
 
 <a id="f-cbeed1bbced45284"></a>
@@ -606,7 +652,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-6"></a>
+<a id="modulo-7"></a>
 ## scripts/documentacao/auditoria.ts
 
 <a id="f-c3f1e2f6feeaf3dc"></a>
@@ -629,7 +675,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-7"></a>
+<a id="modulo-8"></a>
 ## scripts/documentacao/catalogo.ts
 
 <a id="f-1135e5d33909b4db"></a>
@@ -804,7 +850,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-8"></a>
+<a id="modulo-9"></a>
 ## scripts/documentacao/cli.ts
 
 <a id="f-461456c555c8385b"></a>
@@ -941,7 +987,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-9"></a>
+<a id="modulo-10"></a>
 ## scripts/documentacao/projeto.ts
 
 <a id="f-c9f0da8192b66f4e"></a>
@@ -1002,7 +1048,30 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-10"></a>
+<a id="modulo-11"></a>
+## scripts/ensaio-propulsivo-reentrada-re002.ts
+
+<a id="f-caf894459ba6ea56"></a>
+<details><summary>executarEnsaioPropulsivoReentradaRe002 · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>scripts/ensaio-propulsivo-reentrada-re002.ts::executarEnsaioPropulsivoReentradaRe002:FunctionDeclaration</code> · [fonte L15](../../scripts/ensaio-propulsivo-reentrada-re002.ts#L15) |
+| Assinatura | <code>export (): void</code> |
+| Responsabilidade | Roda a tentativa propulsiva RE-002E até repouso após contato ou até falha, respeitando o orçamento de coleta. Registra comandos, consumo, integridade e estado final sem impor força, velocidade ou pose ao mundo físico. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>void</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>passo</code>; <code>fase</code>; <code>tempoCorteS</code>; <code>motivoCorte</code>; <code>toqueInicialS</code>; <code>motivoEncerramento</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>resolve</code>; <code>mkdirSync</code>; <code>criarEnsaioPropulsivoOrbitadorRe002</code>; <code>e.veiculo.solicitarIgnicaoDosPropulsores</code>; <code>ignicao.some</code>; <code>Error</code>; <code>JSON.stringify</code>; <code>e.veiculo.definirThrottleDoPropulsor</code>; <code>e.veiculo.habilitarControleDeVerticalizacao</code>; <code>Set</code>; <code>Math.round</code>; <code>e.veiculo.obterLeiturasDoComputadorDeVoo</code>; <code>Math.hypot</code>; <code>Math.atan2</code>; <code>Math.sin</code>; <code>Math.cos</code>; <code>Math.abs</code>; <code>e.veiculo.desabilitarControleDeInclinacao</code>; <code>e.controladorAproximacao.habilitar</code>; <code>e.controladorAproximacao.desabilitar</code>; <code>e.veiculo.desligarPropulsor</code>; <code>e.mundo.avancar</code>; <code>e.veiculo.getEstadoFisico</code>; <code>e.mundo.obterContatosComSuperficie().filter</code>; <code>e.mundo.obterContatosComSuperficie</code>; <code>amostras.push</code>; <code>e.propulsor.obterEstadoDaVetorizacao</code>; <code>console.log</code>; <code>e.mundo.obterConfiguracaoFisica</code>; <code>amostras.find</code>; <code>e.veiculo.fixadoresEstruturais.map</code>; <code>writeFileSync</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>ignicao.length !== 1 &#124;&#124; ignicao.some(r =&gt; !r.aceito)</code>; <code>fase === 'flip-propulsivo' &amp;&amp; Math.abs(erroAtitudeRad) &lt;= 5 * rad<br>    &amp;&amp; Math.abs(leituras.velocidadeAngularRadps ?? Infinity) &lt;= 0.05</code>; <code>fase === 'aproximacao' &amp;&amp; leituras.altitudeM &lt;= 15<br>    &amp;&amp; Math.abs(leituras.velocidadeVerticalMps) &lt;= 5<br>    &amp;&amp; Math.abs(erroAtitudeRad) &lt;= 5 * rad<br>    &amp;&amp; Math.abs(leituras.velocidadeAngularRadps ?? Infinity) &lt;= 0.05</code>; <code>contatos.length &gt; 0 &amp;&amp; toqueInicialS === null</code>; <code>passo % 240 === 0 &#124;&#124; contatos.length &gt; 0 &#124;&#124; fase === 'corte-terminal'</code>; <code>passo % 240 === 0</code>; <code>e.veiculo.integridadeEstrutural === 0 &#124;&#124; e.propulsor.integridadeEstrutural === 0</code>; <code>fase === 'corte-terminal' &amp;&amp; contatos.length &gt; 0 &amp;&amp; velocidadeTotalMps &lt; 0.05<br>    &amp;&amp; Math.abs(estado.velocidadeAngularRadps.z) &lt; 0.01</code>; exceções: <code>new Error(`Permissivos/ignição recusados: ${JSON.stringify(ignicao)}`)</code> |
+| Testes | Nenhuma associação estática direta identificada; não significa ausência de testes indiretos. |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Roda a tentativa propulsiva RE-002E até repouso após contato ou até falha,<br> * respeitando o orçamento de coleta. Registra comandos, consumo, integridade e<br> * estado final sem impor força, velocidade ou pose ao mundo físico.<br> * @contract f-caf894459ba6ea56<br> * @reviewed RE-002E: fluxo e condição de parada confrontados com o core físico.<br> */ |
+
+</details>
+
+
+<a id="modulo-12"></a>
 ## scripts/site/smoke.ts
 
 <a id="f-3be43bfd8ef4e2b3"></a>
@@ -1063,7 +1132,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-11"></a>
+<a id="modulo-13"></a>
 ## scripts/site/verificar.ts
 
 <a id="f-37e394dbdd56c265"></a>
@@ -1143,7 +1212,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-12"></a>
+<a id="modulo-14"></a>
 ## scripts/smoke-configuracao-re003.ts
 
 <a id="f-6243448c45e0a365"></a>
@@ -1242,7 +1311,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-13"></a>
+<a id="modulo-15"></a>
 ## scripts/smoke-reentrada.ts
 
 <a id="f-4fe97b4e82bb0961"></a>
@@ -1265,7 +1334,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-14"></a>
+<a id="modulo-16"></a>
 ## scripts/validar-compatibilidade-re003.ts
 
 <a id="f-f9128c669cbe52ff"></a>
@@ -1307,7 +1376,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-15"></a>
+<a id="modulo-17"></a>
 ## scripts/validar-hidrodinamica.ts
 
 <a id="f-cce6c0793c2585ad"></a>
@@ -1368,7 +1437,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-16"></a>
+<a id="modulo-18"></a>
 ## scripts/validar-re002.ts
 
 <a id="f-d54d78e5c1917df6"></a>
@@ -1391,7 +1460,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-17"></a>
+<a id="modulo-19"></a>
 ## scripts/validar-reentrada.ts
 
 <a id="f-9e0ba414efcfb974"></a>
@@ -1414,7 +1483,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-18"></a>
+<a id="modulo-20"></a>
 ## scripts/validar-termica-re003.ts
 
 <a id="f-f789e7f0f396e3e7"></a>
@@ -1437,7 +1506,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-19"></a>
+<a id="modulo-21"></a>
 ## scripts/validar-termica-re004.ts
 
 <a id="f-ef79af3cabe5b51d"></a>
@@ -1479,7 +1548,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-20"></a>
+<a id="modulo-22"></a>
 ## site/build/markdownEstudos.ts
 
 <a id="f-3f1fea5a5a2a37ee"></a>
@@ -1635,7 +1704,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-21"></a>
+<a id="modulo-23"></a>
 ## site/build/pluginInstitucional.ts
 
 <a id="f-1a321c694e8857ca"></a>
@@ -1753,7 +1822,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-22"></a>
+<a id="modulo-24"></a>
 ## site/scripts/carrossel.ts
 
 <a id="f-9538cdc37f1c3dd9"></a>
@@ -1909,7 +1978,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-23"></a>
+<a id="modulo-25"></a>
 ## site/scripts/navegacao.ts
 
 <a id="f-6b6f4dc45ad56a89"></a>
@@ -2027,7 +2096,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-24"></a>
+<a id="modulo-26"></a>
 ## src/apresentacao/missao/CameraMissao.ts
 
 <a id="f-09a1763e24b38923"></a>
@@ -2107,7 +2176,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-25"></a>
+<a id="modulo-27"></a>
 ## src/apresentacao/missao/CenaMissao.ts
 
 <a id="f-630f6c4cff870920"></a>
@@ -2377,7 +2446,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-26"></a>
+<a id="modulo-28"></a>
 ## src/apresentacao/missao/EntradaMissao.ts
 
 <a id="f-aa10bea9c0ca5993"></a>
@@ -2552,7 +2621,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-27"></a>
+<a id="modulo-29"></a>
 ## src/apresentacao/missao/HudMissao.ts
 
 <a id="f-ebea6b265766d795"></a>
@@ -2632,7 +2701,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-28"></a>
+<a id="modulo-30"></a>
 ## src/apresentacao/missao/RenderizadorMissao.ts
 
 <a id="f-3676bd6b2dc965cc"></a>
@@ -2807,7 +2876,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-29"></a>
+<a id="modulo-31"></a>
 ## src/apresentacao/reentrada/DesenhoOrbitadorRE001.ts
 
 <a id="f-576f3ac8421df6ee"></a>
@@ -2849,7 +2918,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-30"></a>
+<a id="modulo-32"></a>
 ## src/apresentacao/reentrada/RenderizadorReentrada.ts
 
 <a id="f-9bdbc3539c49fc5c"></a>
@@ -3081,7 +3150,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-31"></a>
+<a id="modulo-33"></a>
 ## src/cenarios/BancadaBss.ts
 
 <a id="f-3f9895645d11ab94"></a>
@@ -3769,7 +3838,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-32"></a>
+<a id="modulo-34"></a>
 ## src/cenarios/BancadaBss003.ts
 
 <a id="f-222b829569202826"></a>
@@ -4134,7 +4203,49 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-33"></a>
+<a id="modulo-35"></a>
+## src/cenarios/CruzamentosMach.ts
+
+<a id="f-b3efd3b4f54bc248"></a>
+<details><summary>amostrarCruzamentosMach · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/cenarios/CruzamentosMach.ts::amostrarCruzamentosMach:FunctionDeclaration</code> · [fonte L49](../../src/cenarios/CruzamentosMach.ts#L49) |
+| Assinatura | <code>export (anterior: EstadoCruzamentoMach, atual: EstadoCruzamentoMach, marcosMach: readonly number[]): readonly CruzamentoMach[]</code> |
+| Responsabilidade | Interpola linearmente o instante e a telemetria dentro do passo físico que cruza para baixo os marcos Mach. Registra estado de componentes e autoridade naquele cruzamento; não interpola forças para alterar a simulação nem declara sucesso. Os extremos/crossings são consultados entre snapshots de passos consecutivos do mesmo ensaio. |
+| Entradas | <code>anterior: EstadoCruzamentoMach</code>; <code>atual: EstadoCruzamentoMach</code>; <code>marcosMach: readonly number[]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>readonly CruzamentoMach[]</code>; expressões retornadas: <code>[]</code>; <code>marcosMach.filter(m =&gt; Number.isFinite(m) &amp;&amp; m &gt; 0 &amp;&amp; anterior.mach &gt; m &amp;&amp; atual.mach &lt;= m)<br>    .map(machAlvo =&gt; {<br>    const fracaoPasso = (anterior.mach - machAlvo) / queda;<br>    const interpolar = (k: typeof numericos[number]): number =&gt; a… [continua na fonte]</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>[anterior.mach, atual.mach].every</code>; <code>marcosMach.filter(m =&gt; Number.isFinite(m) &amp;&amp; m &gt; 0 &amp;&amp; anterior.mach &gt; m &amp;&amp; atual.mach &lt;= m)<br>    .map</code>; <code>marcosMach.filter</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>!(atual.tempoS &gt; anterior.tempoS) &#124;&#124; atual.passo !== anterior.passo + 1<br>    &#124;&#124; ![anterior.mach, atual.mach].every(Number.isFinite)</code>; <code>queda &lt;= 0</code>; exceções: — |
+| Testes | [src/cenarios/CruzamentosMach.test.ts](../../src/cenarios/CruzamentosMach.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /**<br> * Interpola linearmente o instante e a telemetria dentro do passo físico que<br> * cruza para baixo os marcos Mach. Registra estado de componentes e autoridade<br> * naquele cruzamento; não interpola forças para alterar a simulação nem declara<br> * sucesso. Os extremos/crossings são consultados entre snapshots de passos<br> * consecutivos do mesmo ensaio.<br> * @contract f-b3efd3b4f54bc248<br> */ |
+
+</details>
+
+<a id="f-58f7ca2a081795ff"></a>
+<details><summary>amostrarCruzamentosMach.[callback]#2.interpolar · ArrowFunction</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/cenarios/CruzamentosMach.ts::amostrarCruzamentosMach.[callback]#2.interpolar:ArrowFunction</code> · [fonte L67](../../src/cenarios/CruzamentosMach.ts#L67) |
+| Assinatura | <code> (k: "altitudeM" &#124; "velocidadeMps" &#124; "trajetoriaRad" &#124; "energiaMecanicaEspecificaJPorKg" &#124; "arcoM" &#124; "velocidadeRadialMps" &#124; "velocidadeTangencialMps" &#124; "alphaRad" &#124; "omegaRadps" &#124; "integridadeCorpo" &#124; "tempoS" &#124; "atitudeLocalRad" &#124; "pressaoDinamicaPa" &#124; "fluxoTermicoWm2" &#124; "torqueAerodinamicoNm" &#124; "temperaturaCorpoC"): number</code> |
+| Responsabilidade | Interpola um canal escalar dentro do passo detectado. |
+| Entradas | <code>k: typeof numericos[number]</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>number</code>; expressões retornadas: <code>anterior[k] + (atual[k] - anterior[k]) * fracaoPasso</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: — |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | [src/cenarios/CruzamentosMach.test.ts](../../src/cenarios/CruzamentosMach.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Interpola um canal escalar dentro do passo detectado. @contract f-58f7ca2a081795ff */ |
+
+</details>
+
+
+<a id="modulo-36"></a>
 ## src/cenarios/EnsaioMissaoBss005.ts
 
 <a id="f-de6aadae2b4cd7e6"></a>
@@ -4366,7 +4477,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-34"></a>
+<a id="modulo-37"></a>
 ## src/cenarios/EnsaioOrbitalInerte.ts
 
 <a id="f-b2090ed5afdb1862"></a>
@@ -4427,7 +4538,68 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-35"></a>
+<a id="modulo-38"></a>
+## src/cenarios/EnsaioPropulsivoOrbitadorRe002.ts
+
+<a id="f-94de1681a4c81541"></a>
+<details><summary>criarEnsaioPropulsivoOrbitadorRe002 · FunctionDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/cenarios/EnsaioPropulsivoOrbitadorRe002.ts::criarEnsaioPropulsivoOrbitadorRe002:FunctionDeclaration</code> · [fonte L34](../../src/cenarios/EnsaioPropulsivoOrbitadorRe002.ts#L34) |
+| Assinatura | <code>export (): { mundo: MundoFisico; ambiente: AmbienteTerrestre; veiculo: VeiculoComposto; propulsor: PropulsorVetorizado; tanqueMetano: TanquePropelente; tanqueOxidante: TanquePropelente; bateria: Bateria; controladorAproximacao: ControladorAproximacao; massaInicialKg: number; parametrosPropulsivos: { empuxoMaximoN: number; impulsoEspecificoNominalS: number; razaoMisturaOxidanteCombustivel: number; vazaoCombustivelMaximaKgS: number; vazaoOxidanteMaximaKgS: number; limiteGimbalRad: number; fatorPropulsorBss005: number; fatorTanqueBss005: number; massaBaseCascoKg: number; massaPropulsorKg: number; massaBasePorTanqueKg: number; propelenteTotalInicialKg: number; }; }</code> |
+| Responsabilidade | Cria montagem isolada para frenagem terminal: casco BSS-RE de 78,9 t, motor bipropelente vetorizado e tanque/reserva dimensionados por vazão. Geometria/empuxo são escalas de estudo ancoradas no modelo interno BSS-005, não hardware certificado nem clonagem de veículo real. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>{ mundo: MundoFisico; ambiente: AmbienteTerrestre; veiculo: VeiculoComposto; propulsor: PropulsorVetorizado; tanqueMetano: TanquePropelente; tanqueOxidante: TanquePropelente; bateria: Bateria; controladorAproximacao: ControladorAproximacao; massaInicialKg: number; parametrosPropulsivos: { empuxoMaximoN: number; impulsoEspecificoNominalS: number; razaoMisturaOxidanteCombustivel: number; vazaoCombustivelMaximaKgS: number; vazaoOxidanteMaximaKgS: number; limiteGimbalRad: number; fatorPropulsorBss005: number; fatorTanqueBss005: number; massaBaseCascoKg: number; massaPropulsorKg: number; massaBasePorTanqueKg: number; propelenteTotalInicialKg: number; }; }</code>; expressões retornadas: <code>{ mundo, ambiente, veiculo, propulsor, tanqueMetano, tanqueOxidante, bateria,<br>    controladorAproximacao, massaInicialKg: veiculo.massaInstantaneaDoConjuntoKg,<br>    parametrosPropulsivos: { empuxoMaximoN: EMPUXO_MAXIMO_N, impulsoEspecificoNo… [continua na fonte]</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>AmbienteTerrestre</code>; <code>MundoFisico</code>; <code>referencial.posicaoPorArcoM</code>; <code>referencial.vetorParaGlobal</code>; <code>Vetor3</code>; <code>referencial.atitudeInercialRad</code>; <code>VeiculoComposto</code>; <code>estado</code>; <code>TanquePropelente</code>; <code>Bateria</code>; <code>PropulsorVetorizado</code>; <code>new Vetor3(1.6, 1.4, 1.4).multiplicar</code>; <code>propulsor.conectarTanque</code>; <code>propulsor.conectarBateria</code>; <code>ValvulaPropelente</code>; <code>valvulaCombustivel.definirAbertura</code>; <code>valvulaOxidante.definirAbertura</code>; <code>propulsor.configurarCadeiaBipropelente</code>; <code>LinhaDePropelente</code>; <code>BombaPropelente</code>; <code>CamaraCombustao</code>; <code>Bocal</code>; <code>veiculo.adicionarModulo</code>; <code>veiculo.instalarPropulsor</code>; <code>veiculo.adicionarFixador</code>; <code>FixadorEstrutural</code>; <code>mundo.registrarSuperficie</code>; <code>SuperficieEsferica</code>; <code>veiculo.registrarNoMundo</code>; <code>ControladorAproximacao</code>; <code>veiculo.registrarControlador</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | [src/cenarios/EnsaioPropulsivoOrbitadorRe002.test.ts](../../src/cenarios/EnsaioPropulsivoOrbitadorRe002.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Cria montagem isolada para frenagem terminal: casco BSS-RE de 78,9 t,<br> * motor bipropelente vetorizado e tanque/reserva dimensionados por vazão.<br> * Geometria/empuxo são escalas de estudo ancoradas no modelo interno BSS-005,<br> * não hardware certificado nem clonagem de veículo real.<br> * @contract f-94de1681a4c81541<br> * @reviewed RE-002E: objetos, vínculos, permissivos e unidades conferidos.<br> */ |
+
+</details>
+
+<a id="f-97e33d95c5a465e7"></a>
+<details><summary>criarEnsaioPropulsivoOrbitadorRe002.estado · ArrowFunction</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/cenarios/EnsaioPropulsivoOrbitadorRe002.ts::criarEnsaioPropulsivoOrbitadorRe002.estado:ArrowFunction</code> · [fonte L45](../../src/cenarios/EnsaioPropulsivoOrbitadorRe002.ts#L45) |
+| Assinatura | <code> (offsetLocalM: Vetor3, orientacaoRelativaRad?: number): { posicaoM: Vetor3; orientacaoRad: Vetor3; velocidadeMps: Vetor3; }</code> |
+| Responsabilidade | Transforma offset local pela atitude inicial e compartilha a velocidade inicial sem alterar o estado do mundo. |
+| Entradas | <code>offsetLocalM: Vetor3</code>; <code>orientacaoRelativaRad = 0</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>{ posicaoM: Vetor3; orientacaoRad: Vetor3; velocidadeMps: Vetor3; }</code>; expressões retornadas: <code>{ posicaoM: ancora.adicionar(referencial.vetorParaGlobal(offsetRotacionado, ancora)),<br>    orientacaoRad: new Vetor3(0, 0, orientacaoInicialRad + orientacaoRelativaRad), velocidadeMps: velocidadeInicial }</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>Vetor3</code>; <code>Math.cos</code>; <code>Math.sin</code>; <code>ancora.adicionar</code>; <code>referencial.vetorParaGlobal</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | [src/cenarios/EnsaioPropulsivoOrbitadorRe002.test.ts](../../src/cenarios/EnsaioPropulsivoOrbitadorRe002.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Transforma offset local pela atitude inicial e compartilha a velocidade inicial sem alterar o estado do mundo. @contract f-97e33d95c5a465e7 @reviewed RE-002E: transformação local/global conferida. */ |
+
+</details>
+
+<a id="f-6254b0d3c01e6986"></a>
+<details><summary>criarEnsaioPropulsivoOrbitadorRe002.obterEsforcoSolicitadoN · ArrowFunction</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/cenarios/EnsaioPropulsivoOrbitadorRe002.ts::criarEnsaioPropulsivoOrbitadorRe002.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L108](../../src/cenarios/EnsaioPropulsivoOrbitadorRe002.ts#L108) |
+| Assinatura | <code> (): number</code> |
+| Responsabilidade | Expõe empuxo do motor como esforço axial solicitado ao vínculo; os demais módulos não solicitam tração. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>number</code>; expressões retornadas: <code>modulo === propulsor ? propulsor.empuxoAtualN : 0</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: — |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | [src/cenarios/EnsaioPropulsivoOrbitadorRe002.test.ts](../../src/cenarios/EnsaioPropulsivoOrbitadorRe002.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Verificada (revisão explicitamente registrada) |
+| JSDoc integral | /** Expõe empuxo do motor como esforço axial solicitado ao vínculo; os demais módulos não solicitam tração. @contract f-6254b0d3c01e6986 @reviewed RE-002E: esforço e identidade do módulo conferidos. */ |
+
+</details>
+
+
+<a id="modulo-39"></a>
 ## src/cenarios/EnsaioReentrada.ts
 
 <a id="f-52a010df6b7f3e6e"></a>
@@ -4435,7 +4607,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::validarComandoReentrada:FunctionDeclaration</code> · [fonte L77](../../src/cenarios/EnsaioReentrada.ts#L77) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::validarComandoReentrada:FunctionDeclaration</code> · [fonte L86](../../src/cenarios/EnsaioReentrada.ts#L86) |
 | Assinatura | <code>export (entrada: unknown): entrada is ComandoReentrada</code> |
 | Responsabilidade | Valida comando serializável por chaves exatas, finitude e limites; não executa. |
 | Entradas | <code>entrada: unknown</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4454,7 +4626,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::configurarReentrada:FunctionDeclaration</code> · [fonte L102](../../src/cenarios/EnsaioReentrada.ts#L102) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::configurarReentrada:FunctionDeclaration</code> · [fonte L111](../../src/cenarios/EnsaioReentrada.ts#L111) |
 | Assinatura | <code>export (entrada?: EntradaConfiguracaoReentrada): ConfiguracaoReentrada</code> |
 | Responsabilidade | Cria configuração copiada, validada e congelada; os limiares térmicos padrão foram definidos pelo operador. Com rede optante migram para superfície; região estrutural tem limite próprio. Divergência entre representações é erro. |
 | Entradas | <code>entrada: EntradaConfiguracaoReentrada = {}</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4473,7 +4645,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::exigirCamposConfiguracao:FunctionDeclaration</code> · [fonte L146](../../src/cenarios/EnsaioReentrada.ts#L146) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::exigirCamposConfiguracao:FunctionDeclaration</code> · [fonte L155](../../src/cenarios/EnsaioReentrada.ts#L155) |
 | Assinatura | <code> (valor: unknown, referencia: object, prefixo: string, ignorados?: readonly string[]): void</code> |
 | Responsabilidade | Exige campos próprios conhecidos, sem undefined nem omissão. Validação de valores/unidades permanece nas regras do cenário; não cria objetos físicos. O campo legado não editável pode ser omitido explicitamente pela interface. |
 | Entradas | <code>valor: unknown</code>; <code>referencia: object</code>; <code>prefixo: string</code>; <code>ignorados: readonly string[] = []</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4492,7 +4664,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::validarConfiguracaoExplicitaReentrada:FunctionDeclaration</code> · [fonte L166](../../src/cenarios/EnsaioReentrada.ts#L166) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::validarConfiguracaoExplicitaReentrada:FunctionDeclaration</code> · [fonte L175](../../src/cenarios/EnsaioReentrada.ts#L175) |
 | Assinatura | <code>export (entrada: unknown): ConfiguracaoReentrada</code> |
 | Responsabilidade | Fronteira estrita para formulários: exige todos os parâmetros editáveis em SI antes da validação/congelamento de domínio. Somente transferência legada, ausente da interface, usa a referência declarada. Rede opcional é validada integralmente; ausência preserva contrato legado. Não altera fábrica parcial, física, relógio ou configuração de ensaios existentes. Testes RE-003 A–G. |
 | Entradas | <code>entrada: unknown</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4511,7 +4683,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::estadoModulo:FunctionDeclaration</code> · [fonte L179](../../src/cenarios/EnsaioReentrada.ts#L179) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::estadoModulo:FunctionDeclaration</code> · [fonte L188](../../src/cenarios/EnsaioReentrada.ts#L188) |
 | Assinatura | <code> (e: EstadoFisico, x: number, y: number): EstadoFisico</code> |
 | Responsabilidade | Constrói somente estado inicial de módulo: pose relativa rígida e velocidade v+ω×r em SI. Não é usada para reposicionar objetos durante o ensaio. |
 | Entradas | <code>e: EstadoFisico</code>; <code>x: number</code>; <code>y: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4530,7 +4702,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada:FunctionDeclaration</code> · [fonte L191](../../src/cenarios/EnsaioReentrada.ts#L191) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada:FunctionDeclaration</code> · [fonte L200](../../src/cenarios/EnsaioReentrada.ts#L200) |
 | Assinatura | <code>export (entrada?: EntradaConfiguracaoReentrada): { configuracao: ConfiguracaoReentrada; ambiente: AmbienteTerrestre; perfil: PerfilAtmosfericoReentrada; mundo: MundoFisico; orbitador: OrbitadorReentrada; flaps: FlapReentrada[]; bateria: Bateria; fixadores: FixadorEstrutural[]; objetos: readonly Objeto[]; sensores: SensoresVeiculoComposto; solo: SuperficieEsferica; }</code> |
 | Responsabilidade | Fábrica ADM de corpos reais e vínculos no mesmo MundoFisico. Vácuo é explícito; atmosfera RE e rede térmica regional são opt-in. Redes e caminhos são instalados antes do registro, sem adicionar massa mecânica. Terra estática, XY; padrão 1/240 s, máximo exploratório 1/120 s. Fonte enclausurada. |
 | Entradas | <code>entrada: EntradaConfiguracaoReentrada = {}</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4549,7 +4721,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#2.lerEficienciaAtuacao:ArrowFunction</code> · [fonte L214](../../src/cenarios/EnsaioReentrada.ts#L214) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#2.lerEficienciaAtuacao:ArrowFunction</code> · [fonte L223](../../src/cenarios/EnsaioReentrada.ts#L223) |
 | Assinatura | <code> (): number</code> |
 | Responsabilidade | Eficiência do mecanismo interno, sem alterar controlador ou corrente. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4568,7 +4740,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#2.operacaoAutorizada:ArrowFunction</code> · [fonte L217](../../src/cenarios/EnsaioReentrada.ts#L217) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#2.operacaoAutorizada:ArrowFunction</code> · [fonte L226](../../src/cenarios/EnsaioReentrada.ts#L226) |
 | Assinatura | <code> (): boolean</code> |
 | Responsabilidade | Permissivo do atuador: vínculo íntegro e corpo vivo; não produz força. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4587,7 +4759,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L240](../../src/cenarios/EnsaioReentrada.ts#L240) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.obterEsforcoSolicitadoN:ArrowFunction</code> · [fonte L249](../../src/cenarios/EnsaioReentrada.ts#L249) |
 | Assinatura | <code> (): number</code> |
 | Responsabilidade | Sem solicitação operacional extra; impactos são registrados pelo core. Esforço aerodinâmico distribuído de vínculos não é qualificado neste ensaio. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4606,7 +4778,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto:FunctionDeclaration</code> · [fonte L257](../../src/cenarios/EnsaioReentrada.ts#L257) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto:FunctionDeclaration</code> · [fonte L266](../../src/cenarios/EnsaioReentrada.ts#L266) |
 | Assinatura | <code> (c: CenarioReentrada): { membros: Objeto[]; massaKg: number; centroM: Vetor3; inerciaKgM2: number; }</code> |
 | Responsabilidade | Calcula massa/CM/inércia instantâneos somente dos módulos ainda conectados. Diagnóstico, não segunda cópia de posições nem um integrador. |
 | Entradas | <code>c: CenarioReentrada</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4625,12 +4797,12 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.constructor:Constructor</code> · [fonte L289](../../src/cenarios/EnsaioReentrada.ts#L289) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.constructor:Constructor</code> · [fonte L299](../../src/cenarios/EnsaioReentrada.ts#L299) |
 | Assinatura | <code>public (entrada?: EntradaConfiguracaoReentrada): EnsaioReentrada</code> |
 | Responsabilidade | Monta controles por portas de leitura, registra adaptador de pouso desabilitado sem motores, e registra hipóteses/revisão, inclusive a térmica regional. Não inicia execução ou ignição. |
 | Entradas | <code>entrada: EntradaConfiguracaoReentrada = {}</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>EnsaioReentrada</code>; expressões retornadas: — |
-| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.id</code>; <code>this.passoS</code>; <code>this.configuracao</code>; <code>this.passos</code>; <code>this.execucao</code>; <code>this.cenario</code>; <code>this.gerenciador</code>; <code>this.controlador</code>; <code>this.supervisor</code>; <code>this.eventos</code>; <code>this.condicoesRegistradas</code>; <code>this.energiaDissipadaJ</code>; <code>this.balancoAngular</code>; <code>this.extremos</code>; <code>this.sequenciaEvento</code>; <code>this.eventosDescartados</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.id</code>; <code>this.passoS</code>; <code>this.configuracao</code>; <code>this.passos</code>; <code>this.execucao</code>; <code>this.cenario</code>; <code>this.gerenciador</code>; <code>this.controlador</code>; <code>this.supervisor</code>; <code>this.eventos</code>; <code>this.condicoesRegistradas</code>; <code>this.energiaDissipadaJ</code>; <code>this.balancoAngular</code>; <code>this.extremos</code>; <code>this.sequenciaEvento</code>; <code>this.eventosDescartados</code>; <code>this.ultimaObservacaoMach</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>GerenciadorDeControladores</code>; <code>Map</code>; <code>BalancoAngular</code>; <code>criarCenarioReentrada</code>; <code>RegistroExtremos</code>; <code>Math.round</code>; <code>ControladorReentrada</code>; <code>this.gerenciador.registrar</code>; <code>ControladorAproximacao</code>; <code>ControladorPousoDePropulsores</code>; <code>pouso.configurar</code>; <code>this.gerenciador.habilitar</code>; <code>this.controlador.desabilitar</code>; <code>SupervisorRecuperacao</code>; <code>this.supervisor.definirAutomatico</code>; <code>this.atualizarSupervisor</code>; <code>this.evento</code>; <code>this.extremos.registrar</code>; <code>this.lerMetricasPasso</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>this.configuracao.automatico</code>; exceções: — |
 | Testes | [src/apresentacao/reentrada/TermicaRegionalReentrada.test.ts](../../src/apresentacao/reentrada/TermicaRegionalReentrada.test.ts); [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/cenarios/TermicaRegionalReentrada.test.ts](../../src/cenarios/TermicaRegionalReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
@@ -4644,7 +4816,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.passosExecutados:GetAccessor</code> · [fonte L312](../../src/cenarios/EnsaioReentrada.ts#L312) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.passosExecutados:GetAccessor</code> · [fonte L322](../../src/cenarios/EnsaioReentrada.ts#L322) |
 | Assinatura | <code>public (): number</code> |
 | Responsabilidade | Índice exato usado pela agenda reproduzível. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4663,7 +4835,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.estadoExecucao:GetAccessor</code> · [fonte L314](../../src/cenarios/EnsaioReentrada.ts#L314) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.estadoExecucao:GetAccessor</code> · [fonte L324](../../src/cenarios/EnsaioReentrada.ts#L324) |
 | Assinatura | <code>public (): EstadoExecucaoMissao</code> |
 | Responsabilidade | Consulta execução real; pausa não altera estado físico. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4682,7 +4854,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.iniciar:MethodDeclaration</code> · [fonte L316](../../src/cenarios/EnsaioReentrada.ts#L316) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.iniciar:MethodDeclaration</code> · [fonte L326](../../src/cenarios/EnsaioReentrada.ts#L326) |
 | Assinatura | <code>public (): void</code> |
 | Responsabilidade | Autoriza passos simulados, sem alterar trajetória. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4701,7 +4873,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.pausar:MethodDeclaration</code> · [fonte L318](../../src/cenarios/EnsaioReentrada.ts#L318) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.pausar:MethodDeclaration</code> · [fonte L328](../../src/cenarios/EnsaioReentrada.ts#L328) |
 | Assinatura | <code>public (): void</code> |
 | Responsabilidade | Suspende executor mantendo corpos e fila operacional. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4720,7 +4892,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.obterEventos:MethodDeclaration</code> · [fonte L320](../../src/cenarios/EnsaioReentrada.ts#L320) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.obterEventos:MethodDeclaration</code> · [fonte L330](../../src/cenarios/EnsaioReentrada.ts#L330) |
 | Assinatura | <code>public (): readonly EventoMissao[]</code> |
 | Responsabilidade | Eventos são copiados/congelados para consumidores. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4739,7 +4911,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando:MethodDeclaration</code> · [fonte L326](../../src/cenarios/EnsaioReentrada.ts#L326) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando:MethodDeclaration</code> · [fonte L336](../../src/cenarios/EnsaioReentrada.ts#L336) |
 | Assinatura | <code>public (comando: ComandoReentrada): ResultadoComandoMissao</code> |
 | Responsabilidade | Aplica comandos públicos e registra aceitação/bloqueio. Comando manual exige seleção manual; aproximação passa pelo supervisor e pouso direto é bloqueado. |
 | Entradas | <code>comando: ComandoReentrada</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4758,7 +4930,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso:MethodDeclaration</code> · [fonte L363](../../src/cenarios/EnsaioReentrada.ts#L363) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso:MethodDeclaration</code> · [fonte L373](../../src/cenarios/EnsaioReentrada.ts#L373) |
 | Assinatura | <code>public (): boolean</code> |
 | Responsabilidade | Consome solicitações arbitradas e avança um único passo no mundo compartilhado. Não encerra por tempo/evento intermediário. Registra quadratura do torque e resíduo de L intrínseco, sem correção UI. Contato/ruptura sinaliza balanço incompleto. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4772,14 +4944,33 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 </details>
 
+<a id="f-f6df730721c69dac"></a>
+<details><summary>EnsaioReentrada.observarCruzamentoMach · MethodDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observarCruzamentoMach:MethodDeclaration</code> · [fonte L404](../../src/cenarios/EnsaioReentrada.ts#L404) |
+| Assinatura | <code>public (): EstadoCruzeMachReentrada</code> |
+| Responsabilidade | Observação escalar enxuta para cruzamentos por passo. Não copia histórico, serializa geometria nem altera a física; consulta o estado atual do core. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>EstadoCruzeMachReentrada</code>; expressões retornadas: <code>this.ultimaObservacaoMach</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: — |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | [src/apresentacao/reentrada/TermicaRegionalReentrada.test.ts](../../src/apresentacao/reentrada/TermicaRegionalReentrada.test.ts); [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/cenarios/TermicaRegionalReentrada.test.ts](../../src/cenarios/TermicaRegionalReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Observação escalar enxuta para cruzamentos por passo. Não copia histórico,<br>   * serializa geometria nem altera a física; consulta o estado atual do core.<br>   * @contract f-f6df730721c69dac */ |
+
+</details>
+
 <a id="f-05755a69bc286c7f"></a>
 <details><summary>EnsaioReentrada.observar · MethodDeclaration</summary>
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar:MethodDeclaration</code> · [fonte L396](../../src/cenarios/EnsaioReentrada.ts#L396) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar:MethodDeclaration</code> · [fonte L411](../../src/cenarios/EnsaioReentrada.ts#L411) |
 | Assinatura | <code>public (): { temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; respostaTermica: { energiaAbsorvidaCorpoJ: number; modelo: string; tetoUniversal: boolean; potenciaIndicadorCorpoW: number; potenciaTransferidaCorpoW: number; tpsInstalado: boolean; camadasInternasModeladas: boolean; }; estadosTerminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; integridadeMecanismo?: number &#124; undefined; }; knudsenEstimado: number; modeloEscoamento: string; }[]; vinculos: { id: string; estado: "integro" &#124; "rompido" &#124; "liberado"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; termica?: Readonly&lt;{ modelo: "condutancia-conservativa" &#124; "temperatura-media-legada"; temperaturaC: number; energiaConduzidaJ: number; potenciaConduzidaW: number; portas: Readonly&lt;{ regiaoA: string; regiaoB: string; }&gt; &#124; undefined; }&gt; &#124; undefined; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; termica?: { revisao: string; perfil: PerfilTermicoReentrada; corpo: Readonly&lt;{ revisao: "RE-004-r1"; regioes: readonly Readonly&lt;{ capacidadeJPorC: number; causa: `temperatura&gt;${number} \u00B0C em ${string}` &#124; null; temperaturaC: number; integridade: number; energiaConduzidaJ: number; id: string; material: string; massaTermicaKg: number; calorEspecificoJPorKgC: number; areaExpostaM2: number; emissividade: number; temperaturaInicialC: number; limiteTermicoC: number; taxaDanoPorSegundo: number; }&gt;[]; energiaArmazenadaJ: number; energiaIncidenteJ: number; energiaGeradaJ: number; energiaConducaoExternaJ: number; energiaContatoJ: number; energiaRadiadaJ: number; energiaConveccaoJ: number; residuoEnergiaJ: number; potenciaIncidenteW: number; potenciaRadiadaW: number; potenciaConveccaoW: number; conducoes: readonly Readonly&lt;{ energiaJ: number; potenciaW: number; a: string; b: string; condutanciaWPorC: number; condutanciaSemProtecaoWPorC: number; }&gt;[]; }&gt;; flaps: Readonly&lt;{ revisao: "RE-004-r1"; regioes: readonly Readonly&lt;{ capacidadeJPorC: number; causa: `temperatura&gt;${number} \u00B0C em ${string}` &#124; null; temperaturaC: number; integridade: number; energiaConduzidaJ: number; id: string; material: string; massaTermicaKg: number; calorEspecificoJPorKgC: number; areaExpostaM2: number; emissividade: number; temperaturaInicialC: number; limiteTermicoC: number; taxaDanoPorSegundo: number; }&gt;[]; energiaArmazenadaJ: number; energiaIncidenteJ: number; energiaGeradaJ: number; energiaConducaoExternaJ: number; energiaContatoJ: number; energiaRadiadaJ: number; energiaConveccaoJ: number; residuoEnergiaJ: number; potenciaIncidenteW: number; potenciaRadiadaW: number; potenciaConveccaoW: number; conducoes: readonly Readonly&lt;{ energiaJ: number; potenciaW: number; a: string; b: string; condutanciaWPorC: number; condutanciaSemProtecaoWPorC: number; }&gt;[]; }&gt;[]; bateria: Readonly&lt;{ revisao: "RE-004-r1"; regioes: readonly Readonly&lt;{ capacidadeJPorC: number; causa: `temperatura&gt;${number} \u00B0C em ${string}` &#124; null; temperaturaC: number; integridade: number; energiaConduzidaJ: number; id: string; material: string; massaTermicaKg: number; calorEspecificoJPorKgC: number; areaExpostaM2: number; emissividade: number; temperaturaInicialC: number; limiteTermicoC: number; taxaDanoPorSegundo: number; }&gt;[]; energiaArmazenadaJ: number; energiaIncidenteJ: number; energiaGeradaJ: number; energiaConducaoExternaJ: number; energiaContatoJ: number; energiaRadiadaJ: number; energiaConveccaoJ: number; residuoEnergiaJ: number; potenciaIncidenteW: number; potenciaRadiadaW: number; potenciaConveccaoW: number; conducoes: readonly Readonly&lt;{ energiaJ: number; potenciaW: number; a: string; b: string; condutanciaWPorC: number; condutanciaSemProtecaoWPorC: number; }&gt;[]; }&gt;; temperaturaLegadaSignifica: string; energiaAtmosferaLegadaSignifica: string; } &#124; undefined; id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "aproximacao" &#124; "reentrada" &#124; "falha"; automatico: boolean; candidatoCinematico: boolean; autorizado: boolean; requisitos: readonly Readonly&lt;RequisitoAproximacao&gt;[]; limites: ConfiguracaoFronteiraAproximacao; avaliacao: Readonly&lt;{ candidatoCinematico: boolean; autorizado: boolean; distanciaRestanteM: number &#124; null; energiaMecanicaEspecificaJPorKg: number; natureza: "limites-necessarios-ideais-nao-trajetoria-certificada"; hipoteses: readonly Readonly&lt;{ aceleracaoLiquidaMps2: number; distanciaFrenagemM: number; quedaFrenagemRadialM: number; tempoFrenagemS: number; velocidadeLimiteNecessariaMps: number &#124; null; desvioVelocidadeMps: number &#124; null; limitesNecessariosAtendidos: boolean; }&gt;[]; requisitos: readonly Readonly&lt;RequisitoAproximacao&gt;[]; }&gt; &#124; null; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { cargasEfetivamenteIntegradas: { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } &#124; null; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; }</code> |
-| Responsabilidade | Observação escalar/geométrica e balanço angular, copiada e congelada. Torque gravítico é o gradiente entre centros dos membros, não distribuição interna. Resíduo usa cargas efetivamente integradas; contatos/fontes impulsivas são sinalizados. Não oferece objetos mutáveis nem corrige estado. Rede optante expõe nós, balanços SI e limites; temperaturaC passa a significar estrutura. |
+| Responsabilidade | Observação escalar/geométrica e balanço angular, copiada e congelada. Torque Não oferece objetos mutáveis nem corrige estado. Rede optante expõe nós, balanços SI e limites; temperaturaC passa a significar estrutura. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>{ temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; respostaTermica: { energiaAbsorvidaCorpoJ: number; modelo: string; tetoUniversal: boolean; potenciaIndicadorCorpoW: number; potenciaTransferidaCorpoW: number; tpsInstalado: boolean; camadasInternasModeladas: boolean; }; estadosTerminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; integridadeMecanismo?: number &#124; undefined; }; knudsenEstimado: number; modeloEscoamento: string; }[]; vinculos: { id: string; estado: "integro" &#124; "rompido" &#124; "liberado"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; termica?: Readonly&lt;{ modelo: "condutancia-conservativa" &#124; "temperatura-media-legada"; temperaturaC: number; energiaConduzidaJ: number; potenciaConduzidaW: number; portas: Readonly&lt;{ regiaoA: string; regiaoB: string; }&gt; &#124; undefined; }&gt; &#124; undefined; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; termica?: { revisao: string; perfil: PerfilTermicoReentrada; corpo: Readonly&lt;{ revisao: "RE-004-r1"; regioes: readonly Readonly&lt;{ capacidadeJPorC: number; causa: `temperatura&gt;${number} \u00B0C em ${string}` &#124; null; temperaturaC: number; integridade: number; energiaConduzidaJ: number; id: string; material: string; massaTermicaKg: number; calorEspecificoJPorKgC: number; areaExpostaM2: number; emissividade: number; temperaturaInicialC: number; limiteTermicoC: number; taxaDanoPorSegundo: number; }&gt;[]; energiaArmazenadaJ: number; energiaIncidenteJ: number; energiaGeradaJ: number; energiaConducaoExternaJ: number; energiaContatoJ: number; energiaRadiadaJ: number; energiaConveccaoJ: number; residuoEnergiaJ: number; potenciaIncidenteW: number; potenciaRadiadaW: number; potenciaConveccaoW: number; conducoes: readonly Readonly&lt;{ energiaJ: number; potenciaW: number; a: string; b: string; condutanciaWPorC: number; condutanciaSemProtecaoWPorC: number; }&gt;[]; }&gt;; flaps: Readonly&lt;{ revisao: "RE-004-r1"; regioes: readonly Readonly&lt;{ capacidadeJPorC: number; causa: `temperatura&gt;${number} \u00B0C em ${string}` &#124; null; temperaturaC: number; integridade: number; energiaConduzidaJ: number; id: string; material: string; massaTermicaKg: number; calorEspecificoJPorKgC: number; areaExpostaM2: number; emissividade: number; temperaturaInicialC: number; limiteTermicoC: number; taxaDanoPorSegundo: number; }&gt;[]; energiaArmazenadaJ: number; energiaIncidenteJ: number; energiaGeradaJ: number; energiaConducaoExternaJ: number; energiaContatoJ: number; energiaRadiadaJ: number; energiaConveccaoJ: number; residuoEnergiaJ: number; potenciaIncidenteW: number; potenciaRadiadaW: number; potenciaConveccaoW: number; conducoes: readonly Readonly&lt;{ energiaJ: number; potenciaW: number; a: string; b: string; condutanciaWPorC: number; condutanciaSemProtecaoWPorC: number; }&gt;[]; }&gt;[]; bateria: Readonly&lt;{ revisao: "RE-004-r1"; regioes: readonly Readonly&lt;{ capacidadeJPorC: number; causa: `temperatura&gt;${number} \u00B0C em ${string}` &#124; null; temperaturaC: number; integridade: number; energiaConduzidaJ: number; id: string; material: string; massaTermicaKg: number; calorEspecificoJPorKgC: number; areaExpostaM2: number; emissividade: number; temperaturaInicialC: number; limiteTermicoC: number; taxaDanoPorSegundo: number; }&gt;[]; energiaArmazenadaJ: number; energiaIncidenteJ: number; energiaGeradaJ: number; energiaConducaoExternaJ: number; energiaContatoJ: number; energiaRadiadaJ: number; energiaConveccaoJ: number; residuoEnergiaJ: number; potenciaIncidenteW: number; potenciaRadiadaW: number; potenciaConveccaoW: number; conducoes: readonly Readonly&lt;{ energiaJ: number; potenciaW: number; a: string; b: string; condutanciaWPorC: number; condutanciaSemProtecaoWPorC: number; }&gt;[]; }&gt;; temperaturaLegadaSignifica: string; energiaAtmosferaLegadaSignifica: string; } &#124; undefined; id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "aproximacao" &#124; "reentrada" &#124; "falha"; automatico: boolean; candidatoCinematico: boolean; autorizado: boolean; requisitos: readonly Readonly&lt;RequisitoAproximacao&gt;[]; limites: ConfiguracaoFronteiraAproximacao; avaliacao: Readonly&lt;{ candidatoCinematico: boolean; autorizado: boolean; distanciaRestanteM: number &#124; null; energiaMecanicaEspecificaJPorKg: number; natureza: "limites-necessarios-ideais-nao-trajetoria-certificada"; hipoteses: readonly Readonly&lt;{ aceleracaoLiquidaMps2: number; distanciaFrenagemM: number; quedaFrenagemRadialM: number; tempoFrenagemS: number; velocidadeLimiteNecessariaMps: number &#124; null; desvioVelocidadeMps: number &#124; null; limitesNecessariosAtendidos: boolean; }&gt;[]; requisitos: readonly Readonly&lt;RequisitoAproximacao&gt;[]; }&gt; &#124; null; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { cargasEfetivamenteIntegradas: { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } &#124; null; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; }</code>; expressões retornadas: <code>copiarSnapshot({ id: this.id, tempoS: c.mundo.tempoS, passo: this.passos,<br>    execucao: this.execucao, estado: e, extremos: this.extremos.observar(), eventosDescartados: this.eventosDescartados, altitudeM: c.ambiente.referencial.altitudeGeo… [continua na fonte]</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
@@ -4787,7 +4978,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
 | Testes | [src/apresentacao/reentrada/TermicaRegionalReentrada.test.ts](../../src/apresentacao/reentrada/TermicaRegionalReentrada.test.ts); [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/cenarios/TermicaRegionalReentrada.test.ts](../../src/cenarios/TermicaRegionalReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Observação escalar/geométrica e balanço angular, copiada e congelada. Torque<br>   * gravítico é o gradiente entre centros dos membros, não distribuição interna.<br>   * Resíduo usa cargas efetivamente integradas; contatos/fontes impulsivas são sinalizados.<br>   * Não oferece objetos mutáveis nem corrige estado. Rede optante expõe nós,<br>   * balanços SI e limites; temperaturaC passa a significar estrutura. @contract f-05755a69bc286c7f */ |
+| JSDoc integral | /** Observação escalar/geométrica e balanço angular, copiada e congelada. Torque<br>   * Não oferece objetos mutáveis nem corrige estado. Rede optante expõe nós,<br>   * balanços SI e limites; temperaturaC passa a significar estrutura. @contract f-05755a69bc286c7f */ |
 
 </details>
 
@@ -4796,7 +4987,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle:MethodDeclaration</code> · [fonte L465](../../src/cenarios/EnsaioReentrada.ts#L465) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle:MethodDeclaration</code> · [fonte L480](../../src/cenarios/EnsaioReentrada.ts#L480) |
 | Assinatura | <code>private (): { alphaRad: number; taxaArfagemRadps: number; taxaFluxoRadps: number; pressaoDinamicaPa: number; fluxoTermicoWm2: number; cargaG: number; torquePassivoNm: number; energiaMecanicaEspecificaJPorKg: number; integridadeMinima: number; inerciaKgM2: number; phiRad: number; disponivel: boolean; }</code> |
 | Responsabilidade | Telemetria física para PD; calcula derivada angular do fluxo por v×a/&#124;v&#124;², sem diferenciar relógio real ou alterar estado. Dano próprio do mecanismo optante participa apenas da disponibilidade, sem mudar lei de controle. Torque passivo exclui lift ativo. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4815,7 +5006,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.atualizarSupervisor:MethodDeclaration</code> · [fonte L489](../../src/cenarios/EnsaioReentrada.ts#L489) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.atualizarSupervisor:MethodDeclaration</code> · [fonte L504](../../src/cenarios/EnsaioReentrada.ts#L504) |
 | Assinatura | <code>private (): void</code> |
 | Responsabilidade | Avalia estado real, autoridade remanescente e filtros A/B sem reutilizar limites antigos de pouso. Mecanismo optante sem integridade não oferece autoridade. Não há propulsão nem integração física de aproximação. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4834,7 +5025,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes:MethodDeclaration</code> · [fonte L517](../../src/cenarios/EnsaioReentrada.ts#L517) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes:MethodDeclaration</code> · [fonte L532](../../src/cenarios/EnsaioReentrada.ts#L532) |
 | Assinatura | <code>private (): void</code> |
 | Responsabilidade | Registra arestas de falha/recuperação de condições, não repete eventos por frame. Nó optante identifica corpo/região, limiar e colapso próprios. Colisão, dano e separação não encerram evolução física. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4853,7 +5044,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.evento:MethodDeclaration</code> · [fonte L568](../../src/cenarios/EnsaioReentrada.ts#L568) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.evento:MethodDeclaration</code> · [fonte L583](../../src/cenarios/EnsaioReentrada.ts#L583) |
 | Assinatura | <code>private (tipo: string, descricao: string, categoria?: EventoMissao["categoria"], dados?: EventoMissao["dados"]): void</code> |
 | Responsabilidade | Acrescenta evento no tempo de missão, com sequência estável e categoria. |
 | Entradas | <code>tipo: string</code>; <code>descricao: string</code>; <code>categoria: EventoMissao['categoria'] = 'missao'</code>; <code>dados?: EventoMissao['dados']</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4872,13 +5063,13 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerMetricasPasso:MethodDeclaration</code> · [fonte L580](../../src/cenarios/EnsaioReentrada.ts#L580) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerMetricasPasso:MethodDeclaration</code> · [fonte L595](../../src/cenarios/EnsaioReentrada.ts#L595) |
 | Assinatura | <code>private (): Readonly&lt;Record&lt;string, number&gt;&gt;</code> |
 | Responsabilidade | Coleta canais físicos SI em todo passo, antes de qualquer redução visual. Inclui temperaturas e resíduos de cada região optante. Sem cópia de trajetória ou recalibração de forças. Chaves/unidades acompanham o diário; extremos têm passo e instante e não dependem da renderização. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>Readonly&lt;Record&lt;string, number&gt;&gt;</code>; expressões retornadas: <code>{ ...regionais, cargaG: this.lerControle().cargaG,<br>    erroAlphaRad: normalizarAngulo(a.anguloAtaqueRad - this.controlador.observar().alphaGerenciadoRad),<br>    energiaTermicaCorpoJ: c.orbitador.energiaTermicaAerodinamicaAcumuladaJ,<br>    energ… [continua na fonte]</code> |
-| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>regionais[`temperatura-${objeto.id}-${r.id}-C`]</code>; <code>regionais[`residuo-termico-${objeto.id}-J`]</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>c.orbitador.getEstadoFisico</code>; <code>c.orbitador.avaliar</code>; <code>c.mundo.obterCondicoesAtmosfericas</code>; <code>objeto.observarRedeTermica</code>; <code>this.lerControle</code>; <code>normalizarAngulo</code>; <code>this.controlador.observar</code>; <code>c.ambiente.referencial.altitudeGeometricaM</code>; <code>e.posicaoM.subtrair</code>; <code>c.mundo.obterDiagnosticoAngularDoPasso</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.ultimaObservacaoMach</code>; <code>regionais[`temperatura-${objeto.id}-${r.id}-C`]</code>; <code>regionais[`residuo-termico-${objeto.id}-J`]</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>c.orbitador.getEstadoFisico</code>; <code>c.orbitador.avaliar</code>; <code>c.mundo.obterCondicoesAtmosfericas</code>; <code>c.ambiente.referencial.vetorParaLocal</code>; <code>c.ambiente.referencial.altitudeGeometricaM</code>; <code>c.mundo.obterDiagnosticoAngularDoPasso</code>; <code>c.ambiente.referencial.posicaoHorizontalM</code>; <code>Math.atan2</code>; <code>c.ambiente.referencial.atitudeLocalRad</code>; <code>e.posicaoM.subtrair</code>; <code>c.flaps.map</code>; <code>c.fixadores.map</code>; <code>this.controlador.observar</code>; <code>c.flaps.every</code>; <code>objeto.observarRedeTermica</code>; <code>this.lerControle</code>; <code>normalizarAngulo</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>this.configuracao.termica</code>; exceções: — |
 | Testes | [src/apresentacao/reentrada/TermicaRegionalReentrada.test.ts](../../src/apresentacao/reentrada/TermicaRegionalReentrada.test.ts); [src/cenarios/ConfiguracaoReentrada.test.ts](../../src/cenarios/ConfiguracaoReentrada.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/cenarios/InstrumentacaoReentrada.test.ts](../../src/cenarios/InstrumentacaoReentrada.test.ts); [src/cenarios/TermicaRegionalReentrada.test.ts](../../src/cenarios/TermicaRegionalReentrada.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
@@ -4891,7 +5082,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.obterIdentificacao:MethodDeclaration</code> · [fonte L606](../../src/cenarios/EnsaioReentrada.ts#L606) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.obterIdentificacao:MethodDeclaration</code> · [fonte L638](../../src/cenarios/EnsaioReentrada.ts#L638) |
 | Assinatura | <code>public (): object</code> |
 | Responsabilidade | Exporta identificação/revisões e hipóteses; RE-004 só com rede optante. Toda definição regional é serializada para reprodução estrita. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4910,7 +5101,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::criarEnsaioReentrada:FunctionDeclaration</code> · [fonte L617](../../src/cenarios/EnsaioReentrada.ts#L617) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::criarEnsaioReentrada:FunctionDeclaration</code> · [fonte L649](../../src/cenarios/EnsaioReentrada.ts#L649) |
 | Assinatura | <code>export (configuracao?: EntradaConfiguracaoReentrada): RegistroMissao&lt;ComandoReentrada, { temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; respostaTermica: { energiaAbsorvidaCorpoJ: number; modelo: string; tetoUniversal: boolean; potenciaIndicadorCorpoW: number; potenciaTransferidaCorpoW: number; tpsInstalado: boolean; camadasInternasModeladas: boolean; }; estadosTerminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; integridadeMecanismo?: number &#124; undefined; }; knudsenEstimado: number; modeloEscoamento: string; }[]; vinculos: { id: string; estado: "integro" &#124; "rompido" &#124; "liberado"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; termica?: Readonly&lt;{ modelo: "condutancia-conservativa" &#124; "temperatura-media-legada"; temperaturaC: number; energiaConduzidaJ: number; potenciaConduzidaW: number; portas: Readonly&lt;{ regiaoA: string; regiaoB: string; }&gt; &#124; undefined; }&gt; &#124; undefined; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; termica?: { revisao: string; perfil: PerfilTermicoReentrada; corpo: Readonly&lt;{ revisao: "RE-004-r1"; regioes: readonly Readonly&lt;{ capacidadeJPorC: number; causa: `temperatura&gt;${number} \u00B0C em ${string}` &#124; null; temperaturaC: number; integridade: number; energiaConduzidaJ: number; id: string; material: string; massaTermicaKg: number; calorEspecificoJPorKgC: number; areaExpostaM2: number; emissividade: number; temperaturaInicialC: number; limiteTermicoC: number; taxaDanoPorSegundo: number; }&gt;[]; energiaArmazenadaJ: number; energiaIncidenteJ: number; energiaGeradaJ: number; energiaConducaoExternaJ: number; energiaContatoJ: number; energiaRadiadaJ: number; energiaConveccaoJ: number; residuoEnergiaJ: number; potenciaIncidenteW: number; potenciaRadiadaW: number; potenciaConveccaoW: number; conducoes: readonly Readonly&lt;{ energiaJ: number; potenciaW: number; a: string; b: string; condutanciaWPorC: number; condutanciaSemProtecaoWPorC: number; }&gt;[]; }&gt;; flaps: Readonly&lt;{ revisao: "RE-004-r1"; regioes: readonly Readonly&lt;{ capacidadeJPorC: number; causa: `temperatura&gt;${number} \u00B0C em ${string}` &#124; null; temperaturaC: number; integridade: number; energiaConduzidaJ: number; id: string; material: string; massaTermicaKg: number; calorEspecificoJPorKgC: number; areaExpostaM2: number; emissividade: number; temperaturaInicialC: number; limiteTermicoC: number; taxaDanoPorSegundo: number; }&gt;[]; energiaArmazenadaJ: number; energiaIncidenteJ: number; energiaGeradaJ: number; energiaConducaoExternaJ: number; energiaContatoJ: number; energiaRadiadaJ: number; energiaConveccaoJ: number; residuoEnergiaJ: number; potenciaIncidenteW: number; potenciaRadiadaW: number; potenciaConveccaoW: number; conducoes: readonly Readonly&lt;{ energiaJ: number; potenciaW: number; a: string; b: string; condutanciaWPorC: number; condutanciaSemProtecaoWPorC: number; }&gt;[]; }&gt;[]; bateria: Readonly&lt;{ revisao: "RE-004-r1"; regioes: readonly Readonly&lt;{ capacidadeJPorC: number; causa: `temperatura&gt;${number} \u00B0C em ${string}` &#124; null; temperaturaC: number; integridade: number; energiaConduzidaJ: number; id: string; material: string; massaTermicaKg: number; calorEspecificoJPorKgC: number; areaExpostaM2: number; emissividade: number; temperaturaInicialC: number; limiteTermicoC: number; taxaDanoPorSegundo: number; }&gt;[]; energiaArmazenadaJ: number; energiaIncidenteJ: number; energiaGeradaJ: number; energiaConducaoExternaJ: number; energiaContatoJ: number; energiaRadiadaJ: number; energiaConveccaoJ: number; residuoEnergiaJ: number; potenciaIncidenteW: number; potenciaRadiadaW: number; potenciaConveccaoW: number; conducoes: readonly Readonly&lt;{ energiaJ: number; potenciaW: number; a: string; b: string; condutanciaWPorC: number; condutanciaSemProtecaoWPorC: number; }&gt;[]; }&gt;; temperaturaLegadaSignifica: string; energiaAtmosferaLegadaSignifica: string; } &#124; undefined; id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "aproximacao" &#124; "reentrada" &#124; "falha"; automatico: boolean; candidatoCinematico: boolean; autorizado: boolean; requisitos: readonly Readonly&lt;RequisitoAproximacao&gt;[]; limites: ConfiguracaoFronteiraAproximacao; avaliacao: Readonly&lt;{ candidatoCinematico: boolean; autorizado: boolean; distanciaRestanteM: number &#124; null; energiaMecanicaEspecificaJPorKg: number; natureza: "limites-necessarios-ideais-nao-trajetoria-certificada"; hipoteses: readonly Readonly&lt;{ aceleracaoLiquidaMps2: number; distanciaFrenagemM: number; quedaFrenagemRadialM: number; tempoFrenagemS: number; velocidadeLimiteNecessariaMps: number &#124; null; desvioVelocidadeMps: number &#124; null; limitesNecessariosAtendidos: boolean; }&gt;[]; requisitos: readonly Readonly&lt;RequisitoAproximacao&gt;[]; }&gt; &#124; null; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { cargasEfetivamenteIntegradas: { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } &#124; null; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; }&gt;</code> |
 | Responsabilidade | Fábrica pública de ensaio registrável, sem relógio, DOM ou escrita externa. |
 | Entradas | <code>configuracao: EntradaConfiguracaoReentrada = {}</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4929,7 +5120,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/cenarios/EnsaioReentrada.ts::reproduzirEnsaioReentrada:FunctionDeclaration</code> · [fonte L628](../../src/cenarios/EnsaioReentrada.ts#L628) |
+| Identificador | <code>src/cenarios/EnsaioReentrada.ts::reproduzirEnsaioReentrada:FunctionDeclaration</code> · [fonte L660](../../src/cenarios/EnsaioReentrada.ts#L660) |
 | Assinatura | <code>export (diario: DiarioReentrada): RegistroMissao&lt;ComandoReentrada, { temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; respostaTermica: { energiaAbsorvidaCorpoJ: number; modelo: string; tetoUniversal: boolean; potenciaIndicadorCorpoW: number; potenciaTransferidaCorpoW: number; tpsInstalado: boolean; camadasInternasModeladas: boolean; }; estadosTerminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; integridadeMecanismo?: number &#124; undefined; }; knudsenEstimado: number; modeloEscoamento: string; }[]; vinculos: { id: string; estado: "integro" &#124; "rompido" &#124; "liberado"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; termica?: Readonly&lt;{ modelo: "condutancia-conservativa" &#124; "temperatura-media-legada"; temperaturaC: number; energiaConduzidaJ: number; potenciaConduzidaW: number; portas: Readonly&lt;{ regiaoA: string; regiaoB: string; }&gt; &#124; undefined; }&gt; &#124; undefined; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; termica?: { revisao: string; perfil: PerfilTermicoReentrada; corpo: Readonly&lt;{ revisao: "RE-004-r1"; regioes: readonly Readonly&lt;{ capacidadeJPorC: number; causa: `temperatura&gt;${number} \u00B0C em ${string}` &#124; null; temperaturaC: number; integridade: number; energiaConduzidaJ: number; id: string; material: string; massaTermicaKg: number; calorEspecificoJPorKgC: number; areaExpostaM2: number; emissividade: number; temperaturaInicialC: number; limiteTermicoC: number; taxaDanoPorSegundo: number; }&gt;[]; energiaArmazenadaJ: number; energiaIncidenteJ: number; energiaGeradaJ: number; energiaConducaoExternaJ: number; energiaContatoJ: number; energiaRadiadaJ: number; energiaConveccaoJ: number; residuoEnergiaJ: number; potenciaIncidenteW: number; potenciaRadiadaW: number; potenciaConveccaoW: number; conducoes: readonly Readonly&lt;{ energiaJ: number; potenciaW: number; a: string; b: string; condutanciaWPorC: number; condutanciaSemProtecaoWPorC: number; }&gt;[]; }&gt;; flaps: Readonly&lt;{ revisao: "RE-004-r1"; regioes: readonly Readonly&lt;{ capacidadeJPorC: number; causa: `temperatura&gt;${number} \u00B0C em ${string}` &#124; null; temperaturaC: number; integridade: number; energiaConduzidaJ: number; id: string; material: string; massaTermicaKg: number; calorEspecificoJPorKgC: number; areaExpostaM2: number; emissividade: number; temperaturaInicialC: number; limiteTermicoC: number; taxaDanoPorSegundo: number; }&gt;[]; energiaArmazenadaJ: number; energiaIncidenteJ: number; energiaGeradaJ: number; energiaConducaoExternaJ: number; energiaContatoJ: number; energiaRadiadaJ: number; energiaConveccaoJ: number; residuoEnergiaJ: number; potenciaIncidenteW: number; potenciaRadiadaW: number; potenciaConveccaoW: number; conducoes: readonly Readonly&lt;{ energiaJ: number; potenciaW: number; a: string; b: string; condutanciaWPorC: number; condutanciaSemProtecaoWPorC: number; }&gt;[]; }&gt;[]; bateria: Readonly&lt;{ revisao: "RE-004-r1"; regioes: readonly Readonly&lt;{ capacidadeJPorC: number; causa: `temperatura&gt;${number} \u00B0C em ${string}` &#124; null; temperaturaC: number; integridade: number; energiaConduzidaJ: number; id: string; material: string; massaTermicaKg: number; calorEspecificoJPorKgC: number; areaExpostaM2: number; emissividade: number; temperaturaInicialC: number; limiteTermicoC: number; taxaDanoPorSegundo: number; }&gt;[]; energiaArmazenadaJ: number; energiaIncidenteJ: number; energiaGeradaJ: number; energiaConducaoExternaJ: number; energiaContatoJ: number; energiaRadiadaJ: number; energiaConveccaoJ: number; residuoEnergiaJ: number; potenciaIncidenteW: number; potenciaRadiadaW: number; potenciaConveccaoW: number; conducoes: readonly Readonly&lt;{ energiaJ: number; potenciaW: number; a: string; b: string; condutanciaWPorC: number; condutanciaSemProtecaoWPorC: number; }&gt;[]; }&gt;; temperaturaLegadaSignifica: string; energiaAtmosferaLegadaSignifica: string; } &#124; undefined; id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record&lt;string, FaixaTemporal&gt;; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record&lt;string, FaixaTemporal&gt;; } &#124; null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly&lt;{ estrategia: "heuristica-experimental-55-70-graus"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number &#124; null; integridadeMinima: number &#124; null; eficaciaQualificada: false; }&gt; &#124; null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: "aproximacao" &#124; "reentrada" &#124; "falha"; automatico: boolean; candidatoCinematico: boolean; autorizado: boolean; requisitos: readonly Readonly&lt;RequisitoAproximacao&gt;[]; limites: ConfiguracaoFronteiraAproximacao; avaliacao: Readonly&lt;{ candidatoCinematico: boolean; autorizado: boolean; distanciaRestanteM: number &#124; null; energiaMecanicaEspecificaJPorKg: number; natureza: "limites-necessarios-ideais-nao-trajetoria-certificada"; hipoteses: readonly Readonly&lt;{ aceleracaoLiquidaMps2: number; distanciaFrenagemM: number; quedaFrenagemRadialM: number; tempoFrenagemS: number; velocidadeLimiteNecessariaMps: number &#124; null; desvioVelocidadeMps: number &#124; null; limitesNecessariosAtendidos: boolean; }&gt;[]; requisitos: readonly Readonly&lt;RequisitoAproximacao&gt;[]; }&gt; &#124; null; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { cargasEfetivamenteIntegradas: { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } &#124; null; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; }&gt;</code> |
 | Responsabilidade | Seleciona revisão térmica explícita do diário, preservando RE-003 sem rede. Reexecuta agenda no mesmo modelo/runtime; rejeita revisão, entradas e resultados divergentes. Pausa/exportação não reproduzem relógio real. O custo é proporcional ao número de passos físicos do diário; chamada síncrona headless. |
 | Entradas | <code>diario: DiarioReentrada</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
@@ -4944,7 +5135,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-36"></a>
+<a id="modulo-40"></a>
 ## src/cenarios/ReproducaoDiarioBss005.ts
 
 <a id="f-8eaee0207c980ead"></a>
@@ -5100,7 +5291,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-37"></a>
+<a id="modulo-41"></a>
 ## src/missoes/AmbienteAmerissagem.ts
 
 <a id="f-f44552b345a6763f"></a>
@@ -5123,7 +5314,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-38"></a>
+<a id="modulo-42"></a>
 ## src/missoes/AmbienteLancamento.ts
 
 <a id="f-8091c7d8f7b297f8"></a>
@@ -5146,7 +5337,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-39"></a>
+<a id="modulo-43"></a>
 ## src/missoes/CicloMissao.ts
 
 <a id="f-b04eae8408c853c9"></a>
@@ -5245,7 +5436,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-40"></a>
+<a id="modulo-44"></a>
 ## src/missoes/ContratoMissao.ts
 
 <a id="f-2f9e0038be674f24"></a>
@@ -5382,7 +5573,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-41"></a>
+<a id="modulo-45"></a>
 ## src/missoes/EnsaioAmerissagem.ts
 
 <a id="f-12deb531d4750ffb"></a>
@@ -5405,7 +5596,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-42"></a>
+<a id="modulo-46"></a>
 ## src/missoes/ExecutorMissao.ts
 
 <a id="f-4fb79278b0d3fc06"></a>
@@ -5428,7 +5619,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-43"></a>
+<a id="modulo-47"></a>
 ## src/missoes/MissaoBss006.ts
 
 <a id="f-3193da7b000083f4"></a>
@@ -5698,7 +5889,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-44"></a>
+<a id="modulo-48"></a>
 ## src/missoes/ObservacaoAmerissagem.ts
 
 <a id="f-1b2d123e0fbf8914"></a>
@@ -5740,7 +5931,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-45"></a>
+<a id="modulo-49"></a>
 ## src/missoes/RegistroExtremos.ts
 
 <a id="f-a127d9dc71e4e4e5"></a>
@@ -5801,7 +5992,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-46"></a>
+<a id="modulo-50"></a>
 ## src/missoes/RegistroMissao.ts
 
 <a id="f-4554d825e0078446"></a>
@@ -6052,7 +6243,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-47"></a>
+<a id="modulo-51"></a>
 ## src/missoes/ReplayMissaoBss006.ts
 
 <a id="f-8da6d56d70ab70fd"></a>
@@ -6189,7 +6380,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-48"></a>
+<a id="modulo-52"></a>
 ## src/missoes/SnapshotMissao.ts
 
 <a id="f-738b80ed4008a5b6"></a>
@@ -6212,7 +6403,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-49"></a>
+<a id="modulo-53"></a>
 ## src/orbitas.ts
 
 <a id="f-16848ec4b453ff12"></a>
@@ -6273,7 +6464,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-50"></a>
+<a id="modulo-54"></a>
 ## src/physics/MundoFisico.ts
 
 <a id="f-518ff75ab4b7f057"></a>
@@ -7341,7 +7532,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-51"></a>
+<a id="modulo-55"></a>
 ## src/physics/SistemaOperacional.ts
 
 <a id="f-d90f25d253e2ab58"></a>
@@ -7478,7 +7669,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-52"></a>
+<a id="modulo-56"></a>
 ## src/physics/SuperficieCosteira.ts
 
 <a id="f-6f0395858ebb9ab5"></a>
@@ -7615,7 +7806,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-53"></a>
+<a id="modulo-57"></a>
 ## src/physics/SuperficieEsferica.ts
 
 <a id="f-9eac1149d1a4ca7a"></a>
@@ -7714,7 +7905,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-54"></a>
+<a id="modulo-58"></a>
 ## src/physics/SuperficieFisica.ts
 
 <a id="f-de0f9204a43fbad4"></a>
@@ -7946,7 +8137,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-55"></a>
+<a id="modulo-59"></a>
 ## src/physics/SuperficiePlano.ts
 
 <a id="f-e05668c4d2d10883"></a>
@@ -8026,7 +8217,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-56"></a>
+<a id="modulo-60"></a>
 ## src/physics/SuperficiePlanoLocal.ts
 
 <a id="f-0b7412a4b180e52d"></a>
@@ -8144,7 +8335,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-57"></a>
+<a id="modulo-61"></a>
 ## src/physics/Vetor3.ts
 
 <a id="f-74cb96218f91335f"></a>
@@ -8160,7 +8351,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.x</code>; <code>this.y</code>; <code>this.z</code>; <code>this.#modulo</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(x) &#124;&#124; !Number.isFinite(y) &#124;&#124; !Number.isFinite(z)</code>; exceções: <code>new Error('Componentes de Vetor3 devem ser números finitos.')</code> |
-| Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/BancadaBssCentral.test.ts](../../src/cenarios/BancadaBssCentral.test.ts); [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/cenarios/EnsaioMissaoBss005.test.ts](../../src/cenarios/EnsaioMissaoBss005.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/missoes/ReferenciaBancadaM10.test.ts](../../src/missoes/ReferenciaBancadaM10.test.ts); [src/physics/DesempenhoFisico.test.ts](../../src/physics/DesempenhoFisico.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/CampoGravitacional.test.ts](../../src/physics/ambiente/CampoGravitacional.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/cenarios/ConjuntoPortaBatente.test.ts](../../src/physics/cenarios/ConjuntoPortaBatente.test.ts); [src/physics/cenarios/EnsaioPortaVertical.test.ts](../../src/physics/cenarios/EnsaioPortaVertical.test.ts); [src/physics/cenarios/TravaPorta.test.ts](../../src/physics/cenarios/TravaPorta.test.ts); [src/physics/conexoes/ConexaoEletrica.test.ts](../../src/physics/conexoes/ConexaoEletrica.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/base/Objeto.test.ts](../../src/physics/objetos/base/Objeto.test.ts); [src/physics/objetos/componentes/AletaAerodinamica.test.ts](../../src/physics/objetos/componentes/AletaAerodinamica.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/Bateria.test.ts](../../src/physics/objetos/fontes-de-energia/Bateria.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/fontes-de-energia/PainelSolar.test.ts](../../src/physics/objetos/fontes-de-energia/PainelSolar.test.ts); [src/physics/objetos/propulsao/CadeiaPropulsao.test.ts](../../src/physics/objetos/propulsao/CadeiaPropulsao.test.ts); [src/physics/objetos/propulsao/PropulsaoQuimica.test.ts](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03.test.ts](../../src/physics/objetos/veiculos/Bss03.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts); [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.test.ts](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorDesaceleracao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracao.test.ts); [src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDescidaFuzzyPidDePropulsores.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/sistemas de controle/ControladorPouso.test.ts](../../src/physics/sistemas%20de%20controle/ControladorPouso.test.ts); [src/physics/sistemas de controle/ControladoresDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladoresDePropulsores.test.ts); [src/physics/sistemas de controle/GerenciadorDeControladores.test.ts](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/physics/termica/RedeTermica.test.ts](../../src/physics/termica/RedeTermica.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/visualizacao/ConexoesEletricas.test.ts](../../src/visualizacao/ConexoesEletricas.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/BancadaBssCentral.test.ts](../../src/cenarios/BancadaBssCentral.test.ts); [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/cenarios/EnsaioMissaoBss005.test.ts](../../src/cenarios/EnsaioMissaoBss005.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/missoes/ReferenciaBancadaM10.test.ts](../../src/missoes/ReferenciaBancadaM10.test.ts); [src/physics/DesempenhoFisico.test.ts](../../src/physics/DesempenhoFisico.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/CampoGravitacional.test.ts](../../src/physics/ambiente/CampoGravitacional.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/cenarios/ConjuntoPortaBatente.test.ts](../../src/physics/cenarios/ConjuntoPortaBatente.test.ts); [src/physics/cenarios/EnsaioPortaVertical.test.ts](../../src/physics/cenarios/EnsaioPortaVertical.test.ts); [src/physics/cenarios/TravaPorta.test.ts](../../src/physics/cenarios/TravaPorta.test.ts); [src/physics/conexoes/ConexaoEletrica.test.ts](../../src/physics/conexoes/ConexaoEletrica.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/base/Objeto.test.ts](../../src/physics/objetos/base/Objeto.test.ts); [src/physics/objetos/componentes/AletaAerodinamica.test.ts](../../src/physics/objetos/componentes/AletaAerodinamica.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/Bateria.test.ts](../../src/physics/objetos/fontes-de-energia/Bateria.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/fontes-de-energia/PainelSolar.test.ts](../../src/physics/objetos/fontes-de-energia/PainelSolar.test.ts); [src/physics/objetos/propulsao/CadeiaPropulsao.test.ts](../../src/physics/objetos/propulsao/CadeiaPropulsao.test.ts); [src/physics/objetos/propulsao/PropulsaoQuimica.test.ts](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03.test.ts](../../src/physics/objetos/veiculos/Bss03.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts); [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.test.ts](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorAproximacao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.test.ts); [src/physics/sistemas de controle/ControladorDesaceleracao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracao.test.ts); [src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDescidaFuzzyPidDePropulsores.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/sistemas de controle/ControladorPouso.test.ts](../../src/physics/sistemas%20de%20controle/ControladorPouso.test.ts); [src/physics/sistemas de controle/ControladoresDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladoresDePropulsores.test.ts); [src/physics/sistemas de controle/GerenciadorDeControladores.test.ts](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/physics/termica/RedeTermica.test.ts](../../src/physics/termica/RedeTermica.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/visualizacao/ConexoesEletricas.test.ts](../../src/visualizacao/ConexoesEletricas.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Verificada (revisão explicitamente registrada) |
 | JSDoc integral | /** Constrói um vetor de três componentes finitas, sem vincular unidade à álgebra; rejeita NaN/Infinity. @contract f-74cb96218f91335f @reviewed M12-DOC: implementação lida. */ |
 
@@ -8179,7 +8370,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/BancadaBssCentral.test.ts](../../src/cenarios/BancadaBssCentral.test.ts); [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/cenarios/EnsaioMissaoBss005.test.ts](../../src/cenarios/EnsaioMissaoBss005.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/missoes/ReferenciaBancadaM10.test.ts](../../src/missoes/ReferenciaBancadaM10.test.ts); [src/physics/DesempenhoFisico.test.ts](../../src/physics/DesempenhoFisico.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/CampoGravitacional.test.ts](../../src/physics/ambiente/CampoGravitacional.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/cenarios/ConjuntoPortaBatente.test.ts](../../src/physics/cenarios/ConjuntoPortaBatente.test.ts); [src/physics/cenarios/EnsaioPortaVertical.test.ts](../../src/physics/cenarios/EnsaioPortaVertical.test.ts); [src/physics/cenarios/TravaPorta.test.ts](../../src/physics/cenarios/TravaPorta.test.ts); [src/physics/conexoes/ConexaoEletrica.test.ts](../../src/physics/conexoes/ConexaoEletrica.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/base/Objeto.test.ts](../../src/physics/objetos/base/Objeto.test.ts); [src/physics/objetos/componentes/AletaAerodinamica.test.ts](../../src/physics/objetos/componentes/AletaAerodinamica.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/Bateria.test.ts](../../src/physics/objetos/fontes-de-energia/Bateria.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/fontes-de-energia/PainelSolar.test.ts](../../src/physics/objetos/fontes-de-energia/PainelSolar.test.ts); [src/physics/objetos/propulsao/CadeiaPropulsao.test.ts](../../src/physics/objetos/propulsao/CadeiaPropulsao.test.ts); [src/physics/objetos/propulsao/PropulsaoQuimica.test.ts](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03.test.ts](../../src/physics/objetos/veiculos/Bss03.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts); [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.test.ts](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorDesaceleracao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracao.test.ts); [src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDescidaFuzzyPidDePropulsores.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/sistemas de controle/ControladorPouso.test.ts](../../src/physics/sistemas%20de%20controle/ControladorPouso.test.ts); [src/physics/sistemas de controle/ControladoresDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladoresDePropulsores.test.ts); [src/physics/sistemas de controle/GerenciadorDeControladores.test.ts](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/physics/termica/RedeTermica.test.ts](../../src/physics/termica/RedeTermica.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/visualizacao/ConexoesEletricas.test.ts](../../src/visualizacao/ConexoesEletricas.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/BancadaBssCentral.test.ts](../../src/cenarios/BancadaBssCentral.test.ts); [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/cenarios/EnsaioMissaoBss005.test.ts](../../src/cenarios/EnsaioMissaoBss005.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/missoes/ReferenciaBancadaM10.test.ts](../../src/missoes/ReferenciaBancadaM10.test.ts); [src/physics/DesempenhoFisico.test.ts](../../src/physics/DesempenhoFisico.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/CampoGravitacional.test.ts](../../src/physics/ambiente/CampoGravitacional.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/cenarios/ConjuntoPortaBatente.test.ts](../../src/physics/cenarios/ConjuntoPortaBatente.test.ts); [src/physics/cenarios/EnsaioPortaVertical.test.ts](../../src/physics/cenarios/EnsaioPortaVertical.test.ts); [src/physics/cenarios/TravaPorta.test.ts](../../src/physics/cenarios/TravaPorta.test.ts); [src/physics/conexoes/ConexaoEletrica.test.ts](../../src/physics/conexoes/ConexaoEletrica.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/base/Objeto.test.ts](../../src/physics/objetos/base/Objeto.test.ts); [src/physics/objetos/componentes/AletaAerodinamica.test.ts](../../src/physics/objetos/componentes/AletaAerodinamica.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/Bateria.test.ts](../../src/physics/objetos/fontes-de-energia/Bateria.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/fontes-de-energia/PainelSolar.test.ts](../../src/physics/objetos/fontes-de-energia/PainelSolar.test.ts); [src/physics/objetos/propulsao/CadeiaPropulsao.test.ts](../../src/physics/objetos/propulsao/CadeiaPropulsao.test.ts); [src/physics/objetos/propulsao/PropulsaoQuimica.test.ts](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03.test.ts](../../src/physics/objetos/veiculos/Bss03.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts); [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.test.ts](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorAproximacao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.test.ts); [src/physics/sistemas de controle/ControladorDesaceleracao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracao.test.ts); [src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDescidaFuzzyPidDePropulsores.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/sistemas de controle/ControladorPouso.test.ts](../../src/physics/sistemas%20de%20controle/ControladorPouso.test.ts); [src/physics/sistemas de controle/ControladoresDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladoresDePropulsores.test.ts); [src/physics/sistemas de controle/GerenciadorDeControladores.test.ts](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/physics/termica/RedeTermica.test.ts](../../src/physics/termica/RedeTermica.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/visualizacao/ConexoesEletricas.test.ts](../../src/visualizacao/ConexoesEletricas.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Verificada (revisão explicitamente registrada) |
 | JSDoc integral | /** Soma componentes correspondentes e devolve novo vetor; preserva os dois operandos. @contract f-398d35f0224d6119 @reviewed M12-DOC: implementação lida. */ |
 
@@ -8198,7 +8389,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/BancadaBssCentral.test.ts](../../src/cenarios/BancadaBssCentral.test.ts); [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/cenarios/EnsaioMissaoBss005.test.ts](../../src/cenarios/EnsaioMissaoBss005.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/missoes/ReferenciaBancadaM10.test.ts](../../src/missoes/ReferenciaBancadaM10.test.ts); [src/physics/DesempenhoFisico.test.ts](../../src/physics/DesempenhoFisico.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/CampoGravitacional.test.ts](../../src/physics/ambiente/CampoGravitacional.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/cenarios/ConjuntoPortaBatente.test.ts](../../src/physics/cenarios/ConjuntoPortaBatente.test.ts); [src/physics/cenarios/EnsaioPortaVertical.test.ts](../../src/physics/cenarios/EnsaioPortaVertical.test.ts); [src/physics/cenarios/TravaPorta.test.ts](../../src/physics/cenarios/TravaPorta.test.ts); [src/physics/conexoes/ConexaoEletrica.test.ts](../../src/physics/conexoes/ConexaoEletrica.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/base/Objeto.test.ts](../../src/physics/objetos/base/Objeto.test.ts); [src/physics/objetos/componentes/AletaAerodinamica.test.ts](../../src/physics/objetos/componentes/AletaAerodinamica.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/Bateria.test.ts](../../src/physics/objetos/fontes-de-energia/Bateria.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/fontes-de-energia/PainelSolar.test.ts](../../src/physics/objetos/fontes-de-energia/PainelSolar.test.ts); [src/physics/objetos/propulsao/CadeiaPropulsao.test.ts](../../src/physics/objetos/propulsao/CadeiaPropulsao.test.ts); [src/physics/objetos/propulsao/PropulsaoQuimica.test.ts](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03.test.ts](../../src/physics/objetos/veiculos/Bss03.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts); [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.test.ts](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorDesaceleracao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracao.test.ts); [src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDescidaFuzzyPidDePropulsores.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/sistemas de controle/ControladorPouso.test.ts](../../src/physics/sistemas%20de%20controle/ControladorPouso.test.ts); [src/physics/sistemas de controle/ControladoresDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladoresDePropulsores.test.ts); [src/physics/sistemas de controle/GerenciadorDeControladores.test.ts](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/physics/termica/RedeTermica.test.ts](../../src/physics/termica/RedeTermica.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/visualizacao/ConexoesEletricas.test.ts](../../src/visualizacao/ConexoesEletricas.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/BancadaBssCentral.test.ts](../../src/cenarios/BancadaBssCentral.test.ts); [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/cenarios/EnsaioMissaoBss005.test.ts](../../src/cenarios/EnsaioMissaoBss005.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/missoes/ReferenciaBancadaM10.test.ts](../../src/missoes/ReferenciaBancadaM10.test.ts); [src/physics/DesempenhoFisico.test.ts](../../src/physics/DesempenhoFisico.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/CampoGravitacional.test.ts](../../src/physics/ambiente/CampoGravitacional.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/cenarios/ConjuntoPortaBatente.test.ts](../../src/physics/cenarios/ConjuntoPortaBatente.test.ts); [src/physics/cenarios/EnsaioPortaVertical.test.ts](../../src/physics/cenarios/EnsaioPortaVertical.test.ts); [src/physics/cenarios/TravaPorta.test.ts](../../src/physics/cenarios/TravaPorta.test.ts); [src/physics/conexoes/ConexaoEletrica.test.ts](../../src/physics/conexoes/ConexaoEletrica.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/base/Objeto.test.ts](../../src/physics/objetos/base/Objeto.test.ts); [src/physics/objetos/componentes/AletaAerodinamica.test.ts](../../src/physics/objetos/componentes/AletaAerodinamica.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/Bateria.test.ts](../../src/physics/objetos/fontes-de-energia/Bateria.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/fontes-de-energia/PainelSolar.test.ts](../../src/physics/objetos/fontes-de-energia/PainelSolar.test.ts); [src/physics/objetos/propulsao/CadeiaPropulsao.test.ts](../../src/physics/objetos/propulsao/CadeiaPropulsao.test.ts); [src/physics/objetos/propulsao/PropulsaoQuimica.test.ts](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03.test.ts](../../src/physics/objetos/veiculos/Bss03.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts); [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.test.ts](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorAproximacao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.test.ts); [src/physics/sistemas de controle/ControladorDesaceleracao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracao.test.ts); [src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDescidaFuzzyPidDePropulsores.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/sistemas de controle/ControladorPouso.test.ts](../../src/physics/sistemas%20de%20controle/ControladorPouso.test.ts); [src/physics/sistemas de controle/ControladoresDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladoresDePropulsores.test.ts); [src/physics/sistemas de controle/GerenciadorDeControladores.test.ts](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/physics/termica/RedeTermica.test.ts](../../src/physics/termica/RedeTermica.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/visualizacao/ConexoesEletricas.test.ts](../../src/visualizacao/ConexoesEletricas.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Verificada (revisão explicitamente registrada) |
 | JSDoc integral | /** Subtrai componentes correspondentes e devolve novo vetor; preserva os operandos. @contract f-875994508ec8fe68 @reviewed M12-DOC: implementação lida. */ |
 
@@ -8217,7 +8408,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code>; <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(escalar)</code>; exceções: <code>new Error('Escalar deve ser finito.')</code> |
-| Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/BancadaBssCentral.test.ts](../../src/cenarios/BancadaBssCentral.test.ts); [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/cenarios/EnsaioMissaoBss005.test.ts](../../src/cenarios/EnsaioMissaoBss005.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/missoes/ReferenciaBancadaM10.test.ts](../../src/missoes/ReferenciaBancadaM10.test.ts); [src/physics/DesempenhoFisico.test.ts](../../src/physics/DesempenhoFisico.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/CampoGravitacional.test.ts](../../src/physics/ambiente/CampoGravitacional.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/cenarios/ConjuntoPortaBatente.test.ts](../../src/physics/cenarios/ConjuntoPortaBatente.test.ts); [src/physics/cenarios/EnsaioPortaVertical.test.ts](../../src/physics/cenarios/EnsaioPortaVertical.test.ts); [src/physics/cenarios/TravaPorta.test.ts](../../src/physics/cenarios/TravaPorta.test.ts); [src/physics/conexoes/ConexaoEletrica.test.ts](../../src/physics/conexoes/ConexaoEletrica.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/base/Objeto.test.ts](../../src/physics/objetos/base/Objeto.test.ts); [src/physics/objetos/componentes/AletaAerodinamica.test.ts](../../src/physics/objetos/componentes/AletaAerodinamica.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/Bateria.test.ts](../../src/physics/objetos/fontes-de-energia/Bateria.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/fontes-de-energia/PainelSolar.test.ts](../../src/physics/objetos/fontes-de-energia/PainelSolar.test.ts); [src/physics/objetos/propulsao/CadeiaPropulsao.test.ts](../../src/physics/objetos/propulsao/CadeiaPropulsao.test.ts); [src/physics/objetos/propulsao/PropulsaoQuimica.test.ts](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03.test.ts](../../src/physics/objetos/veiculos/Bss03.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts); [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.test.ts](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorDesaceleracao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracao.test.ts); [src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDescidaFuzzyPidDePropulsores.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/sistemas de controle/ControladorPouso.test.ts](../../src/physics/sistemas%20de%20controle/ControladorPouso.test.ts); [src/physics/sistemas de controle/ControladoresDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladoresDePropulsores.test.ts); [src/physics/sistemas de controle/GerenciadorDeControladores.test.ts](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/physics/termica/RedeTermica.test.ts](../../src/physics/termica/RedeTermica.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/visualizacao/ConexoesEletricas.test.ts](../../src/visualizacao/ConexoesEletricas.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/BancadaBssCentral.test.ts](../../src/cenarios/BancadaBssCentral.test.ts); [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/cenarios/EnsaioMissaoBss005.test.ts](../../src/cenarios/EnsaioMissaoBss005.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/missoes/ReferenciaBancadaM10.test.ts](../../src/missoes/ReferenciaBancadaM10.test.ts); [src/physics/DesempenhoFisico.test.ts](../../src/physics/DesempenhoFisico.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/CampoGravitacional.test.ts](../../src/physics/ambiente/CampoGravitacional.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/cenarios/ConjuntoPortaBatente.test.ts](../../src/physics/cenarios/ConjuntoPortaBatente.test.ts); [src/physics/cenarios/EnsaioPortaVertical.test.ts](../../src/physics/cenarios/EnsaioPortaVertical.test.ts); [src/physics/cenarios/TravaPorta.test.ts](../../src/physics/cenarios/TravaPorta.test.ts); [src/physics/conexoes/ConexaoEletrica.test.ts](../../src/physics/conexoes/ConexaoEletrica.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/base/Objeto.test.ts](../../src/physics/objetos/base/Objeto.test.ts); [src/physics/objetos/componentes/AletaAerodinamica.test.ts](../../src/physics/objetos/componentes/AletaAerodinamica.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/Bateria.test.ts](../../src/physics/objetos/fontes-de-energia/Bateria.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/fontes-de-energia/PainelSolar.test.ts](../../src/physics/objetos/fontes-de-energia/PainelSolar.test.ts); [src/physics/objetos/propulsao/CadeiaPropulsao.test.ts](../../src/physics/objetos/propulsao/CadeiaPropulsao.test.ts); [src/physics/objetos/propulsao/PropulsaoQuimica.test.ts](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03.test.ts](../../src/physics/objetos/veiculos/Bss03.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts); [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.test.ts](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorAproximacao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.test.ts); [src/physics/sistemas de controle/ControladorDesaceleracao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracao.test.ts); [src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDescidaFuzzyPidDePropulsores.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/sistemas de controle/ControladorPouso.test.ts](../../src/physics/sistemas%20de%20controle/ControladorPouso.test.ts); [src/physics/sistemas de controle/ControladoresDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladoresDePropulsores.test.ts); [src/physics/sistemas de controle/GerenciadorDeControladores.test.ts](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/physics/termica/RedeTermica.test.ts](../../src/physics/termica/RedeTermica.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/visualizacao/ConexoesEletricas.test.ts](../../src/visualizacao/ConexoesEletricas.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Verificada (revisão explicitamente registrada) |
 | JSDoc integral | /** Escala cada componente por um escalar finito e devolve novo vetor; rejeita escalar não finito. @contract f-8ac3b8b224d1a12b @reviewed M12-DOC: implementação lida. */ |
 
@@ -8236,7 +8427,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Vetor3</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/BancadaBssCentral.test.ts](../../src/cenarios/BancadaBssCentral.test.ts); [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/cenarios/EnsaioMissaoBss005.test.ts](../../src/cenarios/EnsaioMissaoBss005.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/missoes/ReferenciaBancadaM10.test.ts](../../src/missoes/ReferenciaBancadaM10.test.ts); [src/physics/DesempenhoFisico.test.ts](../../src/physics/DesempenhoFisico.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/CampoGravitacional.test.ts](../../src/physics/ambiente/CampoGravitacional.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/cenarios/ConjuntoPortaBatente.test.ts](../../src/physics/cenarios/ConjuntoPortaBatente.test.ts); [src/physics/cenarios/EnsaioPortaVertical.test.ts](../../src/physics/cenarios/EnsaioPortaVertical.test.ts); [src/physics/cenarios/TravaPorta.test.ts](../../src/physics/cenarios/TravaPorta.test.ts); [src/physics/conexoes/ConexaoEletrica.test.ts](../../src/physics/conexoes/ConexaoEletrica.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/base/Objeto.test.ts](../../src/physics/objetos/base/Objeto.test.ts); [src/physics/objetos/componentes/AletaAerodinamica.test.ts](../../src/physics/objetos/componentes/AletaAerodinamica.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/Bateria.test.ts](../../src/physics/objetos/fontes-de-energia/Bateria.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/fontes-de-energia/PainelSolar.test.ts](../../src/physics/objetos/fontes-de-energia/PainelSolar.test.ts); [src/physics/objetos/propulsao/CadeiaPropulsao.test.ts](../../src/physics/objetos/propulsao/CadeiaPropulsao.test.ts); [src/physics/objetos/propulsao/PropulsaoQuimica.test.ts](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03.test.ts](../../src/physics/objetos/veiculos/Bss03.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts); [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.test.ts](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorDesaceleracao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracao.test.ts); [src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDescidaFuzzyPidDePropulsores.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/sistemas de controle/ControladorPouso.test.ts](../../src/physics/sistemas%20de%20controle/ControladorPouso.test.ts); [src/physics/sistemas de controle/ControladoresDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladoresDePropulsores.test.ts); [src/physics/sistemas de controle/GerenciadorDeControladores.test.ts](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/physics/termica/RedeTermica.test.ts](../../src/physics/termica/RedeTermica.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/visualizacao/ConexoesEletricas.test.ts](../../src/visualizacao/ConexoesEletricas.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/BancadaBssCentral.test.ts](../../src/cenarios/BancadaBssCentral.test.ts); [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/cenarios/EnsaioMissaoBss005.test.ts](../../src/cenarios/EnsaioMissaoBss005.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/missoes/ReferenciaBancadaM10.test.ts](../../src/missoes/ReferenciaBancadaM10.test.ts); [src/physics/DesempenhoFisico.test.ts](../../src/physics/DesempenhoFisico.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/CampoGravitacional.test.ts](../../src/physics/ambiente/CampoGravitacional.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/cenarios/ConjuntoPortaBatente.test.ts](../../src/physics/cenarios/ConjuntoPortaBatente.test.ts); [src/physics/cenarios/EnsaioPortaVertical.test.ts](../../src/physics/cenarios/EnsaioPortaVertical.test.ts); [src/physics/cenarios/TravaPorta.test.ts](../../src/physics/cenarios/TravaPorta.test.ts); [src/physics/conexoes/ConexaoEletrica.test.ts](../../src/physics/conexoes/ConexaoEletrica.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/base/Objeto.test.ts](../../src/physics/objetos/base/Objeto.test.ts); [src/physics/objetos/componentes/AletaAerodinamica.test.ts](../../src/physics/objetos/componentes/AletaAerodinamica.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/Bateria.test.ts](../../src/physics/objetos/fontes-de-energia/Bateria.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/fontes-de-energia/PainelSolar.test.ts](../../src/physics/objetos/fontes-de-energia/PainelSolar.test.ts); [src/physics/objetos/propulsao/CadeiaPropulsao.test.ts](../../src/physics/objetos/propulsao/CadeiaPropulsao.test.ts); [src/physics/objetos/propulsao/PropulsaoQuimica.test.ts](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03.test.ts](../../src/physics/objetos/veiculos/Bss03.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts); [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.test.ts](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorAproximacao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.test.ts); [src/physics/sistemas de controle/ControladorDesaceleracao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracao.test.ts); [src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDescidaFuzzyPidDePropulsores.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/sistemas de controle/ControladorPouso.test.ts](../../src/physics/sistemas%20de%20controle/ControladorPouso.test.ts); [src/physics/sistemas de controle/ControladoresDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladoresDePropulsores.test.ts); [src/physics/sistemas de controle/GerenciadorDeControladores.test.ts](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/physics/termica/RedeTermica.test.ts](../../src/physics/termica/RedeTermica.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/visualizacao/ConexoesEletricas.test.ts](../../src/visualizacao/ConexoesEletricas.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Verificada (revisão explicitamente registrada) |
 | JSDoc integral | /** Calcula a×b pela regra da mão direita; devolve novo vetor, sem mutação dos operandos. @contract f-d457dfdf5debf072 @reviewed M12-DOC: implementação lida. */ |
 
@@ -8255,7 +8446,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/BancadaBssCentral.test.ts](../../src/cenarios/BancadaBssCentral.test.ts); [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/cenarios/EnsaioMissaoBss005.test.ts](../../src/cenarios/EnsaioMissaoBss005.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/missoes/ReferenciaBancadaM10.test.ts](../../src/missoes/ReferenciaBancadaM10.test.ts); [src/physics/DesempenhoFisico.test.ts](../../src/physics/DesempenhoFisico.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/CampoGravitacional.test.ts](../../src/physics/ambiente/CampoGravitacional.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/cenarios/ConjuntoPortaBatente.test.ts](../../src/physics/cenarios/ConjuntoPortaBatente.test.ts); [src/physics/cenarios/EnsaioPortaVertical.test.ts](../../src/physics/cenarios/EnsaioPortaVertical.test.ts); [src/physics/cenarios/TravaPorta.test.ts](../../src/physics/cenarios/TravaPorta.test.ts); [src/physics/conexoes/ConexaoEletrica.test.ts](../../src/physics/conexoes/ConexaoEletrica.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/base/Objeto.test.ts](../../src/physics/objetos/base/Objeto.test.ts); [src/physics/objetos/componentes/AletaAerodinamica.test.ts](../../src/physics/objetos/componentes/AletaAerodinamica.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/Bateria.test.ts](../../src/physics/objetos/fontes-de-energia/Bateria.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/fontes-de-energia/PainelSolar.test.ts](../../src/physics/objetos/fontes-de-energia/PainelSolar.test.ts); [src/physics/objetos/propulsao/CadeiaPropulsao.test.ts](../../src/physics/objetos/propulsao/CadeiaPropulsao.test.ts); [src/physics/objetos/propulsao/PropulsaoQuimica.test.ts](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03.test.ts](../../src/physics/objetos/veiculos/Bss03.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts); [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.test.ts](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorDesaceleracao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracao.test.ts); [src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDescidaFuzzyPidDePropulsores.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/sistemas de controle/ControladorPouso.test.ts](../../src/physics/sistemas%20de%20controle/ControladorPouso.test.ts); [src/physics/sistemas de controle/ControladoresDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladoresDePropulsores.test.ts); [src/physics/sistemas de controle/GerenciadorDeControladores.test.ts](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/physics/termica/RedeTermica.test.ts](../../src/physics/termica/RedeTermica.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/visualizacao/ConexoesEletricas.test.ts](../../src/visualizacao/ConexoesEletricas.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/BancadaBssCentral.test.ts](../../src/cenarios/BancadaBssCentral.test.ts); [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/cenarios/EnsaioMissaoBss005.test.ts](../../src/cenarios/EnsaioMissaoBss005.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/missoes/ReferenciaBancadaM10.test.ts](../../src/missoes/ReferenciaBancadaM10.test.ts); [src/physics/DesempenhoFisico.test.ts](../../src/physics/DesempenhoFisico.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/CampoGravitacional.test.ts](../../src/physics/ambiente/CampoGravitacional.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/cenarios/ConjuntoPortaBatente.test.ts](../../src/physics/cenarios/ConjuntoPortaBatente.test.ts); [src/physics/cenarios/EnsaioPortaVertical.test.ts](../../src/physics/cenarios/EnsaioPortaVertical.test.ts); [src/physics/cenarios/TravaPorta.test.ts](../../src/physics/cenarios/TravaPorta.test.ts); [src/physics/conexoes/ConexaoEletrica.test.ts](../../src/physics/conexoes/ConexaoEletrica.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/base/Objeto.test.ts](../../src/physics/objetos/base/Objeto.test.ts); [src/physics/objetos/componentes/AletaAerodinamica.test.ts](../../src/physics/objetos/componentes/AletaAerodinamica.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/Bateria.test.ts](../../src/physics/objetos/fontes-de-energia/Bateria.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/fontes-de-energia/PainelSolar.test.ts](../../src/physics/objetos/fontes-de-energia/PainelSolar.test.ts); [src/physics/objetos/propulsao/CadeiaPropulsao.test.ts](../../src/physics/objetos/propulsao/CadeiaPropulsao.test.ts); [src/physics/objetos/propulsao/PropulsaoQuimica.test.ts](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03.test.ts](../../src/physics/objetos/veiculos/Bss03.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts); [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.test.ts](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorAproximacao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.test.ts); [src/physics/sistemas de controle/ControladorDesaceleracao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracao.test.ts); [src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDescidaFuzzyPidDePropulsores.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/sistemas de controle/ControladorPouso.test.ts](../../src/physics/sistemas%20de%20controle/ControladorPouso.test.ts); [src/physics/sistemas de controle/ControladoresDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladoresDePropulsores.test.ts); [src/physics/sistemas de controle/GerenciadorDeControladores.test.ts](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/physics/termica/RedeTermica.test.ts](../../src/physics/termica/RedeTermica.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/visualizacao/ConexoesEletricas.test.ts](../../src/visualizacao/ConexoesEletricas.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Verificada (revisão explicitamente registrada) |
 | JSDoc integral | /** Calcula x₁x₂+y₁y₂+z₁z₂; unidade do resultado é o produto das unidades dos operandos. @contract f-e1f977babcad5453 @reviewed M12-DOC: implementação lida. */ |
 
@@ -8274,14 +8465,14 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.#modulo</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: <code>Math.hypot</code> |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/BancadaBssCentral.test.ts](../../src/cenarios/BancadaBssCentral.test.ts); [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/cenarios/EnsaioMissaoBss005.test.ts](../../src/cenarios/EnsaioMissaoBss005.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/missoes/ReferenciaBancadaM10.test.ts](../../src/missoes/ReferenciaBancadaM10.test.ts); [src/physics/DesempenhoFisico.test.ts](../../src/physics/DesempenhoFisico.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/CampoGravitacional.test.ts](../../src/physics/ambiente/CampoGravitacional.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/cenarios/ConjuntoPortaBatente.test.ts](../../src/physics/cenarios/ConjuntoPortaBatente.test.ts); [src/physics/cenarios/EnsaioPortaVertical.test.ts](../../src/physics/cenarios/EnsaioPortaVertical.test.ts); [src/physics/cenarios/TravaPorta.test.ts](../../src/physics/cenarios/TravaPorta.test.ts); [src/physics/conexoes/ConexaoEletrica.test.ts](../../src/physics/conexoes/ConexaoEletrica.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/base/Objeto.test.ts](../../src/physics/objetos/base/Objeto.test.ts); [src/physics/objetos/componentes/AletaAerodinamica.test.ts](../../src/physics/objetos/componentes/AletaAerodinamica.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/Bateria.test.ts](../../src/physics/objetos/fontes-de-energia/Bateria.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/fontes-de-energia/PainelSolar.test.ts](../../src/physics/objetos/fontes-de-energia/PainelSolar.test.ts); [src/physics/objetos/propulsao/CadeiaPropulsao.test.ts](../../src/physics/objetos/propulsao/CadeiaPropulsao.test.ts); [src/physics/objetos/propulsao/PropulsaoQuimica.test.ts](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03.test.ts](../../src/physics/objetos/veiculos/Bss03.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts); [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.test.ts](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorDesaceleracao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracao.test.ts); [src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDescidaFuzzyPidDePropulsores.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/sistemas de controle/ControladorPouso.test.ts](../../src/physics/sistemas%20de%20controle/ControladorPouso.test.ts); [src/physics/sistemas de controle/ControladoresDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladoresDePropulsores.test.ts); [src/physics/sistemas de controle/GerenciadorDeControladores.test.ts](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/physics/termica/RedeTermica.test.ts](../../src/physics/termica/RedeTermica.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/visualizacao/ConexoesEletricas.test.ts](../../src/visualizacao/ConexoesEletricas.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/BancadaBss.test.ts](../../src/cenarios/BancadaBss.test.ts); [src/cenarios/BancadaBssCentral.test.ts](../../src/cenarios/BancadaBssCentral.test.ts); [src/cenarios/ControleLateralM3.test.ts](../../src/cenarios/ControleLateralM3.test.ts); [src/cenarios/EnsaioMissaoBss005.test.ts](../../src/cenarios/EnsaioMissaoBss005.test.ts); [src/cenarios/EnsaioReentrada.test.ts](../../src/cenarios/EnsaioReentrada.test.ts); [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/missoes/ReferenciaBancadaM10.test.ts](../../src/missoes/ReferenciaBancadaM10.test.ts); [src/physics/DesempenhoFisico.test.ts](../../src/physics/DesempenhoFisico.test.ts); [src/physics/MundoFisico.test.ts](../../src/physics/MundoFisico.test.ts); [src/physics/agua/DinamicaAquatica.test.ts](../../src/physics/agua/DinamicaAquatica.test.ts); [src/physics/agua/EntradaAquatica.test.ts](../../src/physics/agua/EntradaAquatica.test.ts); [src/physics/agua/Hidrostática.test.ts](../../src/physics/agua/Hidrostática.test.ts); [src/physics/agua/QualificacaoAquatica.test.ts](../../src/physics/agua/QualificacaoAquatica.test.ts); [src/physics/ambiente/BaseMissoesM9.test.ts](../../src/physics/ambiente/BaseMissoesM9.test.ts); [src/physics/ambiente/CampoGravitacional.test.ts](../../src/physics/ambiente/CampoGravitacional.test.ts); [src/physics/ambiente/ColisoesPlanarM9.test.ts](../../src/physics/ambiente/ColisoesPlanarM9.test.ts); [src/physics/ambiente/DinamicaOrbital.test.ts](../../src/physics/ambiente/DinamicaOrbital.test.ts); [src/physics/ambiente/GeografiaCosteira.test.ts](../../src/physics/ambiente/GeografiaCosteira.test.ts); [src/physics/ambiente/SensoresControleM9.test.ts](../../src/physics/ambiente/SensoresControleM9.test.ts); [src/physics/ambiente/SuperficieAtmosferaM9.test.ts](../../src/physics/ambiente/SuperficieAtmosferaM9.test.ts); [src/physics/cenarios/ConjuntoPortaBatente.test.ts](../../src/physics/cenarios/ConjuntoPortaBatente.test.ts); [src/physics/cenarios/EnsaioPortaVertical.test.ts](../../src/physics/cenarios/EnsaioPortaVertical.test.ts); [src/physics/cenarios/TravaPorta.test.ts](../../src/physics/cenarios/TravaPorta.test.ts); [src/physics/conexoes/ConexaoEletrica.test.ts](../../src/physics/conexoes/ConexaoEletrica.test.ts); [src/physics/conexoes/FixadorEstrutural.test.ts](../../src/physics/conexoes/FixadorEstrutural.test.ts); [src/physics/estruturas/ConservacaoAngular.test.ts](../../src/physics/estruturas/ConservacaoAngular.test.ts); [src/physics/objetos/atuadores/Cilindro.test.ts](../../src/physics/objetos/atuadores/Cilindro.test.ts); [src/physics/objetos/atuadores/CilindroEletrico.test.ts](../../src/physics/objetos/atuadores/CilindroEletrico.test.ts); [src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts](../../src/physics/objetos/atuadores/MotorEletricoRotacional.test.ts); [src/physics/objetos/base/Objeto.test.ts](../../src/physics/objetos/base/Objeto.test.ts); [src/physics/objetos/componentes/AletaAerodinamica.test.ts](../../src/physics/objetos/componentes/AletaAerodinamica.test.ts); [src/physics/objetos/componentes/Paraquedas.test.ts](../../src/physics/objetos/componentes/Paraquedas.test.ts); [src/physics/objetos/fontes-de-energia/Bateria.test.ts](../../src/physics/objetos/fontes-de-energia/Bateria.test.ts); [src/physics/objetos/fontes-de-energia/GeradorCA.test.ts](../../src/physics/objetos/fontes-de-energia/GeradorCA.test.ts); [src/physics/objetos/fontes-de-energia/PainelSolar.test.ts](../../src/physics/objetos/fontes-de-energia/PainelSolar.test.ts); [src/physics/objetos/propulsao/CadeiaPropulsao.test.ts](../../src/physics/objetos/propulsao/CadeiaPropulsao.test.ts); [src/physics/objetos/propulsao/PropulsaoQuimica.test.ts](../../src/physics/objetos/propulsao/PropulsaoQuimica.test.ts); [src/physics/objetos/propulsao/Propulsor.test.ts](../../src/physics/objetos/propulsao/Propulsor.test.ts); [src/physics/objetos/propulsao/PropulsorVetorizado.test.ts](../../src/physics/objetos/propulsao/PropulsorVetorizado.test.ts); [src/physics/objetos/veiculos/Bss02PousoSuave.test.ts](../../src/physics/objetos/veiculos/Bss02PousoSuave.test.ts); [src/physics/objetos/veiculos/Bss03.test.ts](../../src/physics/objetos/veiculos/Bss03.test.ts); [src/physics/objetos/veiculos/Bss03Missao.test.ts](../../src/physics/objetos/veiculos/Bss03Missao.test.ts); [src/physics/objetos/veiculos/Bss04Missao.test.ts](../../src/physics/objetos/veiculos/Bss04Missao.test.ts); [src/physics/objetos/veiculos/Bss04PernasFixas.test.ts](../../src/physics/objetos/veiculos/Bss04PernasFixas.test.ts); [src/physics/objetos/veiculos/ComputadorDeVoo.test.ts](../../src/physics/objetos/veiculos/ComputadorDeVoo.test.ts); [src/physics/objetos/veiculos/VeiculoAlado.test.ts](../../src/physics/objetos/veiculos/VeiculoAlado.test.ts); [src/physics/objetos/veiculos/VeiculoComposto.test.ts](../../src/physics/objetos/veiculos/VeiculoComposto.test.ts); [src/physics/objetos/veiculos/VeiculoTerrestre.test.ts](../../src/physics/objetos/veiculos/VeiculoTerrestre.test.ts); [src/physics/sensores/SensoresVeiculoComposto.test.ts](../../src/physics/sensores/SensoresVeiculoComposto.test.ts); [src/physics/sensores/SwitchFimDeCurso.test.ts](../../src/physics/sensores/SwitchFimDeCurso.test.ts); [src/physics/sensores/SwitchFimDeCursoArraste.test.ts](../../src/physics/sensores/SwitchFimDeCursoArraste.test.ts); [src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.test.ts](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.test.ts); [src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts); [src/physics/sistemas de controle/ControladorAproximacao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.test.ts); [src/physics/sistemas de controle/ControladorDesaceleracao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracao.test.ts); [src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladorDescidaFuzzyPidDePropulsores.test.ts); [src/physics/sistemas de controle/ControladorGuiaPousoBss06.test.ts](../../src/physics/sistemas%20de%20controle/ControladorGuiaPousoBss06.test.ts); [src/physics/sistemas de controle/ControladorPouso.test.ts](../../src/physics/sistemas%20de%20controle/ControladorPouso.test.ts); [src/physics/sistemas de controle/ControladoresDePropulsores.test.ts](../../src/physics/sistemas%20de%20controle/ControladoresDePropulsores.test.ts); [src/physics/sistemas de controle/GerenciadorDeControladores.test.ts](../../src/physics/sistemas%20de%20controle/GerenciadorDeControladores.test.ts); [src/physics/solucionadores/AerodinamicaM6.test.ts](../../src/physics/solucionadores/AerodinamicaM6.test.ts); [src/physics/solucionadores/AtmosferaTermicaM4.test.ts](../../src/physics/solucionadores/AtmosferaTermicaM4.test.ts); [src/physics/termica/RedeTermica.test.ts](../../src/physics/termica/RedeTermica.test.ts); [src/simulacao/ExecutorPassoFixo.test.ts](../../src/simulacao/ExecutorPassoFixo.test.ts); [src/visualizacao/ConexoesEletricas.test.ts](../../src/visualizacao/ConexoesEletricas.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Verificada (revisão explicitamente registrada) |
 | JSDoc integral | /** Devolve a norma euclidiana; memoiza somente #modulo privado, mantendo x/y/z imutáveis. @contract f-dd14a5d2e2c14ab5 @reviewed M12-DOC: implementação lida. */ |
 
 </details>
 
 
-<a id="modulo-58"></a>
+<a id="modulo-62"></a>
 ## src/physics/agua/GeometriaSubmersa.ts
 
 <a id="f-00378e285877f165"></a>
@@ -8437,7 +8628,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-59"></a>
+<a id="modulo-63"></a>
 ## src/physics/agua/RegiaoAquatica.ts
 
 <a id="f-42624cfaf3e01aed"></a>
@@ -8517,7 +8708,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-60"></a>
+<a id="modulo-64"></a>
 ## src/physics/agua/SistemaHidrodinamico.ts
 
 <a id="f-3ac2ce558ad57f3c"></a>
@@ -8768,7 +8959,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-61"></a>
+<a id="modulo-65"></a>
 ## src/physics/ambiente/AmbienteFisico.ts
 
 <a id="f-f65d4a56ef06dbbd"></a>
@@ -8848,7 +9039,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-62"></a>
+<a id="modulo-66"></a>
 ## src/physics/ambiente/CampoGravitacional.ts
 
 <a id="f-d84e2f25e040d596"></a>
@@ -9004,7 +9195,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-63"></a>
+<a id="modulo-67"></a>
 ## src/physics/ambiente/EstadoInicialLocal.ts
 
 <a id="f-4ab5e3de34eaedc3"></a>
@@ -9027,7 +9218,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-64"></a>
+<a id="modulo-68"></a>
 ## src/physics/ambiente/GeografiaCosteira.ts
 
 <a id="f-75cb7b00f89bfaba"></a>
@@ -9145,7 +9336,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-65"></a>
+<a id="modulo-69"></a>
 ## src/physics/ambiente/PerfilAtmosfericoReentrada.ts
 
 <a id="f-9eb2c4644fba8970"></a>
@@ -9244,7 +9435,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-66"></a>
+<a id="modulo-70"></a>
 ## src/physics/ambiente/ReferencialFisico.ts
 
 <a id="f-a83a925cd4624e54"></a>
@@ -10046,7 +10237,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-67"></a>
+<a id="modulo-71"></a>
 ## src/physics/ambiente/TelemetriaOrbital.ts
 
 <a id="f-f08ef7862a1cdb97"></a>
@@ -10069,7 +10260,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-68"></a>
+<a id="modulo-72"></a>
 ## src/physics/cenarios/EnsaioPortaVertical.ts
 
 <a id="f-26bd768dc18b239f"></a>
@@ -10244,7 +10435,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-69"></a>
+<a id="modulo-73"></a>
 ## src/physics/conexoes/ChumbadorAoSolo.ts
 
 <a id="f-3edd21e1d5a19ecc"></a>
@@ -10457,7 +10648,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-70"></a>
+<a id="modulo-74"></a>
 ## src/physics/conexoes/ConexaoEletrica.ts
 
 <a id="f-379a6000119fc4ae"></a>
@@ -11183,7 +11374,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-71"></a>
+<a id="modulo-75"></a>
 ## src/physics/conexoes/FixadorEstrutural.ts
 
 <a id="f-cd671b03c8af2236"></a>
@@ -11624,7 +11815,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-72"></a>
+<a id="modulo-76"></a>
 ## src/physics/conexoes/GuiaLinear.ts
 
 <a id="f-912072f48d95626b"></a>
@@ -11723,7 +11914,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-73"></a>
+<a id="modulo-77"></a>
 ## src/physics/conexoes/JuntaRotacionalDeBancada.ts
 
 <a id="f-a132b0bde695eb85"></a>
@@ -11898,7 +12089,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-74"></a>
+<a id="modulo-78"></a>
 ## src/physics/conexoes/eletrica/Contator.ts
 
 <a id="f-3376117ecdde8868"></a>
@@ -11978,7 +12169,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-75"></a>
+<a id="modulo-79"></a>
 ## src/physics/conexoes/eletrica/Interruptor.ts
 
 <a id="f-33f15af7abb38cd9"></a>
@@ -12058,7 +12249,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-76"></a>
+<a id="modulo-80"></a>
 ## src/physics/conexoes/eletrica/Resistor.ts
 
 <a id="f-464f0a613325638b"></a>
@@ -12100,7 +12291,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-77"></a>
+<a id="modulo-81"></a>
 ## src/physics/estruturas/ConjuntoEstruturalRigido.ts
 
 <a id="f-d3848f1d1b9d7918"></a>
@@ -12484,7 +12675,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-78"></a>
+<a id="modulo-82"></a>
 ## src/physics/estruturas/DiagnosticoAngular.ts
 
 <a id="f-62f73b2d7d2e4053"></a>
@@ -12564,7 +12755,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-79"></a>
+<a id="modulo-83"></a>
 ## src/physics/geometria/ContatoCaixasOrientadas.ts
 
 <a id="f-738d840a42e74122"></a>
@@ -12758,7 +12949,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-80"></a>
+<a id="modulo-84"></a>
 ## src/physics/objetos/atuadores/Cilindro.ts
 
 <a id="f-0268843ba048392d"></a>
@@ -13123,7 +13314,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-81"></a>
+<a id="modulo-85"></a>
 ## src/physics/objetos/atuadores/CilindroEletrico.ts
 
 <a id="f-57b1b7d21164f2d4"></a>
@@ -13469,7 +13660,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-82"></a>
+<a id="modulo-86"></a>
 ## src/physics/objetos/atuadores/MotorEletricoRotacional.ts
 
 <a id="f-338925f6e3377ab1"></a>
@@ -13625,7 +13816,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-83"></a>
+<a id="modulo-87"></a>
 ## src/physics/objetos/base/Objeto.ts
 
 <a id="f-0a5a2a6326f96011"></a>
@@ -14750,7 +14941,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-84"></a>
+<a id="modulo-88"></a>
 ## src/physics/objetos/base/ObjetoTriangularRetangulo.ts
 
 <a id="f-13053ef3d73ba42a"></a>
@@ -14830,7 +15021,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-85"></a>
+<a id="modulo-89"></a>
 ## src/physics/objetos/componentes/AletaAerodinamica.ts
 
 <a id="f-740741f36db4d1e3"></a>
@@ -15005,7 +15196,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-86"></a>
+<a id="modulo-90"></a>
 ## src/physics/objetos/componentes/FlapReentrada.ts
 
 <a id="f-713ac4483df17789"></a>
@@ -15180,7 +15371,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-87"></a>
+<a id="modulo-91"></a>
 ## src/physics/objetos/componentes/Paraquedas.ts
 
 <a id="f-a9ae40fb84d5293f"></a>
@@ -15431,7 +15622,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-88"></a>
+<a id="modulo-92"></a>
 ## src/physics/objetos/componentes/RolagemVirtual.ts
 
 <a id="f-71592e454cdc955f"></a>
@@ -15549,7 +15740,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-89"></a>
+<a id="modulo-93"></a>
 ## src/physics/objetos/fontes-de-energia/Bateria.ts
 
 <a id="f-b8dcea8c991456f9"></a>
@@ -15743,7 +15934,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-90"></a>
+<a id="modulo-94"></a>
 ## src/physics/objetos/fontes-de-energia/FonteEletrica.ts
 
 <a id="f-ab20e650db054ae0"></a>
@@ -15766,7 +15957,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-91"></a>
+<a id="modulo-95"></a>
 ## src/physics/objetos/fontes-de-energia/GeradorCA.ts
 
 <a id="f-692af7e2d7d6cffa"></a>
@@ -16055,7 +16246,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-92"></a>
+<a id="modulo-96"></a>
 ## src/physics/objetos/fontes-de-energia/PainelSolar.ts
 
 <a id="f-c5ec22d9c45e3d17"></a>
@@ -16363,7 +16554,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-93"></a>
+<a id="modulo-97"></a>
 ## src/physics/objetos/fontes-de-energia/TanquePropelente.ts
 
 <a id="f-5e48dc8f6370a867"></a>
@@ -16481,7 +16672,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-94"></a>
+<a id="modulo-98"></a>
 ## src/physics/objetos/mecanismos/BracoArticuladoDeBancada.ts
 
 <a id="f-2429e53025cf49cb"></a>
@@ -16561,7 +16752,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-95"></a>
+<a id="modulo-99"></a>
 ## src/physics/objetos/mecanismos/ConjuntoPortaBatente.ts
 
 <a id="f-288f1848d7fa9e2a"></a>
@@ -16736,7 +16927,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-96"></a>
+<a id="modulo-100"></a>
 ## src/physics/objetos/mecanismos/Porta.ts
 
 <a id="f-b99653bcaa9220e0"></a>
@@ -17443,7 +17634,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-97"></a>
+<a id="modulo-101"></a>
 ## src/physics/objetos/mecanismos/TravaPorta.ts
 
 <a id="f-b39a816efc5a1c38"></a>
@@ -17732,7 +17923,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-98"></a>
+<a id="modulo-102"></a>
 ## src/physics/objetos/propulsao/Propulsor.ts
 
 <a id="f-20905674966ffa86"></a>
@@ -18686,7 +18877,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-99"></a>
+<a id="modulo-103"></a>
 ## src/physics/objetos/propulsao/PropulsorVetorizado.ts
 
 <a id="f-77abc1442947b6a6"></a>
@@ -18804,7 +18995,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-100"></a>
+<a id="modulo-104"></a>
 ## src/physics/objetos/propulsao/alimentacao/BombaPropelente.ts
 
 <a id="f-08499cf7b7b5281e"></a>
@@ -18903,7 +19094,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-101"></a>
+<a id="modulo-105"></a>
 ## src/physics/objetos/propulsao/alimentacao/LinhaDePropelente.ts
 
 <a id="f-e6203b52037d845b"></a>
@@ -19154,7 +19345,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-102"></a>
+<a id="modulo-106"></a>
 ## src/physics/objetos/propulsao/alimentacao/ValvulaPropelente.ts
 
 <a id="f-8ee9a0cb7c08bc7e"></a>
@@ -19234,7 +19425,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-103"></a>
+<a id="modulo-107"></a>
 ## src/physics/objetos/propulsao/combustao/Bocal.ts
 
 <a id="f-a3901e8f9e6759b1"></a>
@@ -19314,7 +19505,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-104"></a>
+<a id="modulo-108"></a>
 ## src/physics/objetos/propulsao/combustao/CamaraCombustao.ts
 
 <a id="f-b0538dd43b1921f1"></a>
@@ -19375,7 +19566,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-105"></a>
+<a id="modulo-109"></a>
 ## src/physics/objetos/propulsao/vetorizacao/AtuadorVetorizacao.ts
 
 <a id="f-d5fed7dda85b3573"></a>
@@ -19474,7 +19665,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-106"></a>
+<a id="modulo-110"></a>
 ## src/physics/objetos/propulsao/vetorizacao/InterfacesVetorizacao.ts
 
 <a id="f-eca3958041fee892"></a>
@@ -19573,7 +19764,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-107"></a>
+<a id="modulo-111"></a>
 ## src/physics/objetos/veiculos/Bss03.ts
 
 <a id="f-860287d56592b29a"></a>
@@ -19710,7 +19901,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-108"></a>
+<a id="modulo-112"></a>
 ## src/physics/objetos/veiculos/Bss04.ts
 
 <a id="f-618b5173fdbe54b8"></a>
@@ -19771,7 +19962,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-109"></a>
+<a id="modulo-113"></a>
 ## src/physics/objetos/veiculos/ComputadorDeVoo.ts
 
 <a id="f-812afc3623292bce"></a>
@@ -20706,7 +20897,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-110"></a>
+<a id="modulo-114"></a>
 ## src/physics/objetos/veiculos/OrbitadorReentrada.ts
 
 <a id="f-f474385619746e2c"></a>
@@ -20938,7 +21129,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-111"></a>
+<a id="modulo-115"></a>
 ## src/physics/objetos/veiculos/VeiculoAlado.ts
 
 <a id="f-a0a40213b7cd3903"></a>
@@ -20999,7 +21190,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-112"></a>
+<a id="modulo-116"></a>
 ## src/physics/objetos/veiculos/VeiculoComposto.ts
 
 <a id="f-64296b093cc455c5"></a>
@@ -21839,7 +22030,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-113"></a>
+<a id="modulo-117"></a>
 ## src/physics/objetos/veiculos/VeiculoTerrestre.ts
 
 <a id="f-11d563c8accc999f"></a>
@@ -22109,7 +22300,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-114"></a>
+<a id="modulo-118"></a>
 ## src/physics/reentrada/ConfiguracaoTermicaReentrada.ts
 
 <a id="f-1043d2497bfcabb6"></a>
@@ -22170,7 +22361,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-115"></a>
+<a id="modulo-119"></a>
 ## src/physics/reentrada/ModeloAerodinamicoReentrada.ts
 
 <a id="f-e334f1718df02bee"></a>
@@ -22250,7 +22441,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-116"></a>
+<a id="modulo-120"></a>
 ## src/physics/sensores/SensoresVeiculoComposto.ts
 
 <a id="f-1a302daca133db57"></a>
@@ -22539,7 +22730,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-117"></a>
+<a id="modulo-121"></a>
 ## src/physics/sensores/SistemaSensores.ts
 
 <a id="f-11d76a7fff48a0bd"></a>
@@ -22733,7 +22924,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-118"></a>
+<a id="modulo-122"></a>
 ## src/physics/sensores/SwitchFimDeCurso.ts
 
 <a id="f-958eb2b7694765e1"></a>
@@ -23098,7 +23289,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-119"></a>
+<a id="modulo-123"></a>
 ## src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.ts
 
 <a id="f-e507ddc521012566"></a>
@@ -23197,7 +23388,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-120"></a>
+<a id="modulo-124"></a>
 ## src/physics/sistemas de controle/ControladorAletasAerodinamicas.ts
 
 <a id="f-63d060f8a840b02f"></a>
@@ -23277,25 +23468,44 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-121"></a>
+<a id="modulo-125"></a>
 ## src/physics/sistemas de controle/ControladorAproximacao.ts
+
+<a id="f-88f34141eee66edd"></a>
+<details><summary>ControladorAproximacao.constructor · Constructor</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.constructor:Constructor</code> · [fonte L58](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.ts#L58) |
+| Assinatura | <code>public (entrada?: Partial&lt;ConfiguracaoControladorAproximacao&gt;): ControladorAproximacao</code> |
+| Responsabilidade | Valida um plano SI e copia a lista de propulsores; capacidade nula não é inferida. |
+| Entradas | <code>entrada: Partial&lt;ConfiguracaoControladorAproximacao&gt; = {}</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>ControladorAproximacao</code>; expressões retornadas: — |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.id</code>; <code>this.prioridade</code>; <code>this.configuracao</code>; <code>this.habilitado</code>; <code>this.estado</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>Object.freeze</code>; <code>Number.isFinite</code>; <code>Object.values(LIMITES).every</code>; <code>Object.values</code>; <code>[c.aceleracaoHorizontalMaximaMps2, c.aceleracaoVerticalMaximaMps2,<br>    c.velocidadeHorizontalMaximaMps, c.velocidadeVerticalMaximaMps, c.ganhoVelocidadePorS].every</code>; <code>Array.isArray</code>; <code>c.propulsores.some</code>; <code>Set</code>; <code>c.propulsores.map</code>; <code>Error</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>(c.alvoArcoM !== null &amp;&amp; !Number.isFinite(c.alvoArcoM)) &#124;&#124; !Object.values(LIMITES).every(Number.isFinite)<br>    &#124;&#124; ![c.aceleracaoHorizontalMaximaMps2, c.aceleracaoVerticalMaximaMps2,<br>        c.velocidadeHorizontalMaximaMps, c.velocidadeVertic… [continua na fonte]</code>; exceções: <code>new Error('Configuração do controlador de aproximação inválida.')</code> |
+| Testes | [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/physics/sistemas de controle/ControladorAproximacao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Valida um plano SI e copia a lista de propulsores; capacidade nula não é inferida.<br>   * @contract f-88f34141eee66edd */ |
+
+</details>
 
 <a id="f-534188cc7979d4c8"></a>
 <details><summary>ControladorAproximacao.habilitar · MethodDeclaration</summary>
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.habilitar:MethodDeclaration</code> · [fonte L10](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.ts#L10) |
+| Identificador | <code>src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.habilitar:MethodDeclaration</code> · [fonte L75](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.ts#L75) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Seleciona protótipo sem autorizar atuação física. |
+| Responsabilidade | Seleciona o guia, sem solicitar ignição. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.habilitado</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/physics/sistemas de controle/ControladorAproximacao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Seleciona protótipo sem autorizar atuação física.  @contract f-534188cc7979d4c8 */ |
+| JSDoc integral | /** Seleciona o guia, sem solicitar ignição. @contract f-534188cc7979d4c8 */ |
 
 </details>
 
@@ -23304,17 +23514,17 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.desabilitar:MethodDeclaration</code> · [fonte L12](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.ts#L12) |
+| Identificador | <code>src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.desabilitar:MethodDeclaration</code> · [fonte L77](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.ts#L77) |
 | Assinatura | <code>public (): void</code> |
-| Responsabilidade | Retira o protótipo da seleção. |
+| Responsabilidade | Retira o guia da arbitragem e limpa diagnóstico transitório. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>void</code>; expressões retornadas: — |
-| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.habilitado</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.habilitado</code>; <code>this.estado</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/physics/sistemas de controle/ControladorAproximacao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Retira o protótipo da seleção.  @contract f-6bfef8a77e42e997 */ |
+| JSDoc integral | /** Retira o guia da arbitragem e limpa diagnóstico transitório. @contract f-6bfef8a77e42e997 */ |
 
 </details>
 
@@ -23323,17 +23533,36 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.estaHabilitado:GetAccessor</code> · [fonte L14](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.ts#L14) |
+| Identificador | <code>src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.estaHabilitado:GetAccessor</code> · [fonte L79](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.ts#L79) |
 | Assinatura | <code>public (): boolean</code> |
-| Responsabilidade | Consulta seleção, distinta de prontidão operacional. |
+| Responsabilidade | Consulta seleção operacional. |
 | Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
 | Saídas | Tipo <code>boolean</code>; expressões retornadas: <code>this.habilitado</code> |
 | Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
 | Dependências | Chamadas/construções diretas: — |
 | Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
-| Testes | [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts) (imports diretos do módulo) |
+| Testes | [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/physics/sistemas de controle/ControladorAproximacao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Consulta seleção, distinta de prontidão operacional.  @contract f-e51247b354a8b769 */ |
+| JSDoc integral | /** Consulta seleção operacional. @contract f-e51247b354a8b769 */ |
+
+</details>
+
+<a id="f-6a68924a4824a066"></a>
+<details><summary>ControladorAproximacao.observar · MethodDeclaration</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.observar:MethodDeclaration</code> · [fonte L81](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.ts#L81) |
+| Assinatura | <code>public (): EstadoControladorAproximacao</code> |
+| Responsabilidade | Devolve diagnóstico copiado da última chamada, não o estado do veículo. |
+| Entradas | —; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>EstadoControladorAproximacao</code>; expressões retornadas: <code>{ ...this.estado }</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: — |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/physics/sistemas de controle/ControladorAproximacao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Devolve diagnóstico copiado da última chamada, não o estado do veículo. @contract f-6a68924a4824a066 */ |
 
 </details>
 
@@ -23342,22 +23571,41 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 
 | Campo | Contrato / evidência |
 |---|---|
-| Identificador | <code>src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.calcularSolicitacoes:MethodDeclaration</code> · [fonte L19](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.ts#L19) |
-| Assinatura | <code>public (_leituras: LeiturasVeiculoComposto, dtS: number): readonly SolicitacaoDeAtuador[]</code> |
-| Responsabilidade | Valida dt SI e retorna ausência de solicitações em todos os estados. Instalar esta classe não torna a integração propulsiva compatível. |
-| Entradas | <code>_leituras: LeiturasVeiculoComposto</code>; <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
-| Saídas | Tipo <code>readonly SolicitacaoDeAtuador[]</code>; expressões retornadas: <code>[]</code> |
-| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
-| Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code> |
-| Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(dtS) &#124;&#124; dtS &lt;= 0 &#124;&#124; dtS &gt; 1 / 60</code>; exceções: <code>new Error('dt de aproximação inválido.')</code> |
-| Testes | [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts) (imports diretos do módulo) |
+| Identificador | <code>src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.calcularSolicitacoes:MethodDeclaration</code> · [fonte L87](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.ts#L87) |
+| Assinatura | <code>public (leituras: LeiturasVeiculoComposto, dtS: number): readonly SolicitacaoDeAtuador[]</code> |
+| Responsabilidade | Calcula alvos por sqrt(2ad) e pede aceleração em SI. Sensores inválidos, distância passada ou ausência de motores não autorizam manobra física. |
+| Entradas | <code>leituras: LeiturasVeiculoComposto</code>; <code>dtS: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>readonly SolicitacaoDeAtuador[]</code>; expressões retornadas: <code>[]</code>; <code>c.propulsores.map(p =&gt; ({ idAtuador: p.id, recurso: 'throttle' as const, valor: 0 }))</code>; <code>c.propulsores.flatMap(p =&gt; [<br>    { idAtuador: p.id, recurso: 'throttle' as const, valor: throttle },<br>    { idAtuador: p.id, recurso: 'gimbal' as const, valor: gimbal },<br>])</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): <code>this.estado</code>. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>Number.isFinite</code>; <code>Error</code>; <code>[leituras.posicaoHorizontalM, leituras.altitudeM, leituras.velocidadeHorizontalMps,<br>    leituras.velocidadeVerticalMps, leituras.inclinacaoRad, leituras.gravidadeLocalMps2,<br>    leituras.massaInstantaneaKg].every</code>; <code>c.propulsores.map</code>; <code>Math.min</code>; <code>Math.sqrt</code>; <code>Math.sign</code>; <code>Math.abs</code>; <code>limitar</code>; <code>normalizarAngulo</code>; <code>Math.atan2</code>; <code>c.propulsores.reduce</code>; <code>Math.hypot</code>; <code>Object.freeze</code>; <code>c.propulsores.flatMap</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: <code>!Number.isFinite(dtS) &#124;&#124; dtS &lt;= 0 &#124;&#124; dtS &gt; 1 / 60</code>; <code>!this.habilitado</code>; <code>c.alvoArcoM === null &#124;&#124; c.propulsores.length === 0</code>; <code>!sensoresValidos</code>; <code>distancia &lt;= 0</code>; exceções: <code>new Error('dt de aproximação inválido.')</code> |
+| Testes | [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/physics/sistemas de controle/ControladorAproximacao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.test.ts) (imports diretos do módulo) |
 | Estado da documentação | Descrita — revisão semântica ainda não certificada |
-| JSDoc integral | /** Valida dt SI e retorna ausência de solicitações em todos os estados.<br>   * Instalar esta classe não torna a integração propulsiva compatível.<br>   * @contract f-11a58d8d31bdebcd<br>   */ |
+| JSDoc integral | /** Calcula alvos por sqrt(2ad) e pede aceleração em SI. Sensores inválidos,<br>   * distância passada ou ausência de motores não autorizam manobra física.<br>   * @contract f-11a58d8d31bdebcd<br>   */ |
+
+</details>
+
+<a id="f-bf17aecd4828c1e1"></a>
+<details><summary>limitar · ArrowFunction</summary>
+
+| Campo | Contrato / evidência |
+|---|---|
+| Identificador | <code>src/physics/sistemas de controle/ControladorAproximacao.ts::limitar:ArrowFunction</code> · [fonte L143](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.ts#L143) |
+| Assinatura | <code> (valor: number, minimo: number, maximo: number): number</code> |
+| Responsabilidade | Limita valor ao intervalo fechado, preservando unidades do chamador. |
+| Entradas | <code>valor: number</code>; <code>minimo: number</code>; <code>maximo: number</code>; unidades/condições: contrato JSDoc abaixo. Ausência de unidade explícita exige revisão. |
+| Saídas | Tipo <code>number</code>; expressões retornadas: <code>Math.max(minimo, Math.min(maximo, valor))</code> |
+| Efeitos colaterais | Escritas/inicializações (incluem locais e campos de construtor): —. Efeitos de chamadas: contratos das dependências; não inferidos automaticamente. |
+| Dependências | Chamadas/construções diretas: <code>Math.max</code>; <code>Math.min</code> |
+| Invariantes | Contrato documentado abaixo; ramos observados: —; exceções: — |
+| Testes | [src/cenarios/FronteiraAproximacao.test.ts](../../src/cenarios/FronteiraAproximacao.test.ts); [src/physics/sistemas de controle/ControladorAproximacao.test.ts](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.test.ts) (imports diretos do módulo) |
+| Estado da documentação | Descrita — revisão semântica ainda não certificada |
+| JSDoc integral | /** Limita valor ao intervalo fechado, preservando unidades do chamador. @contract f-bf17aecd4828c1e1 */ |
 
 </details>
 
 
-<a id="modulo-122"></a>
+<a id="modulo-126"></a>
 ## src/physics/sistemas de controle/ControladorDesaceleracao.ts
 
 <a id="f-2df8a6ec72d97e33"></a>
@@ -23494,7 +23742,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-123"></a>
+<a id="modulo-127"></a>
 ## src/physics/sistemas de controle/ControladorDesaceleracaoDePropulsores.ts
 
 <a id="f-c21cd42fd0b7de7c"></a>
@@ -23593,7 +23841,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-124"></a>
+<a id="modulo-128"></a>
 ## src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.ts
 
 <a id="f-f48142ef0b2674dd"></a>
@@ -23806,7 +24054,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-125"></a>
+<a id="modulo-129"></a>
 ## src/physics/sistemas de controle/ControladorGimbalDescidaDePropulsores.ts
 
 <a id="f-cce221037c45b500"></a>
@@ -23924,7 +24172,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-126"></a>
+<a id="modulo-130"></a>
 ## src/physics/sistemas de controle/ControladorGuiaPousoBss06.ts
 
 <a id="f-51e931aaa927f1e1"></a>
@@ -24137,7 +24385,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-127"></a>
+<a id="modulo-131"></a>
 ## src/physics/sistemas de controle/ControladorInclinacaoDePropulsores.ts
 
 <a id="f-072ca5129fc83639"></a>
@@ -24293,7 +24541,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-128"></a>
+<a id="modulo-132"></a>
 ## src/physics/sistemas de controle/ControladorInclinacaoPid.ts
 
 <a id="f-6fd33485b6c6ed80"></a>
@@ -24392,7 +24640,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-129"></a>
+<a id="modulo-133"></a>
 ## src/physics/sistemas de controle/ControladorPerfilVooExperimental.ts
 
 <a id="f-0c9abac72f8565f4"></a>
@@ -24434,7 +24682,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-130"></a>
+<a id="modulo-134"></a>
 ## src/physics/sistemas de controle/ControladorPosicionamentoMotorEletrico.ts
 
 <a id="f-093ae6a77da90e61"></a>
@@ -24723,7 +24971,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-131"></a>
+<a id="modulo-135"></a>
 ## src/physics/sistemas de controle/ControladorPouso.ts
 
 <a id="f-d697d010640b8674"></a>
@@ -24879,7 +25127,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-132"></a>
+<a id="modulo-136"></a>
 ## src/physics/sistemas de controle/ControladorPousoDePropulsores.ts
 
 <a id="f-23b3b270943a05e3"></a>
@@ -24997,7 +25245,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-133"></a>
+<a id="modulo-137"></a>
 ## src/physics/sistemas de controle/ControladorReentrada.ts
 
 <a id="f-c18886ab4102b0a9"></a>
@@ -25153,7 +25401,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-134"></a>
+<a id="modulo-138"></a>
 ## src/physics/sistemas de controle/EstrategiaCorredorReentrada.ts
 
 <a id="f-c23886613e0b2192"></a>
@@ -25176,7 +25424,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-135"></a>
+<a id="modulo-139"></a>
 ## src/physics/sistemas de controle/FronteiraAproximacao.ts
 
 <a id="f-3f8022ec198f2a6a"></a>
@@ -25218,7 +25466,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-136"></a>
+<a id="modulo-140"></a>
 ## src/physics/sistemas de controle/GerenciadorDeControladores.ts
 
 <a id="f-c239c04410fd7830"></a>
@@ -25450,7 +25698,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-137"></a>
+<a id="modulo-141"></a>
 ## src/physics/sistemas de controle/SupervisorRecuperacao.ts
 
 <a id="f-100510609617f2a3"></a>
@@ -25549,7 +25797,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-138"></a>
+<a id="modulo-142"></a>
 ## src/physics/sistemas de controle/SupervisorReentrada.ts
 
 <a id="f-cadd2a244c36f2e6"></a>
@@ -25648,7 +25896,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-139"></a>
+<a id="modulo-143"></a>
 ## src/physics/solucionadores/IntegradorFisico.ts
 
 <a id="f-37bd83a7107d9325"></a>
@@ -25690,7 +25938,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-140"></a>
+<a id="modulo-144"></a>
 ## src/physics/solucionadores/ResolvedorColisoes.ts
 
 <a id="f-20b3443c43cccc2d"></a>
@@ -25998,7 +26246,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-141"></a>
+<a id="modulo-145"></a>
 ## src/physics/solucionadores/ResolvedorContatoSuperficie.ts
 
 <a id="f-c962b279ad805fe0"></a>
@@ -26439,7 +26687,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-142"></a>
+<a id="modulo-146"></a>
 ## src/physics/solucionadores/ResolvedorEsforcoEstrutural.ts
 
 <a id="f-ca6b22a41219e7be"></a>
@@ -26519,7 +26767,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-143"></a>
+<a id="modulo-147"></a>
 ## src/physics/solucionadores/SistemaAtmosferico.ts
 
 <a id="f-6538ff18b9c53fb0"></a>
@@ -26694,7 +26942,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-144"></a>
+<a id="modulo-148"></a>
 ## src/physics/solucionadores/SistemaTermico.ts
 
 <a id="f-4a293a694405dea2"></a>
@@ -26812,7 +27060,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-145"></a>
+<a id="modulo-149"></a>
 ## src/physics/termica/RedeTermica.ts
 
 <a id="f-e1b7ca33c8d712ad"></a>
@@ -27025,7 +27273,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-146"></a>
+<a id="modulo-150"></a>
 ## src/reentrada.ts
 
 <a id="f-bdf1e31dbe2aa399"></a>
@@ -27580,7 +27828,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-147"></a>
+<a id="modulo-151"></a>
 ## src/simulacao/ExecutorPassoFixo.ts
 
 <a id="f-b5c741e87d68944a"></a>
@@ -27755,7 +28003,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-148"></a>
+<a id="modulo-152"></a>
 ## src/testes.ts
 
 <a id="f-5e1aa4998dc58a80"></a>
@@ -34238,7 +34486,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-149"></a>
+<a id="modulo-153"></a>
 ## src/validacao/ReferenciaBancadaM10.ts
 
 <a id="f-3b5aba79d123ca41"></a>
@@ -34299,7 +34547,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-150"></a>
+<a id="modulo-154"></a>
 ## src/veiculos/DefinicaoBss006.ts
 
 <a id="f-2f5724b4057c7208"></a>
@@ -34322,7 +34570,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-151"></a>
+<a id="modulo-155"></a>
 ## src/veiculos/HidrodinamicaBss006.ts
 
 <a id="f-af9fca02b4f4ccdc"></a>
@@ -34345,7 +34593,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-152"></a>
+<a id="modulo-156"></a>
 ## src/veiculos/MontagemBss.ts
 
 <a id="f-fd616459b962f64d"></a>
@@ -34729,7 +34977,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-153"></a>
+<a id="modulo-157"></a>
 ## src/veiculos/TelemetriaBss.ts
 
 <a id="f-4b8411290e34c3a4"></a>
@@ -34752,7 +35000,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-154"></a>
+<a id="modulo-158"></a>
 ## src/visualizacao/CameraFisica2D.ts
 
 <a id="f-07a1929a163d1610"></a>
@@ -34813,7 +35061,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-155"></a>
+<a id="modulo-159"></a>
 ## src/visualizacao/ConexoesEletricas.ts
 
 <a id="f-aff2a7f3384f78eb"></a>
@@ -34931,7 +35179,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-156"></a>
+<a id="modulo-160"></a>
 ## src/visualizacao/RegistroEnsaioBancada.ts
 
 <a id="f-b8117d1c26329bb7"></a>
@@ -35011,7 +35259,7 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 </details>
 
 
-<a id="modulo-157"></a>
+<a id="modulo-161"></a>
 ## src/visualizacao/TracePLC.ts
 
 <a id="f-c59acbd9414e88e5"></a>
@@ -35194,6 +35442,16 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>scripts/benchmark-missao.ts::[callback]:ArrowFunction#1</code> · [L63](../../scripts/benchmark-missao.ts#L63) | <code>(lista: PerformanceObserverEntryList): void</code> | <code>lista.getEntries</code> / <code>gcMs</code>; <code>gcEventos</code> |
 | <code>scripts/benchmark-missao.ts::[callback]:ArrowFunction#2</code> · [L81](../../scripts/benchmark-missao.ts#L81) | <code>(r: (value: void &#124; PromiseLike&lt;void&gt;) =&gt; void): NodeJS.Immediate</code> | <code>setImmediate</code> / — |
 | <code>scripts/benchmark-missao.ts::[callback]:ArrowFunction#3</code> · [L86](../../scripts/benchmark-missao.ts#L86) | <code>(r: (value: void &#124; PromiseLike&lt;void&gt;) =&gt; void): NodeJS.Immediate</code> | <code>setImmediate</code> / — |
+| <code>scripts/campanha-desaceleracao-re002.ts::executarCampanhaDesaceleracaoRe002.[callback]:ArrowFunction#1</code> · [L41](../../scripts/campanha-desaceleracao-re002.ts#L41) | <code>(s: string): string</code> | <code>s.trim</code> / — |
+| <code>scripts/campanha-desaceleracao-re002.ts::executarCampanhaDesaceleracaoRe002.[callback]:ArrowFunction#2</code> · [L44](../../scripts/campanha-desaceleracao-re002.ts#L44) | <code>(p: PerfilDeceleracao): boolean</code> | <code>filtro.includes</code> / — |
+| <code>scripts/campanha-desaceleracao-re002.ts::executarCampanhaDesaceleracaoRe002.reduzir.[callback]:ArrowFunction#1</code> · [L79](../../scripts/campanha-desaceleracao-re002.ts#L79) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; integridadeMecanismo?: number &#124; undefined; }; knudsenEstimado: number; modeloEscoamento: string; }): { deflexaoRad: number; comandoRad: number; integridade: number; temperaturaC: number; energizado: boolean; conectado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; integridadeMecanismo?: number &#124; undefined; }; }</code> | — / — |
+| <code>scripts/campanha-desaceleracao-re002.ts::executarCampanhaDesaceleracaoRe002.dados.[callback]:ArrowFunction#1</code> · [L130](../../scripts/campanha-desaceleracao-re002.ts#L130) | <code>(x: CruzamentoMach): boolean</code> | — / — |
+| <code>scripts/campanha-desaceleracao-re002.ts::executarCampanhaDesaceleracaoRe002.dados.[callback]:ArrowFunction#2</code> · [L130](../../scripts/campanha-desaceleracao-re002.ts#L130) | <code>(x: CruzamentoMach): number</code> | — / — |
+| <code>scripts/campanha-desaceleracao-re002.ts::executarCampanhaDesaceleracaoRe002.dados.[callback]:ArrowFunction#3</code> · [L131](../../scripts/campanha-desaceleracao-re002.ts#L131) | <code>(x: CruzamentoMach): boolean</code> | — / — |
+| <code>scripts/campanha-desaceleracao-re002.ts::executarCampanhaDesaceleracaoRe002.dados.[callback]:ArrowFunction#4</code> · [L131](../../scripts/campanha-desaceleracao-re002.ts#L131) | <code>(x: CruzamentoMach): number</code> | — / — |
+| <code>scripts/campanha-desaceleracao-re002.ts::executarCampanhaDesaceleracaoRe002.dados.[callback]:ArrowFunction#5</code> · [L132](../../scripts/campanha-desaceleracao-re002.ts#L132) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; integridadeMecanismo?: number &#124; undefined; }; knudsenEstimado: number; modeloEscoamento: string; }): boolean</code> | — / — |
+| <code>scripts/campanha-desaceleracao-re002.ts::executarCampanhaDesaceleracaoRe002.[callback]:ArrowFunction#3</code> · [L141](../../scripts/campanha-desaceleracao-re002.ts#L141) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; integridadeMecanismo?: number &#124; undefined; }; knudsenEstimado: number; modeloEscoamento: string; }): number</code> | — / — |
+| <code>scripts/campanha-desaceleracao-re002.ts::executarCampanhaDesaceleracaoRe002.[callback]:ArrowFunction#4</code> · [L141](../../scripts/campanha-desaceleracao-re002.ts#L141) | <code>(x: CruzamentoMach): { mach: number; tempoS: number; hM: number; velocidadeMps: number; integridadeFlaps: readonly number[]; controleDisponivel: boolean; }</code> | — / — |
 | <code>scripts/campanha-re002.ts::resumir.[callback]:ArrowFunction#1</code> · [L20](../../scripts/campanha-re002.ts#L20) | <code>(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; integridadeMecanismo?: number &#124; undefined; }; knudsenEstimado: number; modeloEscoamento: string; }): { comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; integridadeMecanismo?: number &#124; undefined; }; }</code> | — / — |
 | <code>scripts/campanha-re002.ts::executarCampanha.[callback]:ArrowFunction#1</code> · [L39](../../scripts/campanha-re002.ts#L39) | <code>(alpha: number): { id: string; duracaoS: number; entrada: { altitudeM: number; velocidadeMps: number; trajetoriaRad: number; anguloAtaqueRad: number; }; }</code> | — / — |
 | <code>scripts/campanha-re002.ts::executarCampanha.[callback]:ArrowFunction#2</code> · [L46](../../scripts/campanha-re002.ts#L46) | <code>(c: { id: string; duracaoS: number; entrada: EntradaConfiguracaoReentrada; }): boolean</code> | <code>filtro.includes</code> / — |
@@ -35269,6 +35527,11 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>scripts/documentacao/projeto.ts::carregarProjeto.[callback]:ArrowFunction#1</code> · [L37](../../scripts/documentacao/projeto.ts#L37) | <code>(p: string): string</code> | <code>readFileSync</code> / — |
 | <code>scripts/documentacao/projeto.ts::carregarProjeto.[callback]:ArrowFunction#2</code> · [L42](../../scripts/documentacao/projeto.ts#L42) | <code>(a: string): ts.SourceFile</code> | <code>programa.getSourceFile</code> / — |
 | <code>scripts/documentacao/projeto.ts::carregarProjeto.[callback]:ArrowFunction#3</code> · [L43](../../scripts/documentacao/projeto.ts#L43) | <code>(a: string): string</code> | <code>relative</code>; <code>resolve</code> / — |
+| <code>scripts/ensaio-propulsivo-reentrada-re002.ts::executarEnsaioPropulsivoReentradaRe002.[callback]:ArrowFunction#1</code> · [L20](../../scripts/ensaio-propulsivo-reentrada-re002.ts#L20) | <code>(r: ResultadoComandoPropulsor): boolean</code> | — / — |
+| <code>scripts/ensaio-propulsivo-reentrada-re002.ts::executarEnsaioPropulsivoReentradaRe002.[callback]:ArrowFunction#2</code> · [L53](../../scripts/ensaio-propulsivo-reentrada-re002.ts#L53) | <code>(c: ContatoSuperficieFisico): boolean</code> | <code>idsEstruturais.has</code> / — |
+| <code>scripts/ensaio-propulsivo-reentrada-re002.ts::executarEnsaioPropulsivoReentradaRe002.[callback]:ArrowFunction#3</code> · [L81](../../scripts/ensaio-propulsivo-reentrada-re002.ts#L81) | <code>(c: ContatoSuperficieFisico): boolean</code> | <code>idsEstruturais.has</code> / — |
+| <code>scripts/ensaio-propulsivo-reentrada-re002.ts::executarEnsaioPropulsivoReentradaRe002.dados.[callback]:ArrowFunction#1</code> · [L94](../../scripts/ensaio-propulsivo-reentrada-re002.ts#L94) | <code>(a: object): boolean</code> | — / — |
+| <code>scripts/ensaio-propulsivo-reentrada-re002.ts::executarEnsaioPropulsivoReentradaRe002.dados.[callback]:ArrowFunction#2</code> · [L102](../../scripts/ensaio-propulsivo-reentrada-re002.ts#L102) | <code>(f: FixadorEstrutural): { id: string; estado: "integro" &#124; "rompido" &#124; "liberado"; }</code> | — / — |
 | <code>scripts/site/smoke.ts::abrirPagina.[callback]:ArrowFunction#1</code> · [L16](../../scripts/site/smoke.ts#L16) | <code>(e: Error): number</code> | <code>erros.push</code>; <code>String</code> / — |
 | <code>scripts/site/smoke.ts::abrirPagina.[callback]:ArrowFunction#2</code> · [L17](../../scripts/site/smoke.ts#L17) | <code>(m: ConsoleMessage): void</code> | <code>m.type</code>; <code>erros.push</code>; <code>m.text</code> / — |
 | <code>scripts/site/smoke.ts::abrirPagina.[callback]:ArrowFunction#3</code> · [L18](../../scripts/site/smoke.ts#L18) | <code>(r: Response): void</code> | <code>r.status</code>; <code>falhas.push</code>; <code>r.url</code> / — |
@@ -35430,6 +35693,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/cenarios/BancadaBss003.ts::criarTesteBss003.integridadeMinima.[callback]:ArrowFunction#1</code> · [L128](../../src/cenarios/BancadaBss003.ts#L128) | <code>(objeto: Objeto): number</code> | — / — |
 | <code>src/cenarios/BancadaBss003.ts::criarTesteBss003.[callback]:ArrowFunction#2</code> · [L137](../../src/cenarios/BancadaBss003.ts#L137) | <code>(this: undefined, motor: PropulsorVetorizado): ConexaoEletrica[]</code> | — / — |
 | <code>src/cenarios/BancadaBss003.ts::criarTesteBss003.ativarControleBss03.[callback]:ArrowFunction#1</code> · [L152](../../src/cenarios/BancadaBss003.ts#L152) | <code>(resultado: ResultadoComandoPropulsor): boolean</code> | — / — |
+| <code>src/cenarios/CruzamentosMach.ts::amostrarCruzamentosMach.[callback]:ArrowFunction#1</code> · [L63](../../src/cenarios/CruzamentosMach.ts#L63) | <code>(m: number): boolean</code> | <code>Number.isFinite</code> / — |
+| <code>src/cenarios/CruzamentosMach.ts::amostrarCruzamentosMach.[callback]:ArrowFunction#2</code> · [L64](../../src/cenarios/CruzamentosMach.ts#L64) | <code>(machAlvo: number): { machAlvo: number; sentido: "decrescente"; fracaoPasso: number; tempoS: number; passoInicial: number; passoFinal: number; estado: { tempoS: number; altitudeM: number; arcoM: number; velocidadeMps: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; trajetoriaRad: number; atitudeLocalRad: number; alphaRad: number; omegaRadps: number; pressaoDinamicaPa: number; fluxoTermicoWm2: number; torqueAerodinamicoNm: number; energiaMecanicaEspecificaJPorKg: number; temperaturaCorpoC: number; integridadeCorpo: number; temperaturaFlapsC: number[]; integridadeFlaps: number[]; alimentacaoFlaps: boolean[]; vinculosFlaps: boolean[]; estadoControle: string; autoridadeDisponivel: boolean; }; componentesEssenciaisIntegrais: boolean; controleDisponivel: boolean; }</code> | <code>interpolar</code>; <code>anterior.temperaturaFlapsC.map</code>; <code>anterior.integridadeFlaps.map</code>; <code>anterior.alimentacaoFlaps.map</code>; <code>anterior.vinculosFlaps.map</code>; <code>estado.integridadeFlaps.every</code>; <code>anterior.alimentacaoFlaps.every</code>; <code>anterior.vinculosFlaps.every</code> / — |
+| <code>src/cenarios/CruzamentosMach.ts::amostrarCruzamentosMach.[callback]#2.[callback]:ArrowFunction#1</code> · [L78](../../src/cenarios/CruzamentosMach.ts#L78) | <code>(v: number, i: number): number</code> | — / — |
+| <code>src/cenarios/CruzamentosMach.ts::amostrarCruzamentosMach.[callback]#2.[callback]:ArrowFunction#2</code> · [L79](../../src/cenarios/CruzamentosMach.ts#L79) | <code>(v: number, i: number): number</code> | — / — |
+| <code>src/cenarios/CruzamentosMach.ts::amostrarCruzamentosMach.[callback]#2.[callback]:ArrowFunction#3</code> · [L80](../../src/cenarios/CruzamentosMach.ts#L80) | <code>(v: boolean, i: number): boolean</code> | — / — |
+| <code>src/cenarios/CruzamentosMach.ts::amostrarCruzamentosMach.[callback]#2.[callback]:ArrowFunction#4</code> · [L81](../../src/cenarios/CruzamentosMach.ts#L81) | <code>(v: boolean, i: number): boolean</code> | — / — |
+| <code>src/cenarios/CruzamentosMach.ts::amostrarCruzamentosMach.[callback]#2.[callback]:ArrowFunction#5</code> · [L85](../../src/cenarios/CruzamentosMach.ts#L85) | <code>(v: number): boolean</code> | — / — |
+| <code>src/cenarios/CruzamentosMach.ts::amostrarCruzamentosMach.[callback]#2.[callback]:ArrowFunction#6</code> · [L86](../../src/cenarios/CruzamentosMach.ts#L86) | <code>(v: boolean, i: number): boolean</code> | — / — |
+| <code>src/cenarios/CruzamentosMach.ts::amostrarCruzamentosMach.[callback]#2.[callback]:ArrowFunction#7</code> · [L87](../../src/cenarios/CruzamentosMach.ts#L87) | <code>(v: boolean, i: number): boolean</code> | — / — |
 | <code>src/cenarios/EnsaioMissaoBss005.ts::menorAlturaDoObjetoM.[callback]:ArrowFunction#1</code> · [L111](../../src/cenarios/EnsaioMissaoBss005.ts#L111) | <code>(ponto: Vetor3): number</code> | <code>Math.sin</code>; <code>Math.cos</code> / — |
 | <code>src/cenarios/EnsaioMissaoBss005.ts::lerMissaoBss005.[callback]:ArrowFunction#1</code> · [L127](../../src/cenarios/EnsaioMissaoBss005.ts#L127) | <code>(soma: Vetor3, objeto: Objeto): Vetor3</code> | <code>soma.adicionar</code>; <code>cenario.mundo.obterForcaArrastoAtmosferico</code> / — |
 | <code>src/cenarios/EnsaioMissaoBss005.ts::lerMissaoBss005.[callback]:ArrowFunction#2</code> · [L134](../../src/cenarios/EnsaioMissaoBss005.ts#L134) | <code>(objeto: Objeto): objeto is TanquePropelente</code> | — / — |
@@ -35454,53 +35726,58 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/cenarios/EnsaioMissaoBss005.ts::avancarEnsaioMissaoBss005.[callback]:ArrowFunction#3</code> · [L213](../../src/cenarios/EnsaioMissaoBss005.ts#L213) | <code>(objeto: Objeto): objeto is TanquePropelente</code> | — / — |
 | <code>src/cenarios/EnsaioMissaoBss005.ts::avancarEnsaioMissaoBss005.[callback]:ArrowFunction#4</code> · [L311](../../src/cenarios/EnsaioMissaoBss005.ts#L311) | <code>(contato: { readonly objetoId: string; readonly superficieId: string; readonly emApoio: boolean; readonly penetracaoM: number; readonly velocidadeNormalAntesMps: number; readonly velocidadeNormalDepoisMps: number; readonly energiaImpactoJ: number; }): boolean</code> | <code>idsDosContatosDePouso.has</code> / — |
 | <code>src/cenarios/EnsaioMissaoBss005.ts::avancarEnsaioMissaoBss005.[callback]:ArrowFunction#5</code> · [L384](../../src/cenarios/EnsaioMissaoBss005.ts#L384) | <code>(motivo: string): boolean</code> | <code>['velocidade-vertical-no-toque', 'velocidade-horizontal-no-toque',<br>    'atitude-ou-rotacao-no-toque', 'vinculos-rompidos'].includes</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::validarComandoReentrada.[callback]:ArrowFunction#1</code> · [L84](../../src/cenarios/EnsaioReentrada.ts#L84) | <code>(k: string): boolean</code> | <code>Object.hasOwn</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::validarComandoReentrada.[callback]:ArrowFunction#2</code> · [L92](../../src/cenarios/EnsaioReentrada.ts#L92) | <code>(v: unknown): boolean</code> | <code>Number.isFinite</code>; <code>Math.abs</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::configurarReentrada.[callback]:ArrowFunction#1</code> · [L104](../../src/cenarios/EnsaioReentrada.ts#L104) | <code>(r: RegiaoTermica): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::configurarReentrada.[callback]:ArrowFunction#2</code> · [L105](../../src/cenarios/EnsaioReentrada.ts#L105) | <code>(r: RegiaoTermica): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::configurarReentrada.[callback]:ArrowFunction#3</code> · [L135](../../src/cenarios/EnsaioReentrada.ts#L135) | <code>(v: any): boolean</code> | <code>Number.isFinite</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]:ArrowFunction#1</code> · [L201](../../src/cenarios/EnsaioReentrada.ts#L201) | <code>(): Vetor3</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]:ArrowFunction#2</code> · [L208](../../src/cenarios/EnsaioReentrada.ts#L208) | <code>(i: number): FlapReentrada</code> | <code>FlapReentrada</code>; <code>Vetor3</code>; <code>estadoModulo</code>; <code>flap.configurarRedeTermicaPeloCore</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#2.[callback]:ArrowFunction#1</code> · [L220](../../src/cenarios/EnsaioReentrada.ts#L220) | <code>(): number</code> | <code>orbitador.observarRolagem</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#2.[callback]:ArrowFunction#2</code> · [L220](../../src/cenarios/EnsaioReentrada.ts#L220) | <code>(): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]:ArrowFunction#3</code> · [L246](../../src/cenarios/EnsaioReentrada.ts#L246) | <code>(): number</code> | <code>fixadores.filter(f =&gt; f.estaAtivo).reduce</code>; <code>fixadores.filter</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#3.[callback]:ArrowFunction#1</code> · [L246](../../src/cenarios/EnsaioReentrada.ts#L246) | <code>(f: FixadorEstrutural): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#3.[callback]:ArrowFunction#2</code> · [L246](../../src/cenarios/EnsaioReentrada.ts#L246) | <code>(s: number, f: FixadorEstrutural): number</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]:ArrowFunction#1</code> · [L258](../../src/cenarios/EnsaioReentrada.ts#L258) | <code>(o: Objeto): boolean</code> | <code>c.fixadores.some</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]#1.[callback]:ArrowFunction#1</code> · [L258](../../src/cenarios/EnsaioReentrada.ts#L258) | <code>(f: FixadorEstrutural): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]:ArrowFunction#2</code> · [L259](../../src/cenarios/EnsaioReentrada.ts#L259) | <code>(s: number, o: Objeto): number</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]:ArrowFunction#3</code> · [L260](../../src/cenarios/EnsaioReentrada.ts#L260) | <code>(s: Vetor3, o: Objeto): Vetor3</code> | <code>s.adicionar</code>; <code>o.getEstadoFisico().posicaoM.multiplicar</code>; <code>o.getEstadoFisico</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]:ArrowFunction#4</code> · [L261](../../src/cenarios/EnsaioReentrada.ts#L261) | <code>(s: number, o: Objeto): number</code> | <code>o.getMomentoInerciaKgM2</code>; <code>o.getEstadoFisico().posicaoM.subtrair</code>; <code>o.getEstadoFisico</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.constructor.[callback]:ArrowFunction#1</code> · [L293](../../src/cenarios/EnsaioReentrada.ts#L293) | <code>(): { alphaRad: number; taxaArfagemRadps: number; taxaFluxoRadps: number; pressaoDinamicaPa: number; fluxoTermicoWm2: number; cargaG: number; torquePassivoNm: number; energiaMecanicaEspecificaJPorKg: number; integridadeMinima: number; inerciaKgM2: number; phiRad: number; disponivel: boolean; }</code> | <code>this.lerControle</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando.[callback]:ArrowFunction#1</code> · [L334](../../src/cenarios/EnsaioReentrada.ts#L334) | <code>(f: FlapReentrada): void</code> | <code>f.solicitarDeflexaoRad</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando.[callback]:ArrowFunction#2</code> · [L348](../../src/cenarios/EnsaioReentrada.ts#L348) | <code>(r: Readonly&lt;RequisitoAproximacao&gt;): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando.[callback]:ArrowFunction#3</code> · [L348](../../src/cenarios/EnsaioReentrada.ts#L348) | <code>(r: Readonly&lt;RequisitoAproximacao&gt;): string</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando.[callback]:ArrowFunction#4</code> · [L349](../../src/cenarios/EnsaioReentrada.ts#L349) | <code>(f: FlapReentrada): void</code> | <code>f.conexaoEletrica.fecharInterruptor</code>; <code>f.conexaoEletrica.abrirInterruptor</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso.[callback]:ArrowFunction#1</code> · [L368](../../src/cenarios/EnsaioReentrada.ts#L368) | <code>(f: FlapReentrada): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso.[callback]:ArrowFunction#2</code> · [L371](../../src/cenarios/EnsaioReentrada.ts#L371) | <code>(s: number, o: Objeto): number</code> | <code>Math.max</code>; <code>c.mundo.obterForcaArrastoAtmosferico(o)<br>    .produtoEscalar</code>; <code>c.mundo.obterForcaArrastoAtmosferico</code>; <code>o.getEstadoFisico().velocidadeMps.subtrair</code>; <code>o.getEstadoFisico</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso.[callback]:ArrowFunction#3</code> · [L374](../../src/cenarios/EnsaioReentrada.ts#L374) | <code>(p: Vetor3): Vetor3</code> | <code>c.mundo.obterGravidadeMps2</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso.[callback]:ArrowFunction#4</code> · [L378](../../src/cenarios/EnsaioReentrada.ts#L378) | <code>(p: Vetor3): Vetor3</code> | <code>c.mundo.obterGravidadeMps2</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#1</code> · [L403](../../src/cenarios/EnsaioReentrada.ts#L403) | <code>(s: number, o: Objeto): number</code> | <code>Math.max</code>; <code>c.mundo.obterForcaArrastoAtmosferico(o)<br>    .produtoEscalar</code>; <code>c.mundo.obterForcaArrastoAtmosferico</code>; <code>o.getEstadoFisico().velocidadeMps.subtrair</code>; <code>o.getEstadoFisico</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#2</code> · [L405](../../src/cenarios/EnsaioReentrada.ts#L405) | <code>(s: number, o: Objeto): number</code> | <code>Math.max</code>; <code>c.mundo.obterForcaArrastoAtmosferico(o).produtoEscalar</code>; <code>c.mundo.obterForcaArrastoAtmosferico</code>; <code>o.getEstadoFisico().velocidadeMps.subtrair</code>; <code>o.getEstadoFisico</code>; <code>o.obterPotenciaAquecimentoAerodinamicoW</code>; <code>c.mundo.obterCondicoesAtmosfericas</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#3</code> · [L420](../../src/cenarios/EnsaioReentrada.ts#L420) | <code>(p: Vetor3): Vetor3</code> | <code>c.mundo.obterGravidadeMps2</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#4</code> · [L426](../../src/cenarios/EnsaioReentrada.ts#L426) | <code>(f: FlapReentrada): Readonly&lt;{ revisao: "RE-004-r1"; regioes: readonly Readonly&lt;{ capacidadeJPorC: number; causa: `temperatura&gt;${number} \u00B0C em ${string}` &#124; null; temperaturaC: number; integridade: number; energiaConduzidaJ: number; id: string; material: string; massaTermicaKg: number; calorEspecificoJPorKgC: number; areaExpostaM2: number; emissividade: number; temperaturaInicialC: number; limiteTermicoC: number; taxaDanoPorSegundo: number; }&gt;[]; energiaArmazenadaJ: number; energiaIncidenteJ: number; energiaGeradaJ: number; energiaConducaoExternaJ: number; energiaContatoJ: number; energiaRadiadaJ: number; energiaConveccaoJ: number; residuoEnergiaJ: number; potenciaIncidenteW: number; potenciaRadiadaW: number; potenciaConveccaoW: number; conducoes: readonly Readonly&lt;{ energiaJ: number; potenciaW: number; a: string; b: string; condutanciaWPorC: number; condutanciaSemProtecaoWPorC: number; }&gt;[]; }&gt;</code> | <code>f.observarRedeTermica</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#5</code> · [L431](../../src/cenarios/EnsaioReentrada.ts#L431) | <code>(s: number, o: Objeto): number</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#6</code> · [L433](../../src/cenarios/EnsaioReentrada.ts#L433) | <code>(s: number, o: Objeto): number</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#7</code> · [L439](../../src/cenarios/EnsaioReentrada.ts#L439) | <code>(f: FlapReentrada): boolean</code> | <code>f.obterDiagnosticoAtuacao</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#8</code> · [L441](../../src/cenarios/EnsaioReentrada.ts#L441) | <code>(ct: ContatoSuperficieFisico): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#9</code> · [L446](../../src/cenarios/EnsaioReentrada.ts#L446) | <code>(f: FlapReentrada, i: number): { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; integridadeMecanismo?: number &#124; undefined; }; knudsenEstimado: number; modeloEscoamento: string; }</code> | <code>f.getEstadoFisico</code>; <code>calcularFluxoTermicoIndicador</code>; <code>c.mundo.obterCondicoesAtmosfericas</code>; <code>f.getEstadoFisico().velocidadeMps.subtrair</code>; <code>f.obterDiagnosticoAtuacao</code>; <code>c.perfil.amostrar</code>; <code>c.ambiente.referencial.altitudeGeometricaM</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#10</code> · [L455](../../src/cenarios/EnsaioReentrada.ts#L455) | <code>(f: FixadorEstrutural): { id: string; estado: "integro" &#124; "rompido" &#124; "liberado"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; termica?: Readonly&lt;{ modelo: "condutancia-conservativa" &#124; "temperatura-media-legada"; temperaturaC: number; energiaConduzidaJ: number; potenciaConduzidaW: number; portas: Readonly&lt;{ regiaoA: string; regiaoB: string; }&gt; &#124; undefined; }&gt; &#124; undefined; }</code> | <code>f.obterDiagnosticoTermico</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle.[callback]:ArrowFunction#1</code> · [L471](../../src/cenarios/EnsaioReentrada.ts#L471) | <code>(s: number, f: FlapReentrada, i: number): number</code> | <code>f.obterForcasAerodinamicas(c.mundo.obterCondicoesAtmosfericas(f)).reduce</code>; <code>f.obterForcasAerodinamicas</code>; <code>c.mundo.obterCondicoesAtmosfericas</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle.[callback]#1.[callback]:ArrowFunction#1</code> · [L472](../../src/cenarios/EnsaioReentrada.ts#L472) | <code>(p: number, forca: ForcaFisicaSolicitada): number</code> | <code>(forca.pontoM ?? f.getEstadoFisico().posicaoM).subtrair(g.centroM).produtoVetorial</code>; <code>(forca.pontoM ?? f.getEstadoFisico().posicaoM).subtrair</code>; <code>f.getEstadoFisico</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle.[callback]:ArrowFunction#2</code> · [L479](../../src/cenarios/EnsaioReentrada.ts#L479) | <code>(o: Objeto): number</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle.[callback]:ArrowFunction#3</code> · [L481](../../src/cenarios/EnsaioReentrada.ts#L481) | <code>(f: FlapReentrada, i: number): boolean</code> | <code>f.obterDiagnosticoAtuacao</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.atualizarSupervisor.[callback]:ArrowFunction#1</code> · [L492](../../src/cenarios/EnsaioReentrada.ts#L492) | <code>(f: FlapReentrada, i: number): number</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.atualizarSupervisor.[callback]:ArrowFunction#2</code> · [L503](../../src/cenarios/EnsaioReentrada.ts#L503) | <code>(f: FlapReentrada): boolean</code> | <code>f.obterDiagnosticoAtuacao</code> / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.atualizarSupervisor.[callback]:ArrowFunction#3</code> · [L504](../../src/cenarios/EnsaioReentrada.ts#L504) | <code>(f: FlapReentrada): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes.condicoes.[callback]:ArrowFunction#1</code> · [L523](../../src/cenarios/EnsaioReentrada.ts#L523) | <code>(f: FlapReentrada): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes.condicoes.[callback]:ArrowFunction#2</code> · [L527](../../src/cenarios/EnsaioReentrada.ts#L527) | <code>(f: FlapReentrada): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes.condicoes.[callback]:ArrowFunction#3</code> · [L528](../../src/cenarios/EnsaioReentrada.ts#L528) | <code>(f: FixadorEstrutural): boolean</code> | — / — |
-| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes.valores.[callback]:ArrowFunction#1</code> · [L543](../../src/cenarios/EnsaioReentrada.ts#L543) | <code>(f: FlapReentrada): number</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::validarComandoReentrada.[callback]:ArrowFunction#1</code> · [L93](../../src/cenarios/EnsaioReentrada.ts#L93) | <code>(k: string): boolean</code> | <code>Object.hasOwn</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::validarComandoReentrada.[callback]:ArrowFunction#2</code> · [L101](../../src/cenarios/EnsaioReentrada.ts#L101) | <code>(v: unknown): boolean</code> | <code>Number.isFinite</code>; <code>Math.abs</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::configurarReentrada.[callback]:ArrowFunction#1</code> · [L113](../../src/cenarios/EnsaioReentrada.ts#L113) | <code>(r: RegiaoTermica): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::configurarReentrada.[callback]:ArrowFunction#2</code> · [L114](../../src/cenarios/EnsaioReentrada.ts#L114) | <code>(r: RegiaoTermica): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::configurarReentrada.[callback]:ArrowFunction#3</code> · [L144](../../src/cenarios/EnsaioReentrada.ts#L144) | <code>(v: any): boolean</code> | <code>Number.isFinite</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]:ArrowFunction#1</code> · [L210](../../src/cenarios/EnsaioReentrada.ts#L210) | <code>(): Vetor3</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]:ArrowFunction#2</code> · [L217](../../src/cenarios/EnsaioReentrada.ts#L217) | <code>(i: number): FlapReentrada</code> | <code>FlapReentrada</code>; <code>Vetor3</code>; <code>estadoModulo</code>; <code>flap.configurarRedeTermicaPeloCore</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#2.[callback]:ArrowFunction#1</code> · [L229](../../src/cenarios/EnsaioReentrada.ts#L229) | <code>(): number</code> | <code>orbitador.observarRolagem</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#2.[callback]:ArrowFunction#2</code> · [L229](../../src/cenarios/EnsaioReentrada.ts#L229) | <code>(): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]:ArrowFunction#3</code> · [L255](../../src/cenarios/EnsaioReentrada.ts#L255) | <code>(): number</code> | <code>fixadores.filter(f =&gt; f.estaAtivo).reduce</code>; <code>fixadores.filter</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#3.[callback]:ArrowFunction#1</code> · [L255](../../src/cenarios/EnsaioReentrada.ts#L255) | <code>(f: FixadorEstrutural): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::criarCenarioReentrada.[callback]#3.[callback]:ArrowFunction#2</code> · [L255](../../src/cenarios/EnsaioReentrada.ts#L255) | <code>(s: number, f: FixadorEstrutural): number</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]:ArrowFunction#1</code> · [L267](../../src/cenarios/EnsaioReentrada.ts#L267) | <code>(o: Objeto): boolean</code> | <code>c.fixadores.some</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]#1.[callback]:ArrowFunction#1</code> · [L267](../../src/cenarios/EnsaioReentrada.ts#L267) | <code>(f: FixadorEstrutural): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]:ArrowFunction#2</code> · [L268](../../src/cenarios/EnsaioReentrada.ts#L268) | <code>(s: number, o: Objeto): number</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]:ArrowFunction#3</code> · [L269](../../src/cenarios/EnsaioReentrada.ts#L269) | <code>(s: Vetor3, o: Objeto): Vetor3</code> | <code>s.adicionar</code>; <code>o.getEstadoFisico().posicaoM.multiplicar</code>; <code>o.getEstadoFisico</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::geometriaConjunto.[callback]:ArrowFunction#4</code> · [L270](../../src/cenarios/EnsaioReentrada.ts#L270) | <code>(s: number, o: Objeto): number</code> | <code>o.getMomentoInerciaKgM2</code>; <code>o.getEstadoFisico().posicaoM.subtrair</code>; <code>o.getEstadoFisico</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.constructor.[callback]:ArrowFunction#1</code> · [L303](../../src/cenarios/EnsaioReentrada.ts#L303) | <code>(): { alphaRad: number; taxaArfagemRadps: number; taxaFluxoRadps: number; pressaoDinamicaPa: number; fluxoTermicoWm2: number; cargaG: number; torquePassivoNm: number; energiaMecanicaEspecificaJPorKg: number; integridadeMinima: number; inerciaKgM2: number; phiRad: number; disponivel: boolean; }</code> | <code>this.lerControle</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando.[callback]:ArrowFunction#1</code> · [L344](../../src/cenarios/EnsaioReentrada.ts#L344) | <code>(f: FlapReentrada): void</code> | <code>f.solicitarDeflexaoRad</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando.[callback]:ArrowFunction#2</code> · [L358](../../src/cenarios/EnsaioReentrada.ts#L358) | <code>(r: Readonly&lt;RequisitoAproximacao&gt;): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando.[callback]:ArrowFunction#3</code> · [L358](../../src/cenarios/EnsaioReentrada.ts#L358) | <code>(r: Readonly&lt;RequisitoAproximacao&gt;): string</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.receberComando.[callback]:ArrowFunction#4</code> · [L359](../../src/cenarios/EnsaioReentrada.ts#L359) | <code>(f: FlapReentrada): void</code> | <code>f.conexaoEletrica.fecharInterruptor</code>; <code>f.conexaoEletrica.abrirInterruptor</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso.[callback]:ArrowFunction#1</code> · [L378](../../src/cenarios/EnsaioReentrada.ts#L378) | <code>(f: FlapReentrada): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso.[callback]:ArrowFunction#2</code> · [L381](../../src/cenarios/EnsaioReentrada.ts#L381) | <code>(s: number, o: Objeto): number</code> | <code>Math.max</code>; <code>c.mundo.obterForcaArrastoAtmosferico(o)<br>    .produtoEscalar</code>; <code>c.mundo.obterForcaArrastoAtmosferico</code>; <code>o.getEstadoFisico().velocidadeMps.subtrair</code>; <code>o.getEstadoFisico</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso.[callback]:ArrowFunction#3</code> · [L384](../../src/cenarios/EnsaioReentrada.ts#L384) | <code>(p: Vetor3): Vetor3</code> | <code>c.mundo.obterGravidadeMps2</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.avancarPasso.[callback]:ArrowFunction#4</code> · [L388](../../src/cenarios/EnsaioReentrada.ts#L388) | <code>(p: Vetor3): Vetor3</code> | <code>c.mundo.obterGravidadeMps2</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#1</code> · [L418](../../src/cenarios/EnsaioReentrada.ts#L418) | <code>(s: number, o: Objeto): number</code> | <code>Math.max</code>; <code>c.mundo.obterForcaArrastoAtmosferico(o)<br>    .produtoEscalar</code>; <code>c.mundo.obterForcaArrastoAtmosferico</code>; <code>o.getEstadoFisico().velocidadeMps.subtrair</code>; <code>o.getEstadoFisico</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#2</code> · [L420](../../src/cenarios/EnsaioReentrada.ts#L420) | <code>(s: number, o: Objeto): number</code> | <code>Math.max</code>; <code>c.mundo.obterForcaArrastoAtmosferico(o).produtoEscalar</code>; <code>c.mundo.obterForcaArrastoAtmosferico</code>; <code>o.getEstadoFisico().velocidadeMps.subtrair</code>; <code>o.getEstadoFisico</code>; <code>o.obterPotenciaAquecimentoAerodinamicoW</code>; <code>c.mundo.obterCondicoesAtmosfericas</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#3</code> · [L435](../../src/cenarios/EnsaioReentrada.ts#L435) | <code>(p: Vetor3): Vetor3</code> | <code>c.mundo.obterGravidadeMps2</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#4</code> · [L441](../../src/cenarios/EnsaioReentrada.ts#L441) | <code>(f: FlapReentrada): Readonly&lt;{ revisao: "RE-004-r1"; regioes: readonly Readonly&lt;{ capacidadeJPorC: number; causa: `temperatura&gt;${number} \u00B0C em ${string}` &#124; null; temperaturaC: number; integridade: number; energiaConduzidaJ: number; id: string; material: string; massaTermicaKg: number; calorEspecificoJPorKgC: number; areaExpostaM2: number; emissividade: number; temperaturaInicialC: number; limiteTermicoC: number; taxaDanoPorSegundo: number; }&gt;[]; energiaArmazenadaJ: number; energiaIncidenteJ: number; energiaGeradaJ: number; energiaConducaoExternaJ: number; energiaContatoJ: number; energiaRadiadaJ: number; energiaConveccaoJ: number; residuoEnergiaJ: number; potenciaIncidenteW: number; potenciaRadiadaW: number; potenciaConveccaoW: number; conducoes: readonly Readonly&lt;{ energiaJ: number; potenciaW: number; a: string; b: string; condutanciaWPorC: number; condutanciaSemProtecaoWPorC: number; }&gt;[]; }&gt;</code> | <code>f.observarRedeTermica</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#5</code> · [L446](../../src/cenarios/EnsaioReentrada.ts#L446) | <code>(s: number, o: Objeto): number</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#6</code> · [L448](../../src/cenarios/EnsaioReentrada.ts#L448) | <code>(s: number, o: Objeto): number</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#7</code> · [L454](../../src/cenarios/EnsaioReentrada.ts#L454) | <code>(f: FlapReentrada): boolean</code> | <code>f.obterDiagnosticoAtuacao</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#8</code> · [L456](../../src/cenarios/EnsaioReentrada.ts#L456) | <code>(ct: ContatoSuperficieFisico): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#9</code> · [L461](../../src/cenarios/EnsaioReentrada.ts#L461) | <code>(f: FlapReentrada, i: number): { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; integridadeMecanismo?: number &#124; undefined; }; knudsenEstimado: number; modeloEscoamento: string; }</code> | <code>f.getEstadoFisico</code>; <code>calcularFluxoTermicoIndicador</code>; <code>c.mundo.obterCondicoesAtmosfericas</code>; <code>f.getEstadoFisico().velocidadeMps.subtrair</code>; <code>f.obterDiagnosticoAtuacao</code>; <code>c.perfil.amostrar</code>; <code>c.ambiente.referencial.altitudeGeometricaM</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar.[callback]:ArrowFunction#10</code> · [L470](../../src/cenarios/EnsaioReentrada.ts#L470) | <code>(f: FixadorEstrutural): { id: string; estado: "integro" &#124; "rompido" &#124; "liberado"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; termica?: Readonly&lt;{ modelo: "condutancia-conservativa" &#124; "temperatura-media-legada"; temperaturaC: number; energiaConduzidaJ: number; potenciaConduzidaW: number; portas: Readonly&lt;{ regiaoA: string; regiaoB: string; }&gt; &#124; undefined; }&gt; &#124; undefined; }</code> | <code>f.obterDiagnosticoTermico</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle.[callback]:ArrowFunction#1</code> · [L486](../../src/cenarios/EnsaioReentrada.ts#L486) | <code>(s: number, f: FlapReentrada, i: number): number</code> | <code>f.obterForcasAerodinamicas(c.mundo.obterCondicoesAtmosfericas(f)).reduce</code>; <code>f.obterForcasAerodinamicas</code>; <code>c.mundo.obterCondicoesAtmosfericas</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle.[callback]#1.[callback]:ArrowFunction#1</code> · [L487](../../src/cenarios/EnsaioReentrada.ts#L487) | <code>(p: number, forca: ForcaFisicaSolicitada): number</code> | <code>(forca.pontoM ?? f.getEstadoFisico().posicaoM).subtrair(g.centroM).produtoVetorial</code>; <code>(forca.pontoM ?? f.getEstadoFisico().posicaoM).subtrair</code>; <code>f.getEstadoFisico</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle.[callback]:ArrowFunction#2</code> · [L494](../../src/cenarios/EnsaioReentrada.ts#L494) | <code>(o: Objeto): number</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerControle.[callback]:ArrowFunction#3</code> · [L496](../../src/cenarios/EnsaioReentrada.ts#L496) | <code>(f: FlapReentrada, i: number): boolean</code> | <code>f.obterDiagnosticoAtuacao</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.atualizarSupervisor.[callback]:ArrowFunction#1</code> · [L507](../../src/cenarios/EnsaioReentrada.ts#L507) | <code>(f: FlapReentrada, i: number): number</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.atualizarSupervisor.[callback]:ArrowFunction#2</code> · [L518](../../src/cenarios/EnsaioReentrada.ts#L518) | <code>(f: FlapReentrada): boolean</code> | <code>f.obterDiagnosticoAtuacao</code> / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.atualizarSupervisor.[callback]:ArrowFunction#3</code> · [L519](../../src/cenarios/EnsaioReentrada.ts#L519) | <code>(f: FlapReentrada): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes.condicoes.[callback]:ArrowFunction#1</code> · [L538](../../src/cenarios/EnsaioReentrada.ts#L538) | <code>(f: FlapReentrada): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes.condicoes.[callback]:ArrowFunction#2</code> · [L542](../../src/cenarios/EnsaioReentrada.ts#L542) | <code>(f: FlapReentrada): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes.condicoes.[callback]:ArrowFunction#3</code> · [L543](../../src/cenarios/EnsaioReentrada.ts#L543) | <code>(f: FixadorEstrutural): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.registrarCondicoes.valores.[callback]:ArrowFunction#1</code> · [L558](../../src/cenarios/EnsaioReentrada.ts#L558) | <code>(f: FlapReentrada): number</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerMetricasPasso.[callback]:ArrowFunction#1</code> · [L608](../../src/cenarios/EnsaioReentrada.ts#L608) | <code>(f: FlapReentrada): number</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerMetricasPasso.[callback]:ArrowFunction#2</code> · [L609](../../src/cenarios/EnsaioReentrada.ts#L609) | <code>(f: FlapReentrada): number</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerMetricasPasso.[callback]:ArrowFunction#3</code> · [L610](../../src/cenarios/EnsaioReentrada.ts#L610) | <code>(f: FlapReentrada): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerMetricasPasso.[callback]:ArrowFunction#4</code> · [L610](../../src/cenarios/EnsaioReentrada.ts#L610) | <code>(f: FixadorEstrutural): boolean</code> | — / — |
+| <code>src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerMetricasPasso.[callback]:ArrowFunction#5</code> · [L612](../../src/cenarios/EnsaioReentrada.ts#L612) | <code>(f: FlapReentrada, i: number): boolean</code> | <code>f.obterDiagnosticoAtuacao</code> / — |
 | <code>src/cenarios/ReproducaoDiarioBss005.ts::normalizarParaComparacao.[callback]:ArrowFunction#1</code> · [L55](../../src/cenarios/ReproducaoDiarioBss005.ts#L55) | <code>(chave: string): [string, unknown]</code> | <code>normalizarParaComparacao</code> / — |
 | <code>src/cenarios/ReproducaoDiarioBss005.ts::validarDiario.[callback]:ArrowFunction#1</code> · [L72](../../src/cenarios/ReproducaoDiarioBss005.ts#L72) | <code>([k]: [string, string &#124; number &#124; boolean &#124; object &#124; Vetor3 &#124; { readonly centroCascoLocalM: Vetor3; readonly velocidadeLocalMps: Vetor3; readonly inclinacaoRad: number; readonly velocidadeAngularRadps: number; } &#124; readonly RajadaVento[]]): boolean</code> | — / — |
 | <code>src/cenarios/ReproducaoDiarioBss005.ts::validarDiario.[callback]:ArrowFunction#2</code> · [L78](../../src/cenarios/ReproducaoDiarioBss005.ts#L78) | <code>(objeto: Objeto): { id: string; massaKg: number; temperaturaC: number; integridade: number; estado: EstadoFisico; }</code> | <code>objeto.getEstadoFisico</code> / — |
@@ -35684,6 +35961,15 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.ts::AutotunadorPosicionamentoMotorEletrico.criarCandidatos.[callback]#3.[callback]:ArrowFunction#1</code> · [L46](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.ts#L46) | <code>(this: undefined, ganhoDerivativo: number): { ganhoProporcional: number; ganhoIntegral: number; ganhoDerivativo: number; }[]</code> | <code>integral.map</code> / — |
 | <code>src/physics/sistemas de controle/AutotunadorPosicionamentoMotorEletrico.ts::AutotunadorPosicionamentoMotorEletrico.criarCandidatos.[callback]#3.[callback]#1.[callback]:ArrowFunction#1</code> · [L46](../../src/physics/sistemas%20de%20controle/AutotunadorPosicionamentoMotorEletrico.ts#L46) | <code>(fatorIntegral: number): { ganhoProporcional: number; ganhoIntegral: number; ganhoDerivativo: number; }</code> | — / — |
 | <code>src/physics/sistemas de controle/ControladorAletasAerodinamicas.ts::ControladorAletasAerodinamicas.constructor.[callback]:ArrowFunction#1</code> · [L15](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.ts#L15) | <code>(v: number): boolean</code> | <code>Number.isFinite</code> / — |
+| <code>src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.constructor.[callback]:ArrowFunction#1</code> · [L66](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.ts#L66) | <code>(p: any): boolean</code> | <code>Number.isFinite</code> / — |
+| <code>src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.constructor.[callback]:ArrowFunction#2</code> · [L68](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.ts#L68) | <code>(p: any): any</code> | — / — |
+| <code>src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.constructor.[callback]:ArrowFunction#3</code> · [L71](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.ts#L71) | <code>(p: any): any</code> | <code>Object.freeze</code> / — |
+| <code>src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.calcularSolicitacoes.[callback]:ArrowFunction#1</code> · [L99](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.ts#L99) | <code>(v: number &#124; undefined): boolean</code> | <code>Number.isFinite</code> / — |
+| <code>src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.calcularSolicitacoes.[callback]:ArrowFunction#2</code> · [L103](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.ts#L103) | <code>(p: PropulsorAproximacao): { idAtuador: string; recurso: "throttle"; valor: number; }</code> | — / — |
+| <code>src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.calcularSolicitacoes.[callback]:ArrowFunction#3</code> · [L109](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.ts#L109) | <code>(p: PropulsorAproximacao): { idAtuador: string; recurso: "throttle"; valor: number; }</code> | — / — |
+| <code>src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.calcularSolicitacoes.[callback]:ArrowFunction#4</code> · [L124](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.ts#L124) | <code>(p: PropulsorAproximacao): number</code> | — / — |
+| <code>src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.calcularSolicitacoes.[callback]:ArrowFunction#5</code> · [L126](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.ts#L126) | <code>(s: number, p: PropulsorAproximacao): number</code> | — / — |
+| <code>src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.calcularSolicitacoes.[callback]:ArrowFunction#6</code> · [L135](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.ts#L135) | <code>(this: undefined, p: PropulsorAproximacao): ({ idAtuador: string; recurso: "throttle"; valor: number; } &#124; { idAtuador: string; recurso: "gimbal"; valor: number; })[]</code> | — / — |
 | <code>src/physics/sistemas de controle/ControladorDesaceleracaoDePropulsores.ts::ControladorDesaceleracaoDePropulsores.calcularSolicitacoes.[callback]:ArrowFunction#1</code> · [L23](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracaoDePropulsores.ts#L23) | <code>(idAtuador: string): { idAtuador: string; recurso: "throttle"; valor: number; }</code> | — / — |
 | <code>src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.ts::ControladorDescidaFuzzyPidDePropulsores.calcularSolicitacoes.[callback]:ArrowFunction#1</code> · [L94](../../src/physics/sistemas%20de%20controle/ControladorDescidaFuzzyPidDePropulsores.ts#L94) | <code>(idAtuador: string): { idAtuador: string; recurso: "throttle"; valor: number; }</code> | — / — |
 | <code>src/physics/sistemas de controle/ControladorDescidaFuzzyPidDePropulsores.ts::ControladorDescidaFuzzyPidDePropulsores.validarConfiguracao.[callback]:ArrowFunction#1</code> · [L191](../../src/physics/sistemas%20de%20controle/ControladorDescidaFuzzyPidDePropulsores.ts#L191) | <code>(valor: number): valor is number</code> | — / — |
@@ -36239,6 +36525,11 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/cenarios/ControleLateralM3.test.ts::[callback]#1.[callback]#8.[callback]:ArrowFunction#2</code> · [L205](../../src/cenarios/ControleLateralM3.test.ts#L205) | <code>(a: AletaAerodinamica): number</code> | — / — |
 | <code>src/cenarios/ControleLateralM3.test.ts::[callback]#1.[callback]#8.[callback]:ArrowFunction#3</code> · [L213](../../src/cenarios/ControleLateralM3.test.ts#L213) | <code>(s: SolicitacaoArbitrada): boolean</code> | — / — |
 | <code>src/cenarios/ControleLateralM3.test.ts::[callback]#1.[callback]:ArrowFunction#9</code> · [L218](../../src/cenarios/ControleLateralM3.test.ts#L218) | <code>(): void</code> | <code>executar</code>; <code>expect(primeira).toEqual</code>; <code>expect</code>; <code>registrar</code> / — |
+| <code>src/cenarios/CruzamentosMach.test.ts::estado:ArrowFunction</code> · [L4](../../src/cenarios/CruzamentosMach.test.ts#L4) | <code>(mudancas?: Partial&lt;EstadoCruzamentoMach&gt;): EstadoCruzamentoMach</code> | — / — |
+| <code>src/cenarios/CruzamentosMach.test.ts::[callback]:ArrowFunction#1</code> · [L14](../../src/cenarios/CruzamentosMach.test.ts#L14) | <code>(): void</code> | <code>it</code> / — |
+| <code>src/cenarios/CruzamentosMach.test.ts::[callback]#1.[callback]:ArrowFunction#1</code> · [L15](../../src/cenarios/CruzamentosMach.test.ts#L15) | <code>(): void</code> | <code>estado</code>; <code>amostrarCruzamentosMach</code>; <code>expect(evento.fracaoPasso).toBeCloseTo</code>; <code>expect</code>; <code>expect(evento.tempoS).toBeCloseTo</code>; <code>expect(evento.estado.altitudeM).toBe</code>; <code>expect(evento.passoFinal).toBe</code>; <code>expect(evento.componentesEssenciaisIntegrais).toBe</code>; <code>expect(evento.controleDisponivel).toBe</code> / — |
+| <code>src/cenarios/CruzamentosMach.test.ts::[callback]#1.[callback]:ArrowFunction#2</code> · [L27](../../src/cenarios/CruzamentosMach.test.ts#L27) | <code>(): void</code> | <code>estado</code>; <code>amostrarCruzamentosMach</code>; <code>expect(evento.componentesEssenciaisIntegrais).toBe</code>; <code>expect</code>; <code>expect(evento.controleDisponivel).toBe</code> / — |
+| <code>src/cenarios/CruzamentosMach.test.ts::[callback]#1.[callback]:ArrowFunction#3</code> · [L36](../../src/cenarios/CruzamentosMach.test.ts#L36) | <code>(): void</code> | <code>estado</code>; <code>expect(amostrarCruzamentosMach(anterior, estado({ tempoS: 1, passo: 5, mach: 10 }), [10])).toEqual</code>; <code>expect</code>; <code>amostrarCruzamentosMach</code>; <code>expect(amostrarCruzamentosMach(anterior, estado({ tempoS: 1, passo: 6, mach: 8 }), [10])).toEqual</code>; <code>expect(amostrarCruzamentosMach(anterior, estado({ tempoS: 0, passo: 5, mach: 8 }), [10])).toEqual</code> / — |
 | <code>src/cenarios/EnsaioMissaoBss005.test.ts::executarCooperativamente:ArrowFunction</code> · [L10](../../src/cenarios/EnsaioMissaoBss005.test.ts#L10) | <code>(config?: Parameters&lt;typeof executarEnsaioMissaoBss005&gt;[0]): Promise&lt;{ modeloFisico: object; configuracao: { altitudeTrocaParaPousoM: number; throttleDecolagem: number; falha: FalhaEnsaioBss005; dtS: number; limiteEnsaioS: number; intervaloAmostraS: number; registrarAmostras: boolean; }; criterios: { readonly velocidadeVerticalToqueMaxMps: 0.7; readonly velocidadeHorizontalToqueMaxMps: 0.5; readonly inclinacaoMaxRad: 0.01; readonly velocidadeAngularMaxRadps: 0.01; readonly velocidadeRepousoCascoMaxMps: 0.05; readonly velocidadeRepousoComponentesMaxMps: 0.1; readonly toleranciaVelocidadeNormalContatoMps: 0.05; readonly toleranciaContatoCoreM: 0.002; readonly limiteContatoUnilateralS: 0.5; readonly duracaoRepousoS: 3; }; inicial: LeituraMissaoBss005; final: LeituraMissaoBss005; decolou: boolean; modoPousoSelecionado: boolean; apogeu: LeituraMissaoBss005; toque: { antes: LeituraMissaoBss005; depois: LeituraMissaoBss005; } &#124; undefined; pousoSeguro: boolean; repousoContinuoS: number; maiorRepousoContinuoS: number; causasFalhaPouso: string[]; consumoMotorKg: number; massaRetiradaNaFalhaKg: number; erroBalancoMaxKg: number; maxPressaoDinamicaPa: number; maiorPenetracaoContatoM: number; objetoComMaiorPenetracaoId: string &#124; undefined; resultado: "falha" &#124; "pouso-seguro" &#124; "inconclusivo"; encerramento: "repouso-fisico" &#124; "watchdog"; motivos: string[]; comandos: { tempoS: number; operacao: string; aceito: boolean; valor?: string &#124; number; }[]; eventos: { tipo: string; leitura: LeituraMi… [continua na fonte]</code> | <code>avancarEnsaioMissaoBss005</code>; <code>ensaio.next</code>; <code>setImmediate</code> / <code>passo</code> |
 | <code>src/cenarios/EnsaioMissaoBss005.test.ts::exportarEvidencia:ArrowFunction</code> · [L18](../../src/cenarios/EnsaioMissaoBss005.test.ts#L18) | <code>(nome: string, resultado: unknown): void</code> | <code>mkdirSync</code>; <code>writeFileSync</code>; <code>join</code>; <code>JSON.stringify</code> / — |
 | <code>src/cenarios/EnsaioMissaoBss005.test.ts::validarEncerramentoAposImpacto:ArrowFunction</code> · [L25](../../src/cenarios/EnsaioMissaoBss005.test.ts#L25) | <code>(r: ReturnType&lt;typeof executarEnsaioMissaoBss005&gt;): void</code> | <code>expect(r.final.tempoS).toBeGreaterThan</code>; <code>expect</code>; <code>expect(r.repousoContinuoS).toBeGreaterThanOrEqual</code>; <code>expect(r.final.velocidadeMaximaComponentesMps).toBeLessThanOrEqual</code>; <code>expect(r.final.tempoS).toBeCloseTo</code>; <code>expect(r.motivos).toContain</code> / — |
@@ -36274,6 +36565,9 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/cenarios/EnsaioMissaoBss005.test.ts::[callback]#1.[callback]:ArrowFunction#10</code> · [L224](../../src/cenarios/EnsaioMissaoBss005.test.ts#L224) | <code>(): void</code> | <code>executarEnsaioMissaoBss005</code>; <code>expect(r.encerramento).toBe</code>; <code>expect</code>; <code>expect(r.resultado).toBe</code>; <code>expect(r.toque).toBeUndefined</code>; <code>expect(r.final.integridadeMinima).toBe</code>; <code>expect(r.final.empuxoN).toBeGreaterThan</code> / — |
 | <code>src/cenarios/EnsaioMissaoBss005.test.ts::[callback]#1.[callback]:ArrowFunction#11</code> · [L233](../../src/cenarios/EnsaioMissaoBss005.test.ts#L233) | <code>(dtS: number): void</code> | <code>expect(() =&gt; executarEnsaioMissaoBss005({ dtS })).toThrow</code>; <code>expect</code> / — |
 | <code>src/cenarios/EnsaioMissaoBss005.test.ts::[callback]#1.[callback]#11.[callback]:ArrowFunction#1</code> · [L234](../../src/cenarios/EnsaioMissaoBss005.test.ts#L234) | <code>(): { modeloFisico: object; configuracao: { altitudeTrocaParaPousoM: number; throttleDecolagem: number; falha: FalhaEnsaioBss005; dtS: number; limiteEnsaioS: number; intervaloAmostraS: number; registrarAmostras: boolean; }; criterios: { readonly velocidadeVerticalToqueMaxMps: 0.7; readonly velocidadeHorizontalToqueMaxMps: 0.5; readonly inclinacaoMaxRad: 0.01; readonly velocidadeAngularMaxRadps: 0.01; readonly velocidadeRepousoCascoMaxMps: 0.05; readonly velocidadeRepousoComponentesMaxMps: 0.1; readonly toleranciaVelocidadeNormalContatoMps: 0.05; readonly toleranciaContatoCoreM: 0.002; readonly limiteContatoUnilateralS: 0.5; readonly duracaoRepousoS: 3; }; inicial: LeituraMissaoBss005; final: LeituraMissaoBss005; decolou: boolean; modoPousoSelecionado: boolean; apogeu: LeituraMissaoBss005; toque: { antes: LeituraMissaoBss005; depois: LeituraMissaoBss005; } &#124; undefined; pousoSeguro: boolean; repousoContinuoS: number; maiorRepousoContinuoS: number; causasFalhaPouso: string[]; consumoMotorKg: number; massaRetiradaNaFalhaKg: number; erroBalancoMaxKg: number; maxPressaoDinamicaPa: number; maiorPenetracaoContatoM: number; objetoComMaiorPenetracaoId: string &#124; undefined; resultado: "falha" &#124; "pouso-seguro" &#124; "inconclusivo"; encerramento: "repouso-fisico" &#124; "watchdog"; motivos: string[]; comandos: { tempoS: number; operacao: string; aceito: boolean; valor?: string &#124; number; }[]; eventos: { tipo: string; leitura: LeituraMissaoBss005; }[]; amostras: LeituraMissaoBss005[]; }</code> | <code>executarEnsaioMissaoBss005</code> / — |
+| <code>src/cenarios/EnsaioPropulsivoOrbitadorRe002.test.ts::[callback]:ArrowFunction#1</code> · [L4](../../src/cenarios/EnsaioPropulsivoOrbitadorRe002.test.ts#L4) | <code>(): void</code> | <code>it</code> / — |
+| <code>src/cenarios/EnsaioPropulsivoOrbitadorRe002.test.ts::[callback]#1.[callback]:ArrowFunction#1</code> · [L5](../../src/cenarios/EnsaioPropulsivoOrbitadorRe002.test.ts#L5) | <code>(): void</code> | <code>criarEnsaioPropulsivoOrbitadorRe002</code>; <code>expect(ensaio.veiculo.massaInstantaneaDoConjuntoKg).toBeGreaterThan</code>; <code>expect</code>; <code>expect(ensaio.propulsor.estaIgnitado).toBe</code>; <code>expect(ensaio.propulsor.empuxoAtualN).toBe</code>; <code>expect(ensaio.tanqueMetano.massaPropelenteKg).toBe</code>; <code>expect(ensaio.tanqueOxidante.massaPropelenteKg).toBe</code>; <code>expect(ensaio.veiculo.fixadoresEstruturais).toHaveLength</code>; <code>expect(ensaio.mundo.tempoS).toBe</code> / — |
+| <code>src/cenarios/EnsaioPropulsivoOrbitadorRe002.test.ts::[callback]#1.[callback]:ArrowFunction#2</code> · [L16](../../src/cenarios/EnsaioPropulsivoOrbitadorRe002.test.ts#L16) | <code>(): void</code> | <code>criarEnsaioPropulsivoOrbitadorRe002</code>; <code>ensaio.veiculo.solicitarIgnicaoDosPropulsores</code>; <code>expect(respostas).toHaveLength</code>; <code>expect</code>; <code>expect(respostas[0].aceito).toBe</code>; <code>ensaio.veiculo.definirThrottleDoPropulsor</code>; <code>ensaio.mundo.avancar</code>; <code>expect(ensaio.propulsor.empuxoAtualN).toBeGreaterThan</code>; <code>expect(ensaio.tanqueMetano.massaPropelenteKg).toBeLessThan</code>; <code>expect(ensaio.veiculo.massaInstantaneaDoConjuntoKg).toBeLessThan</code> / — |
 | <code>src/cenarios/EnsaioReentrada.test.ts::[callback]:ArrowFunction#1</code> · [L17](../../src/cenarios/EnsaioReentrada.test.ts#L17) | <code>(): void</code> | <code>it</code> / — |
 | <code>src/cenarios/EnsaioReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#1</code> · [L18](../../src/cenarios/EnsaioReentrada.test.ts#L18) | <code>(): void</code> | <code>criarEnsaioReentrada</code>; <code>r.observar</code>; <code>expect(o.altitudeM).toBe</code>; <code>expect</code>; <code>expect(o.velocidadeMps).toBeCloseTo</code>; <code>expect(o.trajetoriaRad).toBeCloseTo</code>; <code>expect(o.aerodinamica.anguloAtaqueRad).toBeCloseTo</code>; <code>expect(o.estado.orientacaoRad.z).toBeCloseTo</code>; <code>expect(o.estado.velocidadeMps.x).toBeCloseTo</code>; <code>Math.cos</code>; <code>expect(o.estado.velocidadeMps.y).toBeCloseTo</code>; <code>Math.sin</code>; <code>expect(o.controle.estado).toBe</code>; <code>expect(o.rolagem.atualRad).toBe</code>; <code>expect(o.propulsaoDisponivel).toBe</code>; <code>expect(o.rcsDisponivel).toBe</code>; <code>expect(o.massaKg).toBe</code>; <code>expect(o.limiteOrbitadorC).toBe</code>; <code>expect(o.limiteFlapsC).toBe</code>; <code>expect(o.limiteBateriaC).toBe</code>; <code>expect(o.temperaturaBateriaC).toBe</code>; <code>expect(Object.isFrozen(o.estado)).toBe</code>; <code>Object.isFrozen</code> / — |
 | <code>src/cenarios/EnsaioReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#2</code> · [L33](../../src/cenarios/EnsaioReentrada.test.ts#L33) | <code>(): void</code> | <code>criarCenarioReentrada</code>; <code>criarEstadoInicialLocal</code>; <code>Math.cos</code>; <code>Math.sin</code>; <code>OrbitadorReentrada</code>; <code>expect(o.avaliar({ densidadeArKgM3: 1e-8, velocidadeArMps: Vetor3.zero }).anguloAtaqueRad).toBeCloseTo</code>; <code>expect</code>; <code>o.avaliar</code>; <code>expect(o.avaliar({ densidadeArKgM3: 1e-8, velocidadeArMps: new Vetor3(100, 200, 0) }).anguloAtaqueRad).not.toBeCloseTo</code>; <code>Vetor3</code> / — |
@@ -37169,6 +37463,14 @@ Expressões, escritas e chamadas são evidências diretas da implementação. Es
 | <code>src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts::[callback]#1.[callback]:ArrowFunction#1</code> · [L11](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts#L11) | <code>(): void</code> | <code>MundoFisico</code>; <code>VeiculoComposto</code>; <code>Vetor3</code>; <code>AletaAerodinamica</code>; <code>Bateria</code>; <code>foguete.adicionarModulo</code>; <code>foguete.adicionarFixador</code>; <code>FixadorEstrutural</code>; <code>foguete.registrarNoMundo</code>; <code>ControladorAletasAerodinamicas</code>; <code>Math.abs</code>; <code>foguete.getEstadoFisico</code>; <code>controlador.atualizar</code>; <code>mundo.avancar</code>; <code>expect(aleta.deflexaoAtualRad).not.toBe</code>; <code>expect</code>; <code>expect(Math.abs(foguete.getEstadoFisico().velocidadeAngularRadps.z)).toBeLessThan</code>; <code>expect(Math.abs(foguete.getEstadoFisico().orientacaoRad.z)).toBeLessThan</code>; <code>expect(aleta.comandoAtualRad).toBe</code> / <code>passo</code>; <code>energiaDeControleDisponivel</code> |
 | <code>src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts::[callback]#1.[callback]#1.obterEsforcoSolicitadoN:ArrowFunction</code> · [L37](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts#L37) | <code>(): number</code> | — / — |
 | <code>src/physics/sistemas de controle/ControladorAletasAerodinamicas.test.ts::[callback]#1.[callback]#1.[callback]:ArrowFunction#1</code> · [L41](../../src/physics/sistemas%20de%20controle/ControladorAletasAerodinamicas.test.ts#L41) | <code>(): boolean</code> | — / — |
+| <code>src/physics/sistemas de controle/ControladorAproximacao.test.ts::leituras:ArrowFunction</code> · [L11](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.test.ts#L11) | <code>(mudancas?: Record&lt;string, unknown&gt;): { posicaoGpsM: Vetor3; posicaoHorizontalM: number; altitudeM: number; velocidadeVerticalMps: number; velocidadeHorizontalMps: number; inclinacaoRad: number; gravidadeLocalMps2: number; massaInstantaneaKg: number; sensoresValidos: boolean; idadeLeituraS: number; }</code> | <code>Vetor3</code> / — |
+| <code>src/physics/sistemas de controle/ControladorAproximacao.test.ts::[callback]:ArrowFunction#1</code> · [L18](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.test.ts#L18) | <code>(): void</code> | <code>it</code> / — |
+| <code>src/physics/sistemas de controle/ControladorAproximacao.test.ts::[callback]#1.[callback]:ArrowFunction#1</code> · [L19](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.test.ts#L19) | <code>(): void</code> | <code>ControladorAproximacao</code>; <code>c.habilitar</code>; <code>c.calcularSolicitacoes</code>; <code>leituras</code>; <code>c.observar</code>; <code>expect(estado.velocidadeHorizontalAlvoMps).toBe</code>; <code>expect</code>; <code>expect(estado.velocidadeVerticalAlvoMps).toBe</code>; <code>expect(estado.aceleracaoHorizontalSolicitadaMps2).toBe</code>; <code>expect(estado.aceleracaoVerticalLiquidaSolicitadaMps2).toBe</code>; <code>expect(estado.aceleracaoVerticalEmpuxoSolicitadaMps2).toBeCloseTo</code>; <code>expect(estado.gimbalSolicitadoRad).toBeCloseTo</code>; <code>expect(estado.saturado).toBe</code>; <code>expect(pedidos).toHaveLength</code>; <code>expect(pedidos).toContainEqual</code> / — |
+| <code>src/physics/sistemas de controle/ControladorAproximacao.test.ts::[callback]#1.[callback]:ArrowFunction#2</code> · [L35](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.test.ts#L35) | <code>(): void</code> | <code>ControladorAproximacao</code>; <code>c.habilitar</code>; <code>expect(c.calcularSolicitacoes(leituras({ sensoresValidos: false }), 1 / 240))<br>    .toEqual</code>; <code>expect</code>; <code>c.calcularSolicitacoes</code>; <code>leituras</code>; <code>expect(c.observar().estado).toBe</code>; <code>c.observar</code> / — |
+| <code>src/physics/sistemas de controle/ControladorAproximacao.test.ts::[callback]#1.[callback]:ArrowFunction#3</code> · [L43](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.test.ts#L43) | <code>(): void</code> | <code>ControladorAproximacao</code>; <code>c.habilitar</code>; <code>c.calcularSolicitacoes</code>; <code>leituras</code>; <code>expect(c.observar().velocidadeHorizontalAlvoMps).toBeCloseTo</code>; <code>expect</code>; <code>c.observar</code>; <code>expect(c.observar().aceleracaoHorizontalSolicitadaMps2).toBeCloseTo</code> / — |
+| <code>src/physics/sistemas de controle/ControladorAproximacao.test.ts::[callback]#1.[callback]:ArrowFunction#4</code> · [L50](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.test.ts#L50) | <code>(): void</code> | <code>ControladorAproximacao</code>; <code>c.habilitar</code>; <code>expect(c.calcularSolicitacoes(leituras({ posicaoHorizontalM: 1001 }), 1 / 240))<br>    .toEqual</code>; <code>expect</code>; <code>c.calcularSolicitacoes</code>; <code>leituras</code>; <code>expect(c.observar().estado).toBe</code>; <code>c.observar</code>; <code>expect(() =&gt; c.calcularSolicitacoes(leituras(), 1)).toThrow</code>; <code>expect(() =&gt; new ControladorAproximacao({ ...config, alvoArcoM: NaN })).toThrow</code> / — |
+| <code>src/physics/sistemas de controle/ControladorAproximacao.test.ts::[callback]#1.[callback]#4.[callback]:ArrowFunction#1</code> · [L56](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.test.ts#L56) | <code>(): readonly SolicitacaoDeAtuador[]</code> | <code>c.calcularSolicitacoes</code>; <code>leituras</code> / — |
+| <code>src/physics/sistemas de controle/ControladorAproximacao.test.ts::[callback]#1.[callback]#4.[callback]:ArrowFunction#2</code> · [L57](../../src/physics/sistemas%20de%20controle/ControladorAproximacao.test.ts#L57) | <code>(): ControladorAproximacao</code> | <code>ControladorAproximacao</code> / — |
 | <code>src/physics/sistemas de controle/ControladorDesaceleracao.test.ts::leituras:ArrowFunction</code> · [L5](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracao.test.ts#L5) | <code>(altitudeM: number, velocidadeVerticalMps: number): { posicaoGpsM: Vetor3; altitudeM: number; velocidadeVerticalMps: number; velocidadeHorizontalMps: number; inclinacaoRad: number; }</code> | — / — |
 | <code>src/physics/sistemas de controle/ControladorDesaceleracao.test.ts::[callback]:ArrowFunction#1</code> · [L10](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracao.test.ts#L10) | <code>(): void</code> | <code>it</code> / — |
 | <code>src/physics/sistemas de controle/ControladorDesaceleracao.test.ts::[callback]#1.[callback]:ArrowFunction#1</code> · [L11](../../src/physics/sistemas%20de%20controle/ControladorDesaceleracao.test.ts#L11) | <code>(): void</code> | <code>ControladorDesaceleracao</code>; <code>controlador.habilitar</code>; <code>expect(controlador.calcularComando(leituras(100, -8), 0.1)).toMatchObject</code>; <code>expect</code>; <code>controlador.calcularComando</code>; <code>leituras</code> / — |

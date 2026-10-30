@@ -84,7 +84,7 @@ describe('RE-002D fronteira paramétrica, sem instalação propulsiva', () => {
     expect(e.observar().supervisor.fase).toBe('reentrada');
   });
   it('protótipo aproximação não pede força nem modifica leituras e RE bloqueia ambos pedidos', () => {
-    const c = new ControladorAproximacao(); c.habilitar();
+    const c = new ControladorAproximacao({ alvoArcoM: 1000 }); c.habilitar();
     const l = Object.freeze({ posicaoGpsM: new Vetor3(0, 10, 0), altitudeM: 10, velocidadeVerticalMps: -20,
       velocidadeHorizontalMps: 300, inclinacaoRad: 0 });
     expect(c.calcularSolicitacoes(l, 1 / 240)).toEqual([]); expect(c.estaHabilitado).toBe(true);

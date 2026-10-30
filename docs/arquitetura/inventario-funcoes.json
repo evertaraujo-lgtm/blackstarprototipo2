@@ -54,6 +54,81 @@
     "categoria": "callback"
   },
   {
+    "id": "scripts/campanha-desaceleracao-re002.ts::executarCampanhaDesaceleracaoRe002:FunctionDeclaration",
+    "assinatura": "(): Promise<void>",
+    "modificadores": [
+      "export",
+      "async"
+    ],
+    "categoria": "producao"
+  },
+  {
+    "id": "scripts/campanha-desaceleracao-re002.ts::executarCampanhaDesaceleracaoRe002.[callback]:ArrowFunction#1",
+    "assinatura": "(s: string): string",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/campanha-desaceleracao-re002.ts::executarCampanhaDesaceleracaoRe002.[callback]:ArrowFunction#2",
+    "assinatura": "(p: PerfilDeceleracao): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/campanha-desaceleracao-re002.ts::executarCampanhaDesaceleracaoRe002.reduzir:ArrowFunction",
+    "assinatura": "(o: ObservacaoReentrada): { tempoS: number; passo: number; altitudeM: number; arcoM: number; velocidadeTotalMps: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; velocidadeRelativaArMps: number; trajetoriaRad: number; atitudeInercialRad: number; atitudeLocalRad: number; alphaRad: number; alphaAlvoRad: number; omegaRadps: number; mach: number; regime: \"vacuo\" | \"continuo\" | \"deslizamento\" | \"transicao\" | \"molecular\"; knudsen: number; pressaoDinamicaPa: number; cl: number; cd: number; sustentacaoN: number; arrastoN: number; razaoLD: number | null; desaceleracaoMps2: number; torqueAerodinamicoNm: number; energiaMecanicaEspecificaJPorKg: number; energiaDissipadaJ: number; energiaAbsorvidaJ: number; fluxoTermicoIndicadorWm2: number; temperaturaCorpoC: number; integridadeCorpo: number; bateriaJ: number; massaKg: number; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly<{ estrategia: \"heuristica-experimental-55-70-graus\"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number | null; integridadeMinima: number | null; eficaciaQualificada: false; }> | null; }; flaps: { deflexaoRad: number; comandoRad: number; integridade: number; temperaturaC: number; energizado: boolean; conectado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; integridadeMecanismo?: number | undefined; }; }[]; terminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; extremosPorPasso: Record<string, FaixaTemporal>; }",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "scripts/campanha-desaceleracao-re002.ts::executarCampanhaDesaceleracaoRe002.reduzir.[callback]:ArrowFunction#1",
+    "assinatura": "(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; integridadeMecanismo?: number | undefined; }; knudsenEstimado: number; modeloEscoamento: string; }): { deflexaoRad: number; comandoRad: number; integridade: number; temperaturaC: number; energizado: boolean; conectado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; integridadeMecanismo?: number | undefined; }; }",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/campanha-desaceleracao-re002.ts::executarCampanhaDesaceleracaoRe002.dados.[callback]:ArrowFunction#1",
+    "assinatura": "(x: CruzamentoMach): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/campanha-desaceleracao-re002.ts::executarCampanhaDesaceleracaoRe002.dados.[callback]:ArrowFunction#2",
+    "assinatura": "(x: CruzamentoMach): number",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/campanha-desaceleracao-re002.ts::executarCampanhaDesaceleracaoRe002.dados.[callback]:ArrowFunction#3",
+    "assinatura": "(x: CruzamentoMach): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/campanha-desaceleracao-re002.ts::executarCampanhaDesaceleracaoRe002.dados.[callback]:ArrowFunction#4",
+    "assinatura": "(x: CruzamentoMach): number",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/campanha-desaceleracao-re002.ts::executarCampanhaDesaceleracaoRe002.dados.[callback]:ArrowFunction#5",
+    "assinatura": "(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; integridadeMecanismo?: number | undefined; }; knudsenEstimado: number; modeloEscoamento: string; }): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/campanha-desaceleracao-re002.ts::executarCampanhaDesaceleracaoRe002.[callback]:ArrowFunction#3",
+    "assinatura": "(f: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; integridadeMecanismo?: number | undefined; }; knudsenEstimado: number; modeloEscoamento: string; }): number",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/campanha-desaceleracao-re002.ts::executarCampanhaDesaceleracaoRe002.[callback]:ArrowFunction#4",
+    "assinatura": "(x: CruzamentoMach): { mach: number; tempoS: number; hM: number; velocidadeMps: number; integridadeFlaps: readonly number[]; controleDisponivel: boolean; }",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
     "id": "scripts/campanha-re002.ts::resumir:FunctionDeclaration",
     "assinatura": "(o: ObservacaoReentrada): { tempoS: number; passo: number; altitudeM: number; arcoM: number; velocidadeMps: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; trajetoriaRad: number; atitudeInercialRad: number; atitudeLocalRad: number; alphaRad: number; alphaAlvoRad: number; omegaRadps: number; energiaMecanicaEspecificaJPorKg: number; inerciaKgM2: number; rotacao: { cargasEfetivamenteIntegradas: { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } | null; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; torqueAerodinamicoNm: number; pressaoDinamicaPa: number; cargaG: number; fluxoTermicoIndicadorWm2: number; energiaDissipadaJ: number; temperaturaC: number; integridade: number; respostaTermica: { energiaAbsorvidaCorpoJ: number; modelo: string; tetoUniversal: boolean; potenciaIndicadorCorpoW: number; potenciaTransferidaCorpoW: number; tpsInstalado: boolean; camadasInternasModeladas: boolean; }; energiaBateriaJ: number; temperaturaBateriaC: number; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly<{ estrategia: \"heuristica-experimental-55-70-graus\"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number | null; integridadeMinima: number | null; eficaciaQualificada: false; }> | null; }; supervisor: { fase: \"aproximacao\" | \"reentrada\" | \"falha\"; automatico: boolean; candidatoCinematico: boolean; autorizado: boolean; requisitos: readonly Readonly<RequisitoAproximacao>[]; limites: ConfiguracaoFronteiraAproximacao; avaliacao: Readonly<{ candidatoCinematico: boolean; autorizado: boolean; distanciaRestanteM: number | null; energiaMecanicaEspecificaJPorKg: number; natureza: \"limites-necessarios-ideais-nao-trajetoria-certificada\"; hipoteses: readonly Readonly<{ aceleracaoLiquidaMps2: number; distanciaFrenagemM: number; quedaFrenagemRadialM: number; tempoFrenagemS: number; velocidadeLimiteNecessariaMps: number | null; desvioVelocidadeMps: number | null; limitesNecessariosAtendidos: boolean; }>[]; requisitos: readonly Readonly<RequisitoAproximacao>[]; }> | null; }; terminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; flaps: { comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; integridadeMecanismo?: number | undefined; }; }[]; vinculos: { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; termica?: Readonly<{ modelo: \"condutancia-conservativa\" | \"temperatura-media-legada\"; temperaturaC: number; energiaConduzidaJ: number; potenciaConduzidaW: number; portas: Readonly<{ regiaoA: string; regiaoB: string; }> | undefined; }> | undefined; }[]; extremos: Record<string, FaixaTemporal>; }",
     "modificadores": [],
@@ -1178,6 +1253,44 @@
     "assinatura": "(): void",
     "modificadores": [],
     "categoria": "teste"
+  },
+  {
+    "id": "scripts/ensaio-propulsivo-reentrada-re002.ts::executarEnsaioPropulsivoReentradaRe002:FunctionDeclaration",
+    "assinatura": "(): void",
+    "modificadores": [
+      "export"
+    ],
+    "categoria": "producao"
+  },
+  {
+    "id": "scripts/ensaio-propulsivo-reentrada-re002.ts::executarEnsaioPropulsivoReentradaRe002.[callback]:ArrowFunction#1",
+    "assinatura": "(r: ResultadoComandoPropulsor): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/ensaio-propulsivo-reentrada-re002.ts::executarEnsaioPropulsivoReentradaRe002.[callback]:ArrowFunction#2",
+    "assinatura": "(c: ContatoSuperficieFisico): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/ensaio-propulsivo-reentrada-re002.ts::executarEnsaioPropulsivoReentradaRe002.[callback]:ArrowFunction#3",
+    "assinatura": "(c: ContatoSuperficieFisico): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/ensaio-propulsivo-reentrada-re002.ts::executarEnsaioPropulsivoReentradaRe002.dados.[callback]:ArrowFunction#1",
+    "assinatura": "(a: object): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/ensaio-propulsivo-reentrada-re002.ts::executarEnsaioPropulsivoReentradaRe002.dados.[callback]:ArrowFunction#2",
+    "assinatura": "(f: FixadorEstrutural): { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; }",
+    "modificadores": [],
+    "categoria": "callback"
   },
   {
     "id": "scripts/site/smoke.ts::abrirPagina:FunctionDeclaration",
@@ -4364,6 +4477,104 @@
     "categoria": "teste"
   },
   {
+    "id": "src/cenarios/CruzamentosMach.test.ts::estado:ArrowFunction",
+    "assinatura": "(mudancas?: Partial<EstadoCruzamentoMach>): EstadoCruzamentoMach",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/CruzamentosMach.test.ts::[callback]:ArrowFunction#1",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/CruzamentosMach.test.ts::[callback]#1.[callback]:ArrowFunction#1",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/CruzamentosMach.test.ts::[callback]#1.[callback]:ArrowFunction#2",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/CruzamentosMach.test.ts::[callback]#1.[callback]:ArrowFunction#3",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/CruzamentosMach.ts::amostrarCruzamentosMach:FunctionDeclaration",
+    "assinatura": "(anterior: EstadoCruzamentoMach, atual: EstadoCruzamentoMach, marcosMach: readonly number[]): readonly CruzamentoMach[]",
+    "modificadores": [
+      "export"
+    ],
+    "categoria": "producao"
+  },
+  {
+    "id": "src/cenarios/CruzamentosMach.ts::amostrarCruzamentosMach.[callback]:ArrowFunction#1",
+    "assinatura": "(m: number): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/cenarios/CruzamentosMach.ts::amostrarCruzamentosMach.[callback]:ArrowFunction#2",
+    "assinatura": "(machAlvo: number): { machAlvo: number; sentido: \"decrescente\"; fracaoPasso: number; tempoS: number; passoInicial: number; passoFinal: number; estado: { tempoS: number; altitudeM: number; arcoM: number; velocidadeMps: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; trajetoriaRad: number; atitudeLocalRad: number; alphaRad: number; omegaRadps: number; pressaoDinamicaPa: number; fluxoTermicoWm2: number; torqueAerodinamicoNm: number; energiaMecanicaEspecificaJPorKg: number; temperaturaCorpoC: number; integridadeCorpo: number; temperaturaFlapsC: number[]; integridadeFlaps: number[]; alimentacaoFlaps: boolean[]; vinculosFlaps: boolean[]; estadoControle: string; autoridadeDisponivel: boolean; }; componentesEssenciaisIntegrais: boolean; controleDisponivel: boolean; }",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/cenarios/CruzamentosMach.ts::amostrarCruzamentosMach.[callback]#2.interpolar:ArrowFunction",
+    "assinatura": "(k: \"altitudeM\" | \"velocidadeMps\" | \"trajetoriaRad\" | \"energiaMecanicaEspecificaJPorKg\" | \"arcoM\" | \"velocidadeRadialMps\" | \"velocidadeTangencialMps\" | \"alphaRad\" | \"omegaRadps\" | \"integridadeCorpo\" | \"tempoS\" | \"atitudeLocalRad\" | \"pressaoDinamicaPa\" | \"fluxoTermicoWm2\" | \"torqueAerodinamicoNm\" | \"temperaturaCorpoC\"): number",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "src/cenarios/CruzamentosMach.ts::amostrarCruzamentosMach.[callback]#2.[callback]:ArrowFunction#1",
+    "assinatura": "(v: number, i: number): number",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/cenarios/CruzamentosMach.ts::amostrarCruzamentosMach.[callback]#2.[callback]:ArrowFunction#2",
+    "assinatura": "(v: number, i: number): number",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/cenarios/CruzamentosMach.ts::amostrarCruzamentosMach.[callback]#2.[callback]:ArrowFunction#3",
+    "assinatura": "(v: boolean, i: number): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/cenarios/CruzamentosMach.ts::amostrarCruzamentosMach.[callback]#2.[callback]:ArrowFunction#4",
+    "assinatura": "(v: boolean, i: number): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/cenarios/CruzamentosMach.ts::amostrarCruzamentosMach.[callback]#2.[callback]:ArrowFunction#5",
+    "assinatura": "(v: number): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/cenarios/CruzamentosMach.ts::amostrarCruzamentosMach.[callback]#2.[callback]:ArrowFunction#6",
+    "assinatura": "(v: boolean, i: number): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/cenarios/CruzamentosMach.ts::amostrarCruzamentosMach.[callback]#2.[callback]:ArrowFunction#7",
+    "assinatura": "(v: boolean, i: number): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
     "id": "src/cenarios/EnsaioMissaoBss005.test.ts::executarCooperativamente:ArrowFunction",
     "assinatura": "(config?: Parameters<typeof executarEnsaioMissaoBss005>[0]): Promise<{ modeloFisico: object; configuracao: { altitudeTrocaParaPousoM: number; throttleDecolagem: number; falha: FalhaEnsaioBss005; dtS: number; limiteEnsaioS: number; intervaloAmostraS: number; registrarAmostras: boolean; }; criterios: { readonly velocidadeVerticalToqueMaxMps: 0.7; readonly velocidadeHorizontalToqueMaxMps: 0.5; readonly inclinacaoMaxRad: 0.01; readonly velocidadeAngularMaxRadps: 0.01; readonly velocidadeRepousoCascoMaxMps: 0.05; readonly velocidadeRepousoComponentesMaxMps: 0.1; readonly toleranciaVelocidadeNormalContatoMps: 0.05; readonly toleranciaContatoCoreM: 0.002; readonly limiteContatoUnilateralS: 0.5; readonly duracaoRepousoS: 3; }; inicial: LeituraMissaoBss005; final: LeituraMissaoBss005; decolou: boolean; modoPousoSelecionado: boolean; apogeu: LeituraMissaoBss005; toque: { antes: LeituraMissaoBss005; depois: LeituraMissaoBss005; } | undefined; pousoSeguro: boolean; repousoContinuoS: number; maiorRepousoContinuoS: number; causasFalhaPouso: string[]; consumoMotorKg: number; massaRetiradaNaFalhaKg: number; erroBalancoMaxKg: number; maxPressaoDinamicaPa: number; maiorPenetracaoContatoM: number; objetoComMaiorPenetracaoId: string | undefined; resultado: \"falha\" | \"pouso-seguro\" | \"inconclusivo\"; encerramento: \"repouso-fisico\" | \"watchdog\"; motivos: string[]; comandos: { tempoS: number; operacao: string; aceito: boolean; valor?: string | number; }[]; eventos: { tipo: string; leitura: LeituraMissaoBss005; }[]; amostras: LeituraMissaoBss005[]; }>",
     "modificadores": [
@@ -4828,6 +5039,44 @@
   {
     "id": "src/cenarios/EnsaioOrbitalInerte.ts::criarEnsaioOrbitalInerte.obterConfiguracao:ArrowFunction",
     "assinatura": "(): { tipo: \"circular\" | \"eliptica\"; modeloFisico: object; estadoInicial: EstadoFisico; hipotese: string; }",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "src/cenarios/EnsaioPropulsivoOrbitadorRe002.test.ts::[callback]:ArrowFunction#1",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/EnsaioPropulsivoOrbitadorRe002.test.ts::[callback]#1.[callback]:ArrowFunction#1",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/EnsaioPropulsivoOrbitadorRe002.test.ts::[callback]#1.[callback]:ArrowFunction#2",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/EnsaioPropulsivoOrbitadorRe002.ts::criarEnsaioPropulsivoOrbitadorRe002:FunctionDeclaration",
+    "assinatura": "(): { mundo: MundoFisico; ambiente: AmbienteTerrestre; veiculo: VeiculoComposto; propulsor: PropulsorVetorizado; tanqueMetano: TanquePropelente; tanqueOxidante: TanquePropelente; bateria: Bateria; controladorAproximacao: ControladorAproximacao; massaInicialKg: number; parametrosPropulsivos: { empuxoMaximoN: number; impulsoEspecificoNominalS: number; razaoMisturaOxidanteCombustivel: number; vazaoCombustivelMaximaKgS: number; vazaoOxidanteMaximaKgS: number; limiteGimbalRad: number; fatorPropulsorBss005: number; fatorTanqueBss005: number; massaBaseCascoKg: number; massaPropulsorKg: number; massaBasePorTanqueKg: number; propelenteTotalInicialKg: number; }; }",
+    "modificadores": [
+      "export"
+    ],
+    "categoria": "producao"
+  },
+  {
+    "id": "src/cenarios/EnsaioPropulsivoOrbitadorRe002.ts::criarEnsaioPropulsivoOrbitadorRe002.estado:ArrowFunction",
+    "assinatura": "(offsetLocalM: Vetor3, orientacaoRelativaRad?: number): { posicaoM: Vetor3; orientacaoRad: Vetor3; velocidadeMps: Vetor3; }",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "src/cenarios/EnsaioPropulsivoOrbitadorRe002.ts::criarEnsaioPropulsivoOrbitadorRe002.obterEsforcoSolicitadoN:ArrowFunction",
+    "assinatura": "(): number",
     "modificadores": [],
     "categoria": "producao"
   },
@@ -5504,6 +5753,14 @@
     "categoria": "callback"
   },
   {
+    "id": "src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observarCruzamentoMach:MethodDeclaration",
+    "assinatura": "(): EstadoCruzeMachReentrada",
+    "modificadores": [
+      "public"
+    ],
+    "categoria": "producao"
+  },
+  {
     "id": "src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.observar:MethodDeclaration",
     "assinatura": "(): { temperaturaC: number; integridade: number; limiteOrbitadorC: number; limiteFlapsC: number; energiaAbsorvidaJ: number; energiaDissipadaJ: number; energiaAtmosferaJ: number; respostaTermica: { energiaAbsorvidaCorpoJ: number; modelo: string; tetoUniversal: boolean; potenciaIndicadorCorpoW: number; potenciaTransferidaCorpoW: number; tpsInstalado: boolean; camadasInternasModeladas: boolean; }; estadosTerminais: { corpoDestruido: boolean; controlePerdido: boolean; contato: boolean; impactoDestrutivo: boolean; }; dissipacaoW: number; calorTransferidoW: number; potenciaAtmosferaW: number; energiaBateriaJ: number; temperaturaBateriaC: number; integridadeBateria: number; limiteBateriaC: number; flaps: { id: string; estado: EstadoFisico; comandoRad: number; deflexaoRad: number; integridade: number; temperaturaC: number; energiaAbsorvidaJ: number; conectado: boolean; fluxoTermicoIndicadorWm2: number; energizado: boolean; atuacao: { taxaEfetivaRadps: number; cursoRad: number; taxaMaximaRadps: number; modeloMecanico: string; torqueDisponivelNm: null; torqueCargaNm: null; bloqueio: string; integridadeMecanismo?: number | undefined; }; knudsenEstimado: number; modeloEscoamento: string; }[]; vinculos: { id: string; estado: \"integro\" | \"rompido\" | \"liberado\"; tracaoAtualN: number; picoTracaoN: number; resistenciaTracaoN: number; cisalhamentoFlexaoTorcaoModelados: boolean; termica?: Readonly<{ modelo: \"condutancia-conservativa\" | \"temperatura-media-legada\"; temperaturaC: number; energiaConduzidaJ: number; potenciaConduzidaW: number; portas: Readonly<{ regiaoA: string; regiaoB: string; }> | undefined; }> | undefined; }[]; raioTerraM: number; centroTerraM: Vetor3; propulsaoDisponivel: boolean; rcsDisponivel: boolean; termica?: { revisao: string; perfil: PerfilTermicoReentrada; corpo: Readonly<{ revisao: \"RE-004-r1\"; regioes: readonly Readonly<{ capacidadeJPorC: number; causa: `temperatura>${number} \\u00B0C em ${string}` | null; temperaturaC: number; integridade: number; energiaConduzidaJ: number; id: string; material: string; massaTermicaKg: number; calorEspecificoJPorKgC: number; areaExpostaM2: number; emissividade: number; temperaturaInicialC: number; limiteTermicoC: number; taxaDanoPorSegundo: number; }>[]; energiaArmazenadaJ: number; energiaIncidenteJ: number; energiaGeradaJ: number; energiaConducaoExternaJ: number; energiaContatoJ: number; energiaRadiadaJ: number; energiaConveccaoJ: number; residuoEnergiaJ: number; potenciaIncidenteW: number; potenciaRadiadaW: number; potenciaConveccaoW: number; conducoes: readonly Readonly<{ energiaJ: number; potenciaW: number; a: string; b: string; condutanciaWPorC: number; condutanciaSemProtecaoWPorC: number; }>[]; }>; flaps: Readonly<{ revisao: \"RE-004-r1\"; regioes: readonly Readonly<{ capacidadeJPorC: number; causa: `temperatura>${number} \\u00B0C em ${string}` | null; temperaturaC: number; integridade: number; energiaConduzidaJ: number; id: string; material: string; massaTermicaKg: number; calorEspecificoJPorKgC: number; areaExpostaM2: number; emissividade: number; temperaturaInicialC: number; limiteTermicoC: number; taxaDanoPorSegundo: number; }>[]; energiaArmazenadaJ: number; energiaIncidenteJ: number; energiaGeradaJ: number; energiaConducaoExternaJ: number; energiaContatoJ: number; energiaRadiadaJ: number; energiaConveccaoJ: number; residuoEnergiaJ: number; potenciaIncidenteW: number; potenciaRadiadaW: number; potenciaConveccaoW: number; conducoes: readonly Readonly<{ energiaJ: number; potenciaW: number; a: string; b: string; condutanciaWPorC: number; condutanciaSemProtecaoWPorC: number; }>[]; }>[]; bateria: Readonly<{ revisao: \"RE-004-r1\"; regioes: readonly Readonly<{ capacidadeJPorC: number; causa: `temperatura>${number} \\u00B0C em ${string}` | null; temperaturaC: number; integridade: number; energiaConduzidaJ: number; id: string; material: string; massaTermicaKg: number; calorEspecificoJPorKgC: number; areaExpostaM2: number; emissividade: number; temperaturaInicialC: number; limiteTermicoC: number; taxaDanoPorSegundo: number; }>[]; energiaArmazenadaJ: number; energiaIncidenteJ: number; energiaGeradaJ: number; energiaConducaoExternaJ: number; energiaContatoJ: number; energiaRadiadaJ: number; energiaConveccaoJ: number; residuoEnergiaJ: number; potenciaIncidenteW: number; potenciaRadiadaW: number; potenciaConveccaoW: number; conducoes: readonly Readonly<{ energiaJ: number; potenciaW: number; a: string; b: string; condutanciaWPorC: number; condutanciaSemProtecaoWPorC: number; }>[]; }>; temperaturaLegadaSignifica: string; energiaAtmosferaLegadaSignifica: string; } | undefined; id: string; tempoS: number; passo: number; execucao: EstadoExecucaoMissao; estado: EstadoFisico; extremos: { globais: Record<string, FaixaTemporal>; intervaloAtual: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; }; ultimoIntervalo: { inicioPasso: number; fimPasso: number; extremos: Record<string, FaixaTemporal>; } | null; }; eventosDescartados: number; altitudeM: number; arcoM: number; velocidadeMps: number; trajetoriaRad: number; velocidadeRadialMps: number; velocidadeTangencialMps: number; energiaMecanicaEspecificaJPorKg: number; atitudeInercialRad: number; atitudeLocalRad: number; aerodinamica: CargasReentrada; rolagem: EstadoRolagemVirtual; controle: { estado: string; alphaSolicitadoRad: number; alphaGerenciadoRad: number; phiSolicitadoRad: number; torqueSolicitadoNm: number; torqueComandadoNm: number; corredor: Readonly<{ estrategia: \"heuristica-experimental-55-70-graus\"; excedeu: boolean; violacoes: readonly string[]; alphaAlvoRad: number; phiAlvoRad: number; energiaMecanicaEspecificaJPorKg: number | null; integridadeMinima: number | null; eficaciaQualificada: false; }> | null; }; historicoRolagem: readonly { readonly tempoS: number; readonly anguloRad: number; }[]; supervisor: { fase: \"aproximacao\" | \"reentrada\" | \"falha\"; automatico: boolean; candidatoCinematico: boolean; autorizado: boolean; requisitos: readonly Readonly<RequisitoAproximacao>[]; limites: ConfiguracaoFronteiraAproximacao; avaliacao: Readonly<{ candidatoCinematico: boolean; autorizado: boolean; distanciaRestanteM: number | null; energiaMecanicaEspecificaJPorKg: number; natureza: \"limites-necessarios-ideais-nao-trajetoria-certificada\"; hipoteses: readonly Readonly<{ aceleracaoLiquidaMps2: number; distanciaFrenagemM: number; quedaFrenagemRadialM: number; tempoFrenagemS: number; velocidadeLimiteNecessariaMps: number | null; desvioVelocidadeMps: number | null; limitesNecessariosAtendidos: boolean; }>[]; requisitos: readonly Readonly<RequisitoAproximacao>[]; }> | null; }; arbitragem: readonly SolicitacaoArbitrada[]; massaKg: number; inerciaKgM2: number; centroM: Vetor3; forcaAerodinamicaN: Vetor3; torqueAerodinamicoNm: number; aceleracaoMps2: Vetor3; rotacao: { cargasEfetivamenteIntegradas: { dtS: number; impulsoGravitacionalNmS: number; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; } | null; torqueAerodinamicoNm: number; torqueOutrosContinuosNm: number; fontesImpulsivas: boolean; impulsoTorqueNmS: number; residuoPassoKgM2ps: number; residuoAcumuladoKgM2ps: number; residuoMaximoPassoKgM2ps: number; passosIncompletos: number; massaKg: number; centroM: Vetor3; velocidadeCentroMps: Vetor3; inerciaKgM2: number; momentoIntrinsecoKgM2ps: number; momentoOrbitalKgM2ps: number; momentoTotalKgM2ps: number; omegaInercialRadps: number; torqueGravitacionalNm: number; }; cargaG: number; desaceleracaoMps2: number; }",
     "modificadores": [
@@ -5676,6 +5933,36 @@
       "private"
     ],
     "categoria": "producao"
+  },
+  {
+    "id": "src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerMetricasPasso.[callback]:ArrowFunction#1",
+    "assinatura": "(f: FlapReentrada): number",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerMetricasPasso.[callback]:ArrowFunction#2",
+    "assinatura": "(f: FlapReentrada): number",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerMetricasPasso.[callback]:ArrowFunction#3",
+    "assinatura": "(f: FlapReentrada): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerMetricasPasso.[callback]:ArrowFunction#4",
+    "assinatura": "(f: FixadorEstrutural): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.lerMetricasPasso.[callback]:ArrowFunction#5",
+    "assinatura": "(f: FlapReentrada, i: number): boolean",
+    "modificadores": [],
+    "categoria": "callback"
   },
   {
     "id": "src/cenarios/EnsaioReentrada.ts::EnsaioReentrada.obterIdentificacao:MethodDeclaration",
@@ -19192,6 +19479,80 @@
     "categoria": "producao"
   },
   {
+    "id": "src/physics/sistemas de controle/ControladorAproximacao.test.ts::leituras:ArrowFunction",
+    "assinatura": "(mudancas?: Record<string, unknown>): { posicaoGpsM: Vetor3; posicaoHorizontalM: number; altitudeM: number; velocidadeVerticalMps: number; velocidadeHorizontalMps: number; inclinacaoRad: number; gravidadeLocalMps2: number; massaInstantaneaKg: number; sensoresValidos: boolean; idadeLeituraS: number; }",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/physics/sistemas de controle/ControladorAproximacao.test.ts::[callback]:ArrowFunction#1",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/physics/sistemas de controle/ControladorAproximacao.test.ts::[callback]#1.[callback]:ArrowFunction#1",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/physics/sistemas de controle/ControladorAproximacao.test.ts::[callback]#1.[callback]:ArrowFunction#2",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/physics/sistemas de controle/ControladorAproximacao.test.ts::[callback]#1.[callback]:ArrowFunction#3",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/physics/sistemas de controle/ControladorAproximacao.test.ts::[callback]#1.[callback]:ArrowFunction#4",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/physics/sistemas de controle/ControladorAproximacao.test.ts::[callback]#1.[callback]#4.[callback]:ArrowFunction#1",
+    "assinatura": "(): readonly SolicitacaoDeAtuador[]",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/physics/sistemas de controle/ControladorAproximacao.test.ts::[callback]#1.[callback]#4.[callback]:ArrowFunction#2",
+    "assinatura": "(): ControladorAproximacao",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.constructor:Constructor",
+    "assinatura": "(entrada?: Partial<ConfiguracaoControladorAproximacao>): ControladorAproximacao",
+    "modificadores": [
+      "public"
+    ],
+    "categoria": "producao"
+  },
+  {
+    "id": "src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.constructor.[callback]:ArrowFunction#1",
+    "assinatura": "(p: any): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.constructor.[callback]:ArrowFunction#2",
+    "assinatura": "(p: any): any",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.constructor.[callback]:ArrowFunction#3",
+    "assinatura": "(p: any): any",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
     "id": "src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.habilitar:MethodDeclaration",
     "assinatura": "(): void",
     "modificadores": [
@@ -19216,11 +19577,61 @@
     "categoria": "producao"
   },
   {
-    "id": "src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.calcularSolicitacoes:MethodDeclaration",
-    "assinatura": "(_leituras: LeiturasVeiculoComposto, dtS: number): readonly SolicitacaoDeAtuador[]",
+    "id": "src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.observar:MethodDeclaration",
+    "assinatura": "(): EstadoControladorAproximacao",
     "modificadores": [
       "public"
     ],
+    "categoria": "producao"
+  },
+  {
+    "id": "src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.calcularSolicitacoes:MethodDeclaration",
+    "assinatura": "(leituras: LeiturasVeiculoComposto, dtS: number): readonly SolicitacaoDeAtuador[]",
+    "modificadores": [
+      "public"
+    ],
+    "categoria": "producao"
+  },
+  {
+    "id": "src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.calcularSolicitacoes.[callback]:ArrowFunction#1",
+    "assinatura": "(v: number | undefined): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.calcularSolicitacoes.[callback]:ArrowFunction#2",
+    "assinatura": "(p: PropulsorAproximacao): { idAtuador: string; recurso: \"throttle\"; valor: number; }",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.calcularSolicitacoes.[callback]:ArrowFunction#3",
+    "assinatura": "(p: PropulsorAproximacao): { idAtuador: string; recurso: \"throttle\"; valor: number; }",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.calcularSolicitacoes.[callback]:ArrowFunction#4",
+    "assinatura": "(p: PropulsorAproximacao): number",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.calcularSolicitacoes.[callback]:ArrowFunction#5",
+    "assinatura": "(s: number, p: PropulsorAproximacao): number",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/physics/sistemas de controle/ControladorAproximacao.ts::ControladorAproximacao.calcularSolicitacoes.[callback]:ArrowFunction#6",
+    "assinatura": "(this: undefined, p: PropulsorAproximacao): ({ idAtuador: string; recurso: \"throttle\"; valor: number; } | { idAtuador: string; recurso: \"gimbal\"; valor: number; })[]",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/physics/sistemas de controle/ControladorAproximacao.ts::limitar:ArrowFunction",
+    "assinatura": "(valor: number, minimo: number, maximo: number): number",
+    "modificadores": [],
     "categoria": "producao"
   },
   {

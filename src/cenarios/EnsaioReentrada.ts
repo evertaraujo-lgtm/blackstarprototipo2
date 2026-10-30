@@ -53,6 +53,15 @@ export interface ConfiguracaoReentrada {
   readonly limiteEventos: number;
 }
 export type EntradaConfiguracaoReentrada = Omit<Partial<ConfiguracaoReentrada>, 'parametros' | 'aproximacao'> & { readonly parametros?: Partial<ParametrosReentrada>; readonly aproximacao?: Partial<ConfiguracaoFronteiraAproximacao> };
+interface EstadoCruzeMachReentrada {
+  readonly tempoS: number; readonly passo: number; readonly mach: number; readonly altitudeM: number; readonly arcoM: number;
+  readonly velocidadeMps: number; readonly velocidadeRadialMps: number; readonly velocidadeTangencialMps: number;
+  readonly trajetoriaRad: number; readonly atitudeLocalRad: number; readonly alphaRad: number; readonly omegaRadps: number;
+  readonly pressaoDinamicaPa: number; readonly fluxoTermicoWm2: number; readonly torqueAerodinamicoNm: number;
+  readonly energiaMecanicaEspecificaJPorKg: number; readonly temperaturaCorpoC: number; readonly temperaturaFlapsC: readonly number[];
+  readonly integridadeCorpo: number; readonly integridadeFlaps: readonly number[]; readonly alimentacaoFlaps: readonly boolean[];
+  readonly vinculosFlaps: readonly boolean[]; readonly estadoControle: string; readonly autoridadeDisponivel: boolean;
+}
 export const CONFIGURACAO_REENTRADA: ConfiguracaoReentrada = copiarSnapshot({ altitudeM: 120_000,
   velocidadeMps: 7700, taxaAtitudeLocalInicialRadps: 0, anguloAtaqueRad: 40 * Math.PI / 180, trajetoriaRad: -Math.PI / 180,
   rolagemRad: 0, limiteOrbitadorC: 1100, limiteFlapsC: 900, limiteBateriaC: 60, automatico: true,
@@ -281,6 +290,7 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
   private readonly extremos: RegistroExtremos;
   private sequenciaEvento = 0;
   private eventosDescartados = 0;
+  private ultimaObservacaoMach!: EstadoCruzeMachReentrada;
 
   /** Monta controles por portas de leitura, registra adaptador de pouso desabilitado
    * sem motores, e registra hipóteses/revisão, inclusive a térmica regional. Não inicia execução ou ignição.
@@ -388,9 +398,14 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
     return true;
   }
 
+  /** Observação escalar enxuta para cruzamentos por passo. Não copia histórico,
+   * serializa geometria nem altera a física; consulta o estado atual do core.
+   * @contract f-f6df730721c69dac */
+  public observarCruzamentoMach() {
+    return this.ultimaObservacaoMach;
+  }
+
   /** Observação escalar/geométrica e balanço angular, copiada e congelada. Torque
-   * gravítico é o gradiente entre centros dos membros, não distribuição interna.
-   * Resíduo usa cargas efetivamente integradas; contatos/fontes impulsivas são sinalizados.
    * Não oferece objetos mutáveis nem corrige estado. Rede optante expõe nós,
    * balanços SI e limites; temperaturaC passa a significar estrutura. @contract f-05755a69bc286c7f */
   public observar() {
@@ -579,6 +594,23 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
    */
   private lerMetricasPasso(): Readonly<Record<string, number>> {
     const c = this.cenario, e = c.orbitador.getEstadoFisico(), a = c.orbitador.avaliar(c.mundo.obterCondicoesAtmosfericas(c.orbitador));
+    const local = c.ambiente.referencial.vetorParaLocal(e.velocidadeMps, e.posicaoM);
+    const altitudeM = c.ambiente.referencial.altitudeGeometricaM(e.posicaoM);
+    const torqueAerodinamicoNm = c.mundo.obterDiagnosticoAngularDoPasso(c.orbitador)?.torqueAerodinamicoNm ?? 0;
+    this.ultimaObservacaoMach = { tempoS: c.mundo.tempoS, passo: this.passos, mach: a.mach, altitudeM,
+      arcoM: c.ambiente.referencial.posicaoHorizontalM(e.posicaoM), velocidadeMps: e.velocidadeMps.magnitude,
+      velocidadeRadialMps: local.y, velocidadeTangencialMps: local.x, trajetoriaRad: Math.atan2(local.y, local.x),
+      atitudeLocalRad: c.ambiente.referencial.atitudeLocalRad(e.orientacaoRad.z, e.posicaoM), alphaRad: a.anguloAtaqueRad,
+      omegaRadps: e.velocidadeAngularRadps.z, pressaoDinamicaPa: a.pressaoDinamicaPa,
+      fluxoTermicoWm2: a.fluxoTermicoIndicadorWm2, torqueAerodinamicoNm,
+      energiaMecanicaEspecificaJPorKg: e.velocidadeMps.magnitude ** 2 / 2
+        - c.ambiente.campo.muM3S2 / e.posicaoM.subtrair(c.ambiente.campo.centroM).magnitude,
+      temperaturaCorpoC: c.orbitador.temperaturaC, temperaturaFlapsC: c.flaps.map(f => f.temperaturaC),
+      integridadeCorpo: c.orbitador.integridadeEstrutural, integridadeFlaps: c.flaps.map(f => f.integridadeEstrutural),
+      alimentacaoFlaps: c.flaps.map(f => f.conexaoEletrica.estaEnergizada), vinculosFlaps: c.fixadores.map(f => f.estaAtivo),
+      estadoControle: this.controlador.observar().estado,
+      autoridadeDisponivel: c.flaps.every((f, i) => f.integridadeEstrutural > 0 && f.conexaoEletrica.estaEnergizada
+        && c.fixadores[i].estaAtivo && f.obterDiagnosticoAtuacao().integridadeMecanismo !== 0) };
     const regionais: Record<string, number> = {};
     if (this.configuracao.termica) for (const objeto of c.objetos) {
       const rede = objeto.observarRedeTermica()!;
