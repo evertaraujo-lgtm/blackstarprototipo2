@@ -97,7 +97,7 @@ export async function executarSmokeReentrada(): Promise<void> {
       assert.equal(await manual.locator('#manual-motor').textContent(), 'MOTOR DESLIGADO · 0,00 MN');
       assert(await manual.locator('#manual-ignitar').isDisabled());
       await manual.click('#manual-habilitar');
-      await manual.locator('#manual-throttle').fill('80');
+      await manual.locator('#manual-throttle').evaluate((input) => { const el = input as HTMLInputElement; el.value = '80'; el.dispatchEvent(new Event('input', { bubbles: true })); });
       await manual.click('#manual-ignitar');
       assert.match((await manual.locator('#manual-mensagem').textContent())!, /Ignição aceita/);
       await manual.click('#manual-passo');
