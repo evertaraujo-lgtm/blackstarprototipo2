@@ -90,6 +90,27 @@ export async function executarSmokeReentrada(): Promise<void> {
       assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'Overflow avançado.');
       verificacoes.push({ largura, rota: '/reentrada.html', tempoAvancou: true, pausa: true, rolagemLimitada: true,
         modoManual: true, aproximacaoBloqueada: true, parametrosExportados: true, modoManualInicial: true, passo480: true, alimentacaoDesligada: true, exportacao: true, danoTermico: true, overflow: false });
+      // RE-002E separado: motor real sem ignição implícita, controle manual e consumo.
+      const manual = await browser.newPage({ viewport: { width: largura, height: 850 } });
+      manual.on('pageerror', e => erros.push(e.message));
+      assert.equal((await manual.goto(base + '/reentrada-manual.html', { waitUntil: 'networkidle' }))!.status(), 200);
+      assert.equal(await manual.locator('#manual-motor').textContent(), 'MOTOR DESLIGADO · 0,00 MN');
+      assert(await manual.locator('#manual-ignitar').isDisabled());
+      await manual.click('#manual-habilitar');
+      await manual.locator('#manual-throttle').fill('80');
+      await manual.click('#manual-ignitar');
+      assert.match((await manual.locator('#manual-mensagem').textContent())!, /Ignição aceita/);
+      await manual.click('#manual-passo');
+      const empuxo = (await manual.locator('#manual-empuxo').textContent())!;
+      assert.match(empuxo, /1,92 MN/);
+      assert.notEqual(await manual.locator('#manual-propelente').textContent(), '3.600 / 14.400 kg');
+      assert(await manual.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'Overflow RE-002E.');
+      await manual.screenshot({ path: resolve(pasta, 're002e-manual-' + largura + '.png'), fullPage: true });
+      await manual.click('#manual-cortar');
+      assert.match((await manual.locator('#manual-motor').textContent())!, /MOTOR DESLIGADO/);
+      await manual.click('#manual-reiniciar');
+      assert(await manual.locator('#manual-ignitar').isDisabled());
+      await manual.close();
       await page.close();
     }
     assert.deepEqual(erros, []);
