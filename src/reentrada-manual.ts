@@ -1,168 +1,137 @@
-import { criarEnsaioPropulsivoOrbitadorRe002 } from './cenarios/EnsaioPropulsivoOrbitadorRe002';
-import { desenharOrbitadorRE001 } from './apresentacao/reentrada/DesenhoOrbitadorRE001';
+import { EnsaioReentrada } from './cenarios/EnsaioReentrada';
+import { RenderizadorReentrada } from './apresentacao/reentrada/RenderizadorReentrada';
 
-/** Resolve um elemento obrigatório da página e informa erro claro se o contrato HTML estiver incompleto. @contract f-307e1fe2eef51bbb @reviewed RE-002E: IDs conferidos com a página manual. */
+/** Configura a reentrada horizontal pedida, em modo manual desde o início. */
+const CONFIGURACAO_MANUAL = {
+  altitudeM: 120_000,
+  velocidadeMps: 7_700,
+  anguloAtaqueRad: 0,
+  trajetoriaRad: 0,
+  taxaAtitudeLocalInicialRadps: 0,
+  automatico: false,
+  chaveamentoAutomatico: false,
+} as const;
+
+/** Obtém elementos obrigatórios e falha claramente diante de HTML incompatível. @contract f-307e1fe2eef51bbb @reviewed RE-001: IDs visuais e controles conferidos. */
 const get = <T extends HTMLElement>(id: string): T => {
-  const el = document.getElementById(id);
-  if (!el) throw new Error('Elemento ausente: '+id);
-  return el as T;
+  const elemento = document.getElementById(id);
+  if (!elemento) throw new Error(`Elemento ausente: ${id}`);
+  return elemento as T;
 };
-const canvas = get<HTMLCanvasElement>('manual-cena');
-const ctx = canvas.getContext('2d');
-if (!ctx) throw new Error('Canvas indisponível');
-const habilitar = get<HTMLButtonElement>('manual-habilitar');
-const ignitar = get<HTMLButtonElement>('manual-ignitar');
-const cortar = get<HTMLButtonElement>('manual-cortar');
-const throttle = get<HTMLInputElement>('manual-throttle');
-const percentual = get<HTMLOutputElement>('manual-percentual');
+const cena = get<HTMLCanvasElement>('manual-cena');
+const graficos = get<HTMLCanvasElement>('manual-graficos');
+const renderer = new RenderizadorReentrada(cena, graficos);
+const dianteiro = get<HTMLInputElement>('manual-dianteiro');
+const traseiro = get<HTMLInputElement>('manual-traseiro');
 const play = get<HTMLButtonElement>('manual-play');
 const passo = get<HTMLButtonElement>('manual-passo');
-const reset = get<HTMLButtonElement>('manual-reiniciar');
 const escala = get<HTMLSelectElement>('manual-escala');
 const mensagem = get<HTMLOutputElement>('manual-mensagem');
-// A tela manual inicia com nariz para cima e motor axial na cauda. A receita
-// automática RE-002E conserva sua montagem e condição iniciais de campanha.
-let ensaio = criarEnsaioPropulsivoOrbitadorRe002({ montagemPropulsorAxial: true });
-let modoManual = false;
+type Amostra = ReturnType<EnsaioReentrada['observar']>;
+
+let ensaio = new EnsaioReentrada(CONFIGURACAO_MANUAL);
+let historico: Amostra[] = [];
 let executando = false;
-let acumuladorS = 0;
 let ultimoFrameMs: number | undefined;
-let encerrado = false;
-const dtS = 1 / 240;
-/** Formata leituras numéricas para a apresentação pt-BR sem alterar valores de domínio. @contract f-f15a3c3490727458 @reviewed RE-002E: fronteira de apresentação conferida. */
-const f = (v: number, d = 1) => v.toLocaleString('pt-BR', {maximumFractionDigits:d, minimumFractionDigits:d});
-/** Atualiza texto apresentado em um elemento já declarado no HTML. @contract f-3a38f80f25e5fd1c @reviewed RE-002E: escrita limitada à apresentação. */
-const escrever = (id: string, valor: string) => { get<HTMLElement>(id).textContent = valor; };
-/** Sincroniza habilitação e rótulos dos controles com modo manual, ignição e encerramento observados. @contract f-e132cb49885bc550 @reviewed RE-002E: estado dos controles confrontado com permissivos. */
-function controle(): void {
-  const ativo = modoManual && !encerrado;
-  ignitar.disabled = !ativo || ensaio.propulsor.estaIgnitado;
-  cortar.disabled = !ativo || !ensaio.propulsor.estaIgnitado;
-  throttle.disabled = !ativo;
-  play.disabled = !ativo;
-  passo.disabled = !ativo || executando;
-  habilitar.textContent = modoManual ? 'Modo manual ativo' : 'Ativar modo manual';
-  habilitar.disabled = modoManual || encerrado;
-  habilitar.classList.toggle('active', modoManual);
+let acumuladorS = 0;
+const dtS = ensaio.passoS;
+/** Formata telemetria SI somente na camada de apresentação. @contract f-f15a3c3490727458 @reviewed RE-001: unidades e precisão conferidas. */
+const f = (valor: number, casas = 1) => valor.toLocaleString('pt-BR', {
+  minimumFractionDigits: casas, maximumFractionDigits: casas,
+});
+/** Converte radianos do domínio para graus apresentados na interface. @contract f-a070e03b40740fb0 @reviewed RE-001: conversão ocorre apenas na fronteira visual. */
+const graus = (rad: number) => rad * 180 / Math.PI;
+
+/** Encaminha os dois alvos de flap pela porta operacional do ensaio. @contract f-90b18d36bedecb9e @reviewed RE-001: comandos passam pela API do cenário. */
+function comandarFlaps(): void {
+  const resultado = ensaio.receberComando({
+    tipo: 'flaps',
+    dianteiroRad: Number(dianteiro.value) * Math.PI / 180,
+    traseiroRad: Number(traseiro.value) * Math.PI / 180,
+  });
+  mensagem.textContent = resultado.motivo;
+  desenhar();
+}
+
+/** Atualiza a apresentação usando somente o snapshot físico observado. @contract f-cd568d351201f9ee @reviewed RE-001: renderizador consulta snapshots sem alterar o mundo. */
+function desenhar(): void {
+  const atual = ensaio.observar();
+  renderer.desenhar(atual, historico.length ? historico : [atual], 1_000);
+  get('manual-situacao').textContent = executando ? 'REENTRADA · SIMULAÇÃO EM EXECUÇÃO' : 'REENTRADA · CONTROLE MANUAL';
+  get('manual-flaps').textContent = `Flaps solicitados: dianteiro ${f(Number(dianteiro.value), 0)}° · traseiro ${f(Number(traseiro.value), 0)}°`;
+  get('manual-tempo').textContent = `t = ${f(atual.tempoS, 2)} s · ${executando ? 'executando' : 'pausada'}`;
+  get('manual-altitude').textContent = `${f(atual.altitudeM, 0)} m`;
+  get('manual-velocidade').textContent = `${f(atual.velocidadeMps, 1)} m/s`;
+  get('manual-alpha').textContent = `${f(graus(atual.aerodinamica.anguloAtaqueRad), 2)}°`;
+  get('manual-pressao').textContent = `${f(atual.aerodinamica.pressaoDinamicaPa, 2)} Pa`;
+  get('manual-dianteiro-efetivo').textContent = `${f(graus(atual.flaps[0].deflexaoRad), 1)}°`;
+  get('manual-traseiro-efetivo').textContent = `${f(graus(atual.flaps[1].deflexaoRad), 1)}°`;
+  get('manual-integridade').textContent = `${f(atual.integridade * 100, 1)}%`;
+  get('manual-estado').textContent = atual.execucao === 'executando' ? 'Executando' : atual.execucao === 'pausada' ? 'Pausado' : 'Preparado';
+  get('manual-dianteiro-label').innerHTML = `${f(Number(dianteiro.value), 0)}° <small>solicitado</small>`;
+  get('manual-traseiro-label').innerHTML = `${f(Number(traseiro.value), 0)}° <small>solicitado</small>`;
   play.textContent = executando ? 'Pausar' : 'Iniciar';
-  percentual.innerHTML = f(Number(throttle.value), 0) + '% <small>solicitado</small>';
 }
-/** Apresenta feedback operacional sem alterar estado físico ou permissivos. @contract f-26c6c6cc37536075 @reviewed RE-002E: saída apenas visual. */
-function mensagemStatus(s: string): void { mensagem.textContent=s; }
-/** Converte slider percentual em solicitação de throttle somente no modo manual ativo. @contract f-0f32f9824f966e3e @reviewed RE-002E: fronteira comando/atuador conferida. */
-function aplicarThrottle(): void {
-  if (!modoManual || encerrado) return;
-  const valor = Number(throttle.value)/100;
-  if (!Number.isFinite(valor) || valor<0 || valor>1) return;
-  ensaio.veiculo.definirThrottleDoPropulsor(ensaio.propulsor.id, valor);
-  controle();
-}
-habilitar.addEventListener('click',()=>{
-  if (modoManual || encerrado) return;
-  modoManual=true;
-  ensaio.veiculo.desabilitarControleDeInclinacao();
-  ensaio.controladorAproximacao.desabilitar();
-  mensagemStatus('Modo manual habilitado. Ajuste a potência e solicite a ignição.');
-  controle();desenhar();
-});
-ignitar.addEventListener('click',()=>{
-  if(!modoManual || encerrado || ensaio.propulsor.estaIgnitado)return;
-  const resultado = ensaio.veiculo.solicitarIgnicaoDoPropulsor(ensaio.propulsor.id);
-  mensagemStatus(resultado.aceito?'Ignição aceita pelos permissivos do computador de voo.': 'Ignição recusada: '+resultado.diagnostico.join('; '));
-  controle();desenhar();
-});
-cortar.addEventListener('click',()=>{
-  if(!modoManual || encerrado)return;
-  ensaio.veiculo.definirThrottleDoPropulsor(ensaio.propulsor.id,0);
-  throttle.value='0';
-  ensaio.veiculo.desligarPropulsor(ensaio.propulsor.id);
-  mensagemStatus('Corte do motor solicitado. Reinicie o ensaio para nova sequência de partida.');
-  controle();desenhar();
-});
-throttle.addEventListener('input',()=>{aplicarThrottle();desenhar()});
-play.addEventListener('click',()=>{
-  if(!modoManual || encerrado)return;
-  executando=!executando;
-  if(!executando)acumuladorS=0;
-  controle();desenhar();
-});
-passo.addEventListener('click',()=>{
-  if(!modoManual || encerrado || executando)return;
-  for(let n=0;n<240 && !encerrado;n++)avancar();
-  controle();desenhar();
-});
-reset.addEventListener('click',()=>{
-  ensaio=criarEnsaioPropulsivoOrbitadorRe002({ montagemPropulsorAxial: true });
-  modoManual=false;executando=false;encerrado=false;acumuladorS=0;ultimoFrameMs=undefined;
-  throttle.value='0';mensagemStatus('Cenário reiniciado: motor desligado, sem ignição implícita.');
-  controle();desenhar();
-});
-/** Avança um único passo físico e interrompe a coleta ao observar contato ou integridade nula. @contract f-d0ef4a5043f85288 @reviewed RE-002E: parada ligada a eventos físicos do mundo. */
-function avancar():void{
-  if(encerrado)return;
-  ensaio.mundo.avancar(dtS);
-  const colisao=ensaio.mundo.obterContatosComSuperficie().some(c=>c.objetoId===ensaio.veiculo.id);
-  if(ensaio.veiculo.integridadeEstrutural===0 || colisao){
-    encerrado=true;executando=false;mensagemStatus('Contato com a superfície ou falha estrutural. O ensaio foi interrompido.');
+
+/** Avança a missão pelo mesmo passo físico do RE-001; relógio só escala a apresentação. @contract f-d0ef4a5043f85288 @reviewed RE-001: passo físico fixo e comando sem mutação cinemática direta. */
+function avancar(): void {
+  if (!executando) ensaio.iniciar();
+  if (!ensaio.avancarPasso()) return;
+  const atual = ensaio.observar();
+  if (!historico.length || atual.tempoS - historico.at(-1)!.tempoS >= 1) historico.push(atual);
+  if (historico.length > 600) historico.shift();
+  if (atual.integridade <= 0) {
+    executando = false;
+    ensaio.pausar();
+    mensagem.textContent = 'Integridade estrutural esgotada. Simulação pausada.';
   }
 }
-/** Renderiza consulta do casco, motor, atitude e telemetria; não escreve cinemática no mundo. @contract f-cd568d351201f9ee @reviewed RE-002E: projeção visual e leitura do core conferidas. */
-function desenhar():void{
-  const c=ctx!,w=canvas.width,h=canvas.height;
-  c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,w,h);
-  const bg=c.createLinearGradient(0,0,0,h);bg.addColorStop(0,'#051020');bg.addColorStop(1,'#10263a');c.fillStyle=bg;c.fillRect(0,0,w,h);
-  const estado=ensaio.veiculo.getEstadoFisico();
-  const motor=ensaio.propulsor.getEstadoFisico();
-  const leitura=ensaio.veiculo.obterLeiturasDoComputadorDeVoo();
-  const empuxo=ensaio.propulsor.empuxoAtualN;
-  const desenhoEscala=Math.min(w/150,h/110);
-  const angulo=-estado.orientacaoRad.z;
-  c.save();c.translate(w*.5,h*.49);c.rotate(angulo);
-  // Corpo e motor são objetos do mundo; a vista usa posição relativa ao casco.
-  desenharOrbitadorRE001(c,{pixelsPorMetro:desenhoEscala,rolagemRad:0,integridade:ensaio.veiculo.integridadeEstrutural,flaps:[]});
-  const dx=motor.posicaoM.x-estado.posicaoM.x,dy=motor.posicaoM.y-estado.posicaoM.y;
-  const localX=(dx*Math.cos(estado.orientacaoRad.z)+dy*Math.sin(estado.orientacaoRad.z))*desenhoEscala;
-  const localY=(dx*Math.sin(estado.orientacaoRad.z)-dy*Math.cos(estado.orientacaoRad.z))*desenhoEscala;
-  c.save();c.translate(localX,localY);
-  // O motor axial ocupa a cauda; o jato visual sai para trás, oposto ao empuxo.
-  c.rotate(-(motor.orientacaoRad.z-estado.orientacaoRad.z));
-  const gimbal=ensaio.propulsor.obterEstadoDaVetorizacao().anguloAtualRad;
-  c.rotate(-gimbal);
-  c.fillStyle='#5d788c';c.strokeStyle='#cbd9de';c.lineWidth=1.4;
-  c.beginPath();c.moveTo(-6,-8);c.lineTo(5,-11);c.lineTo(9,11);c.lineTo(-6,8);c.closePath();c.fill();c.stroke();
-  if(empuxo>0 && ensaio.propulsor.estaIgnitado){
-    const comprimento=14+Math.min(62,empuxo/2_400_000*58);
-    const grad=c.createLinearGradient(-8,0,-8-comprimento,0);
-    grad.addColorStop(0,'rgba(214,245,255,.94)');grad.addColorStop(.4,'rgba(102,213,248,.77)');grad.addColorStop(1,'rgba(56,153,227,0)');
-    c.fillStyle=grad;c.beginPath();c.moveTo(-8,-6);c.lineTo(-8-comprimento,0);c.lineTo(-8,6);c.closePath();c.fill();
-  }
-  c.restore();c.restore();
-  // Indicadores de cena ancorados na tela; não integram física.
-  c.strokeStyle='#28465d';c.setLineDash([5,9]);c.beginPath();c.moveTo(0,h*.75);c.lineTo(w,h*.75);c.stroke();c.setLineDash([]);
-  c.fillStyle='#92b0c8';c.font='14px ui-monospace, monospace';c.fillText('XY  /  Vista lateral de objeto composto',19,h-21);
-  escrever('manual-situacao',encerrado?'SIMULAÇÃO INTERROMPIDA':modoManual?'CONTROLE MANUAL HABILITADO':'CONTROLE MANUAL DESABILITADO');
-  escrever('manual-motor',(ensaio.propulsor.estaIgnitado?'MOTOR IGNITADO':'MOTOR DESLIGADO')+' · '+f(ensaio.propulsor.estaIgnitado?empuxo/1e6:0,2)+' MN');
-  escrever('manual-tempo','t = '+f(ensaio.mundo.tempoS,2)+' s · '+(executando?'executando':'pausada'));
-  escrever('manual-altitude',f(leitura.altitudeM,0)+' m');
-  escrever('manual-vvertical',f(leitura.velocidadeVerticalMps,1)+' m/s');
-  escrever('manual-vhorizontal',f(leitura.velocidadeHorizontalMps,1)+' m/s');
-  escrever('manual-empuxo',f(empuxo/1e6,2)+' MN');
-  escrever('manual-gimbal',f(gimbal*180/Math.PI,1)+'°');
-  escrever('manual-propelente',f(ensaio.tanqueMetano.massaPropelenteKg,0)+' / '+f(ensaio.tanqueOxidante.massaPropelenteKg,0)+' kg');
-  escrever('manual-integridade',f(ensaio.veiculo.integridadeEstrutural*100,1)+'%');
-  escrever('manual-massa',f(ensaio.veiculo.massaInstantaneaDoConjuntoKg,0)+' kg');
-}
-/** Converte tempo de quadro em passos fixos escalados e solicita o próximo quadro de apresentação. @contract f-00815132d8fc272b @reviewed RE-002E: relógio limitado à camada visual. */
-function animar(timestamp:number):void{
-  if(ultimoFrameMs===undefined)ultimoFrameMs=timestamp;
-  const duracao=Math.min(.1,Math.max(0,(timestamp-ultimoFrameMs)/1000));
-  ultimoFrameMs=timestamp;
-  if(executando&&!encerrado){
-    acumuladorS+=duracao*Number(escala.value);
-    let n=0;
-    while(acumuladorS>=dtS&&n<1200&&!encerrado){avancar();acumuladorS-=dtS;n++}
-    controle();desenhar();
+
+dianteiro.addEventListener('input', comandarFlaps);
+traseiro.addEventListener('input', comandarFlaps);
+play.addEventListener('click', () => {
+  executando = !executando;
+  if (executando) ensaio.iniciar(); else ensaio.pausar();
+  if (!executando) acumuladorS = 0;
+  desenhar();
+});
+passo.addEventListener('click', () => {
+  if (executando) return;
+  ensaio.iniciar();
+  for (let i = 0; i < Math.round(1 / dtS); i++) avancar();
+  ensaio.pausar();
+  desenhar();
+});
+get<HTMLButtonElement>('manual-reiniciar').addEventListener('click', () => {
+  ensaio = new EnsaioReentrada(CONFIGURACAO_MANUAL);
+  historico = [];
+  executando = false;
+  acumuladorS = 0;
+  ultimoFrameMs = undefined;
+  dianteiro.value = '0';
+  traseiro.value = '0';
+  mensagem.textContent = 'Cenário reiniciado: 120 km, voo horizontal e controle manual.';
+  desenhar();
+});
+
+/** Converte quadros em passos fixos e reproduzíveis da missão. @contract f-00815132d8fc272b @reviewed RE-001: tempo real limita-se à camada visual. */
+function animar(timestamp: number): void {
+  if (ultimoFrameMs === undefined) ultimoFrameMs = timestamp;
+  const delta = Math.min(0.1, Math.max(0, (timestamp - ultimoFrameMs) / 1_000));
+  ultimoFrameMs = timestamp;
+  if (executando) {
+    acumuladorS += delta * Number(escala.value);
+    let passosQuadro = 0;
+    while (acumuladorS >= dtS && passosQuadro < 240 && executando) {
+      avancar();
+      acumuladorS -= dtS;
+      passosQuadro++;
+    }
+    desenhar();
   }
   requestAnimationFrame(animar);
 }
-controle();desenhar();requestAnimationFrame(animar);
+
+historico = [ensaio.observar()];
+desenhar();
+requestAnimationFrame(animar);

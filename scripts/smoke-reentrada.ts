@@ -90,26 +90,26 @@ export async function executarSmokeReentrada(): Promise<void> {
       assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'Overflow avançado.');
       verificacoes.push({ largura, rota: '/reentrada.html', tempoAvancou: true, pausa: true, rolagemLimitada: true,
         modoManual: true, aproximacaoBloqueada: true, parametrosExportados: true, modoManualInicial: true, passo480: true, alimentacaoDesligada: true, exportacao: true, danoTermico: true, overflow: false });
-      // RE-002E separado: motor real sem ignição implícita, controle manual e consumo.
+      // Cenário dedicado: mesma reentrada RE-001, voo horizontal a 120 km e flaps manuais.
       const manual = await browser.newPage({ viewport: { width: largura, height: 850 } });
       manual.on('pageerror', e => erros.push(e.message));
       assert.equal((await manual.goto(base + '/reentrada-manual.html', { waitUntil: 'networkidle' }))!.status(), 200);
-      assert.equal(await manual.locator('#manual-motor').textContent(), 'MOTOR DESLIGADO · 0,00 MN');
-      assert(await manual.locator('#manual-ignitar').isDisabled());
-      await manual.click('#manual-habilitar');
-      await manual.locator('#manual-throttle').evaluate((input) => { const el = input as HTMLInputElement; el.value = '80'; el.dispatchEvent(new Event('input', { bubbles: true })); });
-      await manual.click('#manual-ignitar');
-      assert.match((await manual.locator('#manual-mensagem').textContent())!, /Ignição aceita/);
+      assert.match(await manual.title(), /flaps manuais/i);
+      assert.match((await manual.locator('#manual-altitude').textContent())!, /120\.000 m/);
+      assert.match((await manual.locator('#manual-velocidade').textContent())!, /7\.700 m\/s/);
+      assert.match((await manual.locator('#manual-alpha').textContent())!, /0,00°/);
+      await manual.locator('#manual-dianteiro').evaluate((input) => { const el = input as HTMLInputElement; el.value = '15'; el.dispatchEvent(new Event('input', { bubbles: true })); });
+      await manual.locator('#manual-traseiro').evaluate((input) => { const el = input as HTMLInputElement; el.value = '-12'; el.dispatchEvent(new Event('input', { bubbles: true })); });
+      assert.match((await manual.locator('#manual-mensagem').textContent())!, /Comando aplicado/);
       await manual.click('#manual-passo');
-      const empuxo = (await manual.locator('#manual-empuxo').textContent())!;
-      assert.match(empuxo, /1,92 MN/);
-      assert.notEqual(await manual.locator('#manual-propelente').textContent(), '3.600 / 14.400 kg');
-      assert(await manual.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'Overflow RE-002E.');
-      await manual.screenshot({ path: resolve(pasta, 're002e-manual-' + largura + '.png'), fullPage: true });
-      await manual.click('#manual-cortar');
-      assert.match((await manual.locator('#manual-motor').textContent())!, /MOTOR DESLIGADO/);
+      assert.match((await manual.locator('#manual-tempo').textContent())!, /t = 1,00 s/);
+      assert.match((await manual.locator('#manual-dianteiro-efetivo').textContent())!, /[1-9]/);
+      assert.match((await manual.locator('#manual-traseiro-efetivo').textContent())!, /-/);
+      assert(await manual.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'Overflow cenário manual.');
+      await manual.screenshot({ path: resolve(pasta, 'reentrada-flaps-manuais-' + largura + '.png'), fullPage: true });
       await manual.click('#manual-reiniciar');
-      assert(await manual.locator('#manual-ignitar').isDisabled());
+      assert.match((await manual.locator('#manual-tempo').textContent())!, /t = 0,00 s/);
+      assert.match((await manual.locator('#manual-altitude').textContent())!, /120\.000 m/);
       await manual.close();
       await page.close();
     }

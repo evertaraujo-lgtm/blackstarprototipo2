@@ -2,84 +2,24 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Black Rise | RE-002E · Propulsão manual</title>
+<title>Black Rise | RE-001 · Reentrada com flaps manuais</title>
 <style>
-:root{color-scheme:dark;--bg:#071020;--panel:#111e35;--edge:#33475e;--ink:#e9eef6;--muted:#9cb0c6;--accent:#dfaa69;--cyan:#70d8dc;--red:#ff7373}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 42% -30%,#243b5e 0%,var(--bg) 56%);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
-a{color:var(--cyan);text-decoration:none}a:hover{text-decoration:underline}button,input,select{font:inherit}button{background:#243c55;color:var(--ink);border:1px solid #69819a;padding:11px 15px;border-radius:7px;cursor:pointer;font-weight:650}button:hover:not(:disabled){background:#31516d}button:disabled{opacity:.43;cursor:not-allowed}
-button.primary{background:#b77d3e;border-color:#e2b477;color:#081222}button.danger{border-color:#c96f70;color:#ffd4d4}button.active{background:#276660;border-color:#73d0c1}
-.page{width:min(1480px,96vw);margin:0 auto;padding:22px 0 44px}.eyebrow{font-size:11px;letter-spacing:.19em;font-weight:750;color:var(--accent);margin:0 0 8px}
-header{display:flex;justify-content:space-between;gap:18px;align-items:start;border-bottom:1px solid var(--edge);padding-bottom:18px;margin-bottom:18px}h1{margin:0;font-size:clamp(26px,3vw,39px);font-weight:650;letter-spacing:-.04em}.subtitle{color:var(--muted);margin:5px 0 0}.navigation{display:flex;gap:16px;flex-wrap:wrap;padding-top:8px;font-size:13px}
-.disclaimer{border:1px solid #765a36;background:#1e2531;padding:11px 15px;border-radius:9px;color:#e2bf90;font-size:12px;margin-bottom:16px}
-.layout{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:16px;align-items:start}
-.scene{position:relative;border:1px solid var(--edge);border-radius:10px;overflow:hidden;min-width:0;background:#030c1a}
-.scene canvas{width:100%;height:min(65vh,630px);min-height:380px;display:block}
-.overlay{position:absolute;top:12px;left:12px;padding:10px 12px;background:#061425dc;border:1px solid #28485f;border-radius:7px;pointer-events:none;font-size:12px;max-width:57%}
-.overlay b{color:#fff}.overlay .tag{font-weight:700;color:var(--cyan)}
-.scene-stat{position:absolute;bottom:12px;left:12px;background:#061425de;border:1px solid #28485f;border-radius:7px;padding:8px 11px;color:var(--muted);font-size:12px}
-.panel{background:var(--panel);border:1px solid var(--edge);padding:16px;border-radius:10px;display:grid;gap:13px}
-.panel h2{margin:0;font-size:17px}.small{color:var(--muted);font-size:12px;line-height:1.4;margin:0}
-label{display:grid;gap:6px;color:var(--muted);font-size:13px;font-weight:600}
-input[type=range]{width:100%;accent-color:var(--accent)}select{width:100%;padding:9px;background:#0a1426;color:var(--ink);border:1px solid var(--edge);border-radius:6px}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.actions button{padding:9px 6px}
-.readout{font-size:27px;font-variant-numeric:tabular-nums;font-weight:750;color:var(--accent)}
-.readout small{font-size:12px;font-weight:500;color:var(--muted)}
-.status{border:1px solid var(--edge);background:#081729;border-radius:7px;padding:10px;color:#f0d7b2;font-size:12px}
-.telemetry{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
-.metric{background:#0e1c31;border:1px solid var(--edge);border-radius:8px;padding:12px 14px;min-width:0}.metric .label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}.metric .value{display:block;font-size:20px;font-variant-numeric:tabular-nums;margin-top:4px;font-weight:650}
-.details{margin-top:15px;color:var(--muted);font-size:13px;max-width:90ch}.details summary{cursor:pointer;color:var(--ink)}
-kbd{border:1px solid var(--edge);border-radius:3px;padding:1px 4px}
-@media(max-width:900px){.layout{grid-template-columns:1fr}.panel{grid-template-columns:1fr 1fr;align-items:start}.panel h2,.panel .status,.panel .full{grid-column:1/-1}.telemetry{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:550px){header{display:block}.navigation{margin-top:12px}.scene canvas{height:390px;min-height:300px}.panel{display:grid;grid-template-columns:1fr}.overlay{max-width:75%}.telemetry{grid-template-columns:repeat(2,minmax(0,1fr))}.metric .value{font-size:17px}}
+:root{color-scheme:dark;--bg:#071020;--panel:#111e35;--edge:#33475e;--ink:#e9eef6;--muted:#9cb0c6;--accent:#dfaa69;--cyan:#70d8dc}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 42% -30%,#243b5e 0%,var(--bg) 56%);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}a{color:var(--cyan);text-decoration:none}a:hover{text-decoration:underline}button,input{font:inherit}button{background:#243c55;color:var(--ink);border:1px solid #69819a;padding:10px 14px;border-radius:7px;cursor:pointer;font-weight:650}button:hover:not(:disabled){background:#31516d}button:disabled{opacity:.43;cursor:not-allowed}.primary{background:#b77d3e;border-color:#e2b477;color:#081222}
+.page{width:min(1480px,96vw);margin:0 auto;padding:22px 0 44px}.eyebrow{font-size:11px;letter-spacing:.19em;font-weight:750;color:var(--accent);margin:0 0 8px}header{display:flex;justify-content:space-between;gap:18px;align-items:start;border-bottom:1px solid var(--edge);padding-bottom:18px;margin-bottom:18px}h1{margin:0;font-size:clamp(26px,3vw,39px);font-weight:650;letter-spacing:-.04em}.subtitle{color:var(--muted);margin:5px 0 0}.navigation{display:flex;gap:16px;flex-wrap:wrap;padding-top:8px;font-size:13px}
+.notice{border:1px solid #765a36;background:#1e2531;padding:11px 15px;border-radius:9px;color:#e2bf90;font-size:12px;margin-bottom:16px}.layout{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:16px;align-items:start}.scene{position:relative;border:1px solid var(--edge);border-radius:10px;overflow:hidden;min-width:0;background:#030c1a}.scene canvas{width:100%;height:min(65vh,630px);min-height:380px;display:block}.scene canvas[hidden]{display:none}.overlay{position:absolute;top:82px;left:12px;padding:10px 12px;background:#061425dc;border:1px solid #28485f;border-radius:7px;pointer-events:none;font-size:12px;max-width:57%}.overlay b{color:#fff}.scene-stat{position:absolute;bottom:12px;left:12px;background:#061425de;border:1px solid #28485f;border-radius:7px;padding:8px 11px;color:var(--muted);font-size:12px}
+.panel{background:var(--panel);border:1px solid var(--edge);padding:16px;border-radius:10px;display:grid;gap:13px}.panel h2{margin:0;font-size:17px}.small{color:var(--muted);font-size:12px;line-height:1.4;margin:0}label{display:grid;gap:6px;color:var(--muted);font-size:13px;font-weight:600}input[type=range]{width:100%;accent-color:var(--accent)}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.actions button{padding:9px 6px}.readout{font-size:25px;font-variant-numeric:tabular-nums;font-weight:750;color:var(--accent)}.readout small{font-size:12px;font-weight:500;color:var(--muted)}.status{border:1px solid var(--edge);background:#081729;border-radius:7px;padding:10px;color:#f0d7b2;font-size:12px}.telemetry{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}.metric{background:#0e1c31;border:1px solid var(--edge);border-radius:8px;padding:12px 14px;min-width:0}.metric .label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}.metric .value{display:block;font-size:20px;font-variant-numeric:tabular-nums;margin-top:4px;font-weight:650}.details{margin-top:15px;color:var(--muted);font-size:13px;max-width:90ch}.details summary{cursor:pointer;color:var(--ink)}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.panel{grid-template-columns:1fr 1fr;align-items:start}.panel h2,.panel .status,.panel .full{grid-column:1/-1}.telemetry{grid-template-columns:repeat(2,1fr)}}@media(max-width:550px){header{display:block}.navigation{margin-top:12px}.scene canvas{height:390px;min-height:300px}.panel{display:grid;grid-template-columns:1fr}.overlay{max-width:75%}.telemetry{grid-template-columns:repeat(2,minmax(0,1fr))}.metric .value{font-size:17px}}
 </style>
 </head>
-<body>
-<main class="page">
-<header>
-  <div><p class="eyebrow">BLACK RISE / LABORATÓRIO EXPERIMENTAL</p><h1>RE-002E · Propulsão manual</h1>
-  <p class="subtitle">Orbitador composto · dinâmica XY · ignição e potência comandadas pelo operador</p></div>
-  <nav class="navigation"><a href="/reentrada.html">Voltar à reentrada RE-001</a><a href="/simulador">Laboratórios</a></nav>
-</header>
-<div class="disclaimer">Este é o ensaio propulsivo terminal RE-002E, independente da trajetória orbital RE-001. Inicia a ~6,76 km e ~250 m/s de descida. Motor, tanques, energia e vínculos são físicos no simulador. A imagem é uma representação lateral, não CAD. Ainda não há recuperação demonstrada.</div>
-<div class="layout">
-  <div class="scene">
-    <canvas id="manual-cena" width="990" height="580" aria-label="Vista lateral do orbitador e localização física do propulsor vetorizado"></canvas>
-    <div class="overlay"><div class="tag">BLACK RISE · RE-002E</div>
-      <div id="manual-situacao">Em espera: controle manual não habilitado</div>
-      <div id="manual-motor">MOTOR DESLIGADO · 0,00 MN</div></div>
-    <div class="scene-stat" id="manual-tempo">t = 0,00 s · simulação pausada</div>
-  </div>
-  <aside class="panel" aria-label="Comandos manuais do propulsor">
-    <h2>Controle do motor</h2>
-    <p class="small full">Habilite o modo manual. A ignição percorre o computador de voo e seus permissivos. Nenhum controlador automático assume o motor neste ensaio.</p>
-    <button id="manual-habilitar" class="primary full">Ativar modo manual</button>
-    <label class="full">Potência solicitada <output id="manual-percentual" class="readout">0% <small>solicitado</small></output>
-      <input id="manual-throttle" type="range" min="0" max="100" value="0" step="1" disabled aria-label="Potência do motor, de 0 a 100 por cento"></label>
-    <div class="actions full">
-      <button id="manual-ignitar" class="primary" disabled>Ignitar motor</button>
-      <button id="manual-cortar" class="danger" disabled>Cortar motor</button>
-    </div>
-    <label>Velocidade do ensaio<select id="manual-escala"><option value="0.25">0,25×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="5">5×</option></select></label>
-    <div class="actions"><button id="manual-play" disabled>Iniciar</button><button id="manual-passo" disabled>Avançar 1 s</button></div>
-    <button id="manual-reiniciar" class="full">Reiniciar cenário</button>
-    <output id="manual-mensagem" class="status full" role="status" aria-live="polite">Aguardando habilitação do operador.</output>
-  </aside>
-</div>
-<section class="telemetry" aria-label="Telemetria física">
-  <div class="metric"><span class="label">Altitude</span><output class="value" id="manual-altitude">6.756 m</output></div>
-  <div class="metric"><span class="label">Velocidade vertical</span><output class="value" id="manual-vvertical">−250,5 m/s</output></div>
-  <div class="metric"><span class="label">Velocidade horizontal</span><output class="value" id="manual-vhorizontal">+7,4 m/s</output></div>
-  <div class="metric"><span class="label">Empuxo efetivo</span><output class="value" id="manual-empuxo">0 MN</output></div>
-  <div class="metric"><span class="label">Gimbal real</span><output class="value" id="manual-gimbal">0°</output></div>
-  <div class="metric"><span class="label">Metano / oxigênio</span><output class="value" id="manual-propelente">3.600 / 14.400 kg</output></div>
-  <div class="metric"><span class="label">Integridade do casco</span><output class="value" id="manual-integridade">100%</output></div>
-  <div class="metric"><span class="label">Massa do conjunto</span><output class="value" id="manual-massa">105.900 kg</output></div>
-</section>
-<details class="details"><summary>Escopo físico e limitações do modo manual</summary>
-<p>A potência solicitada é um comando adimensional ao motor e suas válvulas; potência efetiva e impulso são calculados conforme disponibilidade elétrica, propelentes, integridade, Isp e bocal. A ignição exige elétrico → hidráulico → combustível → controle → ignição. O motor e seu gimbal são desenhados nas posições e orientações físicas do mundo. O jato é um indicador visual ligado ao empuxo, não aplica força adicional.</p>
-<p>Sem controle automático de atitude, a operação apenas de ignição e throttle não garante verticalização. A montagem propulsiva RE-002E é um ensaio de integração física separado, não uma transição contínua da reentrada orbital RE-001. O vídeo não substitui os diários de voo ou a instrumentação dos limites físicos.</p>
-</details>
-</main>
-<script type="module" src="/src/reentrada-manual.ts"></script>
-</body>
-</html>
+<body><main class="page">
+<header><div><p class="eyebrow">BLACK RISE / LABORATÓRIO EXPERIMENTAL</p><h1>RE-001 · Flaps manuais na reentrada</h1><p class="subtitle">Orbitador horizontal · atmosfera terrestre · condição inicial a 120 km</p></div><nav class="navigation"><a href="/reentrada.html">Voltar à bancada RE-001</a><a href="/simulador">Laboratórios</a></nav></header>
+<div class="notice">Condição inicial: 120.000 m, 7.700 m/s na horizontal e atitude horizontal. O ensaio começa em controle manual. O operador comanda os flaps dianteiro e traseiro; forças, atitude e trajetória continuam sob autoridade do core físico. O motor não faz parte deste cenário.</div>
+<div class="layout"><div class="scene"><canvas id="manual-cena" aria-label="Orbitador em reentrada, com câmera centrada e escalas em metros"></canvas><canvas id="manual-graficos" hidden></canvas><div class="overlay"><b>RE-001 · REENTRADA MANUAL</b><div id="manual-situacao">CONTROLE MANUAL · 120 km</div><div id="manual-flaps">Flaps dianteiro 0° · traseiro 0°</div></div><div class="scene-stat" id="manual-tempo">t = 0,00 s · simulação pausada</div></div>
+<aside class="panel" aria-label="Comandos manuais dos flaps"><h2>Comando manual de flaps</h2><p class="small full">Os comandos são enviados aos atuadores do ensaio RE-001. A deflexão efetiva pode levar tempo para acompanhar o valor solicitado.</p>
+<label class="full">Flap dianteiro <output id="manual-dianteiro-label" class="readout">0° <small>solicitado</small></output><input id="manual-dianteiro" type="range" min="-30" max="30" value="0" step="1" aria-label="Comando do flap dianteiro"></label>
+<label class="full">Flap traseiro <output id="manual-traseiro-label" class="readout">0° <small>solicitado</small></output><input id="manual-traseiro" type="range" min="-30" max="30" value="0" step="1" aria-label="Comando do flap traseiro"></label>
+<label>Escala temporal<select id="manual-escala" style="width:100%;padding:9px;background:#0a1426;color:var(--ink);border:1px solid var(--edge);border-radius:6px"><option value="0.25">0,25×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="5">5×</option></select></label><div class="actions"><button id="manual-play" class="primary">Iniciar</button><button id="manual-passo">Avançar 1 s</button></div><button id="manual-reiniciar" class="full">Reiniciar cenário</button><output id="manual-mensagem" class="status full" role="status" aria-live="polite">Cenário pronto em controle manual. Ajuste os flaps e avance a simulação.</output></aside></div>
+<section class="telemetry" aria-label="Telemetria física"><div class="metric"><span class="label">Altitude</span><output class="value" id="manual-altitude">120.000 m</output></div><div class="metric"><span class="label">Velocidade</span><output class="value" id="manual-velocidade">7.700 m/s</output></div><div class="metric"><span class="label">Ângulo de ataque</span><output class="value" id="manual-alpha">0°</output></div><div class="metric"><span class="label">Pressão dinâmica</span><output class="value" id="manual-pressao">0 Pa</output></div><div class="metric"><span class="label">Flap dianteiro · efetivo</span><output class="value" id="manual-dianteiro-efetivo">0°</output></div><div class="metric"><span class="label">Flap traseiro · efetivo</span><output class="value" id="manual-traseiro-efetivo">0°</output></div><div class="metric"><span class="label">Integridade do orbitador</span><output class="value" id="manual-integridade">100%</output></div><div class="metric"><span class="label">Estado do ensaio</span><output class="value" id="manual-estado">Preparado</output></div></section>
+<details class="details"><summary>Modelo e observação</summary><p>A pose inicial é horizontal: velocidade de trajetória, ângulo de ataque e atitude local começam em 0°. A gravidade terrestre curva a trajetória assim que o core avança. As escalas e a câmera apenas observam o estado físico. Este cenário usa a dinâmica e os atuadores do RE-001; os limites térmicos e aerodinâmicos seguem as hipóteses experimentais da bancada.</p></details>
+</main><script type="module" src="/src/reentrada-manual.ts"></script></body></html>

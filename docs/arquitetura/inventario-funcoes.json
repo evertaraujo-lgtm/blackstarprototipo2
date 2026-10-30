@@ -1716,6 +1716,62 @@
     "categoria": "callback"
   },
   {
+    "id": "scripts/smoke-reentrada-manual.ts::executar:FunctionDeclaration",
+    "assinatura": "(): Promise<void>",
+    "modificadores": [
+      "async"
+    ],
+    "categoria": "producao"
+  },
+  {
+    "id": "scripts/smoke-reentrada-manual.ts::executar.[callback]:ArrowFunction#1",
+    "assinatura": "(error: Error): number",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/smoke-reentrada-manual.ts::executar.[callback]:ArrowFunction#2",
+    "assinatura": "(element: HTMLElement | SVGElement): void",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/smoke-reentrada-manual.ts::executar.[callback]:ArrowFunction#3",
+    "assinatura": "(element: HTMLElement | SVGElement): void",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/smoke-reentrada-manual.ts::executar.[callback]:ArrowFunction#4",
+    "assinatura": "(element: HTMLElement | SVGElement): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/smoke-reentrada-manual.ts::executar.[callback]:ArrowFunction#5",
+    "assinatura": "(element: HTMLElement | SVGElement): number",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/smoke-reentrada-manual.ts::executar.[callback]:ArrowFunction#6",
+    "assinatura": "(): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/smoke-reentrada-manual.ts::executar.[callback]:ArrowFunction#7",
+    "assinatura": "(resolveClose: (value: void | PromiseLike<void>) => void): Server<typeof IncomingMessage, typeof ServerResponse> | Http2SecureServer<typeof IncomingMessage, typeof ServerResponse, typeof Http2ServerRequest, typeof Http2ServerResponse>",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/smoke-reentrada-manual.ts::executar.[callback]#7.[callback]:ArrowFunction#1",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
     "id": "scripts/smoke-reentrada.ts::executarSmokeReentrada:FunctionDeclaration",
     "assinatura": "(): Promise<void>",
     "modificadores": [
@@ -1828,18 +1884,24 @@
   },
   {
     "id": "scripts/smoke-reentrada.ts::executarSmokeReentrada.[callback]:ArrowFunction#18",
-    "assinatura": "(): boolean",
+    "assinatura": "(input: HTMLElement | SVGElement): void",
     "modificadores": [],
     "categoria": "callback"
   },
   {
     "id": "scripts/smoke-reentrada.ts::executarSmokeReentrada.[callback]:ArrowFunction#19",
+    "assinatura": "(): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/smoke-reentrada.ts::executarSmokeReentrada.[callback]:ArrowFunction#20",
     "assinatura": "(r: (value: void | PromiseLike<void>) => void): Server<typeof IncomingMessage, typeof ServerResponse> | Http2SecureServer<typeof IncomingMessage, typeof ServerResponse, typeof Http2ServerRequest, typeof Http2ServerResponse>",
     "modificadores": [],
     "categoria": "callback"
   },
   {
-    "id": "scripts/smoke-reentrada.ts::executarSmokeReentrada.[callback]#19.[callback]:ArrowFunction#1",
+    "id": "scripts/smoke-reentrada.ts::executarSmokeReentrada.[callback]#20.[callback]:ArrowFunction#1",
     "assinatura": "(): void",
     "modificadores": [],
     "categoria": "callback"
@@ -5123,14 +5185,14 @@
     "categoria": "teste"
   },
   {
-    "id": "src/cenarios/EnsaioReentrada.test.ts::[callback]#1.[callback]#2.[callback]:ArrowFunction#1",
-    "assinatura": "(): Vetor3",
+    "id": "src/cenarios/EnsaioReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#3",
+    "assinatura": "(): void",
     "modificadores": [],
     "categoria": "teste"
   },
   {
-    "id": "src/cenarios/EnsaioReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#3",
-    "assinatura": "(): void",
+    "id": "src/cenarios/EnsaioReentrada.test.ts::[callback]#1.[callback]#3.[callback]:ArrowFunction#1",
+    "assinatura": "(): Vetor3",
     "modificadores": [],
     "categoria": "teste"
   },
@@ -5141,25 +5203,31 @@
     "categoria": "teste"
   },
   {
-    "id": "src/cenarios/EnsaioReentrada.test.ts::[callback]#1.[callback]#4.[callback]:ArrowFunction#1",
+    "id": "src/cenarios/EnsaioReentrada.test.ts::[callback]#1.[callback]:ArrowFunction#5",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
+    "id": "src/cenarios/EnsaioReentrada.test.ts::[callback]#1.[callback]#5.[callback]:ArrowFunction#1",
     "assinatura": "(): ConfiguracaoReentrada",
     "modificadores": [],
     "categoria": "teste"
   },
   {
-    "id": "src/cenarios/EnsaioReentrada.test.ts::[callback]#1.[callback]#4.[callback]:ArrowFunction#2",
+    "id": "src/cenarios/EnsaioReentrada.test.ts::[callback]#1.[callback]#5.[callback]:ArrowFunction#2",
     "assinatura": "(): ConfiguracaoReentrada",
     "modificadores": [],
     "categoria": "teste"
   },
   {
-    "id": "src/cenarios/EnsaioReentrada.test.ts::[callback]#1.[callback]#4.[callback]:ArrowFunction#3",
+    "id": "src/cenarios/EnsaioReentrada.test.ts::[callback]#1.[callback]#5.[callback]:ArrowFunction#3",
     "assinatura": "(): ConfiguracaoReentrada",
     "modificadores": [],
     "categoria": "teste"
   },
   {
-    "id": "src/cenarios/EnsaioReentrada.test.ts::[callback]#1.[callback]#4.[callback]:ArrowFunction#4",
+    "id": "src/cenarios/EnsaioReentrada.test.ts::[callback]#1.[callback]#5.[callback]:ArrowFunction#4",
     "assinatura": "(e: EventoMissao): boolean",
     "modificadores": [],
     "categoria": "teste"
@@ -22391,30 +22459,30 @@
   },
   {
     "id": "src/reentrada-manual.ts::f:ArrowFunction",
-    "assinatura": "(v: number, d?: number): string",
+    "assinatura": "(valor: number, casas?: number): string",
     "modificadores": [],
     "categoria": "producao"
   },
   {
-    "id": "src/reentrada-manual.ts::escrever:ArrowFunction",
-    "assinatura": "(id: string, valor: string): void",
+    "id": "src/reentrada-manual.ts::graus:ArrowFunction",
+    "assinatura": "(rad: number): number",
     "modificadores": [],
     "categoria": "producao"
   },
   {
-    "id": "src/reentrada-manual.ts::controle:FunctionDeclaration",
+    "id": "src/reentrada-manual.ts::comandarFlaps:FunctionDeclaration",
     "assinatura": "(): void",
     "modificadores": [],
     "categoria": "producao"
   },
   {
-    "id": "src/reentrada-manual.ts::mensagemStatus:FunctionDeclaration",
-    "assinatura": "(s: string): void",
+    "id": "src/reentrada-manual.ts::desenhar:FunctionDeclaration",
+    "assinatura": "(): void",
     "modificadores": [],
     "categoria": "producao"
   },
   {
-    "id": "src/reentrada-manual.ts::aplicarThrottle:FunctionDeclaration",
+    "id": "src/reentrada-manual.ts::avancar:FunctionDeclaration",
     "assinatura": "(): void",
     "modificadores": [],
     "categoria": "producao"
@@ -22436,48 +22504,6 @@
     "assinatura": "(): void",
     "modificadores": [],
     "categoria": "callback"
-  },
-  {
-    "id": "src/reentrada-manual.ts::[callback]:ArrowFunction#4",
-    "assinatura": "(): void",
-    "modificadores": [],
-    "categoria": "callback"
-  },
-  {
-    "id": "src/reentrada-manual.ts::[callback]:ArrowFunction#5",
-    "assinatura": "(): void",
-    "modificadores": [],
-    "categoria": "callback"
-  },
-  {
-    "id": "src/reentrada-manual.ts::[callback]:ArrowFunction#6",
-    "assinatura": "(): void",
-    "modificadores": [],
-    "categoria": "callback"
-  },
-  {
-    "id": "src/reentrada-manual.ts::[callback]:ArrowFunction#7",
-    "assinatura": "(): void",
-    "modificadores": [],
-    "categoria": "callback"
-  },
-  {
-    "id": "src/reentrada-manual.ts::avancar:FunctionDeclaration",
-    "assinatura": "(): void",
-    "modificadores": [],
-    "categoria": "producao"
-  },
-  {
-    "id": "src/reentrada-manual.ts::avancar.[callback]:ArrowFunction#1",
-    "assinatura": "(c: ContatoSuperficieFisico): boolean",
-    "modificadores": [],
-    "categoria": "callback"
-  },
-  {
-    "id": "src/reentrada-manual.ts::desenhar:FunctionDeclaration",
-    "assinatura": "(): void",
-    "modificadores": [],
-    "categoria": "producao"
   },
   {
     "id": "src/reentrada-manual.ts::animar:FunctionDeclaration",

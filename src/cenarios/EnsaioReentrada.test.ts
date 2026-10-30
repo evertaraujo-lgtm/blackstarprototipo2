@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { criarCenarioReentrada, criarEnsaioReentrada, configurarReentrada, reproduzirEnsaioReentrada } from './EnsaioReentrada';
+import { EnsaioReentrada, criarCenarioReentrada, criarEnsaioReentrada, configurarReentrada, reproduzirEnsaioReentrada } from './EnsaioReentrada';
 import { PerfilAtmosfericoReentrada } from '../physics/ambiente/PerfilAtmosfericoReentrada';
 import { projetarSustentacao } from '../physics/reentrada/ModeloAerodinamicoReentrada';
 import { RolagemVirtual } from '../physics/objetos/componentes/RolagemVirtual';
@@ -15,6 +15,26 @@ import { ControladorReentrada, type TelemetriaControleReentrada } from '../physi
 import { ComputadorDeVoo } from '../physics/objetos/veiculos/ComputadorDeVoo';
 
 describe('RE-001 — inicialização e ambiente opt-in', () => {
+  it('inicia o cenário manual horizontal a 120 km e transmite comandos aos atuadores dos flaps', () => {
+    const r = new EnsaioReentrada({ altitudeM: 120_000, velocidadeMps: 7700,
+      anguloAtaqueRad: 0, trajetoriaRad: 0, automatico: false, chaveamentoAutomatico: false });
+    const inicial = r.observar();
+    expect(inicial.altitudeM).toBe(120_000);
+    expect(inicial.trajetoriaRad).toBeCloseTo(0, 12);
+    expect(inicial.aerodinamica.anguloAtaqueRad).toBeCloseTo(0, 12);
+    expect(inicial.atitudeLocalRad).toBeCloseTo(0, 12);
+    expect(inicial.controle.estado).toBe('manual');
+    expect(inicial.propulsaoDisponivel).toBe(false);
+    expect(r.receberComando({ tipo: 'flaps', dianteiroRad: 10 * Math.PI / 180, traseiroRad: -10 * Math.PI / 180 }).aceito).toBe(true);
+    expect(r.observar().flaps[0].comandoRad).toBeCloseTo(10 * Math.PI / 180, 12);
+    r.iniciar();
+    for (let i = 0; i < Math.round(1 / r.passoS); i++) r.avancarPasso();
+    const avancado = r.observar();
+    expect(avancado.tempoS).toBeCloseTo(1, 10);
+    expect(avancado.flaps[0].deflexaoRad).toBeGreaterThan(0);
+    expect(avancado.flaps[1].deflexaoRad).toBeLessThan(0);
+  });
+
   it('inicializa 120 km, 7700 m/s, alpha 40°, trajetória −1°, automático e motores ausentes', () => {
     const r = criarEnsaioReentrada(), o = r.observar();
     expect(o.altitudeM).toBe(120_000); expect(o.velocidadeMps).toBeCloseTo(7700, 9);
