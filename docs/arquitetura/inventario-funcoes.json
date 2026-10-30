@@ -1816,12 +1816,30 @@
   },
   {
     "id": "scripts/smoke-reentrada.ts::executarSmokeReentrada.[callback]:ArrowFunction#16",
+    "assinatura": "(e: Error): number",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/smoke-reentrada.ts::executarSmokeReentrada.[callback]:ArrowFunction#17",
+    "assinatura": "(input: HTMLElement | SVGElement): void",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/smoke-reentrada.ts::executarSmokeReentrada.[callback]:ArrowFunction#18",
+    "assinatura": "(): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "scripts/smoke-reentrada.ts::executarSmokeReentrada.[callback]:ArrowFunction#19",
     "assinatura": "(r: (value: void | PromiseLike<void>) => void): Server<typeof IncomingMessage, typeof ServerResponse> | Http2SecureServer<typeof IncomingMessage, typeof ServerResponse, typeof Http2ServerRequest, typeof Http2ServerResponse>",
     "modificadores": [],
     "categoria": "callback"
   },
   {
-    "id": "scripts/smoke-reentrada.ts::executarSmokeReentrada.[callback]#16.[callback]:ArrowFunction#1",
+    "id": "scripts/smoke-reentrada.ts::executarSmokeReentrada.[callback]#19.[callback]:ArrowFunction#1",
     "assinatura": "(): void",
     "modificadores": [],
     "categoria": "callback"
@@ -5061,8 +5079,14 @@
     "categoria": "teste"
   },
   {
+    "id": "src/cenarios/EnsaioPropulsivoOrbitadorRe002.test.ts::[callback]#1.[callback]:ArrowFunction#3",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "teste"
+  },
+  {
     "id": "src/cenarios/EnsaioPropulsivoOrbitadorRe002.ts::criarEnsaioPropulsivoOrbitadorRe002:FunctionDeclaration",
-    "assinatura": "(): { mundo: MundoFisico; ambiente: AmbienteTerrestre; veiculo: VeiculoComposto; propulsor: PropulsorVetorizado; tanqueMetano: TanquePropelente; tanqueOxidante: TanquePropelente; bateria: Bateria; controladorAproximacao: ControladorAproximacao; massaInicialKg: number; parametrosPropulsivos: { empuxoMaximoN: number; impulsoEspecificoNominalS: number; razaoMisturaOxidanteCombustivel: number; vazaoCombustivelMaximaKgS: number; vazaoOxidanteMaximaKgS: number; limiteGimbalRad: number; fatorPropulsorBss005: number; fatorTanqueBss005: number; massaBaseCascoKg: number; massaPropulsorKg: number; massaBasePorTanqueKg: number; propelenteTotalInicialKg: number; }; }",
+    "assinatura": "(opcoes?: { readonly atitudeInicialLocalRad?: number; readonly montagemPropulsorAxial?: boolean; }): { mundo: MundoFisico; ambiente: AmbienteTerrestre; veiculo: VeiculoComposto; propulsor: PropulsorVetorizado; tanqueMetano: TanquePropelente; tanqueOxidante: TanquePropelente; bateria: Bateria; controladorAproximacao: ControladorAproximacao; massaInicialKg: number; parametrosPropulsivos: { empuxoMaximoN: number; impulsoEspecificoNominalS: number; razaoMisturaOxidanteCombustivel: number; vazaoCombustivelMaximaKgS: number; vazaoOxidanteMaximaKgS: number; limiteGimbalRad: number; fatorPropulsorBss005: number; fatorTanqueBss005: number; massaBaseCascoKg: number; massaPropulsorKg: number; massaBasePorTanqueKg: number; propelenteTotalInicialKg: number; }; }",
     "modificadores": [
       "export"
     ],
@@ -22358,6 +22382,108 @@
     "assinatura": "(l: LigacaoTermica, i: number): Readonly<{ energiaJ: number; potenciaW: number; a: string; b: string; condutanciaWPorC: number; condutanciaSemProtecaoWPorC: number; }>",
     "modificadores": [],
     "categoria": "callback"
+  },
+  {
+    "id": "src/reentrada-manual.ts::get:ArrowFunction",
+    "assinatura": "<T extends HTMLElement>(id: string): T",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "src/reentrada-manual.ts::f:ArrowFunction",
+    "assinatura": "(v: number, d?: number): string",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "src/reentrada-manual.ts::escrever:ArrowFunction",
+    "assinatura": "(id: string, valor: string): void",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "src/reentrada-manual.ts::controle:FunctionDeclaration",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "src/reentrada-manual.ts::mensagemStatus:FunctionDeclaration",
+    "assinatura": "(s: string): void",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "src/reentrada-manual.ts::aplicarThrottle:FunctionDeclaration",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "src/reentrada-manual.ts::[callback]:ArrowFunction#1",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/reentrada-manual.ts::[callback]:ArrowFunction#2",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/reentrada-manual.ts::[callback]:ArrowFunction#3",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/reentrada-manual.ts::[callback]:ArrowFunction#4",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/reentrada-manual.ts::[callback]:ArrowFunction#5",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/reentrada-manual.ts::[callback]:ArrowFunction#6",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/reentrada-manual.ts::[callback]:ArrowFunction#7",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/reentrada-manual.ts::avancar:FunctionDeclaration",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "src/reentrada-manual.ts::avancar.[callback]:ArrowFunction#1",
+    "assinatura": "(c: ContatoSuperficieFisico): boolean",
+    "modificadores": [],
+    "categoria": "callback"
+  },
+  {
+    "id": "src/reentrada-manual.ts::desenhar:FunctionDeclaration",
+    "assinatura": "(): void",
+    "modificadores": [],
+    "categoria": "producao"
+  },
+  {
+    "id": "src/reentrada-manual.ts::animar:FunctionDeclaration",
+    "assinatura": "(timestamp: number): void",
+    "modificadores": [],
+    "categoria": "producao"
   },
   {
     "id": "src/reentrada.ts::iniciarBancada:FunctionDeclaration",
