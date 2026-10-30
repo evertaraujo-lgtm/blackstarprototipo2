@@ -123,7 +123,7 @@ function desenhar():void{
   c.rotate(-gimbal);
   c.fillStyle='#5d788c';c.strokeStyle='#cbd9de';c.lineWidth=1.4;
   c.beginPath();c.moveTo(-6,-8);c.lineTo(5,-11);c.lineTo(9,11);c.lineTo(-6,8);c.closePath();c.fill();c.stroke();
-  if(empuxo>0){
+  if(empuxo>0 && ensaio.propulsor.estaIgnitado){
     const comprimento=14+Math.min(62,empuxo/2_400_000*58);
     const grad=c.createLinearGradient(8,0,8+comprimento,0);
     grad.addColorStop(0,'rgba(214,245,255,.94)');grad.addColorStop(.4,'rgba(102,213,248,.77)');grad.addColorStop(1,'rgba(56,153,227,0)');
@@ -134,7 +134,7 @@ function desenhar():void{
   c.strokeStyle='#28465d';c.setLineDash([5,9]);c.beginPath();c.moveTo(0,h*.75);c.lineTo(w,h*.75);c.stroke();c.setLineDash([]);
   c.fillStyle='#92b0c8';c.font='14px ui-monospace, monospace';c.fillText('XY  /  Vista lateral de objeto composto',19,h-21);
   escrever('manual-situacao',encerrado?'SIMULAÇÃO INTERROMPIDA':modoManual?'CONTROLE MANUAL HABILITADO':'CONTROLE MANUAL DESABILITADO');
-  escrever('manual-motor',(ensaio.propulsor.estaIgnitado?'MOTOR IGNITADO':'MOTOR DESLIGADO')+' · '+f(empuxo/1e6,2)+' MN');
+  escrever('manual-motor',(ensaio.propulsor.estaIgnitado?'MOTOR IGNITADO':'MOTOR DESLIGADO')+' · '+f(ensaio.propulsor.estaIgnitado?empuxo/1e6:0,2)+' MN');
   escrever('manual-tempo','t = '+f(ensaio.mundo.tempoS,2)+' s · '+(executando?'executando':'pausada'));
   escrever('manual-altitude',f(leitura.altitudeM,0)+' m');
   escrever('manual-vvertical',f(leitura.velocidadeVerticalMps,1)+' m/s');
