@@ -27,16 +27,23 @@ const LADO_ESCALA_TANQUE = Math.cbrt(FATOR_TANQUE);
 /** Cria montagem isolada para frenagem terminal: casco BSS-RE de 78,9 t,
  * motor bipropelente vetorizado e tanque/reserva dimensionados por vazão.
  * Geometria/empuxo são escalas de estudo ancoradas no modelo interno BSS-005,
- * não hardware certificado nem clonagem de veículo real.
+ * não hardware certificado nem clonagem de veículo real. A variante manual
+ * pode usar montagem axial e declarar atitude inicial própria; sem opções
+ * mantém a receita RE-002E usada na campanha automática.
  * @contract f-94de1681a4c81541
  * @reviewed RE-002E: objetos, vínculos, permissivos e unidades conferidos.
  */
-export function criarEnsaioPropulsivoOrbitadorRe002() {
+export function criarEnsaioPropulsivoOrbitadorRe002(opcoes: {
+  readonly atitudeInicialLocalRad?: number;
+  readonly montagemPropulsorAxial?: boolean;
+} = {}) {
   const ambiente = new AmbienteTerrestre();
   const mundo = new MundoFisico(1 / 240, { ambiente, densidadeAtmosfericaKgM3: 1.225 });
   const referencial = ambiente.referencial, arcoInicialM = 0, altitudeInicialM = 6_755.82917311425;
   const velocidadeHorizontalInicialMps = 7.3797283675, velocidadeVerticalInicialMps = -250.5257888502;
-  const anguloInicialRad = Math.PI;
+  const montagemAxial = opcoes.montagemPropulsorAxial ?? false;
+  const anguloInicialRad = opcoes.atitudeInicialLocalRad ?? (montagemAxial ? Math.PI / 2 : Math.PI);
+  if (!Number.isFinite(anguloInicialRad)) throw new Error('Atitude inicial do ensaio deve ser finita em radianos.');
   const ancora = referencial.posicaoPorArcoM(arcoInicialM, altitudeInicialM);
   const velocidadeInicial = referencial.vetorParaGlobal(
     new Vetor3(velocidadeHorizontalInicialMps, velocidadeVerticalInicialMps, 0), ancora);
@@ -58,15 +65,16 @@ export function criarEnsaioPropulsivoOrbitadorRe002() {
     dimensoesM: new Vetor3(2 * LADO_ESCALA_TANQUE, alturaTanqueM, 1.8 * LADO_ESCALA_TANQUE),
     resistenciaColisaoJ: 20_000_000, limiteTermicoC: 500, tipoPropelente: 'metano',
     capacidadePropelenteKg: 120 * FATOR_TANQUE, massaPropelenteInicialKg: 120 * FATOR_TANQUE,
-    estadoInicial: estado(new Vetor3(0, 6.5, 0)) });
+    estadoInicial: estado(montagemAxial ? new Vetor3(-10, 0, 0) : new Vetor3(0, 6.5, 0)) });
   const tanqueOxidante = new TanquePropelente({ id: 'tanque-oxidante-re002e', massaBaseKg: MASSA_BASE_TANQUE_KG,
     dimensoesM: new Vetor3(2 * LADO_ESCALA_TANQUE, alturaTanqueM, 1.8 * LADO_ESCALA_TANQUE),
     resistenciaColisaoJ: 20_000_000, limiteTermicoC: 500, tipoPropelente: 'oxigenio',
     capacidadePropelenteKg: 480 * FATOR_TANQUE, massaPropelenteInicialKg: 480 * FATOR_TANQUE,
-    estadoInicial: estado(new Vetor3(0, 12.8, 0)) });
+    estadoInicial: estado(montagemAxial ? new Vetor3(-3, 0, 0) : new Vetor3(0, 12.8, 0)) });
   const bateria = new Bateria({ id: 'bateria-re002e', massaBaseKg: 100, dimensoesM: new Vetor3(1, 1, 1),
     resistenciaColisaoJ: 1_000_000, limiteTermicoC: 80, tensaoNominalV: 24,
-    capacidadeEnergiaJ: 20_000_000, energiaInicialJ: 20_000_000, estadoInicial: estado(new Vetor3(0, 0, 0)) });
+    capacidadeEnergiaJ: 20_000_000, energiaInicialJ: 20_000_000,
+    estadoInicial: estado(montagemAxial ? new Vetor3(5, 0, 0) : new Vetor3(0, 0, 0)) });
   const fatorVazaoEletrica = VAZAO_COMBUSTIVEL_KGS / (0.8 * FATOR_PROPULSOR_BSS005);
   const propulsor = new PropulsorVetorizado({ id: 'propulsor-re002e', massaBaseKg: MASSA_PROPULSOR_KG,
     dimensoesM: new Vetor3(1.6, 1.4, 1.4).multiplicar(LADO_ESCALA_TANQUE), resistenciaColisaoJ: 10_000_000,
@@ -74,7 +82,8 @@ export function criarEnsaioPropulsivoOrbitadorRe002() {
     potenciaEletricaMaximaW: 1_200 * FATOR_PROPULSOR_BSS005 * fatorVazaoEletrica,
     potenciaTermicaMaximaW: 2_000_000 * FATOR_PROPULSOR_BSS005,
     empuxoMaximoN: EMPUXO_MAXIMO_N, vazaoMaximaKgS: VAZAO_COMBUSTIVEL_KGS,
-    propelenteCompativel: 'metano', estadoInicial: estado(new Vetor3(0, -7, 0), Math.PI / 2),
+    propelenteCompativel: 'metano', estadoInicial: estado(
+      montagemAxial ? new Vetor3(-18, 0, 0) : new Vetor3(0, -7, 0), montagemAxial ? 0 : Math.PI / 2),
     vetorizacao: { limiteAngularRad: Math.PI / 12, velocidadeAngularMaximaRadps: Math.PI / 2 } });
   const comprimentoLinhasM = 32;
   propulsor.conectarTanque(tanqueMetano, comprimentoLinhasM);

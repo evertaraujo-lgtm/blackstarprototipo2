@@ -90,6 +90,27 @@ export async function executarSmokeReentrada(): Promise<void> {
       assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'Overflow avançado.');
       verificacoes.push({ largura, rota: '/reentrada.html', tempoAvancou: true, pausa: true, rolagemLimitada: true,
         modoManual: true, aproximacaoBloqueada: true, parametrosExportados: true, modoManualInicial: true, passo480: true, alimentacaoDesligada: true, exportacao: true, danoTermico: true, overflow: false });
+      // Cenário dedicado: mesma reentrada RE-001, voo horizontal a 120 km e flaps manuais.
+      const manual = await browser.newPage({ viewport: { width: largura, height: 850 } });
+      manual.on('pageerror', e => erros.push(e.message));
+      assert.equal((await manual.goto(base + '/reentrada-manual.html', { waitUntil: 'networkidle' }))!.status(), 200);
+      assert.match(await manual.title(), /flaps manuais/i);
+      assert.match((await manual.locator('#manual-altitude').textContent())!, /120\.000 m/);
+      assert.match((await manual.locator('#manual-velocidade').textContent())!, /7\.700 m\/s/);
+      assert.match((await manual.locator('#manual-alpha').textContent())!, /0,00°/);
+      await manual.locator('#manual-dianteiro').evaluate((input) => { const el = input as HTMLInputElement; el.value = '15'; el.dispatchEvent(new Event('input', { bubbles: true })); });
+      await manual.locator('#manual-traseiro').evaluate((input) => { const el = input as HTMLInputElement; el.value = '-12'; el.dispatchEvent(new Event('input', { bubbles: true })); });
+      assert.match((await manual.locator('#manual-mensagem').textContent())!, /Comando aplicado/);
+      await manual.click('#manual-passo');
+      assert.match((await manual.locator('#manual-tempo').textContent())!, /t = 1,00 s/);
+      assert.match((await manual.locator('#manual-dianteiro-efetivo').textContent())!, /[1-9]/);
+      assert.match((await manual.locator('#manual-traseiro-efetivo').textContent())!, /-/);
+      assert(await manual.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'Overflow cenário manual.');
+      await manual.screenshot({ path: resolve(pasta, 'reentrada-flaps-manuais-' + largura + '.png'), fullPage: true });
+      await manual.click('#manual-reiniciar');
+      assert.match((await manual.locator('#manual-tempo').textContent())!, /t = 0,00 s/);
+      assert.match((await manual.locator('#manual-altitude').textContent())!, /120\.000 m/);
+      await manual.close();
       await page.close();
     }
     assert.deepEqual(erros, []);

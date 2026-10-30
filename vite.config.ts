@@ -18,6 +18,7 @@ export default defineConfig({
         orbitas: resolve(import.meta.dirname, 'orbitas.html'),
         missao: resolve(import.meta.dirname, 'missao.html'),
         reentrada: resolve(import.meta.dirname, 'reentrada.html'),
+        reentradaManual: resolve(import.meta.dirname, 'reentrada-manual.html'),
       },
     },
   },

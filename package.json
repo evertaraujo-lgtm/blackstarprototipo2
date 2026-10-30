@@ -21,6 +21,7 @@
     "site:verificar": "vite-node scripts/verificar-site.ts",
     "site:smoke": "vite-node scripts/site/smoke.ts",
     "reentrada:smoke": "vite-node scripts/smoke-reentrada.ts",
+    "reentrada:manual:smoke": "vite-node scripts/smoke-reentrada-manual.ts",
     "reentrada:validar": "vite-node scripts/validar-reentrada.ts",
     "re002:desaceleracao": "vite-node scripts/campanha-desaceleracao-re002.ts",
     "re002:propulsiva": "vite-node scripts/ensaio-propulsivo-reentrada-re002.ts"

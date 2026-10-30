@@ -24,4 +24,15 @@ describe('montagem propulsiva RE-002E', () => {
     expect(ensaio.tanqueMetano.massaPropelenteKg).toBeLessThan(3_600);
     expect(ensaio.veiculo.massaInstantaneaDoConjuntoKg).toBeLessThan(ensaio.massaInicialKg);
   });
+
+  it('monta o motor na cauda axial e inicia a variante manual com o nariz para cima', () => {
+    const ensaio = criarEnsaioPropulsivoOrbitadorRe002({ montagemPropulsorAxial: true });
+    const corpo = ensaio.veiculo.getEstadoFisico(), motor = ensaio.propulsor.getEstadoFisico();
+    const dx = motor.posicaoM.x - corpo.posicaoM.x, dy = motor.posicaoM.y - corpo.posicaoM.y;
+    const angulo = corpo.orientacaoRad.z;
+    expect(ensaio.veiculo.obterLeiturasDoComputadorDeVoo().inclinacaoRad).toBeCloseTo(Math.PI / 2, 8);
+    expect(dx * Math.cos(angulo) + dy * Math.sin(angulo)).toBeCloseTo(-18, 8);
+    expect(-dx * Math.sin(angulo) + dy * Math.cos(angulo)).toBeCloseTo(0, 8);
+    expect(motor.orientacaoRad.z - corpo.orientacaoRad.z).toBeCloseTo(0, 8);
+  });
 });

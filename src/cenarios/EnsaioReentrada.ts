@@ -10,11 +10,19 @@ import type { EstadoFisico, Objeto } from '../physics/objetos/base/Objeto';
 import { OrbitadorReentrada } from '../physics/objetos/veiculos/OrbitadorReentrada';
 import { FlapReentrada } from '../physics/objetos/componentes/FlapReentrada';
 import { Bateria } from '../physics/objetos/fontes-de-energia/Bateria';
+import { TanquePropelente } from '../physics/objetos/fontes-de-energia/TanquePropelente';
+import { Propulsor } from '../physics/objetos/propulsao/Propulsor';
+import { BombaPropelente } from '../physics/objetos/propulsao/alimentacao/BombaPropelente';
+import { LinhaDePropelente } from '../physics/objetos/propulsao/alimentacao/LinhaDePropelente';
+import { ValvulaPropelente } from '../physics/objetos/propulsao/alimentacao/ValvulaPropelente';
+import { CamaraCombustao } from '../physics/objetos/propulsao/combustao/CamaraCombustao';
+import { Bocal, GRAVIDADE_PADRAO_MPS2 } from '../physics/objetos/propulsao/combustao/Bocal';
 import { FixadorEstrutural } from '../physics/conexoes/FixadorEstrutural';
 import { SuperficieEsferica } from '../physics/SuperficieEsferica';
 import { SensoresVeiculoComposto } from '../physics/sensores/SensoresVeiculoComposto';
 import { GerenciadorDeControladores } from '../physics/sistemas de controle/GerenciadorDeControladores';
 import { ControladorPousoDePropulsores } from '../physics/sistemas de controle/ControladorPousoDePropulsores';
+import { ControladorRcsManual, type ComandoRotacaoRcs } from '../physics/sistemas de controle/ControladorRcsManual';
 import { ControladorReentrada, type CorredorReentrada } from '../physics/sistemas de controle/ControladorReentrada';
 import { LIMITES_TRANSFERENCIA, type LimitesTransferencia } from '../physics/sistemas de controle/SupervisorReentrada';
 import { SupervisorRecuperacao } from '../physics/sistemas de controle/SupervisorRecuperacao';
@@ -40,6 +48,8 @@ export interface ConfiguracaoReentrada {
   readonly limiteBateriaC: number;
   readonly automatico: boolean;
   readonly chaveamentoAutomatico: boolean;
+  /** Opt-in da montagem RE-002E neste cenário; preserva a massa/base RE-001. */
+  readonly propulsaoExperimental: boolean;
   readonly vacuo: boolean;
   readonly semente: number;
   readonly passoS: number;
@@ -65,7 +75,7 @@ interface EstadoCruzeMachReentrada {
 export const CONFIGURACAO_REENTRADA: ConfiguracaoReentrada = copiarSnapshot({ altitudeM: 120_000,
   velocidadeMps: 7700, taxaAtitudeLocalInicialRadps: 0, anguloAtaqueRad: 40 * Math.PI / 180, trajetoriaRad: -Math.PI / 180,
   rolagemRad: 0, limiteOrbitadorC: 1100, limiteFlapsC: 900, limiteBateriaC: 60, automatico: true,
-  chaveamentoAutomatico: false, vacuo: false, semente: 1, passoS: 1 / 240,
+  chaveamentoAutomatico: false, propulsaoExperimental: false, vacuo: false, semente: 1, passoS: 1 / 240,
   corredor: { pressaoMaximaPa: 50_000, fluxoMaximoWm2: 500_000, cargaMaximaG: 5 },
   intervaloColetaS: 1, limiteAmostras: 3600, limiteEventos: 20000,
   aproximacao: configurarFronteiraAproximacao(), transferencia: LIMITES_TRANSFERENCIA, parametros: configurarParametrosReentrada() });
@@ -74,6 +84,11 @@ export type ComandoReentrada =
   | { readonly tipo: 'modo'; readonly automatico: boolean }
   | { readonly tipo: 'alvos'; readonly alphaRad: number; readonly phiRad: number }
   | { readonly tipo: 'flaps'; readonly dianteiroRad: number; readonly traseiroRad: number }
+  | { readonly tipo: 'throttle-propulsor'; readonly throttle: number }
+  | { readonly tipo: 'ignicao-propulsor' }
+  | { readonly tipo: 'corte-propulsor' }
+  | { readonly tipo: 'armar-rcs' }
+  | { readonly tipo: 'rcs'; readonly comando: ComandoRotacaoRcs }
   | { readonly tipo: 'rolagem'; readonly phiRad: number }
   | { readonly tipo: 'chaveamento'; readonly automatico: boolean }
   | { readonly tipo: 'pouso' }
@@ -87,12 +102,15 @@ export function validarComandoReentrada(entrada: unknown): entrada is ComandoRee
   if (!entrada || typeof entrada !== 'object' || Array.isArray(entrada)) return false;
   const e = entrada as Record<string, unknown>;
   const chaves: Record<string, string[]> = { modo: ['automatico'], alvos: ['alphaRad', 'phiRad'],
-    flaps: ['dianteiroRad', 'traseiroRad'], rolagem: ['phiRad'], chaveamento: ['automatico'], pouso: [], aproximacao: [],
+    flaps: ['dianteiroRad', 'traseiroRad'], 'throttle-propulsor': ['throttle'], 'ignicao-propulsor': [], 'corte-propulsor': [],
+    'armar-rcs': [], rcs: ['comando'], rolagem: ['phiRad'], chaveamento: ['automatico'], pouso: [], aproximacao: [],
     alimentacao: ['ligada'], 'falha-rolagem': [], 'separar-flap': ['indice'] };
   if (typeof e.tipo !== 'string' || !Object.hasOwn(chaves, e.tipo)) return false;
   if (Object.keys(e).length !== chaves[e.tipo].length + 1 || !chaves[e.tipo].every(k => Object.hasOwn(e, k))) return false;
   switch (e.tipo) {
     case 'modo': case 'chaveamento': return typeof e.automatico === 'boolean';
+    case 'throttle-propulsor': return typeof e.throttle === 'number' && Number.isFinite(e.throttle) && e.throttle >= 0 && e.throttle <= 1;
+    case 'rcs': return e.comando === -1 || e.comando === 0 || e.comando === 1;
     case 'alimentacao': return typeof e.ligada === 'boolean';
     case 'separar-flap': return e.indice === 0 || e.indice === 1;
     case 'alvos': return typeof e.alphaRad === 'number' && Number.isFinite(e.alphaRad) && e.alphaRad >= 0
@@ -135,7 +153,7 @@ export function configurarReentrada(entrada: EntradaConfiguracaoReentrada = {}):
   for (const nome of ['semente', 'limiteAmostras', 'limiteEventos'] as const) {
     if (!Number.isSafeInteger(c[nome])) throw new Error(`Configuração RE-001 inválida: ${nome} deve ser inteiro seguro.`);
   }
-  for (const nome of ['automatico', 'chaveamentoAutomatico', 'vacuo'] as const) {
+  for (const nome of ['automatico', 'chaveamentoAutomatico', 'propulsaoExperimental', 'vacuo'] as const) {
     if (typeof c[nome] !== 'boolean') throw new Error(`Configuração RE-001 inválida: ${nome} deve ser booleano.`);
   }
   if (Math.abs(c.intervaloColetaS / c.passoS - Math.round(c.intervaloColetaS / c.passoS)) > 1e-8) {
@@ -173,7 +191,7 @@ function exigirCamposConfiguracao(valor: unknown, referencia: object, prefixo: s
  * @contract f-a01ba13dc3b415ea
    */
 export function validarConfiguracaoExplicitaReentrada(entrada: unknown): ConfiguracaoReentrada {
-  exigirCamposConfiguracao(entrada, { ...CONFIGURACAO_REENTRADA, termica: null }, 'configuracao', ['transferencia', 'termica']);
+  exigirCamposConfiguracao(entrada, { ...CONFIGURACAO_REENTRADA, termica: null }, 'configuracao', ['transferencia', 'termica', 'propulsaoExperimental']);
   const e = entrada as EntradaConfiguracaoReentrada;
   exigirCamposConfiguracao(e.parametros, CONFIGURACAO_REENTRADA.parametros, 'parametros');
   exigirCamposConfiguracao(e.corredor, CONFIGURACAO_REENTRADA.corredor, 'corredor');
@@ -185,12 +203,21 @@ export function validarConfiguracaoExplicitaReentrada(entrada: unknown): Configu
  * v+ω×r em SI. Não é usada para reposicionar objetos durante o ensaio.
  * @contract f-532e693d7fa63ff9
    */
-function estadoModulo(e: EstadoFisico, x: number, y: number): EstadoFisico {
+function estadoModulo(e: EstadoFisico, x: number, y: number, anguloRelativoRad = 0): EstadoFisico {
   const a = e.orientacaoRad.z;
   const r = new Vetor3(x * Math.cos(a) - y * Math.sin(a), x * Math.sin(a) + y * Math.cos(a), 0);
-  return { ...e, posicaoM: e.posicaoM.adicionar(r),
+  return { ...e, posicaoM: e.posicaoM.adicionar(r), orientacaoRad: new Vetor3(0, 0, a + anguloRelativoRad),
     velocidadeMps: e.velocidadeMps.adicionar(e.velocidadeAngularRadps.produtoVetorial(r)) };
 }
+
+const EMPUXO_MOTOR_REENTRADA_N = 2_400_000;
+const ISP_MOTOR_REENTRADA_S = 350;
+const RAZAO_MISTURA_REENTRADA = 4;
+const VAZAO_METANO_REENTRADA_KGS = EMPUXO_MOTOR_REENTRADA_N
+  / (ISP_MOTOR_REENTRADA_S * GRAVIDADE_PADRAO_MPS2 * (1 + RAZAO_MISTURA_REENTRADA));
+const RCS_EMPUXO_POR_JATO_N = 10_000;
+const RCS_ISP_S = 280;
+const RCS_VAZAO_POR_JATO_KGS = RCS_EMPUXO_POR_JATO_N / (RCS_ISP_S * GRAVIDADE_PADRAO_MPS2);
 
 /** Fábrica ADM de corpos reais e vínculos no mesmo MundoFisico. Vácuo é explícito;
  * atmosfera RE e rede térmica regional são opt-in. Redes e caminhos são
@@ -213,6 +240,68 @@ export function criarCenarioReentrada(entrada: EntradaConfiguracaoReentrada = {}
     // Legado isolado; optante recebe rede própria e condução pelo fixador interno.
     coeficienteConveccaoWPorM2C: 0, tensaoNominalV: p.tensaoBateriaV,
     capacidadeEnergiaJ: p.energiaBateriaJ, energiaInicialJ: p.energiaBateriaJ * p.fracaoCargaInicialBateria, estadoInicial: e });
+  // Motor principal RE-002E integrado à reentrada: usa o mesmo modelo químico
+  // de referência e inicia desligado. Os quatro jatos RCS formam dois pares
+  // físicos de torque; cada disparo consome propelente e aplica forças no core.
+  const fatorEscalaPropulsor = EMPUXO_MOTOR_REENTRADA_N / 40_000;
+  const fatorEscalaTanque = 30;
+  const ladoTanqueM = Math.cbrt(fatorEscalaTanque);
+  const massaBaseTanqueKg = 180 * fatorEscalaTanque ** (2 / 3);
+  const fatorVazaoEletrica = VAZAO_METANO_REENTRADA_KGS / (0.8 * fatorEscalaPropulsor);
+  const comprimentoLinhasM = 40;
+  const tanqueMetano = new TanquePropelente({ id: 'tanque-metano-re-001', massaBaseKg: massaBaseTanqueKg,
+    dimensoesM: new Vetor3(2 * ladoTanqueM, 1.5 * ladoTanqueM, 1.8 * ladoTanqueM), resistenciaColisaoJ: 20_000_000,
+    limiteTermicoC: 500, tipoPropelente: 'metano', capacidadePropelenteKg: 120 * fatorEscalaTanque,
+    massaPropelenteInicialKg: 120 * fatorEscalaTanque, estadoInicial: estadoModulo(e, -10, 0) });
+  const tanqueOxidante = new TanquePropelente({ id: 'tanque-oxidante-re-001', massaBaseKg: massaBaseTanqueKg,
+    dimensoesM: new Vetor3(2 * ladoTanqueM, 1.5 * ladoTanqueM, 1.8 * ladoTanqueM), resistenciaColisaoJ: 20_000_000,
+    limiteTermicoC: 500, tipoPropelente: 'oxigenio', capacidadePropelenteKg: 480 * fatorEscalaTanque,
+    massaPropelenteInicialKg: 480 * fatorEscalaTanque, estadoInicial: estadoModulo(e, -3, 0) });
+  const motor = new Propulsor({ id: 'motor-principal-re-001', massaBaseKg: 90 * fatorEscalaPropulsor,
+    dimensoesM: new Vetor3(1.6, 1.4, 1.4).multiplicar(ladoTanqueM), resistenciaColisaoJ: 10_000_000,
+    limiteTermicoC: 1_000, tensaoAlimentacaoNominalV: p.tensaoBateriaV,
+    potenciaEletricaMaximaW: 1_200 * fatorEscalaPropulsor * fatorVazaoEletrica,
+    potenciaTermicaMaximaW: 2_000_000 * fatorEscalaPropulsor, empuxoMaximoN: EMPUXO_MOTOR_REENTRADA_N,
+    vazaoMaximaKgS: VAZAO_METANO_REENTRADA_KGS, propelenteCompativel: 'metano', estadoInicial: estadoModulo(e, -18, 0) });
+  motor.conectarTanque(tanqueMetano, comprimentoLinhasM);
+  motor.conectarBateria(bateria, comprimentoLinhasM);
+  const valvulaMetano = new ValvulaPropelente({ id: 'valvula-metano-re-001', vazaoMaximaKgS: VAZAO_METANO_REENTRADA_KGS });
+  const valvulaOxidante = new ValvulaPropelente({ id: 'valvula-oxidante-re-001', vazaoMaximaKgS: VAZAO_METANO_REENTRADA_KGS * RAZAO_MISTURA_REENTRADA });
+  valvulaMetano.definirAbertura(1); valvulaOxidante.definirAbertura(1);
+  motor.configurarCadeiaBipropelente({
+    linhaCombustivel: new LinhaDePropelente({ id: 'linha-metano-re-001', tanque: tanqueMetano, tipoPropelente: 'metano',
+      comprimentoMaximoM: comprimentoLinhasM, vazaoMaximaKgS: VAZAO_METANO_REENTRADA_KGS, valvula: valvulaMetano }),
+    linhaOxidante: new LinhaDePropelente({ id: 'linha-oxidante-re-001', tanque: tanqueOxidante, tipoPropelente: 'oxigenio',
+      comprimentoMaximoM: comprimentoLinhasM, vazaoMaximaKgS: VAZAO_METANO_REENTRADA_KGS * RAZAO_MISTURA_REENTRADA, valvula: valvulaOxidante }),
+    bombaCombustivel: new BombaPropelente({ id: 'bomba-metano-re-001', tensaoNominalV: p.tensaoBateriaV,
+      vazaoMaximaKgS: VAZAO_METANO_REENTRADA_KGS, potenciaEletricaMaximaW: 400 * fatorEscalaPropulsor * fatorVazaoEletrica }),
+    bombaOxidante: new BombaPropelente({ id: 'bomba-oxidante-re-001', tensaoNominalV: p.tensaoBateriaV,
+      vazaoMaximaKgS: VAZAO_METANO_REENTRADA_KGS * RAZAO_MISTURA_REENTRADA,
+      potenciaEletricaMaximaW: 600 * fatorEscalaPropulsor * fatorVazaoEletrica }),
+    camara: new CamaraCombustao({ razaoMisturaOxidanteCombustivel: RAZAO_MISTURA_REENTRADA, toleranciaRazaoMistura: 0.1 }),
+    bocal: new Bocal({ empuxoMaximoN: EMPUXO_MOTOR_REENTRADA_N, eficienciaNominal: 1, impulsoEspecificoNominalS: ISP_MOTOR_REENTRADA_S }),
+  });
+  const tanqueRcs = new TanquePropelente({ id: 'tanque-nitrogenio-rcs-re-001', massaBaseKg: 200,
+    dimensoesM: new Vetor3(2, 2, 2), resistenciaColisaoJ: 1_000_000, limiteTermicoC: 300,
+    tipoPropelente: 'nitrogenio', capacidadePropelenteKg: 500, massaPropelenteInicialKg: 500,
+    estadoInicial: estadoModulo(e, 2, 0) });
+  const configuracoesJatos: readonly { id: string; x: number; y: number; anguloRad: number; par: 'nariz-cima' | 'nariz-baixo' }[] = [
+    { id: 'rcs-nariz-cima-superior-re-001', x: -16, y: 4, anguloRad: Math.PI, par: 'nariz-cima' },
+    { id: 'rcs-nariz-cima-inferior-re-001', x: -16, y: -4, anguloRad: 0, par: 'nariz-cima' },
+    { id: 'rcs-nariz-baixo-superior-re-001', x: 16, y: 4, anguloRad: 0, par: 'nariz-baixo' },
+    { id: 'rcs-nariz-baixo-inferior-re-001', x: 16, y: -4, anguloRad: Math.PI, par: 'nariz-baixo' },
+  ];
+  const jatosRcs = configuracoesJatos.map(j => {
+    const propulsor = new Propulsor({ id: j.id, massaBaseKg: 40, dimensoesM: new Vetor3(0.6, 0.6, 0.6),
+      resistenciaColisaoJ: 100_000, limiteTermicoC: 700, tensaoAlimentacaoNominalV: p.tensaoBateriaV,
+      potenciaEletricaMaximaW: 100, empuxoMaximoN: RCS_EMPUXO_POR_JATO_N, vazaoMaximaKgS: RCS_VAZAO_POR_JATO_KGS,
+      propelenteCompativel: 'nitrogenio', estadoInicial: estadoModulo(e, j.x, j.y, j.anguloRad) });
+    propulsor.conectarTanque(tanqueRcs, comprimentoLinhasM);
+    propulsor.conectarBateria(bateria, comprimentoLinhasM);
+    return { propulsor, par: j.par };
+  });
+  const propulsoresRcsCima = jatosRcs.filter(j => j.par === 'nariz-cima').map(j => j.propulsor) as [Propulsor, Propulsor];
+  const propulsoresRcsBaixo = jatosRcs.filter(j => j.par === 'nariz-baixo').map(j => j.propulsor) as [Propulsor, Propulsor];
   const fixadores: FixadorEstrutural[] = [];
   const flaps = [0, 1].map((i): FlapReentrada => { const flap: FlapReentrada = new FlapReentrada({ id: i === 0 ? 'flap-dianteiro' : 'flap-traseiro',
     massaBaseKg: p.massaFlapKg, dimensoesM: new Vetor3(4, 2, 8),
@@ -220,9 +309,11 @@ export function criarCenarioReentrada(entrada: EntradaConfiguracaoReentrada = {}
     coeficienteArrasto: p.cdFlapBase, deflexaoMaximaRad: p.cursoFlapRad,
     velocidadeAngularMaximaRadps: p.taxaFlapRadps,
     /** Eficiência do mecanismo interno, sem alterar controlador ou corrente.  @contract f-a8c04a2cf1437583 */
+    /** Lê integridade interna observada pela rede térmica, sem estimativa visual. @contract f-d7ef45a317bd8f64 @reviewed RE-004: falha térmica reduz autoridade do atuador. */
     lerEficienciaAtuacao: () => flap.obterRedeTermicaPeloCore()?.obterRegiao('interna').integridade ?? 1,
     potenciaNominalAtuadorW: p.potenciaFlapW, potenciaEmRepousoW: p.potenciaRepousoFlapW, fonteEletrica: bateria,
     /** Permissivo do atuador: vínculo íntegro e corpo vivo; não produz força.  @contract f-974c61344181bb4f */
+    /** Permite atuação somente com vínculo íntegro e corpo operacional. @contract f-ba61c20d9dc11b36 @reviewed RE-004: falha do vínculo bloqueia o atuador. */
     operacaoAutorizada: () => fixadores[i]?.estaAtivo === true && orbitador.integridadeEstrutural > 0,
     resistenciaColisaoJ: p.resistenciaFlapJ, limiteTermicoC: c.limiteFlapsC,
     estadoInicial: estadoModulo(e, i === 0 ? p.bracoFlapM : -p.bracoFlapM, p.deslocamentoVerticalFlapM) },
@@ -234,19 +325,23 @@ export function criarCenarioReentrada(entrada: EntradaConfiguracaoReentrada = {}
     orbitador.configurarRedeTermicaPeloCore(c.termica.corpo);
     bateria.configurarRedeTermicaPeloCore(c.termica.bateria);
   }
-  const objetos: readonly Objeto[] = [orbitador, ...flaps, bateria];
+  const modulosPropulsao: readonly Objeto[] = [tanqueMetano, tanqueOxidante, motor, tanqueRcs, ...jatosRcs.map(j => j.propulsor)];
+  const objetos: readonly Objeto[] = [orbitador, ...flaps, bateria, ...(c.propulsaoExperimental ? modulosPropulsao : [])];
   for (const o of objetos) mundo.registrarObjeto(o);
-  for (const modulo of [...flaps, bateria]) {
+  for (const modulo of [...flaps, bateria, ...(c.propulsaoExperimental ? modulosPropulsao : [])]) {
+    const conexaoTermicaModelada = c.termica !== undefined && c.termica !== null
+      && (modulo === bateria || flaps.includes(modulo as FlapReentrada));
     const f = new FixadorEstrutural({ id: `fixador-${modulo.id}`, objetoA: orbitador, objetoB: modulo,
       resistenciaTracaoN: p.resistenciaFixadorN, limiteTermicoC: c.limiteFlapsC,
       condutanciaTermicaWPorC: modulo === bateria ? c.termica?.condutanciaBateriaWPorC ?? 0 : p.condutanciaFlapWPorC,
-      ...(c.termica ? { portasTermicas: { regiaoA: modulo === bateria ? 'interna' : 'estrutura', regiaoB: 'estrutura' },
+      ...(conexaoTermicaModelada ? { portasTermicas: { regiaoA: modulo === bateria ? 'interna' : 'estrutura', regiaoB: 'estrutura' },
         limiteTermicoC: orbitador.limiteTermicoC } : {}),
       /** Sem solicitação operacional extra; impactos são registrados pelo core.
        * Esforço aerodinâmico distribuído de vínculos não é qualificado neste ensaio.
        * @contract f-f310bba164029a51
    */
-      obterEsforcoSolicitadoN: () => 0 });
+      obterEsforcoSolicitadoN: () => modulo === motor ? motor.empuxoAtualN
+        : modulo instanceof Propulsor && jatosRcs.some(j => j.propulsor === modulo) ? modulo.empuxoAtualN : 0 });
     fixadores.push(f); mundo.registrarFixador(f);
   }
   const solo = new SuperficieEsferica('terra-re-001', ambiente.campo.centroM);
@@ -254,7 +349,9 @@ export function criarCenarioReentrada(entrada: EntradaConfiguracaoReentrada = {}
   const sensores = new SensoresVeiculoComposto(orbitador, 0,
     () => orbitador.massaKg + fixadores.filter(f => f.estaAtivo).reduce((s, f) => s + f.objetoB.massaKg, 0));
   mundo.registrarSensoresVeiculo(sensores);
-  return { configuracao, ambiente, perfil, mundo, orbitador, flaps, bateria, fixadores, objetos, sensores, solo };
+  return { configuracao, ambiente, perfil, mundo, orbitador, flaps, bateria, motor, tanqueMetano, tanqueOxidante,
+    tanqueRcs, jatosRcs: jatosRcs.map(j => j.propulsor), propulsoresRcsCima, propulsoresRcsBaixo,
+    fixadores, objetos, sensores, solo };
 }
 
 type CenarioReentrada = ReturnType<typeof criarCenarioReentrada>;
@@ -282,6 +379,8 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
   private readonly cenario: CenarioReentrada;
   private readonly gerenciador = new GerenciadorDeControladores();
   private readonly controlador: ControladorReentrada;
+  private readonly controladorRcs: ControladorRcsManual;
+  private rcsArmado = false;
   private readonly supervisor: SupervisorRecuperacao;
   private readonly eventos: EventoMissao[] = [];
   private readonly condicoesRegistradas = new Map<string, boolean>();
@@ -298,6 +397,7 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
    */
   public constructor(entrada: EntradaConfiguracaoReentrada = {}) {
     this.cenario = criarCenarioReentrada(entrada); this.configuracao = this.cenario.configuracao;
+    this.controladorRcs = new ControladorRcsManual(this.cenario.propulsoresRcsCima, this.cenario.propulsoresRcsBaixo);
     this.passoS = this.configuracao.passoS;
     this.extremos = new RegistroExtremos(Math.round(this.configuracao.intervaloColetaS / this.passoS));
     this.controlador = new ControladorReentrada(() => this.lerControle(), this.configuracao.anguloAtaqueRad,
@@ -312,7 +412,7 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
     this.supervisor.definirAutomatico(this.configuracao.chaveamentoAutomatico);
     this.atualizarSupervisor();
     this.evento('modelo', `${MODELO_REENTRADA.revisao}; ${this.cenario.perfil.revisao}; XY, Terra estática; `
-      + (this.configuracao.vacuo ? 'vácuo explícito' : 'atmosfera de engenharia') + '; RCS/propulsão ausentes; indicadores preliminares.');
+      + (this.configuracao.vacuo ? 'vácuo explícito' : 'atmosfera de engenharia') + '; propulsor bipropelente RE-002E e quatro jatos RCS experimentais; indicadores preliminares.');
     this.evento('limites-termicos', this.configuracao.termica
       ? `RE-004-r1: limites regionais em °C, perfis ${this.configuracao.termica.perfil}; bateria com caminho condutivo declarado. Sem certificação ou fuga térmica.`
       : `Limiares provisórios: orbitador ${this.configuracao.limiteOrbitadorC} °C; flaps ${this.configuracao.limiteFlapsC} °C; bateria isolada ${this.configuracao.limiteBateriaC} °C. Sem qualificação material/limite interno; bateria sem previsão de fuga térmica ou falha catastrófica.`);
@@ -337,7 +437,9 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
     if (!validarComandoReentrada(comando)) return { aceito: false, motivo: 'Comando RE inválido.' };
     const c = this.cenario;
     let aceito = true, motivo = 'Comando aplicado.';
-    if (this.supervisor.observar().fase !== 'reentrada' && ['modo', 'alvos', 'flaps', 'rolagem'].includes(comando.tipo)) {
+    if (!this.configuracao.propulsaoExperimental && ['throttle-propulsor', 'ignicao-propulsor', 'corte-propulsor', 'armar-rcs', 'rcs'].includes(comando.tipo)) {
+      aceito = false; motivo = 'Propulsão e RCS não estão instalados neste ensaio.';
+    } else if (this.supervisor.observar().fase !== 'reentrada' && ['modo', 'alvos', 'flaps', 'rolagem'].includes(comando.tipo)) {
       aceito = false; motivo = 'Supervisor não autoriza posse de reentrada.';
     } else if (comando.tipo === 'modo') {
       if (comando.automatico) this.gerenciador.habilitar('reentrada'); else {
@@ -349,6 +451,22 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
       else if (comando.tipo === 'flaps') {
         c.flaps[0].solicitarDeflexaoRad(comando.dianteiroRad); c.flaps[1].solicitarDeflexaoRad(comando.traseiroRad);
       } else c.orbitador.solicitarRolagem(comando.phiRad, c.mundo.tempoS);
+    } else if (comando.tipo === 'throttle-propulsor') c.motor.definirThrottle(comando.throttle);
+    else if (comando.tipo === 'ignicao-propulsor') {
+      const partida = (['elétrico', 'hidráulico', 'combustível', 'controle'] as const).every(s => c.motor.ligarSistema(s));
+      aceito = partida && c.motor.solicitarIgnicao();
+      if (!aceito) motivo = `Ignição recusada: ${c.motor.diagnosticoOperacional.join('; ')}`;
+    } else if (comando.tipo === 'corte-propulsor') {
+      c.motor.definirThrottle(0); c.motor.desligarSistema('elétrico');
+    } else if (comando.tipo === 'armar-rcs') {
+      const jatos = [...c.propulsoresRcsCima, ...c.propulsoresRcsBaixo];
+      const aceitos = jatos.map(j => (['elétrico', 'hidráulico', 'combustível', 'controle'] as const).every(s => j.ligarSistema(s)) && j.solicitarIgnicao());
+      this.rcsArmado = aceitos.every(Boolean);
+      aceito = this.rcsArmado;
+      if (!aceito) motivo = 'RCS não armado: ' + jatos.flatMap(j => j.diagnosticoOperacional).join('; ');
+    } else if (comando.tipo === 'rcs') {
+      if (!this.rcsArmado) { aceito = false; motivo = 'Arme o sistema RCS antes de comandar rotação.'; }
+      else this.controladorRcs.solicitarRotacao(comando.comando);
     } else if (comando.tipo === 'chaveamento') this.supervisor.definirAutomatico(comando.automatico);
     else if (comando.tipo === 'pouso') {
       aceito = false; motivo = 'Fluxo obrigatório: Reentrada → Aproximação → Pouso; pouso fora deste marco.';
@@ -458,6 +576,12 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
       energiaBateriaJ: c.bateria.energiaArmazenadaJ,
       temperaturaBateriaC: c.bateria.temperaturaC, integridadeBateria: c.bateria.integridadeEstrutural,
       limiteBateriaC: this.configuracao.limiteBateriaC,
+      motor: { estado: c.motor.getEstadoFisico(), ignitado: c.motor.estaIgnitado, throttle: c.motor.throttleAtual,
+        empuxoN: c.motor.empuxoAtualN, vazaoKgS: c.motor.vazaoAtualKgS, integridade: c.motor.integridadeEstrutural,
+        metanoKg: c.tanqueMetano.massaPropelenteKg, oxidanteKg: c.tanqueOxidante.massaPropelenteKg },
+      rcs: { armado: this.rcsArmado, comando: this.controladorRcs.observarComando(), nitrogenioKg: c.tanqueRcs.massaPropelenteKg,
+        jatos: c.jatosRcs.map(j => ({ id: j.id, estado: j.getEstadoFisico(), ignitado: j.estaIgnitado,
+          throttle: j.throttleAtual, empuxoN: j.empuxoAtualN, integridade: j.integridadeEstrutural })) },
       flaps: c.flaps.map((f, i) => ({ id: f.id, estado: f.getEstadoFisico(), comandoRad: f.comandoAtualRad,
         deflexaoRad: f.deflexaoAtualRad, integridade: f.integridadeEstrutural, temperaturaC: f.temperaturaC,
         energiaAbsorvidaJ: f.energiaTermicaAerodinamicaAcumuladaJ, conectado: c.fixadores[i].estaAtivo,
@@ -469,7 +593,8 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
         modeloEscoamento: 'polar-continua-extrapolada' })),
       vinculos: c.fixadores.map(f => ({ ...(this.configuracao.termica ? { termica: f.obterDiagnosticoTermico() } : {}), id: f.id, estado: f.estado, tracaoAtualN: f.esforcoFisicoSolicitadoN, picoTracaoN: f.picoEsforcoFisicoN, resistenciaTracaoN: f.resistenciaTracaoEfetivaN, cisalhamentoFlexaoTorcaoModelados: false })),
       raioTerraM: c.ambiente.referencial.raioM, centroTerraM: c.ambiente.campo.centroM,
-      propulsaoDisponivel: false, rcsDisponivel: false });
+      propulsaoDisponivel: this.configuracao.propulsaoExperimental && c.motor.estaIgnitado && c.motor.integridadeEstrutural > 0,
+      rcsDisponivel: this.configuracao.propulsaoExperimental && this.rcsArmado && c.tanqueRcs.massaPropelenteKg > 0 && c.jatosRcs.every(j => j.integridadeEstrutural > 0) });
   }
 
   /** Telemetria física para PD; calcula derivada angular do fluxo por v×a/|v|²,
@@ -520,7 +645,8 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
       autoridadeAerodinamicaDisponivel: autoridadeNmPorRad >= p.torqueMinimoAutoridadeNm,
       corredorCompativel: t.pressaoDinamicaPa <= this.configuracao.corredor.pressaoMaximaPa
         && t.fluxoTermicoWm2 <= this.configuracao.corredor.fluxoMaximoWm2 && t.cargaG <= this.configuracao.corredor.cargaMaximaG,
-      propulsaoDisponivel: false, integracaoCompativel: false });
+      propulsaoDisponivel: this.configuracao.propulsaoExperimental && c.motor.estaIgnitado && c.motor.integridadeEstrutural > 0,
+      integracaoCompativel: false });
     if (this.supervisor.observar().fase !== fase) this.evento('chaveamento', `${fase} → ${this.supervisor.observar().fase}`);
   }
 
@@ -636,9 +762,11 @@ export class EnsaioReentrada implements InstanciaMissao<ComandoReentrada, Observ
   /** Exporta identificação/revisões e hipóteses; RE-004 só com rede optante.
    * Toda definição regional é serializada para reprodução estrita.  @contract f-4987311594a9418d */
   public obterIdentificacao(): object {
+    const descricaoPropulsao = this.configuracao.propulsaoExperimental
+      ? ' propulsor bipropelente e quatro jatos RCS experimentais RE-002E;' : ' sem RCS/propulsão;';
     return copiarSnapshot({ id: this.id, revisao: this.configuracao.termica ? 'RE-004-r1' : MODELO_REENTRADA.revisao, configuracao: this.configuracao,
       modeloFisico: this.cenario.mundo.obterConfiguracaoFisica(), modeloOrbitador: { revisao: MODELO_REENTRADA.revisao, ...this.configuracao.parametros },
-      hipoteses: this.configuracao.termica ? this.configuracao.termica.hipotese + ' ADM XY, Terra e ar estáticos; coeficientes analíticos preliminares; sem RCS/propulsão; rolagem prescrita; lateral omitida; superfície/estrutura/interior separados.' : 'ADM XY, Terra e ar estáticos; coeficientes analíticos preliminares; sem RCS/propulsão; rolagem prescrita; lateral omitida; calor concentrado sem TPS separado.' });
+      hipoteses: this.configuracao.termica ? this.configuracao.termica.hipotese + ` ADM XY, Terra e ar estáticos; coeficientes analíticos preliminares;${descricaoPropulsao} rolagem prescrita; lateral omitida; superfície/estrutura/interior separados.` : `ADM XY, Terra e ar estáticos; coeficientes analíticos preliminares;${descricaoPropulsao} rolagem prescrita; lateral omitida; calor concentrado sem TPS separado.` });
   }
 }
 
